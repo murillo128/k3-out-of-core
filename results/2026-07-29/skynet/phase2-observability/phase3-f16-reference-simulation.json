@@ -1218,15 +1218,15 @@
         "belady_min": {
           "by_phase": {
             "DECODE": {
-              "backing_store_request_rate": 0.9331797235023042,
+              "backing_store_request_rate": 1.0,
               "cache_activity": {
                 "cold": {
-                  "admissions": 15,
-                  "evictions": 15
+                  "admissions": 434,
+                  "evictions": 434
                 },
                 "hot": {
-                  "admissions": 15,
-                  "evictions": 15
+                  "admissions": 434,
+                  "evictions": 434
                 }
               },
               "logical_requests": 434,
@@ -1376,55 +1376,55 @@
                 "p99": 49
               },
               "theoretical_stall": {
-                "mean": 1667.9217172350232,
+                "mean": 1786.432,
                 "overlap_model": "serial_no_overlap",
                 "p50": 1786.432,
                 "p95": 1786.432,
                 "p99": 1786.432,
                 "samples": 434,
-                "total": 723878.0252800001,
+                "total": 775311.488,
                 "unit": "microseconds"
               },
               "tiers": {
                 "backing_store": {
-                  "bytes_requested": 318504960,
-                  "bytes_transferred": 318504960,
+                  "bytes_requested": 341311488,
+                  "bytes_transferred": 341311488,
                   "hit_rate": 1.0,
-                  "hits": 405,
+                  "hits": 434,
                   "miss_rate": 0.0,
                   "misses": 0,
-                  "requests": 405
+                  "requests": 434
                 },
                 "cold": {
-                  "bytes_requested": 318504960,
+                  "bytes_requested": 341311488,
                   "bytes_transferred": 0,
                   "hit_rate": 0.0,
                   "hits": 0,
                   "miss_rate": 1.0,
-                  "misses": 405,
-                  "requests": 405
+                  "misses": 434,
+                  "requests": 434
                 },
                 "hot": {
                   "bytes_requested": 341311488,
-                  "bytes_transferred": 22806528,
-                  "hit_rate": 0.06682027649769585,
-                  "hits": 29,
-                  "miss_rate": 0.9331797235023042,
-                  "misses": 405,
+                  "bytes_transferred": 0,
+                  "hit_rate": 0.0,
+                  "hits": 0,
+                  "miss_rate": 1.0,
+                  "misses": 434,
                   "requests": 434
                 }
               }
             },
             "PREFILL": {
-              "backing_store_request_rate": 0.7285714285714285,
+              "backing_store_request_rate": 0.9285714285714286,
               "cache_activity": {
                 "cold": {
-                  "admissions": 19,
-                  "evictions": 18
+                  "admissions": 65,
+                  "evictions": 64
                 },
                 "hot": {
-                  "admissions": 19,
-                  "evictions": 18
+                  "admissions": 65,
+                  "evictions": 64
                 }
               },
               "logical_requests": 70,
@@ -1525,41 +1525,41 @@
                 "p99": 4
               },
               "theoretical_stall": {
-                "mean": 1305.0350582857143,
+                "mean": 1659.7485942857143,
                 "overlap_model": "serial_no_overlap",
                 "p50": 1786.432,
                 "p95": 1786.432,
                 "p99": 1786.432,
                 "samples": 70,
-                "total": 91352.45408,
+                "total": 116182.4016,
                 "unit": "microseconds"
               },
               "tiers": {
                 "backing_store": {
-                  "bytes_requested": 40108032,
-                  "bytes_transferred": 40108032,
+                  "bytes_requested": 51118080,
+                  "bytes_transferred": 51118080,
                   "hit_rate": 1.0,
-                  "hits": 51,
+                  "hits": 65,
                   "miss_rate": 0.0,
                   "misses": 0,
-                  "requests": 51
+                  "requests": 65
                 },
                 "cold": {
-                  "bytes_requested": 40108032,
+                  "bytes_requested": 51118080,
                   "bytes_transferred": 0,
                   "hit_rate": 0.0,
                   "hits": 0,
                   "miss_rate": 1.0,
-                  "misses": 51,
-                  "requests": 51
+                  "misses": 65,
+                  "requests": 65
                 },
                 "hot": {
                   "bytes_requested": 55050240,
-                  "bytes_transferred": 14942208,
-                  "hit_rate": 0.2714285714285714,
-                  "hits": 19,
-                  "miss_rate": 0.7285714285714285,
-                  "misses": 51,
+                  "bytes_transferred": 3932160,
+                  "hit_rate": 0.07142857142857142,
+                  "hits": 5,
+                  "miss_rate": 0.9285714285714286,
+                  "misses": 65,
                   "requests": 70
                 }
               }
@@ -1580,15 +1580,15 @@
             }
           },
           "overall": {
-            "backing_store_request_rate": 0.9047619047619048,
+            "backing_store_request_rate": 0.9900793650793651,
             "cache_activity": {
               "cold": {
-                "admissions": 34,
-                "evictions": 33
+                "admissions": 499,
+                "evictions": 498
               },
               "hot": {
-                "admissions": 34,
-                "evictions": 33
+                "admissions": 499,
+                "evictions": 498
               }
             },
             "logical_requests": 504,
@@ -1743,41 +1743,41 @@
               "p99": 49
             },
             "theoretical_stall": {
-              "mean": 1617.5207923809523,
+              "mean": 1768.8370825396826,
               "overlap_model": "serial_no_overlap",
               "p50": 1786.432,
               "p95": 1786.432,
               "p99": 1786.432,
               "samples": 504,
-              "total": 815230.47936,
+              "total": 891493.8896,
               "unit": "microseconds"
             },
             "tiers": {
               "backing_store": {
-                "bytes_requested": 358612992,
-                "bytes_transferred": 358612992,
+                "bytes_requested": 392429568,
+                "bytes_transferred": 392429568,
                 "hit_rate": 1.0,
-                "hits": 456,
+                "hits": 499,
                 "miss_rate": 0.0,
                 "misses": 0,
-                "requests": 456
+                "requests": 499
               },
               "cold": {
-                "bytes_requested": 358612992,
+                "bytes_requested": 392429568,
                 "bytes_transferred": 0,
                 "hit_rate": 0.0,
                 "hits": 0,
                 "miss_rate": 1.0,
-                "misses": 456,
-                "requests": 456
+                "misses": 499,
+                "requests": 499
               },
               "hot": {
                 "bytes_requested": 396361728,
-                "bytes_transferred": 37748736,
-                "hit_rate": 0.09523809523809523,
-                "hits": 48,
-                "miss_rate": 0.9047619047619048,
-                "misses": 456,
+                "bytes_transferred": 3932160,
+                "hit_rate": 0.00992063492063492,
+                "hits": 5,
+                "miss_rate": 0.9900793650793651,
+                "misses": 499,
                 "requests": 504
               }
             }
@@ -2371,15 +2371,15 @@
         "belady_min": {
           "by_phase": {
             "DECODE": {
-              "backing_store_request_rate": 0.195852534562212,
+              "backing_store_request_rate": 0.2073732718894009,
               "cache_activity": {
                 "cold": {
-                  "admissions": 51,
-                  "evictions": 51
+                  "admissions": 90,
+                  "evictions": 90
                 },
                 "hot": {
-                  "admissions": 75,
-                  "evictions": 75
+                  "admissions": 256,
+                  "evictions": 256
                 }
               },
               "logical_requests": 434,
@@ -2529,41 +2529,41 @@
                 "p99": 49
               },
               "theoretical_stall": {
-                "mean": 402.90550341013824,
+                "mean": 424.9389404608295,
                 "overlap_model": "serial_no_overlap",
                 "p50": 128.64319999999998,
                 "p95": 1786.432,
                 "p99": 1786.432,
                 "samples": 434,
-                "total": 174860.98848,
+                "total": 184423.50016,
                 "unit": "microseconds"
               },
               "tiers": {
                 "backing_store": {
-                  "bytes_requested": 66846720,
-                  "bytes_transferred": 66846720,
+                  "bytes_requested": 70778880,
+                  "bytes_transferred": 70778880,
                   "hit_rate": 1.0,
-                  "hits": 85,
+                  "hits": 90,
                   "miss_rate": 0.0,
                   "misses": 0,
-                  "requests": 85
+                  "requests": 90
                 },
                 "cold": {
-                  "bytes_requested": 192675840,
-                  "bytes_transferred": 125829120,
-                  "hit_rate": 0.6530612244897959,
-                  "hits": 160,
-                  "miss_rate": 0.3469387755102041,
-                  "misses": 85,
-                  "requests": 245
+                  "bytes_requested": 201326592,
+                  "bytes_transferred": 130547712,
+                  "hit_rate": 0.6484375,
+                  "hits": 166,
+                  "miss_rate": 0.3515625,
+                  "misses": 90,
+                  "requests": 256
                 },
                 "hot": {
                   "bytes_requested": 341311488,
-                  "bytes_transferred": 148635648,
-                  "hit_rate": 0.43548387096774194,
-                  "hits": 189,
-                  "miss_rate": 0.5645161290322581,
-                  "misses": 245,
+                  "bytes_transferred": 139984896,
+                  "hit_rate": 0.41013824884792627,
+                  "hits": 178,
+                  "miss_rate": 0.5898617511520737,
+                  "misses": 256,
                   "requests": 434
                 }
               }
@@ -2572,12 +2572,12 @@
               "backing_store_request_rate": 0.5142857142857142,
               "cache_activity": {
                 "cold": {
-                  "admissions": 34,
-                  "evictions": 10
+                  "admissions": 36,
+                  "evictions": 12
                 },
                 "hot": {
-                  "admissions": 29,
-                  "evictions": 21
+                  "admissions": 36,
+                  "evictions": 28
                 }
               },
               "logical_requests": 70,
@@ -2733,15 +2733,15 @@
             }
           },
           "overall": {
-            "backing_store_request_rate": 0.2400793650793651,
+            "backing_store_request_rate": 0.25,
             "cache_activity": {
               "cold": {
-                "admissions": 85,
-                "evictions": 61
+                "admissions": 126,
+                "evictions": 102
               },
               "hot": {
-                "admissions": 104,
-                "evictions": 96
+                "admissions": 292,
+                "evictions": 284
               }
             },
             "logical_requests": 504,
@@ -2896,41 +2896,41 @@
               "p99": 49
             },
             "theoretical_stall": {
-              "mean": 475.41652253968255,
+              "mean": 494.38975999999997,
               "overlap_model": "serial_no_overlap",
               "p50": 128.64319999999998,
               "p95": 1786.432,
               "p99": 1786.432,
               "samples": 504,
-              "total": 239609.92736,
+              "total": 249172.43904,
               "unit": "microseconds"
             },
             "tiers": {
               "backing_store": {
-                "bytes_requested": 95158272,
-                "bytes_transferred": 95158272,
+                "bytes_requested": 99090432,
+                "bytes_transferred": 99090432,
                 "hit_rate": 1.0,
-                "hits": 121,
+                "hits": 126,
                 "miss_rate": 0.0,
                 "misses": 0,
-                "requests": 121
+                "requests": 126
               },
               "cold": {
-                "bytes_requested": 220987392,
-                "bytes_transferred": 125829120,
-                "hit_rate": 0.5693950177935944,
-                "hits": 160,
-                "miss_rate": 0.4306049822064057,
-                "misses": 121,
-                "requests": 281
+                "bytes_requested": 229638144,
+                "bytes_transferred": 130547712,
+                "hit_rate": 0.5684931506849316,
+                "hits": 166,
+                "miss_rate": 0.4315068493150685,
+                "misses": 126,
+                "requests": 292
               },
               "hot": {
                 "bytes_requested": 396361728,
-                "bytes_transferred": 175374336,
-                "hit_rate": 0.44246031746031744,
-                "hits": 223,
-                "miss_rate": 0.5575396825396826,
-                "misses": 281,
+                "bytes_transferred": 166723584,
+                "hit_rate": 0.42063492063492064,
+                "hits": 212,
+                "miss_rate": 0.5793650793650794,
+                "misses": 292,
                 "requests": 504
               }
             }

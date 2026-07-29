@@ -794,107 +794,107 @@
             "belady_min": {
               "by_phase": {
                 "DECODE": {
-                  "backing_store_request_rate": 0.9380952380952381,
+                  "backing_store_request_rate": 1.0,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 10,
-                      "evictions": 10
+                      "admissions": 210,
+                      "evictions": 210
                     },
                     "hot": {
-                      "admissions": 10,
-                      "evictions": 10
+                      "admissions": 210,
+                      "evictions": 210
                     }
                   },
                   "logical_requests": 210,
                   "theoretical_stall": {
-                    "mean": 1676.6397150476191,
+                    "mean": 1786.4320000000002,
                     "overlap_model": "serial_no_overlap",
                     "p50": 1786.432,
                     "p95": 1786.432,
                     "p99": 1786.432,
                     "samples": 210,
-                    "total": 352094.34016,
+                    "total": 375150.72000000003,
                     "unit": "microseconds"
                   },
                   "tiers": {
                     "backing_store": {
-                      "bytes_requested": 154927104,
-                      "bytes_transferred": 154927104,
+                      "bytes_requested": 165150720,
+                      "bytes_transferred": 165150720,
                       "hit_rate": 1.0,
-                      "hits": 197,
+                      "hits": 210,
                       "miss_rate": 0.0,
                       "misses": 0,
-                      "requests": 197
+                      "requests": 210
                     },
                     "cold": {
-                      "bytes_requested": 154927104,
+                      "bytes_requested": 165150720,
                       "bytes_transferred": 0,
                       "hit_rate": 0.0,
                       "hits": 0,
                       "miss_rate": 1.0,
-                      "misses": 197,
-                      "requests": 197
+                      "misses": 210,
+                      "requests": 210
                     },
                     "hot": {
                       "bytes_requested": 165150720,
-                      "bytes_transferred": 10223616,
-                      "hit_rate": 0.06190476190476191,
-                      "hits": 13,
-                      "miss_rate": 0.9380952380952381,
-                      "misses": 197,
+                      "bytes_transferred": 0,
+                      "hit_rate": 0.0,
+                      "hits": 0,
+                      "miss_rate": 1.0,
+                      "misses": 210,
                       "requests": 210
                     }
                   }
                 },
                 "PREFILL": {
-                  "backing_store_request_rate": 0.6190476190476191,
+                  "backing_store_request_rate": 0.9166666666666666,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 28,
-                      "evictions": 27
+                      "admissions": 154,
+                      "evictions": 153
                     },
                     "hot": {
-                      "admissions": 28,
-                      "evictions": 27
+                      "admissions": 154,
+                      "evictions": 153
                     }
                   },
                   "logical_requests": 168,
                   "theoretical_stall": {
-                    "mean": 1110.7871695238096,
+                    "mean": 1638.6346933333334,
                     "overlap_model": "serial_no_overlap",
                     "p50": 1786.432,
                     "p95": 1786.432,
                     "p99": 1786.432,
                     "samples": 168,
-                    "total": 186612.24448,
+                    "total": 275290.62848,
                     "unit": "microseconds"
                   },
                   "tiers": {
                     "backing_store": {
-                      "bytes_requested": 81788928,
-                      "bytes_transferred": 81788928,
+                      "bytes_requested": 121110528,
+                      "bytes_transferred": 121110528,
                       "hit_rate": 1.0,
-                      "hits": 104,
+                      "hits": 154,
                       "miss_rate": 0.0,
                       "misses": 0,
-                      "requests": 104
+                      "requests": 154
                     },
                     "cold": {
-                      "bytes_requested": 81788928,
+                      "bytes_requested": 121110528,
                       "bytes_transferred": 0,
                       "hit_rate": 0.0,
                       "hits": 0,
                       "miss_rate": 1.0,
-                      "misses": 104,
-                      "requests": 104
+                      "misses": 154,
+                      "requests": 154
                     },
                     "hot": {
                       "bytes_requested": 132120576,
-                      "bytes_transferred": 50331648,
-                      "hit_rate": 0.38095238095238093,
-                      "hits": 64,
-                      "miss_rate": 0.6190476190476191,
-                      "misses": 104,
+                      "bytes_transferred": 11010048,
+                      "hit_rate": 0.08333333333333333,
+                      "hits": 14,
+                      "miss_rate": 0.9166666666666666,
+                      "misses": 154,
                       "requests": 168
                     }
                   }
@@ -915,54 +915,54 @@
                 }
               },
               "overall": {
-                "backing_store_request_rate": 0.7962962962962963,
+                "backing_store_request_rate": 0.9629629629629629,
                 "cache_activity": {
                   "cold": {
-                    "admissions": 38,
-                    "evictions": 37
+                    "admissions": 364,
+                    "evictions": 363
                   },
                   "hot": {
-                    "admissions": 38,
-                    "evictions": 37
+                    "admissions": 364,
+                    "evictions": 363
                   }
                 },
                 "logical_requests": 378,
                 "theoretical_stall": {
-                  "mean": 1425.149694814815,
+                  "mean": 1720.7443081481483,
                   "overlap_model": "serial_no_overlap",
                   "p50": 1786.432,
                   "p95": 1786.432,
                   "p99": 1786.432,
                   "samples": 378,
-                  "total": 538706.58464,
+                  "total": 650441.34848,
                   "unit": "microseconds"
                 },
                 "tiers": {
                   "backing_store": {
-                    "bytes_requested": 236716032,
-                    "bytes_transferred": 236716032,
+                    "bytes_requested": 286261248,
+                    "bytes_transferred": 286261248,
                     "hit_rate": 1.0,
-                    "hits": 301,
+                    "hits": 364,
                     "miss_rate": 0.0,
                     "misses": 0,
-                    "requests": 301
+                    "requests": 364
                   },
                   "cold": {
-                    "bytes_requested": 236716032,
+                    "bytes_requested": 286261248,
                     "bytes_transferred": 0,
                     "hit_rate": 0.0,
                     "hits": 0,
                     "miss_rate": 1.0,
-                    "misses": 301,
-                    "requests": 301
+                    "misses": 364,
+                    "requests": 364
                   },
                   "hot": {
                     "bytes_requested": 297271296,
-                    "bytes_transferred": 60555264,
-                    "hit_rate": 0.2037037037037037,
-                    "hits": 77,
-                    "miss_rate": 0.7962962962962963,
-                    "misses": 301,
+                    "bytes_transferred": 11010048,
+                    "hit_rate": 0.037037037037037035,
+                    "hits": 14,
+                    "miss_rate": 0.9629629629629629,
+                    "misses": 364,
                     "requests": 378
                   }
                 }
@@ -1165,54 +1165,54 @@
             "belady_min": {
               "by_phase": {
                 "DECODE": {
-                  "backing_store_request_rate": 0.16666666666666666,
+                  "backing_store_request_rate": 0.17142857142857143,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 18,
-                      "evictions": 18
+                      "admissions": 36,
+                      "evictions": 36
                     },
                     "hot": {
-                      "admissions": 40,
-                      "evictions": 40
+                      "admissions": 122,
+                      "evictions": 122
                     }
                   },
                   "logical_requests": 210,
                   "theoretical_stall": {
-                    "mean": 352.56517333333335,
+                    "mean": 364.31870171428574,
                     "overlap_model": "serial_no_overlap",
                     "p50": 128.64319999999998,
                     "p95": 1786.432,
                     "p99": 1786.432,
                     "samples": 210,
-                    "total": 74038.6864,
+                    "total": 76506.92736,
                     "unit": "microseconds"
                   },
                   "tiers": {
                     "backing_store": {
-                      "bytes_requested": 27525120,
-                      "bytes_transferred": 27525120,
+                      "bytes_requested": 28311552,
+                      "bytes_transferred": 28311552,
                       "hit_rate": 1.0,
-                      "hits": 35,
+                      "hits": 36,
                       "miss_rate": 0.0,
                       "misses": 0,
-                      "requests": 35
+                      "requests": 36
                     },
                     "cold": {
-                      "bytes_requested": 90439680,
-                      "bytes_transferred": 62914560,
-                      "hit_rate": 0.6956521739130435,
-                      "hits": 80,
-                      "miss_rate": 0.30434782608695654,
-                      "misses": 35,
-                      "requests": 115
+                      "bytes_requested": 95944704,
+                      "bytes_transferred": 67633152,
+                      "hit_rate": 0.7049180327868853,
+                      "hits": 86,
+                      "miss_rate": 0.29508196721311475,
+                      "misses": 36,
+                      "requests": 122
                     },
                     "hot": {
                       "bytes_requested": 165150720,
-                      "bytes_transferred": 74711040,
-                      "hit_rate": 0.4523809523809524,
-                      "hits": 95,
-                      "miss_rate": 0.5476190476190477,
-                      "misses": 115,
+                      "bytes_transferred": 69206016,
+                      "hit_rate": 0.41904761904761906,
+                      "hits": 88,
+                      "miss_rate": 0.580952380952381,
+                      "misses": 122,
                       "requests": 210
                     }
                   }
@@ -1221,12 +1221,12 @@
                   "backing_store_request_rate": 0.23214285714285715,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 37,
-                      "evictions": 13
+                      "admissions": 39,
+                      "evictions": 15
                     },
                     "hot": {
-                      "admissions": 33,
-                      "evictions": 25
+                      "admissions": 39,
+                      "evictions": 31
                     }
                   },
                   "logical_requests": 168,
@@ -1286,54 +1286,54 @@
                 }
               },
               "overall": {
-                "backing_store_request_rate": 0.19576719576719576,
+                "backing_store_request_rate": 0.1984126984126984,
                 "cache_activity": {
                   "cold": {
-                    "admissions": 55,
-                    "evictions": 31
+                    "admissions": 75,
+                    "evictions": 51
                   },
                   "hot": {
-                    "admissions": 73,
-                    "evictions": 65
+                    "admissions": 161,
+                    "evictions": 153
                   }
                 },
                 "logical_requests": 378,
                 "theoretical_stall": {
-                  "mean": 384.5741578835978,
+                  "mean": 391.1038958730159,
                   "overlap_model": "serial_no_overlap",
                   "p50": 12.86432,
                   "p95": 1786.432,
                   "p99": 1786.432,
                   "samples": 378,
-                  "total": 145369.03168,
+                  "total": 147837.27264,
                   "unit": "microseconds"
                 },
                 "tiers": {
                   "backing_store": {
-                    "bytes_requested": 58195968,
-                    "bytes_transferred": 58195968,
+                    "bytes_requested": 58982400,
+                    "bytes_transferred": 58982400,
                     "hit_rate": 1.0,
-                    "hits": 74,
+                    "hits": 75,
                     "miss_rate": 0.0,
                     "misses": 0,
-                    "requests": 74
+                    "requests": 75
                   },
                   "cold": {
-                    "bytes_requested": 121110528,
-                    "bytes_transferred": 62914560,
-                    "hit_rate": 0.5194805194805194,
-                    "hits": 80,
-                    "miss_rate": 0.4805194805194805,
-                    "misses": 74,
-                    "requests": 154
+                    "bytes_requested": 126615552,
+                    "bytes_transferred": 67633152,
+                    "hit_rate": 0.5341614906832298,
+                    "hits": 86,
+                    "miss_rate": 0.4658385093167702,
+                    "misses": 75,
+                    "requests": 161
                   },
                   "hot": {
                     "bytes_requested": 297271296,
-                    "bytes_transferred": 176160768,
-                    "hit_rate": 0.5925925925925926,
-                    "hits": 224,
-                    "miss_rate": 0.4074074074074074,
-                    "misses": 154,
+                    "bytes_transferred": 170655744,
+                    "hit_rate": 0.5740740740740741,
+                    "hits": 217,
+                    "miss_rate": 0.42592592592592593,
+                    "misses": 161,
                     "requests": 378
                   }
                 }
@@ -2697,107 +2697,107 @@
             "belady_min": {
               "by_phase": {
                 "DECODE": {
-                  "backing_store_request_rate": 0.9342105263157895,
+                  "backing_store_request_rate": 1.0,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 23,
-                      "evictions": 23
+                      "admissions": 532,
+                      "evictions": 532
                     },
                     "hot": {
-                      "admissions": 23,
-                      "evictions": 23
+                      "admissions": 532,
+                      "evictions": 532
                     }
                   },
                   "logical_requests": 532,
                   "theoretical_stall": {
-                    "mean": 1669.7499157894736,
+                    "mean": 1786.432,
                     "overlap_model": "serial_no_overlap",
                     "p50": 1786.432,
                     "p95": 1786.432,
                     "p99": 1786.432,
                     "samples": 532,
-                    "total": 888306.9552,
+                    "total": 950381.824,
                     "unit": "microseconds"
                   },
                   "tiers": {
                     "backing_store": {
-                      "bytes_requested": 390856704,
-                      "bytes_transferred": 390856704,
+                      "bytes_requested": 418381824,
+                      "bytes_transferred": 418381824,
                       "hit_rate": 1.0,
-                      "hits": 497,
+                      "hits": 532,
                       "miss_rate": 0.0,
                       "misses": 0,
-                      "requests": 497
+                      "requests": 532
                     },
                     "cold": {
-                      "bytes_requested": 390856704,
+                      "bytes_requested": 418381824,
                       "bytes_transferred": 0,
                       "hit_rate": 0.0,
                       "hits": 0,
                       "miss_rate": 1.0,
-                      "misses": 497,
-                      "requests": 497
+                      "misses": 532,
+                      "requests": 532
                     },
                     "hot": {
                       "bytes_requested": 418381824,
-                      "bytes_transferred": 27525120,
-                      "hit_rate": 0.06578947368421052,
-                      "hits": 35,
-                      "miss_rate": 0.9342105263157895,
-                      "misses": 497,
+                      "bytes_transferred": 0,
+                      "hit_rate": 0.0,
+                      "hits": 0,
+                      "miss_rate": 1.0,
+                      "misses": 532,
                       "requests": 532
                     }
                   }
                 },
                 "PREFILL": {
-                  "backing_store_request_rate": 0.6160714285714286,
+                  "backing_store_request_rate": 0.9330357142857143,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 34,
-                      "evictions": 33
+                      "admissions": 209,
+                      "evictions": 208
                     },
                     "hot": {
-                      "admissions": 34,
-                      "evictions": 33
+                      "admissions": 209,
+                      "evictions": 208
                     }
                   },
                   "logical_requests": 224,
                   "theoretical_stall": {
-                    "mean": 1105.5086942857145,
+                    "mean": 1667.6663071428572,
                     "overlap_model": "serial_no_overlap",
                     "p50": 1786.432,
                     "p95": 1786.432,
                     "p99": 1786.432,
                     "samples": 224,
-                    "total": 247633.94752000002,
+                    "total": 373557.2528,
                     "unit": "microseconds"
                   },
                   "tiers": {
                     "backing_store": {
-                      "bytes_requested": 108527616,
-                      "bytes_transferred": 108527616,
+                      "bytes_requested": 164364288,
+                      "bytes_transferred": 164364288,
                       "hit_rate": 1.0,
-                      "hits": 138,
+                      "hits": 209,
                       "miss_rate": 0.0,
                       "misses": 0,
-                      "requests": 138
+                      "requests": 209
                     },
                     "cold": {
-                      "bytes_requested": 108527616,
+                      "bytes_requested": 164364288,
                       "bytes_transferred": 0,
                       "hit_rate": 0.0,
                       "hits": 0,
                       "miss_rate": 1.0,
-                      "misses": 138,
-                      "requests": 138
+                      "misses": 209,
+                      "requests": 209
                     },
                     "hot": {
                       "bytes_requested": 176160768,
-                      "bytes_transferred": 67633152,
-                      "hit_rate": 0.38392857142857145,
-                      "hits": 86,
-                      "miss_rate": 0.6160714285714286,
-                      "misses": 138,
+                      "bytes_transferred": 11796480,
+                      "hit_rate": 0.06696428571428571,
+                      "hits": 15,
+                      "miss_rate": 0.9330357142857143,
+                      "misses": 209,
                       "requests": 224
                     }
                   }
@@ -2818,54 +2818,54 @@
                 }
               },
               "overall": {
-                "backing_store_request_rate": 0.83994708994709,
+                "backing_store_request_rate": 0.9801587301587301,
                 "cache_activity": {
                   "cold": {
-                    "admissions": 57,
-                    "evictions": 56
+                    "admissions": 741,
+                    "evictions": 740
                   },
                   "hot": {
-                    "admissions": 57,
-                    "evictions": 56
+                    "admissions": 741,
+                    "evictions": 740
                   }
                 },
                 "logical_requests": 756,
                 "theoretical_stall": {
-                  "mean": 1502.5673316402115,
+                  "mean": 1751.242165079365,
                   "overlap_model": "serial_no_overlap",
                   "p50": 1786.432,
                   "p95": 1786.432,
                   "p99": 1786.432,
                   "samples": 756,
-                  "total": 1135940.90272,
+                  "total": 1323939.0768,
                   "unit": "microseconds"
                 },
                 "tiers": {
                   "backing_store": {
-                    "bytes_requested": 499384320,
-                    "bytes_transferred": 499384320,
+                    "bytes_requested": 582746112,
+                    "bytes_transferred": 582746112,
                     "hit_rate": 1.0,
-                    "hits": 635,
+                    "hits": 741,
                     "miss_rate": 0.0,
                     "misses": 0,
-                    "requests": 635
+                    "requests": 741
                   },
                   "cold": {
-                    "bytes_requested": 499384320,
+                    "bytes_requested": 582746112,
                     "bytes_transferred": 0,
                     "hit_rate": 0.0,
                     "hits": 0,
                     "miss_rate": 1.0,
-                    "misses": 635,
-                    "requests": 635
+                    "misses": 741,
+                    "requests": 741
                   },
                   "hot": {
                     "bytes_requested": 594542592,
-                    "bytes_transferred": 95158272,
-                    "hit_rate": 0.16005291005291006,
-                    "hits": 121,
-                    "miss_rate": 0.83994708994709,
-                    "misses": 635,
+                    "bytes_transferred": 11796480,
+                    "hit_rate": 0.01984126984126984,
+                    "hits": 15,
+                    "miss_rate": 0.9801587301587301,
+                    "misses": 741,
                     "requests": 756
                   }
                 }
@@ -3068,54 +3068,54 @@
             "belady_min": {
               "by_phase": {
                 "DECODE": {
-                  "backing_store_request_rate": 0.17669172932330826,
+                  "backing_store_request_rate": 0.18045112781954886,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 59,
-                      "evictions": 59
+                      "admissions": 96,
+                      "evictions": 96
                     },
                     "hot": {
-                      "admissions": 114,
-                      "evictions": 114
+                      "admissions": 311,
+                      "evictions": 311
                     }
                   },
                   "logical_requests": 532,
                   "theoretical_stall": {
-                    "mean": 370.853102556391,
+                    "mean": 379.696944962406,
                     "overlap_model": "serial_no_overlap",
                     "p50": 128.64319999999998,
                     "p95": 1786.432,
                     "p99": 1786.432,
                     "samples": 532,
-                    "total": 197293.85056,
+                    "total": 201998.77472,
                     "unit": "microseconds"
                   },
                   "tiers": {
                     "backing_store": {
-                      "bytes_requested": 73924608,
-                      "bytes_transferred": 73924608,
+                      "bytes_requested": 75497472,
+                      "bytes_transferred": 75497472,
                       "hit_rate": 1.0,
-                      "hits": 94,
+                      "hits": 96,
                       "miss_rate": 0.0,
                       "misses": 0,
-                      "requests": 94
+                      "requests": 96
                     },
                     "cold": {
-                      "bytes_requested": 235143168,
-                      "bytes_transferred": 161218560,
-                      "hit_rate": 0.68561872909699,
-                      "hits": 205,
-                      "miss_rate": 0.31438127090301005,
-                      "misses": 94,
-                      "requests": 299
+                      "bytes_requested": 244580352,
+                      "bytes_transferred": 169082880,
+                      "hit_rate": 0.6913183279742765,
+                      "hits": 215,
+                      "miss_rate": 0.3086816720257235,
+                      "misses": 96,
+                      "requests": 311
                     },
                     "hot": {
                       "bytes_requested": 418381824,
-                      "bytes_transferred": 183238656,
-                      "hit_rate": 0.43796992481203006,
-                      "hits": 233,
-                      "miss_rate": 0.5620300751879699,
-                      "misses": 299,
+                      "bytes_transferred": 173801472,
+                      "hit_rate": 0.41541353383458646,
+                      "hits": 221,
+                      "miss_rate": 0.5845864661654135,
+                      "misses": 311,
                       "requests": 532
                     }
                   }
@@ -3124,12 +3124,12 @@
                   "backing_store_request_rate": 0.16071428571428573,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 35,
-                      "evictions": 11
+                      "admissions": 36,
+                      "evictions": 12
                     },
                     "hot": {
-                      "admissions": 34,
-                      "evictions": 26
+                      "admissions": 36,
+                      "evictions": 28
                     }
                   },
                   "logical_requests": 224,
@@ -3189,54 +3189,54 @@
                 }
               },
               "overall": {
-                "backing_store_request_rate": 0.17195767195767195,
+                "backing_store_request_rate": 0.1746031746031746,
                 "cache_activity": {
                   "cold": {
-                    "admissions": 94,
-                    "evictions": 70
+                    "admissions": 132,
+                    "evictions": 108
                   },
                   "hot": {
-                    "admissions": 148,
-                    "evictions": 140
+                    "admissions": 347,
+                    "evictions": 339
                   }
                 },
                 "logical_requests": 756,
                 "theoretical_stall": {
-                  "mean": 349.23795597883594,
+                  "mean": 355.4614006349206,
                   "overlap_model": "serial_no_overlap",
                   "p50": 12.86432,
                   "p95": 1786.432,
                   "p99": 1786.432,
                   "samples": 756,
-                  "total": 264023.89472,
+                  "total": 268728.81888,
                   "unit": "microseconds"
                 },
                 "tiers": {
                   "backing_store": {
-                    "bytes_requested": 102236160,
-                    "bytes_transferred": 102236160,
+                    "bytes_requested": 103809024,
+                    "bytes_transferred": 103809024,
                     "hit_rate": 1.0,
-                    "hits": 130,
+                    "hits": 132,
                     "miss_rate": 0.0,
                     "misses": 0,
-                    "requests": 130
+                    "requests": 132
                   },
                   "cold": {
-                    "bytes_requested": 263454720,
-                    "bytes_transferred": 161218560,
-                    "hit_rate": 0.6119402985074627,
-                    "hits": 205,
-                    "miss_rate": 0.3880597014925373,
-                    "misses": 130,
-                    "requests": 335
+                    "bytes_requested": 272891904,
+                    "bytes_transferred": 169082880,
+                    "hit_rate": 0.6195965417867435,
+                    "hits": 215,
+                    "miss_rate": 0.3804034582132565,
+                    "misses": 132,
+                    "requests": 347
                   },
                   "hot": {
                     "bytes_requested": 594542592,
-                    "bytes_transferred": 331087872,
-                    "hit_rate": 0.5568783068783069,
-                    "hits": 421,
-                    "miss_rate": 0.44312169312169314,
-                    "misses": 335,
+                    "bytes_transferred": 321650688,
+                    "hit_rate": 0.541005291005291,
+                    "hits": 409,
+                    "miss_rate": 0.458994708994709,
+                    "misses": 347,
                     "requests": 756
                   }
                 }
@@ -4599,107 +4599,107 @@
             "belady_min": {
               "by_phase": {
                 "DECODE": {
-                  "backing_store_request_rate": 0.9380952380952381,
+                  "backing_store_request_rate": 1.0,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 13,
-                      "evictions": 13
+                      "admissions": 210,
+                      "evictions": 210
                     },
                     "hot": {
-                      "admissions": 13,
-                      "evictions": 13
+                      "admissions": 210,
+                      "evictions": 210
                     }
                   },
                   "logical_requests": 210,
                   "theoretical_stall": {
-                    "mean": 1676.6397150476191,
+                    "mean": 1786.4320000000002,
                     "overlap_model": "serial_no_overlap",
                     "p50": 1786.432,
                     "p95": 1786.432,
                     "p99": 1786.432,
                     "samples": 210,
-                    "total": 352094.34016,
+                    "total": 375150.72000000003,
                     "unit": "microseconds"
                   },
                   "tiers": {
                     "backing_store": {
-                      "bytes_requested": 154927104,
-                      "bytes_transferred": 154927104,
+                      "bytes_requested": 165150720,
+                      "bytes_transferred": 165150720,
                       "hit_rate": 1.0,
-                      "hits": 197,
+                      "hits": 210,
                       "miss_rate": 0.0,
                       "misses": 0,
-                      "requests": 197
+                      "requests": 210
                     },
                     "cold": {
-                      "bytes_requested": 154927104,
+                      "bytes_requested": 165150720,
                       "bytes_transferred": 0,
                       "hit_rate": 0.0,
                       "hits": 0,
                       "miss_rate": 1.0,
-                      "misses": 197,
-                      "requests": 197
+                      "misses": 210,
+                      "requests": 210
                     },
                     "hot": {
                       "bytes_requested": 165150720,
-                      "bytes_transferred": 10223616,
-                      "hit_rate": 0.06190476190476191,
-                      "hits": 13,
-                      "miss_rate": 0.9380952380952381,
-                      "misses": 197,
+                      "bytes_transferred": 0,
+                      "hit_rate": 0.0,
+                      "hits": 0,
+                      "miss_rate": 1.0,
+                      "misses": 210,
                       "requests": 210
                     }
                   }
                 },
                 "PREFILL": {
-                  "backing_store_request_rate": 0.5900621118012422,
+                  "backing_store_request_rate": 0.9192546583850931,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 53,
-                      "evictions": 52
+                      "admissions": 296,
+                      "evictions": 295
                     },
                     "hot": {
-                      "admissions": 53,
-                      "evictions": 52
+                      "admissions": 296,
+                      "evictions": 295
                     }
                   },
                   "logical_requests": 322,
                   "theoretical_stall": {
-                    "mean": 1059.37941068323,
+                    "mean": 1643.2246718012423,
                     "overlap_model": "serial_no_overlap",
                     "p50": 1786.432,
                     "p95": 1786.432,
                     "p99": 1786.432,
                     "samples": 322,
-                    "total": 341120.17024,
+                    "total": 529118.34432,
                     "unit": "microseconds"
                   },
                   "tiers": {
                     "backing_store": {
-                      "bytes_requested": 149422080,
-                      "bytes_transferred": 149422080,
+                      "bytes_requested": 232783872,
+                      "bytes_transferred": 232783872,
                       "hit_rate": 1.0,
-                      "hits": 190,
+                      "hits": 296,
                       "miss_rate": 0.0,
                       "misses": 0,
-                      "requests": 190
+                      "requests": 296
                     },
                     "cold": {
-                      "bytes_requested": 149422080,
+                      "bytes_requested": 232783872,
                       "bytes_transferred": 0,
                       "hit_rate": 0.0,
                       "hits": 0,
                       "miss_rate": 1.0,
-                      "misses": 190,
-                      "requests": 190
+                      "misses": 296,
+                      "requests": 296
                     },
                     "hot": {
                       "bytes_requested": 253231104,
-                      "bytes_transferred": 103809024,
-                      "hit_rate": 0.40993788819875776,
-                      "hits": 132,
-                      "miss_rate": 0.5900621118012422,
-                      "misses": 190,
+                      "bytes_transferred": 20447232,
+                      "hit_rate": 0.08074534161490683,
+                      "hits": 26,
+                      "miss_rate": 0.9192546583850931,
+                      "misses": 296,
                       "requests": 322
                     }
                   }
@@ -4720,54 +4720,54 @@
                 }
               },
               "overall": {
-                "backing_store_request_rate": 0.7274436090225563,
+                "backing_store_request_rate": 0.9511278195488722,
                 "cache_activity": {
                   "cold": {
-                    "admissions": 66,
-                    "evictions": 65
+                    "admissions": 506,
+                    "evictions": 505
                   },
                   "hot": {
-                    "admissions": 66,
-                    "evictions": 65
+                    "admissions": 506,
+                    "evictions": 505
                   }
                 },
                 "logical_requests": 532,
                 "theoretical_stall": {
-                  "mean": 1303.0347939849626,
+                  "mean": 1699.753880300752,
                   "overlap_model": "serial_no_overlap",
                   "p50": 1786.432,
                   "p95": 1786.432,
                   "p99": 1786.432,
                   "samples": 532,
-                  "total": 693214.5104,
+                  "total": 904269.06432,
                   "unit": "microseconds"
                 },
                 "tiers": {
                   "backing_store": {
-                    "bytes_requested": 304349184,
-                    "bytes_transferred": 304349184,
+                    "bytes_requested": 397934592,
+                    "bytes_transferred": 397934592,
                     "hit_rate": 1.0,
-                    "hits": 387,
+                    "hits": 506,
                     "miss_rate": 0.0,
                     "misses": 0,
-                    "requests": 387
+                    "requests": 506
                   },
                   "cold": {
-                    "bytes_requested": 304349184,
+                    "bytes_requested": 397934592,
                     "bytes_transferred": 0,
                     "hit_rate": 0.0,
                     "hits": 0,
                     "miss_rate": 1.0,
-                    "misses": 387,
-                    "requests": 387
+                    "misses": 506,
+                    "requests": 506
                   },
                   "hot": {
                     "bytes_requested": 418381824,
-                    "bytes_transferred": 114032640,
-                    "hit_rate": 0.2725563909774436,
-                    "hits": 145,
-                    "miss_rate": 0.7274436090225563,
-                    "misses": 387,
+                    "bytes_transferred": 20447232,
+                    "hit_rate": 0.04887218045112782,
+                    "hits": 26,
+                    "miss_rate": 0.9511278195488722,
+                    "misses": 506,
                     "requests": 532
                   }
                 }
@@ -4970,54 +4970,54 @@
             "belady_min": {
               "by_phase": {
                 "DECODE": {
-                  "backing_store_request_rate": 0.23333333333333334,
+                  "backing_store_request_rate": 0.23809523809523808,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 22,
-                      "evictions": 22
+                      "admissions": 50,
+                      "evictions": 50
                     },
                     "hot": {
-                      "admissions": 44,
-                      "evictions": 44
+                      "admissions": 130,
+                      "evictions": 130
                     }
                   },
                   "logical_requests": 210,
                   "theoretical_stall": {
-                    "mean": 468.04637866666667,
+                    "mean": 479.24857904761905,
                     "overlap_model": "serial_no_overlap",
                     "p50": 128.64319999999998,
                     "p95": 1786.432,
                     "p99": 1786.432,
                     "samples": 210,
-                    "total": 98289.73952,
+                    "total": 100642.2016,
                     "unit": "microseconds"
                   },
                   "tiers": {
                     "backing_store": {
-                      "bytes_requested": 38535168,
-                      "bytes_transferred": 38535168,
+                      "bytes_requested": 39321600,
+                      "bytes_transferred": 39321600,
                       "hit_rate": 1.0,
-                      "hits": 49,
+                      "hits": 50,
                       "miss_rate": 0.0,
                       "misses": 0,
-                      "requests": 49
+                      "requests": 50
                     },
                     "cold": {
-                      "bytes_requested": 97517568,
-                      "bytes_transferred": 58982400,
-                      "hit_rate": 0.6048387096774194,
-                      "hits": 75,
-                      "miss_rate": 0.3951612903225806,
-                      "misses": 49,
-                      "requests": 124
+                      "bytes_requested": 102236160,
+                      "bytes_transferred": 62914560,
+                      "hit_rate": 0.6153846153846154,
+                      "hits": 80,
+                      "miss_rate": 0.38461538461538464,
+                      "misses": 50,
+                      "requests": 130
                     },
                     "hot": {
                       "bytes_requested": 165150720,
-                      "bytes_transferred": 67633152,
-                      "hit_rate": 0.4095238095238095,
-                      "hits": 86,
-                      "miss_rate": 0.5904761904761905,
-                      "misses": 124,
+                      "bytes_transferred": 62914560,
+                      "hit_rate": 0.38095238095238093,
+                      "hits": 80,
+                      "miss_rate": 0.6190476190476191,
+                      "misses": 130,
                       "requests": 210
                     }
                   }
@@ -5026,12 +5026,12 @@
                   "backing_store_request_rate": 0.12732919254658384,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 39,
-                      "evictions": 15
+                      "admissions": 41,
+                      "evictions": 17
                     },
                     "hot": {
-                      "admissions": 35,
-                      "evictions": 27
+                      "admissions": 41,
+                      "evictions": 33
                     }
                   },
                   "logical_requests": 322,
@@ -5091,54 +5091,54 @@
                 }
               },
               "overall": {
-                "backing_store_request_rate": 0.16917293233082706,
+                "backing_store_request_rate": 0.17105263157894737,
                 "cache_activity": {
                   "cold": {
-                    "admissions": 61,
-                    "evictions": 37
+                    "admissions": 91,
+                    "evictions": 67
                   },
                   "hot": {
-                    "admissions": 79,
-                    "evictions": 71
+                    "admissions": 171,
+                    "evictions": 163
                   }
                 },
                 "logical_requests": 532,
                 "theoretical_stall": {
-                  "mean": 329.22617563909773,
+                  "mean": 333.6480968421053,
                   "overlap_model": "serial_no_overlap",
                   "p50": 12.86432,
                   "p95": 1786.432,
                   "p99": 1786.432,
                   "samples": 532,
-                  "total": 175148.32544,
+                  "total": 177500.78752,
                   "unit": "microseconds"
                 },
                 "tiers": {
                   "backing_store": {
-                    "bytes_requested": 70778880,
-                    "bytes_transferred": 70778880,
+                    "bytes_requested": 71565312,
+                    "bytes_transferred": 71565312,
                     "hit_rate": 1.0,
-                    "hits": 90,
+                    "hits": 91,
                     "miss_rate": 0.0,
                     "misses": 0,
-                    "requests": 90
+                    "requests": 91
                   },
                   "cold": {
-                    "bytes_requested": 129761280,
-                    "bytes_transferred": 58982400,
-                    "hit_rate": 0.45454545454545453,
-                    "hits": 75,
-                    "miss_rate": 0.5454545454545454,
-                    "misses": 90,
-                    "requests": 165
+                    "bytes_requested": 134479872,
+                    "bytes_transferred": 62914560,
+                    "hit_rate": 0.4678362573099415,
+                    "hits": 80,
+                    "miss_rate": 0.5321637426900585,
+                    "misses": 91,
+                    "requests": 171
                   },
                   "hot": {
                     "bytes_requested": 418381824,
-                    "bytes_transferred": 288620544,
-                    "hit_rate": 0.6898496240601504,
-                    "hits": 367,
-                    "miss_rate": 0.3101503759398496,
-                    "misses": 165,
+                    "bytes_transferred": 283901952,
+                    "hit_rate": 0.6785714285714286,
+                    "hits": 361,
+                    "miss_rate": 0.32142857142857145,
+                    "misses": 171,
                     "requests": 532
                   }
                 }
@@ -6507,107 +6507,107 @@
             "belady_min": {
               "by_phase": {
                 "DECODE": {
-                  "backing_store_request_rate": 0.9365079365079365,
+                  "backing_store_request_rate": 1.0,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 11,
-                      "evictions": 11
+                      "admissions": 126,
+                      "evictions": 126
                     },
                     "hot": {
-                      "admissions": 11,
-                      "evictions": 11
+                      "admissions": 126,
+                      "evictions": 126
                     }
                   },
                   "logical_requests": 126,
                   "theoretical_stall": {
-                    "mean": 1673.8245282539683,
+                    "mean": 1786.432,
                     "overlap_model": "serial_no_overlap",
                     "p50": 1786.432,
                     "p95": 1786.432,
                     "p99": 1786.432,
                     "samples": 126,
-                    "total": 210901.89056,
+                    "total": 225090.432,
                     "unit": "microseconds"
                   },
                   "tiers": {
                     "backing_store": {
-                      "bytes_requested": 92798976,
-                      "bytes_transferred": 92798976,
+                      "bytes_requested": 99090432,
+                      "bytes_transferred": 99090432,
                       "hit_rate": 1.0,
-                      "hits": 118,
+                      "hits": 126,
                       "miss_rate": 0.0,
                       "misses": 0,
-                      "requests": 118
+                      "requests": 126
                     },
                     "cold": {
-                      "bytes_requested": 92798976,
+                      "bytes_requested": 99090432,
                       "bytes_transferred": 0,
                       "hit_rate": 0.0,
                       "hits": 0,
                       "miss_rate": 1.0,
-                      "misses": 118,
-                      "requests": 118
+                      "misses": 126,
+                      "requests": 126
                     },
                     "hot": {
                       "bytes_requested": 99090432,
-                      "bytes_transferred": 6291456,
-                      "hit_rate": 0.06349206349206349,
-                      "hits": 8,
-                      "miss_rate": 0.9365079365079365,
-                      "misses": 118,
+                      "bytes_transferred": 0,
+                      "hit_rate": 0.0,
+                      "hits": 0,
+                      "miss_rate": 1.0,
+                      "misses": 126,
                       "requests": 126
                     }
                   }
                 },
                 "PREFILL": {
-                  "backing_store_request_rate": 0.6078869047619048,
+                  "backing_store_request_rate": 0.9139384920634921,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 569,
-                      "evictions": 568
+                      "admissions": 3685,
+                      "evictions": 3684
                     },
                     "hot": {
-                      "admissions": 569,
-                      "evictions": 568
+                      "admissions": 3685,
+                      "evictions": 3684
                     }
                   },
                   "logical_requests": 4032,
                   "theoretical_stall": {
-                    "mean": 1090.9928873809524,
+                    "mean": 1633.796091031746,
                     "overlap_model": "serial_no_overlap",
                     "p50": 1786.432,
                     "p95": 1786.432,
                     "p99": 1786.432,
                     "samples": 4032,
-                    "total": 4398883.32192,
+                    "total": 6587465.83904,
                     "unit": "microseconds"
                   },
                   "tiers": {
                     "backing_store": {
-                      "bytes_requested": 1927544832,
-                      "bytes_transferred": 1927544832,
+                      "bytes_requested": 2898001920,
+                      "bytes_transferred": 2898001920,
                       "hit_rate": 1.0,
-                      "hits": 2451,
+                      "hits": 3685,
                       "miss_rate": 0.0,
                       "misses": 0,
-                      "requests": 2451
+                      "requests": 3685
                     },
                     "cold": {
-                      "bytes_requested": 1927544832,
+                      "bytes_requested": 2898001920,
                       "bytes_transferred": 0,
                       "hit_rate": 0.0,
                       "hits": 0,
                       "miss_rate": 1.0,
-                      "misses": 2451,
-                      "requests": 2451
+                      "misses": 3685,
+                      "requests": 3685
                     },
                     "hot": {
                       "bytes_requested": 3170893824,
-                      "bytes_transferred": 1243348992,
-                      "hit_rate": 0.39211309523809523,
-                      "hits": 1581,
-                      "miss_rate": 0.6078869047619048,
-                      "misses": 2451,
+                      "bytes_transferred": 272891904,
+                      "hit_rate": 0.08606150793650794,
+                      "hits": 347,
+                      "miss_rate": 0.9139384920634921,
+                      "misses": 3685,
                       "requests": 4032
                     }
                   }
@@ -6628,54 +6628,54 @@
                 }
               },
               "overall": {
-                "backing_store_request_rate": 0.6178451178451179,
+                "backing_store_request_rate": 0.9165464165464166,
                 "cache_activity": {
                   "cold": {
-                    "admissions": 580,
-                    "evictions": 579
+                    "admissions": 3811,
+                    "evictions": 3810
                   },
                   "hot": {
-                    "admissions": 580,
-                    "evictions": 579
+                    "admissions": 3811,
+                    "evictions": 3810
                   }
                 },
                 "logical_requests": 4158,
                 "theoretical_stall": {
-                  "mean": 1108.6544522558922,
+                  "mean": 1638.4214216065416,
                   "overlap_model": "serial_no_overlap",
                   "p50": 1786.432,
                   "p95": 1786.432,
                   "p99": 1786.432,
                   "samples": 4158,
-                  "total": 4609785.21248,
+                  "total": 6812556.27104,
                   "unit": "microseconds"
                 },
                 "tiers": {
                   "backing_store": {
-                    "bytes_requested": 2020343808,
-                    "bytes_transferred": 2020343808,
+                    "bytes_requested": 2997092352,
+                    "bytes_transferred": 2997092352,
                     "hit_rate": 1.0,
-                    "hits": 2569,
+                    "hits": 3811,
                     "miss_rate": 0.0,
                     "misses": 0,
-                    "requests": 2569
+                    "requests": 3811
                   },
                   "cold": {
-                    "bytes_requested": 2020343808,
+                    "bytes_requested": 2997092352,
                     "bytes_transferred": 0,
                     "hit_rate": 0.0,
                     "hits": 0,
                     "miss_rate": 1.0,
-                    "misses": 2569,
-                    "requests": 2569
+                    "misses": 3811,
+                    "requests": 3811
                   },
                   "hot": {
                     "bytes_requested": 3269984256,
-                    "bytes_transferred": 1249640448,
-                    "hit_rate": 0.38215488215488214,
-                    "hits": 1589,
-                    "miss_rate": 0.6178451178451179,
-                    "misses": 2569,
+                    "bytes_transferred": 272891904,
+                    "hit_rate": 0.08345358345358346,
+                    "hits": 347,
+                    "miss_rate": 0.9165464165464166,
+                    "misses": 3811,
                     "requests": 4158
                   }
                 }
@@ -6878,54 +6878,54 @@
             "belady_min": {
               "by_phase": {
                 "DECODE": {
-                  "backing_store_request_rate": 0.15873015873015872,
+                  "backing_store_request_rate": 0.16666666666666666,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 15,
-                      "evictions": 15
+                      "admissions": 21,
+                      "evictions": 21
                     },
                     "hot": {
-                      "admissions": 42,
-                      "evictions": 42
+                      "admissions": 79,
+                      "evictions": 79
                     }
                   },
                   "logical_requests": 126,
                   "theoretical_stall": {
-                    "mean": 344.00251936507937,
+                    "mean": 361.7539733333333,
                     "overlap_model": "serial_no_overlap",
                     "p50": 128.64319999999998,
                     "p95": 1786.432,
                     "p99": 1786.432,
                     "samples": 126,
-                    "total": 43344.31744,
+                    "total": 45581.00064,
                     "unit": "microseconds"
                   },
                   "tiers": {
                     "backing_store": {
-                      "bytes_requested": 15728640,
-                      "bytes_transferred": 15728640,
+                      "bytes_requested": 16515072,
+                      "bytes_transferred": 16515072,
                       "hit_rate": 1.0,
-                      "hits": 20,
+                      "hits": 21,
                       "miss_rate": 0.0,
                       "misses": 0,
-                      "requests": 20
+                      "requests": 21
                     },
                     "cold": {
-                      "bytes_requested": 58195968,
-                      "bytes_transferred": 42467328,
-                      "hit_rate": 0.7297297297297297,
-                      "hits": 54,
-                      "miss_rate": 0.2702702702702703,
-                      "misses": 20,
-                      "requests": 74
+                      "bytes_requested": 62128128,
+                      "bytes_transferred": 45613056,
+                      "hit_rate": 0.7341772151898734,
+                      "hits": 58,
+                      "miss_rate": 0.26582278481012656,
+                      "misses": 21,
+                      "requests": 79
                     },
                     "hot": {
                       "bytes_requested": 99090432,
-                      "bytes_transferred": 40894464,
-                      "hit_rate": 0.4126984126984127,
-                      "hits": 52,
-                      "miss_rate": 0.5873015873015873,
-                      "misses": 74,
+                      "bytes_transferred": 36962304,
+                      "hit_rate": 0.373015873015873,
+                      "hits": 47,
+                      "miss_rate": 0.626984126984127,
+                      "misses": 79,
                       "requests": 126
                     }
                   }
@@ -6934,12 +6934,12 @@
                   "backing_store_request_rate": 0.013392857142857142,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 53,
-                      "evictions": 29
+                      "admissions": 54,
+                      "evictions": 30
                     },
                     "hot": {
-                      "admissions": 52,
-                      "evictions": 44
+                      "admissions": 54,
+                      "evictions": 46
                     }
                   },
                   "logical_requests": 4032,
@@ -6999,54 +6999,54 @@
                 }
               },
               "overall": {
-                "backing_store_request_rate": 0.017797017797017797,
+                "backing_store_request_rate": 0.018037518037518036,
                 "cache_activity": {
                   "cold": {
-                    "admissions": 68,
-                    "evictions": 44
+                    "admissions": 75,
+                    "evictions": 51
                   },
                   "hot": {
-                    "admissions": 94,
-                    "evictions": 86
+                    "admissions": 133,
+                    "evictions": 125
                   }
                 },
                 "logical_requests": 4158,
                 "theoretical_stall": {
-                  "mean": 45.932157383357385,
+                  "mean": 46.47008023088023,
                   "overlap_model": "serial_no_overlap",
                   "p50": 12.86432,
                   "p95": 12.86432,
                   "p99": 1786.432,
                   "samples": 4158,
-                  "total": 190985.9104,
+                  "total": 193222.5936,
                   "unit": "microseconds"
                 },
                 "tiers": {
                   "backing_store": {
-                    "bytes_requested": 58195968,
-                    "bytes_transferred": 58195968,
+                    "bytes_requested": 58982400,
+                    "bytes_transferred": 58982400,
                     "hit_rate": 1.0,
-                    "hits": 74,
+                    "hits": 75,
                     "miss_rate": 0.0,
                     "misses": 0,
-                    "requests": 74
+                    "requests": 75
                   },
                   "cold": {
-                    "bytes_requested": 100663296,
-                    "bytes_transferred": 42467328,
-                    "hit_rate": 0.421875,
-                    "hits": 54,
-                    "miss_rate": 0.578125,
-                    "misses": 74,
-                    "requests": 128
+                    "bytes_requested": 104595456,
+                    "bytes_transferred": 45613056,
+                    "hit_rate": 0.43609022556390975,
+                    "hits": 58,
+                    "miss_rate": 0.5639097744360902,
+                    "misses": 75,
+                    "requests": 133
                   },
                   "hot": {
                     "bytes_requested": 3269984256,
-                    "bytes_transferred": 3169320960,
-                    "hit_rate": 0.9692159692159692,
-                    "hits": 4030,
-                    "miss_rate": 0.030784030784030785,
-                    "misses": 128,
+                    "bytes_transferred": 3165388800,
+                    "hit_rate": 0.968013468013468,
+                    "hits": 4025,
+                    "miss_rate": 0.03198653198653199,
+                    "misses": 133,
                     "requests": 4158
                   }
                 }
@@ -8310,54 +8310,54 @@
                   }
                 },
                 "PREFILL": {
-                  "backing_store_request_rate": 0.6148867313915858,
+                  "backing_store_request_rate": 0.9040684234858992,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 696,
-                      "evictions": 695
+                      "admissions": 3911,
+                      "evictions": 3910
                     },
                     "hot": {
-                      "admissions": 696,
-                      "evictions": 695
+                      "admissions": 3911,
+                      "evictions": 3910
                     }
                   },
                   "logical_requests": 4326,
                   "theoretical_stall": {
-                    "mean": 1103.407553656958,
+                    "mean": 1616.2908564031438,
                     "overlap_model": "serial_no_overlap",
                     "p50": 1786.432,
                     "p95": 1786.432,
                     "p99": 1786.432,
                     "samples": 4326,
-                    "total": 4773341.0771200005,
+                    "total": 6992074.2448,
                     "unit": "microseconds"
                   },
                   "tiers": {
                     "backing_store": {
-                      "bytes_requested": 2091909120,
-                      "bytes_transferred": 2091909120,
+                      "bytes_requested": 3075735552,
+                      "bytes_transferred": 3075735552,
                       "hit_rate": 1.0,
-                      "hits": 2660,
+                      "hits": 3911,
                       "miss_rate": 0.0,
                       "misses": 0,
-                      "requests": 2660
+                      "requests": 3911
                     },
                     "cold": {
-                      "bytes_requested": 2091909120,
+                      "bytes_requested": 3075735552,
                       "bytes_transferred": 0,
                       "hit_rate": 0.0,
                       "hits": 0,
                       "miss_rate": 1.0,
-                      "misses": 2660,
-                      "requests": 2660
+                      "misses": 3911,
+                      "requests": 3911
                     },
                     "hot": {
                       "bytes_requested": 3402104832,
-                      "bytes_transferred": 1310195712,
-                      "hit_rate": 0.3851132686084142,
-                      "hits": 1666,
-                      "miss_rate": 0.6148867313915858,
-                      "misses": 2660,
+                      "bytes_transferred": 326369280,
+                      "hit_rate": 0.09593157651410078,
+                      "hits": 415,
+                      "miss_rate": 0.9040684234858992,
+                      "misses": 3911,
                       "requests": 4326
                     }
                   }
@@ -8378,54 +8378,54 @@
                 }
               },
               "overall": {
-                "backing_store_request_rate": 0.6148867313915858,
+                "backing_store_request_rate": 0.9040684234858992,
                 "cache_activity": {
                   "cold": {
-                    "admissions": 696,
-                    "evictions": 695
+                    "admissions": 3911,
+                    "evictions": 3910
                   },
                   "hot": {
-                    "admissions": 696,
-                    "evictions": 695
+                    "admissions": 3911,
+                    "evictions": 3910
                   }
                 },
                 "logical_requests": 4326,
                 "theoretical_stall": {
-                  "mean": 1103.407553656958,
+                  "mean": 1616.2908564031438,
                   "overlap_model": "serial_no_overlap",
                   "p50": 1786.432,
                   "p95": 1786.432,
                   "p99": 1786.432,
                   "samples": 4326,
-                  "total": 4773341.0771200005,
+                  "total": 6992074.2448,
                   "unit": "microseconds"
                 },
                 "tiers": {
                   "backing_store": {
-                    "bytes_requested": 2091909120,
-                    "bytes_transferred": 2091909120,
+                    "bytes_requested": 3075735552,
+                    "bytes_transferred": 3075735552,
                     "hit_rate": 1.0,
-                    "hits": 2660,
+                    "hits": 3911,
                     "miss_rate": 0.0,
                     "misses": 0,
-                    "requests": 2660
+                    "requests": 3911
                   },
                   "cold": {
-                    "bytes_requested": 2091909120,
+                    "bytes_requested": 3075735552,
                     "bytes_transferred": 0,
                     "hit_rate": 0.0,
                     "hits": 0,
                     "miss_rate": 1.0,
-                    "misses": 2660,
-                    "requests": 2660
+                    "misses": 3911,
+                    "requests": 3911
                   },
                   "hot": {
                     "bytes_requested": 3402104832,
-                    "bytes_transferred": 1310195712,
-                    "hit_rate": 0.3851132686084142,
-                    "hits": 1666,
-                    "miss_rate": 0.6148867313915858,
-                    "misses": 2660,
+                    "bytes_transferred": 326369280,
+                    "hit_rate": 0.09593157651410078,
+                    "hits": 415,
+                    "miss_rate": 0.9040684234858992,
+                    "misses": 3911,
                     "requests": 4326
                   }
                 }
@@ -8684,12 +8684,12 @@
                   "backing_store_request_rate": 0.012713823393435044,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 54,
-                      "evictions": 30
+                      "admissions": 55,
+                      "evictions": 31
                     },
                     "hot": {
-                      "admissions": 54,
-                      "evictions": 46
+                      "admissions": 55,
+                      "evictions": 47
                     }
                   },
                   "logical_requests": 4326,
@@ -8752,12 +8752,12 @@
                 "backing_store_request_rate": 0.012713823393435044,
                 "cache_activity": {
                   "cold": {
-                    "admissions": 54,
-                    "evictions": 30
+                    "admissions": 55,
+                    "evictions": 31
                   },
                   "hot": {
-                    "admissions": 54,
-                    "evictions": 46
+                    "admissions": 55,
+                    "evictions": 47
                   }
                 },
                 "logical_requests": 4326,
@@ -10106,107 +10106,107 @@
             "belady_min": {
               "by_phase": {
                 "DECODE": {
-                  "backing_store_request_rate": 0.9642857142857143,
+                  "backing_store_request_rate": 1.0,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 1,
-                      "evictions": 1
+                      "admissions": 28,
+                      "evictions": 28
                     },
                     "hot": {
-                      "admissions": 1,
-                      "evictions": 1
+                      "admissions": 28,
+                      "evictions": 28
                     }
                   },
                   "logical_requests": 28,
                   "theoretical_stall": {
-                    "mean": 1723.090297142857,
+                    "mean": 1786.432,
                     "overlap_model": "serial_no_overlap",
                     "p50": 1786.432,
                     "p95": 1786.432,
                     "p99": 1786.432,
                     "samples": 28,
-                    "total": 48246.52832,
+                    "total": 50020.096,
                     "unit": "microseconds"
                   },
                   "tiers": {
                     "backing_store": {
-                      "bytes_requested": 21233664,
-                      "bytes_transferred": 21233664,
+                      "bytes_requested": 22020096,
+                      "bytes_transferred": 22020096,
                       "hit_rate": 1.0,
-                      "hits": 27,
+                      "hits": 28,
                       "miss_rate": 0.0,
                       "misses": 0,
-                      "requests": 27
+                      "requests": 28
                     },
                     "cold": {
-                      "bytes_requested": 21233664,
+                      "bytes_requested": 22020096,
                       "bytes_transferred": 0,
                       "hit_rate": 0.0,
                       "hits": 0,
                       "miss_rate": 1.0,
-                      "misses": 27,
-                      "requests": 27
+                      "misses": 28,
+                      "requests": 28
                     },
                     "hot": {
                       "bytes_requested": 22020096,
-                      "bytes_transferred": 786432,
-                      "hit_rate": 0.03571428571428571,
-                      "hits": 1,
-                      "miss_rate": 0.9642857142857143,
-                      "misses": 27,
+                      "bytes_transferred": 0,
+                      "hit_rate": 0.0,
+                      "hits": 0,
+                      "miss_rate": 1.0,
+                      "misses": 28,
                       "requests": 28
                     }
                   }
                 },
                 "PREFILL": {
-                  "backing_store_request_rate": 0.5978305362259517,
+                  "backing_store_request_rate": 0.913426115431846,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 710,
-                      "evictions": 709
+                      "admissions": 4463,
+                      "evictions": 4462
                     },
                     "hot": {
-                      "admissions": 710,
-                      "evictions": 709
+                      "admissions": 4463,
+                      "evictions": 4462
                     }
                   },
                   "logical_requests": 4886,
                   "theoretical_stall": {
-                    "mean": 1073.1572371674172,
+                    "mean": 1632.8873563978714,
                     "overlap_model": "serial_no_overlap",
                     "p50": 1786.432,
                     "p95": 1786.432,
                     "p99": 1786.432,
                     "samples": 4886,
-                    "total": 5243446.2608,
+                    "total": 7978287.62336,
                     "unit": "microseconds"
                   },
                   "tiers": {
                     "backing_store": {
-                      "bytes_requested": 2297167872,
-                      "bytes_transferred": 2297167872,
+                      "bytes_requested": 3509846016,
+                      "bytes_transferred": 3509846016,
                       "hit_rate": 1.0,
-                      "hits": 2921,
+                      "hits": 4463,
                       "miss_rate": 0.0,
                       "misses": 0,
-                      "requests": 2921
+                      "requests": 4463
                     },
                     "cold": {
-                      "bytes_requested": 2297167872,
+                      "bytes_requested": 3509846016,
                       "bytes_transferred": 0,
                       "hit_rate": 0.0,
                       "hits": 0,
                       "miss_rate": 1.0,
-                      "misses": 2921,
-                      "requests": 2921
+                      "misses": 4463,
+                      "requests": 4463
                     },
                     "hot": {
                       "bytes_requested": 3842506752,
-                      "bytes_transferred": 1545338880,
-                      "hit_rate": 0.4021694637740483,
-                      "hits": 1965,
-                      "miss_rate": 0.5978305362259517,
-                      "misses": 2921,
+                      "bytes_transferred": 332660736,
+                      "hit_rate": 0.0865738845681539,
+                      "hits": 423,
+                      "miss_rate": 0.913426115431846,
+                      "misses": 4463,
                       "requests": 4886
                     }
                   }
@@ -10227,54 +10227,54 @@
                 }
               },
               "overall": {
-                "backing_store_request_rate": 0.5999185999186,
+                "backing_store_request_rate": 0.9139194139194139,
                 "cache_activity": {
                   "cold": {
-                    "admissions": 711,
-                    "evictions": 710
+                    "admissions": 4491,
+                    "evictions": 4490
                   },
                   "hot": {
-                    "admissions": 711,
-                    "evictions": 710
+                    "admissions": 4491,
+                    "evictions": 4490
                   }
                 },
                 "logical_requests": 4914,
                 "theoretical_stall": {
-                  "mean": 1076.8605594464793,
+                  "mean": 1633.7622546520147,
                   "overlap_model": "serial_no_overlap",
                   "p50": 1786.432,
                   "p95": 1786.432,
                   "p99": 1786.432,
                   "samples": 4914,
-                  "total": 5291692.78912,
+                  "total": 8028307.71936,
                   "unit": "microseconds"
                 },
                 "tiers": {
                   "backing_store": {
-                    "bytes_requested": 2318401536,
-                    "bytes_transferred": 2318401536,
+                    "bytes_requested": 3531866112,
+                    "bytes_transferred": 3531866112,
                     "hit_rate": 1.0,
-                    "hits": 2948,
+                    "hits": 4491,
                     "miss_rate": 0.0,
                     "misses": 0,
-                    "requests": 2948
+                    "requests": 4491
                   },
                   "cold": {
-                    "bytes_requested": 2318401536,
+                    "bytes_requested": 3531866112,
                     "bytes_transferred": 0,
                     "hit_rate": 0.0,
                     "hits": 0,
                     "miss_rate": 1.0,
-                    "misses": 2948,
-                    "requests": 2948
+                    "misses": 4491,
+                    "requests": 4491
                   },
                   "hot": {
                     "bytes_requested": 3864526848,
-                    "bytes_transferred": 1546125312,
-                    "hit_rate": 0.4000814000814001,
-                    "hits": 1966,
-                    "miss_rate": 0.5999185999186,
-                    "misses": 2948,
+                    "bytes_transferred": 332660736,
+                    "hit_rate": 0.08608058608058608,
+                    "hits": 423,
+                    "miss_rate": 0.9139194139194139,
+                    "misses": 4491,
                     "requests": 4914
                   }
                 }
@@ -10484,8 +10484,8 @@
                       "evictions": 0
                     },
                     "hot": {
-                      "admissions": 12,
-                      "evictions": 12
+                      "admissions": 18,
+                      "evictions": 18
                     }
                   },
                   "logical_requests": 28,
@@ -10533,12 +10533,12 @@
                   "backing_store_request_rate": 0.011051985264019648,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 52,
-                      "evictions": 28
+                      "admissions": 54,
+                      "evictions": 30
                     },
                     "hot": {
-                      "admissions": 52,
-                      "evictions": 44
+                      "admissions": 54,
+                      "evictions": 46
                     }
                   },
                   "logical_requests": 4886,
@@ -10601,12 +10601,12 @@
                 "backing_store_request_rate": 0.01098901098901099,
                 "cache_activity": {
                   "cold": {
-                    "admissions": 52,
-                    "evictions": 28
+                    "admissions": 54,
+                    "evictions": 30
                   },
                   "hot": {
-                    "admissions": 64,
-                    "evictions": 56
+                    "admissions": 72,
+                    "evictions": 64
                   }
                 },
                 "logical_requests": 4914,
@@ -11998,107 +11998,107 @@
             "belady_min": {
               "by_phase": {
                 "DECODE": {
-                  "backing_store_request_rate": 0.9380952380952381,
+                  "backing_store_request_rate": 1.0,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 8,
-                      "evictions": 8
+                      "admissions": 210,
+                      "evictions": 210
                     },
                     "hot": {
-                      "admissions": 8,
-                      "evictions": 8
+                      "admissions": 210,
+                      "evictions": 210
                     }
                   },
                   "logical_requests": 210,
                   "theoretical_stall": {
-                    "mean": 1134.4984213333332,
+                    "mean": 1208.896,
                     "overlap_model": "serial_no_overlap",
                     "p50": 1208.896,
                     "p95": 1208.896,
                     "p99": 1208.896,
                     "samples": 210,
-                    "total": 238244.66848,
+                    "total": 253868.16,
                     "unit": "microseconds"
                   },
                   "tiers": {
                     "backing_store": {
-                      "bytes_requested": 41152512,
-                      "bytes_transferred": 41152512,
+                      "bytes_requested": 43868160,
+                      "bytes_transferred": 43868160,
                       "hit_rate": 1.0,
-                      "hits": 197,
+                      "hits": 210,
                       "miss_rate": 0.0,
                       "misses": 0,
-                      "requests": 197
+                      "requests": 210
                     },
                     "cold": {
-                      "bytes_requested": 41152512,
+                      "bytes_requested": 43868160,
                       "bytes_transferred": 0,
                       "hit_rate": 0.0,
                       "hits": 0,
                       "miss_rate": 1.0,
-                      "misses": 197,
-                      "requests": 197
+                      "misses": 210,
+                      "requests": 210
                     },
                     "hot": {
                       "bytes_requested": 43868160,
-                      "bytes_transferred": 2715648,
-                      "hit_rate": 0.06190476190476191,
-                      "hits": 13,
-                      "miss_rate": 0.9380952380952381,
-                      "misses": 197,
+                      "bytes_transferred": 0,
+                      "hit_rate": 0.0,
+                      "hits": 0,
+                      "miss_rate": 1.0,
+                      "misses": 210,
                       "requests": 210
                     }
                   }
                 },
                 "PREFILL": {
-                  "backing_store_request_rate": 0.625,
+                  "backing_store_request_rate": 0.8869047619047619,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 33,
-                      "evictions": 32
+                      "admissions": 149,
+                      "evictions": 148
                     },
                     "hot": {
-                      "admissions": 33,
-                      "evictions": 32
+                      "admissions": 149,
+                      "evictions": 148
                     }
                   },
                   "logical_requests": 168,
                   "theoretical_stall": {
-                    "mean": 758.21836,
+                    "mean": 1072.9773466666666,
                     "overlap_model": "serial_no_overlap",
                     "p50": 1208.896,
                     "p95": 1208.896,
                     "p99": 1208.896,
                     "samples": 168,
-                    "total": 127380.68448,
+                    "total": 180260.19423999998,
                     "unit": "microseconds"
                   },
                   "tiers": {
                     "backing_store": {
-                      "bytes_requested": 21934080,
-                      "bytes_transferred": 21934080,
+                      "bytes_requested": 31125504,
+                      "bytes_transferred": 31125504,
                       "hit_rate": 1.0,
-                      "hits": 105,
+                      "hits": 149,
                       "miss_rate": 0.0,
                       "misses": 0,
-                      "requests": 105
+                      "requests": 149
                     },
                     "cold": {
-                      "bytes_requested": 21934080,
+                      "bytes_requested": 31125504,
                       "bytes_transferred": 0,
                       "hit_rate": 0.0,
                       "hits": 0,
                       "miss_rate": 1.0,
-                      "misses": 105,
-                      "requests": 105
+                      "misses": 149,
+                      "requests": 149
                     },
                     "hot": {
                       "bytes_requested": 35094528,
-                      "bytes_transferred": 13160448,
-                      "hit_rate": 0.375,
-                      "hits": 63,
-                      "miss_rate": 0.625,
-                      "misses": 105,
+                      "bytes_transferred": 3969024,
+                      "hit_rate": 0.1130952380952381,
+                      "hits": 19,
+                      "miss_rate": 0.8869047619047619,
+                      "misses": 149,
                       "requests": 168
                     }
                   }
@@ -12119,54 +12119,54 @@
                 }
               },
               "overall": {
-                "backing_store_request_rate": 0.798941798941799,
+                "backing_store_request_rate": 0.9497354497354498,
                 "cache_activity": {
                   "cold": {
-                    "admissions": 41,
-                    "evictions": 40
+                    "admissions": 359,
+                    "evictions": 358
                   },
                   "hot": {
-                    "admissions": 41,
-                    "evictions": 40
+                    "admissions": 359,
+                    "evictions": 358
                   }
                 },
                 "logical_requests": 378,
                 "theoretical_stall": {
-                  "mean": 967.2628385185185,
+                  "mean": 1148.4877096296295,
                   "overlap_model": "serial_no_overlap",
                   "p50": 1208.896,
                   "p95": 1208.896,
                   "p99": 1208.896,
                   "samples": 378,
-                  "total": 365625.35296,
+                  "total": 434128.35423999996,
                   "unit": "microseconds"
                 },
                 "tiers": {
                   "backing_store": {
-                    "bytes_requested": 63086592,
-                    "bytes_transferred": 63086592,
+                    "bytes_requested": 74993664,
+                    "bytes_transferred": 74993664,
                     "hit_rate": 1.0,
-                    "hits": 302,
+                    "hits": 359,
                     "miss_rate": 0.0,
                     "misses": 0,
-                    "requests": 302
+                    "requests": 359
                   },
                   "cold": {
-                    "bytes_requested": 63086592,
+                    "bytes_requested": 74993664,
                     "bytes_transferred": 0,
                     "hit_rate": 0.0,
                     "hits": 0,
                     "miss_rate": 1.0,
-                    "misses": 302,
-                    "requests": 302
+                    "misses": 359,
+                    "requests": 359
                   },
                   "hot": {
                     "bytes_requested": 78962688,
-                    "bytes_transferred": 15876096,
-                    "hit_rate": 0.20105820105820105,
-                    "hits": 76,
-                    "miss_rate": 0.798941798941799,
-                    "misses": 302,
+                    "bytes_transferred": 3969024,
+                    "hit_rate": 0.05026455026455026,
+                    "hits": 19,
+                    "miss_rate": 0.9497354497354498,
+                    "misses": 359,
                     "requests": 378
                   }
                 }
@@ -12369,54 +12369,54 @@
             "belady_min": {
               "by_phase": {
                 "DECODE": {
-                  "backing_store_request_rate": 0.16666666666666666,
+                  "backing_store_request_rate": 0.17142857142857143,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 18,
-                      "evictions": 18
+                      "admissions": 36,
+                      "evictions": 36
                     },
                     "hot": {
-                      "admissions": 43,
-                      "evictions": 43
+                      "admissions": 122,
+                      "evictions": 122
                     }
                   },
                   "logical_requests": 210,
                   "theoretical_stall": {
-                    "mean": 231.69513904761905,
+                    "mean": 239.24090514285714,
                     "overlap_model": "serial_no_overlap",
                     "p50": 70.8896,
                     "p95": 1208.896,
                     "p99": 1208.896,
                     "samples": 210,
-                    "total": 48655.9792,
+                    "total": 50240.59008,
                     "unit": "microseconds"
                   },
                   "tiers": {
                     "backing_store": {
-                      "bytes_requested": 7311360,
-                      "bytes_transferred": 7311360,
+                      "bytes_requested": 7520256,
+                      "bytes_transferred": 7520256,
                       "hit_rate": 1.0,
-                      "hits": 35,
+                      "hits": 36,
                       "miss_rate": 0.0,
                       "misses": 0,
-                      "requests": 35
+                      "requests": 36
                     },
                     "cold": {
-                      "bytes_requested": 24023040,
-                      "bytes_transferred": 16711680,
-                      "hit_rate": 0.6956521739130435,
-                      "hits": 80,
-                      "miss_rate": 0.30434782608695654,
-                      "misses": 35,
-                      "requests": 115
+                      "bytes_requested": 25485312,
+                      "bytes_transferred": 17965056,
+                      "hit_rate": 0.7049180327868853,
+                      "hits": 86,
+                      "miss_rate": 0.29508196721311475,
+                      "misses": 36,
+                      "requests": 122
                     },
                     "hot": {
                       "bytes_requested": 43868160,
-                      "bytes_transferred": 19845120,
-                      "hit_rate": 0.4523809523809524,
-                      "hits": 95,
-                      "miss_rate": 0.5476190476190477,
-                      "misses": 115,
+                      "bytes_transferred": 18382848,
+                      "hit_rate": 0.41904761904761906,
+                      "hits": 88,
+                      "miss_rate": 0.580952380952381,
+                      "misses": 122,
                       "requests": 210
                     }
                   }
@@ -12425,12 +12425,12 @@
                   "backing_store_request_rate": 0.23809523809523808,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 39,
-                      "evictions": 15
+                      "admissions": 40,
+                      "evictions": 16
                     },
                     "hot": {
-                      "admissions": 34,
-                      "evictions": 26
+                      "admissions": 40,
+                      "evictions": 32
                     }
                   },
                   "logical_requests": 168,
@@ -12490,54 +12490,54 @@
                 }
               },
               "overall": {
-                "backing_store_request_rate": 0.1984126984126984,
+                "backing_store_request_rate": 0.20105820105820105,
                 "cache_activity": {
                   "cold": {
-                    "admissions": 57,
-                    "evictions": 33
+                    "admissions": 76,
+                    "evictions": 52
                   },
                   "hot": {
-                    "admissions": 77,
-                    "evictions": 69
+                    "admissions": 162,
+                    "evictions": 154
                   }
                 },
                 "logical_requests": 378,
                 "theoretical_stall": {
-                  "mean": 259.04551873015873,
+                  "mean": 263.237611005291,
                   "overlap_model": "serial_no_overlap",
                   "p50": 7.08896,
                   "p95": 1208.896,
                   "p99": 1208.896,
                   "samples": 378,
-                  "total": 97919.20608,
+                  "total": 99503.81696,
                   "unit": "microseconds"
                 },
                 "tiers": {
                   "backing_store": {
-                    "bytes_requested": 15667200,
-                    "bytes_transferred": 15667200,
+                    "bytes_requested": 15876096,
+                    "bytes_transferred": 15876096,
                     "hit_rate": 1.0,
-                    "hits": 75,
+                    "hits": 76,
                     "miss_rate": 0.0,
                     "misses": 0,
-                    "requests": 75
+                    "requests": 76
                   },
                   "cold": {
-                    "bytes_requested": 32378880,
-                    "bytes_transferred": 16711680,
-                    "hit_rate": 0.5161290322580645,
-                    "hits": 80,
-                    "miss_rate": 0.4838709677419355,
-                    "misses": 75,
-                    "requests": 155
+                    "bytes_requested": 33841152,
+                    "bytes_transferred": 17965056,
+                    "hit_rate": 0.5308641975308642,
+                    "hits": 86,
+                    "miss_rate": 0.4691358024691358,
+                    "misses": 76,
+                    "requests": 162
                   },
                   "hot": {
                     "bytes_requested": 78962688,
-                    "bytes_transferred": 46583808,
-                    "hit_rate": 0.58994708994709,
-                    "hits": 223,
-                    "miss_rate": 0.41005291005291006,
-                    "misses": 155,
+                    "bytes_transferred": 45121536,
+                    "hit_rate": 0.5714285714285714,
+                    "hits": 216,
+                    "miss_rate": 0.42857142857142855,
+                    "misses": 162,
                     "requests": 378
                   }
                 }
@@ -13894,107 +13894,107 @@
             "belady_min": {
               "by_phase": {
                 "DECODE": {
-                  "backing_store_request_rate": 0.9342105263157895,
+                  "backing_store_request_rate": 1.0,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 22,
-                      "evictions": 22
+                      "admissions": 532,
+                      "evictions": 532
                     },
                     "hot": {
-                      "admissions": 22,
-                      "evictions": 22
+                      "admissions": 532,
+                      "evictions": 532
                     }
                   },
                   "logical_requests": 532,
                   "theoretical_stall": {
-                    "mean": 1129.829747368421,
+                    "mean": 1208.896,
                     "overlap_model": "serial_no_overlap",
                     "p50": 1208.896,
                     "p95": 1208.896,
                     "p99": 1208.896,
                     "samples": 532,
-                    "total": 601069.4256,
+                    "total": 643132.672,
                     "unit": "microseconds"
                   },
                   "tiers": {
                     "backing_store": {
-                      "bytes_requested": 103821312,
-                      "bytes_transferred": 103821312,
+                      "bytes_requested": 111132672,
+                      "bytes_transferred": 111132672,
                       "hit_rate": 1.0,
-                      "hits": 497,
+                      "hits": 532,
                       "miss_rate": 0.0,
                       "misses": 0,
-                      "requests": 497
+                      "requests": 532
                     },
                     "cold": {
-                      "bytes_requested": 103821312,
+                      "bytes_requested": 111132672,
                       "bytes_transferred": 0,
                       "hit_rate": 0.0,
                       "hits": 0,
                       "miss_rate": 1.0,
-                      "misses": 497,
-                      "requests": 497
+                      "misses": 532,
+                      "requests": 532
                     },
                     "hot": {
                       "bytes_requested": 111132672,
-                      "bytes_transferred": 7311360,
-                      "hit_rate": 0.06578947368421052,
-                      "hits": 35,
-                      "miss_rate": 0.9342105263157895,
-                      "misses": 497,
+                      "bytes_transferred": 0,
+                      "hit_rate": 0.0,
+                      "hits": 0,
+                      "miss_rate": 1.0,
+                      "misses": 532,
                       "requests": 532
                     }
                   }
                 },
                 "PREFILL": {
-                  "backing_store_request_rate": 0.6160714285714286,
+                  "backing_store_request_rate": 0.9464285714285714,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 31,
-                      "evictions": 30
+                      "admissions": 212,
+                      "evictions": 211
                     },
                     "hot": {
-                      "admissions": 31,
-                      "evictions": 30
+                      "admissions": 212,
+                      "evictions": 211
                     }
                   },
                   "logical_requests": 224,
                   "theoretical_stall": {
-                    "mean": 747.48794,
+                    "mean": 1144.51348,
                     "overlap_model": "serial_no_overlap",
                     "p50": 1208.896,
                     "p95": 1208.896,
                     "p99": 1208.896,
                     "samples": 224,
-                    "total": 167437.29856,
+                    "total": 256371.01952,
                     "unit": "microseconds"
                   },
                   "tiers": {
                     "backing_store": {
-                      "bytes_requested": 28827648,
-                      "bytes_transferred": 28827648,
+                      "bytes_requested": 44285952,
+                      "bytes_transferred": 44285952,
                       "hit_rate": 1.0,
-                      "hits": 138,
+                      "hits": 212,
                       "miss_rate": 0.0,
                       "misses": 0,
-                      "requests": 138
+                      "requests": 212
                     },
                     "cold": {
-                      "bytes_requested": 28827648,
+                      "bytes_requested": 44285952,
                       "bytes_transferred": 0,
                       "hit_rate": 0.0,
                       "hits": 0,
                       "miss_rate": 1.0,
-                      "misses": 138,
-                      "requests": 138
+                      "misses": 212,
+                      "requests": 212
                     },
                     "hot": {
                       "bytes_requested": 46792704,
-                      "bytes_transferred": 17965056,
-                      "hit_rate": 0.38392857142857145,
-                      "hits": 86,
-                      "miss_rate": 0.6160714285714286,
-                      "misses": 138,
+                      "bytes_transferred": 2506752,
+                      "hit_rate": 0.05357142857142857,
+                      "hits": 12,
+                      "miss_rate": 0.9464285714285714,
+                      "misses": 212,
                       "requests": 224
                     }
                   }
@@ -14015,54 +14015,54 @@
                 }
               },
               "overall": {
-                "backing_store_request_rate": 0.83994708994709,
+                "backing_store_request_rate": 0.9841269841269841,
                 "cache_activity": {
                   "cold": {
-                    "admissions": 53,
-                    "evictions": 52
+                    "admissions": 744,
+                    "evictions": 743
                   },
                   "hot": {
-                    "admissions": 53,
-                    "evictions": 52
+                    "admissions": 744,
+                    "evictions": 743
                   }
                 },
                 "logical_requests": 756,
                 "theoretical_stall": {
-                  "mean": 1016.5432859259259,
+                  "mean": 1189.8196977777777,
                   "overlap_model": "serial_no_overlap",
                   "p50": 1208.896,
                   "p95": 1208.896,
                   "p99": 1208.896,
                   "samples": 756,
-                  "total": 768506.72416,
+                  "total": 899503.69152,
                   "unit": "microseconds"
                 },
                 "tiers": {
                   "backing_store": {
-                    "bytes_requested": 132648960,
-                    "bytes_transferred": 132648960,
+                    "bytes_requested": 155418624,
+                    "bytes_transferred": 155418624,
                     "hit_rate": 1.0,
-                    "hits": 635,
+                    "hits": 744,
                     "miss_rate": 0.0,
                     "misses": 0,
-                    "requests": 635
+                    "requests": 744
                   },
                   "cold": {
-                    "bytes_requested": 132648960,
+                    "bytes_requested": 155418624,
                     "bytes_transferred": 0,
                     "hit_rate": 0.0,
                     "hits": 0,
                     "miss_rate": 1.0,
-                    "misses": 635,
-                    "requests": 635
+                    "misses": 744,
+                    "requests": 744
                   },
                   "hot": {
                     "bytes_requested": 157925376,
-                    "bytes_transferred": 25276416,
-                    "hit_rate": 0.16005291005291006,
-                    "hits": 121,
-                    "miss_rate": 0.83994708994709,
-                    "misses": 635,
+                    "bytes_transferred": 2506752,
+                    "hit_rate": 0.015873015873015872,
+                    "hits": 12,
+                    "miss_rate": 0.9841269841269841,
+                    "misses": 744,
                     "requests": 756
                   }
                 }
@@ -14265,54 +14265,54 @@
             "belady_min": {
               "by_phase": {
                 "DECODE": {
-                  "backing_store_request_rate": 0.17481203007518797,
+                  "backing_store_request_rate": 0.17857142857142858,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 59,
-                      "evictions": 59
+                      "admissions": 95,
+                      "evictions": 95
                     },
                     "hot": {
-                      "admissions": 115,
-                      "evictions": 115
+                      "admissions": 310,
+                      "evictions": 310
                     }
                   },
                   "logical_requests": 532,
                   "theoretical_stall": {
-                    "mean": 241.7641215037594,
+                    "mean": 247.48145323308268,
                     "overlap_model": "serial_no_overlap",
                     "p50": 70.8896,
                     "p95": 1208.896,
                     "p99": 1208.896,
                     "samples": 532,
-                    "total": 128618.51264,
+                    "total": 131660.13311999998,
                     "unit": "microseconds"
                   },
                   "tiers": {
                     "backing_store": {
-                      "bytes_requested": 19427328,
-                      "bytes_transferred": 19427328,
+                      "bytes_requested": 19845120,
+                      "bytes_transferred": 19845120,
                       "hit_rate": 1.0,
-                      "hits": 93,
+                      "hits": 95,
                       "miss_rate": 0.0,
                       "misses": 0,
-                      "requests": 93
+                      "requests": 95
                     },
                     "cold": {
-                      "bytes_requested": 62251008,
-                      "bytes_transferred": 42823680,
-                      "hit_rate": 0.6879194630872483,
-                      "hits": 205,
-                      "miss_rate": 0.31208053691275167,
-                      "misses": 93,
-                      "requests": 298
+                      "bytes_requested": 64757760,
+                      "bytes_transferred": 44912640,
+                      "hit_rate": 0.6935483870967742,
+                      "hits": 215,
+                      "miss_rate": 0.3064516129032258,
+                      "misses": 95,
+                      "requests": 310
                     },
                     "hot": {
                       "bytes_requested": 111132672,
-                      "bytes_transferred": 48881664,
-                      "hit_rate": 0.4398496240601504,
-                      "hits": 234,
-                      "miss_rate": 0.5601503759398496,
-                      "misses": 298,
+                      "bytes_transferred": 46374912,
+                      "hit_rate": 0.41729323308270677,
+                      "hits": 222,
+                      "miss_rate": 0.5827067669172933,
+                      "misses": 310,
                       "requests": 532
                     }
                   }
@@ -14321,12 +14321,12 @@
                   "backing_store_request_rate": 0.16517857142857142,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 36,
-                      "evictions": 12
+                      "admissions": 37,
+                      "evictions": 13
                     },
                     "hot": {
-                      "admissions": 33,
-                      "evictions": 25
+                      "admissions": 37,
+                      "evictions": 29
                     }
                   },
                   "logical_requests": 224,
@@ -14386,54 +14386,54 @@
                 }
               },
               "overall": {
-                "backing_store_request_rate": 0.17195767195767195,
+                "backing_store_request_rate": 0.1746031746031746,
                 "cache_activity": {
                   "cold": {
-                    "admissions": 95,
-                    "evictions": 71
+                    "admissions": 132,
+                    "evictions": 108
                   },
                   "hot": {
-                    "admissions": 148,
-                    "evictions": 140
+                    "admissions": 347,
+                    "evictions": 339
                   }
                 },
                 "logical_requests": 756,
                 "theoretical_stall": {
-                  "mean": 231.0493388359788,
+                  "mean": 235.07264634920634,
                   "overlap_model": "serial_no_overlap",
                   "p50": 7.08896,
                   "p95": 1208.896,
                   "p99": 1208.896,
                   "samples": 756,
-                  "total": 174673.30015999998,
+                  "total": 177714.92064,
                   "unit": "microseconds"
                 },
                 "tiers": {
                   "backing_store": {
-                    "bytes_requested": 27156480,
-                    "bytes_transferred": 27156480,
+                    "bytes_requested": 27574272,
+                    "bytes_transferred": 27574272,
                     "hit_rate": 1.0,
-                    "hits": 130,
+                    "hits": 132,
                     "miss_rate": 0.0,
                     "misses": 0,
-                    "requests": 130
+                    "requests": 132
                   },
                   "cold": {
-                    "bytes_requested": 69980160,
-                    "bytes_transferred": 42823680,
-                    "hit_rate": 0.6119402985074627,
-                    "hits": 205,
-                    "miss_rate": 0.3880597014925373,
-                    "misses": 130,
-                    "requests": 335
+                    "bytes_requested": 72486912,
+                    "bytes_transferred": 44912640,
+                    "hit_rate": 0.6195965417867435,
+                    "hits": 215,
+                    "miss_rate": 0.3804034582132565,
+                    "misses": 132,
+                    "requests": 347
                   },
                   "hot": {
                     "bytes_requested": 157925376,
-                    "bytes_transferred": 87945216,
-                    "hit_rate": 0.5568783068783069,
-                    "hits": 421,
-                    "miss_rate": 0.44312169312169314,
-                    "misses": 335,
+                    "bytes_transferred": 85438464,
+                    "hit_rate": 0.541005291005291,
+                    "hits": 409,
+                    "miss_rate": 0.458994708994709,
+                    "misses": 347,
                     "requests": 756
                   }
                 }
@@ -15796,107 +15796,107 @@
             "belady_min": {
               "by_phase": {
                 "DECODE": {
-                  "backing_store_request_rate": 0.9380952380952381,
+                  "backing_store_request_rate": 1.0,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 13,
-                      "evictions": 13
+                      "admissions": 210,
+                      "evictions": 210
                     },
                     "hot": {
-                      "admissions": 13,
-                      "evictions": 13
+                      "admissions": 210,
+                      "evictions": 210
                     }
                   },
                   "logical_requests": 210,
                   "theoretical_stall": {
-                    "mean": 1134.4984213333332,
+                    "mean": 1208.896,
                     "overlap_model": "serial_no_overlap",
                     "p50": 1208.896,
                     "p95": 1208.896,
                     "p99": 1208.896,
                     "samples": 210,
-                    "total": 238244.66848,
+                    "total": 253868.16,
                     "unit": "microseconds"
                   },
                   "tiers": {
                     "backing_store": {
-                      "bytes_requested": 41152512,
-                      "bytes_transferred": 41152512,
+                      "bytes_requested": 43868160,
+                      "bytes_transferred": 43868160,
                       "hit_rate": 1.0,
-                      "hits": 197,
+                      "hits": 210,
                       "miss_rate": 0.0,
                       "misses": 0,
-                      "requests": 197
+                      "requests": 210
                     },
                     "cold": {
-                      "bytes_requested": 41152512,
+                      "bytes_requested": 43868160,
                       "bytes_transferred": 0,
                       "hit_rate": 0.0,
                       "hits": 0,
                       "miss_rate": 1.0,
-                      "misses": 197,
-                      "requests": 197
+                      "misses": 210,
+                      "requests": 210
                     },
                     "hot": {
                       "bytes_requested": 43868160,
-                      "bytes_transferred": 2715648,
-                      "hit_rate": 0.06190476190476191,
-                      "hits": 13,
-                      "miss_rate": 0.9380952380952381,
-                      "misses": 197,
+                      "bytes_transferred": 0,
+                      "hit_rate": 0.0,
+                      "hits": 0,
+                      "miss_rate": 1.0,
+                      "misses": 210,
                       "requests": 210
                     }
                   }
                 },
                 "PREFILL": {
-                  "backing_store_request_rate": 0.5900621118012422,
+                  "backing_store_request_rate": 0.9192546583850931,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 51,
-                      "evictions": 50
+                      "admissions": 296,
+                      "evictions": 295
                     },
                     "hot": {
-                      "admissions": 51,
-                      "evictions": 50
+                      "admissions": 296,
+                      "evictions": 295
                     }
                   },
                   "logical_requests": 322,
                   "theoretical_stall": {
-                    "mean": 716.22976,
+                    "mean": 1111.85568,
                     "overlap_model": "serial_no_overlap",
                     "p50": 1208.896,
                     "p95": 1208.896,
                     "p99": 1208.896,
                     "samples": 322,
-                    "total": 230625.98272,
+                    "total": 358017.52895999997,
                     "unit": "microseconds"
                   },
                   "tiers": {
                     "backing_store": {
-                      "bytes_requested": 39690240,
-                      "bytes_transferred": 39690240,
+                      "bytes_requested": 61833216,
+                      "bytes_transferred": 61833216,
                       "hit_rate": 1.0,
-                      "hits": 190,
+                      "hits": 296,
                       "miss_rate": 0.0,
                       "misses": 0,
-                      "requests": 190
+                      "requests": 296
                     },
                     "cold": {
-                      "bytes_requested": 39690240,
+                      "bytes_requested": 61833216,
                       "bytes_transferred": 0,
                       "hit_rate": 0.0,
                       "hits": 0,
                       "miss_rate": 1.0,
-                      "misses": 190,
-                      "requests": 190
+                      "misses": 296,
+                      "requests": 296
                     },
                     "hot": {
                       "bytes_requested": 67264512,
-                      "bytes_transferred": 27574272,
-                      "hit_rate": 0.40993788819875776,
-                      "hits": 132,
-                      "miss_rate": 0.5900621118012422,
-                      "misses": 190,
+                      "bytes_transferred": 5431296,
+                      "hit_rate": 0.08074534161490683,
+                      "hits": 26,
+                      "miss_rate": 0.9192546583850931,
+                      "misses": 296,
                       "requests": 322
                     }
                   }
@@ -15917,54 +15917,54 @@
                 }
               },
               "overall": {
-                "backing_store_request_rate": 0.7274436090225563,
+                "backing_store_request_rate": 0.9511278195488722,
                 "cache_activity": {
                   "cold": {
-                    "admissions": 64,
-                    "evictions": 63
+                    "admissions": 506,
+                    "evictions": 505
                   },
                   "hot": {
-                    "admissions": 64,
-                    "evictions": 63
+                    "admissions": 506,
+                    "evictions": 505
                   }
                 },
                 "logical_requests": 532,
                 "theoretical_stall": {
-                  "mean": 881.3358105263158,
+                  "mean": 1150.1610694736842,
                   "overlap_model": "serial_no_overlap",
                   "p50": 1208.896,
                   "p95": 1208.896,
                   "p99": 1208.896,
                   "samples": 532,
-                  "total": 468870.65119999996,
+                  "total": 611885.6889599999,
                   "unit": "microseconds"
                 },
                 "tiers": {
                   "backing_store": {
-                    "bytes_requested": 80842752,
-                    "bytes_transferred": 80842752,
+                    "bytes_requested": 105701376,
+                    "bytes_transferred": 105701376,
                     "hit_rate": 1.0,
-                    "hits": 387,
+                    "hits": 506,
                     "miss_rate": 0.0,
                     "misses": 0,
-                    "requests": 387
+                    "requests": 506
                   },
                   "cold": {
-                    "bytes_requested": 80842752,
+                    "bytes_requested": 105701376,
                     "bytes_transferred": 0,
                     "hit_rate": 0.0,
                     "hits": 0,
                     "miss_rate": 1.0,
-                    "misses": 387,
-                    "requests": 387
+                    "misses": 506,
+                    "requests": 506
                   },
                   "hot": {
                     "bytes_requested": 111132672,
-                    "bytes_transferred": 30289920,
-                    "hit_rate": 0.2725563909774436,
-                    "hits": 145,
-                    "miss_rate": 0.7274436090225563,
-                    "misses": 387,
+                    "bytes_transferred": 5431296,
+                    "hit_rate": 0.04887218045112782,
+                    "hits": 26,
+                    "miss_rate": 0.9511278195488722,
+                    "misses": 506,
                     "requests": 532
                   }
                 }
@@ -16167,54 +16167,54 @@
             "belady_min": {
               "by_phase": {
                 "DECODE": {
-                  "backing_store_request_rate": 0.23333333333333334,
+                  "backing_store_request_rate": 0.23809523809523808,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 22,
-                      "evictions": 22
+                      "admissions": 50,
+                      "evictions": 50
                     },
                     "hot": {
-                      "admissions": 46,
-                      "evictions": 46
+                      "admissions": 130,
+                      "evictions": 130
                     }
                   },
                   "logical_requests": 210,
                   "theoretical_stall": {
-                    "mean": 310.2965455238095,
+                    "mean": 317.53849904761904,
                     "overlap_model": "serial_no_overlap",
                     "p50": 70.8896,
                     "p95": 1208.896,
                     "p99": 1208.896,
                     "samples": 210,
-                    "total": 65162.27456,
+                    "total": 66683.0848,
                     "unit": "microseconds"
                   },
                   "tiers": {
                     "backing_store": {
-                      "bytes_requested": 10235904,
-                      "bytes_transferred": 10235904,
+                      "bytes_requested": 10444800,
+                      "bytes_transferred": 10444800,
                       "hit_rate": 1.0,
-                      "hits": 49,
+                      "hits": 50,
                       "miss_rate": 0.0,
                       "misses": 0,
-                      "requests": 49
+                      "requests": 50
                     },
                     "cold": {
-                      "bytes_requested": 25903104,
-                      "bytes_transferred": 15667200,
-                      "hit_rate": 0.6048387096774194,
-                      "hits": 75,
-                      "miss_rate": 0.3951612903225806,
-                      "misses": 49,
-                      "requests": 124
+                      "bytes_requested": 27156480,
+                      "bytes_transferred": 16711680,
+                      "hit_rate": 0.6153846153846154,
+                      "hits": 80,
+                      "miss_rate": 0.38461538461538464,
+                      "misses": 50,
+                      "requests": 130
                     },
                     "hot": {
                       "bytes_requested": 43868160,
-                      "bytes_transferred": 17965056,
-                      "hit_rate": 0.4095238095238095,
-                      "hits": 86,
-                      "miss_rate": 0.5904761904761905,
-                      "misses": 124,
+                      "bytes_transferred": 16711680,
+                      "hit_rate": 0.38095238095238093,
+                      "hits": 80,
+                      "miss_rate": 0.6190476190476191,
+                      "misses": 130,
                       "requests": 210
                     }
                   }
@@ -16223,12 +16223,12 @@
                   "backing_store_request_rate": 0.12732919254658384,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 39,
-                      "evictions": 15
+                      "admissions": 41,
+                      "evictions": 17
                     },
                     "hot": {
-                      "admissions": 36,
-                      "evictions": 28
+                      "admissions": 41,
+                      "evictions": 33
                     }
                   },
                   "logical_requests": 322,
@@ -16288,54 +16288,54 @@
                 }
               },
               "overall": {
-                "backing_store_request_rate": 0.16917293233082706,
+                "backing_store_request_rate": 0.17105263157894737,
                 "cache_activity": {
                   "cold": {
-                    "admissions": 61,
-                    "evictions": 37
+                    "admissions": 91,
+                    "evictions": 67
                   },
                   "hot": {
-                    "admissions": 82,
-                    "evictions": 74
+                    "admissions": 171,
+                    "evictions": 163
                   }
                 },
                 "logical_requests": 532,
                 "theoretical_stall": {
-                  "mean": 219.39663218045112,
+                  "mean": 222.2552980451128,
                   "overlap_model": "serial_no_overlap",
                   "p50": 7.08896,
                   "p95": 1208.896,
                   "p99": 1208.896,
                   "samples": 532,
-                  "total": 116719.00832,
+                  "total": 118239.81856,
                   "unit": "microseconds"
                 },
                 "tiers": {
                   "backing_store": {
-                    "bytes_requested": 18800640,
-                    "bytes_transferred": 18800640,
+                    "bytes_requested": 19009536,
+                    "bytes_transferred": 19009536,
                     "hit_rate": 1.0,
-                    "hits": 90,
+                    "hits": 91,
                     "miss_rate": 0.0,
                     "misses": 0,
-                    "requests": 90
+                    "requests": 91
                   },
                   "cold": {
-                    "bytes_requested": 34467840,
-                    "bytes_transferred": 15667200,
-                    "hit_rate": 0.45454545454545453,
-                    "hits": 75,
-                    "miss_rate": 0.5454545454545454,
-                    "misses": 90,
-                    "requests": 165
+                    "bytes_requested": 35721216,
+                    "bytes_transferred": 16711680,
+                    "hit_rate": 0.4678362573099415,
+                    "hits": 80,
+                    "miss_rate": 0.5321637426900585,
+                    "misses": 91,
+                    "requests": 171
                   },
                   "hot": {
                     "bytes_requested": 111132672,
-                    "bytes_transferred": 76664832,
-                    "hit_rate": 0.6898496240601504,
-                    "hits": 367,
-                    "miss_rate": 0.3101503759398496,
-                    "misses": 165,
+                    "bytes_transferred": 75411456,
+                    "hit_rate": 0.6785714285714286,
+                    "hits": 361,
+                    "miss_rate": 0.32142857142857145,
+                    "misses": 171,
                     "requests": 532
                   }
                 }
@@ -17702,107 +17702,107 @@
             "belady_min": {
               "by_phase": {
                 "DECODE": {
-                  "backing_store_request_rate": 0.9365079365079365,
+                  "backing_store_request_rate": 1.0,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 11,
-                      "evictions": 11
+                      "admissions": 126,
+                      "evictions": 126
                     },
                     "hot": {
-                      "admissions": 11,
-                      "evictions": 11
+                      "admissions": 126,
+                      "evictions": 126
                     }
                   },
                   "logical_requests": 126,
                   "theoretical_stall": {
-                    "mean": 1132.590791111111,
+                    "mean": 1208.896,
                     "overlap_model": "serial_no_overlap",
                     "p50": 1208.896,
                     "p95": 1208.896,
                     "p99": 1208.896,
                     "samples": 126,
-                    "total": 142706.43967999998,
+                    "total": 152320.896,
                     "unit": "microseconds"
                   },
                   "tiers": {
                     "backing_store": {
-                      "bytes_requested": 24649728,
-                      "bytes_transferred": 24649728,
+                      "bytes_requested": 26320896,
+                      "bytes_transferred": 26320896,
                       "hit_rate": 1.0,
-                      "hits": 118,
+                      "hits": 126,
                       "miss_rate": 0.0,
                       "misses": 0,
-                      "requests": 118
+                      "requests": 126
                     },
                     "cold": {
-                      "bytes_requested": 24649728,
+                      "bytes_requested": 26320896,
                       "bytes_transferred": 0,
                       "hit_rate": 0.0,
                       "hits": 0,
                       "miss_rate": 1.0,
-                      "misses": 118,
-                      "requests": 118
+                      "misses": 126,
+                      "requests": 126
                     },
                     "hot": {
                       "bytes_requested": 26320896,
-                      "bytes_transferred": 1671168,
-                      "hit_rate": 0.06349206349206349,
-                      "hits": 8,
-                      "miss_rate": 0.9365079365079365,
-                      "misses": 118,
+                      "bytes_transferred": 0,
+                      "hit_rate": 0.0,
+                      "hits": 0,
+                      "miss_rate": 1.0,
+                      "misses": 126,
                       "requests": 126
                     }
                   }
                 },
                 "PREFILL": {
-                  "backing_store_request_rate": 0.6076388888888888,
+                  "backing_store_request_rate": 0.9174107142857143,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 558,
-                      "evictions": 557
+                      "admissions": 3699,
+                      "evictions": 3698
                     },
                     "hot": {
-                      "admissions": 558,
-                      "evictions": 557
+                      "admissions": 3699,
+                      "evictions": 3698
                     }
                   },
                   "logical_requests": 4032,
                   "theoretical_stall": {
-                    "mean": 737.3536544444444,
+                    "mean": 1109.6396149999998,
                     "overlap_model": "serial_no_overlap",
                     "p50": 1208.896,
                     "p95": 1208.896,
                     "p99": 1208.896,
                     "samples": 4032,
-                    "total": 2973009.93472,
+                    "total": 4474066.92768,
                     "unit": "microseconds"
                   },
                   "tiers": {
                     "backing_store": {
-                      "bytes_requested": 511795200,
-                      "bytes_transferred": 511795200,
+                      "bytes_requested": 772706304,
+                      "bytes_transferred": 772706304,
                       "hit_rate": 1.0,
-                      "hits": 2450,
+                      "hits": 3699,
                       "miss_rate": 0.0,
                       "misses": 0,
-                      "requests": 2450
+                      "requests": 3699
                     },
                     "cold": {
-                      "bytes_requested": 511795200,
+                      "bytes_requested": 772706304,
                       "bytes_transferred": 0,
                       "hit_rate": 0.0,
                       "hits": 0,
                       "miss_rate": 1.0,
-                      "misses": 2450,
-                      "requests": 2450
+                      "misses": 3699,
+                      "requests": 3699
                     },
                     "hot": {
                       "bytes_requested": 842268672,
-                      "bytes_transferred": 330473472,
-                      "hit_rate": 0.3923611111111111,
-                      "hits": 1582,
-                      "miss_rate": 0.6076388888888888,
-                      "misses": 2450,
+                      "bytes_transferred": 69562368,
+                      "hit_rate": 0.08258928571428571,
+                      "hits": 333,
+                      "miss_rate": 0.9174107142857143,
+                      "misses": 3699,
                       "requests": 4032
                     }
                   }
@@ -17823,54 +17823,54 @@
                 }
               },
               "overall": {
-                "backing_store_request_rate": 0.6176046176046176,
+                "backing_store_request_rate": 0.9199134199134199,
                 "cache_activity": {
                   "cold": {
-                    "admissions": 569,
-                    "evictions": 568
+                    "admissions": 3825,
+                    "evictions": 3824
                   },
                   "hot": {
-                    "admissions": 569,
-                    "evictions": 568
+                    "admissions": 3825,
+                    "evictions": 3824
                   }
                 },
                 "logical_requests": 4158,
                 "theoretical_stall": {
-                  "mean": 749.3305373737373,
+                  "mean": 1112.647384242424,
                   "overlap_model": "serial_no_overlap",
                   "p50": 1208.896,
                   "p95": 1208.896,
                   "p99": 1208.896,
                   "samples": 4158,
-                  "total": 3115716.3744,
+                  "total": 4626387.823679999,
                   "unit": "microseconds"
                 },
                 "tiers": {
                   "backing_store": {
-                    "bytes_requested": 536444928,
-                    "bytes_transferred": 536444928,
+                    "bytes_requested": 799027200,
+                    "bytes_transferred": 799027200,
                     "hit_rate": 1.0,
-                    "hits": 2568,
+                    "hits": 3825,
                     "miss_rate": 0.0,
                     "misses": 0,
-                    "requests": 2568
+                    "requests": 3825
                   },
                   "cold": {
-                    "bytes_requested": 536444928,
+                    "bytes_requested": 799027200,
                     "bytes_transferred": 0,
                     "hit_rate": 0.0,
                     "hits": 0,
                     "miss_rate": 1.0,
-                    "misses": 2568,
-                    "requests": 2568
+                    "misses": 3825,
+                    "requests": 3825
                   },
                   "hot": {
                     "bytes_requested": 868589568,
-                    "bytes_transferred": 332144640,
-                    "hit_rate": 0.3823953823953824,
-                    "hits": 1590,
-                    "miss_rate": 0.6176046176046176,
-                    "misses": 2568,
+                    "bytes_transferred": 69562368,
+                    "hit_rate": 0.08008658008658008,
+                    "hits": 333,
+                    "miss_rate": 0.9199134199134199,
+                    "misses": 3825,
                     "requests": 4158
                   }
                 }
@@ -18073,54 +18073,54 @@
             "belady_min": {
               "by_phase": {
                 "DECODE": {
-                  "backing_store_request_rate": 0.15873015873015872,
+                  "backing_store_request_rate": 0.16666666666666666,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 15,
-                      "evictions": 15
+                      "admissions": 21,
+                      "evictions": 21
                     },
                     "hot": {
-                      "admissions": 42,
-                      "evictions": 42
+                      "admissions": 78,
+                      "evictions": 78
                     }
                   },
                   "logical_requests": 126,
                   "theoretical_stall": {
-                    "mean": 225.19511365079364,
+                    "mean": 236.2523276190476,
                     "overlap_model": "serial_no_overlap",
                     "p50": 70.8896,
                     "p95": 1208.896,
                     "p99": 1208.896,
                     "samples": 126,
-                    "total": 28374.584319999998,
+                    "total": 29767.793279999998,
                     "unit": "microseconds"
                   },
                   "tiers": {
                     "backing_store": {
-                      "bytes_requested": 4177920,
-                      "bytes_transferred": 4177920,
+                      "bytes_requested": 4386816,
+                      "bytes_transferred": 4386816,
                       "hit_rate": 1.0,
-                      "hits": 20,
+                      "hits": 21,
                       "miss_rate": 0.0,
                       "misses": 0,
-                      "requests": 20
+                      "requests": 21
                     },
                     "cold": {
-                      "bytes_requested": 15458304,
-                      "bytes_transferred": 11280384,
-                      "hit_rate": 0.7297297297297297,
-                      "hits": 54,
-                      "miss_rate": 0.2702702702702703,
-                      "misses": 20,
-                      "requests": 74
+                      "bytes_requested": 16293888,
+                      "bytes_transferred": 11907072,
+                      "hit_rate": 0.7307692307692307,
+                      "hits": 57,
+                      "miss_rate": 0.2692307692307692,
+                      "misses": 21,
+                      "requests": 78
                     },
                     "hot": {
                       "bytes_requested": 26320896,
-                      "bytes_transferred": 10862592,
-                      "hit_rate": 0.4126984126984127,
-                      "hits": 52,
-                      "miss_rate": 0.5873015873015873,
-                      "misses": 74,
+                      "bytes_transferred": 10027008,
+                      "hit_rate": 0.38095238095238093,
+                      "hits": 48,
+                      "miss_rate": 0.6190476190476191,
+                      "misses": 78,
                       "requests": 126
                     }
                   }
@@ -18129,12 +18129,12 @@
                   "backing_store_request_rate": 0.013392857142857142,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 53,
-                      "evictions": 29
+                      "admissions": 54,
+                      "evictions": 30
                     },
                     "hot": {
-                      "admissions": 52,
-                      "evictions": 44
+                      "admissions": 54,
+                      "evictions": 46
                     }
                   },
                   "logical_requests": 4032,
@@ -18194,54 +18194,54 @@
                 }
               },
               "overall": {
-                "backing_store_request_rate": 0.017797017797017797,
+                "backing_store_request_rate": 0.018037518037518036,
                 "cache_activity": {
                   "cold": {
-                    "admissions": 68,
-                    "evictions": 44
+                    "admissions": 75,
+                    "evictions": 51
                   },
                   "hot": {
-                    "admissions": 94,
-                    "evictions": 86
+                    "admissions": 132,
+                    "evictions": 124
                   }
                 },
                 "logical_requests": 4158,
                 "theoretical_stall": {
-                  "mean": 29.306121019721022,
+                  "mean": 29.641188109668107,
                   "overlap_model": "serial_no_overlap",
                   "p50": 7.08896,
                   "p95": 7.08896,
                   "p99": 1208.896,
                   "samples": 4158,
-                  "total": 121854.8512,
+                  "total": 123248.06016,
                   "unit": "microseconds"
                 },
                 "tiers": {
                   "backing_store": {
-                    "bytes_requested": 15458304,
-                    "bytes_transferred": 15458304,
+                    "bytes_requested": 15667200,
+                    "bytes_transferred": 15667200,
                     "hit_rate": 1.0,
-                    "hits": 74,
+                    "hits": 75,
                     "miss_rate": 0.0,
                     "misses": 0,
-                    "requests": 74
+                    "requests": 75
                   },
                   "cold": {
-                    "bytes_requested": 26738688,
-                    "bytes_transferred": 11280384,
-                    "hit_rate": 0.421875,
-                    "hits": 54,
-                    "miss_rate": 0.578125,
-                    "misses": 74,
-                    "requests": 128
+                    "bytes_requested": 27574272,
+                    "bytes_transferred": 11907072,
+                    "hit_rate": 0.4318181818181818,
+                    "hits": 57,
+                    "miss_rate": 0.5681818181818182,
+                    "misses": 75,
+                    "requests": 132
                   },
                   "hot": {
                     "bytes_requested": 868589568,
-                    "bytes_transferred": 841850880,
-                    "hit_rate": 0.9692159692159692,
-                    "hits": 4030,
-                    "miss_rate": 0.030784030784030785,
-                    "misses": 128,
+                    "bytes_transferred": 841015296,
+                    "hit_rate": 0.9682539682539683,
+                    "hits": 4026,
+                    "miss_rate": 0.031746031746031744,
+                    "misses": 132,
                     "requests": 4158
                   }
                 }
@@ -19505,54 +19505,54 @@
                   }
                 },
                 "PREFILL": {
-                  "backing_store_request_rate": 0.6141932501155802,
+                  "backing_store_request_rate": 0.9061488673139159,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 671,
-                      "evictions": 670
+                      "admissions": 3920,
+                      "evictions": 3919
                     },
                     "hot": {
-                      "admissions": 671,
-                      "evictions": 670
+                      "admissions": 3920,
+                      "evictions": 3919
                     }
                   },
                   "logical_requests": 4326,
                   "theoretical_stall": {
-                    "mean": 745.230731909385,
+                    "mean": 1096.10504802589,
                     "overlap_model": "serial_no_overlap",
                     "p50": 1208.896,
                     "p95": 1208.896,
                     "p99": 1208.896,
                     "samples": 4326,
-                    "total": 3223868.1462399997,
+                    "total": 4741750.43776,
                     "unit": "microseconds"
                   },
                   "tiers": {
                     "backing_store": {
-                      "bytes_requested": 555036672,
-                      "bytes_transferred": 555036672,
+                      "bytes_requested": 818872320,
+                      "bytes_transferred": 818872320,
                       "hit_rate": 1.0,
-                      "hits": 2657,
+                      "hits": 3920,
                       "miss_rate": 0.0,
                       "misses": 0,
-                      "requests": 2657
+                      "requests": 3920
                     },
                     "cold": {
-                      "bytes_requested": 555036672,
+                      "bytes_requested": 818872320,
                       "bytes_transferred": 0,
                       "hit_rate": 0.0,
                       "hits": 0,
                       "miss_rate": 1.0,
-                      "misses": 2657,
-                      "requests": 2657
+                      "misses": 3920,
+                      "requests": 3920
                     },
                     "hot": {
                       "bytes_requested": 903684096,
-                      "bytes_transferred": 348647424,
-                      "hit_rate": 0.38580674988441976,
-                      "hits": 1669,
-                      "miss_rate": 0.6141932501155802,
-                      "misses": 2657,
+                      "bytes_transferred": 84811776,
+                      "hit_rate": 0.09385113268608414,
+                      "hits": 406,
+                      "miss_rate": 0.9061488673139159,
+                      "misses": 3920,
                       "requests": 4326
                     }
                   }
@@ -19573,54 +19573,54 @@
                 }
               },
               "overall": {
-                "backing_store_request_rate": 0.6141932501155802,
+                "backing_store_request_rate": 0.9061488673139159,
                 "cache_activity": {
                   "cold": {
-                    "admissions": 671,
-                    "evictions": 670
+                    "admissions": 3920,
+                    "evictions": 3919
                   },
                   "hot": {
-                    "admissions": 671,
-                    "evictions": 670
+                    "admissions": 3920,
+                    "evictions": 3919
                   }
                 },
                 "logical_requests": 4326,
                 "theoretical_stall": {
-                  "mean": 745.230731909385,
+                  "mean": 1096.10504802589,
                   "overlap_model": "serial_no_overlap",
                   "p50": 1208.896,
                   "p95": 1208.896,
                   "p99": 1208.896,
                   "samples": 4326,
-                  "total": 3223868.1462399997,
+                  "total": 4741750.43776,
                   "unit": "microseconds"
                 },
                 "tiers": {
                   "backing_store": {
-                    "bytes_requested": 555036672,
-                    "bytes_transferred": 555036672,
+                    "bytes_requested": 818872320,
+                    "bytes_transferred": 818872320,
                     "hit_rate": 1.0,
-                    "hits": 2657,
+                    "hits": 3920,
                     "miss_rate": 0.0,
                     "misses": 0,
-                    "requests": 2657
+                    "requests": 3920
                   },
                   "cold": {
-                    "bytes_requested": 555036672,
+                    "bytes_requested": 818872320,
                     "bytes_transferred": 0,
                     "hit_rate": 0.0,
                     "hits": 0,
                     "miss_rate": 1.0,
-                    "misses": 2657,
-                    "requests": 2657
+                    "misses": 3920,
+                    "requests": 3920
                   },
                   "hot": {
                     "bytes_requested": 903684096,
-                    "bytes_transferred": 348647424,
-                    "hit_rate": 0.38580674988441976,
-                    "hits": 1669,
-                    "miss_rate": 0.6141932501155802,
-                    "misses": 2657,
+                    "bytes_transferred": 84811776,
+                    "hit_rate": 0.09385113268608414,
+                    "hits": 406,
+                    "miss_rate": 0.9061488673139159,
+                    "misses": 3920,
                     "requests": 4326
                   }
                 }
@@ -21307,107 +21307,107 @@
             "belady_min": {
               "by_phase": {
                 "DECODE": {
-                  "backing_store_request_rate": 0.9642857142857143,
+                  "backing_store_request_rate": 1.0,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 1,
-                      "evictions": 1
+                      "admissions": 28,
+                      "evictions": 28
                     },
                     "hot": {
-                      "admissions": 1,
-                      "evictions": 1
+                      "admissions": 28,
+                      "evictions": 28
                     }
                   },
                   "logical_requests": 28,
                   "theoretical_stall": {
-                    "mean": 1165.97432,
+                    "mean": 1208.896,
                     "overlap_model": "serial_no_overlap",
                     "p50": 1208.896,
                     "p95": 1208.896,
                     "p99": 1208.896,
                     "samples": 28,
-                    "total": 32647.28096,
+                    "total": 33849.087999999996,
                     "unit": "microseconds"
                   },
                   "tiers": {
                     "backing_store": {
-                      "bytes_requested": 5640192,
-                      "bytes_transferred": 5640192,
+                      "bytes_requested": 5849088,
+                      "bytes_transferred": 5849088,
                       "hit_rate": 1.0,
-                      "hits": 27,
+                      "hits": 28,
                       "miss_rate": 0.0,
                       "misses": 0,
-                      "requests": 27
+                      "requests": 28
                     },
                     "cold": {
-                      "bytes_requested": 5640192,
+                      "bytes_requested": 5849088,
                       "bytes_transferred": 0,
                       "hit_rate": 0.0,
                       "hits": 0,
                       "miss_rate": 1.0,
-                      "misses": 27,
-                      "requests": 27
+                      "misses": 28,
+                      "requests": 28
                     },
                     "hot": {
                       "bytes_requested": 5849088,
-                      "bytes_transferred": 208896,
-                      "hit_rate": 0.03571428571428571,
-                      "hits": 1,
-                      "miss_rate": 0.9642857142857143,
-                      "misses": 27,
+                      "bytes_transferred": 0,
+                      "hit_rate": 0.0,
+                      "hits": 0,
+                      "miss_rate": 1.0,
+                      "misses": 28,
                       "requests": 28
                     }
                   }
                 },
                 "PREFILL": {
-                  "backing_store_request_rate": 0.5978305362259517,
+                  "backing_store_request_rate": 0.9150634465820712,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 725,
-                      "evictions": 724
+                      "admissions": 4471,
+                      "evictions": 4470
                     },
                     "hot": {
-                      "admissions": 725,
-                      "evictions": 724
+                      "admissions": 4471,
+                      "evictions": 4470
                     }
                   },
                   "logical_requests": 4886,
                   "theoretical_stall": {
-                    "mean": 725.5659071633237,
+                    "mean": 1106.818652148997,
                     "overlap_model": "serial_no_overlap",
                     "p50": 1208.896,
                     "p95": 1208.896,
                     "p99": 1208.896,
                     "samples": 4886,
-                    "total": 3545115.0223999997,
+                    "total": 5407915.9344,
                     "unit": "microseconds"
                   },
                   "tiers": {
                     "backing_store": {
-                      "bytes_requested": 610185216,
-                      "bytes_transferred": 610185216,
+                      "bytes_requested": 933974016,
+                      "bytes_transferred": 933974016,
                       "hit_rate": 1.0,
-                      "hits": 2921,
+                      "hits": 4471,
                       "miss_rate": 0.0,
                       "misses": 0,
-                      "requests": 2921
+                      "requests": 4471
                     },
                     "cold": {
-                      "bytes_requested": 610185216,
+                      "bytes_requested": 933974016,
                       "bytes_transferred": 0,
                       "hit_rate": 0.0,
                       "hits": 0,
                       "miss_rate": 1.0,
-                      "misses": 2921,
-                      "requests": 2921
+                      "misses": 4471,
+                      "requests": 4471
                     },
                     "hot": {
                       "bytes_requested": 1020665856,
-                      "bytes_transferred": 410480640,
-                      "hit_rate": 0.4021694637740483,
-                      "hits": 1965,
-                      "miss_rate": 0.5978305362259517,
-                      "misses": 2921,
+                      "bytes_transferred": 86691840,
+                      "hit_rate": 0.08493655341792877,
+                      "hits": 415,
+                      "miss_rate": 0.9150634465820712,
+                      "misses": 4471,
                       "requests": 4886
                     }
                   }
@@ -21428,54 +21428,54 @@
                 }
               },
               "overall": {
-                "backing_store_request_rate": 0.5999185999186,
+                "backing_store_request_rate": 0.9155474155474156,
                 "cache_activity": {
                   "cold": {
-                    "admissions": 726,
-                    "evictions": 725
+                    "admissions": 4499,
+                    "evictions": 4498
                   },
                   "hot": {
-                    "admissions": 726,
-                    "evictions": 725
+                    "admissions": 4499,
+                    "evictions": 4498
                   }
                 },
                 "logical_requests": 4914,
                 "theoretical_stall": {
-                  "mean": 728.0753568091168,
+                  "mean": 1107.4002894586895,
                   "overlap_model": "serial_no_overlap",
                   "p50": 1208.896,
                   "p95": 1208.896,
                   "p99": 1208.896,
                   "samples": 4914,
-                  "total": 3577762.30336,
+                  "total": 5441765.0224,
                   "unit": "microseconds"
                 },
                 "tiers": {
                   "backing_store": {
-                    "bytes_requested": 615825408,
-                    "bytes_transferred": 615825408,
+                    "bytes_requested": 939823104,
+                    "bytes_transferred": 939823104,
                     "hit_rate": 1.0,
-                    "hits": 2948,
+                    "hits": 4499,
                     "miss_rate": 0.0,
                     "misses": 0,
-                    "requests": 2948
+                    "requests": 4499
                   },
                   "cold": {
-                    "bytes_requested": 615825408,
+                    "bytes_requested": 939823104,
                     "bytes_transferred": 0,
                     "hit_rate": 0.0,
                     "hits": 0,
                     "miss_rate": 1.0,
-                    "misses": 2948,
-                    "requests": 2948
+                    "misses": 4499,
+                    "requests": 4499
                   },
                   "hot": {
                     "bytes_requested": 1026514944,
-                    "bytes_transferred": 410689536,
-                    "hit_rate": 0.4000814000814001,
-                    "hits": 1966,
-                    "miss_rate": 0.5999185999186,
-                    "misses": 2948,
+                    "bytes_transferred": 86691840,
+                    "hit_rate": 0.08445258445258445,
+                    "hits": 415,
+                    "miss_rate": 0.9155474155474156,
+                    "misses": 4499,
                     "requests": 4914
                   }
                 }
@@ -21685,8 +21685,8 @@
                       "evictions": 0
                     },
                     "hot": {
-                      "admissions": 11,
-                      "evictions": 11
+                      "admissions": 18,
+                      "evictions": 18
                     }
                   },
                   "logical_requests": 28,
@@ -21734,12 +21734,12 @@
                   "backing_store_request_rate": 0.01125665165779779,
                   "cache_activity": {
                     "cold": {
-                      "admissions": 54,
-                      "evictions": 30
+                      "admissions": 55,
+                      "evictions": 31
                     },
                     "hot": {
-                      "admissions": 54,
-                      "evictions": 46
+                      "admissions": 55,
+                      "evictions": 47
                     }
                   },
                   "logical_requests": 4886,
@@ -21802,12 +21802,12 @@
                 "backing_store_request_rate": 0.011192511192511193,
                 "cache_activity": {
                   "cold": {
-                    "admissions": 54,
-                    "evictions": 30
+                    "admissions": 55,
+                    "evictions": 31
                   },
                   "hot": {
-                    "admissions": 65,
-                    "evictions": 57
+                    "admissions": 73,
+                    "evictions": 65
                   }
                 },
                 "logical_requests": 4914,

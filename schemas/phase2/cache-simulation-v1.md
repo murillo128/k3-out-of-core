@@ -8,7 +8,7 @@ Each selected `(layer, expert_id)` is one logical request for the storage map's 
 
 For each tier, `bytes_requested` is the atomic bundle size presented to that tier by the lookup cascade. `bytes_transferred` is the bundle size served by the first tier that hits. The backing store is authoritative, so every backing-store request is a backing-store hit; `backing_store_request_rate` is the modeled disk-demand rate.
 
-LRU is a deterministic test baseline, not a production policy. `belady_min` uses exact future references and is labeled only as an offline lower bound. Version 1 requires all referenced bundle sizes to be equal for this exact MIN claim. Both pinned K3 maps satisfy that condition. Unequal-size synthetic cases validate slot/byte-constrained LRU; the simulator rejects an exact MIN claim for those cases rather than mislabeling a heuristic as a lower bound.
+LRU is a deterministic test baseline, not a production policy. `belady_min` uses exact future references and is labeled only as an offline lower bound. On every fitting miss it admits the demanded bundle and, when replacement is required, selects the farthest-next-use victim only from current residents; admission bypass is not part of this oracle. Version 1 requires all referenced bundle sizes to be equal for this exact MIN claim. Both pinned K3 maps satisfy that condition. Unequal-size synthetic cases validate slot/byte-constrained LRU; the simulator rejects an exact MIN claim for those cases rather than mislabeling a heuristic as a lower bound.
 
 Reuse distance counts distinct atomic bundles referenced between consecutive references to the same bundle. First references are reported as `cold`. Per-layer expert skew records exact counts and the maximum expert share.
 

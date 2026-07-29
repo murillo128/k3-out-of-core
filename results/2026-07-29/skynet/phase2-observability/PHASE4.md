@@ -1,6 +1,6 @@
 # Phase 4 corpus and closeout-candidate evidence
 
-Status: `OBSERVED` — issue #10 Phase 4 technical capture, replay, and external publication passed on 2026-07-29. Checkpoint B is still required.
+Status: `OBSERVED` — issue #10 Phase 4 technical capture, replay, and external publication passed on 2026-07-29. Its simulation evidence was regenerated after the initial Checkpoint B review found and rejected an admission-bypassing oracle; fresh Checkpoint B review is still required.
 
 ## Corpus coverage
 
@@ -36,7 +36,7 @@ Two complete local recaptures produced byte-identical archives. The exact remote
 
 All 12 CPU traces replayed through all four Phase 3 scenarios under both LRU and Belady/MIN. The committed compact output retains per-tier requests, hits, misses, requested/served bytes, admissions, evictions, final/peak residency, prefill/decode separation, reuse-distance distributions, layer/expert skew, and theoretical-stall summaries.
 
-For the hot-8/cold-24 scenario, F16/MXFP4 LRU backing requests are respectively 119/120 for prose, 244/242 for code, 152/152 for structured data, 113/113 for technical text, 55/55 for English narrative, and 69/70 for Spanish narrative. The future-aware reference is an offline lower bound only; it is not a production-policy selection. Fixed costs remain illustrative manifest inputs rather than measured latency claims.
+For the hot-8/cold-24 scenario, F16/MXFP4 LRU backing requests are respectively 119/120 for prose, 244/242 for code, 152/152 for structured data, 113/113 for technical text, 55/55 for English narrative, and 69/70 for Spanish narrative. The exact equal-bundle, future-aware MIN reference always admits the demand and selects a victim only from current residents; it is an offline lower bound, not a production-policy selection. Fixed costs remain illustrative manifest inputs rather than measured latency claims.
 
 ## Evidence
 

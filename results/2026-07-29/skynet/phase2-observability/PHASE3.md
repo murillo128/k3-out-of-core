@@ -14,7 +14,7 @@ The theoretical cost model is supplied by the versioned simulation manifest. Its
 
 ## Hand-checkable validation
 
-Reference cases cover capacity zero, capacity one, below the working set, the exact working set, and a full hot working set. An `A B C A B C` trace with capacity two produces six LRU backing requests and four Belady/MIN backing requests. Unequal 2/3/2-byte objects under a four-byte capacity validate multiple-eviction accounting. A two-request prefill/decode case validates phase carry-over, requested/served bytes, and exact supplied-cost arithmetic.
+Reference cases cover capacity zero, capacity one, below the working set, the exact working set, and a full hot working set. An `A B C A B C` trace with capacity two produces six LRU backing requests and four Belady/MIN backing requests. The distinguishing `A B A` capacity-one case produces three MIN misses and three admissions, proving that the demanded bundle is admitted and the replacement victim is selected only from current residents. Unequal 2/3/2-byte objects under a four-byte capacity validate multiple-eviction accounting. A two-request prefill/decode case validates phase carry-over, requested/served bytes, and exact supplied-cost arithmetic.
 
 All 20 Phase 2 unit tests passed, including eight simulator tests plus dependency inspection. Both version-1 JSON schemas passed Draft 2020-12 validation.
 
@@ -25,15 +25,15 @@ The committed F16 CPU fixture contains 252 route records and 504 atomic expert r
 - trace SHA-256: `1952895f05d7778fa9382e86b9dcaddf1549b330fe5aa034c5418479435111da`;
 - F16 storage-map SHA-256: `42af6acd1d1f2ea77aaa9750b28141670ce69009ba06b5ddca3f42c696b51151`;
 - simulation-manifest SHA-256: `a08d803db9eeac54aff099eab27a4d3a66fec3eb657be65c469a74aa6e606228`;
-- deterministic output SHA-256: `8d7c3c2597e9d5e9dbfac6f98298a70aa3d975c2d8892030a109cb2249af433e`.
+- deterministic output SHA-256: `ca4ed1c7a7f2d87caf17e1144c22124795e3607e1f187c64d203f02d4dd8f9de`.
 
 | Scenario | Policy | Hot hits | Cold hits | Backing requests | Cold evictions |
 |---|---|---:|---:|---:|---:|
 | No cache | LRU | 0 | 0 | 504 | 0 |
 | One expert | LRU | 5 | 0 | 499 | 498 |
-| One expert | Belady/MIN | 48 | 0 | 456 | 33 |
+| One expert | Belady/MIN | 5 | 0 | 499 | 498 |
 | Hot 8 / cold 24 | LRU | 34 | 239 | 231 | 207 |
-| Hot 8 / cold 24 | Belady/MIN | 223 | 160 | 121 | 61 |
+| Hot 8 / cold 24 | Belady/MIN | 212 | 166 | 126 | 102 |
 | Full working set | LRU | 451 | 0 | 53 | 0 |
 | Full working set | Belady/MIN | 451 | 0 | 53 | 0 |
 

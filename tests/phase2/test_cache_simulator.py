@@ -91,6 +91,23 @@ class CacheSimulatorTests(unittest.TestCase):
             case["expected_belady_backing_requests"],
         )
 
+        admission_case = REFERENCE["belady_admission_reference"]
+        admission_oracle = simulate_policy(
+            make_requests(admission_case["sequence"]),
+            capacity(admission_case["hot"]),
+            capacity(admission_case["cold"]),
+            COST_MODEL,
+            "belady_min",
+        )
+        self.assertEqual(
+            admission_oracle["overall"]["tiers"]["backing_store"]["requests"],
+            admission_case["expected_belady_backing_requests"],
+        )
+        self.assertEqual(
+            admission_oracle["overall"]["cache_activity"]["cold"]["admissions"],
+            admission_case["expected_belady_cold_admissions"],
+        )
+
     def test_unequal_byte_capacity_lru_and_oracle_rejection(self) -> None:
         case = REFERENCE["unequal_byte_reference"]
         sizes = {int(key): value for key, value in case["sizes"].items()}

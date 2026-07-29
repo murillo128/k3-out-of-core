@@ -12,7 +12,7 @@ This file is the first handoff document for a new ChatGPT or Codex session.
 - PR #9 merged into `main` as `eff5efc754919bf1a50735e27c7ad39f4d93384e`; its STANDARD materiality and repeated-review circuit-breaker rules now govern future issues.
 - Checkpoints A, B, and C returned **PASS_WITH_NOTES** with safety gate **YES**.
 - The final complete-PR review returned **PASS_WITH_NOTES** with safety to merge **YES**.
-- No out-of-core runtime implementation exists. Project Phase 2 issue #10 is in progress in draft PR #11. Checkpoint A re-review returned `PASS_WITH_NOTES` with safety to proceed `YES`. Phases 3–4 are implemented and validated: the independent simulator passes its reference cases, the bounded F16/MXFP4 CPU corpus and CPU/CUDA subset are reproducible, and the raw corpus is externally published at immutable Hub revision `2d838d6b4d0aca4e9af1e7d899e57ad29330c72e`.
+- No out-of-core runtime implementation exists. Project Phase 2 issue #10 is in progress in draft PR #11. Checkpoint A re-review returned `PASS_WITH_NOTES` with safety to proceed `YES`. The initial Checkpoint B review correctly rejected an admission-bypassing oracle mislabeled as exact Belady/MIN; the simulator now always admits the demand, selects MIN victims only from current residents, and passes the distinguishing `A B A` capacity-one case. Corrected Phase 3–4 evidence awaits fresh Checkpoint B review. The bounded F16/MXFP4 CPU corpus and CPU/CUDA subset remain reproducible, and the unchanged raw corpus is externally published at immutable Hub revision `2d838d6b4d0aca4e9af1e7d899e57ad29330c72e`.
 - Phase 1 evidence is descriptive for the tiny K3 fixtures on `skynet`; it is not a model-quality or production-performance claim.
 
 ## Phase 1 merged baseline
@@ -73,6 +73,6 @@ Kernel: 6.8.0-136-generic
 
 ## Immediate next action
 
-Complete the strict Phase 2 candidate manifest, publish the Phase 4 commit, and obtain issue #10 Checkpoint B independent review. Do not begin provider implementation before Checkpoint B, final complete-PR review, and merge.
+Publish the bounded Belady/MIN correction, obtain a fresh issue #10 Checkpoint B review, then complete the strict attestation and final complete-PR review. Do not begin provider implementation before Checkpoint B, final complete-PR review, and merge.
 
 Do not implement cache, provider, NVMe I/O, prefetch, expert remapping, or residency changes as part of issue #10.

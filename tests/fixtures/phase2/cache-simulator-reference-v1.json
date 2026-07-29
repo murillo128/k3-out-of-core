@@ -52,6 +52,13 @@
     "expected_lru_backing_requests": 6,
     "expected_belady_backing_requests": 4
   },
+  "belady_admission_reference": {
+    "sequence": [0, 1, 0],
+    "hot": {"slots": 1, "bytes": 1},
+    "cold": {"slots": 1, "bytes": 1},
+    "expected_belady_backing_requests": 3,
+    "expected_belady_cold_admissions": 3
+  },
   "unequal_byte_reference": {
     "sizes": {"0": 2, "1": 3, "2": 2},
     "sequence": [0, 1, 0, 2],

@@ -186,16 +186,14 @@ class TierCache:
             else:
                 if self.future is None:
                     raise SimulationError("Belady/MIN requires future-use state")
-                victim = max(candidates, key=lambda item: (self.future.next(item), item))
+                # Canonical MIN always services and admits the current demand. Its
+                # replacement victim must therefore be an existing resident, not
+                # the incoming bundle itself.
+                victim = max(self.items, key=lambda item: (self.future.next(item), item))
             del candidates[victim]
-            if victim != key:
-                evicted.append(victim)
-                self.remove(victim)
-            elif self.policy == "lru":
-                raise SimulationError("LRU attempted to evict the incoming item")
+            evicted.append(victim)
+            self.remove(victim)
 
-        if key not in candidates:
-            return False, evicted
         self.items[key] = size_bytes
         self.total_bytes += size_bytes
         self.touch(key)
