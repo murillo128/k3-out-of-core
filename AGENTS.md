@@ -18,6 +18,8 @@ Before changing code or plans, read:
 6. `docs/PRIOR_ART.md`
 7. `.agents/skills/design-github-issue/SKILL.md`
 8. `.agents/skills/spec-driven-codex-loop/SKILL.md`
+9. `.agents/skills/codex-github-operations/SKILL.md`
+10. `.agents/skills/codex-independent-review/SKILL.md`
 
 Then inspect the current Git branch, commit history, open issues/PRs, and any linked `llama.cpp` checkout.
 
@@ -94,14 +96,35 @@ The mandatory workflow is:
 3. execute exactly one bounded phase at a time;
 4. add a phase-start issue update before editing;
 5. validate and commit the phase as an independently reviewable outcome;
-6. add the actual results, evidence, deviations, and commit SHA to the issue;
-7. run a fresh, read-only Codex CLI or isolated Codex session to review that exact phase;
-8. block progression on `FAIL` or `BLOCKED` review verdicts;
-9. request a separate top-reasoning ChatGPT review of the complete PR and issue history before merge.
+6. use `codex-github-operations` to publish and verify the exact phase commit and perform required GitHub control-plane operations;
+7. add the actual results, evidence, deviations, and authoritative full commit SHA to the issue;
+8. use `codex-independent-review` to review that exact published phase in a fresh isolated read-only context;
+9. block progression on `FAIL` or `BLOCKED` review verdicts;
+10. request a separate top-reasoning ChatGPT review of the complete PR and issue history before merge.
 
 Do not implement a non-trivial task from an underspecified prompt. When implementation exposes a material flaw in the specification, architecture, phase decomposition, validation strategy, or governing skills, stop and revise those artifacts. Prefer a clean, traceable restart over layering compensating patches on an invalid foundation.
 
 Trivial typo-only edits may skip the full issue loop unless the user explicitly requests it, but all source-of-truth and Git rules still apply.
+
+## Codex operational skill routing
+
+`spec-driven-codex-loop` is the workflow orchestrator. It owns sequencing, workflow-state transitions, phase boundaries, progression, and handoff, but it must delegate operational transport decisions:
+
+- `.agents/skills/codex-github-operations/SKILL.md` owns local Git publication, exact remote-SHA verification, GitHub issue/label/comment/PR transport selection, and connector handoff.
+- `.agents/skills/codex-independent-review/SKILL.md` owns reviewer isolation, reviewer-transport selection, transport fallback, evidence inspection, and verdict structure.
+
+For these responsibilities, the dedicated operational skills supersede transport-specific examples or assumptions elsewhere in repository skills.
+
+In particular:
+
+- local `git` is authoritative for branch creation, commit creation, fetch, push, and SHA verification;
+- the connected GitHub app or connector is preferred for issue, label, comment, and pull-request operations;
+- GitHub CLI `gh` is an optional fallback unless an approved issue explicitly requires a CLI-only capability;
+- failure of one optional GitHub or reviewer transport is not a phase implementation failure when an allowed alternative exists;
+- a reviewer-launcher or sandbox failure must be retried through another fresh isolated review transport before the review is considered globally blocked;
+- the main executor must never replace the independent reviewer.
+
+Issues should declare required operational capabilities and gates, not duplicate product-specific transport procedures unless a particular transport is itself part of the task.
 
 ## Working method
 
@@ -237,6 +260,7 @@ Primary references are listed in `docs/PRIOR_ART.md`.
 - Avoid unrelated formatting changes.
 - Commit messages should describe one intentional outcome.
 - Direct commits to the default branch require explicit user instruction; otherwise use a feature branch and draft PR.
+- Codex publication and GitHub control-plane operations must follow `.agents/skills/codex-github-operations/SKILL.md`.
 
 ## Current immediate task
 
