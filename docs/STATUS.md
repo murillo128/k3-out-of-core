@@ -85,14 +85,3 @@ The design session must inspect the exact pinned `llama.cpp` code before declari
 - how implementation should be split into reviewable issues or phases.
 
 Do not implement cache, provider, NVMe I/O, prefetch, expert remapping, or residency changes as part of the Phase 2 design issue unless a later approved implementation contract explicitly permits them.
-
-## Session handoff rule
-
-At the end of every implementation session:
-
-1. update this file with completed work and exact commit SHAs;
-2. update `PLAN.md` checkboxes and gate evidence;
-3. record durable architectural changes in `docs/DECISIONS.md` only when a decision actually changes;
-4. update model commands/evidence in `docs/MODELS_AND_VALIDATION.md`;
-5. update repository/artifact records and the machine-readable manifest when revisions or artifacts change;
-6. commit before starting a new session.
