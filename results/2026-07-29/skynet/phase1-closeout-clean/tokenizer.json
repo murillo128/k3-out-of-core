@@ -1,0 +1,699 @@
+{
+  "captured_at_utc": "2026-07-29T14:15:15.469663+00:00",
+  "cross_model": {
+    "gguf_prompt_ids_equal": true,
+    "hf_and_gguf_prompt_ids_equal": true,
+    "hf_prompt_ids_equal": true,
+    "special_behavior_equal": true
+  },
+  "expected_vocab_size": 163840,
+  "llama_cpp_commit": "84245db4c790af22135f34992689edcc11877003",
+  "models": {
+    "f16": {
+      "gguf_metadata": {
+        "add_bos_token_metadata": null,
+        "add_eos_token_metadata": null,
+        "bos_token_id_metadata": 1,
+        "eos_token_id_metadata": 2,
+        "marker_token_ids": {
+          "<|im_end|>": null,
+          "[BOS]": 163584,
+          "[EOS]": 163585,
+          "[EOT]": 163593,
+          "[PAD]": 163839
+        },
+        "model": "gpt2",
+        "padding_token_id_metadata": 0,
+        "pre": "kimi-k2",
+        "token_count": 163840,
+        "vocab_size": 163840
+      },
+      "gguf_path": "models/gguf/Kimi-K3-0.40B-F16.gguf",
+      "gguf_tokenization": {
+        "prompt": {
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/llama-tokenize",
+            "-m",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "-p",
+            "According to all known laws",
+            "--ids",
+            "--offline"
+          ],
+          "exit_code": 0,
+          "ids": [
+            18805,
+            308,
+            799,
+            5624,
+            12524
+          ],
+          "stderr": "0.00.137.604 W load: special_eos_id is not in special_eog_ids - the tokenizer config may be incorrect\n0.00.173.166 W llama_context: n_ctx_seq (512) > n_ctx_train (0) -- possible training context overflow",
+          "stdout": "[18805, 308, 799, 5624, 12524]"
+        },
+        "special_sequence": {
+          "parse_special_false": {
+            "command": [
+              "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/llama-tokenize",
+              "-m",
+              "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+              "-p",
+              "[BOS][EOS][EOT]<|im_end|>",
+              "--ids",
+              "--offline",
+              "--no-parse-special"
+            ],
+            "exit_code": 0,
+            "ids": [
+              72706,
+              4110,
+              4183,
+              85521,
+              4183,
+              36,
+              2586,
+              70376,
+              91,
+              348,
+              11129,
+              91,
+              29
+            ],
+            "stderr": "0.00.138.021 W load: special_eos_id is not in special_eog_ids - the tokenizer config may be incorrect\n0.00.173.422 W llama_context: n_ctx_seq (512) > n_ctx_train (0) -- possible training context overflow",
+            "stdout": "[72706, 4110, 4183, 85521, 4183, 36, 2586, 70376, 91, 348, 11129, 91, 29]"
+          },
+          "parse_special_true": {
+            "command": [
+              "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/llama-tokenize",
+              "-m",
+              "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+              "-p",
+              "[BOS][EOS][EOT]<|im_end|>",
+              "--ids",
+              "--offline"
+            ],
+            "exit_code": 0,
+            "ids": [
+              163584,
+              163585,
+              163593,
+              27,
+              91,
+              348,
+              11129,
+              91,
+              29
+            ],
+            "stderr": "0.00.139.045 W load: special_eos_id is not in special_eog_ids - the tokenizer config may be incorrect\n0.00.174.546 W llama_context: n_ctx_seq (512) > n_ctx_train (0) -- possible training context overflow",
+            "stdout": "[163584, 163585, 163593, 27, 91, 348, 11129, 91, 29]"
+          },
+          "text": "[BOS][EOS][EOT]<|im_end|>"
+        }
+      },
+      "hf_tokenizer": {
+        "additional_special_token_ids": [
+          163840,
+          163841,
+          163842,
+          163843,
+          163844,
+          163593,
+          163845,
+          163846
+        ],
+        "additional_special_tokens": [
+          "<|im_end|>",
+          "<|im_user|>",
+          "<|im_assistant|>",
+          "<|start_header_id|>",
+          "<|end_header_id|>",
+          "[EOT]",
+          "<|im_system|>",
+          "<|im_middle|>"
+        ],
+        "bos": {
+          "id": 163584,
+          "token": "[BOS]"
+        },
+        "class": "transformers_modules.Kimi_hyphen_K3_hyphen_0_dot_40B.tokenization_kimi.TikTokenTokenizer",
+        "eos": {
+          "id": 163585,
+          "token": "[EOS]"
+        },
+        "len": 163840,
+        "markers": {
+          "<|im_end|>": {
+            "allow_special_tokens_false": [
+              27,
+              91,
+              348,
+              11129,
+              91,
+              29
+            ],
+            "allow_special_tokens_true": [
+              27,
+              91,
+              348,
+              11129,
+              91,
+              29
+            ],
+            "convert_tokens_to_ids": 163840
+          },
+          "[BOS]": {
+            "allow_special_tokens_false": [
+              72706,
+              4110,
+              60
+            ],
+            "allow_special_tokens_true": [
+              163584
+            ],
+            "convert_tokens_to_ids": 163584
+          },
+          "[EOS]": {
+            "allow_special_tokens_false": [
+              58,
+              85521,
+              60
+            ],
+            "allow_special_tokens_true": [
+              163585
+            ],
+            "convert_tokens_to_ids": 163585
+          },
+          "[EOT]": {
+            "allow_special_tokens_false": [
+              147292,
+              2586,
+              60
+            ],
+            "allow_special_tokens_true": [
+              163593
+            ],
+            "convert_tokens_to_ids": 163593
+          },
+          "[PAD]": {
+            "allow_special_tokens_false": [
+              58,
+              54904,
+              60
+            ],
+            "allow_special_tokens_true": [
+              163839
+            ],
+            "convert_tokens_to_ids": 163839
+          }
+        },
+        "pad": {
+          "id": 163839,
+          "token": "[PAD]"
+        },
+        "prompt": "According to all known laws",
+        "prompt_decoded": "According to all known laws",
+        "prompt_ids": [
+          18805,
+          308,
+          799,
+          5624,
+          12524
+        ],
+        "vocab_size": 163840
+      },
+      "model_text_config": {
+        "bos_token_id": 1,
+        "eos_token_id": 2,
+        "pad_token_id": 0,
+        "vocab_size": 163840
+      },
+      "source_files_after": {
+        "added_tokens.json": {
+          "sha256": "27373c2f39a52c87e674caf7e9604ec6756c68c5f8d5f140657299048b6ab8ba",
+          "size_bytes": 200
+        },
+        "config.json": {
+          "sha256": "503bd5d1589ea8fd21b82528eb2ab130a593b171e1b61bbb75a90014581599d2",
+          "size_bytes": 4004
+        },
+        "encoding_k3.py": {
+          "sha256": "cfd5085fb299e4fa7d21983353e3a551af89d00eb0763c601c01cf85f0a62fb4",
+          "size_bytes": 22846
+        },
+        "tiktoken.model": {
+          "sha256": "b6c497a7469b33ced9c38afb1ad6e47f03f5e5dc05f15930799210ec050c5103",
+          "size_bytes": 2795286
+        },
+        "tokenization_kimi.py": {
+          "sha256": "30491a8c2e279db9447bcb00ce1140769f4ab8f43f30e8186e269e95d8357e95",
+          "size_bytes": 15807
+        },
+        "tokenizer_config.json": {
+          "sha256": "c1d4979a0f0b79524730d5ac68ed9c00cece49c54bb5a87db89ba40e385d6e2e",
+          "size_bytes": 4762
+        },
+        "tokenizer_config.json.orig": {
+          "sha256": "7cc6cb0733ca35285ef13700dc5a2066eb0441ef0142f318b288d201dc68190e",
+          "size_bytes": 4962
+        }
+      },
+      "source_files_before": {
+        "added_tokens.json": {
+          "sha256": "27373c2f39a52c87e674caf7e9604ec6756c68c5f8d5f140657299048b6ab8ba",
+          "size_bytes": 200
+        },
+        "config.json": {
+          "sha256": "503bd5d1589ea8fd21b82528eb2ab130a593b171e1b61bbb75a90014581599d2",
+          "size_bytes": 4004
+        },
+        "encoding_k3.py": {
+          "sha256": "cfd5085fb299e4fa7d21983353e3a551af89d00eb0763c601c01cf85f0a62fb4",
+          "size_bytes": 22846
+        },
+        "tiktoken.model": {
+          "sha256": "b6c497a7469b33ced9c38afb1ad6e47f03f5e5dc05f15930799210ec050c5103",
+          "size_bytes": 2795286
+        },
+        "tokenization_kimi.py": {
+          "sha256": "30491a8c2e279db9447bcb00ce1140769f4ab8f43f30e8186e269e95d8357e95",
+          "size_bytes": 15807
+        },
+        "tokenizer_config.json": {
+          "sha256": "c1d4979a0f0b79524730d5ac68ed9c00cece49c54bb5a87db89ba40e385d6e2e",
+          "size_bytes": 4762
+        },
+        "tokenizer_config.json.orig": {
+          "sha256": "7cc6cb0733ca35285ef13700dc5a2066eb0441ef0142f318b288d201dc68190e",
+          "size_bytes": 4962
+        }
+      },
+      "source_path": "models/hf/Kimi-K3-0.40B",
+      "source_unchanged": true,
+      "special_token_consistency": {
+        "details": {
+          "bos": {
+            "gguf_marker_id": 163584,
+            "gguf_metadata_id": 1,
+            "hf_tokenizer_id": 163584,
+            "model_config_id": 1
+          },
+          "end_of_message": {
+            "gguf_marker_id": null,
+            "hf_id_is_outside_declared_vocab": true,
+            "hf_tokenizer_id": 163840,
+            "marker": "<|im_end|>"
+          },
+          "eos": {
+            "gguf_marker_id": 163585,
+            "gguf_metadata_id": 2,
+            "hf_tokenizer_id": 163585,
+            "model_config_id": 2
+          },
+          "pad": {
+            "gguf_marker_id": 163839,
+            "gguf_metadata_id": 0,
+            "hf_tokenizer_id": 163839,
+            "model_config_id": 0
+          }
+        },
+        "explanation": "The model text config supplies BOS/EOS/PAD IDs used by GGUF metadata, while the custom tiktoken tokenizer maps the named markers near the end of its 163840-token vocabulary. <|im_end|> is an added token at ID 163840 and therefore is absent from the 0..163839 GGUF token table. Ordinary prompt tokenization remains identical across HF and GGUF paths.",
+        "status": "documented-source-conflict"
+      },
+      "temporary_workaround": {
+        "changed": true,
+        "idempotent": true,
+        "preserved_additional_special_tokens": [
+          "<|im_end|>",
+          "<|im_user|>",
+          "<|im_assistant|>",
+          "<|start_header_id|>",
+          "<|end_header_id|>",
+          "[EOT]",
+          "<|im_system|>",
+          "<|im_middle|>"
+        ],
+        "removed_extra_special_tokens": [
+          "<|im_end|>",
+          "<|im_user|>",
+          "<|im_assistant|>",
+          "<|start_header_id|>",
+          "<|end_header_id|>",
+          "[EOT]",
+          "<|im_system|>",
+          "<|im_middle|>"
+        ],
+        "second_application_changed": false,
+        "second_application_sha256": "c1d4979a0f0b79524730d5ac68ed9c00cece49c54bb5a87db89ba40e385d6e2e",
+        "source_sha256": "7cc6cb0733ca35285ef13700dc5a2066eb0441ef0142f318b288d201dc68190e",
+        "transformed_matches_existing_prepared_config": true,
+        "transformed_sha256": "c1d4979a0f0b79524730d5ac68ed9c00cece49c54bb5a87db89ba40e385d6e2e"
+      }
+    },
+    "mxfp4": {
+      "gguf_metadata": {
+        "add_bos_token_metadata": null,
+        "add_eos_token_metadata": null,
+        "bos_token_id_metadata": 1,
+        "eos_token_id_metadata": 2,
+        "marker_token_ids": {
+          "<|im_end|>": null,
+          "[BOS]": 163584,
+          "[EOS]": 163585,
+          "[EOT]": 163593,
+          "[PAD]": 163839
+        },
+        "model": "gpt2",
+        "padding_token_id_metadata": 0,
+        "pre": "kimi-k2",
+        "token_count": 163840,
+        "vocab_size": 163840
+      },
+      "gguf_path": "models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+      "gguf_tokenization": {
+        "prompt": {
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/llama-tokenize",
+            "-m",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "-p",
+            "According to all known laws",
+            "--ids",
+            "--offline"
+          ],
+          "exit_code": 0,
+          "ids": [
+            18805,
+            308,
+            799,
+            5624,
+            12524
+          ],
+          "stderr": "0.00.138.243 W load: special_eos_id is not in special_eog_ids - the tokenizer config may be incorrect\n0.00.173.789 W llama_context: n_ctx_seq (512) > n_ctx_train (0) -- possible training context overflow",
+          "stdout": "[18805, 308, 799, 5624, 12524]"
+        },
+        "special_sequence": {
+          "parse_special_false": {
+            "command": [
+              "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/llama-tokenize",
+              "-m",
+              "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+              "-p",
+              "[BOS][EOS][EOT]<|im_end|>",
+              "--ids",
+              "--offline",
+              "--no-parse-special"
+            ],
+            "exit_code": 0,
+            "ids": [
+              72706,
+              4110,
+              4183,
+              85521,
+              4183,
+              36,
+              2586,
+              70376,
+              91,
+              348,
+              11129,
+              91,
+              29
+            ],
+            "stderr": "0.00.137.709 W load: special_eos_id is not in special_eog_ids - the tokenizer config may be incorrect\n0.00.173.312 W llama_context: n_ctx_seq (512) > n_ctx_train (0) -- possible training context overflow",
+            "stdout": "[72706, 4110, 4183, 85521, 4183, 36, 2586, 70376, 91, 348, 11129, 91, 29]"
+          },
+          "parse_special_true": {
+            "command": [
+              "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/llama-tokenize",
+              "-m",
+              "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+              "-p",
+              "[BOS][EOS][EOT]<|im_end|>",
+              "--ids",
+              "--offline"
+            ],
+            "exit_code": 0,
+            "ids": [
+              163584,
+              163585,
+              163593,
+              27,
+              91,
+              348,
+              11129,
+              91,
+              29
+            ],
+            "stderr": "0.00.138.824 W load: special_eos_id is not in special_eog_ids - the tokenizer config may be incorrect\n0.00.174.510 W llama_context: n_ctx_seq (512) > n_ctx_train (0) -- possible training context overflow",
+            "stdout": "[163584, 163585, 163593, 27, 91, 348, 11129, 91, 29]"
+          },
+          "text": "[BOS][EOS][EOT]<|im_end|>"
+        }
+      },
+      "hf_tokenizer": {
+        "additional_special_token_ids": [
+          163840,
+          163841,
+          163842,
+          163843,
+          163844,
+          163593,
+          163845,
+          163846
+        ],
+        "additional_special_tokens": [
+          "<|im_end|>",
+          "<|im_user|>",
+          "<|im_assistant|>",
+          "<|start_header_id|>",
+          "<|end_header_id|>",
+          "[EOT]",
+          "<|im_system|>",
+          "<|im_middle|>"
+        ],
+        "bos": {
+          "id": 163584,
+          "token": "[BOS]"
+        },
+        "class": "transformers_modules.Kimi_hyphen_K3_hyphen_0_dot_40B_hyphen_MXFP4.tokenization_kimi.TikTokenTokenizer",
+        "eos": {
+          "id": 163585,
+          "token": "[EOS]"
+        },
+        "len": 163840,
+        "markers": {
+          "<|im_end|>": {
+            "allow_special_tokens_false": [
+              27,
+              91,
+              348,
+              11129,
+              91,
+              29
+            ],
+            "allow_special_tokens_true": [
+              27,
+              91,
+              348,
+              11129,
+              91,
+              29
+            ],
+            "convert_tokens_to_ids": 163840
+          },
+          "[BOS]": {
+            "allow_special_tokens_false": [
+              72706,
+              4110,
+              60
+            ],
+            "allow_special_tokens_true": [
+              163584
+            ],
+            "convert_tokens_to_ids": 163584
+          },
+          "[EOS]": {
+            "allow_special_tokens_false": [
+              58,
+              85521,
+              60
+            ],
+            "allow_special_tokens_true": [
+              163585
+            ],
+            "convert_tokens_to_ids": 163585
+          },
+          "[EOT]": {
+            "allow_special_tokens_false": [
+              147292,
+              2586,
+              60
+            ],
+            "allow_special_tokens_true": [
+              163593
+            ],
+            "convert_tokens_to_ids": 163593
+          },
+          "[PAD]": {
+            "allow_special_tokens_false": [
+              58,
+              54904,
+              60
+            ],
+            "allow_special_tokens_true": [
+              163839
+            ],
+            "convert_tokens_to_ids": 163839
+          }
+        },
+        "pad": {
+          "id": 163839,
+          "token": "[PAD]"
+        },
+        "prompt": "According to all known laws",
+        "prompt_decoded": "According to all known laws",
+        "prompt_ids": [
+          18805,
+          308,
+          799,
+          5624,
+          12524
+        ],
+        "vocab_size": 163840
+      },
+      "model_text_config": {
+        "bos_token_id": 1,
+        "eos_token_id": 2,
+        "pad_token_id": 0,
+        "vocab_size": 163840
+      },
+      "source_files_after": {
+        "added_tokens.json": {
+          "sha256": "27373c2f39a52c87e674caf7e9604ec6756c68c5f8d5f140657299048b6ab8ba",
+          "size_bytes": 200
+        },
+        "config.json": {
+          "sha256": "eff8b420cad574121be032fef19dd5ce454547af8ee8a4533b17ba465e228ccf",
+          "size_bytes": 11100
+        },
+        "encoding_k3.py": {
+          "sha256": "cfd5085fb299e4fa7d21983353e3a551af89d00eb0763c601c01cf85f0a62fb4",
+          "size_bytes": 22846
+        },
+        "tiktoken.model": {
+          "sha256": "b6c497a7469b33ced9c38afb1ad6e47f03f5e5dc05f15930799210ec050c5103",
+          "size_bytes": 2795286
+        },
+        "tokenization_kimi.py": {
+          "sha256": "30491a8c2e279db9447bcb00ce1140769f4ab8f43f30e8186e269e95d8357e95",
+          "size_bytes": 15807
+        },
+        "tokenizer_config.json": {
+          "sha256": "2631442fae4dcae68d550eaaf294cba2212434e97625089a34ff3ccb57325327",
+          "size_bytes": 4763
+        },
+        "tokenizer_config.json.orig": {
+          "sha256": "1681882619ee4db641470ab918b2ed55b444c90235cf07a95ede505be10647c1",
+          "size_bytes": 4963
+        }
+      },
+      "source_files_before": {
+        "added_tokens.json": {
+          "sha256": "27373c2f39a52c87e674caf7e9604ec6756c68c5f8d5f140657299048b6ab8ba",
+          "size_bytes": 200
+        },
+        "config.json": {
+          "sha256": "eff8b420cad574121be032fef19dd5ce454547af8ee8a4533b17ba465e228ccf",
+          "size_bytes": 11100
+        },
+        "encoding_k3.py": {
+          "sha256": "cfd5085fb299e4fa7d21983353e3a551af89d00eb0763c601c01cf85f0a62fb4",
+          "size_bytes": 22846
+        },
+        "tiktoken.model": {
+          "sha256": "b6c497a7469b33ced9c38afb1ad6e47f03f5e5dc05f15930799210ec050c5103",
+          "size_bytes": 2795286
+        },
+        "tokenization_kimi.py": {
+          "sha256": "30491a8c2e279db9447bcb00ce1140769f4ab8f43f30e8186e269e95d8357e95",
+          "size_bytes": 15807
+        },
+        "tokenizer_config.json": {
+          "sha256": "2631442fae4dcae68d550eaaf294cba2212434e97625089a34ff3ccb57325327",
+          "size_bytes": 4763
+        },
+        "tokenizer_config.json.orig": {
+          "sha256": "1681882619ee4db641470ab918b2ed55b444c90235cf07a95ede505be10647c1",
+          "size_bytes": 4963
+        }
+      },
+      "source_path": "models/hf/Kimi-K3-0.40B-MXFP4",
+      "source_unchanged": true,
+      "special_token_consistency": {
+        "details": {
+          "bos": {
+            "gguf_marker_id": 163584,
+            "gguf_metadata_id": 1,
+            "hf_tokenizer_id": 163584,
+            "model_config_id": 1
+          },
+          "end_of_message": {
+            "gguf_marker_id": null,
+            "hf_id_is_outside_declared_vocab": true,
+            "hf_tokenizer_id": 163840,
+            "marker": "<|im_end|>"
+          },
+          "eos": {
+            "gguf_marker_id": 163585,
+            "gguf_metadata_id": 2,
+            "hf_tokenizer_id": 163585,
+            "model_config_id": 2
+          },
+          "pad": {
+            "gguf_marker_id": 163839,
+            "gguf_metadata_id": 0,
+            "hf_tokenizer_id": 163839,
+            "model_config_id": 0
+          }
+        },
+        "explanation": "The model text config supplies BOS/EOS/PAD IDs used by GGUF metadata, while the custom tiktoken tokenizer maps the named markers near the end of its 163840-token vocabulary. <|im_end|> is an added token at ID 163840 and therefore is absent from the 0..163839 GGUF token table. Ordinary prompt tokenization remains identical across HF and GGUF paths.",
+        "status": "documented-source-conflict"
+      },
+      "temporary_workaround": {
+        "changed": true,
+        "idempotent": true,
+        "preserved_additional_special_tokens": [
+          "<|im_end|>",
+          "<|im_user|>",
+          "<|im_assistant|>",
+          "<|start_header_id|>",
+          "<|end_header_id|>",
+          "[EOT]",
+          "<|im_system|>",
+          "<|im_middle|>"
+        ],
+        "removed_extra_special_tokens": [
+          "<|im_end|>",
+          "<|im_user|>",
+          "<|im_assistant|>",
+          "<|start_header_id|>",
+          "<|end_header_id|>",
+          "[EOT]",
+          "<|im_system|>",
+          "<|im_middle|>"
+        ],
+        "second_application_changed": false,
+        "second_application_sha256": "2631442fae4dcae68d550eaaf294cba2212434e97625089a34ff3ccb57325327",
+        "source_sha256": "1681882619ee4db641470ab918b2ed55b444c90235cf07a95ede505be10647c1",
+        "transformed_matches_existing_prepared_config": true,
+        "transformed_sha256": "2631442fae4dcae68d550eaaf294cba2212434e97625089a34ff3ccb57325327"
+      }
+    }
+  },
+  "prompt": "According to all known laws",
+  "schema_version": 1,
+  "validation": {
+    "errors": [],
+    "status": "pass"
+  }
+}
