@@ -10,22 +10,22 @@
 
 ### Tasks
 
-- [ ] Clone `murillo128/k3-out-of-core` into the development workspace.
+- [x] Clone `murillo128/k3-out-of-core` into the development workspace.
 - [ ] Add scripts for environment, hardware, model, and build manifests.
-- [ ] Define a results directory convention, for example:
+- [x] Define a results directory convention:
 
   ```text
   results/YYYY-MM-DD/<host>/<experiment-id>/
   ```
 
-- [ ] Define machine-readable result schema containing configuration, revisions, metrics, and checksums.
+- [x] Define a machine-readable result structure containing configuration, revisions, metrics, and checksums.
 - [ ] Add a decision-update checklist to pull requests.
 - [ ] Add CI for Markdown links, formatting, and any scripts introduced here.
 - [ ] Select a project license before importing third-party code.
 
 ### Exit gate
 
-- A new agent can identify the current phase, exact upstream revision, local patches, models, commands, and outstanding decisions without relying on chat history.
+- [x] A new agent can identify the current phase, exact upstream revision, local patches, models, commands, and outstanding decisions without relying on chat history.
 
 ---
 
@@ -36,70 +36,82 @@
 - Prove that the tiny K3 F16 and MXFP4 checkpoints convert and execute in the selected `llama.cpp` revision.
 - Establish CPU and CUDA correctness/performance baselines before changing residency.
 
+### Current evidence
+
+- Project evidence commit: `750df633509d84893fed6c8cdebffafacf2636f0`.
+- Pinned `llama.cpp` commit: `84245db4c790af22135f34992689edcc11877003`.
+- Published GGUF revision: `88de02cf8fa37f87eb06daaed370ac9c3411d5ca`.
+- Evidence directory: `results/2026-07-29/skynet/phase1/`.
+- Conversion evidence confirms 21 repacked MXFP4 expert groups and 35 resident F16 dequantizations.
+- CPU inference was observed successfully for both artifacts, but the committed CPU logs contain only the expected no-GPU warning and must be recaptured before the Phase 1 exit gate is closed.
+- CUDA logs record successful F16 and MXFP4 execution with `-ngl 999`, identical smoke-test continuation, and exit code 0; explicit backend placement is not present in those logs.
+- CPU and CUDA CTest runs passed 54 of 55 tests. `test-tokenizers-ggml-vocabs` failed because checked-out fixture files were Git LFS pointer text rather than GGUF payloads; the fixture-dependent test remains unresolved.
+
 ### Tasks
 
 #### 1.1 Pin upstream
 
-- [ ] Fetch `ggml-org/llama.cpp` PR #26185.
-- [ ] Record the selected exact commit SHA.
-- [ ] Record base commit, branch, and any local diff.
-- [ ] Do not automatically track a moving PR head during experiments.
-- [ ] Rebase or update only in a dedicated commit followed by complete baseline rerun.
+- [x] Fetch `ggml-org/llama.cpp` PR #26185.
+- [x] Record the selected exact commit SHA.
+- [ ] Record the upstream base commit and a complete local-diff description.
+- [x] Record the policy not to automatically track a moving PR head during experiments.
+- [x] Record the policy that any rebase or update requires a dedicated commit followed by a complete baseline rerun.
 
 #### 1.2 Build environments
 
-- [ ] Create separate CPU and CUDA build directories.
-- [ ] Record compiler, CMake, CUDA toolkit, driver, and flags.
-- [ ] Build relevant tests and tools.
-- [ ] Run architecture/conversion tests that do not depend on moving external fixtures separately from network fixture tests.
+- [x] Create separate CPU and CUDA build directories.
+- [ ] Record compiler, CMake, CUDA toolkit, driver, GPU, and build flags completely.
+- [x] Build the relevant tests and tools for CPU and CUDA.
+- [ ] Separate stable architecture/conversion tests from network or external-fixture tests and resolve or explicitly quarantine `test-tokenizers-ggml-vocabs`.
 
 #### 1.3 Normalize Python conversion environment
 
-- [ ] Pin `transformers==4.57.6` for the selected branch.
-- [ ] Install `tiktoken` and all conversion requirements.
-- [ ] Record exact package lock or `pip freeze` subset.
-- [ ] Back up and patch tokenizer configuration reproducibly.
-- [ ] Convert the workaround into a script or committed patch; do not leave manual edits undocumented.
+- [x] Pin `transformers==4.57.6` for the selected branch.
+- [x] Install `tiktoken` and the conversion requirements.
+- [x] Record the conversion package versions in the published conversion manifest.
+- [ ] Back up and patch tokenizer configuration through a reproducible project command.
+- [ ] Convert the tokenizer workaround into a script or committed patch; do not leave manual edits undocumented.
 
 #### 1.4 F16 conversion
 
-- [ ] Convert `Kimi-K3-0.40B` to F16 GGUF.
-- [ ] Capture complete conversion log.
-- [ ] Record tensor count, names, shapes, metadata, and file checksum.
-- [ ] Validate tokenizer metadata, BOS/EOS, and end-of-message behavior.
+- [x] Convert `Kimi-K3-0.40B` to F16 GGUF.
+- [x] Capture the complete conversion log.
+- [x] Record tensor names, shapes, metadata, artifact size, and file checksum.
+- [ ] Validate and record tokenizer metadata, BOS/EOS, and end-of-message behavior.
 
 #### 1.5 MXFP4 conversion
 
-- [ ] Review and commit converter support for the observed 35 resident packed tensors.
-- [ ] Preserve the 168 routed expert tensors in MXFP4.
-- [ ] Require exactly 21 repacked expert groups and 35 resident dequantizations for this checkpoint revision.
+- [x] Review and commit converter support for the observed 35 resident packed tensors.
+- [x] Preserve the 168 routed expert tensors in MXFP4.
+- [x] Require and observe exactly 21 repacked expert groups and 35 resident dequantizations for this checkpoint revision.
 - [ ] Sample source and GGUF blocks and validate MXFP4 repacking byte-for-byte or through a trusted dequantization comparison.
-- [ ] Capture complete conversion log and checksum.
+- [x] Capture the complete conversion log, artifact size, and checksum.
 
 #### 1.6 Monolithic inference
 
-- [ ] Run F16 CPU inference.
-- [ ] Run hybrid MXFP4 CPU inference.
-- [ ] Build CUDA and run both models with all supported layers offloaded.
-- [ ] Record backend placement and identify any CPU fallback nodes.
-- [ ] Capture deterministic token IDs and selected logits.
+- [x] Run F16 CPU inference.
+- [x] Run hybrid MXFP4 CPU inference.
+- [x] Build CUDA and run both models with `-ngl 999`.
+- [ ] Confirm and record actual backend placement, supported-layer offload, and any CPU fallback nodes.
+- [ ] Recapture complete CPU inference logs in the committed evidence directory.
+- [ ] Capture deterministic prompt/generated token IDs and selected logits.
 - [ ] Run a perplexity/loss corpus suitable for the toy model.
 - [ ] Run repeated warm inference to detect persistent-state errors.
 
 #### 1.7 Baseline benchmark
 
-- [ ] Measure prompt and decode throughput separately.
+- [ ] Measure prompt and decode throughput separately with repeated runs and a declared aggregation method.
 - [ ] Record CPU/GPU memory usage.
 - [ ] Record per-token latency distribution.
 - [ ] Record model-load time.
 
 ### Exit gate
 
-- Both GGUF files are reproducibly generated.
-- CPU inference works for both.
-- CUDA behavior is understood and either works or has a committed blocking issue.
-- No unexplained tensor drop, NaN, invalid expert ID, or tokenizer mismatch remains.
-- Baseline evidence is committed.
+- [x] Both GGUF files are reproducibly generated and checksum-verified.
+- [x] CPU inference works for both artifacts.
+- [ ] CUDA backend placement is understood and either works fully or has a committed blocking issue.
+- [ ] No unexplained tensor drop, NaN, invalid expert ID, tokenizer mismatch, or unresolved required test remains.
+- [ ] Complete baseline evidence, including usable CPU logs and required correctness comparisons, is committed.
 
 ---
 
