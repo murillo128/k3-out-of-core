@@ -1,0 +1,38 @@
+{
+  "schema_version": "phase2-corpus-publication-v1",
+  "status": "pass",
+  "repository": "murillo2000/Kimi-K3-0.40B-GGUF",
+  "repository_url": "https://huggingface.co/murillo2000/Kimi-K3-0.40B-GGUF",
+  "branch": "phase2-observability-corpus-v1",
+  "base_revision": "88de02cf8fa37f87eb06daaed370ac9c3411d5ca",
+  "published_revision": "2d838d6b4d0aca4e9af1e7d899e57ad29330c72e",
+  "archive": {
+    "path": "phase2-observability/phase2-k3-route-corpus-v1.tar.gz",
+    "size": 323723,
+    "sha256": "6aa924a6c18bee4e2490f317ced836bcc4740c3ec63e9427a95951e79a649a5f",
+    "capture_manifest_sha256": "68bd12d796cab98765395acd65fdfe106f51abcc87854cc1e8269644f9c812fe",
+    "member_count": 20
+  },
+  "gguf_payloads": [
+    {
+      "path": "Kimi-K3-0.40B-F16.gguf",
+      "size": 784318432,
+      "lfs_sha256": "411c197b503e6fb9199a2b22115e32dc4e2cad803fb112b24967737b3bab26c7",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "Kimi-K3-0.40B-MXFP4.gguf",
+      "size": 751976576,
+      "lfs_sha256": "0379a1cc623e09eb3fbd1dfcb18737bc8c971dbfe5bf5bc3e08da8b5379ec169",
+      "unchanged_from_base": true
+    }
+  ],
+  "verification": {
+    "branch_head_matches_published_revision": true,
+    "direct_parent_is_base_revision": true,
+    "exact_revision_lists_both_ggufs_and_archive": true,
+    "remote_archive_download_matches_local_bytes": true,
+    "remote_archive_lfs_sha256_matches": true,
+    "remote_gguf_sizes_and_lfs_sha256_match_pinned_inputs": true
+  }
+}

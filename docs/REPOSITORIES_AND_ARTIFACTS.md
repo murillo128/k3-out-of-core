@@ -89,6 +89,20 @@ The Hub also contains the normal `.gitattributes` file used for large-file stora
 
 Verification performed against the Hub API confirmed that both remote GGUF sizes and remote LFS SHA-256 values exactly match the local publication manifest.
 
+### Phase 2 route-corpus publication
+
+Issue #10 published the complete raw real-trace corpus on a dedicated branch descended directly from the verified GGUF revision. The GGUF payloads were not replaced or modified.
+
+- Branch: `phase2-observability-corpus-v1`.
+- Immutable revision: `2d838d6b4d0aca4e9af1e7d899e57ad29330c72e`.
+- Direct base revision: `88de02cf8fa37f87eb06daaed370ac9c3411d5ca`.
+- Archive: `phase2-observability/phase2-k3-route-corpus-v1.tar.gz`.
+- Archive size: 323723 bytes.
+- Archive SHA-256 / remote LFS SHA-256: `6aa924a6c18bee4e2490f317ced836bcc4740c3ec63e9427a95951e79a649a5f`.
+- Archive contents: 16 raw traces plus `README.md`, exact prompt definitions, a corpus index, and member checksums.
+
+The exact published revision was downloaded again and compared byte-for-byte with the local deterministic archive. Hub file metadata at that revision reports the original F16 and MXFP4 sizes and LFS SHA-256 values unchanged. Complete member identities are recorded in `results/2026-07-29/skynet/phase2-observability/phase4-corpus-capture.json`; publication verification is in `phase4-corpus-publication.json` in the same directory.
+
 ## Artifact representation
 
 ### `Kimi-K3-0.40B-F16.gguf`

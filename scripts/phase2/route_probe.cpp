@@ -10,6 +10,7 @@
 #include <fstream>
 #include <iomanip>
 #include <iostream>
+#include <iterator>
 #include <memory>
 #include <cstdio>
 #include <string>
@@ -35,7 +36,9 @@ struct arguments {
     std::string run_id;
     std::string trace;
     std::string logits;
+    std::string prompt_file;
     int gpu_layers = 0;
+    int max_generate = kGenerate;
     int fail_after_observations = -1;
     size_t max_ubatch_payload = 0;
     bool trace_enabled = false;
@@ -43,6 +46,7 @@ struct arguments {
     bool invalid_mixed_phase = false;
     bool missing_annotation = false;
     bool performance_sample = false;
+    bool skip_logits_write = false;
 };
 
 bool parse_int(const char * text, int & value) {
@@ -103,6 +107,13 @@ bool parse_arguments(int argc, char ** argv, arguments & result) {
             result.trace_enabled = true;
         } else if (std::strcmp(argv[i], "--logits") == 0 && i + 1 < argc) {
             result.logits = argv[++i];
+        } else if (std::strcmp(argv[i], "--prompt-file") == 0 && i + 1 < argc) {
+            result.prompt_file = argv[++i];
+        } else if (std::strcmp(argv[i], "--max-generate") == 0 && i + 1 < argc) {
+            if (!parse_int(argv[++i], result.max_generate) ||
+                result.max_generate < 1 || result.max_generate > 128) {
+                return false;
+            }
         } else if (std::strcmp(argv[i], "--gpu-layers") == 0 && i + 1 < argc) {
             if (!parse_int(argv[++i], result.gpu_layers)) {
                 return false;
@@ -123,6 +134,9 @@ bool parse_arguments(int argc, char ** argv, arguments & result) {
             result.missing_annotation = true;
         } else if (std::strcmp(argv[i], "--performance-sample") == 0) {
             result.performance_sample = true;
+            result.skip_logits_write = true;
+        } else if (std::strcmp(argv[i], "--skip-logits-write") == 0) {
+            result.skip_logits_write = true;
         } else {
             return false;
         }
@@ -302,8 +316,24 @@ bool observe_route(const llama_route_observation * observation, void * user_data
 int main(int argc, char ** argv) {
     arguments args;
     if (!parse_arguments(argc, argv, args)) {
-        std::cerr << "usage: route-probe --model PATH --logits PATH --gpu-layers N [--trace PATH --model-name NAME --model-size BYTES --model-sha256 HEX --model-source-revision SHA --published-gguf-revision SHA --llama-cpp-revision SHA --run-id ID --max-ubatch-payload BYTES] [--direct-readback] [--performance-sample] [--fail-after-observations N] [--invalid-mixed-phase] [--missing-annotation]\n";
+        std::cerr << "usage: route-probe --model PATH --logits PATH --gpu-layers N [--prompt-file PATH] [--max-generate N] [--trace PATH --model-name NAME --model-size BYTES --model-sha256 HEX --model-source-revision SHA --published-gguf-revision SHA --llama-cpp-revision SHA --run-id ID --max-ubatch-payload BYTES] [--direct-readback] [--performance-sample] [--skip-logits-write] [--fail-after-observations N] [--invalid-mixed-phase] [--missing-annotation]\n";
         return 2;
+    }
+
+    std::string prompt_text = kPrompt;
+    if (!args.prompt_file.empty()) {
+        std::ifstream prompt_file(args.prompt_file, std::ios::binary);
+        if (!prompt_file) {
+            std::cerr << "ROUTE_ERROR: prompt input failed\n";
+            return 2;
+        }
+        prompt_text.assign(
+            std::istreambuf_iterator<char>(prompt_file),
+            std::istreambuf_iterator<char>());
+        if (prompt_text.empty()) {
+            std::cerr << "ROUTE_ERROR: prompt input is empty\n";
+            return 2;
+        }
     }
 
     ggml_backend_load_all();
@@ -317,14 +347,22 @@ int main(int argc, char ** argv) {
 
     const llama_vocab * vocab = llama_model_get_vocab(model);
     const int n_vocab = llama_vocab_n_tokens(vocab);
-    const int n_prompt = -llama_tokenize(vocab, kPrompt, std::strlen(kPrompt), nullptr, 0, true, true);
-    if (n_prompt <= 0) {
+    const int n_prompt = -llama_tokenize(
+        vocab, prompt_text.data(), prompt_text.size(), nullptr, 0, true, true);
+    if (n_prompt <= 0 || n_prompt + args.max_generate - 1 > kContext) {
         std::cerr << "ROUTE_ERROR: prompt tokenization failed\n";
         llama_model_free(model);
         return 4;
     }
     std::vector<llama_token> prompt(n_prompt);
-    if (llama_tokenize(vocab, kPrompt, std::strlen(kPrompt), prompt.data(), prompt.size(), true, true) != n_prompt) {
+    if (llama_tokenize(
+            vocab,
+            prompt_text.data(),
+            prompt_text.size(),
+            prompt.data(),
+            prompt.size(),
+            true,
+            true) != n_prompt) {
         std::cerr << "ROUTE_ERROR: prompt tokenization failed\n";
         llama_model_free(model);
         return 4;
@@ -389,7 +427,8 @@ int main(int argc, char ** argv) {
     const auto prompt_begin = clock_type::now();
     clock_type::time_point prompt_end;
     clock_type::time_point decode_begin;
-    for (int step = 0; step < kGenerate; ++step) {
+    bool stopped_on_eog = false;
+    for (int step = 0; step < args.max_generate; ++step) {
         if (args.trace_enabled) {
             const llama_route_phase phase = args.invalid_mixed_phase && step == 0
                 ? LLAMA_ROUTE_PHASE_MIXED
@@ -432,7 +471,7 @@ int main(int argc, char ** argv) {
             llama_model_free(model);
             return 10;
         }
-        if (!args.performance_sample) {
+        if (!args.skip_logits_write) {
             logits_file.write((const char *) logits, (size_t) n_vocab*sizeof(float));
         }
         const int next = finite_argmax(logits, n_vocab);
@@ -450,6 +489,7 @@ int main(int argc, char ** argv) {
             decode_begin = clock_type::now();
         }
         if (llama_vocab_is_eog(vocab, next)) {
+            stopped_on_eog = true;
             break;
         }
         batch = llama_batch_get_one(&generated.back(), 1);
@@ -490,7 +530,7 @@ int main(int argc, char ** argv) {
     print_ids(prompt);
     std::cout << "\nGENERATED_IDS\t";
     print_ids(generated);
-    std::cout << '\n';
+    std::cout << "\nSTOP_REASON\t" << (stopped_on_eog ? "eog" : "cap") << '\n';
     if (writer) {
         const llama_route_observer_stats stats = llama_route_observer_get_stats(context);
         const llama_perf_context_data perf = llama_perf_context(context);

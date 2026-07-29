@@ -1,0 +1,467 @@
+{
+  "artifacts": [
+    {
+      "kind": "prompt",
+      "path": "corpus/phase2/prompts-v1.json",
+      "sha256": "d22a007b9e56897b1f34c91f747bedfa05fede012f5e3cd09a900f4bb4749d8b",
+      "size": 6171
+    },
+    {
+      "kind": "source-of-truth",
+      "path": "docs/MODELS_AND_VALIDATION.md",
+      "sha256": "c50561bbb663374231e29d8ddb0863f022b1db2a9e1463ba9b0c04c8a94fac2b",
+      "size": 16869
+    },
+    {
+      "kind": "source-of-truth",
+      "path": "docs/REPOSITORIES_AND_ARTIFACTS.md",
+      "sha256": "0b5e24ed15652b1504f277bdb2bb6cc4d2d1a700b7c9c5524eca7286aae4be69",
+      "size": 8571
+    },
+    {
+      "kind": "source-of-truth",
+      "path": "docs/STATUS.md",
+      "sha256": "fd4c9ecf9e29455b8d03042bf9069d573e3c313e22118320dfe08aea64724c55",
+      "size": 5403
+    },
+    {
+      "kind": "source-of-truth",
+      "path": "docs/plan/00-foundation.md",
+      "sha256": "23420e675a79f55fcbec1a076302e7e0ff2b5eabc397044e0fd9d0ac9dcca743",
+      "size": 9564
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase2-observability/PHASE1.md",
+      "sha256": "6be49e416976f1504f5f12fc958da7d265c8f713f983b24494370ef824def57d",
+      "size": 3720
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase2-observability/PHASE2.md",
+      "sha256": "f67c8c225fc3ed41b743cc1da066a4bd5f34b2d3cca1523a56a81d7ea34cc8b7",
+      "size": 4873
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase2-observability/PHASE3.md",
+      "sha256": "86304f976a5efd5428b0b8c82fb2a333189854789762d96c28e04d209a92a907",
+      "size": 3869
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase2-observability/PHASE4.md",
+      "sha256": "1726fbd3f6cb5196bbe86ef2d15a095288e86d77b0e294223fd5dc42571888ef",
+      "size": 4007
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase2-observability/phase1-disabled-overhead.json",
+      "sha256": "02dc68503d3ff579240bb7cba36c97aca0326a8b60789c675e81d03de920ed28",
+      "size": 106151
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase2-observability/phase1-numerical/inference.json",
+      "sha256": "eb7258a003005e2ecde36557b52c1fce236e62df12cb82bda628f9063622deb2",
+      "size": 172774
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase2-observability/phase1-route-validation.json",
+      "sha256": "0b5b676b35d678a477703025687b899add497b5945559fdc9d84118dbf4b8d62",
+      "size": 16081
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase2-observability/phase2-f16-expert-storage-map-v1.json",
+      "sha256": "42af6acd1d1f2ea77aaa9750b28141670ce69009ba06b5ddca3f42c696b51151",
+      "size": 197679
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase2-observability/phase2-mxfp4-expert-storage-map-v1.json",
+      "sha256": "5efd068823a1746a5b7c1ad6a5fa838803714feadb30f6e28d66431cf7660060",
+      "size": 198150
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase2-observability/phase2-numerical/inference.json",
+      "sha256": "bfab6519a18f746cbd708fe4c31ae8839dffcee6d0ce85e3537395991f296072",
+      "size": 172774
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase2-observability/phase2-route-regression.json",
+      "sha256": "e978e1c4025a0d5d1b84e1cee77aca75533b57c766e83409f8d4335a81aaf4d7",
+      "size": 16081
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase2-observability/phase2-storage-validation.json",
+      "sha256": "f38b7e338a4210cc910d66add8814f384d4ee7f44f58bc84eeb58f940567f961",
+      "size": 10384
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase2-observability/phase2-trace-enabled-performance.json",
+      "sha256": "272d73fae74a6a0c2e4430fa9347ea1dade299b8ac383e47defa1d11ef303a16",
+      "size": 29156
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase2-observability/phase3-f16-reference-simulation.json",
+      "sha256": "8d7c3c2597e9d5e9dbfac6f98298a70aa3d975c2d8892030a109cb2249af433e",
+      "size": 139124
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase2-observability/phase3-simulation-manifest-v1.json",
+      "sha256": "a08d803db9eeac54aff099eab27a4d3a66fec3eb657be65c469a74aa6e606228",
+      "size": 1238
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase2-observability/phase4-corpus-capture.json",
+      "sha256": "68bd12d796cab98765395acd65fdfe106f51abcc87854cc1e8269644f9c812fe",
+      "size": 81961
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase2-observability/phase4-corpus-publication.json",
+      "sha256": "51f451e21a6162bfec32f3fa572d20e6f8d82d084e10186d5af92024543c9ec7",
+      "size": 1466
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase2-observability/phase4-corpus-simulations.json",
+      "sha256": "63068430455aaf6f947f2e2acced71cc44a9b728a1890f4dad82d327eea7bfef",
+      "size": 746174
+    },
+    {
+      "kind": "schema",
+      "path": "schemas/phase2/cache-simulation-manifest-v1.schema.json",
+      "sha256": "996b109135739749e0c5a144c6bbc441b83dcea335b1a1ee933d5e41d840ebd7",
+      "size": 2179
+    },
+    {
+      "kind": "schema",
+      "path": "schemas/phase2/cache-simulation-output-v1.schema.json",
+      "sha256": "2f508c1b24c9908c88a8916cc8d395614dfb73f0970bf32f47623966c264134d",
+      "size": 6188
+    },
+    {
+      "kind": "schema",
+      "path": "schemas/phase2/cache-simulation-v1.md",
+      "sha256": "49bc99758dde19148019bdf8402064ea5c29cd1d5097e3bc36bc2b51b1f8ce60",
+      "size": 2185
+    },
+    {
+      "kind": "schema",
+      "path": "schemas/phase2/expert-storage-map-v1.md",
+      "sha256": "bf3445f0f71279c88cc3c5426cd3bb7b0b3ae8b8885fce816a85952428139417",
+      "size": 1864
+    },
+    {
+      "kind": "schema",
+      "path": "schemas/phase2/expert-storage-map-v1.schema.json",
+      "sha256": "72e727fde7673acbc9422dc5303dd22d8e6c438bc7c61924ae03f176b23968f5",
+      "size": 5248
+    },
+    {
+      "kind": "schema",
+      "path": "schemas/phase2/phase2-manifest-v1.schema.json",
+      "sha256": "607a9ab621677967e7151eea9c846881b4e4a10d2a5505a825d0d54f2e6c515f",
+      "size": 3921
+    },
+    {
+      "kind": "schema",
+      "path": "schemas/phase2/route-trace-v1.md",
+      "sha256": "90184b865d0a9b0986aad2e6758fcebc78974c90895c00b2402c0edb38308412",
+      "size": 1738
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase2/cache_simulator.py",
+      "sha256": "c406ab55e921e27e8fe7a372152de39af896e7a955e20e4fcb2c223e9027dd28",
+      "size": 23400
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase2/capture_trace_corpus.py",
+      "sha256": "64d628ffae34942b5990cc385d2599b04ba257ef651ff7e85305f6651b33aa34",
+      "size": 21895
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase2/expert_storage_map.py",
+      "sha256": "80b4ef78eea1dfdd63b8817aefceb73ce531902091c5275ef4a754871af33cc5",
+      "size": 9111
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase2/route_trace.py",
+      "sha256": "bfd2a6f95fa5c803b137794181f998b721ca96255461a567beb3f6e9f6325190",
+      "size": 6817
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase2/run_cache_simulation.py",
+      "sha256": "96d137e3de6621a94eb25f203b50def262496a2125e957cd29155096d4c4123b",
+      "size": 1309
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase2/simulate_trace_corpus.py",
+      "sha256": "31628646f4dcbfc42bea3eddf0509ac115b7a1bf5d0f9f58ca9dbeac671e1d15",
+      "size": 5509
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase2/verify_phase2.py",
+      "sha256": "d5a94043b68097c2ecca83f8ece1d2b0af5b5978918d04d9b6241f0ed48a0a51",
+      "size": 13733
+    },
+    {
+      "kind": "fixture",
+      "path": "tests/fixtures/phase2/cache-simulator-reference-v1.json",
+      "sha256": "4d3623bf597bde7feffb43e09c8f1d63525279b1158cec9b9c000c168cd9b0d3",
+      "size": 1991
+    },
+    {
+      "kind": "fixture",
+      "path": "tests/fixtures/phase2/k3-f16-cpu-route-v1.bin",
+      "sha256": "1952895f05d7778fa9382e86b9dcaddf1549b330fe5aa034c5418479435111da",
+      "size": 19477
+    },
+    {
+      "kind": "test",
+      "path": "tests/phase2/test_cache_simulator.py",
+      "sha256": "1a53ad181765074041c3dd4f6dcae869e3b581fb98251c46113caf2e15be3fef",
+      "size": 9658
+    },
+    {
+      "kind": "test",
+      "path": "tests/phase2/test_expert_storage_map.py",
+      "sha256": "20ee81660ff5eefd5bbfd8786a02837bd6be325a92c214858ac7207d397890ad",
+      "size": 2383
+    },
+    {
+      "kind": "test",
+      "path": "tests/phase2/test_route_trace.py",
+      "sha256": "8bc8d877066e30e8de723358afa211b3e0e68b471774fbef4cd7181990f03f9d",
+      "size": 4388
+    },
+    {
+      "kind": "test",
+      "path": "tests/phase2/test_route_trace_writer.cpp",
+      "sha256": "fb5ca1863693d33069d6522e146eecac0bc2e302ba7347548076bc4d56d52eb9",
+      "size": 2906
+    }
+  ],
+  "closeout_state": "checkpoint-b-candidate",
+  "execution_profile": "STANDARD",
+  "external_archive": {
+    "members": [
+      {
+        "path": "phase2-k3-route-corpus-v1/README.md",
+        "sha256": "ce00355490c7bb9a0159fa06ded41750effca4f14edc4aab0b18ef15283c8b98",
+        "size": 187
+      },
+      {
+        "path": "phase2-k3-route-corpus-v1/SHA256SUMS",
+        "sha256": "c1e58654c39b77c6056cc9b166b8e4054dd5c6e72d58b097f17cdcea47b0d401",
+        "size": 1902
+      },
+      {
+        "path": "phase2-k3-route-corpus-v1/corpus-index.json",
+        "sha256": "66f6667d3a9d338166cb57dbac8f268ed93fc58372975d2820717ce260b473a1",
+        "size": 76878
+      },
+      {
+        "path": "phase2-k3-route-corpus-v1/prompts-v1.json",
+        "sha256": "d22a007b9e56897b1f34c91f747bedfa05fede012f5e3cd09a900f4bb4749d8b",
+        "size": 6171
+      },
+      {
+        "path": "phase2-k3-route-corpus-v1/traces/f16-cpu-code-en-small.bin",
+        "sha256": "3df75755b3719d6ea193b31da57c526251014c80a60cc0e6c30d7860dbb9c081",
+        "size": 29065
+      },
+      {
+        "path": "phase2-k3-route-corpus-v1/traces/f16-cpu-narrative-en-large.bin",
+        "sha256": "40d697860367da78d9abe0988464a5920fc18443c1d7766b20d4c51ea6532786",
+        "size": 164730
+      },
+      {
+        "path": "phase2-k3-route-corpus-v1/traces/f16-cpu-narrative-es-large.bin",
+        "sha256": "c711891714ef16f4d4a82eaadf6d2aad2c46c385b0fc55387e8c1beddf40a5f5",
+        "size": 187074
+      },
+      {
+        "path": "phase2-k3-route-corpus-v1/traces/f16-cpu-prose-en-small.bin",
+        "sha256": "417e4ffa30bee03b249240715e2f1127b019462f3a36348b032cb7de43e24447",
+        "size": 14702
+      },
+      {
+        "path": "phase2-k3-route-corpus-v1/traces/f16-cpu-structured-en-small.bin",
+        "sha256": "f739ae3fcbf0ff13fb6395ab4ef6f00bf93bf710034b843ff56eceda0188e9e6",
+        "size": 20559
+      },
+      {
+        "path": "phase2-k3-route-corpus-v1/traces/f16-cpu-technical-en-large.bin",
+        "sha256": "5d60a2ca13bf3b541a06dd5fb0a65814054c774c1d33f19ddeb2d2323c77f0e4",
+        "size": 158346
+      },
+      {
+        "path": "phase2-k3-route-corpus-v1/traces/f16-cuda-narrative-en-large.bin",
+        "sha256": "d44fd6cd2fd41503c618d3a7971632f41b96cad8788e9bcb3c069082472d0279",
+        "size": 164731
+      },
+      {
+        "path": "phase2-k3-route-corpus-v1/traces/f16-cuda-prose-en-small.bin",
+        "sha256": "07e22607aa1f7746164eb77013df6272495e77bcfc961301babe1722f2d3709c",
+        "size": 14703
+      },
+      {
+        "path": "phase2-k3-route-corpus-v1/traces/mxfp4-cpu-code-en-small.bin",
+        "sha256": "710b954c72551fb262656f4356f5239c78a961611368968ed0ea43a99614472c",
+        "size": 29069
+      },
+      {
+        "path": "phase2-k3-route-corpus-v1/traces/mxfp4-cpu-narrative-en-large.bin",
+        "sha256": "89e17b6f722f6dc24ffc6e2df28b441a36265d2f483648e5ebfe3d217540735b",
+        "size": 164734
+      },
+      {
+        "path": "phase2-k3-route-corpus-v1/traces/mxfp4-cpu-narrative-es-large.bin",
+        "sha256": "2c15345340c32003412281e0c64407fdabea3e7064d8882bb5330dec0489047d",
+        "size": 187078
+      },
+      {
+        "path": "phase2-k3-route-corpus-v1/traces/mxfp4-cpu-prose-en-small.bin",
+        "sha256": "ad65e2c2119c8170bd79184cd47e535ef862c71de7e30dfecf413be80afef9a5",
+        "size": 14706
+      },
+      {
+        "path": "phase2-k3-route-corpus-v1/traces/mxfp4-cpu-structured-en-small.bin",
+        "sha256": "a673539bc94448adad6d81962741033abc8cd2d9842cbbd48cc5cec437439a13",
+        "size": 20563
+      },
+      {
+        "path": "phase2-k3-route-corpus-v1/traces/mxfp4-cpu-technical-en-large.bin",
+        "sha256": "f464ae781ffa044adccb1f4cd6b4291525ec02387353bb4d1712266265824ad7",
+        "size": 158350
+      },
+      {
+        "path": "phase2-k3-route-corpus-v1/traces/mxfp4-cuda-narrative-en-large.bin",
+        "sha256": "4ed6a43b126019c472e98c1aa1b856c9969a25f56eb44bf933207c751b154a0e",
+        "size": 164735
+      },
+      {
+        "path": "phase2-k3-route-corpus-v1/traces/mxfp4-cuda-prose-en-small.bin",
+        "sha256": "2d149e851371f1162665c5e6ce1132bb47179a42d284d891cee6a93bf2948b24",
+        "size": 14707
+      }
+    ],
+    "path": "phase2-observability/phase2-k3-route-corpus-v1.tar.gz",
+    "repository": "murillo2000/Kimi-K3-0.40B-GGUF",
+    "revision": "2d838d6b4d0aca4e9af1e7d899e57ad29330c72e",
+    "sha256": "6aa924a6c18bee4e2490f317ced836bcc4740c3ec63e9427a95951e79a649a5f",
+    "size": 323723
+  },
+  "issue": {
+    "number": 10,
+    "pull_request": 11,
+    "repository": "murillo128/k3-out-of-core",
+    "url": "https://github.com/murillo128/k3-out-of-core/issues/10"
+  },
+  "models": [
+    {
+      "name": "Kimi-K3-0.40B-F16.gguf",
+      "sha256": "411c197b503e6fb9199a2b22115e32dc4e2cad803fb112b24967737b3bab26c7",
+      "size": 784318432,
+      "source_revision": "d853649387ffe8f48ce0198a29ac1a44205031f7"
+    },
+    {
+      "name": "Kimi-K3-0.40B-MXFP4.gguf",
+      "sha256": "0379a1cc623e09eb3fbd1dfcb18737bc8c971dbfe5bf5bc3e08da8b5379ec169",
+      "size": 751976576,
+      "source_revision": "ef3902c318fb8e13c3507e26055656e687fdfe38"
+    }
+  ],
+  "prohibited_scope": {
+    "model_payload_tracked": false,
+    "raw_corpus_tracked": false,
+    "runtime_provider_or_cache_added": false
+  },
+  "reviews": [
+    {
+      "checkpoint": "A",
+      "comment_id": 5122694227,
+      "llama_cpp_head": "4daaaa1a4dd26d6465f84891b854b5f7ddc03020",
+      "project_head": "43216235b6e74914afdb1b76918557675bf7e0b1",
+      "safety_to_proceed": "YES",
+      "url": "https://github.com/murillo128/k3-out-of-core/issues/10#issuecomment-5122694227",
+      "verdict": "PASS_WITH_NOTES"
+    }
+  ],
+  "revisions": {
+    "llama_cpp_base": "84245db4c790af22135f34992689edcc11877003",
+    "llama_cpp_route_observer": "92c4627e19219134ed42e24aa84a1514bf3dffa3",
+    "llama_cpp_storage_metadata": "4daaaa1a4dd26d6465f84891b854b5f7ddc03020",
+    "project_checkpoint_a_head": "43216235b6e74914afdb1b76918557675bf7e0b1",
+    "project_execution_base": "c0ef5d08c6efb8d1f7a08a62109feb1a488c72fa",
+    "project_phase3_head": "8aeee910ce6da4e10dfff4ede2395680580d1e7a",
+    "published_corpus": "2d838d6b4d0aca4e9af1e7d899e57ad29330c72e",
+    "published_gguf": "88de02cf8fa37f87eb06daaed370ac9c3411d5ca"
+  },
+  "schema_version": "phase2-manifest-v1",
+  "validation": [
+    {
+      "evidence": "20/20 dependency-free unittest cases",
+      "name": "phase2-unit-tests",
+      "status": "pass"
+    },
+    {
+      "evidence": "phase2-route-regression.json",
+      "name": "route-regression",
+      "status": "pass"
+    },
+    {
+      "evidence": "phase2-numerical/inference.json",
+      "name": "numerical-parity",
+      "status": "pass"
+    },
+    {
+      "evidence": "phase2-storage-validation.json",
+      "name": "storage-maps",
+      "status": "pass"
+    },
+    {
+      "evidence": "phase2-trace-enabled-performance.json",
+      "name": "trace-enabled-performance",
+      "status": "pass"
+    },
+    {
+      "evidence": "phase3-f16-reference-simulation.json",
+      "name": "simulator-reference",
+      "status": "pass"
+    },
+    {
+      "evidence": "phase4-corpus-capture.json",
+      "name": "corpus-repeatability-and-parity",
+      "status": "pass"
+    },
+    {
+      "evidence": "phase4-corpus-publication.json",
+      "name": "corpus-publication",
+      "status": "pass"
+    },
+    {
+      "evidence": "phase4-corpus-simulations.json",
+      "name": "corpus-simulation",
+      "status": "pass"
+    }
+  ]
+}

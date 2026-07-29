@@ -157,10 +157,10 @@
 
 #### 2.4 Trace corpus
 
-- [ ] Capture multiple prompts and domains.
-- [ ] Capture short and long decode.
-- [ ] Capture small and large prefill.
-- [ ] Preserve raw traces and summarized results with model/checkpoint revisions.
+- [x] Capture multiple prompts and domains.
+- [x] Capture short and long decode.
+- [x] Capture small and large prefill.
+- [x] Preserve raw traces and summarized results with model/checkpoint revisions.
 
 ### Exit gate
 
