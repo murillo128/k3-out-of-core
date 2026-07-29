@@ -1,0 +1,7136 @@
+{
+  "captured_at_utc": "2026-07-29T19:01:56.315805+00:00",
+  "configuration": {
+    "context": 512,
+    "maximum_generated_tokens": 32,
+    "prompt": "According to all known laws",
+    "sampling": "greedy argmax; seed recorded but has no stochastic effect at temperature 0",
+    "seed": 1,
+    "temperature": 0,
+    "threads": 8,
+    "top_k_logits": 10
+  },
+  "cross_format_diagnostic": {
+    "cpu": {
+      "common_steps": 32,
+      "full_vocabulary_diagnostic_metrics": {
+        "cosine_similarity": 0.9995126332431117,
+        "maximum_absolute_difference": 2.0784454345703125,
+        "mean_absolute_difference": 0.1042674790991022
+      },
+      "generated_ids_exact": true,
+      "prompt_ids_exact": true,
+      "reason": "F16/MXFP4 cross-format equality is not required by issue #7",
+      "thresholded": false
+    },
+    "cuda": {
+      "common_steps": 32,
+      "full_vocabulary_diagnostic_metrics": {
+        "cosine_similarity": 0.9995164799523147,
+        "maximum_absolute_difference": 2.071183204650879,
+        "mean_absolute_difference": 0.10412673195017988
+      },
+      "generated_ids_exact": true,
+      "prompt_ids_exact": true,
+      "reason": "F16/MXFP4 cross-format equality is not required by issue #7",
+      "thresholded": false
+    }
+  },
+  "hard_failures": {
+    "all_four_runs_exit_zero": true,
+    "all_full_vocabulary_logits_finite": true,
+    "changed_source_hashes": false,
+    "invalid_expert_ids_observed": false,
+    "no_log_hard_failures": true,
+    "unstable_same_artifact_generation": false
+  },
+  "inputs": {
+    "artifacts": {
+      "f16": {
+        "path": "models/gguf/Kimi-K3-0.40B-F16.gguf",
+        "sha256": "411c197b503e6fb9199a2b22115e32dc4e2cad803fb112b24967737b3bab26c7"
+      },
+      "mxfp4": {
+        "path": "models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+        "sha256": "0379a1cc623e09eb3fbd1dfcb18737bc8c971dbfe5bf5bc3e08da8b5379ec169"
+      }
+    },
+    "llama_cpp_commit": "92c4627e19219134ed42e24aa84a1514bf3dffa3"
+  },
+  "phase2_reuse": {
+    "llama_cpp_commit_override": "92c4627e19219134ed42e24aa84a1514bf3dffa3",
+    "source_gate": "scripts/phase1/capture_inference.py"
+  },
+  "placement": {
+    "artifacts": {
+      "f16": {
+        "checks": {
+          "cpu_layers_explicit": true,
+          "cuda_cpu_fallback_disclosed": true,
+          "cuda_cpu_resident_buffers_disclosed": true,
+          "cuda_layers_explicit": true,
+          "gtx_1650_detected": true
+        },
+        "cpu_layers": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "cuda_cpu_fallback_lines": [
+          "done_getting_tensors: tensor 'token_embd.weight' (f16) (and 6 others) cannot be used with preferred buffer type CUDA_Host, using CPU instead",
+          "resolve_fused_ops: layer 3 is assigned to device CUDA0 but Flash Attention is assigned to device CPU (usually due to missing support)"
+        ],
+        "cuda_cpu_resident_buffers": [
+          {
+            "backend_buffer": "CPU_Mapped",
+            "kind": "model",
+            "size_mib": 405.78
+          }
+        ],
+        "cuda_devices": [
+          {
+            "description": "NVIDIA GeForce GTX 1650",
+            "free_bytes_at_discovery": 4023189504,
+            "index": 0,
+            "name": "CUDA0",
+            "total_bytes": 4093509632,
+            "type": 1
+          }
+        ],
+        "cuda_layers": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      },
+      "mxfp4": {
+        "checks": {
+          "all_mxfp4_layers_assigned_cuda": true,
+          "cpu_layers_explicit": true,
+          "cuda_cpu_fallback_disclosed": true,
+          "cuda_cpu_resident_buffers_disclosed": true,
+          "cuda_layers_explicit": true,
+          "gtx_1650_detected": true
+        },
+        "cpu_layers": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "cuda_cpu_fallback_lines": [
+          "done_getting_tensors: tensor 'token_embd.weight' (f16) (and 6 others) cannot be used with preferred buffer type CUDA_Host, using CPU instead",
+          "resolve_fused_ops: layer 3 is assigned to device CUDA0 but Flash Attention is assigned to device CPU (usually due to missing support)"
+        ],
+        "cuda_cpu_resident_buffers": [
+          {
+            "backend_buffer": "CPU_Mapped",
+            "kind": "model",
+            "size_mib": 348.78
+          }
+        ],
+        "cuda_devices": [
+          {
+            "description": "NVIDIA GeForce GTX 1650",
+            "free_bytes_at_discovery": 4023189504,
+            "index": 0,
+            "name": "CUDA0",
+            "total_bytes": 4093509632,
+            "type": 1
+          }
+        ],
+        "cuda_layers": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      }
+    },
+    "mxfp4_inventory": {
+      "layers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "names": [
+        "blk.1.ffn_gate_exps.weight",
+        "blk.1.ffn_down_exps.weight",
+        "blk.1.ffn_up_exps.weight",
+        "blk.2.ffn_gate_exps.weight",
+        "blk.2.ffn_down_exps.weight",
+        "blk.2.ffn_up_exps.weight",
+        "blk.3.ffn_gate_exps.weight",
+        "blk.3.ffn_down_exps.weight",
+        "blk.3.ffn_up_exps.weight",
+        "blk.4.ffn_gate_exps.weight",
+        "blk.4.ffn_down_exps.weight",
+        "blk.4.ffn_up_exps.weight",
+        "blk.5.ffn_gate_exps.weight",
+        "blk.5.ffn_down_exps.weight",
+        "blk.5.ffn_up_exps.weight",
+        "blk.6.ffn_gate_exps.weight",
+        "blk.6.ffn_down_exps.weight",
+        "blk.6.ffn_up_exps.weight",
+        "blk.7.ffn_gate_exps.weight",
+        "blk.7.ffn_down_exps.weight",
+        "blk.7.ffn_up_exps.weight"
+      ],
+      "tensor_count": 21,
+      "tensor_type": 39
+    },
+    "status": "pass"
+  },
+  "probe_compilation": [
+    {
+      "backend": "cpu",
+      "build": "llama.cpp/build-cpu",
+      "compiler": "c++",
+      "duration_seconds": 0.462063,
+      "exit_code": 0,
+      "source": "scripts/phase1/inference_probe.cpp"
+    },
+    {
+      "backend": "cuda",
+      "build": "llama.cpp/build-cuda",
+      "compiler": "c++",
+      "duration_seconds": 0.454839,
+      "exit_code": 0,
+      "source": "scripts/phase1/inference_probe.cpp"
+    }
+  ],
+  "runs": {
+    "f16-cpu": {
+      "artifact": "f16",
+      "backend": "cpu",
+      "config": {
+        "context": "512",
+        "generate": "32",
+        "gpu_layers": "0",
+        "prompt": "According to all known laws",
+        "seed": "1",
+        "temperature": "0",
+        "threads": "8"
+      },
+      "contract_checks": {
+        "configuration_exact": true,
+        "generated_exactly_32_tokens": true,
+        "probe_result_exact": true,
+        "prompt_ids_exact": true,
+        "step_ids_match_generated_ids": true,
+        "step_indexes_contiguous": true
+      },
+      "duration_seconds": 0.575116,
+      "exit_code": 0,
+      "generated_ids": [
+        318,
+        57195,
+        11,
+        1459,
+        387,
+        1495,
+        2189,
+        261,
+        56207,
+        1765,
+        413,
+        3700,
+        308,
+        16028,
+        13,
+        15149,
+        40841,
+        554,
+        3143,
+        3307,
+        308,
+        922,
+        1682,
+        12138,
+        3572,
+        4120,
+        1468,
+        276,
+        7519,
+        13,
+        646,
+        56207
+      ],
+      "hard_failure_scan": {
+        "all_logits_finite": true,
+        "log_scan_matches": {},
+        "passed": true
+      },
+      "log": "results/2026-07-29/skynet/phase2-observability/phase1-numerical/inference-f16-cpu.log",
+      "model": {
+        "bytes": 777396384,
+        "layers": 8,
+        "parameters": 388581416,
+        "vocabulary": 163840
+      },
+      "placement": {
+        "buffers": [
+          {
+            "backend_buffer": "CPU_Mapped",
+            "kind": "model",
+            "size_mib": 741.38
+          },
+          {
+            "backend_buffer": "CPU",
+            "kind": "output",
+            "size_mib": 0.62
+          },
+          {
+            "backend_buffer": "CPU",
+            "kind": "KV",
+            "size_mib": 0.31
+          },
+          {
+            "backend_buffer": "CPU",
+            "kind": "compute",
+            "size_mib": 324.51
+          },
+          {
+            "backend_buffer": "CPU",
+            "kind": "compute",
+            "size_mib": 324.5078
+          }
+        ],
+        "devices": [
+          {
+            "description": "11th Gen Intel(R) Core(TM) i7-11700K @ 3.60GHz",
+            "free_bytes_at_discovery": 67317436416,
+            "index": 0,
+            "name": "CPU",
+            "total_bytes": 67317436416,
+            "type": 0
+          }
+        ],
+        "explicit_cpu_fallback_lines": [
+          "load_tensors: layer   0 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   1 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   2 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   3 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   4 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   5 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   6 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   7 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   8 assigned to device CPU, is_swa = 0",
+          "done_getting_tensors: tensor 'token_embd.weight' (f16) (and 217 others) cannot be used with preferred buffer type CPU_REPACK, using CPU instead"
+        ],
+        "layer_assignments": {
+          "CPU": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        "placement_log_lines": [
+          "load_tensors: layer   0 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   1 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   2 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   3 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   4 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   5 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   6 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   7 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   8 assigned to device CPU, is_swa = 0",
+          "done_getting_tensors: tensor 'token_embd.weight' (f16) (and 217 others) cannot be used with preferred buffer type CPU_REPACK, using CPU instead",
+          "load_tensors:   CPU_Mapped model buffer size =   741.38 MiB",
+          "llama_context:        CPU  output buffer size =     0.62 MiB",
+          "llama_kv_cache:        CPU KV buffer size =     0.31 MiB",
+          "llama_memory_recurrent:        CPU RS buffer size =     0.24 MiB",
+          "sched_reserve:        CPU compute buffer size =   324.51 MiB",
+          "~llama_context:        CPU compute buffer size is 324.5078 MiB, matches expectation of 324.5078 MiB"
+        ]
+      },
+      "prompt_ids": [
+        18805,
+        308,
+        799,
+        5624,
+        12524
+      ],
+      "raw_logit_shape": [
+        32,
+        163840
+      ],
+      "result": {
+        "exit": "0",
+        "steps": "32"
+      },
+      "steps": [
+        {
+          "generated_id": 318,
+          "index": 0,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 16.8771877,
+              "token_id": 318
+            },
+            {
+              "logit": 5.56550503,
+              "token_id": 289
+            },
+            {
+              "logit": 4.58175564,
+              "token_id": 3105
+            },
+            {
+              "logit": 4.00304365,
+              "token_id": 554
+            },
+            {
+              "logit": 3.54024029,
+              "token_id": 16028
+            },
+            {
+              "logit": 3.53383636,
+              "token_id": 16822
+            },
+            {
+              "logit": 3.23182487,
+              "token_id": 11136
+            },
+            {
+              "logit": 3.10481787,
+              "token_id": 39058
+            },
+            {
+              "logit": 3.09440351,
+              "token_id": 56207
+            },
+            {
+              "logit": 3.02702069,
+              "token_id": 994
+            }
+          ]
+        },
+        {
+          "generated_id": 57195,
+          "index": 1,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 10.1832542,
+              "token_id": 57195
+            },
+            {
+              "logit": 4.97590923,
+              "token_id": 1530
+            },
+            {
+              "logit": 4.38297081,
+              "token_id": 39058
+            },
+            {
+              "logit": 3.30914235,
+              "token_id": 52588
+            },
+            {
+              "logit": 3.1654892,
+              "token_id": 483
+            },
+            {
+              "logit": 2.40324473,
+              "token_id": 116155
+            },
+            {
+              "logit": 2.18270636,
+              "token_id": 19456
+            },
+            {
+              "logit": 2.16519427,
+              "token_id": 12524
+            },
+            {
+              "logit": 2.02341628,
+              "token_id": 667
+            },
+            {
+              "logit": 1.9020226,
+              "token_id": 48063
+            }
+          ]
+        },
+        {
+          "generated_id": 11,
+          "index": 2,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 15.3866405,
+              "token_id": 11
+            },
+            {
+              "logit": 5.48236322,
+              "token_id": 48063
+            },
+            {
+              "logit": 5.29190731,
+              "token_id": 667
+            },
+            {
+              "logit": 5.20038223,
+              "token_id": 289
+            },
+            {
+              "logit": 4.14127684,
+              "token_id": 473
+            },
+            {
+              "logit": 3.82286,
+              "token_id": 16028
+            },
+            {
+              "logit": 3.64509869,
+              "token_id": 3652
+            },
+            {
+              "logit": 3.49202561,
+              "token_id": 554
+            },
+            {
+              "logit": 3.46670008,
+              "token_id": 4536
+            },
+            {
+              "logit": 3.21568704,
+              "token_id": 994
+            }
+          ]
+        },
+        {
+          "generated_id": 1459,
+          "index": 3,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.4176216,
+              "token_id": 1459
+            },
+            {
+              "logit": 8.05766201,
+              "token_id": 6233
+            },
+            {
+              "logit": 6.50490475,
+              "token_id": 60063
+            },
+            {
+              "logit": 6.39330101,
+              "token_id": 996
+            },
+            {
+              "logit": 6.00751066,
+              "token_id": 528
+            },
+            {
+              "logit": 4.37839556,
+              "token_id": 8629
+            },
+            {
+              "logit": 4.19851494,
+              "token_id": 220
+            },
+            {
+              "logit": 4.11968994,
+              "token_id": 387
+            },
+            {
+              "logit": 3.93110228,
+              "token_id": 1812
+            },
+            {
+              "logit": 3.34549737,
+              "token_id": 646
+            }
+          ]
+        },
+        {
+          "generated_id": 387,
+          "index": 4,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 15.7724228,
+              "token_id": 387
+            },
+            {
+              "logit": 5.83696175,
+              "token_id": 559
+            },
+            {
+              "logit": 4.02697754,
+              "token_id": 420
+            },
+            {
+              "logit": 3.19052076,
+              "token_id": 799
+            },
+            {
+              "logit": 3.16471124,
+              "token_id": 2704
+            },
+            {
+              "logit": 3.14216471,
+              "token_id": 1812
+            },
+            {
+              "logit": 3.00241756,
+              "token_id": 667
+            },
+            {
+              "logit": 2.95495749,
+              "token_id": 48063
+            },
+            {
+              "logit": 2.82653379,
+              "token_id": 395
+            },
+            {
+              "logit": 2.55551767,
+              "token_id": 19456
+            }
+          ]
+        },
+        {
+          "generated_id": 1495,
+          "index": 5,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 16.211853,
+              "token_id": 1495
+            },
+            {
+              "logit": 6.89260912,
+              "token_id": 994
+            },
+            {
+              "logit": 6.51334,
+              "token_id": 261
+            },
+            {
+              "logit": 6.10870647,
+              "token_id": 395
+            },
+            {
+              "logit": 5.66948223,
+              "token_id": 667
+            },
+            {
+              "logit": 4.2949872,
+              "token_id": 12606
+            },
+            {
+              "logit": 4.19916153,
+              "token_id": 108263
+            },
+            {
+              "logit": 4.08209276,
+              "token_id": 4536
+            },
+            {
+              "logit": 3.74331546,
+              "token_id": 1581
+            },
+            {
+              "logit": 3.4343667,
+              "token_id": 19392
+            }
+          ]
+        },
+        {
+          "generated_id": 2189,
+          "index": 6,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.3869629,
+              "token_id": 2189
+            },
+            {
+              "logit": 5.88290119,
+              "token_id": 289
+            },
+            {
+              "logit": 4.96926022,
+              "token_id": 163585
+            },
+            {
+              "logit": 4.65507555,
+              "token_id": 667
+            },
+            {
+              "logit": 4.41514683,
+              "token_id": 1812
+            },
+            {
+              "logit": 4.35637569,
+              "token_id": 14417
+            },
+            {
+              "logit": 3.94509649,
+              "token_id": 994
+            },
+            {
+              "logit": 3.73171806,
+              "token_id": 2686
+            },
+            {
+              "logit": 3.71491456,
+              "token_id": 554
+            },
+            {
+              "logit": 3.71125126,
+              "token_id": 5058
+            }
+          ]
+        },
+        {
+          "generated_id": 261,
+          "index": 7,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 16.0924854,
+              "token_id": 261
+            },
+            {
+              "logit": 6.27749348,
+              "token_id": 1495
+            },
+            {
+              "logit": 5.10517597,
+              "token_id": 667
+            },
+            {
+              "logit": 4.72179031,
+              "token_id": 483
+            },
+            {
+              "logit": 4.45681381,
+              "token_id": 807
+            },
+            {
+              "logit": 4.36330509,
+              "token_id": 398
+            },
+            {
+              "logit": 4.36116982,
+              "token_id": 799
+            },
+            {
+              "logit": 4.32887173,
+              "token_id": 994
+            },
+            {
+              "logit": 4.31726646,
+              "token_id": 1812
+            },
+            {
+              "logit": 4.03441238,
+              "token_id": 19456
+            }
+          ]
+        },
+        {
+          "generated_id": 56207,
+          "index": 8,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 16.5666046,
+              "token_id": 56207
+            },
+            {
+              "logit": 6.35448933,
+              "token_id": 308
+            },
+            {
+              "logit": 5.77041769,
+              "token_id": 26914
+            },
+            {
+              "logit": 5.59992981,
+              "token_id": 4536
+            },
+            {
+              "logit": 5.10734224,
+              "token_id": 807
+            },
+            {
+              "logit": 5.0901947,
+              "token_id": 52588
+            },
+            {
+              "logit": 4.55941582,
+              "token_id": 368
+            },
+            {
+              "logit": 4.5108366,
+              "token_id": 8480
+            },
+            {
+              "logit": 4.51039124,
+              "token_id": 3731
+            },
+            {
+              "logit": 4.4448719,
+              "token_id": 5511
+            }
+          ]
+        },
+        {
+          "generated_id": 1765,
+          "index": 9,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.5458288,
+              "token_id": 1765
+            },
+            {
+              "logit": 7.10164022,
+              "token_id": 11
+            },
+            {
+              "logit": 6.64937449,
+              "token_id": 261
+            },
+            {
+              "logit": 5.77494049,
+              "token_id": 289
+            },
+            {
+              "logit": 4.89581633,
+              "token_id": 163585
+            },
+            {
+              "logit": 4.2230444,
+              "token_id": 3105
+            },
+            {
+              "logit": 3.96204233,
+              "token_id": 108263
+            },
+            {
+              "logit": 3.9144249,
+              "token_id": 667
+            },
+            {
+              "logit": 3.83281708,
+              "token_id": 420
+            },
+            {
+              "logit": 3.82095861,
+              "token_id": 4536
+            }
+          ]
+        },
+        {
+          "generated_id": 413,
+          "index": 10,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.5188828,
+              "token_id": 413
+            },
+            {
+              "logit": 6.4465847,
+              "token_id": 108263
+            },
+            {
+              "logit": 5.79687643,
+              "token_id": 1581
+            },
+            {
+              "logit": 5.28322458,
+              "token_id": 554
+            },
+            {
+              "logit": 5.12980747,
+              "token_id": 667
+            },
+            {
+              "logit": 4.54936314,
+              "token_id": 2416
+            },
+            {
+              "logit": 4.32755661,
+              "token_id": 459
+            },
+            {
+              "logit": 4.10887241,
+              "token_id": 56207
+            },
+            {
+              "logit": 3.76405239,
+              "token_id": 994
+            },
+            {
+              "logit": 3.69930744,
+              "token_id": 623
+            }
+          ]
+        },
+        {
+          "generated_id": 3700,
+          "index": 11,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.9491634,
+              "token_id": 3700
+            },
+            {
+              "logit": 7.63340569,
+              "token_id": 667
+            },
+            {
+              "logit": 4.83012867,
+              "token_id": 3105
+            },
+            {
+              "logit": 4.73778772,
+              "token_id": 13
+            },
+            {
+              "logit": 4.71487141,
+              "token_id": 318
+            },
+            {
+              "logit": 4.65690804,
+              "token_id": 554
+            },
+            {
+              "logit": 4.28861904,
+              "token_id": 1070
+            },
+            {
+              "logit": 4.10077143,
+              "token_id": 21887
+            },
+            {
+              "logit": 4.03703403,
+              "token_id": 289
+            },
+            {
+              "logit": 3.85066152,
+              "token_id": 4536
+            }
+          ]
+        },
+        {
+          "generated_id": 308,
+          "index": 12,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 17.1458416,
+              "token_id": 308
+            },
+            {
+              "logit": 4.81019878,
+              "token_id": 52588
+            },
+            {
+              "logit": 4.39545441,
+              "token_id": 289
+            },
+            {
+              "logit": 4.07569408,
+              "token_id": 108263
+            },
+            {
+              "logit": 3.59555101,
+              "token_id": 261
+            },
+            {
+              "logit": 3.38108397,
+              "token_id": 10736
+            },
+            {
+              "logit": 3.36526275,
+              "token_id": 559
+            },
+            {
+              "logit": 3.33859348,
+              "token_id": 5058
+            },
+            {
+              "logit": 3.0951786,
+              "token_id": 420
+            },
+            {
+              "logit": 2.89748549,
+              "token_id": 667
+            }
+          ]
+        },
+        {
+          "generated_id": 16028,
+          "index": 13,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 16.2982941,
+              "token_id": 16028
+            },
+            {
+              "logit": 5.89151096,
+              "token_id": 11
+            },
+            {
+              "logit": 5.40636063,
+              "token_id": 667
+            },
+            {
+              "logit": 4.87342358,
+              "token_id": 4536
+            },
+            {
+              "logit": 4.81542063,
+              "token_id": 1581
+            },
+            {
+              "logit": 4.17835855,
+              "token_id": 473
+            },
+            {
+              "logit": 4.12567425,
+              "token_id": 799
+            },
+            {
+              "logit": 4.07798147,
+              "token_id": 12312
+            },
+            {
+              "logit": 3.84553695,
+              "token_id": 368
+            },
+            {
+              "logit": 3.8259697,
+              "token_id": 554
+            }
+          ]
+        },
+        {
+          "generated_id": 13,
+          "index": 14,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.2974224,
+              "token_id": 13
+            },
+            {
+              "logit": 6.27694225,
+              "token_id": 318
+            },
+            {
+              "logit": 5.55043507,
+              "token_id": 21887
+            },
+            {
+              "logit": 5.49796915,
+              "token_id": 4536
+            },
+            {
+              "logit": 5.03302383,
+              "token_id": 623
+            },
+            {
+              "logit": 4.05087948,
+              "token_id": 554
+            },
+            {
+              "logit": 3.91922092,
+              "token_id": 374
+            },
+            {
+              "logit": 3.82390404,
+              "token_id": 11
+            },
+            {
+              "logit": 3.74811196,
+              "token_id": 667
+            },
+            {
+              "logit": 3.65261579,
+              "token_id": 56207
+            }
+          ]
+        },
+        {
+          "generated_id": 15149,
+          "index": 15,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.8153286,
+              "token_id": 15149
+            },
+            {
+              "logit": 7.31743622,
+              "token_id": 8629
+            },
+            {
+              "logit": 6.83894539,
+              "token_id": 11136
+            },
+            {
+              "logit": 6.37274885,
+              "token_id": 3307
+            },
+            {
+              "logit": 5.84893894,
+              "token_id": 420
+            },
+            {
+              "logit": 5.17180634,
+              "token_id": 554
+            },
+            {
+              "logit": 4.86569929,
+              "token_id": 289
+            },
+            {
+              "logit": 4.85523891,
+              "token_id": 24833
+            },
+            {
+              "logit": 4.63570309,
+              "token_id": 19456
+            },
+            {
+              "logit": 4.37841988,
+              "token_id": 5071
+            }
+          ]
+        },
+        {
+          "generated_id": 40841,
+          "index": 16,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 13.9899445,
+              "token_id": 40841
+            },
+            {
+              "logit": 6.67174196,
+              "token_id": 52588
+            },
+            {
+              "logit": 5.50180101,
+              "token_id": 667
+            },
+            {
+              "logit": 5.32431602,
+              "token_id": 18404
+            },
+            {
+              "logit": 5.29700565,
+              "token_id": 11
+            },
+            {
+              "logit": 5.23068142,
+              "token_id": 4536
+            },
+            {
+              "logit": 5.02993965,
+              "token_id": 368
+            },
+            {
+              "logit": 5.01086712,
+              "token_id": 13
+            },
+            {
+              "logit": 4.7447691,
+              "token_id": 261
+            },
+            {
+              "logit": 4.51561928,
+              "token_id": 3105
+            }
+          ]
+        },
+        {
+          "generated_id": 554,
+          "index": 17,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.4672966,
+              "token_id": 554
+            },
+            {
+              "logit": 5.07982111,
+              "token_id": 289
+            },
+            {
+              "logit": 5.04982853,
+              "token_id": 286
+            },
+            {
+              "logit": 4.86465359,
+              "token_id": 141361
+            },
+            {
+              "logit": 4.6618185,
+              "token_id": 11136
+            },
+            {
+              "logit": 4.51034737,
+              "token_id": 646
+            },
+            {
+              "logit": 4.14747238,
+              "token_id": 559
+            },
+            {
+              "logit": 4.03089762,
+              "token_id": 461
+            },
+            {
+              "logit": 3.8939805,
+              "token_id": 220
+            },
+            {
+              "logit": 3.83149672,
+              "token_id": 276
+            }
+          ]
+        },
+        {
+          "generated_id": 3143,
+          "index": 18,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 13.439806,
+              "token_id": 3143
+            },
+            {
+              "logit": 6.89735985,
+              "token_id": 420
+            },
+            {
+              "logit": 4.92929077,
+              "token_id": 8629
+            },
+            {
+              "logit": 4.86300373,
+              "token_id": 1812
+            },
+            {
+              "logit": 4.74479008,
+              "token_id": 19456
+            },
+            {
+              "logit": 4.57110405,
+              "token_id": 5058
+            },
+            {
+              "logit": 4.46136045,
+              "token_id": 4536
+            },
+            {
+              "logit": 4.12999678,
+              "token_id": 996
+            },
+            {
+              "logit": 3.87494397,
+              "token_id": 3307
+            },
+            {
+              "logit": 3.81810331,
+              "token_id": 11136
+            }
+          ]
+        },
+        {
+          "generated_id": 3307,
+          "index": 19,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 15.8014011,
+              "token_id": 3307
+            },
+            {
+              "logit": 7.54098606,
+              "token_id": 420
+            },
+            {
+              "logit": 5.62563133,
+              "token_id": 15149
+            },
+            {
+              "logit": 3.94470263,
+              "token_id": 11136
+            },
+            {
+              "logit": 3.63290548,
+              "token_id": 14417
+            },
+            {
+              "logit": 3.61731291,
+              "token_id": 387
+            },
+            {
+              "logit": 3.54171467,
+              "token_id": 11808
+            },
+            {
+              "logit": 3.50764823,
+              "token_id": 2403
+            },
+            {
+              "logit": 3.48922062,
+              "token_id": 289
+            },
+            {
+              "logit": 3.44279766,
+              "token_id": 1106
+            }
+          ]
+        },
+        {
+          "generated_id": 308,
+          "index": 20,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.7222557,
+              "token_id": 308
+            },
+            {
+              "logit": 7.04821396,
+              "token_id": 13
+            },
+            {
+              "logit": 5.06091404,
+              "token_id": 623
+            },
+            {
+              "logit": 4.66378975,
+              "token_id": 11
+            },
+            {
+              "logit": 4.50748348,
+              "token_id": 519
+            },
+            {
+              "logit": 4.47462034,
+              "token_id": 19456
+            },
+            {
+              "logit": 4.30006599,
+              "token_id": 21887
+            },
+            {
+              "logit": 4.26836586,
+              "token_id": 667
+            },
+            {
+              "logit": 4.24074268,
+              "token_id": 368
+            },
+            {
+              "logit": 4.08235645,
+              "token_id": 3700
+            }
+          ]
+        },
+        {
+          "generated_id": 922,
+          "index": 21,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 12.6203775,
+              "token_id": 922
+            },
+            {
+              "logit": 9.9756155,
+              "token_id": 559
+            },
+            {
+              "logit": 7.92132282,
+              "token_id": 1581
+            },
+            {
+              "logit": 5.38769102,
+              "token_id": 554
+            },
+            {
+              "logit": 4.04085445,
+              "token_id": 163585
+            },
+            {
+              "logit": 3.94374943,
+              "token_id": 1468
+            },
+            {
+              "logit": 3.76541853,
+              "token_id": 420
+            },
+            {
+              "logit": 3.74203134,
+              "token_id": 799
+            },
+            {
+              "logit": 3.66022015,
+              "token_id": 12312
+            },
+            {
+              "logit": 3.55566216,
+              "token_id": 623
+            }
+          ]
+        },
+        {
+          "generated_id": 1682,
+          "index": 22,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.7287617,
+              "token_id": 1682
+            },
+            {
+              "logit": 5.97868538,
+              "token_id": 667
+            },
+            {
+              "logit": 5.17929459,
+              "token_id": 5294
+            },
+            {
+              "logit": 4.85683775,
+              "token_id": 56207
+            },
+            {
+              "logit": 4.54065275,
+              "token_id": 4536
+            },
+            {
+              "logit": 4.37911701,
+              "token_id": 554
+            },
+            {
+              "logit": 4.1277194,
+              "token_id": 286
+            },
+            {
+              "logit": 4.07876015,
+              "token_id": 461
+            },
+            {
+              "logit": 3.70979619,
+              "token_id": 2978
+            },
+            {
+              "logit": 3.58255625,
+              "token_id": 308
+            }
+          ]
+        },
+        {
+          "generated_id": 12138,
+          "index": 23,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.2338028,
+              "token_id": 12138
+            },
+            {
+              "logit": 6.17852402,
+              "token_id": 11
+            },
+            {
+              "logit": 5.90995502,
+              "token_id": 667
+            },
+            {
+              "logit": 3.99026489,
+              "token_id": 6233
+            },
+            {
+              "logit": 3.94346714,
+              "token_id": 3105
+            },
+            {
+              "logit": 3.78608513,
+              "token_id": 2686
+            },
+            {
+              "logit": 3.72019935,
+              "token_id": 318
+            },
+            {
+              "logit": 3.69877291,
+              "token_id": 13
+            },
+            {
+              "logit": 3.65291643,
+              "token_id": 308
+            },
+            {
+              "logit": 3.53197575,
+              "token_id": 289
+            }
+          ]
+        },
+        {
+          "generated_id": 3572,
+          "index": 24,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.4207773,
+              "token_id": 3572
+            },
+            {
+              "logit": 4.96718121,
+              "token_id": 667
+            },
+            {
+              "logit": 4.8564496,
+              "token_id": 1812
+            },
+            {
+              "logit": 4.12198639,
+              "token_id": 5294
+            },
+            {
+              "logit": 4.09251118,
+              "token_id": 19456
+            },
+            {
+              "logit": 3.96142459,
+              "token_id": 8869
+            },
+            {
+              "logit": 3.77130508,
+              "token_id": 2686
+            },
+            {
+              "logit": 3.71801615,
+              "token_id": 39076
+            },
+            {
+              "logit": 3.6544137,
+              "token_id": 286
+            },
+            {
+              "logit": 3.56385374,
+              "token_id": 306
+            }
+          ]
+        },
+        {
+          "generated_id": 4120,
+          "index": 25,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 13.7956266,
+              "token_id": 4120
+            },
+            {
+              "logit": 8.2201767,
+              "token_id": 559
+            },
+            {
+              "logit": 7.57060623,
+              "token_id": 420
+            },
+            {
+              "logit": 6.5242734,
+              "token_id": 667
+            },
+            {
+              "logit": 5.65206957,
+              "token_id": 1106
+            },
+            {
+              "logit": 4.22579002,
+              "token_id": 289
+            },
+            {
+              "logit": 3.89463186,
+              "token_id": 1812
+            },
+            {
+              "logit": 3.84251928,
+              "token_id": 387
+            },
+            {
+              "logit": 3.81440973,
+              "token_id": 1581
+            },
+            {
+              "logit": 3.6609869,
+              "token_id": 19456
+            }
+          ]
+        },
+        {
+          "generated_id": 1468,
+          "index": 26,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 15.1375628,
+              "token_id": 1468
+            },
+            {
+              "logit": 5.76555157,
+              "token_id": 1581
+            },
+            {
+              "logit": 5.69160748,
+              "token_id": 994
+            },
+            {
+              "logit": 5.37677288,
+              "token_id": 554
+            },
+            {
+              "logit": 4.99706936,
+              "token_id": 667
+            },
+            {
+              "logit": 4.53050756,
+              "token_id": 18404
+            },
+            {
+              "logit": 4.49763393,
+              "token_id": 13
+            },
+            {
+              "logit": 4.32636929,
+              "token_id": 5401
+            },
+            {
+              "logit": 4.29165697,
+              "token_id": 922
+            },
+            {
+              "logit": 4.23815918,
+              "token_id": 11
+            }
+          ]
+        },
+        {
+          "generated_id": 276,
+          "index": 27,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 16.6004333,
+              "token_id": 276
+            },
+            {
+              "logit": 6.8206706,
+              "token_id": 289
+            },
+            {
+              "logit": 4.92008781,
+              "token_id": 4536
+            },
+            {
+              "logit": 4.23914433,
+              "token_id": 308
+            },
+            {
+              "logit": 3.92890406,
+              "token_id": 108263
+            },
+            {
+              "logit": 3.91187644,
+              "token_id": 994
+            },
+            {
+              "logit": 3.60417938,
+              "token_id": 623
+            },
+            {
+              "logit": 3.4733932,
+              "token_id": 19456
+            },
+            {
+              "logit": 3.36296868,
+              "token_id": 56207
+            },
+            {
+              "logit": 3.35734177,
+              "token_id": 979
+            }
+          ]
+        },
+        {
+          "generated_id": 7519,
+          "index": 28,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 12.4125443,
+              "token_id": 7519
+            },
+            {
+              "logit": 4.65542746,
+              "token_id": 420
+            },
+            {
+              "logit": 4.51054764,
+              "token_id": 667
+            },
+            {
+              "logit": 4.34824371,
+              "token_id": 56984
+            },
+            {
+              "logit": 4.29985237,
+              "token_id": 289
+            },
+            {
+              "logit": 4.25225163,
+              "token_id": 261
+            },
+            {
+              "logit": 4.09609556,
+              "token_id": 1812
+            },
+            {
+              "logit": 4.07922935,
+              "token_id": 559
+            },
+            {
+              "logit": 3.95200014,
+              "token_id": 2403
+            },
+            {
+              "logit": 3.9311955,
+              "token_id": 368
+            }
+          ]
+        },
+        {
+          "generated_id": 13,
+          "index": 29,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.6336727,
+              "token_id": 13
+            },
+            {
+              "logit": 6.06356382,
+              "token_id": 667
+            },
+            {
+              "logit": 5.89228535,
+              "token_id": 318
+            },
+            {
+              "logit": 5.88513947,
+              "token_id": 623
+            },
+            {
+              "logit": 5.35011435,
+              "token_id": 19456
+            },
+            {
+              "logit": 5.3052063,
+              "token_id": 554
+            },
+            {
+              "logit": 5.04728746,
+              "token_id": 4536
+            },
+            {
+              "logit": 4.96535301,
+              "token_id": 5058
+            },
+            {
+              "logit": 4.86141825,
+              "token_id": 289
+            },
+            {
+              "logit": 4.67950344,
+              "token_id": 807
+            }
+          ]
+        },
+        {
+          "generated_id": 646,
+          "index": 30,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.4418554,
+              "token_id": 646
+            },
+            {
+              "logit": 6.66293287,
+              "token_id": 559
+            },
+            {
+              "logit": 6.42923117,
+              "token_id": 1884
+            },
+            {
+              "logit": 6.16525173,
+              "token_id": 5071
+            },
+            {
+              "logit": 5.5263505,
+              "token_id": 19456
+            },
+            {
+              "logit": 5.47723961,
+              "token_id": 8629
+            },
+            {
+              "logit": 4.23826885,
+              "token_id": 4536
+            },
+            {
+              "logit": 4.08896828,
+              "token_id": 743
+            },
+            {
+              "logit": 4.06102991,
+              "token_id": 387
+            },
+            {
+              "logit": 3.99609494,
+              "token_id": 5058
+            }
+          ]
+        },
+        {
+          "generated_id": 56207,
+          "index": 31,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 16.3666,
+              "token_id": 56207
+            },
+            {
+              "logit": 4.73742628,
+              "token_id": 38912
+            },
+            {
+              "logit": 4.67905712,
+              "token_id": 4536
+            },
+            {
+              "logit": 4.62594986,
+              "token_id": 11
+            },
+            {
+              "logit": 4.57809734,
+              "token_id": 308
+            },
+            {
+              "logit": 4.42019463,
+              "token_id": 108263
+            },
+            {
+              "logit": 4.24552345,
+              "token_id": 289
+            },
+            {
+              "logit": 3.8791399,
+              "token_id": 461
+            },
+            {
+              "logit": 3.75006032,
+              "token_id": 52588
+            },
+            {
+              "logit": 3.73211694,
+              "token_id": 286
+            }
+          ]
+        }
+      ]
+    },
+    "f16-cuda": {
+      "artifact": "f16",
+      "backend": "cuda",
+      "config": {
+        "context": "512",
+        "generate": "32",
+        "gpu_layers": "999",
+        "prompt": "According to all known laws",
+        "seed": "1",
+        "temperature": "0",
+        "threads": "8"
+      },
+      "contract_checks": {
+        "configuration_exact": true,
+        "generated_exactly_32_tokens": true,
+        "probe_result_exact": true,
+        "prompt_ids_exact": true,
+        "step_ids_match_generated_ids": true,
+        "step_indexes_contiguous": true
+      },
+      "duration_seconds": 0.696434,
+      "exit_code": 0,
+      "generated_ids": [
+        318,
+        57195,
+        11,
+        1459,
+        387,
+        1495,
+        2189,
+        261,
+        56207,
+        1765,
+        413,
+        3700,
+        308,
+        16028,
+        13,
+        15149,
+        40841,
+        554,
+        3143,
+        3307,
+        308,
+        922,
+        1682,
+        12138,
+        3572,
+        4120,
+        1468,
+        276,
+        7519,
+        13,
+        646,
+        56207
+      ],
+      "hard_failure_scan": {
+        "all_logits_finite": true,
+        "log_scan_matches": {},
+        "passed": true
+      },
+      "log": "results/2026-07-29/skynet/phase2-observability/phase1-numerical/inference-f16-cuda.log",
+      "model": {
+        "bytes": 777396384,
+        "layers": 8,
+        "parameters": 388581416,
+        "vocabulary": 163840
+      },
+      "placement": {
+        "buffers": [
+          {
+            "backend_buffer": "CPU_Mapped",
+            "kind": "model",
+            "size_mib": 405.78
+          },
+          {
+            "backend_buffer": "CUDA0",
+            "kind": "model",
+            "size_mib": 421.38
+          },
+          {
+            "backend_buffer": "CUDA_Host",
+            "kind": "output",
+            "size_mib": 0.62
+          },
+          {
+            "backend_buffer": "CUDA0",
+            "kind": "KV",
+            "size_mib": 0.31
+          },
+          {
+            "backend_buffer": "CUDA0",
+            "kind": "compute",
+            "size_mib": 324.0
+          },
+          {
+            "backend_buffer": "CUDA_Host",
+            "kind": "compute",
+            "size_mib": 5.01
+          },
+          {
+            "backend_buffer": "CUDA0",
+            "kind": "compute",
+            "size_mib": 324.0
+          },
+          {
+            "backend_buffer": "CUDA_Host",
+            "kind": "compute",
+            "size_mib": 5.0078
+          }
+        ],
+        "devices": [
+          {
+            "description": "NVIDIA GeForce GTX 1650",
+            "free_bytes_at_discovery": 4023189504,
+            "index": 0,
+            "name": "CUDA0",
+            "total_bytes": 4093509632,
+            "type": 1
+          },
+          {
+            "description": "11th Gen Intel(R) Core(TM) i7-11700K @ 3.60GHz",
+            "free_bytes_at_discovery": 67317436416,
+            "index": 1,
+            "name": "CPU",
+            "total_bytes": 67317436416,
+            "type": 0
+          }
+        ],
+        "explicit_cpu_fallback_lines": [
+          "done_getting_tensors: tensor 'token_embd.weight' (f16) (and 6 others) cannot be used with preferred buffer type CUDA_Host, using CPU instead",
+          "resolve_fused_ops: layer 3 is assigned to device CUDA0 but Flash Attention is assigned to device CPU (usually due to missing support)"
+        ],
+        "layer_assignments": {
+          "CUDA0": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        "placement_log_lines": [
+          "ggml_cuda_init: found 1 CUDA devices (Total VRAM: 3903 MiB):",
+          "Consider compiling with CMAKE_CUDA_ARCHITECTURES=61-virtual;80-virtual and DGGML_CUDA_FORCE_MMQ to force the use of the Pascal code for Turing.",
+          "llama_prepare_model_devices: using device CUDA0 (NVIDIA GeForce GTX 1650) (0000:01:00.0) - 3836 MiB free",
+          "load_tensors: layer   0 assigned to device CUDA0, is_swa = 0",
+          "load_tensors: layer   1 assigned to device CUDA0, is_swa = 0",
+          "load_tensors: layer   2 assigned to device CUDA0, is_swa = 0",
+          "load_tensors: layer   3 assigned to device CUDA0, is_swa = 0",
+          "load_tensors: layer   4 assigned to device CUDA0, is_swa = 0",
+          "load_tensors: layer   5 assigned to device CUDA0, is_swa = 0",
+          "load_tensors: layer   6 assigned to device CUDA0, is_swa = 0",
+          "load_tensors: layer   7 assigned to device CUDA0, is_swa = 0",
+          "load_tensors: layer   8 assigned to device CUDA0, is_swa = 0",
+          "done_getting_tensors: tensor 'token_embd.weight' (f16) (and 6 others) cannot be used with preferred buffer type CUDA_Host, using CPU instead",
+          "load_tensors: offloading output layer to GPU",
+          "load_tensors: offloading 7 repeating layers to GPU",
+          "load_tensors: offloaded 9/9 layers to GPU",
+          "load_tensors:   CPU_Mapped model buffer size =   405.78 MiB",
+          "load_tensors:        CUDA0 model buffer size =   421.38 MiB",
+          "llama_context:  CUDA_Host  output buffer size =     0.62 MiB",
+          "llama_kv_cache: layer   3: dev = CUDA0",
+          "llama_kv_cache: layer   7: dev = CUDA0",
+          "llama_kv_cache:      CUDA0 KV buffer size =     0.31 MiB",
+          "llama_memory_recurrent, layer   0: dev = CUDA0",
+          "llama_memory_recurrent, layer   1: dev = CUDA0",
+          "llama_memory_recurrent, layer   2: dev = CUDA0",
+          "llama_memory_recurrent, layer   4: dev = CUDA0",
+          "llama_memory_recurrent, layer   5: dev = CUDA0",
+          "llama_memory_recurrent, layer   6: dev = CUDA0",
+          "llama_memory_recurrent:      CUDA0 RS buffer size =     0.24 MiB",
+          "resolve_fused_ops: layer 3 is assigned to device CUDA0 but Flash Attention is assigned to device CPU (usually due to missing support)",
+          "sched_reserve:      CUDA0 compute buffer size =   324.00 MiB",
+          "sched_reserve:  CUDA_Host compute buffer size =     5.01 MiB",
+          "~llama_context:      CUDA0 compute buffer size is 324.0000 MiB, matches expectation of 324.0000 MiB",
+          "~llama_context:  CUDA_Host compute buffer size is   5.0078 MiB, matches expectation of   5.0078 MiB"
+        ]
+      },
+      "prompt_ids": [
+        18805,
+        308,
+        799,
+        5624,
+        12524
+      ],
+      "raw_logit_shape": [
+        32,
+        163840
+      ],
+      "result": {
+        "exit": "0",
+        "steps": "32"
+      },
+      "steps": [
+        {
+          "generated_id": 318,
+          "index": 0,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 16.8768005,
+              "token_id": 318
+            },
+            {
+              "logit": 5.56482983,
+              "token_id": 289
+            },
+            {
+              "logit": 4.58146429,
+              "token_id": 3105
+            },
+            {
+              "logit": 4.00290012,
+              "token_id": 554
+            },
+            {
+              "logit": 3.54075837,
+              "token_id": 16028
+            },
+            {
+              "logit": 3.53336358,
+              "token_id": 16822
+            },
+            {
+              "logit": 3.23165989,
+              "token_id": 11136
+            },
+            {
+              "logit": 3.10532427,
+              "token_id": 39058
+            },
+            {
+              "logit": 3.09444904,
+              "token_id": 56207
+            },
+            {
+              "logit": 3.02671623,
+              "token_id": 994
+            }
+          ]
+        },
+        {
+          "generated_id": 57195,
+          "index": 1,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 10.1836185,
+              "token_id": 57195
+            },
+            {
+              "logit": 4.97657585,
+              "token_id": 1530
+            },
+            {
+              "logit": 4.3834095,
+              "token_id": 39058
+            },
+            {
+              "logit": 3.30944347,
+              "token_id": 52588
+            },
+            {
+              "logit": 3.16529179,
+              "token_id": 483
+            },
+            {
+              "logit": 2.40357566,
+              "token_id": 116155
+            },
+            {
+              "logit": 2.18292975,
+              "token_id": 19456
+            },
+            {
+              "logit": 2.1654973,
+              "token_id": 12524
+            },
+            {
+              "logit": 2.02328348,
+              "token_id": 667
+            },
+            {
+              "logit": 1.90224385,
+              "token_id": 48063
+            }
+          ]
+        },
+        {
+          "generated_id": 11,
+          "index": 2,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 15.3872242,
+              "token_id": 11
+            },
+            {
+              "logit": 5.48219395,
+              "token_id": 48063
+            },
+            {
+              "logit": 5.29158878,
+              "token_id": 667
+            },
+            {
+              "logit": 5.20011806,
+              "token_id": 289
+            },
+            {
+              "logit": 4.14115381,
+              "token_id": 473
+            },
+            {
+              "logit": 3.82293749,
+              "token_id": 16028
+            },
+            {
+              "logit": 3.64479637,
+              "token_id": 3652
+            },
+            {
+              "logit": 3.49156141,
+              "token_id": 554
+            },
+            {
+              "logit": 3.4665494,
+              "token_id": 4536
+            },
+            {
+              "logit": 3.21603799,
+              "token_id": 994
+            }
+          ]
+        },
+        {
+          "generated_id": 1459,
+          "index": 3,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.4177437,
+              "token_id": 1459
+            },
+            {
+              "logit": 8.05766106,
+              "token_id": 6233
+            },
+            {
+              "logit": 6.50479364,
+              "token_id": 60063
+            },
+            {
+              "logit": 6.39275742,
+              "token_id": 996
+            },
+            {
+              "logit": 6.00697517,
+              "token_id": 528
+            },
+            {
+              "logit": 4.37908459,
+              "token_id": 8629
+            },
+            {
+              "logit": 4.1986084,
+              "token_id": 220
+            },
+            {
+              "logit": 4.12112236,
+              "token_id": 387
+            },
+            {
+              "logit": 3.93185091,
+              "token_id": 1812
+            },
+            {
+              "logit": 3.34513092,
+              "token_id": 646
+            }
+          ]
+        },
+        {
+          "generated_id": 387,
+          "index": 4,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 15.7722435,
+              "token_id": 387
+            },
+            {
+              "logit": 5.83772278,
+              "token_id": 559
+            },
+            {
+              "logit": 4.02716732,
+              "token_id": 420
+            },
+            {
+              "logit": 3.19031382,
+              "token_id": 799
+            },
+            {
+              "logit": 3.16492438,
+              "token_id": 2704
+            },
+            {
+              "logit": 3.14196348,
+              "token_id": 1812
+            },
+            {
+              "logit": 3.00252533,
+              "token_id": 667
+            },
+            {
+              "logit": 2.95485568,
+              "token_id": 48063
+            },
+            {
+              "logit": 2.82645631,
+              "token_id": 395
+            },
+            {
+              "logit": 2.55490446,
+              "token_id": 19456
+            }
+          ]
+        },
+        {
+          "generated_id": 1495,
+          "index": 5,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 16.2115211,
+              "token_id": 1495
+            },
+            {
+              "logit": 6.89206743,
+              "token_id": 994
+            },
+            {
+              "logit": 6.5132246,
+              "token_id": 261
+            },
+            {
+              "logit": 6.10866404,
+              "token_id": 395
+            },
+            {
+              "logit": 5.6693306,
+              "token_id": 667
+            },
+            {
+              "logit": 4.29522324,
+              "token_id": 12606
+            },
+            {
+              "logit": 4.19937325,
+              "token_id": 108263
+            },
+            {
+              "logit": 4.08212709,
+              "token_id": 4536
+            },
+            {
+              "logit": 3.74363589,
+              "token_id": 1581
+            },
+            {
+              "logit": 3.43472552,
+              "token_id": 19392
+            }
+          ]
+        },
+        {
+          "generated_id": 2189,
+          "index": 6,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.3877344,
+              "token_id": 2189
+            },
+            {
+              "logit": 5.88304949,
+              "token_id": 289
+            },
+            {
+              "logit": 4.96974421,
+              "token_id": 163585
+            },
+            {
+              "logit": 4.65553188,
+              "token_id": 667
+            },
+            {
+              "logit": 4.41529465,
+              "token_id": 1812
+            },
+            {
+              "logit": 4.35554171,
+              "token_id": 14417
+            },
+            {
+              "logit": 3.94515157,
+              "token_id": 994
+            },
+            {
+              "logit": 3.73166537,
+              "token_id": 2686
+            },
+            {
+              "logit": 3.71565723,
+              "token_id": 554
+            },
+            {
+              "logit": 3.71056294,
+              "token_id": 5058
+            }
+          ]
+        },
+        {
+          "generated_id": 261,
+          "index": 7,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 16.0924149,
+              "token_id": 261
+            },
+            {
+              "logit": 6.27752209,
+              "token_id": 1495
+            },
+            {
+              "logit": 5.10427046,
+              "token_id": 667
+            },
+            {
+              "logit": 4.72179365,
+              "token_id": 483
+            },
+            {
+              "logit": 4.45644855,
+              "token_id": 807
+            },
+            {
+              "logit": 4.36343813,
+              "token_id": 398
+            },
+            {
+              "logit": 4.36102772,
+              "token_id": 799
+            },
+            {
+              "logit": 4.32973194,
+              "token_id": 994
+            },
+            {
+              "logit": 4.31695938,
+              "token_id": 1812
+            },
+            {
+              "logit": 4.03580141,
+              "token_id": 19456
+            }
+          ]
+        },
+        {
+          "generated_id": 56207,
+          "index": 8,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 16.5680695,
+              "token_id": 56207
+            },
+            {
+              "logit": 6.35434437,
+              "token_id": 308
+            },
+            {
+              "logit": 5.76976967,
+              "token_id": 26914
+            },
+            {
+              "logit": 5.6000452,
+              "token_id": 4536
+            },
+            {
+              "logit": 5.10774708,
+              "token_id": 807
+            },
+            {
+              "logit": 5.09084606,
+              "token_id": 52588
+            },
+            {
+              "logit": 4.55882168,
+              "token_id": 368
+            },
+            {
+              "logit": 4.51117945,
+              "token_id": 8480
+            },
+            {
+              "logit": 4.51033211,
+              "token_id": 3731
+            },
+            {
+              "logit": 4.44381094,
+              "token_id": 5511
+            }
+          ]
+        },
+        {
+          "generated_id": 1765,
+          "index": 9,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.5455608,
+              "token_id": 1765
+            },
+            {
+              "logit": 7.10193872,
+              "token_id": 11
+            },
+            {
+              "logit": 6.64963913,
+              "token_id": 261
+            },
+            {
+              "logit": 5.77468967,
+              "token_id": 289
+            },
+            {
+              "logit": 4.8958292,
+              "token_id": 163585
+            },
+            {
+              "logit": 4.22391367,
+              "token_id": 3105
+            },
+            {
+              "logit": 3.96191978,
+              "token_id": 108263
+            },
+            {
+              "logit": 3.91518784,
+              "token_id": 667
+            },
+            {
+              "logit": 3.83210945,
+              "token_id": 420
+            },
+            {
+              "logit": 3.8208735,
+              "token_id": 4536
+            }
+          ]
+        },
+        {
+          "generated_id": 413,
+          "index": 10,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.5186272,
+              "token_id": 413
+            },
+            {
+              "logit": 6.44581413,
+              "token_id": 108263
+            },
+            {
+              "logit": 5.79726791,
+              "token_id": 1581
+            },
+            {
+              "logit": 5.28335524,
+              "token_id": 554
+            },
+            {
+              "logit": 5.13094807,
+              "token_id": 667
+            },
+            {
+              "logit": 4.55047846,
+              "token_id": 2416
+            },
+            {
+              "logit": 4.3288269,
+              "token_id": 459
+            },
+            {
+              "logit": 4.10907841,
+              "token_id": 56207
+            },
+            {
+              "logit": 3.76511359,
+              "token_id": 994
+            },
+            {
+              "logit": 3.69968939,
+              "token_id": 623
+            }
+          ]
+        },
+        {
+          "generated_id": 3700,
+          "index": 11,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.9501324,
+              "token_id": 3700
+            },
+            {
+              "logit": 7.63332272,
+              "token_id": 667
+            },
+            {
+              "logit": 4.83051252,
+              "token_id": 3105
+            },
+            {
+              "logit": 4.73756599,
+              "token_id": 13
+            },
+            {
+              "logit": 4.71484089,
+              "token_id": 318
+            },
+            {
+              "logit": 4.6571064,
+              "token_id": 554
+            },
+            {
+              "logit": 4.28815985,
+              "token_id": 1070
+            },
+            {
+              "logit": 4.10027695,
+              "token_id": 21887
+            },
+            {
+              "logit": 4.03729916,
+              "token_id": 289
+            },
+            {
+              "logit": 3.85138106,
+              "token_id": 4536
+            }
+          ]
+        },
+        {
+          "generated_id": 308,
+          "index": 12,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 17.1460304,
+              "token_id": 308
+            },
+            {
+              "logit": 4.81023598,
+              "token_id": 52588
+            },
+            {
+              "logit": 4.3948102,
+              "token_id": 289
+            },
+            {
+              "logit": 4.07607698,
+              "token_id": 108263
+            },
+            {
+              "logit": 3.59616566,
+              "token_id": 261
+            },
+            {
+              "logit": 3.38078785,
+              "token_id": 10736
+            },
+            {
+              "logit": 3.36538029,
+              "token_id": 559
+            },
+            {
+              "logit": 3.33770919,
+              "token_id": 5058
+            },
+            {
+              "logit": 3.09422016,
+              "token_id": 420
+            },
+            {
+              "logit": 2.89751244,
+              "token_id": 667
+            }
+          ]
+        },
+        {
+          "generated_id": 16028,
+          "index": 13,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 16.2988052,
+              "token_id": 16028
+            },
+            {
+              "logit": 5.89200687,
+              "token_id": 11
+            },
+            {
+              "logit": 5.40687799,
+              "token_id": 667
+            },
+            {
+              "logit": 4.87397909,
+              "token_id": 4536
+            },
+            {
+              "logit": 4.81460571,
+              "token_id": 1581
+            },
+            {
+              "logit": 4.1787343,
+              "token_id": 473
+            },
+            {
+              "logit": 4.12528896,
+              "token_id": 799
+            },
+            {
+              "logit": 4.07743406,
+              "token_id": 12312
+            },
+            {
+              "logit": 3.84619212,
+              "token_id": 368
+            },
+            {
+              "logit": 3.82591128,
+              "token_id": 554
+            }
+          ]
+        },
+        {
+          "generated_id": 13,
+          "index": 14,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.2958393,
+              "token_id": 13
+            },
+            {
+              "logit": 6.27714348,
+              "token_id": 318
+            },
+            {
+              "logit": 5.54996109,
+              "token_id": 21887
+            },
+            {
+              "logit": 5.49744034,
+              "token_id": 4536
+            },
+            {
+              "logit": 5.0332098,
+              "token_id": 623
+            },
+            {
+              "logit": 4.05161572,
+              "token_id": 554
+            },
+            {
+              "logit": 3.91916227,
+              "token_id": 374
+            },
+            {
+              "logit": 3.82383776,
+              "token_id": 11
+            },
+            {
+              "logit": 3.74757409,
+              "token_id": 667
+            },
+            {
+              "logit": 3.65423942,
+              "token_id": 56207
+            }
+          ]
+        },
+        {
+          "generated_id": 15149,
+          "index": 15,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.8157244,
+              "token_id": 15149
+            },
+            {
+              "logit": 7.31764317,
+              "token_id": 8629
+            },
+            {
+              "logit": 6.83940697,
+              "token_id": 11136
+            },
+            {
+              "logit": 6.37268257,
+              "token_id": 3307
+            },
+            {
+              "logit": 5.8485136,
+              "token_id": 420
+            },
+            {
+              "logit": 5.17208767,
+              "token_id": 554
+            },
+            {
+              "logit": 4.86530399,
+              "token_id": 289
+            },
+            {
+              "logit": 4.85487318,
+              "token_id": 24833
+            },
+            {
+              "logit": 4.6352663,
+              "token_id": 19456
+            },
+            {
+              "logit": 4.37855244,
+              "token_id": 5071
+            }
+          ]
+        },
+        {
+          "generated_id": 40841,
+          "index": 16,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 13.9898243,
+              "token_id": 40841
+            },
+            {
+              "logit": 6.67167282,
+              "token_id": 52588
+            },
+            {
+              "logit": 5.5008831,
+              "token_id": 667
+            },
+            {
+              "logit": 5.32503414,
+              "token_id": 18404
+            },
+            {
+              "logit": 5.29630566,
+              "token_id": 11
+            },
+            {
+              "logit": 5.23166561,
+              "token_id": 4536
+            },
+            {
+              "logit": 5.02976084,
+              "token_id": 368
+            },
+            {
+              "logit": 5.01150227,
+              "token_id": 13
+            },
+            {
+              "logit": 4.74424934,
+              "token_id": 261
+            },
+            {
+              "logit": 4.51498652,
+              "token_id": 3105
+            }
+          ]
+        },
+        {
+          "generated_id": 554,
+          "index": 17,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.4666252,
+              "token_id": 554
+            },
+            {
+              "logit": 5.08030558,
+              "token_id": 289
+            },
+            {
+              "logit": 5.05074787,
+              "token_id": 286
+            },
+            {
+              "logit": 4.86516666,
+              "token_id": 141361
+            },
+            {
+              "logit": 4.6615715,
+              "token_id": 11136
+            },
+            {
+              "logit": 4.51059103,
+              "token_id": 646
+            },
+            {
+              "logit": 4.14668274,
+              "token_id": 559
+            },
+            {
+              "logit": 4.03076982,
+              "token_id": 461
+            },
+            {
+              "logit": 3.89320135,
+              "token_id": 220
+            },
+            {
+              "logit": 3.83149862,
+              "token_id": 276
+            }
+          ]
+        },
+        {
+          "generated_id": 3143,
+          "index": 18,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 13.4392643,
+              "token_id": 3143
+            },
+            {
+              "logit": 6.89792061,
+              "token_id": 420
+            },
+            {
+              "logit": 4.92875671,
+              "token_id": 8629
+            },
+            {
+              "logit": 4.8621974,
+              "token_id": 1812
+            },
+            {
+              "logit": 4.74479342,
+              "token_id": 19456
+            },
+            {
+              "logit": 4.57160282,
+              "token_id": 5058
+            },
+            {
+              "logit": 4.46083307,
+              "token_id": 4536
+            },
+            {
+              "logit": 4.13025856,
+              "token_id": 996
+            },
+            {
+              "logit": 3.87495232,
+              "token_id": 3307
+            },
+            {
+              "logit": 3.81774879,
+              "token_id": 11136
+            }
+          ]
+        },
+        {
+          "generated_id": 3307,
+          "index": 19,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 15.8002014,
+              "token_id": 3307
+            },
+            {
+              "logit": 7.54153252,
+              "token_id": 420
+            },
+            {
+              "logit": 5.62578392,
+              "token_id": 15149
+            },
+            {
+              "logit": 3.94511414,
+              "token_id": 11136
+            },
+            {
+              "logit": 3.63232279,
+              "token_id": 14417
+            },
+            {
+              "logit": 3.61637688,
+              "token_id": 387
+            },
+            {
+              "logit": 3.54176688,
+              "token_id": 11808
+            },
+            {
+              "logit": 3.50812101,
+              "token_id": 2403
+            },
+            {
+              "logit": 3.48889565,
+              "token_id": 289
+            },
+            {
+              "logit": 3.44270134,
+              "token_id": 1106
+            }
+          ]
+        },
+        {
+          "generated_id": 308,
+          "index": 20,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.7225714,
+              "token_id": 308
+            },
+            {
+              "logit": 7.04831028,
+              "token_id": 13
+            },
+            {
+              "logit": 5.06085873,
+              "token_id": 623
+            },
+            {
+              "logit": 4.66485882,
+              "token_id": 11
+            },
+            {
+              "logit": 4.50686836,
+              "token_id": 519
+            },
+            {
+              "logit": 4.47534847,
+              "token_id": 19456
+            },
+            {
+              "logit": 4.30083752,
+              "token_id": 21887
+            },
+            {
+              "logit": 4.26855803,
+              "token_id": 667
+            },
+            {
+              "logit": 4.24040222,
+              "token_id": 368
+            },
+            {
+              "logit": 4.08205795,
+              "token_id": 3700
+            }
+          ]
+        },
+        {
+          "generated_id": 922,
+          "index": 21,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 12.6210489,
+              "token_id": 922
+            },
+            {
+              "logit": 9.97485161,
+              "token_id": 559
+            },
+            {
+              "logit": 7.92207336,
+              "token_id": 1581
+            },
+            {
+              "logit": 5.38734293,
+              "token_id": 554
+            },
+            {
+              "logit": 4.04074478,
+              "token_id": 163585
+            },
+            {
+              "logit": 3.94337225,
+              "token_id": 1468
+            },
+            {
+              "logit": 3.76526237,
+              "token_id": 420
+            },
+            {
+              "logit": 3.7421937,
+              "token_id": 799
+            },
+            {
+              "logit": 3.66127968,
+              "token_id": 12312
+            },
+            {
+              "logit": 3.55572081,
+              "token_id": 623
+            }
+          ]
+        },
+        {
+          "generated_id": 1682,
+          "index": 22,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.7276039,
+              "token_id": 1682
+            },
+            {
+              "logit": 5.97927666,
+              "token_id": 667
+            },
+            {
+              "logit": 5.17915392,
+              "token_id": 5294
+            },
+            {
+              "logit": 4.85714817,
+              "token_id": 56207
+            },
+            {
+              "logit": 4.54125738,
+              "token_id": 4536
+            },
+            {
+              "logit": 4.37942219,
+              "token_id": 554
+            },
+            {
+              "logit": 4.12747574,
+              "token_id": 286
+            },
+            {
+              "logit": 4.07788181,
+              "token_id": 461
+            },
+            {
+              "logit": 3.70912981,
+              "token_id": 2978
+            },
+            {
+              "logit": 3.58295298,
+              "token_id": 308
+            }
+          ]
+        },
+        {
+          "generated_id": 12138,
+          "index": 23,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.2342443,
+              "token_id": 12138
+            },
+            {
+              "logit": 6.17872238,
+              "token_id": 11
+            },
+            {
+              "logit": 5.91032076,
+              "token_id": 667
+            },
+            {
+              "logit": 3.9901967,
+              "token_id": 6233
+            },
+            {
+              "logit": 3.94369936,
+              "token_id": 3105
+            },
+            {
+              "logit": 3.78578854,
+              "token_id": 2686
+            },
+            {
+              "logit": 3.71993685,
+              "token_id": 318
+            },
+            {
+              "logit": 3.69851422,
+              "token_id": 13
+            },
+            {
+              "logit": 3.65252018,
+              "token_id": 308
+            },
+            {
+              "logit": 3.53215957,
+              "token_id": 289
+            }
+          ]
+        },
+        {
+          "generated_id": 3572,
+          "index": 24,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.4204922,
+              "token_id": 3572
+            },
+            {
+              "logit": 4.96718884,
+              "token_id": 667
+            },
+            {
+              "logit": 4.85716343,
+              "token_id": 1812
+            },
+            {
+              "logit": 4.12216616,
+              "token_id": 5294
+            },
+            {
+              "logit": 4.09207344,
+              "token_id": 19456
+            },
+            {
+              "logit": 3.96115851,
+              "token_id": 8869
+            },
+            {
+              "logit": 3.77092075,
+              "token_id": 2686
+            },
+            {
+              "logit": 3.71616673,
+              "token_id": 39076
+            },
+            {
+              "logit": 3.65524387,
+              "token_id": 286
+            },
+            {
+              "logit": 3.56446028,
+              "token_id": 306
+            }
+          ]
+        },
+        {
+          "generated_id": 4120,
+          "index": 25,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 13.7957478,
+              "token_id": 4120
+            },
+            {
+              "logit": 8.22026539,
+              "token_id": 559
+            },
+            {
+              "logit": 7.57065344,
+              "token_id": 420
+            },
+            {
+              "logit": 6.52397919,
+              "token_id": 667
+            },
+            {
+              "logit": 5.65205908,
+              "token_id": 1106
+            },
+            {
+              "logit": 4.2261219,
+              "token_id": 289
+            },
+            {
+              "logit": 3.89445472,
+              "token_id": 1812
+            },
+            {
+              "logit": 3.84250593,
+              "token_id": 387
+            },
+            {
+              "logit": 3.81508565,
+              "token_id": 1581
+            },
+            {
+              "logit": 3.66081452,
+              "token_id": 19456
+            }
+          ]
+        },
+        {
+          "generated_id": 1468,
+          "index": 26,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 15.1358204,
+              "token_id": 1468
+            },
+            {
+              "logit": 5.76711082,
+              "token_id": 1581
+            },
+            {
+              "logit": 5.69205379,
+              "token_id": 994
+            },
+            {
+              "logit": 5.37743139,
+              "token_id": 554
+            },
+            {
+              "logit": 4.99705362,
+              "token_id": 667
+            },
+            {
+              "logit": 4.53169584,
+              "token_id": 18404
+            },
+            {
+              "logit": 4.49887085,
+              "token_id": 13
+            },
+            {
+              "logit": 4.32639408,
+              "token_id": 5401
+            },
+            {
+              "logit": 4.29215765,
+              "token_id": 922
+            },
+            {
+              "logit": 4.2391119,
+              "token_id": 11
+            }
+          ]
+        },
+        {
+          "generated_id": 276,
+          "index": 27,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 16.6003323,
+              "token_id": 276
+            },
+            {
+              "logit": 6.8206234,
+              "token_id": 289
+            },
+            {
+              "logit": 4.92040348,
+              "token_id": 4536
+            },
+            {
+              "logit": 4.23922062,
+              "token_id": 308
+            },
+            {
+              "logit": 3.92935705,
+              "token_id": 108263
+            },
+            {
+              "logit": 3.91301298,
+              "token_id": 994
+            },
+            {
+              "logit": 3.60298777,
+              "token_id": 623
+            },
+            {
+              "logit": 3.47378731,
+              "token_id": 19456
+            },
+            {
+              "logit": 3.36287117,
+              "token_id": 56207
+            },
+            {
+              "logit": 3.3578558,
+              "token_id": 979
+            }
+          ]
+        },
+        {
+          "generated_id": 7519,
+          "index": 28,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 12.4121952,
+              "token_id": 7519
+            },
+            {
+              "logit": 4.65627337,
+              "token_id": 420
+            },
+            {
+              "logit": 4.51027489,
+              "token_id": 667
+            },
+            {
+              "logit": 4.34899616,
+              "token_id": 56984
+            },
+            {
+              "logit": 4.29945755,
+              "token_id": 289
+            },
+            {
+              "logit": 4.25235462,
+              "token_id": 261
+            },
+            {
+              "logit": 4.09638119,
+              "token_id": 1812
+            },
+            {
+              "logit": 4.0795269,
+              "token_id": 559
+            },
+            {
+              "logit": 3.95210576,
+              "token_id": 2403
+            },
+            {
+              "logit": 3.93134689,
+              "token_id": 368
+            }
+          ]
+        },
+        {
+          "generated_id": 13,
+          "index": 29,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.6334906,
+              "token_id": 13
+            },
+            {
+              "logit": 6.06355143,
+              "token_id": 667
+            },
+            {
+              "logit": 5.89231539,
+              "token_id": 318
+            },
+            {
+              "logit": 5.88469458,
+              "token_id": 623
+            },
+            {
+              "logit": 5.35051441,
+              "token_id": 19456
+            },
+            {
+              "logit": 5.30510426,
+              "token_id": 554
+            },
+            {
+              "logit": 5.04678822,
+              "token_id": 4536
+            },
+            {
+              "logit": 4.9654336,
+              "token_id": 5058
+            },
+            {
+              "logit": 4.86130667,
+              "token_id": 289
+            },
+            {
+              "logit": 4.67926979,
+              "token_id": 807
+            }
+          ]
+        },
+        {
+          "generated_id": 646,
+          "index": 30,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.4425869,
+              "token_id": 646
+            },
+            {
+              "logit": 6.66436243,
+              "token_id": 559
+            },
+            {
+              "logit": 6.42924023,
+              "token_id": 1884
+            },
+            {
+              "logit": 6.16547632,
+              "token_id": 5071
+            },
+            {
+              "logit": 5.52718592,
+              "token_id": 19456
+            },
+            {
+              "logit": 5.47757721,
+              "token_id": 8629
+            },
+            {
+              "logit": 4.23775864,
+              "token_id": 4536
+            },
+            {
+              "logit": 4.0887928,
+              "token_id": 743
+            },
+            {
+              "logit": 4.06029034,
+              "token_id": 387
+            },
+            {
+              "logit": 3.99603248,
+              "token_id": 5058
+            }
+          ]
+        },
+        {
+          "generated_id": 56207,
+          "index": 31,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 16.3662033,
+              "token_id": 56207
+            },
+            {
+              "logit": 4.73726082,
+              "token_id": 38912
+            },
+            {
+              "logit": 4.67965508,
+              "token_id": 4536
+            },
+            {
+              "logit": 4.62615776,
+              "token_id": 11
+            },
+            {
+              "logit": 4.57841635,
+              "token_id": 308
+            },
+            {
+              "logit": 4.42046499,
+              "token_id": 108263
+            },
+            {
+              "logit": 4.24564171,
+              "token_id": 289
+            },
+            {
+              "logit": 3.87983871,
+              "token_id": 461
+            },
+            {
+              "logit": 3.75024033,
+              "token_id": 52588
+            },
+            {
+              "logit": 3.73211479,
+              "token_id": 286
+            }
+          ]
+        }
+      ]
+    },
+    "mxfp4-cpu": {
+      "artifact": "mxfp4",
+      "backend": "cpu",
+      "config": {
+        "context": "512",
+        "generate": "32",
+        "gpu_layers": "0",
+        "prompt": "According to all known laws",
+        "seed": "1",
+        "temperature": "0",
+        "threads": "8"
+      },
+      "contract_checks": {
+        "configuration_exact": true,
+        "generated_exactly_32_tokens": true,
+        "probe_result_exact": true,
+        "prompt_ids_exact": true,
+        "step_ids_match_generated_ids": true,
+        "step_indexes_contiguous": true
+      },
+      "duration_seconds": 0.570768,
+      "exit_code": 0,
+      "generated_ids": [
+        318,
+        57195,
+        11,
+        1459,
+        387,
+        1495,
+        2189,
+        261,
+        56207,
+        1765,
+        413,
+        3700,
+        308,
+        16028,
+        13,
+        15149,
+        40841,
+        554,
+        3143,
+        3307,
+        308,
+        922,
+        1682,
+        12138,
+        3572,
+        4120,
+        1468,
+        276,
+        7519,
+        13,
+        646,
+        56207
+      ],
+      "hard_failure_scan": {
+        "all_logits_finite": true,
+        "log_scan_matches": {},
+        "passed": true
+      },
+      "log": "results/2026-07-29/skynet/phase2-observability/phase1-numerical/inference-mxfp4-cpu.log",
+      "model": {
+        "bytes": 745054368,
+        "layers": 8,
+        "parameters": 388581416,
+        "vocabulary": 163840
+      },
+      "placement": {
+        "buffers": [
+          {
+            "backend_buffer": "CPU_Mapped",
+            "kind": "model",
+            "size_mib": 699.38
+          },
+          {
+            "backend_buffer": "CPU_REPACK",
+            "kind": "model",
+            "size_mib": 11.16
+          },
+          {
+            "backend_buffer": "CPU",
+            "kind": "output",
+            "size_mib": 0.62
+          },
+          {
+            "backend_buffer": "CPU",
+            "kind": "KV",
+            "size_mib": 0.31
+          },
+          {
+            "backend_buffer": "CPU",
+            "kind": "compute",
+            "size_mib": 324.51
+          },
+          {
+            "backend_buffer": "CPU",
+            "kind": "compute",
+            "size_mib": 324.5078
+          }
+        ],
+        "devices": [
+          {
+            "description": "11th Gen Intel(R) Core(TM) i7-11700K @ 3.60GHz",
+            "free_bytes_at_discovery": 67317436416,
+            "index": 0,
+            "name": "CPU",
+            "total_bytes": 67317436416,
+            "type": 0
+          }
+        ],
+        "explicit_cpu_fallback_lines": [
+          "load_tensors: layer   0 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   1 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   2 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   3 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   4 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   5 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   6 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   7 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   8 assigned to device CPU, is_swa = 0",
+          "done_getting_tensors: tensor 'token_embd.weight' (f16) (and 196 others) cannot be used with preferred buffer type CPU_REPACK, using CPU instead"
+        ],
+        "layer_assignments": {
+          "CPU": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        "placement_log_lines": [
+          "load_tensors: layer   0 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   1 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   2 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   3 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   4 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   5 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   6 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   7 assigned to device CPU, is_swa = 0",
+          "load_tensors: layer   8 assigned to device CPU, is_swa = 0",
+          "done_getting_tensors: tensor 'token_embd.weight' (f16) (and 196 others) cannot be used with preferred buffer type CPU_REPACK, using CPU instead",
+          "load_tensors:   CPU_Mapped model buffer size =   699.38 MiB",
+          "load_tensors:   CPU_REPACK model buffer size =    11.16 MiB",
+          "llama_context:        CPU  output buffer size =     0.62 MiB",
+          "llama_kv_cache:        CPU KV buffer size =     0.31 MiB",
+          "llama_memory_recurrent:        CPU RS buffer size =     0.24 MiB",
+          "sched_reserve:        CPU compute buffer size =   324.51 MiB",
+          "~llama_context:        CPU compute buffer size is 324.5078 MiB, matches expectation of 324.5078 MiB"
+        ]
+      },
+      "prompt_ids": [
+        18805,
+        308,
+        799,
+        5624,
+        12524
+      ],
+      "raw_logit_shape": [
+        32,
+        163840
+      ],
+      "result": {
+        "exit": "0",
+        "steps": "32"
+      },
+      "steps": [
+        {
+          "generated_id": 318,
+          "index": 0,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 16.823122,
+              "token_id": 318
+            },
+            {
+              "logit": 5.56357718,
+              "token_id": 289
+            },
+            {
+              "logit": 4.54668808,
+              "token_id": 3105
+            },
+            {
+              "logit": 4.00532818,
+              "token_id": 554
+            },
+            {
+              "logit": 3.51019549,
+              "token_id": 16822
+            },
+            {
+              "logit": 3.47249031,
+              "token_id": 16028
+            },
+            {
+              "logit": 3.18394494,
+              "token_id": 11136
+            },
+            {
+              "logit": 3.09868169,
+              "token_id": 39058
+            },
+            {
+              "logit": 3.08548284,
+              "token_id": 56207
+            },
+            {
+              "logit": 3.0046947,
+              "token_id": 994
+            }
+          ]
+        },
+        {
+          "generated_id": 57195,
+          "index": 1,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 10.2299089,
+              "token_id": 57195
+            },
+            {
+              "logit": 4.98856449,
+              "token_id": 1530
+            },
+            {
+              "logit": 4.31958008,
+              "token_id": 39058
+            },
+            {
+              "logit": 3.26196694,
+              "token_id": 52588
+            },
+            {
+              "logit": 3.21127605,
+              "token_id": 483
+            },
+            {
+              "logit": 2.46723819,
+              "token_id": 116155
+            },
+            {
+              "logit": 2.22534418,
+              "token_id": 19456
+            },
+            {
+              "logit": 2.16956306,
+              "token_id": 12524
+            },
+            {
+              "logit": 2.05676961,
+              "token_id": 667
+            },
+            {
+              "logit": 1.91513705,
+              "token_id": 48063
+            }
+          ]
+        },
+        {
+          "generated_id": 11,
+          "index": 2,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 15.3463421,
+              "token_id": 11
+            },
+            {
+              "logit": 5.42987919,
+              "token_id": 48063
+            },
+            {
+              "logit": 5.1884222,
+              "token_id": 667
+            },
+            {
+              "logit": 5.15479565,
+              "token_id": 289
+            },
+            {
+              "logit": 4.1984458,
+              "token_id": 473
+            },
+            {
+              "logit": 3.78484297,
+              "token_id": 16028
+            },
+            {
+              "logit": 3.67513371,
+              "token_id": 3652
+            },
+            {
+              "logit": 3.49795413,
+              "token_id": 554
+            },
+            {
+              "logit": 3.47784495,
+              "token_id": 4536
+            },
+            {
+              "logit": 3.25629711,
+              "token_id": 623
+            }
+          ]
+        },
+        {
+          "generated_id": 1459,
+          "index": 3,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.4472952,
+              "token_id": 1459
+            },
+            {
+              "logit": 8.01298904,
+              "token_id": 6233
+            },
+            {
+              "logit": 6.34110546,
+              "token_id": 60063
+            },
+            {
+              "logit": 6.21639204,
+              "token_id": 996
+            },
+            {
+              "logit": 5.91024208,
+              "token_id": 528
+            },
+            {
+              "logit": 4.3871336,
+              "token_id": 8629
+            },
+            {
+              "logit": 4.26329422,
+              "token_id": 220
+            },
+            {
+              "logit": 4.10121155,
+              "token_id": 387
+            },
+            {
+              "logit": 3.90088892,
+              "token_id": 1812
+            },
+            {
+              "logit": 3.29834843,
+              "token_id": 646
+            }
+          ]
+        },
+        {
+          "generated_id": 387,
+          "index": 4,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 15.7207584,
+              "token_id": 387
+            },
+            {
+              "logit": 5.83426857,
+              "token_id": 559
+            },
+            {
+              "logit": 4.0171237,
+              "token_id": 420
+            },
+            {
+              "logit": 3.2165761,
+              "token_id": 799
+            },
+            {
+              "logit": 3.17718554,
+              "token_id": 1812
+            },
+            {
+              "logit": 3.1406312,
+              "token_id": 2704
+            },
+            {
+              "logit": 2.987782,
+              "token_id": 667
+            },
+            {
+              "logit": 2.84636807,
+              "token_id": 48063
+            },
+            {
+              "logit": 2.79111052,
+              "token_id": 395
+            },
+            {
+              "logit": 2.53724766,
+              "token_id": 19456
+            }
+          ]
+        },
+        {
+          "generated_id": 1495,
+          "index": 5,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 16.2073193,
+              "token_id": 1495
+            },
+            {
+              "logit": 6.80058193,
+              "token_id": 994
+            },
+            {
+              "logit": 6.5284934,
+              "token_id": 261
+            },
+            {
+              "logit": 6.10260963,
+              "token_id": 395
+            },
+            {
+              "logit": 5.5567522,
+              "token_id": 667
+            },
+            {
+              "logit": 4.2764864,
+              "token_id": 108263
+            },
+            {
+              "logit": 4.25742912,
+              "token_id": 12606
+            },
+            {
+              "logit": 4.11676502,
+              "token_id": 4536
+            },
+            {
+              "logit": 3.74371314,
+              "token_id": 1581
+            },
+            {
+              "logit": 3.46663189,
+              "token_id": 19392
+            }
+          ]
+        },
+        {
+          "generated_id": 2189,
+          "index": 6,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.3443813,
+              "token_id": 2189
+            },
+            {
+              "logit": 5.78054619,
+              "token_id": 289
+            },
+            {
+              "logit": 4.93665791,
+              "token_id": 163585
+            },
+            {
+              "logit": 4.6734333,
+              "token_id": 667
+            },
+            {
+              "logit": 4.40200615,
+              "token_id": 1812
+            },
+            {
+              "logit": 4.32687521,
+              "token_id": 14417
+            },
+            {
+              "logit": 3.93706512,
+              "token_id": 994
+            },
+            {
+              "logit": 3.73114777,
+              "token_id": 5058
+            },
+            {
+              "logit": 3.69461584,
+              "token_id": 2686
+            },
+            {
+              "logit": 3.69413757,
+              "token_id": 420
+            }
+          ]
+        },
+        {
+          "generated_id": 261,
+          "index": 7,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 15.9459,
+              "token_id": 261
+            },
+            {
+              "logit": 6.17853451,
+              "token_id": 1495
+            },
+            {
+              "logit": 5.18881321,
+              "token_id": 667
+            },
+            {
+              "logit": 4.77300644,
+              "token_id": 483
+            },
+            {
+              "logit": 4.39864206,
+              "token_id": 799
+            },
+            {
+              "logit": 4.37914467,
+              "token_id": 994
+            },
+            {
+              "logit": 4.32954931,
+              "token_id": 1812
+            },
+            {
+              "logit": 4.32818317,
+              "token_id": 807
+            },
+            {
+              "logit": 4.32031822,
+              "token_id": 398
+            },
+            {
+              "logit": 4.15010023,
+              "token_id": 4536
+            }
+          ]
+        },
+        {
+          "generated_id": 56207,
+          "index": 8,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 16.5057335,
+              "token_id": 56207
+            },
+            {
+              "logit": 6.30721283,
+              "token_id": 308
+            },
+            {
+              "logit": 5.82083797,
+              "token_id": 26914
+            },
+            {
+              "logit": 5.58486557,
+              "token_id": 4536
+            },
+            {
+              "logit": 5.11916494,
+              "token_id": 52588
+            },
+            {
+              "logit": 4.98042679,
+              "token_id": 807
+            },
+            {
+              "logit": 4.59078026,
+              "token_id": 3731
+            },
+            {
+              "logit": 4.53194094,
+              "token_id": 368
+            },
+            {
+              "logit": 4.53175449,
+              "token_id": 554
+            },
+            {
+              "logit": 4.51570702,
+              "token_id": 8480
+            }
+          ]
+        },
+        {
+          "generated_id": 1765,
+          "index": 9,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.5263386,
+              "token_id": 1765
+            },
+            {
+              "logit": 7.07133579,
+              "token_id": 11
+            },
+            {
+              "logit": 6.70689583,
+              "token_id": 261
+            },
+            {
+              "logit": 5.75629044,
+              "token_id": 289
+            },
+            {
+              "logit": 4.84680653,
+              "token_id": 163585
+            },
+            {
+              "logit": 4.20762253,
+              "token_id": 3105
+            },
+            {
+              "logit": 3.96363688,
+              "token_id": 108263
+            },
+            {
+              "logit": 3.95072937,
+              "token_id": 667
+            },
+            {
+              "logit": 3.80530715,
+              "token_id": 420
+            },
+            {
+              "logit": 3.80328941,
+              "token_id": 4536
+            }
+          ]
+        },
+        {
+          "generated_id": 413,
+          "index": 10,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.5724392,
+              "token_id": 413
+            },
+            {
+              "logit": 6.46639824,
+              "token_id": 108263
+            },
+            {
+              "logit": 5.74255514,
+              "token_id": 1581
+            },
+            {
+              "logit": 5.2854147,
+              "token_id": 554
+            },
+            {
+              "logit": 5.03841162,
+              "token_id": 667
+            },
+            {
+              "logit": 4.57431602,
+              "token_id": 2416
+            },
+            {
+              "logit": 4.39993334,
+              "token_id": 459
+            },
+            {
+              "logit": 4.14240074,
+              "token_id": 56207
+            },
+            {
+              "logit": 3.85753942,
+              "token_id": 994
+            },
+            {
+              "logit": 3.73311687,
+              "token_id": 623
+            }
+          ]
+        },
+        {
+          "generated_id": 3700,
+          "index": 11,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.8844023,
+              "token_id": 3700
+            },
+            {
+              "logit": 7.7015543,
+              "token_id": 667
+            },
+            {
+              "logit": 4.77555084,
+              "token_id": 13
+            },
+            {
+              "logit": 4.7388401,
+              "token_id": 3105
+            },
+            {
+              "logit": 4.68218613,
+              "token_id": 318
+            },
+            {
+              "logit": 4.56269217,
+              "token_id": 554
+            },
+            {
+              "logit": 4.16476583,
+              "token_id": 1070
+            },
+            {
+              "logit": 4.11831999,
+              "token_id": 21887
+            },
+            {
+              "logit": 4.04558372,
+              "token_id": 289
+            },
+            {
+              "logit": 3.96849346,
+              "token_id": 4536
+            }
+          ]
+        },
+        {
+          "generated_id": 308,
+          "index": 12,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 17.107029,
+              "token_id": 308
+            },
+            {
+              "logit": 4.63679028,
+              "token_id": 52588
+            },
+            {
+              "logit": 4.1271286,
+              "token_id": 289
+            },
+            {
+              "logit": 3.94758105,
+              "token_id": 108263
+            },
+            {
+              "logit": 3.39922333,
+              "token_id": 261
+            },
+            {
+              "logit": 3.38715219,
+              "token_id": 10736
+            },
+            {
+              "logit": 3.3739593,
+              "token_id": 5058
+            },
+            {
+              "logit": 3.36986828,
+              "token_id": 559
+            },
+            {
+              "logit": 2.929003,
+              "token_id": 420
+            },
+            {
+              "logit": 2.82724857,
+              "token_id": 667
+            }
+          ]
+        },
+        {
+          "generated_id": 16028,
+          "index": 13,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 16.3234901,
+              "token_id": 16028
+            },
+            {
+              "logit": 5.85405207,
+              "token_id": 11
+            },
+            {
+              "logit": 5.40465879,
+              "token_id": 667
+            },
+            {
+              "logit": 4.82020426,
+              "token_id": 4536
+            },
+            {
+              "logit": 4.75343132,
+              "token_id": 1581
+            },
+            {
+              "logit": 4.17343807,
+              "token_id": 473
+            },
+            {
+              "logit": 4.1258049,
+              "token_id": 799
+            },
+            {
+              "logit": 4.07603073,
+              "token_id": 12312
+            },
+            {
+              "logit": 3.88359237,
+              "token_id": 368
+            },
+            {
+              "logit": 3.7716794,
+              "token_id": 554
+            }
+          ]
+        },
+        {
+          "generated_id": 13,
+          "index": 14,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.2644491,
+              "token_id": 13
+            },
+            {
+              "logit": 6.19855356,
+              "token_id": 318
+            },
+            {
+              "logit": 5.59590244,
+              "token_id": 21887
+            },
+            {
+              "logit": 5.52619791,
+              "token_id": 4536
+            },
+            {
+              "logit": 5.00831842,
+              "token_id": 623
+            },
+            {
+              "logit": 4.04652786,
+              "token_id": 374
+            },
+            {
+              "logit": 3.97551751,
+              "token_id": 554
+            },
+            {
+              "logit": 3.74089718,
+              "token_id": 667
+            },
+            {
+              "logit": 3.73961329,
+              "token_id": 11
+            },
+            {
+              "logit": 3.72432113,
+              "token_id": 56207
+            }
+          ]
+        },
+        {
+          "generated_id": 15149,
+          "index": 15,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.8308048,
+              "token_id": 15149
+            },
+            {
+              "logit": 7.31426144,
+              "token_id": 8629
+            },
+            {
+              "logit": 6.8119421,
+              "token_id": 11136
+            },
+            {
+              "logit": 6.40212297,
+              "token_id": 3307
+            },
+            {
+              "logit": 5.81816578,
+              "token_id": 420
+            },
+            {
+              "logit": 5.18060493,
+              "token_id": 554
+            },
+            {
+              "logit": 4.86365795,
+              "token_id": 289
+            },
+            {
+              "logit": 4.82932568,
+              "token_id": 24833
+            },
+            {
+              "logit": 4.63135481,
+              "token_id": 19456
+            },
+            {
+              "logit": 4.35089588,
+              "token_id": 5071
+            }
+          ]
+        },
+        {
+          "generated_id": 40841,
+          "index": 16,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 13.9715996,
+              "token_id": 40841
+            },
+            {
+              "logit": 6.63490105,
+              "token_id": 52588
+            },
+            {
+              "logit": 5.43129158,
+              "token_id": 667
+            },
+            {
+              "logit": 5.32892227,
+              "token_id": 4536
+            },
+            {
+              "logit": 5.24665689,
+              "token_id": 18404
+            },
+            {
+              "logit": 5.22028542,
+              "token_id": 11
+            },
+            {
+              "logit": 5.05473995,
+              "token_id": 368
+            },
+            {
+              "logit": 4.97254038,
+              "token_id": 13
+            },
+            {
+              "logit": 4.75237274,
+              "token_id": 261
+            },
+            {
+              "logit": 4.65404844,
+              "token_id": 3105
+            }
+          ]
+        },
+        {
+          "generated_id": 554,
+          "index": 17,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.4361515,
+              "token_id": 554
+            },
+            {
+              "logit": 5.09017944,
+              "token_id": 286
+            },
+            {
+              "logit": 5.06198978,
+              "token_id": 289
+            },
+            {
+              "logit": 4.85996866,
+              "token_id": 141361
+            },
+            {
+              "logit": 4.64977646,
+              "token_id": 11136
+            },
+            {
+              "logit": 4.49925947,
+              "token_id": 646
+            },
+            {
+              "logit": 4.11669731,
+              "token_id": 559
+            },
+            {
+              "logit": 3.99918485,
+              "token_id": 461
+            },
+            {
+              "logit": 3.97058845,
+              "token_id": 220
+            },
+            {
+              "logit": 3.87006235,
+              "token_id": 276
+            }
+          ]
+        },
+        {
+          "generated_id": 3143,
+          "index": 18,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 13.5880127,
+              "token_id": 3143
+            },
+            {
+              "logit": 6.79019213,
+              "token_id": 420
+            },
+            {
+              "logit": 4.94070339,
+              "token_id": 8629
+            },
+            {
+              "logit": 4.72583675,
+              "token_id": 1812
+            },
+            {
+              "logit": 4.63188267,
+              "token_id": 19456
+            },
+            {
+              "logit": 4.56420565,
+              "token_id": 5058
+            },
+            {
+              "logit": 4.42289877,
+              "token_id": 4536
+            },
+            {
+              "logit": 4.04239082,
+              "token_id": 996
+            },
+            {
+              "logit": 3.79485464,
+              "token_id": 3307
+            },
+            {
+              "logit": 3.75558734,
+              "token_id": 11136
+            }
+          ]
+        },
+        {
+          "generated_id": 3307,
+          "index": 19,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 15.7950792,
+              "token_id": 3307
+            },
+            {
+              "logit": 7.54926252,
+              "token_id": 420
+            },
+            {
+              "logit": 5.56982327,
+              "token_id": 15149
+            },
+            {
+              "logit": 3.909554,
+              "token_id": 11136
+            },
+            {
+              "logit": 3.66796136,
+              "token_id": 387
+            },
+            {
+              "logit": 3.65946388,
+              "token_id": 14417
+            },
+            {
+              "logit": 3.56150532,
+              "token_id": 11808
+            },
+            {
+              "logit": 3.4402523,
+              "token_id": 2403
+            },
+            {
+              "logit": 3.36576843,
+              "token_id": 289
+            },
+            {
+              "logit": 3.26261568,
+              "token_id": 395
+            }
+          ]
+        },
+        {
+          "generated_id": 308,
+          "index": 20,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.6837292,
+              "token_id": 308
+            },
+            {
+              "logit": 7.04852676,
+              "token_id": 13
+            },
+            {
+              "logit": 5.07421589,
+              "token_id": 623
+            },
+            {
+              "logit": 4.67695761,
+              "token_id": 11
+            },
+            {
+              "logit": 4.51607656,
+              "token_id": 519
+            },
+            {
+              "logit": 4.4465189,
+              "token_id": 19456
+            },
+            {
+              "logit": 4.25095034,
+              "token_id": 21887
+            },
+            {
+              "logit": 4.24569416,
+              "token_id": 368
+            },
+            {
+              "logit": 4.21805763,
+              "token_id": 667
+            },
+            {
+              "logit": 4.08436155,
+              "token_id": 3700
+            }
+          ]
+        },
+        {
+          "generated_id": 922,
+          "index": 21,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 12.6716042,
+              "token_id": 922
+            },
+            {
+              "logit": 9.84752464,
+              "token_id": 559
+            },
+            {
+              "logit": 7.84147882,
+              "token_id": 1581
+            },
+            {
+              "logit": 5.32327652,
+              "token_id": 554
+            },
+            {
+              "logit": 4.11311722,
+              "token_id": 163585
+            },
+            {
+              "logit": 3.96002388,
+              "token_id": 1468
+            },
+            {
+              "logit": 3.82283163,
+              "token_id": 420
+            },
+            {
+              "logit": 3.68997598,
+              "token_id": 799
+            },
+            {
+              "logit": 3.61972308,
+              "token_id": 12312
+            },
+            {
+              "logit": 3.51111507,
+              "token_id": 623
+            }
+          ]
+        },
+        {
+          "generated_id": 1682,
+          "index": 22,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.6399488,
+              "token_id": 1682
+            },
+            {
+              "logit": 5.95228481,
+              "token_id": 667
+            },
+            {
+              "logit": 5.23672581,
+              "token_id": 5294
+            },
+            {
+              "logit": 4.86039209,
+              "token_id": 56207
+            },
+            {
+              "logit": 4.54513597,
+              "token_id": 4536
+            },
+            {
+              "logit": 4.38314438,
+              "token_id": 554
+            },
+            {
+              "logit": 4.09411812,
+              "token_id": 286
+            },
+            {
+              "logit": 3.97841811,
+              "token_id": 461
+            },
+            {
+              "logit": 3.73186493,
+              "token_id": 2978
+            },
+            {
+              "logit": 3.54979253,
+              "token_id": 308
+            }
+          ]
+        },
+        {
+          "generated_id": 12138,
+          "index": 23,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.1507912,
+              "token_id": 12138
+            },
+            {
+              "logit": 6.08600998,
+              "token_id": 11
+            },
+            {
+              "logit": 5.75374222,
+              "token_id": 667
+            },
+            {
+              "logit": 3.92310786,
+              "token_id": 6233
+            },
+            {
+              "logit": 3.91583776,
+              "token_id": 2686
+            },
+            {
+              "logit": 3.85774446,
+              "token_id": 3105
+            },
+            {
+              "logit": 3.70122027,
+              "token_id": 308
+            },
+            {
+              "logit": 3.69568586,
+              "token_id": 318
+            },
+            {
+              "logit": 3.6650064,
+              "token_id": 13
+            },
+            {
+              "logit": 3.52646065,
+              "token_id": 289
+            }
+          ]
+        },
+        {
+          "generated_id": 3572,
+          "index": 24,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 13.5152922,
+              "token_id": 3572
+            },
+            {
+              "logit": 6.15935421,
+              "token_id": 667
+            },
+            {
+              "logit": 4.49808025,
+              "token_id": 39076
+            },
+            {
+              "logit": 4.34858179,
+              "token_id": 19456
+            },
+            {
+              "logit": 4.3477416,
+              "token_id": 8869
+            },
+            {
+              "logit": 3.91753387,
+              "token_id": 11
+            },
+            {
+              "logit": 3.81500268,
+              "token_id": 5294
+            },
+            {
+              "logit": 3.81401086,
+              "token_id": 308
+            },
+            {
+              "logit": 3.80802584,
+              "token_id": 5058
+            },
+            {
+              "logit": 3.69039202,
+              "token_id": 13
+            }
+          ]
+        },
+        {
+          "generated_id": 4120,
+          "index": 25,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 13.6513453,
+              "token_id": 4120
+            },
+            {
+              "logit": 8.31466103,
+              "token_id": 559
+            },
+            {
+              "logit": 7.52021599,
+              "token_id": 420
+            },
+            {
+              "logit": 6.53855991,
+              "token_id": 667
+            },
+            {
+              "logit": 5.55310202,
+              "token_id": 1106
+            },
+            {
+              "logit": 4.1470871,
+              "token_id": 289
+            },
+            {
+              "logit": 3.84518528,
+              "token_id": 1812
+            },
+            {
+              "logit": 3.80638719,
+              "token_id": 387
+            },
+            {
+              "logit": 3.74681711,
+              "token_id": 1581
+            },
+            {
+              "logit": 3.58201838,
+              "token_id": 19456
+            }
+          ]
+        },
+        {
+          "generated_id": 1468,
+          "index": 26,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 15.0529957,
+              "token_id": 1468
+            },
+            {
+              "logit": 5.68712807,
+              "token_id": 1581
+            },
+            {
+              "logit": 5.65822315,
+              "token_id": 994
+            },
+            {
+              "logit": 5.37789249,
+              "token_id": 554
+            },
+            {
+              "logit": 4.91684628,
+              "token_id": 667
+            },
+            {
+              "logit": 4.52670956,
+              "token_id": 18404
+            },
+            {
+              "logit": 4.51080561,
+              "token_id": 13
+            },
+            {
+              "logit": 4.30442238,
+              "token_id": 922
+            },
+            {
+              "logit": 4.19274712,
+              "token_id": 5401
+            },
+            {
+              "logit": 4.14162254,
+              "token_id": 11
+            }
+          ]
+        },
+        {
+          "generated_id": 276,
+          "index": 27,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 16.6570129,
+              "token_id": 276
+            },
+            {
+              "logit": 6.50830317,
+              "token_id": 289
+            },
+            {
+              "logit": 4.84335899,
+              "token_id": 4536
+            },
+            {
+              "logit": 4.20921612,
+              "token_id": 308
+            },
+            {
+              "logit": 3.62096,
+              "token_id": 994
+            },
+            {
+              "logit": 3.5580709,
+              "token_id": 623
+            },
+            {
+              "logit": 3.47692251,
+              "token_id": 108263
+            },
+            {
+              "logit": 3.46483111,
+              "token_id": 473
+            },
+            {
+              "logit": 3.44399691,
+              "token_id": 19456
+            },
+            {
+              "logit": 3.40338683,
+              "token_id": 979
+            }
+          ]
+        },
+        {
+          "generated_id": 7519,
+          "index": 28,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 12.4038773,
+              "token_id": 7519
+            },
+            {
+              "logit": 4.66978073,
+              "token_id": 420
+            },
+            {
+              "logit": 4.48923969,
+              "token_id": 667
+            },
+            {
+              "logit": 4.32092428,
+              "token_id": 56984
+            },
+            {
+              "logit": 4.28775215,
+              "token_id": 289
+            },
+            {
+              "logit": 4.21180534,
+              "token_id": 261
+            },
+            {
+              "logit": 4.07842875,
+              "token_id": 559
+            },
+            {
+              "logit": 4.06634331,
+              "token_id": 1812
+            },
+            {
+              "logit": 3.96829844,
+              "token_id": 2403
+            },
+            {
+              "logit": 3.88165808,
+              "token_id": 368
+            }
+          ]
+        },
+        {
+          "generated_id": 13,
+          "index": 29,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.5447769,
+              "token_id": 13
+            },
+            {
+              "logit": 6.08542395,
+              "token_id": 667
+            },
+            {
+              "logit": 5.92773533,
+              "token_id": 318
+            },
+            {
+              "logit": 5.81441975,
+              "token_id": 623
+            },
+            {
+              "logit": 5.46737289,
+              "token_id": 19456
+            },
+            {
+              "logit": 5.1924243,
+              "token_id": 554
+            },
+            {
+              "logit": 4.98450565,
+              "token_id": 5058
+            },
+            {
+              "logit": 4.97853947,
+              "token_id": 4536
+            },
+            {
+              "logit": 4.95867538,
+              "token_id": 289
+            },
+            {
+              "logit": 4.71214914,
+              "token_id": 807
+            }
+          ]
+        },
+        {
+          "generated_id": 646,
+          "index": 30,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.4654741,
+              "token_id": 646
+            },
+            {
+              "logit": 6.60974884,
+              "token_id": 559
+            },
+            {
+              "logit": 6.36147499,
+              "token_id": 1884
+            },
+            {
+              "logit": 6.12275505,
+              "token_id": 5071
+            },
+            {
+              "logit": 5.51062679,
+              "token_id": 19456
+            },
+            {
+              "logit": 5.47775269,
+              "token_id": 8629
+            },
+            {
+              "logit": 4.16041803,
+              "token_id": 4536
+            },
+            {
+              "logit": 4.07707882,
+              "token_id": 743
+            },
+            {
+              "logit": 4.00970507,
+              "token_id": 5058
+            },
+            {
+              "logit": 3.99631453,
+              "token_id": 387
+            }
+          ]
+        },
+        {
+          "generated_id": 56207,
+          "index": 31,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 16.3265343,
+              "token_id": 56207
+            },
+            {
+              "logit": 4.71649694,
+              "token_id": 38912
+            },
+            {
+              "logit": 4.69027424,
+              "token_id": 4536
+            },
+            {
+              "logit": 4.60452652,
+              "token_id": 11
+            },
+            {
+              "logit": 4.53890085,
+              "token_id": 308
+            },
+            {
+              "logit": 4.38554382,
+              "token_id": 108263
+            },
+            {
+              "logit": 4.23713398,
+              "token_id": 289
+            },
+            {
+              "logit": 3.87176466,
+              "token_id": 461
+            },
+            {
+              "logit": 3.75963545,
+              "token_id": 52588
+            },
+            {
+              "logit": 3.73398733,
+              "token_id": 286
+            }
+          ]
+        }
+      ]
+    },
+    "mxfp4-cuda": {
+      "artifact": "mxfp4",
+      "backend": "cuda",
+      "config": {
+        "context": "512",
+        "generate": "32",
+        "gpu_layers": "999",
+        "prompt": "According to all known laws",
+        "seed": "1",
+        "temperature": "0",
+        "threads": "8"
+      },
+      "contract_checks": {
+        "configuration_exact": true,
+        "generated_exactly_32_tokens": true,
+        "probe_result_exact": true,
+        "prompt_ids_exact": true,
+        "step_ids_match_generated_ids": true,
+        "step_indexes_contiguous": true
+      },
+      "duration_seconds": 0.627056,
+      "exit_code": 0,
+      "generated_ids": [
+        318,
+        57195,
+        11,
+        1459,
+        387,
+        1495,
+        2189,
+        261,
+        56207,
+        1765,
+        413,
+        3700,
+        308,
+        16028,
+        13,
+        15149,
+        40841,
+        554,
+        3143,
+        3307,
+        308,
+        922,
+        1682,
+        12138,
+        3572,
+        4120,
+        1468,
+        276,
+        7519,
+        13,
+        646,
+        56207
+      ],
+      "hard_failure_scan": {
+        "all_logits_finite": true,
+        "log_scan_matches": {},
+        "passed": true
+      },
+      "log": "results/2026-07-29/skynet/phase2-observability/phase1-numerical/inference-mxfp4-cuda.log",
+      "model": {
+        "bytes": 745054368,
+        "layers": 8,
+        "parameters": 388581416,
+        "vocabulary": 163840
+      },
+      "placement": {
+        "buffers": [
+          {
+            "backend_buffer": "CPU_Mapped",
+            "kind": "model",
+            "size_mib": 348.78
+          },
+          {
+            "backend_buffer": "CUDA0",
+            "kind": "model",
+            "size_mib": 390.54
+          },
+          {
+            "backend_buffer": "CUDA_Host",
+            "kind": "output",
+            "size_mib": 0.62
+          },
+          {
+            "backend_buffer": "CUDA0",
+            "kind": "KV",
+            "size_mib": 0.31
+          },
+          {
+            "backend_buffer": "CUDA0",
+            "kind": "compute",
+            "size_mib": 324.0
+          },
+          {
+            "backend_buffer": "CUDA_Host",
+            "kind": "compute",
+            "size_mib": 5.01
+          },
+          {
+            "backend_buffer": "CUDA0",
+            "kind": "compute",
+            "size_mib": 324.0
+          },
+          {
+            "backend_buffer": "CUDA_Host",
+            "kind": "compute",
+            "size_mib": 5.0078
+          }
+        ],
+        "devices": [
+          {
+            "description": "NVIDIA GeForce GTX 1650",
+            "free_bytes_at_discovery": 4023189504,
+            "index": 0,
+            "name": "CUDA0",
+            "total_bytes": 4093509632,
+            "type": 1
+          },
+          {
+            "description": "11th Gen Intel(R) Core(TM) i7-11700K @ 3.60GHz",
+            "free_bytes_at_discovery": 67317436416,
+            "index": 1,
+            "name": "CPU",
+            "total_bytes": 67317436416,
+            "type": 0
+          }
+        ],
+        "explicit_cpu_fallback_lines": [
+          "done_getting_tensors: tensor 'token_embd.weight' (f16) (and 6 others) cannot be used with preferred buffer type CUDA_Host, using CPU instead",
+          "resolve_fused_ops: layer 3 is assigned to device CUDA0 but Flash Attention is assigned to device CPU (usually due to missing support)"
+        ],
+        "layer_assignments": {
+          "CUDA0": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        "placement_log_lines": [
+          "ggml_cuda_init: found 1 CUDA devices (Total VRAM: 3903 MiB):",
+          "Consider compiling with CMAKE_CUDA_ARCHITECTURES=61-virtual;80-virtual and DGGML_CUDA_FORCE_MMQ to force the use of the Pascal code for Turing.",
+          "llama_prepare_model_devices: using device CUDA0 (NVIDIA GeForce GTX 1650) (0000:01:00.0) - 3836 MiB free",
+          "load_tensors: layer   0 assigned to device CUDA0, is_swa = 0",
+          "load_tensors: layer   1 assigned to device CUDA0, is_swa = 0",
+          "load_tensors: layer   2 assigned to device CUDA0, is_swa = 0",
+          "load_tensors: layer   3 assigned to device CUDA0, is_swa = 0",
+          "load_tensors: layer   4 assigned to device CUDA0, is_swa = 0",
+          "load_tensors: layer   5 assigned to device CUDA0, is_swa = 0",
+          "load_tensors: layer   6 assigned to device CUDA0, is_swa = 0",
+          "load_tensors: layer   7 assigned to device CUDA0, is_swa = 0",
+          "load_tensors: layer   8 assigned to device CUDA0, is_swa = 0",
+          "done_getting_tensors: tensor 'token_embd.weight' (f16) (and 6 others) cannot be used with preferred buffer type CUDA_Host, using CPU instead",
+          "load_tensors: offloading output layer to GPU",
+          "load_tensors: offloading 7 repeating layers to GPU",
+          "load_tensors: offloaded 9/9 layers to GPU",
+          "load_tensors:   CPU_Mapped model buffer size =   348.78 MiB",
+          "load_tensors:        CUDA0 model buffer size =   390.54 MiB",
+          "llama_context:  CUDA_Host  output buffer size =     0.62 MiB",
+          "llama_kv_cache: layer   3: dev = CUDA0",
+          "llama_kv_cache: layer   7: dev = CUDA0",
+          "llama_kv_cache:      CUDA0 KV buffer size =     0.31 MiB",
+          "llama_memory_recurrent, layer   0: dev = CUDA0",
+          "llama_memory_recurrent, layer   1: dev = CUDA0",
+          "llama_memory_recurrent, layer   2: dev = CUDA0",
+          "llama_memory_recurrent, layer   4: dev = CUDA0",
+          "llama_memory_recurrent, layer   5: dev = CUDA0",
+          "llama_memory_recurrent, layer   6: dev = CUDA0",
+          "llama_memory_recurrent:      CUDA0 RS buffer size =     0.24 MiB",
+          "resolve_fused_ops: layer 3 is assigned to device CUDA0 but Flash Attention is assigned to device CPU (usually due to missing support)",
+          "sched_reserve:      CUDA0 compute buffer size =   324.00 MiB",
+          "sched_reserve:  CUDA_Host compute buffer size =     5.01 MiB",
+          "CUDA Graph id 40 reused",
+          "ggml_backend_cuda_graph_compute: CUDA graph warmup complete",
+          "CUDA Graph id 40 reused",
+          "CUDA Graph id 40 reused",
+          "CUDA Graph id 40 reused",
+          "CUDA Graph id 40 reused",
+          "CUDA Graph id 40 reused",
+          "CUDA Graph id 40 reused",
+          "CUDA Graph id 40 reused",
+          "CUDA Graph id 40 reused",
+          "CUDA Graph id 40 reused",
+          "CUDA Graph id 40 reused",
+          "CUDA Graph id 40 reused",
+          "CUDA Graph id 40 reused",
+          "CUDA Graph id 40 reused",
+          "CUDA Graph id 40 reused",
+          "CUDA Graph id 40 reused",
+          "CUDA Graph id 40 reused",
+          "CUDA Graph id 40 reused",
+          "CUDA Graph id 40 reused",
+          "CUDA Graph id 40 reused",
+          "CUDA Graph id 40 reused",
+          "CUDA Graph id 40 reused",
+          "CUDA Graph id 40 reused",
+          "CUDA Graph id 40 reused",
+          "CUDA Graph id 40 reused",
+          "CUDA Graph id 40 reused",
+          "CUDA Graph id 40 reused",
+          "CUDA Graph id 40 reused",
+          "CUDA Graph id 40 reused",
+          "CUDA Graph id 40 reused",
+          "~llama_context:      CUDA0 compute buffer size is 324.0000 MiB, matches expectation of 324.0000 MiB",
+          "~llama_context:  CUDA_Host compute buffer size is   5.0078 MiB, matches expectation of   5.0078 MiB"
+        ]
+      },
+      "prompt_ids": [
+        18805,
+        308,
+        799,
+        5624,
+        12524
+      ],
+      "raw_logit_shape": [
+        32,
+        163840
+      ],
+      "result": {
+        "exit": "0",
+        "steps": "32"
+      },
+      "steps": [
+        {
+          "generated_id": 318,
+          "index": 0,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 16.8217163,
+              "token_id": 318
+            },
+            {
+              "logit": 5.56447744,
+              "token_id": 289
+            },
+            {
+              "logit": 4.54623795,
+              "token_id": 3105
+            },
+            {
+              "logit": 4.00301361,
+              "token_id": 554
+            },
+            {
+              "logit": 3.51088715,
+              "token_id": 16822
+            },
+            {
+              "logit": 3.47490835,
+              "token_id": 16028
+            },
+            {
+              "logit": 3.18644261,
+              "token_id": 11136
+            },
+            {
+              "logit": 3.09567451,
+              "token_id": 39058
+            },
+            {
+              "logit": 3.08070564,
+              "token_id": 56207
+            },
+            {
+              "logit": 3.00294781,
+              "token_id": 994
+            }
+          ]
+        },
+        {
+          "generated_id": 57195,
+          "index": 1,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 10.2293434,
+              "token_id": 57195
+            },
+            {
+              "logit": 4.98698902,
+              "token_id": 1530
+            },
+            {
+              "logit": 4.31807327,
+              "token_id": 39058
+            },
+            {
+              "logit": 3.26166773,
+              "token_id": 52588
+            },
+            {
+              "logit": 3.21017456,
+              "token_id": 483
+            },
+            {
+              "logit": 2.46765423,
+              "token_id": 116155
+            },
+            {
+              "logit": 2.22305536,
+              "token_id": 19456
+            },
+            {
+              "logit": 2.16963434,
+              "token_id": 12524
+            },
+            {
+              "logit": 2.05707359,
+              "token_id": 667
+            },
+            {
+              "logit": 1.91499245,
+              "token_id": 48063
+            }
+          ]
+        },
+        {
+          "generated_id": 11,
+          "index": 2,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 15.3446474,
+              "token_id": 11
+            },
+            {
+              "logit": 5.42879677,
+              "token_id": 48063
+            },
+            {
+              "logit": 5.18788004,
+              "token_id": 667
+            },
+            {
+              "logit": 5.15602303,
+              "token_id": 289
+            },
+            {
+              "logit": 4.198349,
+              "token_id": 473
+            },
+            {
+              "logit": 3.78530979,
+              "token_id": 16028
+            },
+            {
+              "logit": 3.67466807,
+              "token_id": 3652
+            },
+            {
+              "logit": 3.49947238,
+              "token_id": 554
+            },
+            {
+              "logit": 3.4773643,
+              "token_id": 4536
+            },
+            {
+              "logit": 3.25553274,
+              "token_id": 623
+            }
+          ]
+        },
+        {
+          "generated_id": 1459,
+          "index": 3,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.4491539,
+              "token_id": 1459
+            },
+            {
+              "logit": 8.01398659,
+              "token_id": 6233
+            },
+            {
+              "logit": 6.34238291,
+              "token_id": 60063
+            },
+            {
+              "logit": 6.21668911,
+              "token_id": 996
+            },
+            {
+              "logit": 5.91163874,
+              "token_id": 528
+            },
+            {
+              "logit": 4.38558865,
+              "token_id": 8629
+            },
+            {
+              "logit": 4.26530647,
+              "token_id": 220
+            },
+            {
+              "logit": 4.10190105,
+              "token_id": 387
+            },
+            {
+              "logit": 3.89749742,
+              "token_id": 1812
+            },
+            {
+              "logit": 3.2990489,
+              "token_id": 646
+            }
+          ]
+        },
+        {
+          "generated_id": 387,
+          "index": 4,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 15.7210045,
+              "token_id": 387
+            },
+            {
+              "logit": 5.83477402,
+              "token_id": 559
+            },
+            {
+              "logit": 4.01702261,
+              "token_id": 420
+            },
+            {
+              "logit": 3.2167263,
+              "token_id": 799
+            },
+            {
+              "logit": 3.17721677,
+              "token_id": 1812
+            },
+            {
+              "logit": 3.14137125,
+              "token_id": 2704
+            },
+            {
+              "logit": 2.98766279,
+              "token_id": 667
+            },
+            {
+              "logit": 2.844244,
+              "token_id": 48063
+            },
+            {
+              "logit": 2.79135251,
+              "token_id": 395
+            },
+            {
+              "logit": 2.5388453,
+              "token_id": 19456
+            }
+          ]
+        },
+        {
+          "generated_id": 1495,
+          "index": 5,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 16.2075996,
+              "token_id": 1495
+            },
+            {
+              "logit": 6.80094051,
+              "token_id": 994
+            },
+            {
+              "logit": 6.52880955,
+              "token_id": 261
+            },
+            {
+              "logit": 6.10317659,
+              "token_id": 395
+            },
+            {
+              "logit": 5.55758572,
+              "token_id": 667
+            },
+            {
+              "logit": 4.27617979,
+              "token_id": 108263
+            },
+            {
+              "logit": 4.25784779,
+              "token_id": 12606
+            },
+            {
+              "logit": 4.11682701,
+              "token_id": 4536
+            },
+            {
+              "logit": 3.74379683,
+              "token_id": 1581
+            },
+            {
+              "logit": 3.46589851,
+              "token_id": 19392
+            }
+          ]
+        },
+        {
+          "generated_id": 2189,
+          "index": 6,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.3439722,
+              "token_id": 2189
+            },
+            {
+              "logit": 5.78088808,
+              "token_id": 289
+            },
+            {
+              "logit": 4.93722153,
+              "token_id": 163585
+            },
+            {
+              "logit": 4.67254829,
+              "token_id": 667
+            },
+            {
+              "logit": 4.40171194,
+              "token_id": 1812
+            },
+            {
+              "logit": 4.3292098,
+              "token_id": 14417
+            },
+            {
+              "logit": 3.93510294,
+              "token_id": 994
+            },
+            {
+              "logit": 3.72982359,
+              "token_id": 5058
+            },
+            {
+              "logit": 3.69576836,
+              "token_id": 2686
+            },
+            {
+              "logit": 3.69392681,
+              "token_id": 420
+            }
+          ]
+        },
+        {
+          "generated_id": 261,
+          "index": 7,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 15.9506826,
+              "token_id": 261
+            },
+            {
+              "logit": 6.17895746,
+              "token_id": 1495
+            },
+            {
+              "logit": 5.19056177,
+              "token_id": 667
+            },
+            {
+              "logit": 4.77220774,
+              "token_id": 483
+            },
+            {
+              "logit": 4.40009785,
+              "token_id": 799
+            },
+            {
+              "logit": 4.37931728,
+              "token_id": 994
+            },
+            {
+              "logit": 4.32799625,
+              "token_id": 1812
+            },
+            {
+              "logit": 4.32730007,
+              "token_id": 807
+            },
+            {
+              "logit": 4.32164335,
+              "token_id": 398
+            },
+            {
+              "logit": 4.14618063,
+              "token_id": 4536
+            }
+          ]
+        },
+        {
+          "generated_id": 56207,
+          "index": 8,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 16.5099373,
+              "token_id": 56207
+            },
+            {
+              "logit": 6.30256033,
+              "token_id": 308
+            },
+            {
+              "logit": 5.82096577,
+              "token_id": 26914
+            },
+            {
+              "logit": 5.58620834,
+              "token_id": 4536
+            },
+            {
+              "logit": 5.11850309,
+              "token_id": 52588
+            },
+            {
+              "logit": 4.97836971,
+              "token_id": 807
+            },
+            {
+              "logit": 4.58880043,
+              "token_id": 3731
+            },
+            {
+              "logit": 4.53043365,
+              "token_id": 554
+            },
+            {
+              "logit": 4.5295496,
+              "token_id": 368
+            },
+            {
+              "logit": 4.5155735,
+              "token_id": 8480
+            }
+          ]
+        },
+        {
+          "generated_id": 1765,
+          "index": 9,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.5275917,
+              "token_id": 1765
+            },
+            {
+              "logit": 7.07104206,
+              "token_id": 11
+            },
+            {
+              "logit": 6.70844841,
+              "token_id": 261
+            },
+            {
+              "logit": 5.75702667,
+              "token_id": 289
+            },
+            {
+              "logit": 4.84670544,
+              "token_id": 163585
+            },
+            {
+              "logit": 4.20860815,
+              "token_id": 3105
+            },
+            {
+              "logit": 3.96271753,
+              "token_id": 108263
+            },
+            {
+              "logit": 3.94992208,
+              "token_id": 667
+            },
+            {
+              "logit": 3.80526972,
+              "token_id": 420
+            },
+            {
+              "logit": 3.80350471,
+              "token_id": 4536
+            }
+          ]
+        },
+        {
+          "generated_id": 413,
+          "index": 10,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.574337,
+              "token_id": 413
+            },
+            {
+              "logit": 6.46398067,
+              "token_id": 108263
+            },
+            {
+              "logit": 5.7429471,
+              "token_id": 1581
+            },
+            {
+              "logit": 5.28510761,
+              "token_id": 554
+            },
+            {
+              "logit": 5.04584169,
+              "token_id": 667
+            },
+            {
+              "logit": 4.57358456,
+              "token_id": 2416
+            },
+            {
+              "logit": 4.39745045,
+              "token_id": 459
+            },
+            {
+              "logit": 4.1421032,
+              "token_id": 56207
+            },
+            {
+              "logit": 3.856071,
+              "token_id": 994
+            },
+            {
+              "logit": 3.73331928,
+              "token_id": 623
+            }
+          ]
+        },
+        {
+          "generated_id": 3700,
+          "index": 11,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.8847904,
+              "token_id": 3700
+            },
+            {
+              "logit": 7.7015419,
+              "token_id": 667
+            },
+            {
+              "logit": 4.77468395,
+              "token_id": 13
+            },
+            {
+              "logit": 4.74165058,
+              "token_id": 3105
+            },
+            {
+              "logit": 4.67966413,
+              "token_id": 318
+            },
+            {
+              "logit": 4.56109333,
+              "token_id": 554
+            },
+            {
+              "logit": 4.16441107,
+              "token_id": 1070
+            },
+            {
+              "logit": 4.118783,
+              "token_id": 21887
+            },
+            {
+              "logit": 4.04530907,
+              "token_id": 289
+            },
+            {
+              "logit": 3.96883249,
+              "token_id": 4536
+            }
+          ]
+        },
+        {
+          "generated_id": 308,
+          "index": 12,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 17.1053905,
+              "token_id": 308
+            },
+            {
+              "logit": 4.63348341,
+              "token_id": 52588
+            },
+            {
+              "logit": 4.12405252,
+              "token_id": 289
+            },
+            {
+              "logit": 3.94837976,
+              "token_id": 108263
+            },
+            {
+              "logit": 3.40499496,
+              "token_id": 261
+            },
+            {
+              "logit": 3.38620329,
+              "token_id": 10736
+            },
+            {
+              "logit": 3.37150717,
+              "token_id": 5058
+            },
+            {
+              "logit": 3.37142467,
+              "token_id": 559
+            },
+            {
+              "logit": 2.92865396,
+              "token_id": 420
+            },
+            {
+              "logit": 2.82087255,
+              "token_id": 667
+            }
+          ]
+        },
+        {
+          "generated_id": 16028,
+          "index": 13,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 16.3221397,
+              "token_id": 16028
+            },
+            {
+              "logit": 5.85530567,
+              "token_id": 11
+            },
+            {
+              "logit": 5.40533924,
+              "token_id": 667
+            },
+            {
+              "logit": 4.8202858,
+              "token_id": 4536
+            },
+            {
+              "logit": 4.75319099,
+              "token_id": 1581
+            },
+            {
+              "logit": 4.17514467,
+              "token_id": 473
+            },
+            {
+              "logit": 4.12526894,
+              "token_id": 799
+            },
+            {
+              "logit": 4.07525921,
+              "token_id": 12312
+            },
+            {
+              "logit": 3.88420439,
+              "token_id": 368
+            },
+            {
+              "logit": 3.7723906,
+              "token_id": 554
+            }
+          ]
+        },
+        {
+          "generated_id": 13,
+          "index": 14,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.2662563,
+              "token_id": 13
+            },
+            {
+              "logit": 6.19843483,
+              "token_id": 318
+            },
+            {
+              "logit": 5.5943985,
+              "token_id": 21887
+            },
+            {
+              "logit": 5.52533245,
+              "token_id": 4536
+            },
+            {
+              "logit": 5.00701523,
+              "token_id": 623
+            },
+            {
+              "logit": 4.04715967,
+              "token_id": 374
+            },
+            {
+              "logit": 3.97585034,
+              "token_id": 554
+            },
+            {
+              "logit": 3.74524689,
+              "token_id": 667
+            },
+            {
+              "logit": 3.73536873,
+              "token_id": 11
+            },
+            {
+              "logit": 3.7214191,
+              "token_id": 56207
+            }
+          ]
+        },
+        {
+          "generated_id": 15149,
+          "index": 15,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.8303261,
+              "token_id": 15149
+            },
+            {
+              "logit": 7.31374216,
+              "token_id": 8629
+            },
+            {
+              "logit": 6.81317425,
+              "token_id": 11136
+            },
+            {
+              "logit": 6.40220642,
+              "token_id": 3307
+            },
+            {
+              "logit": 5.81803894,
+              "token_id": 420
+            },
+            {
+              "logit": 5.18130779,
+              "token_id": 554
+            },
+            {
+              "logit": 4.86308479,
+              "token_id": 289
+            },
+            {
+              "logit": 4.82863426,
+              "token_id": 24833
+            },
+            {
+              "logit": 4.6309948,
+              "token_id": 19456
+            },
+            {
+              "logit": 4.35061455,
+              "token_id": 5071
+            }
+          ]
+        },
+        {
+          "generated_id": 40841,
+          "index": 16,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 13.9766073,
+              "token_id": 40841
+            },
+            {
+              "logit": 6.64041138,
+              "token_id": 52588
+            },
+            {
+              "logit": 5.42696095,
+              "token_id": 667
+            },
+            {
+              "logit": 5.32872581,
+              "token_id": 4536
+            },
+            {
+              "logit": 5.2432375,
+              "token_id": 18404
+            },
+            {
+              "logit": 5.21252346,
+              "token_id": 11
+            },
+            {
+              "logit": 5.05604124,
+              "token_id": 368
+            },
+            {
+              "logit": 4.96939087,
+              "token_id": 13
+            },
+            {
+              "logit": 4.75225163,
+              "token_id": 261
+            },
+            {
+              "logit": 4.65523291,
+              "token_id": 3105
+            }
+          ]
+        },
+        {
+          "generated_id": 554,
+          "index": 17,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.4364719,
+              "token_id": 554
+            },
+            {
+              "logit": 5.09011793,
+              "token_id": 286
+            },
+            {
+              "logit": 5.06465864,
+              "token_id": 289
+            },
+            {
+              "logit": 4.85950327,
+              "token_id": 141361
+            },
+            {
+              "logit": 4.65005493,
+              "token_id": 11136
+            },
+            {
+              "logit": 4.49819279,
+              "token_id": 646
+            },
+            {
+              "logit": 4.11413193,
+              "token_id": 559
+            },
+            {
+              "logit": 3.99914312,
+              "token_id": 461
+            },
+            {
+              "logit": 3.97056246,
+              "token_id": 220
+            },
+            {
+              "logit": 3.86992335,
+              "token_id": 276
+            }
+          ]
+        },
+        {
+          "generated_id": 3143,
+          "index": 18,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 13.5902596,
+              "token_id": 3143
+            },
+            {
+              "logit": 6.78373575,
+              "token_id": 420
+            },
+            {
+              "logit": 4.9401536,
+              "token_id": 8629
+            },
+            {
+              "logit": 4.72346115,
+              "token_id": 1812
+            },
+            {
+              "logit": 4.63144922,
+              "token_id": 19456
+            },
+            {
+              "logit": 4.56504822,
+              "token_id": 5058
+            },
+            {
+              "logit": 4.41478395,
+              "token_id": 4536
+            },
+            {
+              "logit": 4.04442883,
+              "token_id": 996
+            },
+            {
+              "logit": 3.79339075,
+              "token_id": 3307
+            },
+            {
+              "logit": 3.75486183,
+              "token_id": 11136
+            }
+          ]
+        },
+        {
+          "generated_id": 3307,
+          "index": 19,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 15.7923546,
+              "token_id": 3307
+            },
+            {
+              "logit": 7.55230999,
+              "token_id": 420
+            },
+            {
+              "logit": 5.56791782,
+              "token_id": 15149
+            },
+            {
+              "logit": 3.90973949,
+              "token_id": 11136
+            },
+            {
+              "logit": 3.6653049,
+              "token_id": 387
+            },
+            {
+              "logit": 3.65896749,
+              "token_id": 14417
+            },
+            {
+              "logit": 3.5627954,
+              "token_id": 11808
+            },
+            {
+              "logit": 3.43584919,
+              "token_id": 2403
+            },
+            {
+              "logit": 3.37297153,
+              "token_id": 289
+            },
+            {
+              "logit": 3.26413918,
+              "token_id": 395
+            }
+          ]
+        },
+        {
+          "generated_id": 308,
+          "index": 20,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.6818151,
+              "token_id": 308
+            },
+            {
+              "logit": 7.04878998,
+              "token_id": 13
+            },
+            {
+              "logit": 5.07366753,
+              "token_id": 623
+            },
+            {
+              "logit": 4.67807865,
+              "token_id": 11
+            },
+            {
+              "logit": 4.51568079,
+              "token_id": 519
+            },
+            {
+              "logit": 4.44697762,
+              "token_id": 19456
+            },
+            {
+              "logit": 4.25253201,
+              "token_id": 21887
+            },
+            {
+              "logit": 4.24602604,
+              "token_id": 368
+            },
+            {
+              "logit": 4.21730328,
+              "token_id": 667
+            },
+            {
+              "logit": 4.08597851,
+              "token_id": 3700
+            }
+          ]
+        },
+        {
+          "generated_id": 922,
+          "index": 21,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 12.6730719,
+              "token_id": 922
+            },
+            {
+              "logit": 9.84921551,
+              "token_id": 559
+            },
+            {
+              "logit": 7.84199572,
+              "token_id": 1581
+            },
+            {
+              "logit": 5.32182121,
+              "token_id": 554
+            },
+            {
+              "logit": 4.1154685,
+              "token_id": 163585
+            },
+            {
+              "logit": 3.95985174,
+              "token_id": 1468
+            },
+            {
+              "logit": 3.82481861,
+              "token_id": 420
+            },
+            {
+              "logit": 3.69165921,
+              "token_id": 799
+            },
+            {
+              "logit": 3.62167215,
+              "token_id": 12312
+            },
+            {
+              "logit": 3.51125193,
+              "token_id": 623
+            }
+          ]
+        },
+        {
+          "generated_id": 1682,
+          "index": 22,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.6350708,
+              "token_id": 1682
+            },
+            {
+              "logit": 5.9515872,
+              "token_id": 667
+            },
+            {
+              "logit": 5.23899937,
+              "token_id": 5294
+            },
+            {
+              "logit": 4.86283016,
+              "token_id": 56207
+            },
+            {
+              "logit": 4.54862309,
+              "token_id": 4536
+            },
+            {
+              "logit": 4.38409615,
+              "token_id": 554
+            },
+            {
+              "logit": 4.09226227,
+              "token_id": 286
+            },
+            {
+              "logit": 3.97826672,
+              "token_id": 461
+            },
+            {
+              "logit": 3.72803855,
+              "token_id": 2978
+            },
+            {
+              "logit": 3.54806638,
+              "token_id": 308
+            }
+          ]
+        },
+        {
+          "generated_id": 12138,
+          "index": 23,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.1515255,
+              "token_id": 12138
+            },
+            {
+              "logit": 6.08258915,
+              "token_id": 11
+            },
+            {
+              "logit": 5.75256824,
+              "token_id": 667
+            },
+            {
+              "logit": 3.92203593,
+              "token_id": 6233
+            },
+            {
+              "logit": 3.91413093,
+              "token_id": 2686
+            },
+            {
+              "logit": 3.85850549,
+              "token_id": 3105
+            },
+            {
+              "logit": 3.69913101,
+              "token_id": 308
+            },
+            {
+              "logit": 3.69645667,
+              "token_id": 318
+            },
+            {
+              "logit": 3.66575074,
+              "token_id": 13
+            },
+            {
+              "logit": 3.52574778,
+              "token_id": 289
+            }
+          ]
+        },
+        {
+          "generated_id": 3572,
+          "index": 24,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 13.5198364,
+              "token_id": 3572
+            },
+            {
+              "logit": 6.16695404,
+              "token_id": 667
+            },
+            {
+              "logit": 4.49182034,
+              "token_id": 39076
+            },
+            {
+              "logit": 4.35047626,
+              "token_id": 8869
+            },
+            {
+              "logit": 4.34912682,
+              "token_id": 19456
+            },
+            {
+              "logit": 3.90998745,
+              "token_id": 11
+            },
+            {
+              "logit": 3.8183465,
+              "token_id": 5294
+            },
+            {
+              "logit": 3.81471133,
+              "token_id": 5058
+            },
+            {
+              "logit": 3.80204034,
+              "token_id": 308
+            },
+            {
+              "logit": 3.69610786,
+              "token_id": 13
+            }
+          ]
+        },
+        {
+          "generated_id": 4120,
+          "index": 25,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 13.6554489,
+              "token_id": 4120
+            },
+            {
+              "logit": 8.31470299,
+              "token_id": 559
+            },
+            {
+              "logit": 7.51842022,
+              "token_id": 420
+            },
+            {
+              "logit": 6.53843117,
+              "token_id": 667
+            },
+            {
+              "logit": 5.55604553,
+              "token_id": 1106
+            },
+            {
+              "logit": 4.14898109,
+              "token_id": 289
+            },
+            {
+              "logit": 3.84588051,
+              "token_id": 1812
+            },
+            {
+              "logit": 3.80440617,
+              "token_id": 387
+            },
+            {
+              "logit": 3.74773645,
+              "token_id": 1581
+            },
+            {
+              "logit": 3.58207226,
+              "token_id": 19456
+            }
+          ]
+        },
+        {
+          "generated_id": 1468,
+          "index": 26,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 15.0486937,
+              "token_id": 1468
+            },
+            {
+              "logit": 5.69023943,
+              "token_id": 1581
+            },
+            {
+              "logit": 5.6599369,
+              "token_id": 994
+            },
+            {
+              "logit": 5.37603998,
+              "token_id": 554
+            },
+            {
+              "logit": 4.92179251,
+              "token_id": 667
+            },
+            {
+              "logit": 4.52764845,
+              "token_id": 18404
+            },
+            {
+              "logit": 4.51342201,
+              "token_id": 13
+            },
+            {
+              "logit": 4.30590296,
+              "token_id": 922
+            },
+            {
+              "logit": 4.19244814,
+              "token_id": 5401
+            },
+            {
+              "logit": 4.14187908,
+              "token_id": 11
+            }
+          ]
+        },
+        {
+          "generated_id": 276,
+          "index": 27,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 16.6611252,
+              "token_id": 276
+            },
+            {
+              "logit": 6.51384068,
+              "token_id": 289
+            },
+            {
+              "logit": 4.84461594,
+              "token_id": 4536
+            },
+            {
+              "logit": 4.20742464,
+              "token_id": 308
+            },
+            {
+              "logit": 3.62274766,
+              "token_id": 994
+            },
+            {
+              "logit": 3.55282545,
+              "token_id": 623
+            },
+            {
+              "logit": 3.47862005,
+              "token_id": 108263
+            },
+            {
+              "logit": 3.46464157,
+              "token_id": 473
+            },
+            {
+              "logit": 3.44384909,
+              "token_id": 19456
+            },
+            {
+              "logit": 3.40778351,
+              "token_id": 979
+            }
+          ]
+        },
+        {
+          "generated_id": 7519,
+          "index": 28,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 12.4029474,
+              "token_id": 7519
+            },
+            {
+              "logit": 4.6696105,
+              "token_id": 420
+            },
+            {
+              "logit": 4.49022293,
+              "token_id": 667
+            },
+            {
+              "logit": 4.32056999,
+              "token_id": 56984
+            },
+            {
+              "logit": 4.28818703,
+              "token_id": 289
+            },
+            {
+              "logit": 4.2150197,
+              "token_id": 261
+            },
+            {
+              "logit": 4.07657719,
+              "token_id": 559
+            },
+            {
+              "logit": 4.066185,
+              "token_id": 1812
+            },
+            {
+              "logit": 3.96763849,
+              "token_id": 2403
+            },
+            {
+              "logit": 3.87935448,
+              "token_id": 368
+            }
+          ]
+        },
+        {
+          "generated_id": 13,
+          "index": 29,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.5478077,
+              "token_id": 13
+            },
+            {
+              "logit": 6.08666611,
+              "token_id": 667
+            },
+            {
+              "logit": 5.92849922,
+              "token_id": 318
+            },
+            {
+              "logit": 5.81356955,
+              "token_id": 623
+            },
+            {
+              "logit": 5.46659184,
+              "token_id": 19456
+            },
+            {
+              "logit": 5.19291735,
+              "token_id": 554
+            },
+            {
+              "logit": 4.984375,
+              "token_id": 5058
+            },
+            {
+              "logit": 4.97664452,
+              "token_id": 4536
+            },
+            {
+              "logit": 4.95785332,
+              "token_id": 289
+            },
+            {
+              "logit": 4.71325684,
+              "token_id": 807
+            }
+          ]
+        },
+        {
+          "generated_id": 646,
+          "index": 30,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 14.4657822,
+              "token_id": 646
+            },
+            {
+              "logit": 6.61112881,
+              "token_id": 559
+            },
+            {
+              "logit": 6.36370659,
+              "token_id": 1884
+            },
+            {
+              "logit": 6.12293625,
+              "token_id": 5071
+            },
+            {
+              "logit": 5.51157856,
+              "token_id": 19456
+            },
+            {
+              "logit": 5.4789257,
+              "token_id": 8629
+            },
+            {
+              "logit": 4.15892696,
+              "token_id": 4536
+            },
+            {
+              "logit": 4.07862568,
+              "token_id": 743
+            },
+            {
+              "logit": 4.0109024,
+              "token_id": 5058
+            },
+            {
+              "logit": 3.99469662,
+              "token_id": 387
+            }
+          ]
+        },
+        {
+          "generated_id": 56207,
+          "index": 31,
+          "is_eog": false,
+          "top_10": [
+            {
+              "logit": 16.3267021,
+              "token_id": 56207
+            },
+            {
+              "logit": 4.71683311,
+              "token_id": 38912
+            },
+            {
+              "logit": 4.69041967,
+              "token_id": 4536
+            },
+            {
+              "logit": 4.60402346,
+              "token_id": 11
+            },
+            {
+              "logit": 4.53893852,
+              "token_id": 308
+            },
+            {
+              "logit": 4.38579082,
+              "token_id": 108263
+            },
+            {
+              "logit": 4.23753071,
+              "token_id": 289
+            },
+            {
+              "logit": 3.8718431,
+              "token_id": 461
+            },
+            {
+              "logit": 3.75971818,
+              "token_id": 52588
+            },
+            {
+              "logit": 3.73327017,
+              "token_id": 286
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "same_artifact_cpu_cuda": {
+    "f16": {
+      "full_vocabulary_diagnostic_metrics": {
+        "cosine_similarity": 0.9999999972212762,
+        "maximum_absolute_difference": 0.0030794143676757812,
+        "mean_absolute_difference": 0.0004978893002913765
+      },
+      "generated_ids_exact": true,
+      "prompt_ids_exact": true,
+      "selected_top_10_logit_metrics": {
+        "cosine_similarity": 0.9999999964342786,
+        "maximum_absolute_difference": 0.0018494129180908203,
+        "mean_absolute_difference": 0.00042344853281974795
+      },
+      "status": "pass",
+      "threshold_checks": {
+        "cosine_similarity": true,
+        "maximum_absolute_difference": true,
+        "mean_absolute_difference": true
+      },
+      "thresholds": {
+        "cosine_similarity": 0.999,
+        "maximum_absolute_difference": 0.1,
+        "mean_absolute_difference": 0.02
+      },
+      "top_10_id_sets_exact_each_step": true,
+      "top_10_ordered_ranking_differences": [],
+      "top_10_ordered_rankings_exact_each_step": true
+    },
+    "mxfp4": {
+      "full_vocabulary_diagnostic_metrics": {
+        "cosine_similarity": 0.9999998611154933,
+        "maximum_absolute_difference": 0.025345802307128906,
+        "mean_absolute_difference": 0.0026818551421079915
+      },
+      "generated_ids_exact": true,
+      "prompt_ids_exact": true,
+      "selected_top_10_logit_metrics": {
+        "cosine_similarity": 0.9999999357341781,
+        "maximum_absolute_difference": 0.01197052001953125,
+        "mean_absolute_difference": 0.0015688132494688033
+      },
+      "status": "pass",
+      "threshold_checks": {
+        "cosine_similarity": true,
+        "maximum_absolute_difference": true,
+        "mean_absolute_difference": true
+      },
+      "thresholds": {
+        "cosine_similarity": 0.999,
+        "maximum_absolute_difference": 0.1,
+        "mean_absolute_difference": 0.02
+      },
+      "top_10_id_sets_exact_each_step": true,
+      "top_10_ordered_ranking_differences": [
+        {
+          "cpu": [
+            56207,
+            308,
+            26914,
+            4536,
+            52588,
+            807,
+            3731,
+            368,
+            554,
+            8480
+          ],
+          "cuda": [
+            56207,
+            308,
+            26914,
+            4536,
+            52588,
+            807,
+            3731,
+            554,
+            368,
+            8480
+          ],
+          "step": 8
+        },
+        {
+          "cpu": [
+            3572,
+            667,
+            39076,
+            19456,
+            8869,
+            11,
+            5294,
+            308,
+            5058,
+            13
+          ],
+          "cuda": [
+            3572,
+            667,
+            39076,
+            8869,
+            19456,
+            11,
+            5294,
+            5058,
+            308,
+            13
+          ],
+          "step": 24
+        }
+      ],
+      "top_10_ordered_rankings_exact_each_step": false
+    }
+  },
+  "schema_version": 1,
+  "status": "pass"
+}
