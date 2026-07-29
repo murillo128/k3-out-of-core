@@ -1,185 +1,201 @@
 ---
 name: codex-independent-review
-description: Review an exact published commit in a fresh isolated read-only Codex context and return a structured phase verdict. Use after every bounded phase commit governed by spec-driven-codex-loop.
+description: Review an exact published commit or range in a fresh isolated read-only context and return a structured verdict. Use only at review checkpoints declared by a STANDARD issue, after every phase in HIGH_ASSURANCE, or for final pull-request review.
 ---
 
 # Codex Independent Review
 
 ## Responsibility
 
-This skill owns reviewer isolation, reviewer-transport selection, evidence inspection, and structured verdict reporting.
+This skill owns:
 
-It does not implement fixes, mutate workflow labels, redesign the issue, create commits, or continue to a later phase.
+- reviewer independence;
+- reviewer-transport selection and fallback;
+- inspection of the exact requested commit or range;
+- evidence assessment;
+- structured verdict reporting.
 
-## Preconditions
+It does not implement fixes, mutate workflow labels, redesign the issue, create commits, or continue execution.
 
-The review request must identify:
+## When review is required
 
-- repository and checkout path when local execution is required;
-- branch;
-- controlling issue number;
-- execution phase;
-- exact full commit SHA or explicit commit range;
-- phase specification and acceptance criteria;
-- validation commands;
-- instruction that the review is read-only.
+### STANDARD profile
 
-The target commit should normally be published and remotely resolvable so that the reviewer does not depend on the executor's private checkout.
+Independent review is required only at checkpoints explicitly declared by the issue and at final handoff.
 
-A draft pull request is useful but is not required to review an exact published commit unless the approved issue explicitly requires it.
+Typical checkpoints group related low-risk phases, for example:
 
-## Independence requirements
+- environment, fixtures, and tokenizer preparation;
+- numerical format and backend correctness;
+- benchmark methodology and final closeout.
+
+A mechanical phase does not require its own independent review merely because it created a commit.
+
+### HIGH_ASSURANCE profile
+
+Independent review is required after every phase commit and at final handoff.
+
+The issue must explicitly select this profile. Do not infer it from task size alone.
+
+## Review target
+
+The request must identify:
+
+- repository;
+- controlling issue;
+- execution profile;
+- checkpoint or phase;
+- exact full commit SHA or explicit range;
+- approved scope and acceptance criteria;
+- relevant validation commands;
+- read-only instruction.
+
+The target should normally be published and remotely resolvable. A draft pull request is useful but is not required to review an exact published commit unless the issue explicitly requires PR context.
+
+## Independence
 
 The reviewer must:
 
-- run in a fresh context;
+- use a fresh context;
 - not inherit the executor's hidden reasoning or intended conclusion;
-- inspect the exact target commit or range;
+- inspect exactly the requested target;
 - remain read-only;
-- not modify files;
-- not create commits;
-- not mutate GitHub labels or workflow state;
-- not implement corrections;
-- not continue to a later phase.
+- not modify files, create commits, mutate labels, or implement corrections;
+- not continue to later phases.
 
 The main executor may not act as its own independent reviewer.
 
-## Reviewer transport order
+## Reviewer transport
 
-Try available independent transports in this order when practical:
+Use any fresh isolated read-only reviewer that can inspect the exact target, such as:
 
-1. a fresh read-only Codex CLI process;
-2. another fresh Codex CLI sandbox or permissions profile;
+1. a fresh Codex CLI process;
+2. another Codex CLI sandbox or permissions profile;
 3. a fresh isolated Codex Desktop session;
-4. another approved independent read-only Codex environment.
+4. another approved independent environment.
 
-The exact product surface is less important than fresh context, isolation, read-only behavior, and access to the exact commit.
+The product surface is secondary to independence, exact-target access, and read-only behavior.
 
-## Transport-failure policy
+## Transport failures
 
-A launcher or sandbox error such as:
+A launcher or sandbox error is a transport failure, not an implementation verdict.
+
+Examples include:
 
 ```text
 bwrap: loopback: Failed RTM_NEWADDR
 ```
 
-is a reviewer-transport failure. It is not evidence that:
+When one transport fails:
 
-- the implementation is defective;
-- phase validation failed;
-- the phase commit must change;
-- the commit must be recreated or amended;
-- the phase should be redesigned.
-
-When one reviewer transport fails:
-
-1. record the transport and exact error;
+1. record `TRANSPORT_FAILED` with the exact error;
 2. preserve the exact review target;
-3. retry with another permitted fresh isolated reviewer;
-4. do not fall back to main-executor self-review.
+3. try another permitted fresh isolated reviewer;
+4. do not amend or recreate the implementation commit;
+5. do not fall back to main-executor self-review.
 
-Return `BLOCKED` only when no permitted independent reviewer can access or inspect the exact published target, or when required review evidence is unavailable.
+Return review verdict `BLOCKED` only when no permitted independent reviewer can inspect the target or required evidence is genuinely unavailable.
+
+A single failed launcher is never sufficient for `BLOCKED` when another reviewer transport remains available.
 
 ## Review procedure
 
 Verify:
 
-1. the change matches the approved phase scope and accepted architecture;
-2. every expected artifact exists and is complete;
-3. the reported validation commands and results are credible;
-4. required validation can be reproduced or independently inspected;
-5. no unexpected files, behavior, dependencies, secrets, or source-of-truth changes were introduced;
-6. the commit is safe to use as the base for the next phase;
-7. deviations, residual risks, and unverified claims are explicit.
+1. scope compliance against the checkpoint or phase specification;
+2. completeness of expected artifacts;
+3. credibility and reproducibility of reported validation;
+4. unexpected files, dependencies, secrets, behavior, or source-of-truth changes;
+5. explicit deviations and residual risks;
+6. safety to continue from the reviewed target.
 
-Inspect the exact diff against the approved phase base. Use the published commit rather than a manually transcribed or guessed SHA.
+Inspect the exact diff or range. Run issue-defined validation when the reviewer environment supports it.
 
-Run the issue-defined validation when the reviewer environment supports it. Distinguish clearly between:
+Distinguish clearly between:
 
 - evidence inspected;
 - commands personally run;
 - commands not run;
 - environmental limitations;
 - implementation failures;
-- transport failures.
+- reviewer-transport failures.
 
-A reviewer must never claim a command passed when it was not run successfully.
+Never claim a command passed when it was not run successfully.
 
-## Verdict semantics
+## Verdicts
 
-Return exactly one verdict:
+Return exactly one review verdict:
 
-- `PASS`: scope, artifacts, and validation are sufficient; progression is safe.
-- `PASS_WITH_NOTES`: progression is safe, but non-blocking notes must be carried forward.
-- `FAIL`: the implementation, evidence, or phase compliance is defective and requires a bounded corrective delta.
-- `BLOCKED`: the independent review cannot be completed because required access, environment, dependency, commit publication, or evidence is unavailable.
+- `PASS`: reviewed scope and evidence are sufficient; progression is safe.
+- `PASS_WITH_NOTES`: progression is safe with explicit non-blocking notes.
+- `FAIL`: implementation, evidence, or scope compliance is defective and needs a bounded corrective delta.
+- `BLOCKED`: review cannot be completed after permitted transports are exhausted or required evidence is unavailable.
 
-A single failed launcher is not sufficient for `BLOCKED` when another reviewer transport is permitted.
+`TRANSPORT_FAILED` is an attempt result, not a final review verdict. It triggers fallback to another reviewer.
 
-## Reviewer prompt contract
+## Reviewer prompt
 
 Use a prompt equivalent to:
 
 ```text
-Act as an independent, read-only reviewer for execution Phase N of GitHub
-issue #ISSUE.
+Act as an independent, read-only reviewer for <checkpoint or phase> of GitHub
+issue #<issue> using the <STANDARD or HIGH_ASSURANCE> profile.
 
-Review exact published commit/range SHA against the phase specification and
-repository instructions. Do not implement fixes, edit files, create commits,
-change GitHub labels, or continue to later phases.
+Review exact published commit/range <sha-or-range> against the approved scope,
+acceptance criteria, repository instructions, and validation evidence.
 
-Verify scope compliance, expected artifacts, validation credibility,
-unexpected changes, residual risks, and safety to proceed.
+Do not implement fixes, edit files, create commits, change GitHub labels, or
+continue execution.
 
 Return exactly one verdict: PASS, PASS_WITH_NOTES, FAIL, or BLOCKED.
-For FAIL or BLOCKED, provide the smallest actionable delta or exact restart
-condition. Distinguish implementation failures from reviewer-transport
-failures and include the commands and evidence inspected or run.
+For FAIL, provide the smallest corrective delta. For BLOCKED, identify the
+missing evidence or exhausted review capability. Distinguish transport failure
+from implementation failure and list evidence inspected and commands run.
 ```
 
 ## Issue comment
 
-Post a comment with this structure:
+Post:
 
 ```markdown
-## [REVIEW][PHASE N]
+## [REVIEW][<CHECKPOINT OR PHASE>]
 
+**Profile:** STANDARD | HIGH_ASSURANCE
 **Reviewed commit/range:** `<full SHA or range>`
-**Reviewer transport:** `<Codex CLI | Codex Desktop | other>`
+**Reviewer transport:** `<transport>`
 **Verdict:** PASS | PASS_WITH_NOTES | FAIL | BLOCKED
 **Safety to proceed:** YES | NO
 
-**Scope compliance:** <assessment>
-**Expected artifacts:** <assessment>
-**Validation assessment:** <assessment>
+**Scope and artifacts:** <assessment>
+**Validation:** <assessment>
 **Unexpected changes:** <none or list>
 
 **Evidence inspected or run:**
 - `<command or artifact>` — <result>
 
-**Transport limitations:**
-- <none or exact limitation>
+**Transport attempts:**
+- `<transport>` — PASS | TRANSPORT_FAILED
 
-**Required delta before progression:**
+**Required delta:**
 - <none, corrective delta, or restart condition>
 
 **Notes carried forward:**
 - <none or note>
 ```
 
-## Handoff to the orchestrator
+## Handoff
 
-The calling `spec-driven-codex-loop` workflow owns workflow-label transitions and progression.
+The calling workflow owns progression and labels.
 
-- For `PASS`, report that progression is safe.
-- For `PASS_WITH_NOTES`, report the notes that must be copied into the next phase-start record.
-- For `FAIL`, report only the bounded corrective delta; do not implement it.
-- For `BLOCKED`, report whether the blocker is missing publication, unavailable evidence, or exhausted independent-review transports.
+- `PASS`: checkpoint is complete.
+- `PASS_WITH_NOTES`: checkpoint is complete when notes do not violate an exit gate.
+- `FAIL`: only the bounded corrective delta may be implemented before fresh review.
+- `BLOCKED`: report the unavailable evidence or exhausted independent-review capability.
 
-## Safety rules
+## Safety
 
-- Never review a different commit because the requested SHA is unavailable.
-- Never correct an invalid SHA by guessing; obtain the authoritative full SHA from Git or the remote.
+- Never review a different target because the requested SHA is unavailable.
+- Never repair an invalid SHA by guessing.
 - Never modify the worktree to make validation pass.
-- Never convert a transport error into an implementation failure.
-- Never approve based only on the executor's narrative when the exact diff or required evidence cannot be inspected.
+- Never convert transport failure into implementation failure.
+- Never approve solely from the executor's narrative when the exact diff or required evidence cannot be inspected.
