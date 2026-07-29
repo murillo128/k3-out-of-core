@@ -351,7 +351,7 @@
           "field": "Stepping:"
         },
         {
-          "data": "62%",
+          "data": "65%",
           "field": "CPU(s) scaling MHz:"
         },
         {
@@ -675,9 +675,9 @@
     },
     "lsb_release": {
       "path": "/usr/bin/lsb_release",
-      "reason": null,
-      "status": "observed",
-      "value": ""
+      "reason": "lsb_release --version exited successfully but produced no output",
+      "status": "unavailable",
+      "value": null
     },
     "lsblk": {
       "path": "/usr/bin/lsblk",

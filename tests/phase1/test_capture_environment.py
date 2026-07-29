@@ -37,6 +37,18 @@ class CaptureEnvironmentTests(unittest.TestCase):
                 {"status": "unavailable", "value": None, "reason": "missing-command not found"},
             )
 
+    def test_tool_info_rejects_or_classifies_empty_output(self) -> None:
+        observed_empty = {"status": "observed", "value": "", "reason": None}
+        with mock.patch.object(capture_environment, "run", return_value=observed_empty):
+            with mock.patch.object(capture_environment.shutil, "which", return_value="/bin/tool"):
+                with self.assertRaisesRegex(RuntimeError, "required command produced no output"):
+                    capture_environment.tool_info(["tool", "--version"])
+                result = capture_environment.tool_info(["tool", "--version"], required=False)
+        self.assertEqual(result["path"], "/bin/tool")
+        self.assertEqual(result["status"], "unavailable")
+        self.assertIsNone(result["value"])
+        self.assertTrue(result["reason"])
+
     def test_mismatch_fails_with_observed_value(self) -> None:
         with self.assertRaisesRegex(RuntimeError, "expected expected, observed actual"):
             capture_environment.require_equal("fixture", "actual", "expected")
@@ -101,8 +113,28 @@ class CaptureEnvironmentTests(unittest.TestCase):
                 self.assertIn(key, values)
         self.assertIn("CMAKE_CUDA_COMPILER", environment["builds"]["cuda"])
         self.assertIn("CMAKE_CUDA_FLAGS", environment["builds"]["cuda"])
-        for tool in ("cc", "cxx", "cmake", "nvidia_smi", "lsblk", "findmnt", "lscpu", "python", "hf"):
-            self.assertTrue(environment["toolchain"][tool]["path"])
+        for tool in (
+            "cuda_toolkit",
+            "cc",
+            "cxx",
+            "cmake",
+            "nvidia_smi",
+            "lsblk",
+            "findmnt",
+            "lscpu",
+            "lsb_release",
+            "python",
+            "hf",
+        ):
+            record = environment["toolchain"][tool]
+            if record["status"] == "observed":
+                self.assertTrue(record["path"])
+                self.assertTrue(record["value"])
+                self.assertIsNone(record["reason"])
+            else:
+                self.assertEqual(record["status"], "unavailable")
+                self.assertIsNone(record["value"])
+                self.assertTrue(record["reason"])
         storage = environment["storage"]
         self.assertEqual(storage["root_disk"]["tran"], "nvme")
         self.assertIn(storage["firmware_revision"]["status"], ("observed", "unavailable"))

@@ -101,7 +101,16 @@ def cmake_cache(path: Path) -> dict[str, str]:
 
 def tool_info(argv: list[str], *, required: bool = True) -> dict[str, Any]:
     result = run(argv, required=required)
-    return {"path": shutil.which(argv[0]), **result}
+    path = shutil.which(argv[0])
+    if result["status"] == "observed" and not result["value"]:
+        if required:
+            raise RuntimeError(f"required command produced no output: {' '.join(argv)}")
+        result = {
+            "status": "unavailable",
+            "value": None,
+            "reason": f"{' '.join(argv)} exited successfully but produced no output",
+        }
+    return {"path": path, **result}
 
 
 def optional_file(path: Path) -> dict[str, Any]:
