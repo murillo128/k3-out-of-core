@@ -1,19 +1,19 @@
 ---
 name: spec-driven-codex-loop
-description: Govern non-trivial repository work through an approved GitHub issue, bounded Codex implementation phases, independent fresh-session reviews, one-step commits, traceable evidence, and an external final PR review. Use for implementations, refactors, migrations, performance work, or investigations that change code or project source-of-truth documents. Do not use for trivial typo-only edits unless explicitly requested.
+description: Govern non-trivial repository work through an approved GitHub issue, explicit workflow-label transitions, bounded Codex implementation phases, independent fresh-session reviews, one-step commits, traceable evidence, and an external final PR review. Use for implementations, refactors, migrations, performance work, or investigations that change code or project source-of-truth documents. Do not use for trivial typo-only edits unless explicitly requested.
 ---
 
 # Spec-Driven Codex Loop
 
 Use this skill as the execution protocol for non-trivial work in this repository.
 
-The workflow optimizes for correctness, recoverability, and traceability rather than maximum edit speed. The GitHub issue is the durable control surface. The pull request is the implementation record. Repository documents remain the architectural source of truth.
+The workflow optimizes for correctness, recoverability, and traceability rather than maximum edit speed. The GitHub issue is the durable control surface. Its workflow label must reflect the real execution state. The pull request is the implementation record. Repository documents remain the architectural source of truth.
 
 ## Core principle
 
-Do not begin implementation until the task has a sufficiently precise, approved specification.
+Do not begin implementation until the task has a sufficiently precise, approved specification and the GitHub issue is explicitly marked `execution-ready`.
 
-A good implementation cannot compensate for an ambiguous goal, unresolved architecture, missing constraints, or weak validation criteria. When those are incomplete, stop implementation and improve the specification first.
+A good implementation cannot compensate for an ambiguous goal, unresolved architecture, missing constraints, weak validation criteria, or stale workflow state. When any of these are incomplete, stop implementation and correct the control artifacts first.
 
 ## Roles
 
@@ -23,11 +23,13 @@ Keep these roles separate:
    - Normally a regular ChatGPT session using the strongest suitable reasoning model.
    - Clarifies the goal, inspects relevant specifications, resolves scope, records constraints, defines deliverables, selects validation, and creates or updates the GitHub issue.
    - Decides the recommended model class for each phase.
+   - Sets the issue to `execution-ready` only after the execution contract is complete.
 
 2. **Main executor**
    - Codex Desktop or another primary Codex session.
    - Executes exactly one bounded issue phase at a time.
-   - Updates the issue before and after the phase.
+   - Owns workflow-label transitions during execution.
+   - Updates the issue before and after each phase.
    - Produces the implementation commit and evidence.
 
 3. **Independent phase reviewer**
@@ -46,19 +48,81 @@ Do not collapse the main executor and independent reviewer into one context.
 
 Use relevant installed skills for brainstorming, plan writing, systematic debugging, test-driven development, verification, or code review when they improve a phase.
 
-This skill governs sequencing, scope control, evidence, and handoff. If another skill conflicts with this workflow, follow this skill unless the issue or `AGENTS.md` explicitly says otherwise.
+This skill governs sequencing, scope control, workflow state, evidence, and handoff. If another skill conflicts with this workflow, follow this skill unless the issue or `AGENTS.md` explicitly says otherwise.
+
+## GitHub workflow-state protocol
+
+The workflow labels defined by `AGENTS.md` are machine-readable state, not optional metadata:
+
+- `design-required`
+- `investigation-required`
+- `execution-ready`
+- `in-progress`
+- `blocked`
+
+Exactly one of these labels must be present on every non-trivial open issue.
+
+### Mandatory mutation and verification
+
+Whenever this skill requires a label transition, the executor must:
+
+1. fetch the issue and inspect its current labels;
+2. replace the previous workflow label with the required new label;
+3. fetch the issue again;
+4. verify that exactly the intended workflow label is present;
+5. stop if mutation or verification fails.
+
+Use the connected GitHub issue tools when available. `gh issue edit` is an acceptable fallback. Never assume that writing `IN_PROGRESS`, `BLOCKED`, or another state in a comment changed the GitHub label.
+
+Equivalent CLI examples:
+
+```bash
+gh issue edit "$ISSUE" --repo "$REPO" \
+  --remove-label execution-ready \
+  --add-label in-progress
+
+gh issue view "$ISSUE" --repo "$REPO" \
+  --json labels --jq '.labels[].name'
+```
+
+The mutation must be completed and verified before any repository file is edited.
+
+### State transitions
+
+Use these transitions:
+
+```text
+design-required ------> execution-ready
+investigation-required -> execution-ready
+execution-ready -------> in-progress
+in-progress -----------> blocked
+blocked ---------------> execution-ready   # revised contract or clean restart
+blocked ---------------> in-progress       # explicitly authorized safe resume
+in-progress -----------> issue closed       # all gates complete
+```
+
+Additional rules:
+
+- Do not start from `design-required`, `investigation-required`, or `blocked`.
+- Do not add `in-progress` while leaving `execution-ready` attached.
+- A failed entry prerequisite is `blocked`, even if no file was edited and no phase began.
+- A material design defect is `design-required`, not merely `blocked`.
+- Missing evidence needed to finish the specification is `investigation-required`.
+- A failed external dependency, permission, environment, or execution gate is `blocked`.
+- A `FAIL` review normally remains `in-progress` while the executor performs the bounded corrective delta. Use `blocked` only when progression cannot continue without an external resolution or revised contract.
+- Closing the issue represents completion; do not add a `completed` workflow label.
 
 ## Entry gate
 
 Before changing files, inspect:
 
 1. `AGENTS.md` and the required repository reading order.
-2. The target GitHub issue and all linked design documents.
+2. The target GitHub issue, its labels, comments, and all linked design documents.
 3. The current branch, base branch, existing PR, and working-tree state.
 4. Relevant source files, tests, prior decisions, and recent commits.
 5. Any external dependency revisions pinned by the issue.
 
-Then verify that the issue contains the contract below.
+Then verify that the issue contains the contract below and that its current workflow label is valid.
 
 ### Required issue contract
 
@@ -81,19 +145,57 @@ The issue must define:
 - rollback or restart conditions;
 - known risks, open questions, and assumptions.
 
-If a material decision is missing, contradictory, or still speculative, do not guess. Record a design-gap comment on the issue and stop before implementation.
+If a material decision is missing, contradictory, or still speculative:
+
+1. replace the current workflow label with `design-required`;
+2. verify the label;
+3. record a design-gap comment on the issue;
+4. stop before implementation.
+
+If evidence or experimentation is needed before the contract can be completed:
+
+1. replace the current workflow label with `investigation-required`;
+2. verify the label;
+3. record the required investigation and its exit condition;
+4. stop before implementation.
 
 ### Approved-spec rule
 
-Treat the issue body and linked committed design documents as the approved plan. Do not silently redesign the task while implementing it.
+Treat the issue body, explicit design-authority issue updates, and linked committed design documents as the approved plan. Do not silently redesign the task while implementing it.
 
 When new evidence requires a material design or scope change:
 
 1. stop the current phase;
-2. record the evidence and conflict on the issue;
-3. return the task to the design authority;
-4. update the issue, repository design documents, and relevant skills;
-5. resume only after the revised plan is explicit.
+2. replace `in-progress` with `design-required` and verify it;
+3. record the evidence and conflict on the issue;
+4. return the task to the design authority;
+5. update the issue, repository design documents, and relevant skills;
+6. resume only after the revised plan is explicit and the issue is returned to `execution-ready`.
+
+### Entry-prerequisite failure
+
+Run every entry-prerequisite command exactly as written before creating an execution branch or editing files.
+
+When any required prerequisite fails:
+
+1. replace `execution-ready` with `blocked` and verify it;
+2. add a `## [RUN][ENTRY GATE][BLOCKED]` issue comment containing the exact command, output, dependency or owner, and restart condition;
+3. do not create a branch, PR, file edit, or commit;
+4. stop.
+
+Writing the blocked comment without changing the label is an incomplete transition.
+
+### Execution-start transition
+
+After the issue contract and all entry prerequisites pass, but before creating or switching to the execution branch and before editing any file:
+
+1. confirm that the issue has exactly the `execution-ready` workflow label;
+2. replace `execution-ready` with `in-progress`;
+3. fetch the issue again and verify that exactly `in-progress` is present;
+4. add the phase-start issue comment;
+5. only then begin repository mutation.
+
+When resuming an already active issue, `in-progress` is acceptable only when the issue history identifies the same approved phase and there is no unresolved blocker. Otherwise stop and obtain an explicit state correction.
 
 ## Model selection
 
@@ -163,7 +265,8 @@ Execute the following loop for exactly one phase at a time.
 
 Before implementation:
 
-- confirm the previous phase verdict is `PASS` or `PASS_WITH_NOTES`;
+- verify that the issue has exactly the `in-progress` workflow label;
+- confirm the previous phase verdict is `PASS` or `PASS_WITH_NOTES`, except for Phase 1;
 - confirm the branch and PR are correct;
 - confirm the working tree is clean, or document intentional pre-existing changes;
 - identify the exact phase and its permitted files;
@@ -181,6 +284,7 @@ Before editing, add a comment using this format:
 
 **Executor:** <Codex surface/session identifier if available>
 **Base commit:** `<sha>`
+**Workflow label:** `in-progress`
 **Target outcome:** <one sentence>
 **Planned files:**
 - `<path>`
@@ -197,7 +301,7 @@ Before editing, add a comment using this format:
 - <phase exclusions>
 ```
 
-This comment is a prediction of the work, not a retrospective summary.
+This comment is a prediction of the work, not a retrospective summary. Re-fetch the issue after posting it and confirm that the workflow label remains `in-progress`.
 
 ### 3. Implement only the bounded phase
 
@@ -228,6 +332,13 @@ Validation evidence must distinguish:
 
 Never claim a test passed if it was not run successfully.
 
+If validation cannot complete because of an external dependency, environment, permission, or failed gate:
+
+1. replace `in-progress` with `blocked` and verify it;
+2. record a phase-result comment with `Result: BLOCKED`;
+3. include the exact restart condition;
+4. stop.
+
 ### 5. Commit the phase
 
 Create one intentional commit for the phase outcome where practical.
@@ -250,6 +361,7 @@ After committing, add:
 ## [RUN][PHASE N][RESULT]
 
 **Commit:** `<sha>`
+**Workflow label:** `in-progress` | `blocked`
 **Result:** COMPLETED | PARTIAL | BLOCKED
 
 **Delivered:**
@@ -275,6 +387,9 @@ After committing, add:
 
 **Reviewer target:**
 - Exact commit or range: `<sha-or-range>`
+
+**Restart condition when blocked:**
+- <not applicable or exact condition>
 ```
 
 Do not edit away failed attempts or deviations. The issue is an audit trail.
@@ -301,7 +416,7 @@ Use a prompt equivalent to:
 ```text
 Act as an independent, read-only reviewer for Phase N of GitHub issue #<issue>.
 
-Review exact commit/range <sha-or-range> against the phase specification and repository instructions. Do not implement fixes, do not edit files, do not create commits, and do not continue to later phases.
+Review exact commit/range <sha-or-range> against the phase specification and repository instructions. Do not implement fixes, do not edit files, do not create commits, do not change GitHub labels, and do not continue to later phases.
 
 Verify:
 1. the change matches the intended scope and architecture;
@@ -316,7 +431,7 @@ For FAIL or BLOCKED, provide a minimal, actionable delta that the executor must 
 Include the commands and evidence you inspected or ran.
 ```
 
-Prefer a read-only sandbox or permissions profile. If an independent read-only review cannot be launched, record `BLOCKED`; do not replace it with self-review and proceed silently.
+Prefer a read-only sandbox or permissions profile. If an independent read-only review cannot be launched, the main executor must replace `in-progress` with `blocked`, verify it, record the missing review capability, and stop. Do not replace independent review with self-review and proceed silently.
 
 ### Reviewer issue comment
 
@@ -346,12 +461,23 @@ Write the review back to the issue:
 
 ### Progression rule
 
-- `PASS`: proceed to the next phase.
-- `PASS_WITH_NOTES`: proceed only when notes do not violate an exit gate; copy relevant notes into the next phase-start comment.
-- `FAIL`: do not proceed. The next main-executor iteration may only fix the stated delta, validate it, commit it, and request a fresh review.
-- `BLOCKED`: do not proceed until the missing evidence, environment, permission, or decision is resolved.
+- `PASS`: keep `in-progress` and proceed to the next phase.
+- `PASS_WITH_NOTES`: keep `in-progress` and proceed only when notes do not violate an exit gate; copy relevant notes into the next phase-start comment.
+- `FAIL`: keep `in-progress`; do not proceed to the next phase. The next main-executor iteration may only fix the stated delta, validate it, commit it, and request a fresh review.
+- `BLOCKED`: replace `in-progress` with `blocked`, verify it, and do not proceed until the missing evidence, environment, permission, or decision is resolved.
 
 The executor may not overrule the reviewer without an explicit issue update from the design authority or user.
+
+## Resuming a blocked issue
+
+A blocked issue may resume only after an explicit issue update documents that the restart condition has been satisfied.
+
+Use one of these paths:
+
+- **Revised contract or clean restart:** design authority replaces `blocked` with `execution-ready`. The executor then repeats the complete entry gate and changes it to `in-progress` before mutation.
+- **Safe continuation of the same approved phase:** an explicit design-authority or user issue comment authorizes resume. The executor replaces `blocked` with `in-progress`, verifies it, and continues only from the documented boundary.
+
+Never resume merely because the external condition appears to have changed.
 
 ## Pull request discipline
 
@@ -373,12 +499,13 @@ The commit history should make the execution plan understandable. Do not squash 
 
 After all phases pass:
 
-1. update repository status, decisions, plans, and validation evidence required by `AGENTS.md`;
-2. run the complete final validation suite from the issue;
-3. confirm the branch has no accidental or uncommitted changes;
-4. prepare a final issue comment and PR summary;
-5. request external final review from ChatGPT using the strongest suitable reasoning model;
-6. do not merge until that review approves the PR and the user explicitly authorizes merge when required.
+1. verify that the issue still has exactly the `in-progress` workflow label;
+2. update repository status, decisions, plans, and validation evidence required by `AGENTS.md`;
+3. run the complete final validation suite from the issue;
+4. confirm the branch has no accidental or uncommitted changes;
+5. prepare a final issue comment and PR summary;
+6. request external final review from ChatGPT using the strongest suitable reasoning model;
+7. do not merge until that review approves the PR and the user explicitly authorizes merge when required.
 
 ### Final handoff comment
 
@@ -387,6 +514,7 @@ After all phases pass:
 
 **PR:** #<number>
 **Head commit:** `<sha>`
+**Workflow label:** `in-progress`
 **Issue phases:** <all PASS/PASS_WITH_NOTES>
 
 **Phase-to-commit map:**
@@ -405,10 +533,14 @@ After all phases pass:
 - <none or list>
 
 **Requested final review:**
-Verify the complete PR against the issue, all phase reviews, repository architecture, validation evidence, and out-of-scope boundaries. Approve, request changes, or recommend restart.
+Verify the complete PR against the issue, all phase reviews, repository architecture, validation evidence, workflow-state history, and out-of-scope boundaries. Approve, request changes, or recommend restart.
 ```
 
 The final reviewer should inspect the entire diff and issue history, not only the latest commit.
+
+When final validation or review is blocked, replace `in-progress` with `blocked`, verify it, document the restart condition, and stop.
+
+After approved merge and completion of all exit criteria, close the issue. Do not add a `completed` workflow label.
 
 ## Restart-over-repair policy
 
@@ -419,13 +551,14 @@ When the implementation reveals that the specification, architecture, phase deco
 A restart means:
 
 1. stop implementation;
-2. preserve the failed branch and PR for traceability rather than deleting evidence;
-3. mark the attempt as superseded or abandoned in the issue/PR;
-4. record the root cause and which planning artifact failed;
-5. update the specification, plan, `AGENTS.md`, and/or skills first;
-6. create a clean branch from the intended base;
-7. implement the corrected plan without blindly carrying forward generated code;
-8. reuse old changes only when each reused unit is explicitly justified and revalidated.
+2. replace `in-progress` with `design-required` or `blocked`, according to the cause, and verify it;
+3. preserve the failed branch and PR for traceability rather than deleting evidence;
+4. mark the attempt as superseded or abandoned in the issue/PR;
+5. record the root cause and which planning artifact failed;
+6. update the specification, plan, `AGENTS.md`, and/or skills first;
+7. create a clean branch from the intended base after the issue returns to `execution-ready`;
+8. implement the corrected plan without blindly carrying forward generated code;
+9. reuse old changes only when each reused unit is explicitly justified and revalidated.
 
 Recommend a restart when any of these are true:
 
@@ -445,9 +578,13 @@ Do not destructively delete branches, close PRs, or discard user work without ex
 Do not:
 
 - implement a non-trivial task without an approved issue contract;
+- start unless the issue has exactly `execution-ready`, or resume unless it has an explicitly valid `in-progress` state;
+- edit files before changing and verifying `execution-ready` to `in-progress`;
+- write a status comment without performing the corresponding workflow-label mutation;
+- leave multiple workflow-state labels on the issue;
 - infer architecture from chat when committed documents disagree;
 - execute more than one bounded phase before review;
-- let the reviewer modify code or continue implementation;
+- let the reviewer modify code, labels, or continue implementation;
 - self-certify a phase when independent review is required;
 - retroactively rewrite issue history to hide failures;
 - claim unrun validation;
@@ -460,6 +597,7 @@ Do not:
 
 This workflow is complete only when:
 
+- every required workflow-label transition is present and verified in issue history;
 - every phase has start, result, and review records;
 - every phase has a traceable commit or explicitly documented no-code outcome;
 - all required validation has passed or has an explicitly accepted exception;
@@ -467,4 +605,5 @@ This workflow is complete only when:
 - repository source-of-truth documents are current;
 - the final external review has examined both the PR and issue history;
 - no unresolved `FAIL` or `BLOCKED` verdict remains;
-- merge occurs only under the repository's authorization rules.
+- merge occurs only under the repository's authorization rules;
+- the issue is closed only after all exit criteria are supported by committed evidence.
