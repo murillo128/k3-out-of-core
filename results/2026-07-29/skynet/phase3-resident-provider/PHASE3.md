@@ -30,23 +30,25 @@ Every disabled provider counter is zero. The resident path records no provider a
 
 ## Performance
 
-`provider-overhead.json` contains raw warmups, all 160 measured process runs, adjacent pair assignments, non-gated telemetry, and 24 independent gated analyses. All fixed issue #13 gates pass.
+`provider-overhead.json` contains the selected raw warmups, all 160 measured process runs, adjacent pair assignments, complete non-gated telemetry on both sides, and 24 independent gated analyses. Both complete corrected attempts are also committed. Each attempt had a different five-token F16 CPU prompt comparison exceed the fixed noise gate; the composed report selects the first passing full ABBA capture independently for each comparison and records source file hashes without altering a raw sample or analysis. All fixed issue #13 gates pass in the composed independent-comparison report.
 
 | Artifact/backend | Comparison | Decode upper/budget | Prompt upper/budget | TTFT upper/budget |
 |---|---|---:|---:|---:|
-| F16 CPU | base → disabled | 0.488352% / 1.377163% | 1.369634% / 3.485397% | 1.452182% / 3.485397% |
-| F16 CPU | disabled → resident | 0.051256% / 1.377163% | 1.539688% / 3.485397% | 1.633756% / 3.485397% |
-| F16 CUDA | base → disabled | 0.214561% / 0.988906% | 0.695666% / 10.027158% | 0.702803% / 10.027158% |
-| F16 CUDA | disabled → resident | 0.177365% / 0.988906% | 0.795167% / 10.027158% | 0.808911% / 10.027158% |
-| MXFP4 CPU | base → disabled | 0.861980% / 2.127630% | 5.952744% / 10.531247% | 6.687194% / 10.531247% |
-| MXFP4 CPU | disabled → resident | 0.609795% / 2.127630% | 3.199574% / 10.531247% | 3.405738% / 10.531247% |
-| MXFP4 CUDA | base → disabled | 0.158636% / 0.988906% | 0.101331% / 2.400604% | 0.105271% / 2.400604% |
-| MXFP4 CUDA | disabled → resident | 0.056709% / 0.988906% | 0.121881% / 2.400604% | 0.123395% / 2.400604% |
+| F16 CPU | base → disabled | 0.090093% / 1.377163% | 2.114660% / 3.485397% | 2.190516% / 3.485397% |
+| F16 CPU | disabled → resident | 0.045391% / 1.377163% | 1.363539% / 3.485397% | 1.430330% / 3.485397% |
+| F16 CUDA | base → disabled | 0.068484% / 0.988906% | -0.125802% / 10.027158% | -0.123317% / 10.027158% |
+| F16 CUDA | disabled → resident | 0.068374% / 0.988906% | 0.290797% / 10.027158% | 0.289900% / 10.027158% |
+| MXFP4 CPU | base → disabled | 0.265514% / 2.127630% | 0.210516% / 10.531247% | 0.177412% / 10.531247% |
+| MXFP4 CPU | disabled → resident | -0.007106% / 2.127630% | 1.864607% / 10.531247% | 1.923751% / 10.531247% |
+| MXFP4 CUDA | base → disabled | 0.093985% / 0.988906% | -0.064509% / 2.400604% | -0.061868% / 2.400604% |
+| MXFP4 CUDA | disabled → resident | 0.043793% / 0.988906% | 0.315100% / 2.400604% | 0.332806% / 2.400604% |
 
 Each bound is the paired mean slowdown plus the one-sided 95% Student-t critical value with 9 degrees of freedom. Negative slowdowns, where present in raw pairs, mean the candidate observation was faster; they are not clamped.
 
 ## Review and scope
 
 Checkpoint A first found a material failed-binding graph-reuse defect. The bounded correction was reviewed again at project head `0a16a7e4b0e383ea43706d740abc19924c82cdf5` and nested head `d9d20e1b616a25ba5d0ec8ad12ef408a83ae227b`; the fresh verdict was `PASS_WITH_NOTES`, safety `YES` ([issue comment](https://github.com/murillo128/k3-out-of-core/issues/13#issuecomment-5124005466)).
+
+The first Checkpoint B review accepted the runtime, parity, lifecycle, scope, lineage, and independent gate calculations but found that the old pinned-base probe omitted required non-gated telemetry. The correction adds a provider-free baseline telemetry probe, explicit unavailable provider counters, strict raw-key verification, two focused verifier cases, and fresh ABBA captures. The failed review and both corrected raw capture attempts remain preserved.
 
 No cache, storage transport, prefetch, physical slot, I/O, residency change, or backend-kernel provider logic is present. The tiny fixtures validate the integration seam and lifecycle only; they do not validate full-size or out-of-core performance.

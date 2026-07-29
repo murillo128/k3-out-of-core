@@ -26,6 +26,7 @@ class Phase3EvidenceTests(unittest.TestCase):
     def setUpClass(cls):
         cls.common = load_script("common")
         cls.overhead = load_script("measure_provider_overhead")
+        cls.verifier = load_script("verify_phase3")
 
     def test_immutable_inputs(self):
         self.assertEqual(self.common.PROJECT_BASE, "81df862da6e4ff9db005f6265470070bb5456f4c")
@@ -60,6 +61,24 @@ class Phase3EvidenceTests(unittest.TestCase):
     def test_manifest_schema_is_valid(self):
         schema = json.loads((ROOT / "schemas/phase3/phase3-manifest-v1.schema.json").read_text())
         Draft202012Validator.check_schema(schema)
+
+    def test_verifier_rejects_missing_raw_telemetry(self):
+        errors = []
+        self.verifier.validate_performance_sample({
+            "label": "isolated-baseline", "metric": {},
+            "provider_counter_availability": "unavailable-pinned-baseline",
+        }, errors)
+        self.assertTrue(any("required telemetry" in error for error in errors))
+
+    def test_verifier_accepts_explicit_baseline_provider_absence(self):
+        metric = {name: 1.0 for name in self.verifier.REQUIRED_PERFORMANCE_TELEMETRY}
+        metric.update({name: None for name in self.verifier.PROVIDER_COUNTERS})
+        errors = []
+        self.verifier.validate_performance_sample({
+            "label": "isolated-baseline", "metric": metric,
+            "provider_counter_availability": "unavailable-pinned-baseline",
+        }, errors)
+        self.assertEqual(errors, [])
 
 
 if __name__ == "__main__":

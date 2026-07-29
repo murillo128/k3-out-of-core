@@ -18,7 +18,6 @@ from typing import Any
 from common import (
     LLAMA_BASE,
     MODELS,
-    PROJECT_BASE,
     cmake_configuration,
     compile_cpp,
     ensure_baseline,
@@ -37,6 +36,15 @@ BUDGETS = {
     "mxfp4-cpu": {"decode": 0.02127630, "prompt": 0.10531247},
     "mxfp4-cuda": {"decode": 0.00988906, "prompt": 0.02400604},
 }
+REQUIRED_TELEMETRY = (
+    "load_seconds", "token_latency_p50_seconds", "token_latency_p95_seconds",
+    "token_latency_p99_seconds", "peak_rss_kib", "gpu_memory_bytes", "graphs_reused",
+)
+PROVIDER_COUNTERS = (
+    "provider_objects", "provider_bind_calls", "provider_prepare_calls",
+    "provider_handles_acquired", "provider_handles_released", "provider_allocations",
+    "provider_callbacks", "provider_tensor_copies", "provider_synchronizations",
+)
 
 
 def run_probe(binary: Path, model: Path, gpu_layers: int, mode: str | None) -> dict[str, Any]:
@@ -54,13 +62,16 @@ def run_probe(binary: Path, model: Path, gpu_layers: int, mode: str | None) -> d
     metric = parse_fields(completed.stdout, "METRIC")
     if "RESULT\texit=0" not in completed.stdout or metric.get("prompt_tokens") != 5 or metric.get("generated_tokens") != 49:
         raise RuntimeError("overhead probe did not reproduce the deterministic fixture")
+    missing_telemetry = [name for name in REQUIRED_TELEMETRY if name not in metric]
+    if missing_telemetry:
+        raise RuntimeError(f"overhead probe omitted required telemetry: {missing_telemetry}")
+    if mode is None:
+        metric.update({name: None for name in PROVIDER_COUNTERS})
+        provider_counter_availability = "unavailable-pinned-baseline"
+    else:
+        provider_counter_availability = "reported"
     if mode == "disabled":
-        names = (
-            "provider_objects", "provider_bind_calls", "provider_prepare_calls",
-            "provider_handles_acquired", "provider_handles_released", "provider_allocations",
-            "provider_callbacks", "provider_tensor_copies", "provider_synchronizations",
-        )
-        if any(metric.get(name) != 0 for name in names):
+        if any(metric.get(name) != 0 for name in PROVIDER_COUNTERS):
             raise RuntimeError(f"disabled structural counter is nonzero: {metric}")
     if mode == "resident":
         if metric.get("provider_objects") != 1 or metric.get("provider_handles_acquired") != metric.get("provider_handles_released"):
@@ -72,6 +83,7 @@ def run_probe(binary: Path, model: Path, gpu_layers: int, mode: str | None) -> d
     return {
         "command": command,
         "metric": metric,
+        "provider_counter_availability": provider_counter_availability,
         "stderr_sha256": hashlib.sha256(completed.stderr.encode()).hexdigest(),
     }
 
@@ -141,15 +153,11 @@ def comparison(
         "ttft_seconds": analyze(runs, "ttft_seconds", budget["prompt"], True),
     }
     reported = {}
-    for metric in (
-        "load_seconds", "token_latency_p50_seconds", "token_latency_p95_seconds",
-        "token_latency_p99_seconds", "peak_rss_kib", "gpu_memory_bytes", "graphs_reused",
-    ):
-        if all(metric in item["metric"] for item in runs):
-            reported[metric] = {
-                side: statistics.fmean(float(item["metric"][metric]) for item in runs if item["side"] == side)
-                for side in ("a", "b")
-            }
+    for metric in REQUIRED_TELEMETRY:
+        reported[metric] = {
+            side: statistics.fmean(float(item["metric"][metric]) for item in runs if item["side"] == side)
+            for side in ("a", "b")
+        }
     return {
         "name": name,
         "a": {"label": a[2], "binary": str(a[0]), "binary_sha256": sha256(a[0]), "mode": a[1]},
@@ -186,8 +194,6 @@ def main() -> int:
 
     with tempfile.TemporaryDirectory(prefix="k3-phase3-overhead-") as temporary_name:
         temporary = Path(temporary_name)
-        old_source = temporary / "overhead_probe_base.cpp"
-        old_source.write_text(git(root, "show", f"{PROJECT_BASE}:scripts/phase2/overhead_probe.cpp") + "\n")
         binaries: dict[tuple[str, str], Path] = {}
         compilations = {}
         matching_configurations = {}
@@ -195,7 +201,9 @@ def main() -> int:
             baseline_binary = temporary / f"overhead-baseline-{backend}"
             candidate_binary = temporary / f"overhead-candidate-{backend}"
             compilations[f"baseline-{backend}"] = compile_cpp(
-                root, baseline_builds[backend], baseline_binary, [old_source], baseline_builds[backend].parent / "llama.cpp"
+                root, baseline_builds[backend], baseline_binary,
+                [root / "scripts/phase3/overhead_probe_baseline.cpp"],
+                baseline_builds[backend].parent / "llama.cpp",
             )
             compilations[f"candidate-{backend}"] = compile_cpp(
                 root, candidate_builds[backend], candidate_binary, [root / "scripts/phase2/overhead_probe.cpp"], root / "llama.cpp"

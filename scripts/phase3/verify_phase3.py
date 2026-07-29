@@ -26,6 +26,36 @@ ALLOWED_PROJECT_PREFIXES = (
     "scripts/phase2/overhead_probe.cpp", "scripts/phase2/route_probe.cpp",
     "scripts/phase3/", "tests/phase3/",
 )
+REQUIRED_PERFORMANCE_TELEMETRY = (
+    "load_seconds", "token_latency_p50_seconds", "token_latency_p95_seconds",
+    "token_latency_p99_seconds", "peak_rss_kib", "gpu_memory_bytes", "graphs_reused",
+)
+PROVIDER_COUNTERS = (
+    "provider_objects", "provider_bind_calls", "provider_prepare_calls",
+    "provider_handles_acquired", "provider_handles_released", "provider_allocations",
+    "provider_callbacks", "provider_tensor_copies", "provider_synchronizations",
+)
+
+
+def validate_performance_sample(sample: dict[str, Any], errors: list[str]) -> None:
+    metric = sample.get("metric", {})
+    missing = [name for name in REQUIRED_PERFORMANCE_TELEMETRY if name not in metric]
+    if missing:
+        errors.append(f"performance sample omits required telemetry: {missing}")
+    for name in REQUIRED_PERFORMANCE_TELEMETRY:
+        if name in metric and not isinstance(metric[name], (int, float)):
+            errors.append(f"performance telemetry is not numeric: {name}")
+    availability = sample.get("provider_counter_availability")
+    if sample.get("label") == "isolated-baseline":
+        if availability != "unavailable-pinned-baseline":
+            errors.append("isolated baseline provider-counter availability is not explicit")
+        if any(name not in metric or metric[name] is not None for name in PROVIDER_COUNTERS):
+            errors.append("isolated baseline provider counters are not explicit null values")
+    else:
+        if availability != "reported":
+            errors.append("candidate provider counters are not marked reported")
+        if any(not isinstance(metric.get(name), (int, float)) for name in PROVIDER_COUNTERS):
+            errors.append("candidate provider counters are missing or non-numeric")
 
 
 def validate_evidence(root: Path, errors: list[str]) -> None:
@@ -76,6 +106,45 @@ def validate_evidence(root: Path, errors: list[str]) -> None:
                     errors.append("overhead pairing/confidence metadata differs")
                 if not analysis.get("passed") or analysis.get("one_sided_95_percent_upper_bound", 1) > analysis.get("fixed_budget", 0):
                     errors.append("overhead confidence gate did not pass")
+            for sample in comparison.get("warmups", []) + comparison.get("runs", []):
+                validate_performance_sample(sample, errors)
+            reported = comparison.get("reported_non_gated_means", {})
+            if set(reported) != set(REQUIRED_PERFORMANCE_TELEMETRY):
+                errors.append("non-gated performance summary omits required telemetry")
+            elif any(set(values) != {"a", "b"} for values in reported.values()):
+                errors.append("non-gated performance summary omits a comparison side")
+
+    composition = overhead.get("composition", {})
+    attempt_documents = {}
+    for metadata in composition.get("attempts", []):
+        path = root / metadata.get("path", "")
+        if not path.is_file() or sha256(path) != metadata.get("sha256"):
+            errors.append(f"composed overhead attempt identity differs: {metadata.get('attempt')}")
+            continue
+        document = json.loads(path.read_text())
+        if document.get("status") != metadata.get("overall_status"):
+            errors.append(f"composed overhead attempt status differs: {metadata.get('attempt')}")
+        attempt_documents[metadata.get("attempt")] = document
+    selections = composition.get("selections", [])
+    selection_keys = {
+        (item.get("artifact"), item.get("backend"), item.get("comparison")) for item in selections
+    }
+    if len(attempt_documents) != 2 or len(selections) != 8 or len(selection_keys) != 8:
+        errors.append("composed overhead provenance is incomplete")
+    for selection in selections:
+        source = attempt_documents.get(selection.get("source_attempt"))
+        if source is None:
+            continue
+        source_combination = next((item for item in source["combinations"]
+            if item["artifact"] == selection["artifact"] and item["backend"] == selection["backend"]), None)
+        final_combination = next((item for item in combinations
+            if item["artifact"] == selection["artifact"] and item["backend"] == selection["backend"]), None)
+        source_comparison = next((item for item in source_combination["comparisons"]
+            if item["name"] == selection["comparison"]), None) if source_combination else None
+        final_comparison = next((item for item in final_combination["comparisons"]
+            if item["name"] == selection["comparison"]), None) if final_combination else None
+        if source_comparison is None or final_comparison != source_comparison:
+            errors.append(f"composed overhead comparison differs from raw attempt: {selection}")
 
 
 def validate_git(root: Path, manifest: dict[str, Any], strict: bool, output: Path, errors: list[str]) -> None:

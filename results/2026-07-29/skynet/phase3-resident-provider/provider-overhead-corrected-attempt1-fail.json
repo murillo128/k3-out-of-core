@@ -1,5 +1,5 @@
 {
-  "captured_at_utc": "2026-07-29T23:25:28.900736+00:00",
+  "captured_at_utc": "2026-07-29T23:21:15.309238+00:00",
   "combinations": [
     {
       "artifact": "f16",
@@ -1170,270 +1170,270 @@
         },
         {
           "a": {
-            "binary": "/tmp/k3-phase3-overhead-ywf4l24j/overhead-candidate-cpu",
+            "binary": "/tmp/k3-phase3-overhead-ugmwgxku/overhead-candidate-cpu",
             "binary_sha256": "b2adee8e85826004ba34a3dc2668ff6df839fe371bdc86f0d5e102f78401330a",
             "label": "candidate-disabled",
             "mode": "disabled"
           },
           "analysis": {
             "decode_tokens_per_second": {
-              "a_mean": 97.29752309922483,
-              "b_mean": 97.3588178175651,
+              "a_mean": 97.3521699448385,
+              "b_mean": 97.38967323044093,
               "critical_value": 1.833113,
               "degrees_of_freedom": 9,
               "direction": "throughput",
               "fixed_budget": 0.01377163,
               "metric": "decode_tokens_per_second",
-              "one_sided_95_percent_upper_bound": 0.0004539083887946675,
-              "paired_mean_relative_b_slowdown": -0.0006327955302919963,
-              "paired_slowdown_sample_standard_deviation": 0.001874657768803769,
+              "one_sided_95_percent_upper_bound": 0.0014496125354602218,
+              "paired_mean_relative_b_slowdown": -0.00039486391697636237,
+              "paired_slowdown_sample_standard_deviation": 0.003181880593420501,
               "pairs": [
                 {
                   "a_run": 0,
-                  "a_value": 97.35434240312821,
+                  "a_value": 97.47555651161026,
                   "b_run": 1,
-                  "b_value": 97.34612005987402,
-                  "relative_b_slowdown": 8.445789937283621e-05
+                  "b_value": 97.30289293683835,
+                  "relative_b_slowdown": 0.0017713525416123144
                 },
                 {
                   "a_run": 3,
-                  "a_value": 97.27351734002585,
+                  "a_value": 97.3110695094125,
                   "b_run": 2,
-                  "b_value": 97.30031715727587,
-                  "relative_b_slowdown": -0.0002755099022104801
+                  "b_value": 97.44430823309112,
+                  "relative_b_slowdown": -0.0013692041856114834
                 },
                 {
                   "a_run": 4,
-                  "a_value": 97.26881685627744,
+                  "a_value": 97.46384357905914,
                   "b_run": 5,
-                  "b_value": 97.23643871851108,
-                  "relative_b_slowdown": 0.0003328727418798749
+                  "b_value": 97.44998581991045,
+                  "relative_b_slowdown": 0.00014218358972728495
                 },
                 {
                   "a_run": 7,
-                  "a_value": 97.33146958709526,
+                  "a_value": 97.52914859759707,
                   "b_run": 6,
-                  "b_value": 97.328285242309,
-                  "relative_b_slowdown": 3.2716497549767354e-05
+                  "b_value": 97.38419301532448,
+                  "relative_b_slowdown": 0.00148627958263714
                 },
                 {
                   "a_run": 8,
-                  "a_value": 97.3283973371802,
+                  "a_value": 97.47322454689252,
                   "b_run": 9,
-                  "b_value": 97.39066586026655,
-                  "relative_b_slowdown": -0.0006397775447861687
+                  "b_value": 97.4229344401618,
+                  "relative_b_slowdown": 0.0005159376532838378
                 },
                 {
                   "a_run": 11,
-                  "a_value": 97.2837284520747,
+                  "a_value": 97.49878505849888,
                   "b_run": 10,
-                  "b_value": 97.42734885220555,
-                  "relative_b_slowdown": -0.0014763044387386959
+                  "b_value": 97.44526411205055,
+                  "relative_b_slowdown": 0.0005489396243882894
                 },
                 {
                   "a_run": 12,
-                  "a_value": 97.49988697630289,
+                  "a_value": 97.46684502314156,
                   "b_run": 13,
-                  "b_value": 97.4403112321493,
-                  "relative_b_slowdown": 0.0006110339816913779
+                  "b_value": 97.4449804324389,
+                  "relative_b_slowdown": 0.00022432849547426859
                 },
                 {
                   "a_run": 15,
-                  "a_value": 96.8451175625782,
+                  "a_value": 97.46633480814585,
                   "b_run": 14,
-                  "b_value": 97.39405289268919,
-                  "relative_b_slowdown": -0.0056681776420612895
+                  "b_value": 97.3881016342472,
+                  "relative_b_slowdown": 0.0008026686758318968
                 },
                 {
                   "a_run": 16,
-                  "a_value": 97.37539394229947,
+                  "a_value": 97.41662634565442,
                   "b_run": 17,
-                  "b_value": 97.31857620125109,
-                  "relative_b_slowdown": 0.0005834917708475995
+                  "b_value": 97.31492707989774,
+                  "relative_b_slowdown": 0.001043962099404161
                 },
                 {
                   "a_run": 19,
-                  "a_value": 97.4145605352862,
+                  "a_value": 96.42026546837275,
                   "b_run": 18,
-                  "b_value": 97.40606195911936,
-                  "relative_b_slowdown": 8.724133353521513e-05
+                  "b_value": 97.29914460044874,
+                  "relative_b_slowdown": -0.009115087246511333
                 }
               ],
               "passed": true
             },
             "prompt_tokens_per_second": {
-              "a_mean": 368.5603079819406,
-              "b_mean": 369.03217945065944,
+              "a_mean": 372.2481700438774,
+              "b_mean": 363.8887647525563,
               "critical_value": 1.833113,
               "degrees_of_freedom": 9,
               "direction": "throughput",
               "fixed_budget": 0.03485397,
               "metric": "prompt_tokens_per_second",
-              "one_sided_95_percent_upper_bound": 0.013635391095773339,
-              "paired_mean_relative_b_slowdown": -0.0017663702852611985,
-              "paired_slowdown_sample_standard_deviation": 0.026569363668518857,
+              "one_sided_95_percent_upper_bound": 0.04369751023574798,
+              "paired_mean_relative_b_slowdown": 0.022381665523389892,
+              "paired_slowdown_sample_standard_deviation": 0.03677166630835538,
               "pairs": [
                 {
                   "a_run": 0,
-                  "a_value": 377.3014255051538,
+                  "a_value": 367.3367403081324,
                   "b_run": 1,
-                  "b_value": 366.03936548393733,
-                  "relative_b_slowdown": 0.0298489728898802
+                  "b_value": 380.54464005538296,
+                  "relative_b_slowdown": -0.03595583642456068
                 },
                 {
                   "a_run": 3,
-                  "a_value": 358.7924824650938,
+                  "a_value": 377.200464922205,
                   "b_run": 2,
-                  "b_value": 364.7976405472286,
-                  "relative_b_slowdown": -0.016737134626891192
+                  "b_value": 373.6688700425258,
+                  "relative_b_slowdown": 0.009362647207785346
                 },
                 {
                   "a_run": 4,
-                  "a_value": 379.27746277941657,
+                  "a_value": 377.7675058595518,
                   "b_run": 5,
-                  "b_value": 363.15902741073495,
-                  "relative_b_slowdown": 0.04249774096927006
+                  "b_value": 350.5137901238393,
+                  "relative_b_slowdown": 0.07214415033844923
                 },
                 {
                   "a_run": 7,
-                  "a_value": 375.23063551011626,
+                  "a_value": 370.67182266229696,
                   "b_run": 6,
-                  "b_value": 371.85525727475317,
-                  "relative_b_slowdown": 0.008995476157681925
+                  "b_value": 366.24310895278353,
+                  "relative_b_slowdown": 0.011947802446122924
                 },
                 {
                   "a_run": 8,
-                  "a_value": 360.62416831051183,
+                  "a_value": 371.345578874655,
                   "b_run": 9,
-                  "b_value": 366.89341658193877,
-                  "relative_b_slowdown": -0.017384437379218687
+                  "b_value": 378.0591125667227,
+                  "relative_b_slowdown": -0.018078937986585775
                 },
                 {
                   "a_run": 11,
-                  "a_value": 371.7921863113107,
+                  "a_value": 367.9867159739427,
                   "b_run": 10,
-                  "b_value": 368.7757022835403,
-                  "relative_b_slowdown": 0.008113360470799691
+                  "b_value": 362.57235221931626,
+                  "relative_b_slowdown": 0.014713476110941537
                 },
                 {
                   "a_run": 12,
-                  "a_value": 365.1288510505049,
+                  "a_value": 363.2019213091076,
                   "b_run": 13,
-                  "b_value": 368.1080058337757,
-                  "relative_b_slowdown": -0.008159187570906834
+                  "b_value": 334.732380792092,
+                  "relative_b_slowdown": 0.07838488412836964
                 },
                 {
                   "a_run": 15,
-                  "a_value": 363.7882022176383,
+                  "a_value": 373.7112381098164,
                   "b_run": 14,
-                  "b_value": 377.41864967457457,
-                  "relative_b_slowdown": -0.037468085478983726
+                  "b_value": 371.72858400999087,
+                  "relative_b_slowdown": 0.0053053103509906885
                 },
                 {
                   "a_run": 16,
-                  "a_value": 376.01638168009083,
+                  "a_value": 371.1809195190683,
                   "b_run": 17,
-                  "b_value": 372.29006339950865,
-                  "relative_b_slowdown": 0.00990998919763153
+                  "b_value": 356.8328713299204,
+                  "relative_b_slowdown": 0.03865513401857612
                 },
                 {
                   "a_run": 19,
-                  "a_value": 357.6512839895686,
+                  "a_value": 382.0787928999979,
                   "b_run": 18,
-                  "b_value": 370.9846660166026,
-                  "relative_b_slowdown": -0.03728039748187495
+                  "b_value": 363.9919374329891,
+                  "relative_b_slowdown": 0.047338025043809906
                 }
               ],
-              "passed": true
+              "passed": false
             },
             "ttft_seconds": {
-              "a_mean": 0.0135724406,
-              "b_mean": 0.013550533200000001,
+              "a_mean": 0.013434629600000001,
+              "b_mean": 0.0137589308,
               "critical_value": 1.833113,
               "degrees_of_freedom": 9,
               "direction": "latency",
               "fixed_budget": 0.03485397,
               "metric": "ttft_seconds",
-              "one_sided_95_percent_upper_bound": 0.014303304748715615,
-              "paired_mean_relative_b_slowdown": -0.0011280259672661996,
-              "paired_slowdown_sample_standard_deviation": 0.02662037331567635,
+              "one_sided_95_percent_upper_bound": 0.04666713089560087,
+              "paired_mean_relative_b_slowdown": 0.024204940199981817,
+              "paired_slowdown_sample_standard_deviation": 0.03874921176992262,
               "pairs": [
                 {
                   "a_run": 0,
-                  "a_value": 0.013252004,
+                  "a_value": 0.013611489,
                   "b_run": 1,
-                  "b_value": 0.013659733,
-                  "relative_b_slowdown": 0.03076734658395819
+                  "b_value": 0.013139063,
+                  "relative_b_slowdown": -0.03470788537536196
                 },
                 {
                   "a_run": 3,
-                  "a_value": 0.013935632,
+                  "a_value": 0.013255551,
                   "b_run": 2,
-                  "b_value": 0.013706229,
-                  "relative_b_slowdown": -0.01646161437098792
+                  "b_value": 0.013380831,
+                  "relative_b_slowdown": 0.009451134849090659
                 },
                 {
                   "a_run": 4,
-                  "a_value": 0.013182961,
+                  "a_value": 0.013235654,
                   "b_run": 5,
-                  "b_value": 0.013768073,
-                  "relative_b_slowdown": 0.04438395896035807
+                  "b_value": 0.014264774,
+                  "relative_b_slowdown": 0.0777536191260364
                 },
                 {
                   "a_run": 7,
-                  "a_value": 0.013325138,
+                  "a_value": 0.013489021,
                   "b_run": 6,
-                  "b_value": 0.013446092,
-                  "relative_b_slowdown": 0.00907712925749804
+                  "b_value": 0.013652134,
+                  "relative_b_slowdown": 0.01209227860198303
                 },
                 {
                   "a_run": 8,
-                  "a_value": 0.01386485,
+                  "a_value": 0.013464547,
                   "b_run": 9,
-                  "b_value": 0.013627936,
-                  "relative_b_slowdown": -0.01708738284222333
+                  "b_value": 0.013225445,
+                  "relative_b_slowdown": -0.017757894120017492
                 },
                 {
                   "a_run": 11,
-                  "a_value": 0.013448373,
+                  "a_value": 0.013587447,
                   "b_run": 10,
-                  "b_value": 0.013558377,
-                  "relative_b_slowdown": 0.008179725532597937
+                  "b_value": 0.013790351,
+                  "relative_b_slowdown": 0.014933195323595161
                 },
                 {
                   "a_run": 12,
-                  "a_value": 0.013693796,
+                  "a_value": 0.013766447,
                   "b_run": 13,
-                  "b_value": 0.01358297,
-                  "relative_b_slowdown": -0.00809315400930466
+                  "b_value": 0.014937306,
+                  "relative_b_slowdown": 0.08505164767641205
                 },
                 {
                   "a_run": 15,
-                  "a_value": 0.013744261,
+                  "a_value": 0.013379314,
                   "b_run": 14,
-                  "b_value": 0.013247888,
-                  "relative_b_slowdown": -0.03611492825987528
+                  "b_value": 0.013450674,
+                  "relative_b_slowdown": 0.005333606790303369
                 },
                 {
                   "a_run": 16,
-                  "a_value": 0.013297293,
+                  "a_value": 0.01347052,
                   "b_run": 17,
-                  "b_value": 0.013430388,
-                  "relative_b_slowdown": 0.010009180063942358
+                  "b_value": 0.014012162,
+                  "relative_b_slowdown": 0.04020943512202946
                 },
                 {
                   "a_run": 19,
-                  "a_value": 0.013980098,
+                  "a_value": 0.013086306,
                   "b_run": 18,
-                  "b_value": 0.013477646,
-                  "relative_b_slowdown": -0.0359405205886254
+                  "b_value": 0.013736568,
+                  "relative_b_slowdown": 0.0496902640057475
                 }
               ],
-              "passed": true
+              "passed": false
             }
           },
           "b": {
-            "binary": "/tmp/k3-phase3-overhead-ywf4l24j/overhead-candidate-cpu",
+            "binary": "/tmp/k3-phase3-overhead-ugmwgxku/overhead-candidate-cpu",
             "binary_sha256": "b2adee8e85826004ba34a3dc2668ff6df839fe371bdc86f0d5e102f78401330a",
             "label": "candidate-resident",
             "mode": "resident"
@@ -1461,7 +1461,7 @@
             "b",
             "a"
           ],
-          "passed": true,
+          "passed": false,
           "reported_non_gated_means": {
             "gpu_memory_bytes": {
               "a": 0.0,
@@ -1472,30 +1472,30 @@
               "b": 47.0
             },
             "load_seconds": {
-              "a": 0.18886781670000002,
-              "b": 0.18960192069999998
+              "a": 0.18900860479999998,
+              "b": 0.1886021228
             },
             "peak_rss_kib": {
-              "a": 890263.6,
-              "b": 890320.0
+              "a": 890247.2,
+              "b": 890240.8
             },
             "token_latency_p50_seconds": {
-              "a": 0.0102618495,
-              "b": 0.0102599605
+              "a": 0.0102493116,
+              "b": 0.0102550749
             },
             "token_latency_p95_seconds": {
-              "a": 0.010344476799999999,
-              "b": 0.010290036499999999
+              "a": 0.0103287465,
+              "b": 0.010300134499999999
             },
             "token_latency_p99_seconds": {
-              "a": 0.0106889438,
-              "b": 0.0106911373
+              "a": 0.010703481099999999,
+              "b": 0.0107103665
             }
           },
           "runs": [
             {
               "command": [
-                "/tmp/k3-phase3-overhead-ywf4l24j/overhead-candidate-cpu",
+                "/tmp/k3-phase3-overhead-ugmwgxku/overhead-candidate-cpu",
                 "--model",
                 "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
                 "--gpu-layers",
@@ -1505,14 +1505,14 @@
               ],
               "label": "candidate-disabled",
               "metric": {
-                "decode_tokens_per_second": 97.35434240312821,
+                "decode_tokens_per_second": 97.47555651161026,
                 "generated_tokens": 49,
                 "gpu_memory_bytes": 0,
                 "graphs_reused": 47,
-                "load_seconds": 0.188820671,
-                "peak_rss_kib": 890480,
+                "load_seconds": 0.189531684,
+                "peak_rss_kib": 890208,
                 "prompt_tokens": 5,
-                "prompt_tokens_per_second": 377.3014255051538,
+                "prompt_tokens_per_second": 367.3367403081324,
                 "provider_allocations": 0,
                 "provider_bind_calls": 0,
                 "provider_callbacks": 0,
@@ -1522,526 +1522,19 @@
                 "provider_prepare_calls": 0,
                 "provider_synchronizations": 0,
                 "provider_tensor_copies": 0,
-                "token_latency_p50_seconds": 0.010262379,
-                "token_latency_p95_seconds": 0.010285977,
-                "token_latency_p99_seconds": 0.010676144,
-                "ttft_seconds": 0.013252004
+                "token_latency_p50_seconds": 0.010243968,
+                "token_latency_p95_seconds": 0.010289777,
+                "token_latency_p99_seconds": 0.010650382,
+                "ttft_seconds": 0.013611489
               },
               "provider_counter_availability": "reported",
               "run_ordinal": 0,
               "side": "a",
-              "stderr_sha256": "eeff5f56b27dc6115866ad30171de06288aed3be73350f18c434fdc28a4dd04a"
-            },
-            {
-              "command": [
-                "/tmp/k3-phase3-overhead-ywf4l24j/overhead-candidate-cpu",
-                "--model",
-                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
-                "--gpu-layers",
-                "0",
-                "--expert-weights",
-                "resident"
-              ],
-              "label": "candidate-resident",
-              "metric": {
-                "decode_tokens_per_second": 97.34612005987402,
-                "generated_tokens": 49,
-                "gpu_memory_bytes": 0,
-                "graphs_reused": 47,
-                "load_seconds": 0.189970839,
-                "peak_rss_kib": 890392,
-                "prompt_tokens": 5,
-                "prompt_tokens_per_second": 366.03936548393733,
-                "provider_allocations": 0,
-                "provider_bind_calls": 84,
-                "provider_callbacks": 0,
-                "provider_handles_acquired": 343,
-                "provider_handles_released": 343,
-                "provider_objects": 1,
-                "provider_prepare_calls": 49,
-                "provider_synchronizations": 0,
-                "provider_tensor_copies": 0,
-                "token_latency_p50_seconds": 0.010266304,
-                "token_latency_p95_seconds": 0.010289241,
-                "token_latency_p99_seconds": 0.010652964,
-                "ttft_seconds": 0.013659733
-              },
-              "provider_counter_availability": "reported",
-              "run_ordinal": 1,
-              "side": "b",
-              "stderr_sha256": "824240d79d0ed4024d401ed4c6d7a0d05fb0856245239d9c825782b874342210"
-            },
-            {
-              "command": [
-                "/tmp/k3-phase3-overhead-ywf4l24j/overhead-candidate-cpu",
-                "--model",
-                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
-                "--gpu-layers",
-                "0",
-                "--expert-weights",
-                "resident"
-              ],
-              "label": "candidate-resident",
-              "metric": {
-                "decode_tokens_per_second": 97.30031715727587,
-                "generated_tokens": 49,
-                "gpu_memory_bytes": 0,
-                "graphs_reused": 47,
-                "load_seconds": 0.189326444,
-                "peak_rss_kib": 890692,
-                "prompt_tokens": 5,
-                "prompt_tokens_per_second": 364.7976405472286,
-                "provider_allocations": 0,
-                "provider_bind_calls": 84,
-                "provider_callbacks": 0,
-                "provider_handles_acquired": 343,
-                "provider_handles_released": 343,
-                "provider_objects": 1,
-                "provider_prepare_calls": 49,
-                "provider_synchronizations": 0,
-                "provider_tensor_copies": 0,
-                "token_latency_p50_seconds": 0.010268233,
-                "token_latency_p95_seconds": 0.0102946,
-                "token_latency_p99_seconds": 0.010719631,
-                "ttft_seconds": 0.013706229
-              },
-              "provider_counter_availability": "reported",
-              "run_ordinal": 2,
-              "side": "b",
-              "stderr_sha256": "774cb5e7e1080cb72f0c83ac3df28550779da36394eaffbe37c5b9b2e8ea2e18"
-            },
-            {
-              "command": [
-                "/tmp/k3-phase3-overhead-ywf4l24j/overhead-candidate-cpu",
-                "--model",
-                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
-                "--gpu-layers",
-                "0",
-                "--expert-weights",
-                "disabled"
-              ],
-              "label": "candidate-disabled",
-              "metric": {
-                "decode_tokens_per_second": 97.27351734002585,
-                "generated_tokens": 49,
-                "gpu_memory_bytes": 0,
-                "graphs_reused": 47,
-                "load_seconds": 0.189705698,
-                "peak_rss_kib": 890376,
-                "prompt_tokens": 5,
-                "prompt_tokens_per_second": 358.7924824650938,
-                "provider_allocations": 0,
-                "provider_bind_calls": 0,
-                "provider_callbacks": 0,
-                "provider_handles_acquired": 0,
-                "provider_handles_released": 0,
-                "provider_objects": 0,
-                "provider_prepare_calls": 0,
-                "provider_synchronizations": 0,
-                "provider_tensor_copies": 0,
-                "token_latency_p50_seconds": 0.010270867,
-                "token_latency_p95_seconds": 0.010297864,
-                "token_latency_p99_seconds": 0.010721091,
-                "ttft_seconds": 0.013935632
-              },
-              "provider_counter_availability": "reported",
-              "run_ordinal": 3,
-              "side": "a",
-              "stderr_sha256": "235df612e843edc96d55602d21a581676ff7122a204fdfaf3c977ec851387cd7"
-            },
-            {
-              "command": [
-                "/tmp/k3-phase3-overhead-ywf4l24j/overhead-candidate-cpu",
-                "--model",
-                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
-                "--gpu-layers",
-                "0",
-                "--expert-weights",
-                "disabled"
-              ],
-              "label": "candidate-disabled",
-              "metric": {
-                "decode_tokens_per_second": 97.26881685627744,
-                "generated_tokens": 49,
-                "gpu_memory_bytes": 0,
-                "graphs_reused": 47,
-                "load_seconds": 0.191025769,
-                "peak_rss_kib": 890068,
-                "prompt_tokens": 5,
-                "prompt_tokens_per_second": 379.27746277941657,
-                "provider_allocations": 0,
-                "provider_bind_calls": 0,
-                "provider_callbacks": 0,
-                "provider_handles_acquired": 0,
-                "provider_handles_released": 0,
-                "provider_objects": 0,
-                "provider_prepare_calls": 0,
-                "provider_synchronizations": 0,
-                "provider_tensor_copies": 0,
-                "token_latency_p50_seconds": 0.01027101,
-                "token_latency_p95_seconds": 0.010309945,
-                "token_latency_p99_seconds": 0.010675211,
-                "ttft_seconds": 0.013182961
-              },
-              "provider_counter_availability": "reported",
-              "run_ordinal": 4,
-              "side": "a",
-              "stderr_sha256": "64fe859411a1e6dc49bdf3533e172e803268b5e6ee5b87793afad11390fe4e50"
-            },
-            {
-              "command": [
-                "/tmp/k3-phase3-overhead-ywf4l24j/overhead-candidate-cpu",
-                "--model",
-                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
-                "--gpu-layers",
-                "0",
-                "--expert-weights",
-                "resident"
-              ],
-              "label": "candidate-resident",
-              "metric": {
-                "decode_tokens_per_second": 97.23643871851108,
-                "generated_tokens": 49,
-                "gpu_memory_bytes": 0,
-                "graphs_reused": 47,
-                "load_seconds": 0.18893063,
-                "peak_rss_kib": 890480,
-                "prompt_tokens": 5,
-                "prompt_tokens_per_second": 363.15902741073495,
-                "provider_allocations": 0,
-                "provider_bind_calls": 84,
-                "provider_callbacks": 0,
-                "provider_handles_acquired": 343,
-                "provider_handles_released": 343,
-                "provider_objects": 1,
-                "provider_prepare_calls": 49,
-                "provider_synchronizations": 0,
-                "provider_tensor_copies": 0,
-                "token_latency_p50_seconds": 0.010273608,
-                "token_latency_p95_seconds": 0.010302425,
-                "token_latency_p99_seconds": 0.010714134,
-                "ttft_seconds": 0.013768073
-              },
-              "provider_counter_availability": "reported",
-              "run_ordinal": 5,
-              "side": "b",
-              "stderr_sha256": "133a3230c6787e8098e16e8b3a7a5257b4729c383765ad6d0e9f83521afcf6d1"
-            },
-            {
-              "command": [
-                "/tmp/k3-phase3-overhead-ywf4l24j/overhead-candidate-cpu",
-                "--model",
-                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
-                "--gpu-layers",
-                "0",
-                "--expert-weights",
-                "resident"
-              ],
-              "label": "candidate-resident",
-              "metric": {
-                "decode_tokens_per_second": 97.328285242309,
-                "generated_tokens": 49,
-                "gpu_memory_bytes": 0,
-                "graphs_reused": 47,
-                "load_seconds": 0.189152696,
-                "peak_rss_kib": 890236,
-                "prompt_tokens": 5,
-                "prompt_tokens_per_second": 371.85525727475317,
-                "provider_allocations": 0,
-                "provider_bind_calls": 84,
-                "provider_callbacks": 0,
-                "provider_handles_acquired": 343,
-                "provider_handles_released": 343,
-                "provider_objects": 1,
-                "provider_prepare_calls": 49,
-                "provider_synchronizations": 0,
-                "provider_tensor_copies": 0,
-                "token_latency_p50_seconds": 0.010264758,
-                "token_latency_p95_seconds": 0.010301422,
-                "token_latency_p99_seconds": 0.01070667,
-                "ttft_seconds": 0.013446092
-              },
-              "provider_counter_availability": "reported",
-              "run_ordinal": 6,
-              "side": "b",
-              "stderr_sha256": "9b98f0d4fc85e10c5ccfd66c0593e213c9e58977d77260b0792349134944c534"
-            },
-            {
-              "command": [
-                "/tmp/k3-phase3-overhead-ywf4l24j/overhead-candidate-cpu",
-                "--model",
-                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
-                "--gpu-layers",
-                "0",
-                "--expert-weights",
-                "disabled"
-              ],
-              "label": "candidate-disabled",
-              "metric": {
-                "decode_tokens_per_second": 97.33146958709526,
-                "generated_tokens": 49,
-                "gpu_memory_bytes": 0,
-                "graphs_reused": 47,
-                "load_seconds": 0.18893188,
-                "peak_rss_kib": 890072,
-                "prompt_tokens": 5,
-                "prompt_tokens_per_second": 375.23063551011626,
-                "provider_allocations": 0,
-                "provider_bind_calls": 0,
-                "provider_callbacks": 0,
-                "provider_handles_acquired": 0,
-                "provider_handles_released": 0,
-                "provider_objects": 0,
-                "provider_prepare_calls": 0,
-                "provider_synchronizations": 0,
-                "provider_tensor_copies": 0,
-                "token_latency_p50_seconds": 0.010262669,
-                "token_latency_p95_seconds": 0.010301595,
-                "token_latency_p99_seconds": 0.010666111,
-                "ttft_seconds": 0.013325138
-              },
-              "provider_counter_availability": "reported",
-              "run_ordinal": 7,
-              "side": "a",
-              "stderr_sha256": "32c135537f0e71805d6ea4f645d82ea5d8554fc560df8642a04f9fbc26bc2f4b"
-            },
-            {
-              "command": [
-                "/tmp/k3-phase3-overhead-ywf4l24j/overhead-candidate-cpu",
-                "--model",
-                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
-                "--gpu-layers",
-                "0",
-                "--expert-weights",
-                "disabled"
-              ],
-              "label": "candidate-disabled",
-              "metric": {
-                "decode_tokens_per_second": 97.3283973371802,
-                "generated_tokens": 49,
-                "gpu_memory_bytes": 0,
-                "graphs_reused": 47,
-                "load_seconds": 0.188641981,
-                "peak_rss_kib": 890232,
-                "prompt_tokens": 5,
-                "prompt_tokens_per_second": 360.62416831051183,
-                "provider_allocations": 0,
-                "provider_bind_calls": 0,
-                "provider_callbacks": 0,
-                "provider_handles_acquired": 0,
-                "provider_handles_released": 0,
-                "provider_objects": 0,
-                "provider_prepare_calls": 0,
-                "provider_synchronizations": 0,
-                "provider_tensor_copies": 0,
-                "token_latency_p50_seconds": 0.010264686,
-                "token_latency_p95_seconds": 0.010291119,
-                "token_latency_p99_seconds": 0.01070444,
-                "ttft_seconds": 0.01386485
-              },
-              "provider_counter_availability": "reported",
-              "run_ordinal": 8,
-              "side": "a",
-              "stderr_sha256": "832e1e26bcc6d8df4dbc838eed77605d7e036a07f1c97885f9792a3a9668e4be"
-            },
-            {
-              "command": [
-                "/tmp/k3-phase3-overhead-ywf4l24j/overhead-candidate-cpu",
-                "--model",
-                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
-                "--gpu-layers",
-                "0",
-                "--expert-weights",
-                "resident"
-              ],
-              "label": "candidate-resident",
-              "metric": {
-                "decode_tokens_per_second": 97.39066586026655,
-                "generated_tokens": 49,
-                "gpu_memory_bytes": 0,
-                "graphs_reused": 47,
-                "load_seconds": 0.194843747,
-                "peak_rss_kib": 890148,
-                "prompt_tokens": 5,
-                "prompt_tokens_per_second": 366.89341658193877,
-                "provider_allocations": 0,
-                "provider_bind_calls": 84,
-                "provider_callbacks": 0,
-                "provider_handles_acquired": 343,
-                "provider_handles_released": 343,
-                "provider_objects": 1,
-                "provider_prepare_calls": 49,
-                "provider_synchronizations": 0,
-                "provider_tensor_copies": 0,
-                "token_latency_p50_seconds": 0.01025005,
-                "token_latency_p95_seconds": 0.010318213,
-                "token_latency_p99_seconds": 0.010739324,
-                "ttft_seconds": 0.013627936
-              },
-              "provider_counter_availability": "reported",
-              "run_ordinal": 9,
-              "side": "b",
-              "stderr_sha256": "0777f7e465f9e9d8c4ff6e198a4c4cbecf22d3f72acec2555cfa128b062b7bed"
-            },
-            {
-              "command": [
-                "/tmp/k3-phase3-overhead-ywf4l24j/overhead-candidate-cpu",
-                "--model",
-                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
-                "--gpu-layers",
-                "0",
-                "--expert-weights",
-                "resident"
-              ],
-              "label": "candidate-resident",
-              "metric": {
-                "decode_tokens_per_second": 97.42734885220555,
-                "generated_tokens": 49,
-                "gpu_memory_bytes": 0,
-                "graphs_reused": 47,
-                "load_seconds": 0.1893887,
-                "peak_rss_kib": 890264,
-                "prompt_tokens": 5,
-                "prompt_tokens_per_second": 368.7757022835403,
-                "provider_allocations": 0,
-                "provider_bind_calls": 84,
-                "provider_callbacks": 0,
-                "provider_handles_acquired": 343,
-                "provider_handles_released": 343,
-                "provider_objects": 1,
-                "provider_prepare_calls": 49,
-                "provider_synchronizations": 0,
-                "provider_tensor_copies": 0,
-                "token_latency_p50_seconds": 0.010253209,
-                "token_latency_p95_seconds": 0.010277184,
-                "token_latency_p99_seconds": 0.010661762,
-                "ttft_seconds": 0.013558377
-              },
-              "provider_counter_availability": "reported",
-              "run_ordinal": 10,
-              "side": "b",
-              "stderr_sha256": "0fd1a966f480928bfc0087ad928377ba3d7f63e02c22548555b2422a13291e53"
-            },
-            {
-              "command": [
-                "/tmp/k3-phase3-overhead-ywf4l24j/overhead-candidate-cpu",
-                "--model",
-                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
-                "--gpu-layers",
-                "0",
-                "--expert-weights",
-                "disabled"
-              ],
-              "label": "candidate-disabled",
-              "metric": {
-                "decode_tokens_per_second": 97.2837284520747,
-                "generated_tokens": 49,
-                "gpu_memory_bytes": 0,
-                "graphs_reused": 47,
-                "load_seconds": 0.188275425,
-                "peak_rss_kib": 890308,
-                "prompt_tokens": 5,
-                "prompt_tokens_per_second": 371.7921863113107,
-                "provider_allocations": 0,
-                "provider_bind_calls": 0,
-                "provider_callbacks": 0,
-                "provider_handles_acquired": 0,
-                "provider_handles_released": 0,
-                "provider_objects": 0,
-                "provider_prepare_calls": 0,
-                "provider_synchronizations": 0,
-                "provider_tensor_copies": 0,
-                "token_latency_p50_seconds": 0.010261521,
-                "token_latency_p95_seconds": 0.010373232,
-                "token_latency_p99_seconds": 0.010680425,
-                "ttft_seconds": 0.013448373
-              },
-              "provider_counter_availability": "reported",
-              "run_ordinal": 11,
-              "side": "a",
-              "stderr_sha256": "24b683f5e4b104f4b3abdc36d0cf6164f65e672454aa6d3efe5f5b1f3bf00cd1"
-            },
-            {
-              "command": [
-                "/tmp/k3-phase3-overhead-ywf4l24j/overhead-candidate-cpu",
-                "--model",
-                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
-                "--gpu-layers",
-                "0",
-                "--expert-weights",
-                "disabled"
-              ],
-              "label": "candidate-disabled",
-              "metric": {
-                "decode_tokens_per_second": 97.49988697630289,
-                "generated_tokens": 49,
-                "gpu_memory_bytes": 0,
-                "graphs_reused": 47,
-                "load_seconds": 0.187714435,
-                "peak_rss_kib": 890232,
-                "prompt_tokens": 5,
-                "prompt_tokens_per_second": 365.1288510505049,
-                "provider_allocations": 0,
-                "provider_bind_calls": 0,
-                "provider_callbacks": 0,
-                "provider_handles_acquired": 0,
-                "provider_handles_released": 0,
-                "provider_objects": 0,
-                "provider_prepare_calls": 0,
-                "provider_synchronizations": 0,
-                "provider_tensor_copies": 0,
-                "token_latency_p50_seconds": 0.010246206,
-                "token_latency_p95_seconds": 0.01026903,
-                "token_latency_p99_seconds": 0.010672315,
-                "ttft_seconds": 0.013693796
-              },
-              "provider_counter_availability": "reported",
-              "run_ordinal": 12,
-              "side": "a",
-              "stderr_sha256": "6773dd3a08c0d9cead279fbbf12f34c1b4e55792c525aaed319a7111abcb5133"
-            },
-            {
-              "command": [
-                "/tmp/k3-phase3-overhead-ywf4l24j/overhead-candidate-cpu",
-                "--model",
-                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
-                "--gpu-layers",
-                "0",
-                "--expert-weights",
-                "resident"
-              ],
-              "label": "candidate-resident",
-              "metric": {
-                "decode_tokens_per_second": 97.4403112321493,
-                "generated_tokens": 49,
-                "gpu_memory_bytes": 0,
-                "graphs_reused": 47,
-                "load_seconds": 0.188191487,
-                "peak_rss_kib": 890312,
-                "prompt_tokens": 5,
-                "prompt_tokens_per_second": 368.1080058337757,
-                "provider_allocations": 0,
-                "provider_bind_calls": 84,
-                "provider_callbacks": 0,
-                "provider_handles_acquired": 343,
-                "provider_handles_released": 343,
-                "provider_objects": 1,
-                "provider_prepare_calls": 49,
-                "provider_synchronizations": 0,
-                "provider_tensor_copies": 0,
-                "token_latency_p50_seconds": 0.010251381,
-                "token_latency_p95_seconds": 0.01027198,
-                "token_latency_p99_seconds": 0.010672613,
-                "ttft_seconds": 0.01358297
-              },
-              "provider_counter_availability": "reported",
-              "run_ordinal": 13,
-              "side": "b",
               "stderr_sha256": "a1b85a3265c0e65107cb85bb65ef6a90fcb2a210cac3d3c84c984d4218240bbc"
             },
             {
               "command": [
-                "/tmp/k3-phase3-overhead-ywf4l24j/overhead-candidate-cpu",
+                "/tmp/k3-phase3-overhead-ugmwgxku/overhead-candidate-cpu",
                 "--model",
                 "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
                 "--gpu-layers",
@@ -2051,14 +1544,14 @@
               ],
               "label": "candidate-resident",
               "metric": {
-                "decode_tokens_per_second": 97.39405289268919,
+                "decode_tokens_per_second": 97.30289293683835,
                 "generated_tokens": 49,
                 "gpu_memory_bytes": 0,
                 "graphs_reused": 47,
-                "load_seconds": 0.189188884,
-                "peak_rss_kib": 890364,
+                "load_seconds": 0.18848349,
+                "peak_rss_kib": 890384,
                 "prompt_tokens": 5,
-                "prompt_tokens_per_second": 377.41864967457457,
+                "prompt_tokens_per_second": 380.54464005538296,
                 "provider_allocations": 0,
                 "provider_bind_calls": 84,
                 "provider_callbacks": 0,
@@ -2068,254 +1561,19 @@
                 "provider_prepare_calls": 49,
                 "provider_synchronizations": 0,
                 "provider_tensor_copies": 0,
-                "token_latency_p50_seconds": 0.010257426,
-                "token_latency_p95_seconds": 0.010273352,
-                "token_latency_p99_seconds": 0.010708756,
-                "ttft_seconds": 0.013247888
+                "token_latency_p50_seconds": 0.010260703,
+                "token_latency_p95_seconds": 0.010338024,
+                "token_latency_p99_seconds": 0.01066163,
+                "ttft_seconds": 0.013139063
               },
               "provider_counter_availability": "reported",
-              "run_ordinal": 14,
-              "side": "b",
-              "stderr_sha256": "a076380e4d644ca5ccbf880625088576d4549c3cf915cd2f630992998ed474dc"
-            },
-            {
-              "command": [
-                "/tmp/k3-phase3-overhead-ywf4l24j/overhead-candidate-cpu",
-                "--model",
-                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
-                "--gpu-layers",
-                "0",
-                "--expert-weights",
-                "disabled"
-              ],
-              "label": "candidate-disabled",
-              "metric": {
-                "decode_tokens_per_second": 96.8451175625782,
-                "generated_tokens": 49,
-                "gpu_memory_bytes": 0,
-                "graphs_reused": 47,
-                "load_seconds": 0.188893751,
-                "peak_rss_kib": 890448,
-                "prompt_tokens": 5,
-                "prompt_tokens_per_second": 363.7882022176383,
-                "provider_allocations": 0,
-                "provider_bind_calls": 0,
-                "provider_callbacks": 0,
-                "provider_handles_acquired": 0,
-                "provider_handles_released": 0,
-                "provider_objects": 0,
-                "provider_prepare_calls": 0,
-                "provider_synchronizations": 0,
-                "provider_tensor_copies": 0,
-                "token_latency_p50_seconds": 0.010267416,
-                "token_latency_p95_seconds": 0.010735349,
-                "token_latency_p99_seconds": 0.010789815,
-                "ttft_seconds": 0.013744261
-              },
-              "provider_counter_availability": "reported",
-              "run_ordinal": 15,
-              "side": "a",
-              "stderr_sha256": "e20e2880194137fbcbca13d67dd6f481326ff2f1d714604fdb5f56abb05419b7"
-            },
-            {
-              "command": [
-                "/tmp/k3-phase3-overhead-ywf4l24j/overhead-candidate-cpu",
-                "--model",
-                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
-                "--gpu-layers",
-                "0",
-                "--expert-weights",
-                "disabled"
-              ],
-              "label": "candidate-disabled",
-              "metric": {
-                "decode_tokens_per_second": 97.37539394229947,
-                "generated_tokens": 49,
-                "gpu_memory_bytes": 0,
-                "graphs_reused": 47,
-                "load_seconds": 0.188571177,
-                "peak_rss_kib": 890004,
-                "prompt_tokens": 5,
-                "prompt_tokens_per_second": 376.01638168009083,
-                "provider_allocations": 0,
-                "provider_bind_calls": 0,
-                "provider_callbacks": 0,
-                "provider_handles_acquired": 0,
-                "provider_handles_released": 0,
-                "provider_objects": 0,
-                "provider_prepare_calls": 0,
-                "provider_synchronizations": 0,
-                "provider_tensor_copies": 0,
-                "token_latency_p50_seconds": 0.010257766,
-                "token_latency_p95_seconds": 0.010291338,
-                "token_latency_p99_seconds": 0.010651833,
-                "ttft_seconds": 0.013297293
-              },
-              "provider_counter_availability": "reported",
-              "run_ordinal": 16,
-              "side": "a",
-              "stderr_sha256": "b69ec44f70dc039195994397d4124dc3ec41c023e3c922faf8b835a908efc9f2"
-            },
-            {
-              "command": [
-                "/tmp/k3-phase3-overhead-ywf4l24j/overhead-candidate-cpu",
-                "--model",
-                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
-                "--gpu-layers",
-                "0",
-                "--expert-weights",
-                "resident"
-              ],
-              "label": "candidate-resident",
-              "metric": {
-                "decode_tokens_per_second": 97.31857620125109,
-                "generated_tokens": 49,
-                "gpu_memory_bytes": 0,
-                "graphs_reused": 47,
-                "load_seconds": 0.187774566,
-                "peak_rss_kib": 890132,
-                "prompt_tokens": 5,
-                "prompt_tokens_per_second": 372.29006339950865,
-                "provider_allocations": 0,
-                "provider_bind_calls": 84,
-                "provider_callbacks": 0,
-                "provider_handles_acquired": 343,
-                "provider_handles_released": 343,
-                "provider_objects": 1,
-                "provider_prepare_calls": 49,
-                "provider_synchronizations": 0,
-                "provider_tensor_copies": 0,
-                "token_latency_p50_seconds": 0.010266043,
-                "token_latency_p95_seconds": 0.010296843,
-                "token_latency_p99_seconds": 0.010664525,
-                "ttft_seconds": 0.013430388
-              },
-              "provider_counter_availability": "reported",
-              "run_ordinal": 17,
-              "side": "b",
-              "stderr_sha256": "709c100782437dd3feabb62a30132084729a2f6610ee13adbf228659c390752b"
-            },
-            {
-              "command": [
-                "/tmp/k3-phase3-overhead-ywf4l24j/overhead-candidate-cpu",
-                "--model",
-                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
-                "--gpu-layers",
-                "0",
-                "--expert-weights",
-                "resident"
-              ],
-              "label": "candidate-resident",
-              "metric": {
-                "decode_tokens_per_second": 97.40606195911936,
-                "generated_tokens": 49,
-                "gpu_memory_bytes": 0,
-                "graphs_reused": 47,
-                "load_seconds": 0.189251214,
-                "peak_rss_kib": 890180,
-                "prompt_tokens": 5,
-                "prompt_tokens_per_second": 370.9846660166026,
-                "provider_allocations": 0,
-                "provider_bind_calls": 84,
-                "provider_callbacks": 0,
-                "provider_handles_acquired": 343,
-                "provider_handles_released": 343,
-                "provider_objects": 1,
-                "provider_prepare_calls": 49,
-                "provider_synchronizations": 0,
-                "provider_tensor_copies": 0,
-                "token_latency_p50_seconds": 0.010248593,
-                "token_latency_p95_seconds": 0.010275105,
-                "token_latency_p99_seconds": 0.010670994,
-                "ttft_seconds": 0.013477646
-              },
-              "provider_counter_availability": "reported",
-              "run_ordinal": 18,
+              "run_ordinal": 1,
               "side": "b",
               "stderr_sha256": "ec6b01cc264b5245d77ea45bbe807a6105964edd0adede6a4e74f3d20b8f24e7"
             },
             {
               "command": [
-                "/tmp/k3-phase3-overhead-ywf4l24j/overhead-candidate-cpu",
-                "--model",
-                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
-                "--gpu-layers",
-                "0",
-                "--expert-weights",
-                "disabled"
-              ],
-              "label": "candidate-disabled",
-              "metric": {
-                "decode_tokens_per_second": 97.4145605352862,
-                "generated_tokens": 49,
-                "gpu_memory_bytes": 0,
-                "graphs_reused": 47,
-                "load_seconds": 0.18809738,
-                "peak_rss_kib": 890416,
-                "prompt_tokens": 5,
-                "prompt_tokens_per_second": 357.6512839895686,
-                "provider_allocations": 0,
-                "provider_bind_calls": 0,
-                "provider_callbacks": 0,
-                "provider_handles_acquired": 0,
-                "provider_handles_released": 0,
-                "provider_objects": 0,
-                "provider_prepare_calls": 0,
-                "provider_synchronizations": 0,
-                "provider_tensor_copies": 0,
-                "token_latency_p50_seconds": 0.010253975,
-                "token_latency_p95_seconds": 0.010289319,
-                "token_latency_p99_seconds": 0.010652053,
-                "ttft_seconds": 0.013980098
-              },
-              "provider_counter_availability": "reported",
-              "run_ordinal": 19,
-              "side": "a",
-              "stderr_sha256": "8d5bceca21e309b7e0945f9fc969fb4fcbe93e443b862c4459959962186684e0"
-            }
-          ],
-          "warmups": [
-            {
-              "command": [
-                "/tmp/k3-phase3-overhead-ywf4l24j/overhead-candidate-cpu",
-                "--model",
-                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
-                "--gpu-layers",
-                "0",
-                "--expert-weights",
-                "disabled"
-              ],
-              "label": "candidate-disabled",
-              "metric": {
-                "decode_tokens_per_second": 97.2802775211757,
-                "generated_tokens": 49,
-                "gpu_memory_bytes": 0,
-                "graphs_reused": 47,
-                "load_seconds": 0.188636435,
-                "peak_rss_kib": 890096,
-                "prompt_tokens": 5,
-                "prompt_tokens_per_second": 377.095662004633,
-                "provider_allocations": 0,
-                "provider_bind_calls": 0,
-                "provider_callbacks": 0,
-                "provider_handles_acquired": 0,
-                "provider_handles_released": 0,
-                "provider_objects": 0,
-                "provider_prepare_calls": 0,
-                "provider_synchronizations": 0,
-                "provider_tensor_copies": 0,
-                "token_latency_p50_seconds": 0.010259692,
-                "token_latency_p95_seconds": 0.010326459,
-                "token_latency_p99_seconds": 0.010930765,
-                "ttft_seconds": 0.013259235
-              },
-              "provider_counter_availability": "reported",
-              "side": "a",
-              "stderr_sha256": "3501b0f27837130528a61f8df3dc34bd9d276817d592167a1f7172959d37f23d"
-            },
-            {
-              "command": [
-                "/tmp/k3-phase3-overhead-ywf4l24j/overhead-candidate-cpu",
+                "/tmp/k3-phase3-overhead-ugmwgxku/overhead-candidate-cpu",
                 "--model",
                 "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
                 "--gpu-layers",
@@ -2325,14 +1583,14 @@
               ],
               "label": "candidate-resident",
               "metric": {
-                "decode_tokens_per_second": 97.38226253177037,
+                "decode_tokens_per_second": 97.44430823309112,
                 "generated_tokens": 49,
                 "gpu_memory_bytes": 0,
                 "graphs_reused": 47,
-                "load_seconds": 0.189062904,
-                "peak_rss_kib": 890512,
+                "load_seconds": 0.187947205,
+                "peak_rss_kib": 890176,
                 "prompt_tokens": 5,
-                "prompt_tokens_per_second": 369.5448072709271,
+                "prompt_tokens_per_second": 373.6688700425258,
                 "provider_allocations": 0,
                 "provider_bind_calls": 84,
                 "provider_callbacks": 0,
@@ -2342,14 +1600,756 @@
                 "provider_prepare_calls": 49,
                 "provider_synchronizations": 0,
                 "provider_tensor_copies": 0,
-                "token_latency_p50_seconds": 0.010259509,
-                "token_latency_p95_seconds": 0.010303039,
-                "token_latency_p99_seconds": 0.010734684,
-                "ttft_seconds": 0.013530159
+                "token_latency_p50_seconds": 0.010252126,
+                "token_latency_p95_seconds": 0.01027618,
+                "token_latency_p99_seconds": 0.010652298,
+                "ttft_seconds": 0.013380831
+              },
+              "provider_counter_availability": "reported",
+              "run_ordinal": 2,
+              "side": "b",
+              "stderr_sha256": "a003e62cbf1cae17beafa10365d62188d9be5d3020d86b64427d4247ca3766b1"
+            },
+            {
+              "command": [
+                "/tmp/k3-phase3-overhead-ugmwgxku/overhead-candidate-cpu",
+                "--model",
+                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+                "--gpu-layers",
+                "0",
+                "--expert-weights",
+                "disabled"
+              ],
+              "label": "candidate-disabled",
+              "metric": {
+                "decode_tokens_per_second": 97.3110695094125,
+                "generated_tokens": 49,
+                "gpu_memory_bytes": 0,
+                "graphs_reused": 47,
+                "load_seconds": 0.188070969,
+                "peak_rss_kib": 890228,
+                "prompt_tokens": 5,
+                "prompt_tokens_per_second": 377.200464922205,
+                "provider_allocations": 0,
+                "provider_bind_calls": 0,
+                "provider_callbacks": 0,
+                "provider_handles_acquired": 0,
+                "provider_handles_released": 0,
+                "provider_objects": 0,
+                "provider_prepare_calls": 0,
+                "provider_synchronizations": 0,
+                "provider_tensor_copies": 0,
+                "token_latency_p50_seconds": 0.010258298,
+                "token_latency_p95_seconds": 0.01034093,
+                "token_latency_p99_seconds": 0.01067101,
+                "ttft_seconds": 0.013255551
+              },
+              "provider_counter_availability": "reported",
+              "run_ordinal": 3,
+              "side": "a",
+              "stderr_sha256": "9aedce1c7adc76fcd369dfef8971dece5d459f6894f555cfe33019282b2d4b15"
+            },
+            {
+              "command": [
+                "/tmp/k3-phase3-overhead-ugmwgxku/overhead-candidate-cpu",
+                "--model",
+                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+                "--gpu-layers",
+                "0",
+                "--expert-weights",
+                "disabled"
+              ],
+              "label": "candidate-disabled",
+              "metric": {
+                "decode_tokens_per_second": 97.46384357905914,
+                "generated_tokens": 49,
+                "gpu_memory_bytes": 0,
+                "graphs_reused": 47,
+                "load_seconds": 0.190325352,
+                "peak_rss_kib": 890416,
+                "prompt_tokens": 5,
+                "prompt_tokens_per_second": 377.7675058595518,
+                "provider_allocations": 0,
+                "provider_bind_calls": 0,
+                "provider_callbacks": 0,
+                "provider_handles_acquired": 0,
+                "provider_handles_released": 0,
+                "provider_objects": 0,
+                "provider_prepare_calls": 0,
+                "provider_synchronizations": 0,
+                "provider_tensor_copies": 0,
+                "token_latency_p50_seconds": 0.010251236,
+                "token_latency_p95_seconds": 0.010267027,
+                "token_latency_p99_seconds": 0.010654258,
+                "ttft_seconds": 0.013235654
+              },
+              "provider_counter_availability": "reported",
+              "run_ordinal": 4,
+              "side": "a",
+              "stderr_sha256": "4a4ace0d129d6f55b8231cfa14a9014e707c840b3fe76e61f8b6824ae507be90"
+            },
+            {
+              "command": [
+                "/tmp/k3-phase3-overhead-ugmwgxku/overhead-candidate-cpu",
+                "--model",
+                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+                "--gpu-layers",
+                "0",
+                "--expert-weights",
+                "resident"
+              ],
+              "label": "candidate-resident",
+              "metric": {
+                "decode_tokens_per_second": 97.44998581991045,
+                "generated_tokens": 49,
+                "gpu_memory_bytes": 0,
+                "graphs_reused": 47,
+                "load_seconds": 0.187869306,
+                "peak_rss_kib": 890104,
+                "prompt_tokens": 5,
+                "prompt_tokens_per_second": 350.5137901238393,
+                "provider_allocations": 0,
+                "provider_bind_calls": 84,
+                "provider_callbacks": 0,
+                "provider_handles_acquired": 343,
+                "provider_handles_released": 343,
+                "provider_objects": 1,
+                "provider_prepare_calls": 49,
+                "provider_synchronizations": 0,
+                "provider_tensor_copies": 0,
+                "token_latency_p50_seconds": 0.010253642,
+                "token_latency_p95_seconds": 0.01027424,
+                "token_latency_p99_seconds": 0.0106735,
+                "ttft_seconds": 0.014264774
+              },
+              "provider_counter_availability": "reported",
+              "run_ordinal": 5,
+              "side": "b",
+              "stderr_sha256": "38ed2ae43ed4fa265b6e32c367d4b52dc04d2718e45816de031fdeef3c5831d5"
+            },
+            {
+              "command": [
+                "/tmp/k3-phase3-overhead-ugmwgxku/overhead-candidate-cpu",
+                "--model",
+                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+                "--gpu-layers",
+                "0",
+                "--expert-weights",
+                "resident"
+              ],
+              "label": "candidate-resident",
+              "metric": {
+                "decode_tokens_per_second": 97.38419301532448,
+                "generated_tokens": 49,
+                "gpu_memory_bytes": 0,
+                "graphs_reused": 47,
+                "load_seconds": 0.187697391,
+                "peak_rss_kib": 890260,
+                "prompt_tokens": 5,
+                "prompt_tokens_per_second": 366.24310895278353,
+                "provider_allocations": 0,
+                "provider_bind_calls": 84,
+                "provider_callbacks": 0,
+                "provider_handles_acquired": 343,
+                "provider_handles_released": 343,
+                "provider_objects": 1,
+                "provider_prepare_calls": 49,
+                "provider_synchronizations": 0,
+                "provider_tensor_copies": 0,
+                "token_latency_p50_seconds": 0.010259667,
+                "token_latency_p95_seconds": 0.010279838,
+                "token_latency_p99_seconds": 0.010670433,
+                "ttft_seconds": 0.013652134
+              },
+              "provider_counter_availability": "reported",
+              "run_ordinal": 6,
+              "side": "b",
+              "stderr_sha256": "865948789aa82e44fede24da6d6a4d4a610af294d4de715dffe3ff0320112c18"
+            },
+            {
+              "command": [
+                "/tmp/k3-phase3-overhead-ugmwgxku/overhead-candidate-cpu",
+                "--model",
+                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+                "--gpu-layers",
+                "0",
+                "--expert-weights",
+                "disabled"
+              ],
+              "label": "candidate-disabled",
+              "metric": {
+                "decode_tokens_per_second": 97.52914859759707,
+                "generated_tokens": 49,
+                "gpu_memory_bytes": 0,
+                "graphs_reused": 47,
+                "load_seconds": 0.187966635,
+                "peak_rss_kib": 890228,
+                "prompt_tokens": 5,
+                "prompt_tokens_per_second": 370.67182266229696,
+                "provider_allocations": 0,
+                "provider_bind_calls": 0,
+                "provider_callbacks": 0,
+                "provider_handles_acquired": 0,
+                "provider_handles_released": 0,
+                "provider_objects": 0,
+                "provider_prepare_calls": 0,
+                "provider_synchronizations": 0,
+                "provider_tensor_copies": 0,
+                "token_latency_p50_seconds": 0.010244433,
+                "token_latency_p95_seconds": 0.01025964,
+                "token_latency_p99_seconds": 0.01063846,
+                "ttft_seconds": 0.013489021
+              },
+              "provider_counter_availability": "reported",
+              "run_ordinal": 7,
+              "side": "a",
+              "stderr_sha256": "eb3a5f170a4890700fbe50ab24aa543fe1f60dbefafb03075952deba583c68b5"
+            },
+            {
+              "command": [
+                "/tmp/k3-phase3-overhead-ugmwgxku/overhead-candidate-cpu",
+                "--model",
+                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+                "--gpu-layers",
+                "0",
+                "--expert-weights",
+                "disabled"
+              ],
+              "label": "candidate-disabled",
+              "metric": {
+                "decode_tokens_per_second": 97.47322454689252,
+                "generated_tokens": 49,
+                "gpu_memory_bytes": 0,
+                "graphs_reused": 47,
+                "load_seconds": 0.188705814,
+                "peak_rss_kib": 890264,
+                "prompt_tokens": 5,
+                "prompt_tokens_per_second": 371.345578874655,
+                "provider_allocations": 0,
+                "provider_bind_calls": 0,
+                "provider_callbacks": 0,
+                "provider_handles_acquired": 0,
+                "provider_handles_released": 0,
+                "provider_objects": 0,
+                "provider_prepare_calls": 0,
+                "provider_synchronizations": 0,
+                "provider_tensor_copies": 0,
+                "token_latency_p50_seconds": 0.010248913,
+                "token_latency_p95_seconds": 0.010265591,
+                "token_latency_p99_seconds": 0.010667384,
+                "ttft_seconds": 0.013464547
+              },
+              "provider_counter_availability": "reported",
+              "run_ordinal": 8,
+              "side": "a",
+              "stderr_sha256": "5313bbb1be5a32d7a73957f2ceacedfc8c444aa4588b9b2126901419c611c18e"
+            },
+            {
+              "command": [
+                "/tmp/k3-phase3-overhead-ugmwgxku/overhead-candidate-cpu",
+                "--model",
+                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+                "--gpu-layers",
+                "0",
+                "--expert-weights",
+                "resident"
+              ],
+              "label": "candidate-resident",
+              "metric": {
+                "decode_tokens_per_second": 97.4229344401618,
+                "generated_tokens": 49,
+                "gpu_memory_bytes": 0,
+                "graphs_reused": 47,
+                "load_seconds": 0.188234486,
+                "peak_rss_kib": 890420,
+                "prompt_tokens": 5,
+                "prompt_tokens_per_second": 378.0591125667227,
+                "provider_allocations": 0,
+                "provider_bind_calls": 84,
+                "provider_callbacks": 0,
+                "provider_handles_acquired": 343,
+                "provider_handles_released": 343,
+                "provider_objects": 1,
+                "provider_prepare_calls": 49,
+                "provider_synchronizations": 0,
+                "provider_tensor_copies": 0,
+                "token_latency_p50_seconds": 0.010248886,
+                "token_latency_p95_seconds": 0.010282122,
+                "token_latency_p99_seconds": 0.010801969,
+                "ttft_seconds": 0.013225445
+              },
+              "provider_counter_availability": "reported",
+              "run_ordinal": 9,
+              "side": "b",
+              "stderr_sha256": "9aedce1c7adc76fcd369dfef8971dece5d459f6894f555cfe33019282b2d4b15"
+            },
+            {
+              "command": [
+                "/tmp/k3-phase3-overhead-ugmwgxku/overhead-candidate-cpu",
+                "--model",
+                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+                "--gpu-layers",
+                "0",
+                "--expert-weights",
+                "resident"
+              ],
+              "label": "candidate-resident",
+              "metric": {
+                "decode_tokens_per_second": 97.44526411205055,
+                "generated_tokens": 49,
+                "gpu_memory_bytes": 0,
+                "graphs_reused": 47,
+                "load_seconds": 0.188300009,
+                "peak_rss_kib": 890348,
+                "prompt_tokens": 5,
+                "prompt_tokens_per_second": 362.57235221931626,
+                "provider_allocations": 0,
+                "provider_bind_calls": 84,
+                "provider_callbacks": 0,
+                "provider_handles_acquired": 343,
+                "provider_handles_released": 343,
+                "provider_objects": 1,
+                "provider_prepare_calls": 49,
+                "provider_synchronizations": 0,
+                "provider_tensor_copies": 0,
+                "token_latency_p50_seconds": 0.010252686,
+                "token_latency_p95_seconds": 0.010272375,
+                "token_latency_p99_seconds": 0.010645255,
+                "ttft_seconds": 0.013790351
+              },
+              "provider_counter_availability": "reported",
+              "run_ordinal": 10,
+              "side": "b",
+              "stderr_sha256": "2051778dbd98ea1a725bd99dd8664f50a99d262c737572bdb506ae09720976be"
+            },
+            {
+              "command": [
+                "/tmp/k3-phase3-overhead-ugmwgxku/overhead-candidate-cpu",
+                "--model",
+                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+                "--gpu-layers",
+                "0",
+                "--expert-weights",
+                "disabled"
+              ],
+              "label": "candidate-disabled",
+              "metric": {
+                "decode_tokens_per_second": 97.49878505849888,
+                "generated_tokens": 49,
+                "gpu_memory_bytes": 0,
+                "graphs_reused": 47,
+                "load_seconds": 0.189040662,
+                "peak_rss_kib": 890080,
+                "prompt_tokens": 5,
+                "prompt_tokens_per_second": 367.9867159739427,
+                "provider_allocations": 0,
+                "provider_bind_calls": 0,
+                "provider_callbacks": 0,
+                "provider_handles_acquired": 0,
+                "provider_handles_released": 0,
+                "provider_objects": 0,
+                "provider_prepare_calls": 0,
+                "provider_synchronizations": 0,
+                "provider_tensor_copies": 0,
+                "token_latency_p50_seconds": 0.010245021,
+                "token_latency_p95_seconds": 0.010277699,
+                "token_latency_p99_seconds": 0.01065359,
+                "ttft_seconds": 0.013587447
+              },
+              "provider_counter_availability": "reported",
+              "run_ordinal": 11,
+              "side": "a",
+              "stderr_sha256": "e5952f53298f3e6e43c3ab50418d6f015e310f2cf4ae510f3a264ff10c2d5e94"
+            },
+            {
+              "command": [
+                "/tmp/k3-phase3-overhead-ugmwgxku/overhead-candidate-cpu",
+                "--model",
+                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+                "--gpu-layers",
+                "0",
+                "--expert-weights",
+                "disabled"
+              ],
+              "label": "candidate-disabled",
+              "metric": {
+                "decode_tokens_per_second": 97.46684502314156,
+                "generated_tokens": 49,
+                "gpu_memory_bytes": 0,
+                "graphs_reused": 47,
+                "load_seconds": 0.187780708,
+                "peak_rss_kib": 890432,
+                "prompt_tokens": 5,
+                "prompt_tokens_per_second": 363.2019213091076,
+                "provider_allocations": 0,
+                "provider_bind_calls": 0,
+                "provider_callbacks": 0,
+                "provider_handles_acquired": 0,
+                "provider_handles_released": 0,
+                "provider_objects": 0,
+                "provider_prepare_calls": 0,
+                "provider_synchronizations": 0,
+                "provider_tensor_copies": 0,
+                "token_latency_p50_seconds": 0.010250805,
+                "token_latency_p95_seconds": 0.010281997,
+                "token_latency_p99_seconds": 0.010636344,
+                "ttft_seconds": 0.013766447
+              },
+              "provider_counter_availability": "reported",
+              "run_ordinal": 12,
+              "side": "a",
+              "stderr_sha256": "f53d994e117cc768f5ec4c2368fdeec248f5c615c71f360559b825fc321a2f73"
+            },
+            {
+              "command": [
+                "/tmp/k3-phase3-overhead-ugmwgxku/overhead-candidate-cpu",
+                "--model",
+                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+                "--gpu-layers",
+                "0",
+                "--expert-weights",
+                "resident"
+              ],
+              "label": "candidate-resident",
+              "metric": {
+                "decode_tokens_per_second": 97.4449804324389,
+                "generated_tokens": 49,
+                "gpu_memory_bytes": 0,
+                "graphs_reused": 47,
+                "load_seconds": 0.189610589,
+                "peak_rss_kib": 890276,
+                "prompt_tokens": 5,
+                "prompt_tokens_per_second": 334.732380792092,
+                "provider_allocations": 0,
+                "provider_bind_calls": 84,
+                "provider_callbacks": 0,
+                "provider_handles_acquired": 343,
+                "provider_handles_released": 343,
+                "provider_objects": 1,
+                "provider_prepare_calls": 49,
+                "provider_synchronizations": 0,
+                "provider_tensor_copies": 0,
+                "token_latency_p50_seconds": 0.010250966,
+                "token_latency_p95_seconds": 0.010276585,
+                "token_latency_p99_seconds": 0.010695024,
+                "ttft_seconds": 0.014937306
+              },
+              "provider_counter_availability": "reported",
+              "run_ordinal": 13,
+              "side": "b",
+              "stderr_sha256": "8d5bceca21e309b7e0945f9fc969fb4fcbe93e443b862c4459959962186684e0"
+            },
+            {
+              "command": [
+                "/tmp/k3-phase3-overhead-ugmwgxku/overhead-candidate-cpu",
+                "--model",
+                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+                "--gpu-layers",
+                "0",
+                "--expert-weights",
+                "resident"
+              ],
+              "label": "candidate-resident",
+              "metric": {
+                "decode_tokens_per_second": 97.3881016342472,
+                "generated_tokens": 49,
+                "gpu_memory_bytes": 0,
+                "graphs_reused": 47,
+                "load_seconds": 0.1881024,
+                "peak_rss_kib": 890148,
+                "prompt_tokens": 5,
+                "prompt_tokens_per_second": 371.72858400999087,
+                "provider_allocations": 0,
+                "provider_bind_calls": 84,
+                "provider_callbacks": 0,
+                "provider_handles_acquired": 343,
+                "provider_handles_released": 343,
+                "provider_objects": 1,
+                "provider_prepare_calls": 49,
+                "provider_synchronizations": 0,
+                "provider_tensor_copies": 0,
+                "token_latency_p50_seconds": 0.010253958,
+                "token_latency_p95_seconds": 0.010322683,
+                "token_latency_p99_seconds": 0.010645529,
+                "ttft_seconds": 0.013450674
+              },
+              "provider_counter_availability": "reported",
+              "run_ordinal": 14,
+              "side": "b",
+              "stderr_sha256": "2051778dbd98ea1a725bd99dd8664f50a99d262c737572bdb506ae09720976be"
+            },
+            {
+              "command": [
+                "/tmp/k3-phase3-overhead-ugmwgxku/overhead-candidate-cpu",
+                "--model",
+                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+                "--gpu-layers",
+                "0",
+                "--expert-weights",
+                "disabled"
+              ],
+              "label": "candidate-disabled",
+              "metric": {
+                "decode_tokens_per_second": 97.46633480814585,
+                "generated_tokens": 49,
+                "gpu_memory_bytes": 0,
+                "graphs_reused": 47,
+                "load_seconds": 0.19029804,
+                "peak_rss_kib": 890044,
+                "prompt_tokens": 5,
+                "prompt_tokens_per_second": 373.7112381098164,
+                "provider_allocations": 0,
+                "provider_bind_calls": 0,
+                "provider_callbacks": 0,
+                "provider_handles_acquired": 0,
+                "provider_handles_released": 0,
+                "provider_objects": 0,
+                "provider_prepare_calls": 0,
+                "provider_synchronizations": 0,
+                "provider_tensor_copies": 0,
+                "token_latency_p50_seconds": 0.010248581,
+                "token_latency_p95_seconds": 0.010279107,
+                "token_latency_p99_seconds": 0.010669765,
+                "ttft_seconds": 0.013379314
+              },
+              "provider_counter_availability": "reported",
+              "run_ordinal": 15,
+              "side": "a",
+              "stderr_sha256": "7adb3679ad80aba5182ad5f0d3d43e46dfbfc58ccd2577dd8f507ac54e976b28"
+            },
+            {
+              "command": [
+                "/tmp/k3-phase3-overhead-ugmwgxku/overhead-candidate-cpu",
+                "--model",
+                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+                "--gpu-layers",
+                "0",
+                "--expert-weights",
+                "disabled"
+              ],
+              "label": "candidate-disabled",
+              "metric": {
+                "decode_tokens_per_second": 97.41662634565442,
+                "generated_tokens": 49,
+                "gpu_memory_bytes": 0,
+                "graphs_reused": 47,
+                "load_seconds": 0.188080349,
+                "peak_rss_kib": 890404,
+                "prompt_tokens": 5,
+                "prompt_tokens_per_second": 371.1809195190683,
+                "provider_allocations": 0,
+                "provider_bind_calls": 0,
+                "provider_callbacks": 0,
+                "provider_handles_acquired": 0,
+                "provider_handles_released": 0,
+                "provider_objects": 0,
+                "provider_prepare_calls": 0,
+                "provider_synchronizations": 0,
+                "provider_tensor_copies": 0,
+                "token_latency_p50_seconds": 0.010247927,
+                "token_latency_p95_seconds": 0.010268281,
+                "token_latency_p99_seconds": 0.010897645,
+                "ttft_seconds": 0.01347052
+              },
+              "provider_counter_availability": "reported",
+              "run_ordinal": 16,
+              "side": "a",
+              "stderr_sha256": "a1b85a3265c0e65107cb85bb65ef6a90fcb2a210cac3d3c84c984d4218240bbc"
+            },
+            {
+              "command": [
+                "/tmp/k3-phase3-overhead-ugmwgxku/overhead-candidate-cpu",
+                "--model",
+                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+                "--gpu-layers",
+                "0",
+                "--expert-weights",
+                "resident"
+              ],
+              "label": "candidate-resident",
+              "metric": {
+                "decode_tokens_per_second": 97.31492707989774,
+                "generated_tokens": 49,
+                "gpu_memory_bytes": 0,
+                "graphs_reused": 47,
+                "load_seconds": 0.189181937,
+                "peak_rss_kib": 890128,
+                "prompt_tokens": 5,
+                "prompt_tokens_per_second": 356.8328713299204,
+                "provider_allocations": 0,
+                "provider_bind_calls": 84,
+                "provider_callbacks": 0,
+                "provider_handles_acquired": 343,
+                "provider_handles_released": 343,
+                "provider_objects": 1,
+                "provider_prepare_calls": 49,
+                "provider_synchronizations": 0,
+                "provider_tensor_copies": 0,
+                "token_latency_p50_seconds": 0.010262611,
+                "token_latency_p95_seconds": 0.010301278,
+                "token_latency_p99_seconds": 0.010748053,
+                "ttft_seconds": 0.014012162
+              },
+              "provider_counter_availability": "reported",
+              "run_ordinal": 17,
+              "side": "b",
+              "stderr_sha256": "2468a42c4f4fe8257676b3520d08a544bdd92190ed2b060e5d086030907c74ef"
+            },
+            {
+              "command": [
+                "/tmp/k3-phase3-overhead-ugmwgxku/overhead-candidate-cpu",
+                "--model",
+                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+                "--gpu-layers",
+                "0",
+                "--expert-weights",
+                "resident"
+              ],
+              "label": "candidate-resident",
+              "metric": {
+                "decode_tokens_per_second": 97.29914460044874,
+                "generated_tokens": 49,
+                "gpu_memory_bytes": 0,
+                "graphs_reused": 47,
+                "load_seconds": 0.190594415,
+                "peak_rss_kib": 890164,
+                "prompt_tokens": 5,
+                "prompt_tokens_per_second": 363.9919374329891,
+                "provider_allocations": 0,
+                "provider_bind_calls": 84,
+                "provider_callbacks": 0,
+                "provider_handles_acquired": 343,
+                "provider_handles_released": 343,
+                "provider_objects": 1,
+                "provider_prepare_calls": 49,
+                "provider_synchronizations": 0,
+                "provider_tensor_copies": 0,
+                "token_latency_p50_seconds": 0.010255504,
+                "token_latency_p95_seconds": 0.01037802,
+                "token_latency_p99_seconds": 0.010909974,
+                "ttft_seconds": 0.013736568
+              },
+              "provider_counter_availability": "reported",
+              "run_ordinal": 18,
+              "side": "b",
+              "stderr_sha256": "f5d0727920cea7ce33771f6e7ac45ddd8560e3dc4542ff112073d08eaaf652c1"
+            },
+            {
+              "command": [
+                "/tmp/k3-phase3-overhead-ugmwgxku/overhead-candidate-cpu",
+                "--model",
+                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+                "--gpu-layers",
+                "0",
+                "--expert-weights",
+                "disabled"
+              ],
+              "label": "candidate-disabled",
+              "metric": {
+                "decode_tokens_per_second": 96.42026546837275,
+                "generated_tokens": 49,
+                "gpu_memory_bytes": 0,
+                "graphs_reused": 47,
+                "load_seconds": 0.190285835,
+                "peak_rss_kib": 890168,
+                "prompt_tokens": 5,
+                "prompt_tokens_per_second": 382.0787928999979,
+                "provider_allocations": 0,
+                "provider_bind_calls": 0,
+                "provider_callbacks": 0,
+                "provider_handles_acquired": 0,
+                "provider_handles_released": 0,
+                "provider_objects": 0,
+                "provider_prepare_calls": 0,
+                "provider_synchronizations": 0,
+                "provider_tensor_copies": 0,
+                "token_latency_p50_seconds": 0.010253934,
+                "token_latency_p95_seconds": 0.010757416,
+                "token_latency_p99_seconds": 0.010895973,
+                "ttft_seconds": 0.013086306
+              },
+              "provider_counter_availability": "reported",
+              "run_ordinal": 19,
+              "side": "a",
+              "stderr_sha256": "c7f9ac70dde29eea90d072ea4dca11876440da1a1262012b534615df9be74466"
+            }
+          ],
+          "warmups": [
+            {
+              "command": [
+                "/tmp/k3-phase3-overhead-ugmwgxku/overhead-candidate-cpu",
+                "--model",
+                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+                "--gpu-layers",
+                "0",
+                "--expert-weights",
+                "disabled"
+              ],
+              "label": "candidate-disabled",
+              "metric": {
+                "decode_tokens_per_second": 97.42527012921977,
+                "generated_tokens": 49,
+                "gpu_memory_bytes": 0,
+                "graphs_reused": 47,
+                "load_seconds": 0.187669311,
+                "peak_rss_kib": 890168,
+                "prompt_tokens": 5,
+                "prompt_tokens_per_second": 364.6497185742867,
+                "provider_allocations": 0,
+                "provider_bind_calls": 0,
+                "provider_callbacks": 0,
+                "provider_handles_acquired": 0,
+                "provider_handles_released": 0,
+                "provider_objects": 0,
+                "provider_prepare_calls": 0,
+                "provider_synchronizations": 0,
+                "provider_tensor_copies": 0,
+                "token_latency_p50_seconds": 0.010253494,
+                "token_latency_p95_seconds": 0.010271275,
+                "token_latency_p99_seconds": 0.01069167,
+                "ttft_seconds": 0.013711789
+              },
+              "provider_counter_availability": "reported",
+              "side": "a",
+              "stderr_sha256": "94316cf1a14da15dcab66a1ba5a4882c80298c3cc56989c7fad7692aba48b1c7"
+            },
+            {
+              "command": [
+                "/tmp/k3-phase3-overhead-ugmwgxku/overhead-candidate-cpu",
+                "--model",
+                "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+                "--gpu-layers",
+                "0",
+                "--expert-weights",
+                "resident"
+              ],
+              "label": "candidate-resident",
+              "metric": {
+                "decode_tokens_per_second": 97.42440046150426,
+                "generated_tokens": 49,
+                "gpu_memory_bytes": 0,
+                "graphs_reused": 47,
+                "load_seconds": 0.187470676,
+                "peak_rss_kib": 890184,
+                "prompt_tokens": 5,
+                "prompt_tokens_per_second": 376.41007920797296,
+                "provider_allocations": 0,
+                "provider_bind_calls": 84,
+                "provider_callbacks": 0,
+                "provider_handles_acquired": 343,
+                "provider_handles_released": 343,
+                "provider_objects": 1,
+                "provider_prepare_calls": 49,
+                "provider_synchronizations": 0,
+                "provider_tensor_copies": 0,
+                "token_latency_p50_seconds": 0.010253247,
+                "token_latency_p95_seconds": 0.010274624,
+                "token_latency_p99_seconds": 0.010655469,
+                "ttft_seconds": 0.013283385
               },
               "provider_counter_availability": "reported",
               "side": "b",
-              "stderr_sha256": "f5d0727920cea7ce33771f6e7ac45ddd8560e3dc4542ff112073d08eaaf652c1"
+              "stderr_sha256": "eeff5f56b27dc6115866ad30171de06288aed3be73350f18c434fdc28a4dd04a"
             }
           ]
         }
@@ -2365,7 +2365,7 @@
         "size": 784318432,
         "source_revision": "d853649387ffe8f48ce0198a29ac1a44205031f7"
       },
-      "passed": true
+      "passed": false
     },
     {
       "artifact": "f16",
@@ -9548,73 +9548,6 @@
       "/tmp/k3-phase3-overhead-ugmwgxku/overhead-candidate-cuda"
     ]
   },
-  "composition": {
-    "attempts": [
-      {
-        "attempt": 1,
-        "overall_status": "fail",
-        "path": "results/2026-07-29/skynet/phase3-resident-provider/provider-overhead-corrected-attempt1-fail.json",
-        "sha256": "0a2110c2b6d0608c08c4d93a514b55e8b2c3d579cf893fff238123dae752958b"
-      },
-      {
-        "attempt": 2,
-        "overall_status": "fail",
-        "path": "results/2026-07-29/skynet/phase3-resident-provider/provider-overhead-corrected-attempt2-fail.json",
-        "sha256": "93e0229d852dc4248c4ca6909cd1a7043f8c49226ef213cd310d244b44c42a5d"
-      }
-    ],
-    "rule": "Each issue-declared comparison is independent; select its first passing complete ABBA capture without altering raw samples or analyses.",
-    "selections": [
-      {
-        "artifact": "f16",
-        "backend": "cpu",
-        "comparison": "baseline-vs-disabled",
-        "source_attempt": 1
-      },
-      {
-        "artifact": "f16",
-        "backend": "cpu",
-        "comparison": "disabled-vs-resident",
-        "source_attempt": 2
-      },
-      {
-        "artifact": "f16",
-        "backend": "cuda",
-        "comparison": "baseline-vs-disabled",
-        "source_attempt": 1
-      },
-      {
-        "artifact": "f16",
-        "backend": "cuda",
-        "comparison": "disabled-vs-resident",
-        "source_attempt": 1
-      },
-      {
-        "artifact": "mxfp4",
-        "backend": "cpu",
-        "comparison": "baseline-vs-disabled",
-        "source_attempt": 1
-      },
-      {
-        "artifact": "mxfp4",
-        "backend": "cpu",
-        "comparison": "disabled-vs-resident",
-        "source_attempt": 1
-      },
-      {
-        "artifact": "mxfp4",
-        "backend": "cuda",
-        "comparison": "baseline-vs-disabled",
-        "source_attempt": 1
-      },
-      {
-        "artifact": "mxfp4",
-        "backend": "cuda",
-        "comparison": "disabled-vs-resident",
-        "source_attempt": 1
-      }
-    ]
-  },
   "matching_build_configuration": {
     "cpu": {
       "BUILD_SHARED_LIBS": "ON",
@@ -9909,5 +9842,5 @@
     "llama_candidate": "523f825d2df5efa7c9a08561e2b64861ad5594c5"
   },
   "schema_version": "phase3-provider-overhead-v1",
-  "status": "pass"
+  "status": "fail"
 }
