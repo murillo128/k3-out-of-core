@@ -3,13 +3,16 @@
   "baseline": {
     "name": "kimi-k3-0.40b-phase1",
     "date": "2026-07-29",
-    "status": "cpu-smoke-validated-cuda-pending"
+    "status": "checkpoint-c-pending",
+    "execution_profile": "STANDARD",
+    "evidence_directory": "results/2026-07-29/skynet/phase1-closeout-clean"
   },
   "repositories": {
     "project": {
       "url": "https://github.com/murillo128/k3-out-of-core",
-      "branch": "main",
-      "baseline_commit": "daca2b6a566411bd97fcb42308a2a75c5d2c2055"
+      "branch": "codex/phase1-closeout-clean",
+      "execution_base": "511e87fc98cca8069fc57526fbb04b10789967eb",
+      "issue": "https://github.com/murillo128/k3-out-of-core/issues/7"
     },
     "llama_cpp_fork": {
       "url": "https://github.com/murillo128/llama.cpp",
@@ -25,11 +28,13 @@
   "source_models": {
     "f16_reference": {
       "repo_id": "inference-optimization/Kimi-K3-0.40B",
-      "url": "https://huggingface.co/inference-optimization/Kimi-K3-0.40B"
+      "url": "https://huggingface.co/inference-optimization/Kimi-K3-0.40B",
+      "revision": "d853649387ffe8f48ce0198a29ac1a44205031f7"
     },
     "mxfp4_source": {
       "repo_id": "inference-optimization/Kimi-K3-0.40B-MXFP4",
-      "url": "https://huggingface.co/inference-optimization/Kimi-K3-0.40B-MXFP4"
+      "url": "https://huggingface.co/inference-optimization/Kimi-K3-0.40B-MXFP4",
+      "revision": "ef3902c318fb8e13c3507e26055656e687fdfe38"
     }
   },
   "published_artifacts": {
@@ -63,26 +68,35 @@
       "remote_lfs_sha256_match": true
     }
   },
-  "cpu_smoke_test": {
+  "phase1_validation": {
     "host": "skynet",
     "prompt": "According to all known laws",
-    "observed_continuation": "the start.",
-    "f16": {
-      "prompt_tokens_per_second": 1371.5,
-      "generation_tokens_per_second": 130.4
+    "hardware": {
+      "cpu": "11th Gen Intel(R) Core(TM) i7-11700K @ 3.60GHz",
+      "gpu": "NVIDIA GeForce GTX 1650",
+      "gpu_memory_mib": 4096,
+      "driver": "535.288.01"
     },
-    "mxfp4": {
-      "prompt_tokens_per_second": 1439.6,
-      "generation_tokens_per_second": 133.1
+    "stable_tests": {
+      "cpu_passed": 54,
+      "cpu_total": 54,
+      "cuda_passed": 54,
+      "cuda_total": 54,
+      "external_fixture_cpu": "pass",
+      "external_fixture_cuda": "pass"
     },
-    "errors_detected": false,
-    "benchmark_quality": "smoke-test-only"
+    "tokenizer_prompt_ids": [18805, 308, 799, 5624, 12524],
+    "mxfp4_samples": 81,
+    "mxfp4_maximum_absolute_error": 0.0,
+    "cpu_cuda_generated_ids_exact": true,
+    "selected_logit_thresholds_pass": true,
+    "benchmark_measured_runs_per_combination": 5,
+    "benchmark_natural_generated_token_count": 49,
+    "benchmark_terminal_eog_id": 163585,
+    "hard_failures_detected": false,
+    "checkpoint_a": "PASS_WITH_NOTES",
+    "checkpoint_b": "PASS_WITH_NOTES",
+    "checkpoint_c": "PENDING"
   },
-  "pending_validation": [
-    "CUDA inference for F16 and MXFP4 artifacts",
-    "deterministic token ID comparison",
-    "selected logit comparison",
-    "repeated warm-run validation",
-    "memory and repeated performance measurements"
-  ]
+  "pending_validation": []
 }

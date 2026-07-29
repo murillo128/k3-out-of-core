@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "issue": "https://github.com/murillo128/k3-out-of-core/issues/7",
+  "A": {
+    "verdict": "PASS_WITH_NOTES",
+    "reviewed_range": "511e87fc98cca8069fc57526fbb04b10789967eb..4faf6fd52f80fc3d9afd1245180c91c66d43b58e",
+    "issue_comment_id": 5119102823,
+    "safety_gate": "YES",
+    "note": "Prompt parity is established for the ordinary fixed prompt; this is not a general chat-template or end-of-message parity claim."
+  },
+  "B": {
+    "verdict": "PASS_WITH_NOTES",
+    "reviewed_range": "4faf6fd52f80fc3d9afd1245180c91c66d43b58e..a11bce8a6260cf9c131a360d047aeb4d4a21d56f",
+    "issue_comment_id": 5119380662,
+    "safety_gate": "YES",
+    "note": "The validator calls no converter decoder or repacker helper; its metadata reader has a transitive helper import, so the recorded independence boolean is conservative."
+  },
+  "C": {
+    "verdict": "PENDING",
+    "reviewed_range": null,
+    "issue_comment_id": null,
+    "safety_gate": null,
+    "note": "Strict closeout remains intentionally unavailable until the independent Checkpoint C review accepts the committed Phase 6 and Phase 7 state."
+  }
+}
