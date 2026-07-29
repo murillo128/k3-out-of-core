@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "baseline": {
+    "name": "kimi-k3-0.40b-phase1",
+    "date": "2026-07-29",
+    "status": "cpu-smoke-validated-cuda-pending"
+  },
+  "repositories": {
+    "project": {
+      "url": "https://github.com/murillo128/k3-out-of-core",
+      "branch": "main",
+      "baseline_commit": "daca2b6a566411bd97fcb42308a2a75c5d2c2055"
+    },
+    "llama_cpp_fork": {
+      "url": "https://github.com/murillo128/llama.cpp",
+      "branch": "k3/out-of-core",
+      "commit": "84245db4c790af22135f34992689edcc11877003"
+    },
+    "llama_cpp_upstream": {
+      "url": "https://github.com/ggml-org/llama.cpp",
+      "pull_request": 26185,
+      "observed_pr_head": "cf67f0d24511864d2d3da0769108fd6fc16d00d1"
+    }
+  },
+  "source_models": {
+    "f16_reference": {
+      "repo_id": "inference-optimization/Kimi-K3-0.40B",
+      "url": "https://huggingface.co/inference-optimization/Kimi-K3-0.40B"
+    },
+    "mxfp4_source": {
+      "repo_id": "inference-optimization/Kimi-K3-0.40B-MXFP4",
+      "url": "https://huggingface.co/inference-optimization/Kimi-K3-0.40B-MXFP4"
+    }
+  },
+  "published_artifacts": {
+    "repo_id": "murillo2000/Kimi-K3-0.40B-GGUF",
+    "url": "https://huggingface.co/murillo2000/Kimi-K3-0.40B-GGUF",
+    "revision": "88de02cf8fa37f87eb06daaed370ac9c3411d5ca",
+    "files": {
+      "Kimi-K3-0.40B-F16.gguf": {
+        "size_bytes": 784318432,
+        "sha256": "411c197b503e6fb9199a2b22115e32dc4e2cad803fb112b24967737b3bab26c7",
+        "gguf_file_type": "F16"
+      },
+      "Kimi-K3-0.40B-MXFP4.gguf": {
+        "size_bytes": 751976576,
+        "sha256": "0379a1cc623e09eb3fbd1dfcb18737bc8c971dbfe5bf5bc3e08da8b5379ec169",
+        "gguf_file_type": "MXFP4 MoE",
+        "routed_source_tensor_count": 168,
+        "repacked_expert_group_count": 21,
+        "resident_dequantized_tensor_count": 35
+      },
+      "README.md": {
+        "size_bytes": 1877
+      },
+      "conversion-manifest.json": {
+        "size_bytes": 1474,
+        "role": "authoritative source revisions and conversion environment"
+      }
+    },
+    "verification": {
+      "remote_sizes_match": true,
+      "remote_lfs_sha256_match": true
+    }
+  },
+  "cpu_smoke_test": {
+    "host": "skynet",
+    "prompt": "According to all known laws",
+    "observed_continuation": "the start.",
+    "f16": {
+      "prompt_tokens_per_second": 1371.5,
+      "generation_tokens_per_second": 130.4
+    },
+    "mxfp4": {
+      "prompt_tokens_per_second": 1439.6,
+      "generation_tokens_per_second": 133.1
+    },
+    "errors_detected": false,
+    "benchmark_quality": "smoke-test-only"
+  },
+  "pending_validation": [
+    "CUDA inference for F16 and MXFP4 artifacts",
+    "deterministic token ID comparison",
+    "selected logit comparison",
+    "repeated warm-run validation",
+    "memory and repeated performance measurements"
+  ]
+}
