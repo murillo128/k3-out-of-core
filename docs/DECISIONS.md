@@ -153,6 +153,21 @@ Do not submit a single large upstream PR. Expected decomposition:
 
 Actual decomposition may change, but each PR must have independent value and tests.
 
+### D-016 — Resident provider preserves logical IDs and request-scoped leases
+
+**Status:** ACCEPTED
+
+Phase 3 establishes these durable runtime semantics:
+
+- `ExpertKey` is `(layer_index, original_expert_id)`; the original model ID remains authoritative for routing and observation.
+- `ExpertSelection.logical_ids` and kernel-facing `execution_ids` are distinct concepts. The resident provider aliases their tensor because it performs no remap; later physical slots must use an explicitly different identity.
+- A model owns at most one immutable provider selected at load time. A disabled model owns none, and provider state is destroyed before the model buffers it borrows.
+- Graph results own stable bindings, while each context owns its request plans and move-only handles. Handles remain live through asynchronous submission and are released after scheduler completion or immediately when submission never began.
+- Provider allocation failures map to `GGML_STATUS_ALLOC_FAILED`; other binding/preparation failures map to `GGML_STATUS_FAILED`; CPU abort continues to map to `GGML_STATUS_ABORTED`.
+- Storage, transport, and cache policy remain downstream dependencies. Graph construction and GGML kernels do not depend on them directly.
+
+The only public surface added in Phase 3 is the per-model experimental disabled/resident selection. Runtime provider replacement remains test-only and is forbidden while contexts exist.
+
 ## Rejected shortcuts
 
 ### R-001 — Rely exclusively on `mmap` and OS page replacement

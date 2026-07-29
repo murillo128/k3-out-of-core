@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/phase3/phase3-manifest-v1.schema.json",
+  "title": "K3 Phase 3 resident-provider closeout manifest version 1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "closeout_state", "execution_profile", "issue", "revisions",
+    "models", "phase2_input", "artifacts", "validation", "reviews", "prohibited_scope"
+  ],
+  "properties": {
+    "schema_version": {"const": "phase3-manifest-v1"},
+    "closeout_state": {"enum": ["checkpoint-b-candidate", "complete"]},
+    "execution_profile": {"const": "STANDARD"},
+    "issue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "number", "url", "pull_request"],
+      "properties": {
+        "repository": {"const": "murillo128/k3-out-of-core"},
+        "number": {"const": 13},
+        "url": {"type": "string", "format": "uri"},
+        "pull_request": {"const": 15}
+      }
+    },
+    "revisions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "project_execution_base", "project_evidence_head", "llama_cpp_base",
+        "llama_cpp_candidate", "published_gguf", "published_corpus"
+      ],
+      "properties": {
+        "project_execution_base": {"$ref": "#/$defs/sha1"},
+        "project_evidence_head": {"$ref": "#/$defs/sha1"},
+        "project_checkpoint_b_head": {"$ref": "#/$defs/sha1"},
+        "llama_cpp_base": {"$ref": "#/$defs/sha1"},
+        "llama_cpp_candidate": {"$ref": "#/$defs/sha1"},
+        "published_gguf": {"$ref": "#/$defs/sha1"},
+        "published_corpus": {"$ref": "#/$defs/sha1"}
+      }
+    },
+    "models": {
+      "type": "array", "minItems": 2, "maxItems": 2,
+      "items": {"$ref": "#/$defs/file_identity"}
+    },
+    "phase2_input": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "size", "sha256", "published_corpus", "raw_corpus_republished"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "size": {"type": "integer", "minimum": 1},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "published_corpus": {"$ref": "#/$defs/sha1"},
+        "raw_corpus_republished": {"const": false}
+      }
+    },
+    "artifacts": {
+      "type": "array", "minItems": 10,
+      "items": {"$ref": "#/$defs/artifact"}
+    },
+    "validation": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["name", "status", "evidence"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "status": {"const": "pass"},
+          "evidence": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "reviews": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": [
+          "checkpoint", "comment_id", "url", "verdict", "safety_to_proceed",
+          "project_head", "llama_cpp_head"
+        ],
+        "properties": {
+          "checkpoint": {"enum": ["A", "B"]},
+          "comment_id": {"type": "integer", "minimum": 1},
+          "url": {"type": "string", "format": "uri"},
+          "verdict": {"enum": ["PASS", "PASS_WITH_NOTES"]},
+          "safety_to_proceed": {"const": "YES"},
+          "project_head": {"$ref": "#/$defs/sha1"},
+          "llama_cpp_head": {"$ref": "#/$defs/sha1"}
+        }
+      }
+    },
+    "prohibited_scope": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "cache_added", "storage_or_transport_added", "prefetch_added",
+        "expert_residency_changed", "raw_phase2_corpus_modified", "model_payload_tracked"
+      ],
+      "properties": {
+        "cache_added": {"const": false},
+        "storage_or_transport_added": {"const": false},
+        "prefetch_added": {"const": false},
+        "expert_residency_changed": {"const": false},
+        "raw_phase2_corpus_modified": {"const": false},
+        "model_payload_tracked": {"const": false}
+      }
+    }
+  },
+  "$defs": {
+    "sha1": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "file_identity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["name", "size", "sha256", "source_revision"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "size": {"type": "integer", "minimum": 1},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "source_revision": {"$ref": "#/$defs/sha1"}
+      }
+    },
+    "artifact": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "size", "sha256", "kind"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "size": {"type": "integer", "minimum": 1},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "kind": {"enum": ["schema", "implementation", "test", "evidence", "source-of-truth"]}
+      }
+    }
+  }
+}

@@ -18,10 +18,12 @@ This repository is the source of truth for architecture, planning, validation re
 
 - Repository: <https://github.com/murillo128/llama.cpp>
 - Development branch: `k3/out-of-core`
-- Pinned commit: `84245db4c790af22135f34992689edcc11877003`
-- Commit message: `kimi-k3: dequantize resident MXFP4 tensors`
+- Phase 1 base: `84245db4c790af22135f34992689edcc11877003`
+- Phase 2 input / Phase 3 execution base: `4daaaa1a4dd26d6465f84891b854b5f7ddc03020`
+- Phase 3 resident-provider head: `523f825d2df5efa7c9a08561e2b64861ad5594c5`
+- Phase 3 branch: `codex/phase3-resident-provider`
 
-The `llama.cpp` gitlink in `k3-out-of-core` points to this exact commit.
+The `llama.cpp` gitlink in the Phase 3 review branch points to the Phase 3 resident-provider head. The Phase 1 and Phase 2 revisions remain immutable validation inputs.
 
 Relevant behavior in this revision:
 
@@ -30,6 +32,8 @@ Relevant behavior in this revision:
 - explicit recognition of the 35 resident packed MoE tensors in the tiny MXFP4 fixture;
 - lazy dequantization of those resident tensors to F16;
 - rejection of unknown packed MXFP4 tensors.
+
+Phase 3 adds the model-owned resident expert-weight provider, typed logical/execution ID seam, request-scoped RAII leases across asynchronous submission, structural counters, and focused CPU/CUDA lifecycle tests. It does not add a cache, storage transport, prefetch, physical slots, or any change to expert residency. No GGUF or corpus artifact was republished.
 
 The submodule configuration is:
 

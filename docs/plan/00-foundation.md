@@ -194,27 +194,27 @@ ExpertTransport
 CachePolicy
 ```
 
-- [ ] Keep C ABI boundaries minimal where CPU and CUDA compilation units cannot link directly.
-- [ ] Define ownership and lifetime explicitly.
-- [ ] Define cancellation and error propagation.
-- [ ] Define per-model and per-device context; prohibit global singleton model state.
+- [x] Keep C ABI boundaries minimal where CPU and CUDA compilation units cannot link directly.
+- [x] Define ownership and lifetime explicitly.
+- [x] Define cancellation and error propagation.
+- [x] Define per-model and per-device context; prohibit global singleton model state.
 
 #### 3.2 Resident provider
 
-- [ ] Implement pass-through provider for a fully resident model.
-- [ ] Always remap or always preserve IDs according to one invariant; avoid paths where ID meaning changes ambiguously.
-- [ ] Add zero-capacity/disabled path with negligible overhead.
+- [x] Implement pass-through provider for a fully resident model.
+- [x] Preserve original model IDs in the resident provider and distinguish logical IDs from future physical execution slots.
+- [x] Add a disabled path with structural zero work and performance within the predeclared gate.
 
 #### 3.3 Lifecycle
 
-- [ ] Model creation, provider initialization, request use, model unload, device reset, and failure cleanup.
-- [ ] Multiple model contexts in one process.
-- [ ] Repeated load/unload stress tests.
+- [x] Model creation, provider initialization, request use, model unload, backend recreation, and failure cleanup.
+- [x] Multiple model contexts and mixed-mode F16/MXFP4 models in one process.
+- [x] Repeated load/unload stress tests.
 
 ### Exit gate
 
-- Resident-provider output matches the original path.
-- Default-path performance regression is within the predeclared noise budget.
-- Interfaces are reviewed against discrete, UMA, disk, multi-request, and multi-GPU requirements.
+- [x] Resident-provider output matches the original path.
+- [x] Default-path performance regression is within the predeclared noise budget.
+- [x] Interfaces are reviewed against discrete, UMA, disk, multi-request, and multi-GPU requirements.
 
 ---

@@ -1,6 +1,8 @@
 #include "ggml-backend.h"
 #include "llama.h"
+#include "llama-model.h"
 
+#include <algorithm>
 #include <cerrno>
 #include <chrono>
 #include <cmath>
@@ -9,6 +11,7 @@
 #include <iomanip>
 #include <iostream>
 #include <string>
+#include <sys/resource.h>
 #include <vector>
 
 namespace {
@@ -23,6 +26,7 @@ constexpr const char * kPrompt = "According to all known laws";
 struct arguments {
     std::string model;
     int gpu_layers = 0;
+    llama_expert_weights_mode expert_weights_mode = LLAMA_EXPERT_WEIGHTS_MODE_DISABLED;
 };
 
 bool parse_int(const char * text, int & value) {
@@ -42,6 +46,15 @@ bool parse_arguments(int argc, char ** argv, arguments & result) {
             result.model = argv[++i];
         } else if (std::strcmp(argv[i], "--gpu-layers") == 0 && i + 1 < argc) {
             if (!parse_int(argv[++i], result.gpu_layers)) {
+                return false;
+            }
+        } else if (std::strcmp(argv[i], "--expert-weights") == 0 && i + 1 < argc) {
+            const char * mode = argv[++i];
+            if (std::strcmp(mode, "disabled") == 0) {
+                result.expert_weights_mode = LLAMA_EXPERT_WEIGHTS_MODE_DISABLED;
+            } else if (std::strcmp(mode, "resident") == 0) {
+                result.expert_weights_mode = LLAMA_EXPERT_WEIGHTS_MODE_RESIDENT;
+            } else {
                 return false;
             }
         } else {
@@ -68,19 +81,37 @@ double elapsed(clock_type::time_point begin, clock_type::time_point end) {
     return std::chrono::duration<double>(end - begin).count();
 }
 
+double percentile(std::vector<double> values, double fraction) {
+    std::sort(values.begin(), values.end());
+    const size_t index = std::min(values.size() - 1, size_t(std::ceil(fraction*values.size()) - 1));
+    return values[index];
+}
+
 } // namespace
 
 int main(int argc, char ** argv) {
     arguments args;
     if (!parse_arguments(argc, argv, args)) {
-        std::cerr << "usage: overhead-probe --model PATH --gpu-layers N\n";
+        std::cerr << "usage: overhead-probe --model PATH --gpu-layers N [--expert-weights disabled|resident]\n";
         return 2;
     }
 
     ggml_backend_load_all();
+    size_t gpu_free_before = 0;
+    size_t gpu_total = 0;
+    for (size_t index = 0; index < ggml_backend_dev_count(); ++index) {
+        ggml_backend_dev_t device = ggml_backend_dev_get(index);
+        if (ggml_backend_dev_type(device) == GGML_BACKEND_DEVICE_TYPE_GPU) {
+            ggml_backend_dev_memory(device, &gpu_free_before, &gpu_total);
+            break;
+        }
+    }
     llama_model_params model_params = llama_model_default_params();
     model_params.n_gpu_layers = args.gpu_layers;
+    model_params.expert_weights_mode = args.expert_weights_mode;
+    const auto load_begin = clock_type::now();
     llama_model * model = llama_model_load_from_file(args.model.c_str(), model_params);
+    const auto load_end = clock_type::now();
     if (model == nullptr) {
         std::cerr << "OVERHEAD_ERROR: model load failed\n";
         return 3;
@@ -136,8 +167,10 @@ int main(int argc, char ** argv) {
     generated.push_back(next);
 
     const auto decode_begin = clock_type::now();
+    std::vector<double> token_latencies;
     while ((int) generated.size() < kGenerate && !llama_vocab_is_eog(vocab, generated.back())) {
         batch = llama_batch_get_one(&generated.back(), 1);
+        const auto token_begin = clock_type::now();
         if (llama_decode(context, batch) != 0) {
             std::cerr << "OVERHEAD_ERROR: token decode failed\n";
             llama_free(context);
@@ -152,6 +185,7 @@ int main(int argc, char ** argv) {
             llama_model_free(model);
             return 9;
         }
+        token_latencies.push_back(elapsed(token_begin, clock_type::now()));
         generated.push_back(next);
     }
     const auto decode_end = clock_type::now();
@@ -166,6 +200,20 @@ int main(int argc, char ** argv) {
         return 10;
     }
 
+    struct rusage usage = {};
+    getrusage(RUSAGE_SELF, &usage);
+    size_t gpu_free_after = 0;
+    if (gpu_total != 0) {
+        for (size_t index = 0; index < ggml_backend_dev_count(); ++index) {
+            ggml_backend_dev_t device = ggml_backend_dev_get(index);
+            if (ggml_backend_dev_type(device) == GGML_BACKEND_DEVICE_TYPE_GPU) {
+                ggml_backend_dev_memory(device, &gpu_free_after, &gpu_total);
+                break;
+            }
+        }
+    }
+    const auto provider_stats = model->expert_weight_provider_stats();
+
     std::cout << std::setprecision(17)
               << "METRIC"
               << "\tprompt_tokens=" << prompt.size()
@@ -173,7 +221,22 @@ int main(int argc, char ** argv) {
               << "\tttft_seconds=" << ttft
               << "\tprompt_tokens_per_second=" << prompt.size()/ttft
               << "\tdecode_tokens_per_second=" << decode_tokens/decode_seconds
+              << "\tload_seconds=" << elapsed(load_begin, load_end)
+              << "\ttoken_latency_p50_seconds=" << percentile(token_latencies, 0.50)
+              << "\ttoken_latency_p95_seconds=" << percentile(token_latencies, 0.95)
+              << "\ttoken_latency_p99_seconds=" << percentile(token_latencies, 0.99)
+              << "\tpeak_rss_kib=" << usage.ru_maxrss
+              << "\tgpu_memory_bytes=" << (gpu_free_before >= gpu_free_after ? gpu_free_before - gpu_free_after : 0)
               << "\tgraphs_reused=" << llama_perf_context(context).n_reused
+              << "\tprovider_objects=" << provider_stats.objects_created
+              << "\tprovider_bind_calls=" << provider_stats.bind_calls
+              << "\tprovider_prepare_calls=" << provider_stats.prepare_calls
+              << "\tprovider_handles_acquired=" << provider_stats.handles_acquired
+              << "\tprovider_handles_released=" << provider_stats.handles_released
+              << "\tprovider_allocations=" << provider_stats.allocations
+              << "\tprovider_callbacks=" << provider_stats.callbacks
+              << "\tprovider_tensor_copies=" << provider_stats.tensor_copies
+              << "\tprovider_synchronizations=" << provider_stats.synchronizations
               << "\nRESULT\texit=0\n";
 
     llama_free(context);

@@ -279,6 +279,36 @@ The raw archive is published at Hub revision `2d838d6b4d0aca4e9af1e7d899e57ad293
 
 The Phase 3 simulator is independent of GGML/CUDA and reports inclusive hot/cold LRU plus an equal-bundle perfect-future Belady/MIN offline lower bound. Canonical MIN always admits a fitting demand and selects its replacement victim only from current residents; the `A B A` capacity-one discriminator records three misses and three admissions. Its latency/bandwidth inputs are explicitly illustrative and serial with no overlap; they are not production predictions. Twenty focused Phase 2 tests pass. The corrected Checkpoint B re-review at project head `961e2f44413ec2031497dcc1474e8e79b828e6cb` returned `PASS_WITH_NOTES`, safety `YES`. Complete evidence is under `results/2026-07-29/skynet/phase2-observability/`.
 
+## 7.3 Phase 3 resident-provider validation record
+
+Issue #13 uses immutable project base `81df862da6e4ff9db005f6265470070bb5456f4c` and nested base `4daaaa1a4dd26d6465f84891b854b5f7ddc03020`. The resident-provider implementation and focused lifecycle tests are at nested head `523f825d2df5efa7c9a08561e2b64861ad5594c5`.
+
+The correctness matrix covers F16 and MXFP4 on CPU and CUDA. Each combination compares an isolated nested-base binary with the candidate disabled path, then compares disabled and resident modes. The fixed prompt IDs, 32 generated IDs, full-vocabulary logits, same-backend route records, final consumed weights, graph operation hash/node count, graph reuse, and provider counters are exact. The disabled path records zero provider objects, bindings, plans, handles, allocations, callbacks, copies, and synchronizations. The resident provider records balanced request leases and no provider allocation, tensor copy, callback, or synchronization.
+
+Lifecycle validation includes two contexts sharing one resident model, mixed-mode F16/MXFP4 models in one process, interleaved requests, asynchronous context destruction, CPU abort while handles are held, graph-binding and plan failures, cancellation, invalid descriptors and logical keys, partial initialization, 20 CPU load/decode/unload cycles, 10 CUDA cycles, and an ASan/UBSan focused run. All acquired handles are released exactly once.
+
+The performance protocol runs two independent comparisons for each model/backend combination: isolated base versus candidate disabled, and candidate disabled versus resident. Each side receives one discarded warmup and ten measurements in `ABBA` order. Adjacent observations form ten pairs. Throughput slowdown is `1 - candidate/base`; latency slowdown is `candidate/base - 1`; the gate is the paired mean plus the one-sided 95% Student-t critical value for 9 degrees of freedom. Decode throughput, prompt throughput, and TTFT are gated independently against the fixed issue #13 budgets. Raw load time, token-latency p50/p95/p99, RSS, CUDA memory, graph reuse, and provider counters remain in the report.
+
+All 24 gated metric cells pass. The largest observed upper bound is 6.687194% for baseline-versus-disabled MXFP4 CPU TTFT against its 10.531247% budget. The tightest decode budget is 0.988906% on CUDA; its four observed upper bounds range from 0.056709% to 0.214561%. These are control-derived noise gates for the tiny fixtures, not production regression tolerances.
+
+Exact closeout commands are:
+
+```bash
+cmake --build llama.cpp/build-cpu --target llama test-expert-weight-provider -j4
+cmake --build llama.cpp/build-cuda --target llama test-expert-weight-provider -j4
+ctest --test-dir llama.cpp/build-cpu --output-on-failure -R expert-weight-provider
+ctest --test-dir llama.cpp/build-cuda --output-on-failure -R expert-weight-provider
+python3 -m unittest discover -s tests/phase2 -p 'test_*.py' -v
+python3 -m unittest discover -s tests/phase3 -p 'test_*.py' -v
+python3 scripts/phase3/capture_provider_parity.py --cpu-build llama.cpp/build-cpu --cuda-build llama.cpp/build-cuda --f16 models/gguf/Kimi-K3-0.40B-F16.gguf --mxfp4 models/gguf/Kimi-K3-0.40B-MXFP4.gguf --phase2-manifest results/2026-07-29/skynet/phase2-observability/phase2-manifest.json --output-root results/2026-07-29/skynet/phase3-resident-provider
+python3 scripts/phase3/run_provider_lifecycle.py --cpu-build llama.cpp/build-cpu --cuda-build llama.cpp/build-cuda --f16 models/gguf/Kimi-K3-0.40B-F16.gguf --mxfp4 models/gguf/Kimi-K3-0.40B-MXFP4.gguf --cpu-load-cycles 20 --cuda-load-cycles 10 --output results/2026-07-29/skynet/phase3-resident-provider/lifecycle-and-failures.json
+python3 scripts/phase3/measure_provider_overhead.py --baseline-ref 4daaaa1a4dd26d6465f84891b854b5f7ddc03020 --candidate-ref HEAD --cpu-build llama.cpp/build-cpu --cuda-build llama.cpp/build-cuda --f16 models/gguf/Kimi-K3-0.40B-F16.gguf --mxfp4 models/gguf/Kimi-K3-0.40B-MXFP4.gguf --pairs 10 --order ABBA --output results/2026-07-29/skynet/phase3-resident-provider/provider-overhead.json
+python3 scripts/phase3/build_phase3_manifest.py --project-root . --results-root results/2026-07-29/skynet/phase3-resident-provider --output results/2026-07-29/skynet/phase3-resident-provider/phase3-manifest.json
+python3 scripts/phase3/verify_phase3.py --project-root . --manifest results/2026-07-29/skynet/phase3-resident-provider/phase3-manifest.json --models-dir models/gguf --strict
+```
+
+Complete machine-readable evidence is under `results/2026-07-29/skynet/phase3-resident-provider/`. It reuses the immutable Phase 2 manifest and published raw-corpus revision by checksum; it does not recapture or republish that corpus. These results validate the tiny fixtures and resident integration seam only, not an out-of-core cache or production full-size performance.
+
 ## 8. Validation levels
 
 ### Level A — conversion integrity
