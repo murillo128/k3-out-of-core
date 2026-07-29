@@ -1,0 +1,607 @@
+{
+  "builds": {
+    "cpu": {
+      "CMAKE_BUILD_TYPE": "Release",
+      "CMAKE_CXX_COMPILER": "/usr/bin/c++",
+      "CMAKE_CXX_COMPILER-ADVANCED": "1",
+      "CMAKE_CXX_COMPILER_AR": "/usr/bin/gcc-ar-13",
+      "CMAKE_CXX_COMPILER_AR-ADVANCED": "1",
+      "CMAKE_CXX_COMPILER_RANLIB": "/usr/bin/gcc-ranlib-13",
+      "CMAKE_CXX_COMPILER_RANLIB-ADVANCED": "1",
+      "CMAKE_C_COMPILER": "/usr/bin/cc",
+      "CMAKE_C_COMPILER-ADVANCED": "1",
+      "CMAKE_C_COMPILER_AR": "/usr/bin/gcc-ar-13",
+      "CMAKE_C_COMPILER_AR-ADVANCED": "1",
+      "CMAKE_C_COMPILER_RANLIB": "/usr/bin/gcc-ranlib-13",
+      "CMAKE_C_COMPILER_RANLIB-ADVANCED": "1",
+      "GGML_CPU": "ON",
+      "GGML_CPU_ALL_VARIANTS": "OFF",
+      "GGML_CPU_ARM_ARCH": "",
+      "GGML_CPU_HBM": "OFF",
+      "GGML_CPU_KLEIDIAI": "OFF",
+      "GGML_CPU_POWERPC_CPUTYPE": "",
+      "GGML_CPU_REPACK": "ON",
+      "GGML_CUDA": "OFF",
+      "GGML_CUDA_COMPRESSION_MODE": "size",
+      "GGML_CUDA_COMPRESSION_MODE-STRINGS": "none;speed;balance;size",
+      "GGML_CUDA_FA": "ON",
+      "GGML_CUDA_FA_ALL_QUANTS": "OFF",
+      "GGML_CUDA_FORCE_CUBLAS": "OFF",
+      "GGML_CUDA_FORCE_MMQ": "OFF",
+      "GGML_CUDA_GRAPHS": "ON",
+      "GGML_CUDA_NCCL": "ON",
+      "GGML_CUDA_NO_PEER_COPY": "OFF",
+      "GGML_CUDA_NO_VMM": "OFF",
+      "GGML_CUDA_PEER_MAX_BATCH_SIZE": "128"
+    },
+    "cuda": {
+      "CMAKE_BUILD_TYPE": "Release",
+      "CMAKE_CXX_COMPILER": "/usr/bin/c++",
+      "CMAKE_CXX_COMPILER-ADVANCED": "1",
+      "CMAKE_CXX_COMPILER_AR": "/usr/bin/gcc-ar-13",
+      "CMAKE_CXX_COMPILER_AR-ADVANCED": "1",
+      "CMAKE_CXX_COMPILER_RANLIB": "/usr/bin/gcc-ranlib-13",
+      "CMAKE_CXX_COMPILER_RANLIB-ADVANCED": "1",
+      "CMAKE_C_COMPILER": "/usr/bin/cc",
+      "CMAKE_C_COMPILER-ADVANCED": "1",
+      "CMAKE_C_COMPILER_AR": "/usr/bin/gcc-ar-13",
+      "CMAKE_C_COMPILER_AR-ADVANCED": "1",
+      "CMAKE_C_COMPILER_RANLIB": "/usr/bin/gcc-ranlib-13",
+      "CMAKE_C_COMPILER_RANLIB-ADVANCED": "1",
+      "GGML_CPU": "ON",
+      "GGML_CPU_ALL_VARIANTS": "OFF",
+      "GGML_CPU_ARM_ARCH": "",
+      "GGML_CPU_HBM": "OFF",
+      "GGML_CPU_KLEIDIAI": "OFF",
+      "GGML_CPU_POWERPC_CPUTYPE": "",
+      "GGML_CPU_REPACK": "ON",
+      "GGML_CUDA": "ON",
+      "GGML_CUDA_COMPRESSION_MODE": "size",
+      "GGML_CUDA_COMPRESSION_MODE-STRINGS": "none;speed;balance;size",
+      "GGML_CUDA_FA": "ON",
+      "GGML_CUDA_FA_ALL_QUANTS": "OFF",
+      "GGML_CUDA_FORCE_CUBLAS": "OFF",
+      "GGML_CUDA_FORCE_MMQ": "OFF",
+      "GGML_CUDA_GRAPHS": "ON",
+      "GGML_CUDA_NCCL": "ON",
+      "GGML_CUDA_NO_PEER_COPY": "OFF",
+      "GGML_CUDA_NO_VMM": "OFF",
+      "GGML_CUDA_PEER_MAX_BATCH_SIZE": "128"
+    }
+  },
+  "capture": {
+    "cwd": "/usr/local/src/k3-out-of-core",
+    "hostname": "skynet"
+  },
+  "cpu": {
+    "lscpu": {
+      "lscpu": [
+        {
+          "data": "x86_64",
+          "field": "Architecture:"
+        },
+        {
+          "data": "32-bit, 64-bit",
+          "field": "CPU op-mode(s):"
+        },
+        {
+          "data": "39 bits physical, 48 bits virtual",
+          "field": "Address sizes:"
+        },
+        {
+          "data": "Little Endian",
+          "field": "Byte Order:"
+        },
+        {
+          "data": "16",
+          "field": "CPU(s):"
+        },
+        {
+          "data": "0-15",
+          "field": "On-line CPU(s) list:"
+        },
+        {
+          "data": "GenuineIntel",
+          "field": "Vendor ID:"
+        },
+        {
+          "data": "11th Gen Intel(R) Core(TM) i7-11700K @ 3.60GHz",
+          "field": "Model name:"
+        },
+        {
+          "data": "6",
+          "field": "CPU family:"
+        },
+        {
+          "data": "167",
+          "field": "Model:"
+        },
+        {
+          "data": "2",
+          "field": "Thread(s) per core:"
+        },
+        {
+          "data": "8",
+          "field": "Core(s) per socket:"
+        },
+        {
+          "data": "1",
+          "field": "Socket(s):"
+        },
+        {
+          "data": "1",
+          "field": "Stepping:"
+        },
+        {
+          "data": "66%",
+          "field": "CPU(s) scaling MHz:"
+        },
+        {
+          "data": "5000.0000",
+          "field": "CPU max MHz:"
+        },
+        {
+          "data": "800.0000",
+          "field": "CPU min MHz:"
+        },
+        {
+          "data": "7200.00",
+          "field": "BogoMIPS:"
+        },
+        {
+          "data": "fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid mpx avx512f avx512dq rdseed adx smap avx512ifma clflushopt intel_pt avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp hwp_pkg_req vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid fsrm md_clear flush_l1d arch_capabilities",
+          "field": "Flags:"
+        },
+        {
+          "data": "VT-x",
+          "field": "Virtualization:"
+        },
+        {
+          "data": "384 KiB (8 instances)",
+          "field": "L1d cache:"
+        },
+        {
+          "data": "256 KiB (8 instances)",
+          "field": "L1i cache:"
+        },
+        {
+          "data": "4 MiB (8 instances)",
+          "field": "L2 cache:"
+        },
+        {
+          "data": "16 MiB (1 instance)",
+          "field": "L3 cache:"
+        },
+        {
+          "data": "1",
+          "field": "NUMA node(s):"
+        },
+        {
+          "data": "0-15",
+          "field": "NUMA node0 CPU(s):"
+        },
+        {
+          "data": "Mitigation; Microcode",
+          "field": "Vulnerability Gather data sampling:"
+        },
+        {
+          "data": "Mitigation; Aligned branch/return thunks",
+          "field": "Vulnerability Indirect target selection:"
+        },
+        {
+          "data": "Not affected",
+          "field": "Vulnerability Itlb multihit:"
+        },
+        {
+          "data": "Not affected",
+          "field": "Vulnerability L1tf:"
+        },
+        {
+          "data": "Not affected",
+          "field": "Vulnerability Mds:"
+        },
+        {
+          "data": "Not affected",
+          "field": "Vulnerability Meltdown:"
+        },
+        {
+          "data": "Mitigation; Clear CPU buffers; SMT vulnerable",
+          "field": "Vulnerability Mmio stale data:"
+        },
+        {
+          "data": "Not affected",
+          "field": "Vulnerability Reg file data sampling:"
+        },
+        {
+          "data": "Mitigation; Enhanced IBRS",
+          "field": "Vulnerability Retbleed:"
+        },
+        {
+          "data": "Not affected",
+          "field": "Vulnerability Spec rstack overflow:"
+        },
+        {
+          "data": "Mitigation; Speculative Store Bypass disabled via prctl",
+          "field": "Vulnerability Spec store bypass:"
+        },
+        {
+          "data": "Mitigation; usercopy/swapgs barriers and __user pointer sanitization",
+          "field": "Vulnerability Spectre v1:"
+        },
+        {
+          "data": "Mitigation; Enhanced / Automatic IBRS; IBPB conditional; PBRSB-eIBRS SW sequence; BHI SW loop, KVM SW loop",
+          "field": "Vulnerability Spectre v2:"
+        },
+        {
+          "data": "Not affected",
+          "field": "Vulnerability Srbds:"
+        },
+        {
+          "data": "Not affected",
+          "field": "Vulnerability Tsa:"
+        },
+        {
+          "data": "Not affected",
+          "field": "Vulnerability Tsx async abort:"
+        },
+        {
+          "data": "Not affected",
+          "field": "Vulnerability Vmscape:"
+        }
+      ]
+    }
+  },
+  "gpu": {
+    "driver_version": "535.288.01",
+    "name": "NVIDIA GeForce GTX 1650",
+    "vram_mib": 4096
+  },
+  "memory": {
+    "total_bytes": 67317436416
+  },
+  "os": {
+    "description": {
+      "reason": null,
+      "status": "observed",
+      "value": "Ubuntu 24.04.3 LTS"
+    },
+    "kernel": "6.8.0-136-generic",
+    "machine": "x86_64",
+    "system": "Linux"
+  },
+  "schema_version": 1,
+  "storage": {
+    "block_devices": {
+      "blockdevices": [
+        {
+          "fstype": "squashfs",
+          "model": null,
+          "mountpoints": [
+            "/snap/bare/5"
+          ],
+          "name": "loop0",
+          "size": 4096,
+          "type": "loop"
+        },
+        {
+          "fstype": "squashfs",
+          "model": null,
+          "mountpoints": [
+            "/snap/core22/2133"
+          ],
+          "name": "loop1",
+          "size": 77512704,
+          "type": "loop"
+        },
+        {
+          "fstype": "squashfs",
+          "model": null,
+          "mountpoints": [
+            "/snap/core22/2139"
+          ],
+          "name": "loop2",
+          "size": 77500416,
+          "type": "loop"
+        },
+        {
+          "fstype": "squashfs",
+          "model": null,
+          "mountpoints": [
+            "/snap/core24/1499"
+          ],
+          "name": "loop3",
+          "size": 70078464,
+          "type": "loop"
+        },
+        {
+          "fstype": "squashfs",
+          "model": null,
+          "mountpoints": [
+            "/snap/core24/1643"
+          ],
+          "name": "loop4",
+          "size": 70049792,
+          "type": "loop"
+        },
+        {
+          "fstype": "squashfs",
+          "model": null,
+          "mountpoints": [
+            "/snap/firefox/7967"
+          ],
+          "name": "loop5",
+          "size": 267333632,
+          "type": "loop"
+        },
+        {
+          "fstype": "squashfs",
+          "model": null,
+          "mountpoints": [
+            "/snap/firefox/8664"
+          ],
+          "name": "loop6",
+          "size": 270102528,
+          "type": "loop"
+        },
+        {
+          "fstype": "squashfs",
+          "model": null,
+          "mountpoints": [
+            "/snap/firmware-updater/210"
+          ],
+          "name": "loop7",
+          "size": 19386368,
+          "type": "loop"
+        },
+        {
+          "fstype": "squashfs",
+          "model": null,
+          "mountpoints": [
+            "/snap/firmware-updater/212"
+          ],
+          "name": "loop8",
+          "size": 19386368,
+          "type": "loop"
+        },
+        {
+          "fstype": "squashfs",
+          "model": null,
+          "mountpoints": [
+            "/snap/gnome-42-2204/141"
+          ],
+          "name": "loop9",
+          "size": 521121792,
+          "type": "loop"
+        },
+        {
+          "fstype": "squashfs",
+          "model": null,
+          "mountpoints": [
+            "/snap/gnome-42-2204/226"
+          ],
+          "name": "loop10",
+          "size": 541278208,
+          "type": "loop"
+        },
+        {
+          "fstype": "squashfs",
+          "model": null,
+          "mountpoints": [
+            "/snap/gnome-46-2404/153"
+          ],
+          "name": "loop11",
+          "size": 635518976,
+          "type": "loop"
+        },
+        {
+          "fstype": "squashfs",
+          "model": null,
+          "mountpoints": [
+            "/snap/gtk-common-themes/1535"
+          ],
+          "name": "loop12",
+          "size": 96141312,
+          "type": "loop"
+        },
+        {
+          "fstype": "squashfs",
+          "model": null,
+          "mountpoints": [
+            "/snap/mesa-2404/1165"
+          ],
+          "name": "loop13",
+          "size": 414167040,
+          "type": "loop"
+        },
+        {
+          "fstype": "squashfs",
+          "model": null,
+          "mountpoints": [
+            "/snap/snap-store/1216"
+          ],
+          "name": "loop14",
+          "size": 12791808,
+          "type": "loop"
+        },
+        {
+          "fstype": "squashfs",
+          "model": null,
+          "mountpoints": [
+            "/snap/snap-store/1270"
+          ],
+          "name": "loop15",
+          "size": 11354112,
+          "type": "loop"
+        },
+        {
+          "fstype": "squashfs",
+          "model": null,
+          "mountpoints": [
+            "/snap/snapd/25202"
+          ],
+          "name": "loop16",
+          "size": 53235712,
+          "type": "loop"
+        },
+        {
+          "fstype": "squashfs",
+          "model": null,
+          "mountpoints": [
+            "/snap/snapd/27591"
+          ],
+          "name": "loop17",
+          "size": 52535296,
+          "type": "loop"
+        },
+        {
+          "fstype": "squashfs",
+          "model": null,
+          "mountpoints": [
+            "/snap/snapd-desktop-integration/178"
+          ],
+          "name": "loop18",
+          "size": 512000,
+          "type": "loop"
+        },
+        {
+          "fstype": "squashfs",
+          "model": null,
+          "mountpoints": [
+            "/snap/snapd-desktop-integration/315"
+          ],
+          "name": "loop19",
+          "size": 589824,
+          "type": "loop"
+        },
+        {
+          "children": [
+            {
+              "fstype": "vfat",
+              "model": null,
+              "mountpoints": [
+                "/boot/efi"
+              ],
+              "name": "nvme1n1p1",
+              "size": 104857600,
+              "type": "part"
+            },
+            {
+              "fstype": null,
+              "model": null,
+              "mountpoints": [
+                null
+              ],
+              "name": "nvme1n1p2",
+              "size": 16777216,
+              "type": "part"
+            },
+            {
+              "fstype": "ntfs",
+              "model": null,
+              "mountpoints": [
+                null
+              ],
+              "name": "nvme1n1p3",
+              "size": 474446093312,
+              "type": "part"
+            },
+            {
+              "fstype": "ntfs",
+              "model": null,
+              "mountpoints": [
+                null
+              ],
+              "name": "nvme1n1p4",
+              "size": 532676608,
+              "type": "part"
+            },
+            {
+              "fstype": "ext4",
+              "model": null,
+              "mountpoints": [
+                "/var/snap/firefox/common/host-hunspell",
+                "/"
+              ],
+              "name": "nvme1n1p5",
+              "size": 525100646400,
+              "type": "part"
+            }
+          ],
+          "fstype": null,
+          "model": "WDC WDS100T2B0C-00PXH0",
+          "mountpoints": [
+            null
+          ],
+          "name": "nvme1n1",
+          "size": 1000204886016,
+          "type": "disk"
+        },
+        {
+          "fstype": null,
+          "model": "QuadraT1A",
+          "mountpoints": [
+            null
+          ],
+          "name": "nvme0n1",
+          "size": 8589934592000,
+          "type": "disk"
+        }
+      ]
+    },
+    "project_filesystem": {
+      "filesystems": [
+        {
+          "fstype": "ext4",
+          "options": "rw,relatime",
+          "source": "/dev/nvme1n1p5",
+          "target": "/"
+        }
+      ]
+    }
+  },
+  "toolchain": {
+    "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "cmake": "cmake version 3.28.3",
+    "cuda_toolkit": {
+      "reason": null,
+      "status": "observed",
+      "value": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2023 NVIDIA Corporation\nBuilt on Fri_Jan__6_16:45:21_PST_2023\nCuda compilation tools, release 12.0, V12.0.140\nBuild cuda_12.0.r12.0/compiler.32267302_0"
+    },
+    "cxx": "c++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "hf": {
+      "executable": "/usr/local/src/k3-out-of-core/.venv-k3/bin/hf",
+      "version": "huggingface_hub version: 0.36.2"
+    },
+    "packages": {
+      "huggingface-hub": {
+        "reason": null,
+        "status": "observed",
+        "value": "0.36.2"
+      },
+      "safetensors": {
+        "reason": null,
+        "status": "observed",
+        "value": "0.8.0"
+      },
+      "tiktoken": {
+        "reason": null,
+        "status": "observed",
+        "value": "0.13.0"
+      },
+      "torch": {
+        "reason": null,
+        "status": "observed",
+        "value": "2.11.0+cpu"
+      },
+      "transformers": {
+        "reason": null,
+        "status": "observed",
+        "value": "4.57.6"
+      }
+    },
+    "python": {
+      "executable": "/usr/local/src/k3-out-of-core/.venv-k3/bin/python",
+      "version": "3.12.3"
+    }
+  }
+}
