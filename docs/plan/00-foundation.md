@@ -133,18 +133,18 @@
 
 #### 2.1 Router trace
 
-- [ ] Add an opt-in trace hook at the selected-expert ID tensor.
-- [ ] Record model, layer, token/batch position, selected IDs, routing weights, request/sequence ID, and phase (prefill/decode).
-- [ ] Use a compact binary or structured format with a version.
-- [ ] Ensure trace-disabled overhead is negligible.
-- [ ] Ensure trace order is deterministic.
+- [x] Add an opt-in trace hook at the selected-expert ID tensor.
+- [x] Record model, layer, token/batch position, selected IDs, routing weights, request/sequence ID, and phase (prefill/decode).
+- [x] Use a compact binary or structured format with a version.
+- [x] Ensure trace-disabled overhead is negligible.
+- [x] Ensure trace order is deterministic.
 
 #### 2.2 Expert storage map
 
-- [ ] Extend the GGUF/model loader to expose file identity, file offset, byte size, type, logical shape, row stride, and alignment for each routed-expert projection.
-- [ ] Define `ExpertStorageEntry` containing gate/up/down spans.
-- [ ] Validate every span against GGUF metadata and file bounds.
-- [ ] Do not infer offsets through virtual-memory mappings.
+- [x] Extend the GGUF/model loader to expose file identity, file offset, byte size, type, logical shape, row stride, and alignment for each routed-expert projection.
+- [x] Define `ExpertStorageEntry` containing gate/up/down spans.
+- [x] Validate every span against GGUF metadata and file bounds.
+- [x] Do not infer offsets through virtual-memory mappings.
 
 #### 2.3 Offline simulator
 

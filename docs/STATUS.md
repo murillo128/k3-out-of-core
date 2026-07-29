@@ -12,7 +12,7 @@ This file is the first handoff document for a new ChatGPT or Codex session.
 - PR #9 merged into `main` as `eff5efc754919bf1a50735e27c7ad39f4d93384e`; its STANDARD materiality and repeated-review circuit-breaker rules now govern future issues.
 - Checkpoints A, B, and C returned **PASS_WITH_NOTES** with safety gate **YES**.
 - The final complete-PR review returned **PASS_WITH_NOTES** with safety to merge **YES**.
-- No out-of-core runtime implementation exists. Project Phase 2 has not begun.
+- No out-of-core runtime implementation exists. Project Phase 2 issue #10 is in progress; its route-observer and authoritative expert-storage phases are implemented and validated locally, pending Checkpoint A review.
 - Phase 1 evidence is descriptive for the tiny K3 fixtures on `skynet`; it is not a model-quality or production-performance claim.
 
 ## Phase 1 merged baseline
@@ -73,15 +73,6 @@ Kernel: 6.8.0-136-generic
 
 ## Immediate next action
 
-Design a new, bounded GitHub issue for **Project Phase 2 — routing and expert-layout observability**.
+Publish the exact project and nested `llama.cpp` commits for issue #10 Checkpoint A, open the draft project pull request, and obtain the required independent review of implementation phases 1 and 2. Continue to the offline simulator only after that checkpoint passes.
 
-The design session must inspect the exact pinned `llama.cpp` code before declaring the issue `EXECUTION_READY`. It should resolve:
-
-- the exact router seam exposing selected expert IDs and routing weights;
-- deterministic trace semantics for layer, token/batch position, request or sequence, and prefill versus decode;
-- a compact versioned trace format and trace-disabled overhead requirement;
-- the loader seam for authoritative GGUF file identity, offset, byte size, type, logical shape, stride, and alignment;
-- `ExpertStorageEntry` semantics for atomic gate/up/down expert bundles;
-- how implementation should be split into reviewable issues or phases.
-
-Do not implement cache, provider, NVMe I/O, prefetch, expert remapping, or residency changes as part of the Phase 2 design issue unless a later approved implementation contract explicitly permits them.
+Do not implement cache, provider, NVMe I/O, prefetch, expert remapping, or residency changes as part of issue #10.
