@@ -34,6 +34,7 @@ FAILED_CHECKPOINT_C_ATTEMPTS = (
     ("44177bcee0d0b8d367f7c7272e21b3f75f99fd50", 5119792587),
     ("1fc662f83ead68d48242376b4ab0820f787f7fbd", 5119898964),
     ("a2dba4bbe1fe5d39a3667f64fee6cba6673bd5c7", 5119975819),
+    ("66948128b151227dc8fee09e6138f213681f74a9", 5120055388),
 )
 
 EVIDENCE_FILES = (
@@ -197,6 +198,7 @@ def verify_external_review_comment(
     safety: str,
     payload: dict,
     errors: list[str],
+    reject_extra_labels: bool = True,
 ) -> None:
     expected_url = f"https://github.com/murillo128/k3-out-of-core/issues/7#issuecomment-{comment_id}"
     require(payload.get("html_url") == expected_url, "Checkpoint C external comment URL is not exact", errors)
@@ -205,7 +207,7 @@ def verify_external_review_comment(
     labeled_lines = [
         line
         for line in body.splitlines()
-        if re.search(r"\*\*(?:Reviewed range|Reviewed head|Verdict|Safety gate):\*\*", line, re.IGNORECASE)
+        if re.search(r"(?:Reviewed\s+range|Reviewed\s+head|Verdict|Safety\s+gate)[_*`\s]*:", line, re.IGNORECASE)
     ]
     ranges = re.findall(r"(?m)^\*\*Reviewed range:\*\*\s*`([^`]+)`\s*$", body)
     heads = re.findall(r"(?m)^\*\*Reviewed head:\*\*\s*`([0-9a-f]{40})`\s*$", body)
@@ -215,7 +217,8 @@ def verify_external_review_comment(
     require(heads == [head], "Checkpoint C external comment head is ambiguous or differs", errors)
     require(verdicts == [verdict], "Checkpoint C external comment verdict is ambiguous or differs", errors)
     require(safeties == [safety], "Checkpoint C external comment safety gate is ambiguous or differs", errors)
-    require(len(labeled_lines) == 4, "Checkpoint C external comment contains extra or malformed labeled fields", errors)
+    if reject_extra_labels:
+        require(len(labeled_lines) == 4, "Checkpoint C external comment contains extra or malformed labeled fields", errors)
 
 
 def verify_external_checkpoint_comment(checkpoint: dict, payload: dict, errors: list[str]) -> None:
@@ -371,6 +374,7 @@ def verify_source_of_truth(root: Path, allow_pending_c: bool, errors: list[str])
                     "NO",
                     payload,
                     errors,
+                    reject_extra_labels=False,
                 )
 
 

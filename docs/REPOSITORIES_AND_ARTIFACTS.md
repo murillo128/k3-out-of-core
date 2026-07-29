@@ -117,6 +117,8 @@ The second Checkpoint C attempt also returned `FAIL / NO`: the gate still accept
 
 The fourth Checkpoint C attempt returned `FAIL / NO` after finding unanchored suffix contradictions, uppercase placeholder URLs, and extra malformed label lines. The latest committed correction fully anchors all canonical fields, discovers URLs case-insensitively, and rejects every extra label-bearing line. Fresh re-review is pending.
 
+The fifth Checkpoint C attempt returned `FAIL / NO` after finding plain and alternatively styled contradictory external labels were not counted. The latest correction discovers label-bearing fields independently of Markdown styling while continuing to require exactly one fully anchored canonical value for each field. Fresh re-review is pending.
+
 ## Downloading the published baseline
 
 From the project root:

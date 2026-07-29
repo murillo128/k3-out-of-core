@@ -176,6 +176,9 @@ class VerifyCloseoutTests(unittest.TestCase):
             "**Verdict:** **FAIL** <!-- contradictory -->\n",
             "**Safety gate:** **NO** <!-- contradictory -->\n",
             "- **Verdict:** **FAIL**\n",
+            "Verdict: FAIL\n",
+            "Safety gate: NO\n",
+            "_Verdict:_ **FAIL**\n",
             f"**Reviewed head:** `{'2' * 40}`\n",
             f"**Reviewed range:** `{verify_closeout.CHECKPOINT_C_BASE}..{'2' * 40}`\n",
         ):
