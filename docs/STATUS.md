@@ -13,6 +13,7 @@ This file is the first handoff document for a new ChatGPT or Codex session.
 - Checkpoints A, B, and C returned **PASS_WITH_NOTES** with safety gate **YES**.
 - The final complete-PR review returned **PASS_WITH_NOTES** with safety to merge **YES**.
 - Project Phase 2 is complete and merged through PR #11. The final reviewed project head was `c56770e9148fb94173561b7c4f2aade63cdefff7`; PR #11 merged into `main` as `d74781faec12e8552c1598084b210f784ac0a43b`, with nested `murillo128/llama.cpp` gitlink `4daaaa1a4dd26d6465f84891b854b5f7ddc03020`. No out-of-core runtime implementation exists yet. The bounded F16/MXFP4 CPU corpus and CPU/CUDA subset remain reproducible, and the unchanged raw corpus is externally published at immutable Hub revision `2d838d6b4d0aca4e9af1e7d899e57ad29330c72e`.
+- Project Phase 3 is execution-ready in issue #13. Its immutable project base is `81df862da6e4ff9db005f6265470070bb5456f4c`, its pinned nested input is `murillo128/llama.cpp@4daaaa1a4dd26d6465f84891b854b5f7ddc03020`, and its proposed execution branch is `codex/phase3-resident-provider`. Implementation has not started.
 - Phase 1 evidence is descriptive for the tiny K3 fixtures on `skynet`; it is not a model-quality or production-performance claim.
 
 ## Phase 1 merged baseline
@@ -73,6 +74,6 @@ Kernel: 6.8.0-136-generic
 
 ## Immediate next action
 
-Design and record an execution-ready GitHub issue for **Project Phase 3 — provider abstraction with resident parity**, using the exact post-housekeeping `main` SHA as the immutable execution base and nested `murillo128/llama.cpp@4daaaa1a4dd26d6465f84891b854b5f7ddc03020` as the pinned implementation input.
+Create `codex/phase3-resident-provider` directly from immutable base `81df862da6e4ff9db005f6265470070bb5456f4c`, then execute issue #13 under profile `STANDARD` without changing the pinned nested input before the first bounded implementation commit.
 
-Do not create the Phase 3 execution branch or begin implementation until the Phase 3-specific architecture, ownership, lifetime, error, ABI, validation, and review contract is complete in that issue. Phase 3 must preserve full expert residency, routing semantics, numerical execution, and canonical reduction order; cache, storage transport, prefetch, and residency changes remain later work.
+The documentation-only commit that records issue #13 is not the execution base. Phase 3 must remain fully resident and must not introduce cache slots, storage transport, prefetch, policy, model unloading, or any change to logical routing IDs, final routing weights, or canonical reduction order.
