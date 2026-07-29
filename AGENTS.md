@@ -123,12 +123,13 @@ Do not implement from an underspecified prompt. When implementation exposes a ma
 - Record commands and results in machine-readable form.
 - Do not report performance without exact revisions and configuration.
 
-### At the end of a session
+### At the end of an implementation session
 
-- Update `docs/STATUS.md` when project handoff state changes.
-- Update completed checkboxes and evidence in `PLAN.md`.
-- Record new or reopened decisions in `docs/DECISIONS.md`.
-- Update model commands and results in `docs/MODELS_AND_VALIDATION.md`.
+- Update `docs/STATUS.md` only when the project handoff state changes, including exact relevant commit SHAs.
+- Update only completed tasks, exit gates, and evidence affected in `PLAN.md`.
+- Record decisions in `docs/DECISIONS.md` only when a decision is added, changed, or reopened.
+- Update `docs/MODELS_AND_VALIDATION.md` only when model commands, validation requirements, or evidence change.
+- Update repository/artifact records and machine-readable manifests only when revisions or artifacts change.
 - Commit required source-of-truth changes.
 - Leave the working tree clean or clearly document intentional uncommitted work.
 
@@ -237,6 +238,6 @@ Primary references are listed in `docs/PRIOR_ART.md`.
 - Commit messages should describe one intentional outcome.
 - Direct commits to the default branch require explicit user instruction; otherwise use a feature branch and draft pull request.
 
-## Current immediate task
+## Current work
 
-Follow Phase 1 in `PLAN.md`. Do not start cache implementation until the monolithic F16 and hybrid MXFP4 baselines are reproducible and committed as evidence.
+Read `docs/STATUS.md` for the current phase, active issue, exact handoff state, and immediate next action. Do not encode a phase-specific task in this file.
