@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+import re
 import subprocess
 import sys
 import urllib.request
@@ -28,6 +29,11 @@ EXPECTED = {
 }
 
 CHECKPOINT_C_BASE = "a11bce8a6260cf9c131a360d047aeb4d4a21d56f"
+FAILED_CHECKPOINT_C_ATTEMPTS = (
+    ("3867da790b9b299b925cc562cbfdc7a5985c7da6", 5119671463),
+    ("44177bcee0d0b8d367f7c7272e21b3f75f99fd50", 5119792587),
+    ("1fc662f83ead68d48242376b4ab0820f787f7fbd", 5119898964),
+)
 
 EVIDENCE_FILES = (
     "environment.json",
@@ -126,11 +132,15 @@ def verify_checkpoint_c_attestation(
     require(isinstance(comment_id, int) and comment_id > 0, "Checkpoint C issue-comment linkage is missing", errors)
     note = checkpoint.get("note")
     require(isinstance(note, str) and len(note.strip()) >= 20 and "pending" not in note.lower(), "Checkpoint C completion note is missing", errors)
-    failed_heads = {
-        attempt.get("reviewed_head")
-        for attempt in checkpoint.get("attempts", [])
+    attempts = checkpoint.get("attempts")
+    require(isinstance(attempts, list), "Checkpoint C failed-attempt history is missing", errors)
+    failed_pairs = {
+        (attempt.get("reviewed_head"), attempt.get("issue_comment_id"))
+        for attempt in attempts or []
         if attempt.get("verdict") in {"FAIL", "BLOCKED"}
     }
+    require(set(FAILED_CHECKPOINT_C_ATTEMPTS).issubset(failed_pairs), "Checkpoint C failed-attempt history is incomplete", errors)
+    failed_heads = {head for head, _ in FAILED_CHECKPOINT_C_ATTEMPTS}
     require(head not in failed_heads, "Checkpoint C reviewed head is a recorded failed attempt", errors)
 
     phase1 = manifest.get("phase1_validation", {})
@@ -141,34 +151,21 @@ def verify_checkpoint_c_attestation(
 
     if isinstance(verdict, str) and isinstance(head, str) and isinstance(comment_id, int):
         comment_url = f"https://github.com/murillo128/k3-out-of-core/issues/7#issuecomment-{comment_id}"
-        markers = {
-            "docs/STATUS.md": (
-                f"Checkpoint C: **{verdict}**",
-                f"Checkpoint C reviewed head: `{head}`",
-                comment_url,
-            ),
-            "docs/plan/00-foundation.md": (
-                f"Checkpoint C: **{verdict}**",
-                f"Checkpoint C reviewed head: `{head}`",
-                comment_url,
-            ),
-            "docs/REPOSITORIES_AND_ARTIFACTS.md": (
-                f"Checkpoint C: **{verdict}**",
-                f"Checkpoint C reviewed head: `{head}`",
-                comment_url,
-            ),
-            "SUMMARY.md": (
-                f"Checkpoint C: **{verdict}**",
-                f"Checkpoint C reviewed head: `{head}`",
-                comment_url,
-            ),
-        }
-        for name, required_markers in markers.items():
-            text = documents.get(name, "")
-            for marker in required_markers:
-                require(text.count(marker) == 1, f"{name} must contain exactly one active Checkpoint C marker: {marker}", errors)
-            stale_lines = [line for line in text.splitlines() if "checkpoint c" in line.lower() and "pending" in line.lower()]
-            require(not stale_lines, f"{name} retains active PENDING Checkpoint C state", errors)
+        for name in ("docs/STATUS.md", "docs/plan/00-foundation.md", "docs/REPOSITORIES_AND_ARTIFACTS.md", "SUMMARY.md"):
+            verify_document_checkpoint_c(name, documents.get(name, ""), verdict, head, comment_url, errors)
+
+
+def verify_document_checkpoint_c(
+    name: str, text: str, verdict: str, head: str, comment_url: str, errors: list[str]
+) -> None:
+    verdicts = re.findall(r"(?im)^\s*(?:-\s*)?Checkpoint C:\s*\*\*([A-Z_]+)\*\*", text)
+    heads = re.findall(r"(?im)^\s*(?:-\s*)?Checkpoint C reviewed head:\s*`([0-9a-f]{40})`", text)
+    comment_links = re.findall(r"https?://[^\s)>]*issuecomment-\d+", text)
+    require(verdicts == [verdict], f"{name} does not have one unambiguous Checkpoint C verdict", errors)
+    require(heads == [head], f"{name} does not have one unambiguous Checkpoint C reviewed head", errors)
+    require(comment_links == [comment_url], f"{name} does not have one unambiguous Checkpoint C comment URL", errors)
+    stale_lines = [line for line in text.splitlines() if "checkpoint c" in line.lower() and "pending" in line.lower()]
+    require(not stale_lines, f"{name} retains active PENDING Checkpoint C state", errors)
 
 
 def fetch_github_issue_comment(comment_id: int) -> dict:
@@ -183,29 +180,55 @@ def fetch_github_issue_comment(comment_id: int) -> dict:
     return payload
 
 
-def verify_external_checkpoint_comment(checkpoint: dict, payload: dict, errors: list[str]) -> None:
-    comment_id = checkpoint.get("issue_comment_id")
-    head = checkpoint.get("reviewed_head")
-    verdict = checkpoint.get("verdict")
+def verify_external_review_comment(
+    comment_id: int,
+    reviewed_range: str,
+    head: str,
+    verdict: str,
+    safety: str,
+    payload: dict,
+    errors: list[str],
+) -> None:
     expected_url = f"https://github.com/murillo128/k3-out-of-core/issues/7#issuecomment-{comment_id}"
     require(payload.get("html_url") == expected_url, "Checkpoint C external comment URL is not exact", errors)
     require(payload.get("id") == comment_id, "Checkpoint C external comment ID differs", errors)
     body = payload.get("body", "")
-    require(f"Reviewed range:** `{CHECKPOINT_C_BASE}..{head}`" in body, "Checkpoint C external comment range differs", errors)
-    require(f"Reviewed head:** `{head}`" in body, "Checkpoint C external comment head differs", errors)
-    require(f"Verdict:** **{verdict}**" in body, "Checkpoint C external comment verdict differs", errors)
-    require("Safety gate:** **YES**" in body, "Checkpoint C external comment safety gate is not YES", errors)
+    ranges = re.findall(r"(?m)^\*\*Reviewed range:\*\*\s*`([^`]+)`\s*$", body)
+    heads = re.findall(r"(?m)^\*\*Reviewed head:\*\*\s*`([0-9a-f]{40})`\s*$", body)
+    verdicts = re.findall(r"(?m)^\*\*Verdict:\*\*\s*\*\*([A-Z_]+)\*\*\s*$", body)
+    safeties = re.findall(r"(?m)^\*\*Safety gate:\*\*\s*\*\*(YES|NO)\*\*\s*$", body)
+    require(ranges == [reviewed_range], "Checkpoint C external comment range is ambiguous or differs", errors)
+    require(heads == [head], "Checkpoint C external comment head is ambiguous or differs", errors)
+    require(verdicts == [verdict], "Checkpoint C external comment verdict is ambiguous or differs", errors)
+    require(safeties == [safety], "Checkpoint C external comment safety gate is ambiguous or differs", errors)
+
+
+def verify_external_checkpoint_comment(checkpoint: dict, payload: dict, errors: list[str]) -> None:
+    verify_external_review_comment(
+        checkpoint.get("issue_comment_id"),
+        checkpoint.get("reviewed_range"),
+        checkpoint.get("reviewed_head"),
+        checkpoint.get("verdict"),
+        "YES",
+        payload,
+        errors,
+    )
 
 
 def verify_attestation_parent(root: Path, reviewed_head: str, errors: list[str]) -> None:
     parent = subprocess.run(
-        ["git", "rev-parse", "HEAD^"],
+        ["git", "rev-list", "--parents", "-n", "1", "HEAD"],
         cwd=root,
         check=False,
         capture_output=True,
         text=True,
     )
-    require(parent.returncode == 0 and parent.stdout.strip() == reviewed_head, "Checkpoint C reviewed head is not the exact attestation parent", errors)
+    fields = parent.stdout.strip().split()
+    require(
+        parent.returncode == 0 and len(fields) == 2 and fields[1] == reviewed_head,
+        "Checkpoint C attestation must have exactly one parent equal to the reviewed head",
+        errors,
+    )
 
 
 def verify_evidence(results: Path, allow_pending_c: bool, errors: list[str]) -> None:
@@ -319,6 +342,21 @@ def verify_source_of_truth(root: Path, allow_pending_c: bool, errors: list[str])
                 errors.append(f"Checkpoint C external comment could not be verified: {exc}")
             else:
                 verify_external_checkpoint_comment(checkpoint_c, payload, errors)
+        for failed_head, failed_comment_id in FAILED_CHECKPOINT_C_ATTEMPTS:
+            try:
+                payload = fetch_github_issue_comment(failed_comment_id)
+            except (OSError, ValueError, json.JSONDecodeError) as exc:
+                errors.append(f"Checkpoint C failed-review history could not be verified: {exc}")
+            else:
+                verify_external_review_comment(
+                    failed_comment_id,
+                    f"{CHECKPOINT_C_BASE}..{failed_head}",
+                    failed_head,
+                    "FAIL",
+                    "NO",
+                    payload,
+                    errors,
+                )
 
 
 def main() -> int:

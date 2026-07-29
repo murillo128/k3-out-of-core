@@ -39,8 +39,7 @@
 ### Current evidence
 
 - Phase 1 technical exit gate: **ACCEPTED** under GitHub issue #7; independent Checkpoint C attestation remains **PENDING**.
-- The first Checkpoint C attempt returned **FAIL / NO** because strict verification did not reject incomplete cross-document attestation; re-review is required after the bounded corrective delta.
-- The second Checkpoint C attempt returned **FAIL / NO** because strict verification still accepted a failed ancestor, coexisting PENDING lines, and placeholder linkage; another fresh re-review is required after correction.
+- Three Checkpoint C attempts returned **FAIL / NO** on verifier traceability ambiguities; the benchmark itself passed. The latest bounded correction is committed and fresh re-review is required.
 - Clean execution base: `511e87fc98cca8069fc57526fbb04b10789967eb`.
 - Execution branch: `codex/phase1-closeout-clean`.
 - Pinned `llama.cpp` commit: `84245db4c790af22135f34992689edcc11877003`.

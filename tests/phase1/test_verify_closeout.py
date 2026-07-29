@@ -29,6 +29,10 @@ class VerifyCloseoutTests(unittest.TestCase):
                 "issue_comment_id": comment_id,
                 "safety_gate": "YES",
                 "note": "Independent review accepted the complete corrective state.",
+                "attempts": [
+                    {"verdict": "FAIL", "reviewed_head": failed_head, "issue_comment_id": comment_id}
+                    for failed_head, comment_id in verify_closeout.FAILED_CHECKPOINT_C_ATTEMPTS
+                ],
             }
         }
         manifest = {
@@ -94,11 +98,18 @@ class VerifyCloseoutTests(unittest.TestCase):
             "failed_head": lambda c, m, d: c["C"].__setitem__(
                 "attempts", [{"verdict": "FAIL", "reviewed_head": c["C"]["reviewed_head"]}]
             ),
+            "missing_failed_history": lambda c, m, d: c["C"].pop("attempts"),
             "coexisting_pending": lambda c, m, d: d.__setitem__(
                 "SUMMARY.md", d["SUMMARY.md"] + "Checkpoint C: **PENDING**\n"
             ),
             "duplicate_marker": lambda c, m, d: d.__setitem__(
                 "docs/STATUS.md", d["docs/STATUS.md"] + d["docs/STATUS.md"]
+            ),
+            "conflicting_verdict": lambda c, m, d: d.__setitem__(
+                "docs/STATUS.md", d["docs/STATUS.md"] + "Checkpoint C: **PASS**\n"
+            ),
+            "extra_placeholder_link": lambda c, m, d: d.__setitem__(
+                "docs/STATUS.md", d["docs/STATUS.md"] + "https://example.invalid/#issuecomment-999\n"
             ),
             "wrong_domain": lambda c, m, d: d.__setitem__(
                 "docs/STATUS.md",
@@ -142,6 +153,18 @@ class VerifyCloseoutTests(unittest.TestCase):
                 errors = []
                 verify_closeout.verify_external_checkpoint_comment(checkpoint, changed, errors)
                 self.assertNotEqual(errors, [])
+        for contradiction in (
+            "**Verdict:** **FAIL**\n",
+            "**Safety gate:** **NO**\n",
+            f"**Reviewed head:** `{'2' * 40}`\n",
+            f"**Reviewed range:** `{verify_closeout.CHECKPOINT_C_BASE}..{'2' * 40}`\n",
+        ):
+            with self.subTest(contradiction=contradiction):
+                changed = dict(payload)
+                changed["body"] = payload["body"] + contradiction
+                errors = []
+                verify_closeout.verify_external_checkpoint_comment(checkpoint, changed, errors)
+                self.assertNotEqual(errors, [])
 
     def test_reviewed_head_must_be_exact_attestation_parent(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -163,7 +186,17 @@ class VerifyCloseoutTests(unittest.TestCase):
             verify_closeout.verify_attestation_parent(repository, heads[1], errors)
             self.assertEqual(errors, [])
             verify_closeout.verify_attestation_parent(repository, heads[0], errors)
-            self.assertIn("Checkpoint C reviewed head is not the exact attestation parent", errors)
+            self.assertIn("Checkpoint C attestation must have exactly one parent equal to the reviewed head", errors)
+
+            subprocess.run(["git", "checkout", "-q", "-b", "side", heads[0]], cwd=repository, check=True)
+            (repository / "side").write_text("side", encoding="utf-8")
+            subprocess.run(["git", "add", "side"], cwd=repository, check=True)
+            subprocess.run(["git", "commit", "-q", "-m", "side"], cwd=repository, check=True)
+            subprocess.run(["git", "checkout", "-q", "master"], cwd=repository, check=True)
+            subprocess.run(["git", "merge", "-q", "--no-ff", "side", "-m", "merge"], cwd=repository, check=True)
+            errors = []
+            verify_closeout.verify_attestation_parent(repository, heads[2], errors)
+            self.assertIn("Checkpoint C attestation must have exactly one parent equal to the reviewed head", errors)
 
     def test_checksum_manifest_rejects_unlisted_path(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

@@ -38,6 +38,14 @@
         "issue_comment_id": 5119792587,
         "safety_gate": "NO",
         "finding": "Strict verification accepted a failed ancestor, coexisting PENDING status, and a non-GitHub placeholder linkage."
+      },
+      {
+        "verdict": "FAIL",
+        "reviewed_head": "1fc662f83ead68d48242376b4ab0820f787f7fbd",
+        "reviewed_range": "a11bce8a6260cf9c131a360d047aeb4d4a21d56f..1fc662f83ead68d48242376b4ab0820f787f7fbd",
+        "issue_comment_id": 5119898964,
+        "safety_gate": "NO",
+        "finding": "Strict verification trusted removable local failure history, ambiguous document/comment fields, and a merge first parent."
       }
     ]
   }
