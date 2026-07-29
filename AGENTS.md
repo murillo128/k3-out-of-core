@@ -16,6 +16,7 @@ Before changing code or plans, read:
 4. `PLAN.md`
 5. `docs/MODELS_AND_VALIDATION.md`
 6. `docs/PRIOR_ART.md`
+7. `.agents/skills/spec-driven-codex-loop/SKILL.md`
 
 Then inspect the current Git branch, commit history, open issues/PRs, and any linked `llama.cpp` checkout.
 
@@ -42,6 +43,26 @@ Use these exact labels in plans and design notes:
 - `BLOCKED`
 
 Never present an `OPEN` or `SPECULATIVE` item as decided.
+
+## Required execution workflow
+
+For every non-trivial implementation, refactor, migration, performance investigation, or change to project source-of-truth documents, use the `spec-driven-codex-loop` skill in `.agents/skills/spec-driven-codex-loop/SKILL.md`.
+
+The mandatory workflow is:
+
+1. obtain an approved GitHub issue containing the complete design and execution contract before implementation;
+2. use the issue as the durable control surface and audit trail;
+3. execute exactly one bounded phase at a time;
+4. add a phase-start issue update before editing;
+5. validate and commit the phase as an independently reviewable outcome;
+6. add the actual results, evidence, deviations, and commit SHA to the issue;
+7. run a fresh, read-only Codex CLI or isolated Codex session to review that exact phase;
+8. block progression on `FAIL` or `BLOCKED` review verdicts;
+9. request a separate top-reasoning ChatGPT review of the complete PR and issue history before merge.
+
+Do not implement a non-trivial task from an underspecified prompt. When implementation exposes a material flaw in the specification, architecture, phase decomposition, validation strategy, or governing skills, stop and revise those artifacts. Prefer a clean, traceable restart over layering compensating patches on an invalid foundation.
+
+Trivial typo-only edits may skip the full issue loop unless the user explicitly requests it, but all source-of-truth and Git rules still apply.
 
 ## Working method
 
