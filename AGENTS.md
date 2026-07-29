@@ -21,7 +21,7 @@ Before changing code or plans, read:
 9. `.agents/skills/codex-github-operations/SKILL.md`
 10. `.agents/skills/codex-independent-review/SKILL.md`
 
-Then inspect the current Git branch, commit history, open issues/PRs, and any linked `llama.cpp` checkout.
+Then inspect the current Git branch, commit history, open issues and pull requests, and any linked `llama.cpp` checkout.
 
 ## Source-of-truth hierarchy
 
@@ -36,7 +36,7 @@ When sources conflict, stop and document the conflict. Do not silently choose on
 
 ## Status markers
 
-Use these exact labels in plans and design notes:
+Use these exact markers in plans and design notes:
 
 - `ACCEPTED`
 - `OPEN`
@@ -47,84 +47,61 @@ Use these exact labels in plans and design notes:
 
 Never present an `OPEN` or `SPECULATIVE` item as decided.
 
-## Required issue-design workflow
+## Agent workflow routing
 
-For every non-trivial implementation, refactor, migration, performance investigation, or change to project source-of-truth documents, the design-authority ChatGPT session must use `.agents/skills/design-github-issue/SKILL.md` before Codex implementation begins.
+For non-trivial implementation, refactoring, migration, performance work, investigations, or source-of-truth changes:
 
-The design session must:
+- the design-authority session uses `.agents/skills/design-github-issue/SKILL.md`;
+- the main executor uses `.agents/skills/spec-driven-codex-loop/SKILL.md`;
+- Git and GitHub operations use `.agents/skills/codex-github-operations/SKILL.md`;
+- independent checkpoint and final reviews use `.agents/skills/codex-independent-review/SKILL.md`.
 
-1. inspect the repository and relevant external evidence before prescribing changes;
-2. classify observed facts, accepted decisions, open questions, speculation, and blockers explicitly;
-3. use available helper skills such as brainstorming, systematic debugging, plan writing, or verification when useful, without depending on their availability;
-4. resolve material design and scope decisions or create a design/investigation issue instead of guessing;
-5. define bounded phases, model capability classes, validation commands, review gates, and restart conditions;
-6. search for overlapping issues and prior attempts;
-7. create or update a complete GitHub issue that is understandable without private chat context;
-8. apply exactly one GitHub workflow label: `design-required`, `investigation-required`, `execution-ready`, `in-progress`, or `blocked`.
+`AGENTS.md` defines repository-wide invariants and routes work to skills. It intentionally does not duplicate operational procedures owned by those skills. When instructions overlap, the dedicated skill owns its stated responsibility.
 
-Only an issue carrying the `execution-ready` label may enter the implementation workflow. If architecture or other durable decisions change, update the repository source of truth before implementation or make that update an explicit gated prerequisite.
+Trivial typo-only edits may skip the complete issue workflow unless the user explicitly requests it, but repository safety and source-of-truth rules still apply.
 
-## GitHub issue workflow labels
+## Execution profiles
 
-Use these exact GitHub labels as mutually exclusive workflow states for every non-trivial open issue:
+`STANDARD` is the default profile.
 
-- `design-required`: material architecture, scope, or validation decisions remain unresolved.
-- `investigation-required`: additional evidence or experimentation is required before the issue can be fully designed.
-- `execution-ready`: the issue is a complete, self-contained execution contract with no unresolved material blocker.
-- `in-progress`: an agent or human is actively executing the approved issue.
-- `blocked`: execution cannot progress until a documented external dependency, failed gate, or design defect is resolved.
+- Validate and commit each bounded phase.
+- Publish exact commits when needed for preservation, collaboration, or review.
+- Require independent review only at checkpoints declared by the issue and at final handoff.
+- Treat recoverable tool or transport failures as degraded operation or handoff, not as implementation failure.
 
-Apply the labels using these rules:
+`HIGH_ASSURANCE` is opt-in and must be explicitly selected by the issue or user.
 
-1. Exactly one workflow-state label must be present on each non-trivial open issue.
-2. Assign `execution-ready` only when the issue contains an explicit goal, authoritative context, scope, out-of-scope boundaries, bounded execution steps or constraints, validation requirements, and testable exit criteria.
-3. Do not assign `execution-ready` while any material design question, dependency, or validation strategy remains unresolved.
-4. Codex may start work only from an `execution-ready` issue. At execution start, replace `execution-ready` with `in-progress` and add a phase-start comment before editing.
-5. When progress is impossible, replace the current workflow label with `blocked` and document the evidence, owner or dependency, and exact restart condition in an issue comment.
-6. After a blocker is resolved, return the issue to `execution-ready` when execution must restart from the contract, or to `in-progress` when the existing phase may safely resume.
-7. Close the issue when all exit criteria are supported by committed evidence. A separate `completed` label is unnecessary.
-8. Uppercase status markers such as `ACCEPTED`, `OPEN`, and `BLOCKED` remain document semantics; lowercase workflow labels are GitHub machine-readable state.
+Use it for high-risk work such as architecture, concurrency and lifetime, numerical formats, routing semantics, CUDA/backend correctness, persistent storage, cache coherence, security, or other changes where every phase warrants independent review.
 
-## Required execution workflow
+The detailed profile rules belong to `design-github-issue` and `spec-driven-codex-loop`.
 
-For every non-trivial implementation, refactor, migration, performance investigation, or change to project source-of-truth documents, use the `spec-driven-codex-loop` skill in `.agents/skills/spec-driven-codex-loop/SKILL.md`.
+## GitHub workflow labels
 
-The mandatory workflow is:
+Use exactly one workflow-state label for each non-trivial open issue:
 
-1. obtain an approved GitHub issue containing the complete design and execution contract before implementation;
-2. use the issue as the durable control surface and audit trail;
-3. execute exactly one bounded phase at a time;
-4. add a phase-start issue update before editing;
-5. validate and commit the phase as an independently reviewable outcome;
-6. use `codex-github-operations` to publish and verify the exact phase commit and perform required GitHub control-plane operations;
-7. add the actual results, evidence, deviations, and authoritative full commit SHA to the issue;
-8. use `codex-independent-review` to review that exact published phase in a fresh isolated read-only context;
-9. block progression on `FAIL` or `BLOCKED` review verdicts;
-10. request a separate top-reasoning ChatGPT review of the complete PR and issue history before merge.
+- `design-required`
+- `investigation-required`
+- `execution-ready`
+- `in-progress`
+- `blocked`
 
-Do not implement a non-trivial task from an underspecified prompt. When implementation exposes a material flaw in the specification, architecture, phase decomposition, validation strategy, or governing skills, stop and revise those artifacts. Prefer a clean, traceable restart over layering compensating patches on an invalid foundation.
+Labels summarize durable workflow state; they are not a substitute for issue evidence. `blocked` is reserved for a real unresolved condition that prevents meaningful technical progress and has no permitted alternative or handoff. Tool-specific failures are not automatically blockers.
 
-Trivial typo-only edits may skip the full issue loop unless the user explicitly requests it, but all source-of-truth and Git rules still apply.
+Label mutation, verification, and transport selection belong to `codex-github-operations`.
 
-## Codex operational skill routing
+## Required execution outcomes
 
-`spec-driven-codex-loop` is the workflow orchestrator. It owns sequencing, workflow-state transitions, phase boundaries, progression, and handoff, but it must delegate operational transport decisions:
+Every non-trivial execution must provide:
 
-- `.agents/skills/codex-github-operations/SKILL.md` owns local Git publication, exact remote-SHA verification, GitHub issue/label/comment/PR transport selection, and connector handoff.
-- `.agents/skills/codex-independent-review/SKILL.md` owns reviewer isolation, reviewer-transport selection, transport fallback, evidence inspection, and verdict structure.
+1. an approved, self-contained issue contract;
+2. bounded implementation phases;
+3. validation appropriate to each phase;
+4. intentional, reviewable commits;
+5. recorded evidence and deviations;
+6. independent reviews at the issue-declared checkpoints;
+7. a final external review of the complete pull request and issue history before merge.
 
-For these responsibilities, the dedicated operational skills supersede transport-specific examples or assumptions elsewhere in repository skills.
-
-In particular:
-
-- local `git` is authoritative for branch creation, commit creation, fetch, push, and SHA verification;
-- the connected GitHub app or connector is preferred for issue, label, comment, and pull-request operations;
-- GitHub CLI `gh` is an optional fallback unless an approved issue explicitly requires a CLI-only capability;
-- failure of one optional GitHub or reviewer transport is not a phase implementation failure when an allowed alternative exists;
-- a reviewer-launcher or sandbox failure must be retried through another fresh isolated review transport before the review is considered globally blocked;
-- the main executor must never replace the independent reviewer.
-
-Issues should declare required operational capabilities and gates, not duplicate product-specific transport procedures unless a particular transport is itself part of the task.
+Do not implement from an underspecified prompt. When implementation exposes a material defect in the specification, architecture, phase decomposition, or validation strategy, return to design instead of accumulating compensating patches.
 
 ## Working method
 
@@ -132,10 +109,9 @@ Issues should declare required operational capabilities and gates, not duplicate
 
 - Identify the current phase and exit gate in `PLAN.md`.
 - Confirm the exact upstream `llama.cpp` commit and local diff.
-- Confirm model/checkpoint revisions and checksums.
+- Confirm model and checkpoint revisions and checksums.
 - State the smallest independently verifiable step.
-- Identify which prior-art code will be inspected and its license.
-- Add or update an issue with scope, deliverables, and validation if issue tracking is in use.
+- Identify prior-art code to inspect and its license.
 
 ### During implementation
 
@@ -149,11 +125,11 @@ Issues should declare required operational capabilities and gates, not duplicate
 
 ### At the end of a session
 
-- Update `docs/STATUS.md`.
+- Update `docs/STATUS.md` when project handoff state changes.
 - Update completed checkboxes and evidence in `PLAN.md`.
-- Record new decisions or reopened decisions in `docs/DECISIONS.md`.
-- Update model commands/results in `docs/MODELS_AND_VALIDATION.md`.
-- Commit all source-of-truth changes.
+- Record new or reopened decisions in `docs/DECISIONS.md`.
+- Update model commands and results in `docs/MODELS_AND_VALIDATION.md`.
+- Commit required source-of-truth changes.
 - Leave the working tree clean or clearly document intentional uncommitted work.
 
 ## Architectural constraints
@@ -162,7 +138,7 @@ Agents must not:
 
 - replace the final design with a page-cache-only implementation;
 - use graph-temporary staging memory as persistent expert storage;
-- infer backing files via `/proc/self/maps`;
+- infer backing files through `/proc/self/maps`;
 - pin the complete cold cache without an explicit bounded configuration;
 - add global singleton state that prevents multiple models or devices;
 - mix cache policy with CUDA or I/O implementation;
@@ -171,10 +147,10 @@ Agents must not:
 - create a new expert file format before Phase 14 evidence;
 - make N+1 prefetch mandatory without trace evidence;
 - silently downgrade unsupported configurations;
-- claim CUDA/UMA support from compilation alone;
+- claim CUDA or UMA support from compilation alone;
 - copy a prior fork wholesale;
 - import third-party code without license and attribution review;
-- combine K3 model support, CPU, CUDA, disk, and policies into one upstream PR.
+- combine K3 model support, CPU, CUDA, disk, and policies into one upstream pull request.
 
 ## Required abstractions
 
@@ -198,18 +174,18 @@ Names may follow GGML conventions, but responsibilities must remain separated.
 
 ## Correctness requirements
 
-Every phase that changes execution must compare with the monolithic baseline.
+Every phase that changes execution must compare against the monolithic baseline.
 
 Hard failures include:
 
-- NaN or Inf not present in baseline;
+- NaN or Inf not present in the baseline;
 - invalid expert ID;
 - stale slot generation;
 - missing projection or scale;
-- cache metadata/content disagreement;
-- use-after-free during unload/cancellation;
-- nondeterministic result caused by asynchronous completion order;
-- unexplained tokenization or EOS change;
+- cache metadata and content disagreement;
+- use-after-free during unload or cancellation;
+- nondeterminism caused by asynchronous completion order;
+- unexplained tokenization or EOS changes;
 - hidden unbounded memory growth.
 
 Tests must include repeated warm runs because prior work failed across compute epochs.
@@ -218,11 +194,11 @@ Tests must include repeated warm runs because prior work failed across compute e
 
 Do not optimize from hit rate alone. Record:
 
-- prompt/decode throughput;
-- p50/p95/p99 token latency;
+- prompt and decode throughput;
+- p50, p95, and p99 token latency;
 - hot, cold, and disk hits;
 - bytes moved per tier;
-- disk and H2D wait/overlap;
+- disk and H2D wait and overlap;
 - CPU miss compute;
 - useful and wasted prefetch;
 - RAM, pinned RAM, VRAM, and UMA usage.
@@ -237,7 +213,7 @@ Before porting code:
 2. identify the smallest reusable unit;
 3. explain why the original design did or did not merge;
 4. write an isolated test;
-5. adapt ownership/lifetime to this architecture;
+5. adapt ownership and lifetime to this architecture;
 6. preserve attribution;
 7. benchmark against the unmodified baseline.
 
@@ -245,10 +221,10 @@ Primary references are listed in `docs/PRIOR_ART.md`.
 
 ## Upstream `llama.cpp` integration
 
-- Pin an exact K3 PR commit; do not develop against an unrecorded moving head.
+- Pin an exact K3 pull-request commit; do not develop against an unrecorded moving head.
 - Follow upstream `AGENTS.md` and `CONTRIBUTING.md` in the `llama.cpp` checkout.
-- Keep upstream PRs small and independently testable.
-- The first upstream change for a new capability should follow maintainers' requested backend scope; backend follow-ups should be separate unless an RFC explicitly agrees otherwise.
+- Keep upstream pull requests small and independently testable.
+- Follow maintainers' requested backend scope for the first upstream change; separate backend follow-ups unless an RFC explicitly agrees otherwise.
 - Disclose AI assistance according to upstream policy.
 - Never force-push or rewrite shared history without explicit user approval.
 
@@ -259,8 +235,7 @@ Primary references are listed in `docs/PRIOR_ART.md`.
 - Use explicit paths when staging.
 - Avoid unrelated formatting changes.
 - Commit messages should describe one intentional outcome.
-- Direct commits to the default branch require explicit user instruction; otherwise use a feature branch and draft PR.
-- Codex publication and GitHub control-plane operations must follow `.agents/skills/codex-github-operations/SKILL.md`.
+- Direct commits to the default branch require explicit user instruction; otherwise use a feature branch and draft pull request.
 
 ## Current immediate task
 
