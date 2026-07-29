@@ -1,6 +1,6 @@
-# Phase 4 corpus and closeout-candidate evidence
+# Phase 4 corpus and closeout evidence
 
-Status: `OBSERVED` — issue #10 Phase 4 technical capture, replay, and external publication passed on 2026-07-29. Its simulation evidence was regenerated after the initial Checkpoint B review found and rejected an admission-bypassing oracle; fresh Checkpoint B review is still required.
+Status: `OBSERVED` — issue #10 Phase 4 technical capture, replay, and external publication passed on 2026-07-29. Its simulation evidence was regenerated after the initial Checkpoint B review found and rejected an admission-bypassing oracle. The corrected Checkpoint B re-review returned `PASS_WITH_NOTES` with safety to proceed `YES` at project head `961e2f44413ec2031497dcc1474e8e79b828e6cb`.
 
 ## Corpus coverage
 

@@ -164,9 +164,9 @@
 
 ### Exit gate
 
-- Every routed expert can be mapped to exact backing-file spans.
-- Real K3 traces can be replayed offline.
-- No inference result changes with tracing enabled.
+- [x] Every routed expert can be mapped to exact backing-file spans.
+- [x] Real K3 traces can be replayed offline.
+- [x] No inference result changes with tracing enabled.
 
 ---
 

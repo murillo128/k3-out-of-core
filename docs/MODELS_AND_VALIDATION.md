@@ -277,7 +277,7 @@ The large CPU/CUDA prefill subsets expose small internal route differences despi
 
 The raw archive is published at Hub revision `2d838d6b4d0aca4e9af1e7d899e57ad29330c72e`, size 323723 bytes, SHA-256 `6aa924a6c18bee4e2490f317ced836bcc4740c3ec63e9427a95951e79a649a5f`. The repository commits only prompt definitions, checksums, decoded summaries, simulator output, and the one permitted minimal real trace fixture.
 
-The Phase 3 simulator is independent of GGML/CUDA and reports inclusive hot/cold LRU plus an equal-bundle perfect-future Belady/MIN offline lower bound. Its latency/bandwidth inputs are explicitly illustrative and serial with no overlap; they are not production predictions. Twenty focused Phase 2 tests pass. Complete evidence is under `results/2026-07-29/skynet/phase2-observability/`.
+The Phase 3 simulator is independent of GGML/CUDA and reports inclusive hot/cold LRU plus an equal-bundle perfect-future Belady/MIN offline lower bound. Canonical MIN always admits a fitting demand and selects its replacement victim only from current residents; the `A B A` capacity-one discriminator records three misses and three admissions. Its latency/bandwidth inputs are explicitly illustrative and serial with no overlap; they are not production predictions. Twenty focused Phase 2 tests pass. The corrected Checkpoint B re-review at project head `961e2f44413ec2031497dcc1474e8e79b828e6cb` returned `PASS_WITH_NOTES`, safety `YES`. Complete evidence is under `results/2026-07-29/skynet/phase2-observability/`.
 
 ## 8. Validation levels
 

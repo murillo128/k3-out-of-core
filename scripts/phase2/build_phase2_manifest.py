@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the deterministic issue #10 Phase 2 closeout-candidate manifest."""
+"""Build the deterministic issue #10 Phase 2 closeout manifest."""
 
 from __future__ import annotations
 
@@ -26,6 +26,7 @@ FILES = {
         "scripts/phase2/run_cache_simulation.py",
         "scripts/phase2/capture_trace_corpus.py",
         "scripts/phase2/simulate_trace_corpus.py",
+        "scripts/phase2/build_phase2_manifest.py",
         "scripts/phase2/verify_phase2.py",
     ],
     "test": [
@@ -99,7 +100,7 @@ def main() -> int:
 
     manifest = {
         "schema_version": "phase2-manifest-v1",
-        "closeout_state": "checkpoint-b-candidate",
+        "closeout_state": "complete",
         "execution_profile": "STANDARD",
         "issue": {
             "repository": "murillo128/k3-out-of-core",
@@ -111,6 +112,7 @@ def main() -> int:
             "project_execution_base": "c0ef5d08c6efb8d1f7a08a62109feb1a488c72fa",
             "project_checkpoint_a_head": "43216235b6e74914afdb1b76918557675bf7e0b1",
             "project_phase3_head": "8aeee910ce6da4e10dfff4ede2395680580d1e7a",
+            "project_checkpoint_b_head": "961e2f44413ec2031497dcc1474e8e79b828e6cb",
             "llama_cpp_base": "84245db4c790af22135f34992689edcc11877003",
             "llama_cpp_route_observer": "92c4627e19219134ed42e24aa84a1514bf3dffa3",
             "llama_cpp_storage_metadata": "4daaaa1a4dd26d6465f84891b854b5f7ddc03020",
@@ -196,7 +198,16 @@ def main() -> int:
                 "safety_to_proceed": "YES",
                 "project_head": "43216235b6e74914afdb1b76918557675bf7e0b1",
                 "llama_cpp_head": "4daaaa1a4dd26d6465f84891b854b5f7ddc03020",
-            }
+            },
+            {
+                "checkpoint": "B",
+                "comment_id": 5123025188,
+                "url": "https://github.com/murillo128/k3-out-of-core/issues/10#issuecomment-5123025188",
+                "verdict": "PASS_WITH_NOTES",
+                "safety_to_proceed": "YES",
+                "project_head": "961e2f44413ec2031497dcc1474e8e79b828e6cb",
+                "llama_cpp_head": "4daaaa1a4dd26d6465f84891b854b5f7ddc03020",
+            },
         ],
         "prohibited_scope": {
             "runtime_provider_or_cache_added": False,

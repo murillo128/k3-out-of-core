@@ -9,8 +9,8 @@
     {
       "kind": "source-of-truth",
       "path": "docs/MODELS_AND_VALIDATION.md",
-      "sha256": "c50561bbb663374231e29d8ddb0863f022b1db2a9e1463ba9b0c04c8a94fac2b",
-      "size": 16869
+      "sha256": "e9c33475f1870d41165aa5c75f9f7e178cfc3f892361e2877666dd81aad45dfd",
+      "size": 17198
     },
     {
       "kind": "source-of-truth",
@@ -21,14 +21,14 @@
     {
       "kind": "source-of-truth",
       "path": "docs/STATUS.md",
-      "sha256": "a4ebcd7e104c706a8fa8af23d1781ebb4f5b2573bb4d2e96fcfface8a94d5dcc",
-      "size": 5672
+      "sha256": "80fb1c497ea4e38205fddea15fb77c6231328df4be7ea5063e63071739b9ed93",
+      "size": 5586
     },
     {
       "kind": "source-of-truth",
       "path": "docs/plan/00-foundation.md",
-      "sha256": "23420e675a79f55fcbec1a076302e7e0ff2b5eabc397044e0fd9d0ac9dcca743",
-      "size": 9564
+      "sha256": "5315d5ddff924db5eb8baa03f34ba06985d0c87538c3edcbdd37cbfa5da76267",
+      "size": 9576
     },
     {
       "kind": "evidence",
@@ -51,8 +51,8 @@
     {
       "kind": "evidence",
       "path": "results/2026-07-29/skynet/phase2-observability/PHASE4.md",
-      "sha256": "5d968cb8f639bdfa326ea1e8e72b1f687b10869e2c33b01565493fa1f09b22a3",
-      "size": 4239
+      "sha256": "6b6e4f54f0c1feb4d55c5ccc75c17ed49715ec24f0cdeebf4a8a62855342c1bc",
+      "size": 4337
     },
     {
       "kind": "evidence",
@@ -182,6 +182,12 @@
     },
     {
       "kind": "implementation",
+      "path": "scripts/phase2/build_phase2_manifest.py",
+      "sha256": "e1ffbf43f7af43a5af2e62c3564643bdd254860af7422a8523510441a774ee8c",
+      "size": 9621
+    },
+    {
+      "kind": "implementation",
       "path": "scripts/phase2/cache_simulator.py",
       "sha256": "e3a82ccc72a07716e7c731f935ff59e7e2f48c6b7f8b9ee6100abfa8183d54af",
       "size": 23383
@@ -259,7 +265,7 @@
       "size": 2906
     }
   ],
-  "closeout_state": "checkpoint-b-candidate",
+  "closeout_state": "complete",
   "execution_profile": "STANDARD",
   "external_archive": {
     "members": [
@@ -404,6 +410,15 @@
       "safety_to_proceed": "YES",
       "url": "https://github.com/murillo128/k3-out-of-core/issues/10#issuecomment-5122694227",
       "verdict": "PASS_WITH_NOTES"
+    },
+    {
+      "checkpoint": "B",
+      "comment_id": 5123025188,
+      "llama_cpp_head": "4daaaa1a4dd26d6465f84891b854b5f7ddc03020",
+      "project_head": "961e2f44413ec2031497dcc1474e8e79b828e6cb",
+      "safety_to_proceed": "YES",
+      "url": "https://github.com/murillo128/k3-out-of-core/issues/10#issuecomment-5123025188",
+      "verdict": "PASS_WITH_NOTES"
     }
   ],
   "revisions": {
@@ -411,6 +426,7 @@
     "llama_cpp_route_observer": "92c4627e19219134ed42e24aa84a1514bf3dffa3",
     "llama_cpp_storage_metadata": "4daaaa1a4dd26d6465f84891b854b5f7ddc03020",
     "project_checkpoint_a_head": "43216235b6e74914afdb1b76918557675bf7e0b1",
+    "project_checkpoint_b_head": "961e2f44413ec2031497dcc1474e8e79b828e6cb",
     "project_execution_base": "c0ef5d08c6efb8d1f7a08a62109feb1a488c72fa",
     "project_phase3_head": "8aeee910ce6da4e10dfff4ede2395680580d1e7a",
     "published_corpus": "2d838d6b4d0aca4e9af1e7d899e57ad29330c72e",
