@@ -12,7 +12,7 @@ This file is the first handoff document for a new ChatGPT or Codex session.
 - PR #9 merged into `main` as `eff5efc754919bf1a50735e27c7ad39f4d93384e`; its STANDARD materiality and repeated-review circuit-breaker rules now govern future issues.
 - Checkpoints A, B, and C returned **PASS_WITH_NOTES** with safety gate **YES**.
 - The final complete-PR review returned **PASS_WITH_NOTES** with safety to merge **YES**.
-- No out-of-core runtime implementation exists. Project Phase 2 issue #10 is in progress in PR #11. Checkpoint A and the corrected Checkpoint B re-review returned `PASS_WITH_NOTES` with safety to proceed `YES`. The initial Checkpoint B review correctly rejected an admission-bypassing oracle mislabeled as exact Belady/MIN; the corrected simulator always admits the demand, selects MIN victims only from current residents, and passes the distinguishing `A B A` capacity-one case. The bounded F16/MXFP4 CPU corpus and CPU/CUDA subset remain reproducible, and the unchanged raw corpus is externally published at immutable Hub revision `2d838d6b4d0aca4e9af1e7d899e57ad29330c72e`.
+- Project Phase 2 is complete and merged through PR #11. The final reviewed project head was `c56770e9148fb94173561b7c4f2aade63cdefff7`; PR #11 merged into `main` as `d74781faec12e8552c1598084b210f784ac0a43b`, with nested `murillo128/llama.cpp` gitlink `4daaaa1a4dd26d6465f84891b854b5f7ddc03020`. No out-of-core runtime implementation exists yet. The bounded F16/MXFP4 CPU corpus and CPU/CUDA subset remain reproducible, and the unchanged raw corpus is externally published at immutable Hub revision `2d838d6b4d0aca4e9af1e7d899e57ad29330c72e`.
 - Phase 1 evidence is descriptive for the tiny K3 fixtures on `skynet`; it is not a model-quality or production-performance claim.
 
 ## Phase 1 merged baseline
@@ -73,6 +73,6 @@ Kernel: 6.8.0-136-generic
 
 ## Immediate next action
 
-Obtain issue #10's final complete-PR external review over the attested head, then merge only after the final safety gate is `YES`. Do not begin provider implementation before final review and merge.
+Design and record an execution-ready GitHub issue for **Project Phase 3 — provider abstraction with resident parity**, using the exact post-housekeeping `main` SHA as the immutable execution base and nested `murillo128/llama.cpp@4daaaa1a4dd26d6465f84891b854b5f7ddc03020` as the pinned implementation input.
 
-Do not implement cache, provider, NVMe I/O, prefetch, expert remapping, or residency changes as part of issue #10.
+Do not create the Phase 3 execution branch or begin implementation until the Phase 3-specific architecture, ownership, lifetime, error, ABI, validation, and review contract is complete in that issue. Phase 3 must preserve full expert residency, routing semantics, numerical execution, and canonical reduction order; cache, storage transport, prefetch, and residency changes remain later work.
