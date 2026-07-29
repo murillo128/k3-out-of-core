@@ -1,0 +1,27 @@
+# Model and conversion outputs
+*.gguf
+*.safetensors
+*.bin
+models/
+
+# Large traces and benchmark artifacts
+results/**/raw/
+traces/*.bin
+*.trace
+*.log
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+
+# Build systems
+build/
+build-*/
+CMakeFiles/
+CMakeCache.txt
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store

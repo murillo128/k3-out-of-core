@@ -1,0 +1,153 @@
+# Persistent caches and GGUF storage
+
+## Phase 4 — Persistent hot cache in accelerator memory
+
+### Objectives
+
+- Create correct fixed-address hot slots and runtime ID remapping while all source experts remain host-resident.
+
+### Tasks
+
+#### 4.1 Hot-slot allocation
+
+- [ ] Allocate persistent slots outside the graph allocator.
+- [ ] Allocate the gate/up/down physical regions required by each logical slot.
+- [ ] Preserve stable addresses for graph compatibility.
+- [ ] Reserve CUDA/cuBLAS workspace before consuming all VRAM.
+- [ ] Support cache trim/surrender on memory pressure.
+
+#### 4.2 Directory
+
+- [ ] Implement bidirectional mapping:
+
+  ```text
+  ExpertKey -> slot
+  slot -> ExpertKey
+  ```
+
+- [ ] Maintain generation/version counters to detect stale handles.
+- [ ] Mirror the lookup mapping on GPU where required.
+- [ ] Update mapping in place without per-token allocation.
+
+#### 4.3 State machine
+
+Implement explicit states:
+
+```text
+FREE
+RESERVED
+LOADING
+READY
+PINNED
+EVICTING
+FAILED
+```
+
+- [ ] Define legal transitions and assertions.
+- [ ] Pin slots while kernels use them.
+- [ ] Prevent eviction with nonzero reference count or outstanding event.
+
+#### 4.4 Synchronous correctness path
+
+- [ ] Initially populate a missed slot from host source synchronously.
+- [ ] Remap selected IDs to slot IDs.
+- [ ] Execute existing CUDA MXFP4 grouped MoE kernels against slot buffers.
+- [ ] Preserve canonical output reduction.
+
+This synchronous path is a phase-isolation mechanism, not the final transport.
+
+#### 4.5 Tests
+
+- [ ] Deterministic capacity/eviction tests.
+- [ ] Stale-handle and generation tests.
+- [ ] Compute-epoch persistence tests.
+- [ ] Repeated warm inference.
+- [ ] CUDA error/OOM cleanup.
+
+### Exit gate
+
+- Forced hot-cache inference matches monolithic logits/tokens.
+- True cross-epoch hits occur from cache-owned memory.
+- No stale data or graph-temporary dependency exists.
+
+---
+
+## Phase 5 — Cold host-memory cache and pinned transfer ring
+
+### Objectives
+
+- Add an explicit, bounded host cache and decouple large cold capacity from pinned transfer capacity.
+
+### Tasks
+
+#### 5.1 Cold slots
+
+- [ ] Allocate aligned cold slots by bytes, not only expert count.
+- [ ] Implement cold directory and state machine.
+- [ ] Enforce the initial inclusive invariant for hot entries.
+- [ ] Define host-memory pressure and allocation failure behavior.
+- [ ] Optionally support hugepage advice without requiring it.
+
+#### 5.2 Pinned ring
+
+- [ ] Allocate bounded pinned/registered transfer buffers.
+- [ ] Support multiple in-flight H2D transfers.
+- [ ] Fall back cleanly when registration fails.
+- [ ] Track pinned-memory budget and expose it in telemetry.
+
+#### 5.3 Promotion
+
+- [ ] Cold hit copies to a pinned lane if needed, then asynchronously or synchronously to hot according to the current phase.
+- [ ] Do not block unrelated ready experts.
+- [ ] Populate a cold slot from an existing host-resident monolithic tensor for this phase.
+
+#### 5.4 Eviction
+
+- [ ] Implement deterministic LRU mechanism for tests.
+- [ ] Prevent cold eviction while hot, pinned, loading, or referenced.
+- [ ] Verify hot eviction requires no writeback.
+
+### Exit gate
+
+- Hot miss/cold hit behavior is correct and bounded.
+- Inclusive-cache invariants hold under stress.
+- No whole-model pinning occurs.
+
+---
+
+## Phase 6 — GGUF-backed storage and synchronous demand reads
+
+### Objectives
+
+- Stop treating the complete expert tensor as host-resident.
+- Read an absent `ExpertBundle` from its exact GGUF spans into bounded buffers/cold slots.
+
+### Tasks
+
+#### 6.1 Storage API
+
+- [ ] Open and retain explicit file handles supplied by the GGUF loader.
+- [ ] Validate all offsets and sizes at model load.
+- [ ] Support split GGUF files.
+- [ ] Define storage lifetime through model unload.
+
+#### 6.2 Read path
+
+- [ ] Implement a simple robust read-at-offset path first.
+- [ ] Read all three projections for a logical expert.
+- [ ] Verify bytes/checksums before exposing `READY` in debug builds.
+- [ ] Handle short read, EINTR, I/O error, and cancellation.
+- [ ] Ensure the complete expert tensor is not accidentally faulted into RAM by another reference.
+
+#### 6.3 Model loading changes
+
+- [ ] Keep routed expert metadata resident but avoid eagerly materializing routed expert bytes.
+- [ ] Keep resident/shared/latent tensors in their normal backend allocation.
+- [ ] Make out-of-core mode explicit and validate configuration before inference.
+
+### Exit gate
+
+- With cold/hot capacities forced small, experts are read from GGUF on demand and inference matches the monolithic baseline.
+- Host memory remains within the configured budget.
+
+---
