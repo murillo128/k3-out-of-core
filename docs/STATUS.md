@@ -12,7 +12,7 @@ This file is the first handoff document for a new ChatGPT or Codex session.
 - PR #9 merged into `main` as `eff5efc754919bf1a50735e27c7ad39f4d93384e`; its STANDARD materiality and repeated-review circuit-breaker rules now govern future issues.
 - Checkpoints A, B, and C returned **PASS_WITH_NOTES** with safety gate **YES**.
 - The final complete-PR review returned **PASS_WITH_NOTES** with safety to merge **YES**.
-- No out-of-core runtime implementation exists. Project Phase 2 issue #10 is in progress; its route-observer and authoritative expert-storage phases are implemented and validated locally, pending Checkpoint A review.
+- No out-of-core runtime implementation exists. Project Phase 2 issue #10 is in progress; its route-observer and authoritative expert-storage phases are implemented and published in draft PR #11. The first Checkpoint A review returned a material `FAIL` limited to missing trace-enabled prompt/decode throughput and TTFT evidence; the bounded corrective measurements are now captured, pending a fresh review.
 - Phase 1 evidence is descriptive for the tiny K3 fixtures on `skynet`; it is not a model-quality or production-performance claim.
 
 ## Phase 1 merged baseline
@@ -73,6 +73,6 @@ Kernel: 6.8.0-136-generic
 
 ## Immediate next action
 
-Publish the exact project and nested `llama.cpp` commits for issue #10 Checkpoint A, open the draft project pull request, and obtain the required independent review of implementation phases 1 and 2. Continue to the offline simulator only after that checkpoint passes.
+Commit and publish the bounded trace-enabled performance evidence requested by issue #10 Checkpoint A, then obtain a fresh independent review of implementation phases 1 and 2. Continue to the offline simulator only after that checkpoint passes.
 
 Do not implement cache, provider, NVMe I/O, prefetch, expert remapping, or residency changes as part of issue #10.

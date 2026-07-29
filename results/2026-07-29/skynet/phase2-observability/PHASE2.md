@@ -36,3 +36,16 @@ Synthetic tests cover contiguous, regular strided, and irregular segmented span 
 - Python route and storage-layout tests passed; both repositories passed whitespace checks.
 
 Machine-readable evidence is in `phase2-storage-validation.json`, `phase2-route-regression.json`, `phase2-numerical/inference.json`, and the two `phase2-*-expert-storage-map-v1.json` files.
+
+## Trace-enabled performance
+
+Checkpoint A identified that the initial evidence recorded route-copy bytes, trace bytes, flushes, and explicit synchronizations but omitted the issue-required trace-enabled timing metrics. The bounded corrective run used one warmup and five measured context-recreated samples for each artifact/backend combination. Routing observation and trace writes remained enabled; probe-only logits-file writes were suppressed. Issue #10 defines no arbitrary pass percentage for these descriptive measurements.
+
+| Combination | Median TTFT | Median prompt throughput | Median decode throughput | Route-copy bytes | Trace bytes | Flushes | Explicit synchronizations |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| F16 CPU | 32.419 ms | 154.228 tok/s | 97.349 tok/s | 4032 | 19456 | 1 | 32 |
+| F16 CUDA | 62.619 ms | 79.847 tok/s | 150.232 tok/s | 4032 | 19457 | 1 | 32 |
+| MXFP4 CPU | 32.179 ms | 155.380 tok/s | 99.336 tok/s | 4032 | 19460 | 1 | 32 |
+| MXFP4 CUDA | 68.318 ms | 73.187 tok/s | 154.409 tok/s | 4032 | 19461 | 1 | 32 |
+
+TTFT begins immediately before the prefill annotation and ends after first-token argmax. Decode throughput covers the remaining 31 annotation/decode/argmax operations. Final trace flush time is excluded from token throughput and reported independently in `phase2-trace-enabled-performance.json`; its median was 0.177–0.202 ms across the four combinations. Every measured sample reproduced the expected prompt and generated IDs plus 32 ubatches, 224 layer observations, 252 records, 4032 copied bytes, 32 explicit synchronizations, one flush, zero observer failures, and 30 graph reuses.

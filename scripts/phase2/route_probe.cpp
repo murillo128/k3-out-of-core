@@ -4,9 +4,11 @@
 
 #include <algorithm>
 #include <cerrno>
+#include <chrono>
 #include <cmath>
 #include <cstring>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <memory>
 #include <cstdio>
@@ -14,6 +16,8 @@
 #include <vector>
 
 namespace {
+
+using clock_type = std::chrono::steady_clock;
 
 constexpr int kContext = 512;
 constexpr int kGenerate = 32;
@@ -38,6 +42,7 @@ struct arguments {
     bool direct_readback = false;
     bool invalid_mixed_phase = false;
     bool missing_annotation = false;
+    bool performance_sample = false;
 };
 
 bool parse_int(const char * text, int & value) {
@@ -116,12 +121,17 @@ bool parse_arguments(int argc, char ** argv, arguments & result) {
             result.invalid_mixed_phase = true;
         } else if (std::strcmp(argv[i], "--missing-annotation") == 0) {
             result.missing_annotation = true;
+        } else if (std::strcmp(argv[i], "--performance-sample") == 0) {
+            result.performance_sample = true;
         } else {
             return false;
         }
     }
 
     if (result.model.empty() || result.logits.empty()) {
+        return false;
+    }
+    if (result.performance_sample && !result.trace_enabled) {
         return false;
     }
     if (result.trace_enabled) {
@@ -153,6 +163,10 @@ int finite_argmax(const float * logits, int n_vocab) {
         }
     }
     return best;
+}
+
+double elapsed(clock_type::time_point begin, clock_type::time_point end) {
+    return std::chrono::duration<double>(end - begin).count();
 }
 
 struct observer_state {
@@ -288,7 +302,7 @@ bool observe_route(const llama_route_observation * observation, void * user_data
 int main(int argc, char ** argv) {
     arguments args;
     if (!parse_arguments(argc, argv, args)) {
-        std::cerr << "usage: route-probe --model PATH --logits PATH --gpu-layers N [--trace PATH --model-name NAME --model-size BYTES --model-sha256 HEX --model-source-revision SHA --published-gguf-revision SHA --llama-cpp-revision SHA --run-id ID --max-ubatch-payload BYTES] [--direct-readback] [--fail-after-observations N] [--invalid-mixed-phase] [--missing-annotation]\n";
+        std::cerr << "usage: route-probe --model PATH --logits PATH --gpu-layers N [--trace PATH --model-name NAME --model-size BYTES --model-sha256 HEX --model-source-revision SHA --published-gguf-revision SHA --llama-cpp-revision SHA --run-id ID --max-ubatch-payload BYTES] [--direct-readback] [--performance-sample] [--fail-after-observations N] [--invalid-mixed-phase] [--missing-annotation]\n";
         return 2;
     }
 
@@ -372,6 +386,9 @@ int main(int argc, char ** argv) {
 
     std::vector<llama_token> generated;
     llama_batch batch = llama_batch_get_one(prompt.data(), prompt.size());
+    const auto prompt_begin = clock_type::now();
+    clock_type::time_point prompt_end;
+    clock_type::time_point decode_begin;
     for (int step = 0; step < kGenerate; ++step) {
         if (args.trace_enabled) {
             const llama_route_phase phase = args.invalid_mixed_phase && step == 0
@@ -415,7 +432,9 @@ int main(int argc, char ** argv) {
             llama_model_free(model);
             return 10;
         }
-        logits_file.write((const char *) logits, (size_t) n_vocab*sizeof(float));
+        if (!args.performance_sample) {
+            logits_file.write((const char *) logits, (size_t) n_vocab*sizeof(float));
+        }
         const int next = finite_argmax(logits, n_vocab);
         if (!logits_file || next < 0) {
             std::cerr << "ROUTE_ERROR: invalid logits\n";
@@ -423,18 +442,48 @@ int main(int argc, char ** argv) {
             llama_model_free(model);
             return 11;
         }
+        if (step == 0) {
+            prompt_end = clock_type::now();
+        }
         generated.push_back(next);
+        if (step == 0) {
+            decode_begin = clock_type::now();
+        }
         if (llama_vocab_is_eog(vocab, next)) {
             break;
         }
         batch = llama_batch_get_one(&generated.back(), 1);
     }
+    const auto decode_end = clock_type::now();
 
+    const auto finalize_begin = clock_type::now();
     if (writer && !writer->finalize()) {
         std::cerr << "ROUTE_ERROR: trace finalization failed\n";
         llama_free(context);
         llama_model_free(model);
         return 12;
+    }
+    const auto finalize_end = clock_type::now();
+
+    if (args.performance_sample) {
+        const int decode_tokens = (int) generated.size() - 1;
+        const double ttft = elapsed(prompt_begin, prompt_end);
+        const double decode_seconds = elapsed(decode_begin, decode_end);
+        if (decode_tokens <= 0 || ttft <= 0.0 || decode_seconds <= 0.0) {
+            std::cerr << "ROUTE_ERROR: timing sample invalid\n";
+            llama_free(context);
+            llama_model_free(model);
+            return 13;
+        }
+        std::cout << std::setprecision(17)
+                  << "TRACE_PERF"
+                  << "\tprompt_tokens=" << prompt.size()
+                  << "\tgenerated_tokens=" << generated.size()
+                  << "\tttft_seconds=" << ttft
+                  << "\tprompt_tokens_per_second=" << prompt.size()/ttft
+                  << "\tdecode_tokens_per_second=" << decode_tokens/decode_seconds
+                  << "\tfinalize_seconds=" << elapsed(finalize_begin, finalize_end)
+                  << '\n';
     }
 
     std::cout << "PROMPT_IDS\t";
