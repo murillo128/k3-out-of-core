@@ -1,0 +1,256 @@
+{
+  "after_recovery": {
+    "file_count": 6,
+    "files": [
+      {
+        "actual_sha256": "6dcc59f0f217eaddd7141c085e96ae2753dae61e2eb42695b15b912517166012",
+        "actual_size_bytes": 6009062,
+        "first_96_bytes_hex": "474755460300000000000000000000002000000000000000140000000000000067656e6572616c2e6172636869746563747572650800000005000000000000006c6c616d610c0000000000000067656e6572616c2e7479706508000000050000",
+        "path": "HybridDNA/ggml-vocab-carbon.gguf",
+        "state": "payload"
+      },
+      {
+        "actual_sha256": "6f0df3eac864f04137699d780d7fcdafec713c8c4990948c540a88fae398a0fd",
+        "actual_size_bytes": 2440910,
+        "first_96_bytes_hex": "474755460300000000000000000000001e00000000000000140000000000000067656e6572616c2e617263686974656374757265080000000600000000000000706c616d6f320c0000000000000067656e6572616c2e74797065080000000500",
+        "path": "PLaMo2/ggml-vocab-plamo2.gguf",
+        "state": "payload"
+      },
+      {
+        "actual_sha256": "ef1da3b3fa3c026800367dab2c1204fb92964a2199350e7133e67d1af91c2e70",
+        "actual_size_bytes": 1365451,
+        "first_96_bytes_hex": "474755460300000000000000000000001700000000000000140000000000000067656e6572616c2e61726368697465637475726508000000050000000000000072776b76370c0000000000000067656e6572616c2e7479706508000000050000",
+        "path": "RWKV/ggml-vocab-rwkv-7-world.gguf",
+        "state": "payload"
+      },
+      {
+        "actual_sha256": "68d854494379ec3133f08de356ae37c7ad2c8a0cdcd23ded05e90eeee2c79924",
+        "actual_size_bytes": 6512800,
+        "first_96_bytes_hex": "474755460300000000000000000000002000000000000000140000000000000067656e6572616c2e61726368697465637475726508000000060000000000000067656d6d61330c0000000000000067656e6572616c2e74797065080000000500",
+        "path": "SPM/ggml-vocab-gemma-3.gguf",
+        "state": "payload"
+      },
+      {
+        "actual_sha256": "d0ccc742eeb2a0148adc5505aeaf65a8f6ff7d1c4a91bff8abe0b027048fff74",
+        "actual_size_bytes": 6821834,
+        "first_96_bytes_hex": "474755460300000000000000000000002400000000000000140000000000000067656e6572616c2e617263686974656374757265080000000e000000000000006e6f6d69632d626572742d6d6f650c0000000000000067656e6572616c2e7479",
+        "path": "UGM/ggml-vocab-nomic-bert-moe.gguf",
+        "state": "payload"
+      },
+      {
+        "actual_sha256": "d2e94cd2a61a79d50328c4d53f87c21132ce1177b463a6153064334fe1847808",
+        "actual_size_bytes": 631075,
+        "first_96_bytes_hex": "474755460300000000000000000000001b00000000000000140000000000000067656e6572616c2e617263686974656374757265080000000c000000000000006a696e612d626572742d76320c0000000000000067656e6572616c2e74797065",
+        "path": "WPM/ggml-vocab-jina-v2-en.gguf",
+        "state": "payload"
+      }
+    ],
+    "git_status_porcelain": [
+      "M HybridDNA/ggml-vocab-carbon.gguf",
+      " M PLaMo2/ggml-vocab-plamo2.gguf",
+      " M RWKV/ggml-vocab-rwkv-7-world.gguf",
+      " M SPM/ggml-vocab-gemma-3.gguf",
+      " M UGM/ggml-vocab-nomic-bert-moe.gguf",
+      " M WPM/ggml-vocab-jina-v2-en.gguf"
+    ],
+    "payload_count": 6,
+    "pointer_count": 0,
+    "repository": "https://huggingface.co/ggml-org/vocabs",
+    "revision": "cee4b7a68518c579bb758fca46bb149cd109348e"
+  },
+  "before_recovery": {
+    "file_count": 6,
+    "files": [
+      {
+        "actual_sha256": "a67e0e624879993ef5ca2aba0960dda3edd26f3ba969818033eacd244414bdcc",
+        "actual_size_bytes": 132,
+        "first_96_bytes_hex": "76657273696f6e2068747470733a2f2f6769742d6c66732e6769746875622e636f6d2f737065632f76310a6f6964207368613235363a366463633539663066323137656164646437313431633038356539366165323735336461653631653265",
+        "lfs_oid_sha256": "6dcc59f0f217eaddd7141c085e96ae2753dae61e2eb42695b15b912517166012",
+        "lfs_payload_size_bytes": 6009062,
+        "path": "HybridDNA/ggml-vocab-carbon.gguf",
+        "state": "git-lfs-pointer"
+      },
+      {
+        "actual_sha256": "a27e7fe95cafdbebe0d8c9ff2d052211176f8679dedc44762ed6532411e2a0d4",
+        "actual_size_bytes": 132,
+        "first_96_bytes_hex": "76657273696f6e2068747470733a2f2f6769742d6c66732e6769746875622e636f6d2f737065632f76310a6f6964207368613235363a366630646633656163383634663034313337363939643738306437666364616665633731336338633439",
+        "lfs_oid_sha256": "6f0df3eac864f04137699d780d7fcdafec713c8c4990948c540a88fae398a0fd",
+        "lfs_payload_size_bytes": 2440910,
+        "path": "PLaMo2/ggml-vocab-plamo2.gguf",
+        "state": "git-lfs-pointer"
+      },
+      {
+        "actual_sha256": "f146bf6e7f9288eabfa30c1c8a8e1df58bef212afe6aa9a8f8e863796d65f98e",
+        "actual_size_bytes": 132,
+        "first_96_bytes_hex": "76657273696f6e2068747470733a2f2f6769742d6c66732e6769746875622e636f6d2f737065632f76310a6f6964207368613235363a656631646133623366613363303236383030333637646162326331323034666239323936346132313939",
+        "lfs_oid_sha256": "ef1da3b3fa3c026800367dab2c1204fb92964a2199350e7133e67d1af91c2e70",
+        "lfs_payload_size_bytes": 1365451,
+        "path": "RWKV/ggml-vocab-rwkv-7-world.gguf",
+        "state": "git-lfs-pointer"
+      },
+      {
+        "actual_sha256": "fe49f4c447abfd8fd33caeff5365c0051c4d187e6536bc962d52812ed9381bd8",
+        "actual_size_bytes": 132,
+        "first_96_bytes_hex": "76657273696f6e2068747470733a2f2f6769742d6c66732e6769746875622e636f6d2f737065632f76310a6f6964207368613235363a363864383534343934333739656333313333663038646533353661653337633761643263386130636463",
+        "lfs_oid_sha256": "68d854494379ec3133f08de356ae37c7ad2c8a0cdcd23ded05e90eeee2c79924",
+        "lfs_payload_size_bytes": 6512800,
+        "path": "SPM/ggml-vocab-gemma-3.gguf",
+        "state": "git-lfs-pointer"
+      },
+      {
+        "actual_sha256": "d901d6bee167c9b292d8eb6065e1f973006ecd1f5ff7ed57a8a9fc72c5045e4e",
+        "actual_size_bytes": 132,
+        "first_96_bytes_hex": "76657273696f6e2068747470733a2f2f6769742d6c66732e6769746875622e636f6d2f737065632f76310a6f6964207368613235363a643063636337343265656232613031343861646335353035616561663635613866366666376431633461",
+        "lfs_oid_sha256": "d0ccc742eeb2a0148adc5505aeaf65a8f6ff7d1c4a91bff8abe0b027048fff74",
+        "lfs_payload_size_bytes": 6821834,
+        "path": "UGM/ggml-vocab-nomic-bert-moe.gguf",
+        "state": "git-lfs-pointer"
+      },
+      {
+        "actual_sha256": "e4c2b029894d30f7201aa3839a12954d386f2e3af41cbd84335d8f6679431303",
+        "actual_size_bytes": 131,
+        "first_96_bytes_hex": "76657273696f6e2068747470733a2f2f6769742d6c66732e6769746875622e636f6d2f737065632f76310a6f6964207368613235363a643265393463643261363161373964353033323863346435336638376332313133326365313137376234",
+        "lfs_oid_sha256": "d2e94cd2a61a79d50328c4d53f87c21132ce1177b463a6153064334fe1847808",
+        "lfs_payload_size_bytes": 631075,
+        "path": "WPM/ggml-vocab-jina-v2-en.gguf",
+        "state": "git-lfs-pointer"
+      }
+    ],
+    "git_status_porcelain": [],
+    "payload_count": 0,
+    "pointer_count": 6,
+    "repository": "https://huggingface.co/ggml-org/vocabs",
+    "revision": "cee4b7a68518c579bb758fca46bb149cd109348e"
+  },
+  "captured_at_utc": "2026-07-29T14:06:15.998106+00:00",
+  "classification": "resolved",
+  "external_fixture_test_results": {
+    "cpu": {
+      "command": [
+        "ctest",
+        "--test-dir",
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu",
+        "-R",
+        "^test-tokenizers-ggml-vocabs$",
+        "--output-on-failure",
+        "--no-tests=error"
+      ],
+      "duration_seconds": 1.990186,
+      "exit_code": 0,
+      "status": "pass",
+      "stderr": "",
+      "stdout": "Internal ctest changing into directory: /usr/local/src/k3-out-of-core/llama.cpp/build-cpu\nTest project /usr/local/src/k3-out-of-core/llama.cpp/build-cpu\n    Start 16: test-tokenizers-ggml-vocabs\n1/1 Test #16: test-tokenizers-ggml-vocabs ......   Passed    1.98 sec\n\n100% tests passed, 0 tests failed out of 1\n\nLabel Time Summary:\nmain    =   1.98 sec*proc (1 test)\n\nTotal Test time (real) =   1.99 sec",
+      "summary": {
+        "failed": 0,
+        "percent": 100,
+        "total": 1
+      }
+    },
+    "cuda": {
+      "command": [
+        "ctest",
+        "--test-dir",
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda",
+        "-R",
+        "^test-tokenizers-ggml-vocabs$",
+        "--output-on-failure",
+        "--no-tests=error"
+      ],
+      "duration_seconds": 2.608318,
+      "exit_code": 0,
+      "status": "pass",
+      "stderr": "",
+      "stdout": "Internal ctest changing into directory: /usr/local/src/k3-out-of-core/llama.cpp/build-cuda\nTest project /usr/local/src/k3-out-of-core/llama.cpp/build-cuda\n    Start 16: test-tokenizers-ggml-vocabs\n1/1 Test #16: test-tokenizers-ggml-vocabs ......   Passed    2.60 sec\n\n100% tests passed, 0 tests failed out of 1\n\nLabel Time Summary:\nmain    =   2.60 sec*proc (1 test)\n\nTotal Test time (real) =   2.60 sec",
+      "summary": {
+        "failed": 0,
+        "percent": 100,
+        "total": 1
+      }
+    }
+  },
+  "fixture_repository": "https://huggingface.co/ggml-org/vocabs",
+  "fixture_revision": "cee4b7a68518c579bb758fca46bb149cd109348e",
+  "git_lfs_observation": {
+    "command": [
+      "git",
+      "lfs",
+      "version"
+    ],
+    "duration_seconds": 0.001822,
+    "exit_code": 1,
+    "status": "fail",
+    "stderr": "git: 'lfs' is not a git command. See 'git --help'.\n\nThe most similar command is\n\tlog",
+    "stdout": ""
+  },
+  "reason": "external fixture test passed for CPU and CUDA",
+  "recovered_payload_validation": {
+    "all_payloads_verified": true,
+    "checks": [
+      {
+        "path": "HybridDNA/ggml-vocab-carbon.gguf",
+        "payload_present": true,
+        "sha256_matches_lfs_oid": true,
+        "size_matches_lfs_pointer": true
+      },
+      {
+        "path": "PLaMo2/ggml-vocab-plamo2.gguf",
+        "payload_present": true,
+        "sha256_matches_lfs_oid": true,
+        "size_matches_lfs_pointer": true
+      },
+      {
+        "path": "RWKV/ggml-vocab-rwkv-7-world.gguf",
+        "payload_present": true,
+        "sha256_matches_lfs_oid": true,
+        "size_matches_lfs_pointer": true
+      },
+      {
+        "path": "SPM/ggml-vocab-gemma-3.gguf",
+        "payload_present": true,
+        "sha256_matches_lfs_oid": true,
+        "size_matches_lfs_pointer": true
+      },
+      {
+        "path": "UGM/ggml-vocab-nomic-bert-moe.gguf",
+        "payload_present": true,
+        "sha256_matches_lfs_oid": true,
+        "size_matches_lfs_pointer": true
+      },
+      {
+        "path": "WPM/ggml-vocab-jina-v2-en.gguf",
+        "payload_present": true,
+        "sha256_matches_lfs_oid": true,
+        "size_matches_lfs_pointer": true
+      }
+    ]
+  },
+  "recovery_attempt": {
+    "command": [
+      "/usr/local/src/k3-out-of-core/.venv-k3/bin/hf",
+      "download",
+      "ggml-org/vocabs",
+      "HybridDNA/ggml-vocab-carbon.gguf",
+      "PLaMo2/ggml-vocab-plamo2.gguf",
+      "RWKV/ggml-vocab-rwkv-7-world.gguf",
+      "SPM/ggml-vocab-gemma-3.gguf",
+      "UGM/ggml-vocab-nomic-bert-moe.gguf",
+      "WPM/ggml-vocab-jina-v2-en.gguf",
+      "--revision",
+      "cee4b7a68518c579bb758fca46bb149cd109348e",
+      "--local-dir",
+      "/usr/local/src/k3-out-of-core/llama.cpp/models/ggml-vocabs"
+    ],
+    "duration_seconds": 1.937923,
+    "exit_code": 0,
+    "status": "pass",
+    "stderr": "Fetching 6 files:   0%|          | 0/6 [00:00<?, ?it/s]Downloading 'UGM/ggml-vocab-nomic-bert-moe.gguf' to '/usr/local/src/k3-out-of-core/llama.cpp/models/ggml-vocabs/.cache/huggingface/download/UGM/3Z3BTP_i_cPN-pGekgELroCBnso=.d0ccc742eeb2a0148adc5505aeaf65a8f6ff7d1c4a91bff8abe0b027048fff74.incomplete'\nDownloading 'PLaMo2/ggml-vocab-plamo2.gguf' to '/usr/local/src/k3-out-of-core/llama.cpp/models/ggml-vocabs/.cache/huggingface/download/PLaMo2/5V0vo_1Wx6em70jqflXkuPM2_Zs=.6f0df3eac864f04137699d780d7fcdafec713c8c4990948c540a88fae398a0fd.incomplete'\nDownloading 'WPM/ggml-vocab-jina-v2-en.gguf' to '/usr/local/src/k3-out-of-core/llama.cpp/models/ggml-vocabs/.cache/huggingface/download/WPM/mcxH90lBineGAsNf2VTzyhBFQXw=.d2e94cd2a61a79d50328c4d53f87c21132ce1177b463a6153064334fe1847808.incomplete'\nDownloading 'SPM/ggml-vocab-gemma-3.gguf' to '/usr/local/src/k3-out-of-core/llama.cpp/models/ggml-vocabs/.cache/huggingface/download/SPM/h566Ge5f1dUnPI_hcDwS11kQEDE=.68d854494379ec3133f08de356ae37c7ad2c8a0cdcd23ded05e90eeee2c79924.incomplete'\nDownloading 'RWKV/ggml-vocab-rwkv-7-world.gguf' to '/usr/local/src/k3-out-of-core/llama.cpp/models/ggml-vocabs/.cache/huggingface/download/RWKV/KDL-_60uk_4lIjR7Ct-QeHgHdYU=.ef1da3b3fa3c026800367dab2c1204fb92964a2199350e7133e67d1af91c2e70.incomplete'\nDownloading 'HybridDNA/ggml-vocab-carbon.gguf' to '/usr/local/src/k3-out-of-core/llama.cpp/models/ggml-vocabs/.cache/huggingface/download/HybridDNA/-gbft1HFOzum4Bpnl2L1wZ6JRTk=.6dcc59f0f217eaddd7141c085e96ae2753dae61e2eb42695b15b912517166012.incomplete'\nDownload complete. Moving file to /usr/local/src/k3-out-of-core/llama.cpp/models/ggml-vocabs/WPM/ggml-vocab-jina-v2-en.gguf\n\nFetching 6 files:  17%|\u2588\u258b        | 1/6 [00:01<00:06,  1.22s/it]Download complete. Moving file to /usr/local/src/k3-out-of-core/llama.cpp/models/ggml-vocabs/SPM/ggml-vocab-gemma-3.gguf\n\nFetching 6 files:  33%|\u2588\u2588\u2588\u258e      | 2/6 [00:01<00:02,  1.48it/s]Download complete. Moving file to /usr/local/src/k3-out-of-core/llama.cpp/models/ggml-vocabs/HybridDNA/ggml-vocab-carbon.gguf\nDownload complete. Moving file to /usr/local/src/k3-out-of-core/llama.cpp/models/ggml-vocabs/UGM/ggml-vocab-nomic-bert-moe.gguf\nDownload complete. Moving file to /usr/local/src/k3-out-of-core/llama.cpp/models/ggml-vocabs/PLaMo2/ggml-vocab-plamo2.gguf\nDownload complete. Moving file to /usr/local/src/k3-out-of-core/llama.cpp/models/ggml-vocabs/RWKV/ggml-vocab-rwkv-7-world.gguf\n\nFetching 6 files: 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 6/6 [00:01<00:00,  4.22it/s]",
+    "stdout": "/usr/local/src/k3-out-of-core/llama.cpp/models/ggml-vocabs"
+  },
+  "schema_version": 1,
+  "submodule_clean_after": true,
+  "submodule_revision_after": "84245db4c790af22135f34992689edcc11877003",
+  "validation": {
+    "errors": [],
+    "status": "pass"
+  }
+}
