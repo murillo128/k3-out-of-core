@@ -1,0 +1,214 @@
+{
+  "artifacts": [
+    {
+      "kind": "source-of-truth",
+      "path": "PLAN.md",
+      "sha256": "c9836cf6dd16453860c1bd0fcb6b4848e1fd9a7d5dfe5cef5c2c6ed561b50f77",
+      "size": 1335
+    },
+    {
+      "kind": "source-of-truth",
+      "path": "docs/DECISIONS.md",
+      "sha256": "cdf3674ea644023f03f589eae42fa925f66d2f1ef4a9d00f53867d50a2680f49",
+      "size": 10517
+    },
+    {
+      "kind": "source-of-truth",
+      "path": "docs/MODELS_AND_VALIDATION.md",
+      "sha256": "3f322ed1559ac49b30e49f6e9425b539a9be77b6a155049b7c6bc767b4856201",
+      "size": 22016
+    },
+    {
+      "kind": "source-of-truth",
+      "path": "docs/REPOSITORIES_AND_ARTIFACTS.md",
+      "sha256": "495cb5b3ced92754be397c02fc8d495d81fe8044758598892d8baca5b93b102a",
+      "size": 9179
+    },
+    {
+      "kind": "source-of-truth",
+      "path": "docs/STATUS.md",
+      "sha256": "665e4aff0ee386e125a0153c567755a81e0d87647dd8c96b128cfd4fc3dd747c",
+      "size": 6046
+    },
+    {
+      "kind": "source-of-truth",
+      "path": "docs/plan/00-foundation.md",
+      "sha256": "4fe13cf108399c8442db8537b26880a226eb2503bbcc0b19a205fcd487453093",
+      "size": 9664
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase3-resident-provider/PHASE3.md",
+      "sha256": "6b2ffa540e1f62bd857e810b036d04508618196dba4aa8f853517f280e20cbf2",
+      "size": 4108
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase3-resident-provider/lifecycle-and-failures.json",
+      "sha256": "925d5268bba3aa2f2b29e98f463befdcd60f605267dab3f835100e99685db570",
+      "size": 43019
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase3-resident-provider/provider-overhead.json",
+      "sha256": "85c266d7197981494262312651fac96a779b1ffada45472d8b05385dd9e682f6",
+      "size": 352641
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase3-resident-provider/provider-parity.json",
+      "sha256": "98b6c6807c2c823082f0b89c385de19babf082b5cc31e15736097bf1394bc914",
+      "size": 20296
+    },
+    {
+      "kind": "schema",
+      "path": "schemas/phase3/phase3-manifest-v1.schema.json",
+      "sha256": "51eb77af63fede90c379f681e1ca73322a93da418982011bb2ba2d2a79162729",
+      "size": 5050
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase2/capture_route_observer.py",
+      "sha256": "2be6059fe86cc44193723f4b16ab7bc741939593f912b5626b17e15dac389a08",
+      "size": 14321
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase2/overhead_probe.cpp",
+      "sha256": "0cb0eca3f975dfe743e08bf1e2393cd0e378417033b9c5fefd40766f50417e7b",
+      "size": 9416
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase2/route_probe.cpp",
+      "sha256": "983ab18c1da9088a156f5ae40d8f026cae88dc00a344fcaeb60c412d181c6a7c",
+      "size": 24337
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase3/build_phase3_manifest.py",
+      "sha256": "822fbaaae7bc7ec52e8f458722031af1ae708fc41adff1185a2ec304994a4bc9",
+      "size": 6307
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase3/capture_provider_parity.py",
+      "sha256": "3e79f8c73c8cf9df3ed7e57f661a48d6ed55e7272c354d118dc8324ad47ab533",
+      "size": 11045
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase3/common.py",
+      "sha256": "4202f373810853d50477842308377f2760a7fb68e7521d52a48ee4662ec496c7",
+      "size": 5007
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase3/measure_provider_overhead.py",
+      "sha256": "9758ce80ffd60eaae7197a852c11d3f85b5ed689cb244e4e233c25e7d4445b5e",
+      "size": 12272
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase3/run_provider_lifecycle.py",
+      "sha256": "b6e7a55f7c3621452dabf5876bfc94f035fd0fee2058ebc2fb2e9b78490e0ffa",
+      "size": 7427
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase3/verify_phase3.py",
+      "sha256": "5c1796b0f314681332c20300111267941a925e266845c205aecd3849541b3913",
+      "size": 10929
+    },
+    {
+      "kind": "test",
+      "path": "tests/phase3/test_phase3_evidence.py",
+      "sha256": "bbf700fc7b956c96c37dc1f707c1cf1b0c2324070da0b3ac1b1b2a82f73e5dca",
+      "size": 2306
+    }
+  ],
+  "closeout_state": "checkpoint-b-candidate",
+  "execution_profile": "STANDARD",
+  "issue": {
+    "number": 13,
+    "pull_request": 15,
+    "repository": "murillo128/k3-out-of-core",
+    "url": "https://github.com/murillo128/k3-out-of-core/issues/13"
+  },
+  "models": [
+    {
+      "name": "Kimi-K3-0.40B-F16.gguf",
+      "sha256": "411c197b503e6fb9199a2b22115e32dc4e2cad803fb112b24967737b3bab26c7",
+      "size": 784318432,
+      "source_revision": "d853649387ffe8f48ce0198a29ac1a44205031f7"
+    },
+    {
+      "name": "Kimi-K3-0.40B-MXFP4.gguf",
+      "sha256": "0379a1cc623e09eb3fbd1dfcb18737bc8c971dbfe5bf5bc3e08da8b5379ec169",
+      "size": 751976576,
+      "source_revision": "ef3902c318fb8e13c3507e26055656e687fdfe38"
+    }
+  ],
+  "phase2_input": {
+    "path": "results/2026-07-29/skynet/phase2-observability/phase2-manifest.json",
+    "published_corpus": "2d838d6b4d0aca4e9af1e7d899e57ad29330c72e",
+    "raw_corpus_republished": false,
+    "sha256": "d149f05487dc24c0a0cd563aad0e9436d8e60d875b9f8a6419d7497fc63e8bea",
+    "size": 17324
+  },
+  "prohibited_scope": {
+    "cache_added": false,
+    "expert_residency_changed": false,
+    "model_payload_tracked": false,
+    "prefetch_added": false,
+    "raw_phase2_corpus_modified": false,
+    "storage_or_transport_added": false
+  },
+  "reviews": [
+    {
+      "checkpoint": "A",
+      "comment_id": 5124005466,
+      "llama_cpp_head": "d9d20e1b616a25ba5d0ec8ad12ef408a83ae227b",
+      "project_head": "0a16a7e4b0e383ea43706d740abc19924c82cdf5",
+      "safety_to_proceed": "YES",
+      "url": "https://github.com/murillo128/k3-out-of-core/issues/13#issuecomment-5124005466",
+      "verdict": "PASS_WITH_NOTES"
+    }
+  ],
+  "revisions": {
+    "llama_cpp_base": "4daaaa1a4dd26d6465f84891b854b5f7ddc03020",
+    "llama_cpp_candidate": "523f825d2df5efa7c9a08561e2b64861ad5594c5",
+    "project_evidence_head": "7a310e5ca308aafcf36f5662e89e3d470fed7dba",
+    "project_execution_base": "81df862da6e4ff9db005f6265470070bb5456f4c",
+    "published_corpus": "2d838d6b4d0aca4e9af1e7d899e57ad29330c72e",
+    "published_gguf": "88de02cf8fa37f87eb06daaed370ac9c3411d5ca"
+  },
+  "schema_version": "phase3-manifest-v1",
+  "validation": [
+    {
+      "evidence": "provider-parity.json: 4/4 artifact/backend combinations",
+      "name": "provider-parity",
+      "status": "pass"
+    },
+    {
+      "evidence": "lifecycle-and-failures.json: CPU/CUDA matrix, stress, fault injection, sanitizers",
+      "name": "lifecycle-and-failures",
+      "status": "pass"
+    },
+    {
+      "evidence": "provider-overhead.json: every predeclared per-cell confidence gate",
+      "name": "provider-overhead",
+      "status": "pass"
+    },
+    {
+      "evidence": "dependency-free Phase 2 unittest suite",
+      "name": "phase2-regression-tests",
+      "status": "pass"
+    },
+    {
+      "evidence": "dependency-free Phase 3 unittest suite",
+      "name": "phase3-evidence-tests",
+      "status": "pass"
+    }
+  ]
+}
