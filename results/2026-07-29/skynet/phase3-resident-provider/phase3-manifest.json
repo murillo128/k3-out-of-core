@@ -15,8 +15,8 @@
     {
       "kind": "source-of-truth",
       "path": "docs/MODELS_AND_VALIDATION.md",
-      "sha256": "3f322ed1559ac49b30e49f6e9425b539a9be77b6a155049b7c6bc767b4856201",
-      "size": 22016
+      "sha256": "19fd69e1465f929ee9f6ddcdf891dabe1aa5ad4283d8f1353428eb17f279b5b2",
+      "size": 22529
     },
     {
       "kind": "source-of-truth",
@@ -27,8 +27,8 @@
     {
       "kind": "source-of-truth",
       "path": "docs/STATUS.md",
-      "sha256": "665e4aff0ee386e125a0153c567755a81e0d87647dd8c96b128cfd4fc3dd747c",
-      "size": 6046
+      "sha256": "a263d642475f0c3ea60fdd5d9ecf55390e996850d8573a429cabbc878c8a004d",
+      "size": 6269
     },
     {
       "kind": "source-of-truth",
@@ -39,8 +39,8 @@
     {
       "kind": "evidence",
       "path": "results/2026-07-29/skynet/phase3-resident-provider/PHASE3.md",
-      "sha256": "6b2ffa540e1f62bd857e810b036d04508618196dba4aa8f853517f280e20cbf2",
-      "size": 4108
+      "sha256": "624a7b3d92c82cae643df167272821613611cee034e1bf06b961f882ed1adf19",
+      "size": 4976
     },
     {
       "kind": "evidence",
@@ -50,9 +50,21 @@
     },
     {
       "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase3-resident-provider/provider-overhead-corrected-attempt1-fail.json",
+      "sha256": "0a2110c2b6d0608c08c4d93a514b55e8b2c3d579cf893fff238123dae752958b",
+      "size": 398739
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase3-resident-provider/provider-overhead-corrected-attempt2-fail.json",
+      "sha256": "93e0229d852dc4248c4ca6909cd1a7043f8c49226ef213cd310d244b44c42a5d",
+      "size": 398735
+    },
+    {
+      "kind": "evidence",
       "path": "results/2026-07-29/skynet/phase3-resident-provider/provider-overhead.json",
-      "sha256": "85c266d7197981494262312651fac96a779b1ffada45472d8b05385dd9e682f6",
-      "size": 352641
+      "sha256": "338213986263bd2026fcbfc4cef503afc019f91989fd6939a788915cdb1a212f",
+      "size": 400703
     },
     {
       "kind": "evidence",
@@ -87,8 +99,8 @@
     {
       "kind": "implementation",
       "path": "scripts/phase3/build_phase3_manifest.py",
-      "sha256": "822fbaaae7bc7ec52e8f458722031af1ae708fc41adff1185a2ec304994a4bc9",
-      "size": 6307
+      "sha256": "56629675ba08241664b194225f93e9b13b4e17842b12b7d9acb76d1abfe14870",
+      "size": 6632
     },
     {
       "kind": "implementation",
@@ -105,8 +117,20 @@
     {
       "kind": "implementation",
       "path": "scripts/phase3/measure_provider_overhead.py",
-      "sha256": "9758ce80ffd60eaae7197a852c11d3f85b5ed689cb244e4e233c25e7d4445b5e",
-      "size": 12272
+      "sha256": "9f5a62e094a5e4f06cc0e9d8ffe0cd3b8d77a7fa69681e776f4823a21260fdf4",
+      "size": 12591
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase3/merge_provider_overhead.py",
+      "sha256": "03283653b718bf530bf6dc84670a5babbf9acbedaafe6ee7b42e0ece113cd675",
+      "size": 3186
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase3/overhead_probe_baseline.cpp",
+      "sha256": "0d3fe67dfb01a2fb10a3f4dfa2097e1b9af8cbe54b07bdab5535c38357e92f6a",
+      "size": 8172
     },
     {
       "kind": "implementation",
@@ -117,14 +141,14 @@
     {
       "kind": "implementation",
       "path": "scripts/phase3/verify_phase3.py",
-      "sha256": "5c1796b0f314681332c20300111267941a925e266845c205aecd3849541b3913",
-      "size": 10929
+      "sha256": "23b4d1e1ff68c3123bada14a48c9d4df991ec16602a18578c66e78a5a52db98b",
+      "size": 15227
     },
     {
       "kind": "test",
       "path": "tests/phase3/test_phase3_evidence.py",
-      "sha256": "bbf700fc7b956c96c37dc1f707c1cf1b0c2324070da0b3ac1b1b2a82f73e5dca",
-      "size": 2306
+      "sha256": "cfbc9ab1efb6dbd3e7a96c4b745ff31caeb8293136e7fe5369e1a7f158249a0a",
+      "size": 3224
     }
   ],
   "closeout_state": "checkpoint-b-candidate",
@@ -178,7 +202,7 @@
   "revisions": {
     "llama_cpp_base": "4daaaa1a4dd26d6465f84891b854b5f7ddc03020",
     "llama_cpp_candidate": "523f825d2df5efa7c9a08561e2b64861ad5594c5",
-    "project_evidence_head": "7a310e5ca308aafcf36f5662e89e3d470fed7dba",
+    "project_evidence_head": "bb4b9db503a139ea65a058531327558a62c37dc9",
     "project_execution_base": "81df862da6e4ff9db005f6265470070bb5456f4c",
     "published_corpus": "2d838d6b4d0aca4e9af1e7d899e57ad29330c72e",
     "published_gguf": "88de02cf8fa37f87eb06daaed370ac9c3411d5ca"
