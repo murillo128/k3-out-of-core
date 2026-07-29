@@ -1,0 +1,147 @@
+2026-07-29T12:07:46+02:00
+skynet
+Linux skynet 6.8.0-136-generic #136-Ubuntu SMP PREEMPT_DYNAMIC Wed Jul  1 21:53:05 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+065d1ded6febbe74f239c4839852c5c956894e18
+1a02a85d07d13713fcd0472d1580578c608d2e63
+Python 3.12.3
+certifi==2026.7.22
+charset-normalizer==3.4.9
+filelock==3.32.0
+fsspec==2026.7.0
+gguf==0.19.0
+hf-xet==1.5.2
+huggingface_hub==0.36.2
+idna==3.18
+Jinja2==3.1.6
+MarkupSafe==3.0.3
+mpmath==1.3.0
+networkx==3.6.1
+numpy==1.26.4
+packaging==26.2
+protobuf==4.25.9
+PyYAML==6.0.3
+regex==2026.7.19
+requests==2.34.2
+safetensors==0.8.0
+sentencepiece==0.2.2
+setuptools==81.0.0
+sympy==1.14.0
+tiktoken==0.13.0
+tokenizers==0.22.2
+torch==2.11.0+cpu
+tqdm==4.70.0
+transformers==4.57.6
+typing_extensions==4.16.0
+urllib3==2.7.0
+27373c2f39a52c87e674caf7e9604ec6756c68c5f8d5f140657299048b6ab8ba  models/hf/Kimi-K3-0.40B/added_tokens.json
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/added_tokens.json.lock
+6b69b9ac718ba09060cecf8e588e0825991b8aadc85d3cfddddfbf0251bb8ada  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/added_tokens.json.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-1000/config.json.lock
+78ed2cdb7deb7c59a5eb22e15b94526861dd38e5cdcda9def109b2e05aebfcc4  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-1000/config.json.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-1000/model.safetensors.lock
+0e4bca2d728ee23246dda3a27e17b800de63f6a096bc8d5e8cc28de94bc994e3  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-1000/model.safetensors.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-1000/optimizer.pt.lock
+b78775bbefb0c0d478a342d8ec6b984967c534ce3966dab7dc54c2a0e3b1daf6  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-1000/optimizer.pt.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-1000/rng_state.pth.lock
+66cc233f4870ea4db2809ab4c9758db8ad78f6ab4600ed1838443727f20861d9  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-1000/rng_state.pth.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-1000/scheduler.pt.lock
+243615424d1799d45ba9764214d14cb702b614843f94cd7ca3f8b2951f61d6b5  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-1000/scheduler.pt.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-1000/trainer_state.json.lock
+694803b7f85d3e9e2dbfc58c3a12e92264548c147c78def68ef8dcef11e6f98c  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-1000/trainer_state.json.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-1000/training_args.bin.lock
+6f177f62c7e10fa1a0e2aa9f2b2d9dc1e5793e5af442269ceccbb4c5076be7e1  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-1000/training_args.bin.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-1500/config.json.lock
+f560af8e81cbff94a0bbaa3c6b9bb36f3c9cc3a3acf72718c6d490b2699ec638  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-1500/config.json.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-1500/model.safetensors.lock
+c2cdbb5f3e04d4fce96ebcaa25751398105fdfd429690d1292a8d045a9ae6185  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-1500/model.safetensors.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-1500/optimizer.pt.lock
+223f64486369ff4110f3f9f37ddfff4010f4b874be4e30cd8892a7fc25c4ff68  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-1500/optimizer.pt.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-1500/rng_state.pth.lock
+03c3644c2200235ba037a026c69d72a2d35fb0890812d9a29e67eb44e6b45f5c  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-1500/rng_state.pth.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-1500/scheduler.pt.lock
+52ebfae5eceeeeac94e6bfad3d77c7f23eccc7770f10d18a19404802d3edd6d3  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-1500/scheduler.pt.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-1500/trainer_state.json.lock
+78e8a9ad111b15a84506f2d8b9387594f3128e4d25eb59944faf3a93106e46ca  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-1500/trainer_state.json.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-1500/training_args.bin.lock
+2a088f8b49001ea315926f1f1969b533b7eec3f22d409d1826eaf811a6af0dbc  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-1500/training_args.bin.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-500/config.json.lock
+bbc5980b6f517dc7bfc2d1c14c50a9a2b7cf43ab0beb62967d90f370066e5aa2  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-500/config.json.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-500/model.safetensors.lock
+694e5e2ade918abedee5557b4b424fc89e697a16081f494ba0ca22bb061415ee  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-500/model.safetensors.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-500/optimizer.pt.lock
+eb910ccd6da09a01321a033f599941296c61e7e30331eb0352f881132d8e3ae3  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-500/optimizer.pt.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-500/rng_state.pth.lock
+a57fde4d4832239822d6e5ac57b50b558da34c4e829ba242a2ddc7b3c93f8c7d  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-500/rng_state.pth.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-500/scheduler.pt.lock
+818fb68e3e98a84814bd68b2cbaca58878da9b96ca3d0ac9a0af581dd126b1cf  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-500/scheduler.pt.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-500/trainer_state.json.lock
+ff151749f8c3ee07a8c01a45c27be62d471a8b8f72a85cae144f84e9da88914d  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-500/trainer_state.json.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-500/training_args.bin.lock
+dadbfe92771c66c411bdd8a88e9d7eee3809a65e884aa301db3d8fa414d17247  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/checkpoint-500/training_args.bin.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/config.json.lock
+9744f635160866fdae27e74ac52cd4b2278afb39685390d2c21cee7393cbee19  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/config.json.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/configuration_kimi_k3.py.lock
+c032331a4348ada5df6af2cb492b9e644e8d3a36ae6ef887bf76cfe062d2f002  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/configuration_kimi_k3.py.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/encoding_k3.py.lock
+de01ab3febbc740fcb7751857362afe5ad87384852fe6ecca24fa9161a6f915d  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/encoding_k3.py.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/.gitattributes.lock
+70b3c669a08dd245c80ae6723e74ed9b915ea48f1329daa866c8ebe97a61045f  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/.gitattributes.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/kimi_k3_processor.py.lock
+d8a07fca694b7e7cd8d631615a3e86b89b8d3dd02ca05745c7c0d428149a81e4  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/kimi_k3_processor.py.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/kimi_k3_vision_processing.py.lock
+ea6039f86f3692e4f73d382169e2d7275387e5d7067ea95ef054914d0f169edd  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/kimi_k3_vision_processing.py.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/media_utils.py.lock
+d254fb76fb4e84fc099f820d7d487de1de03bf3012fb853f3d89b23490a19240  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/media_utils.py.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/modeling_kimi_k3_linear.py.lock
+cf2172bddf1d61afaad2d18cca91b2eba578c68e6114d636fd7ddf75198a2608  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/modeling_kimi_k3_linear.py.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/modeling_kimi_k3.py.lock
+b38a71ae20b5d447a4a69f448c90681eb401ee5387f4cb24cba643818d978e69  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/modeling_kimi_k3.py.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/modeling_kimi_linear.py.lock
+2f81b411ccf2e7424cfc52253b93db56fe5046c2ea470c1d7e2e5897c46720e9  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/modeling_kimi_linear.py.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/model.safetensors.lock
+79e252b738a75b4a9bb3c1327aaa65cd61e98b28964170e9cef0349364503b51  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/model.safetensors.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/README.md.lock
+cdf56b03809627454684648868eb2688d94db736f2a94408595a3e3a091254b3  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/README.md.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/tiktoken.model.lock
+270c36d59594ec41c6515614de8871edb6d812864da65a0ef4c4c2324d7b23d2  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/tiktoken.model.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/tokenization_kimi.py.lock
+20042753828ebc30b1011fe4ac01ae5f2e4c912dcb5b5223890dd2e5f4614d9d  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/tokenization_kimi.py.metadata
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/tokenizer_config.json.lock
+4243cb853c1d9d84d0875bb7740c3901d65ae4e24341f2c0662d4072043faf99  models/hf/Kimi-K3-0.40B/.cache/huggingface/download/tokenizer_config.json.metadata
+684888c0ebb17f374298b65ee2807526c066094c701bcc7ebbe1c1095f494fc1  models/hf/Kimi-K3-0.40B/.cache/huggingface/.gitignore
+755fd995f4ba6f5890c68e16d76d47d6d88300b227165168d6d75f5f13c05ffc  models/hf/Kimi-K3-0.40B/checkpoint-1000/config.json
+7925671dd7569abb1fe3964efd07e626995bca5fb41b1c5f482fd773c15f5ddc  models/hf/Kimi-K3-0.40B/checkpoint-1000/model.safetensors
+d0b981d9f535753b2f8aff744231d0ac0d4d974beaedd9f7ceea5003ba47c7b7  models/hf/Kimi-K3-0.40B/checkpoint-1000/optimizer.pt
+09dd7be961a6fd7d3db7fc97ccf884eb576a51fa6d77dac505422dfed3545a4f  models/hf/Kimi-K3-0.40B/checkpoint-1000/rng_state.pth
+10114c3aa50a2f8bff4fa3997c789b56fbed0b5e84b201c94220cd803ba32e30  models/hf/Kimi-K3-0.40B/checkpoint-1000/scheduler.pt
+5e8cb512bdbe06b036b502dcd54c11d8120276f3c4eb2b6b3edbfc1855a70ca8  models/hf/Kimi-K3-0.40B/checkpoint-1000/trainer_state.json
+f19913b3b6afaeaf1d74c8ed30fbedacc01d71d1a4a074e19801f7d5e762baaf  models/hf/Kimi-K3-0.40B/checkpoint-1000/training_args.bin
+755fd995f4ba6f5890c68e16d76d47d6d88300b227165168d6d75f5f13c05ffc  models/hf/Kimi-K3-0.40B/checkpoint-1500/config.json
+26e76b25ccbf55e44b66faa74b7264c641c0e26e4c4ae54edf68c9b7e5eee708  models/hf/Kimi-K3-0.40B/checkpoint-1500/model.safetensors
+e8ec00c4e3b5d1d976abdfed9324fe25106a2c300a9a680c9b170c940c22541a  models/hf/Kimi-K3-0.40B/checkpoint-1500/optimizer.pt
+52c47e171fce698c9d10b04dcea5ffa1e1d3cef9099262236654f9a02fa46070  models/hf/Kimi-K3-0.40B/checkpoint-1500/rng_state.pth
+8ac2f4ef58ebb2e8ec55e5d13a3628c7509ff9bae0db76c41a663aafccd7a40d  models/hf/Kimi-K3-0.40B/checkpoint-1500/scheduler.pt
+ff33a8646aced82e7f4a2838817a98a5b08b13911b90d4c8d7bc5919119454de  models/hf/Kimi-K3-0.40B/checkpoint-1500/trainer_state.json
+f19913b3b6afaeaf1d74c8ed30fbedacc01d71d1a4a074e19801f7d5e762baaf  models/hf/Kimi-K3-0.40B/checkpoint-1500/training_args.bin
+755fd995f4ba6f5890c68e16d76d47d6d88300b227165168d6d75f5f13c05ffc  models/hf/Kimi-K3-0.40B/checkpoint-500/config.json
+e8a5af2a54350f6f985cf5bee2fb683e220d5430d0f906bcc5ec23416c8d8e8b  models/hf/Kimi-K3-0.40B/checkpoint-500/model.safetensors
+bf196c8e3ff1745c20f2460f3650c0a834058173c50388bee0f08cf73bc9e3e0  models/hf/Kimi-K3-0.40B/checkpoint-500/optimizer.pt
+54a08b978c632223320da0808615b254816f79697955f3b52a0f9e14e9f9aa27  models/hf/Kimi-K3-0.40B/checkpoint-500/rng_state.pth
+396b9fcb0d601b20c5693d9ab12681dc92089bd4b6533fb49c49cf62642202e2  models/hf/Kimi-K3-0.40B/checkpoint-500/scheduler.pt
+02d2dbe8820b668fdb27b807b2d61cc510964ea60b9ef43264d27abffe0cca6c  models/hf/Kimi-K3-0.40B/checkpoint-500/trainer_state.json
+f19913b3b6afaeaf1d74c8ed30fbedacc01d71d1a4a074e19801f7d5e762baaf  models/hf/Kimi-K3-0.40B/checkpoint-500/training_args.bin
+503bd5d1589ea8fd21b82528eb2ab130a593b171e1b61bbb75a90014581599d2  models/hf/Kimi-K3-0.40B/config.json
+9529e2928b81296729031d88319e760407c57864a48258718fe6e298de8fb538  models/hf/Kimi-K3-0.40B/configuration_kimi_k3.py
+cfd5085fb299e4fa7d21983353e3a551af89d00eb0763c601c01cf85f0a62fb4  models/hf/Kimi-K3-0.40B/encoding_k3.py
+11ad7efa24975ee4b0c3c3a38ed18737f0658a5f75a0a96787b576a78a023361  models/hf/Kimi-K3-0.40B/.gitattributes
+d4c3493a4abdacfec4a83fc9c41ee84526536a579f5e5cb294ded23c23c92ee2  models/hf/Kimi-K3-0.40B/kimi_k3_processor.py
+3f6f49b0b3f2a2060e07b0a29cbe3f799d2a0b6c7a0e00ca187a39e59d45051c  models/hf/Kimi-K3-0.40B/kimi_k3_vision_processing.py
+2570264e126eb70b0e2fce9de6013ca367ae9cff38981f9b62a40b92af7bd1a5  models/hf/Kimi-K3-0.40B/media_utils.py
+f0fb2bb798c12288fc2dbca1a7706a3b4d5c3f8adeeed426d58efbc140ec0145  models/hf/Kimi-K3-0.40B/modeling_kimi_k3_linear.py
+d227b23b052a2cc75153f2f2b8769721217545a4e4c15d4fdd13694f2086c600  models/hf/Kimi-K3-0.40B/modeling_kimi_k3.py
+aff251472b914906c8ed7ac65784bc7f6995f59c659492a86c1870ea774babb5  models/hf/Kimi-K3-0.40B/modeling_kimi_linear.py
+a39b7ed2769ee2f9891a19cef6f1ca7986a3f295c09759b5b3135285e5d7a678  models/hf/Kimi-K3-0.40B/model.safetensors
+f70ae1c3e8852fc879d4d46f41285597fbf4f02b7313cf08d68f1d30cd9fe283  models/hf/Kimi-K3-0.40B/README.md
+b6c497a7469b33ced9c38afb1ad6e47f03f5e5dc05f15930799210ec050c5103  models/hf/Kimi-K3-0.40B/tiktoken.model
+30491a8c2e279db9447bcb00ce1140769f4ab8f43f30e8186e269e95d8357e95  models/hf/Kimi-K3-0.40B/tokenization_kimi.py
+7cc6cb0733ca35285ef13700dc5a2066eb0441ef0142f318b288d201dc68190e  models/hf/Kimi-K3-0.40B/tokenizer_config.json

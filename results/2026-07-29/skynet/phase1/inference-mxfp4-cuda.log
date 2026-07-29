@@ -1,0 +1,39 @@
+Script started on 2026-07-29 13:42:26+02:00 [COMMAND="./build-cuda/bin/llama-cli \     -m ../models/gguf/Kimi-K3-0.40B-MXFP4.gguf \     -p "According to all known laws" \     -n 32 \     --temp 0 \     --seed 1 \     -ngl 999" <not executed on terminal>]
+/exit
+
+
+Loading model... |-\|/-\ 
+
+▄▄ ▄▄
+██ ██
+██ ██  ▀▀█▄ ███▄███▄  ▀▀█▄    ▄████ ████▄ ████▄
+██ ██ ▄█▀██ ██ ██ ██ ▄█▀██    ██    ██ ██ ██ ██
+██ ██ ▀█▄██ ██ ██ ██ ▀█▄██ ██ ▀████ ████▀ ████▀
+                                    ██    ██
+                                    ▀▀    ▀▀
+
+build      : b10164-84245db4c
+model      : ../models/gguf/Kimi-K3-0.40B-MXFP4.gguf
+ftype      : MXFP4 MoE
+modalities : text
+
+available commands:
+  /exit or Ctrl+C     stop or exit
+  /regen              regenerate the last response
+  /clear              clear the chat history
+  /read <file>        add a text file
+  /glob <pattern>     add text files using globbing pattern
+
+
+[1m[32m
+> According to all known laws
+[0m the start.
+[35m
+[ Prompt: 524.2 t/s | Generation: 155.7 t/s ]
+[0m[1m[32m
+> ///exit
+[0m
+
+Exiting...
+
+Script done on 2026-07-29 13:42:27+02:00 [COMMAND_EXIT_CODE="0"]

@@ -1,0 +1,287 @@
+INFO:hf-to-gguf:Loading model: Kimi-K3-0.40B
+WARNING:hf-to-gguf:Failed to load model config from ../models/hf/Kimi-K3-0.40B: The repository ../models/hf/Kimi-K3-0.40B contains custom code which must be executed to correctly load the model. You can inspect the repository content at /usr/local/src/k3-out-of-core/models/hf/Kimi-K3-0.40B .
+ You can inspect the repository content at https://hf.co/../models/hf/Kimi-K3-0.40B.
+Please pass the argument `trust_remote_code=True` to allow custom code to be run.
+WARNING:hf-to-gguf:Trying to load config.json instead
+INFO:hf-to-gguf:Model architecture: KimiK3ForConditionalGeneration
+WARNING:hf-to-gguf:Failed to load model config from ../models/hf/Kimi-K3-0.40B: The repository ../models/hf/Kimi-K3-0.40B contains custom code which must be executed to correctly load the model. You can inspect the repository content at /usr/local/src/k3-out-of-core/models/hf/Kimi-K3-0.40B .
+ You can inspect the repository content at https://hf.co/../models/hf/Kimi-K3-0.40B.
+Please pass the argument `trust_remote_code=True` to allow custom code to be run.
+WARNING:hf-to-gguf:Trying to load config.json instead
+INFO:hf-to-gguf:gguf: indexing model part 'model.safetensors'
+INFO:gguf.gguf_writer:gguf: This GGUF file is for Little Endian only
+INFO:hf-to-gguf:Exporting model...
+INFO:hf-to-gguf:output.weight,                torch.float32 --> F16, shape = {1024, 163840}
+INFO:hf-to-gguf:token_embd.weight,            torch.float32 --> F16, shape = {1024, 163840}
+INFO:hf-to-gguf:blk.0.attn_norm.weight,       torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:blk.0.ffn_down.weight,        torch.float32 --> F16, shape = {2048, 1024}
+INFO:hf-to-gguf:blk.0.ffn_gate.weight,        torch.float32 --> F16, shape = {1024, 2048}
+INFO:hf-to-gguf:blk.0.ffn_up.weight,          torch.float32 --> F16, shape = {1024, 2048}
+INFO:hf-to-gguf:fused mlp_res_norm * mlp_res_proj -> blk.0.ffn_res_score.weight
+INFO:hf-to-gguf:blk.0.ffn_res_score.weight,   torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:blk.0.ffn_norm.weight,        torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:fused self_attention_res_norm * self_attention_res_proj -> blk.0.attn_res_score.weight
+INFO:hf-to-gguf:blk.0.attn_res_score.weight,  torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:blk.0.ssm_a,                  torch.float32 --> F32, shape = {8}
+INFO:hf-to-gguf:blk.0.ssm_beta.weight,        torch.float32 --> F16, shape = {1024, 8}
+INFO:hf-to-gguf:blk.0.ssm_dt.bias,            torch.float32 --> F32, shape = {256}
+INFO:hf-to-gguf:blk.0.ssm_f_a.weight,         torch.float32 --> F16, shape = {1024, 32}
+INFO:hf-to-gguf:blk.0.ssm_f_b.weight,         torch.float32 --> F16, shape = {32, 256}
+INFO:hf-to-gguf:blk.0.ssm_g.weight,           torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.0.ssm_conv1d_k.weight,    torch.float32 --> F32, shape = {4, 1, 256, 1}
+INFO:hf-to-gguf:blk.0.attn_k.weight,          torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.0.ssm_norm.weight,        torch.float32 --> F32, shape = {32}
+INFO:hf-to-gguf:blk.0.attn_output.weight,     torch.float32 --> F16, shape = {256, 1024}
+INFO:hf-to-gguf:blk.0.ssm_conv1d_q.weight,    torch.float32 --> F32, shape = {4, 1, 256, 1}
+INFO:hf-to-gguf:blk.0.attn_q.weight,          torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.0.ssm_conv1d_v.weight,    torch.float32 --> F32, shape = {4, 1, 256, 1}
+INFO:hf-to-gguf:blk.0.attn_v.weight,          torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.1.ffn_gate_exps.weight,   torch.float32 --> F16, shape = {512, 256, 8}
+INFO:hf-to-gguf:blk.1.ffn_down_exps.weight,   torch.float32 --> F16, shape = {256, 512, 8}
+INFO:hf-to-gguf:blk.1.ffn_up_exps.weight,     torch.float32 --> F16, shape = {512, 256, 8}
+INFO:hf-to-gguf:blk.1.exp_probs_b.bias,       torch.float32 --> F32, shape = {8}
+INFO:hf-to-gguf:blk.1.ffn_gate_inp.weight,    torch.float32 --> F32, shape = {1024, 8}
+INFO:hf-to-gguf:blk.1.ffn_routed_down.weight, torch.float32 --> F16, shape = {1024, 512}
+INFO:hf-to-gguf:blk.1.ffn_routed_norm.weight, torch.float32 --> F32, shape = {512}
+INFO:hf-to-gguf:blk.1.ffn_routed_up.weight,   torch.float32 --> F16, shape = {512, 1024}
+INFO:hf-to-gguf:blk.1.ffn_down_shexp.weight,  torch.float32 --> F16, shape = {256, 1024}
+INFO:hf-to-gguf:blk.1.ffn_gate_shexp.weight,  torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.1.ffn_up_shexp.weight,    torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.1.attn_norm.weight,       torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:fused mlp_res_norm * mlp_res_proj -> blk.1.ffn_res_score.weight
+INFO:hf-to-gguf:blk.1.ffn_res_score.weight,   torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:blk.1.ffn_norm.weight,        torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:fused self_attention_res_norm * self_attention_res_proj -> blk.1.attn_res_score.weight
+INFO:hf-to-gguf:blk.1.attn_res_score.weight,  torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:blk.1.ssm_a,                  torch.float32 --> F32, shape = {8}
+INFO:hf-to-gguf:blk.1.ssm_beta.weight,        torch.float32 --> F16, shape = {1024, 8}
+INFO:hf-to-gguf:blk.1.ssm_dt.bias,            torch.float32 --> F32, shape = {256}
+INFO:hf-to-gguf:blk.1.ssm_f_a.weight,         torch.float32 --> F16, shape = {1024, 32}
+INFO:hf-to-gguf:blk.1.ssm_f_b.weight,         torch.float32 --> F16, shape = {32, 256}
+INFO:hf-to-gguf:blk.1.ssm_g.weight,           torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.1.ssm_conv1d_k.weight,    torch.float32 --> F32, shape = {4, 1, 256, 1}
+INFO:hf-to-gguf:blk.1.attn_k.weight,          torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.1.ssm_norm.weight,        torch.float32 --> F32, shape = {32}
+INFO:hf-to-gguf:blk.1.attn_output.weight,     torch.float32 --> F16, shape = {256, 1024}
+INFO:hf-to-gguf:blk.1.ssm_conv1d_q.weight,    torch.float32 --> F32, shape = {4, 1, 256, 1}
+INFO:hf-to-gguf:blk.1.attn_q.weight,          torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.1.ssm_conv1d_v.weight,    torch.float32 --> F32, shape = {4, 1, 256, 1}
+INFO:hf-to-gguf:blk.1.attn_v.weight,          torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.2.ffn_gate_exps.weight,   torch.float32 --> F16, shape = {512, 256, 8}
+INFO:hf-to-gguf:blk.2.ffn_down_exps.weight,   torch.float32 --> F16, shape = {256, 512, 8}
+INFO:hf-to-gguf:blk.2.ffn_up_exps.weight,     torch.float32 --> F16, shape = {512, 256, 8}
+INFO:hf-to-gguf:blk.2.exp_probs_b.bias,       torch.float32 --> F32, shape = {8}
+INFO:hf-to-gguf:blk.2.ffn_gate_inp.weight,    torch.float32 --> F32, shape = {1024, 8}
+INFO:hf-to-gguf:blk.2.ffn_routed_down.weight, torch.float32 --> F16, shape = {1024, 512}
+INFO:hf-to-gguf:blk.2.ffn_routed_norm.weight, torch.float32 --> F32, shape = {512}
+INFO:hf-to-gguf:blk.2.ffn_routed_up.weight,   torch.float32 --> F16, shape = {512, 1024}
+INFO:hf-to-gguf:blk.2.ffn_down_shexp.weight,  torch.float32 --> F16, shape = {256, 1024}
+INFO:hf-to-gguf:blk.2.ffn_gate_shexp.weight,  torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.2.ffn_up_shexp.weight,    torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.2.attn_norm.weight,       torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:fused mlp_res_norm * mlp_res_proj -> blk.2.ffn_res_score.weight
+INFO:hf-to-gguf:blk.2.ffn_res_score.weight,   torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:blk.2.ffn_norm.weight,        torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:fused self_attention_res_norm * self_attention_res_proj -> blk.2.attn_res_score.weight
+INFO:hf-to-gguf:blk.2.attn_res_score.weight,  torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:blk.2.ssm_a,                  torch.float32 --> F32, shape = {8}
+INFO:hf-to-gguf:blk.2.ssm_beta.weight,        torch.float32 --> F16, shape = {1024, 8}
+INFO:hf-to-gguf:blk.2.ssm_dt.bias,            torch.float32 --> F32, shape = {256}
+INFO:hf-to-gguf:blk.2.ssm_f_a.weight,         torch.float32 --> F16, shape = {1024, 32}
+INFO:hf-to-gguf:blk.2.ssm_f_b.weight,         torch.float32 --> F16, shape = {32, 256}
+INFO:hf-to-gguf:blk.2.ssm_g.weight,           torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.2.ssm_conv1d_k.weight,    torch.float32 --> F32, shape = {4, 1, 256, 1}
+INFO:hf-to-gguf:blk.2.attn_k.weight,          torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.2.ssm_norm.weight,        torch.float32 --> F32, shape = {32}
+INFO:hf-to-gguf:blk.2.attn_output.weight,     torch.float32 --> F16, shape = {256, 1024}
+INFO:hf-to-gguf:blk.2.ssm_conv1d_q.weight,    torch.float32 --> F32, shape = {4, 1, 256, 1}
+INFO:hf-to-gguf:blk.2.attn_q.weight,          torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.2.ssm_conv1d_v.weight,    torch.float32 --> F32, shape = {4, 1, 256, 1}
+INFO:hf-to-gguf:blk.2.attn_v.weight,          torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.3.ffn_gate_exps.weight,   torch.float32 --> F16, shape = {512, 256, 8}
+INFO:hf-to-gguf:blk.3.ffn_down_exps.weight,   torch.float32 --> F16, shape = {256, 512, 8}
+INFO:hf-to-gguf:blk.3.ffn_up_exps.weight,     torch.float32 --> F16, shape = {512, 256, 8}
+INFO:hf-to-gguf:blk.3.exp_probs_b.bias,       torch.float32 --> F32, shape = {8}
+INFO:hf-to-gguf:blk.3.ffn_gate_inp.weight,    torch.float32 --> F32, shape = {1024, 8}
+INFO:hf-to-gguf:blk.3.ffn_routed_down.weight, torch.float32 --> F16, shape = {1024, 512}
+INFO:hf-to-gguf:blk.3.ffn_routed_norm.weight, torch.float32 --> F32, shape = {512}
+INFO:hf-to-gguf:blk.3.ffn_routed_up.weight,   torch.float32 --> F16, shape = {512, 1024}
+INFO:hf-to-gguf:blk.3.ffn_down_shexp.weight,  torch.float32 --> F16, shape = {256, 1024}
+INFO:hf-to-gguf:blk.3.ffn_gate_shexp.weight,  torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.3.ffn_up_shexp.weight,    torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.3.attn_norm.weight,       torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:fused mlp_res_norm * mlp_res_proj -> blk.3.ffn_res_score.weight
+INFO:hf-to-gguf:blk.3.ffn_res_score.weight,   torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:blk.3.ffn_norm.weight,        torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:fused self_attention_res_norm * self_attention_res_proj -> blk.3.attn_res_score.weight
+INFO:hf-to-gguf:blk.3.attn_res_score.weight,  torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:blk.3.attn_gate.weight,       torch.float32 --> F16, shape = {1024, 512}
+INFO:hf-to-gguf:blk.3.attn_kv_a_norm.weight,  torch.float32 --> F32, shape = {128}
+INFO:hf-to-gguf:blk.3.attn_kv_a_mqa.weight,   torch.float32 --> F16, shape = {1024, 160}
+INFO:hf-to-gguf:blk.3.attn_k_b.weight,        torch.float32 --> F16, shape = {64, 128, 8}
+INFO:hf-to-gguf:blk.3.attn_v_b.weight,        torch.float32 --> F16, shape = {128, 64, 8}
+INFO:hf-to-gguf:blk.3.attn_output.weight,     torch.float32 --> F16, shape = {512, 1024}
+INFO:hf-to-gguf:blk.3.attn_q_a_norm.weight,   torch.float32 --> F32, shape = {256}
+INFO:hf-to-gguf:blk.3.attn_q_a.weight,        torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.3.attn_q_b.weight,        torch.float32 --> F16, shape = {256, 768}
+INFO:hf-to-gguf:blk.4.ffn_gate_exps.weight,   torch.float32 --> F16, shape = {512, 256, 8}
+INFO:hf-to-gguf:blk.4.ffn_down_exps.weight,   torch.float32 --> F16, shape = {256, 512, 8}
+INFO:hf-to-gguf:blk.4.ffn_up_exps.weight,     torch.float32 --> F16, shape = {512, 256, 8}
+INFO:hf-to-gguf:blk.4.exp_probs_b.bias,       torch.float32 --> F32, shape = {8}
+INFO:hf-to-gguf:blk.4.ffn_gate_inp.weight,    torch.float32 --> F32, shape = {1024, 8}
+INFO:hf-to-gguf:blk.4.ffn_routed_down.weight, torch.float32 --> F16, shape = {1024, 512}
+INFO:hf-to-gguf:blk.4.ffn_routed_norm.weight, torch.float32 --> F32, shape = {512}
+INFO:hf-to-gguf:blk.4.ffn_routed_up.weight,   torch.float32 --> F16, shape = {512, 1024}
+INFO:hf-to-gguf:blk.4.ffn_down_shexp.weight,  torch.float32 --> F16, shape = {256, 1024}
+INFO:hf-to-gguf:blk.4.ffn_gate_shexp.weight,  torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.4.ffn_up_shexp.weight,    torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.4.attn_norm.weight,       torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:fused mlp_res_norm * mlp_res_proj -> blk.4.ffn_res_score.weight
+INFO:hf-to-gguf:blk.4.ffn_res_score.weight,   torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:blk.4.ffn_norm.weight,        torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:fused self_attention_res_norm * self_attention_res_proj -> blk.4.attn_res_score.weight
+INFO:hf-to-gguf:blk.4.attn_res_score.weight,  torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:blk.4.ssm_a,                  torch.float32 --> F32, shape = {8}
+INFO:hf-to-gguf:blk.4.ssm_beta.weight,        torch.float32 --> F16, shape = {1024, 8}
+INFO:hf-to-gguf:blk.4.ssm_dt.bias,            torch.float32 --> F32, shape = {256}
+INFO:hf-to-gguf:blk.4.ssm_f_a.weight,         torch.float32 --> F16, shape = {1024, 32}
+INFO:hf-to-gguf:blk.4.ssm_f_b.weight,         torch.float32 --> F16, shape = {32, 256}
+INFO:hf-to-gguf:blk.4.ssm_g.weight,           torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.4.ssm_conv1d_k.weight,    torch.float32 --> F32, shape = {4, 1, 256, 1}
+INFO:hf-to-gguf:blk.4.attn_k.weight,          torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.4.ssm_norm.weight,        torch.float32 --> F32, shape = {32}
+INFO:hf-to-gguf:blk.4.attn_output.weight,     torch.float32 --> F16, shape = {256, 1024}
+INFO:hf-to-gguf:blk.4.ssm_conv1d_q.weight,    torch.float32 --> F32, shape = {4, 1, 256, 1}
+INFO:hf-to-gguf:blk.4.attn_q.weight,          torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.4.ssm_conv1d_v.weight,    torch.float32 --> F32, shape = {4, 1, 256, 1}
+INFO:hf-to-gguf:blk.4.attn_v.weight,          torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.5.ffn_gate_exps.weight,   torch.float32 --> F16, shape = {512, 256, 8}
+INFO:hf-to-gguf:blk.5.ffn_down_exps.weight,   torch.float32 --> F16, shape = {256, 512, 8}
+INFO:hf-to-gguf:blk.5.ffn_up_exps.weight,     torch.float32 --> F16, shape = {512, 256, 8}
+INFO:hf-to-gguf:blk.5.exp_probs_b.bias,       torch.float32 --> F32, shape = {8}
+INFO:hf-to-gguf:blk.5.ffn_gate_inp.weight,    torch.float32 --> F32, shape = {1024, 8}
+INFO:hf-to-gguf:blk.5.ffn_routed_down.weight, torch.float32 --> F16, shape = {1024, 512}
+INFO:hf-to-gguf:blk.5.ffn_routed_norm.weight, torch.float32 --> F32, shape = {512}
+INFO:hf-to-gguf:blk.5.ffn_routed_up.weight,   torch.float32 --> F16, shape = {512, 1024}
+INFO:hf-to-gguf:blk.5.ffn_down_shexp.weight,  torch.float32 --> F16, shape = {256, 1024}
+INFO:hf-to-gguf:blk.5.ffn_gate_shexp.weight,  torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.5.ffn_up_shexp.weight,    torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.5.attn_norm.weight,       torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:fused mlp_res_norm * mlp_res_proj -> blk.5.ffn_res_score.weight
+INFO:hf-to-gguf:blk.5.ffn_res_score.weight,   torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:blk.5.ffn_norm.weight,        torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:fused self_attention_res_norm * self_attention_res_proj -> blk.5.attn_res_score.weight
+INFO:hf-to-gguf:blk.5.attn_res_score.weight,  torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:blk.5.ssm_a,                  torch.float32 --> F32, shape = {8}
+INFO:hf-to-gguf:blk.5.ssm_beta.weight,        torch.float32 --> F16, shape = {1024, 8}
+INFO:hf-to-gguf:blk.5.ssm_dt.bias,            torch.float32 --> F32, shape = {256}
+INFO:hf-to-gguf:blk.5.ssm_f_a.weight,         torch.float32 --> F16, shape = {1024, 32}
+INFO:hf-to-gguf:blk.5.ssm_f_b.weight,         torch.float32 --> F16, shape = {32, 256}
+INFO:hf-to-gguf:blk.5.ssm_g.weight,           torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.5.ssm_conv1d_k.weight,    torch.float32 --> F32, shape = {4, 1, 256, 1}
+INFO:hf-to-gguf:blk.5.attn_k.weight,          torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.5.ssm_norm.weight,        torch.float32 --> F32, shape = {32}
+INFO:hf-to-gguf:blk.5.attn_output.weight,     torch.float32 --> F16, shape = {256, 1024}
+INFO:hf-to-gguf:blk.5.ssm_conv1d_q.weight,    torch.float32 --> F32, shape = {4, 1, 256, 1}
+INFO:hf-to-gguf:blk.5.attn_q.weight,          torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.5.ssm_conv1d_v.weight,    torch.float32 --> F32, shape = {4, 1, 256, 1}
+INFO:hf-to-gguf:blk.5.attn_v.weight,          torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.6.ffn_gate_exps.weight,   torch.float32 --> F16, shape = {512, 256, 8}
+INFO:hf-to-gguf:blk.6.ffn_down_exps.weight,   torch.float32 --> F16, shape = {256, 512, 8}
+INFO:hf-to-gguf:blk.6.ffn_up_exps.weight,     torch.float32 --> F16, shape = {512, 256, 8}
+INFO:hf-to-gguf:blk.6.exp_probs_b.bias,       torch.float32 --> F32, shape = {8}
+INFO:hf-to-gguf:blk.6.ffn_gate_inp.weight,    torch.float32 --> F32, shape = {1024, 8}
+INFO:hf-to-gguf:blk.6.ffn_routed_down.weight, torch.float32 --> F16, shape = {1024, 512}
+INFO:hf-to-gguf:blk.6.ffn_routed_norm.weight, torch.float32 --> F32, shape = {512}
+INFO:hf-to-gguf:blk.6.ffn_routed_up.weight,   torch.float32 --> F16, shape = {512, 1024}
+INFO:hf-to-gguf:blk.6.ffn_down_shexp.weight,  torch.float32 --> F16, shape = {256, 1024}
+INFO:hf-to-gguf:blk.6.ffn_gate_shexp.weight,  torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.6.ffn_up_shexp.weight,    torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.6.attn_norm.weight,       torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:fused mlp_res_norm * mlp_res_proj -> blk.6.ffn_res_score.weight
+INFO:hf-to-gguf:blk.6.ffn_res_score.weight,   torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:blk.6.ffn_norm.weight,        torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:fused self_attention_res_norm * self_attention_res_proj -> blk.6.attn_res_score.weight
+INFO:hf-to-gguf:blk.6.attn_res_score.weight,  torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:blk.6.ssm_a,                  torch.float32 --> F32, shape = {8}
+INFO:hf-to-gguf:blk.6.ssm_beta.weight,        torch.float32 --> F16, shape = {1024, 8}
+INFO:hf-to-gguf:blk.6.ssm_dt.bias,            torch.float32 --> F32, shape = {256}
+INFO:hf-to-gguf:blk.6.ssm_f_a.weight,         torch.float32 --> F16, shape = {1024, 32}
+INFO:hf-to-gguf:blk.6.ssm_f_b.weight,         torch.float32 --> F16, shape = {32, 256}
+INFO:hf-to-gguf:blk.6.ssm_g.weight,           torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.6.ssm_conv1d_k.weight,    torch.float32 --> F32, shape = {4, 1, 256, 1}
+INFO:hf-to-gguf:blk.6.attn_k.weight,          torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.6.ssm_norm.weight,        torch.float32 --> F32, shape = {32}
+INFO:hf-to-gguf:blk.6.attn_output.weight,     torch.float32 --> F16, shape = {256, 1024}
+INFO:hf-to-gguf:blk.6.ssm_conv1d_q.weight,    torch.float32 --> F32, shape = {4, 1, 256, 1}
+INFO:hf-to-gguf:blk.6.attn_q.weight,          torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.6.ssm_conv1d_v.weight,    torch.float32 --> F32, shape = {4, 1, 256, 1}
+INFO:hf-to-gguf:blk.6.attn_v.weight,          torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.7.ffn_gate_exps.weight,   torch.float32 --> F16, shape = {512, 256, 8}
+INFO:hf-to-gguf:blk.7.ffn_down_exps.weight,   torch.float32 --> F16, shape = {256, 512, 8}
+INFO:hf-to-gguf:blk.7.ffn_up_exps.weight,     torch.float32 --> F16, shape = {512, 256, 8}
+INFO:hf-to-gguf:blk.7.exp_probs_b.bias,       torch.float32 --> F32, shape = {8}
+INFO:hf-to-gguf:blk.7.ffn_gate_inp.weight,    torch.float32 --> F32, shape = {1024, 8}
+INFO:hf-to-gguf:blk.7.ffn_routed_down.weight, torch.float32 --> F16, shape = {1024, 512}
+INFO:hf-to-gguf:blk.7.ffn_routed_norm.weight, torch.float32 --> F32, shape = {512}
+INFO:hf-to-gguf:blk.7.ffn_routed_up.weight,   torch.float32 --> F16, shape = {512, 1024}
+INFO:hf-to-gguf:blk.7.ffn_down_shexp.weight,  torch.float32 --> F16, shape = {256, 1024}
+INFO:hf-to-gguf:blk.7.ffn_gate_shexp.weight,  torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.7.ffn_up_shexp.weight,    torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.7.attn_norm.weight,       torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:fused mlp_res_norm * mlp_res_proj -> blk.7.ffn_res_score.weight
+INFO:hf-to-gguf:blk.7.ffn_res_score.weight,   torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:blk.7.ffn_norm.weight,        torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:fused self_attention_res_norm * self_attention_res_proj -> blk.7.attn_res_score.weight
+INFO:hf-to-gguf:blk.7.attn_res_score.weight,  torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:blk.7.attn_gate.weight,       torch.float32 --> F16, shape = {1024, 512}
+INFO:hf-to-gguf:blk.7.attn_kv_a_norm.weight,  torch.float32 --> F32, shape = {128}
+INFO:hf-to-gguf:blk.7.attn_kv_a_mqa.weight,   torch.float32 --> F16, shape = {1024, 160}
+INFO:hf-to-gguf:blk.7.attn_k_b.weight,        torch.float32 --> F16, shape = {64, 128, 8}
+INFO:hf-to-gguf:blk.7.attn_v_b.weight,        torch.float32 --> F16, shape = {128, 64, 8}
+INFO:hf-to-gguf:blk.7.attn_output.weight,     torch.float32 --> F16, shape = {512, 1024}
+INFO:hf-to-gguf:blk.7.attn_q_a_norm.weight,   torch.float32 --> F32, shape = {256}
+INFO:hf-to-gguf:blk.7.attn_q_a.weight,        torch.float32 --> F16, shape = {1024, 256}
+INFO:hf-to-gguf:blk.7.attn_q_b.weight,        torch.float32 --> F16, shape = {256, 768}
+INFO:hf-to-gguf:output_norm.weight,           torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:fused output_attn_res_norm * output_attn_res_proj -> output_res_score.weight
+INFO:hf-to-gguf:output_res_score.weight,      torch.float32 --> F32, shape = {1024}
+INFO:hf-to-gguf:Set meta model
+INFO:hf-to-gguf:Set model parameters
+INFO:hf-to-gguf:gguf: context length = 4096
+INFO:hf-to-gguf:gguf: embedding length = 1024
+INFO:hf-to-gguf:gguf: feed forward length = 2048
+INFO:hf-to-gguf:gguf: head count = 8
+INFO:hf-to-gguf:gguf: key-value head count = 1
+WARNING:hf-to-gguf:Unknown RoPE type: default
+INFO:hf-to-gguf:gguf: rope scaling type = NONE
+INFO:hf-to-gguf:gguf: rope theta = 10000.0
+INFO:hf-to-gguf:gguf: rms norm epsilon = 1e-05
+INFO:hf-to-gguf:gguf: expert count = 8
+INFO:hf-to-gguf:gguf: experts used count = 2
+INFO:hf-to-gguf:gguf: expert groups used count = 1
+INFO:hf-to-gguf:gguf: expert score gating function = sigmoid
+INFO:hf-to-gguf:gguf: file type = 1
+WARNING:gguf.gguf_writer:Duplicated key name 'kimi-k3.attention.head_count_kv', overwriting it with new value [0, 0, 0, 1, 0, 0, 0, 1] of type ARRAY
+WARNING:gguf.gguf_writer:Duplicated key name 'kimi-k3.attention.key_length', overwriting it with new value 160 of type UINT32
+WARNING:gguf.gguf_writer:Duplicated key name 'kimi-k3.expert_gating_func', overwriting it with new value 2 of type UINT32
+INFO:hf-to-gguf:Set model quantization version
+INFO:hf-to-gguf:Set model tokenizer
+The repository ../models/hf/Kimi-K3-0.40B contains custom code which must be executed to correctly load the model. You can inspect the repository content at /usr/local/src/k3-out-of-core/models/hf/Kimi-K3-0.40B .
+ You can inspect the repository content at https://hf.co/../models/hf/Kimi-K3-0.40B.
+You can avoid this prompt in future by passing the argument `trust_remote_code=True`.
+
+Do you wish to run the custom code? [y/N] INFO:transformers_modules.Kimi_hyphen_K3_hyphen_0_dot_40B.tokenization_kimi:Reloaded tiktoken model from ../models/hf/Kimi-K3-0.40B/tiktoken.model
+INFO:transformers_modules.Kimi_hyphen_K3_hyphen_0_dot_40B.tokenization_kimi:#words: 163840 - BOS ID: 163584 - EOS ID: 163585
+INFO:transformers_modules.Kimi_hyphen_K3_hyphen_0_dot_40B.tokenization_kimi:Reloaded tiktoken model from ../models/hf/Kimi-K3-0.40B/tiktoken.model
+INFO:transformers_modules.Kimi_hyphen_K3_hyphen_0_dot_40B.tokenization_kimi:#words: 163840 - BOS ID: 163584 - EOS ID: 163585
+INFO:gguf.vocab:Setting special token type bos to 1
+INFO:gguf.vocab:Setting special token type eos to 2
+INFO:gguf.vocab:Setting special token type pad to 0
+WARNING:gguf.gguf_writer:Duplicated key name 'tokenizer.ggml.eos_token_id', overwriting it with new value 163585 of type UINT32
+INFO:hf-to-gguf:restoring configured eos_token_id 2 (kimi-linear forces the tokenizer's)
+WARNING:gguf.gguf_writer:Duplicated key name 'tokenizer.ggml.eos_token_id', overwriting it with new value 2 of type UINT32
+INFO:gguf.gguf_writer:Writing the following files:
+INFO:gguf.gguf_writer:../models/gguf/Kimi-K3-0.40B-F16.gguf: n_tensors = 218, total_size = 777.4M
+Writing:   0%|          | 0.00/777M [00:00<?, ?byte/s]Writing:  43%|████▎     | 336M/777M [00:00<00:00, 740Mbyte/s]Writing:  86%|████████▋ | 671M/777M [00:00<00:00, 728Mbyte/s]Writing:  96%|█████████▌| 745M/777M [00:01<00:00, 694Mbyte/s]Writing: 100%|██████████| 777M/777M [00:01<00:00, 700Mbyte/s]
+INFO:hf-to-gguf:Model successfully exported to ../models/gguf/Kimi-K3-0.40B-F16.gguf
