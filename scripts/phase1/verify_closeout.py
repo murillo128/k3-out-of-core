@@ -33,6 +33,7 @@ FAILED_CHECKPOINT_C_ATTEMPTS = (
     ("3867da790b9b299b925cc562cbfdc7a5985c7da6", 5119671463),
     ("44177bcee0d0b8d367f7c7272e21b3f75f99fd50", 5119792587),
     ("1fc662f83ead68d48242376b4ab0820f787f7fbd", 5119898964),
+    ("a2dba4bbe1fe5d39a3667f64fee6cba6673bd5c7", 5119975819),
 )
 
 EVIDENCE_FILES = (
@@ -158,12 +159,20 @@ def verify_checkpoint_c_attestation(
 def verify_document_checkpoint_c(
     name: str, text: str, verdict: str, head: str, comment_url: str, errors: list[str]
 ) -> None:
-    verdicts = re.findall(r"(?im)^\s*(?:-\s*)?Checkpoint C:\s*\*\*([A-Z_]+)\*\*", text)
-    heads = re.findall(r"(?im)^\s*(?:-\s*)?Checkpoint C reviewed head:\s*`([0-9a-f]{40})`", text)
-    comment_links = re.findall(r"https?://[^\s)>]*issuecomment-\d+", text)
+    verdict_pattern = r"(?im)^\s*(?:-\s*)?Checkpoint C:\s*\*\*([A-Z_]+)\*\*\s*$"
+    head_pattern = r"(?im)^\s*(?:-\s*)?Checkpoint C reviewed head:\s*`([0-9a-f]{40})`\s*$"
+    verdicts = re.findall(verdict_pattern, text)
+    heads = re.findall(head_pattern, text)
+    verdict_label_lines = [line for line in text.splitlines() if re.search(r"checkpoint c\s*:", line, re.IGNORECASE)]
+    head_label_lines = [line for line in text.splitlines() if re.search(r"checkpoint c reviewed head\s*:", line, re.IGNORECASE)]
+    comment_links = re.findall(r"https?://[^\s)>]*issuecomment-\d+", text, re.IGNORECASE)
+    comment_label_lines = [line for line in text.splitlines() if re.search(r"issuecomment-\d+", line, re.IGNORECASE)]
     require(verdicts == [verdict], f"{name} does not have one unambiguous Checkpoint C verdict", errors)
     require(heads == [head], f"{name} does not have one unambiguous Checkpoint C reviewed head", errors)
     require(comment_links == [comment_url], f"{name} does not have one unambiguous Checkpoint C comment URL", errors)
+    require(len(verdict_label_lines) == 1, f"{name} contains an extra Checkpoint C verdict label", errors)
+    require(len(head_label_lines) == 1, f"{name} contains an extra Checkpoint C reviewed-head label", errors)
+    require(len(comment_label_lines) == 1, f"{name} contains an extra Checkpoint C comment linkage", errors)
     stale_lines = [line for line in text.splitlines() if "checkpoint c" in line.lower() and "pending" in line.lower()]
     require(not stale_lines, f"{name} retains active PENDING Checkpoint C state", errors)
 
@@ -193,6 +202,11 @@ def verify_external_review_comment(
     require(payload.get("html_url") == expected_url, "Checkpoint C external comment URL is not exact", errors)
     require(payload.get("id") == comment_id, "Checkpoint C external comment ID differs", errors)
     body = payload.get("body", "")
+    labeled_lines = [
+        line
+        for line in body.splitlines()
+        if re.search(r"\*\*(?:Reviewed range|Reviewed head|Verdict|Safety gate):\*\*", line, re.IGNORECASE)
+    ]
     ranges = re.findall(r"(?m)^\*\*Reviewed range:\*\*\s*`([^`]+)`\s*$", body)
     heads = re.findall(r"(?m)^\*\*Reviewed head:\*\*\s*`([0-9a-f]{40})`\s*$", body)
     verdicts = re.findall(r"(?m)^\*\*Verdict:\*\*\s*\*\*([A-Z_]+)\*\*\s*$", body)
@@ -201,6 +215,7 @@ def verify_external_review_comment(
     require(heads == [head], "Checkpoint C external comment head is ambiguous or differs", errors)
     require(verdicts == [verdict], "Checkpoint C external comment verdict is ambiguous or differs", errors)
     require(safeties == [safety], "Checkpoint C external comment safety gate is ambiguous or differs", errors)
+    require(len(labeled_lines) == 4, "Checkpoint C external comment contains extra or malformed labeled fields", errors)
 
 
 def verify_external_checkpoint_comment(checkpoint: dict, payload: dict, errors: list[str]) -> None:

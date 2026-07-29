@@ -115,6 +115,8 @@ Checkpoint A and Checkpoint B both returned `PASS_WITH_NOTES` with safety gate `
 
 The second Checkpoint C attempt also returned `FAIL / NO`: the gate still accepted a failed ancestor, coexisting active `PENDING` lines, and a placeholder comment domain. The third attempt returned `FAIL / NO` after finding removable failure history, ambiguous duplicate fields, contradictory external fields, and merge-attestation acceptance. The latest committed correction canonically parses all fields, externally verifies every failed attempt, and requires exactly one attestation parent. Fresh re-review is pending.
 
+The fourth Checkpoint C attempt returned `FAIL / NO` after finding unanchored suffix contradictions, uppercase placeholder URLs, and extra malformed label lines. The latest committed correction fully anchors all canonical fields, discovers URLs case-insensitively, and rejects every extra label-bearing line. Fresh re-review is pending.
+
 ## Downloading the published baseline
 
 From the project root:

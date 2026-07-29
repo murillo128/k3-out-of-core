@@ -46,6 +46,14 @@
         "issue_comment_id": 5119898964,
         "safety_gate": "NO",
         "finding": "Strict verification trusted removable local failure history, ambiguous document/comment fields, and a merge first parent."
+      },
+      {
+        "verdict": "FAIL",
+        "reviewed_head": "a2dba4bbe1fe5d39a3667f64fee6cba6673bd5c7",
+        "reviewed_range": "a11bce8a6260cf9c131a360d047aeb4d4a21d56f..a2dba4bbe1fe5d39a3667f64fee6cba6673bd5c7",
+        "issue_comment_id": 5119975819,
+        "safety_gate": "NO",
+        "finding": "Canonical parsing did not reject suffix contradictions, uppercase placeholder URLs, or extra malformed label lines."
       }
     ]
   }

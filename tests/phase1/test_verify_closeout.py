@@ -108,8 +108,25 @@ class VerifyCloseoutTests(unittest.TestCase):
             "conflicting_verdict": lambda c, m, d: d.__setitem__(
                 "docs/STATUS.md", d["docs/STATUS.md"] + "Checkpoint C: **PASS**\n"
             ),
+            "verdict_suffix": lambda c, m, d: d.__setitem__(
+                "docs/STATUS.md",
+                d["docs/STATUS.md"].replace(
+                    f"Checkpoint C: **{c['C']['verdict']}**",
+                    f"Checkpoint C: **{c['C']['verdict']}** / **FAIL**",
+                ),
+            ),
+            "head_suffix": lambda c, m, d: d.__setitem__(
+                "docs/STATUS.md",
+                d["docs/STATUS.md"].replace(
+                    f"Checkpoint C reviewed head: `{c['C']['reviewed_head']}`",
+                    f"Checkpoint C reviewed head: `{c['C']['reviewed_head']}` / `{'2' * 40}`",
+                ),
+            ),
             "extra_placeholder_link": lambda c, m, d: d.__setitem__(
                 "docs/STATUS.md", d["docs/STATUS.md"] + "https://example.invalid/#issuecomment-999\n"
+            ),
+            "uppercase_placeholder_link": lambda c, m, d: d.__setitem__(
+                "docs/STATUS.md", d["docs/STATUS.md"] + "HTTPS://example.invalid/#issuecomment-999\n"
             ),
             "wrong_domain": lambda c, m, d: d.__setitem__(
                 "docs/STATUS.md",
@@ -156,6 +173,9 @@ class VerifyCloseoutTests(unittest.TestCase):
         for contradiction in (
             "**Verdict:** **FAIL**\n",
             "**Safety gate:** **NO**\n",
+            "**Verdict:** **FAIL** <!-- contradictory -->\n",
+            "**Safety gate:** **NO** <!-- contradictory -->\n",
+            "- **Verdict:** **FAIL**\n",
             f"**Reviewed head:** `{'2' * 40}`\n",
             f"**Reviewed range:** `{verify_closeout.CHECKPOINT_C_BASE}..{'2' * 40}`\n",
         ):
