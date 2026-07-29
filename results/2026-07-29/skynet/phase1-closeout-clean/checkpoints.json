@@ -17,9 +17,20 @@
   },
   "C": {
     "verdict": "PENDING",
+    "reviewed_head": null,
     "reviewed_range": null,
     "issue_comment_id": null,
     "safety_gate": null,
-    "note": "Strict closeout remains intentionally unavailable until the independent Checkpoint C review accepts the committed Phase 6 and Phase 7 state."
+    "note": "Strict closeout remains intentionally unavailable until the independent Checkpoint C review accepts the committed Phase 6 and Phase 7 state.",
+    "attempts": [
+      {
+        "verdict": "FAIL",
+        "reviewed_head": "3867da790b9b299b925cc562cbfdc7a5985c7da6",
+        "reviewed_range": "a11bce8a6260cf9c131a360d047aeb4d4a21d56f..3867da790b9b299b925cc562cbfdc7a5985c7da6",
+        "issue_comment_id": 5119671463,
+        "safety_gate": "NO",
+        "finding": "Strict verification accepted incomplete Checkpoint C metadata and stale cross-document status."
+      }
+    ]
   }
 }

@@ -9,6 +9,7 @@ This file is the first handoff document for a new ChatGPT or Codex session.
 - Phase 1 technical evidence is complete under GitHub issue #7's STANDARD profile.
 - Checkpoints A and B returned **PASS_WITH_NOTES** with safety gate **YES**.
 - Checkpoint C: **PENDING** independent review of the committed benchmark and closeout state.
+- The first Checkpoint C attempt returned **FAIL / NO** on an incomplete-attestation verifier defect; the benchmark itself passed review and a bounded verifier correction is in progress.
 - No out-of-core runtime implementation exists. Project Phase 2 has not begun.
 - The Phase 1 evidence is descriptive for the tiny K3 fixtures on `skynet`; it is not a quality or production-performance claim.
 

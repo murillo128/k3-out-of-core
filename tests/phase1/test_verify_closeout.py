@@ -16,6 +16,41 @@ SPEC.loader.exec_module(verify_closeout)
 
 
 class VerifyCloseoutTests(unittest.TestCase):
+    def complete_attestation(self):
+        head = "1" * 40
+        comment_id = 123456
+        verdict = "PASS_WITH_NOTES"
+        checkpoints = {
+            "C": {
+                "verdict": verdict,
+                "reviewed_head": head,
+                "reviewed_range": f"{verify_closeout.CHECKPOINT_C_BASE}..{head}",
+                "issue_comment_id": comment_id,
+                "safety_gate": "YES",
+                "note": "Independent review accepted the complete corrective state.",
+            }
+        }
+        manifest = {
+            "baseline": {"status": "phase1-validated"},
+            "phase1_validation": {
+                "checkpoint_c": verdict,
+                "checkpoint_c_reviewed_head": head,
+                "checkpoint_c_issue_comment_id": comment_id,
+            },
+        }
+        common = (
+            f"Checkpoint C: **{verdict}**\n"
+            f"Checkpoint C reviewed head: `{head}`\n"
+            f"https://example.invalid/#issuecomment-{comment_id}\n"
+        )
+        documents = {
+            "docs/STATUS.md": common,
+            "docs/plan/00-foundation.md": common,
+            "docs/REPOSITORIES_AND_ARTIFACTS.md": common,
+            "SUMMARY.md": common,
+        }
+        return checkpoints, manifest, documents
+
     def test_checkpoint_c_is_required_in_strict_mode(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             results = Path(directory)
@@ -33,6 +68,36 @@ class VerifyCloseoutTests(unittest.TestCase):
         verdict = "PENDING"
         self.assertIn(verdict, {"PASS", "PASS_WITH_NOTES", "PENDING"})
         self.assertNotIn(verdict, {"PASS", "PASS_WITH_NOTES"})
+
+    def test_complete_checkpoint_c_attestation_passes(self) -> None:
+        checkpoints, manifest, documents = self.complete_attestation()
+        errors: list[str] = []
+        verify_closeout.verify_checkpoint_c_attestation(checkpoints, manifest, documents, errors)
+        self.assertEqual(errors, [])
+
+    def test_incomplete_checkpoint_c_fields_fail(self) -> None:
+        mutations = {
+            "range": lambda c, m, d: c["C"].__setitem__("reviewed_range", "wrong"),
+            "head": lambda c, m, d: c["C"].__setitem__("reviewed_head", None),
+            "safety": lambda c, m, d: c["C"].__setitem__("safety_gate", None),
+            "comment": lambda c, m, d: c["C"].__setitem__("issue_comment_id", None),
+            "note": lambda c, m, d: c["C"].__setitem__("note", "PENDING"),
+            "manifest_status": lambda c, m, d: m["baseline"].__setitem__("status", "checkpoint-c-pending"),
+            "manifest_verdict": lambda c, m, d: m["phase1_validation"].__setitem__("checkpoint_c", "PENDING"),
+            "manifest_head": lambda c, m, d: m["phase1_validation"].__setitem__("checkpoint_c_reviewed_head", None),
+            "manifest_comment": lambda c, m, d: m["phase1_validation"].__setitem__("checkpoint_c_issue_comment_id", None),
+            "summary": lambda c, m, d: d.__setitem__("SUMMARY.md", "Checkpoint C: **PENDING**"),
+            "status": lambda c, m, d: d.__setitem__("docs/STATUS.md", "Checkpoint C: **PENDING**"),
+            "plan": lambda c, m, d: d.__setitem__("docs/plan/00-foundation.md", "Checkpoint C: **PENDING**"),
+            "repositories": lambda c, m, d: d.__setitem__("docs/REPOSITORIES_AND_ARTIFACTS.md", "Checkpoint C: **PENDING**"),
+        }
+        for label, mutation in mutations.items():
+            with self.subTest(label=label):
+                checkpoints, manifest, documents = self.complete_attestation()
+                mutation(checkpoints, manifest, documents)
+                errors: list[str] = []
+                verify_closeout.verify_checkpoint_c_attestation(checkpoints, manifest, documents, errors)
+                self.assertNotEqual(errors, [])
 
     def test_checksum_manifest_rejects_unlisted_path(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

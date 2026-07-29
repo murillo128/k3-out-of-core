@@ -39,6 +39,7 @@ These measurements describe this tiny fixture and host only; they do not establi
 - Checkpoint A: **PASS_WITH_NOTES**, safety gate **YES**.
 - Checkpoint B: **PASS_WITH_NOTES**, safety gate **YES**.
 - Checkpoint C: **PENDING** until an independent reviewer evaluates the committed benchmark and closeout state.
+- The first Checkpoint C attempt at `3867da790b9b299b925cc562cbfdc7a5985c7da6` returned **FAIL**, safety gate **NO**, because strict verification did not reject incomplete cross-document attestation. The bounded corrective delta strengthens this gate before re-review.
 - `evidence.sha256` authenticates every primary artifact in this directory except itself and the derived verifier report.
 - `scripts/phase1/verify_closeout.py --allow-pending-checkpoint-c` is the pre-review non-circular gate. Strict mode must fail while Checkpoint C is pending and must pass before final PR review.
 

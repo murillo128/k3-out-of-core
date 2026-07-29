@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+import subprocess
 import sys
 
 
@@ -24,6 +25,8 @@ EXPECTED = {
     "f16_sha256": "411c197b503e6fb9199a2b22115e32dc4e2cad803fb112b24967737b3bab26c7",
     "mxfp4_sha256": "0379a1cc623e09eb3fbd1dfcb18737bc8c971dbfe5bf5bc3e08da8b5379ec169",
 }
+
+CHECKPOINT_C_BASE = "a11bce8a6260cf9c131a360d047aeb4d4a21d56f"
 
 EVIDENCE_FILES = (
     "environment.json",
@@ -103,6 +106,59 @@ def verify_checksums(results: Path, errors: list[str]) -> None:
 def require(condition: bool, message: str, errors: list[str]) -> None:
     if not condition:
         errors.append(message)
+
+
+def verify_checkpoint_c_attestation(
+    checkpoints: dict, manifest: dict, documents: dict[str, str], errors: list[str]
+) -> None:
+    """Require a complete, cross-document Checkpoint C attestation."""
+    checkpoint = checkpoints.get("C", {})
+    verdict = checkpoint.get("verdict")
+    head = checkpoint.get("reviewed_head")
+    comment_id = checkpoint.get("issue_comment_id")
+    accepted = {"PASS", "PASS_WITH_NOTES"}
+    require(verdict in accepted, "Checkpoint C is incomplete", errors)
+    require(isinstance(head, str) and len(head) == 40 and all(c in "0123456789abcdef" for c in head), "Checkpoint C reviewed head is invalid", errors)
+    if isinstance(head, str):
+        require(checkpoint.get("reviewed_range") == f"{CHECKPOINT_C_BASE}..{head}", "Checkpoint C reviewed range is not exact", errors)
+    require(checkpoint.get("safety_gate") == "YES", "Checkpoint C safety gate is not YES", errors)
+    require(isinstance(comment_id, int) and comment_id > 0, "Checkpoint C issue-comment linkage is missing", errors)
+    note = checkpoint.get("note")
+    require(isinstance(note, str) and len(note.strip()) >= 20 and "pending" not in note.lower(), "Checkpoint C completion note is missing", errors)
+
+    phase1 = manifest.get("phase1_validation", {})
+    require(manifest.get("baseline", {}).get("status") == "phase1-validated", "manifest Phase 1 status is stale", errors)
+    require(phase1.get("checkpoint_c") == verdict, "manifest Checkpoint C verdict is stale", errors)
+    require(phase1.get("checkpoint_c_reviewed_head") == head, "manifest Checkpoint C head is stale", errors)
+    require(phase1.get("checkpoint_c_issue_comment_id") == comment_id, "manifest Checkpoint C comment linkage is stale", errors)
+
+    if isinstance(verdict, str) and isinstance(head, str) and isinstance(comment_id, int):
+        markers = {
+            "docs/STATUS.md": (
+                f"Checkpoint C: **{verdict}**",
+                f"Checkpoint C reviewed head: `{head}`",
+                f"issuecomment-{comment_id}",
+            ),
+            "docs/plan/00-foundation.md": (
+                f"Checkpoint C: **{verdict}**",
+                f"Checkpoint C reviewed head: `{head}`",
+                f"issuecomment-{comment_id}",
+            ),
+            "docs/REPOSITORIES_AND_ARTIFACTS.md": (
+                f"Checkpoint C: **{verdict}**",
+                f"Checkpoint C reviewed head: `{head}`",
+                f"issuecomment-{comment_id}",
+            ),
+            "SUMMARY.md": (
+                f"Checkpoint C: **{verdict}**",
+                f"Checkpoint C reviewed head: `{head}`",
+                f"issuecomment-{comment_id}",
+            ),
+        }
+        for name, required_markers in markers.items():
+            text = documents.get(name, "")
+            for marker in required_markers:
+                require(marker in text, f"{name} has stale Checkpoint C state: {marker}", errors)
 
 
 def verify_evidence(results: Path, allow_pending_c: bool, errors: list[str]) -> None:
@@ -195,9 +251,24 @@ def verify_source_of_truth(root: Path, allow_pending_c: bool, errors: list[str])
         text = (root / relative).read_text(encoding="utf-8")
         for marker in markers:
             require(marker in text, f"{relative} missing closeout marker: {marker}", errors)
-    status_text = (root / "docs/STATUS.md").read_text(encoding="utf-8")
     if not allow_pending_c:
-        require("Checkpoint C: **PASS" in status_text, "STATUS does not record accepted Checkpoint C", errors)
+        reviewed_head = load_json(RESULTS / "checkpoints.json").get("C", {}).get("reviewed_head")
+        if isinstance(reviewed_head, str) and len(reviewed_head) == 40:
+            ancestry = subprocess.run(
+                ["git", "merge-base", "--is-ancestor", reviewed_head, "HEAD"],
+                cwd=root,
+                check=False,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
+            require(ancestry.returncode == 0, "Checkpoint C reviewed head is not an ancestor of HEAD", errors)
+        documents = {
+            "docs/STATUS.md": (root / "docs/STATUS.md").read_text(encoding="utf-8"),
+            "docs/plan/00-foundation.md": (root / "docs/plan/00-foundation.md").read_text(encoding="utf-8"),
+            "docs/REPOSITORIES_AND_ARTIFACTS.md": (root / "docs/REPOSITORIES_AND_ARTIFACTS.md").read_text(encoding="utf-8"),
+            "SUMMARY.md": (RESULTS / "SUMMARY.md").read_text(encoding="utf-8"),
+        }
+        verify_checkpoint_c_attestation(load_json(RESULTS / "checkpoints.json"), manifest, documents, errors)
 
 
 def main() -> int:
