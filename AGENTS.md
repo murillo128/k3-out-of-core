@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Instructions for Codex and other coding agents working in this repository.
+Instructions for ChatGPT, Codex, and other coding agents working in this repository.
 
 ## Mission
 
@@ -16,7 +16,8 @@ Before changing code or plans, read:
 4. `PLAN.md`
 5. `docs/MODELS_AND_VALIDATION.md`
 6. `docs/PRIOR_ART.md`
-7. `.agents/skills/spec-driven-codex-loop/SKILL.md`
+7. `.agents/skills/design-github-issue/SKILL.md`
+8. `.agents/skills/spec-driven-codex-loop/SKILL.md`
 
 Then inspect the current Git branch, commit history, open issues/PRs, and any linked `llama.cpp` checkout.
 
@@ -43,6 +44,23 @@ Use these exact labels in plans and design notes:
 - `BLOCKED`
 
 Never present an `OPEN` or `SPECULATIVE` item as decided.
+
+## Required issue-design workflow
+
+For every non-trivial implementation, refactor, migration, performance investigation, or change to project source-of-truth documents, the design-authority ChatGPT session must use `.agents/skills/design-github-issue/SKILL.md` before Codex implementation begins.
+
+The design session must:
+
+1. inspect the repository and relevant external evidence before prescribing changes;
+2. classify observed facts, accepted decisions, open questions, speculation, and blockers explicitly;
+3. use available helper skills such as brainstorming, systematic debugging, plan writing, or verification when useful, without depending on their availability;
+4. resolve material design and scope decisions or create a design/investigation issue instead of guessing;
+5. define bounded phases, model capability classes, validation commands, review gates, and restart conditions;
+6. search for overlapping issues and prior attempts;
+7. create or update a complete GitHub issue that is understandable without private chat context;
+8. mark the issue `EXECUTION_READY`, `DESIGN_REQUIRED`, `INVESTIGATION_REQUIRED`, or `BLOCKED`.
+
+Only an `EXECUTION_READY` issue may enter the implementation workflow. If architecture or other durable decisions change, update the repository source of truth before implementation or make that update an explicit gated prerequisite.
 
 ## Required execution workflow
 
