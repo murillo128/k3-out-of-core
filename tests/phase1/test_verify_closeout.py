@@ -6,6 +6,7 @@ from pathlib import Path
 import tempfile
 import unittest
 from unittest import mock
+import subprocess
 
 
 SCRIPT = Path(__file__).resolve().parents[2] / "scripts/phase1/verify_closeout.py"
@@ -41,7 +42,7 @@ class VerifyCloseoutTests(unittest.TestCase):
         common = (
             f"Checkpoint C: **{verdict}**\n"
             f"Checkpoint C reviewed head: `{head}`\n"
-            f"https://example.invalid/#issuecomment-{comment_id}\n"
+            f"https://github.com/murillo128/k3-out-of-core/issues/7#issuecomment-{comment_id}\n"
         )
         documents = {
             "docs/STATUS.md": common,
@@ -90,6 +91,21 @@ class VerifyCloseoutTests(unittest.TestCase):
             "status": lambda c, m, d: d.__setitem__("docs/STATUS.md", "Checkpoint C: **PENDING**"),
             "plan": lambda c, m, d: d.__setitem__("docs/plan/00-foundation.md", "Checkpoint C: **PENDING**"),
             "repositories": lambda c, m, d: d.__setitem__("docs/REPOSITORIES_AND_ARTIFACTS.md", "Checkpoint C: **PENDING**"),
+            "failed_head": lambda c, m, d: c["C"].__setitem__(
+                "attempts", [{"verdict": "FAIL", "reviewed_head": c["C"]["reviewed_head"]}]
+            ),
+            "coexisting_pending": lambda c, m, d: d.__setitem__(
+                "SUMMARY.md", d["SUMMARY.md"] + "Checkpoint C: **PENDING**\n"
+            ),
+            "duplicate_marker": lambda c, m, d: d.__setitem__(
+                "docs/STATUS.md", d["docs/STATUS.md"] + d["docs/STATUS.md"]
+            ),
+            "wrong_domain": lambda c, m, d: d.__setitem__(
+                "docs/STATUS.md",
+                d["docs/STATUS.md"].replace(
+                    "https://github.com/murillo128/k3-out-of-core/issues/7", "https://example.invalid"
+                ),
+            ),
         }
         for label, mutation in mutations.items():
             with self.subTest(label=label):
@@ -98,6 +114,56 @@ class VerifyCloseoutTests(unittest.TestCase):
                 errors: list[str] = []
                 verify_closeout.verify_checkpoint_c_attestation(checkpoints, manifest, documents, errors)
                 self.assertNotEqual(errors, [])
+
+    def test_external_checkpoint_comment_is_bound_to_review(self) -> None:
+        checkpoints, _, _ = self.complete_attestation()
+        checkpoint = checkpoints["C"]
+        payload = {
+            "id": checkpoint["issue_comment_id"],
+            "html_url": "https://github.com/murillo128/k3-out-of-core/issues/7#issuecomment-123456",
+            "body": (
+                f"**Reviewed range:** `{checkpoint['reviewed_range']}`\n"
+                f"**Reviewed head:** `{checkpoint['reviewed_head']}`\n"
+                f"**Verdict:** **{checkpoint['verdict']}**\n"
+                "**Safety gate:** **YES**\n"
+            ),
+        }
+        errors: list[str] = []
+        verify_closeout.verify_external_checkpoint_comment(checkpoint, payload, errors)
+        self.assertEqual(errors, [])
+        for key, replacement in {
+            "html_url": "https://example.invalid/#issuecomment-123456",
+            "id": 999,
+            "body": "unrelated review",
+        }.items():
+            with self.subTest(key=key):
+                changed = dict(payload)
+                changed[key] = replacement
+                errors = []
+                verify_closeout.verify_external_checkpoint_comment(checkpoint, changed, errors)
+                self.assertNotEqual(errors, [])
+
+    def test_reviewed_head_must_be_exact_attestation_parent(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            repository = Path(directory)
+            subprocess.run(["git", "init", "-q"], cwd=repository, check=True)
+            subprocess.run(["git", "config", "user.name", "Test"], cwd=repository, check=True)
+            subprocess.run(["git", "config", "user.email", "test@example.invalid"], cwd=repository, check=True)
+            heads = []
+            for index in range(3):
+                (repository / "state").write_text(str(index), encoding="utf-8")
+                subprocess.run(["git", "add", "state"], cwd=repository, check=True)
+                subprocess.run(["git", "commit", "-q", "-m", f"state {index}"], cwd=repository, check=True)
+                heads.append(
+                    subprocess.run(
+                        ["git", "rev-parse", "HEAD"], cwd=repository, check=True, capture_output=True, text=True
+                    ).stdout.strip()
+                )
+            errors: list[str] = []
+            verify_closeout.verify_attestation_parent(repository, heads[1], errors)
+            self.assertEqual(errors, [])
+            verify_closeout.verify_attestation_parent(repository, heads[0], errors)
+            self.assertIn("Checkpoint C reviewed head is not the exact attestation parent", errors)
 
     def test_checksum_manifest_rejects_unlisted_path(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

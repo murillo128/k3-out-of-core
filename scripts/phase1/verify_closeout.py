@@ -9,6 +9,7 @@ import json
 from pathlib import Path
 import subprocess
 import sys
+import urllib.request
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -125,6 +126,12 @@ def verify_checkpoint_c_attestation(
     require(isinstance(comment_id, int) and comment_id > 0, "Checkpoint C issue-comment linkage is missing", errors)
     note = checkpoint.get("note")
     require(isinstance(note, str) and len(note.strip()) >= 20 and "pending" not in note.lower(), "Checkpoint C completion note is missing", errors)
+    failed_heads = {
+        attempt.get("reviewed_head")
+        for attempt in checkpoint.get("attempts", [])
+        if attempt.get("verdict") in {"FAIL", "BLOCKED"}
+    }
+    require(head not in failed_heads, "Checkpoint C reviewed head is a recorded failed attempt", errors)
 
     phase1 = manifest.get("phase1_validation", {})
     require(manifest.get("baseline", {}).get("status") == "phase1-validated", "manifest Phase 1 status is stale", errors)
@@ -133,32 +140,72 @@ def verify_checkpoint_c_attestation(
     require(phase1.get("checkpoint_c_issue_comment_id") == comment_id, "manifest Checkpoint C comment linkage is stale", errors)
 
     if isinstance(verdict, str) and isinstance(head, str) and isinstance(comment_id, int):
+        comment_url = f"https://github.com/murillo128/k3-out-of-core/issues/7#issuecomment-{comment_id}"
         markers = {
             "docs/STATUS.md": (
                 f"Checkpoint C: **{verdict}**",
                 f"Checkpoint C reviewed head: `{head}`",
-                f"issuecomment-{comment_id}",
+                comment_url,
             ),
             "docs/plan/00-foundation.md": (
                 f"Checkpoint C: **{verdict}**",
                 f"Checkpoint C reviewed head: `{head}`",
-                f"issuecomment-{comment_id}",
+                comment_url,
             ),
             "docs/REPOSITORIES_AND_ARTIFACTS.md": (
                 f"Checkpoint C: **{verdict}**",
                 f"Checkpoint C reviewed head: `{head}`",
-                f"issuecomment-{comment_id}",
+                comment_url,
             ),
             "SUMMARY.md": (
                 f"Checkpoint C: **{verdict}**",
                 f"Checkpoint C reviewed head: `{head}`",
-                f"issuecomment-{comment_id}",
+                comment_url,
             ),
         }
         for name, required_markers in markers.items():
             text = documents.get(name, "")
             for marker in required_markers:
-                require(marker in text, f"{name} has stale Checkpoint C state: {marker}", errors)
+                require(text.count(marker) == 1, f"{name} must contain exactly one active Checkpoint C marker: {marker}", errors)
+            stale_lines = [line for line in text.splitlines() if "checkpoint c" in line.lower() and "pending" in line.lower()]
+            require(not stale_lines, f"{name} retains active PENDING Checkpoint C state", errors)
+
+
+def fetch_github_issue_comment(comment_id: int) -> dict:
+    request = urllib.request.Request(
+        f"https://api.github.com/repos/murillo128/k3-out-of-core/issues/comments/{comment_id}",
+        headers={"Accept": "application/vnd.github+json", "User-Agent": "k3-phase1-closeout-verifier"},
+    )
+    with urllib.request.urlopen(request, timeout=15) as response:
+        payload = json.load(response)
+    if not isinstance(payload, dict):
+        raise ValueError("GitHub issue-comment response is not an object")
+    return payload
+
+
+def verify_external_checkpoint_comment(checkpoint: dict, payload: dict, errors: list[str]) -> None:
+    comment_id = checkpoint.get("issue_comment_id")
+    head = checkpoint.get("reviewed_head")
+    verdict = checkpoint.get("verdict")
+    expected_url = f"https://github.com/murillo128/k3-out-of-core/issues/7#issuecomment-{comment_id}"
+    require(payload.get("html_url") == expected_url, "Checkpoint C external comment URL is not exact", errors)
+    require(payload.get("id") == comment_id, "Checkpoint C external comment ID differs", errors)
+    body = payload.get("body", "")
+    require(f"Reviewed range:** `{CHECKPOINT_C_BASE}..{head}`" in body, "Checkpoint C external comment range differs", errors)
+    require(f"Reviewed head:** `{head}`" in body, "Checkpoint C external comment head differs", errors)
+    require(f"Verdict:** **{verdict}**" in body, "Checkpoint C external comment verdict differs", errors)
+    require("Safety gate:** **YES**" in body, "Checkpoint C external comment safety gate is not YES", errors)
+
+
+def verify_attestation_parent(root: Path, reviewed_head: str, errors: list[str]) -> None:
+    parent = subprocess.run(
+        ["git", "rev-parse", "HEAD^"],
+        cwd=root,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    require(parent.returncode == 0 and parent.stdout.strip() == reviewed_head, "Checkpoint C reviewed head is not the exact attestation parent", errors)
 
 
 def verify_evidence(results: Path, allow_pending_c: bool, errors: list[str]) -> None:
@@ -252,23 +299,26 @@ def verify_source_of_truth(root: Path, allow_pending_c: bool, errors: list[str])
         for marker in markers:
             require(marker in text, f"{relative} missing closeout marker: {marker}", errors)
     if not allow_pending_c:
-        reviewed_head = load_json(RESULTS / "checkpoints.json").get("C", {}).get("reviewed_head")
+        checkpoints = load_json(RESULTS / "checkpoints.json")
+        checkpoint_c = checkpoints.get("C", {})
+        reviewed_head = checkpoint_c.get("reviewed_head")
         if isinstance(reviewed_head, str) and len(reviewed_head) == 40:
-            ancestry = subprocess.run(
-                ["git", "merge-base", "--is-ancestor", reviewed_head, "HEAD"],
-                cwd=root,
-                check=False,
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-            )
-            require(ancestry.returncode == 0, "Checkpoint C reviewed head is not an ancestor of HEAD", errors)
+            verify_attestation_parent(root, reviewed_head, errors)
         documents = {
             "docs/STATUS.md": (root / "docs/STATUS.md").read_text(encoding="utf-8"),
             "docs/plan/00-foundation.md": (root / "docs/plan/00-foundation.md").read_text(encoding="utf-8"),
             "docs/REPOSITORIES_AND_ARTIFACTS.md": (root / "docs/REPOSITORIES_AND_ARTIFACTS.md").read_text(encoding="utf-8"),
             "SUMMARY.md": (RESULTS / "SUMMARY.md").read_text(encoding="utf-8"),
         }
-        verify_checkpoint_c_attestation(load_json(RESULTS / "checkpoints.json"), manifest, documents, errors)
+        verify_checkpoint_c_attestation(checkpoints, manifest, documents, errors)
+        comment_id = checkpoint_c.get("issue_comment_id")
+        if isinstance(comment_id, int) and comment_id > 0:
+            try:
+                payload = fetch_github_issue_comment(comment_id)
+            except (OSError, ValueError, json.JSONDecodeError) as exc:
+                errors.append(f"Checkpoint C external comment could not be verified: {exc}")
+            else:
+                verify_external_checkpoint_comment(checkpoint_c, payload, errors)
 
 
 def main() -> int:

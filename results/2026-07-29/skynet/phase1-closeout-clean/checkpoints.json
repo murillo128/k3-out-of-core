@@ -30,6 +30,14 @@
         "issue_comment_id": 5119671463,
         "safety_gate": "NO",
         "finding": "Strict verification accepted incomplete Checkpoint C metadata and stale cross-document status."
+      },
+      {
+        "verdict": "FAIL",
+        "reviewed_head": "44177bcee0d0b8d367f7c7272e21b3f75f99fd50",
+        "reviewed_range": "a11bce8a6260cf9c131a360d047aeb4d4a21d56f..44177bcee0d0b8d367f7c7272e21b3f75f99fd50",
+        "issue_comment_id": 5119792587,
+        "safety_gate": "NO",
+        "finding": "Strict verification accepted a failed ancestor, coexisting PENDING status, and a non-GitHub placeholder linkage."
       }
     ]
   }

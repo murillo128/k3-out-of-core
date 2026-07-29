@@ -113,6 +113,8 @@ The benchmark retained one model per model/backend process, discarded one warmup
 
 Checkpoint A and Checkpoint B both returned `PASS_WITH_NOTES` with safety gate `YES`. The first Checkpoint C attempt returned `FAIL` with safety gate `NO` because the strict verifier did not reject incomplete cross-document attestation; the benchmark itself passed review. Checkpoint C remains pending re-review after the bounded verifier correction. Strict closeout cannot pass until an accepted verdict is consistently recorded.
 
+The second Checkpoint C attempt also returned `FAIL / NO`: the gate still accepted a failed ancestor, coexisting active `PENDING` lines, and a placeholder comment domain. The second bounded correction binds accepted review to the exact attestation parent, rejects duplicate or pending active markers, and verifies the exact external issue #7 review comment content.
+
 ## Downloading the published baseline
 
 From the project root:
