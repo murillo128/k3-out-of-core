@@ -58,9 +58,30 @@ The design session must:
 5. define bounded phases, model capability classes, validation commands, review gates, and restart conditions;
 6. search for overlapping issues and prior attempts;
 7. create or update a complete GitHub issue that is understandable without private chat context;
-8. mark the issue `EXECUTION_READY`, `DESIGN_REQUIRED`, `INVESTIGATION_REQUIRED`, or `BLOCKED`.
+8. apply exactly one GitHub workflow label: `design-required`, `investigation-required`, `execution-ready`, `in-progress`, or `blocked`.
 
-Only an `EXECUTION_READY` issue may enter the implementation workflow. If architecture or other durable decisions change, update the repository source of truth before implementation or make that update an explicit gated prerequisite.
+Only an issue carrying the `execution-ready` label may enter the implementation workflow. If architecture or other durable decisions change, update the repository source of truth before implementation or make that update an explicit gated prerequisite.
+
+## GitHub issue workflow labels
+
+Use these exact GitHub labels as mutually exclusive workflow states for every non-trivial open issue:
+
+- `design-required`: material architecture, scope, or validation decisions remain unresolved.
+- `investigation-required`: additional evidence or experimentation is required before the issue can be fully designed.
+- `execution-ready`: the issue is a complete, self-contained execution contract with no unresolved material blocker.
+- `in-progress`: an agent or human is actively executing the approved issue.
+- `blocked`: execution cannot progress until a documented external dependency, failed gate, or design defect is resolved.
+
+Apply the labels using these rules:
+
+1. Exactly one workflow-state label must be present on each non-trivial open issue.
+2. Assign `execution-ready` only when the issue contains an explicit goal, authoritative context, scope, out-of-scope boundaries, bounded execution steps or constraints, validation requirements, and testable exit criteria.
+3. Do not assign `execution-ready` while any material design question, dependency, or validation strategy remains unresolved.
+4. Codex may start work only from an `execution-ready` issue. At execution start, replace `execution-ready` with `in-progress` and add a phase-start comment before editing.
+5. When progress is impossible, replace the current workflow label with `blocked` and document the evidence, owner or dependency, and exact restart condition in an issue comment.
+6. After a blocker is resolved, return the issue to `execution-ready` when execution must restart from the contract, or to `in-progress` when the existing phase may safely resume.
+7. Close the issue when all exit criteria are supported by committed evidence. A separate `completed` label is unnecessary.
+8. Uppercase status markers such as `ACCEPTED`, `OPEN`, and `BLOCKED` remain document semantics; lowercase workflow labels are GitHub machine-readable state.
 
 ## Required execution workflow
 
