@@ -35,11 +35,19 @@ Resident F16 dequantizations: 35
 ### `inference-f16-cuda.log`
 
 ```text
+build      : b10164-84245db4c
+model      : ../models/gguf/Kimi-K3-0.40B-F16.gguf
+ftype      : F16
+[ Prompt: 516.7 t/s | Generation: 153.5 t/s ]
 ```
 
 ### `inference-mxfp4-cuda.log`
 
 ```text
+build      : b10164-84245db4c
+model      : ../models/gguf/Kimi-K3-0.40B-MXFP4.gguf
+ftype      : MXFP4 MoE
+[ Prompt: 524.2 t/s | Generation: 155.7 t/s ]
 ```
 
 ## Error scan
