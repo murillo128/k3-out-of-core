@@ -1,338 +1,271 @@
 ---
 name: design-github-issue
-description: Use when a normal ChatGPT session must turn a non-trivial repository request into an approved, implementation-ready GitHub issue before Codex execution.
+description: Turn a non-trivial repository request into an approved, self-contained GitHub issue with bounded phases, objective validation, an explicit execution profile, risk-based review checkpoints, and clear restart conditions before Codex execution.
 ---
 
 # Design an Implementation-Ready GitHub Issue
 
-Use this skill in the design-authority ChatGPT session that runs before the `spec-driven-codex-loop` execution skill.
+## Purpose
 
-The output is not merely an issue description. It is the complete, durable contract that allows Codex to execute one bounded phase at a time without inventing architecture, scope, validation, or completion criteria.
+Use this skill in the design-authority session before `spec-driven-codex-loop` execution.
+
+The issue is the durable contract. A fresh executor must be able to understand the goal, scope, evidence, phases, validation, checkpoints, and exit criteria without private chat context.
 
 ## Core rule
 
-Do not create an execution-ready issue until the design is sufficiently precise to implement and independently review.
+Do not label an issue `execution-ready` while a material architecture, behavior, numerical, performance, ownership, dependency, or validation decision remains unresolved.
 
-A larger issue body does not compensate for unresolved decisions. When a material architectural, behavioral, numerical, performance, ownership, dependency, or validation question remains open, resolve it first or create a design/investigation issue instead of pretending the task is ready for implementation.
+A long issue is not necessarily a good issue. Prefer the smallest complete contract that removes material ambiguity.
 
 ## Role boundary
 
 The design-authority session may:
 
-- inspect the repository, issues, pull requests, history, and external references;
-- clarify the goal and current behavior;
-- investigate evidence needed to choose a design;
-- compare approaches and recommend one;
-- update or propose updates to source-of-truth documents;
-- define implementation phases and validation gates;
-- choose the recommended model capability class for each phase;
-- create or update the GitHub issue after the contract is approved.
+- inspect repository state, history, issues, pull requests, tests, and evidence;
+- investigate facts needed for design;
+- compare viable approaches;
+- resolve scope and architecture;
+- define phases, validation, execution profile, checkpoints, and exit criteria;
+- create or update the issue and workflow label.
 
 It must not:
 
-- start implementation while designing the issue;
-- silently convert an `OPEN` or `SPECULATIVE` decision into an accepted one;
-- hide uncertainty inside vague implementation instructions;
-- prescribe files or APIs without first inspecting the repository;
-- assume tests, benchmarks, hardware, models, or dependencies are available without verifying them;
-- create an execution-ready issue whose success cannot be observed objectively.
+- start implementation while designing;
+- present `OPEN` or `SPECULATIVE` items as accepted;
+- prescribe uninspected files, APIs, hardware, models, or commands;
+- encode replaceable tool choices as mandatory capabilities without reason;
+- make every phase independently reviewed by default;
+- create an issue whose success cannot be observed objectively.
 
-## Optional helper skills
+## Readiness states
 
-This skill is self-contained. It must still work when no external skill pack is installed.
+- `EXECUTION_READY`: design and validation are complete enough to execute.
+- `DESIGN_REQUIRED`: material design or product decisions remain open.
+- `INVESTIGATION_REQUIRED`: more evidence is needed before choosing the design.
+- `BLOCKED`: a required external capability is unavailable and no permitted alternative or handoff exists.
 
-When the current ChatGPT or Codex harness exposes relevant Superpowers skills, compose them as helpers:
+Only `EXECUTION_READY` enters implementation.
 
-| Task shape | Preferred helper sequence |
-|---|---|
-| New feature, architecture, or behavior change | `brainstorming` → `writing-plans` → `verification-before-completion` |
-| Bug, test failure, or unexpected behavior | `systematic-debugging` → `writing-plans` → `verification-before-completion` |
-| Performance regression or optimization | `systematic-debugging` for evidence/root cause → `brainstorming` for design alternatives when needed → `writing-plans` → `verification-before-completion` |
-| Refactor or migration with accepted behavior | brief `brainstorming` scope check → `writing-plans` → `verification-before-completion` |
-| Skill creation or modification | `writing-skills`, when available, plus repository review and validation |
+## Design workflow
 
-Helper skills improve discovery and decomposition; they do not replace this repository's issue contract.
+### 1. Establish the outcome
 
-Precedence is:
+State:
 
-1. user instructions;
-2. committed repository source-of-truth and `AGENTS.md`;
-3. this skill;
-4. optional helper skills.
-
-If a helper skill conflicts with the repository workflow, adapt the helper rather than weakening the repository workflow.
-
-## Issue readiness states
-
-Classify the result explicitly:
-
-- `EXECUTION_READY`: design, scope, phases, validation, and review gates are complete.
-- `DESIGN_REQUIRED`: implementation is blocked by unresolved design or product decisions.
-- `INVESTIGATION_REQUIRED`: evidence is insufficient to define the correct change.
-- `BLOCKED`: required access, dependency, hardware, model, data, or authority is unavailable.
-
-Only `EXECUTION_READY` issues may enter the `spec-driven-codex-loop` implementation workflow.
-
-## Workflow
-
-### 1. Restate the requested outcome
-
-Write a one-paragraph problem statement that separates:
-
-- the user-visible or engineering outcome;
-- the motivation;
+- what must become observably true;
+- why it matters now;
 - the current limitation;
 - the boundary of the requested change.
 
-Do not begin with a proposed implementation. First establish what must become true.
+Do not begin from a preferred implementation.
 
-### 2. Classify the work
+### 2. Inspect context
 
-Classify the request as one or more of:
+Read `AGENTS.md` and the relevant source-of-truth documents. Inspect:
 
-- feature;
-- defect;
-- refactor;
-- migration;
-- performance investigation;
-- performance optimization;
-- research/prototype;
-- documentation/source-of-truth change;
-- infrastructure/tooling.
+- current code, tests, scripts, fixtures, and configuration;
+- recent commits and overlapping issues or PRs;
+- pinned upstream branches and commits;
+- model, dataset, hardware, dependency, and license assumptions;
+- existing evidence and failed attempts.
 
-The classification determines the required evidence:
+Use repository and authoritative external evidence rather than memory when facts can change.
 
-- defects require reproduction and root-cause evidence;
-- performance work requires a baseline, measurement protocol, and target metrics;
-- migrations require compatibility and rollback rules;
-- architecture changes require alternatives and explicit decision records;
-- research tasks require hypotheses and stop conditions rather than pretending the outcome is known.
+### 3. Build a fact and decision ledger
 
-### 3. Inspect repository context before asking design questions
+Classify important statements:
 
-Read `AGENTS.md` and its required reading order first. Then inspect the relevant subset of:
+- `OBSERVED`: directly supported by code, tests, logs, measurements, or committed evidence;
+- `ACCEPTED`: approved design or constraint;
+- `OPEN`: unresolved decision;
+- `SPECULATIVE`: unsupported hypothesis;
+- `REJECTED`: ruled-out approach;
+- `BLOCKED`: unavailable required capability with no current resolution.
 
-- `README.md`;
-- `docs/STATUS.md`;
-- `docs/DECISIONS.md`;
-- `PLAN.md` and the active phase files;
-- `docs/MODELS_AND_VALIDATION.md`;
-- `docs/PRIOR_ART.md`;
-- relevant source, tests, scripts, fixtures, and configuration;
-- recent commits that touched the area;
-- open or recently closed issues and PRs that overlap the request;
-- pinned upstream repositories, branches, commits, model revisions, licenses, and hardware assumptions.
+Never convert `OPEN` or `SPECULATIVE` into implementation requirements.
 
-Use the GitHub connector for repository facts. Use authoritative upstream sources for external technical facts. Distinguish observed repository state from assumptions.
+### 4. Resolve material unknowns
 
-Do not ask the user for information already available in the repository or earlier conversation.
+Resolve questions that change:
 
-### 4. Build a fact and decision ledger
-
-Before choosing a design, classify important statements using the repository markers:
-
-- `OBSERVED`: directly supported by code, tests, measurements, logs, or committed evidence;
-- `ACCEPTED`: an approved design or constraint in the source of truth;
-- `OPEN`: a decision still requiring resolution;
-- `SPECULATIVE`: a hypothesis not yet supported by sufficient evidence;
-- `REJECTED`: an approach explicitly ruled out;
-- `BLOCKED`: cannot be resolved with current access or evidence.
-
-The issue must never phrase `OPEN` or `SPECULATIVE` items as implementation requirements.
-
-### 5. Resolve material unknowns
-
-Ask only questions whose answers materially alter scope, architecture, compatibility, validation, or risk.
-
-Prefer one focused question at a time during collaborative design. Offer concrete alternatives when the decision space is known. Avoid asking abstract questions such as "What should the design be?"
-
-A material unknown includes:
-
-- expected external behavior;
-- compatibility requirements;
-- acceptable numerical or performance tolerance;
-- hardware/backend support;
-- ownership and lifetime rules;
+- external behavior or compatibility;
+- architecture and subsystem boundaries;
+- ownership and lifetime;
+- numerical tolerance;
+- hardware and backend support;
 - failure and fallback behavior;
-- storage or file-format constraints;
-- security, privacy, or licensing constraints;
-- required observability;
-- merge/upstream strategy.
+- observability and validation;
+- security, privacy, licensing, or upstream strategy.
 
-Minor details may use clearly marked assumptions or placeholders. Material decisions may not.
+When root cause or feasibility is unknown, create an investigation issue instead of guessing a fix.
 
-### 6. Investigate before prescribing fixes
+### 5. Record durable decisions
 
-For defects, failures, regressions, or unexpected performance:
+When a decision affects future work broadly, update or plan an explicit update to repository source-of-truth documents.
 
-1. capture the exact symptom and reproduction conditions;
-2. inspect errors, logs, failing tests, recent changes, and relevant data flow;
-3. separate root-cause evidence from hypotheses;
-4. identify what additional instrumentation or experiment is needed;
-5. only then define a fix phase.
+Do not let the issue become the only durable location for important architecture.
 
-When root cause is not established, produce an `INVESTIGATION_REQUIRED` issue whose deliverable is evidence and a design decision, not an implementation issue containing a guessed fix.
+### 6. Choose the execution profile
 
-### 7. Compare viable approaches
+#### STANDARD
 
-When more than one plausible design exists, present two or three serious alternatives. For each, evaluate:
+STANDARD is the default.
 
-- correctness;
-- architectural fit;
-- complexity;
-- observability and testability;
-- performance implications;
-- migration and rollback cost;
-- upstreamability;
-- dependency and licensing risk;
-- interaction with later plan phases.
+Choose it when:
 
-Recommend one approach and explain why. Record rejected alternatives and the conditions that would justify reopening them.
+- phases have strong local validation;
+- intermediate commits are low or moderate risk;
+- related phases can be reviewed together coherently;
+- a faulty intermediate base is cheap to detect and correct.
 
-Do not manufacture alternatives for a mechanical task whose architecture is already accepted.
+Under STANDARD:
 
-### 8. Commit durable design decisions before execution
+- every phase validates and commits;
+- independent review happens at declared checkpoints;
+- final external review is mandatory.
 
-If the task changes accepted architecture, invariants, model policy, validation policy, or the implementation plan, the durable repository documents must be updated before or as an explicit first phase of the implementation issue.
+#### HIGH_ASSURANCE
 
-Prefer a separate design/source-of-truth PR before implementation when:
+Choose HIGH_ASSURANCE only when explicitly justified by risk.
 
-- the decision affects multiple future tasks;
-- the design requires substantial review;
-- implementation should not begin until the decision is merged;
-- the issue would otherwise become the only place where architecture is defined.
+Typical reasons:
 
-The execution issue must link the exact committed document or design PR and state whether implementation is blocked on its merge.
+- architecture or persistent format changes;
+- concurrency, ownership, or lifetime;
+- numerical encodings or routing semantics;
+- CUDA or backend correctness;
+- persistent storage or cache coherence;
+- security-sensitive behavior;
+- a faulty intermediate base would be expensive or unsafe.
 
-### 9. Define bounded phases
+Under HIGH_ASSURANCE, every phase is independently reviewed.
 
-Decompose the work into the smallest independently verifiable outcomes that still produce meaningful progress.
+The issue must explain why HIGH_ASSURANCE is necessary. Do not select it solely because the issue is large; split oversized issues instead.
+
+### 7. Define bounded phases
 
 Each phase must have:
 
 - one primary outcome;
 - explicit inputs and permitted scope;
-- expected files or artifacts;
-- exact validation commands where knowable;
+- expected artifacts or behavior;
+- validation commands where knowable;
 - objective success criteria;
-- independent review checks;
 - explicit exclusions;
-- a recommended model capability class and rationale;
-- a commit boundary or explicitly documented no-code result.
+- model capability class when relevant;
+- a commit boundary or documented no-code result;
+- checkpoint membership.
 
-A phase is too large when:
+A phase is too large when it spans unrelated subsystems or failure would not reveal which decision or edit caused the problem.
 
-- it spans unrelated subsystems;
-- it mixes design discovery with broad implementation;
-- it cannot be reviewed without understanding several later phases;
-- a failure would not reveal which decision or edit caused it;
-- it requires multiple architectural outcomes in one commit.
+### 8. Define review checkpoints
 
-### 10. Select model capability per phase
+For STANDARD, group phases only when the combined checkpoint is still independently understandable and testable.
 
-Assign capability classes rather than relying only on product names:
+Good checkpoint examples:
 
-- `TOP_REASONING`: architecture, ambiguous root cause, concurrency/lifetime, numerical correctness, difficult performance reasoning, cross-cutting design, final review.
-- `STRONG_CODING`: bounded implementation requiring repository-wide understanding or non-trivial tests.
-- `FAST_CODING`: mechanical edits, repetitive migrations, straightforward test additions, cleanup under exact instructions.
-- `LIGHTWEIGHT`: formatting, generated documentation synchronization, metadata, or other low-risk deterministic work.
+- environment, fixture, and tokenizer reproducibility;
+- numerical format and backend correctness;
+- performance methodology and final closeout.
 
-For every phase, include:
+Require a dedicated checkpoint when a phase introduces:
 
-- recommended capability class;
-- reason it is needed;
-- risk of using a weaker class;
-- whether substitution must block or merely be recorded.
+- accepted architecture;
+- concurrency or lifetime risk;
+- persistent state or data format;
+- numerical correctness risk;
+- backend-specific execution behavior;
+- broad cross-cutting refactoring;
+- performance claims used for decisions.
 
-Do not require a specific transient model name unless the environment guarantees it.
+For HIGH_ASSURANCE, each phase is a checkpoint.
 
-### 11. Design validation before implementation
+Every checkpoint must identify:
 
-Validation must prove the requested outcome, not merely that the code compiles.
+- covered phases and commit range;
+- artifacts to inspect;
+- validation to reproduce or verify;
+- scope and unexpected-change checks;
+- progression criteria.
+
+### 9. Design validation
+
+Validation must prove the requested outcome, not merely compilation.
 
 Define as applicable:
 
-- baseline revision and configuration;
-- reproduction command;
+- exact baseline revision and configuration;
+- reproduction commands;
 - unit, integration, regression, and repeated-run tests;
 - negative and failure-path tests;
-- numerical comparison method and tolerance;
-- performance benchmark protocol and metrics;
-- memory/resource limits;
-- telemetry or artifact paths;
-- hardware, model, dataset, dependency, and environment identifiers;
-- exact distinction between required, optional, and unavailable checks.
+- numerical comparison and tolerance;
+- performance protocol and metrics;
+- resource limits;
+- telemetry and artifact paths;
+- environment, hardware, model, and dataset identifiers;
+- required versus optional checks.
 
-For performance work, include both average and tail behavior where relevant, and distinguish cold, warm, and steady-state measurements.
+Do not make an optional tool command an entry gate when another capability provides equivalent evidence.
 
-For tasks that cannot be fully validated in the executor's environment, define what may be validated locally, what requires external hardware, and who accepts the residual risk.
+### 10. Define operational capabilities
 
-### 12. Define review and restart gates
+State capabilities rather than product-specific transports:
 
-Every phase must define what the independent reviewer verifies.
+- branch publication required: yes or no;
+- draft PR required before which checkpoint;
+- independent review required at which checkpoints;
+- local command execution required for review: yes or no;
+- external hardware or data required: yes or no;
+- connector-capable handoff allowed: yes or no.
 
-The full issue must state when to:
+Tool selection belongs to `codex-github-operations` and `codex-independent-review`.
 
-- proceed;
-- fix a small delta;
-- return to design;
-- split the issue;
-- abandon the attempt and restart from a clean branch.
+A specific tool such as `gh` or a particular Codex sandbox may be mandatory only when that exact tool is part of the task or no equivalent capability exists.
 
-Require restart or redesign when the implementation demonstrates that the approved architecture, decomposition, validation strategy, or source-of-truth is materially wrong. Do not normalize a chain of compensating patches.
+### 11. Define failure and restart semantics
 
-### 13. Search for overlapping issues before creation
+Distinguish:
 
-Before creating a new issue:
+- implementation failure: fix a bounded delta while remaining in progress;
+- design defect: return to `design-required`;
+- evidence gap: return to `investigation-required`;
+- operational degradation: use an alternative or handoff;
+- real blocker: required progress is impossible and no alternative or handoff exists.
 
-- search open and recently closed issues for the same outcome;
-- inspect linked PRs and prior attempts;
-- update an existing issue when it already owns the work;
-- create a new issue only when it has a distinct contract;
-- link superseded or dependent issues explicitly.
+State when to continue, correct, split, redesign, or restart cleanly.
 
-### 14. Review the draft issue against the quality gate
+### 12. Search for overlap
 
-An `EXECUTION_READY` issue must answer all of these:
+Before creating an issue:
+
+- inspect open and recently closed issues and PRs;
+- link superseded attempts;
+- reuse an existing issue only when its contract still matches;
+- create a new issue when a clean contract is needed.
+
+### 13. Quality gate
+
+An `EXECUTION_READY` issue must answer:
 
 - What exact outcome must become true?
-- Why is it needed now?
 - What is the observed current state?
-- Which committed documents and files govern the work?
-- Which design is accepted, and which alternatives were rejected?
-- What is explicitly in scope?
-- What is explicitly out of scope?
+- Which source-of-truth documents govern the work?
+- What is accepted, open, speculative, and rejected?
+- What is in and out of scope?
 - Which invariants must not change?
-- What assumptions remain, and how are they marked?
-- What are the ordered bounded phases?
-- What artifacts must each phase produce?
-- Which model capability should execute each phase, and why?
-- Which exact validations prove each phase?
-- What does the independent reviewer inspect?
-- What blocks progression?
-- What triggers redesign or restart?
+- Which execution profile applies and why?
+- What are the bounded phases and deliverables?
+- Which validations prove each phase?
+- Which checkpoints require independent review?
+- Which operational capabilities are genuinely required?
+- What is degraded operation versus a real blocker?
+- What triggers correction, redesign, or restart?
 - What is the final acceptance criterion?
-- Which source-of-truth documents must be updated?
-- Is the issue understandable without private chat context?
-- Could a fresh Codex session execute Phase 1 without guessing?
+- Can a fresh executor begin Phase 1 without guessing?
 
-If any answer is materially missing, do not label the issue `EXECUTION_READY`.
-
-### 15. Obtain approval and create/update the issue
-
-Present the final design and issue contract for user approval before creating an execution issue when material choices were made during the session.
-
-After approval:
-
-- create or update the GitHub issue using the connector;
-- preserve the approved wording and boundaries;
-- add appropriate links to source-of-truth files, dependencies, prior issues, and PRs;
-- report the issue number and readiness state;
-- do not begin implementation in the same design-authority session unless the user explicitly changes the role and workflow.
+If a material answer is missing, do not use `execution-ready`.
 
 ## Canonical issue template
-
-Use this structure, removing sections only when they are genuinely inapplicable:
 
 ```markdown
 # <Outcome-oriented title>
@@ -340,139 +273,94 @@ Use this structure, removing sections only when they are genuinely inapplicable:
 ## Readiness
 
 **State:** EXECUTION_READY | DESIGN_REQUIRED | INVESTIGATION_REQUIRED | BLOCKED
-**Design authority:** <session/person>
-**Target repository/base:** `<repo>` / `<branch-or-commit>`
+**Execution profile:** STANDARD | HIGH_ASSURANCE
+**Design authority:** <session or person>
+**Repository/base:** `<repo>` / `<immutable base or branch policy>`
+**Execution branch:** `<branch convention>`
 
 ## Goal
 
-<Observable outcome that must become true.>
+<Observable outcome.>
 
 ## Motivation
 
-<Why the change is needed and why now.>
+<Why it is needed now.>
 
 ## Current state and evidence
 
-- **OBSERVED:** <current behavior, reproduction, measurement, or repository fact>
-- **OBSERVED:** <relevant code/test/document state>
+- **OBSERVED:** <fact>
+- **ACCEPTED:** <decision>
+- **OPEN:** <none or unresolved decision>
+- **REJECTED:** <rejected alternative>
 
 ## Source of truth
 
-- `AGENTS.md`
-- `<design/decision/plan document>`
-- `<relevant source/test path>`
-- `<upstream repository and pinned revision>`
-
-## Accepted design
-
-- **ACCEPTED:** <decision>
-- **ACCEPTED:** <invariant>
-
-### Rejected alternatives
-
-- **REJECTED:** <alternative> — <reason and reopening condition>
+- `<path or exact revision>`
 
 ## Scope
 
 ### In scope
-
-- <bounded requirement>
+- <item>
 
 ### Out of scope
-
-- <explicit exclusion>
+- <item>
 
 ## Constraints and invariants
 
-- <behavior, architecture, compatibility, numerical, resource, or licensing rule>
+- <constraint>
 
-## Assumptions and open questions
+## Operational capabilities
 
-- **OPEN:** <must be resolved before execution, or none>
-- **SPECULATIVE:** <hypothesis assigned to an investigation phase, or none>
-- **BLOCKED:** <missing dependency/access, or none>
+- Branch publication: required | optional
+- Draft PR required before: <checkpoint or final gate>
+- Independent review: <checkpoint list or every phase>
+- Local reviewer execution: required | optional
+- External hardware/data: <requirements>
+- Connector handoff: allowed | disallowed with reason
 
-## Dependencies and prerequisites
+## Phases
 
-- <issue, PR, commit, model, hardware, data, or permission>
+### Phase N — <bounded outcome>
 
-## Execution phases
+**Model class:** TOP_REASONING | STRONG_CODING | FAST_CODING | LIGHTWEIGHT
+**Checkpoint:** <name or none>
+**Inputs:** <paths or prior artifacts>
+**Permitted scope:** <files or subsystem>
+**Instructions:** <bounded actions>
+**Deliverables:** <artifacts or behavior>
+**Validation:**
+- `<command>`
+- Success means: <observable result>
+**Out of scope:** <exclusions>
 
-### Phase 1 — <bounded outcome>
+## Review checkpoints
 
-**Status:** NOT_STARTED
-**Recommended model class:** TOP_REASONING | STRONG_CODING | FAST_CODING | LIGHTWEIGHT
-**Rationale:** <why>
-**Weak-model risk:** <risk or low>
+### Checkpoint A — <name>
 
-**Inputs**
-- `<path/revision/artifact>`
+**Covered phases:** <range>
+**Review target:** <commit range policy>
+**Checks:** <scope, artifacts, validation, unexpected changes>
+**Progression:** PASS or acceptable PASS_WITH_NOTES
 
-**Instructions**
-1. <bounded action>
-2. <bounded action>
+## Failure, degradation, and restart
 
-**Expected deliverables**
-- `<file/artifact/behavior/evidence>`
-
-**Validation**
-- `<exact command>`
-- Success means: <observable criteria>
-
-**Independent review checks**
-- <scope/architecture check>
-- <artifact check>
-- <validation/evidence check>
-- <unexpected-change check>
-
-**Out of scope for this phase**
-- <explicit exclusion>
-
-## Final validation
-
-- `<full command or external validation procedure>`
-- Success means: <complete acceptance criteria>
-
-## Required source-of-truth updates
-
-- `<path>` — <required update>
-
-## Failure, rollback, and restart policy
-
-- Fix a reviewed delta when: <condition>
+- Implementation failure: <bounded correction>
+- Operational degradation: <fallback or handoff>
+- Real blocker: <condition>
 - Return to design when: <condition>
-- Restart from a clean branch when: <condition>
-- Preserve evidence by: <issue/PR/branch rule>
+- Restart cleanly when: <condition>
 
-## Final acceptance criteria
+## Final acceptance
 
-- [ ] Every phase has a result commit or documented no-code result.
-- [ ] Every phase has an independent review verdict.
-- [ ] Required tests and measurements pass with recorded evidence.
-- [ ] No explicit out-of-scope behavior was introduced.
-- [ ] Source-of-truth documents are current.
-- [ ] Final external PR review approves the complete diff and issue history.
-
-## Handoff to Codex
-
-Execute using `.agents/skills/spec-driven-codex-loop/SKILL.md`.
-Start with Phase 1 only. Do not infer missing design decisions from chat history.
+- <testable exit criterion>
 ```
 
-## Completion output
+## Creation and approval
 
-When the issue is created or updated, report:
+After approval:
 
-- issue number and title;
-- readiness state;
-- key accepted design choice;
-- number of phases;
-- first-phase outcome;
-- blockers or prerequisites;
-- whether any source-of-truth PR must merge first.
-
-Do not claim the issue is implementation-ready without checking the complete quality gate against the final GitHub body.
-
-## Provenance
-
-This workflow is repository-specific and self-contained. Its optional helper-skill composition is informed by the MIT-licensed `obra/superpowers` methodology, especially its brainstorming, plan-writing, systematic-debugging, verification, and skill-authoring practices. No external skill installation is required to execute this skill.
+- create or update the issue using the GitHub connector;
+- apply the appropriate single workflow label;
+- preserve approved scope and checkpoints;
+- link dependencies and superseded attempts;
+- do not begin implementation in the design-authority session unless the user explicitly changes roles.
