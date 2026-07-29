@@ -6,162 +6,69 @@ This file is the first handoff document for a new ChatGPT or Codex session.
 
 ## Project state
 
-- Repository created to serve as the cross-session source of truth.
-- Goal, architecture, decisions, prior art, validation model, and full implementation plan have been documented.
-- The tiny Kimi-K3 F16 and hybrid MXFP4 GGUF fixtures have been converted, published, checksum-verified, and smoke-tested on CPU.
-- No out-of-core runtime implementation exists yet.
-- No upstream PR has been opened from this repository.
-- Phase 1 remains open because CUDA validation, token/logit comparison, repeated runs, and baseline memory/performance evidence are still pending.
+- Phase 1 technical evidence is complete under GitHub issue #7's STANDARD profile.
+- Checkpoints A and B returned **PASS_WITH_NOTES** with safety gate **YES**.
+- Checkpoint C: **PASS_WITH_NOTES**
+- Checkpoint C reviewed head: `4f1dcae3024bebcb932f95dfbab9ef7e5154a68c`
+- Checkpoint C review: https://github.com/murillo128/k3-out-of-core/issues/7#issuecomment-5120875092
+- Five earlier Checkpoint C attempts returned **FAIL / NO** on verifier traceability ambiguities; all are preserved in structured evidence and issue history. The repository owner applied the STANDARD repeated-review circuit breaker, and the calibrated review found no material technical defect.
+- No out-of-core runtime implementation exists. Project Phase 2 has not begun.
+- The Phase 1 evidence is descriptive for the tiny K3 fixtures on `skynet`; it is not a quality or production-performance claim.
 
-## Repository baseline
+## Clean execution contract
 
-### Project repository
+- Issue: <https://github.com/murillo128/k3-out-of-core/issues/7>
+- Draft PR: <https://github.com/murillo128/k3-out-of-core/pull/8>
+- Profile: `STANDARD`
+- Immutable execution base: `511e87fc98cca8069fc57526fbb04b10789967eb`
+- Branch: `codex/phase1-closeout-clean`
+- Evidence: [`../results/2026-07-29/skynet/phase1-closeout-clean/SUMMARY.md`](../results/2026-07-29/skynet/phase1-closeout-clean/SUMMARY.md)
 
-- Repository: <https://github.com/murillo128/k3-out-of-core>
-- Branch: `main`
-- Commit that pinned the validated `llama.cpp` converter baseline: `daca2b6a566411bd97fcb42308a2a75c5d2c2055`
+This branch was created directly from the immutable base. Work from issue #3 and PR #4 was not reused, cherry-picked, amended, or resumed.
 
-### K3-capable llama.cpp fork
+## Pinned inputs
 
-- Repository: <https://github.com/murillo128/llama.cpp>
-- Branch: `k3/out-of-core`
-- Pinned commit: `84245db4c790af22135f34992689edcc11877003`
-- Commit message: `kimi-k3: dequantize resident MXFP4 tensors`
+- `llama.cpp`: `84245db4c790af22135f34992689edcc11877003`, exact and clean.
+- F16 source revision: `d853649387ffe8f48ce0198a29ac1a44205031f7`.
+- MXFP4 source revision: `ef3902c318fb8e13c3507e26055656e687fdfe38`.
+- Published GGUF revision: `88de02cf8fa37f87eb06daaed370ac9c3411d5ca`.
+- F16 GGUF: 784318432 bytes, SHA-256 `411c197b503e6fb9199a2b22115e32dc4e2cad803fb112b24967737b3bab26c7`.
+- MXFP4 GGUF: 751976576 bytes, SHA-256 `0379a1cc623e09eb3fbd1dfcb18737bc8c971dbfe5bf5bc3e08da8b5379ec169`.
 
-The `llama.cpp` submodule in this repository points to that exact commit.
-
-See [`REPOSITORIES_AND_ARTIFACTS.md`](REPOSITORIES_AND_ARTIFACTS.md) for the complete repository and artifact record.
-
-## Upstream K3 foundation
-
-- Repository: `ggml-org/llama.cpp`
-- PR: <https://github.com/ggml-org/llama.cpp/pull/26185>
-- Title: `model: add Kimi-K3 text model`
-- Observed state when the baseline was created: open, non-draft, not merged.
-- Observed head: `cf67f0d24511864d2d3da0769108fd6fc16d00d1`
-- Observed on: 2026-07-29.
-
-The project does not automatically track a moving PR head. Any upstream update requires a dedicated commit and a complete baseline rerun.
-
-## Source model assets
-
-Hugging Face IDs:
+## Validated host
 
 ```text
-inference-optimization/Kimi-K3-0.40B
-inference-optimization/Kimi-K3-0.40B-MXFP4
+Host: skynet
+CPU: 11th Gen Intel(R) Core(TM) i7-11700K @ 3.60GHz
+RAM: 64 GiB
+GPU: NVIDIA GeForce GTX 1650, 4096 MiB
+Driver: 535.288.01
+OS: Ubuntu 24.04.3 LTS
+Kernel: 6.8.0-136-generic
 ```
 
-Local project layout:
+## Phase 1 evidence
 
-```text
-models/hf/Kimi-K3-0.40B
-models/hf/Kimi-K3-0.40B-MXFP4
-models/gguf/Kimi-K3-0.40B-F16.gguf
-models/gguf/Kimi-K3-0.40B-MXFP4.gguf
-```
+- Stable CPU and CUDA tests: 54/54 passed in each build.
+- External tokenizer GGUF fixture: 1/1 passed in each build after verified Git LFS payload retrieval.
+- Fixed ordinary prompt tokenizer parity: exact IDs `[18805, 308, 799, 5624, 12524]` across both source models and both GGUFs.
+- Special-token conflicts are explicitly documented; general chat-template/end-of-message parity is not claimed.
+- MXFP4 integrity: 81/81 stratified samples matched scale bytes, code bytes, repacked bytes, and decoded values exactly.
+- F16 and MXFP4 monolithic CPU/CUDA inference: exact 32-token generation parity and accepted selected-logit thresholds.
+- CUDA placement: layers 0-8 and all 21 type-39 routed-expert tensors assigned to CUDA0; the unsupported layer-3 Flash Attention operation remained on CPU and is logged.
+- Repeated benchmark: one discarded warmup plus five measured runs per model/backend combination, with model retained and context recreated. All runs terminated naturally at the same 49-token sequence and EOG ID 163585.
+- Prompt/decode throughput, TTFT, per-token p50/p95/p99 latency, load time, RSS, and CUDA VRAM are committed in `benchmarks.json` and summarized in `SUMMARY.md`.
 
-The source checkpoints and generated GGUF files are not stored in GitHub.
+## Review notes carried forward
 
-## Published GGUF artifacts
-
-- Repository: <https://huggingface.co/murillo2000/Kimi-K3-0.40B-GGUF>
-- Hugging Face ID: `murillo2000/Kimi-K3-0.40B-GGUF`
-- Verified revision: `88de02cf8fa37f87eb06daaed370ac9c3411d5ca`
-
-| Artifact | Size | SHA-256 |
-|---|---:|---|
-| `Kimi-K3-0.40B-F16.gguf` | 784318432 bytes | `411c197b503e6fb9199a2b22115e32dc4e2cad803fb112b24967737b3bab26c7` |
-| `Kimi-K3-0.40B-MXFP4.gguf` | 751976576 bytes | `0379a1cc623e09eb3fbd1dfcb18737bc8c971dbfe5bf5bc3e08da8b5379ec169` |
-
-Hub API verification confirmed that remote sizes and remote LFS SHA-256 values exactly match the local publication manifest.
-
-Machine-readable project record:
-
-- [`../manifests/kimi-k3-0.40b-phase1.json`](../manifests/kimi-k3-0.40b-phase1.json)
-
-The published Hugging Face repository also contains its own `conversion-manifest.json`, including the exact source revisions and conversion environment.
-
-## Conversion findings
-
-Confirmed from source inspection and final conversion logs:
-
-```text
-203 packed tensors total
-168 per-expert routed tensors
-35 additional resident MoE tensors
-21 repacked GGUF MXFP4 expert groups
-35 resident tensors dequantized to F16
-```
-
-Converter behavior at the pinned `llama.cpp` commit:
-
-- preserves the 168 routed per-expert tensors in MXFP4;
-- repacks them into 21 GGUF expert tensors;
-- lazily dequantizes the 35 known resident packed tensors to F16;
-- aborts on unknown packed MXFP4 tensor names.
-
-Known environment requirements/workarounds:
-
-- install `tiktoken`;
-- use `transformers==4.57.6` for the current converter branch;
-- remove the incompatible `extra_special_tokens` list from local tokenizer configuration after backup;
-- preserve `additional_special_tokens` and validate vocabulary size 163840.
-
-## CPU smoke-test result
-
-Both GGUF files loaded and generated successfully with the CPU build of commit `84245db4c790af22135f34992689edcc11877003`.
-
-Prompt:
-
-```text
-According to all known laws
-```
-
-Observed continuation for both fixtures:
-
-```text
-the start.
-```
-
-No `error`, `failed`, `nan`, `inf`, `unsupported`, or `fallback` messages were detected in the captured CPU logs.
-
-Initial single-run observations on `skynet`:
-
-| Artifact | Prompt throughput | Generation throughput |
-|---|---:|---:|
-| F16 | 1371.5 tokens/s | 130.4 tokens/s |
-| MXFP4/F16 | 1439.6 tokens/s | 133.1 tokens/s |
-
-These values are smoke-test observations, not accepted benchmark results.
-
-## Pending Phase 1 validation
-
-The following must not yet be stated as completed:
-
-- CUDA inference for F16;
-- CUDA inference for hybrid MXFP4/F16;
-- explicit backend placement and CPU fallback analysis;
-- deterministic prompt and generated token ID capture;
-- selected logit comparison between reference paths;
-- repeated warm-run validation;
-- memory measurements and repeated performance benchmarks;
-- perplexity or equivalent loss comparison;
-- sampled source-to-GGUF MXFP4 byte/dequantization validation;
-- routing trace capture;
-- any out-of-core cache implementation.
+- Checkpoint A limits the tokenizer result to the fixed ordinary prompt. Named HF special tokens conflict with GGUF BOS/EOS/PAD metadata and `<|im_end|>` is outside the GGUF vocabulary.
+- Checkpoint B confirmed that no converter decoder or repacker helper is called by the independent MXFP4 validator. Its metadata reader has a transitive helper import, making the recorded `gguf_quantization_helpers_imported: false` wording conservative rather than a correctness failure.
+- MXFP4 selected top-10 ID sets match at every inference step, while ordered ranks swap within the same set at steps 8 and 24.
+- The benchmark's 128-token setting is a maximum cap. The fixture naturally emits EOG after 49 generated tokens; forcing post-EOG decoding would change semantics.
 
 ## Immediate next action
 
-Continue **Phase 1** in `PLAN.md`:
-
-1. build the CUDA configuration at the pinned `llama.cpp` commit;
-2. run both published GGUF fixtures with full supported offload;
-3. record backend placement and any CPU fallback nodes;
-4. capture deterministic tokens and selected logits;
-5. run repeated CPU and CUDA measurements with memory telemetry;
-6. commit summarized evidence and update Phase 1 checkboxes;
-7. do not begin out-of-core residency changes until the monolithic exit gate is satisfied.
+Run the strict closeout verifier and request the required separate final review of the complete PR and issue history. Do not begin project Phase 2 or any out-of-core runtime implementation.
 
 ## Session handoff rule
 
@@ -169,7 +76,7 @@ At the end of every implementation session:
 
 1. update this file with completed work and exact commit SHAs;
 2. update `PLAN.md` checkboxes and gate evidence;
-3. add or amend decisions in `docs/DECISIONS.md`;
+3. record durable architectural changes in `docs/DECISIONS.md` only when a decision actually changes;
 4. update model commands/evidence in `docs/MODELS_AND_VALIDATION.md`;
-5. update `docs/REPOSITORIES_AND_ARTIFACTS.md` and the machine-readable manifest when revisions or artifacts change;
+5. update repository/artifact records and the machine-readable manifest when revisions or artifacts change;
 6. commit before starting a new session.

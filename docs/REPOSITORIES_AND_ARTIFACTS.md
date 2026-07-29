@@ -8,8 +8,9 @@ It is intended to let a new ChatGPT, Codex, or human session reconstruct the cur
 
 - Repository: <https://github.com/murillo128/k3-out-of-core>
 - Default branch: `main`
-- Baseline commit: `daca2b6a566411bd97fcb42308a2a75c5d2c2055`
-- Baseline commit message: `Pin llama.cpp resident MXFP4 conversion`
+- Clean Phase 1 execution base: `511e87fc98cca8069fc57526fbb04b10789967eb`
+- Clean Phase 1 branch: `codex/phase1-closeout-clean`
+- Execution contract: GitHub issue #7, `STANDARD` profile
 
 This repository is the source of truth for architecture, planning, validation requirements, and the exact `llama.cpp` submodule revision.
 
@@ -63,6 +64,11 @@ The project does not automatically follow a moving upstream PR head. Any rebase 
 
 The exact source revisions used for publication are recorded in the published `conversion-manifest.json` described below.
 
+Validated source revisions for the clean Phase 1 execution:
+
+- F16: `d853649387ffe8f48ce0198a29ac1a44205031f7`.
+- MXFP4: `ef3902c318fb8e13c3507e26055656e687fdfe38`.
+
 ## Published GGUF repository
 
 - Repository: <https://huggingface.co/murillo2000/Kimi-K3-0.40B-GGUF>
@@ -97,32 +103,29 @@ Verification performed against the Hub API confirmed that both remote GGUF sizes
 - They are repacked into 21 GGUF expert tensors: seven MoE layers times gate/up/down.
 - 35 resident MoE tensors are dequantized to F16 during conversion.
 
-## CPU smoke-test baseline
+## Phase 1 validated monolithic baseline
 
-Both published GGUF files loaded and executed successfully using the CPU build of commit `84245db4c790af22135f34992689edcc11877003`.
+The clean issue #7 execution is recorded at `results/2026-07-29/skynet/phase1-closeout-clean/`. Both published artifacts passed stable CPU/CUDA tests, deterministic inference, selected-logit comparison, complete placement capture, repeated warm execution, memory capture, and descriptive repeated benchmarks.
 
-Prompt:
+The independent MXFP4 validator matched all 81 stratified source/GGUF samples exactly. The fixed prompt token IDs are identical across the F16 and MXFP4 source and GGUF paths. Special-token metadata conflicts remain explicitly recorded, so this does not imply general chat-template parity.
 
-```text
-According to all known laws
-```
+The benchmark retained one model per model/backend process, discarded one warmup, recreated the context for five measured runs, and recorded load time, prompt/decode throughput, TTFT, per-token latency percentiles, RSS, and CUDA VRAM. All runs naturally terminated at the same 49-token sequence and EOG ID 163585. These are descriptive measurements for the tiny fixture and validated host, not out-of-core results.
 
-Observed deterministic continuation in the initial smoke test:
+Checkpoint A and Checkpoint B both returned `PASS_WITH_NOTES` with safety gate `YES`. Five earlier Checkpoint C attempts returned `FAIL / NO` on verifier traceability ambiguities; the benchmark itself passed each review.
 
-```text
-the start.
-```
+The second attempt found a failed ancestor, coexisting stale lines, and a placeholder comment domain. The third found removable failure history, ambiguous duplicate fields, contradictory external fields, and merge-attestation acceptance.
 
-No `error`, `failed`, `nan`, `inf`, `unsupported`, or `fallback` messages were found in the captured CPU logs.
+The fourth attempt found unanchored suffix contradictions, uppercase placeholder URLs, and extra malformed label lines.
 
-Initial single-run measurements on `skynet` were:
+The fifth attempt found plain and alternatively styled contradictory external labels were not counted. The repository owner applied the STANDARD repeated-review circuit breaker, classifying those adversarial representation findings as non-material.
 
-| Artifact | Prompt throughput | Generation throughput |
-|---|---:|---:|
-| F16 | 1371.5 tokens/s | 130.4 tokens/s |
-| MXFP4/F16 | 1439.6 tokens/s | 133.1 tokens/s |
+Checkpoint C: **PASS_WITH_NOTES**
 
-These numbers are smoke-test observations, not accepted performance benchmarks. Repeated runs, memory measurements, token/logit comparisons, and CUDA validation are still required before closing Phase 1.
+Checkpoint C reviewed head: `4f1dcae3024bebcb932f95dfbab9ef7e5154a68c`
+
+Checkpoint C review: https://github.com/murillo128/k3-out-of-core/issues/7#issuecomment-5120875092
+
+The calibrated review accepted the complete technical evidence with safety gate `YES`. Notes carried forward are older README prose and the disclosed limitation that VRAM telemetry is sampled device-wide rather than process-attributed continuous peak telemetry.
 
 ## Downloading the published baseline
 

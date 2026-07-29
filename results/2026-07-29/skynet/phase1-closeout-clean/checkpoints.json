@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "issue": "https://github.com/murillo128/k3-out-of-core/issues/7",
+  "A": {
+    "verdict": "PASS_WITH_NOTES",
+    "reviewed_range": "511e87fc98cca8069fc57526fbb04b10789967eb..4faf6fd52f80fc3d9afd1245180c91c66d43b58e",
+    "issue_comment_id": 5119102823,
+    "safety_gate": "YES",
+    "note": "Prompt parity is established for the ordinary fixed prompt; this is not a general chat-template or end-of-message parity claim."
+  },
+  "B": {
+    "verdict": "PASS_WITH_NOTES",
+    "reviewed_range": "4faf6fd52f80fc3d9afd1245180c91c66d43b58e..a11bce8a6260cf9c131a360d047aeb4d4a21d56f",
+    "issue_comment_id": 5119380662,
+    "safety_gate": "YES",
+    "note": "The validator calls no converter decoder or repacker helper; its metadata reader has a transitive helper import, so the recorded independence boolean is conservative."
+  },
+  "C": {
+    "verdict": "PASS_WITH_NOTES",
+    "reviewed_head": "4f1dcae3024bebcb932f95dfbab9ef7e5154a68c",
+    "reviewed_range": "a11bce8a6260cf9c131a360d047aeb4d4a21d56f..4f1dcae3024bebcb932f95dfbab9ef7e5154a68c",
+    "issue_comment_id": 5120875092,
+    "safety_gate": "YES",
+    "note": "Calibrated STANDARD review accepted the technical closeout; README drift and sampled device-wide VRAM remain documented non-blocking notes.",
+    "attempts": [
+      {
+        "verdict": "FAIL",
+        "reviewed_head": "3867da790b9b299b925cc562cbfdc7a5985c7da6",
+        "reviewed_range": "a11bce8a6260cf9c131a360d047aeb4d4a21d56f..3867da790b9b299b925cc562cbfdc7a5985c7da6",
+        "issue_comment_id": 5119671463,
+        "safety_gate": "NO",
+        "finding": "Strict verification accepted incomplete Checkpoint C metadata and stale cross-document status."
+      },
+      {
+        "verdict": "FAIL",
+        "reviewed_head": "44177bcee0d0b8d367f7c7272e21b3f75f99fd50",
+        "reviewed_range": "a11bce8a6260cf9c131a360d047aeb4d4a21d56f..44177bcee0d0b8d367f7c7272e21b3f75f99fd50",
+        "issue_comment_id": 5119792587,
+        "safety_gate": "NO",
+        "finding": "Strict verification accepted a failed ancestor, coexisting PENDING status, and a non-GitHub placeholder linkage."
+      },
+      {
+        "verdict": "FAIL",
+        "reviewed_head": "1fc662f83ead68d48242376b4ab0820f787f7fbd",
+        "reviewed_range": "a11bce8a6260cf9c131a360d047aeb4d4a21d56f..1fc662f83ead68d48242376b4ab0820f787f7fbd",
+        "issue_comment_id": 5119898964,
+        "safety_gate": "NO",
+        "finding": "Strict verification trusted removable local failure history, ambiguous document/comment fields, and a merge first parent."
+      },
+      {
+        "verdict": "FAIL",
+        "reviewed_head": "a2dba4bbe1fe5d39a3667f64fee6cba6673bd5c7",
+        "reviewed_range": "a11bce8a6260cf9c131a360d047aeb4d4a21d56f..a2dba4bbe1fe5d39a3667f64fee6cba6673bd5c7",
+        "issue_comment_id": 5119975819,
+        "safety_gate": "NO",
+        "finding": "Canonical parsing did not reject suffix contradictions, uppercase placeholder URLs, or extra malformed label lines."
+      },
+      {
+        "verdict": "FAIL",
+        "reviewed_head": "66948128b151227dc8fee09e6138f213681f74a9",
+        "reviewed_range": "a11bce8a6260cf9c131a360d047aeb4d4a21d56f..66948128b151227dc8fee09e6138f213681f74a9",
+        "issue_comment_id": 5120055388,
+        "safety_gate": "NO",
+        "finding": "External label discovery did not count plain or alternatively styled contradictory review fields."
+      }
+    ]
+  }
+}

@@ -27,11 +27,13 @@ Preserved architecture documented by its model card:
 - latent expert projection;
 - attention/MLP residual paths.
 
-Local path used in the initial session:
+Validated local path:
 
 ```text
-../models/Kimi-K3-0.40B
+models/hf/Kimi-K3-0.40B
 ```
+
+Validated source revision: `d853649387ffe8f48ce0198a29ac1a44205031f7`.
 
 ### Kimi-K3-0.40B-MXFP4
 
@@ -43,8 +45,10 @@ Local path used in the initial session:
 Local path:
 
 ```text
-../models/Kimi-K3-0.40B-MXFP4
+models/hf/Kimi-K3-0.40B-MXFP4
 ```
+
+Validated source revision: `ef3902c318fb8e13c3507e26055656e687fdfe38`.
 
 ## 2. Important checkpoint observation
 
@@ -195,27 +199,27 @@ SHA-256 for generated GGUF files
 build CMake options
 ```
 
-The first implementation task should add a script that emits this manifest rather than relying on handwritten logs.
+Issue #7 captured these fields in machine-readable environment, input, test, inference, and benchmark artifacts under `results/2026-07-29/skynet/phase1-closeout-clean/`. The closeout verifier checks the immutable revisions and hashes.
 
 ## 7. Development and target hardware
 
-### Current development system
+### Current validated development system
 
-Known from project context:
+Captured during the clean Phase 1 execution:
 
 ```text
 Host: skynet
-CPU: AMD Ryzen 9 3900X
-RAM: 64 GB
-GPU: NVIDIA RTX 4070 Ti, 12 GB VRAM
-OS: Ubuntu/Linux
+CPU: 11th Gen Intel(R) Core(TM) i7-11700K @ 3.60GHz
+RAM: 64 GiB
+GPU: NVIDIA GeForce GTX 1650, 4096 MiB VRAM
+NVIDIA driver: 535.288.01
+OS: Ubuntu 24.04.3 LTS
+Kernel: 6.8.0-136-generic
 ```
 
-Open hardware facts to capture before benchmarking:
+Storage-specific facts remain open for later disk-backed phases:
 
 ```text
-[OPEN] exact Ubuntu release and kernel
-[OPEN] NVIDIA driver and CUDA toolkit
 [OPEN] exact NVMe model, firmware, link width, filesystem, mount options
 [OPEN] measured sequential and random read bandwidth/latency
 [OPEN] available PCIe topology and negotiated GPU link
@@ -242,6 +246,24 @@ Official references:
 - <https://www.nvidia.com/en-eu/support/dgx-spark/>
 
 The 128 GB capacity does not make the full K3 checkpoint resident. It changes cold-to-hot promotion from a physical PCIe copy into a residency/readiness operation over coherent memory.
+
+## 7.1 Phase 1 validation record
+
+The clean STANDARD-profile execution for issue #7 established the monolithic baseline before any residency change:
+
+- stable tests: CPU 54/54 and CUDA 54/54;
+- external GGUF-vocabulary fixture: CPU 1/1 and CUDA 1/1;
+- fixed prompt IDs: `[18805, 308, 799, 5624, 12524]` across both source tokenizers and both GGUF tokenizers;
+- MXFP4 integrity: 81/81 stratified samples matched exactly, including scale bytes, codes, repacked bytes, and decoded values;
+- deterministic F16 and MXFP4 CPU/CUDA generation: exact 32-token IDs with accepted selected-logit thresholds;
+- repeated benchmark: one discarded warmup and five measured context-recreated runs per model/backend combination;
+- natural termination: all benchmark inferences generated the same 49-token sequence and EOG ID 163585, with the 32-token inference sequence as an exact prefix.
+
+CUDA placed layers 0-8 and all 21 GGUF MXFP4 routed-expert tensors on CUDA0. The layer-3 Flash Attention operation remained on CPU because the CUDA backend reported it unsupported; this is an understood operation-level placement, not silent model-layer fallback.
+
+The tokenizer evidence records a real metadata conflict: named HF special tokens use IDs 163584/163585/163839 while GGUF BOS/EOS/PAD metadata uses 1/2/0, and `<|im_end|>` is outside the 163840-token GGUF vocabulary. Therefore only ordinary fixed-prompt parity is accepted; general chat-template or end-of-message parity is not claimed.
+
+See [`../results/2026-07-29/skynet/phase1-closeout-clean/SUMMARY.md`](../results/2026-07-29/skynet/phase1-closeout-clean/SUMMARY.md) for exact revisions, measured values, review notes, and checksum-verifiable evidence.
 
 ## 8. Validation levels
 

@@ -1,0 +1,1409 @@
+command: <temporary>/benchmark-probe-cuda --model /usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf --gpu-layers 999
+exit_code: 0
+duration_seconds: 2.405287
+
+=== stdout ===
+CONFIG	prompt=According to all known laws	seed=1	temperature=0	context=512	generate=128	threads=8	gpu_layers=999
+DEVICE	0	CUDA0	NVIDIA GeForce GTX 1650	1	4023189504	4093509632
+DEVICE	1	CPU	11th Gen Intel(R) Core(TM) i7-11700K @ 3.60GHz	0	67317436416	67317436416
+LOAD	seconds=0.233850536	peak_rss_kib=993016	gpu_baseline_used_bytes=70320128	gpu_used_after_load_bytes=481361920
+PROMPT_IDS	18805,308,799,5624,12524
+RUN	warmup	0	prompt_tokens=5	generated_tokens=49	terminal_eog=1	ttft_seconds=0.04560347	prompt_tokens_per_second=109.64077952839992	decode_tokens_per_second=144.75721267514058	peak_rss_kib=993016	gpu_used_peak_bytes=879820800
+LATENCIES	warmup	0	0.0084777080000000005,0.0098352479999999996,0.0076837909999999997,0.0076724469999999998,0.007668851,0.0076673030000000003,0.0076648519999999998,0.0076644479999999999,0.0076685470000000004,0.0076653169999999996,0.0076672590000000001,0.0076100769999999998,0.0076149770000000002,0.0076116320000000001,0.0076074389999999997,0.0076086679999999999,0.0076066149999999997,0.007607295,0.0076575360000000004,0.0076485019999999997,0.0076273959999999998,0.0076193800000000002,0.0076375059999999996,0.0069250500000000003,0.0060838929999999999,0.0060809519999999997,0.0060793389999999996,0.0060803419999999999,0.0060866430000000001,0.006082685,0.0060778129999999996,0.0060780690000000002,0.0060762189999999999,0.0060771430000000001,0.0060758599999999998,0.0060760620000000001,0.0060767499999999997,0.006082807,0.0060847439999999996,0.0060813869999999997,0.0060761599999999997,0.0060771640000000004,0.0060688069999999998,0.0060690550000000003,0.0060709550000000003,0.0060734650000000001,0.0060774280000000002,0.0060781089999999999
+IDS	warmup	0	318,57195,11,1459,387,1495,2189,261,56207,1765,413,3700,308,16028,13,15149,40841,554,3143,3307,308,922,1682,12138,3572,4120,1468,276,7519,13,646,56207,11,318,12606,11,60063,21084,2416,52588,4536,2978,1573,23167,2704,387,19392,13,163585
+RUN	measured	0	prompt_tokens=5	generated_tokens=49	terminal_eog=1	ttft_seconds=0.0077981659999999996	prompt_tokens_per_second=641.17639968166873	decode_tokens_per_second=163.59051126093857	peak_rss_kib=993016	gpu_used_peak_bytes=879820800
+LATENCIES	measured	0	0.0063851790000000004,0.007311629,0.0060857869999999996,0.0062481000000000004,0.0061072799999999997,0.0061196109999999996,0.0061015690000000003,0.0061065809999999998,0.0060921500000000002,0.0060800699999999999,0.006101731,0.0060814880000000003,0.0060666870000000003,0.0060678989999999999,0.0060695059999999997,0.006067846,0.0060727150000000002,0.0060705059999999998,0.0060752599999999999,0.006071234,0.0060630340000000001,0.006065005,0.0060630019999999996,0.0060633730000000004,0.00606603,0.0060735099999999998,0.0060695039999999999,0.0060604070000000003,0.0060645689999999997,0.0060634570000000004,0.006069128,0.0060604439999999999,0.0060706329999999998,0.0060666390000000004,0.0062360540000000004,0.006072109,0.0060665939999999998,0.0060597200000000002,0.0060677530000000004,0.0060632400000000001,0.0060622410000000003,0.0060631900000000004,0.0060749080000000004,0.0060637679999999998,0.0060649429999999997,0.0060620200000000004,0.0060786010000000003,0.0060788470000000001
+IDS	measured	0	318,57195,11,1459,387,1495,2189,261,56207,1765,413,3700,308,16028,13,15149,40841,554,3143,3307,308,922,1682,12138,3572,4120,1468,276,7519,13,646,56207,11,318,12606,11,60063,21084,2416,52588,4536,2978,1573,23167,2704,387,19392,13,163585
+RUN	measured	1	prompt_tokens=5	generated_tokens=49	terminal_eog=1	ttft_seconds=0.0079084099999999994	prompt_tokens_per_second=632.23833867996223	decode_tokens_per_second=163.74603272785816	peak_rss_kib=993016	gpu_used_peak_bytes=879820800
+LATENCIES	measured	1	0.0065880950000000004,0.0074070079999999996,0.0061521800000000001,0.0060784339999999997,0.0060687029999999999,0.0060663039999999998,0.0060643149999999998,0.0060618929999999996,0.0060686669999999998,0.0060674630000000004,0.0060679510000000002,0.0060630750000000002,0.006064832,0.0060634460000000001,0.0060670940000000003,0.0060657560000000003,0.0060643729999999996,0.0060645739999999997,0.0060670129999999996,0.0060647840000000001,0.0060628269999999998,0.0060678140000000004,0.0060698719999999996,0.0060602210000000002,0.0060684989999999998,0.0060644280000000002,0.0060668120000000004,0.0060661630000000003,0.0060642639999999998,0.0060637959999999998,0.0060687400000000004,0.0060603009999999997,0.0060664229999999996,0.0060695849999999997,0.0060701829999999998,0.0060664489999999998,0.0060726460000000001,0.0060678249999999998,0.006068731,0.0060678219999999996,0.0060674850000000001,0.0060625619999999996,0.006070509,0.006066831,0.0060683580000000003,0.0060591730000000002,0.0060655659999999997,0.0060670280000000004
+IDS	measured	1	318,57195,11,1459,387,1495,2189,261,56207,1765,413,3700,308,16028,13,15149,40841,554,3143,3307,308,922,1682,12138,3572,4120,1468,276,7519,13,646,56207,11,318,12606,11,60063,21084,2416,52588,4536,2978,1573,23167,2704,387,19392,13,163585
+RUN	measured	2	prompt_tokens=5	generated_tokens=49	terminal_eog=1	ttft_seconds=0.0079650669999999993	prompt_tokens_per_second=627.74111002456107	decode_tokens_per_second=162.50552755780927	peak_rss_kib=993016	gpu_used_peak_bytes=879820800
+LATENCIES	measured	2	0.0066004779999999999,0.0075509990000000001,0.0061951319999999999,0.0061664270000000004,0.0061406739999999996,0.0061850550000000001,0.0061300850000000004,0.0061223609999999998,0.0061128780000000004,0.0061096700000000002,0.0061173770000000002,0.0061518390000000001,0.006129397,0.0061133250000000002,0.0061150500000000003,0.0061109930000000003,0.0061127409999999997,0.0061112470000000002,0.006115461,0.0061070910000000003,0.0061114840000000004,0.0061074179999999999,0.0061075499999999998,0.0061049399999999997,0.0061089689999999997,0.0060999779999999998,0.0061058900000000001,0.006105035,0.0061088729999999999,0.006099045,0.0061018280000000001,0.0061031740000000003,0.0061026350000000004,0.0061001029999999999,0.006111511,0.0061006080000000004,0.006109186,0.0061009829999999999,0.0060977740000000002,0.0060987560000000003,0.0061005019999999998,0.0060948909999999999,0.0060954310000000001,0.006102873,0.0060996289999999996,0.0060964019999999999,0.0061041100000000003,0.00609671
+IDS	measured	2	318,57195,11,1459,387,1495,2189,261,56207,1765,413,3700,308,16028,13,15149,40841,554,3143,3307,308,922,1682,12138,3572,4120,1468,276,7519,13,646,56207,11,318,12606,11,60063,21084,2416,52588,4536,2978,1573,23167,2704,387,19392,13,163585
+RUN	measured	3	prompt_tokens=5	generated_tokens=49	terminal_eog=1	ttft_seconds=0.0079733559999999992	prompt_tokens_per_second=627.0885183102323	decode_tokens_per_second=162.62058795141553	peak_rss_kib=993016	gpu_used_peak_bytes=879820800
+LATENCIES	measured	3	0.0065417299999999999,0.0074687649999999996,0.0061230410000000001,0.0061406259999999997,0.0061399410000000003,0.0061215820000000004,0.0061029659999999996,0.0061126339999999996,0.0061020249999999996,0.0060991279999999997,0.006105437,0.006096298,0.0061017459999999999,0.0060993499999999999,0.0061051259999999998,0.0061023570000000001,0.0061080520000000001,0.0061018519999999996,0.0061327300000000003,0.0061063819999999996,0.0061059,0.0061108439999999998,0.0061039140000000002,0.0061336790000000004,0.0061005349999999998,0.0061058830000000003,0.0061063480000000002,0.0060984009999999998,0.0061462139999999997,0.0061408390000000004,0.0061001850000000002,0.0061002840000000001,0.0060978300000000003,0.0061008529999999998,0.0061089639999999997,0.0061074270000000003,0.0061098159999999997,0.0061006309999999996,0.0061060919999999996,0.0061124320000000001,0.0061366449999999996,0.0061130120000000001,0.0061195720000000002,0.0061098430000000002,0.0061010989999999996,0.006135026,0.0061301619999999998,0.0061113809999999999
+IDS	measured	3	318,57195,11,1459,387,1495,2189,261,56207,1765,413,3700,308,16028,13,15149,40841,554,3143,3307,308,922,1682,12138,3572,4120,1468,276,7519,13,646,56207,11,318,12606,11,60063,21084,2416,52588,4536,2978,1573,23167,2704,387,19392,13,163585
+RUN	measured	4	prompt_tokens=5	generated_tokens=49	terminal_eog=1	ttft_seconds=0.0078934880000000006	prompt_tokens_per_second=633.43353407264317	decode_tokens_per_second=162.61126205557972	peak_rss_kib=993016	gpu_used_peak_bytes=879820800
+LATENCIES	measured	4	0.00647585,0.0074170989999999999,0.0061403789999999996,0.0060995429999999998,0.0061106069999999997,0.0061382240000000003,0.0061329679999999999,0.0061026639999999998,0.0061040770000000003,0.0061125090000000003,0.0061419910000000003,0.0061101360000000004,0.0061127630000000002,0.006106925,0.0061123549999999999,0.0061097369999999996,0.0061166279999999998,0.0061358369999999999,0.0061149330000000003,0.0061231499999999999,0.0061219109999999998,0.0061288200000000001,0.0061114450000000001,0.0061111439999999998,0.0061122859999999998,0.0061196389999999996,0.0061166609999999998,0.0061322060000000003,0.0061102099999999996,0.0061025810000000002,0.0061136029999999996,0.0061013309999999998,0.0061291039999999998,0.0061184489999999998,0.006106045,0.0061211490000000002,0.006107833,0.0061090220000000004,0.0061117280000000003,0.0061017689999999999,0.006100673,0.0061007860000000004,0.0061034849999999996,0.0060999699999999997,0.0061083739999999997,0.0061326159999999996,0.0061159969999999998,0.0061152949999999998
+IDS	measured	4	318,57195,11,1459,387,1495,2189,261,56207,1765,413,3700,308,16028,13,15149,40841,554,3143,3307,308,922,1682,12138,3572,4120,1468,276,7519,13,646,56207,11,318,12606,11,60063,21084,2416,52588,4536,2978,1573,23167,2704,387,19392,13,163585
+RESULT	load_calls=1	warmups=1	measured=5	exit=0
+
+=== stderr ===
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 3903 MiB):
+  Device 0: NVIDIA GeForce GTX 1650, compute capability 7.5, VMM: yes, VRAM: 3903 MiB
+The following devices will have suboptimal performance due to a lack of tensor cores:
+  Device 0: NVIDIA GeForce GTX 1650
+Consider compiling with CMAKE_CUDA_ARCHITECTURES=61-virtual;80-virtual and DGGML_CUDA_FORCE_MMQ to force the use of the Pascal code for Turing.
+llama_model_loader: loaded meta data with 53 key-value pairs and 218 tensors from /usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf (version GGUF V3 (latest))
+llama_model_loader: Dumping metadata keys/values. Note: KV overrides do not apply in this output.
+llama_model_loader: - kv   0:                       general.architecture str              = kimi-k3
+llama_model_loader: - kv   1:                               general.type str              = model
+llama_model_loader: - kv   2:                               general.name str              = Kimi K3 0.40B MXFP4
+llama_model_loader: - kv   3:                           general.finetune str              = MXFP4
+llama_model_loader: - kv   4:                           general.basename str              = Kimi-K3
+llama_model_loader: - kv   5:                         general.size_label str              = 0.40B
+llama_model_loader: - kv   6:                            general.license str              = mit
+llama_model_loader: - kv   7:                   general.base_model.count u32              = 1
+llama_model_loader: - kv   8:                  general.base_model.0.name str              = Kimi K3 0.40B
+llama_model_loader: - kv   9:          general.base_model.0.organization str              = Inference Optimization
+llama_model_loader: - kv  10:              general.base_model.0.repo_url str              = https://huggingface.co/inference-opti...
+llama_model_loader: - kv  11:                               general.tags arr[str,2]       = ["quantized", "mxfp4"]
+llama_model_loader: - kv  12:                        kimi-k3.block_count u32              = 8
+llama_model_loader: - kv  13:                     kimi-k3.context_length u32              = 4096
+llama_model_loader: - kv  14:                   kimi-k3.embedding_length u32              = 1024
+llama_model_loader: - kv  15:                kimi-k3.feed_forward_length u32              = 2048
+llama_model_loader: - kv  16:               kimi-k3.attention.head_count u32              = 8
+llama_model_loader: - kv  17:            kimi-k3.attention.head_count_kv arr[i32,8]       = [0, 0, 0, 1, 0, 0, 0, 1]
+llama_model_loader: - kv  18:                     kimi-k3.rope.freq_base f32              = 10000.000000
+llama_model_loader: - kv  19:   kimi-k3.attention.layer_norm_rms_epsilon f32              = 0.000010
+llama_model_loader: - kv  20:                       kimi-k3.expert_count u32              = 8
+llama_model_loader: - kv  21:                  kimi-k3.expert_used_count u32              = 2
+llama_model_loader: - kv  22:            kimi-k3.expert_group_used_count u32              = 1
+llama_model_loader: - kv  23:                 kimi-k3.expert_gating_func u32              = 2
+llama_model_loader: - kv  24:               kimi-k3.attention.key_length u32              = 160
+llama_model_loader: - kv  25:             kimi-k3.attention.value_length u32              = 74
+llama_model_loader: - kv  26:                          general.file_type u32              = 38
+llama_model_loader: - kv  27:                         kimi-k3.vocab_size u32              = 163840
+llama_model_loader: - kv  28:                    kimi-k3.ssm.conv_kernel u32              = 4
+llama_model_loader: - kv  29:                       kimi-k3.kda.head_dim u32              = 32
+llama_model_loader: - kv  30:              kimi-k3.attention.q_lora_rank u32              = 256
+llama_model_loader: - kv  31:             kimi-k3.attention.kv_lora_rank u32              = 128
+llama_model_loader: - kv  32:               kimi-k3.rope.dimension_count u32              = 32
+llama_model_loader: - kv  33:           kimi-k3.attention.key_length_mla u32              = 96
+llama_model_loader: - kv  34:         kimi-k3.attention.value_length_mla u32              = 64
+llama_model_loader: - kv  35:         kimi-k3.expert_feed_forward_length u32              = 256
+llama_model_loader: - kv  36:                kimi-k3.expert_shared_count u32              = 1
+llama_model_loader: - kv  37:          kimi-k3.leading_dense_block_count u32              = 1
+llama_model_loader: - kv  38:               kimi-k3.expert_weights_scale f32              = 1.000000
+llama_model_loader: - kv  39:                kimi-k3.expert_weights_norm bool             = true
+llama_model_loader: - kv  40:               kimi-k3.expert_latent_length u32              = 512
+llama_model_loader: - kv  41:               kimi-k3.activation.situ_beta f32              = 4.000000
+llama_model_loader: - kv  42:        kimi-k3.activation.situ_linear_beta f32              = 25.000000
+llama_model_loader: - kv  43:                kimi-k3.attn_res.block_size u32              = 4
+llama_model_loader: - kv  44:               general.quantization_version u32              = 2
+llama_model_loader: - kv  45:                       tokenizer.ggml.model str              = gpt2
+llama_model_loader: - kv  46:                         tokenizer.ggml.pre str              = kimi-k2
+llama_model_loader: - kv  47:                      tokenizer.ggml.tokens arr[str,163840]  = ["!", "\"", "#", "$", "%", "&", "'", ...
+llama_model_loader: - kv  48:                  tokenizer.ggml.token_type arr[i32,163840]  = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+llama_model_loader: - kv  49:                      tokenizer.ggml.merges arr[str,163328]  = ["Ġ Ġ", "ĠĠ ĠĠ", "Ġ t", "i n",...
+llama_model_loader: - kv  50:                tokenizer.ggml.bos_token_id u32              = 1
+llama_model_loader: - kv  51:                tokenizer.ggml.eos_token_id u32              = 2
+llama_model_loader: - kv  52:            tokenizer.ggml.padding_token_id u32              = 0
+llama_model_loader: - type  f32:   95 tensors
+llama_model_loader: - type  f16:  102 tensors
+llama_model_loader: - type mxfp4:   21 tensors
+print_info: file format = GGUF V3 (latest)
+print_info: file type   = MXFP4 MoE
+print_info: file size   = 710.54 MiB (15.34 BPW)
+llama_prepare_model_devices: using device CUDA0 (NVIDIA GeForce GTX 1650) (0000:01:00.0) - 3836 MiB free
+init_tokenizer: initializing tokenizer for type 2
+load: 0 unused tokens
+load: control token: 163838 '[UNK]' is not marked as EOG
+load: control token: 163837 '<|reserved_token_163837|>' is not marked as EOG
+load: control token: 163835 '<|reserved_token_163835|>' is not marked as EOG
+load: control token: 163833 '<|reserved_token_163833|>' is not marked as EOG
+load: control token: 163831 '<|reserved_token_163831|>' is not marked as EOG
+load: control token: 163828 '<|reserved_token_163828|>' is not marked as EOG
+load: control token: 163826 '<|reserved_token_163826|>' is not marked as EOG
+load: control token: 163822 '<|reserved_token_163822|>' is not marked as EOG
+load: control token: 163818 '<|reserved_token_163818|>' is not marked as EOG
+load: control token: 163817 '<|reserved_token_163817|>' is not marked as EOG
+load: control token: 163816 '<|reserved_token_163816|>' is not marked as EOG
+load: control token: 163815 '<|reserved_token_163815|>' is not marked as EOG
+load: control token: 163806 '<|reserved_token_163806|>' is not marked as EOG
+load: control token: 163803 '<|reserved_token_163803|>' is not marked as EOG
+load: control token: 163801 '<|reserved_token_163801|>' is not marked as EOG
+load: control token: 163799 '<|reserved_token_163799|>' is not marked as EOG
+load: control token: 163797 '<|reserved_token_163797|>' is not marked as EOG
+load: control token: 163794 '<|reserved_token_163794|>' is not marked as EOG
+load: control token: 163792 '<|reserved_token_163792|>' is not marked as EOG
+load: control token: 163790 '<|reserved_token_163790|>' is not marked as EOG
+load: control token: 163788 '<|reserved_token_163788|>' is not marked as EOG
+load: control token: 163787 '<|reserved_token_163787|>' is not marked as EOG
+load: control token: 163785 '<|reserved_token_163785|>' is not marked as EOG
+load: control token: 163783 '<|reserved_token_163783|>' is not marked as EOG
+load: control token: 163782 '<|reserved_token_163782|>' is not marked as EOG
+load: control token: 163780 '<|reserved_token_163780|>' is not marked as EOG
+load: control token: 163779 '<|reserved_token_163779|>' is not marked as EOG
+load: control token: 163778 '<|reserved_token_163778|>' is not marked as EOG
+load: control token: 163777 '<|reserved_token_163777|>' is not marked as EOG
+load: control token: 163776 '<|reserved_token_163776|>' is not marked as EOG
+load: control token: 163774 '<|reserved_token_163774|>' is not marked as EOG
+load: control token: 163773 '<|reserved_token_163773|>' is not marked as EOG
+load: control token: 163769 '<|reserved_token_163769|>' is not marked as EOG
+load: control token: 163767 '<|reserved_token_163767|>' is not marked as EOG
+load: control token: 163764 '<|reserved_token_163764|>' is not marked as EOG
+load: control token: 163760 '<|reserved_token_163760|>' is not marked as EOG
+load: control token: 163755 '<|reserved_token_163755|>' is not marked as EOG
+load: control token: 163754 '<|reserved_token_163754|>' is not marked as EOG
+load: control token: 163753 '<|reserved_token_163753|>' is not marked as EOG
+load: control token: 163748 '<|reserved_token_163748|>' is not marked as EOG
+load: control token: 163747 '<|reserved_token_163747|>' is not marked as EOG
+load: control token: 163746 '<|reserved_token_163746|>' is not marked as EOG
+load: control token: 163741 '<|reserved_token_163741|>' is not marked as EOG
+load: control token: 163732 '<|reserved_token_163732|>' is not marked as EOG
+load: control token: 163731 '<|reserved_token_163731|>' is not marked as EOG
+load: control token: 163727 '<|reserved_token_163727|>' is not marked as EOG
+load: control token: 163725 '<|reserved_token_163725|>' is not marked as EOG
+load: control token: 163723 '<|reserved_token_163723|>' is not marked as EOG
+load: control token: 163720 '<|reserved_token_163720|>' is not marked as EOG
+load: control token: 163719 '<|reserved_token_163719|>' is not marked as EOG
+load: control token: 163717 '<|reserved_token_163717|>' is not marked as EOG
+load: control token: 163716 '<|reserved_token_163716|>' is not marked as EOG
+load: control token: 163714 '<|reserved_token_163714|>' is not marked as EOG
+load: control token: 163711 '<|reserved_token_163711|>' is not marked as EOG
+load: control token: 163709 '<|reserved_token_163709|>' is not marked as EOG
+load: control token: 163707 '<|reserved_token_163707|>' is not marked as EOG
+load: control token: 163706 '<|reserved_token_163706|>' is not marked as EOG
+load: control token: 163703 '<|reserved_token_163703|>' is not marked as EOG
+load: control token: 163695 '<|reserved_token_163695|>' is not marked as EOG
+load: control token: 163694 '<|reserved_token_163694|>' is not marked as EOG
+load: control token: 163693 '<|reserved_token_163693|>' is not marked as EOG
+load: control token: 163692 '<|reserved_token_163692|>' is not marked as EOG
+load: control token: 163688 '<|reserved_token_163688|>' is not marked as EOG
+load: control token: 163687 '<|reserved_token_163687|>' is not marked as EOG
+load: control token: 163685 '<|reserved_token_163685|>' is not marked as EOG
+load: control token: 163684 '<|reserved_token_163684|>' is not marked as EOG
+load: control token: 163683 '<|reserved_token_163683|>' is not marked as EOG
+load: control token: 163681 '<|reserved_token_163681|>' is not marked as EOG
+load: control token: 163680 '<|reserved_token_163680|>' is not marked as EOG
+load: control token: 163679 '<|reserved_token_163679|>' is not marked as EOG
+load: control token: 163676 '<|reserved_token_163676|>' is not marked as EOG
+load: control token: 163675 '<|reserved_token_163675|>' is not marked as EOG
+load: control token: 163672 '<|reserved_token_163672|>' is not marked as EOG
+load: control token: 163670 '<|reserved_token_163670|>' is not marked as EOG
+load: control token: 163668 '<|reserved_token_163668|>' is not marked as EOG
+load: control token: 163665 '<|reserved_token_163665|>' is not marked as EOG
+load: control token: 163663 '<|reserved_token_163663|>' is not marked as EOG
+load: control token: 163660 '<|reserved_token_163660|>' is not marked as EOG
+load: control token: 163658 '<|reserved_token_163658|>' is not marked as EOG
+load: control token: 163656 '<|reserved_token_163656|>' is not marked as EOG
+load: control token: 163655 '<|reserved_token_163655|>' is not marked as EOG
+load: control token: 163652 '<|reserved_token_163652|>' is not marked as EOG
+load: control token: 163651 '<|reserved_token_163651|>' is not marked as EOG
+load: control token: 163650 '<|reserved_token_163650|>' is not marked as EOG
+load: control token: 163647 '<|reserved_token_163647|>' is not marked as EOG
+load: control token: 163646 '<|reserved_token_163646|>' is not marked as EOG
+load: control token: 163644 '<|reserved_token_163644|>' is not marked as EOG
+load: control token: 163643 '<|reserved_token_163643|>' is not marked as EOG
+load: control token: 163641 '<|reserved_token_163641|>' is not marked as EOG
+load: control token: 163636 '<|reserved_token_163636|>' is not marked as EOG
+load: control token: 163634 '<|reserved_token_163634|>' is not marked as EOG
+load: control token: 163633 '<|reserved_token_163633|>' is not marked as EOG
+load: control token: 163628 '<|reserved_token_163628|>' is not marked as EOG
+load: control token: 163624 '<|reserved_token_163624|>' is not marked as EOG
+load: control token: 163623 '<|reserved_token_163623|>' is not marked as EOG
+load: control token: 163622 '<|reserved_token_163622|>' is not marked as EOG
+load: control token: 163621 '<|reserved_token_163621|>' is not marked as EOG
+load: control token: 163617 '<|reserved_token_163617|>' is not marked as EOG
+load: control token: 163615 '<|reserved_token_163615|>' is not marked as EOG
+load: control token: 163613 '<|reserved_token_163613|>' is not marked as EOG
+load: control token: 163611 '<|reserved_token_163611|>' is not marked as EOG
+load: control token: 163610 '<|reserved_token_163610|>' is not marked as EOG
+load: control token: 163608 '<|reserved_token_163608|>' is not marked as EOG
+load: control token: 163605 '<|media_pad|>' is not marked as EOG
+load: control token: 163604 '<|media_end|>' is not marked as EOG
+load: control token: 163602 '<|media_begin|>' is not marked as EOG
+load: control token: 163599 '<|reserved_token_163599|>' is not marked as EOG
+load: control token: 163598 '<|reserved_token_163598|>' is not marked as EOG
+load: control token: 163594 '<|reserved_token_163594|>' is not marked as EOG
+load: control token: 163584 '[BOS]' is not marked as EOG
+load: control token: 163759 '<|reserved_token_163759|>' is not marked as EOG
+load: control token: 163750 '<|reserved_token_163750|>' is not marked as EOG
+load: control token: 163591 '[end_header_id]' is not marked as EOG
+load: control token: 163724 '<|reserved_token_163724|>' is not marked as EOG
+load: control token: 163682 '<|reserved_token_163682|>' is not marked as EOG
+load: control token: 163765 '<|reserved_token_163765|>' is not marked as EOG
+load: control token: 163771 '<|reserved_token_163771|>' is not marked as EOG
+load: control token: 163653 '<|reserved_token_163653|>' is not marked as EOG
+load: control token: 163775 '<|reserved_token_163775|>' is not marked as EOG
+load: control token: 163671 '<|reserved_token_163671|>' is not marked as EOG
+load: control token: 163729 '<|reserved_token_163729|>' is not marked as EOG
+load: control token: 163761 '<|reserved_token_163761|>' is not marked as EOG
+load: control token: 163772 '<|reserved_token_163772|>' is not marked as EOG
+load: control token: 163807 '<|reserved_token_163807|>' is not marked as EOG
+load: control token: 163666 '<|reserved_token_163666|>' is not marked as EOG
+load: control token: 163691 '<|reserved_token_163691|>' is not marked as EOG
+load: control token: 163705 '<|reserved_token_163705|>' is not marked as EOG
+load: control token: 163834 '<|reserved_token_163834|>' is not marked as EOG
+load: control token: 163696 '<|reserved_token_163696|>' is not marked as EOG
+load: control token: 163595 '<|reserved_token_163595|>' is not marked as EOG
+load: control token: 163597 '<|reserved_token_163597|>' is not marked as EOG
+load: control token: 163784 '<|reserved_token_163784|>' is not marked as EOG
+load: control token: 163689 '<|reserved_token_163689|>' is not marked as EOG
+load: control token: 163819 '<|reserved_token_163819|>' is not marked as EOG
+load: control token: 163620 '<|reserved_token_163620|>' is not marked as EOG
+load: control token: 163669 '<|reserved_token_163669|>' is not marked as EOG
+load: control token: 163645 '<|reserved_token_163645|>' is not marked as EOG
+load: control token: 163756 '<|reserved_token_163756|>' is not marked as EOG
+load: control token: 163627 '<|reserved_token_163627|>' is not marked as EOG
+load: control token: 163786 '<|reserved_token_163786|>' is not marked as EOG
+load: control token: 163829 '<|reserved_token_163829|>' is not marked as EOG
+load: control token: 163745 '<|reserved_token_163745|>' is not marked as EOG
+load: control token: 163699 '<|reserved_token_163699|>' is not marked as EOG
+load: control token: 163619 '<|reserved_token_163619|>' is not marked as EOG
+load: control token: 163678 '<|reserved_token_163678|>' is not marked as EOG
+load: control token: 163721 '<|reserved_token_163721|>' is not marked as EOG
+load: control token: 163673 '<|reserved_token_163673|>' is not marked as EOG
+load: control token: 163616 '<|reserved_token_163616|>' is not marked as EOG
+load: control token: 163601 '<|reserved_token_163601|>' is not marked as EOG
+load: control token: 163738 '<|reserved_token_163738|>' is not marked as EOG
+load: control token: 163686 '<|reserved_token_163686|>' is not marked as EOG
+load: control token: 163762 '<|reserved_token_163762|>' is not marked as EOG
+load: control token: 163733 '<|reserved_token_163733|>' is not marked as EOG
+load: control token: 163781 '<|reserved_token_163781|>' is not marked as EOG
+load: control token: 163639 '<|reserved_token_163639|>' is not marked as EOG
+load: control token: 163659 '<|reserved_token_163659|>' is not marked as EOG
+load: control token: 163606 '<|reserved_token_163606|>' is not marked as EOG
+load: control token: 163742 '<|reserved_token_163742|>' is not marked as EOG
+load: control token: 163823 '<|reserved_token_163823|>' is not marked as EOG
+load: control token: 163637 '<|reserved_token_163637|>' is not marked as EOG
+load: control token: 163820 '<|reserved_token_163820|>' is not marked as EOG
+load: control token: 163808 '<|reserved_token_163808|>' is not marked as EOG
+load: control token: 163713 '<|reserved_token_163713|>' is not marked as EOG
+load: control token: 163736 '<|reserved_token_163736|>' is not marked as EOG
+load: control token: 163735 '<|reserved_token_163735|>' is not marked as EOG
+load: control token: 163821 '<|reserved_token_163821|>' is not marked as EOG
+load: control token: 163618 '<|reserved_token_163618|>' is not marked as EOG
+load: control token: 163600 '<|reserved_token_163600|>' is not marked as EOG
+load: control token: 163798 '<|reserved_token_163798|>' is not marked as EOG
+load: control token: 163814 '<|reserved_token_163814|>' is not marked as EOG
+load: control token: 163697 '<|reserved_token_163697|>' is not marked as EOG
+load: control token: 163661 '<|reserved_token_163661|>' is not marked as EOG
+load: control token: 163708 '<|reserved_token_163708|>' is not marked as EOG
+load: control token: 163710 '<|reserved_token_163710|>' is not marked as EOG
+load: control token: 163664 '<|reserved_token_163664|>' is not marked as EOG
+load: control token: 163737 '<|reserved_token_163737|>' is not marked as EOG
+load: control token: 163667 '<|reserved_token_163667|>' is not marked as EOG
+load: control token: 163810 '<|reserved_token_163810|>' is not marked as EOG
+load: control token: 163609 '<|reserved_token_163609|>' is not marked as EOG
+load: control token: 163586 '<|end_of_msg|>' is not marked as EOG
+load: control token: 163677 '<|reserved_token_163677|>' is not marked as EOG
+load: control token: 163811 '<|reserved_token_163811|>' is not marked as EOG
+load: control token: 163607 '<|reserved_token_163607|>' is not marked as EOG
+load: control token: 163770 '<|reserved_token_163770|>' is not marked as EOG
+load: control token: 163649 '<osagent_mode>' is not marked as EOG
+load: control token: 163662 '<|reserved_token_163662|>' is not marked as EOG
+load: control token: 163704 '<|reserved_token_163704|>' is not marked as EOG
+load: control token: 163730 '<|reserved_token_163730|>' is not marked as EOG
+load: control token: 163802 '<|reserved_token_163802|>' is not marked as EOG
+load: control token: 163640 '<|reserved_token_163640|>' is not marked as EOG
+load: control token: 163740 '<|reserved_token_163740|>' is not marked as EOG
+load: control token: 163603 '<|media_content|>' is not marked as EOG
+load: control token: 163654 '<|reserved_token_163654|>' is not marked as EOG
+load: control token: 163739 '<|reserved_token_163739|>' is not marked as EOG
+load: control token: 163836 '<|reserved_token_163836|>' is not marked as EOG
+load: control token: 163648 '<|reserved_token_163648|>' is not marked as EOG
+load: control token: 163631 '<|reserved_token_163631|>' is not marked as EOG
+load: control token: 163734 '<|reserved_token_163734|>' is not marked as EOG
+load: control token: 163805 '<|reserved_token_163805|>' is not marked as EOG
+load: control token: 163793 '<|reserved_token_163793|>' is not marked as EOG
+load: control token: 163804 '<|reserved_token_163804|>' is not marked as EOG
+load: control token: 163800 '<|reserved_token_163800|>' is not marked as EOG
+load: control token: 163674 '<|reserved_token_163674|>' is not marked as EOG
+load: control token: 163638 '<|reserved_token_163638|>' is not marked as EOG
+load: control token: 163726 '<|reserved_token_163726|>' is not marked as EOG
+load: control token: 163596 '<|reserved_token_163596|>' is not marked as EOG
+load: control token: 163812 '<|reserved_token_163812|>' is not marked as EOG
+load: control token: 163700 '<|reserved_token_163700|>' is not marked as EOG
+load: control token: 163743 '<|reserved_token_163743|>' is not marked as EOG
+load: control token: 163690 '<|reserved_token_163690|>' is not marked as EOG
+load: control token: 163632 '<|reserved_token_163632|>' is not marked as EOG
+load: control token: 163722 '<|reserved_token_163722|>' is not marked as EOG
+load: control token: 163809 '<|reserved_token_163809|>' is not marked as EOG
+load: control token: 163813 '<|reserved_token_163813|>' is not marked as EOG
+load: control token: 163751 '<|reserved_token_163751|>' is not marked as EOG
+load: control token: 163832 '<|reserved_token_163832|>' is not marked as EOG
+load: control token: 163752 '<|reserved_token_163752|>' is not marked as EOG
+load: control token: 163768 '<|reserved_token_163768|>' is not marked as EOG
+load: control token: 163789 '<|reserved_token_163789|>' is not marked as EOG
+load: control token: 163614 '<|reserved_token_163614|>' is not marked as EOG
+load: control token: 163830 '<|reserved_token_163830|>' is not marked as EOG
+load: control token: 163718 '<|reserved_token_163718|>' is not marked as EOG
+load: control token: 163612 '<|reserved_token_163612|>' is not marked as EOG
+load: control token: 163626 '<|reserved_token_163626|>' is not marked as EOG
+load: control token: 163629 '<|reserved_token_163629|>' is not marked as EOG
+load: control token: 163791 '<|reserved_token_163791|>' is not marked as EOG
+load: control token: 163635 '<|reserved_token_163635|>' is not marked as EOG
+load: control token: 163795 '<|reserved_token_163795|>' is not marked as EOG
+load: control token: 163702 '<|reserved_token_163702|>' is not marked as EOG
+load: control token: 163590 '[start_header_id]' is not marked as EOG
+load: control token: 163630 '<|reserved_token_163630|>' is not marked as EOG
+load: control token: 163825 '<|reserved_token_163825|>' is not marked as EOG
+load: control token: 163657 '<|reserved_token_163657|>' is not marked as EOG
+load: control token: 163625 '<|reserved_token_163625|>' is not marked as EOG
+load: control token: 163757 '<|reserved_token_163757|>' is not marked as EOG
+load: control token: 163728 '<|reserved_token_163728|>' is not marked as EOG
+load: control token: 163766 '<|reserved_token_163766|>' is not marked as EOG
+load: control token: 163642 '<|reserved_token_163642|>' is not marked as EOG
+load: control token: 163698 '<|reserved_token_163698|>' is not marked as EOG
+load: control token: 163592 '<|reserved_token_163592|>' is not marked as EOG
+load: control token: 163701 '<|reserved_token_163701|>' is not marked as EOG
+load: control token: 163588 '<|close|>' is not marked as EOG
+load: control token: 163715 '<|reserved_token_163715|>' is not marked as EOG
+load: control token: 163712 '<|reserved_token_163712|>' is not marked as EOG
+load: control token: 163763 '<|reserved_token_163763|>' is not marked as EOG
+load: control token: 163744 '<|reserved_token_163744|>' is not marked as EOG
+load: control token: 163587 '<|open|>' is not marked as EOG
+load: control token: 163749 '<|reserved_token_163749|>' is not marked as EOG
+load: control token: 163824 '<|reserved_token_163824|>' is not marked as EOG
+load: control token: 163796 '<|reserved_token_163796|>' is not marked as EOG
+load: control token: 163827 '<|reserved_token_163827|>' is not marked as EOG
+load: control token: 163758 '<|reserved_token_163758|>' is not marked as EOG
+load: control token: 163589 '<|sep|>' is not marked as EOG
+load: special_eos_id is not in special_eog_ids - the tokenizer config may be incorrect
+load: printing all EOG tokens:
+load:   - 2 ('#')
+load:   - 163585 ('[EOS]')
+load:   - 163593 ('[EOT]')
+load:   - 163839 ('[PAD]')
+load: special tokens cache size = 256
+load: token to piece cache size = 1.0606 MB
+print_info: arch                  = kimi-k3
+print_info: vocab_only            = 0
+print_info: no_alloc              = 0
+print_info: n_ctx_train           = 4096
+print_info: n_embd_inp            = 1024
+print_info: n_embd                = 1024
+print_info: n_embd_out            = 1024
+print_info: n_layer               = 8
+print_info: n_layer_all           = 8
+print_info: n_head                = 8
+print_info: n_head_kv             = [0, 0, 0, 1, 0, 0, 0, 1]
+print_info: n_rot                 = 32
+print_info: n_swa                 = 0
+print_info: is_swa_any            = 0
+print_info: n_embd_head_k         = 160
+print_info: n_embd_head_v         = 74
+print_info: n_gqa                 = [0, 0, 0, 8, 0, 0, 0, 8]
+print_info: n_embd_k_gqa          = [0, 0, 0, 160, 0, 0, 0, 160]
+print_info: n_embd_v_gqa          = [0, 0, 0, 74, 0, 0, 0, 74]
+print_info: f_norm_eps            = 0.0e+00
+print_info: f_norm_rms_eps        = 1.0e-05
+print_info: f_clamp_kqv           = 0.0e+00
+print_info: f_max_alibi_bias      = 0.0e+00
+print_info: f_logit_scale         = 0.0e+00
+print_info: f_attn_scale          = 0.0e+00
+print_info: f_attn_value_scale    = 0.0000
+print_info: n_ff                  = 2048
+print_info: n_expert              = 8
+print_info: n_expert_used         = 2
+print_info: n_expert_groups       = 0
+print_info: n_group_used          = 1
+print_info: causal attn           = 1
+print_info: pooling type          = -1
+print_info: rope type             = -1
+print_info: rope scaling          = linear
+print_info: freq_base_train       = 10000.0
+print_info: freq_scale_train      = 1
+print_info: n_ctx_orig_yarn       = 4096
+print_info: rope_yarn_log_mul     = 0.0000
+print_info: rope_finetuned        = unknown
+print_info: model type            = ?B
+print_info: model params          = 388.58 M
+print_info: general.name          = Kimi K3 0.40B MXFP4
+print_info: vocab type            = BPE
+print_info: n_vocab               = 163840
+print_info: n_merges              = 163328
+print_info: BOS token             = 1 '"'
+print_info: EOS token             = 2 '#'
+print_info: EOT token             = 163593 '[EOT]'
+print_info: PAD token             = 0 '!'
+print_info: LF token              = 198 'Ċ'
+print_info: FIM PAD token         = 163839 '[PAD]'
+print_info: EOG token             = 2 '#'
+print_info: EOG token             = 163585 '[EOS]'
+print_info: EOG token             = 163593 '[EOT]'
+print_info: EOG token             = 163839 '[PAD]'
+print_info: max token length      = 512
+load_tensors: loading model tensors, this can take a while... (load_mode = mmap)
+load_tensors: layer   0 assigned to device CUDA0, is_swa = 0
+load_tensors: layer   1 assigned to device CUDA0, is_swa = 0
+load_tensors: layer   2 assigned to device CUDA0, is_swa = 0
+load_tensors: layer   3 assigned to device CUDA0, is_swa = 0
+load_tensors: layer   4 assigned to device CUDA0, is_swa = 0
+load_tensors: layer   5 assigned to device CUDA0, is_swa = 0
+load_tensors: layer   6 assigned to device CUDA0, is_swa = 0
+load_tensors: layer   7 assigned to device CUDA0, is_swa = 0
+load_tensors: layer   8 assigned to device CUDA0, is_swa = 0
+create_tensor: loading tensor token_embd.weight
+create_tensor: loading tensor output_norm.weight
+create_tensor: loading tensor output.weight
+create_tensor: loading tensor output_res_score.weight
+create_tensor: loading tensor blk.0.attn_norm.weight
+create_tensor: loading tensor blk.0.ffn_norm.weight
+create_tensor: loading tensor blk.0.attn_res_score.weight
+create_tensor: loading tensor blk.0.ffn_res_score.weight
+create_tensor: loading tensor blk.0.ssm_conv1d_q.weight
+create_tensor: loading tensor blk.0.ssm_conv1d_k.weight
+create_tensor: loading tensor blk.0.ssm_conv1d_v.weight
+create_tensor: loading tensor blk.0.attn_q.weight
+create_tensor: loading tensor blk.0.attn_k.weight
+create_tensor: loading tensor blk.0.attn_v.weight
+create_tensor: loading tensor blk.0.ssm_f_a.weight
+create_tensor: loading tensor blk.0.ssm_f_b.weight
+create_tensor: loading tensor blk.0.ssm_beta.weight
+create_tensor: loading tensor blk.0.ssm_a
+create_tensor: loading tensor blk.0.ssm_dt.bias
+create_tensor: loading tensor blk.0.ssm_g.weight
+create_tensor: loading tensor blk.0.ssm_norm.weight
+create_tensor: loading tensor blk.0.attn_output.weight
+create_tensor: loading tensor blk.0.ffn_gate.weight
+create_tensor: loading tensor blk.0.ffn_down.weight
+create_tensor: loading tensor blk.0.ffn_up.weight
+create_tensor: loading tensor blk.1.attn_norm.weight
+create_tensor: loading tensor blk.1.ffn_norm.weight
+create_tensor: loading tensor blk.1.attn_res_score.weight
+create_tensor: loading tensor blk.1.ffn_res_score.weight
+create_tensor: loading tensor blk.1.ssm_conv1d_q.weight
+create_tensor: loading tensor blk.1.ssm_conv1d_k.weight
+create_tensor: loading tensor blk.1.ssm_conv1d_v.weight
+create_tensor: loading tensor blk.1.attn_q.weight
+create_tensor: loading tensor blk.1.attn_k.weight
+create_tensor: loading tensor blk.1.attn_v.weight
+create_tensor: loading tensor blk.1.ssm_f_a.weight
+create_tensor: loading tensor blk.1.ssm_f_b.weight
+create_tensor: loading tensor blk.1.ssm_beta.weight
+create_tensor: loading tensor blk.1.ssm_a
+create_tensor: loading tensor blk.1.ssm_dt.bias
+create_tensor: loading tensor blk.1.ssm_g.weight
+create_tensor: loading tensor blk.1.ssm_norm.weight
+create_tensor: loading tensor blk.1.attn_output.weight
+create_tensor: loading tensor blk.1.ffn_gate_inp.weight
+create_tensor: loading tensor blk.1.exp_probs_b.bias
+create_tensor: loading tensor blk.1.ffn_gate_exps.weight
+create_tensor: loading tensor blk.1.ffn_down_exps.weight
+create_tensor: loading tensor blk.1.ffn_up_exps.weight
+create_tensor: loading tensor blk.1.ffn_routed_down.weight
+create_tensor: loading tensor blk.1.ffn_routed_up.weight
+create_tensor: loading tensor blk.1.ffn_routed_norm.weight
+create_tensor: loading tensor blk.1.ffn_gate_shexp.weight
+create_tensor: loading tensor blk.1.ffn_down_shexp.weight
+create_tensor: loading tensor blk.1.ffn_up_shexp.weight
+create_tensor: loading tensor blk.2.attn_norm.weight
+create_tensor: loading tensor blk.2.ffn_norm.weight
+create_tensor: loading tensor blk.2.attn_res_score.weight
+create_tensor: loading tensor blk.2.ffn_res_score.weight
+create_tensor: loading tensor blk.2.ssm_conv1d_q.weight
+create_tensor: loading tensor blk.2.ssm_conv1d_k.weight
+create_tensor: loading tensor blk.2.ssm_conv1d_v.weight
+create_tensor: loading tensor blk.2.attn_q.weight
+create_tensor: loading tensor blk.2.attn_k.weight
+create_tensor: loading tensor blk.2.attn_v.weight
+create_tensor: loading tensor blk.2.ssm_f_a.weight
+create_tensor: loading tensor blk.2.ssm_f_b.weight
+create_tensor: loading tensor blk.2.ssm_beta.weight
+create_tensor: loading tensor blk.2.ssm_a
+create_tensor: loading tensor blk.2.ssm_dt.bias
+create_tensor: loading tensor blk.2.ssm_g.weight
+create_tensor: loading tensor blk.2.ssm_norm.weight
+create_tensor: loading tensor blk.2.attn_output.weight
+create_tensor: loading tensor blk.2.ffn_gate_inp.weight
+create_tensor: loading tensor blk.2.exp_probs_b.bias
+create_tensor: loading tensor blk.2.ffn_gate_exps.weight
+create_tensor: loading tensor blk.2.ffn_down_exps.weight
+create_tensor: loading tensor blk.2.ffn_up_exps.weight
+create_tensor: loading tensor blk.2.ffn_routed_down.weight
+create_tensor: loading tensor blk.2.ffn_routed_up.weight
+create_tensor: loading tensor blk.2.ffn_routed_norm.weight
+create_tensor: loading tensor blk.2.ffn_gate_shexp.weight
+create_tensor: loading tensor blk.2.ffn_down_shexp.weight
+create_tensor: loading tensor blk.2.ffn_up_shexp.weight
+create_tensor: loading tensor blk.3.attn_norm.weight
+create_tensor: loading tensor blk.3.ffn_norm.weight
+create_tensor: loading tensor blk.3.attn_res_score.weight
+create_tensor: loading tensor blk.3.ffn_res_score.weight
+create_tensor: loading tensor blk.3.attn_q_a_norm.weight
+create_tensor: loading tensor blk.3.attn_kv_a_norm.weight
+create_tensor: loading tensor blk.3.attn_q_a.weight
+create_tensor: loading tensor blk.3.attn_q_b.weight
+create_tensor: loading tensor blk.3.attn_kv_a_mqa.weight
+create_tensor: loading tensor blk.3.attn_k_b.weight
+create_tensor: loading tensor blk.3.attn_v_b.weight
+create_tensor: loading tensor blk.3.attn_gate.weight
+create_tensor: loading tensor blk.3.attn_output.weight
+create_tensor: loading tensor blk.3.ffn_gate_inp.weight
+create_tensor: loading tensor blk.3.exp_probs_b.bias
+create_tensor: loading tensor blk.3.ffn_gate_exps.weight
+create_tensor: loading tensor blk.3.ffn_down_exps.weight
+create_tensor: loading tensor blk.3.ffn_up_exps.weight
+create_tensor: loading tensor blk.3.ffn_routed_down.weight
+create_tensor: loading tensor blk.3.ffn_routed_up.weight
+create_tensor: loading tensor blk.3.ffn_routed_norm.weight
+create_tensor: loading tensor blk.3.ffn_gate_shexp.weight
+create_tensor: loading tensor blk.3.ffn_down_shexp.weight
+create_tensor: loading tensor blk.3.ffn_up_shexp.weight
+create_tensor: loading tensor blk.4.attn_norm.weight
+create_tensor: loading tensor blk.4.ffn_norm.weight
+create_tensor: loading tensor blk.4.attn_res_score.weight
+create_tensor: loading tensor blk.4.ffn_res_score.weight
+create_tensor: loading tensor blk.4.ssm_conv1d_q.weight
+create_tensor: loading tensor blk.4.ssm_conv1d_k.weight
+create_tensor: loading tensor blk.4.ssm_conv1d_v.weight
+create_tensor: loading tensor blk.4.attn_q.weight
+create_tensor: loading tensor blk.4.attn_k.weight
+create_tensor: loading tensor blk.4.attn_v.weight
+create_tensor: loading tensor blk.4.ssm_f_a.weight
+create_tensor: loading tensor blk.4.ssm_f_b.weight
+create_tensor: loading tensor blk.4.ssm_beta.weight
+create_tensor: loading tensor blk.4.ssm_a
+create_tensor: loading tensor blk.4.ssm_dt.bias
+create_tensor: loading tensor blk.4.ssm_g.weight
+create_tensor: loading tensor blk.4.ssm_norm.weight
+create_tensor: loading tensor blk.4.attn_output.weight
+create_tensor: loading tensor blk.4.ffn_gate_inp.weight
+create_tensor: loading tensor blk.4.exp_probs_b.bias
+create_tensor: loading tensor blk.4.ffn_gate_exps.weight
+create_tensor: loading tensor blk.4.ffn_down_exps.weight
+create_tensor: loading tensor blk.4.ffn_up_exps.weight
+create_tensor: loading tensor blk.4.ffn_routed_down.weight
+create_tensor: loading tensor blk.4.ffn_routed_up.weight
+create_tensor: loading tensor blk.4.ffn_routed_norm.weight
+create_tensor: loading tensor blk.4.ffn_gate_shexp.weight
+create_tensor: loading tensor blk.4.ffn_down_shexp.weight
+create_tensor: loading tensor blk.4.ffn_up_shexp.weight
+create_tensor: loading tensor blk.5.attn_norm.weight
+create_tensor: loading tensor blk.5.ffn_norm.weight
+create_tensor: loading tensor blk.5.attn_res_score.weight
+create_tensor: loading tensor blk.5.ffn_res_score.weight
+create_tensor: loading tensor blk.5.ssm_conv1d_q.weight
+create_tensor: loading tensor blk.5.ssm_conv1d_k.weight
+create_tensor: loading tensor blk.5.ssm_conv1d_v.weight
+create_tensor: loading tensor blk.5.attn_q.weight
+create_tensor: loading tensor blk.5.attn_k.weight
+create_tensor: loading tensor blk.5.attn_v.weight
+create_tensor: loading tensor blk.5.ssm_f_a.weight
+create_tensor: loading tensor blk.5.ssm_f_b.weight
+create_tensor: loading tensor blk.5.ssm_beta.weight
+create_tensor: loading tensor blk.5.ssm_a
+create_tensor: loading tensor blk.5.ssm_dt.bias
+create_tensor: loading tensor blk.5.ssm_g.weight
+create_tensor: loading tensor blk.5.ssm_norm.weight
+create_tensor: loading tensor blk.5.attn_output.weight
+create_tensor: loading tensor blk.5.ffn_gate_inp.weight
+create_tensor: loading tensor blk.5.exp_probs_b.bias
+create_tensor: loading tensor blk.5.ffn_gate_exps.weight
+create_tensor: loading tensor blk.5.ffn_down_exps.weight
+create_tensor: loading tensor blk.5.ffn_up_exps.weight
+create_tensor: loading tensor blk.5.ffn_routed_down.weight
+create_tensor: loading tensor blk.5.ffn_routed_up.weight
+create_tensor: loading tensor blk.5.ffn_routed_norm.weight
+create_tensor: loading tensor blk.5.ffn_gate_shexp.weight
+create_tensor: loading tensor blk.5.ffn_down_shexp.weight
+create_tensor: loading tensor blk.5.ffn_up_shexp.weight
+create_tensor: loading tensor blk.6.attn_norm.weight
+create_tensor: loading tensor blk.6.ffn_norm.weight
+create_tensor: loading tensor blk.6.attn_res_score.weight
+create_tensor: loading tensor blk.6.ffn_res_score.weight
+create_tensor: loading tensor blk.6.ssm_conv1d_q.weight
+create_tensor: loading tensor blk.6.ssm_conv1d_k.weight
+create_tensor: loading tensor blk.6.ssm_conv1d_v.weight
+create_tensor: loading tensor blk.6.attn_q.weight
+create_tensor: loading tensor blk.6.attn_k.weight
+create_tensor: loading tensor blk.6.attn_v.weight
+create_tensor: loading tensor blk.6.ssm_f_a.weight
+create_tensor: loading tensor blk.6.ssm_f_b.weight
+create_tensor: loading tensor blk.6.ssm_beta.weight
+create_tensor: loading tensor blk.6.ssm_a
+create_tensor: loading tensor blk.6.ssm_dt.bias
+create_tensor: loading tensor blk.6.ssm_g.weight
+create_tensor: loading tensor blk.6.ssm_norm.weight
+create_tensor: loading tensor blk.6.attn_output.weight
+create_tensor: loading tensor blk.6.ffn_gate_inp.weight
+create_tensor: loading tensor blk.6.exp_probs_b.bias
+create_tensor: loading tensor blk.6.ffn_gate_exps.weight
+create_tensor: loading tensor blk.6.ffn_down_exps.weight
+create_tensor: loading tensor blk.6.ffn_up_exps.weight
+create_tensor: loading tensor blk.6.ffn_routed_down.weight
+create_tensor: loading tensor blk.6.ffn_routed_up.weight
+create_tensor: loading tensor blk.6.ffn_routed_norm.weight
+create_tensor: loading tensor blk.6.ffn_gate_shexp.weight
+create_tensor: loading tensor blk.6.ffn_down_shexp.weight
+create_tensor: loading tensor blk.6.ffn_up_shexp.weight
+create_tensor: loading tensor blk.7.attn_norm.weight
+create_tensor: loading tensor blk.7.ffn_norm.weight
+create_tensor: loading tensor blk.7.attn_res_score.weight
+create_tensor: loading tensor blk.7.ffn_res_score.weight
+create_tensor: loading tensor blk.7.attn_q_a_norm.weight
+create_tensor: loading tensor blk.7.attn_kv_a_norm.weight
+create_tensor: loading tensor blk.7.attn_q_a.weight
+create_tensor: loading tensor blk.7.attn_q_b.weight
+create_tensor: loading tensor blk.7.attn_kv_a_mqa.weight
+create_tensor: loading tensor blk.7.attn_k_b.weight
+create_tensor: loading tensor blk.7.attn_v_b.weight
+create_tensor: loading tensor blk.7.attn_gate.weight
+create_tensor: loading tensor blk.7.attn_output.weight
+create_tensor: loading tensor blk.7.ffn_gate_inp.weight
+create_tensor: loading tensor blk.7.exp_probs_b.bias
+create_tensor: loading tensor blk.7.ffn_gate_exps.weight
+create_tensor: loading tensor blk.7.ffn_down_exps.weight
+create_tensor: loading tensor blk.7.ffn_up_exps.weight
+create_tensor: loading tensor blk.7.ffn_routed_down.weight
+create_tensor: loading tensor blk.7.ffn_routed_up.weight
+create_tensor: loading tensor blk.7.ffn_routed_norm.weight
+create_tensor: loading tensor blk.7.ffn_gate_shexp.weight
+create_tensor: loading tensor blk.7.ffn_down_shexp.weight
+create_tensor: loading tensor blk.7.ffn_up_shexp.weight
+done_getting_tensors: tensor 'token_embd.weight' (f16) (and 6 others) cannot be used with preferred buffer type CUDA_Host, using CPU instead
+load_tensors: offloading output layer to GPU
+load_tensors: offloading 7 repeating layers to GPU
+load_tensors: offloaded 9/9 layers to GPU
+load_tensors:   CPU_Mapped model buffer size =   348.78 MiB
+load_tensors:        CUDA0 model buffer size =   390.54 MiB
+............
+llama_context: constructing llama_context
+llama_context: n_seq_max     = 1
+llama_context: n_ctx         = 512
+llama_context: n_ctx_seq     = 512
+llama_context: n_batch       = 512
+llama_context: n_ubatch      = 512
+llama_context: causal_attn   = 1
+llama_context: flash_attn    = auto
+llama_context: kv_unified    = false
+llama_context: freq_base     = 10000.0
+llama_context: freq_scale    = 1
+llama_context: n_rs_seq      = 0
+llama_context: n_outputs_max = 512
+llama_context: n_ctx_seq (512) < n_ctx_train (4096) -- the full capacity of the model will not be utilized
+set_abort_callback: call
+llama_context:  CUDA_Host  output buffer size =     0.62 MiB
+llama_kv_cache: layer   0: filtered
+llama_kv_cache: layer   1: filtered
+llama_kv_cache: layer   2: filtered
+llama_kv_cache: layer   3: dev = CUDA0
+llama_kv_cache: layer   4: filtered
+llama_kv_cache: layer   5: filtered
+llama_kv_cache: layer   6: filtered
+llama_kv_cache: layer   7: dev = CUDA0
+llama_kv_cache:      CUDA0 KV buffer size =     0.31 MiB
+llama_kv_cache: size =    0.31 MiB (   512 cells,   2 layers,  1/1 seqs), K (f16):    0.31 MiB, V (f16):    0.00 MiB
+llama_kv_cache: attn_rot_k = 0, n_embd_head_k_all = 160
+llama_kv_cache: attn_rot_v = 0, n_embd_head_k_all = 0
+llama_memory_recurrent, layer   0: dev = CUDA0
+llama_memory_recurrent, layer   1: dev = CUDA0
+llama_memory_recurrent, layer   2: dev = CUDA0
+llama_memory_recurrent: layer   3: skipped
+llama_memory_recurrent, layer   4: dev = CUDA0
+llama_memory_recurrent, layer   5: dev = CUDA0
+llama_memory_recurrent, layer   6: dev = CUDA0
+llama_memory_recurrent: layer   7: skipped
+llama_memory_recurrent:      CUDA0 RS buffer size =     0.24 MiB
+llama_memory_recurrent: size =    0.24 MiB (     1 cells,   8 layers,  1 seqs  0 rs_seq), R (f32):    0.05 MiB, S (f32):    0.19 MiB
+llama_context: enumerating backends
+llama_context: backend_ptrs.size() = 2
+sched_reserve: reserving ...
+sched_reserve: max_nodes = 81920
+sched_reserve: reserving full memory module
+sched_reserve: worst-case: n_tokens = 512, n_seqs = 1, n_outputs = 1
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: layer 3 is assigned to device CUDA0 but Flash Attention is assigned to device CPU (usually due to missing support)
+resolve_fused_ops: Flash Attention not supported, set to disabled
+resolve_fused_ops: resolving fused Gated Delta Net support:
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: fused Gated Delta Net (autoregressive) enabled
+graph_reserve: reserving a graph for ubatch with n_tokens =   16, n_seqs =  1, n_outputs =   16
+resolve_fused_ops: fused Gated Delta Net (chunked) enabled
+resolve_fused_ops: resolving fused Lightning Indexer support:
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: Lightning Indexer enabled
+resolve_fused_ops: resolving fused DeepSeek V4 HC support:
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: fused DeepSeek V4 HC pre enabled
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: fused DeepSeek V4 HC comb enabled
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: fused DeepSeek V4 HC post enabled
+graph_reserve: reserving a graph for ubatch with n_tokens =  512, n_seqs =  1, n_outputs =  512
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+graph_reserve: reserving a graph for ubatch with n_tokens =  512, n_seqs =  1, n_outputs =  512
+sched_reserve:      CUDA0 compute buffer size =   324.00 MiB
+sched_reserve:  CUDA_Host compute buffer size =     5.01 MiB
+sched_reserve: graph nodes  = 1224
+sched_reserve: graph splits = 2
+sched_reserve: reserve took 20.27 ms, sched copies = 1
+set_n_threads: n_threads = 8, n_threads_batch = 8
+CUDA Graph id 40 reused
+ggml_backend_cuda_graph_compute: CUDA graph warmup complete
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+CUDA Graph id 40 reused
+llama_perf_context_print:        load time =     245.61 ms
+llama_perf_context_print: prompt eval time =      45.22 ms /     5 tokens (    9.04 ms per token,   110.56 tokens per second)
+llama_perf_context_print:        eval time =     313.79 ms /    48 runs   (    6.54 ms per token,   152.97 tokens per second)
+llama_perf_context_print:       total time =     580.75 ms /    53 tokens
+llama_perf_context_print:    graphs reused =         47
+~llama_context:      CUDA0 compute buffer size is 324.0000 MiB, matches expectation of 324.0000 MiB
+~llama_context:  CUDA_Host compute buffer size is   5.0078 MiB, matches expectation of   5.0078 MiB
+llama_context: constructing llama_context
+llama_context: n_seq_max     = 1
+llama_context: n_ctx         = 512
+llama_context: n_ctx_seq     = 512
+llama_context: n_batch       = 512
+llama_context: n_ubatch      = 512
+llama_context: causal_attn   = 1
+llama_context: flash_attn    = auto
+llama_context: kv_unified    = false
+llama_context: freq_base     = 10000.0
+llama_context: freq_scale    = 1
+llama_context: n_rs_seq      = 0
+llama_context: n_outputs_max = 512
+llama_context: n_ctx_seq (512) < n_ctx_train (4096) -- the full capacity of the model will not be utilized
+set_abort_callback: call
+llama_context:  CUDA_Host  output buffer size =     0.62 MiB
+llama_kv_cache: layer   0: filtered
+llama_kv_cache: layer   1: filtered
+llama_kv_cache: layer   2: filtered
+llama_kv_cache: layer   3: dev = CUDA0
+llama_kv_cache: layer   4: filtered
+llama_kv_cache: layer   5: filtered
+llama_kv_cache: layer   6: filtered
+llama_kv_cache: layer   7: dev = CUDA0
+llama_kv_cache:      CUDA0 KV buffer size =     0.31 MiB
+llama_kv_cache: size =    0.31 MiB (   512 cells,   2 layers,  1/1 seqs), K (f16):    0.31 MiB, V (f16):    0.00 MiB
+llama_kv_cache: attn_rot_k = 0, n_embd_head_k_all = 160
+llama_kv_cache: attn_rot_v = 0, n_embd_head_k_all = 0
+llama_memory_recurrent, layer   0: dev = CUDA0
+llama_memory_recurrent, layer   1: dev = CUDA0
+llama_memory_recurrent, layer   2: dev = CUDA0
+llama_memory_recurrent: layer   3: skipped
+llama_memory_recurrent, layer   4: dev = CUDA0
+llama_memory_recurrent, layer   5: dev = CUDA0
+llama_memory_recurrent, layer   6: dev = CUDA0
+llama_memory_recurrent: layer   7: skipped
+llama_memory_recurrent:      CUDA0 RS buffer size =     0.24 MiB
+llama_memory_recurrent: size =    0.24 MiB (     1 cells,   8 layers,  1 seqs  0 rs_seq), R (f32):    0.05 MiB, S (f32):    0.19 MiB
+llama_context: enumerating backends
+llama_context: backend_ptrs.size() = 2
+sched_reserve: reserving ...
+sched_reserve: max_nodes = 81920
+sched_reserve: reserving full memory module
+sched_reserve: worst-case: n_tokens = 512, n_seqs = 1, n_outputs = 1
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: layer 3 is assigned to device CUDA0 but Flash Attention is assigned to device CPU (usually due to missing support)
+resolve_fused_ops: Flash Attention not supported, set to disabled
+resolve_fused_ops: resolving fused Gated Delta Net support:
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: fused Gated Delta Net (autoregressive) enabled
+graph_reserve: reserving a graph for ubatch with n_tokens =   16, n_seqs =  1, n_outputs =   16
+resolve_fused_ops: fused Gated Delta Net (chunked) enabled
+resolve_fused_ops: resolving fused Lightning Indexer support:
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: Lightning Indexer enabled
+resolve_fused_ops: resolving fused DeepSeek V4 HC support:
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: fused DeepSeek V4 HC pre enabled
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: fused DeepSeek V4 HC comb enabled
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: fused DeepSeek V4 HC post enabled
+graph_reserve: reserving a graph for ubatch with n_tokens =  512, n_seqs =  1, n_outputs =  512
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+graph_reserve: reserving a graph for ubatch with n_tokens =  512, n_seqs =  1, n_outputs =  512
+sched_reserve:      CUDA0 compute buffer size =   324.00 MiB
+sched_reserve:  CUDA_Host compute buffer size =     5.01 MiB
+sched_reserve: graph nodes  = 1224
+sched_reserve: graph splits = 2
+sched_reserve: reserve took 20.17 ms, sched copies = 1
+set_n_threads: n_threads = 8, n_threads_batch = 8
+CUDA Graph id 80 reused
+ggml_backend_cuda_graph_compute: CUDA graph warmup complete
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+CUDA Graph id 80 reused
+llama_perf_context_print:        load time =     612.46 ms
+llama_perf_context_print: prompt eval time =       7.43 ms /     5 tokens (    1.49 ms per token,   673.13 tokens per second)
+llama_perf_context_print:        eval time =     275.40 ms /    48 runs   (    5.74 ms per token,   174.29 tokens per second)
+llama_perf_context_print:       total time =     909.39 ms /    53 tokens
+llama_perf_context_print:    graphs reused =         47
+~llama_context:      CUDA0 compute buffer size is 324.0000 MiB, matches expectation of 324.0000 MiB
+~llama_context:  CUDA_Host compute buffer size is   5.0078 MiB, matches expectation of   5.0078 MiB
+llama_context: constructing llama_context
+llama_context: n_seq_max     = 1
+llama_context: n_ctx         = 512
+llama_context: n_ctx_seq     = 512
+llama_context: n_batch       = 512
+llama_context: n_ubatch      = 512
+llama_context: causal_attn   = 1
+llama_context: flash_attn    = auto
+llama_context: kv_unified    = false
+llama_context: freq_base     = 10000.0
+llama_context: freq_scale    = 1
+llama_context: n_rs_seq      = 0
+llama_context: n_outputs_max = 512
+llama_context: n_ctx_seq (512) < n_ctx_train (4096) -- the full capacity of the model will not be utilized
+set_abort_callback: call
+llama_context:  CUDA_Host  output buffer size =     0.62 MiB
+llama_kv_cache: layer   0: filtered
+llama_kv_cache: layer   1: filtered
+llama_kv_cache: layer   2: filtered
+llama_kv_cache: layer   3: dev = CUDA0
+llama_kv_cache: layer   4: filtered
+llama_kv_cache: layer   5: filtered
+llama_kv_cache: layer   6: filtered
+llama_kv_cache: layer   7: dev = CUDA0
+llama_kv_cache:      CUDA0 KV buffer size =     0.31 MiB
+llama_kv_cache: size =    0.31 MiB (   512 cells,   2 layers,  1/1 seqs), K (f16):    0.31 MiB, V (f16):    0.00 MiB
+llama_kv_cache: attn_rot_k = 0, n_embd_head_k_all = 160
+llama_kv_cache: attn_rot_v = 0, n_embd_head_k_all = 0
+llama_memory_recurrent, layer   0: dev = CUDA0
+llama_memory_recurrent, layer   1: dev = CUDA0
+llama_memory_recurrent, layer   2: dev = CUDA0
+llama_memory_recurrent: layer   3: skipped
+llama_memory_recurrent, layer   4: dev = CUDA0
+llama_memory_recurrent, layer   5: dev = CUDA0
+llama_memory_recurrent, layer   6: dev = CUDA0
+llama_memory_recurrent: layer   7: skipped
+llama_memory_recurrent:      CUDA0 RS buffer size =     0.24 MiB
+llama_memory_recurrent: size =    0.24 MiB (     1 cells,   8 layers,  1 seqs  0 rs_seq), R (f32):    0.05 MiB, S (f32):    0.19 MiB
+llama_context: enumerating backends
+llama_context: backend_ptrs.size() = 2
+sched_reserve: reserving ...
+sched_reserve: max_nodes = 81920
+sched_reserve: reserving full memory module
+sched_reserve: worst-case: n_tokens = 512, n_seqs = 1, n_outputs = 1
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: layer 3 is assigned to device CUDA0 but Flash Attention is assigned to device CPU (usually due to missing support)
+resolve_fused_ops: Flash Attention not supported, set to disabled
+resolve_fused_ops: resolving fused Gated Delta Net support:
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: fused Gated Delta Net (autoregressive) enabled
+graph_reserve: reserving a graph for ubatch with n_tokens =   16, n_seqs =  1, n_outputs =   16
+resolve_fused_ops: fused Gated Delta Net (chunked) enabled
+resolve_fused_ops: resolving fused Lightning Indexer support:
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: Lightning Indexer enabled
+resolve_fused_ops: resolving fused DeepSeek V4 HC support:
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: fused DeepSeek V4 HC pre enabled
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: fused DeepSeek V4 HC comb enabled
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: fused DeepSeek V4 HC post enabled
+graph_reserve: reserving a graph for ubatch with n_tokens =  512, n_seqs =  1, n_outputs =  512
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+graph_reserve: reserving a graph for ubatch with n_tokens =  512, n_seqs =  1, n_outputs =  512
+sched_reserve:      CUDA0 compute buffer size =   324.00 MiB
+sched_reserve:  CUDA_Host compute buffer size =     5.01 MiB
+sched_reserve: graph nodes  = 1224
+sched_reserve: graph splits = 2
+sched_reserve: reserve took 21.40 ms, sched copies = 1
+set_n_threads: n_threads = 8, n_threads_batch = 8
+CUDA Graph id 120 reused
+ggml_backend_cuda_graph_compute: CUDA graph warmup complete
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+CUDA Graph id 120 reused
+llama_perf_context_print:        load time =     942.50 ms
+llama_perf_context_print: prompt eval time =       7.50 ms /     5 tokens (    1.50 ms per token,   666.40 tokens per second)
+llama_perf_context_print:        eval time =     275.37 ms /    48 runs   (    5.74 ms per token,   174.31 tokens per second)
+llama_perf_context_print:       total time =    1239.19 ms /    53 tokens
+llama_perf_context_print:    graphs reused =         47
+~llama_context:      CUDA0 compute buffer size is 324.0000 MiB, matches expectation of 324.0000 MiB
+~llama_context:  CUDA_Host compute buffer size is   5.0078 MiB, matches expectation of   5.0078 MiB
+llama_context: constructing llama_context
+llama_context: n_seq_max     = 1
+llama_context: n_ctx         = 512
+llama_context: n_ctx_seq     = 512
+llama_context: n_batch       = 512
+llama_context: n_ubatch      = 512
+llama_context: causal_attn   = 1
+llama_context: flash_attn    = auto
+llama_context: kv_unified    = false
+llama_context: freq_base     = 10000.0
+llama_context: freq_scale    = 1
+llama_context: n_rs_seq      = 0
+llama_context: n_outputs_max = 512
+llama_context: n_ctx_seq (512) < n_ctx_train (4096) -- the full capacity of the model will not be utilized
+set_abort_callback: call
+llama_context:  CUDA_Host  output buffer size =     0.62 MiB
+llama_kv_cache: layer   0: filtered
+llama_kv_cache: layer   1: filtered
+llama_kv_cache: layer   2: filtered
+llama_kv_cache: layer   3: dev = CUDA0
+llama_kv_cache: layer   4: filtered
+llama_kv_cache: layer   5: filtered
+llama_kv_cache: layer   6: filtered
+llama_kv_cache: layer   7: dev = CUDA0
+llama_kv_cache:      CUDA0 KV buffer size =     0.31 MiB
+llama_kv_cache: size =    0.31 MiB (   512 cells,   2 layers,  1/1 seqs), K (f16):    0.31 MiB, V (f16):    0.00 MiB
+llama_kv_cache: attn_rot_k = 0, n_embd_head_k_all = 160
+llama_kv_cache: attn_rot_v = 0, n_embd_head_k_all = 0
+llama_memory_recurrent, layer   0: dev = CUDA0
+llama_memory_recurrent, layer   1: dev = CUDA0
+llama_memory_recurrent, layer   2: dev = CUDA0
+llama_memory_recurrent: layer   3: skipped
+llama_memory_recurrent, layer   4: dev = CUDA0
+llama_memory_recurrent, layer   5: dev = CUDA0
+llama_memory_recurrent, layer   6: dev = CUDA0
+llama_memory_recurrent: layer   7: skipped
+llama_memory_recurrent:      CUDA0 RS buffer size =     0.24 MiB
+llama_memory_recurrent: size =    0.24 MiB (     1 cells,   8 layers,  1 seqs  0 rs_seq), R (f32):    0.05 MiB, S (f32):    0.19 MiB
+llama_context: enumerating backends
+llama_context: backend_ptrs.size() = 2
+sched_reserve: reserving ...
+sched_reserve: max_nodes = 81920
+sched_reserve: reserving full memory module
+sched_reserve: worst-case: n_tokens = 512, n_seqs = 1, n_outputs = 1
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: layer 3 is assigned to device CUDA0 but Flash Attention is assigned to device CPU (usually due to missing support)
+resolve_fused_ops: Flash Attention not supported, set to disabled
+resolve_fused_ops: resolving fused Gated Delta Net support:
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: fused Gated Delta Net (autoregressive) enabled
+graph_reserve: reserving a graph for ubatch with n_tokens =   16, n_seqs =  1, n_outputs =   16
+resolve_fused_ops: fused Gated Delta Net (chunked) enabled
+resolve_fused_ops: resolving fused Lightning Indexer support:
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: Lightning Indexer enabled
+resolve_fused_ops: resolving fused DeepSeek V4 HC support:
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: fused DeepSeek V4 HC pre enabled
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: fused DeepSeek V4 HC comb enabled
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: fused DeepSeek V4 HC post enabled
+graph_reserve: reserving a graph for ubatch with n_tokens =  512, n_seqs =  1, n_outputs =  512
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+graph_reserve: reserving a graph for ubatch with n_tokens =  512, n_seqs =  1, n_outputs =  512
+sched_reserve:      CUDA0 compute buffer size =   324.00 MiB
+sched_reserve:  CUDA_Host compute buffer size =     5.01 MiB
+sched_reserve: graph nodes  = 1224
+sched_reserve: graph splits = 2
+sched_reserve: reserve took 9.50 ms, sched copies = 1
+set_n_threads: n_threads = 8, n_threads_batch = 8
+CUDA Graph id 160 reused
+ggml_backend_cuda_graph_compute: CUDA graph warmup complete
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+CUDA Graph id 160 reused
+llama_perf_context_print:        load time =    1258.59 ms
+llama_perf_context_print: prompt eval time =       7.55 ms /     5 tokens (    1.51 ms per token,   661.81 tokens per second)
+llama_perf_context_print:        eval time =     277.42 ms /    48 runs   (    5.78 ms per token,   173.02 tokens per second)
+llama_perf_context_print:       total time =    1571.54 ms /    53 tokens
+llama_perf_context_print:    graphs reused =         47
+~llama_context:      CUDA0 compute buffer size is 324.0000 MiB, matches expectation of 324.0000 MiB
+~llama_context:  CUDA_Host compute buffer size is   5.0078 MiB, matches expectation of   5.0078 MiB
+llama_context: constructing llama_context
+llama_context: n_seq_max     = 1
+llama_context: n_ctx         = 512
+llama_context: n_ctx_seq     = 512
+llama_context: n_batch       = 512
+llama_context: n_ubatch      = 512
+llama_context: causal_attn   = 1
+llama_context: flash_attn    = auto
+llama_context: kv_unified    = false
+llama_context: freq_base     = 10000.0
+llama_context: freq_scale    = 1
+llama_context: n_rs_seq      = 0
+llama_context: n_outputs_max = 512
+llama_context: n_ctx_seq (512) < n_ctx_train (4096) -- the full capacity of the model will not be utilized
+set_abort_callback: call
+llama_context:  CUDA_Host  output buffer size =     0.62 MiB
+llama_kv_cache: layer   0: filtered
+llama_kv_cache: layer   1: filtered
+llama_kv_cache: layer   2: filtered
+llama_kv_cache: layer   3: dev = CUDA0
+llama_kv_cache: layer   4: filtered
+llama_kv_cache: layer   5: filtered
+llama_kv_cache: layer   6: filtered
+llama_kv_cache: layer   7: dev = CUDA0
+llama_kv_cache:      CUDA0 KV buffer size =     0.31 MiB
+llama_kv_cache: size =    0.31 MiB (   512 cells,   2 layers,  1/1 seqs), K (f16):    0.31 MiB, V (f16):    0.00 MiB
+llama_kv_cache: attn_rot_k = 0, n_embd_head_k_all = 160
+llama_kv_cache: attn_rot_v = 0, n_embd_head_k_all = 0
+llama_memory_recurrent, layer   0: dev = CUDA0
+llama_memory_recurrent, layer   1: dev = CUDA0
+llama_memory_recurrent, layer   2: dev = CUDA0
+llama_memory_recurrent: layer   3: skipped
+llama_memory_recurrent, layer   4: dev = CUDA0
+llama_memory_recurrent, layer   5: dev = CUDA0
+llama_memory_recurrent, layer   6: dev = CUDA0
+llama_memory_recurrent: layer   7: skipped
+llama_memory_recurrent:      CUDA0 RS buffer size =     0.24 MiB
+llama_memory_recurrent: size =    0.24 MiB (     1 cells,   8 layers,  1 seqs  0 rs_seq), R (f32):    0.05 MiB, S (f32):    0.19 MiB
+llama_context: enumerating backends
+llama_context: backend_ptrs.size() = 2
+sched_reserve: reserving ...
+sched_reserve: max_nodes = 81920
+sched_reserve: reserving full memory module
+sched_reserve: worst-case: n_tokens = 512, n_seqs = 1, n_outputs = 1
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: layer 3 is assigned to device CUDA0 but Flash Attention is assigned to device CPU (usually due to missing support)
+resolve_fused_ops: Flash Attention not supported, set to disabled
+resolve_fused_ops: resolving fused Gated Delta Net support:
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: fused Gated Delta Net (autoregressive) enabled
+graph_reserve: reserving a graph for ubatch with n_tokens =   16, n_seqs =  1, n_outputs =   16
+resolve_fused_ops: fused Gated Delta Net (chunked) enabled
+resolve_fused_ops: resolving fused Lightning Indexer support:
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: Lightning Indexer enabled
+resolve_fused_ops: resolving fused DeepSeek V4 HC support:
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: fused DeepSeek V4 HC pre enabled
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: fused DeepSeek V4 HC comb enabled
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: fused DeepSeek V4 HC post enabled
+graph_reserve: reserving a graph for ubatch with n_tokens =  512, n_seqs =  1, n_outputs =  512
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+graph_reserve: reserving a graph for ubatch with n_tokens =  512, n_seqs =  1, n_outputs =  512
+sched_reserve:      CUDA0 compute buffer size =   324.00 MiB
+sched_reserve:  CUDA_Host compute buffer size =     5.01 MiB
+sched_reserve: graph nodes  = 1224
+sched_reserve: graph splits = 2
+sched_reserve: reserve took 23.43 ms, sched copies = 1
+set_n_threads: n_threads = 8, n_threads_batch = 8
+CUDA Graph id 200 reused
+ggml_backend_cuda_graph_compute: CUDA graph warmup complete
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+CUDA Graph id 200 reused
+llama_perf_context_print:        load time =    1604.96 ms
+llama_perf_context_print: prompt eval time =       7.59 ms /     5 tokens (    1.52 ms per token,   658.67 tokens per second)
+llama_perf_context_print:        eval time =     277.11 ms /    48 runs   (    5.77 ms per token,   173.22 tokens per second)
+llama_perf_context_print:       total time =    1903.73 ms /    53 tokens
+llama_perf_context_print:    graphs reused =         47
+~llama_context:      CUDA0 compute buffer size is 324.0000 MiB, matches expectation of 324.0000 MiB
+~llama_context:  CUDA_Host compute buffer size is   5.0078 MiB, matches expectation of   5.0078 MiB
+llama_context: constructing llama_context
+llama_context: n_seq_max     = 1
+llama_context: n_ctx         = 512
+llama_context: n_ctx_seq     = 512
+llama_context: n_batch       = 512
+llama_context: n_ubatch      = 512
+llama_context: causal_attn   = 1
+llama_context: flash_attn    = auto
+llama_context: kv_unified    = false
+llama_context: freq_base     = 10000.0
+llama_context: freq_scale    = 1
+llama_context: n_rs_seq      = 0
+llama_context: n_outputs_max = 512
+llama_context: n_ctx_seq (512) < n_ctx_train (4096) -- the full capacity of the model will not be utilized
+set_abort_callback: call
+llama_context:  CUDA_Host  output buffer size =     0.62 MiB
+llama_kv_cache: layer   0: filtered
+llama_kv_cache: layer   1: filtered
+llama_kv_cache: layer   2: filtered
+llama_kv_cache: layer   3: dev = CUDA0
+llama_kv_cache: layer   4: filtered
+llama_kv_cache: layer   5: filtered
+llama_kv_cache: layer   6: filtered
+llama_kv_cache: layer   7: dev = CUDA0
+llama_kv_cache:      CUDA0 KV buffer size =     0.31 MiB
+llama_kv_cache: size =    0.31 MiB (   512 cells,   2 layers,  1/1 seqs), K (f16):    0.31 MiB, V (f16):    0.00 MiB
+llama_kv_cache: attn_rot_k = 0, n_embd_head_k_all = 160
+llama_kv_cache: attn_rot_v = 0, n_embd_head_k_all = 0
+llama_memory_recurrent, layer   0: dev = CUDA0
+llama_memory_recurrent, layer   1: dev = CUDA0
+llama_memory_recurrent, layer   2: dev = CUDA0
+llama_memory_recurrent: layer   3: skipped
+llama_memory_recurrent, layer   4: dev = CUDA0
+llama_memory_recurrent, layer   5: dev = CUDA0
+llama_memory_recurrent, layer   6: dev = CUDA0
+llama_memory_recurrent: layer   7: skipped
+llama_memory_recurrent:      CUDA0 RS buffer size =     0.24 MiB
+llama_memory_recurrent: size =    0.24 MiB (     1 cells,   8 layers,  1 seqs  0 rs_seq), R (f32):    0.05 MiB, S (f32):    0.19 MiB
+llama_context: enumerating backends
+llama_context: backend_ptrs.size() = 2
+sched_reserve: reserving ...
+sched_reserve: max_nodes = 81920
+sched_reserve: reserving full memory module
+sched_reserve: worst-case: n_tokens = 512, n_seqs = 1, n_outputs = 1
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: layer 3 is assigned to device CUDA0 but Flash Attention is assigned to device CPU (usually due to missing support)
+resolve_fused_ops: Flash Attention not supported, set to disabled
+resolve_fused_ops: resolving fused Gated Delta Net support:
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: fused Gated Delta Net (autoregressive) enabled
+graph_reserve: reserving a graph for ubatch with n_tokens =   16, n_seqs =  1, n_outputs =   16
+resolve_fused_ops: fused Gated Delta Net (chunked) enabled
+resolve_fused_ops: resolving fused Lightning Indexer support:
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: Lightning Indexer enabled
+resolve_fused_ops: resolving fused DeepSeek V4 HC support:
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: fused DeepSeek V4 HC pre enabled
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: fused DeepSeek V4 HC comb enabled
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+resolve_fused_ops: fused DeepSeek V4 HC post enabled
+graph_reserve: reserving a graph for ubatch with n_tokens =  512, n_seqs =  1, n_outputs =  512
+graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+graph_reserve: reserving a graph for ubatch with n_tokens =  512, n_seqs =  1, n_outputs =  512
+sched_reserve:      CUDA0 compute buffer size =   324.00 MiB
+sched_reserve:  CUDA_Host compute buffer size =     5.01 MiB
+sched_reserve: graph nodes  = 1224
+sched_reserve: graph splits = 2
+sched_reserve: reserve took 8.45 ms, sched copies = 1
+set_n_threads: n_threads = 8, n_threads_batch = 8
+CUDA Graph id 240 reused
+ggml_backend_cuda_graph_compute: CUDA graph warmup complete
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+CUDA Graph id 240 reused
+llama_perf_context_print:        load time =    1922.16 ms
+llama_perf_context_print: prompt eval time =       7.49 ms /     5 tokens (    1.50 ms per token,   667.38 tokens per second)
+llama_perf_context_print:        eval time =     276.95 ms /    48 runs   (    5.77 ms per token,   173.32 tokens per second)
+llama_perf_context_print:       total time =    2220.93 ms /    53 tokens
+llama_perf_context_print:    graphs reused =         47
+~llama_context:      CUDA0 compute buffer size is 324.0000 MiB, matches expectation of 324.0000 MiB
+~llama_context:  CUDA_Host compute buffer size is   5.0078 MiB, matches expectation of   5.0078 MiB

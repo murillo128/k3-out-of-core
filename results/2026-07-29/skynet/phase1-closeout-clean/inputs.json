@@ -1,0 +1,220 @@
+{
+  "approved_contract": {
+    "execution_base": "511e87fc98cca8069fc57526fbb04b10789967eb",
+    "execution_branch": "codex/phase1-closeout-clean",
+    "execution_profile": "STANDARD",
+    "issue": "https://github.com/murillo128/k3-out-of-core/issues/7",
+    "llama_cpp_commit": "84245db4c790af22135f34992689edcc11877003"
+  },
+  "captured_at_utc": "2026-07-29T14:01:40.368153+00:00",
+  "llama_cpp": {
+    "clean": true,
+    "commit": "84245db4c790af22135f34992689edcc11877003",
+    "repository": "https://github.com/murillo128/llama.cpp.git"
+  },
+  "project": {
+    "branch": "codex/phase1-closeout-clean",
+    "captured_head": "511e87fc98cca8069fc57526fbb04b10789967eb",
+    "execution_base_is_ancestor_of_head": true,
+    "execution_base_is_ancestor_of_origin_main": true,
+    "repository": "git@github.com:murillo128/k3-out-of-core.git"
+  },
+  "published_gguf_artifacts": {
+    "Kimi-K3-0.40B-F16.gguf": {
+      "path": "models/gguf/Kimi-K3-0.40B-F16.gguf",
+      "sha256": "411c197b503e6fb9199a2b22115e32dc4e2cad803fb112b24967737b3bab26c7",
+      "size_bytes": 784318432
+    },
+    "Kimi-K3-0.40B-MXFP4.gguf": {
+      "path": "models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+      "sha256": "0379a1cc623e09eb3fbd1dfcb18737bc8c971dbfe5bf5bc3e08da8b5379ec169",
+      "size_bytes": 751976576
+    }
+  },
+  "schema_version": 1,
+  "source_models": {
+    "f16_reference": {
+      "files": [
+        {
+          "path": ".gitattributes",
+          "sha256": "11ad7efa24975ee4b0c3c3a38ed18737f0658a5f75a0a96787b576a78a023361",
+          "size_bytes": 1519
+        },
+        {
+          "path": "README.md",
+          "sha256": "f70ae1c3e8852fc879d4d46f41285597fbf4f02b7313cf08d68f1d30cd9fe283",
+          "size_bytes": 4000
+        },
+        {
+          "path": "added_tokens.json",
+          "sha256": "27373c2f39a52c87e674caf7e9604ec6756c68c5f8d5f140657299048b6ab8ba",
+          "size_bytes": 200
+        },
+        {
+          "path": "config.json",
+          "sha256": "503bd5d1589ea8fd21b82528eb2ab130a593b171e1b61bbb75a90014581599d2",
+          "size_bytes": 4004
+        },
+        {
+          "path": "configuration_kimi_k3.py",
+          "sha256": "9529e2928b81296729031d88319e760407c57864a48258718fe6e298de8fb538",
+          "size_bytes": 11215
+        },
+        {
+          "path": "encoding_k3.py",
+          "sha256": "cfd5085fb299e4fa7d21983353e3a551af89d00eb0763c601c01cf85f0a62fb4",
+          "size_bytes": 22846
+        },
+        {
+          "path": "kimi_k3_processor.py",
+          "sha256": "d4c3493a4abdacfec4a83fc9c41ee84526536a579f5e5cb294ded23c23c92ee2",
+          "size_bytes": 7609
+        },
+        {
+          "path": "kimi_k3_vision_processing.py",
+          "sha256": "3f6f49b0b3f2a2060e07b0a29cbe3f799d2a0b6c7a0e00ca187a39e59d45051c",
+          "size_bytes": 6743
+        },
+        {
+          "path": "media_utils.py",
+          "sha256": "2570264e126eb70b0e2fce9de6013ca367ae9cff38981f9b62a40b92af7bd1a5",
+          "size_bytes": 13593
+        },
+        {
+          "path": "model.safetensors",
+          "sha256": "a39b7ed2769ee2f9891a19cef6f1ca7986a3f295c09759b5b3135285e5d7a678",
+          "size_bytes": 1582323896
+        },
+        {
+          "path": "modeling_kimi_k3.py",
+          "sha256": "d227b23b052a2cc75153f2f2b8769721217545a4e4c15d4fdd13694f2086c600",
+          "size_bytes": 52097
+        },
+        {
+          "path": "modeling_kimi_k3_linear.py",
+          "sha256": "f0fb2bb798c12288fc2dbca1a7706a3b4d5c3f8adeeed426d58efbc140ec0145",
+          "size_bytes": 54294
+        },
+        {
+          "path": "modeling_kimi_linear.py",
+          "sha256": "aff251472b914906c8ed7ac65784bc7f6995f59c659492a86c1870ea774babb5",
+          "size_bytes": 39
+        },
+        {
+          "path": "tiktoken.model",
+          "sha256": "b6c497a7469b33ced9c38afb1ad6e47f03f5e5dc05f15930799210ec050c5103",
+          "size_bytes": 2795286
+        },
+        {
+          "path": "tokenization_kimi.py",
+          "sha256": "30491a8c2e279db9447bcb00ce1140769f4ab8f43f30e8186e269e95d8357e95",
+          "size_bytes": 15807
+        },
+        {
+          "path": "tokenizer_config.json",
+          "sha256": "c1d4979a0f0b79524730d5ac68ed9c00cece49c54bb5a87db89ba40e385d6e2e",
+          "size_bytes": 4762
+        },
+        {
+          "path": "tokenizer_config.json.orig",
+          "sha256": "7cc6cb0733ca35285ef13700dc5a2066eb0441ef0142f318b288d201dc68190e",
+          "size_bytes": 4962
+        }
+      ],
+      "path": "models/hf/Kimi-K3-0.40B",
+      "repo_id": "inference-optimization/Kimi-K3-0.40B",
+      "revision": "d853649387ffe8f48ce0198a29ac1a44205031f7"
+    },
+    "mxfp4_source": {
+      "files": [
+        {
+          "path": ".gitattributes",
+          "sha256": "11ad7efa24975ee4b0c3c3a38ed18737f0658a5f75a0a96787b576a78a023361",
+          "size_bytes": 1519
+        },
+        {
+          "path": "README.md",
+          "sha256": "922209bdcee30667a96340538ee883e85f02fef7620be9745219307227936f19",
+          "size_bytes": 2927
+        },
+        {
+          "path": "added_tokens.json",
+          "sha256": "27373c2f39a52c87e674caf7e9604ec6756c68c5f8d5f140657299048b6ab8ba",
+          "size_bytes": 200
+        },
+        {
+          "path": "config.json",
+          "sha256": "eff8b420cad574121be032fef19dd5ce454547af8ee8a4533b17ba465e228ccf",
+          "size_bytes": 11100
+        },
+        {
+          "path": "configuration_kimi_k3.py",
+          "sha256": "9529e2928b81296729031d88319e760407c57864a48258718fe6e298de8fb538",
+          "size_bytes": 11215
+        },
+        {
+          "path": "encoding_k3.py",
+          "sha256": "cfd5085fb299e4fa7d21983353e3a551af89d00eb0763c601c01cf85f0a62fb4",
+          "size_bytes": 22846
+        },
+        {
+          "path": "generation_config.json",
+          "sha256": "4bb3284f4783909d877dd6de05b1257594179676ff40ff1e605a629696185700",
+          "size_bytes": 222
+        },
+        {
+          "path": "model.safetensors",
+          "sha256": "7bff469f7e8c221eececb339bd1749f66c1077933752cfd51b86cf1aae34811f",
+          "size_bytes": 1461416568
+        },
+        {
+          "path": "modeling_kimi_k3.py",
+          "sha256": "d227b23b052a2cc75153f2f2b8769721217545a4e4c15d4fdd13694f2086c600",
+          "size_bytes": 52097
+        },
+        {
+          "path": "modeling_kimi_k3_linear.py",
+          "sha256": "f0fb2bb798c12288fc2dbca1a7706a3b4d5c3f8adeeed426d58efbc140ec0145",
+          "size_bytes": 54294
+        },
+        {
+          "path": "modeling_kimi_linear.py",
+          "sha256": "aff251472b914906c8ed7ac65784bc7f6995f59c659492a86c1870ea774babb5",
+          "size_bytes": 39
+        },
+        {
+          "path": "recipe.yaml",
+          "sha256": "a06a9e0a7c3b205d617718970d65f59a3e4615e0e5e2796136a863bd87870672",
+          "size_bytes": 1070
+        },
+        {
+          "path": "tiktoken.model",
+          "sha256": "b6c497a7469b33ced9c38afb1ad6e47f03f5e5dc05f15930799210ec050c5103",
+          "size_bytes": 2795286
+        },
+        {
+          "path": "tokenization_kimi.py",
+          "sha256": "30491a8c2e279db9447bcb00ce1140769f4ab8f43f30e8186e269e95d8357e95",
+          "size_bytes": 15807
+        },
+        {
+          "path": "tokenizer_config.json",
+          "sha256": "2631442fae4dcae68d550eaaf294cba2212434e97625089a34ff3ccb57325327",
+          "size_bytes": 4763
+        },
+        {
+          "path": "tokenizer_config.json.orig",
+          "sha256": "1681882619ee4db641470ab918b2ed55b444c90235cf07a95ede505be10647c1",
+          "size_bytes": 4963
+        }
+      ],
+      "path": "models/hf/Kimi-K3-0.40B-MXFP4",
+      "repo_id": "inference-optimization/Kimi-K3-0.40B-MXFP4",
+      "revision": "ef3902c318fb8e13c3507e26055656e687fdfe38"
+    }
+  },
+  "validation": {
+    "mandatory_errors": [],
+    "status": "pass"
+  }
+}
