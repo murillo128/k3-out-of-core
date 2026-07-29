@@ -8,6 +8,7 @@ from unittest import mock
 
 
 SCRIPT = Path(__file__).resolve().parents[2] / "scripts/phase1/capture_environment.py"
+ROOT = Path(__file__).resolve().parents[2]
 SPEC = importlib.util.spec_from_file_location("capture_environment", SCRIPT)
 assert SPEC and SPEC.loader
 capture_environment = importlib.util.module_from_spec(SPEC)
@@ -46,6 +47,71 @@ class CaptureEnvironmentTests(unittest.TestCase):
             path.write_text("GGML_CUDA:BOOL=ON\n", encoding="utf-8")
             with self.assertRaisesRegex(RuntimeError, "mandatory CMake settings missing"):
                 capture_environment.cmake_cache(path)
+
+    def test_source_revision_record_is_mandatory_and_exact(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "REVISIONS.txt"
+            with self.assertRaisesRegex(RuntimeError, "mandatory source revision record missing"):
+                capture_environment.source_revisions(path)
+            path.write_text("repo not-a-sha\n", encoding="utf-8")
+            with self.assertRaisesRegex(RuntimeError, "malformed source revision"):
+                capture_environment.source_revisions(path)
+            path.write_text(
+                "inference-optimization/Kimi-K3-0.40B " + "0" * 40 + "\n"
+                "inference-optimization/Kimi-K3-0.40B-MXFP4 " + "1" * 40 + "\n",
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(RuntimeError, "source revisions mismatch"):
+                capture_environment.source_revisions(path)
+
+    def test_wrong_host_fails_before_capture(self) -> None:
+        with self.assertRaisesRegex(RuntimeError, "hostname mismatch"):
+            capture_environment.capture(ROOT, observed_hostname="wrong-host")
+
+    def test_wrong_gpu_fails_before_artifact_capture(self) -> None:
+        def wrong_gpu(argv, **kwargs):
+            if argv[0] == "nvidia-smi":
+                return {"status": "observed", "value": "Wrong GPU, 1, driver", "reason": None}
+            return capture_environment.run(argv, **kwargs)
+
+        with self.assertRaisesRegex(RuntimeError, "GPU name mismatch"):
+            capture_environment.capture(ROOT, command_runner=wrong_gpu)
+
+    def test_optional_file_unavailable_is_explicit(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            result = capture_environment.optional_file(Path(directory) / "missing")
+        self.assertEqual(result["status"], "unavailable")
+        self.assertIsNone(result["value"])
+        self.assertTrue(result["reason"])
+
+    def test_real_capture_has_required_schema(self) -> None:
+        environment, inputs = capture_environment.capture(ROOT)
+        for build in ("cpu", "cuda"):
+            values = environment["builds"][build]
+            for key in (
+                "CMAKE_BUILD_TYPE",
+                "CMAKE_GENERATOR",
+                "CMAKE_C_COMPILER",
+                "CMAKE_CXX_COMPILER",
+                "CMAKE_C_FLAGS",
+                "CMAKE_CXX_FLAGS",
+                "GGML_CPU",
+                "GGML_CUDA",
+            ):
+                self.assertIn(key, values)
+        self.assertIn("CMAKE_CUDA_COMPILER", environment["builds"]["cuda"])
+        self.assertIn("CMAKE_CUDA_FLAGS", environment["builds"]["cuda"])
+        for tool in ("cc", "cxx", "cmake", "nvidia_smi", "lsblk", "findmnt", "lscpu", "python", "hf"):
+            self.assertTrue(environment["toolchain"][tool]["path"])
+        storage = environment["storage"]
+        self.assertEqual(storage["root_disk"]["tran"], "nvme")
+        self.assertIn(storage["firmware_revision"]["status"], ("observed", "unavailable"))
+        for value in storage["pcie_link"].values():
+            self.assertIn(value["status"], ("observed", "unavailable"))
+            if value["status"] == "unavailable":
+                self.assertIsNone(value["value"])
+                self.assertTrue(value["reason"])
+        self.assertEqual(inputs["models"]["source_revisions_record"]["revisions"], capture_environment.EXPECTED["source_revisions"])
 
 
 if __name__ == "__main__":

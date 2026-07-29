@@ -14,8 +14,11 @@
   "models": {
     "published_gguf_revision": "88de02cf8fa37f87eb06daaed370ac9c3411d5ca",
     "source_revisions_record": {
-      "contents": "inference-optimization/Kimi-K3-0.40B d853649387ffe8f48ce0198a29ac1a44205031f7\ninference-optimization/Kimi-K3-0.40B-MXFP4 ef3902c318fb8e13c3507e26055656e687fdfe38",
-      "path": "models/hf/REVISIONS.txt"
+      "path": "models/hf/REVISIONS.txt",
+      "revisions": {
+        "inference-optimization/Kimi-K3-0.40B": "d853649387ffe8f48ce0198a29ac1a44205031f7",
+        "inference-optimization/Kimi-K3-0.40B-MXFP4": "ef3902c318fb8e13c3507e26055656e687fdfe38"
+      }
     }
   },
   "repositories": {
@@ -25,7 +28,7 @@
     },
     "project": {
       "approved_base_commit": "fe6512a8fbfb6a7824672d4a86f7b7bf35141e5d",
-      "capture_commit": "fe6512a8fbfb6a7824672d4a86f7b7bf35141e5d"
+      "capture_commit": "034f883d4eec0077752ebb0dc05640f5df4ba5b7"
     }
   },
   "schema_version": 1

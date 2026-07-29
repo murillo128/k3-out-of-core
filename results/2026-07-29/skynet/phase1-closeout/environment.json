@@ -3,17 +3,45 @@
     "cpu": {
       "CMAKE_BUILD_TYPE": "Release",
       "CMAKE_CXX_COMPILER": "/usr/bin/c++",
-      "CMAKE_CXX_COMPILER-ADVANCED": "1",
       "CMAKE_CXX_COMPILER_AR": "/usr/bin/gcc-ar-13",
-      "CMAKE_CXX_COMPILER_AR-ADVANCED": "1",
       "CMAKE_CXX_COMPILER_RANLIB": "/usr/bin/gcc-ranlib-13",
-      "CMAKE_CXX_COMPILER_RANLIB-ADVANCED": "1",
+      "CMAKE_CXX_FLAGS": "",
+      "CMAKE_CXX_FLAGS_DEBUG": "-g",
+      "CMAKE_CXX_FLAGS_MINSIZEREL": "-Os -DNDEBUG",
+      "CMAKE_CXX_FLAGS_RELEASE": "-O3 -DNDEBUG",
+      "CMAKE_CXX_FLAGS_RELWITHDEBINFO": "-O2 -g -DNDEBUG",
       "CMAKE_C_COMPILER": "/usr/bin/cc",
-      "CMAKE_C_COMPILER-ADVANCED": "1",
       "CMAKE_C_COMPILER_AR": "/usr/bin/gcc-ar-13",
-      "CMAKE_C_COMPILER_AR-ADVANCED": "1",
       "CMAKE_C_COMPILER_RANLIB": "/usr/bin/gcc-ranlib-13",
-      "CMAKE_C_COMPILER_RANLIB-ADVANCED": "1",
+      "CMAKE_C_FLAGS": "",
+      "CMAKE_C_FLAGS_DEBUG": "-g",
+      "CMAKE_C_FLAGS_MINSIZEREL": "-Os -DNDEBUG",
+      "CMAKE_C_FLAGS_RELEASE": "-O3 -DNDEBUG",
+      "CMAKE_C_FLAGS_RELWITHDEBINFO": "-O2 -g -DNDEBUG",
+      "CMAKE_GENERATOR": "Unix Makefiles",
+      "GGML_ACCELERATE": "ON",
+      "GGML_ALL_WARNINGS_3RD_PARTY": "OFF",
+      "GGML_AMX_BF16": "OFF",
+      "GGML_AMX_INT8": "OFF",
+      "GGML_AMX_TILE": "OFF",
+      "GGML_AVAILABLE_BACKENDS": "ggml-cpu",
+      "GGML_AVX": "OFF",
+      "GGML_AVX2": "OFF",
+      "GGML_AVX512": "OFF",
+      "GGML_AVX512_BF16": "OFF",
+      "GGML_AVX512_VBMI": "OFF",
+      "GGML_AVX512_VNNI": "OFF",
+      "GGML_AVX_VNNI": "OFF",
+      "GGML_BACKEND_DIR": "",
+      "GGML_BACKEND_DL": "OFF",
+      "GGML_BIN_INSTALL_DIR": "bin",
+      "GGML_BLAS": "OFF",
+      "GGML_BLAS_VENDOR": "Generic",
+      "GGML_BMI2": "OFF",
+      "GGML_BUILD_EXAMPLES": "OFF",
+      "GGML_BUILD_TESTS": "OFF",
+      "GGML_CCACHE": "ON",
+      "GGML_CCACHE_FOUND": "GGML_CCACHE_FOUND-NOTFOUND",
       "GGML_CPU": "ON",
       "GGML_CPU_ALL_VARIANTS": "OFF",
       "GGML_CPU_ARM_ARCH": "",
@@ -32,22 +60,134 @@
       "GGML_CUDA_NCCL": "ON",
       "GGML_CUDA_NO_PEER_COPY": "OFF",
       "GGML_CUDA_NO_VMM": "OFF",
-      "GGML_CUDA_PEER_MAX_BATCH_SIZE": "128"
+      "GGML_CUDA_PEER_MAX_BATCH_SIZE": "128",
+      "GGML_ET": "OFF",
+      "GGML_ET_SYSEMU": "OFF",
+      "GGML_F16C": "OFF",
+      "GGML_FMA": "OFF",
+      "GGML_GPROF": "OFF",
+      "GGML_HEXAGON": "OFF",
+      "GGML_HIP": "OFF",
+      "GGML_HIP_EXPORT_METRICS": "OFF",
+      "GGML_HIP_GRAPHS": "ON",
+      "GGML_HIP_MMQ_MFMA": "ON",
+      "GGML_HIP_NO_VMM": "ON",
+      "GGML_HIP_RCCL": "OFF",
+      "GGML_INCLUDE_INSTALL_DIR": "include",
+      "GGML_LASX": "ON",
+      "GGML_LIB_INSTALL_DIR": "lib",
+      "GGML_LLAMAFILE": "ON",
+      "GGML_LSX": "ON",
+      "GGML_LTO": "OFF",
+      "GGML_METAL": "OFF",
+      "GGML_METAL_EMBED_LIBRARY": "OFF",
+      "GGML_METAL_MACOSX_VERSION_MIN": "",
+      "GGML_METAL_NDEBUG": "OFF",
+      "GGML_METAL_SHADER_DEBUG": "OFF",
+      "GGML_METAL_STD": "",
+      "GGML_MUSA": "OFF",
+      "GGML_MUSA_GRAPHS": "OFF",
+      "GGML_MUSA_MUDNN_COPY": "OFF",
+      "GGML_NATIVE": "ON",
+      "GGML_OPENCL": "OFF",
+      "GGML_OPENCL_EMBED_KERNELS": "ON",
+      "GGML_OPENCL_PROFILING": "OFF",
+      "GGML_OPENCL_TARGET_VERSION": "300",
+      "GGML_OPENCL_USE_ADRENO_KERNELS": "ON",
+      "GGML_OPENMP": "ON",
+      "GGML_OPENMP_ENABLED": "ON",
+      "GGML_OPENVINO": "OFF",
+      "GGML_RPC": "OFF",
+      "GGML_RVV": "ON",
+      "GGML_RV_ZFH": "ON",
+      "GGML_RV_ZICBOP": "ON",
+      "GGML_RV_ZIHINTPAUSE": "ON",
+      "GGML_RV_ZVFBFWMA": "OFF",
+      "GGML_RV_ZVFH": "ON",
+      "GGML_SANITIZE_ADDRESS": "OFF",
+      "GGML_SANITIZE_THREAD": "OFF",
+      "GGML_SANITIZE_UNDEFINED": "OFF",
+      "GGML_SCCACHE_FOUND": "GGML_SCCACHE_FOUND-NOTFOUND",
+      "GGML_SCHED_MAX_COPIES": "4",
+      "GGML_SCHED_NO_REALLOC": "OFF",
+      "GGML_SSE42": "OFF",
+      "GGML_STATIC": "OFF",
+      "GGML_SYCL": "OFF",
+      "GGML_SYCL_DEVICE_ARCH": "",
+      "GGML_SYCL_DNN": "ON",
+      "GGML_SYCL_F16": "OFF",
+      "GGML_SYCL_GRAPH": "ON",
+      "GGML_SYCL_HOST_MEM_FALLBACK": "ON",
+      "GGML_SYCL_SUPPORT_LEVEL_ZERO_API": "ON",
+      "GGML_SYCL_TARGET": "INTEL",
+      "GGML_VIRTGPU": "OFF",
+      "GGML_VIRTGPU_BACKEND": "OFF",
+      "GGML_VULKAN": "OFF",
+      "GGML_VULKAN_CHECK_RESULTS": "OFF",
+      "GGML_VULKAN_DEBUG": "OFF",
+      "GGML_VULKAN_MEMORY_DEBUG": "OFF",
+      "GGML_VULKAN_RUN_TESTS": "OFF",
+      "GGML_VULKAN_SHADERS_GEN_TOOLCHAIN": "",
+      "GGML_VULKAN_SHADER_DEBUG_INFO": "OFF",
+      "GGML_VULKAN_VALIDATE": "OFF",
+      "GGML_VXE": "ON",
+      "GGML_WEBGPU": "OFF",
+      "GGML_WEBGPU_CPU_PROFILE": "OFF",
+      "GGML_WEBGPU_DEBUG": "OFF",
+      "GGML_WEBGPU_GPU_PROFILE": "OFF",
+      "GGML_WEBGPU_JSPI": "ON",
+      "GGML_XTHEADVECTOR": "OFF",
+      "GGML_ZDNN": "OFF",
+      "GGML_ZENDNN": "OFF"
     },
     "cuda": {
       "CMAKE_BUILD_TYPE": "Release",
+      "CMAKE_CUDA_COMPILER": "/usr/bin/nvcc",
+      "CMAKE_CUDA_FLAGS": "",
+      "CMAKE_CUDA_FLAGS_DEBUG": "-g",
+      "CMAKE_CUDA_FLAGS_MINSIZEREL": "-O1 -DNDEBUG",
+      "CMAKE_CUDA_FLAGS_RELEASE": "-O3 -DNDEBUG",
+      "CMAKE_CUDA_FLAGS_RELWITHDEBINFO": "-O2 -g -DNDEBUG",
       "CMAKE_CXX_COMPILER": "/usr/bin/c++",
-      "CMAKE_CXX_COMPILER-ADVANCED": "1",
       "CMAKE_CXX_COMPILER_AR": "/usr/bin/gcc-ar-13",
-      "CMAKE_CXX_COMPILER_AR-ADVANCED": "1",
       "CMAKE_CXX_COMPILER_RANLIB": "/usr/bin/gcc-ranlib-13",
-      "CMAKE_CXX_COMPILER_RANLIB-ADVANCED": "1",
+      "CMAKE_CXX_FLAGS": "",
+      "CMAKE_CXX_FLAGS_DEBUG": "-g",
+      "CMAKE_CXX_FLAGS_MINSIZEREL": "-Os -DNDEBUG",
+      "CMAKE_CXX_FLAGS_RELEASE": "-O3 -DNDEBUG",
+      "CMAKE_CXX_FLAGS_RELWITHDEBINFO": "-O2 -g -DNDEBUG",
       "CMAKE_C_COMPILER": "/usr/bin/cc",
-      "CMAKE_C_COMPILER-ADVANCED": "1",
       "CMAKE_C_COMPILER_AR": "/usr/bin/gcc-ar-13",
-      "CMAKE_C_COMPILER_AR-ADVANCED": "1",
       "CMAKE_C_COMPILER_RANLIB": "/usr/bin/gcc-ranlib-13",
-      "CMAKE_C_COMPILER_RANLIB-ADVANCED": "1",
+      "CMAKE_C_FLAGS": "",
+      "CMAKE_C_FLAGS_DEBUG": "-g",
+      "CMAKE_C_FLAGS_MINSIZEREL": "-Os -DNDEBUG",
+      "CMAKE_C_FLAGS_RELEASE": "-O3 -DNDEBUG",
+      "CMAKE_C_FLAGS_RELWITHDEBINFO": "-O2 -g -DNDEBUG",
+      "CMAKE_GENERATOR": "Unix Makefiles",
+      "GGML_ACCELERATE": "ON",
+      "GGML_ALL_WARNINGS_3RD_PARTY": "OFF",
+      "GGML_AMX_BF16": "OFF",
+      "GGML_AMX_INT8": "OFF",
+      "GGML_AMX_TILE": "OFF",
+      "GGML_AVAILABLE_BACKENDS": "ggml-cpu;ggml-cuda",
+      "GGML_AVX": "OFF",
+      "GGML_AVX2": "OFF",
+      "GGML_AVX512": "OFF",
+      "GGML_AVX512_BF16": "OFF",
+      "GGML_AVX512_VBMI": "OFF",
+      "GGML_AVX512_VNNI": "OFF",
+      "GGML_AVX_VNNI": "OFF",
+      "GGML_BACKEND_DIR": "",
+      "GGML_BACKEND_DL": "OFF",
+      "GGML_BIN_INSTALL_DIR": "bin",
+      "GGML_BLAS": "OFF",
+      "GGML_BLAS_VENDOR": "Generic",
+      "GGML_BMI2": "OFF",
+      "GGML_BUILD_EXAMPLES": "OFF",
+      "GGML_BUILD_TESTS": "OFF",
+      "GGML_CCACHE": "ON",
+      "GGML_CCACHE_FOUND": "GGML_CCACHE_FOUND-NOTFOUND",
       "GGML_CPU": "ON",
       "GGML_CPU_ALL_VARIANTS": "OFF",
       "GGML_CPU_ARM_ARCH": "",
@@ -66,7 +206,85 @@
       "GGML_CUDA_NCCL": "ON",
       "GGML_CUDA_NO_PEER_COPY": "OFF",
       "GGML_CUDA_NO_VMM": "OFF",
-      "GGML_CUDA_PEER_MAX_BATCH_SIZE": "128"
+      "GGML_CUDA_PEER_MAX_BATCH_SIZE": "128",
+      "GGML_ET": "OFF",
+      "GGML_ET_SYSEMU": "OFF",
+      "GGML_F16C": "OFF",
+      "GGML_FMA": "OFF",
+      "GGML_GPROF": "OFF",
+      "GGML_HEXAGON": "OFF",
+      "GGML_HIP": "OFF",
+      "GGML_HIP_EXPORT_METRICS": "OFF",
+      "GGML_HIP_GRAPHS": "ON",
+      "GGML_HIP_MMQ_MFMA": "ON",
+      "GGML_HIP_NO_VMM": "ON",
+      "GGML_HIP_RCCL": "OFF",
+      "GGML_INCLUDE_INSTALL_DIR": "include",
+      "GGML_LASX": "ON",
+      "GGML_LIB_INSTALL_DIR": "lib",
+      "GGML_LLAMAFILE": "ON",
+      "GGML_LSX": "ON",
+      "GGML_LTO": "OFF",
+      "GGML_METAL": "OFF",
+      "GGML_METAL_EMBED_LIBRARY": "OFF",
+      "GGML_METAL_MACOSX_VERSION_MIN": "",
+      "GGML_METAL_NDEBUG": "OFF",
+      "GGML_METAL_SHADER_DEBUG": "OFF",
+      "GGML_METAL_STD": "",
+      "GGML_MUSA": "OFF",
+      "GGML_MUSA_GRAPHS": "OFF",
+      "GGML_MUSA_MUDNN_COPY": "OFF",
+      "GGML_NATIVE": "ON",
+      "GGML_OPENCL": "OFF",
+      "GGML_OPENCL_EMBED_KERNELS": "ON",
+      "GGML_OPENCL_PROFILING": "OFF",
+      "GGML_OPENCL_TARGET_VERSION": "300",
+      "GGML_OPENCL_USE_ADRENO_KERNELS": "ON",
+      "GGML_OPENMP": "ON",
+      "GGML_OPENMP_ENABLED": "ON",
+      "GGML_OPENVINO": "OFF",
+      "GGML_RPC": "OFF",
+      "GGML_RVV": "ON",
+      "GGML_RV_ZFH": "ON",
+      "GGML_RV_ZICBOP": "ON",
+      "GGML_RV_ZIHINTPAUSE": "ON",
+      "GGML_RV_ZVFBFWMA": "OFF",
+      "GGML_RV_ZVFH": "ON",
+      "GGML_SANITIZE_ADDRESS": "OFF",
+      "GGML_SANITIZE_THREAD": "OFF",
+      "GGML_SANITIZE_UNDEFINED": "OFF",
+      "GGML_SCCACHE_FOUND": "GGML_SCCACHE_FOUND-NOTFOUND",
+      "GGML_SCHED_MAX_COPIES": "4",
+      "GGML_SCHED_NO_REALLOC": "OFF",
+      "GGML_SSE42": "OFF",
+      "GGML_STATIC": "OFF",
+      "GGML_SYCL": "OFF",
+      "GGML_SYCL_DEVICE_ARCH": "",
+      "GGML_SYCL_DNN": "ON",
+      "GGML_SYCL_F16": "OFF",
+      "GGML_SYCL_GRAPH": "ON",
+      "GGML_SYCL_HOST_MEM_FALLBACK": "ON",
+      "GGML_SYCL_SUPPORT_LEVEL_ZERO_API": "ON",
+      "GGML_SYCL_TARGET": "INTEL",
+      "GGML_VIRTGPU": "OFF",
+      "GGML_VIRTGPU_BACKEND": "OFF",
+      "GGML_VULKAN": "OFF",
+      "GGML_VULKAN_CHECK_RESULTS": "OFF",
+      "GGML_VULKAN_DEBUG": "OFF",
+      "GGML_VULKAN_MEMORY_DEBUG": "OFF",
+      "GGML_VULKAN_RUN_TESTS": "OFF",
+      "GGML_VULKAN_SHADERS_GEN_TOOLCHAIN": "",
+      "GGML_VULKAN_SHADER_DEBUG_INFO": "OFF",
+      "GGML_VULKAN_VALIDATE": "OFF",
+      "GGML_VXE": "ON",
+      "GGML_WEBGPU": "OFF",
+      "GGML_WEBGPU_CPU_PROFILE": "OFF",
+      "GGML_WEBGPU_DEBUG": "OFF",
+      "GGML_WEBGPU_GPU_PROFILE": "OFF",
+      "GGML_WEBGPU_JSPI": "ON",
+      "GGML_XTHEADVECTOR": "OFF",
+      "GGML_ZDNN": "OFF",
+      "GGML_ZENDNN": "OFF"
     }
   },
   "capture": {
@@ -133,7 +351,7 @@
           "field": "Stepping:"
         },
         {
-          "data": "66%",
+          "data": "62%",
           "field": "CPU(s) scaling MHz:"
         },
         {
@@ -271,284 +489,7 @@
   },
   "schema_version": 1,
   "storage": {
-    "block_devices": {
-      "blockdevices": [
-        {
-          "fstype": "squashfs",
-          "model": null,
-          "mountpoints": [
-            "/snap/bare/5"
-          ],
-          "name": "loop0",
-          "size": 4096,
-          "type": "loop"
-        },
-        {
-          "fstype": "squashfs",
-          "model": null,
-          "mountpoints": [
-            "/snap/core22/2133"
-          ],
-          "name": "loop1",
-          "size": 77512704,
-          "type": "loop"
-        },
-        {
-          "fstype": "squashfs",
-          "model": null,
-          "mountpoints": [
-            "/snap/core22/2139"
-          ],
-          "name": "loop2",
-          "size": 77500416,
-          "type": "loop"
-        },
-        {
-          "fstype": "squashfs",
-          "model": null,
-          "mountpoints": [
-            "/snap/core24/1499"
-          ],
-          "name": "loop3",
-          "size": 70078464,
-          "type": "loop"
-        },
-        {
-          "fstype": "squashfs",
-          "model": null,
-          "mountpoints": [
-            "/snap/core24/1643"
-          ],
-          "name": "loop4",
-          "size": 70049792,
-          "type": "loop"
-        },
-        {
-          "fstype": "squashfs",
-          "model": null,
-          "mountpoints": [
-            "/snap/firefox/7967"
-          ],
-          "name": "loop5",
-          "size": 267333632,
-          "type": "loop"
-        },
-        {
-          "fstype": "squashfs",
-          "model": null,
-          "mountpoints": [
-            "/snap/firefox/8664"
-          ],
-          "name": "loop6",
-          "size": 270102528,
-          "type": "loop"
-        },
-        {
-          "fstype": "squashfs",
-          "model": null,
-          "mountpoints": [
-            "/snap/firmware-updater/210"
-          ],
-          "name": "loop7",
-          "size": 19386368,
-          "type": "loop"
-        },
-        {
-          "fstype": "squashfs",
-          "model": null,
-          "mountpoints": [
-            "/snap/firmware-updater/212"
-          ],
-          "name": "loop8",
-          "size": 19386368,
-          "type": "loop"
-        },
-        {
-          "fstype": "squashfs",
-          "model": null,
-          "mountpoints": [
-            "/snap/gnome-42-2204/141"
-          ],
-          "name": "loop9",
-          "size": 521121792,
-          "type": "loop"
-        },
-        {
-          "fstype": "squashfs",
-          "model": null,
-          "mountpoints": [
-            "/snap/gnome-42-2204/226"
-          ],
-          "name": "loop10",
-          "size": 541278208,
-          "type": "loop"
-        },
-        {
-          "fstype": "squashfs",
-          "model": null,
-          "mountpoints": [
-            "/snap/gnome-46-2404/153"
-          ],
-          "name": "loop11",
-          "size": 635518976,
-          "type": "loop"
-        },
-        {
-          "fstype": "squashfs",
-          "model": null,
-          "mountpoints": [
-            "/snap/gtk-common-themes/1535"
-          ],
-          "name": "loop12",
-          "size": 96141312,
-          "type": "loop"
-        },
-        {
-          "fstype": "squashfs",
-          "model": null,
-          "mountpoints": [
-            "/snap/mesa-2404/1165"
-          ],
-          "name": "loop13",
-          "size": 414167040,
-          "type": "loop"
-        },
-        {
-          "fstype": "squashfs",
-          "model": null,
-          "mountpoints": [
-            "/snap/snap-store/1216"
-          ],
-          "name": "loop14",
-          "size": 12791808,
-          "type": "loop"
-        },
-        {
-          "fstype": "squashfs",
-          "model": null,
-          "mountpoints": [
-            "/snap/snap-store/1270"
-          ],
-          "name": "loop15",
-          "size": 11354112,
-          "type": "loop"
-        },
-        {
-          "fstype": "squashfs",
-          "model": null,
-          "mountpoints": [
-            "/snap/snapd/25202"
-          ],
-          "name": "loop16",
-          "size": 53235712,
-          "type": "loop"
-        },
-        {
-          "fstype": "squashfs",
-          "model": null,
-          "mountpoints": [
-            "/snap/snapd/27591"
-          ],
-          "name": "loop17",
-          "size": 52535296,
-          "type": "loop"
-        },
-        {
-          "fstype": "squashfs",
-          "model": null,
-          "mountpoints": [
-            "/snap/snapd-desktop-integration/178"
-          ],
-          "name": "loop18",
-          "size": 512000,
-          "type": "loop"
-        },
-        {
-          "fstype": "squashfs",
-          "model": null,
-          "mountpoints": [
-            "/snap/snapd-desktop-integration/315"
-          ],
-          "name": "loop19",
-          "size": 589824,
-          "type": "loop"
-        },
-        {
-          "children": [
-            {
-              "fstype": "vfat",
-              "model": null,
-              "mountpoints": [
-                "/boot/efi"
-              ],
-              "name": "nvme1n1p1",
-              "size": 104857600,
-              "type": "part"
-            },
-            {
-              "fstype": null,
-              "model": null,
-              "mountpoints": [
-                null
-              ],
-              "name": "nvme1n1p2",
-              "size": 16777216,
-              "type": "part"
-            },
-            {
-              "fstype": "ntfs",
-              "model": null,
-              "mountpoints": [
-                null
-              ],
-              "name": "nvme1n1p3",
-              "size": 474446093312,
-              "type": "part"
-            },
-            {
-              "fstype": "ntfs",
-              "model": null,
-              "mountpoints": [
-                null
-              ],
-              "name": "nvme1n1p4",
-              "size": 532676608,
-              "type": "part"
-            },
-            {
-              "fstype": "ext4",
-              "model": null,
-              "mountpoints": [
-                "/var/snap/firefox/common/host-hunspell",
-                "/"
-              ],
-              "name": "nvme1n1p5",
-              "size": 525100646400,
-              "type": "part"
-            }
-          ],
-          "fstype": null,
-          "model": "WDC WDS100T2B0C-00PXH0",
-          "mountpoints": [
-            null
-          ],
-          "name": "nvme1n1",
-          "size": 1000204886016,
-          "type": "disk"
-        },
-        {
-          "fstype": null,
-          "model": "QuadraT1A",
-          "mountpoints": [
-            null
-          ],
-          "name": "nvme0n1",
-          "size": 8589934592000,
-          "type": "disk"
-        }
-      ]
-    },
-    "project_filesystem": {
+    "filesystem": {
       "filesystems": [
         {
           "fstype": "ext4",
@@ -557,20 +498,204 @@
           "target": "/"
         }
       ]
+    },
+    "firmware_revision": {
+      "reason": null,
+      "status": "observed",
+      "value": "211210WD"
+    },
+    "pcie_link": {
+      "current_speed": {
+        "reason": null,
+        "status": "observed",
+        "value": "8.0 GT/s PCIe"
+      },
+      "current_width": {
+        "reason": null,
+        "status": "observed",
+        "value": "4"
+      },
+      "max_speed": {
+        "reason": null,
+        "status": "observed",
+        "value": "8.0 GT/s PCIe"
+      },
+      "max_width": {
+        "reason": null,
+        "status": "observed",
+        "value": "4"
+      }
+    },
+    "root_disk": {
+      "children": [
+        {
+          "fstype": "vfat",
+          "model": null,
+          "mountpoints": [
+            "/boot/efi"
+          ],
+          "name": "nvme1n1p1",
+          "path": "/dev/nvme1n1p1",
+          "pkname": "nvme1n1",
+          "rev": null,
+          "serial": null,
+          "size": 104857600,
+          "tran": "nvme",
+          "type": "part"
+        },
+        {
+          "fstype": null,
+          "model": null,
+          "mountpoints": [
+            null
+          ],
+          "name": "nvme1n1p2",
+          "path": "/dev/nvme1n1p2",
+          "pkname": "nvme1n1",
+          "rev": null,
+          "serial": null,
+          "size": 16777216,
+          "tran": "nvme",
+          "type": "part"
+        },
+        {
+          "fstype": "ntfs",
+          "model": null,
+          "mountpoints": [
+            null
+          ],
+          "name": "nvme1n1p3",
+          "path": "/dev/nvme1n1p3",
+          "pkname": "nvme1n1",
+          "rev": null,
+          "serial": null,
+          "size": 474446093312,
+          "tran": "nvme",
+          "type": "part"
+        },
+        {
+          "fstype": "ntfs",
+          "model": null,
+          "mountpoints": [
+            null
+          ],
+          "name": "nvme1n1p4",
+          "path": "/dev/nvme1n1p4",
+          "pkname": "nvme1n1",
+          "rev": null,
+          "serial": null,
+          "size": 532676608,
+          "tran": "nvme",
+          "type": "part"
+        },
+        {
+          "fstype": "ext4",
+          "model": null,
+          "mountpoints": [
+            "/var/snap/firefox/common/host-hunspell",
+            "/"
+          ],
+          "name": "nvme1n1p5",
+          "path": "/dev/nvme1n1p5",
+          "pkname": "nvme1n1",
+          "rev": null,
+          "serial": null,
+          "size": 525100646400,
+          "tran": "nvme",
+          "type": "part"
+        }
+      ],
+      "fstype": null,
+      "model": "WDC WDS100T2B0C-00PXH0",
+      "mountpoints": [
+        null
+      ],
+      "name": "nvme1n1",
+      "path": "/dev/nvme1n1",
+      "pkname": null,
+      "rev": "211210WD",
+      "serial": "2117CR462705",
+      "size": 1000204886016,
+      "tran": "nvme",
+      "type": "disk"
+    },
+    "root_partition": {
+      "fstype": "ext4",
+      "model": null,
+      "mountpoints": [
+        "/var/snap/firefox/common/host-hunspell",
+        "/"
+      ],
+      "name": "nvme1n1p5",
+      "path": "/dev/nvme1n1p5",
+      "pkname": "nvme1n1",
+      "rev": null,
+      "serial": null,
+      "size": 525100646400,
+      "tran": "nvme",
+      "type": "part"
     }
   },
   "toolchain": {
-    "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
-    "cmake": "cmake version 3.28.3",
+    "cc": {
+      "path": "/usr/bin/cc",
+      "reason": null,
+      "status": "observed",
+      "value": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."
+    },
+    "cmake": {
+      "path": "/usr/bin/cmake",
+      "reason": null,
+      "status": "observed",
+      "value": "cmake version 3.28.3\n\nCMake suite maintained and supported by Kitware (kitware.com/cmake)."
+    },
     "cuda_toolkit": {
+      "path": "/usr/bin/nvcc",
       "reason": null,
       "status": "observed",
       "value": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2023 NVIDIA Corporation\nBuilt on Fri_Jan__6_16:45:21_PST_2023\nCuda compilation tools, release 12.0, V12.0.140\nBuild cuda_12.0.r12.0/compiler.32267302_0"
     },
-    "cxx": "c++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "cxx": {
+      "path": "/usr/bin/c++",
+      "reason": null,
+      "status": "observed",
+      "value": "c++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."
+    },
+    "findmnt": {
+      "path": "/usr/bin/findmnt",
+      "reason": null,
+      "status": "observed",
+      "value": "findmnt from util-linux 2.39.3"
+    },
     "hf": {
-      "executable": "/usr/local/src/k3-out-of-core/.venv-k3/bin/hf",
-      "version": "huggingface_hub version: 0.36.2"
+      "path": "/usr/local/src/k3-out-of-core/.venv-k3/bin/hf",
+      "reason": null,
+      "status": "observed",
+      "value": "huggingface_hub version: 0.36.2"
+    },
+    "lsb_release": {
+      "path": "/usr/bin/lsb_release",
+      "reason": null,
+      "status": "observed",
+      "value": ""
+    },
+    "lsblk": {
+      "path": "/usr/bin/lsblk",
+      "reason": null,
+      "status": "observed",
+      "value": "lsblk from util-linux 2.39.3"
+    },
+    "lscpu": {
+      "path": "/usr/bin/lscpu",
+      "reason": null,
+      "status": "observed",
+      "value": "lscpu from util-linux 2.39.3"
+    },
+    "nvidia_smi": {
+      "path": "/usr/bin/nvidia-smi",
+      "reason": null,
+      "status": "observed",
+      "value": "NVIDIA GeForce GTX 1650, 4096, 535.288.01"
     },
     "packages": {
       "huggingface-hub": {
@@ -600,8 +725,10 @@
       }
     },
     "python": {
-      "executable": "/usr/local/src/k3-out-of-core/.venv-k3/bin/python",
-      "version": "3.12.3"
+      "path": "/usr/local/src/k3-out-of-core/.venv-k3/bin/python",
+      "reason": null,
+      "status": "observed",
+      "value": "3.12.3"
     }
   }
 }
