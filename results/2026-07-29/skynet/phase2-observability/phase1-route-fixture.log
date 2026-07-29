@@ -55,7 +55,7 @@ llama_model_loader: - type  f32:   95 tensors
 llama_model_loader: - type  f16:  123 tensors
 print_info: file format = GGUF V3 (latest)
 print_info: file type   = F16
-print_info: file size   = 741.38 MiB (16.00 BPW) 
+print_info: file size   = 741.38 MiB (16.00 BPW)
 init_tokenizer: initializing tokenizer for type 2
 load: 0 unused tokens
 load: control token: 163838 '[UNK]' is not marked as EOG
