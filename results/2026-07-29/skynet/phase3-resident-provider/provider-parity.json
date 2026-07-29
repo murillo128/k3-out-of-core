@@ -1,0 +1,720 @@
+{
+  "captured_at_utc": "2026-07-29T23:01:47.480777+00:00",
+  "cases": [
+    {
+      "artifact": "f16",
+      "backend": "cpu",
+      "checks": {
+        "baseline_disabled_logits_exact": true,
+        "baseline_disabled_routes_exact": true,
+        "disabled_resident_logits_exact": true,
+        "disabled_resident_routes_exact": true,
+        "disabled_structural_zero": true,
+        "expected_generated_ids": true,
+        "expected_prompt_ids": true,
+        "graph_reuse_exact": true,
+        "graph_topology_exact": true,
+        "resident_balanced": true,
+        "resident_no_extra_work": true,
+        "resident_repeat_logits_exact": true,
+        "resident_repeat_routes_exact": true
+      },
+      "generated_ids": [
+        318,
+        57195,
+        11,
+        1459,
+        387,
+        1495,
+        2189,
+        261,
+        56207,
+        1765,
+        413,
+        3700,
+        308,
+        16028,
+        13,
+        15149,
+        40841,
+        554,
+        3143,
+        3307,
+        308,
+        922,
+        1682,
+        12138,
+        3572,
+        4120,
+        1468,
+        276,
+        7519,
+        13,
+        646,
+        56207
+      ],
+      "graphs": {
+        "disabled": {
+          "bindings": 0,
+          "graphs_reused": 30,
+          "inflight_handles": 0,
+          "nodes": 1234,
+          "operation_hash": 7149620324205061169
+        },
+        "resident": {
+          "bindings": 7,
+          "graphs_reused": 30,
+          "inflight_handles": 0,
+          "nodes": 1234,
+          "operation_hash": 7149620324205061169
+        }
+      },
+      "logits_checksums": {
+        "baseline": "a26835cd1ad192a6e2233cca3c5b7cdbd4091edf0e4a7921f32e4c1e7e74af40",
+        "disabled": "a26835cd1ad192a6e2233cca3c5b7cdbd4091edf0e4a7921f32e4c1e7e74af40",
+        "repeat": "a26835cd1ad192a6e2233cca3c5b7cdbd4091edf0e4a7921f32e4c1e7e74af40",
+        "resident": "a26835cd1ad192a6e2233cca3c5b7cdbd4091edf0e4a7921f32e4c1e7e74af40"
+      },
+      "prompt_ids": [
+        18805,
+        308,
+        799,
+        5624,
+        12524
+      ],
+      "provider_stats": {
+        "disabled": {
+          "allocations": 0,
+          "bind_calls": 0,
+          "callbacks": 0,
+          "cancellations": 0,
+          "failures": 0,
+          "handles_acquired": 0,
+          "handles_released": 0,
+          "mode": "disabled",
+          "objects": 0,
+          "prepare_calls": 0,
+          "synchronizations": 0,
+          "tensor_copies": 0
+        },
+        "resident": {
+          "allocations": 0,
+          "bind_calls": 105,
+          "callbacks": 0,
+          "cancellations": 0,
+          "failures": 0,
+          "handles_acquired": 224,
+          "handles_released": 224,
+          "mode": "resident",
+          "objects": 1,
+          "prepare_calls": 32,
+          "synchronizations": 0,
+          "tensor_copies": 0
+        }
+      },
+      "route_checksums": {
+        "baseline": "0fd06909c72d24b2de55903be4ae1c279f0072a355ca64be0704cdf19f483149",
+        "disabled": "a221ce2fa5d368f9a2d2d72e28e96d85e64a320f46c8ddfea96821f6bf2af97e",
+        "repeat": "16ec4c76148b2e96cf3a02e894dbc413024b70a414b955c589e94c3e39608a56",
+        "resident": "364432ebd3854567f65ac365467e922033b16d257d95d258364bc852d750fba1"
+      },
+      "route_record_count": 252,
+      "route_stats": {
+        "baseline": {
+          "copy_bytes": 4032,
+          "failures": 0,
+          "flushes": 1,
+          "graphs_reused": 30,
+          "layers": 224,
+          "records": 252,
+          "synchronizations": 32,
+          "trace_bytes": 19458,
+          "ubatches": 32
+        },
+        "disabled": {
+          "copy_bytes": 4032,
+          "failures": 0,
+          "flushes": 1,
+          "graphs_reused": 30,
+          "layers": 224,
+          "records": 252,
+          "synchronizations": 32,
+          "trace_bytes": 19458,
+          "ubatches": 32
+        },
+        "resident": {
+          "copy_bytes": 4032,
+          "failures": 0,
+          "flushes": 1,
+          "graphs_reused": 30,
+          "layers": 224,
+          "records": 252,
+          "synchronizations": 32,
+          "trace_bytes": 19458,
+          "ubatches": 32
+        }
+      }
+    },
+    {
+      "artifact": "f16",
+      "backend": "cuda",
+      "checks": {
+        "baseline_disabled_logits_exact": true,
+        "baseline_disabled_routes_exact": true,
+        "disabled_resident_logits_exact": true,
+        "disabled_resident_routes_exact": true,
+        "disabled_structural_zero": true,
+        "expected_generated_ids": true,
+        "expected_prompt_ids": true,
+        "graph_reuse_exact": true,
+        "graph_topology_exact": true,
+        "resident_balanced": true,
+        "resident_no_extra_work": true,
+        "resident_repeat_logits_exact": true,
+        "resident_repeat_routes_exact": true
+      },
+      "generated_ids": [
+        318,
+        57195,
+        11,
+        1459,
+        387,
+        1495,
+        2189,
+        261,
+        56207,
+        1765,
+        413,
+        3700,
+        308,
+        16028,
+        13,
+        15149,
+        40841,
+        554,
+        3143,
+        3307,
+        308,
+        922,
+        1682,
+        12138,
+        3572,
+        4120,
+        1468,
+        276,
+        7519,
+        13,
+        646,
+        56207
+      ],
+      "graphs": {
+        "disabled": {
+          "bindings": 0,
+          "graphs_reused": 30,
+          "inflight_handles": 0,
+          "nodes": 1238,
+          "operation_hash": 9407179450071254006
+        },
+        "resident": {
+          "bindings": 7,
+          "graphs_reused": 30,
+          "inflight_handles": 0,
+          "nodes": 1238,
+          "operation_hash": 9407179450071254006
+        }
+      },
+      "logits_checksums": {
+        "baseline": "fb784897dc5f676cc23c1d3325fd23dc7eaecc49924d1c1ddbc3b4c2d5bf7f00",
+        "disabled": "fb784897dc5f676cc23c1d3325fd23dc7eaecc49924d1c1ddbc3b4c2d5bf7f00",
+        "repeat": "fb784897dc5f676cc23c1d3325fd23dc7eaecc49924d1c1ddbc3b4c2d5bf7f00",
+        "resident": "fb784897dc5f676cc23c1d3325fd23dc7eaecc49924d1c1ddbc3b4c2d5bf7f00"
+      },
+      "prompt_ids": [
+        18805,
+        308,
+        799,
+        5624,
+        12524
+      ],
+      "provider_stats": {
+        "disabled": {
+          "allocations": 0,
+          "bind_calls": 0,
+          "callbacks": 0,
+          "cancellations": 0,
+          "failures": 0,
+          "handles_acquired": 0,
+          "handles_released": 0,
+          "mode": "disabled",
+          "objects": 0,
+          "prepare_calls": 0,
+          "synchronizations": 0,
+          "tensor_copies": 0
+        },
+        "resident": {
+          "allocations": 0,
+          "bind_calls": 105,
+          "callbacks": 0,
+          "cancellations": 0,
+          "failures": 0,
+          "handles_acquired": 224,
+          "handles_released": 224,
+          "mode": "resident",
+          "objects": 1,
+          "prepare_calls": 32,
+          "synchronizations": 0,
+          "tensor_copies": 0
+        }
+      },
+      "route_checksums": {
+        "baseline": "8a951653d7358a5234b1b58b36e928953f6ad53abfd5120be462b9b78bde86d8",
+        "disabled": "031da1505a55fdc023d8d96236def5c58f885444f916bea91eab5a2c923a0f14",
+        "repeat": "c465a05a0ba411514d7c6f919c49c4dd1d68aa4f6103b69493564c9edc92ab4c",
+        "resident": "df789d64686be8f0698c5df52d1c867e3327c6aebe85870857c851b1106ad515"
+      },
+      "route_record_count": 252,
+      "route_stats": {
+        "baseline": {
+          "copy_bytes": 4032,
+          "failures": 0,
+          "flushes": 1,
+          "graphs_reused": 30,
+          "layers": 224,
+          "records": 252,
+          "synchronizations": 32,
+          "trace_bytes": 19459,
+          "ubatches": 32
+        },
+        "disabled": {
+          "copy_bytes": 4032,
+          "failures": 0,
+          "flushes": 1,
+          "graphs_reused": 30,
+          "layers": 224,
+          "records": 252,
+          "synchronizations": 32,
+          "trace_bytes": 19459,
+          "ubatches": 32
+        },
+        "resident": {
+          "copy_bytes": 4032,
+          "failures": 0,
+          "flushes": 1,
+          "graphs_reused": 30,
+          "layers": 224,
+          "records": 252,
+          "synchronizations": 32,
+          "trace_bytes": 19459,
+          "ubatches": 32
+        }
+      }
+    },
+    {
+      "artifact": "mxfp4",
+      "backend": "cpu",
+      "checks": {
+        "baseline_disabled_logits_exact": true,
+        "baseline_disabled_routes_exact": true,
+        "disabled_resident_logits_exact": true,
+        "disabled_resident_routes_exact": true,
+        "disabled_structural_zero": true,
+        "expected_generated_ids": true,
+        "expected_prompt_ids": true,
+        "graph_reuse_exact": true,
+        "graph_topology_exact": true,
+        "resident_balanced": true,
+        "resident_no_extra_work": true,
+        "resident_repeat_logits_exact": true,
+        "resident_repeat_routes_exact": true
+      },
+      "generated_ids": [
+        318,
+        57195,
+        11,
+        1459,
+        387,
+        1495,
+        2189,
+        261,
+        56207,
+        1765,
+        413,
+        3700,
+        308,
+        16028,
+        13,
+        15149,
+        40841,
+        554,
+        3143,
+        3307,
+        308,
+        922,
+        1682,
+        12138,
+        3572,
+        4120,
+        1468,
+        276,
+        7519,
+        13,
+        646,
+        56207
+      ],
+      "graphs": {
+        "disabled": {
+          "bindings": 0,
+          "graphs_reused": 30,
+          "inflight_handles": 0,
+          "nodes": 1234,
+          "operation_hash": 7149620324205061169
+        },
+        "resident": {
+          "bindings": 7,
+          "graphs_reused": 30,
+          "inflight_handles": 0,
+          "nodes": 1234,
+          "operation_hash": 7149620324205061169
+        }
+      },
+      "logits_checksums": {
+        "baseline": "c34db8d1b9be037947631f8828a613e2d1377e4262318fc14384f7f289cc6db5",
+        "disabled": "c34db8d1b9be037947631f8828a613e2d1377e4262318fc14384f7f289cc6db5",
+        "repeat": "c34db8d1b9be037947631f8828a613e2d1377e4262318fc14384f7f289cc6db5",
+        "resident": "c34db8d1b9be037947631f8828a613e2d1377e4262318fc14384f7f289cc6db5"
+      },
+      "prompt_ids": [
+        18805,
+        308,
+        799,
+        5624,
+        12524
+      ],
+      "provider_stats": {
+        "disabled": {
+          "allocations": 0,
+          "bind_calls": 0,
+          "callbacks": 0,
+          "cancellations": 0,
+          "failures": 0,
+          "handles_acquired": 0,
+          "handles_released": 0,
+          "mode": "disabled",
+          "objects": 0,
+          "prepare_calls": 0,
+          "synchronizations": 0,
+          "tensor_copies": 0
+        },
+        "resident": {
+          "allocations": 0,
+          "bind_calls": 105,
+          "callbacks": 0,
+          "cancellations": 0,
+          "failures": 0,
+          "handles_acquired": 224,
+          "handles_released": 224,
+          "mode": "resident",
+          "objects": 1,
+          "prepare_calls": 32,
+          "synchronizations": 0,
+          "tensor_copies": 0
+        }
+      },
+      "route_checksums": {
+        "baseline": "7300f24a8823788acf96029411898708565ab85cb25194cf8e1f27902539d6bc",
+        "disabled": "1af41702ff50d123a5d6b1009a7f45d81def896a66c2bb0977539cfa7fdfbf35",
+        "repeat": "2b3fc8cfdea8c5b807c707ef51e02e481006f95a305040b918678716b0f560cb",
+        "resident": "4aaac0b44cf1f93e17be15433f9e6e55abefa5f7481089e7bdd9f2ce86673249"
+      },
+      "route_record_count": 252,
+      "route_stats": {
+        "baseline": {
+          "copy_bytes": 4032,
+          "failures": 0,
+          "flushes": 1,
+          "graphs_reused": 30,
+          "layers": 224,
+          "records": 252,
+          "synchronizations": 32,
+          "trace_bytes": 19462,
+          "ubatches": 32
+        },
+        "disabled": {
+          "copy_bytes": 4032,
+          "failures": 0,
+          "flushes": 1,
+          "graphs_reused": 30,
+          "layers": 224,
+          "records": 252,
+          "synchronizations": 32,
+          "trace_bytes": 19462,
+          "ubatches": 32
+        },
+        "resident": {
+          "copy_bytes": 4032,
+          "failures": 0,
+          "flushes": 1,
+          "graphs_reused": 30,
+          "layers": 224,
+          "records": 252,
+          "synchronizations": 32,
+          "trace_bytes": 19462,
+          "ubatches": 32
+        }
+      }
+    },
+    {
+      "artifact": "mxfp4",
+      "backend": "cuda",
+      "checks": {
+        "baseline_disabled_logits_exact": true,
+        "baseline_disabled_routes_exact": true,
+        "disabled_resident_logits_exact": true,
+        "disabled_resident_routes_exact": true,
+        "disabled_structural_zero": true,
+        "expected_generated_ids": true,
+        "expected_prompt_ids": true,
+        "graph_reuse_exact": true,
+        "graph_topology_exact": true,
+        "resident_balanced": true,
+        "resident_no_extra_work": true,
+        "resident_repeat_logits_exact": true,
+        "resident_repeat_routes_exact": true
+      },
+      "generated_ids": [
+        318,
+        57195,
+        11,
+        1459,
+        387,
+        1495,
+        2189,
+        261,
+        56207,
+        1765,
+        413,
+        3700,
+        308,
+        16028,
+        13,
+        15149,
+        40841,
+        554,
+        3143,
+        3307,
+        308,
+        922,
+        1682,
+        12138,
+        3572,
+        4120,
+        1468,
+        276,
+        7519,
+        13,
+        646,
+        56207
+      ],
+      "graphs": {
+        "disabled": {
+          "bindings": 0,
+          "graphs_reused": 30,
+          "inflight_handles": 0,
+          "nodes": 1238,
+          "operation_hash": 9407179450071254006
+        },
+        "resident": {
+          "bindings": 7,
+          "graphs_reused": 30,
+          "inflight_handles": 0,
+          "nodes": 1238,
+          "operation_hash": 9407179450071254006
+        }
+      },
+      "logits_checksums": {
+        "baseline": "e7f23639f0b1bc2c2ca35c795540674f19b34c56a13fc2eb0674fc296c826b0c",
+        "disabled": "e7f23639f0b1bc2c2ca35c795540674f19b34c56a13fc2eb0674fc296c826b0c",
+        "repeat": "e7f23639f0b1bc2c2ca35c795540674f19b34c56a13fc2eb0674fc296c826b0c",
+        "resident": "e7f23639f0b1bc2c2ca35c795540674f19b34c56a13fc2eb0674fc296c826b0c"
+      },
+      "prompt_ids": [
+        18805,
+        308,
+        799,
+        5624,
+        12524
+      ],
+      "provider_stats": {
+        "disabled": {
+          "allocations": 0,
+          "bind_calls": 0,
+          "callbacks": 0,
+          "cancellations": 0,
+          "failures": 0,
+          "handles_acquired": 0,
+          "handles_released": 0,
+          "mode": "disabled",
+          "objects": 0,
+          "prepare_calls": 0,
+          "synchronizations": 0,
+          "tensor_copies": 0
+        },
+        "resident": {
+          "allocations": 0,
+          "bind_calls": 105,
+          "callbacks": 0,
+          "cancellations": 0,
+          "failures": 0,
+          "handles_acquired": 224,
+          "handles_released": 224,
+          "mode": "resident",
+          "objects": 1,
+          "prepare_calls": 32,
+          "synchronizations": 0,
+          "tensor_copies": 0
+        }
+      },
+      "route_checksums": {
+        "baseline": "d988421dd34676d16c41ca60de7d730ff63c5c2cc0be394d7cdcb0551dfe8679",
+        "disabled": "d7d5fb2af669cba172ebec580ac6675fadb63040a1e0da98d50964d5871ff32d",
+        "repeat": "d1658e49e6fc2ceafc1b51b167858aa0e724c10513e2d0b619619602452865aa",
+        "resident": "f3e3b56e3071fd9ed260e70575bb3efe865994575ebfddcae0f1600f7594bd04"
+      },
+      "route_record_count": 252,
+      "route_stats": {
+        "baseline": {
+          "copy_bytes": 4032,
+          "failures": 0,
+          "flushes": 1,
+          "graphs_reused": 30,
+          "layers": 224,
+          "records": 252,
+          "synchronizations": 32,
+          "trace_bytes": 19463,
+          "ubatches": 32
+        },
+        "disabled": {
+          "copy_bytes": 4032,
+          "failures": 0,
+          "flushes": 1,
+          "graphs_reused": 30,
+          "layers": 224,
+          "records": 252,
+          "synchronizations": 32,
+          "trace_bytes": 19463,
+          "ubatches": 32
+        },
+        "resident": {
+          "copy_bytes": 4032,
+          "failures": 0,
+          "flushes": 1,
+          "graphs_reused": 30,
+          "layers": 224,
+          "records": 252,
+          "synchronizations": 32,
+          "trace_bytes": 19463,
+          "ubatches": 32
+        }
+      }
+    }
+  ],
+  "compilations": {
+    "baseline-cpu": [
+      "c++",
+      "-std=c++17",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-I/tmp/k3-phase3-baseline-4daaaa1a4dd2/llama.cpp/include",
+      "-I/tmp/k3-phase3-baseline-4daaaa1a4dd2/llama.cpp/src",
+      "-I/tmp/k3-phase3-baseline-4daaaa1a4dd2/llama.cpp/ggml/include",
+      "-I/usr/local/src/k3-out-of-core/scripts/phase2",
+      "/tmp/k3-phase3-parity-pkinbhef/route_probe_base.cpp",
+      "/usr/local/src/k3-out-of-core/scripts/phase2/route_trace.cpp",
+      "-L/tmp/k3-phase3-baseline-4daaaa1a4dd2/build-cpu/bin",
+      "-Wl,-rpath,/tmp/k3-phase3-baseline-4daaaa1a4dd2/build-cpu/bin",
+      "-lllama",
+      "-lggml",
+      "-lggml-base",
+      "-o",
+      "/tmp/k3-phase3-parity-pkinbhef/route-probe-baseline-cpu"
+    ],
+    "baseline-cuda": [
+      "c++",
+      "-std=c++17",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-I/tmp/k3-phase3-baseline-4daaaa1a4dd2/llama.cpp/include",
+      "-I/tmp/k3-phase3-baseline-4daaaa1a4dd2/llama.cpp/src",
+      "-I/tmp/k3-phase3-baseline-4daaaa1a4dd2/llama.cpp/ggml/include",
+      "-I/usr/local/src/k3-out-of-core/scripts/phase2",
+      "/tmp/k3-phase3-parity-pkinbhef/route_probe_base.cpp",
+      "/usr/local/src/k3-out-of-core/scripts/phase2/route_trace.cpp",
+      "-L/tmp/k3-phase3-baseline-4daaaa1a4dd2/build-cuda/bin",
+      "-Wl,-rpath,/tmp/k3-phase3-baseline-4daaaa1a4dd2/build-cuda/bin",
+      "-lllama",
+      "-lggml",
+      "-lggml-base",
+      "-o",
+      "/tmp/k3-phase3-parity-pkinbhef/route-probe-baseline-cuda"
+    ],
+    "candidate-cpu": [
+      "c++",
+      "-std=c++17",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-I/usr/local/src/k3-out-of-core/llama.cpp/include",
+      "-I/usr/local/src/k3-out-of-core/llama.cpp/src",
+      "-I/usr/local/src/k3-out-of-core/llama.cpp/ggml/include",
+      "-I/usr/local/src/k3-out-of-core/scripts/phase2",
+      "/usr/local/src/k3-out-of-core/scripts/phase2/route_probe.cpp",
+      "/usr/local/src/k3-out-of-core/scripts/phase2/route_trace.cpp",
+      "-L/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin",
+      "-Wl,-rpath,/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin",
+      "-lllama",
+      "-lggml",
+      "-lggml-base",
+      "-o",
+      "/tmp/k3-phase3-parity-pkinbhef/route-probe-candidate-cpu"
+    ],
+    "candidate-cuda": [
+      "c++",
+      "-std=c++17",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-I/usr/local/src/k3-out-of-core/llama.cpp/include",
+      "-I/usr/local/src/k3-out-of-core/llama.cpp/src",
+      "-I/usr/local/src/k3-out-of-core/llama.cpp/ggml/include",
+      "-I/usr/local/src/k3-out-of-core/scripts/phase2",
+      "/usr/local/src/k3-out-of-core/scripts/phase2/route_probe.cpp",
+      "/usr/local/src/k3-out-of-core/scripts/phase2/route_trace.cpp",
+      "-L/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin",
+      "-Wl,-rpath,/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin",
+      "-lllama",
+      "-lggml",
+      "-lggml-base",
+      "-o",
+      "/tmp/k3-phase3-parity-pkinbhef/route-probe-candidate-cuda"
+    ]
+  },
+  "phase2_manifest": {
+    "path": "results/2026-07-29/skynet/phase2-observability/phase2-manifest.json",
+    "sha256": "d149f05487dc24c0a0cd563aad0e9436d8e60d875b9f8a6419d7497fc63e8bea"
+  },
+  "revisions": {
+    "llama_base": "4daaaa1a4dd26d6465f84891b854b5f7ddc03020",
+    "llama_candidate": "523f825d2df5efa7c9a08561e2b64861ad5594c5",
+    "project_base": "81df862da6e4ff9db005f6265470070bb5456f4c",
+    "published_corpus": "2d838d6b4d0aca4e9af1e7d899e57ad29330c72e",
+    "published_gguf": "88de02cf8fa37f87eb06daaed370ac9c3411d5ca"
+  },
+  "schema_version": "phase3-provider-parity-v1",
+  "status": "pass"
+}

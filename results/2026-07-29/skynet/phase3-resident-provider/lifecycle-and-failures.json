@@ -1,0 +1,1150 @@
+{
+  "builds": {
+    "cpu": {
+      "binary_sha256": "41557dc427e8fb723cac6d1a5becd38da5c30bfce781e8618c485bc9edc76c6b",
+      "configuration": {
+        "BUILD_SHARED_LIBS": "ON",
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_CXX_COMPILER": "/usr/bin/c++",
+        "CMAKE_C_COMPILER": "/usr/bin/cc",
+        "GGML_ACCELERATE": "ON",
+        "GGML_ALL_WARNINGS_3RD_PARTY": "OFF",
+        "GGML_AMX_BF16": "OFF",
+        "GGML_AMX_INT8": "OFF",
+        "GGML_AMX_TILE": "OFF",
+        "GGML_AVAILABLE_BACKENDS": "ggml-cpu",
+        "GGML_AVX": "OFF",
+        "GGML_AVX2": "OFF",
+        "GGML_AVX512": "OFF",
+        "GGML_AVX512_BF16": "OFF",
+        "GGML_AVX512_VBMI": "OFF",
+        "GGML_AVX512_VNNI": "OFF",
+        "GGML_AVX_VNNI": "OFF",
+        "GGML_BACKEND_DIR": "",
+        "GGML_BACKEND_DL": "OFF",
+        "GGML_BIN_INSTALL_DIR": "bin",
+        "GGML_BLAS": "OFF",
+        "GGML_BLAS_VENDOR": "Generic",
+        "GGML_BMI2": "OFF",
+        "GGML_BUILD_EXAMPLES": "OFF",
+        "GGML_BUILD_TESTS": "OFF",
+        "GGML_CCACHE": "ON",
+        "GGML_CCACHE_FOUND": "GGML_CCACHE_FOUND-NOTFOUND",
+        "GGML_CPU": "ON",
+        "GGML_CPU_ALL_VARIANTS": "OFF",
+        "GGML_CPU_ARM_ARCH": "",
+        "GGML_CPU_HBM": "OFF",
+        "GGML_CPU_KLEIDIAI": "OFF",
+        "GGML_CPU_POWERPC_CPUTYPE": "",
+        "GGML_CPU_REPACK": "ON",
+        "GGML_CUDA": "OFF",
+        "GGML_CUDA_COMPRESSION_MODE": "size",
+        "GGML_CUDA_COMPRESSION_MODE-STRINGS": "none;speed;balance;size",
+        "GGML_CUDA_FA": "ON",
+        "GGML_CUDA_FA_ALL_QUANTS": "OFF",
+        "GGML_CUDA_FORCE_CUBLAS": "OFF",
+        "GGML_CUDA_FORCE_MMQ": "OFF",
+        "GGML_CUDA_GRAPHS": "ON",
+        "GGML_CUDA_NCCL": "ON",
+        "GGML_CUDA_NO_PEER_COPY": "OFF",
+        "GGML_CUDA_NO_VMM": "OFF",
+        "GGML_CUDA_PEER_MAX_BATCH_SIZE": "128",
+        "GGML_ET": "OFF",
+        "GGML_ET_SYSEMU": "OFF",
+        "GGML_F16C": "OFF",
+        "GGML_FMA": "OFF",
+        "GGML_GPROF": "OFF",
+        "GGML_HEXAGON": "OFF",
+        "GGML_HIP": "OFF",
+        "GGML_HIP_EXPORT_METRICS": "OFF",
+        "GGML_HIP_GRAPHS": "ON",
+        "GGML_HIP_MMQ_MFMA": "ON",
+        "GGML_HIP_NO_VMM": "ON",
+        "GGML_HIP_RCCL": "OFF",
+        "GGML_INCLUDE_INSTALL_DIR": "include",
+        "GGML_LASX": "ON",
+        "GGML_LIB_INSTALL_DIR": "lib",
+        "GGML_LLAMAFILE": "ON",
+        "GGML_LSX": "ON",
+        "GGML_LTO": "OFF",
+        "GGML_METAL": "OFF",
+        "GGML_METAL_EMBED_LIBRARY": "OFF",
+        "GGML_METAL_MACOSX_VERSION_MIN": "",
+        "GGML_METAL_NDEBUG": "OFF",
+        "GGML_METAL_SHADER_DEBUG": "OFF",
+        "GGML_METAL_STD": "",
+        "GGML_MUSA": "OFF",
+        "GGML_MUSA_GRAPHS": "OFF",
+        "GGML_MUSA_MUDNN_COPY": "OFF",
+        "GGML_NATIVE": "ON",
+        "GGML_OPENCL": "OFF",
+        "GGML_OPENCL_EMBED_KERNELS": "ON",
+        "GGML_OPENCL_PROFILING": "OFF",
+        "GGML_OPENCL_TARGET_VERSION": "300",
+        "GGML_OPENCL_USE_ADRENO_KERNELS": "ON",
+        "GGML_OPENMP": "ON",
+        "GGML_OPENMP_ENABLED": "ON",
+        "GGML_OPENVINO": "OFF",
+        "GGML_RPC": "OFF",
+        "GGML_RVV": "ON",
+        "GGML_RV_ZFH": "ON",
+        "GGML_RV_ZICBOP": "ON",
+        "GGML_RV_ZIHINTPAUSE": "ON",
+        "GGML_RV_ZVFBFWMA": "OFF",
+        "GGML_RV_ZVFH": "ON",
+        "GGML_SANITIZE_ADDRESS": "OFF",
+        "GGML_SANITIZE_THREAD": "OFF",
+        "GGML_SANITIZE_UNDEFINED": "OFF",
+        "GGML_SCCACHE_FOUND": "GGML_SCCACHE_FOUND-NOTFOUND",
+        "GGML_SCHED_MAX_COPIES": "4",
+        "GGML_SCHED_NO_REALLOC": "OFF",
+        "GGML_SSE42": "OFF",
+        "GGML_STATIC": "OFF",
+        "GGML_SYCL": "OFF",
+        "GGML_SYCL_DEVICE_ARCH": "",
+        "GGML_SYCL_DNN": "ON",
+        "GGML_SYCL_F16": "OFF",
+        "GGML_SYCL_GRAPH": "ON",
+        "GGML_SYCL_HOST_MEM_FALLBACK": "ON",
+        "GGML_SYCL_SUPPORT_LEVEL_ZERO_API": "ON",
+        "GGML_SYCL_TARGET": "INTEL",
+        "GGML_VIRTGPU": "OFF",
+        "GGML_VIRTGPU_BACKEND": "OFF",
+        "GGML_VULKAN": "OFF",
+        "GGML_VULKAN_CHECK_RESULTS": "OFF",
+        "GGML_VULKAN_DEBUG": "OFF",
+        "GGML_VULKAN_MEMORY_DEBUG": "OFF",
+        "GGML_VULKAN_RUN_TESTS": "OFF",
+        "GGML_VULKAN_SHADERS_GEN_TOOLCHAIN": "",
+        "GGML_VULKAN_SHADER_DEBUG_INFO": "OFF",
+        "GGML_VULKAN_VALIDATE": "OFF",
+        "GGML_VXE": "ON",
+        "GGML_WEBGPU": "OFF",
+        "GGML_WEBGPU_CPU_PROFILE": "OFF",
+        "GGML_WEBGPU_DEBUG": "OFF",
+        "GGML_WEBGPU_GPU_PROFILE": "OFF",
+        "GGML_WEBGPU_JSPI": "ON",
+        "GGML_XTHEADVECTOR": "OFF",
+        "GGML_ZDNN": "OFF",
+        "GGML_ZENDNN": "OFF"
+      },
+      "path": "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu"
+    },
+    "cuda": {
+      "binary_sha256": "8700551ea0a7809a81d1bc026718e465e981fb980ccc3ec2d03cb036fda86e39",
+      "configuration": {
+        "BUILD_SHARED_LIBS": "ON",
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_CUDA_COMPILER": "/usr/bin/nvcc",
+        "CMAKE_CXX_COMPILER": "/usr/bin/c++",
+        "CMAKE_C_COMPILER": "/usr/bin/cc",
+        "GGML_ACCELERATE": "ON",
+        "GGML_ALL_WARNINGS_3RD_PARTY": "OFF",
+        "GGML_AMX_BF16": "OFF",
+        "GGML_AMX_INT8": "OFF",
+        "GGML_AMX_TILE": "OFF",
+        "GGML_AVAILABLE_BACKENDS": "ggml-cpu;ggml-cuda",
+        "GGML_AVX": "OFF",
+        "GGML_AVX2": "OFF",
+        "GGML_AVX512": "OFF",
+        "GGML_AVX512_BF16": "OFF",
+        "GGML_AVX512_VBMI": "OFF",
+        "GGML_AVX512_VNNI": "OFF",
+        "GGML_AVX_VNNI": "OFF",
+        "GGML_BACKEND_DIR": "",
+        "GGML_BACKEND_DL": "OFF",
+        "GGML_BIN_INSTALL_DIR": "bin",
+        "GGML_BLAS": "OFF",
+        "GGML_BLAS_VENDOR": "Generic",
+        "GGML_BMI2": "OFF",
+        "GGML_BUILD_EXAMPLES": "OFF",
+        "GGML_BUILD_TESTS": "OFF",
+        "GGML_CCACHE": "ON",
+        "GGML_CCACHE_FOUND": "GGML_CCACHE_FOUND-NOTFOUND",
+        "GGML_CPU": "ON",
+        "GGML_CPU_ALL_VARIANTS": "OFF",
+        "GGML_CPU_ARM_ARCH": "",
+        "GGML_CPU_HBM": "OFF",
+        "GGML_CPU_KLEIDIAI": "OFF",
+        "GGML_CPU_POWERPC_CPUTYPE": "",
+        "GGML_CPU_REPACK": "ON",
+        "GGML_CUDA": "ON",
+        "GGML_CUDA_COMPRESSION_MODE": "size",
+        "GGML_CUDA_COMPRESSION_MODE-STRINGS": "none;speed;balance;size",
+        "GGML_CUDA_FA": "ON",
+        "GGML_CUDA_FA_ALL_QUANTS": "OFF",
+        "GGML_CUDA_FORCE_CUBLAS": "OFF",
+        "GGML_CUDA_FORCE_MMQ": "OFF",
+        "GGML_CUDA_GRAPHS": "ON",
+        "GGML_CUDA_NCCL": "ON",
+        "GGML_CUDA_NO_PEER_COPY": "OFF",
+        "GGML_CUDA_NO_VMM": "OFF",
+        "GGML_CUDA_PEER_MAX_BATCH_SIZE": "128",
+        "GGML_ET": "OFF",
+        "GGML_ET_SYSEMU": "OFF",
+        "GGML_F16C": "OFF",
+        "GGML_FMA": "OFF",
+        "GGML_GPROF": "OFF",
+        "GGML_HEXAGON": "OFF",
+        "GGML_HIP": "OFF",
+        "GGML_HIP_EXPORT_METRICS": "OFF",
+        "GGML_HIP_GRAPHS": "ON",
+        "GGML_HIP_MMQ_MFMA": "ON",
+        "GGML_HIP_NO_VMM": "ON",
+        "GGML_HIP_RCCL": "OFF",
+        "GGML_INCLUDE_INSTALL_DIR": "include",
+        "GGML_LASX": "ON",
+        "GGML_LIB_INSTALL_DIR": "lib",
+        "GGML_LLAMAFILE": "ON",
+        "GGML_LSX": "ON",
+        "GGML_LTO": "OFF",
+        "GGML_METAL": "OFF",
+        "GGML_METAL_EMBED_LIBRARY": "OFF",
+        "GGML_METAL_MACOSX_VERSION_MIN": "",
+        "GGML_METAL_NDEBUG": "OFF",
+        "GGML_METAL_SHADER_DEBUG": "OFF",
+        "GGML_METAL_STD": "",
+        "GGML_MUSA": "OFF",
+        "GGML_MUSA_GRAPHS": "OFF",
+        "GGML_MUSA_MUDNN_COPY": "OFF",
+        "GGML_NATIVE": "ON",
+        "GGML_OPENCL": "OFF",
+        "GGML_OPENCL_EMBED_KERNELS": "ON",
+        "GGML_OPENCL_PROFILING": "OFF",
+        "GGML_OPENCL_TARGET_VERSION": "300",
+        "GGML_OPENCL_USE_ADRENO_KERNELS": "ON",
+        "GGML_OPENMP": "ON",
+        "GGML_OPENMP_ENABLED": "ON",
+        "GGML_OPENVINO": "OFF",
+        "GGML_RPC": "OFF",
+        "GGML_RVV": "ON",
+        "GGML_RV_ZFH": "ON",
+        "GGML_RV_ZICBOP": "ON",
+        "GGML_RV_ZIHINTPAUSE": "ON",
+        "GGML_RV_ZVFBFWMA": "OFF",
+        "GGML_RV_ZVFH": "ON",
+        "GGML_SANITIZE_ADDRESS": "OFF",
+        "GGML_SANITIZE_THREAD": "OFF",
+        "GGML_SANITIZE_UNDEFINED": "OFF",
+        "GGML_SCCACHE_FOUND": "GGML_SCCACHE_FOUND-NOTFOUND",
+        "GGML_SCHED_MAX_COPIES": "4",
+        "GGML_SCHED_NO_REALLOC": "OFF",
+        "GGML_SSE42": "OFF",
+        "GGML_STATIC": "OFF",
+        "GGML_SYCL": "OFF",
+        "GGML_SYCL_DEVICE_ARCH": "",
+        "GGML_SYCL_DNN": "ON",
+        "GGML_SYCL_F16": "OFF",
+        "GGML_SYCL_GRAPH": "ON",
+        "GGML_SYCL_HOST_MEM_FALLBACK": "ON",
+        "GGML_SYCL_SUPPORT_LEVEL_ZERO_API": "ON",
+        "GGML_SYCL_TARGET": "INTEL",
+        "GGML_VIRTGPU": "OFF",
+        "GGML_VIRTGPU_BACKEND": "OFF",
+        "GGML_VULKAN": "OFF",
+        "GGML_VULKAN_CHECK_RESULTS": "OFF",
+        "GGML_VULKAN_DEBUG": "OFF",
+        "GGML_VULKAN_MEMORY_DEBUG": "OFF",
+        "GGML_VULKAN_RUN_TESTS": "OFF",
+        "GGML_VULKAN_SHADERS_GEN_TOOLCHAIN": "",
+        "GGML_VULKAN_SHADER_DEBUG_INFO": "OFF",
+        "GGML_VULKAN_VALIDATE": "OFF",
+        "GGML_VXE": "ON",
+        "GGML_WEBGPU": "OFF",
+        "GGML_WEBGPU_CPU_PROFILE": "OFF",
+        "GGML_WEBGPU_DEBUG": "OFF",
+        "GGML_WEBGPU_GPU_PROFILE": "OFF",
+        "GGML_WEBGPU_JSPI": "ON",
+        "GGML_XTHEADVECTOR": "OFF",
+        "GGML_ZDNN": "OFF",
+        "GGML_ZENDNN": "OFF"
+      },
+      "path": "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda"
+    }
+  },
+  "captured_at_utc": "2026-07-29T23:04:45.923131+00:00",
+  "cases": [
+    {
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/test-expert-weight-provider"
+      ],
+      "elapsed_seconds": 0.001650566999160219,
+      "forbidden_diagnostics": [],
+      "name": "cpu-unit-and-fault-injection",
+      "returncode": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/test-expert-weight-provider",
+        "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+        "0",
+        "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf"
+      ],
+      "elapsed_seconds": 1.1036972919973778,
+      "forbidden_diagnostics": [],
+      "name": "cpu-mixed-models-interleaved",
+      "returncode": 0,
+      "stderr_sha256": "fff7d978ee8d1206062c2ae40134abfc40345ead49621c68d679fde11eb65eff",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/test-expert-weight-provider"
+      ],
+      "elapsed_seconds": 0.022654899999906775,
+      "forbidden_diagnostics": [],
+      "name": "cuda-unit-and-fault-injection",
+      "returncode": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/test-expert-weight-provider",
+        "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+        "999",
+        "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf"
+      ],
+      "elapsed_seconds": 1.3685885060040164,
+      "forbidden_diagnostics": [],
+      "name": "cuda-mixed-models-interleaved",
+      "returncode": 0,
+      "stderr_sha256": "01267f09430b35d7c202c3fac093dbf6ff4dbd4b4d1ab05c0a7ad1a6c73cb1d2",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "coverage": {
+    "abort_while_handles_held": true,
+    "asan_ubsan_focused_unit": true,
+    "backend_recreation_across_processes": true,
+    "cancellation_before_submission": true,
+    "context_destroy_after_async_submission": true,
+    "cpu_model_load_decode_unload_cycles": 20,
+    "cuda_model_load_decode_unload_cycles": 10,
+    "disabled_lifecycle": true,
+    "graph_binding_failure_and_no_reuse": true,
+    "handles_released_exactly_once": true,
+    "invalid_key_and_descriptor": true,
+    "mixed_f16_mxfp4_models_and_modes_one_process": true,
+    "model_unload_after_contexts": true,
+    "partial_initialization_failure": true,
+    "repeated_context_create_destroy": true,
+    "request_allocation_and_preparation_failure": true,
+    "resident_lifecycle": true,
+    "shared_two_contexts_sequential_and_interleaved": true
+  },
+  "cycles": {
+    "cpu": [
+      {
+        "artifact": "f16",
+        "command": [
+          "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/test-expert-weight-provider",
+          "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+          "0"
+        ],
+        "cycle": 1,
+        "elapsed_seconds": 0.6441856480014394,
+        "forbidden_diagnostics": [],
+        "name": "cpu-load-cycle-01-f16",
+        "returncode": 0,
+        "stderr_sha256": "c4fc63344d20c6b1b15301c01f5385070a817bfdab69b68b770e2983b473e4dd",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "artifact": "mxfp4",
+        "command": [
+          "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/test-expert-weight-provider",
+          "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+          "0"
+        ],
+        "cycle": 2,
+        "elapsed_seconds": 0.6428281230037101,
+        "forbidden_diagnostics": [],
+        "name": "cpu-load-cycle-02-mxfp4",
+        "returncode": 0,
+        "stderr_sha256": "c43948a7a1b438bf81a7857f082335aa0a1b243b8f3266bf3f6d1a01131e88f0",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "artifact": "f16",
+        "command": [
+          "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/test-expert-weight-provider",
+          "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+          "0"
+        ],
+        "cycle": 3,
+        "elapsed_seconds": 0.645180674000585,
+        "forbidden_diagnostics": [],
+        "name": "cpu-load-cycle-03-f16",
+        "returncode": 0,
+        "stderr_sha256": "29401dc2c19e2e07218d9f3e99c9fa30324fbfe03f7987dc38d2e62484e32b22",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "artifact": "mxfp4",
+        "command": [
+          "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/test-expert-weight-provider",
+          "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+          "0"
+        ],
+        "cycle": 4,
+        "elapsed_seconds": 0.6377166870006477,
+        "forbidden_diagnostics": [],
+        "name": "cpu-load-cycle-04-mxfp4",
+        "returncode": 0,
+        "stderr_sha256": "45a2c504cbe92bd122e3c11685f63889b49deb1f49ce8ef21b2f1e34e2d81980",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "artifact": "f16",
+        "command": [
+          "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/test-expert-weight-provider",
+          "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+          "0"
+        ],
+        "cycle": 5,
+        "elapsed_seconds": 0.6441114120025304,
+        "forbidden_diagnostics": [],
+        "name": "cpu-load-cycle-05-f16",
+        "returncode": 0,
+        "stderr_sha256": "80d395f43779e9043b1676cc5c9678c07d79b27fea9b33050499b0dcc2f66c38",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "artifact": "mxfp4",
+        "command": [
+          "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/test-expert-weight-provider",
+          "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+          "0"
+        ],
+        "cycle": 6,
+        "elapsed_seconds": 0.6397748179952032,
+        "forbidden_diagnostics": [],
+        "name": "cpu-load-cycle-06-mxfp4",
+        "returncode": 0,
+        "stderr_sha256": "cac754a328e05f6bb2ae40df8b69f75b7316671ee1cbdd4bbfe3c676a08343d6",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "artifact": "f16",
+        "command": [
+          "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/test-expert-weight-provider",
+          "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+          "0"
+        ],
+        "cycle": 7,
+        "elapsed_seconds": 0.6425075219958671,
+        "forbidden_diagnostics": [],
+        "name": "cpu-load-cycle-07-f16",
+        "returncode": 0,
+        "stderr_sha256": "42a201fdbd00675145ea6c38027eb5018e4fe11b74b46b9e548c199257c765aa",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "artifact": "mxfp4",
+        "command": [
+          "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/test-expert-weight-provider",
+          "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+          "0"
+        ],
+        "cycle": 8,
+        "elapsed_seconds": 0.6381246489982004,
+        "forbidden_diagnostics": [],
+        "name": "cpu-load-cycle-08-mxfp4",
+        "returncode": 0,
+        "stderr_sha256": "f1369ea5c130233f2a45953418c631c2afd150eef4ee07e592b7eaa47754841f",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "artifact": "f16",
+        "command": [
+          "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/test-expert-weight-provider",
+          "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+          "0"
+        ],
+        "cycle": 9,
+        "elapsed_seconds": 0.6425128499977291,
+        "forbidden_diagnostics": [],
+        "name": "cpu-load-cycle-09-f16",
+        "returncode": 0,
+        "stderr_sha256": "218861361c26a37fea1336d8942c75868ef7ced118740103477ac56207a22e1e",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "artifact": "mxfp4",
+        "command": [
+          "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/test-expert-weight-provider",
+          "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+          "0"
+        ],
+        "cycle": 10,
+        "elapsed_seconds": 0.6398314440011745,
+        "forbidden_diagnostics": [],
+        "name": "cpu-load-cycle-10-mxfp4",
+        "returncode": 0,
+        "stderr_sha256": "1a185ddd418de8cf7135462421233756867d6f2bda30fe1f2162c9aebaaf98be",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "artifact": "f16",
+        "command": [
+          "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/test-expert-weight-provider",
+          "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+          "0"
+        ],
+        "cycle": 11,
+        "elapsed_seconds": 0.6573729570009164,
+        "forbidden_diagnostics": [],
+        "name": "cpu-load-cycle-11-f16",
+        "returncode": 0,
+        "stderr_sha256": "a07e34bd6313407c0cf86b2ae17bdd5004e76e7b693a4448f33f3441150996b3",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "artifact": "mxfp4",
+        "command": [
+          "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/test-expert-weight-provider",
+          "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+          "0"
+        ],
+        "cycle": 12,
+        "elapsed_seconds": 0.6372871330022463,
+        "forbidden_diagnostics": [],
+        "name": "cpu-load-cycle-12-mxfp4",
+        "returncode": 0,
+        "stderr_sha256": "a6f83f7839cd553dd5ded27f036e94146ca80ef21d5b3793422522e8c75feb43",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "artifact": "f16",
+        "command": [
+          "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/test-expert-weight-provider",
+          "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+          "0"
+        ],
+        "cycle": 13,
+        "elapsed_seconds": 0.6443939079981647,
+        "forbidden_diagnostics": [],
+        "name": "cpu-load-cycle-13-f16",
+        "returncode": 0,
+        "stderr_sha256": "c01f663ce93b749a326062a8691f2f914e73f9eafe12589b6f967f7ee0ccc62b",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "artifact": "mxfp4",
+        "command": [
+          "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/test-expert-weight-provider",
+          "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+          "0"
+        ],
+        "cycle": 14,
+        "elapsed_seconds": 0.6391492969996762,
+        "forbidden_diagnostics": [],
+        "name": "cpu-load-cycle-14-mxfp4",
+        "returncode": 0,
+        "stderr_sha256": "4e125b91b940f1fdd8f8d2f56ab696f3c6b6dcb5f91606420135081e26f97512",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "artifact": "f16",
+        "command": [
+          "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/test-expert-weight-provider",
+          "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+          "0"
+        ],
+        "cycle": 15,
+        "elapsed_seconds": 0.6416422399997828,
+        "forbidden_diagnostics": [],
+        "name": "cpu-load-cycle-15-f16",
+        "returncode": 0,
+        "stderr_sha256": "7cc5afab8e72866a12ec8b3021b2db9782920e86011a13867c19a5bf63e40c86",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "artifact": "mxfp4",
+        "command": [
+          "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/test-expert-weight-provider",
+          "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+          "0"
+        ],
+        "cycle": 16,
+        "elapsed_seconds": 0.6363352650005254,
+        "forbidden_diagnostics": [],
+        "name": "cpu-load-cycle-16-mxfp4",
+        "returncode": 0,
+        "stderr_sha256": "d13309a88a042cccf97e6123fdd731ebf531f8d5c0de7a8f98ef8981bde459ac",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "artifact": "f16",
+        "command": [
+          "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/test-expert-weight-provider",
+          "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+          "0"
+        ],
+        "cycle": 17,
+        "elapsed_seconds": 0.6418188649986405,
+        "forbidden_diagnostics": [],
+        "name": "cpu-load-cycle-17-f16",
+        "returncode": 0,
+        "stderr_sha256": "cab005a3ebe12c4955fffe0ebf690a4c351243c7d82aefdb114801e6f49f7491",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "artifact": "mxfp4",
+        "command": [
+          "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/test-expert-weight-provider",
+          "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+          "0"
+        ],
+        "cycle": 18,
+        "elapsed_seconds": 0.6407829230010975,
+        "forbidden_diagnostics": [],
+        "name": "cpu-load-cycle-18-mxfp4",
+        "returncode": 0,
+        "stderr_sha256": "60316072b8937ae177c80a4df48b5d590e45a76f552907eba3dc7b9ec85eddd9",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "artifact": "f16",
+        "command": [
+          "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/test-expert-weight-provider",
+          "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+          "0"
+        ],
+        "cycle": 19,
+        "elapsed_seconds": 0.6452875350005343,
+        "forbidden_diagnostics": [],
+        "name": "cpu-load-cycle-19-f16",
+        "returncode": 0,
+        "stderr_sha256": "43e5012818236d1e2f2c38c9c0454641202bd4b0b05a9b4aab9dc9fbb1137409",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "artifact": "mxfp4",
+        "command": [
+          "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/test-expert-weight-provider",
+          "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+          "0"
+        ],
+        "cycle": 20,
+        "elapsed_seconds": 0.6413102279984741,
+        "forbidden_diagnostics": [],
+        "name": "cpu-load-cycle-20-mxfp4",
+        "returncode": 0,
+        "stderr_sha256": "85cc01adf043b904ba9b33f37909d125bf457111a24d668fd9dcb08c1a9201c0",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "cuda": [
+      {
+        "artifact": "f16",
+        "command": [
+          "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/test-expert-weight-provider",
+          "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+          "999"
+        ],
+        "cycle": 1,
+        "elapsed_seconds": 0.8413243399991188,
+        "forbidden_diagnostics": [],
+        "name": "cuda-load-cycle-01-f16",
+        "returncode": 0,
+        "stderr_sha256": "7f3e67a450d3b0a8966a2ef7dec27762657e9fcdaba92b83feca6b0390474af8",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "artifact": "mxfp4",
+        "command": [
+          "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/test-expert-weight-provider",
+          "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+          "999"
+        ],
+        "cycle": 2,
+        "elapsed_seconds": 0.785213103001297,
+        "forbidden_diagnostics": [],
+        "name": "cuda-load-cycle-02-mxfp4",
+        "returncode": 0,
+        "stderr_sha256": "035ca40a7d3b610ded6f037405f1094f497963121e09d50c44042dce83835892",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "artifact": "f16",
+        "command": [
+          "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/test-expert-weight-provider",
+          "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+          "999"
+        ],
+        "cycle": 3,
+        "elapsed_seconds": 0.7943817680061329,
+        "forbidden_diagnostics": [],
+        "name": "cuda-load-cycle-03-f16",
+        "returncode": 0,
+        "stderr_sha256": "ed243e753efce81ed6f5cb56bb5ef9ef3736190ae71f79d1abd77f207e0a7626",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "artifact": "mxfp4",
+        "command": [
+          "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/test-expert-weight-provider",
+          "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+          "999"
+        ],
+        "cycle": 4,
+        "elapsed_seconds": 0.7853456090015243,
+        "forbidden_diagnostics": [],
+        "name": "cuda-load-cycle-04-mxfp4",
+        "returncode": 0,
+        "stderr_sha256": "8785c275e47ee1c355dc9a7e72172cba65c5a39bfc105043f798fba7899d8e83",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "artifact": "f16",
+        "command": [
+          "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/test-expert-weight-provider",
+          "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+          "999"
+        ],
+        "cycle": 5,
+        "elapsed_seconds": 0.796645599999465,
+        "forbidden_diagnostics": [],
+        "name": "cuda-load-cycle-05-f16",
+        "returncode": 0,
+        "stderr_sha256": "c68e71d5e1d5b05a6c7bb9e891e23d9e7b416dabe8d7cfc90432c207ab0683e7",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "artifact": "mxfp4",
+        "command": [
+          "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/test-expert-weight-provider",
+          "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+          "999"
+        ],
+        "cycle": 6,
+        "elapsed_seconds": 0.8009299470068072,
+        "forbidden_diagnostics": [],
+        "name": "cuda-load-cycle-06-mxfp4",
+        "returncode": 0,
+        "stderr_sha256": "4f498367441eb2a396187ae323decd5b34569defeb0f3620701d336a0b6bf40d",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "artifact": "f16",
+        "command": [
+          "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/test-expert-weight-provider",
+          "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+          "999"
+        ],
+        "cycle": 7,
+        "elapsed_seconds": 0.81968456699542,
+        "forbidden_diagnostics": [],
+        "name": "cuda-load-cycle-07-f16",
+        "returncode": 0,
+        "stderr_sha256": "015b1be44647101a93246701cd722d4c83d899fb83631340ac39ee00880c5243",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "artifact": "mxfp4",
+        "command": [
+          "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/test-expert-weight-provider",
+          "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+          "999"
+        ],
+        "cycle": 8,
+        "elapsed_seconds": 0.7932762510026805,
+        "forbidden_diagnostics": [],
+        "name": "cuda-load-cycle-08-mxfp4",
+        "returncode": 0,
+        "stderr_sha256": "1717b7a8f6086fecab058bea5396bf635eb72a004190b0bb09544bdc8f4c21e7",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "artifact": "f16",
+        "command": [
+          "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/test-expert-weight-provider",
+          "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+          "999"
+        ],
+        "cycle": 9,
+        "elapsed_seconds": 0.8054952230013441,
+        "forbidden_diagnostics": [],
+        "name": "cuda-load-cycle-09-f16",
+        "returncode": 0,
+        "stderr_sha256": "579677f8bc916be326104518ba3b28a3beeb5e3402522b166ff421a2266bc4a8",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "artifact": "mxfp4",
+        "command": [
+          "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/test-expert-weight-provider",
+          "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+          "999"
+        ],
+        "cycle": 10,
+        "elapsed_seconds": 0.7975421059963992,
+        "forbidden_diagnostics": [],
+        "name": "cuda-load-cycle-10-mxfp4",
+        "returncode": 0,
+        "stderr_sha256": "df13b78d2edff04637db6ee6ca1e9c1e63881a54067e7fce16f365d88a7cc432",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ]
+  },
+  "environment": {
+    "hostname": "skynet",
+    "kernel": "6.8.0-136-generic",
+    "lscpu_json": {
+      "lscpu": [
+        {
+          "data": "x86_64",
+          "field": "Architecture:"
+        },
+        {
+          "data": "32-bit, 64-bit",
+          "field": "CPU op-mode(s):"
+        },
+        {
+          "data": "39 bits physical, 48 bits virtual",
+          "field": "Address sizes:"
+        },
+        {
+          "data": "Little Endian",
+          "field": "Byte Order:"
+        },
+        {
+          "data": "16",
+          "field": "CPU(s):"
+        },
+        {
+          "data": "0-15",
+          "field": "On-line CPU(s) list:"
+        },
+        {
+          "data": "GenuineIntel",
+          "field": "Vendor ID:"
+        },
+        {
+          "data": "11th Gen Intel(R) Core(TM) i7-11700K @ 3.60GHz",
+          "field": "Model name:"
+        },
+        {
+          "data": "6",
+          "field": "CPU family:"
+        },
+        {
+          "data": "167",
+          "field": "Model:"
+        },
+        {
+          "data": "2",
+          "field": "Thread(s) per core:"
+        },
+        {
+          "data": "8",
+          "field": "Core(s) per socket:"
+        },
+        {
+          "data": "1",
+          "field": "Socket(s):"
+        },
+        {
+          "data": "1",
+          "field": "Stepping:"
+        },
+        {
+          "data": "53%",
+          "field": "CPU(s) scaling MHz:"
+        },
+        {
+          "data": "5000.0000",
+          "field": "CPU max MHz:"
+        },
+        {
+          "data": "800.0000",
+          "field": "CPU min MHz:"
+        },
+        {
+          "data": "7200.00",
+          "field": "BogoMIPS:"
+        },
+        {
+          "data": "fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid mpx avx512f avx512dq rdseed adx smap avx512ifma clflushopt intel_pt avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp hwp_pkg_req vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid fsrm md_clear flush_l1d arch_capabilities",
+          "field": "Flags:"
+        },
+        {
+          "data": "VT-x",
+          "field": "Virtualization:"
+        },
+        {
+          "data": "384 KiB (8 instances)",
+          "field": "L1d cache:"
+        },
+        {
+          "data": "256 KiB (8 instances)",
+          "field": "L1i cache:"
+        },
+        {
+          "data": "4 MiB (8 instances)",
+          "field": "L2 cache:"
+        },
+        {
+          "data": "16 MiB (1 instance)",
+          "field": "L3 cache:"
+        },
+        {
+          "data": "1",
+          "field": "NUMA node(s):"
+        },
+        {
+          "data": "0-15",
+          "field": "NUMA node0 CPU(s):"
+        },
+        {
+          "data": "Mitigation; Microcode",
+          "field": "Vulnerability Gather data sampling:"
+        },
+        {
+          "data": "Mitigation; Aligned branch/return thunks",
+          "field": "Vulnerability Indirect target selection:"
+        },
+        {
+          "data": "Not affected",
+          "field": "Vulnerability Itlb multihit:"
+        },
+        {
+          "data": "Not affected",
+          "field": "Vulnerability L1tf:"
+        },
+        {
+          "data": "Not affected",
+          "field": "Vulnerability Mds:"
+        },
+        {
+          "data": "Not affected",
+          "field": "Vulnerability Meltdown:"
+        },
+        {
+          "data": "Mitigation; Clear CPU buffers; SMT vulnerable",
+          "field": "Vulnerability Mmio stale data:"
+        },
+        {
+          "data": "Not affected",
+          "field": "Vulnerability Reg file data sampling:"
+        },
+        {
+          "data": "Mitigation; Enhanced IBRS",
+          "field": "Vulnerability Retbleed:"
+        },
+        {
+          "data": "Not affected",
+          "field": "Vulnerability Spec rstack overflow:"
+        },
+        {
+          "data": "Mitigation; Speculative Store Bypass disabled via prctl",
+          "field": "Vulnerability Spec store bypass:"
+        },
+        {
+          "data": "Mitigation; usercopy/swapgs barriers and __user pointer sanitization",
+          "field": "Vulnerability Spectre v1:"
+        },
+        {
+          "data": "Mitigation; Enhanced / Automatic IBRS; IBPB conditional; PBRSB-eIBRS SW sequence; BHI SW loop, KVM SW loop",
+          "field": "Vulnerability Spectre v2:"
+        },
+        {
+          "data": "Not affected",
+          "field": "Vulnerability Srbds:"
+        },
+        {
+          "data": "Not affected",
+          "field": "Vulnerability Tsa:"
+        },
+        {
+          "data": "Not affected",
+          "field": "Vulnerability Tsx async abort:"
+        },
+        {
+          "data": "Not affected",
+          "field": "Vulnerability Vmscape:"
+        }
+      ]
+    },
+    "machine": "x86_64",
+    "nvidia_smi": "NVIDIA GeForce GTX 1650, 535.288.01, 4096, 7.5",
+    "os_release": {
+      "BUG_REPORT_URL": "https://bugs.launchpad.net/ubuntu/",
+      "HOME_URL": "https://www.ubuntu.com/",
+      "ID": "ubuntu",
+      "ID_LIKE": "debian",
+      "LOGO": "ubuntu-logo",
+      "NAME": "Ubuntu",
+      "PRETTY_NAME": "Ubuntu 24.04.3 LTS",
+      "PRIVACY_POLICY_URL": "https://www.ubuntu.com/legal/terms-and-policies/privacy-policy",
+      "SUPPORT_URL": "https://help.ubuntu.com/",
+      "UBUNTU_CODENAME": "noble",
+      "VERSION": "24.04.3 LTS (Noble Numbat)",
+      "VERSION_CODENAME": "noble",
+      "VERSION_ID": "24.04"
+    }
+  },
+  "models": {
+    "f16": {
+      "name": "Kimi-K3-0.40B-F16.gguf",
+      "observed_sha256": "411c197b503e6fb9199a2b22115e32dc4e2cad803fb112b24967737b3bab26c7",
+      "path": "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+      "sha256": "411c197b503e6fb9199a2b22115e32dc4e2cad803fb112b24967737b3bab26c7",
+      "size": 784318432,
+      "source_revision": "d853649387ffe8f48ce0198a29ac1a44205031f7"
+    },
+    "mxfp4": {
+      "name": "Kimi-K3-0.40B-MXFP4.gguf",
+      "observed_sha256": "0379a1cc623e09eb3fbd1dfcb18737bc8c971dbfe5bf5bc3e08da8b5379ec169",
+      "path": "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+      "sha256": "0379a1cc623e09eb3fbd1dfcb18737bc8c971dbfe5bf5bc3e08da8b5379ec169",
+      "size": 751976576,
+      "source_revision": "ef3902c318fb8e13c3507e26055656e687fdfe38"
+    }
+  },
+  "revision": "523f825d2df5efa7c9a08561e2b64861ad5594c5",
+  "sanitizer": {
+    "build": "/tmp/k3-phase3-sanitized-c3eae9a0948e",
+    "command": [
+      "/tmp/k3-phase3-sanitized-c3eae9a0948e/bin/test-expert-weight-provider"
+    ],
+    "configuration": {
+      "BUILD_SHARED_LIBS": "ON",
+      "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+      "CMAKE_CXX_COMPILER": "/usr/bin/c++",
+      "CMAKE_C_COMPILER": "/usr/bin/cc",
+      "GGML_ACCELERATE": "ON",
+      "GGML_ALL_WARNINGS_3RD_PARTY": "OFF",
+      "GGML_AMX_BF16": "OFF",
+      "GGML_AMX_INT8": "OFF",
+      "GGML_AMX_TILE": "OFF",
+      "GGML_AVAILABLE_BACKENDS": "ggml-cpu",
+      "GGML_AVX": "OFF",
+      "GGML_AVX2": "OFF",
+      "GGML_AVX512": "OFF",
+      "GGML_AVX512_BF16": "OFF",
+      "GGML_AVX512_VBMI": "OFF",
+      "GGML_AVX512_VNNI": "OFF",
+      "GGML_AVX_VNNI": "OFF",
+      "GGML_BACKEND_DIR": "",
+      "GGML_BACKEND_DL": "OFF",
+      "GGML_BIN_INSTALL_DIR": "bin",
+      "GGML_BLAS": "OFF",
+      "GGML_BLAS_VENDOR": "Generic",
+      "GGML_BMI2": "OFF",
+      "GGML_BUILD_EXAMPLES": "OFF",
+      "GGML_BUILD_TESTS": "OFF",
+      "GGML_CCACHE": "ON",
+      "GGML_CCACHE_FOUND": "GGML_CCACHE_FOUND-NOTFOUND",
+      "GGML_CPU": "ON",
+      "GGML_CPU_ALL_VARIANTS": "OFF",
+      "GGML_CPU_ARM_ARCH": "",
+      "GGML_CPU_HBM": "OFF",
+      "GGML_CPU_KLEIDIAI": "OFF",
+      "GGML_CPU_POWERPC_CPUTYPE": "",
+      "GGML_CPU_REPACK": "ON",
+      "GGML_CUDA": "OFF",
+      "GGML_CUDA_COMPRESSION_MODE": "size",
+      "GGML_CUDA_COMPRESSION_MODE-STRINGS": "none;speed;balance;size",
+      "GGML_CUDA_FA": "ON",
+      "GGML_CUDA_FA_ALL_QUANTS": "OFF",
+      "GGML_CUDA_FORCE_CUBLAS": "OFF",
+      "GGML_CUDA_FORCE_MMQ": "OFF",
+      "GGML_CUDA_GRAPHS": "ON",
+      "GGML_CUDA_NCCL": "ON",
+      "GGML_CUDA_NO_PEER_COPY": "OFF",
+      "GGML_CUDA_NO_VMM": "OFF",
+      "GGML_CUDA_PEER_MAX_BATCH_SIZE": "128",
+      "GGML_ET": "OFF",
+      "GGML_ET_SYSEMU": "OFF",
+      "GGML_F16C": "OFF",
+      "GGML_FMA": "OFF",
+      "GGML_GPROF": "OFF",
+      "GGML_HEXAGON": "OFF",
+      "GGML_HIP": "OFF",
+      "GGML_HIP_EXPORT_METRICS": "OFF",
+      "GGML_HIP_GRAPHS": "ON",
+      "GGML_HIP_MMQ_MFMA": "ON",
+      "GGML_HIP_NO_VMM": "ON",
+      "GGML_HIP_RCCL": "OFF",
+      "GGML_INCLUDE_INSTALL_DIR": "include",
+      "GGML_LASX": "ON",
+      "GGML_LIB_INSTALL_DIR": "lib",
+      "GGML_LLAMAFILE": "ON",
+      "GGML_LSX": "ON",
+      "GGML_LTO": "OFF",
+      "GGML_METAL": "OFF",
+      "GGML_METAL_EMBED_LIBRARY": "OFF",
+      "GGML_METAL_MACOSX_VERSION_MIN": "",
+      "GGML_METAL_NDEBUG": "OFF",
+      "GGML_METAL_SHADER_DEBUG": "OFF",
+      "GGML_METAL_STD": "",
+      "GGML_MUSA": "OFF",
+      "GGML_MUSA_GRAPHS": "OFF",
+      "GGML_MUSA_MUDNN_COPY": "OFF",
+      "GGML_NATIVE": "ON",
+      "GGML_OPENCL": "OFF",
+      "GGML_OPENCL_EMBED_KERNELS": "ON",
+      "GGML_OPENCL_PROFILING": "OFF",
+      "GGML_OPENCL_TARGET_VERSION": "300",
+      "GGML_OPENCL_USE_ADRENO_KERNELS": "ON",
+      "GGML_OPENMP": "ON",
+      "GGML_OPENMP_ENABLED": "ON",
+      "GGML_OPENVINO": "OFF",
+      "GGML_RPC": "OFF",
+      "GGML_RVV": "ON",
+      "GGML_RV_ZFH": "ON",
+      "GGML_RV_ZICBOP": "ON",
+      "GGML_RV_ZIHINTPAUSE": "ON",
+      "GGML_RV_ZVFBFWMA": "OFF",
+      "GGML_RV_ZVFH": "ON",
+      "GGML_SANITIZE_ADDRESS": "ON",
+      "GGML_SANITIZE_THREAD": "OFF",
+      "GGML_SANITIZE_UNDEFINED": "ON",
+      "GGML_SCCACHE_FOUND": "GGML_SCCACHE_FOUND-NOTFOUND",
+      "GGML_SCHED_MAX_COPIES": "4",
+      "GGML_SCHED_NO_REALLOC": "OFF",
+      "GGML_SSE42": "OFF",
+      "GGML_STATIC": "OFF",
+      "GGML_SYCL": "OFF",
+      "GGML_SYCL_DEVICE_ARCH": "",
+      "GGML_SYCL_DNN": "ON",
+      "GGML_SYCL_F16": "OFF",
+      "GGML_SYCL_GRAPH": "ON",
+      "GGML_SYCL_HOST_MEM_FALLBACK": "ON",
+      "GGML_SYCL_SUPPORT_LEVEL_ZERO_API": "ON",
+      "GGML_SYCL_TARGET": "INTEL",
+      "GGML_VIRTGPU": "OFF",
+      "GGML_VIRTGPU_BACKEND": "OFF",
+      "GGML_VULKAN": "OFF",
+      "GGML_VULKAN_CHECK_RESULTS": "OFF",
+      "GGML_VULKAN_DEBUG": "OFF",
+      "GGML_VULKAN_MEMORY_DEBUG": "OFF",
+      "GGML_VULKAN_RUN_TESTS": "OFF",
+      "GGML_VULKAN_SHADERS_GEN_TOOLCHAIN": "",
+      "GGML_VULKAN_SHADER_DEBUG_INFO": "OFF",
+      "GGML_VULKAN_VALIDATE": "OFF",
+      "GGML_VXE": "ON",
+      "GGML_WEBGPU": "OFF",
+      "GGML_WEBGPU_CPU_PROFILE": "OFF",
+      "GGML_WEBGPU_DEBUG": "OFF",
+      "GGML_WEBGPU_GPU_PROFILE": "OFF",
+      "GGML_WEBGPU_JSPI": "ON",
+      "GGML_XTHEADVECTOR": "OFF",
+      "GGML_ZDNN": "OFF",
+      "GGML_ZENDNN": "OFF"
+    },
+    "elapsed_seconds": 0.10322540199558716,
+    "forbidden_diagnostics": [],
+    "name": "cpu-asan-ubsan-focused-unit",
+    "returncode": 0,
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "schema_version": "phase3-lifecycle-v1",
+  "status": "pass"
+}
