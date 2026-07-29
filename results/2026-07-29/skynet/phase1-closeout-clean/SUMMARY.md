@@ -1,6 +1,6 @@
 # Phase 1 closeout summary
 
-Status: **ACCEPTED** for the Phase 1 technical evidence; **PENDING** independent Checkpoint C attestation.
+Status: **ACCEPTED** for the complete Phase 1 technical evidence and Checkpoint C attestation.
 
 This directory is the clean STANDARD-profile execution of GitHub issue #7 from immutable base `511e87fc98cca8069fc57526fbb04b10789967eb` on branch `codex/phase1-closeout-clean`. It does not reuse work from issue #3 or PR #4 and contains no Phase 2 or out-of-core runtime implementation.
 
@@ -38,13 +38,16 @@ These measurements describe this tiny fixture and host only; they do not establi
 
 - Checkpoint A: **PASS_WITH_NOTES**, safety gate **YES**.
 - Checkpoint B: **PASS_WITH_NOTES**, safety gate **YES**.
-- Checkpoint C: **PENDING** until an independent reviewer evaluates the committed benchmark and closeout state.
+- Checkpoint C: **PASS_WITH_NOTES**
+- Checkpoint C reviewed head: `4f1dcae3024bebcb932f95dfbab9ef7e5154a68c`
+- Checkpoint C review: https://github.com/murillo128/k3-out-of-core/issues/7#issuecomment-5120875092
 - The first Checkpoint C attempt at `3867da790b9b299b925cc562cbfdc7a5985c7da6` returned **FAIL**, safety gate **NO**, because strict verification did not reject incomplete cross-document attestation. The bounded corrective delta strengthens this gate before re-review.
-- The second Checkpoint C attempt at `44177bcee0d0b8d367f7c7272e21b3f75f99fd50` returned **FAIL**, safety gate **NO**, after finding that a failed ancestor, coexisting PENDING status, and placeholder link could still pass. The next correction binds strict closeout to the exact attestation parent and externally verified issue #7 review comment.
-- The third Checkpoint C attempt at `1fc662f83ead68d48242376b4ab0820f787f7fbd` returned **FAIL**, safety gate **NO**, after finding removable failure history, ambiguous duplicate fields, and merge-attestation acceptance. The latest correction uses canonical field parsing, externally verifies all failed attempts, and requires a single-parent attestation; fresh re-review is pending.
-- The fourth Checkpoint C attempt at `a2dba4bbe1fe5d39a3667f64fee6cba6673bd5c7` returned **FAIL**, safety gate **NO**, after finding suffix/comment/list contradictions and case-sensitive URL discovery. The latest correction fully anchors fields and rejects every extra label-bearing line; fresh re-review is pending.
-- The fifth Checkpoint C attempt at `66948128b151227dc8fee09e6138f213681f74a9` returned **FAIL**, safety gate **NO**, after finding plain/italic contradictory external labels were not counted. The latest correction discovers label-bearing fields independently of Markdown styling; fresh re-review is pending.
+- The second Checkpoint C attempt at `44177bcee0d0b8d367f7c7272e21b3f75f99fd50` returned **FAIL**, safety gate **NO**, after finding that a failed ancestor, coexisting stale status, and placeholder link could still pass.
+- The third Checkpoint C attempt at `1fc662f83ead68d48242376b4ab0820f787f7fbd` returned **FAIL**, safety gate **NO**, after finding removable failure history, ambiguous duplicate fields, and merge-attestation acceptance.
+- The fourth Checkpoint C attempt at `a2dba4bbe1fe5d39a3667f64fee6cba6673bd5c7` returned **FAIL**, safety gate **NO**, after finding suffix/comment/list contradictions and case-sensitive URL discovery.
+- The fifth Checkpoint C attempt at `66948128b151227dc8fee09e6138f213681f74a9` returned **FAIL**, safety gate **NO**, after finding plain/italic contradictory external labels were not counted.
+- The repository owner applied the STANDARD repeated-review circuit breaker; these parser/representation findings remain historical non-material notes.
 - `evidence.sha256` authenticates every primary artifact in this directory except itself and the derived verifier report.
-- `scripts/phase1/verify_closeout.py --allow-pending-checkpoint-c` is the pre-review non-circular gate. Strict mode must fail while Checkpoint C is pending and must pass before final PR review.
+- `scripts/phase1/verify_closeout.py --allow-pending-checkpoint-c` was the pre-review non-circular gate. Strict mode is required to pass before final PR review.
 
 Project Phase 2 and all out-of-core runtime work remain explicitly out of scope.

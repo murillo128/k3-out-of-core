@@ -16,12 +16,12 @@
     "note": "The validator calls no converter decoder or repacker helper; its metadata reader has a transitive helper import, so the recorded independence boolean is conservative."
   },
   "C": {
-    "verdict": "PENDING",
-    "reviewed_head": null,
-    "reviewed_range": null,
-    "issue_comment_id": null,
-    "safety_gate": null,
-    "note": "Strict closeout remains intentionally unavailable until the independent Checkpoint C review accepts the committed Phase 6 and Phase 7 state.",
+    "verdict": "PASS_WITH_NOTES",
+    "reviewed_head": "4f1dcae3024bebcb932f95dfbab9ef7e5154a68c",
+    "reviewed_range": "a11bce8a6260cf9c131a360d047aeb4d4a21d56f..4f1dcae3024bebcb932f95dfbab9ef7e5154a68c",
+    "issue_comment_id": 5120875092,
+    "safety_gate": "YES",
+    "note": "Calibrated STANDARD review accepted the technical closeout; README drift and sampled device-wide VRAM remain documented non-blocking notes.",
     "attempts": [
       {
         "verdict": "FAIL",

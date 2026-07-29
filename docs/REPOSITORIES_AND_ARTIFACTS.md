@@ -111,13 +111,21 @@ The independent MXFP4 validator matched all 81 stratified source/GGUF samples ex
 
 The benchmark retained one model per model/backend process, discarded one warmup, recreated the context for five measured runs, and recorded load time, prompt/decode throughput, TTFT, per-token latency percentiles, RSS, and CUDA VRAM. All runs naturally terminated at the same 49-token sequence and EOG ID 163585. These are descriptive measurements for the tiny fixture and validated host, not out-of-core results.
 
-Checkpoint A and Checkpoint B both returned `PASS_WITH_NOTES` with safety gate `YES`. The first Checkpoint C attempt returned `FAIL` with safety gate `NO` because the strict verifier did not reject incomplete cross-document attestation; the benchmark itself passed review. Checkpoint C remains pending re-review after the bounded verifier correction. Strict closeout cannot pass until an accepted verdict is consistently recorded.
+Checkpoint A and Checkpoint B both returned `PASS_WITH_NOTES` with safety gate `YES`. Five earlier Checkpoint C attempts returned `FAIL / NO` on verifier traceability ambiguities; the benchmark itself passed each review.
 
-The second Checkpoint C attempt also returned `FAIL / NO`: the gate still accepted a failed ancestor, coexisting active `PENDING` lines, and a placeholder comment domain. The third attempt returned `FAIL / NO` after finding removable failure history, ambiguous duplicate fields, contradictory external fields, and merge-attestation acceptance. The latest committed correction canonically parses all fields, externally verifies every failed attempt, and requires exactly one attestation parent. Fresh re-review is pending.
+The second attempt found a failed ancestor, coexisting stale lines, and a placeholder comment domain. The third found removable failure history, ambiguous duplicate fields, contradictory external fields, and merge-attestation acceptance.
 
-The fourth Checkpoint C attempt returned `FAIL / NO` after finding unanchored suffix contradictions, uppercase placeholder URLs, and extra malformed label lines. The latest committed correction fully anchors all canonical fields, discovers URLs case-insensitively, and rejects every extra label-bearing line. Fresh re-review is pending.
+The fourth attempt found unanchored suffix contradictions, uppercase placeholder URLs, and extra malformed label lines.
 
-The fifth Checkpoint C attempt returned `FAIL / NO` after finding plain and alternatively styled contradictory external labels were not counted. The latest correction discovers label-bearing fields independently of Markdown styling while continuing to require exactly one fully anchored canonical value for each field. Fresh re-review is pending.
+The fifth attempt found plain and alternatively styled contradictory external labels were not counted. The repository owner applied the STANDARD repeated-review circuit breaker, classifying those adversarial representation findings as non-material.
+
+Checkpoint C: **PASS_WITH_NOTES**
+
+Checkpoint C reviewed head: `4f1dcae3024bebcb932f95dfbab9ef7e5154a68c`
+
+Checkpoint C review: https://github.com/murillo128/k3-out-of-core/issues/7#issuecomment-5120875092
+
+The calibrated review accepted the complete technical evidence with safety gate `YES`. Notes carried forward are older README prose and the disclosed limitation that VRAM telemetry is sampled device-wide rather than process-attributed continuous peak telemetry.
 
 ## Downloading the published baseline
 

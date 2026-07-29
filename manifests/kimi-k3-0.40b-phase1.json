@@ -3,7 +3,7 @@
   "baseline": {
     "name": "kimi-k3-0.40b-phase1",
     "date": "2026-07-29",
-    "status": "checkpoint-c-pending",
+    "status": "phase1-validated",
     "execution_profile": "STANDARD",
     "evidence_directory": "results/2026-07-29/skynet/phase1-closeout-clean"
   },
@@ -96,7 +96,9 @@
     "hard_failures_detected": false,
     "checkpoint_a": "PASS_WITH_NOTES",
     "checkpoint_b": "PASS_WITH_NOTES",
-    "checkpoint_c": "PENDING"
+    "checkpoint_c": "PASS_WITH_NOTES",
+    "checkpoint_c_reviewed_head": "4f1dcae3024bebcb932f95dfbab9ef7e5154a68c",
+    "checkpoint_c_issue_comment_id": 5120875092
   },
   "pending_validation": []
 }

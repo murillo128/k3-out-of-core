@@ -38,8 +38,11 @@
 
 ### Current evidence
 
-- Phase 1 technical exit gate: **ACCEPTED** under GitHub issue #7; independent Checkpoint C attestation remains **PENDING**.
-- Five Checkpoint C attempts returned **FAIL / NO** on verifier traceability ambiguities; the benchmark itself passed. The latest Markdown-style-independent label correction is committed and fresh re-review is required.
+- Phase 1 technical exit gate: **ACCEPTED** under GitHub issue #7.
+- Checkpoint C: **PASS_WITH_NOTES**
+- Checkpoint C reviewed head: `4f1dcae3024bebcb932f95dfbab9ef7e5154a68c`
+- Checkpoint C review: https://github.com/murillo128/k3-out-of-core/issues/7#issuecomment-5120875092
+- Five earlier **FAIL / NO** attempts remain preserved. The calibrated STANDARD review accepted the technical evidence after the repository owner applied the repeated-review circuit breaker.
 - Clean execution base: `511e87fc98cca8069fc57526fbb04b10789967eb`.
 - Execution branch: `codex/phase1-closeout-clean`.
 - Pinned `llama.cpp` commit: `84245db4c790af22135f34992689edcc11877003`.
