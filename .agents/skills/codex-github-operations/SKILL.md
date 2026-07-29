@@ -1,185 +1,120 @@
 ---
 name: codex-github-operations
-description: Publish exact Codex commits and perform GitHub issue, label, comment, branch, and pull-request operations using local git plus the best available GitHub control-plane transport. Use as the first operational skill when Codex starts or resumes execution, whenever workflow state must change, after each phase commit, and for GitHub publication or handoff.
+description: Publish Codex branches and exact commits, mutate GitHub workflow state, and create or update issues and pull requests using local git plus the best available GitHub control-plane transport. Use whenever the executor needs Git publication or GitHub operations. Do not use this skill to decide technical scope, review verdicts, or workflow progression.
 ---
 
 # Codex GitHub Operations
 
 ## Responsibility
 
-This skill owns Git and GitHub transport decisions for Codex execution.
+This skill owns operational transport for Git and GitHub.
 
-It does not implement repository features, review code, decide architecture, or decide whether a phase may progress. The calling workflow owns those decisions.
+It does not:
 
-Workflow-state mutation is a hard execution gate, not bookkeeping. A required label transition that has not been performed and verified means execution has not started, resumed, or blocked correctly.
+- implement repository changes;
+- decide architecture or issue scope;
+- decide whether independent review is required;
+- classify implementation correctness;
+- decide progression between phases.
 
-## Transport model
+Those decisions belong to the calling workflow and approved issue.
 
-Treat the local Git repository and the GitHub control plane as separate capabilities.
+## Capability model
 
-### Local repository operations
+Choose tools by capability, not by product preference.
 
-Always use local `git` for:
+### Local Git
 
-- inspecting repository and worktree state;
-- creating or switching branches;
-- creating commits;
-- obtaining authoritative commit SHAs;
-- fetching and pushing refs;
-- verifying local and remote SHAs.
+Use local `git` for:
 
-### GitHub control-plane operations
+- repository and worktree inspection;
+- branch creation and switching;
+- commits;
+- authoritative full SHAs;
+- fetch and push;
+- local and remote ref verification.
 
-Prefer an available connected GitHub app or connector for:
+### GitHub control plane
 
-- reading and updating issues;
-- workflow-label mutations;
-- issue comments;
+Prefer a connected GitHub app or connector for:
+
+- issues and comments;
+- workflow labels;
 - pull-request creation and metadata;
-- pull-request reviews and discussion.
+- reviews and discussion.
 
 ### GitHub CLI
 
-Use `gh` only as a fallback when:
+Use `gh` only as a fallback when it is already available and authenticated, or when an approved issue explicitly requires a CLI-only operation.
 
-- the connected GitHub transport cannot perform the required operation;
-- the operation is explicitly CLI-only;
-- or the approved issue contract explicitly requires GitHub CLI.
+Missing or unauthenticated `gh` is not a blocker when local Git and a connected GitHub control-plane transport can complete the required work.
 
-Missing or unauthenticated `gh` is not a blocker when the required operation can be completed with local `git` and a connected GitHub control-plane transport.
+Do not install or authenticate `gh` merely to publish a branch or create a pull request.
 
-Do not install or authenticate `gh` merely because a branch must be pushed or a pull request must be created.
+## Workflow-state operations
 
-## Non-negotiable workflow-state preflight
+Workflow labels summarize durable issue state. They do not gate every comment or command.
 
-This preflight is the first GitHub write operation for every main-executor run that starts, resumes, or blocks work.
-
-Before any of the following actions:
-
-- creating or switching to an execution branch;
-- editing a repository file;
-- creating a commit or pull request;
-- posting a phase-start, phase-result, blocked, or handoff comment;
-- launching the implementation portion of a phase;
-
-the executor must establish and verify the required machine-readable workflow state.
-
-The only successful output of this preflight is:
+The calling workflow may request one of these transitions:
 
 ```text
-STATE_TRANSITION_VERIFIED: <expected-label>
+design-required
+investigation-required
+execution-ready
+in-progress
+blocked
 ```
 
-Without that verified result, stop. Do not continue with a warning, a comment-only status update, or an assumption that another actor will fix the label later.
+When a transition is requested:
 
-### Start execution
+1. fetch the issue and inspect the current workflow label;
+2. preserve unrelated labels;
+3. apply the requested workflow label using the best available GitHub transport;
+4. fetch the issue again and verify the resulting workflow label;
+5. report the observed before and after state.
 
-To begin a new approved execution:
+A transition should normally be performed:
 
-1. fetch the issue;
-2. verify that exactly one workflow-state label exists and it is `execution-ready`;
-3. replace `execution-ready` with `in-progress`;
-4. fetch the issue again;
-5. verify that exactly one workflow-state label exists and it is `in-progress`;
-6. emit `STATE_TRANSITION_VERIFIED: in-progress`;
-7. only then post the phase-start comment or mutate the repository.
+- when execution first starts;
+- when an explicitly authorized blocked issue resumes;
+- when work returns to design or investigation;
+- when a real unresolved blocker prevents meaningful progress;
+- when the issue is closed after completion.
 
-If the issue is already `in-progress`, treat it as a resume only when the calling workflow has explicitly validated that the issue history identifies the same active phase and no unresolved blocker exists. Re-fetch and verify the single `in-progress` label before emitting the success result.
+Do not require redundant label verification before every phase comment, commit, review, or Git operation.
 
-### Block execution
+## Degraded control-plane operation
 
-When the calling workflow determines that execution is blocked:
+Failure of one GitHub transport does not automatically block technical work.
 
-1. fetch the issue and identify its current single workflow-state label;
-2. replace that label with `blocked`;
-3. fetch the issue again;
-4. verify that exactly one workflow-state label exists and it is `blocked`;
-5. emit `STATE_TRANSITION_VERIFIED: blocked`;
-6. only then post the blocked comment containing evidence and the restart condition.
+When the requested control-plane operation cannot be completed in the current surface:
 
-A `[BLOCKED]` comment posted while the label remains `execution-ready` or `in-progress` is an invalid workflow transition.
+1. try another permitted transport;
+2. preserve the repository branch and commit unchanged;
+3. produce a precise handoff containing repository, issue or PR, requested operation, current observed state, branch, and exact SHA;
+4. let a connector-capable session perform the operation;
+5. verify the result before relying on it.
 
-### Return to design or investigation
+Use `CONTROL_PLANE_DEGRADED` for a recoverable operation that can be handed off without invalidating implementation work.
 
-When the calling workflow requires `design-required` or `investigation-required`, perform the same mutate–re-fetch–verify sequence before posting the explanatory comment.
+Use `BLOCKED` only when:
 
-## Workflow-state mutations
+- the operation is required before meaningful technical progress;
+- no permitted transport or timely handoff can perform it;
+- and continuing would create conflicting ownership, lose work, or violate an explicit issue gate.
 
-When the calling workflow requires an issue-label transition:
+Do not describe an issue label or PR state as changed until it has actually been verified.
 
-1. fetch the issue and inspect all current labels;
-2. isolate labels from this exact workflow-state set:
-   - `design-required`
-   - `investigation-required`
-   - `execution-ready`
-   - `in-progress`
-   - `blocked`
-3. require exactly one current workflow-state label unless repairing an explicitly detected invalid state;
-4. remove the previous workflow-state label;
-5. add the required new workflow-state label;
-6. fetch the issue again;
-7. require exactly one workflow-state label and require it to equal the intended label;
-8. return the explicit `STATE_TRANSITION_VERIFIED` result;
-9. stop if mutation or verification fails.
+## Publish an exact commit
 
-Prefer a single connector mutation that replaces the full label set when that can preserve all non-workflow labels safely. Otherwise remove the old workflow label and add the new one, then verify the final state.
-
-Use `gh issue edit` only as a permitted fallback.
-
-Writing `EXECUTION_READY`, `IN_PROGRESS`, `BLOCKED`, or another status in the issue body or a comment does not mutate a GitHub label and never satisfies this gate.
-
-Equivalent CLI pattern:
-
-```bash
-WORKFLOW_LABELS='["design-required","investigation-required","execution-ready","in-progress","blocked"]'
-
-current="$(gh issue view "$ISSUE" --repo "$REPO" --json labels \
-  --jq --argjson wf "$WORKFLOW_LABELS" '[.labels[].name | select(. as $x | $wf | index($x))]')"
-
-test "$(jq 'length' <<<"$current")" -eq 1
-test "$(jq -r '.[0]' <<<"$current")" = "execution-ready"
-
-gh issue edit "$ISSUE" --repo "$REPO" \
-  --remove-label execution-ready \
-  --add-label in-progress
-
-verified="$(gh issue view "$ISSUE" --repo "$REPO" --json labels \
-  --jq --argjson wf "$WORKFLOW_LABELS" '[.labels[].name | select(. as $x | $wf | index($x))]')"
-
-test "$(jq 'length' <<<"$verified")" -eq 1
-test "$(jq -r '.[0]' <<<"$verified")" = "in-progress"
-printf '%s\n' 'STATE_TRANSITION_VERIFIED: in-progress'
-```
-
-Do not claim transition success from the mutation response alone. The post-mutation fetch and exact verification are mandatory.
-
-## Transport failure during a required transition
-
-Try the available transports in this order:
-
-1. connected GitHub app or connector;
-2. already available and authenticated `gh` fallback.
-
-If neither transport can perform and verify the required mutation:
-
-- stop before repository mutation or status comment;
-- report the intended transition, current observed label, attempted transports, and exact failure to the calling workflow;
-- request a connector-capable handoff when available;
-- do not post a misleading phase or blocked comment that implies the label changed;
-- do not continue execution while waiting for another actor to repair state.
-
-The calling workflow may classify the run as operationally blocked, but the issue's machine-readable state must not be described as changed until a capable actor performs and verifies the mutation.
-
-## Publish an exact phase commit
-
-Determine the authoritative branch and commit programmatically:
+Determine branch and commit programmatically:
 
 ```bash
 BRANCH="$(git branch --show-current)"
 COMMIT="$(git rev-parse HEAD)"
 ```
 
-Require:
+Require a clean worktree and publish without rewriting history:
 
 ```bash
 test -n "$BRANCH"
@@ -189,72 +124,61 @@ git fetch origin
 test "$(git rev-parse "origin/$BRANCH")" = "$COMMIT"
 ```
 
-Never manually expand, infer, or transcribe a short SHA.
+Rules:
 
-Do not amend, recreate, rebase, squash, reset, cherry-pick, or otherwise replace an existing phase commit merely to publish it.
+- never manually expand or guess a short SHA;
+- never amend, recreate, reset, rebase, squash, or cherry-pick a valid phase commit merely to publish it;
+- report the authoritative full SHA from `git rev-parse HEAD`;
+- classify authentication, permission, network, or remote-SHA failures separately from implementation failures.
 
-Record the exact full SHA returned by `git rev-parse HEAD` in all issue and review handoffs.
+A published branch is sufficient to preserve and independently inspect an exact commit. A pull request is not required before that inspection unless the issue explicitly says otherwise.
 
-## Draft pull request
+## Pull requests
 
-After the branch is published:
+Create a draft pull request after the first useful published commit, or at the latest before the first checkpoint that benefits from PR-level review.
 
-1. prefer the connected GitHub app or connector;
-2. use the approved repository, base branch, and head branch;
-3. create a draft pull request unless the issue explicitly requires another state;
-4. verify that the pull-request head resolves to the published exact commit;
-5. link the controlling issue and summarize the phase-to-commit mapping.
+Prefer the connected GitHub app or connector. Use `gh pr create` only as an available fallback.
 
-Use `gh pr create` only when connector-based PR creation is unavailable and `gh` is already usable.
+The pull request must:
 
-A draft pull request is not required to inspect an exact published commit unless the approved issue explicitly says otherwise. It must normally exist before the next implementation phase begins.
+- use the approved base and head branches;
+- remain draft while execution is incomplete;
+- link the controlling issue;
+- identify the exact head SHA;
+- summarize phase-to-commit mapping and validation state.
 
-## Connector handoff
-
-When local `git push` succeeds but the current Codex surface cannot create or mutate a required GitHub object:
-
-1. preserve the existing commit and branch unchanged;
-2. record locally the branch, exact remote SHA, repository, observed state, intended operation, and transport failures;
-3. request a connector-capable ChatGPT or Codex session to perform the exact operation;
-4. do not classify the implementation commit itself as failed;
-5. do not progress past any gate that requires that GitHub object;
-6. after handoff, re-fetch and verify the object before resuming.
-
-For a required workflow-label transition, do not use an issue comment as the handoff record when posting that comment would falsely imply the transition completed. Return the handoff details to the caller instead.
+Failure to create the PR in the current surface is normally a handoff, not an implementation failure. It becomes a blocker only when the approved workflow requires the PR before further meaningful work and no alternative can create it.
 
 ## Real blockers
 
-Return `BLOCKED` only for a real unresolved condition such as:
+Return an operational `BLOCKED` result only for unresolved conditions such as:
 
-- failed Git authentication;
-- denied push permission;
-- network failure preventing publication;
+- failed Git authentication or denied push permission;
+- network failure preventing required publication;
 - remote SHA mismatch;
-- conflicting remote branch or pull request that cannot be resolved safely;
-- unavailable required GitHub operation with no permitted connector or fallback;
-- inability to verify the requested mutation.
+- an unsafe conflicting branch or pull request;
+- an unavailable required GitHub operation with no permitted transport or handoff;
+- inability to verify a state that the workflow must rely on before continuing.
 
-The absence or failure of one optional transport is not by itself a blocker.
+The absence or failure of one optional transport is not itself a blocker.
 
-## Safety rules
+## Safety
 
 - Never force-push or rewrite shared history without explicit user authorization.
-- Never push a dirty worktree as if it represented the recorded phase commit.
-- Never publish secrets, model weights, generated binaries, or other files prohibited by `AGENTS.md`.
-- Never silently change the approved base branch, head branch, issue, labels, or PR state.
-- Never let a GitHub transport limitation mutate the implementation commit.
-- Never post a workflow-state comment before the corresponding label transition has been verified.
-- Never proceed after a required state transition returns anything other than `STATE_TRANSITION_VERIFIED: <expected-label>`.
+- Never stage or publish unrelated changes.
+- Never publish secrets, model weights, generated binaries, or prohibited artifacts.
+- Never change the approved issue, base branch, head branch, labels, or PR state silently.
+- Never mutate implementation commits to compensate for GitHub transport limitations.
 
-## Completion output
+## Completion report
 
-Report:
+Report only the operational facts the caller needs:
 
 - repository and branch;
-- exact published commit SHA;
-- remote-SHA verification result;
-- GitHub transport used for each control-plane operation;
-- workflow-state transition requested, observed before state, observed after state, and verification result;
-- pull-request number and draft state when created;
-- any handoff or real blocker;
-- confirmation that the implementation commit was not rewritten.
+- exact local and remote SHA;
+- push and verification result;
+- GitHub operation requested and transport used;
+- observed before and after state;
+- PR number and draft state when applicable;
+- handoff, degraded operation, or real blocker;
+- confirmation that implementation history was not rewritten.
