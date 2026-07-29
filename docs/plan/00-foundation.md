@@ -133,40 +133,40 @@
 
 #### 2.1 Router trace
 
-- [ ] Add an opt-in trace hook at the selected-expert ID tensor.
-- [ ] Record model, layer, token/batch position, selected IDs, routing weights, request/sequence ID, and phase (prefill/decode).
-- [ ] Use a compact binary or structured format with a version.
-- [ ] Ensure trace-disabled overhead is negligible.
-- [ ] Ensure trace order is deterministic.
+- [x] Add an opt-in trace hook at the selected-expert ID tensor.
+- [x] Record model, layer, token/batch position, selected IDs, routing weights, request/sequence ID, and phase (prefill/decode).
+- [x] Use a compact binary or structured format with a version.
+- [x] Ensure trace-disabled overhead is negligible.
+- [x] Ensure trace order is deterministic.
 
 #### 2.2 Expert storage map
 
-- [ ] Extend the GGUF/model loader to expose file identity, file offset, byte size, type, logical shape, row stride, and alignment for each routed-expert projection.
-- [ ] Define `ExpertStorageEntry` containing gate/up/down spans.
-- [ ] Validate every span against GGUF metadata and file bounds.
-- [ ] Do not infer offsets through virtual-memory mappings.
+- [x] Extend the GGUF/model loader to expose file identity, file offset, byte size, type, logical shape, row stride, and alignment for each routed-expert projection.
+- [x] Define `ExpertStorageEntry` containing gate/up/down spans.
+- [x] Validate every span against GGUF metadata and file bounds.
+- [x] Do not infer offsets through virtual-memory mappings.
 
 #### 2.3 Offline simulator
 
-- [ ] Implement trace replay independent of GGML/CUDA.
-- [ ] Model hot and cold capacities in bytes and expert slots.
-- [ ] Implement LRU baseline.
-- [ ] Implement perfect-oracle lower bound.
-- [ ] Report tier hit rates, bytes, evictions, reuse distances, and theoretical stalls.
-- [ ] Separate prefill and decode analysis.
+- [x] Implement trace replay independent of GGML/CUDA.
+- [x] Model hot and cold capacities in bytes and expert slots.
+- [x] Implement LRU baseline.
+- [x] Implement perfect-oracle lower bound.
+- [x] Report tier hit rates, bytes, evictions, reuse distances, and theoretical stalls.
+- [x] Separate prefill and decode analysis.
 
 #### 2.4 Trace corpus
 
-- [ ] Capture multiple prompts and domains.
-- [ ] Capture short and long decode.
-- [ ] Capture small and large prefill.
-- [ ] Preserve raw traces and summarized results with model/checkpoint revisions.
+- [x] Capture multiple prompts and domains.
+- [x] Capture short and long decode.
+- [x] Capture small and large prefill.
+- [x] Preserve raw traces and summarized results with model/checkpoint revisions.
 
 ### Exit gate
 
-- Every routed expert can be mapped to exact backing-file spans.
-- Real K3 traces can be replayed offline.
-- No inference result changes with tracing enabled.
+- [x] Every routed expert can be mapped to exact backing-file spans.
+- [x] Real K3 traces can be replayed offline.
+- [x] No inference result changes with tracing enabled.
 
 ---
 

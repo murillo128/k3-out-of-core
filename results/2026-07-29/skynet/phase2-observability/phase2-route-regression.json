@@ -1,0 +1,648 @@
+{
+  "captured_at_utc": "2026-07-29T20:05:04.168059+00:00",
+  "cases": [
+    {
+      "artifact": "f16",
+      "backend": "cpu",
+      "disabled_route_stats": {
+        "copy_bytes": 0,
+        "failures": 0,
+        "graphs_reused": 30,
+        "layers": 0,
+        "synchronizations": 0,
+        "ubatches": 0
+      },
+      "generated_ids": [
+        318,
+        57195,
+        11,
+        1459,
+        387,
+        1495,
+        2189,
+        261,
+        56207,
+        1765,
+        413,
+        3700,
+        308,
+        16028,
+        13,
+        15149,
+        40841,
+        554,
+        3143,
+        3307,
+        308,
+        922,
+        1682,
+        12138,
+        3572,
+        4120,
+        1468,
+        276,
+        7519,
+        13,
+        646,
+        56207
+      ],
+      "parity": {
+        "direct_readback_logits": true,
+        "disabled_logits": true,
+        "repeated_logits": true,
+        "repeated_trace_bytes": true
+      },
+      "prompt_ids": [
+        18805,
+        308,
+        799,
+        5624,
+        12524
+      ],
+      "route_stats": {
+        "copy_bytes": 4032,
+        "failures": 0,
+        "flushes": 1,
+        "graphs_reused": 30,
+        "layers": 224,
+        "records": 252,
+        "synchronizations": 32,
+        "trace_bytes": 19456,
+        "ubatches": 32
+      },
+      "stderr_sha256": {
+        "a": "39903f1cc88e9dbe0e2b873aba0f5ff84da57e24283e1bdaf11765b5f95959c0",
+        "b": "37fb107ee6abfc8e5d94c5263d8ee54970c22371d4fca7d38cd96d512439c509",
+        "direct": "2f302aeeaa5c670c8d3b9df4fe68d4026959a313b4bf334cfa69263b7f0371b7",
+        "disabled": "d8670fc6bafd8c491ce805962ed56189222dcac1d58afaad5d75524f2dc26d6f"
+      },
+      "trace": {
+        "checksum": "a44d163e",
+        "first_record": {
+          "batch_row": 0,
+          "layer": 1,
+          "phase": "PREFILL",
+          "position": 0,
+          "record_ordinal": 0,
+          "request_ordinal": 0,
+          "selected_experts": [
+            0,
+            3
+          ],
+          "sequence_ids": [
+            0
+          ],
+          "ubatch_ordinal": 0,
+          "weights": [
+            0.5340957641601562,
+            0.46590420603752136
+          ]
+        },
+        "header": {
+          "expert_count": 8,
+          "llama_cpp_revision": "4daaaa1a4dd26d6465f84891b854b5f7ddc03020",
+          "model_name": "Kimi-K3-0.40B-F16.gguf",
+          "model_sha256": "411c197b503e6fb9199a2b22115e32dc4e2cad803fb112b24967737b3bab26c7",
+          "model_size": 784318432,
+          "model_source_revision": "d853649387ffe8f48ce0198a29ac1a44205031f7",
+          "published_gguf_revision": "88de02cf8fa37f87eb06daaed370ac9c3411d5ca",
+          "routed_layer_count": 7,
+          "run_id": "f16-cpu-repeat",
+          "schema_version": 1,
+          "top_k": 2
+        },
+        "last_record": {
+          "batch_row": 0,
+          "layer": 7,
+          "phase": "DECODE",
+          "position": 35,
+          "record_ordinal": 251,
+          "request_ordinal": 0,
+          "selected_experts": [
+            1,
+            4
+          ],
+          "sequence_ids": [
+            0
+          ],
+          "ubatch_ordinal": 31,
+          "weights": [
+            0.5233262181282043,
+            0.47667375206947327
+          ]
+        },
+        "layers": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "record_count": 252
+      },
+      "trace_bytes": 19456,
+      "trace_sha256": "6e62af994b6ef0ed87afaa5a82c02d4d1b645d05f8e5765eda6b48c89afd8964"
+    },
+    {
+      "artifact": "f16",
+      "backend": "cuda",
+      "disabled_route_stats": {
+        "copy_bytes": 0,
+        "failures": 0,
+        "graphs_reused": 30,
+        "layers": 0,
+        "synchronizations": 0,
+        "ubatches": 0
+      },
+      "generated_ids": [
+        318,
+        57195,
+        11,
+        1459,
+        387,
+        1495,
+        2189,
+        261,
+        56207,
+        1765,
+        413,
+        3700,
+        308,
+        16028,
+        13,
+        15149,
+        40841,
+        554,
+        3143,
+        3307,
+        308,
+        922,
+        1682,
+        12138,
+        3572,
+        4120,
+        1468,
+        276,
+        7519,
+        13,
+        646,
+        56207
+      ],
+      "parity": {
+        "direct_readback_logits": true,
+        "disabled_logits": true,
+        "repeated_logits": true,
+        "repeated_trace_bytes": true
+      },
+      "prompt_ids": [
+        18805,
+        308,
+        799,
+        5624,
+        12524
+      ],
+      "route_stats": {
+        "copy_bytes": 4032,
+        "failures": 0,
+        "flushes": 1,
+        "graphs_reused": 30,
+        "layers": 224,
+        "records": 252,
+        "synchronizations": 32,
+        "trace_bytes": 19457,
+        "ubatches": 32
+      },
+      "stderr_sha256": {
+        "a": "84eb4172693bbf4fff31fd51bcbcec62120188f2accae1c09c774f5b303bcfb5",
+        "b": "1d5efd8be6828b4e7b5dbd4e40943268d15b3aa1080a0504cca7d740adba9913",
+        "direct": "eb211d751844a1c36974ff9b35e96fb1895f1811cfff4b685aa912beaddbec7d",
+        "disabled": "af913475c4c7de23ae80ebcf09b99eac143df3d883886044192383f199a3a9fc"
+      },
+      "trace": {
+        "checksum": "3ffab6f2",
+        "first_record": {
+          "batch_row": 0,
+          "layer": 1,
+          "phase": "PREFILL",
+          "position": 0,
+          "record_ordinal": 0,
+          "request_ordinal": 0,
+          "selected_experts": [
+            0,
+            3
+          ],
+          "sequence_ids": [
+            0
+          ],
+          "ubatch_ordinal": 0,
+          "weights": [
+            0.5340956449508667,
+            0.4659043550491333
+          ]
+        },
+        "header": {
+          "expert_count": 8,
+          "llama_cpp_revision": "4daaaa1a4dd26d6465f84891b854b5f7ddc03020",
+          "model_name": "Kimi-K3-0.40B-F16.gguf",
+          "model_sha256": "411c197b503e6fb9199a2b22115e32dc4e2cad803fb112b24967737b3bab26c7",
+          "model_size": 784318432,
+          "model_source_revision": "d853649387ffe8f48ce0198a29ac1a44205031f7",
+          "published_gguf_revision": "88de02cf8fa37f87eb06daaed370ac9c3411d5ca",
+          "routed_layer_count": 7,
+          "run_id": "f16-cuda-repeat",
+          "schema_version": 1,
+          "top_k": 2
+        },
+        "last_record": {
+          "batch_row": 0,
+          "layer": 7,
+          "phase": "DECODE",
+          "position": 35,
+          "record_ordinal": 251,
+          "request_ordinal": 0,
+          "selected_experts": [
+            1,
+            4
+          ],
+          "sequence_ids": [
+            0
+          ],
+          "ubatch_ordinal": 31,
+          "weights": [
+            0.5233048796653748,
+            0.47669515013694763
+          ]
+        },
+        "layers": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "record_count": 252
+      },
+      "trace_bytes": 19457,
+      "trace_sha256": "fc321bf6c877c4e364fddb3c329f12c4158447b91bc8d7bf97dd23fe5474675c"
+    },
+    {
+      "artifact": "mxfp4",
+      "backend": "cpu",
+      "disabled_route_stats": {
+        "copy_bytes": 0,
+        "failures": 0,
+        "graphs_reused": 30,
+        "layers": 0,
+        "synchronizations": 0,
+        "ubatches": 0
+      },
+      "generated_ids": [
+        318,
+        57195,
+        11,
+        1459,
+        387,
+        1495,
+        2189,
+        261,
+        56207,
+        1765,
+        413,
+        3700,
+        308,
+        16028,
+        13,
+        15149,
+        40841,
+        554,
+        3143,
+        3307,
+        308,
+        922,
+        1682,
+        12138,
+        3572,
+        4120,
+        1468,
+        276,
+        7519,
+        13,
+        646,
+        56207
+      ],
+      "parity": {
+        "direct_readback_logits": true,
+        "disabled_logits": true,
+        "repeated_logits": true,
+        "repeated_trace_bytes": true
+      },
+      "prompt_ids": [
+        18805,
+        308,
+        799,
+        5624,
+        12524
+      ],
+      "route_stats": {
+        "copy_bytes": 4032,
+        "failures": 0,
+        "flushes": 1,
+        "graphs_reused": 30,
+        "layers": 224,
+        "records": 252,
+        "synchronizations": 32,
+        "trace_bytes": 19460,
+        "ubatches": 32
+      },
+      "stderr_sha256": {
+        "a": "be5297131fb6beb1ff6d4f4243929d30c6250e6a0d1df0a1d31d180842692e6b",
+        "b": "133ae8cd5e66525db9f8b0d084bbb316803c26df3a6534c1d8472a64ca270e4d",
+        "direct": "24f0ad9f325733145f0d37aadb2e8eb218bf42dfc2683f1b78d8c250976d00f4",
+        "disabled": "7c371d08fbf05eff6c5de347bc63edf1acfc92f578977fe25b177301f1a08a52"
+      },
+      "trace": {
+        "checksum": "2c6c8c9a",
+        "first_record": {
+          "batch_row": 0,
+          "layer": 1,
+          "phase": "PREFILL",
+          "position": 0,
+          "record_ordinal": 0,
+          "request_ordinal": 0,
+          "selected_experts": [
+            0,
+            3
+          ],
+          "sequence_ids": [
+            0
+          ],
+          "ubatch_ordinal": 0,
+          "weights": [
+            0.5340957641601562,
+            0.46590420603752136
+          ]
+        },
+        "header": {
+          "expert_count": 8,
+          "llama_cpp_revision": "4daaaa1a4dd26d6465f84891b854b5f7ddc03020",
+          "model_name": "Kimi-K3-0.40B-MXFP4.gguf",
+          "model_sha256": "0379a1cc623e09eb3fbd1dfcb18737bc8c971dbfe5bf5bc3e08da8b5379ec169",
+          "model_size": 751976576,
+          "model_source_revision": "ef3902c318fb8e13c3507e26055656e687fdfe38",
+          "published_gguf_revision": "88de02cf8fa37f87eb06daaed370ac9c3411d5ca",
+          "routed_layer_count": 7,
+          "run_id": "mxfp4-cpu-repeat",
+          "schema_version": 1,
+          "top_k": 2
+        },
+        "last_record": {
+          "batch_row": 0,
+          "layer": 7,
+          "phase": "DECODE",
+          "position": 35,
+          "record_ordinal": 251,
+          "request_ordinal": 0,
+          "selected_experts": [
+            1,
+            4
+          ],
+          "sequence_ids": [
+            0
+          ],
+          "ubatch_ordinal": 31,
+          "weights": [
+            0.5267515778541565,
+            0.4732483923435211
+          ]
+        },
+        "layers": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "record_count": 252
+      },
+      "trace_bytes": 19460,
+      "trace_sha256": "e096c7723197d4647b5af20eeaa4078dc3468cfc7699c7b6f680d696f39733d0"
+    },
+    {
+      "artifact": "mxfp4",
+      "backend": "cuda",
+      "disabled_route_stats": {
+        "copy_bytes": 0,
+        "failures": 0,
+        "graphs_reused": 30,
+        "layers": 0,
+        "synchronizations": 0,
+        "ubatches": 0
+      },
+      "generated_ids": [
+        318,
+        57195,
+        11,
+        1459,
+        387,
+        1495,
+        2189,
+        261,
+        56207,
+        1765,
+        413,
+        3700,
+        308,
+        16028,
+        13,
+        15149,
+        40841,
+        554,
+        3143,
+        3307,
+        308,
+        922,
+        1682,
+        12138,
+        3572,
+        4120,
+        1468,
+        276,
+        7519,
+        13,
+        646,
+        56207
+      ],
+      "parity": {
+        "direct_readback_logits": true,
+        "disabled_logits": true,
+        "repeated_logits": true,
+        "repeated_trace_bytes": true
+      },
+      "prompt_ids": [
+        18805,
+        308,
+        799,
+        5624,
+        12524
+      ],
+      "route_stats": {
+        "copy_bytes": 4032,
+        "failures": 0,
+        "flushes": 1,
+        "graphs_reused": 30,
+        "layers": 224,
+        "records": 252,
+        "synchronizations": 32,
+        "trace_bytes": 19461,
+        "ubatches": 32
+      },
+      "stderr_sha256": {
+        "a": "3388c2988154843c687bbc8fc8626daf14796e3f8214a6c568a351096875f929",
+        "b": "60798811e1e0afe7663f4af0436ab93d8b5dabf94c50ccdef883c01acf025449",
+        "direct": "703b1b465a1075e13fbee6b8a3554e5b87145628ee49fa74bf50d024a9fca38a",
+        "disabled": "4e6508ad2fd1d37b2a39e1e845ac58066756e37bfa38c2f304592119d83643d5"
+      },
+      "trace": {
+        "checksum": "8c37e70c",
+        "first_record": {
+          "batch_row": 0,
+          "layer": 1,
+          "phase": "PREFILL",
+          "position": 0,
+          "record_ordinal": 0,
+          "request_ordinal": 0,
+          "selected_experts": [
+            0,
+            3
+          ],
+          "sequence_ids": [
+            0
+          ],
+          "ubatch_ordinal": 0,
+          "weights": [
+            0.5340956449508667,
+            0.4659043550491333
+          ]
+        },
+        "header": {
+          "expert_count": 8,
+          "llama_cpp_revision": "4daaaa1a4dd26d6465f84891b854b5f7ddc03020",
+          "model_name": "Kimi-K3-0.40B-MXFP4.gguf",
+          "model_sha256": "0379a1cc623e09eb3fbd1dfcb18737bc8c971dbfe5bf5bc3e08da8b5379ec169",
+          "model_size": 751976576,
+          "model_source_revision": "ef3902c318fb8e13c3507e26055656e687fdfe38",
+          "published_gguf_revision": "88de02cf8fa37f87eb06daaed370ac9c3411d5ca",
+          "routed_layer_count": 7,
+          "run_id": "mxfp4-cuda-repeat",
+          "schema_version": 1,
+          "top_k": 2
+        },
+        "last_record": {
+          "batch_row": 0,
+          "layer": 7,
+          "phase": "DECODE",
+          "position": 35,
+          "record_ordinal": 251,
+          "request_ordinal": 0,
+          "selected_experts": [
+            1,
+            4
+          ],
+          "sequence_ids": [
+            0
+          ],
+          "ubatch_ordinal": 31,
+          "weights": [
+            0.5267627835273743,
+            0.47323718667030334
+          ]
+        },
+        "layers": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "record_count": 252
+      },
+      "trace_bytes": 19461,
+      "trace_sha256": "e64915b1305ff8b7e93d2a58a6d13632b9c57b638c4625d86d939432bbeb01c1"
+    }
+  ],
+  "checks": {
+    "all_direct_readbacks_match": true,
+    "all_disabled_paths_zero": true,
+    "all_generated_ids_equal": true,
+    "all_repeated_traces_identical": true
+  },
+  "compilations": {
+    "cpu": [
+      "c++",
+      "-std=c++17",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-I/usr/local/src/k3-out-of-core/llama.cpp/include",
+      "-I/usr/local/src/k3-out-of-core/llama.cpp/ggml/include",
+      "/usr/local/src/k3-out-of-core/scripts/phase2/route_probe.cpp",
+      "/usr/local/src/k3-out-of-core/scripts/phase2/route_trace.cpp",
+      "-L/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin",
+      "-Wl,-rpath,/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin",
+      "-lllama",
+      "-lggml",
+      "-lggml-base",
+      "-o",
+      "/tmp/k3-phase2-routes-bce7itrp/route-probe-cpu"
+    ],
+    "cuda": [
+      "c++",
+      "-std=c++17",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-I/usr/local/src/k3-out-of-core/llama.cpp/include",
+      "-I/usr/local/src/k3-out-of-core/llama.cpp/ggml/include",
+      "/usr/local/src/k3-out-of-core/scripts/phase2/route_probe.cpp",
+      "/usr/local/src/k3-out-of-core/scripts/phase2/route_trace.cpp",
+      "-L/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin",
+      "-Wl,-rpath,/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin",
+      "-lllama",
+      "-lggml",
+      "-lggml-base",
+      "-o",
+      "/tmp/k3-phase2-routes-bce7itrp/route-probe-cuda"
+    ]
+  },
+  "failure_cases": {
+    "missing_annotation": {
+      "exit_code": 14,
+      "reader_rejection": "trace is truncated",
+      "trace_bytes": 0
+    },
+    "mixed_phase": {
+      "exit_code": 8,
+      "reader_rejection": "trace is truncated",
+      "trace_bytes": 0
+    },
+    "sink_failure": {
+      "exit_code": 14,
+      "reader_rejection": "trace is truncated",
+      "trace_bytes": 0
+    }
+  },
+  "llama_cpp_revision": "4daaaa1a4dd26d6465f84891b854b5f7ddc03020",
+  "published_gguf_revision": "88de02cf8fa37f87eb06daaed370ac9c3411d5ca",
+  "schema_version": 1,
+  "status": "pass"
+}

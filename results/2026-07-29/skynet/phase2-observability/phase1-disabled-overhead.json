@@ -1,0 +1,2925 @@
+{
+  "captured_at_utc": "2026-07-29T19:03:13.472203+00:00",
+  "combinations": [
+    {
+      "analysis": {
+        "decode_tokens_per_second": {
+          "base_mean": 97.23604579568665,
+          "candidate_mean": 97.38503718132287,
+          "critical_value": 1.833113,
+          "degrees_of_freedom": 9,
+          "noise_budget": 0.013771634804023877,
+          "one_sided_95_percent_upper_bound": 0.0013023093649707578,
+          "paired_mean_relative_candidate_slowdown": -0.0015530007881255693,
+          "paired_slowdown_sample_standard_deviation": 0.004925655706979586,
+          "pairs": [
+            {
+              "base_run": 0,
+              "base_value": 97.08640011826094,
+              "candidate_run": 1,
+              "candidate_value": 97.51130707597342,
+              "relative_candidate_slowdown": -0.0043765857750921455
+            },
+            {
+              "base_run": 3,
+              "base_value": 97.59876954303274,
+              "candidate_run": 2,
+              "candidate_value": 97.24172312689934,
+              "relative_candidate_slowdown": 0.003658308581195535
+            },
+            {
+              "base_run": 4,
+              "base_value": 97.41853288424174,
+              "candidate_run": 5,
+              "candidate_value": 97.51082492045148,
+              "relative_candidate_slowdown": -0.000947376576892367
+            },
+            {
+              "base_run": 7,
+              "base_value": 96.20875394673114,
+              "candidate_run": 6,
+              "candidate_value": 97.44104667469578,
+              "relative_candidate_slowdown": -0.012808530174363897
+            },
+            {
+              "base_run": 8,
+              "base_value": 97.36887157583803,
+              "candidate_run": 9,
+              "candidate_value": 97.30647231142203,
+              "relative_candidate_slowdown": 0.0006408543449885062
+            },
+            {
+              "base_run": 11,
+              "base_value": 97.4767657884138,
+              "candidate_run": 10,
+              "candidate_value": 97.44061565416986,
+              "relative_candidate_slowdown": 0.00037085898317967825
+            },
+            {
+              "base_run": 12,
+              "base_value": 97.54096226614057,
+              "candidate_run": 13,
+              "candidate_value": 97.48230778364425,
+              "relative_candidate_slowdown": 0.0006013318008518675
+            },
+            {
+              "base_run": 15,
+              "base_value": 97.55416922364444,
+              "candidate_run": 14,
+              "candidate_value": 97.4688194353021,
+              "relative_candidate_slowdown": 0.0008748963680544897
+            },
+            {
+              "base_run": 16,
+              "base_value": 96.59891248461331,
+              "candidate_run": 17,
+              "candidate_value": 97.18572355569933,
+              "relative_candidate_slowdown": -0.006074717157706022
+            },
+            {
+              "base_run": 19,
+              "base_value": 97.50832012594987,
+              "candidate_run": 18,
+              "candidate_value": 97.2615312749712,
+              "relative_candidate_slowdown": 0.002530951724528663
+            }
+          ],
+          "passed": true,
+          "phase1_cv": 0.0032963542717785906,
+          "refreshed_control_cv": 0.004590544934674625
+        },
+        "prompt_tokens_per_second": {
+          "base_mean": 373.7554747119251,
+          "candidate_mean": 371.3804800985526,
+          "critical_value": 1.833113,
+          "degrees_of_freedom": 9,
+          "noise_budget": 0.034853972971610164,
+          "one_sided_95_percent_upper_bound": 0.021335067840951075,
+          "paired_mean_relative_candidate_slowdown": 0.006109084604783455,
+          "paired_slowdown_sample_standard_deviation": 0.026266131243317305,
+          "pairs": [
+            {
+              "base_run": 0,
+              "base_value": 378.70748951624057,
+              "candidate_run": 1,
+              "candidate_value": 363.4137958127608,
+              "relative_candidate_slowdown": 0.040383921963138114
+            },
+            {
+              "base_run": 3,
+              "base_value": 363.9883072396182,
+              "candidate_run": 2,
+              "candidate_value": 381.06413073060435,
+              "relative_candidate_slowdown": -0.04691310998554932
+            },
+            {
+              "base_run": 4,
+              "base_value": 373.2860106214801,
+              "candidate_run": 5,
+              "candidate_value": 379.5908284175056,
+              "relative_candidate_slowdown": -0.016890045746768445
+            },
+            {
+              "base_run": 7,
+              "base_value": 373.4902868995518,
+              "candidate_run": 6,
+              "candidate_value": 364.61913817307874,
+              "relative_candidate_slowdown": 0.023752019898870658
+            },
+            {
+              "base_run": 8,
+              "base_value": 370.1490486577211,
+              "candidate_run": 9,
+              "candidate_value": 377.8052417001478,
+              "relative_candidate_slowdown": -0.020684081372599694
+            },
+            {
+              "base_run": 11,
+              "base_value": 377.08445688789635,
+              "candidate_run": 10,
+              "candidate_value": 368.81987891938434,
+              "relative_candidate_slowdown": 0.021917047540808587
+            },
+            {
+              "base_run": 12,
+              "base_value": 370.5561425164853,
+              "candidate_run": 13,
+              "candidate_value": 365.7054586293871,
+              "relative_candidate_slowdown": 0.013090280609455496
+            },
+            {
+              "base_run": 15,
+              "base_value": 374.7290802432112,
+              "candidate_run": 14,
+              "candidate_value": 371.08516285740325,
+              "relative_candidate_slowdown": 0.00972413825861318
+            },
+            {
+              "base_run": 16,
+              "base_value": 378.350568589018,
+              "candidate_run": 17,
+              "candidate_value": 373.3594306597239,
+              "relative_candidate_slowdown": 0.013191834091613841
+            },
+            {
+              "base_run": 19,
+              "base_value": 377.21335594802844,
+              "candidate_run": 18,
+              "candidate_value": 368.34173508553005,
+              "relative_candidate_slowdown": 0.023518840790252127
+            }
+          ],
+          "passed": true,
+          "phase1_cv": 0.008002013350946012,
+          "refreshed_control_cv": 0.01161799099053672
+        }
+      },
+      "binaries": {
+        "base": {
+          "path": "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cpu/bin/overhead-probe",
+          "sha256": "2ef48706ecd56c76cbc3b4a8dd023a16ae828734d0860b1d805b8485e1e94865"
+        },
+        "candidate": {
+          "path": "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/overhead-probe",
+          "sha256": "f58f3c3ee1eaeb1a330282f1e986e3c283167e5d9c0c79925e5612fb19a51a45"
+        }
+      },
+      "gpu_layers": 0,
+      "model": {
+        "path": "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+        "sha256": "411c197b503e6fb9199a2b22115e32dc4e2cad803fb112b24967737b3bab26c7",
+        "size_bytes": 784318432
+      },
+      "name": "f16-cpu",
+      "order": [
+        "base",
+        "candidate",
+        "candidate",
+        "base",
+        "base",
+        "candidate",
+        "candidate",
+        "base",
+        "base",
+        "candidate",
+        "candidate",
+        "base",
+        "base",
+        "candidate",
+        "candidate",
+        "base",
+        "base",
+        "candidate",
+        "candidate",
+        "base"
+      ],
+      "passed": true,
+      "runs": [
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 97.08640011826094,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 378.70748951624057,
+            "ttft_seconds": 0.013202802
+          },
+          "run_ordinal": 0,
+          "stderr_sha256": "2860193ef3006fb78224a361bc7d677bf4fbc6ec5381f0692e70436993b32b6a"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 97.51130707597342,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 363.4137958127608,
+            "ttft_seconds": 0.013758421
+          },
+          "run_ordinal": 1,
+          "stderr_sha256": "a1b85a3265c0e65107cb85bb65ef6a90fcb2a210cac3d3c84c984d4218240bbc"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 97.24172312689934,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 381.06413073060435,
+            "ttft_seconds": 0.013121151
+          },
+          "run_ordinal": 2,
+          "stderr_sha256": "0f4007b34429a778367f90b71192ef8fe93a0daed5dd990353b0d6e50601a281"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 97.59876954303274,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 363.9883072396182,
+            "ttft_seconds": 0.013736705
+          },
+          "run_ordinal": 3,
+          "stderr_sha256": "94316cf1a14da15dcab66a1ba5a4882c80298c3cc56989c7fad7692aba48b1c7"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 97.41853288424174,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 373.2860106214801,
+            "ttft_seconds": 0.013394555
+          },
+          "run_ordinal": 4,
+          "stderr_sha256": "43412e61c5532d2c21043cf54075d251bf4741ca0bd11272edaa185afe460728"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 97.51082492045148,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 379.5908284175056,
+            "ttft_seconds": 0.013172078
+          },
+          "run_ordinal": 5,
+          "stderr_sha256": "7fef5f2b0fb1c0fe638cae50465e157b6056302c3beb3254f12f7a5f7dce298b"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 97.44104667469578,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 364.61913817307874,
+            "ttft_seconds": 0.013712939
+          },
+          "run_ordinal": 6,
+          "stderr_sha256": "f802e2b1ee0cd3afbc91d8da6ab6b3a4d52d15a18b2f017dc2a59dec0ccd46cb"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 96.20875394673114,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 373.4902868995518,
+            "ttft_seconds": 0.013387229
+          },
+          "run_ordinal": 7,
+          "stderr_sha256": "0b75ed302f2f8bfd7cae05ff7c624a8f387fe546e154e812fb912b1288865a77"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 97.36887157583803,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 370.1490486577211,
+            "ttft_seconds": 0.013508072
+          },
+          "run_ordinal": 8,
+          "stderr_sha256": "48dc54d253c8360a0e5e8209b9c9f1447d3b0c4c6a2fc2a4dfeeeaeb8c141e20"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 97.30647231142203,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 377.8052417001478,
+            "ttft_seconds": 0.013234332
+          },
+          "run_ordinal": 9,
+          "stderr_sha256": "a043dfdd1abef34a7fb0a07b81d64b16efcf9d7a3b8447f2194ccdf0e6f5b8dc"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 97.44061565416986,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 368.81987891938434,
+            "ttft_seconds": 0.013556753
+          },
+          "run_ordinal": 10,
+          "stderr_sha256": "4634e818d7881fe7625297dc22eba1a852439a0d6ee923bac8018d436907da68"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 97.4767657884138,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 377.08445688789635,
+            "ttft_seconds": 0.013259629
+          },
+          "run_ordinal": 11,
+          "stderr_sha256": "3200777d5cf68cd4e4241a6de52b47f7abdd0edf90f1457907d4e31e2543e684"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 97.54096226614057,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 370.5561425164853,
+            "ttft_seconds": 0.013493232
+          },
+          "run_ordinal": 12,
+          "stderr_sha256": "774cb5e7e1080cb72f0c83ac3df28550779da36394eaffbe37c5b9b2e8ea2e18"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 97.48230778364425,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 365.7054586293871,
+            "ttft_seconds": 0.013672205
+          },
+          "run_ordinal": 13,
+          "stderr_sha256": "41eaf2d1c7d45cb649c30e8aaa4876cf22c865c59c745090bf8d54dc78295228"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 97.4688194353021,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 371.08516285740325,
+            "ttft_seconds": 0.013473996
+          },
+          "run_ordinal": 14,
+          "stderr_sha256": "7b7f65323f1678de57c24a54d0cdde784cd1eb586241b2af5d97db15aa481076"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 97.55416922364444,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 374.7290802432112,
+            "ttft_seconds": 0.013342973
+          },
+          "run_ordinal": 15,
+          "stderr_sha256": "59d4fc9c3edd5be905aea4bcff0c06a974845ca48ffd98a2a4f16e1844f37012"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 96.59891248461331,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 378.350568589018,
+            "ttft_seconds": 0.013215257
+          },
+          "run_ordinal": 16,
+          "stderr_sha256": "64f8d956a9e4e2976ba587c1f53507a809b4e793c143270575d3875c8c617e5a"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 97.18572355569933,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 373.3594306597239,
+            "ttft_seconds": 0.013391921
+          },
+          "run_ordinal": 17,
+          "stderr_sha256": "6fe791b00e1189c80c54bbe29257c18f53a0a537bfe9b1c4b804103595bd6c69"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 97.2615312749712,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 368.34173508553005,
+            "ttft_seconds": 0.013574351
+          },
+          "run_ordinal": 18,
+          "stderr_sha256": "d8670fc6bafd8c491ce805962ed56189222dcac1d58afaad5d75524f2dc26d6f"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 97.50832012594987,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 377.21335594802844,
+            "ttft_seconds": 0.013255098
+          },
+          "run_ordinal": 19,
+          "stderr_sha256": "3200777d5cf68cd4e4241a6de52b47f7abdd0edf90f1457907d4e31e2543e684"
+        }
+      ],
+      "warmups": [
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 96.14188619564754,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 365.26405998161846,
+            "ttft_seconds": 0.013688727
+          },
+          "stderr_sha256": "8baaed6107f1721cdf00854c3b2a07c657654c118d47397b8a7498b2f4a43b4c"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 97.49063175960436,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 367.5330965391099,
+            "ttft_seconds": 0.013604217
+          },
+          "stderr_sha256": "a1b85a3265c0e65107cb85bb65ef6a90fcb2a210cac3d3c84c984d4218240bbc"
+        }
+      ]
+    },
+    {
+      "analysis": {
+        "decode_tokens_per_second": {
+          "base_mean": 158.2273526550478,
+          "candidate_mean": 158.2492065651477,
+          "critical_value": 1.833113,
+          "degrees_of_freedom": 9,
+          "noise_budget": 0.009889062815335772,
+          "one_sided_95_percent_upper_bound": 0.0002289547622491516,
+          "paired_mean_relative_candidate_slowdown": -0.00013853923631520492,
+          "paired_slowdown_sample_standard_deviation": 0.0006339587695390383,
+          "pairs": [
+            {
+              "base_run": 0,
+              "base_value": 157.9283745468813,
+              "candidate_run": 1,
+              "candidate_value": 158.11835468496614,
+              "relative_candidate_slowdown": -0.001202951265913521
+            },
+            {
+              "base_run": 3,
+              "base_value": 158.2120185548946,
+              "candidate_run": 2,
+              "candidate_value": 158.2730239471174,
+              "relative_candidate_slowdown": -0.0003855926545910382
+            },
+            {
+              "base_run": 4,
+              "base_value": 158.0759298166978,
+              "candidate_run": 5,
+              "candidate_value": 158.2378355084272,
+              "relative_candidate_slowdown": -0.0010242273565441717
+            },
+            {
+              "base_run": 7,
+              "base_value": 158.341397611232,
+              "candidate_run": 6,
+              "candidate_value": 158.2166035404393,
+              "relative_candidate_slowdown": 0.0007881329372820822
+            },
+            {
+              "base_run": 8,
+              "base_value": 158.32148354750353,
+              "candidate_run": 9,
+              "candidate_value": 158.28925458506674,
+              "relative_candidate_slowdown": 0.0002035665767818884
+            },
+            {
+              "base_run": 11,
+              "base_value": 158.25748747082892,
+              "candidate_run": 10,
+              "candidate_value": 158.27007954199172,
+              "relative_candidate_slowdown": -7.95669851962888e-05
+            },
+            {
+              "base_run": 12,
+              "base_value": 158.33259626211176,
+              "candidate_run": 13,
+              "candidate_value": 158.3526740230897,
+              "relative_candidate_slowdown": -0.0001268075017522019
+            },
+            {
+              "base_run": 15,
+              "base_value": 158.31368014664886,
+              "candidate_run": 14,
+              "candidate_value": 158.2071720676958,
+              "relative_candidate_slowdown": 0.0006727661112696515
+            },
+            {
+              "base_run": 16,
+              "base_value": 158.25183418821194,
+              "candidate_run": 17,
+              "candidate_value": 158.27055548236643,
+              "relative_candidate_slowdown": -0.00011830064561668685
+            },
+            {
+              "base_run": 19,
+              "base_value": 158.23872440546737,
+              "candidate_run": 18,
+              "candidate_value": 158.25651227031645,
+              "relative_candidate_slowdown": -0.00011241157887176279
+            }
+          ],
+          "passed": true,
+          "phase1_cv": 0.0032963542717785906,
+          "refreshed_control_cv": 0.0007857800813198874
+        },
+        "prompt_tokens_per_second": {
+          "base_mean": 126.0857407140008,
+          "candidate_mean": 126.34862047150382,
+          "critical_value": 1.833113,
+          "degrees_of_freedom": 9,
+          "noise_budget": 0.1002715756116618,
+          "one_sided_95_percent_upper_bound": 0.024603214984683708,
+          "paired_mean_relative_candidate_slowdown": -0.003427718342728314,
+          "paired_slowdown_sample_standard_deviation": 0.048355771987293926,
+          "pairs": [
+            {
+              "base_run": 0,
+              "base_value": 126.77945101860696,
+              "candidate_run": 1,
+              "candidate_value": 128.41465482423297,
+              "relative_candidate_slowdown": -0.012898019296408103
+            },
+            {
+              "base_run": 3,
+              "base_value": 113.50962498054444,
+              "candidate_run": 2,
+              "candidate_value": 127.59389130465239,
+              "relative_candidate_slowdown": -0.12407993001934403
+            },
+            {
+              "base_run": 4,
+              "base_value": 128.4760347485534,
+              "candidate_run": 5,
+              "candidate_value": 126.76678352282305,
+              "relative_candidate_slowdown": 0.01330404716393685
+            },
+            {
+              "base_run": 7,
+              "base_value": 127.24230201886708,
+              "candidate_run": 6,
+              "candidate_value": 118.06750693894546,
+              "relative_candidate_slowdown": 0.0721049127086778
+            },
+            {
+              "base_run": 8,
+              "base_value": 127.30173957063313,
+              "candidate_run": 9,
+              "candidate_value": 126.83176137202744,
+              "relative_candidate_slowdown": 0.0036918442763692605
+            },
+            {
+              "base_run": 11,
+              "base_value": 127.71478529803586,
+              "candidate_run": 10,
+              "candidate_value": 127.58898464073597,
+              "relative_candidate_slowdown": 0.000985012479223335
+            },
+            {
+              "base_run": 12,
+              "base_value": 127.20110380029834,
+              "candidate_run": 13,
+              "candidate_value": 126.2914468637704,
+              "relative_candidate_slowdown": 0.007151328953529101
+            },
+            {
+              "base_run": 15,
+              "base_value": 127.77300644977693,
+              "candidate_run": 14,
+              "candidate_value": 126.34755032189187,
+              "relative_candidate_slowdown": 0.011156160189792153
+            },
+            {
+              "base_run": 16,
+              "base_value": 127.62221211511024,
+              "candidate_run": 17,
+              "candidate_value": 127.60999445560095,
+              "relative_candidate_slowdown": 9.573301784071564e-05
+            },
+            {
+              "base_run": 19,
+              "base_value": 127.23714713958171,
+              "candidate_run": 18,
+              "candidate_value": 127.9736304703576,
+              "relative_candidate_slowdown": -0.0057882729009002265
+            }
+          ],
+          "passed": true,
+          "phase1_cv": 0.008002013350946012,
+          "refreshed_control_cv": 0.0334238585372206
+        }
+      },
+      "binaries": {
+        "base": {
+          "path": "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cuda/bin/overhead-probe",
+          "sha256": "00e4ab0ef1d362f2be3e5068dbe89e733a2ea952885fc25d5298d70101b404c1"
+        },
+        "candidate": {
+          "path": "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/overhead-probe",
+          "sha256": "33163776c8e18d017f2721299d7743c73f8d04b255e25f972bd31767722d9814"
+        }
+      },
+      "gpu_layers": 999,
+      "model": {
+        "path": "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+        "sha256": "411c197b503e6fb9199a2b22115e32dc4e2cad803fb112b24967737b3bab26c7",
+        "size_bytes": 784318432
+      },
+      "name": "f16-cuda",
+      "order": [
+        "base",
+        "candidate",
+        "candidate",
+        "base",
+        "base",
+        "candidate",
+        "candidate",
+        "base",
+        "base",
+        "candidate",
+        "candidate",
+        "base",
+        "base",
+        "candidate",
+        "candidate",
+        "base",
+        "base",
+        "candidate",
+        "candidate",
+        "base"
+      ],
+      "passed": true,
+      "runs": [
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 157.9283745468813,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 126.77945101860696,
+            "ttft_seconds": 0.039438568
+          },
+          "run_ordinal": 0,
+          "stderr_sha256": "36988b64b6766c7bbb7baccd7157cecf050e9150034cd63194a6100294348578"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 158.11835468496614,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 128.41465482423297,
+            "ttft_seconds": 0.038936366
+          },
+          "run_ordinal": 1,
+          "stderr_sha256": "c5ecec2b28cb2792dd61d3ff576ab6d9cfc06e7df2fab9d7b6cb87a2cff86521"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 158.2730239471174,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 127.59389130465239,
+            "ttft_seconds": 0.039186829
+          },
+          "run_ordinal": 2,
+          "stderr_sha256": "e44db714debedd8f5c1a1206e2b4e416523fc07c396f581b516a819ecf83cde6"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 158.2120185548946,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 113.50962498054444,
+            "ttft_seconds": 0.044049128
+          },
+          "run_ordinal": 3,
+          "stderr_sha256": "644e843c7da13161eae762a73f08ae88dd297d4657cf9c9299da46ef73764177"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 158.0759298166978,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 128.4760347485534,
+            "ttft_seconds": 0.038917764
+          },
+          "run_ordinal": 4,
+          "stderr_sha256": "1f123ac6bff932f7d6830b1324d2b5540544a81ed6e271c3eda87238605610b4"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 158.2378355084272,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 126.76678352282305,
+            "ttft_seconds": 0.039442509
+          },
+          "run_ordinal": 5,
+          "stderr_sha256": "0ddeb50f5db113b443e2b9ce704da169854e00998dc75c9e95eecfe117ff6089"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 158.2166035404393,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 118.06750693894546,
+            "ttft_seconds": 0.042348654
+          },
+          "run_ordinal": 6,
+          "stderr_sha256": "41262d6e764904257127421aecc4998628cccb9e1b02bf5f91bf49fb484915d6"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 158.341397611232,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 127.24230201886708,
+            "ttft_seconds": 0.039295108
+          },
+          "run_ordinal": 7,
+          "stderr_sha256": "6238290c3ad1220f2ff14798f5615d47fab6664c020a6af573e54c9d2f774c86"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 158.32148354750353,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 127.30173957063313,
+            "ttft_seconds": 0.039276761
+          },
+          "run_ordinal": 8,
+          "stderr_sha256": "0ddeb50f5db113b443e2b9ce704da169854e00998dc75c9e95eecfe117ff6089"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 158.28925458506674,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 126.83176137202744,
+            "ttft_seconds": 0.039422302
+          },
+          "run_ordinal": 9,
+          "stderr_sha256": "e0ebfaadfafcf6b3b43202d8a9713aca207dc1c5e86863cb6ec8cdefd0e97bb3"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 158.27007954199172,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 127.58898464073597,
+            "ttft_seconds": 0.039188336
+          },
+          "run_ordinal": 10,
+          "stderr_sha256": "24d741b4e680aa410d02927ed2f445fb5e8239e03963cef866b9b912298d3d1d"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 158.25748747082892,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 127.71478529803586,
+            "ttft_seconds": 0.039149735
+          },
+          "run_ordinal": 11,
+          "stderr_sha256": "ab431d1c4c9918be10a86f864f1c3c57aaa97bbc34c51e1ff27d03d432b15bf9"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 158.33259626211176,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 127.20110380029834,
+            "ttft_seconds": 0.039307835
+          },
+          "run_ordinal": 12,
+          "stderr_sha256": "6f9af33423ef0ef0e30a5992c391f84e240b462db62575be482f4af8b258593f"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 158.3526740230897,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 126.2914468637704,
+            "ttft_seconds": 0.039590963
+          },
+          "run_ordinal": 13,
+          "stderr_sha256": "e3a882b76dd8297748aee3c9493abbad1f2f42b1d271a718a776969db333dc92"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 158.2071720676958,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 126.34755032189187,
+            "ttft_seconds": 0.039573383
+          },
+          "run_ordinal": 14,
+          "stderr_sha256": "d0c58f418c6ff16d2fe160db5426bbc30d3e4655f3d67bce6d4bddfc771b71ff"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 158.31368014664886,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 127.77300644977693,
+            "ttft_seconds": 0.039131896
+          },
+          "run_ordinal": 15,
+          "stderr_sha256": "dc2f58091718a39d478cb8c49c1b3e13880b95e26b452efe10ef89a16577ad2d"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 158.25183418821194,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 127.62221211511024,
+            "ttft_seconds": 0.039178133
+          },
+          "run_ordinal": 16,
+          "stderr_sha256": "81b02d9b6d791d0b65a0f8b401d4c4185b53ccb278424a30c4ee58169594cf01"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 158.27055548236643,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 127.60999445560095,
+            "ttft_seconds": 0.039181884
+          },
+          "run_ordinal": 17,
+          "stderr_sha256": "4aaa918c12a9d9d0838dc463dc67ed1990833f6087ac0dc7b26204326748af84"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 158.25651227031645,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 127.9736304703576,
+            "ttft_seconds": 0.039070549
+          },
+          "run_ordinal": 18,
+          "stderr_sha256": "526b30c4682d6e1e7e05d9ba879f0f4ef1ec471e5941e9ce329313402aeb0055"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 158.23872440546737,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 127.23714713958171,
+            "ttft_seconds": 0.0392967
+          },
+          "run_ordinal": 19,
+          "stderr_sha256": "e2b386c3356af2443d2e30c3438b89d40bf2229be73286fff372eb115b11e3a0"
+        }
+      ],
+      "warmups": [
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 138.0417650018923,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 122.42590056063962,
+            "ttft_seconds": 0.040841031
+          },
+          "stderr_sha256": "9eb2fa9a51721ce61d8a5366614a2cbb907ce1d5eb0110c2b5b1ce8336bb62da"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 158.10948176435397,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 128.33621212846506,
+            "ttft_seconds": 0.038960165
+          },
+          "stderr_sha256": "81b02d9b6d791d0b65a0f8b401d4c4185b53ccb278424a30c4ee58169594cf01"
+        }
+      ]
+    },
+    {
+      "analysis": {
+        "decode_tokens_per_second": {
+          "base_mean": 99.26600029659546,
+          "candidate_mean": 99.44739884134599,
+          "critical_value": 1.833113,
+          "degrees_of_freedom": 9,
+          "noise_budget": 0.021276301470629123,
+          "one_sided_95_percent_upper_bound": 0.0030837609916159374,
+          "paired_mean_relative_candidate_slowdown": -0.0018832362733942176,
+          "paired_slowdown_sample_standard_deviation": 0.008568497680862585,
+          "pairs": [
+            {
+              "base_run": 0,
+              "base_value": 97.99412157763186,
+              "candidate_run": 1,
+              "candidate_value": 99.61401230465485,
+              "relative_candidate_slowdown": -0.016530488777734442
+            },
+            {
+              "base_run": 3,
+              "base_value": 99.69152927784135,
+              "candidate_run": 2,
+              "candidate_value": 99.3684921167932,
+              "relative_candidate_slowdown": 0.0032403671945671064
+            },
+            {
+              "base_run": 4,
+              "base_value": 99.25436522869465,
+              "candidate_run": 5,
+              "candidate_value": 99.06429214979403,
+              "relative_candidate_slowdown": 0.0019150097677081979
+            },
+            {
+              "base_run": 7,
+              "base_value": 99.69824374107823,
+              "candidate_run": 6,
+              "candidate_value": 99.21760223449947,
+              "relative_candidate_slowdown": 0.004820962622240521
+            },
+            {
+              "base_run": 8,
+              "base_value": 99.64158051624477,
+              "candidate_run": 9,
+              "candidate_value": 99.67528305428674,
+              "relative_candidate_slowdown": -0.0003382376902028028
+            },
+            {
+              "base_run": 11,
+              "base_value": 99.6947999472739,
+              "candidate_run": 10,
+              "candidate_value": 99.62742022323428,
+              "relative_candidate_slowdown": 0.0006758599653668984
+            },
+            {
+              "base_run": 12,
+              "base_value": 97.77254167794437,
+              "candidate_run": 13,
+              "candidate_value": 99.63710443672547,
+              "relative_candidate_slowdown": -0.019070413091262672
+            },
+            {
+              "base_run": 15,
+              "base_value": 99.63912307998031,
+              "candidate_run": 14,
+              "candidate_value": 99.39842293551018,
+              "relative_candidate_slowdown": 0.002415719217810808
+            },
+            {
+              "base_run": 16,
+              "base_value": 99.61591899492468,
+              "candidate_run": 17,
+              "candidate_value": 99.22406532852926,
+              "relative_candidate_slowdown": 0.003933645047388357
+            },
+            {
+              "base_run": 19,
+              "base_value": 99.65777892434053,
+              "candidate_run": 18,
+              "candidate_value": 99.64729362943247,
+              "relative_candidate_slowdown": 0.00010521301017585305
+            }
+          ],
+          "passed": true,
+          "phase1_cv": 0.0032963542717785906,
+          "refreshed_control_cv": 0.007092100490209708
+        },
+        "prompt_tokens_per_second": {
+          "base_mean": 379.0473062730858,
+          "candidate_mean": 373.0751913933972,
+          "critical_value": 1.833113,
+          "degrees_of_freedom": 9,
+          "noise_budget": 0.10531246655643427,
+          "one_sided_95_percent_upper_bound": 0.03602611558269839,
+          "paired_mean_relative_candidate_slowdown": 0.014633185859562126,
+          "paired_slowdown_sample_standard_deviation": 0.036904644584936065,
+          "pairs": [
+            {
+              "base_run": 0,
+              "base_value": 377.15203896312454,
+              "candidate_run": 1,
+              "candidate_value": 378.29826911896754,
+              "relative_candidate_slowdown": -0.003039172634448084
+            },
+            {
+              "base_run": 3,
+              "base_value": 386.7518913134365,
+              "candidate_run": 2,
+              "candidate_value": 381.0036459000884,
+              "relative_candidate_slowdown": 0.014862876025833138
+            },
+            {
+              "base_run": 4,
+              "base_value": 381.030474055254,
+              "candidate_run": 5,
+              "candidate_value": 370.03273605609337,
+              "relative_candidate_slowdown": 0.028863145464753104
+            },
+            {
+              "base_run": 7,
+              "base_value": 392.38567745191017,
+              "candidate_run": 6,
+              "candidate_value": 373.4798808629058,
+              "relative_candidate_slowdown": 0.04818166838243321
+            },
+            {
+              "base_run": 8,
+              "base_value": 389.53157270256224,
+              "candidate_run": 9,
+              "candidate_value": 370.1694369160207,
+              "relative_candidate_slowdown": 0.04970620392130842
+            },
+            {
+              "base_run": 11,
+              "base_value": 343.1032910399056,
+              "candidate_run": 10,
+              "candidate_value": 367.95849781384817,
+              "relative_candidate_slowdown": -0.0724423443989981
+            },
+            {
+              "base_run": 12,
+              "base_value": 374.5311899462645,
+              "candidate_run": 13,
+              "candidate_value": 370.5391990083778,
+              "relative_candidate_slowdown": 0.010658634167315717
+            },
+            {
+              "base_run": 15,
+              "base_value": 386.2732993294373,
+              "candidate_run": 14,
+              "candidate_value": 365.0370706096316,
+              "relative_candidate_slowdown": 0.05497721110071896
+            },
+            {
+              "base_run": 16,
+              "base_value": 384.8528980616268,
+              "candidate_run": 17,
+              "candidate_value": 384.0396500968663,
+              "relative_candidate_slowdown": 0.00211313977069294
+            },
+            {
+              "base_run": 19,
+              "base_value": 374.86072986733603,
+              "candidate_run": 18,
+              "candidate_value": 370.19352755117205,
+              "relative_candidate_slowdown": 0.012450496796011956
+            }
+          ],
+          "passed": true,
+          "phase1_cv": 0.008002013350946012,
+          "refreshed_control_cv": 0.03510415551881142
+        }
+      },
+      "binaries": {
+        "base": {
+          "path": "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cpu/bin/overhead-probe",
+          "sha256": "2ef48706ecd56c76cbc3b4a8dd023a16ae828734d0860b1d805b8485e1e94865"
+        },
+        "candidate": {
+          "path": "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/overhead-probe",
+          "sha256": "f58f3c3ee1eaeb1a330282f1e986e3c283167e5d9c0c79925e5612fb19a51a45"
+        }
+      },
+      "gpu_layers": 0,
+      "model": {
+        "path": "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+        "sha256": "0379a1cc623e09eb3fbd1dfcb18737bc8c971dbfe5bf5bc3e08da8b5379ec169",
+        "size_bytes": 751976576
+      },
+      "name": "mxfp4-cpu",
+      "order": [
+        "base",
+        "candidate",
+        "candidate",
+        "base",
+        "base",
+        "candidate",
+        "candidate",
+        "base",
+        "base",
+        "candidate",
+        "candidate",
+        "base",
+        "base",
+        "candidate",
+        "candidate",
+        "base",
+        "base",
+        "candidate",
+        "candidate",
+        "base"
+      ],
+      "passed": true,
+      "runs": [
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 97.99412157763186,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 377.15203896312454,
+            "ttft_seconds": 0.013257253
+          },
+          "run_ordinal": 0,
+          "stderr_sha256": "6c102447271987f46828cf06b6929de2f7ed750dfb3ba05c6384bcd6860a90c8"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 99.61401230465485,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 378.29826911896754,
+            "ttft_seconds": 0.013217084
+          },
+          "run_ordinal": 1,
+          "stderr_sha256": "021458a46b49a279da40be8dea310881ad1e1bd3d0e39045661557e384fc41b4"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 99.3684921167932,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 381.0036459000884,
+            "ttft_seconds": 0.013123234
+          },
+          "run_ordinal": 2,
+          "stderr_sha256": "adb3b89cb6d95471fc7e226b8ae98291ab6965d6a89e3b69956e07dc80aefac0"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 99.69152927784135,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 386.7518913134365,
+            "ttft_seconds": 0.012928185
+          },
+          "run_ordinal": 3,
+          "stderr_sha256": "e338b4397c62cff6b9b655f623fd229401cbc5204a4caff8159b1223b2ffe7e7"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 99.25436522869465,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 381.030474055254,
+            "ttft_seconds": 0.01312231
+          },
+          "run_ordinal": 4,
+          "stderr_sha256": "5eb3f467e8a4a7a2badb47303a7543bedebd1014a183af218b21534e71ebc2fa"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 99.06429214979403,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 370.03273605609337,
+            "ttft_seconds": 0.013512318
+          },
+          "run_ordinal": 5,
+          "stderr_sha256": "cdc0887f9dc70e48284125847cd59cfbdfc60df83c815818b3718eb3af58324e"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 99.21760223449947,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 373.4798808629058,
+            "ttft_seconds": 0.013387602
+          },
+          "run_ordinal": 6,
+          "stderr_sha256": "15c5448354d0ea5bef03e3681ce09b7edb59c07633e867ddfdf58db307d9d199"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 99.69824374107823,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 392.38567745191017,
+            "ttft_seconds": 0.012742565
+          },
+          "run_ordinal": 7,
+          "stderr_sha256": "317b288edbc0a1182e294210777a87a3c221653877740ac8baf34bcdde8715a6"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 99.64158051624477,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 389.53157270256224,
+            "ttft_seconds": 0.01283593
+          },
+          "run_ordinal": 8,
+          "stderr_sha256": "bb0c394e34472dc46b8eea4b0da60977c3a185cd9c23077270766aea58c0b44b"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 99.67528305428674,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 370.1694369160207,
+            "ttft_seconds": 0.013507328
+          },
+          "run_ordinal": 9,
+          "stderr_sha256": "febc22e6b25fc1b808506d6b025d946d8882e325873a85675c2376e6f0d14310"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 99.62742022323428,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 367.95849781384817,
+            "ttft_seconds": 0.013588489
+          },
+          "run_ordinal": 10,
+          "stderr_sha256": "3b64b32d79ebfb8064898583ef83c32ef2f32e47bd62e956b57a3f7735793fc2"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 99.6947999472739,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 343.1032910399056,
+            "ttft_seconds": 0.014572871
+          },
+          "run_ordinal": 11,
+          "stderr_sha256": "7d7ebbf6d24b9d32228f3fbad77d91ba3a6b9983a50742e56c74871de1119854"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 97.77254167794437,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 374.5311899462645,
+            "ttft_seconds": 0.013350023
+          },
+          "run_ordinal": 12,
+          "stderr_sha256": "c9fb84a84f6eef30b036c46e99e2a68f4ee860ee60e7eaf33ae520cc044a3df6"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 99.63710443672547,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 370.5391990083778,
+            "ttft_seconds": 0.013493849
+          },
+          "run_ordinal": 13,
+          "stderr_sha256": "5eb3f467e8a4a7a2badb47303a7543bedebd1014a183af218b21534e71ebc2fa"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 99.39842293551018,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 365.0370706096316,
+            "ttft_seconds": 0.013697239
+          },
+          "run_ordinal": 14,
+          "stderr_sha256": "8de41549161a94432120790af1d46662225172ad6bee09e85bed34f167372d8e"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 99.63912307998031,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 386.2732993294373,
+            "ttft_seconds": 0.012944203
+          },
+          "run_ordinal": 15,
+          "stderr_sha256": "b6016c5cd1b55551f85985e7d5395df90f6a4655d5c10bc1cc7a592472574ffe"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 99.61591899492468,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 384.8528980616268,
+            "ttft_seconds": 0.012991977
+          },
+          "run_ordinal": 16,
+          "stderr_sha256": "177cadc639ffe14780e72426ccbd7f194e3adef0fef91442e9c634db19ba274e"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 99.22406532852926,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 384.0396500968663,
+            "ttft_seconds": 0.013019489
+          },
+          "run_ordinal": 17,
+          "stderr_sha256": "bfc21e4393d49427200e97e4548d3fcb96b6683a792877e37c4c5d55d41321a3"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 99.64729362943247,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 370.19352755117205,
+            "ttft_seconds": 0.013506449
+          },
+          "run_ordinal": 18,
+          "stderr_sha256": "bb0c394e34472dc46b8eea4b0da60977c3a185cd9c23077270766aea58c0b44b"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 99.65777892434053,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 374.86072986733603,
+            "ttft_seconds": 0.013338287
+          },
+          "run_ordinal": 19,
+          "stderr_sha256": "d028c705285413e48dd9c461ee1ac7384092a4c4a9b79d17353aec817bb1ca4f"
+        }
+      ],
+      "warmups": [
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 99.43229607005222,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 377.7644804680653,
+            "ttft_seconds": 0.01323576
+          },
+          "stderr_sha256": "2fcef41901a18789e45f220ea89c1244436948ee28263d0204b97c41a9ae8876"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cpu/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "0"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 99.70886134212789,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 357.75707493236246,
+            "ttft_seconds": 0.013975964
+          },
+          "stderr_sha256": "473fd268f9ab60ade4fe7ef1f827ebe40fc5aef087f32840b0d132282c82dcf8"
+        }
+      ]
+    },
+    {
+      "analysis": {
+        "decode_tokens_per_second": {
+          "base_mean": 162.2199623217415,
+          "candidate_mean": 162.22572709692577,
+          "critical_value": 1.833113,
+          "degrees_of_freedom": 9,
+          "noise_budget": 0.009889062815335772,
+          "one_sided_95_percent_upper_bound": 0.00013883115685593236,
+          "paired_mean_relative_candidate_slowdown": -3.5544778347851304e-05,
+          "paired_slowdown_sample_standard_deviation": 0.0003008134928757223,
+          "pairs": [
+            {
+              "base_run": 0,
+              "base_value": 162.20558887263985,
+              "candidate_run": 1,
+              "candidate_value": 162.1560665184049,
+              "relative_candidate_slowdown": 0.00030530609074030934
+            },
+            {
+              "base_run": 3,
+              "base_value": 162.16490636491886,
+              "candidate_run": 2,
+              "candidate_value": 162.25053334031958,
+              "relative_candidate_slowdown": -0.0005280240794394153
+            },
+            {
+              "base_run": 4,
+              "base_value": 162.2361895488819,
+              "candidate_run": 5,
+              "candidate_value": 162.2540961004307,
+              "relative_candidate_slowdown": -0.00011037334887231687
+            },
+            {
+              "base_run": 7,
+              "base_value": 162.25696024301874,
+              "candidate_run": 6,
+              "candidate_value": 162.29003464736712,
+              "relative_candidate_slowdown": -0.000203839664559613
+            },
+            {
+              "base_run": 8,
+              "base_value": 162.2061616795053,
+              "candidate_run": 9,
+              "candidate_value": 162.22182362217282,
+              "relative_candidate_slowdown": -9.6555781268437e-05
+            },
+            {
+              "base_run": 11,
+              "base_value": 162.2160025302452,
+              "candidate_run": 10,
+              "candidate_value": 162.20661883161938,
+              "relative_candidate_slowdown": 5.78469354406419e-05
+            },
+            {
+              "base_run": 12,
+              "base_value": 162.2124935204135,
+              "candidate_run": 13,
+              "candidate_value": 162.26474582483428,
+              "relative_candidate_slowdown": -0.00032212256458663546
+            },
+            {
+              "base_run": 15,
+              "base_value": 162.23484995202918,
+              "candidate_run": 14,
+              "candidate_value": 162.22239106118394,
+              "relative_candidate_slowdown": 7.679540400185036e-05
+            },
+            {
+              "base_run": 16,
+              "base_value": 162.21062477835017,
+              "candidate_run": 17,
+              "candidate_value": 162.12549386676383,
+              "relative_candidate_slowdown": 0.0005248171117191447
+            },
+            {
+              "base_run": 19,
+              "base_value": 162.25584572741232,
+              "candidate_run": 18,
+              "candidate_value": 162.2654671561612,
+              "relative_candidate_slowdown": -5.9297886654041676e-05
+            }
+          ],
+          "passed": true,
+          "phase1_cv": 0.0032963542717785906,
+          "refreshed_control_cv": 0.00015989989961207095
+        },
+        "prompt_tokens_per_second": {
+          "base_mean": 113.3044105452753,
+          "candidate_mean": 112.8327683417644,
+          "critical_value": 1.833113,
+          "degrees_of_freedom": 9,
+          "noise_budget": 0.02400604005283804,
+          "one_sided_95_percent_upper_bound": 0.010554230425746672,
+          "paired_mean_relative_candidate_slowdown": 0.004140473794301302,
+          "paired_slowdown_sample_standard_deviation": 0.011064282078287857,
+          "pairs": [
+            {
+              "base_run": 0,
+              "base_value": 113.48090253722191,
+              "candidate_run": 1,
+              "candidate_value": 113.31490727180513,
+              "relative_candidate_slowdown": 0.001462759474990416
+            },
+            {
+              "base_run": 3,
+              "base_value": 112.92894847090477,
+              "candidate_run": 2,
+              "candidate_value": 111.14662863377231,
+              "relative_candidate_slowdown": 0.01578266566071551
+            },
+            {
+              "base_run": 4,
+              "base_value": 113.65610105154852,
+              "candidate_run": 5,
+              "candidate_value": 113.070144330421,
+              "relative_candidate_slowdown": 0.005155523686860897
+            },
+            {
+              "base_run": 7,
+              "base_value": 112.77306786071993,
+              "candidate_run": 6,
+              "candidate_value": 113.60772674324296,
+              "relative_candidate_slowdown": -0.00740122529568743
+            },
+            {
+              "base_run": 8,
+              "base_value": 113.28826227791563,
+              "candidate_run": 9,
+              "candidate_value": 114.06300073657324,
+              "relative_candidate_slowdown": -0.006838647209161275
+            },
+            {
+              "base_run": 11,
+              "base_value": 113.77675121819061,
+              "candidate_run": 10,
+              "candidate_value": 111.01381367086269,
+              "relative_candidate_slowdown": 0.024283849888009357
+            },
+            {
+              "base_run": 12,
+              "base_value": 113.71237519043412,
+              "candidate_run": 13,
+              "candidate_value": 112.57528021563299,
+              "relative_candidate_slowdown": 0.009999746930770215
+            },
+            {
+              "base_run": 15,
+              "base_value": 112.91088553523485,
+              "candidate_run": 14,
+              "candidate_value": 113.94906577035243,
+              "relative_candidate_slowdown": -0.009194686855888756
+            },
+            {
+              "base_run": 16,
+              "base_value": 112.79414768015938,
+              "candidate_run": 17,
+              "candidate_value": 113.07539147944358,
+              "relative_candidate_slowdown": -0.0024934254575130765
+            },
+            {
+              "base_run": 19,
+              "base_value": 113.72266363042317,
+              "candidate_run": 18,
+              "candidate_value": 112.51172456553766,
+              "relative_candidate_slowdown": 0.010648177119917168
+            }
+          ],
+          "passed": true,
+          "phase1_cv": 0.008002013350946012,
+          "refreshed_control_cv": 0.0034837808475591575
+        }
+      },
+      "binaries": {
+        "base": {
+          "path": "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cuda/bin/overhead-probe",
+          "sha256": "00e4ab0ef1d362f2be3e5068dbe89e733a2ea952885fc25d5298d70101b404c1"
+        },
+        "candidate": {
+          "path": "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/overhead-probe",
+          "sha256": "33163776c8e18d017f2721299d7743c73f8d04b255e25f972bd31767722d9814"
+        }
+      },
+      "gpu_layers": 999,
+      "model": {
+        "path": "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+        "sha256": "0379a1cc623e09eb3fbd1dfcb18737bc8c971dbfe5bf5bc3e08da8b5379ec169",
+        "size_bytes": 751976576
+      },
+      "name": "mxfp4-cuda",
+      "order": [
+        "base",
+        "candidate",
+        "candidate",
+        "base",
+        "base",
+        "candidate",
+        "candidate",
+        "base",
+        "base",
+        "candidate",
+        "candidate",
+        "base",
+        "base",
+        "candidate",
+        "candidate",
+        "base",
+        "base",
+        "candidate",
+        "candidate",
+        "base"
+      ],
+      "passed": true,
+      "runs": [
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 162.20558887263985,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 113.48090253722191,
+            "ttft_seconds": 0.044060277
+          },
+          "run_ordinal": 0,
+          "stderr_sha256": "e0bbc0ef187cf3dae2eda243eb79b8e08ade3a5512273cc5e60fb3729e4dec71"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 162.1560665184049,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 113.31490727180513,
+            "ttft_seconds": 0.044124821
+          },
+          "run_ordinal": 1,
+          "stderr_sha256": "63f0bc7b1d38c236705158c3a5ef614a14d9e4955a2e8ce3ced8821f011d02fb"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 162.25053334031958,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 111.14662863377231,
+            "ttft_seconds": 0.04498562
+          },
+          "run_ordinal": 2,
+          "stderr_sha256": "eb68882385316414fca34a5f077bc13908d4785524c5150ec129e8e4e3ce0713"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 162.16490636491886,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 112.92894847090477,
+            "ttft_seconds": 0.044275627
+          },
+          "run_ordinal": 3,
+          "stderr_sha256": "25a31ecdc36d96fa78b4f22d6af8a3e27854797c65cdab47acf80449c5e10e72"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 162.2361895488819,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 113.65610105154852,
+            "ttft_seconds": 0.043992359
+          },
+          "run_ordinal": 4,
+          "stderr_sha256": "503d9a8a36f55ae90f924dee82d8140a0e38fdc5740493d2adf7c2d4821d1a4e"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 162.2540961004307,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 113.070144330421,
+            "ttft_seconds": 0.044220338
+          },
+          "run_ordinal": 5,
+          "stderr_sha256": "88085e1237ca749070a62f068ca6dbae6544cc31b5cf863cd50c0fc6343b7e73"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 162.29003464736712,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 113.60772674324296,
+            "ttft_seconds": 0.044011091
+          },
+          "run_ordinal": 6,
+          "stderr_sha256": "57eea552caef9579f2594661f233179398c14256741b9d9f8400e57538fbc266"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 162.25696024301874,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 112.77306786071993,
+            "ttft_seconds": 0.044336827
+          },
+          "run_ordinal": 7,
+          "stderr_sha256": "73330aaebaa50b02275999541bffd5b17ba8d63c7dddd0aed8469c8d4d389849"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 162.2061616795053,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 113.28826227791563,
+            "ttft_seconds": 0.044135199
+          },
+          "run_ordinal": 8,
+          "stderr_sha256": "88085e1237ca749070a62f068ca6dbae6544cc31b5cf863cd50c0fc6343b7e73"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 162.22182362217282,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 114.06300073657324,
+            "ttft_seconds": 0.043835424
+          },
+          "run_ordinal": 9,
+          "stderr_sha256": "5006a5509df69a1febe8364386d80a040c4d299ac0362913c180e62c35521ed8"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 162.20661883161938,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 111.01381367086269,
+            "ttft_seconds": 0.04503944
+          },
+          "run_ordinal": 10,
+          "stderr_sha256": "a4ae1a6dcdda36069e3819c9206170f6aaa53e32b430563c8cfcf388186c072d"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 162.2160025302452,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 113.77675121819061,
+            "ttft_seconds": 0.043945709
+          },
+          "run_ordinal": 11,
+          "stderr_sha256": "233da1734d0fb241fa9bedef017c221af10fb5dcb40d314691520c0da91b0902"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 162.2124935204135,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 113.71237519043412,
+            "ttft_seconds": 0.043970588
+          },
+          "run_ordinal": 12,
+          "stderr_sha256": "231d0706f5c3f9bf6d2ed1f64f3d10034298ad156c4b7ec33b744041a83bd991"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 162.26474582483428,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 112.57528021563299,
+            "ttft_seconds": 0.044414724
+          },
+          "run_ordinal": 13,
+          "stderr_sha256": "07e799b656c302d562d44f6880c72fe78f41ada1bcab7fda79d38cf9c828d91d"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 162.22239106118394,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 113.94906577035243,
+            "ttft_seconds": 0.043879254
+          },
+          "run_ordinal": 14,
+          "stderr_sha256": "63f0bc7b1d38c236705158c3a5ef614a14d9e4955a2e8ce3ced8821f011d02fb"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 162.23484995202918,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 112.91088553523485,
+            "ttft_seconds": 0.04428271
+          },
+          "run_ordinal": 15,
+          "stderr_sha256": "c7cbdc6c7c462a8e2a02ae8ae29f3a835da5d9fcbec2e372b0377aa516913ae5"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 162.21062477835017,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 112.79414768015938,
+            "ttft_seconds": 0.044328541
+          },
+          "run_ordinal": 16,
+          "stderr_sha256": "a006186236f2b821c5629ffe12c5d6fdf16fa1303deeb009f011a39068e4ed2b"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 162.12549386676383,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 113.07539147944358,
+            "ttft_seconds": 0.044218286
+          },
+          "run_ordinal": 17,
+          "stderr_sha256": "233da1734d0fb241fa9bedef017c221af10fb5dcb40d314691520c0da91b0902"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 162.2654671561612,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 112.51172456553766,
+            "ttft_seconds": 0.044439813
+          },
+          "run_ordinal": 18,
+          "stderr_sha256": "07e799b656c302d562d44f6880c72fe78f41ada1bcab7fda79d38cf9c828d91d"
+        },
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 162.25584572741232,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 113.72266363042317,
+            "ttft_seconds": 0.04396661
+          },
+          "run_ordinal": 19,
+          "stderr_sha256": "4a22fc2dfda08b4a1e7abc15f2d710696ad3ac552083436e6a46c552af5e35df"
+        }
+      ],
+      "warmups": [
+        {
+          "binary_kind": "base",
+          "command": [
+            "/tmp/k3-llama-base-parent.raf20S/llama-base/build-phase2-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 152.97611152769304,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 110.35834214489516,
+            "ttft_seconds": 0.045306951
+          },
+          "stderr_sha256": "73d85acdf7f5503f4794fe30bf60c31ec6aeb5dcf9d5725edebe38b205bb65a7"
+        },
+        {
+          "binary_kind": "candidate",
+          "command": [
+            "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/overhead-probe",
+            "--model",
+            "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+            "--gpu-layers",
+            "999"
+          ],
+          "metric": {
+            "decode_tokens_per_second": 162.0083702434528,
+            "generated_tokens": 49,
+            "graphs_reused": 47,
+            "prompt_tokens": 5,
+            "prompt_tokens_per_second": 113.43651942636696,
+            "ttft_seconds": 0.044077516
+          },
+          "stderr_sha256": "6dc26d53ce3c47dac6e29fb1b1e397c0f2cee2d4e623efc903d4f286061967ad"
+        }
+      ]
+    }
+  ],
+  "matching_build_configuration": {
+    "cpu": {
+      "CMAKE_BUILD_TYPE": "Release",
+      "CMAKE_CXX_COMPILER": "/usr/bin/c++",
+      "CMAKE_C_COMPILER": "/usr/bin/cc",
+      "GGML_ACCELERATE": "ON",
+      "GGML_ALL_WARNINGS_3RD_PARTY": "OFF",
+      "GGML_AMX_BF16": "OFF",
+      "GGML_AMX_INT8": "OFF",
+      "GGML_AMX_TILE": "OFF",
+      "GGML_AVAILABLE_BACKENDS": "ggml-cpu",
+      "GGML_AVX": "OFF",
+      "GGML_AVX2": "OFF",
+      "GGML_AVX512": "OFF",
+      "GGML_AVX512_BF16": "OFF",
+      "GGML_AVX512_VBMI": "OFF",
+      "GGML_AVX512_VNNI": "OFF",
+      "GGML_AVX_VNNI": "OFF",
+      "GGML_BACKEND_DIR": "",
+      "GGML_BACKEND_DL": "OFF",
+      "GGML_BIN_INSTALL_DIR": "bin",
+      "GGML_BLAS": "OFF",
+      "GGML_BLAS_VENDOR": "Generic",
+      "GGML_BMI2": "OFF",
+      "GGML_BUILD_EXAMPLES": "OFF",
+      "GGML_BUILD_TESTS": "OFF",
+      "GGML_CCACHE": "ON",
+      "GGML_CCACHE_FOUND": "GGML_CCACHE_FOUND-NOTFOUND",
+      "GGML_CPU": "ON",
+      "GGML_CPU_ALL_VARIANTS": "OFF",
+      "GGML_CPU_ARM_ARCH": "",
+      "GGML_CPU_HBM": "OFF",
+      "GGML_CPU_KLEIDIAI": "OFF",
+      "GGML_CPU_POWERPC_CPUTYPE": "",
+      "GGML_CPU_REPACK": "ON",
+      "GGML_CUDA": "OFF",
+      "GGML_CUDA_COMPRESSION_MODE": "size",
+      "GGML_CUDA_COMPRESSION_MODE-STRINGS": "none;speed;balance;size",
+      "GGML_CUDA_FA": "ON",
+      "GGML_CUDA_FA_ALL_QUANTS": "OFF",
+      "GGML_CUDA_FORCE_CUBLAS": "OFF",
+      "GGML_CUDA_FORCE_MMQ": "OFF",
+      "GGML_CUDA_GRAPHS": "ON",
+      "GGML_CUDA_NCCL": "ON",
+      "GGML_CUDA_NO_PEER_COPY": "OFF",
+      "GGML_CUDA_NO_VMM": "OFF",
+      "GGML_CUDA_PEER_MAX_BATCH_SIZE": "128",
+      "GGML_ET": "OFF",
+      "GGML_ET_SYSEMU": "OFF",
+      "GGML_F16C": "OFF",
+      "GGML_FMA": "OFF",
+      "GGML_GPROF": "OFF",
+      "GGML_HEXAGON": "OFF",
+      "GGML_HIP": "OFF",
+      "GGML_HIP_EXPORT_METRICS": "OFF",
+      "GGML_HIP_GRAPHS": "ON",
+      "GGML_HIP_MMQ_MFMA": "ON",
+      "GGML_HIP_NO_VMM": "ON",
+      "GGML_HIP_RCCL": "OFF",
+      "GGML_INCLUDE_INSTALL_DIR": "include",
+      "GGML_LASX": "ON",
+      "GGML_LIB_INSTALL_DIR": "lib",
+      "GGML_LLAMAFILE": "ON",
+      "GGML_LSX": "ON",
+      "GGML_LTO": "OFF",
+      "GGML_METAL": "OFF",
+      "GGML_METAL_EMBED_LIBRARY": "OFF",
+      "GGML_METAL_MACOSX_VERSION_MIN": "",
+      "GGML_METAL_NDEBUG": "OFF",
+      "GGML_METAL_SHADER_DEBUG": "OFF",
+      "GGML_METAL_STD": "",
+      "GGML_MUSA": "OFF",
+      "GGML_MUSA_GRAPHS": "OFF",
+      "GGML_MUSA_MUDNN_COPY": "OFF",
+      "GGML_NATIVE": "ON",
+      "GGML_OPENCL": "OFF",
+      "GGML_OPENCL_EMBED_KERNELS": "ON",
+      "GGML_OPENCL_PROFILING": "OFF",
+      "GGML_OPENCL_TARGET_VERSION": "300",
+      "GGML_OPENCL_USE_ADRENO_KERNELS": "ON",
+      "GGML_OPENMP": "ON",
+      "GGML_OPENMP_ENABLED": "ON",
+      "GGML_OPENVINO": "OFF",
+      "GGML_RPC": "OFF",
+      "GGML_RVV": "ON",
+      "GGML_RV_ZFH": "ON",
+      "GGML_RV_ZICBOP": "ON",
+      "GGML_RV_ZIHINTPAUSE": "ON",
+      "GGML_RV_ZVFBFWMA": "OFF",
+      "GGML_RV_ZVFH": "ON",
+      "GGML_SANITIZE_ADDRESS": "OFF",
+      "GGML_SANITIZE_THREAD": "OFF",
+      "GGML_SANITIZE_UNDEFINED": "OFF",
+      "GGML_SCCACHE_FOUND": "GGML_SCCACHE_FOUND-NOTFOUND",
+      "GGML_SCHED_MAX_COPIES": "4",
+      "GGML_SCHED_NO_REALLOC": "OFF",
+      "GGML_SSE42": "OFF",
+      "GGML_STATIC": "OFF",
+      "GGML_SYCL": "OFF",
+      "GGML_SYCL_DEVICE_ARCH": "",
+      "GGML_SYCL_DNN": "ON",
+      "GGML_SYCL_F16": "OFF",
+      "GGML_SYCL_GRAPH": "ON",
+      "GGML_SYCL_HOST_MEM_FALLBACK": "ON",
+      "GGML_SYCL_SUPPORT_LEVEL_ZERO_API": "ON",
+      "GGML_SYCL_TARGET": "INTEL",
+      "GGML_VIRTGPU": "OFF",
+      "GGML_VIRTGPU_BACKEND": "OFF",
+      "GGML_VULKAN": "OFF",
+      "GGML_VULKAN_CHECK_RESULTS": "OFF",
+      "GGML_VULKAN_DEBUG": "OFF",
+      "GGML_VULKAN_MEMORY_DEBUG": "OFF",
+      "GGML_VULKAN_RUN_TESTS": "OFF",
+      "GGML_VULKAN_SHADERS_GEN_TOOLCHAIN": "",
+      "GGML_VULKAN_SHADER_DEBUG_INFO": "OFF",
+      "GGML_VULKAN_VALIDATE": "OFF",
+      "GGML_VXE": "ON",
+      "GGML_WEBGPU": "OFF",
+      "GGML_WEBGPU_CPU_PROFILE": "OFF",
+      "GGML_WEBGPU_DEBUG": "OFF",
+      "GGML_WEBGPU_GPU_PROFILE": "OFF",
+      "GGML_WEBGPU_JSPI": "ON",
+      "GGML_XTHEADVECTOR": "OFF",
+      "GGML_ZDNN": "OFF",
+      "GGML_ZENDNN": "OFF"
+    },
+    "cuda": {
+      "CMAKE_BUILD_TYPE": "Release",
+      "CMAKE_CUDA_COMPILER": "/usr/bin/nvcc",
+      "CMAKE_CXX_COMPILER": "/usr/bin/c++",
+      "CMAKE_C_COMPILER": "/usr/bin/cc",
+      "GGML_ACCELERATE": "ON",
+      "GGML_ALL_WARNINGS_3RD_PARTY": "OFF",
+      "GGML_AMX_BF16": "OFF",
+      "GGML_AMX_INT8": "OFF",
+      "GGML_AMX_TILE": "OFF",
+      "GGML_AVAILABLE_BACKENDS": "ggml-cpu;ggml-cuda",
+      "GGML_AVX": "OFF",
+      "GGML_AVX2": "OFF",
+      "GGML_AVX512": "OFF",
+      "GGML_AVX512_BF16": "OFF",
+      "GGML_AVX512_VBMI": "OFF",
+      "GGML_AVX512_VNNI": "OFF",
+      "GGML_AVX_VNNI": "OFF",
+      "GGML_BACKEND_DIR": "",
+      "GGML_BACKEND_DL": "OFF",
+      "GGML_BIN_INSTALL_DIR": "bin",
+      "GGML_BLAS": "OFF",
+      "GGML_BLAS_VENDOR": "Generic",
+      "GGML_BMI2": "OFF",
+      "GGML_BUILD_EXAMPLES": "OFF",
+      "GGML_BUILD_TESTS": "OFF",
+      "GGML_CCACHE": "ON",
+      "GGML_CCACHE_FOUND": "GGML_CCACHE_FOUND-NOTFOUND",
+      "GGML_CPU": "ON",
+      "GGML_CPU_ALL_VARIANTS": "OFF",
+      "GGML_CPU_ARM_ARCH": "",
+      "GGML_CPU_HBM": "OFF",
+      "GGML_CPU_KLEIDIAI": "OFF",
+      "GGML_CPU_POWERPC_CPUTYPE": "",
+      "GGML_CPU_REPACK": "ON",
+      "GGML_CUDA": "ON",
+      "GGML_CUDA_COMPRESSION_MODE": "size",
+      "GGML_CUDA_COMPRESSION_MODE-STRINGS": "none;speed;balance;size",
+      "GGML_CUDA_FA": "ON",
+      "GGML_CUDA_FA_ALL_QUANTS": "OFF",
+      "GGML_CUDA_FORCE_CUBLAS": "OFF",
+      "GGML_CUDA_FORCE_MMQ": "OFF",
+      "GGML_CUDA_GRAPHS": "ON",
+      "GGML_CUDA_NCCL": "ON",
+      "GGML_CUDA_NO_PEER_COPY": "OFF",
+      "GGML_CUDA_NO_VMM": "OFF",
+      "GGML_CUDA_PEER_MAX_BATCH_SIZE": "128",
+      "GGML_ET": "OFF",
+      "GGML_ET_SYSEMU": "OFF",
+      "GGML_F16C": "OFF",
+      "GGML_FMA": "OFF",
+      "GGML_GPROF": "OFF",
+      "GGML_HEXAGON": "OFF",
+      "GGML_HIP": "OFF",
+      "GGML_HIP_EXPORT_METRICS": "OFF",
+      "GGML_HIP_GRAPHS": "ON",
+      "GGML_HIP_MMQ_MFMA": "ON",
+      "GGML_HIP_NO_VMM": "ON",
+      "GGML_HIP_RCCL": "OFF",
+      "GGML_INCLUDE_INSTALL_DIR": "include",
+      "GGML_LASX": "ON",
+      "GGML_LIB_INSTALL_DIR": "lib",
+      "GGML_LLAMAFILE": "ON",
+      "GGML_LSX": "ON",
+      "GGML_LTO": "OFF",
+      "GGML_METAL": "OFF",
+      "GGML_METAL_EMBED_LIBRARY": "OFF",
+      "GGML_METAL_MACOSX_VERSION_MIN": "",
+      "GGML_METAL_NDEBUG": "OFF",
+      "GGML_METAL_SHADER_DEBUG": "OFF",
+      "GGML_METAL_STD": "",
+      "GGML_MUSA": "OFF",
+      "GGML_MUSA_GRAPHS": "OFF",
+      "GGML_MUSA_MUDNN_COPY": "OFF",
+      "GGML_NATIVE": "ON",
+      "GGML_OPENCL": "OFF",
+      "GGML_OPENCL_EMBED_KERNELS": "ON",
+      "GGML_OPENCL_PROFILING": "OFF",
+      "GGML_OPENCL_TARGET_VERSION": "300",
+      "GGML_OPENCL_USE_ADRENO_KERNELS": "ON",
+      "GGML_OPENMP": "ON",
+      "GGML_OPENMP_ENABLED": "ON",
+      "GGML_OPENVINO": "OFF",
+      "GGML_RPC": "OFF",
+      "GGML_RVV": "ON",
+      "GGML_RV_ZFH": "ON",
+      "GGML_RV_ZICBOP": "ON",
+      "GGML_RV_ZIHINTPAUSE": "ON",
+      "GGML_RV_ZVFBFWMA": "OFF",
+      "GGML_RV_ZVFH": "ON",
+      "GGML_SANITIZE_ADDRESS": "OFF",
+      "GGML_SANITIZE_THREAD": "OFF",
+      "GGML_SANITIZE_UNDEFINED": "OFF",
+      "GGML_SCCACHE_FOUND": "GGML_SCCACHE_FOUND-NOTFOUND",
+      "GGML_SCHED_MAX_COPIES": "4",
+      "GGML_SCHED_NO_REALLOC": "OFF",
+      "GGML_SSE42": "OFF",
+      "GGML_STATIC": "OFF",
+      "GGML_SYCL": "OFF",
+      "GGML_SYCL_DEVICE_ARCH": "",
+      "GGML_SYCL_DNN": "ON",
+      "GGML_SYCL_F16": "OFF",
+      "GGML_SYCL_GRAPH": "ON",
+      "GGML_SYCL_HOST_MEM_FALLBACK": "ON",
+      "GGML_SYCL_SUPPORT_LEVEL_ZERO_API": "ON",
+      "GGML_SYCL_TARGET": "INTEL",
+      "GGML_VIRTGPU": "OFF",
+      "GGML_VIRTGPU_BACKEND": "OFF",
+      "GGML_VULKAN": "OFF",
+      "GGML_VULKAN_CHECK_RESULTS": "OFF",
+      "GGML_VULKAN_DEBUG": "OFF",
+      "GGML_VULKAN_MEMORY_DEBUG": "OFF",
+      "GGML_VULKAN_RUN_TESTS": "OFF",
+      "GGML_VULKAN_SHADERS_GEN_TOOLCHAIN": "",
+      "GGML_VULKAN_SHADER_DEBUG_INFO": "OFF",
+      "GGML_VULKAN_VALIDATE": "OFF",
+      "GGML_VXE": "ON",
+      "GGML_WEBGPU": "OFF",
+      "GGML_WEBGPU_CPU_PROFILE": "OFF",
+      "GGML_WEBGPU_DEBUG": "OFF",
+      "GGML_WEBGPU_GPU_PROFILE": "OFF",
+      "GGML_WEBGPU_JSPI": "ON",
+      "GGML_XTHEADVECTOR": "OFF",
+      "GGML_ZDNN": "OFF",
+      "GGML_ZENDNN": "OFF"
+    }
+  },
+  "passed": true,
+  "phase1_cv": {
+    "decode_tokens_per_second": 0.0032963542717785906,
+    "prompt_tokens_per_second": 0.008002013350946012
+  },
+  "protocol": {
+    "confidence_bound": "mean paired slowdown + t(0.95, df=9) * standard error",
+    "context": 512,
+    "generation_cap": 128,
+    "measured_runs_per_binary": 10,
+    "noise_budget": "3 * max(Phase 1 CV, refreshed control CV)",
+    "process_order": [
+      "base",
+      "candidate",
+      "candidate",
+      "base",
+      "base",
+      "candidate",
+      "candidate",
+      "base",
+      "base",
+      "candidate",
+      "candidate",
+      "base",
+      "base",
+      "candidate",
+      "candidate",
+      "base",
+      "base",
+      "candidate",
+      "candidate",
+      "base"
+    ],
+    "prompt": "According to all known laws",
+    "temperature": 0,
+    "threads": 8,
+    "warmups_per_binary": 1
+  },
+  "revisions": {
+    "llama_cpp_base": "84245db4c790af22135f34992689edcc11877003",
+    "llama_cpp_candidate": "92c4627e19219134ed42e24aa84a1514bf3dffa3"
+  },
+  "schema_version": 1
+}

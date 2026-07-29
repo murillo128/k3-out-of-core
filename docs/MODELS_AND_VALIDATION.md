@@ -265,6 +265,20 @@ The tokenizer evidence records a real metadata conflict: named HF special tokens
 
 See [`../results/2026-07-29/skynet/phase1-closeout-clean/SUMMARY.md`](../results/2026-07-29/skynet/phase1-closeout-clean/SUMMARY.md) for exact revisions, measured values, review notes, and checksum-verifiable evidence.
 
+## 7.2 Phase 2 observability and simulation record
+
+Issue #10 uses project base `c0ef5d08c6efb8d1f7a08a62109feb1a488c72fa` and nested `llama.cpp` base `84245db4c790af22135f34992689edcc11877003`. The accepted nested implementation head is `4daaaa1a4dd26d6465f84891b854b5f7ddc03020`: route observation is at `92c4627e19219134ed42e24aa84a1514bf3dffa3`, followed by loader-owned storage metadata.
+
+Checkpoint A re-review covered project head `43216235b6e74914afdb1b76918557675bf7e0b1` and returned `PASS_WITH_NOTES`, safety `YES`. It independently reproduced trace-enabled timing, exact observer accounting, direct-readback parity, storage maps, and the focused tests.
+
+The bounded corpus configuration is seed 1, temperature 0, greedy finite-logit argmax, and context 512. It contains constructed prose, code, structured-data, technical, narrative, English, and Spanish prompts. Exact prefill sizes are 12, 16, 23, 288, 309, and 349 tokens. Decode caps are 16 or 128; natural EOG is preserved and observed counts are recorded. Both artifacts have all six CPU traces; both have a representative small/large CUDA subset. All 16 traces reproduced byte-for-byte on a second identical run, and CPU/CUDA prompt and generated IDs are exact.
+
+The large CPU/CUDA prefill subsets expose small internal route differences despite exact generated IDs: F16 has 16 ordered top-2 mismatches in 2163 records and MXFP4 has 25. The short subsets have none. This is `OBSERVED` backend numerical behavior, not evidence of observer disagreement: same-backend direct readback and repeated trace correctness passed Checkpoint A. No unapproved cross-backend route-weight threshold is asserted.
+
+The raw archive is published at Hub revision `2d838d6b4d0aca4e9af1e7d899e57ad29330c72e`, size 323723 bytes, SHA-256 `6aa924a6c18bee4e2490f317ced836bcc4740c3ec63e9427a95951e79a649a5f`. The repository commits only prompt definitions, checksums, decoded summaries, simulator output, and the one permitted minimal real trace fixture.
+
+The Phase 3 simulator is independent of GGML/CUDA and reports inclusive hot/cold LRU plus an equal-bundle perfect-future Belady/MIN offline lower bound. Canonical MIN always admits a fitting demand and selects its replacement victim only from current residents; the `A B A` capacity-one discriminator records three misses and three admissions. Its latency/bandwidth inputs are explicitly illustrative and serial with no overlap; they are not production predictions. Twenty focused Phase 2 tests pass. The corrected Checkpoint B re-review at project head `961e2f44413ec2031497dcc1474e8e79b828e6cb` returned `PASS_WITH_NOTES`, safety `YES`. Complete evidence is under `results/2026-07-29/skynet/phase2-observability/`.
+
 ## 8. Validation levels
 
 ### Level A — conversion integrity

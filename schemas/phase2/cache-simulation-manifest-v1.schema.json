@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/phase2/cache-simulation-manifest-v1.schema.json",
+  "title": "K3 cache simulation manifest version 1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "description", "cost_model", "scenarios"],
+  "properties": {
+    "schema_version": {"const": "phase2-simulation-manifest-v1"},
+    "description": {"type": "string", "minLength": 1},
+    "cost_model": {"$ref": "#/$defs/cost_model"},
+    "scenarios": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/scenario"}
+    }
+  },
+  "$defs": {
+    "capacity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["slots", "bytes"],
+      "properties": {
+        "slots": {"type": "integer", "minimum": 0},
+        "bytes": {"type": "integer", "minimum": 0}
+      }
+    },
+    "tier_cost": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fixed_latency_us", "bandwidth_bytes_per_second"],
+      "properties": {
+        "fixed_latency_us": {"type": "number", "minimum": 0},
+        "bandwidth_bytes_per_second": {"type": "number", "exclusiveMinimum": 0}
+      }
+    },
+    "cost_model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["overlap_model", "tiers"],
+      "properties": {
+        "overlap_model": {"const": "serial_no_overlap"},
+        "tiers": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["hot", "cold", "backing_store"],
+          "properties": {
+            "hot": {"$ref": "#/$defs/tier_cost"},
+            "cold": {"$ref": "#/$defs/tier_cost"},
+            "backing_store": {"$ref": "#/$defs/tier_cost"}
+          }
+        }
+      }
+    },
+    "scenario": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "hot_capacity", "cold_capacity"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "hot_capacity": {"$ref": "#/$defs/capacity"},
+        "cold_capacity": {"$ref": "#/$defs/capacity"}
+      }
+    }
+  }
+}

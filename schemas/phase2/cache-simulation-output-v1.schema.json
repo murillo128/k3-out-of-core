@@ -1,0 +1,173 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/phase2/cache-simulation-output-v1.schema.json",
+  "title": "K3 cache simulation output version 1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "inputs", "accounting_semantics", "manifest_description",
+    "cost_model", "scenarios"
+  ],
+  "properties": {
+    "schema_version": {"const": "phase2-simulation-output-v1"},
+    "inputs": {"type": "object"},
+    "accounting_semantics": {"type": "object"},
+    "manifest_description": {"type": "string", "minLength": 1},
+    "cost_model": {"type": "object"},
+    "scenarios": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/scenario"}
+    }
+  },
+  "$defs": {
+    "capacity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["slots", "bytes"],
+      "properties": {
+        "slots": {"type": "integer", "minimum": 0},
+        "bytes": {"type": "integer", "minimum": 0}
+      }
+    },
+    "tier_metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requests", "hits", "misses", "bytes_requested", "bytes_transferred",
+        "hit_rate", "miss_rate"
+      ],
+      "properties": {
+        "requests": {"type": "integer", "minimum": 0},
+        "hits": {"type": "integer", "minimum": 0},
+        "misses": {"type": "integer", "minimum": 0},
+        "bytes_requested": {"type": "integer", "minimum": 0},
+        "bytes_transferred": {"type": "integer", "minimum": 0},
+        "hit_rate": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "miss_rate": {"type": ["number", "null"], "minimum": 0, "maximum": 1}
+      }
+    },
+    "cache_activity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["admissions", "evictions"],
+      "properties": {
+        "admissions": {"type": "integer", "minimum": 0},
+        "evictions": {"type": "integer", "minimum": 0}
+      }
+    },
+    "reuse_distance": {
+      "type": "object",
+      "required": [
+        "definition", "cold_references", "finite_references", "histogram", "p50", "p95", "p99"
+      ]
+    },
+    "stall": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["unit", "overlap_model", "samples", "total", "mean", "p50", "p95", "p99"],
+      "properties": {
+        "unit": {"const": "microseconds"},
+        "overlap_model": {"const": "serial_no_overlap"},
+        "samples": {"type": "integer", "minimum": 0},
+        "total": {"type": "number", "minimum": 0},
+        "mean": {"type": ["number", "null"], "minimum": 0},
+        "p50": {"type": ["number", "null"], "minimum": 0},
+        "p95": {"type": ["number", "null"], "minimum": 0},
+        "p99": {"type": ["number", "null"], "minimum": 0}
+      }
+    },
+    "report": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "logical_requests", "tiers", "cache_activity", "backing_store_request_rate",
+        "reuse_distance", "per_layer_expert_skew", "theoretical_stall"
+      ],
+      "properties": {
+        "logical_requests": {"type": "integer", "minimum": 0},
+        "tiers": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["hot", "cold", "backing_store"],
+          "properties": {
+            "hot": {"$ref": "#/$defs/tier_metrics"},
+            "cold": {"$ref": "#/$defs/tier_metrics"},
+            "backing_store": {"$ref": "#/$defs/tier_metrics"}
+          }
+        },
+        "cache_activity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["hot", "cold"],
+          "properties": {
+            "hot": {"$ref": "#/$defs/cache_activity"},
+            "cold": {"$ref": "#/$defs/cache_activity"}
+          }
+        },
+        "backing_store_request_rate": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "reuse_distance": {"$ref": "#/$defs/reuse_distance"},
+        "per_layer_expert_skew": {"type": "object"},
+        "theoretical_stall": {"$ref": "#/$defs/stall"}
+      }
+    },
+    "cache_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resident_slots", "resident_bytes", "peak_slots", "peak_bytes"],
+      "properties": {
+        "resident_slots": {"type": "integer", "minimum": 0},
+        "resident_bytes": {"type": "integer", "minimum": 0},
+        "peak_slots": {"type": "integer", "minimum": 0},
+        "peak_bytes": {"type": "integer", "minimum": 0}
+      }
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["policy", "policy_classification", "overall", "by_phase", "final_cache_state"],
+      "properties": {
+        "policy": {"enum": ["lru", "belady_min"]},
+        "policy_classification": {"type": "string", "minLength": 1},
+        "overall": {"$ref": "#/$defs/report"},
+        "by_phase": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["PREFILL", "DECODE"],
+          "properties": {
+            "PREFILL": {"$ref": "#/$defs/report"},
+            "DECODE": {"$ref": "#/$defs/report"}
+          }
+        },
+        "final_cache_state": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["hot", "cold"],
+          "properties": {
+            "hot": {"$ref": "#/$defs/cache_state"},
+            "cold": {"$ref": "#/$defs/cache_state"}
+          }
+        }
+      }
+    },
+    "scenario": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "hot_capacity", "cold_capacity", "policies"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "hot_capacity": {"$ref": "#/$defs/capacity"},
+        "cold_capacity": {"$ref": "#/$defs/capacity"},
+        "policies": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["lru", "belady_min"],
+          "properties": {
+            "lru": {"$ref": "#/$defs/policy"},
+            "belady_min": {"$ref": "#/$defs/policy"}
+          }
+        }
+      }
+    }
+  }
+}

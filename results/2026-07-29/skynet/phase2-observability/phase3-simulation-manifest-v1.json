@@ -1,0 +1,43 @@
+{
+  "schema_version": "phase2-simulation-manifest-v1",
+  "description": "Illustrative fixed costs for deterministic accounting only; these are not measured skynet latencies or production predictions.",
+  "cost_model": {
+    "overlap_model": "serial_no_overlap",
+    "tiers": {
+      "hot": {
+        "fixed_latency_us": 5,
+        "bandwidth_bytes_per_second": 100000000000
+      },
+      "cold": {
+        "fixed_latency_us": 50,
+        "bandwidth_bytes_per_second": 10000000000
+      },
+      "backing_store": {
+        "fixed_latency_us": 1000,
+        "bandwidth_bytes_per_second": 1000000000
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "no-cache",
+      "hot_capacity": {"slots": 0, "bytes": 0},
+      "cold_capacity": {"slots": 0, "bytes": 0}
+    },
+    {
+      "name": "one-expert",
+      "hot_capacity": {"slots": 1, "bytes": 786432},
+      "cold_capacity": {"slots": 1, "bytes": 786432}
+    },
+    {
+      "name": "bounded-hierarchy",
+      "hot_capacity": {"slots": 8, "bytes": 6291456},
+      "cold_capacity": {"slots": 24, "bytes": 18874368}
+    },
+    {
+      "name": "full-working-set",
+      "hot_capacity": {"slots": 56, "bytes": 44040192},
+      "cold_capacity": {"slots": 56, "bytes": 44040192}
+    }
+  ]
+}

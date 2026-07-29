@@ -1,0 +1,4668 @@
+{
+  "accounting_semantics": {
+    "bytes_requested": "atomic bundle bytes presented to each tier reached by the cascade",
+    "bytes_transferred": "atomic bundle bytes served by the first tier that hits",
+    "hierarchy": "inclusive: every hot resident must also be cold-resident",
+    "phase_state": "cache residency carries across phases; metrics are attributed to the phase of each request",
+    "request_cascade": "hot -> cold -> backing_store",
+    "theoretical_stall": "source-tier fixed latency plus bytes/bandwidth under serial_no_overlap"
+  },
+  "cost_model": {
+    "overlap_model": "serial_no_overlap",
+    "tiers": {
+      "backing_store": {
+        "bandwidth_bytes_per_second": 1000000000,
+        "fixed_latency_us": 1000
+      },
+      "cold": {
+        "bandwidth_bytes_per_second": 10000000000,
+        "fixed_latency_us": 50
+      },
+      "hot": {
+        "bandwidth_bytes_per_second": 100000000000,
+        "fixed_latency_us": 5
+      }
+    }
+  },
+  "inputs": {
+    "manifest_sha256": "a08d803db9eeac54aff099eab27a4d3a66fec3eb657be65c469a74aa6e606228",
+    "model": {
+      "llama_cpp_revision": "4daaaa1a4dd26d6465f84891b854b5f7ddc03020",
+      "name": "Kimi-K3-0.40B-F16.gguf",
+      "published_gguf_revision": "88de02cf8fa37f87eb06daaed370ac9c3411d5ca",
+      "sha256": "411c197b503e6fb9199a2b22115e32dc4e2cad803fb112b24967737b3bab26c7",
+      "size": 784318432,
+      "source_revision": "d853649387ffe8f48ce0198a29ac1a44205031f7"
+    },
+    "storage_map": {
+      "entries": 56,
+      "llama_cpp_revision": "4daaaa1a4dd26d6465f84891b854b5f7ddc03020",
+      "schema_version": "expert-storage-map-v1",
+      "sha256": "42af6acd1d1f2ea77aaa9750b28141670ce69009ba06b5ddca3f42c696b51151"
+    },
+    "trace": {
+      "expert_requests": 504,
+      "llama_cpp_revision": "92c4627e19219134ed42e24aa84a1514bf3dffa3",
+      "records": 252,
+      "run_id": "phase2-observer-f16-cpu-greedy32-v1",
+      "schema_version": 1,
+      "sha256": "1952895f05d7778fa9382e86b9dcaddf1549b330fe5aa034c5418479435111da"
+    }
+  },
+  "manifest_description": "Illustrative fixed costs for deterministic accounting only; these are not measured skynet latencies or production predictions.",
+  "scenarios": [
+    {
+      "cold_capacity": {
+        "bytes": 0,
+        "slots": 0
+      },
+      "hot_capacity": {
+        "bytes": 0,
+        "slots": 0
+      },
+      "name": "no-cache",
+      "policies": {
+        "belady_min": {
+          "by_phase": {
+            "DECODE": {
+              "backing_store_request_rate": 1.0,
+              "cache_activity": {
+                "cold": {
+                  "admissions": 0,
+                  "evictions": 0
+                },
+                "hot": {
+                  "admissions": 0,
+                  "evictions": 0
+                }
+              },
+              "logical_requests": 434,
+              "per_layer_expert_skew": {
+                "1": {
+                  "experts": {
+                    "0": 12,
+                    "1": 12,
+                    "2": 4,
+                    "3": 3,
+                    "4": 7,
+                    "5": 14,
+                    "6": 6,
+                    "7": 4
+                  },
+                  "maximum_expert_share": 0.22580645161290322,
+                  "requests": 62
+                },
+                "2": {
+                  "experts": {
+                    "0": 4,
+                    "1": 4,
+                    "2": 10,
+                    "3": 10,
+                    "4": 2,
+                    "5": 14,
+                    "6": 5,
+                    "7": 13
+                  },
+                  "maximum_expert_share": 0.22580645161290322,
+                  "requests": 62
+                },
+                "3": {
+                  "experts": {
+                    "0": 9,
+                    "1": 6,
+                    "2": 8,
+                    "3": 8,
+                    "4": 7,
+                    "5": 8,
+                    "6": 9,
+                    "7": 7
+                  },
+                  "maximum_expert_share": 0.14516129032258066,
+                  "requests": 62
+                },
+                "4": {
+                  "experts": {
+                    "0": 1,
+                    "1": 5,
+                    "2": 4,
+                    "3": 6,
+                    "4": 20,
+                    "5": 2,
+                    "6": 21,
+                    "7": 3
+                  },
+                  "maximum_expert_share": 0.3387096774193548,
+                  "requests": 62
+                },
+                "5": {
+                  "experts": {
+                    "0": 4,
+                    "1": 4,
+                    "2": 21,
+                    "3": 19,
+                    "4": 9,
+                    "6": 1,
+                    "7": 4
+                  },
+                  "maximum_expert_share": 0.3387096774193548,
+                  "requests": 62
+                },
+                "6": {
+                  "experts": {
+                    "0": 1,
+                    "1": 1,
+                    "2": 7,
+                    "3": 24,
+                    "4": 1,
+                    "5": 26,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.41935483870967744,
+                  "requests": 62
+                },
+                "7": {
+                  "experts": {
+                    "0": 8,
+                    "1": 1,
+                    "2": 6,
+                    "3": 26,
+                    "4": 6,
+                    "5": 13,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.41935483870967744,
+                  "requests": 62
+                }
+              },
+              "reuse_distance": {
+                "cold_references": 17,
+                "definition": "number of distinct atomic expert bundles referenced since the previous reference",
+                "finite_references": 417,
+                "histogram": {
+                  "12": 35,
+                  "13": 103,
+                  "14": 27,
+                  "16": 1,
+                  "17": 1,
+                  "18": 1,
+                  "19": 8,
+                  "20": 13,
+                  "21": 20,
+                  "22": 19,
+                  "23": 11,
+                  "24": 9,
+                  "25": 9,
+                  "26": 10,
+                  "27": 4,
+                  "28": 8,
+                  "29": 13,
+                  "30": 10,
+                  "31": 11,
+                  "32": 9,
+                  "33": 7,
+                  "34": 13,
+                  "35": 3,
+                  "36": 5,
+                  "37": 9,
+                  "38": 15,
+                  "39": 11,
+                  "40": 4,
+                  "42": 3,
+                  "43": 9,
+                  "44": 4,
+                  "45": 3,
+                  "46": 1,
+                  "47": 2,
+                  "48": 1,
+                  "49": 3,
+                  "50": 2,
+                  "cold": 17
+                },
+                "p50": 21,
+                "p95": 43,
+                "p99": 49
+              },
+              "theoretical_stall": {
+                "mean": 1786.432,
+                "overlap_model": "serial_no_overlap",
+                "p50": 1786.432,
+                "p95": 1786.432,
+                "p99": 1786.432,
+                "samples": 434,
+                "total": 775311.488,
+                "unit": "microseconds"
+              },
+              "tiers": {
+                "backing_store": {
+                  "bytes_requested": 341311488,
+                  "bytes_transferred": 341311488,
+                  "hit_rate": 1.0,
+                  "hits": 434,
+                  "miss_rate": 0.0,
+                  "misses": 0,
+                  "requests": 434
+                },
+                "cold": {
+                  "bytes_requested": 341311488,
+                  "bytes_transferred": 0,
+                  "hit_rate": 0.0,
+                  "hits": 0,
+                  "miss_rate": 1.0,
+                  "misses": 434,
+                  "requests": 434
+                },
+                "hot": {
+                  "bytes_requested": 341311488,
+                  "bytes_transferred": 0,
+                  "hit_rate": 0.0,
+                  "hits": 0,
+                  "miss_rate": 1.0,
+                  "misses": 434,
+                  "requests": 434
+                }
+              }
+            },
+            "PREFILL": {
+              "backing_store_request_rate": 1.0,
+              "cache_activity": {
+                "cold": {
+                  "admissions": 0,
+                  "evictions": 0
+                },
+                "hot": {
+                  "admissions": 0,
+                  "evictions": 0
+                }
+              },
+              "logical_requests": 70,
+              "per_layer_expert_skew": {
+                "1": {
+                  "experts": {
+                    "0": 3,
+                    "1": 2,
+                    "3": 2,
+                    "6": 1,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.3,
+                  "requests": 10
+                },
+                "2": {
+                  "experts": {
+                    "0": 2,
+                    "1": 1,
+                    "2": 2,
+                    "3": 2,
+                    "6": 1,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.2,
+                  "requests": 10
+                },
+                "3": {
+                  "experts": {
+                    "0": 1,
+                    "1": 2,
+                    "2": 3,
+                    "3": 1,
+                    "5": 2,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.3,
+                  "requests": 10
+                },
+                "4": {
+                  "experts": {
+                    "0": 1,
+                    "1": 2,
+                    "2": 2,
+                    "4": 2,
+                    "6": 2,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.2,
+                  "requests": 10
+                },
+                "5": {
+                  "experts": {
+                    "0": 1,
+                    "2": 5,
+                    "3": 3,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.5,
+                  "requests": 10
+                },
+                "6": {
+                  "experts": {
+                    "3": 5,
+                    "4": 1,
+                    "5": 3,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.5,
+                  "requests": 10
+                },
+                "7": {
+                  "experts": {
+                    "0": 1,
+                    "2": 1,
+                    "3": 4,
+                    "4": 2,
+                    "5": 2
+                  },
+                  "maximum_expert_share": 0.4,
+                  "requests": 10
+                }
+              },
+              "reuse_distance": {
+                "cold_references": 36,
+                "definition": "number of distinct atomic expert bundles referenced since the previous reference",
+                "finite_references": 34,
+                "histogram": {
+                  "0": 5,
+                  "1": 8,
+                  "2": 9,
+                  "3": 5,
+                  "4": 7,
+                  "cold": 36
+                },
+                "p50": 2,
+                "p95": 4,
+                "p99": 4
+              },
+              "theoretical_stall": {
+                "mean": 1786.432,
+                "overlap_model": "serial_no_overlap",
+                "p50": 1786.432,
+                "p95": 1786.432,
+                "p99": 1786.432,
+                "samples": 70,
+                "total": 125050.24,
+                "unit": "microseconds"
+              },
+              "tiers": {
+                "backing_store": {
+                  "bytes_requested": 55050240,
+                  "bytes_transferred": 55050240,
+                  "hit_rate": 1.0,
+                  "hits": 70,
+                  "miss_rate": 0.0,
+                  "misses": 0,
+                  "requests": 70
+                },
+                "cold": {
+                  "bytes_requested": 55050240,
+                  "bytes_transferred": 0,
+                  "hit_rate": 0.0,
+                  "hits": 0,
+                  "miss_rate": 1.0,
+                  "misses": 70,
+                  "requests": 70
+                },
+                "hot": {
+                  "bytes_requested": 55050240,
+                  "bytes_transferred": 0,
+                  "hit_rate": 0.0,
+                  "hits": 0,
+                  "miss_rate": 1.0,
+                  "misses": 70,
+                  "requests": 70
+                }
+              }
+            }
+          },
+          "final_cache_state": {
+            "cold": {
+              "peak_bytes": 0,
+              "peak_slots": 0,
+              "resident_bytes": 0,
+              "resident_slots": 0
+            },
+            "hot": {
+              "peak_bytes": 0,
+              "peak_slots": 0,
+              "resident_bytes": 0,
+              "resident_slots": 0
+            }
+          },
+          "overall": {
+            "backing_store_request_rate": 1.0,
+            "cache_activity": {
+              "cold": {
+                "admissions": 0,
+                "evictions": 0
+              },
+              "hot": {
+                "admissions": 0,
+                "evictions": 0
+              }
+            },
+            "logical_requests": 504,
+            "per_layer_expert_skew": {
+              "1": {
+                "experts": {
+                  "0": 15,
+                  "1": 14,
+                  "2": 4,
+                  "3": 5,
+                  "4": 7,
+                  "5": 14,
+                  "6": 7,
+                  "7": 6
+                },
+                "maximum_expert_share": 0.20833333333333334,
+                "requests": 72
+              },
+              "2": {
+                "experts": {
+                  "0": 6,
+                  "1": 5,
+                  "2": 12,
+                  "3": 12,
+                  "4": 2,
+                  "5": 14,
+                  "6": 6,
+                  "7": 15
+                },
+                "maximum_expert_share": 0.20833333333333334,
+                "requests": 72
+              },
+              "3": {
+                "experts": {
+                  "0": 10,
+                  "1": 8,
+                  "2": 11,
+                  "3": 9,
+                  "4": 7,
+                  "5": 10,
+                  "6": 9,
+                  "7": 8
+                },
+                "maximum_expert_share": 0.1527777777777778,
+                "requests": 72
+              },
+              "4": {
+                "experts": {
+                  "0": 2,
+                  "1": 7,
+                  "2": 6,
+                  "3": 6,
+                  "4": 22,
+                  "5": 2,
+                  "6": 23,
+                  "7": 4
+                },
+                "maximum_expert_share": 0.3194444444444444,
+                "requests": 72
+              },
+              "5": {
+                "experts": {
+                  "0": 5,
+                  "1": 4,
+                  "2": 26,
+                  "3": 22,
+                  "4": 9,
+                  "6": 1,
+                  "7": 5
+                },
+                "maximum_expert_share": 0.3611111111111111,
+                "requests": 72
+              },
+              "6": {
+                "experts": {
+                  "0": 1,
+                  "1": 1,
+                  "2": 7,
+                  "3": 29,
+                  "4": 2,
+                  "5": 29,
+                  "7": 3
+                },
+                "maximum_expert_share": 0.4027777777777778,
+                "requests": 72
+              },
+              "7": {
+                "experts": {
+                  "0": 9,
+                  "1": 1,
+                  "2": 7,
+                  "3": 30,
+                  "4": 8,
+                  "5": 15,
+                  "7": 2
+                },
+                "maximum_expert_share": 0.4166666666666667,
+                "requests": 72
+              }
+            },
+            "reuse_distance": {
+              "cold_references": 53,
+              "definition": "number of distinct atomic expert bundles referenced since the previous reference",
+              "finite_references": 451,
+              "histogram": {
+                "0": 5,
+                "1": 8,
+                "12": 35,
+                "13": 103,
+                "14": 27,
+                "16": 1,
+                "17": 1,
+                "18": 1,
+                "19": 8,
+                "2": 9,
+                "20": 13,
+                "21": 20,
+                "22": 19,
+                "23": 11,
+                "24": 9,
+                "25": 9,
+                "26": 10,
+                "27": 4,
+                "28": 8,
+                "29": 13,
+                "3": 5,
+                "30": 10,
+                "31": 11,
+                "32": 9,
+                "33": 7,
+                "34": 13,
+                "35": 3,
+                "36": 5,
+                "37": 9,
+                "38": 15,
+                "39": 11,
+                "4": 7,
+                "40": 4,
+                "42": 3,
+                "43": 9,
+                "44": 4,
+                "45": 3,
+                "46": 1,
+                "47": 2,
+                "48": 1,
+                "49": 3,
+                "50": 2,
+                "cold": 53
+              },
+              "p50": 21,
+              "p95": 43,
+              "p99": 49
+            },
+            "theoretical_stall": {
+              "mean": 1786.432,
+              "overlap_model": "serial_no_overlap",
+              "p50": 1786.432,
+              "p95": 1786.432,
+              "p99": 1786.432,
+              "samples": 504,
+              "total": 900361.728,
+              "unit": "microseconds"
+            },
+            "tiers": {
+              "backing_store": {
+                "bytes_requested": 396361728,
+                "bytes_transferred": 396361728,
+                "hit_rate": 1.0,
+                "hits": 504,
+                "miss_rate": 0.0,
+                "misses": 0,
+                "requests": 504
+              },
+              "cold": {
+                "bytes_requested": 396361728,
+                "bytes_transferred": 0,
+                "hit_rate": 0.0,
+                "hits": 0,
+                "miss_rate": 1.0,
+                "misses": 504,
+                "requests": 504
+              },
+              "hot": {
+                "bytes_requested": 396361728,
+                "bytes_transferred": 0,
+                "hit_rate": 0.0,
+                "hits": 0,
+                "miss_rate": 1.0,
+                "misses": 504,
+                "requests": 504
+              }
+            }
+          },
+          "policy": "belady_min",
+          "policy_classification": "perfect-future offline lower bound; not a production policy"
+        },
+        "lru": {
+          "by_phase": {
+            "DECODE": {
+              "backing_store_request_rate": 1.0,
+              "cache_activity": {
+                "cold": {
+                  "admissions": 0,
+                  "evictions": 0
+                },
+                "hot": {
+                  "admissions": 0,
+                  "evictions": 0
+                }
+              },
+              "logical_requests": 434,
+              "per_layer_expert_skew": {
+                "1": {
+                  "experts": {
+                    "0": 12,
+                    "1": 12,
+                    "2": 4,
+                    "3": 3,
+                    "4": 7,
+                    "5": 14,
+                    "6": 6,
+                    "7": 4
+                  },
+                  "maximum_expert_share": 0.22580645161290322,
+                  "requests": 62
+                },
+                "2": {
+                  "experts": {
+                    "0": 4,
+                    "1": 4,
+                    "2": 10,
+                    "3": 10,
+                    "4": 2,
+                    "5": 14,
+                    "6": 5,
+                    "7": 13
+                  },
+                  "maximum_expert_share": 0.22580645161290322,
+                  "requests": 62
+                },
+                "3": {
+                  "experts": {
+                    "0": 9,
+                    "1": 6,
+                    "2": 8,
+                    "3": 8,
+                    "4": 7,
+                    "5": 8,
+                    "6": 9,
+                    "7": 7
+                  },
+                  "maximum_expert_share": 0.14516129032258066,
+                  "requests": 62
+                },
+                "4": {
+                  "experts": {
+                    "0": 1,
+                    "1": 5,
+                    "2": 4,
+                    "3": 6,
+                    "4": 20,
+                    "5": 2,
+                    "6": 21,
+                    "7": 3
+                  },
+                  "maximum_expert_share": 0.3387096774193548,
+                  "requests": 62
+                },
+                "5": {
+                  "experts": {
+                    "0": 4,
+                    "1": 4,
+                    "2": 21,
+                    "3": 19,
+                    "4": 9,
+                    "6": 1,
+                    "7": 4
+                  },
+                  "maximum_expert_share": 0.3387096774193548,
+                  "requests": 62
+                },
+                "6": {
+                  "experts": {
+                    "0": 1,
+                    "1": 1,
+                    "2": 7,
+                    "3": 24,
+                    "4": 1,
+                    "5": 26,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.41935483870967744,
+                  "requests": 62
+                },
+                "7": {
+                  "experts": {
+                    "0": 8,
+                    "1": 1,
+                    "2": 6,
+                    "3": 26,
+                    "4": 6,
+                    "5": 13,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.41935483870967744,
+                  "requests": 62
+                }
+              },
+              "reuse_distance": {
+                "cold_references": 17,
+                "definition": "number of distinct atomic expert bundles referenced since the previous reference",
+                "finite_references": 417,
+                "histogram": {
+                  "12": 35,
+                  "13": 103,
+                  "14": 27,
+                  "16": 1,
+                  "17": 1,
+                  "18": 1,
+                  "19": 8,
+                  "20": 13,
+                  "21": 20,
+                  "22": 19,
+                  "23": 11,
+                  "24": 9,
+                  "25": 9,
+                  "26": 10,
+                  "27": 4,
+                  "28": 8,
+                  "29": 13,
+                  "30": 10,
+                  "31": 11,
+                  "32": 9,
+                  "33": 7,
+                  "34": 13,
+                  "35": 3,
+                  "36": 5,
+                  "37": 9,
+                  "38": 15,
+                  "39": 11,
+                  "40": 4,
+                  "42": 3,
+                  "43": 9,
+                  "44": 4,
+                  "45": 3,
+                  "46": 1,
+                  "47": 2,
+                  "48": 1,
+                  "49": 3,
+                  "50": 2,
+                  "cold": 17
+                },
+                "p50": 21,
+                "p95": 43,
+                "p99": 49
+              },
+              "theoretical_stall": {
+                "mean": 1786.432,
+                "overlap_model": "serial_no_overlap",
+                "p50": 1786.432,
+                "p95": 1786.432,
+                "p99": 1786.432,
+                "samples": 434,
+                "total": 775311.488,
+                "unit": "microseconds"
+              },
+              "tiers": {
+                "backing_store": {
+                  "bytes_requested": 341311488,
+                  "bytes_transferred": 341311488,
+                  "hit_rate": 1.0,
+                  "hits": 434,
+                  "miss_rate": 0.0,
+                  "misses": 0,
+                  "requests": 434
+                },
+                "cold": {
+                  "bytes_requested": 341311488,
+                  "bytes_transferred": 0,
+                  "hit_rate": 0.0,
+                  "hits": 0,
+                  "miss_rate": 1.0,
+                  "misses": 434,
+                  "requests": 434
+                },
+                "hot": {
+                  "bytes_requested": 341311488,
+                  "bytes_transferred": 0,
+                  "hit_rate": 0.0,
+                  "hits": 0,
+                  "miss_rate": 1.0,
+                  "misses": 434,
+                  "requests": 434
+                }
+              }
+            },
+            "PREFILL": {
+              "backing_store_request_rate": 1.0,
+              "cache_activity": {
+                "cold": {
+                  "admissions": 0,
+                  "evictions": 0
+                },
+                "hot": {
+                  "admissions": 0,
+                  "evictions": 0
+                }
+              },
+              "logical_requests": 70,
+              "per_layer_expert_skew": {
+                "1": {
+                  "experts": {
+                    "0": 3,
+                    "1": 2,
+                    "3": 2,
+                    "6": 1,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.3,
+                  "requests": 10
+                },
+                "2": {
+                  "experts": {
+                    "0": 2,
+                    "1": 1,
+                    "2": 2,
+                    "3": 2,
+                    "6": 1,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.2,
+                  "requests": 10
+                },
+                "3": {
+                  "experts": {
+                    "0": 1,
+                    "1": 2,
+                    "2": 3,
+                    "3": 1,
+                    "5": 2,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.3,
+                  "requests": 10
+                },
+                "4": {
+                  "experts": {
+                    "0": 1,
+                    "1": 2,
+                    "2": 2,
+                    "4": 2,
+                    "6": 2,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.2,
+                  "requests": 10
+                },
+                "5": {
+                  "experts": {
+                    "0": 1,
+                    "2": 5,
+                    "3": 3,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.5,
+                  "requests": 10
+                },
+                "6": {
+                  "experts": {
+                    "3": 5,
+                    "4": 1,
+                    "5": 3,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.5,
+                  "requests": 10
+                },
+                "7": {
+                  "experts": {
+                    "0": 1,
+                    "2": 1,
+                    "3": 4,
+                    "4": 2,
+                    "5": 2
+                  },
+                  "maximum_expert_share": 0.4,
+                  "requests": 10
+                }
+              },
+              "reuse_distance": {
+                "cold_references": 36,
+                "definition": "number of distinct atomic expert bundles referenced since the previous reference",
+                "finite_references": 34,
+                "histogram": {
+                  "0": 5,
+                  "1": 8,
+                  "2": 9,
+                  "3": 5,
+                  "4": 7,
+                  "cold": 36
+                },
+                "p50": 2,
+                "p95": 4,
+                "p99": 4
+              },
+              "theoretical_stall": {
+                "mean": 1786.432,
+                "overlap_model": "serial_no_overlap",
+                "p50": 1786.432,
+                "p95": 1786.432,
+                "p99": 1786.432,
+                "samples": 70,
+                "total": 125050.24,
+                "unit": "microseconds"
+              },
+              "tiers": {
+                "backing_store": {
+                  "bytes_requested": 55050240,
+                  "bytes_transferred": 55050240,
+                  "hit_rate": 1.0,
+                  "hits": 70,
+                  "miss_rate": 0.0,
+                  "misses": 0,
+                  "requests": 70
+                },
+                "cold": {
+                  "bytes_requested": 55050240,
+                  "bytes_transferred": 0,
+                  "hit_rate": 0.0,
+                  "hits": 0,
+                  "miss_rate": 1.0,
+                  "misses": 70,
+                  "requests": 70
+                },
+                "hot": {
+                  "bytes_requested": 55050240,
+                  "bytes_transferred": 0,
+                  "hit_rate": 0.0,
+                  "hits": 0,
+                  "miss_rate": 1.0,
+                  "misses": 70,
+                  "requests": 70
+                }
+              }
+            }
+          },
+          "final_cache_state": {
+            "cold": {
+              "peak_bytes": 0,
+              "peak_slots": 0,
+              "resident_bytes": 0,
+              "resident_slots": 0
+            },
+            "hot": {
+              "peak_bytes": 0,
+              "peak_slots": 0,
+              "resident_bytes": 0,
+              "resident_slots": 0
+            }
+          },
+          "overall": {
+            "backing_store_request_rate": 1.0,
+            "cache_activity": {
+              "cold": {
+                "admissions": 0,
+                "evictions": 0
+              },
+              "hot": {
+                "admissions": 0,
+                "evictions": 0
+              }
+            },
+            "logical_requests": 504,
+            "per_layer_expert_skew": {
+              "1": {
+                "experts": {
+                  "0": 15,
+                  "1": 14,
+                  "2": 4,
+                  "3": 5,
+                  "4": 7,
+                  "5": 14,
+                  "6": 7,
+                  "7": 6
+                },
+                "maximum_expert_share": 0.20833333333333334,
+                "requests": 72
+              },
+              "2": {
+                "experts": {
+                  "0": 6,
+                  "1": 5,
+                  "2": 12,
+                  "3": 12,
+                  "4": 2,
+                  "5": 14,
+                  "6": 6,
+                  "7": 15
+                },
+                "maximum_expert_share": 0.20833333333333334,
+                "requests": 72
+              },
+              "3": {
+                "experts": {
+                  "0": 10,
+                  "1": 8,
+                  "2": 11,
+                  "3": 9,
+                  "4": 7,
+                  "5": 10,
+                  "6": 9,
+                  "7": 8
+                },
+                "maximum_expert_share": 0.1527777777777778,
+                "requests": 72
+              },
+              "4": {
+                "experts": {
+                  "0": 2,
+                  "1": 7,
+                  "2": 6,
+                  "3": 6,
+                  "4": 22,
+                  "5": 2,
+                  "6": 23,
+                  "7": 4
+                },
+                "maximum_expert_share": 0.3194444444444444,
+                "requests": 72
+              },
+              "5": {
+                "experts": {
+                  "0": 5,
+                  "1": 4,
+                  "2": 26,
+                  "3": 22,
+                  "4": 9,
+                  "6": 1,
+                  "7": 5
+                },
+                "maximum_expert_share": 0.3611111111111111,
+                "requests": 72
+              },
+              "6": {
+                "experts": {
+                  "0": 1,
+                  "1": 1,
+                  "2": 7,
+                  "3": 29,
+                  "4": 2,
+                  "5": 29,
+                  "7": 3
+                },
+                "maximum_expert_share": 0.4027777777777778,
+                "requests": 72
+              },
+              "7": {
+                "experts": {
+                  "0": 9,
+                  "1": 1,
+                  "2": 7,
+                  "3": 30,
+                  "4": 8,
+                  "5": 15,
+                  "7": 2
+                },
+                "maximum_expert_share": 0.4166666666666667,
+                "requests": 72
+              }
+            },
+            "reuse_distance": {
+              "cold_references": 53,
+              "definition": "number of distinct atomic expert bundles referenced since the previous reference",
+              "finite_references": 451,
+              "histogram": {
+                "0": 5,
+                "1": 8,
+                "12": 35,
+                "13": 103,
+                "14": 27,
+                "16": 1,
+                "17": 1,
+                "18": 1,
+                "19": 8,
+                "2": 9,
+                "20": 13,
+                "21": 20,
+                "22": 19,
+                "23": 11,
+                "24": 9,
+                "25": 9,
+                "26": 10,
+                "27": 4,
+                "28": 8,
+                "29": 13,
+                "3": 5,
+                "30": 10,
+                "31": 11,
+                "32": 9,
+                "33": 7,
+                "34": 13,
+                "35": 3,
+                "36": 5,
+                "37": 9,
+                "38": 15,
+                "39": 11,
+                "4": 7,
+                "40": 4,
+                "42": 3,
+                "43": 9,
+                "44": 4,
+                "45": 3,
+                "46": 1,
+                "47": 2,
+                "48": 1,
+                "49": 3,
+                "50": 2,
+                "cold": 53
+              },
+              "p50": 21,
+              "p95": 43,
+              "p99": 49
+            },
+            "theoretical_stall": {
+              "mean": 1786.432,
+              "overlap_model": "serial_no_overlap",
+              "p50": 1786.432,
+              "p95": 1786.432,
+              "p99": 1786.432,
+              "samples": 504,
+              "total": 900361.728,
+              "unit": "microseconds"
+            },
+            "tiers": {
+              "backing_store": {
+                "bytes_requested": 396361728,
+                "bytes_transferred": 396361728,
+                "hit_rate": 1.0,
+                "hits": 504,
+                "miss_rate": 0.0,
+                "misses": 0,
+                "requests": 504
+              },
+              "cold": {
+                "bytes_requested": 396361728,
+                "bytes_transferred": 0,
+                "hit_rate": 0.0,
+                "hits": 0,
+                "miss_rate": 1.0,
+                "misses": 504,
+                "requests": 504
+              },
+              "hot": {
+                "bytes_requested": 396361728,
+                "bytes_transferred": 0,
+                "hit_rate": 0.0,
+                "hits": 0,
+                "miss_rate": 1.0,
+                "misses": 504,
+                "requests": 504
+              }
+            }
+          },
+          "policy": "lru",
+          "policy_classification": "deterministic test baseline"
+        }
+      }
+    },
+    {
+      "cold_capacity": {
+        "bytes": 786432,
+        "slots": 1
+      },
+      "hot_capacity": {
+        "bytes": 786432,
+        "slots": 1
+      },
+      "name": "one-expert",
+      "policies": {
+        "belady_min": {
+          "by_phase": {
+            "DECODE": {
+              "backing_store_request_rate": 1.0,
+              "cache_activity": {
+                "cold": {
+                  "admissions": 434,
+                  "evictions": 434
+                },
+                "hot": {
+                  "admissions": 434,
+                  "evictions": 434
+                }
+              },
+              "logical_requests": 434,
+              "per_layer_expert_skew": {
+                "1": {
+                  "experts": {
+                    "0": 12,
+                    "1": 12,
+                    "2": 4,
+                    "3": 3,
+                    "4": 7,
+                    "5": 14,
+                    "6": 6,
+                    "7": 4
+                  },
+                  "maximum_expert_share": 0.22580645161290322,
+                  "requests": 62
+                },
+                "2": {
+                  "experts": {
+                    "0": 4,
+                    "1": 4,
+                    "2": 10,
+                    "3": 10,
+                    "4": 2,
+                    "5": 14,
+                    "6": 5,
+                    "7": 13
+                  },
+                  "maximum_expert_share": 0.22580645161290322,
+                  "requests": 62
+                },
+                "3": {
+                  "experts": {
+                    "0": 9,
+                    "1": 6,
+                    "2": 8,
+                    "3": 8,
+                    "4": 7,
+                    "5": 8,
+                    "6": 9,
+                    "7": 7
+                  },
+                  "maximum_expert_share": 0.14516129032258066,
+                  "requests": 62
+                },
+                "4": {
+                  "experts": {
+                    "0": 1,
+                    "1": 5,
+                    "2": 4,
+                    "3": 6,
+                    "4": 20,
+                    "5": 2,
+                    "6": 21,
+                    "7": 3
+                  },
+                  "maximum_expert_share": 0.3387096774193548,
+                  "requests": 62
+                },
+                "5": {
+                  "experts": {
+                    "0": 4,
+                    "1": 4,
+                    "2": 21,
+                    "3": 19,
+                    "4": 9,
+                    "6": 1,
+                    "7": 4
+                  },
+                  "maximum_expert_share": 0.3387096774193548,
+                  "requests": 62
+                },
+                "6": {
+                  "experts": {
+                    "0": 1,
+                    "1": 1,
+                    "2": 7,
+                    "3": 24,
+                    "4": 1,
+                    "5": 26,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.41935483870967744,
+                  "requests": 62
+                },
+                "7": {
+                  "experts": {
+                    "0": 8,
+                    "1": 1,
+                    "2": 6,
+                    "3": 26,
+                    "4": 6,
+                    "5": 13,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.41935483870967744,
+                  "requests": 62
+                }
+              },
+              "reuse_distance": {
+                "cold_references": 17,
+                "definition": "number of distinct atomic expert bundles referenced since the previous reference",
+                "finite_references": 417,
+                "histogram": {
+                  "12": 35,
+                  "13": 103,
+                  "14": 27,
+                  "16": 1,
+                  "17": 1,
+                  "18": 1,
+                  "19": 8,
+                  "20": 13,
+                  "21": 20,
+                  "22": 19,
+                  "23": 11,
+                  "24": 9,
+                  "25": 9,
+                  "26": 10,
+                  "27": 4,
+                  "28": 8,
+                  "29": 13,
+                  "30": 10,
+                  "31": 11,
+                  "32": 9,
+                  "33": 7,
+                  "34": 13,
+                  "35": 3,
+                  "36": 5,
+                  "37": 9,
+                  "38": 15,
+                  "39": 11,
+                  "40": 4,
+                  "42": 3,
+                  "43": 9,
+                  "44": 4,
+                  "45": 3,
+                  "46": 1,
+                  "47": 2,
+                  "48": 1,
+                  "49": 3,
+                  "50": 2,
+                  "cold": 17
+                },
+                "p50": 21,
+                "p95": 43,
+                "p99": 49
+              },
+              "theoretical_stall": {
+                "mean": 1786.432,
+                "overlap_model": "serial_no_overlap",
+                "p50": 1786.432,
+                "p95": 1786.432,
+                "p99": 1786.432,
+                "samples": 434,
+                "total": 775311.488,
+                "unit": "microseconds"
+              },
+              "tiers": {
+                "backing_store": {
+                  "bytes_requested": 341311488,
+                  "bytes_transferred": 341311488,
+                  "hit_rate": 1.0,
+                  "hits": 434,
+                  "miss_rate": 0.0,
+                  "misses": 0,
+                  "requests": 434
+                },
+                "cold": {
+                  "bytes_requested": 341311488,
+                  "bytes_transferred": 0,
+                  "hit_rate": 0.0,
+                  "hits": 0,
+                  "miss_rate": 1.0,
+                  "misses": 434,
+                  "requests": 434
+                },
+                "hot": {
+                  "bytes_requested": 341311488,
+                  "bytes_transferred": 0,
+                  "hit_rate": 0.0,
+                  "hits": 0,
+                  "miss_rate": 1.0,
+                  "misses": 434,
+                  "requests": 434
+                }
+              }
+            },
+            "PREFILL": {
+              "backing_store_request_rate": 0.9285714285714286,
+              "cache_activity": {
+                "cold": {
+                  "admissions": 65,
+                  "evictions": 64
+                },
+                "hot": {
+                  "admissions": 65,
+                  "evictions": 64
+                }
+              },
+              "logical_requests": 70,
+              "per_layer_expert_skew": {
+                "1": {
+                  "experts": {
+                    "0": 3,
+                    "1": 2,
+                    "3": 2,
+                    "6": 1,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.3,
+                  "requests": 10
+                },
+                "2": {
+                  "experts": {
+                    "0": 2,
+                    "1": 1,
+                    "2": 2,
+                    "3": 2,
+                    "6": 1,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.2,
+                  "requests": 10
+                },
+                "3": {
+                  "experts": {
+                    "0": 1,
+                    "1": 2,
+                    "2": 3,
+                    "3": 1,
+                    "5": 2,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.3,
+                  "requests": 10
+                },
+                "4": {
+                  "experts": {
+                    "0": 1,
+                    "1": 2,
+                    "2": 2,
+                    "4": 2,
+                    "6": 2,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.2,
+                  "requests": 10
+                },
+                "5": {
+                  "experts": {
+                    "0": 1,
+                    "2": 5,
+                    "3": 3,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.5,
+                  "requests": 10
+                },
+                "6": {
+                  "experts": {
+                    "3": 5,
+                    "4": 1,
+                    "5": 3,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.5,
+                  "requests": 10
+                },
+                "7": {
+                  "experts": {
+                    "0": 1,
+                    "2": 1,
+                    "3": 4,
+                    "4": 2,
+                    "5": 2
+                  },
+                  "maximum_expert_share": 0.4,
+                  "requests": 10
+                }
+              },
+              "reuse_distance": {
+                "cold_references": 36,
+                "definition": "number of distinct atomic expert bundles referenced since the previous reference",
+                "finite_references": 34,
+                "histogram": {
+                  "0": 5,
+                  "1": 8,
+                  "2": 9,
+                  "3": 5,
+                  "4": 7,
+                  "cold": 36
+                },
+                "p50": 2,
+                "p95": 4,
+                "p99": 4
+              },
+              "theoretical_stall": {
+                "mean": 1659.7485942857143,
+                "overlap_model": "serial_no_overlap",
+                "p50": 1786.432,
+                "p95": 1786.432,
+                "p99": 1786.432,
+                "samples": 70,
+                "total": 116182.4016,
+                "unit": "microseconds"
+              },
+              "tiers": {
+                "backing_store": {
+                  "bytes_requested": 51118080,
+                  "bytes_transferred": 51118080,
+                  "hit_rate": 1.0,
+                  "hits": 65,
+                  "miss_rate": 0.0,
+                  "misses": 0,
+                  "requests": 65
+                },
+                "cold": {
+                  "bytes_requested": 51118080,
+                  "bytes_transferred": 0,
+                  "hit_rate": 0.0,
+                  "hits": 0,
+                  "miss_rate": 1.0,
+                  "misses": 65,
+                  "requests": 65
+                },
+                "hot": {
+                  "bytes_requested": 55050240,
+                  "bytes_transferred": 3932160,
+                  "hit_rate": 0.07142857142857142,
+                  "hits": 5,
+                  "miss_rate": 0.9285714285714286,
+                  "misses": 65,
+                  "requests": 70
+                }
+              }
+            }
+          },
+          "final_cache_state": {
+            "cold": {
+              "peak_bytes": 786432,
+              "peak_slots": 1,
+              "resident_bytes": 786432,
+              "resident_slots": 1
+            },
+            "hot": {
+              "peak_bytes": 786432,
+              "peak_slots": 1,
+              "resident_bytes": 786432,
+              "resident_slots": 1
+            }
+          },
+          "overall": {
+            "backing_store_request_rate": 0.9900793650793651,
+            "cache_activity": {
+              "cold": {
+                "admissions": 499,
+                "evictions": 498
+              },
+              "hot": {
+                "admissions": 499,
+                "evictions": 498
+              }
+            },
+            "logical_requests": 504,
+            "per_layer_expert_skew": {
+              "1": {
+                "experts": {
+                  "0": 15,
+                  "1": 14,
+                  "2": 4,
+                  "3": 5,
+                  "4": 7,
+                  "5": 14,
+                  "6": 7,
+                  "7": 6
+                },
+                "maximum_expert_share": 0.20833333333333334,
+                "requests": 72
+              },
+              "2": {
+                "experts": {
+                  "0": 6,
+                  "1": 5,
+                  "2": 12,
+                  "3": 12,
+                  "4": 2,
+                  "5": 14,
+                  "6": 6,
+                  "7": 15
+                },
+                "maximum_expert_share": 0.20833333333333334,
+                "requests": 72
+              },
+              "3": {
+                "experts": {
+                  "0": 10,
+                  "1": 8,
+                  "2": 11,
+                  "3": 9,
+                  "4": 7,
+                  "5": 10,
+                  "6": 9,
+                  "7": 8
+                },
+                "maximum_expert_share": 0.1527777777777778,
+                "requests": 72
+              },
+              "4": {
+                "experts": {
+                  "0": 2,
+                  "1": 7,
+                  "2": 6,
+                  "3": 6,
+                  "4": 22,
+                  "5": 2,
+                  "6": 23,
+                  "7": 4
+                },
+                "maximum_expert_share": 0.3194444444444444,
+                "requests": 72
+              },
+              "5": {
+                "experts": {
+                  "0": 5,
+                  "1": 4,
+                  "2": 26,
+                  "3": 22,
+                  "4": 9,
+                  "6": 1,
+                  "7": 5
+                },
+                "maximum_expert_share": 0.3611111111111111,
+                "requests": 72
+              },
+              "6": {
+                "experts": {
+                  "0": 1,
+                  "1": 1,
+                  "2": 7,
+                  "3": 29,
+                  "4": 2,
+                  "5": 29,
+                  "7": 3
+                },
+                "maximum_expert_share": 0.4027777777777778,
+                "requests": 72
+              },
+              "7": {
+                "experts": {
+                  "0": 9,
+                  "1": 1,
+                  "2": 7,
+                  "3": 30,
+                  "4": 8,
+                  "5": 15,
+                  "7": 2
+                },
+                "maximum_expert_share": 0.4166666666666667,
+                "requests": 72
+              }
+            },
+            "reuse_distance": {
+              "cold_references": 53,
+              "definition": "number of distinct atomic expert bundles referenced since the previous reference",
+              "finite_references": 451,
+              "histogram": {
+                "0": 5,
+                "1": 8,
+                "12": 35,
+                "13": 103,
+                "14": 27,
+                "16": 1,
+                "17": 1,
+                "18": 1,
+                "19": 8,
+                "2": 9,
+                "20": 13,
+                "21": 20,
+                "22": 19,
+                "23": 11,
+                "24": 9,
+                "25": 9,
+                "26": 10,
+                "27": 4,
+                "28": 8,
+                "29": 13,
+                "3": 5,
+                "30": 10,
+                "31": 11,
+                "32": 9,
+                "33": 7,
+                "34": 13,
+                "35": 3,
+                "36": 5,
+                "37": 9,
+                "38": 15,
+                "39": 11,
+                "4": 7,
+                "40": 4,
+                "42": 3,
+                "43": 9,
+                "44": 4,
+                "45": 3,
+                "46": 1,
+                "47": 2,
+                "48": 1,
+                "49": 3,
+                "50": 2,
+                "cold": 53
+              },
+              "p50": 21,
+              "p95": 43,
+              "p99": 49
+            },
+            "theoretical_stall": {
+              "mean": 1768.8370825396826,
+              "overlap_model": "serial_no_overlap",
+              "p50": 1786.432,
+              "p95": 1786.432,
+              "p99": 1786.432,
+              "samples": 504,
+              "total": 891493.8896,
+              "unit": "microseconds"
+            },
+            "tiers": {
+              "backing_store": {
+                "bytes_requested": 392429568,
+                "bytes_transferred": 392429568,
+                "hit_rate": 1.0,
+                "hits": 499,
+                "miss_rate": 0.0,
+                "misses": 0,
+                "requests": 499
+              },
+              "cold": {
+                "bytes_requested": 392429568,
+                "bytes_transferred": 0,
+                "hit_rate": 0.0,
+                "hits": 0,
+                "miss_rate": 1.0,
+                "misses": 499,
+                "requests": 499
+              },
+              "hot": {
+                "bytes_requested": 396361728,
+                "bytes_transferred": 3932160,
+                "hit_rate": 0.00992063492063492,
+                "hits": 5,
+                "miss_rate": 0.9900793650793651,
+                "misses": 499,
+                "requests": 504
+              }
+            }
+          },
+          "policy": "belady_min",
+          "policy_classification": "perfect-future offline lower bound; not a production policy"
+        },
+        "lru": {
+          "by_phase": {
+            "DECODE": {
+              "backing_store_request_rate": 1.0,
+              "cache_activity": {
+                "cold": {
+                  "admissions": 434,
+                  "evictions": 434
+                },
+                "hot": {
+                  "admissions": 434,
+                  "evictions": 434
+                }
+              },
+              "logical_requests": 434,
+              "per_layer_expert_skew": {
+                "1": {
+                  "experts": {
+                    "0": 12,
+                    "1": 12,
+                    "2": 4,
+                    "3": 3,
+                    "4": 7,
+                    "5": 14,
+                    "6": 6,
+                    "7": 4
+                  },
+                  "maximum_expert_share": 0.22580645161290322,
+                  "requests": 62
+                },
+                "2": {
+                  "experts": {
+                    "0": 4,
+                    "1": 4,
+                    "2": 10,
+                    "3": 10,
+                    "4": 2,
+                    "5": 14,
+                    "6": 5,
+                    "7": 13
+                  },
+                  "maximum_expert_share": 0.22580645161290322,
+                  "requests": 62
+                },
+                "3": {
+                  "experts": {
+                    "0": 9,
+                    "1": 6,
+                    "2": 8,
+                    "3": 8,
+                    "4": 7,
+                    "5": 8,
+                    "6": 9,
+                    "7": 7
+                  },
+                  "maximum_expert_share": 0.14516129032258066,
+                  "requests": 62
+                },
+                "4": {
+                  "experts": {
+                    "0": 1,
+                    "1": 5,
+                    "2": 4,
+                    "3": 6,
+                    "4": 20,
+                    "5": 2,
+                    "6": 21,
+                    "7": 3
+                  },
+                  "maximum_expert_share": 0.3387096774193548,
+                  "requests": 62
+                },
+                "5": {
+                  "experts": {
+                    "0": 4,
+                    "1": 4,
+                    "2": 21,
+                    "3": 19,
+                    "4": 9,
+                    "6": 1,
+                    "7": 4
+                  },
+                  "maximum_expert_share": 0.3387096774193548,
+                  "requests": 62
+                },
+                "6": {
+                  "experts": {
+                    "0": 1,
+                    "1": 1,
+                    "2": 7,
+                    "3": 24,
+                    "4": 1,
+                    "5": 26,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.41935483870967744,
+                  "requests": 62
+                },
+                "7": {
+                  "experts": {
+                    "0": 8,
+                    "1": 1,
+                    "2": 6,
+                    "3": 26,
+                    "4": 6,
+                    "5": 13,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.41935483870967744,
+                  "requests": 62
+                }
+              },
+              "reuse_distance": {
+                "cold_references": 17,
+                "definition": "number of distinct atomic expert bundles referenced since the previous reference",
+                "finite_references": 417,
+                "histogram": {
+                  "12": 35,
+                  "13": 103,
+                  "14": 27,
+                  "16": 1,
+                  "17": 1,
+                  "18": 1,
+                  "19": 8,
+                  "20": 13,
+                  "21": 20,
+                  "22": 19,
+                  "23": 11,
+                  "24": 9,
+                  "25": 9,
+                  "26": 10,
+                  "27": 4,
+                  "28": 8,
+                  "29": 13,
+                  "30": 10,
+                  "31": 11,
+                  "32": 9,
+                  "33": 7,
+                  "34": 13,
+                  "35": 3,
+                  "36": 5,
+                  "37": 9,
+                  "38": 15,
+                  "39": 11,
+                  "40": 4,
+                  "42": 3,
+                  "43": 9,
+                  "44": 4,
+                  "45": 3,
+                  "46": 1,
+                  "47": 2,
+                  "48": 1,
+                  "49": 3,
+                  "50": 2,
+                  "cold": 17
+                },
+                "p50": 21,
+                "p95": 43,
+                "p99": 49
+              },
+              "theoretical_stall": {
+                "mean": 1786.432,
+                "overlap_model": "serial_no_overlap",
+                "p50": 1786.432,
+                "p95": 1786.432,
+                "p99": 1786.432,
+                "samples": 434,
+                "total": 775311.488,
+                "unit": "microseconds"
+              },
+              "tiers": {
+                "backing_store": {
+                  "bytes_requested": 341311488,
+                  "bytes_transferred": 341311488,
+                  "hit_rate": 1.0,
+                  "hits": 434,
+                  "miss_rate": 0.0,
+                  "misses": 0,
+                  "requests": 434
+                },
+                "cold": {
+                  "bytes_requested": 341311488,
+                  "bytes_transferred": 0,
+                  "hit_rate": 0.0,
+                  "hits": 0,
+                  "miss_rate": 1.0,
+                  "misses": 434,
+                  "requests": 434
+                },
+                "hot": {
+                  "bytes_requested": 341311488,
+                  "bytes_transferred": 0,
+                  "hit_rate": 0.0,
+                  "hits": 0,
+                  "miss_rate": 1.0,
+                  "misses": 434,
+                  "requests": 434
+                }
+              }
+            },
+            "PREFILL": {
+              "backing_store_request_rate": 0.9285714285714286,
+              "cache_activity": {
+                "cold": {
+                  "admissions": 65,
+                  "evictions": 64
+                },
+                "hot": {
+                  "admissions": 65,
+                  "evictions": 64
+                }
+              },
+              "logical_requests": 70,
+              "per_layer_expert_skew": {
+                "1": {
+                  "experts": {
+                    "0": 3,
+                    "1": 2,
+                    "3": 2,
+                    "6": 1,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.3,
+                  "requests": 10
+                },
+                "2": {
+                  "experts": {
+                    "0": 2,
+                    "1": 1,
+                    "2": 2,
+                    "3": 2,
+                    "6": 1,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.2,
+                  "requests": 10
+                },
+                "3": {
+                  "experts": {
+                    "0": 1,
+                    "1": 2,
+                    "2": 3,
+                    "3": 1,
+                    "5": 2,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.3,
+                  "requests": 10
+                },
+                "4": {
+                  "experts": {
+                    "0": 1,
+                    "1": 2,
+                    "2": 2,
+                    "4": 2,
+                    "6": 2,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.2,
+                  "requests": 10
+                },
+                "5": {
+                  "experts": {
+                    "0": 1,
+                    "2": 5,
+                    "3": 3,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.5,
+                  "requests": 10
+                },
+                "6": {
+                  "experts": {
+                    "3": 5,
+                    "4": 1,
+                    "5": 3,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.5,
+                  "requests": 10
+                },
+                "7": {
+                  "experts": {
+                    "0": 1,
+                    "2": 1,
+                    "3": 4,
+                    "4": 2,
+                    "5": 2
+                  },
+                  "maximum_expert_share": 0.4,
+                  "requests": 10
+                }
+              },
+              "reuse_distance": {
+                "cold_references": 36,
+                "definition": "number of distinct atomic expert bundles referenced since the previous reference",
+                "finite_references": 34,
+                "histogram": {
+                  "0": 5,
+                  "1": 8,
+                  "2": 9,
+                  "3": 5,
+                  "4": 7,
+                  "cold": 36
+                },
+                "p50": 2,
+                "p95": 4,
+                "p99": 4
+              },
+              "theoretical_stall": {
+                "mean": 1659.7485942857143,
+                "overlap_model": "serial_no_overlap",
+                "p50": 1786.432,
+                "p95": 1786.432,
+                "p99": 1786.432,
+                "samples": 70,
+                "total": 116182.4016,
+                "unit": "microseconds"
+              },
+              "tiers": {
+                "backing_store": {
+                  "bytes_requested": 51118080,
+                  "bytes_transferred": 51118080,
+                  "hit_rate": 1.0,
+                  "hits": 65,
+                  "miss_rate": 0.0,
+                  "misses": 0,
+                  "requests": 65
+                },
+                "cold": {
+                  "bytes_requested": 51118080,
+                  "bytes_transferred": 0,
+                  "hit_rate": 0.0,
+                  "hits": 0,
+                  "miss_rate": 1.0,
+                  "misses": 65,
+                  "requests": 65
+                },
+                "hot": {
+                  "bytes_requested": 55050240,
+                  "bytes_transferred": 3932160,
+                  "hit_rate": 0.07142857142857142,
+                  "hits": 5,
+                  "miss_rate": 0.9285714285714286,
+                  "misses": 65,
+                  "requests": 70
+                }
+              }
+            }
+          },
+          "final_cache_state": {
+            "cold": {
+              "peak_bytes": 786432,
+              "peak_slots": 1,
+              "resident_bytes": 786432,
+              "resident_slots": 1
+            },
+            "hot": {
+              "peak_bytes": 786432,
+              "peak_slots": 1,
+              "resident_bytes": 786432,
+              "resident_slots": 1
+            }
+          },
+          "overall": {
+            "backing_store_request_rate": 0.9900793650793651,
+            "cache_activity": {
+              "cold": {
+                "admissions": 499,
+                "evictions": 498
+              },
+              "hot": {
+                "admissions": 499,
+                "evictions": 498
+              }
+            },
+            "logical_requests": 504,
+            "per_layer_expert_skew": {
+              "1": {
+                "experts": {
+                  "0": 15,
+                  "1": 14,
+                  "2": 4,
+                  "3": 5,
+                  "4": 7,
+                  "5": 14,
+                  "6": 7,
+                  "7": 6
+                },
+                "maximum_expert_share": 0.20833333333333334,
+                "requests": 72
+              },
+              "2": {
+                "experts": {
+                  "0": 6,
+                  "1": 5,
+                  "2": 12,
+                  "3": 12,
+                  "4": 2,
+                  "5": 14,
+                  "6": 6,
+                  "7": 15
+                },
+                "maximum_expert_share": 0.20833333333333334,
+                "requests": 72
+              },
+              "3": {
+                "experts": {
+                  "0": 10,
+                  "1": 8,
+                  "2": 11,
+                  "3": 9,
+                  "4": 7,
+                  "5": 10,
+                  "6": 9,
+                  "7": 8
+                },
+                "maximum_expert_share": 0.1527777777777778,
+                "requests": 72
+              },
+              "4": {
+                "experts": {
+                  "0": 2,
+                  "1": 7,
+                  "2": 6,
+                  "3": 6,
+                  "4": 22,
+                  "5": 2,
+                  "6": 23,
+                  "7": 4
+                },
+                "maximum_expert_share": 0.3194444444444444,
+                "requests": 72
+              },
+              "5": {
+                "experts": {
+                  "0": 5,
+                  "1": 4,
+                  "2": 26,
+                  "3": 22,
+                  "4": 9,
+                  "6": 1,
+                  "7": 5
+                },
+                "maximum_expert_share": 0.3611111111111111,
+                "requests": 72
+              },
+              "6": {
+                "experts": {
+                  "0": 1,
+                  "1": 1,
+                  "2": 7,
+                  "3": 29,
+                  "4": 2,
+                  "5": 29,
+                  "7": 3
+                },
+                "maximum_expert_share": 0.4027777777777778,
+                "requests": 72
+              },
+              "7": {
+                "experts": {
+                  "0": 9,
+                  "1": 1,
+                  "2": 7,
+                  "3": 30,
+                  "4": 8,
+                  "5": 15,
+                  "7": 2
+                },
+                "maximum_expert_share": 0.4166666666666667,
+                "requests": 72
+              }
+            },
+            "reuse_distance": {
+              "cold_references": 53,
+              "definition": "number of distinct atomic expert bundles referenced since the previous reference",
+              "finite_references": 451,
+              "histogram": {
+                "0": 5,
+                "1": 8,
+                "12": 35,
+                "13": 103,
+                "14": 27,
+                "16": 1,
+                "17": 1,
+                "18": 1,
+                "19": 8,
+                "2": 9,
+                "20": 13,
+                "21": 20,
+                "22": 19,
+                "23": 11,
+                "24": 9,
+                "25": 9,
+                "26": 10,
+                "27": 4,
+                "28": 8,
+                "29": 13,
+                "3": 5,
+                "30": 10,
+                "31": 11,
+                "32": 9,
+                "33": 7,
+                "34": 13,
+                "35": 3,
+                "36": 5,
+                "37": 9,
+                "38": 15,
+                "39": 11,
+                "4": 7,
+                "40": 4,
+                "42": 3,
+                "43": 9,
+                "44": 4,
+                "45": 3,
+                "46": 1,
+                "47": 2,
+                "48": 1,
+                "49": 3,
+                "50": 2,
+                "cold": 53
+              },
+              "p50": 21,
+              "p95": 43,
+              "p99": 49
+            },
+            "theoretical_stall": {
+              "mean": 1768.8370825396826,
+              "overlap_model": "serial_no_overlap",
+              "p50": 1786.432,
+              "p95": 1786.432,
+              "p99": 1786.432,
+              "samples": 504,
+              "total": 891493.8896,
+              "unit": "microseconds"
+            },
+            "tiers": {
+              "backing_store": {
+                "bytes_requested": 392429568,
+                "bytes_transferred": 392429568,
+                "hit_rate": 1.0,
+                "hits": 499,
+                "miss_rate": 0.0,
+                "misses": 0,
+                "requests": 499
+              },
+              "cold": {
+                "bytes_requested": 392429568,
+                "bytes_transferred": 0,
+                "hit_rate": 0.0,
+                "hits": 0,
+                "miss_rate": 1.0,
+                "misses": 499,
+                "requests": 499
+              },
+              "hot": {
+                "bytes_requested": 396361728,
+                "bytes_transferred": 3932160,
+                "hit_rate": 0.00992063492063492,
+                "hits": 5,
+                "miss_rate": 0.9900793650793651,
+                "misses": 499,
+                "requests": 504
+              }
+            }
+          },
+          "policy": "lru",
+          "policy_classification": "deterministic test baseline"
+        }
+      }
+    },
+    {
+      "cold_capacity": {
+        "bytes": 18874368,
+        "slots": 24
+      },
+      "hot_capacity": {
+        "bytes": 6291456,
+        "slots": 8
+      },
+      "name": "bounded-hierarchy",
+      "policies": {
+        "belady_min": {
+          "by_phase": {
+            "DECODE": {
+              "backing_store_request_rate": 0.2073732718894009,
+              "cache_activity": {
+                "cold": {
+                  "admissions": 90,
+                  "evictions": 90
+                },
+                "hot": {
+                  "admissions": 256,
+                  "evictions": 256
+                }
+              },
+              "logical_requests": 434,
+              "per_layer_expert_skew": {
+                "1": {
+                  "experts": {
+                    "0": 12,
+                    "1": 12,
+                    "2": 4,
+                    "3": 3,
+                    "4": 7,
+                    "5": 14,
+                    "6": 6,
+                    "7": 4
+                  },
+                  "maximum_expert_share": 0.22580645161290322,
+                  "requests": 62
+                },
+                "2": {
+                  "experts": {
+                    "0": 4,
+                    "1": 4,
+                    "2": 10,
+                    "3": 10,
+                    "4": 2,
+                    "5": 14,
+                    "6": 5,
+                    "7": 13
+                  },
+                  "maximum_expert_share": 0.22580645161290322,
+                  "requests": 62
+                },
+                "3": {
+                  "experts": {
+                    "0": 9,
+                    "1": 6,
+                    "2": 8,
+                    "3": 8,
+                    "4": 7,
+                    "5": 8,
+                    "6": 9,
+                    "7": 7
+                  },
+                  "maximum_expert_share": 0.14516129032258066,
+                  "requests": 62
+                },
+                "4": {
+                  "experts": {
+                    "0": 1,
+                    "1": 5,
+                    "2": 4,
+                    "3": 6,
+                    "4": 20,
+                    "5": 2,
+                    "6": 21,
+                    "7": 3
+                  },
+                  "maximum_expert_share": 0.3387096774193548,
+                  "requests": 62
+                },
+                "5": {
+                  "experts": {
+                    "0": 4,
+                    "1": 4,
+                    "2": 21,
+                    "3": 19,
+                    "4": 9,
+                    "6": 1,
+                    "7": 4
+                  },
+                  "maximum_expert_share": 0.3387096774193548,
+                  "requests": 62
+                },
+                "6": {
+                  "experts": {
+                    "0": 1,
+                    "1": 1,
+                    "2": 7,
+                    "3": 24,
+                    "4": 1,
+                    "5": 26,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.41935483870967744,
+                  "requests": 62
+                },
+                "7": {
+                  "experts": {
+                    "0": 8,
+                    "1": 1,
+                    "2": 6,
+                    "3": 26,
+                    "4": 6,
+                    "5": 13,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.41935483870967744,
+                  "requests": 62
+                }
+              },
+              "reuse_distance": {
+                "cold_references": 17,
+                "definition": "number of distinct atomic expert bundles referenced since the previous reference",
+                "finite_references": 417,
+                "histogram": {
+                  "12": 35,
+                  "13": 103,
+                  "14": 27,
+                  "16": 1,
+                  "17": 1,
+                  "18": 1,
+                  "19": 8,
+                  "20": 13,
+                  "21": 20,
+                  "22": 19,
+                  "23": 11,
+                  "24": 9,
+                  "25": 9,
+                  "26": 10,
+                  "27": 4,
+                  "28": 8,
+                  "29": 13,
+                  "30": 10,
+                  "31": 11,
+                  "32": 9,
+                  "33": 7,
+                  "34": 13,
+                  "35": 3,
+                  "36": 5,
+                  "37": 9,
+                  "38": 15,
+                  "39": 11,
+                  "40": 4,
+                  "42": 3,
+                  "43": 9,
+                  "44": 4,
+                  "45": 3,
+                  "46": 1,
+                  "47": 2,
+                  "48": 1,
+                  "49": 3,
+                  "50": 2,
+                  "cold": 17
+                },
+                "p50": 21,
+                "p95": 43,
+                "p99": 49
+              },
+              "theoretical_stall": {
+                "mean": 424.9389404608295,
+                "overlap_model": "serial_no_overlap",
+                "p50": 128.64319999999998,
+                "p95": 1786.432,
+                "p99": 1786.432,
+                "samples": 434,
+                "total": 184423.50016,
+                "unit": "microseconds"
+              },
+              "tiers": {
+                "backing_store": {
+                  "bytes_requested": 70778880,
+                  "bytes_transferred": 70778880,
+                  "hit_rate": 1.0,
+                  "hits": 90,
+                  "miss_rate": 0.0,
+                  "misses": 0,
+                  "requests": 90
+                },
+                "cold": {
+                  "bytes_requested": 201326592,
+                  "bytes_transferred": 130547712,
+                  "hit_rate": 0.6484375,
+                  "hits": 166,
+                  "miss_rate": 0.3515625,
+                  "misses": 90,
+                  "requests": 256
+                },
+                "hot": {
+                  "bytes_requested": 341311488,
+                  "bytes_transferred": 139984896,
+                  "hit_rate": 0.41013824884792627,
+                  "hits": 178,
+                  "miss_rate": 0.5898617511520737,
+                  "misses": 256,
+                  "requests": 434
+                }
+              }
+            },
+            "PREFILL": {
+              "backing_store_request_rate": 0.5142857142857142,
+              "cache_activity": {
+                "cold": {
+                  "admissions": 36,
+                  "evictions": 12
+                },
+                "hot": {
+                  "admissions": 36,
+                  "evictions": 28
+                }
+              },
+              "logical_requests": 70,
+              "per_layer_expert_skew": {
+                "1": {
+                  "experts": {
+                    "0": 3,
+                    "1": 2,
+                    "3": 2,
+                    "6": 1,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.3,
+                  "requests": 10
+                },
+                "2": {
+                  "experts": {
+                    "0": 2,
+                    "1": 1,
+                    "2": 2,
+                    "3": 2,
+                    "6": 1,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.2,
+                  "requests": 10
+                },
+                "3": {
+                  "experts": {
+                    "0": 1,
+                    "1": 2,
+                    "2": 3,
+                    "3": 1,
+                    "5": 2,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.3,
+                  "requests": 10
+                },
+                "4": {
+                  "experts": {
+                    "0": 1,
+                    "1": 2,
+                    "2": 2,
+                    "4": 2,
+                    "6": 2,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.2,
+                  "requests": 10
+                },
+                "5": {
+                  "experts": {
+                    "0": 1,
+                    "2": 5,
+                    "3": 3,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.5,
+                  "requests": 10
+                },
+                "6": {
+                  "experts": {
+                    "3": 5,
+                    "4": 1,
+                    "5": 3,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.5,
+                  "requests": 10
+                },
+                "7": {
+                  "experts": {
+                    "0": 1,
+                    "2": 1,
+                    "3": 4,
+                    "4": 2,
+                    "5": 2
+                  },
+                  "maximum_expert_share": 0.4,
+                  "requests": 10
+                }
+              },
+              "reuse_distance": {
+                "cold_references": 36,
+                "definition": "number of distinct atomic expert bundles referenced since the previous reference",
+                "finite_references": 34,
+                "histogram": {
+                  "0": 5,
+                  "1": 8,
+                  "2": 9,
+                  "3": 5,
+                  "4": 7,
+                  "cold": 36
+                },
+                "p50": 2,
+                "p95": 4,
+                "p99": 4
+              },
+              "theoretical_stall": {
+                "mean": 924.9848411428571,
+                "overlap_model": "serial_no_overlap",
+                "p50": 1786.432,
+                "p95": 1786.432,
+                "p99": 1786.432,
+                "samples": 70,
+                "total": 64748.93888,
+                "unit": "microseconds"
+              },
+              "tiers": {
+                "backing_store": {
+                  "bytes_requested": 28311552,
+                  "bytes_transferred": 28311552,
+                  "hit_rate": 1.0,
+                  "hits": 36,
+                  "miss_rate": 0.0,
+                  "misses": 0,
+                  "requests": 36
+                },
+                "cold": {
+                  "bytes_requested": 28311552,
+                  "bytes_transferred": 0,
+                  "hit_rate": 0.0,
+                  "hits": 0,
+                  "miss_rate": 1.0,
+                  "misses": 36,
+                  "requests": 36
+                },
+                "hot": {
+                  "bytes_requested": 55050240,
+                  "bytes_transferred": 26738688,
+                  "hit_rate": 0.4857142857142857,
+                  "hits": 34,
+                  "miss_rate": 0.5142857142857142,
+                  "misses": 36,
+                  "requests": 70
+                }
+              }
+            }
+          },
+          "final_cache_state": {
+            "cold": {
+              "peak_bytes": 18874368,
+              "peak_slots": 24,
+              "resident_bytes": 18874368,
+              "resident_slots": 24
+            },
+            "hot": {
+              "peak_bytes": 6291456,
+              "peak_slots": 8,
+              "resident_bytes": 6291456,
+              "resident_slots": 8
+            }
+          },
+          "overall": {
+            "backing_store_request_rate": 0.25,
+            "cache_activity": {
+              "cold": {
+                "admissions": 126,
+                "evictions": 102
+              },
+              "hot": {
+                "admissions": 292,
+                "evictions": 284
+              }
+            },
+            "logical_requests": 504,
+            "per_layer_expert_skew": {
+              "1": {
+                "experts": {
+                  "0": 15,
+                  "1": 14,
+                  "2": 4,
+                  "3": 5,
+                  "4": 7,
+                  "5": 14,
+                  "6": 7,
+                  "7": 6
+                },
+                "maximum_expert_share": 0.20833333333333334,
+                "requests": 72
+              },
+              "2": {
+                "experts": {
+                  "0": 6,
+                  "1": 5,
+                  "2": 12,
+                  "3": 12,
+                  "4": 2,
+                  "5": 14,
+                  "6": 6,
+                  "7": 15
+                },
+                "maximum_expert_share": 0.20833333333333334,
+                "requests": 72
+              },
+              "3": {
+                "experts": {
+                  "0": 10,
+                  "1": 8,
+                  "2": 11,
+                  "3": 9,
+                  "4": 7,
+                  "5": 10,
+                  "6": 9,
+                  "7": 8
+                },
+                "maximum_expert_share": 0.1527777777777778,
+                "requests": 72
+              },
+              "4": {
+                "experts": {
+                  "0": 2,
+                  "1": 7,
+                  "2": 6,
+                  "3": 6,
+                  "4": 22,
+                  "5": 2,
+                  "6": 23,
+                  "7": 4
+                },
+                "maximum_expert_share": 0.3194444444444444,
+                "requests": 72
+              },
+              "5": {
+                "experts": {
+                  "0": 5,
+                  "1": 4,
+                  "2": 26,
+                  "3": 22,
+                  "4": 9,
+                  "6": 1,
+                  "7": 5
+                },
+                "maximum_expert_share": 0.3611111111111111,
+                "requests": 72
+              },
+              "6": {
+                "experts": {
+                  "0": 1,
+                  "1": 1,
+                  "2": 7,
+                  "3": 29,
+                  "4": 2,
+                  "5": 29,
+                  "7": 3
+                },
+                "maximum_expert_share": 0.4027777777777778,
+                "requests": 72
+              },
+              "7": {
+                "experts": {
+                  "0": 9,
+                  "1": 1,
+                  "2": 7,
+                  "3": 30,
+                  "4": 8,
+                  "5": 15,
+                  "7": 2
+                },
+                "maximum_expert_share": 0.4166666666666667,
+                "requests": 72
+              }
+            },
+            "reuse_distance": {
+              "cold_references": 53,
+              "definition": "number of distinct atomic expert bundles referenced since the previous reference",
+              "finite_references": 451,
+              "histogram": {
+                "0": 5,
+                "1": 8,
+                "12": 35,
+                "13": 103,
+                "14": 27,
+                "16": 1,
+                "17": 1,
+                "18": 1,
+                "19": 8,
+                "2": 9,
+                "20": 13,
+                "21": 20,
+                "22": 19,
+                "23": 11,
+                "24": 9,
+                "25": 9,
+                "26": 10,
+                "27": 4,
+                "28": 8,
+                "29": 13,
+                "3": 5,
+                "30": 10,
+                "31": 11,
+                "32": 9,
+                "33": 7,
+                "34": 13,
+                "35": 3,
+                "36": 5,
+                "37": 9,
+                "38": 15,
+                "39": 11,
+                "4": 7,
+                "40": 4,
+                "42": 3,
+                "43": 9,
+                "44": 4,
+                "45": 3,
+                "46": 1,
+                "47": 2,
+                "48": 1,
+                "49": 3,
+                "50": 2,
+                "cold": 53
+              },
+              "p50": 21,
+              "p95": 43,
+              "p99": 49
+            },
+            "theoretical_stall": {
+              "mean": 494.38975999999997,
+              "overlap_model": "serial_no_overlap",
+              "p50": 128.64319999999998,
+              "p95": 1786.432,
+              "p99": 1786.432,
+              "samples": 504,
+              "total": 249172.43904,
+              "unit": "microseconds"
+            },
+            "tiers": {
+              "backing_store": {
+                "bytes_requested": 99090432,
+                "bytes_transferred": 99090432,
+                "hit_rate": 1.0,
+                "hits": 126,
+                "miss_rate": 0.0,
+                "misses": 0,
+                "requests": 126
+              },
+              "cold": {
+                "bytes_requested": 229638144,
+                "bytes_transferred": 130547712,
+                "hit_rate": 0.5684931506849316,
+                "hits": 166,
+                "miss_rate": 0.4315068493150685,
+                "misses": 126,
+                "requests": 292
+              },
+              "hot": {
+                "bytes_requested": 396361728,
+                "bytes_transferred": 166723584,
+                "hit_rate": 0.42063492063492064,
+                "hits": 212,
+                "miss_rate": 0.5793650793650794,
+                "misses": 292,
+                "requests": 504
+              }
+            }
+          },
+          "policy": "belady_min",
+          "policy_classification": "perfect-future offline lower bound; not a production policy"
+        },
+        "lru": {
+          "by_phase": {
+            "DECODE": {
+              "backing_store_request_rate": 0.44930875576036866,
+              "cache_activity": {
+                "cold": {
+                  "admissions": 195,
+                  "evictions": 195
+                },
+                "hot": {
+                  "admissions": 434,
+                  "evictions": 434
+                }
+              },
+              "logical_requests": 434,
+              "per_layer_expert_skew": {
+                "1": {
+                  "experts": {
+                    "0": 12,
+                    "1": 12,
+                    "2": 4,
+                    "3": 3,
+                    "4": 7,
+                    "5": 14,
+                    "6": 6,
+                    "7": 4
+                  },
+                  "maximum_expert_share": 0.22580645161290322,
+                  "requests": 62
+                },
+                "2": {
+                  "experts": {
+                    "0": 4,
+                    "1": 4,
+                    "2": 10,
+                    "3": 10,
+                    "4": 2,
+                    "5": 14,
+                    "6": 5,
+                    "7": 13
+                  },
+                  "maximum_expert_share": 0.22580645161290322,
+                  "requests": 62
+                },
+                "3": {
+                  "experts": {
+                    "0": 9,
+                    "1": 6,
+                    "2": 8,
+                    "3": 8,
+                    "4": 7,
+                    "5": 8,
+                    "6": 9,
+                    "7": 7
+                  },
+                  "maximum_expert_share": 0.14516129032258066,
+                  "requests": 62
+                },
+                "4": {
+                  "experts": {
+                    "0": 1,
+                    "1": 5,
+                    "2": 4,
+                    "3": 6,
+                    "4": 20,
+                    "5": 2,
+                    "6": 21,
+                    "7": 3
+                  },
+                  "maximum_expert_share": 0.3387096774193548,
+                  "requests": 62
+                },
+                "5": {
+                  "experts": {
+                    "0": 4,
+                    "1": 4,
+                    "2": 21,
+                    "3": 19,
+                    "4": 9,
+                    "6": 1,
+                    "7": 4
+                  },
+                  "maximum_expert_share": 0.3387096774193548,
+                  "requests": 62
+                },
+                "6": {
+                  "experts": {
+                    "0": 1,
+                    "1": 1,
+                    "2": 7,
+                    "3": 24,
+                    "4": 1,
+                    "5": 26,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.41935483870967744,
+                  "requests": 62
+                },
+                "7": {
+                  "experts": {
+                    "0": 8,
+                    "1": 1,
+                    "2": 6,
+                    "3": 26,
+                    "4": 6,
+                    "5": 13,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.41935483870967744,
+                  "requests": 62
+                }
+              },
+              "reuse_distance": {
+                "cold_references": 17,
+                "definition": "number of distinct atomic expert bundles referenced since the previous reference",
+                "finite_references": 417,
+                "histogram": {
+                  "12": 35,
+                  "13": 103,
+                  "14": 27,
+                  "16": 1,
+                  "17": 1,
+                  "18": 1,
+                  "19": 8,
+                  "20": 13,
+                  "21": 20,
+                  "22": 19,
+                  "23": 11,
+                  "24": 9,
+                  "25": 9,
+                  "26": 10,
+                  "27": 4,
+                  "28": 8,
+                  "29": 13,
+                  "30": 10,
+                  "31": 11,
+                  "32": 9,
+                  "33": 7,
+                  "34": 13,
+                  "35": 3,
+                  "36": 5,
+                  "37": 9,
+                  "38": 15,
+                  "39": 11,
+                  "40": 4,
+                  "42": 3,
+                  "43": 9,
+                  "44": 4,
+                  "45": 3,
+                  "46": 1,
+                  "47": 2,
+                  "48": 1,
+                  "49": 3,
+                  "50": 2,
+                  "cold": 17
+                },
+                "p50": 21,
+                "p95": 43,
+                "p99": 49
+              },
+              "theoretical_stall": {
+                "mean": 873.5022230414747,
+                "overlap_model": "serial_no_overlap",
+                "p50": 128.64319999999998,
+                "p95": 1786.432,
+                "p99": 1786.432,
+                "samples": 434,
+                "total": 379099.9648,
+                "unit": "microseconds"
+              },
+              "tiers": {
+                "backing_store": {
+                  "bytes_requested": 153354240,
+                  "bytes_transferred": 153354240,
+                  "hit_rate": 1.0,
+                  "hits": 195,
+                  "miss_rate": 0.0,
+                  "misses": 0,
+                  "requests": 195
+                },
+                "cold": {
+                  "bytes_requested": 341311488,
+                  "bytes_transferred": 187957248,
+                  "hit_rate": 0.5506912442396313,
+                  "hits": 239,
+                  "miss_rate": 0.44930875576036866,
+                  "misses": 195,
+                  "requests": 434
+                },
+                "hot": {
+                  "bytes_requested": 341311488,
+                  "bytes_transferred": 0,
+                  "hit_rate": 0.0,
+                  "hits": 0,
+                  "miss_rate": 1.0,
+                  "misses": 434,
+                  "requests": 434
+                }
+              }
+            },
+            "PREFILL": {
+              "backing_store_request_rate": 0.5142857142857142,
+              "cache_activity": {
+                "cold": {
+                  "admissions": 36,
+                  "evictions": 12
+                },
+                "hot": {
+                  "admissions": 36,
+                  "evictions": 28
+                }
+              },
+              "logical_requests": 70,
+              "per_layer_expert_skew": {
+                "1": {
+                  "experts": {
+                    "0": 3,
+                    "1": 2,
+                    "3": 2,
+                    "6": 1,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.3,
+                  "requests": 10
+                },
+                "2": {
+                  "experts": {
+                    "0": 2,
+                    "1": 1,
+                    "2": 2,
+                    "3": 2,
+                    "6": 1,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.2,
+                  "requests": 10
+                },
+                "3": {
+                  "experts": {
+                    "0": 1,
+                    "1": 2,
+                    "2": 3,
+                    "3": 1,
+                    "5": 2,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.3,
+                  "requests": 10
+                },
+                "4": {
+                  "experts": {
+                    "0": 1,
+                    "1": 2,
+                    "2": 2,
+                    "4": 2,
+                    "6": 2,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.2,
+                  "requests": 10
+                },
+                "5": {
+                  "experts": {
+                    "0": 1,
+                    "2": 5,
+                    "3": 3,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.5,
+                  "requests": 10
+                },
+                "6": {
+                  "experts": {
+                    "3": 5,
+                    "4": 1,
+                    "5": 3,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.5,
+                  "requests": 10
+                },
+                "7": {
+                  "experts": {
+                    "0": 1,
+                    "2": 1,
+                    "3": 4,
+                    "4": 2,
+                    "5": 2
+                  },
+                  "maximum_expert_share": 0.4,
+                  "requests": 10
+                }
+              },
+              "reuse_distance": {
+                "cold_references": 36,
+                "definition": "number of distinct atomic expert bundles referenced since the previous reference",
+                "finite_references": 34,
+                "histogram": {
+                  "0": 5,
+                  "1": 8,
+                  "2": 9,
+                  "3": 5,
+                  "4": 7,
+                  "cold": 36
+                },
+                "p50": 2,
+                "p95": 4,
+                "p99": 4
+              },
+              "theoretical_stall": {
+                "mean": 924.9848411428571,
+                "overlap_model": "serial_no_overlap",
+                "p50": 1786.432,
+                "p95": 1786.432,
+                "p99": 1786.432,
+                "samples": 70,
+                "total": 64748.93888,
+                "unit": "microseconds"
+              },
+              "tiers": {
+                "backing_store": {
+                  "bytes_requested": 28311552,
+                  "bytes_transferred": 28311552,
+                  "hit_rate": 1.0,
+                  "hits": 36,
+                  "miss_rate": 0.0,
+                  "misses": 0,
+                  "requests": 36
+                },
+                "cold": {
+                  "bytes_requested": 28311552,
+                  "bytes_transferred": 0,
+                  "hit_rate": 0.0,
+                  "hits": 0,
+                  "miss_rate": 1.0,
+                  "misses": 36,
+                  "requests": 36
+                },
+                "hot": {
+                  "bytes_requested": 55050240,
+                  "bytes_transferred": 26738688,
+                  "hit_rate": 0.4857142857142857,
+                  "hits": 34,
+                  "miss_rate": 0.5142857142857142,
+                  "misses": 36,
+                  "requests": 70
+                }
+              }
+            }
+          },
+          "final_cache_state": {
+            "cold": {
+              "peak_bytes": 18874368,
+              "peak_slots": 24,
+              "resident_bytes": 18874368,
+              "resident_slots": 24
+            },
+            "hot": {
+              "peak_bytes": 6291456,
+              "peak_slots": 8,
+              "resident_bytes": 6291456,
+              "resident_slots": 8
+            }
+          },
+          "overall": {
+            "backing_store_request_rate": 0.4583333333333333,
+            "cache_activity": {
+              "cold": {
+                "admissions": 231,
+                "evictions": 207
+              },
+              "hot": {
+                "admissions": 470,
+                "evictions": 462
+              }
+            },
+            "logical_requests": 504,
+            "per_layer_expert_skew": {
+              "1": {
+                "experts": {
+                  "0": 15,
+                  "1": 14,
+                  "2": 4,
+                  "3": 5,
+                  "4": 7,
+                  "5": 14,
+                  "6": 7,
+                  "7": 6
+                },
+                "maximum_expert_share": 0.20833333333333334,
+                "requests": 72
+              },
+              "2": {
+                "experts": {
+                  "0": 6,
+                  "1": 5,
+                  "2": 12,
+                  "3": 12,
+                  "4": 2,
+                  "5": 14,
+                  "6": 6,
+                  "7": 15
+                },
+                "maximum_expert_share": 0.20833333333333334,
+                "requests": 72
+              },
+              "3": {
+                "experts": {
+                  "0": 10,
+                  "1": 8,
+                  "2": 11,
+                  "3": 9,
+                  "4": 7,
+                  "5": 10,
+                  "6": 9,
+                  "7": 8
+                },
+                "maximum_expert_share": 0.1527777777777778,
+                "requests": 72
+              },
+              "4": {
+                "experts": {
+                  "0": 2,
+                  "1": 7,
+                  "2": 6,
+                  "3": 6,
+                  "4": 22,
+                  "5": 2,
+                  "6": 23,
+                  "7": 4
+                },
+                "maximum_expert_share": 0.3194444444444444,
+                "requests": 72
+              },
+              "5": {
+                "experts": {
+                  "0": 5,
+                  "1": 4,
+                  "2": 26,
+                  "3": 22,
+                  "4": 9,
+                  "6": 1,
+                  "7": 5
+                },
+                "maximum_expert_share": 0.3611111111111111,
+                "requests": 72
+              },
+              "6": {
+                "experts": {
+                  "0": 1,
+                  "1": 1,
+                  "2": 7,
+                  "3": 29,
+                  "4": 2,
+                  "5": 29,
+                  "7": 3
+                },
+                "maximum_expert_share": 0.4027777777777778,
+                "requests": 72
+              },
+              "7": {
+                "experts": {
+                  "0": 9,
+                  "1": 1,
+                  "2": 7,
+                  "3": 30,
+                  "4": 8,
+                  "5": 15,
+                  "7": 2
+                },
+                "maximum_expert_share": 0.4166666666666667,
+                "requests": 72
+              }
+            },
+            "reuse_distance": {
+              "cold_references": 53,
+              "definition": "number of distinct atomic expert bundles referenced since the previous reference",
+              "finite_references": 451,
+              "histogram": {
+                "0": 5,
+                "1": 8,
+                "12": 35,
+                "13": 103,
+                "14": 27,
+                "16": 1,
+                "17": 1,
+                "18": 1,
+                "19": 8,
+                "2": 9,
+                "20": 13,
+                "21": 20,
+                "22": 19,
+                "23": 11,
+                "24": 9,
+                "25": 9,
+                "26": 10,
+                "27": 4,
+                "28": 8,
+                "29": 13,
+                "3": 5,
+                "30": 10,
+                "31": 11,
+                "32": 9,
+                "33": 7,
+                "34": 13,
+                "35": 3,
+                "36": 5,
+                "37": 9,
+                "38": 15,
+                "39": 11,
+                "4": 7,
+                "40": 4,
+                "42": 3,
+                "43": 9,
+                "44": 4,
+                "45": 3,
+                "46": 1,
+                "47": 2,
+                "48": 1,
+                "49": 3,
+                "50": 2,
+                "cold": 53
+              },
+              "p50": 21,
+              "p95": 43,
+              "p99": 49
+            },
+            "theoretical_stall": {
+              "mean": 880.6525866666666,
+              "overlap_model": "serial_no_overlap",
+              "p50": 128.64319999999998,
+              "p95": 1786.432,
+              "p99": 1786.432,
+              "samples": 504,
+              "total": 443848.90368,
+              "unit": "microseconds"
+            },
+            "tiers": {
+              "backing_store": {
+                "bytes_requested": 181665792,
+                "bytes_transferred": 181665792,
+                "hit_rate": 1.0,
+                "hits": 231,
+                "miss_rate": 0.0,
+                "misses": 0,
+                "requests": 231
+              },
+              "cold": {
+                "bytes_requested": 369623040,
+                "bytes_transferred": 187957248,
+                "hit_rate": 0.5085106382978724,
+                "hits": 239,
+                "miss_rate": 0.49148936170212765,
+                "misses": 231,
+                "requests": 470
+              },
+              "hot": {
+                "bytes_requested": 396361728,
+                "bytes_transferred": 26738688,
+                "hit_rate": 0.06746031746031746,
+                "hits": 34,
+                "miss_rate": 0.9325396825396826,
+                "misses": 470,
+                "requests": 504
+              }
+            }
+          },
+          "policy": "lru",
+          "policy_classification": "deterministic test baseline"
+        }
+      }
+    },
+    {
+      "cold_capacity": {
+        "bytes": 44040192,
+        "slots": 56
+      },
+      "hot_capacity": {
+        "bytes": 44040192,
+        "slots": 56
+      },
+      "name": "full-working-set",
+      "policies": {
+        "belady_min": {
+          "by_phase": {
+            "DECODE": {
+              "backing_store_request_rate": 0.03917050691244239,
+              "cache_activity": {
+                "cold": {
+                  "admissions": 17,
+                  "evictions": 0
+                },
+                "hot": {
+                  "admissions": 17,
+                  "evictions": 0
+                }
+              },
+              "logical_requests": 434,
+              "per_layer_expert_skew": {
+                "1": {
+                  "experts": {
+                    "0": 12,
+                    "1": 12,
+                    "2": 4,
+                    "3": 3,
+                    "4": 7,
+                    "5": 14,
+                    "6": 6,
+                    "7": 4
+                  },
+                  "maximum_expert_share": 0.22580645161290322,
+                  "requests": 62
+                },
+                "2": {
+                  "experts": {
+                    "0": 4,
+                    "1": 4,
+                    "2": 10,
+                    "3": 10,
+                    "4": 2,
+                    "5": 14,
+                    "6": 5,
+                    "7": 13
+                  },
+                  "maximum_expert_share": 0.22580645161290322,
+                  "requests": 62
+                },
+                "3": {
+                  "experts": {
+                    "0": 9,
+                    "1": 6,
+                    "2": 8,
+                    "3": 8,
+                    "4": 7,
+                    "5": 8,
+                    "6": 9,
+                    "7": 7
+                  },
+                  "maximum_expert_share": 0.14516129032258066,
+                  "requests": 62
+                },
+                "4": {
+                  "experts": {
+                    "0": 1,
+                    "1": 5,
+                    "2": 4,
+                    "3": 6,
+                    "4": 20,
+                    "5": 2,
+                    "6": 21,
+                    "7": 3
+                  },
+                  "maximum_expert_share": 0.3387096774193548,
+                  "requests": 62
+                },
+                "5": {
+                  "experts": {
+                    "0": 4,
+                    "1": 4,
+                    "2": 21,
+                    "3": 19,
+                    "4": 9,
+                    "6": 1,
+                    "7": 4
+                  },
+                  "maximum_expert_share": 0.3387096774193548,
+                  "requests": 62
+                },
+                "6": {
+                  "experts": {
+                    "0": 1,
+                    "1": 1,
+                    "2": 7,
+                    "3": 24,
+                    "4": 1,
+                    "5": 26,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.41935483870967744,
+                  "requests": 62
+                },
+                "7": {
+                  "experts": {
+                    "0": 8,
+                    "1": 1,
+                    "2": 6,
+                    "3": 26,
+                    "4": 6,
+                    "5": 13,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.41935483870967744,
+                  "requests": 62
+                }
+              },
+              "reuse_distance": {
+                "cold_references": 17,
+                "definition": "number of distinct atomic expert bundles referenced since the previous reference",
+                "finite_references": 417,
+                "histogram": {
+                  "12": 35,
+                  "13": 103,
+                  "14": 27,
+                  "16": 1,
+                  "17": 1,
+                  "18": 1,
+                  "19": 8,
+                  "20": 13,
+                  "21": 20,
+                  "22": 19,
+                  "23": 11,
+                  "24": 9,
+                  "25": 9,
+                  "26": 10,
+                  "27": 4,
+                  "28": 8,
+                  "29": 13,
+                  "30": 10,
+                  "31": 11,
+                  "32": 9,
+                  "33": 7,
+                  "34": 13,
+                  "35": 3,
+                  "36": 5,
+                  "37": 9,
+                  "38": 15,
+                  "39": 11,
+                  "40": 4,
+                  "42": 3,
+                  "43": 9,
+                  "44": 4,
+                  "45": 3,
+                  "46": 1,
+                  "47": 2,
+                  "48": 1,
+                  "49": 3,
+                  "50": 2,
+                  "cold": 17
+                },
+                "p50": 21,
+                "p95": 43,
+                "p99": 49
+              },
+              "theoretical_stall": {
+                "mean": 82.33586506912442,
+                "overlap_model": "serial_no_overlap",
+                "p50": 12.86432,
+                "p95": 12.86432,
+                "p99": 1786.432,
+                "samples": 434,
+                "total": 35733.76544,
+                "unit": "microseconds"
+              },
+              "tiers": {
+                "backing_store": {
+                  "bytes_requested": 13369344,
+                  "bytes_transferred": 13369344,
+                  "hit_rate": 1.0,
+                  "hits": 17,
+                  "miss_rate": 0.0,
+                  "misses": 0,
+                  "requests": 17
+                },
+                "cold": {
+                  "bytes_requested": 13369344,
+                  "bytes_transferred": 0,
+                  "hit_rate": 0.0,
+                  "hits": 0,
+                  "miss_rate": 1.0,
+                  "misses": 17,
+                  "requests": 17
+                },
+                "hot": {
+                  "bytes_requested": 341311488,
+                  "bytes_transferred": 327942144,
+                  "hit_rate": 0.9608294930875576,
+                  "hits": 417,
+                  "miss_rate": 0.03917050691244239,
+                  "misses": 17,
+                  "requests": 434
+                }
+              }
+            },
+            "PREFILL": {
+              "backing_store_request_rate": 0.5142857142857142,
+              "cache_activity": {
+                "cold": {
+                  "admissions": 36,
+                  "evictions": 0
+                },
+                "hot": {
+                  "admissions": 36,
+                  "evictions": 0
+                }
+              },
+              "logical_requests": 70,
+              "per_layer_expert_skew": {
+                "1": {
+                  "experts": {
+                    "0": 3,
+                    "1": 2,
+                    "3": 2,
+                    "6": 1,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.3,
+                  "requests": 10
+                },
+                "2": {
+                  "experts": {
+                    "0": 2,
+                    "1": 1,
+                    "2": 2,
+                    "3": 2,
+                    "6": 1,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.2,
+                  "requests": 10
+                },
+                "3": {
+                  "experts": {
+                    "0": 1,
+                    "1": 2,
+                    "2": 3,
+                    "3": 1,
+                    "5": 2,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.3,
+                  "requests": 10
+                },
+                "4": {
+                  "experts": {
+                    "0": 1,
+                    "1": 2,
+                    "2": 2,
+                    "4": 2,
+                    "6": 2,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.2,
+                  "requests": 10
+                },
+                "5": {
+                  "experts": {
+                    "0": 1,
+                    "2": 5,
+                    "3": 3,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.5,
+                  "requests": 10
+                },
+                "6": {
+                  "experts": {
+                    "3": 5,
+                    "4": 1,
+                    "5": 3,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.5,
+                  "requests": 10
+                },
+                "7": {
+                  "experts": {
+                    "0": 1,
+                    "2": 1,
+                    "3": 4,
+                    "4": 2,
+                    "5": 2
+                  },
+                  "maximum_expert_share": 0.4,
+                  "requests": 10
+                }
+              },
+              "reuse_distance": {
+                "cold_references": 36,
+                "definition": "number of distinct atomic expert bundles referenced since the previous reference",
+                "finite_references": 34,
+                "histogram": {
+                  "0": 5,
+                  "1": 8,
+                  "2": 9,
+                  "3": 5,
+                  "4": 7,
+                  "cold": 36
+                },
+                "p50": 2,
+                "p95": 4,
+                "p99": 4
+              },
+              "theoretical_stall": {
+                "mean": 924.9848411428571,
+                "overlap_model": "serial_no_overlap",
+                "p50": 1786.432,
+                "p95": 1786.432,
+                "p99": 1786.432,
+                "samples": 70,
+                "total": 64748.93888,
+                "unit": "microseconds"
+              },
+              "tiers": {
+                "backing_store": {
+                  "bytes_requested": 28311552,
+                  "bytes_transferred": 28311552,
+                  "hit_rate": 1.0,
+                  "hits": 36,
+                  "miss_rate": 0.0,
+                  "misses": 0,
+                  "requests": 36
+                },
+                "cold": {
+                  "bytes_requested": 28311552,
+                  "bytes_transferred": 0,
+                  "hit_rate": 0.0,
+                  "hits": 0,
+                  "miss_rate": 1.0,
+                  "misses": 36,
+                  "requests": 36
+                },
+                "hot": {
+                  "bytes_requested": 55050240,
+                  "bytes_transferred": 26738688,
+                  "hit_rate": 0.4857142857142857,
+                  "hits": 34,
+                  "miss_rate": 0.5142857142857142,
+                  "misses": 36,
+                  "requests": 70
+                }
+              }
+            }
+          },
+          "final_cache_state": {
+            "cold": {
+              "peak_bytes": 41680896,
+              "peak_slots": 53,
+              "resident_bytes": 41680896,
+              "resident_slots": 53
+            },
+            "hot": {
+              "peak_bytes": 41680896,
+              "peak_slots": 53,
+              "resident_bytes": 41680896,
+              "resident_slots": 53
+            }
+          },
+          "overall": {
+            "backing_store_request_rate": 0.10515873015873016,
+            "cache_activity": {
+              "cold": {
+                "admissions": 53,
+                "evictions": 0
+              },
+              "hot": {
+                "admissions": 53,
+                "evictions": 0
+              }
+            },
+            "logical_requests": 504,
+            "per_layer_expert_skew": {
+              "1": {
+                "experts": {
+                  "0": 15,
+                  "1": 14,
+                  "2": 4,
+                  "3": 5,
+                  "4": 7,
+                  "5": 14,
+                  "6": 7,
+                  "7": 6
+                },
+                "maximum_expert_share": 0.20833333333333334,
+                "requests": 72
+              },
+              "2": {
+                "experts": {
+                  "0": 6,
+                  "1": 5,
+                  "2": 12,
+                  "3": 12,
+                  "4": 2,
+                  "5": 14,
+                  "6": 6,
+                  "7": 15
+                },
+                "maximum_expert_share": 0.20833333333333334,
+                "requests": 72
+              },
+              "3": {
+                "experts": {
+                  "0": 10,
+                  "1": 8,
+                  "2": 11,
+                  "3": 9,
+                  "4": 7,
+                  "5": 10,
+                  "6": 9,
+                  "7": 8
+                },
+                "maximum_expert_share": 0.1527777777777778,
+                "requests": 72
+              },
+              "4": {
+                "experts": {
+                  "0": 2,
+                  "1": 7,
+                  "2": 6,
+                  "3": 6,
+                  "4": 22,
+                  "5": 2,
+                  "6": 23,
+                  "7": 4
+                },
+                "maximum_expert_share": 0.3194444444444444,
+                "requests": 72
+              },
+              "5": {
+                "experts": {
+                  "0": 5,
+                  "1": 4,
+                  "2": 26,
+                  "3": 22,
+                  "4": 9,
+                  "6": 1,
+                  "7": 5
+                },
+                "maximum_expert_share": 0.3611111111111111,
+                "requests": 72
+              },
+              "6": {
+                "experts": {
+                  "0": 1,
+                  "1": 1,
+                  "2": 7,
+                  "3": 29,
+                  "4": 2,
+                  "5": 29,
+                  "7": 3
+                },
+                "maximum_expert_share": 0.4027777777777778,
+                "requests": 72
+              },
+              "7": {
+                "experts": {
+                  "0": 9,
+                  "1": 1,
+                  "2": 7,
+                  "3": 30,
+                  "4": 8,
+                  "5": 15,
+                  "7": 2
+                },
+                "maximum_expert_share": 0.4166666666666667,
+                "requests": 72
+              }
+            },
+            "reuse_distance": {
+              "cold_references": 53,
+              "definition": "number of distinct atomic expert bundles referenced since the previous reference",
+              "finite_references": 451,
+              "histogram": {
+                "0": 5,
+                "1": 8,
+                "12": 35,
+                "13": 103,
+                "14": 27,
+                "16": 1,
+                "17": 1,
+                "18": 1,
+                "19": 8,
+                "2": 9,
+                "20": 13,
+                "21": 20,
+                "22": 19,
+                "23": 11,
+                "24": 9,
+                "25": 9,
+                "26": 10,
+                "27": 4,
+                "28": 8,
+                "29": 13,
+                "3": 5,
+                "30": 10,
+                "31": 11,
+                "32": 9,
+                "33": 7,
+                "34": 13,
+                "35": 3,
+                "36": 5,
+                "37": 9,
+                "38": 15,
+                "39": 11,
+                "4": 7,
+                "40": 4,
+                "42": 3,
+                "43": 9,
+                "44": 4,
+                "45": 3,
+                "46": 1,
+                "47": 2,
+                "48": 1,
+                "49": 3,
+                "50": 2,
+                "cold": 53
+              },
+              "p50": 21,
+              "p95": 43,
+              "p99": 49
+            },
+            "theoretical_stall": {
+              "mean": 199.37044507936508,
+              "overlap_model": "serial_no_overlap",
+              "p50": 12.86432,
+              "p95": 1786.432,
+              "p99": 1786.432,
+              "samples": 504,
+              "total": 100482.70432,
+              "unit": "microseconds"
+            },
+            "tiers": {
+              "backing_store": {
+                "bytes_requested": 41680896,
+                "bytes_transferred": 41680896,
+                "hit_rate": 1.0,
+                "hits": 53,
+                "miss_rate": 0.0,
+                "misses": 0,
+                "requests": 53
+              },
+              "cold": {
+                "bytes_requested": 41680896,
+                "bytes_transferred": 0,
+                "hit_rate": 0.0,
+                "hits": 0,
+                "miss_rate": 1.0,
+                "misses": 53,
+                "requests": 53
+              },
+              "hot": {
+                "bytes_requested": 396361728,
+                "bytes_transferred": 354680832,
+                "hit_rate": 0.8948412698412699,
+                "hits": 451,
+                "miss_rate": 0.10515873015873016,
+                "misses": 53,
+                "requests": 504
+              }
+            }
+          },
+          "policy": "belady_min",
+          "policy_classification": "perfect-future offline lower bound; not a production policy"
+        },
+        "lru": {
+          "by_phase": {
+            "DECODE": {
+              "backing_store_request_rate": 0.03917050691244239,
+              "cache_activity": {
+                "cold": {
+                  "admissions": 17,
+                  "evictions": 0
+                },
+                "hot": {
+                  "admissions": 17,
+                  "evictions": 0
+                }
+              },
+              "logical_requests": 434,
+              "per_layer_expert_skew": {
+                "1": {
+                  "experts": {
+                    "0": 12,
+                    "1": 12,
+                    "2": 4,
+                    "3": 3,
+                    "4": 7,
+                    "5": 14,
+                    "6": 6,
+                    "7": 4
+                  },
+                  "maximum_expert_share": 0.22580645161290322,
+                  "requests": 62
+                },
+                "2": {
+                  "experts": {
+                    "0": 4,
+                    "1": 4,
+                    "2": 10,
+                    "3": 10,
+                    "4": 2,
+                    "5": 14,
+                    "6": 5,
+                    "7": 13
+                  },
+                  "maximum_expert_share": 0.22580645161290322,
+                  "requests": 62
+                },
+                "3": {
+                  "experts": {
+                    "0": 9,
+                    "1": 6,
+                    "2": 8,
+                    "3": 8,
+                    "4": 7,
+                    "5": 8,
+                    "6": 9,
+                    "7": 7
+                  },
+                  "maximum_expert_share": 0.14516129032258066,
+                  "requests": 62
+                },
+                "4": {
+                  "experts": {
+                    "0": 1,
+                    "1": 5,
+                    "2": 4,
+                    "3": 6,
+                    "4": 20,
+                    "5": 2,
+                    "6": 21,
+                    "7": 3
+                  },
+                  "maximum_expert_share": 0.3387096774193548,
+                  "requests": 62
+                },
+                "5": {
+                  "experts": {
+                    "0": 4,
+                    "1": 4,
+                    "2": 21,
+                    "3": 19,
+                    "4": 9,
+                    "6": 1,
+                    "7": 4
+                  },
+                  "maximum_expert_share": 0.3387096774193548,
+                  "requests": 62
+                },
+                "6": {
+                  "experts": {
+                    "0": 1,
+                    "1": 1,
+                    "2": 7,
+                    "3": 24,
+                    "4": 1,
+                    "5": 26,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.41935483870967744,
+                  "requests": 62
+                },
+                "7": {
+                  "experts": {
+                    "0": 8,
+                    "1": 1,
+                    "2": 6,
+                    "3": 26,
+                    "4": 6,
+                    "5": 13,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.41935483870967744,
+                  "requests": 62
+                }
+              },
+              "reuse_distance": {
+                "cold_references": 17,
+                "definition": "number of distinct atomic expert bundles referenced since the previous reference",
+                "finite_references": 417,
+                "histogram": {
+                  "12": 35,
+                  "13": 103,
+                  "14": 27,
+                  "16": 1,
+                  "17": 1,
+                  "18": 1,
+                  "19": 8,
+                  "20": 13,
+                  "21": 20,
+                  "22": 19,
+                  "23": 11,
+                  "24": 9,
+                  "25": 9,
+                  "26": 10,
+                  "27": 4,
+                  "28": 8,
+                  "29": 13,
+                  "30": 10,
+                  "31": 11,
+                  "32": 9,
+                  "33": 7,
+                  "34": 13,
+                  "35": 3,
+                  "36": 5,
+                  "37": 9,
+                  "38": 15,
+                  "39": 11,
+                  "40": 4,
+                  "42": 3,
+                  "43": 9,
+                  "44": 4,
+                  "45": 3,
+                  "46": 1,
+                  "47": 2,
+                  "48": 1,
+                  "49": 3,
+                  "50": 2,
+                  "cold": 17
+                },
+                "p50": 21,
+                "p95": 43,
+                "p99": 49
+              },
+              "theoretical_stall": {
+                "mean": 82.33586506912442,
+                "overlap_model": "serial_no_overlap",
+                "p50": 12.86432,
+                "p95": 12.86432,
+                "p99": 1786.432,
+                "samples": 434,
+                "total": 35733.76544,
+                "unit": "microseconds"
+              },
+              "tiers": {
+                "backing_store": {
+                  "bytes_requested": 13369344,
+                  "bytes_transferred": 13369344,
+                  "hit_rate": 1.0,
+                  "hits": 17,
+                  "miss_rate": 0.0,
+                  "misses": 0,
+                  "requests": 17
+                },
+                "cold": {
+                  "bytes_requested": 13369344,
+                  "bytes_transferred": 0,
+                  "hit_rate": 0.0,
+                  "hits": 0,
+                  "miss_rate": 1.0,
+                  "misses": 17,
+                  "requests": 17
+                },
+                "hot": {
+                  "bytes_requested": 341311488,
+                  "bytes_transferred": 327942144,
+                  "hit_rate": 0.9608294930875576,
+                  "hits": 417,
+                  "miss_rate": 0.03917050691244239,
+                  "misses": 17,
+                  "requests": 434
+                }
+              }
+            },
+            "PREFILL": {
+              "backing_store_request_rate": 0.5142857142857142,
+              "cache_activity": {
+                "cold": {
+                  "admissions": 36,
+                  "evictions": 0
+                },
+                "hot": {
+                  "admissions": 36,
+                  "evictions": 0
+                }
+              },
+              "logical_requests": 70,
+              "per_layer_expert_skew": {
+                "1": {
+                  "experts": {
+                    "0": 3,
+                    "1": 2,
+                    "3": 2,
+                    "6": 1,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.3,
+                  "requests": 10
+                },
+                "2": {
+                  "experts": {
+                    "0": 2,
+                    "1": 1,
+                    "2": 2,
+                    "3": 2,
+                    "6": 1,
+                    "7": 2
+                  },
+                  "maximum_expert_share": 0.2,
+                  "requests": 10
+                },
+                "3": {
+                  "experts": {
+                    "0": 1,
+                    "1": 2,
+                    "2": 3,
+                    "3": 1,
+                    "5": 2,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.3,
+                  "requests": 10
+                },
+                "4": {
+                  "experts": {
+                    "0": 1,
+                    "1": 2,
+                    "2": 2,
+                    "4": 2,
+                    "6": 2,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.2,
+                  "requests": 10
+                },
+                "5": {
+                  "experts": {
+                    "0": 1,
+                    "2": 5,
+                    "3": 3,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.5,
+                  "requests": 10
+                },
+                "6": {
+                  "experts": {
+                    "3": 5,
+                    "4": 1,
+                    "5": 3,
+                    "7": 1
+                  },
+                  "maximum_expert_share": 0.5,
+                  "requests": 10
+                },
+                "7": {
+                  "experts": {
+                    "0": 1,
+                    "2": 1,
+                    "3": 4,
+                    "4": 2,
+                    "5": 2
+                  },
+                  "maximum_expert_share": 0.4,
+                  "requests": 10
+                }
+              },
+              "reuse_distance": {
+                "cold_references": 36,
+                "definition": "number of distinct atomic expert bundles referenced since the previous reference",
+                "finite_references": 34,
+                "histogram": {
+                  "0": 5,
+                  "1": 8,
+                  "2": 9,
+                  "3": 5,
+                  "4": 7,
+                  "cold": 36
+                },
+                "p50": 2,
+                "p95": 4,
+                "p99": 4
+              },
+              "theoretical_stall": {
+                "mean": 924.9848411428571,
+                "overlap_model": "serial_no_overlap",
+                "p50": 1786.432,
+                "p95": 1786.432,
+                "p99": 1786.432,
+                "samples": 70,
+                "total": 64748.93888,
+                "unit": "microseconds"
+              },
+              "tiers": {
+                "backing_store": {
+                  "bytes_requested": 28311552,
+                  "bytes_transferred": 28311552,
+                  "hit_rate": 1.0,
+                  "hits": 36,
+                  "miss_rate": 0.0,
+                  "misses": 0,
+                  "requests": 36
+                },
+                "cold": {
+                  "bytes_requested": 28311552,
+                  "bytes_transferred": 0,
+                  "hit_rate": 0.0,
+                  "hits": 0,
+                  "miss_rate": 1.0,
+                  "misses": 36,
+                  "requests": 36
+                },
+                "hot": {
+                  "bytes_requested": 55050240,
+                  "bytes_transferred": 26738688,
+                  "hit_rate": 0.4857142857142857,
+                  "hits": 34,
+                  "miss_rate": 0.5142857142857142,
+                  "misses": 36,
+                  "requests": 70
+                }
+              }
+            }
+          },
+          "final_cache_state": {
+            "cold": {
+              "peak_bytes": 41680896,
+              "peak_slots": 53,
+              "resident_bytes": 41680896,
+              "resident_slots": 53
+            },
+            "hot": {
+              "peak_bytes": 41680896,
+              "peak_slots": 53,
+              "resident_bytes": 41680896,
+              "resident_slots": 53
+            }
+          },
+          "overall": {
+            "backing_store_request_rate": 0.10515873015873016,
+            "cache_activity": {
+              "cold": {
+                "admissions": 53,
+                "evictions": 0
+              },
+              "hot": {
+                "admissions": 53,
+                "evictions": 0
+              }
+            },
+            "logical_requests": 504,
+            "per_layer_expert_skew": {
+              "1": {
+                "experts": {
+                  "0": 15,
+                  "1": 14,
+                  "2": 4,
+                  "3": 5,
+                  "4": 7,
+                  "5": 14,
+                  "6": 7,
+                  "7": 6
+                },
+                "maximum_expert_share": 0.20833333333333334,
+                "requests": 72
+              },
+              "2": {
+                "experts": {
+                  "0": 6,
+                  "1": 5,
+                  "2": 12,
+                  "3": 12,
+                  "4": 2,
+                  "5": 14,
+                  "6": 6,
+                  "7": 15
+                },
+                "maximum_expert_share": 0.20833333333333334,
+                "requests": 72
+              },
+              "3": {
+                "experts": {
+                  "0": 10,
+                  "1": 8,
+                  "2": 11,
+                  "3": 9,
+                  "4": 7,
+                  "5": 10,
+                  "6": 9,
+                  "7": 8
+                },
+                "maximum_expert_share": 0.1527777777777778,
+                "requests": 72
+              },
+              "4": {
+                "experts": {
+                  "0": 2,
+                  "1": 7,
+                  "2": 6,
+                  "3": 6,
+                  "4": 22,
+                  "5": 2,
+                  "6": 23,
+                  "7": 4
+                },
+                "maximum_expert_share": 0.3194444444444444,
+                "requests": 72
+              },
+              "5": {
+                "experts": {
+                  "0": 5,
+                  "1": 4,
+                  "2": 26,
+                  "3": 22,
+                  "4": 9,
+                  "6": 1,
+                  "7": 5
+                },
+                "maximum_expert_share": 0.3611111111111111,
+                "requests": 72
+              },
+              "6": {
+                "experts": {
+                  "0": 1,
+                  "1": 1,
+                  "2": 7,
+                  "3": 29,
+                  "4": 2,
+                  "5": 29,
+                  "7": 3
+                },
+                "maximum_expert_share": 0.4027777777777778,
+                "requests": 72
+              },
+              "7": {
+                "experts": {
+                  "0": 9,
+                  "1": 1,
+                  "2": 7,
+                  "3": 30,
+                  "4": 8,
+                  "5": 15,
+                  "7": 2
+                },
+                "maximum_expert_share": 0.4166666666666667,
+                "requests": 72
+              }
+            },
+            "reuse_distance": {
+              "cold_references": 53,
+              "definition": "number of distinct atomic expert bundles referenced since the previous reference",
+              "finite_references": 451,
+              "histogram": {
+                "0": 5,
+                "1": 8,
+                "12": 35,
+                "13": 103,
+                "14": 27,
+                "16": 1,
+                "17": 1,
+                "18": 1,
+                "19": 8,
+                "2": 9,
+                "20": 13,
+                "21": 20,
+                "22": 19,
+                "23": 11,
+                "24": 9,
+                "25": 9,
+                "26": 10,
+                "27": 4,
+                "28": 8,
+                "29": 13,
+                "3": 5,
+                "30": 10,
+                "31": 11,
+                "32": 9,
+                "33": 7,
+                "34": 13,
+                "35": 3,
+                "36": 5,
+                "37": 9,
+                "38": 15,
+                "39": 11,
+                "4": 7,
+                "40": 4,
+                "42": 3,
+                "43": 9,
+                "44": 4,
+                "45": 3,
+                "46": 1,
+                "47": 2,
+                "48": 1,
+                "49": 3,
+                "50": 2,
+                "cold": 53
+              },
+              "p50": 21,
+              "p95": 43,
+              "p99": 49
+            },
+            "theoretical_stall": {
+              "mean": 199.37044507936508,
+              "overlap_model": "serial_no_overlap",
+              "p50": 12.86432,
+              "p95": 1786.432,
+              "p99": 1786.432,
+              "samples": 504,
+              "total": 100482.70432,
+              "unit": "microseconds"
+            },
+            "tiers": {
+              "backing_store": {
+                "bytes_requested": 41680896,
+                "bytes_transferred": 41680896,
+                "hit_rate": 1.0,
+                "hits": 53,
+                "miss_rate": 0.0,
+                "misses": 0,
+                "requests": 53
+              },
+              "cold": {
+                "bytes_requested": 41680896,
+                "bytes_transferred": 0,
+                "hit_rate": 0.0,
+                "hits": 0,
+                "miss_rate": 1.0,
+                "misses": 53,
+                "requests": 53
+              },
+              "hot": {
+                "bytes_requested": 396361728,
+                "bytes_transferred": 354680832,
+                "hit_rate": 0.8948412698412699,
+                "hits": 451,
+                "miss_rate": 0.10515873015873016,
+                "misses": 53,
+                "requests": 504
+              }
+            }
+          },
+          "policy": "lru",
+          "policy_classification": "deterministic test baseline"
+        }
+      }
+    }
+  ],
+  "schema_version": "phase2-simulation-output-v1"
+}

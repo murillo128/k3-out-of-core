@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/sergiogm/k3-out-of-core/schemas/phase2/expert-storage-map-v1.schema.json",
+  "title": "K3 expert storage map version 1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "model", "source_files", "expert_count", "routed_layers", "entries"],
+  "properties": {
+    "schema_version": {"const": "expert-storage-map-v1"},
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "size", "sha256", "source_revision", "published_gguf_revision", "llama_cpp_revision"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "size": {"type": "integer", "minimum": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "published_gguf_revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "llama_cpp_revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+      }
+    },
+    "source_files": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/source_file"}
+    },
+    "expert_count": {"const": 8},
+    "routed_layers": {
+      "type": "array",
+      "prefixItems": [
+        {"const": 1}, {"const": 2}, {"const": 3}, {"const": 4},
+        {"const": 5}, {"const": 6}, {"const": 7}
+      ],
+      "items": false
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 56,
+      "maxItems": 56,
+      "items": {"$ref": "#/$defs/entry"}
+    }
+  },
+  "$defs": {
+    "source_file": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["index", "identity", "size", "gguf_alignment"],
+      "properties": {
+        "index": {"type": "integer", "minimum": 0},
+        "identity": {"type": "string", "minLength": 1},
+        "size": {"type": "integer", "minimum": 1},
+        "gguf_alignment": {"type": "integer", "minimum": 1}
+      }
+    },
+    "span": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file_offset", "length", "logical_offset"],
+      "properties": {
+        "file_offset": {"type": "integer", "minimum": 0},
+        "length": {"type": "integer", "minimum": 1},
+        "logical_offset": {"type": "integer", "minimum": 0}
+      }
+    },
+    "projection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tensor_name", "source_file_index", "source_file_identity", "source_file_size",
+        "tensor_base_offset", "tensor_byte_size", "ggml_type", "logical_shape",
+        "physical_strides", "expert_axis", "expert_slice_bytes", "layout_kind",
+        "spans", "gguf_alignment", "runtime"
+      ],
+      "properties": {
+        "tensor_name": {"type": "string", "minLength": 1},
+        "source_file_index": {"type": "integer", "minimum": 0},
+        "source_file_identity": {"type": "string", "minLength": 1},
+        "source_file_size": {"type": "integer", "minimum": 1},
+        "tensor_base_offset": {"type": "integer", "minimum": 0},
+        "tensor_byte_size": {"type": "integer", "minimum": 1},
+        "ggml_type": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["id", "name"],
+          "properties": {
+            "id": {"type": "integer", "minimum": 0},
+            "name": {"type": "string", "minLength": 1}
+          }
+        },
+        "logical_shape": {
+          "type": "array", "minItems": 4, "maxItems": 4,
+          "items": {"type": "integer", "minimum": 1}
+        },
+        "physical_strides": {
+          "type": "array", "minItems": 4, "maxItems": 4,
+          "items": {"type": "integer", "minimum": 1}
+        },
+        "expert_axis": {"const": 2},
+        "expert_slice_bytes": {"type": "integer", "minimum": 1},
+        "layout_kind": {"enum": ["contiguous", "strided", "segmented"]},
+        "spans": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/span"}},
+        "gguf_alignment": {"type": "integer", "minimum": 1},
+        "runtime": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["buffer_type", "layout_transform", "backend_transform", "repack"],
+          "properties": {
+            "buffer_type": {"type": "string"},
+            "layout_transform": {"type": "boolean"},
+            "backend_transform": {"type": "boolean"},
+            "repack": {"type": "boolean"}
+          }
+        }
+      }
+    },
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["layer", "expert_id", "atomic_bundle_bytes", "projections"],
+      "properties": {
+        "layer": {"type": "integer", "minimum": 1, "maximum": 7},
+        "expert_id": {"type": "integer", "minimum": 0, "maximum": 7},
+        "atomic_bundle_bytes": {"type": "integer", "minimum": 1},
+        "projections": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["gate", "up", "down"],
+          "properties": {
+            "gate": {"$ref": "#/$defs/projection"},
+            "up": {"$ref": "#/$defs/projection"},
+            "down": {"$ref": "#/$defs/projection"}
+          }
+        }
+      }
+    }
+  }
+}

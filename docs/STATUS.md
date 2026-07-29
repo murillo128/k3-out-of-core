@@ -12,7 +12,7 @@ This file is the first handoff document for a new ChatGPT or Codex session.
 - PR #9 merged into `main` as `eff5efc754919bf1a50735e27c7ad39f4d93384e`; its STANDARD materiality and repeated-review circuit-breaker rules now govern future issues.
 - Checkpoints A, B, and C returned **PASS_WITH_NOTES** with safety gate **YES**.
 - The final complete-PR review returned **PASS_WITH_NOTES** with safety to merge **YES**.
-- No out-of-core runtime implementation exists. Project Phase 2 has not begun.
+- No out-of-core runtime implementation exists. Project Phase 2 issue #10 is in progress in PR #11. Checkpoint A and the corrected Checkpoint B re-review returned `PASS_WITH_NOTES` with safety to proceed `YES`. The initial Checkpoint B review correctly rejected an admission-bypassing oracle mislabeled as exact Belady/MIN; the corrected simulator always admits the demand, selects MIN victims only from current residents, and passes the distinguishing `A B A` capacity-one case. The bounded F16/MXFP4 CPU corpus and CPU/CUDA subset remain reproducible, and the unchanged raw corpus is externally published at immutable Hub revision `2d838d6b4d0aca4e9af1e7d899e57ad29330c72e`.
 - Phase 1 evidence is descriptive for the tiny K3 fixtures on `skynet`; it is not a model-quality or production-performance claim.
 
 ## Phase 1 merged baseline
@@ -73,15 +73,6 @@ Kernel: 6.8.0-136-generic
 
 ## Immediate next action
 
-Design a new, bounded GitHub issue for **Project Phase 2 — routing and expert-layout observability**.
+Obtain issue #10's final complete-PR external review over the attested head, then merge only after the final safety gate is `YES`. Do not begin provider implementation before final review and merge.
 
-The design session must inspect the exact pinned `llama.cpp` code before declaring the issue `EXECUTION_READY`. It should resolve:
-
-- the exact router seam exposing selected expert IDs and routing weights;
-- deterministic trace semantics for layer, token/batch position, request or sequence, and prefill versus decode;
-- a compact versioned trace format and trace-disabled overhead requirement;
-- the loader seam for authoritative GGUF file identity, offset, byte size, type, logical shape, stride, and alignment;
-- `ExpertStorageEntry` semantics for atomic gate/up/down expert bundles;
-- how implementation should be split into reviewable issues or phases.
-
-Do not implement cache, provider, NVMe I/O, prefetch, expert remapping, or residency changes as part of the Phase 2 design issue unless a later approved implementation contract explicitly permits them.
+Do not implement cache, provider, NVMe I/O, prefetch, expert remapping, or residency changes as part of issue #10.

@@ -1,0 +1,63 @@
+{
+  "schema_version": "phase2-prompt-corpus-v1",
+  "seed": 1,
+  "temperature": 0,
+  "context": 512,
+  "prompts": [
+    {
+      "id": "prose-en-small",
+      "domain": "constructed prose",
+      "language": "English",
+      "prefill_class": "small",
+      "decode_class": "short",
+      "max_generated_tokens": 16,
+      "text": "Explain why a careful measurement should distinguish observed facts from assumptions."
+    },
+    {
+      "id": "code-en-small",
+      "domain": "code",
+      "language": "English",
+      "prefill_class": "small",
+      "decode_class": "long",
+      "max_generated_tokens": 128,
+      "text": "Complete this Python function without imports:\n\ndef clamp(value, low, high):\n    "
+    },
+    {
+      "id": "structured-en-small",
+      "domain": "structured data",
+      "language": "English",
+      "prefill_class": "small",
+      "decode_class": "short",
+      "max_generated_tokens": 16,
+      "text": "Summarize this JSON: {\"service\":\"router\",\"status\":\"ok\",\"hits\":12,\"misses\":3}."
+    },
+    {
+      "id": "technical-en-large",
+      "domain": "technical",
+      "language": "English",
+      "prefill_class": "large",
+      "decode_class": "short",
+      "max_generated_tokens": 16,
+      "text": "A storage experiment separates identity, layout, policy, and transport so that each claim can be tested independently. The input artifact is named by an exact revision, byte length, and checksum. A loader reports the source file index, tensor offset, physical size, logical shape, byte strides, and alignment before any runtime repacking occurs. The experiment treats an expert as an atomic gate, up, and down bundle while retaining three distinct file spans. It rejects virtual-address inference because mappings can change across processes and loading modes.\n\nThe trace records the final selected expert identifiers and weights consumed by execution. Records are ordered by request, micro-batch, layer, row, and rank. A caller labels prefill and decode explicitly rather than guessing from token count. The observer copies only bounded route outputs and performs one visible synchronization after a micro-batch. A disabled observer adds no graph output, allocation, copy, callback, or synchronization. Repeated warm runs are required because graph storage may be reused across compute epochs.\n\nAn offline simulator reads only the trace and storage map. It models an inclusive hot and cold hierarchy, reports requests and bytes at every tier, and compares deterministic LRU with a future-aware reference. Fixed latency and bandwidth values are supplied as assumptions, not measured predictions. Prefill and decode remain separate because a long prompt may evict entries that decode would otherwise reuse. Explain which invariants make this evidence reproducible and which conclusions still require full-size hardware measurements."
+    },
+    {
+      "id": "narrative-en-large",
+      "domain": "narrative",
+      "language": "English",
+      "prefill_class": "large",
+      "decode_class": "long",
+      "max_generated_tokens": 128,
+      "text": "At dawn, Mara unlocked the observatory and found a thin envelope beneath the brass clock. No name appeared on it, only a sketch of the valley with seven small circles drawn along the river. She placed the envelope beside the weather log, started the kettle, and waited for the old computer to finish its patient sequence of clicks. Outside, fog covered the road and softened every sound from the village.\n\nThe note inside contained measurements taken on the same night in three different years. Each page listed wind direction, water level, and the minute when a blue light appeared above the northern ridge. Mara distrusted patterns that arrived too neatly, so she copied every value into a clean table and marked the missing entries in red. She asked Tomas at the mill to check the river gauge, and she asked Lin at the clinic whether the power had failed. Their answers agreed with the pages, but neither remembered seeing a light.\n\nThat evening Mara walked to the first circle on the map. It marked a stone bridge where the river narrowed between black pines. Under the western arch she found a metal box, dry despite the rain. The box held six glass disks and an empty slot for a seventh. When she raised one disk toward the fading sky, the valley appeared as it had decades before: fewer houses, a wider river, and the observatory dome shining white. Footsteps sounded on the bridge above her. Mara put the disk away and listened as someone stopped directly over the hidden box. Continue the story while preserving the uncertainty about who prepared the measurements."
+    },
+    {
+      "id": "narrative-es-large",
+      "domain": "narrative",
+      "language": "Spanish",
+      "prefill_class": "large",
+      "decode_class": "long",
+      "max_generated_tokens": 128,
+      "text": "Cuando Inés llegó a la estación, el último tren ya había partido y el reloj del andén marcaba una hora imposible. Las agujas avanzaban con normalidad, pero el calendario electrónico insistía en que era martes, aunque todo el pueblo había celebrado el viernes esa misma mañana. El jefe de estación no parecía sorprendido. Le ofreció una silla, cerró la ventanilla y le pidió que describiera con precisión el objeto que llevaba en la mochila.\n\nInés sacó un cuaderno cubierto de polvo. Lo había encontrado detrás de una pared durante la reforma de la biblioteca. Cada página contenía una lista de llegadas y salidas, junto con observaciones sobre pasajeros que nadie conocía. Algunas notas estaban fechadas cincuenta años atrás; otras anunciaban trenes para la semana siguiente. La letra se parecía demasiado a la de Inés, salvo por una costumbre extraña: todas las cantidades estaban escritas con palabras y todos los nombres propios aparecían tachados.\n\nDebajo de las vías sonó una campana. Afuera no había trenes, pero una luz recorría lentamente el túnel. Continúa el relato sin decidir todavía si el cuaderno predice el futuro o repite un ciclo anterior."
+    }
+  ],
+  "cuda_parity_prompt_ids": ["prose-en-small", "narrative-en-large"]
+}
