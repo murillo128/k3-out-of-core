@@ -148,12 +148,12 @@
 
 #### 2.3 Offline simulator
 
-- [ ] Implement trace replay independent of GGML/CUDA.
-- [ ] Model hot and cold capacities in bytes and expert slots.
-- [ ] Implement LRU baseline.
-- [ ] Implement perfect-oracle lower bound.
-- [ ] Report tier hit rates, bytes, evictions, reuse distances, and theoretical stalls.
-- [ ] Separate prefill and decode analysis.
+- [x] Implement trace replay independent of GGML/CUDA.
+- [x] Model hot and cold capacities in bytes and expert slots.
+- [x] Implement LRU baseline.
+- [x] Implement perfect-oracle lower bound.
+- [x] Report tier hit rates, bytes, evictions, reuse distances, and theoretical stalls.
+- [x] Separate prefill and decode analysis.
 
 #### 2.4 Trace corpus
 

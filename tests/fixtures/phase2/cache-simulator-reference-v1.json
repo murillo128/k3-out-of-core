@@ -1,0 +1,63 @@
+{
+  "schema_version": "cache-simulator-reference-v1",
+  "equal_size_bytes": 1,
+  "cases": [
+    {
+      "name": "capacity_zero",
+      "sequence": [0, 1, 0],
+      "hot": {"slots": 0, "bytes": 0},
+      "cold": {"slots": 0, "bytes": 0},
+      "expected_lru": {"hot_hits": 0, "cold_hits": 0, "backing_requests": 3}
+    },
+    {
+      "name": "capacity_one",
+      "sequence": [0, 1, 0],
+      "hot": {"slots": 1, "bytes": 1},
+      "cold": {"slots": 1, "bytes": 1},
+      "expected_lru": {"hot_hits": 0, "cold_hits": 0, "backing_requests": 3}
+    },
+    {
+      "name": "below_working_set",
+      "sequence": [0, 1, 2, 0, 1, 2],
+      "hot": {"slots": 0, "bytes": 0},
+      "cold": {"slots": 2, "bytes": 2},
+      "expected_lru": {"hot_hits": 0, "cold_hits": 0, "backing_requests": 6}
+    },
+    {
+      "name": "exact_working_set",
+      "sequence": [0, 1, 2, 0, 1, 2],
+      "hot": {"slots": 0, "bytes": 0},
+      "cold": {"slots": 3, "bytes": 3},
+      "expected_lru": {"hot_hits": 0, "cold_hits": 3, "backing_requests": 3}
+    },
+    {
+      "name": "full_hot_working_set",
+      "sequence": [0, 1, 2, 0, 1, 2],
+      "hot": {"slots": 3, "bytes": 3},
+      "cold": {"slots": 3, "bytes": 3},
+      "expected_lru": {"hot_hits": 3, "cold_hits": 0, "backing_requests": 3}
+    },
+    {
+      "name": "inclusive_cold_hit",
+      "sequence": [0, 1, 0],
+      "hot": {"slots": 1, "bytes": 1},
+      "cold": {"slots": 2, "bytes": 2},
+      "expected_lru": {"hot_hits": 0, "cold_hits": 1, "backing_requests": 2}
+    }
+  ],
+  "belady_reference": {
+    "sequence": [0, 1, 2, 0, 1, 2],
+    "hot": {"slots": 0, "bytes": 0},
+    "cold": {"slots": 2, "bytes": 2},
+    "expected_lru_backing_requests": 6,
+    "expected_belady_backing_requests": 4
+  },
+  "unequal_byte_reference": {
+    "sizes": {"0": 2, "1": 3, "2": 2},
+    "sequence": [0, 1, 0, 2],
+    "hot": {"slots": 0, "bytes": 0},
+    "cold": {"slots": 3, "bytes": 4},
+    "expected_lru_backing_requests": 4,
+    "expected_cold_evictions": 2
+  }
+}
