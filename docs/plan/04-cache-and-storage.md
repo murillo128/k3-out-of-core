@@ -84,36 +84,38 @@ Status: `ACCEPTED`. Issue #17 standing evidence satisfies the exit gate; Checkpo
 
 #### 5.1 Cold slots
 
-- [ ] Allocate aligned cold slots by bytes, not only expert count.
-- [ ] Implement cold directory and state machine.
-- [ ] Enforce the initial inclusive invariant for hot entries.
-- [ ] Define host-memory pressure and allocation failure behavior.
-- [ ] Optionally support hugepage advice without requiring it.
+- [x] Allocate aligned cold slots by bytes, not only expert count.
+- [x] Implement cold directory and state machine.
+- [x] Enforce the initial inclusive invariant for hot entries.
+- [x] Define host-memory pressure and allocation failure behavior.
+- [x] Leave hugepage advice optional and unused; correctness does not depend on it.
 
 #### 5.2 Pinned ring
 
-- [ ] Allocate bounded pinned/registered transfer buffers.
-- [ ] Support multiple in-flight H2D transfers.
-- [ ] Fall back cleanly when registration fails.
-- [ ] Track pinned-memory budget and expose it in telemetry.
+- [x] Allocate bounded pinned/registered transfer buffers.
+- [x] Support multiple queued H2D transfers per synchronous wave.
+- [x] Fall back cleanly when pinned acquisition fails.
+- [x] Track pinned-memory budget and expose acquisition/fallback telemetry.
 
 #### 5.3 Promotion
 
-- [ ] Cold hit copies to a pinned lane if needed, then asynchronously or synchronously to hot according to the current phase.
-- [ ] Do not block unrelated ready experts.
-- [ ] Populate a cold slot from an existing host-resident monolithic tensor for this phase.
+- [x] Cold hit copies to a pinned lane if needed, then asynchronously or synchronously to hot according to the current phase.
+- [x] Preserve ready hot hits without recopy or eviction; current-layer misses complete in bounded waves.
+- [x] Populate a cold slot from the existing pageable host-resident monolithic tensor for this phase.
 
 #### 5.4 Eviction
 
-- [ ] Implement deterministic LRU mechanism for tests.
-- [ ] Prevent cold eviction while hot, pinned, loading, or referenced.
-- [ ] Verify hot eviction requires no writeback.
+- [x] Implement deterministic LRU mechanism for tests.
+- [x] Prevent cold eviction while hot, transferring, loading, or referenced.
+- [x] Verify hot eviction requires no writeback.
 
 ### Exit gate
 
 - Hot miss/cold hit behavior is correct and bounded.
 - Inclusive-cache invariants hold under stress.
 - No whole-model pinning occurs.
+
+Status: `OBSERVED`. Issue #20 standing evidence satisfies the mechanism and evidence gates through Checkpoint A (`PASS`, safety `YES`, comment `5132379446`). F16/MXFP4 pinned and explicit pageable-fallback runs preserve exact prompt IDs, generated IDs, logical route/weight hashes, and full-logit hashes. Final complete-PR review remains pending.
 
 ---
 

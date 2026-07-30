@@ -26,6 +26,9 @@ This repository is the source of truth for architecture, planning, validation re
 - Phase 4 mechanism head reviewed at Checkpoint A: `8ededcb548b0d9dc6248d6ba490aecedca576bec`
 - Phase 4 evidence-probe candidate: `57fe1eabbe3d0ced59096a0744efc91e286fb1c7`
 - Phase 4 branch: `codex/phase4-hot-cache`
+- Phase 5 Checkpoint A corrected head: `5ffed360965a1de7e2d788b8637a470183d27165`
+- Phase 5 evidence-probe candidate: `26317ee1d848dd7a73f22a3666a055cad5d5cb03`
+- Phase 5 branch: `codex/phase5-cold-cache`
 
 The `llama.cpp` gitlink in the Phase 3 review branch points to the Phase 3 resident-provider head. The Phase 1 and Phase 2 revisions remain immutable validation inputs.
 
@@ -40,6 +43,8 @@ Relevant behavior in this revision:
 Phase 3 adds the model-owned resident expert-weight provider, typed logical/execution ID seam, request-scoped RAII leases across asynchronous submission, structural counters, and focused CPU/CUDA lifecycle tests. It does not add a cache, storage transport, prefetch, physical slots, or any change to expert residency. No GGUF or corpus artifact was republished.
 
 Phase 4 adds one model-owned fixed-address CUDA hot pool, a preallocated transactional host directory, graph-local execution-ID remapping at the existing synchronized scheduler boundary, request-generation leases and pins, deterministic LRU validation policy, trim/surrender, and bounded diagnostics. Source routed experts remain host-resident. It does not add cold storage, demand GGUF reads, prefetch, asynchronous transport, multi-GPU, UMA, or concurrent cached submissions. No GGUF or corpus artifact was republished.
+
+Phase 5 adds one model-owned byte-budgeted pageable cold arena, generation-checked inclusive cold/hot references, a separately bounded native pinned transfer ring with explicit pageable synchronous fallback, and source-to-cold-to-ring-to-hot promotion in bounded waves. The monolithic source remains resident and must be pageable. It does not add GGUF demand reads, dedicated streams/events, H2D/compute overlap, CPU miss execution, prefetch, multi-GPU, UMA, or concurrent cached submissions. No GGUF or corpus artifact was republished.
 
 The Phase 4 standing evidence is under `results/2026-07-30/skynet/phase4-hot-cache/`. `hot-cache-parity.json` has SHA-256 `d11ff31d762ed0ebcfb8b3a940b8ceb78925386e4e8c925c7070912d96bab4fb`; `lifecycle-and-failures.json` has SHA-256 `f39ebf5e2512377960d299e948e1fb21d65e3b52d1b99b9bdf75877c8f715d1a`. These artifacts reuse the existing immutable F16/MXFP4 GGUFs and Phase 3 manifest; no binary model artifact changed.
 

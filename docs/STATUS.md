@@ -50,6 +50,23 @@ This file is the first handoff document for a new ChatGPT or Codex session.
 - Evidence: [`../results/2026-07-30/skynet/phase4-hot-cache/PHASE4.md`](../results/2026-07-30/skynet/phase4-hot-cache/PHASE4.md)
 - Final complete-PR review: issue comment `5131346667`, `PASS_WITH_NOTES`, safety `YES`; no required delta.
 
+## Phase 5 final-review candidate
+
+- Issue: <https://github.com/murillo128/k3-out-of-core/issues/20>
+- Draft PR: <https://github.com/murillo128/k3-out-of-core/pull/21>
+- Execution profile: `STANDARD`
+- Project execution base: `114f0de6f5d1cbd5f9ef6255f9100f3f4d52380a`
+- Nested execution base: `57fe1eabbe3d0ced59096a0744efc91e286fb1c7`
+- Checkpoint A corrected project head: `6404770597f979a8290d1de3f6bc503ab7d74d8b`
+- Checkpoint A corrected nested head: `5ffed360965a1de7e2d788b8637a470183d27165`
+- Final nested evidence candidate: `26317ee1d848dd7a73f22a3666a055cad5d5cb03`
+- Checkpoint A: issue comment `5132379446`, `PASS`, safety `YES`.
+- Standing parity: 4/4 F16/MXFP4 all-routed/forced-eviction cases pass across native pinned and explicit pageable fallback with exact prompt, route/weight, generated-ID, and full-logit hashes.
+- Standing mechanism: native ring queues both top-k lanes before one barrier; fallback records zero pinned/async claims; source pinned bytes are zero.
+- Standing lifecycle: CPU/CUDA/ASan+UBSan faults and two 20-step warm runs pass with balanced references and bounded owned bytes.
+- Evidence: [`../results/2026-07-30/skynet/phase5-cold-cache/PHASE5.md`](../results/2026-07-30/skynet/phase5-cold-cache/PHASE5.md)
+- Final complete-PR review: pending exact final project/nested heads and strict manifest verification.
+
 ## Phase 1 merged baseline
 
 - Issue: <https://github.com/murillo128/k3-out-of-core/issues/7>
@@ -94,4 +111,4 @@ Kernel: 6.8.0-136-generic
 
 ## Immediate next action
 
-Use design authority to create one self-contained controlling issue for Phase 5 — cold host-memory cache and pinned transfer ring — from the current verified `main` and nested gitlink. Resolve the material architecture and validation decisions needed to make it execution-ready; do not implement Phase 5 or create an execution branch in the design session. Preserve Phase 3's standing performance note and carry forward the non-blocking Phase 4 review notes.
+Complete the exact Phase 5 validation-result capture and strict manifest verification on the clean evidence candidate, publish the final heads, and request a fresh independent complete-PR review. Do not merge until the final review returns `PASS` or `PASS_WITH_NOTES` with safety `YES` and no required delta. Preserve the Phase 3 performance note and Phase 7/8 deferrals.
