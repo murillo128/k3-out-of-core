@@ -325,6 +325,14 @@ Lifecycle evidence runs native CPU/CUDA mechanism and fault tests, real F16/MXFP
 
 These performance values are descriptive. The synchronous Phase 4 path has no performance pass budget and is not a production-viability claim. The immutable Phase 3 22/24 raw performance failure and narrow Phase-3-only acceptance remain unchanged. Complete evidence is under `results/2026-07-30/skynet/phase4-hot-cache/`; final merge acceptance remains pending the complete-PR review.
 
+## 7.5 Phase 5 cold-cache and transfer-ring validation record
+
+Issue #20 uses immutable project base `114f0de6f5d1cbd5f9ef6255f9100f3f4d52380a` and nested base `57fe1eabbe3d0ced59096a0744efc91e286fb1c7`. Checkpoint A accepted the corrected mechanism with `PASS`, safety `YES`, in comment `5132379446`. COLD_CACHE requires pageable mmap source tensors and rejects non-mmap and page-locking load modes; provider registration separately rejects CUDA-host routed sources.
+
+The standing matrix covers F16 and MXFP4 with exact-top-k hot capacity, all-routed-key and forced-eviction cold budgets, exactly two transfer lanes, native pinned transport, and explicit pageable fallback. All modes preserve exact prompt IDs, generated IDs, logical route/weight hashes, and full-vocabulary logits hashes. All-routed cases record 285 cold hits and 51 misses; forced-small cases record 334 deterministic cold evictions. Source pinned bytes are zero, actual cold/ring bytes remain within requested budgets, request/transfer references balance, and hot eviction records no writeback.
+
+Phase 5 queues the two K3 top-k lane transfers before one existing-backend barrier but makes no H2D/compute-overlap claim. Dedicated streams/events and overlap remain Phase 7. CPU miss execution and `CPU_FALLBACK` output equivalence remain Phase 8. This phased ownership narrows the Phase 5 subset of Level E without weakening the later cumulative Level E/F/G gates. Performance and memory measurements are descriptive; the Phase 3 raw 22/24 result remains unchanged.
+
 ## 8. Validation levels
 
 ### Level A — conversion integrity
@@ -406,6 +414,8 @@ Required cases:
 - pageable-to-pinned staging correctness;
 - overlapping H2D and compute;
 - CPU fallback and GPU promotion produce identical logical outputs.
+
+Phase ownership: Phase 5 establishes hot miss/cold hit, hot/cold eviction, inclusive invariants, bounded pageable/pinned staging, explicit synchronous fallback, and `PROMOTE_AND_GPU`. H2D/compute overlap is a Phase 7 gate; CPU fallback output equivalence is a Phase 8 gate.
 
 ### Level F — NVMe backing
 

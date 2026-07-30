@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/phase5/phase5-manifest-v1.schema.json",
+  "title": "K3 Phase 5 cold-cache manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "closeout_state", "execution_profile", "issue", "revisions", "checkpoint_a", "phase4_input", "models", "environment", "evidence", "validation", "deferred", "carried_notes", "artifacts"],
+  "properties": {
+    "schema_version": {"const": "phase5-manifest-v1"},
+    "closeout_state": {"enum": ["final-review-candidate", "complete"]},
+    "execution_profile": {"const": "STANDARD"},
+    "issue": {"type": "object", "required": ["repository", "number", "url", "pull_request"], "properties": {"repository": {"const": "murillo128/k3-out-of-core"}, "number": {"const": 20}, "url": {"type": "string"}, "pull_request": {"const": 21}}},
+    "revisions": {"type": "object", "required": ["project_execution_base", "project_evidence_head", "llama_cpp_base", "llama_cpp_candidate", "gitlink"], "properties": {"project_execution_base": {"$ref": "#/$defs/sha"}, "project_evidence_head": {"$ref": "#/$defs/sha"}, "llama_cpp_base": {"$ref": "#/$defs/sha"}, "llama_cpp_candidate": {"$ref": "#/$defs/sha"}, "gitlink": {"$ref": "#/$defs/sha"}}},
+    "checkpoint_a": {"type": "object", "required": ["comment_id", "url", "verdict", "safety_to_proceed", "project_head", "llama_cpp_head", "independent_read_only"], "properties": {"comment_id": {"const": 5132379446}, "url": {"type": "string"}, "verdict": {"const": "PASS"}, "safety_to_proceed": {"const": "YES"}, "project_head": {"$ref": "#/$defs/sha"}, "llama_cpp_head": {"$ref": "#/$defs/sha"}, "independent_read_only": {"const": true}}},
+    "phase4_input": {"$ref": "#/$defs/artifact"},
+    "models": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "object"}},
+    "environment": {"type": "object"},
+    "evidence": {"type": "object", "required": ["transfer_ring", "parity", "lifecycle", "validation_commands"], "properties": {"transfer_ring": {"$ref": "#/$defs/artifact"}, "parity": {"$ref": "#/$defs/artifact"}, "lifecycle": {"$ref": "#/$defs/artifact"}, "validation_commands": {"$ref": "#/$defs/artifact"}}},
+    "validation": {"type": "array", "minItems": 10, "items": {"$ref": "#/$defs/validation"}},
+    "deferred": {"type": "array", "contains": {"const": "Phase 7: dedicated transfer streams/events and H2D/compute overlap"}},
+    "carried_notes": {"type": "array", "minItems": 2, "items": {"type": "string"}},
+    "artifacts": {"type": "array", "minItems": 12, "items": {"allOf": [{"$ref": "#/$defs/artifact"}, {"type": "object", "required": ["kind"], "properties": {"kind": {"enum": ["implementation", "schema", "test", "evidence", "source-of-truth"]}}}]}}
+  },
+  "$defs": {
+    "sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "artifact": {"type": "object", "required": ["path", "size", "sha256"], "properties": {"path": {"type": "string"}, "size": {"type": "integer", "minimum": 1}, "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}},
+    "validation": {"type": "object", "required": ["name", "command", "cwd", "exit_code", "stdout_sha256", "stderr_sha256", "stdout_bytes", "stderr_bytes", "passed", "total"], "properties": {"name": {"type": "string"}, "command": {"type": "array", "items": {"type": "string"}}, "cwd": {"const": "."}, "exit_code": {"const": 0}, "stdout_sha256": {"type": "string"}, "stderr_sha256": {"type": "string"}, "stdout_bytes": {"type": "integer"}, "stderr_bytes": {"type": "integer"}, "passed": {"type": ["integer", "null"]}, "total": {"type": ["integer", "null"]}}}
+  }
+}
