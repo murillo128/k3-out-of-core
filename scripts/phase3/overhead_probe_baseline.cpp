@@ -1,6 +1,8 @@
 #include "ggml-backend.h"
 #include "llama.h"
-#include "llama-model.h"
+
+// The pinned-base Phase 2 probe with measurement-only telemetry added. This file
+// intentionally uses no Phase 3 provider type, field, or internal model header.
 
 #include <algorithm>
 #include <cerrno>
@@ -26,7 +28,6 @@ constexpr const char * kPrompt = "According to all known laws";
 struct arguments {
     std::string model;
     int gpu_layers = 0;
-    llama_expert_weights_mode expert_weights_mode = LLAMA_EXPERT_WEIGHTS_MODE_DISABLED;
 };
 
 bool parse_int(const char * text, int & value) {
@@ -46,15 +47,6 @@ bool parse_arguments(int argc, char ** argv, arguments & result) {
             result.model = argv[++i];
         } else if (std::strcmp(argv[i], "--gpu-layers") == 0 && i + 1 < argc) {
             if (!parse_int(argv[++i], result.gpu_layers)) {
-                return false;
-            }
-        } else if (std::strcmp(argv[i], "--expert-weights") == 0 && i + 1 < argc) {
-            const char * mode = argv[++i];
-            if (std::strcmp(mode, "disabled") == 0) {
-                result.expert_weights_mode = LLAMA_EXPERT_WEIGHTS_MODE_DISABLED;
-            } else if (std::strcmp(mode, "resident") == 0) {
-                result.expert_weights_mode = LLAMA_EXPERT_WEIGHTS_MODE_RESIDENT;
-            } else {
                 return false;
             }
         } else {
@@ -92,7 +84,7 @@ double percentile(std::vector<double> values, double fraction) {
 int main(int argc, char ** argv) {
     arguments args;
     if (!parse_arguments(argc, argv, args)) {
-        std::cerr << "usage: overhead-probe --model PATH --gpu-layers N [--expert-weights disabled|resident]\n";
+        std::cerr << "usage: overhead-probe-baseline --model PATH --gpu-layers N\n";
         return 2;
     }
 
@@ -108,7 +100,6 @@ int main(int argc, char ** argv) {
     }
     llama_model_params model_params = llama_model_default_params();
     model_params.n_gpu_layers = args.gpu_layers;
-    model_params.expert_weights_mode = args.expert_weights_mode;
     const auto load_begin = clock_type::now();
     llama_model * model = llama_model_load_from_file(args.model.c_str(), model_params);
     const auto load_end = clock_type::now();
@@ -195,7 +186,7 @@ int main(int argc, char ** argv) {
     const int decode_tokens = (int) generated.size() - 1;
     const double ttft = elapsed(prompt_begin, prompt_end);
     const double decode_seconds = elapsed(decode_begin, decode_end);
-    if (decode_tokens <= 0 || ttft <= 0.0 || decode_seconds <= 0.0) {
+    if (decode_tokens <= 0 || ttft <= 0.0 || decode_seconds <= 0.0 || token_latencies.empty()) {
         std::cerr << "OVERHEAD_ERROR: timing sample invalid\n";
         llama_free(context);
         llama_model_free(model);
@@ -214,7 +205,6 @@ int main(int argc, char ** argv) {
             }
         }
     }
-    const auto provider_stats = model->expert_weight_provider_stats();
 
     std::cout << std::setprecision(17)
               << "METRIC"
@@ -231,18 +221,6 @@ int main(int argc, char ** argv) {
               << "\tpeak_rss_kib=" << usage.ru_maxrss
               << "\tgpu_memory_bytes=" << (gpu_free_before >= gpu_free_after ? gpu_free_before - gpu_free_after : 0)
               << "\tgraphs_reused=" << llama_perf_context(context).n_reused
-              << "\tprovider_objects=" << provider_stats.objects_created
-              << "\tprovider_bind_calls=" << provider_stats.bind_calls
-              << "\tprovider_prepare_calls=" << provider_stats.prepare_calls
-              << "\tprovider_handles_acquired=" << provider_stats.handles_acquired
-              << "\tprovider_handles_released=" << provider_stats.handles_released
-              << "\tprovider_allocations=" << provider_stats.allocations
-              << "\tprovider_callbacks=" << provider_stats.callbacks
-              << "\tprovider_tensor_copies=" << provider_stats.tensor_copies
-              << "\tprovider_synchronizations=" << provider_stats.synchronizations
-              << "\tprovider_bundle_registrations=" << provider_stats.bundle_registrations
-              << "\tprovider_bundle_full_validations=" << provider_stats.bundle_full_validations
-              << "\tprovider_bundle_fast_path_hits=" << provider_stats.bundle_fast_path_hits
               << "\nRESULT\texit=0\n";
 
     llama_free(context);

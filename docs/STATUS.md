@@ -1,6 +1,6 @@
 # Current Status
 
-Last updated: **2026-07-29**
+Last updated: **2026-07-30**
 
 This file is the first handoff document for a new ChatGPT or Codex session.
 
@@ -13,7 +13,7 @@ This file is the first handoff document for a new ChatGPT or Codex session.
 - Checkpoints A, B, and C returned **PASS_WITH_NOTES** with safety gate **YES**.
 - The final complete-PR review returned **PASS_WITH_NOTES** with safety to merge **YES**.
 - Project Phase 2 is complete and merged through PR #11. The final reviewed project head was `c56770e9148fb94173561b7c4f2aade63cdefff7`; PR #11 merged into `main` as `d74781faec12e8552c1598084b210f784ac0a43b`, with nested `murillo128/llama.cpp` gitlink `4daaaa1a4dd26d6465f84891b854b5f7ddc03020`. No out-of-core runtime implementation exists yet. The bounded F16/MXFP4 CPU corpus and CPU/CUDA subset remain reproducible, and the unchanged raw corpus is externally published at immutable Hub revision `2d838d6b4d0aca4e9af1e7d899e57ad29330c72e`.
-- Project Phase 3 is execution-ready in issue #13. Its immutable project base is `81df862da6e4ff9db005f6265470070bb5456f4c`, its pinned nested input is `murillo128/llama.cpp@4daaaa1a4dd26d6465f84891b854b5f7ddc03020`, and its proposed execution branch is `codex/phase3-resident-provider`. Implementation has not started.
+- Project Phase 3 issue #13 remains on `codex/phase3-resident-provider` with draft PR #15. The published pre-integration project head is `a8e5c4fa7a0a88a056957923ebff0e0ae0381a95`; the optimized nested head is `a120de8e2d0b552c51eacd7d701ef1dd994bc3db`. The immutable standing evidence commit is `93635d7ece8fdc617291d5a036bda1c8bc2b6c77`; its capture SHA-256 is `23eff115b87a9e8cee101bd1c0b02f299786175e786b4b30dd4a7e66617d4970`. The raw gate remains failed at 22/24 cells, while design-authority comments `5128658370` and `5128726338` accept the Phase 3 exit as `PASS_WITH_NOTES` for progression only. Checkpoint B comment `5128960944` and final-review comment `5129067929` both returned `PASS_WITH_NOTES` with safety `YES`. Current `main` head `2d5b472442d86976b657c26f1a84f010120f0440` is incorporated only to resolve PR integration; a renewed final review of the resulting exact head remains required. No further Phase 3 measurement or optimization is authorized.
 - Phase 1 evidence is descriptive for the tiny K3 fixtures on `skynet`; it is not a model-quality or production-performance claim.
 
 ## Phase 1 merged baseline
@@ -74,6 +74,4 @@ Kernel: 6.8.0-136-generic
 
 ## Immediate next action
 
-Create `codex/phase3-resident-provider` directly from immutable base `81df862da6e4ff9db005f6265470070bb5456f4c`, then execute issue #13 under profile `STANDARD` without changing the pinned nested input before the first bounded implementation commit.
-
-The documentation-only commit that records issue #13 is not the execution base. Phase 3 must remain fully resident and must not introduce cache slots, storage transport, prefetch, policy, model unloading, or any change to logical routing IDs, final routing weights, or canonical reduction order.
+Validate and publish the bounded merge-resolution commit, confirm PR #15 is mergeable, and request a fresh independent final review of the new exact head. Do not run another Phase 3 measurement, start cache implementation, merge PR #15, close issue #13, or create an upstream `llama.cpp` PR.

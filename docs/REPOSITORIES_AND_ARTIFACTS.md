@@ -18,10 +18,13 @@ This repository is the source of truth for architecture, planning, validation re
 
 - Repository: <https://github.com/murillo128/llama.cpp>
 - Development branch: `k3/out-of-core`
-- Pinned commit: `84245db4c790af22135f34992689edcc11877003`
-- Commit message: `kimi-k3: dequantize resident MXFP4 tensors`
+- Phase 1 base: `84245db4c790af22135f34992689edcc11877003`
+- Phase 2 input / Phase 3 execution base: `4daaaa1a4dd26d6465f84891b854b5f7ddc03020`
+- Phase 3 resident-provider corrective base: `523f825d2df5efa7c9a08561e2b64861ad5594c5`
+- Phase 3 optimized resident-provider head: `a120de8e2d0b552c51eacd7d701ef1dd994bc3db`
+- Phase 3 branch: `codex/phase3-resident-provider`
 
-The `llama.cpp` gitlink in `k3-out-of-core` points to this exact commit.
+The `llama.cpp` gitlink in the Phase 3 review branch points to the Phase 3 resident-provider head. The Phase 1 and Phase 2 revisions remain immutable validation inputs.
 
 Relevant behavior in this revision:
 
@@ -30,6 +33,10 @@ Relevant behavior in this revision:
 - explicit recognition of the 35 resident packed MoE tensors in the tiny MXFP4 fixture;
 - lazy dequantization of those resident tensors to F16;
 - rejection of unknown packed MXFP4 tensors.
+
+Phase 3 adds the model-owned resident expert-weight provider, typed logical/execution ID seam, request-scoped RAII leases across asynchronous submission, structural counters, and focused CPU/CUDA lifecycle tests. It does not add a cache, storage transport, prefetch, physical slots, or any change to expert residency. No GGUF or corpus artifact was republished.
+
+The original standing Phase 3 capture approved in issue comment `5127588494` failed 3 of 24 gated metric cells and remains immutable history. The one post-optimization v2 capture authorized by comment `5127774849` is published at project evidence commit `93635d7ece8fdc617291d5a036bda1c8bc2b6c77` as `results/2026-07-29/skynet/phase3-resident-provider/provider-overhead-post-optimization.json`, SHA-256 `23eff115b87a9e8cee101bd1c0b02f299786175e786b4b30dd4a7e66617d4970`. It passes 22/24 cells and remains a raw performance-gate failure. Comments `5128658370` and `5128726338` accept the Phase 3 technical exit with narrow performance notes; no GGUF, corpus, nested implementation revision, budget, or raw evidence changed as a result.
 
 The submodule configuration is:
 

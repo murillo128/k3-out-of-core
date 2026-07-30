@@ -1,0 +1,361 @@
+{
+  "artifacts": [
+    {
+      "kind": "source-of-truth",
+      "path": "PLAN.md",
+      "sha256": "7c46785f1063433ad8582603836e8aa4176602a3e11ad7028df751eb57dd6d23",
+      "size": 1728
+    },
+    {
+      "kind": "source-of-truth",
+      "path": "docs/DECISIONS.md",
+      "sha256": "66910ce01b196484c4774c1330c9cefd59a7332f8b5ac6fcf19716e44f5d49a0",
+      "size": 13082
+    },
+    {
+      "kind": "source-of-truth",
+      "path": "docs/MODELS_AND_VALIDATION.md",
+      "sha256": "9fc306d2bce675d005e1e809c661c8dbbd5f42c45c4d944e464d1cc18ea6e343",
+      "size": 25133
+    },
+    {
+      "kind": "source-of-truth",
+      "path": "docs/REPOSITORIES_AND_ARTIFACTS.md",
+      "sha256": "5c7b95daf05850bc29d39e64378a96ad212dec909128a36215a3f9430db5e4ab",
+      "size": 10013
+    },
+    {
+      "kind": "source-of-truth",
+      "path": "docs/STATUS.md",
+      "sha256": "d6c26334c07c507169d7041a2b1f660564aa28bcfd47289a005ebabf33034252",
+      "size": 6239
+    },
+    {
+      "kind": "source-of-truth",
+      "path": "docs/plan/00-foundation.md",
+      "sha256": "e3803084cfd0e3071c9a460938aace044faaeb9184937e2509b17a5694318135",
+      "size": 10208
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase3-resident-provider/PHASE3.md",
+      "sha256": "5997a95a45f74ab591ae364f9b1dad4a63812964fe05c60db62564a40070765b",
+      "size": 8706
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase3-resident-provider/checkpoint-b-review.json",
+      "sha256": "fdf0fcd05f2aedcdd1131d78525ddc21320b26141a1d895d91c850b32a547eed",
+      "size": 717
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase3-resident-provider/corrective-prerequisites.json",
+      "sha256": "5b785f185db37ca12e670fb6379c867c51cdc63b09119d1a965ee0d943309d86",
+      "size": 3312
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase3-resident-provider/lifecycle-and-failures-post-optimization.json",
+      "sha256": "b7d13ba46081f153d6063dada49e4eefa69cfd37ba79738b6f4ab796c8730fbd",
+      "size": 43387
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase3-resident-provider/lifecycle-and-failures.json",
+      "sha256": "925d5268bba3aa2f2b29e98f463befdcd60f605267dab3f835100e99685db570",
+      "size": 43019
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase3-resident-provider/phase3-disposition.json",
+      "sha256": "3d226e7e231cd7644391abbae25f324d3f342af67da2960b52002ea8a2371e20",
+      "size": 2282
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase3-resident-provider/provider-admin-fast-path.json",
+      "sha256": "bf8db56d88cfd88432cdb35709c3802a2ff2de2bdd5dc777d13d1536a0227644",
+      "size": 8176
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase3-resident-provider/provider-overhead-corrected-attempt1-fail.json",
+      "sha256": "0a2110c2b6d0608c08c4d93a514b55e8b2c3d579cf893fff238123dae752958b",
+      "size": 398739
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase3-resident-provider/provider-overhead-corrected-attempt2-fail.json",
+      "sha256": "93e0229d852dc4248c4ca6909cd1a7043f8c49226ef213cd310d244b44c42a5d",
+      "size": 398735
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase3-resident-provider/provider-overhead-post-optimization.json",
+      "sha256": "23eff115b87a9e8cee101bd1c0b02f299786175e786b4b30dd4a7e66617d4970",
+      "size": 439367
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase3-resident-provider/provider-overhead.json",
+      "sha256": "df0fa1f05c6a57838e54f9b9da7a8d66f6ef826adf83fe3c19ccf771d04540a5",
+      "size": 398981
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase3-resident-provider/provider-parity-post-optimization.json",
+      "sha256": "b8864d8e4b43572c710574458f6072be91d188b82b9937efccb526727bc93c94",
+      "size": 21860
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase3-resident-provider/provider-parity.json",
+      "sha256": "98b6c6807c2c823082f0b89c385de19babf082b5cc31e15736097bf1394bc914",
+      "size": 20296
+    },
+    {
+      "kind": "schema",
+      "path": "schemas/phase3/checkpoint-b-review-v1.schema.json",
+      "sha256": "3c467598e4cd448fec1f1fc06847d8ec2988d931b22c6d8b389aa8a484a23720",
+      "size": 1469
+    },
+    {
+      "kind": "schema",
+      "path": "schemas/phase3/phase3-disposition-v1.schema.json",
+      "sha256": "4c8b7d61d91dcc9152a16001b2c570a836fd13de963a05d2d158799b465c2e6a",
+      "size": 5235
+    },
+    {
+      "kind": "schema",
+      "path": "schemas/phase3/phase3-manifest-v1.schema.json",
+      "sha256": "80c0560bbc61695c3c1778c285711353eae1ef81c6b3f395a57c5dfecebd467d",
+      "size": 5086
+    },
+    {
+      "kind": "schema",
+      "path": "schemas/phase3/phase3-manifest-v2.schema.json",
+      "sha256": "44dd0e7ccd1139f52eaf15ccba38ed79979ae5a4440f35667d113ff9bc7d1017",
+      "size": 6391
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase2/capture_route_observer.py",
+      "sha256": "2be6059fe86cc44193723f4b16ab7bc741939593f912b5626b17e15dac389a08",
+      "size": 14321
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase2/overhead_probe.cpp",
+      "sha256": "bdce2d69796902797e2998bfca2bbbf05da78fd005cd4c84dbf47d3ec09fa6e7",
+      "size": 9879
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase2/route_probe.cpp",
+      "sha256": "2cef7d9bf460c25e92edcdd0289adf591393df3735e13c453bf1c0daa4198e44",
+      "size": 24668
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase3/build_phase3_manifest.py",
+      "sha256": "3e441fe0ad27e12fadf439d5f9160a2178cf71f10f4155733f5c36468d8d7467",
+      "size": 11180
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase3/capture_provider_parity.py",
+      "sha256": "ea765c09247ebf39f5bdcbcf6f084726ce38fbaf70627e8667b88eef399b1010",
+      "size": 11566
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase3/common.py",
+      "sha256": "705e7b729ae68297e38bca05df84fb0c1f2eccd936250339838991b33da30b6e",
+      "size": 5083
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase3/measure_provider_admin.py",
+      "sha256": "fc6e4aa142e20d94719a5482063e13db307a9b9e9407477d5ddfb2328560fddc",
+      "size": 6351
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase3/measure_provider_overhead.py",
+      "sha256": "3a362001d91fc3bb532dcc2bbf32ef076a68e18f600d7d8eff9093433ff0c480",
+      "size": 17872
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase3/overhead_probe_baseline.cpp",
+      "sha256": "65043547320335d7aa99a7e9ebc0b2d69c3bdc8a4943c4b42cbc70e3badee95a",
+      "size": 8354
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase3/phase3_disposition.py",
+      "sha256": "ffb02ecfecbae20634728ae6228929b10986239d5d03ecf45dc7f49de5e06a76",
+      "size": 9552
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase3/provider_admin_probe.cpp",
+      "sha256": "31d64b71887a8417a69e9b1e2609b484c36e15a36c6b221b3acaf3cdba86cb51",
+      "size": 3767
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase3/run_provider_lifecycle.py",
+      "sha256": "44e668e7a3c27353524fb442a76f925831853a53980e36ae2a2d2cf225a8380a",
+      "size": 7824
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase3/verify_corrective_prerequisites.py",
+      "sha256": "19ee1c2a3f414f48787fe4150260c03e34b5ebaf6994d67bf437d66f7614106d",
+      "size": 7736
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase3/verify_phase3.py",
+      "sha256": "8855f149a11d8257c4f6a0a4917105e227d8022db818cc49294feaa6c5e0c9cb",
+      "size": 25761
+    },
+    {
+      "kind": "test",
+      "path": "tests/phase3/test_phase3_evidence.py",
+      "sha256": "4b41a9a100170402b1a227c51f6548394dd90c59d741f6ad15f105d32169e548",
+      "size": 9513
+    }
+  ],
+  "closeout_state": "complete-with-performance-notes",
+  "design_disposition": {
+    "comment_ids": [
+      5128658370,
+      5128726338
+    ],
+    "path": "results/2026-07-29/skynet/phase3-resident-provider/phase3-disposition.json",
+    "progression_scope": "phase3-only",
+    "sha256": "3d226e7e231cd7644391abbae25f324d3f342af67da2960b52002ea8a2371e20",
+    "size": 2282,
+    "status": "accepted-with-notes"
+  },
+  "execution_profile": "STANDARD",
+  "issue": {
+    "number": 13,
+    "pull_request": 15,
+    "repository": "murillo128/k3-out-of-core",
+    "url": "https://github.com/murillo128/k3-out-of-core/issues/13"
+  },
+  "models": [
+    {
+      "name": "Kimi-K3-0.40B-F16.gguf",
+      "sha256": "411c197b503e6fb9199a2b22115e32dc4e2cad803fb112b24967737b3bab26c7",
+      "size": 784318432,
+      "source_revision": "d853649387ffe8f48ce0198a29ac1a44205031f7"
+    },
+    {
+      "name": "Kimi-K3-0.40B-MXFP4.gguf",
+      "sha256": "0379a1cc623e09eb3fbd1dfcb18737bc8c971dbfe5bf5bc3e08da8b5379ec169",
+      "size": 751976576,
+      "source_revision": "ef3902c318fb8e13c3507e26055656e687fdfe38"
+    }
+  ],
+  "phase2_input": {
+    "path": "results/2026-07-29/skynet/phase2-observability/phase2-manifest.json",
+    "published_corpus": "2d838d6b4d0aca4e9af1e7d899e57ad29330c72e",
+    "raw_corpus_republished": false,
+    "sha256": "d149f05487dc24c0a0cd563aad0e9436d8e60d875b9f8a6419d7497fc63e8bea",
+    "size": 17324
+  },
+  "prohibited_scope": {
+    "cache_added": false,
+    "expert_residency_changed": false,
+    "model_payload_tracked": false,
+    "prefetch_added": false,
+    "raw_phase2_corpus_modified": false,
+    "storage_or_transport_added": false
+  },
+  "raw_performance_gate": {
+    "capture_path": "results/2026-07-29/skynet/phase3-resident-provider/provider-overhead-post-optimization.json",
+    "capture_sha256": "23eff115b87a9e8cee101bd1c0b02f299786175e786b4b30dd4a7e66617d4970",
+    "passed_cells": 22,
+    "status": "fail",
+    "total_cells": 24
+  },
+  "reviews": [
+    {
+      "checkpoint": "A",
+      "comment_id": 5124005466,
+      "llama_cpp_head": "d9d20e1b616a25ba5d0ec8ad12ef408a83ae227b",
+      "project_head": "0a16a7e4b0e383ea43706d740abc19924c82cdf5",
+      "safety_to_proceed": "YES",
+      "url": "https://github.com/murillo128/k3-out-of-core/issues/13#issuecomment-5124005466",
+      "verdict": "PASS_WITH_NOTES"
+    },
+    {
+      "checkpoint": "B",
+      "comment_id": 5128960944,
+      "execution_profile": "STANDARD",
+      "independent_read_only": true,
+      "issue": 13,
+      "llama_cpp_head": "a120de8e2d0b552c51eacd7d701ef1dd994bc3db",
+      "llama_cpp_range": "4daaaa1a4dd26d6465f84891b854b5f7ddc03020..a120de8e2d0b552c51eacd7d701ef1dd994bc3db",
+      "project_head": "6902383cc88bc249715c27e7d964223ecbcdf111",
+      "project_range": "81df862da6e4ff9db005f6265470070bb5456f4c..6902383cc88bc249715c27e7d964223ecbcdf111",
+      "repository": "murillo128/k3-out-of-core",
+      "safety_to_proceed": "YES",
+      "schema_version": "checkpoint-b-review-v1",
+      "url": "https://github.com/murillo128/k3-out-of-core/issues/13#issuecomment-5128960944",
+      "verdict": "PASS_WITH_NOTES"
+    }
+  ],
+  "revisions": {
+    "llama_cpp_base": "4daaaa1a4dd26d6465f84891b854b5f7ddc03020",
+    "llama_cpp_candidate": "a120de8e2d0b552c51eacd7d701ef1dd994bc3db",
+    "project_checkpoint_b_head": "6902383cc88bc249715c27e7d964223ecbcdf111",
+    "project_evidence_head": "6902383cc88bc249715c27e7d964223ecbcdf111",
+    "project_execution_base": "81df862da6e4ff9db005f6265470070bb5456f4c",
+    "published_corpus": "2d838d6b4d0aca4e9af1e7d899e57ad29330c72e",
+    "published_gguf": "88de02cf8fa37f87eb06daaed370ac9c3411d5ca"
+  },
+  "schema_version": "phase3-manifest-v2",
+  "validation": [
+    {
+      "evidence": "provider-parity-post-optimization.json: 4/4 artifact/backend combinations",
+      "name": "provider-parity",
+      "status": "pass"
+    },
+    {
+      "evidence": "lifecycle-and-failures-post-optimization.json: CPU/CUDA matrix, stress, fault injection, sanitizers",
+      "name": "lifecycle-and-failures",
+      "status": "pass"
+    },
+    {
+      "evidence": "provider-admin-fast-path.json: corrective base versus optimized resident administration",
+      "name": "provider-administration",
+      "status": "pass"
+    },
+    {
+      "evidence": "corrective-prerequisites.json: all comment 5127774849 prerequisites passed before capture",
+      "name": "corrective-prerequisites",
+      "status": "pass"
+    },
+    {
+      "evidence": "provider-overhead-post-optimization.json: standing v2 capture failed 2 of 24 original metric cells",
+      "name": "provider-overhead-post-optimization",
+      "status": "fail"
+    },
+    {
+      "evidence": "dependency-free Phase 2 unittest suite",
+      "name": "phase2-regression-tests",
+      "status": "pass"
+    },
+    {
+      "evidence": "dependency-free Phase 3 unittest suite",
+      "name": "phase3-evidence-tests",
+      "status": "pass"
+    }
+  ]
+}

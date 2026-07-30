@@ -153,6 +153,46 @@ Do not submit a single large upstream PR. Expected decomposition:
 
 Actual decomposition may change, but each PR must have independent value and tests.
 
+### D-016 — Resident provider preserves logical IDs and request-scoped leases
+
+**Status:** ACCEPTED
+
+Phase 3 establishes these durable runtime semantics:
+
+- `ExpertKey` is `(layer_index, original_expert_id)`; the original model ID remains authoritative for routing and observation.
+- `ExpertSelection.logical_ids` and kernel-facing `execution_ids` are distinct concepts. The resident provider aliases their tensor because it performs no remap; later physical slots must use an explicitly different identity.
+- A model owns at most one immutable provider selected at load time. A disabled model owns none, and provider state is destroyed before the model buffers it borrows.
+- Graph results own stable bindings, while each context owns its request plans and move-only handles. Handles remain live through asynchronous submission and are released after scheduler completion or immediately when submission never began.
+- Provider allocation failures map to `GGML_STATUS_ALLOC_FAILED`; other binding/preparation failures map to `GGML_STATUS_FAILED`; CPU abort continues to map to `GGML_STATUS_ABORTED`.
+- Storage, transport, and cache policy remain downstream dependencies. Graph construction and GGML kernels do not depend on them directly.
+
+The only public surface added in Phase 3 is the per-model experimental disabled/resident selection. Runtime provider replacement remains test-only and is forbidden while contexts exist.
+
+### D-017 — Resident-provider administration uses bounded model and ubatch state
+
+**Status:** ACCEPTED
+
+The issue #13 corrective amendment preserves routing, tensors, kernels, graph topology, and residency while bounding administrative work:
+
+- each resident provider owns a model-lifetime, per-routed-layer descriptor registry; the first accepted descriptor receives full validation and later bindings validate stable identity plus the current symbolic selection;
+- registry publication is thread-safe, model-owned, and contains no global state;
+- each nonempty submitted ubatch holds exactly one resident lease across asynchronous completion, while an empty binding set holds none;
+- preparation validates every binding against its provider and registered descriptor, and every failure or cancellation releases an acquired lease before returning;
+- provider-enabled graph results reserve their binding vector from the model layer bound before graph construction; disabled contexts retain zero provider storage; and
+- descriptor-registration, full-validation, fast-path, lease, and binding-capacity counters remain diagnostic rather than public ABI.
+
+The original issue #13 performance budgets and workload remain unchanged. Design-authority comment `5127774849` authorizes exactly one complete post-optimization v2 standing capture after the corrective commits and all prerequisite evidence are published. Historical captures remain immutable and non-authoritative for that new disposition.
+
+### D-018 — Accept the Phase 3 seam with narrow performance notes
+
+**Status:** ACCEPTED
+
+Design-authority comments `5128658370` and `5128726338` accept the Phase 3 technical exit as `PASS_WITH_NOTES` for project progression only. The immutable post-optimization capture remains a raw `fail`: 22 of 24 original cells pass, while MXFP4 CUDA disabled-versus-resident prompt throughput and TTFT exceed their unchanged one-sided confidence budget. The capture, statistics, and budgets are not relabelled or modified.
+
+The waiver is limited to those two representations of the same five-token prompt duration. Every baseline-to-disabled and decode cell passes, as do correctness, lifecycle, structural-zero-work, graph, scope, and evidence-integrity prerequisites. No further Phase 3 optimization or capture is authorized.
+
+This decision is not precedent for waiving correctness, default-path performance, steady-state decode, later cache/transport/miss or multi-request performance, full-size performance, or tail latency. Those later gates remain independently binding.
+
 ## Rejected shortcuts
 
 ### R-001 — Rely exclusively on `mmap` and OS page replacement

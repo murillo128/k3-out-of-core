@@ -1,5 +1,7 @@
 #include "ggml-backend.h"
 #include "llama.h"
+#include "llama-context.h"
+#include "llama-model.h"
 #include "route_trace.h"
 
 #include <algorithm>
@@ -40,6 +42,7 @@ struct arguments {
     int gpu_layers = 0;
     int max_generate = kGenerate;
     int fail_after_observations = -1;
+    llama_expert_weights_mode expert_weights_mode = LLAMA_EXPERT_WEIGHTS_MODE_DISABLED;
     size_t max_ubatch_payload = 0;
     bool trace_enabled = false;
     bool direct_readback = false;
@@ -116,6 +119,15 @@ bool parse_arguments(int argc, char ** argv, arguments & result) {
             }
         } else if (std::strcmp(argv[i], "--gpu-layers") == 0 && i + 1 < argc) {
             if (!parse_int(argv[++i], result.gpu_layers)) {
+                return false;
+            }
+        } else if (std::strcmp(argv[i], "--expert-weights") == 0 && i + 1 < argc) {
+            const char * mode = argv[++i];
+            if (std::strcmp(mode, "disabled") == 0) {
+                result.expert_weights_mode = LLAMA_EXPERT_WEIGHTS_MODE_DISABLED;
+            } else if (std::strcmp(mode, "resident") == 0) {
+                result.expert_weights_mode = LLAMA_EXPERT_WEIGHTS_MODE_RESIDENT;
+            } else {
                 return false;
             }
         } else if (std::strcmp(argv[i], "--max-ubatch-payload") == 0 && i + 1 < argc) {
@@ -316,7 +328,7 @@ bool observe_route(const llama_route_observation * observation, void * user_data
 int main(int argc, char ** argv) {
     arguments args;
     if (!parse_arguments(argc, argv, args)) {
-        std::cerr << "usage: route-probe --model PATH --logits PATH --gpu-layers N [--prompt-file PATH] [--max-generate N] [--trace PATH --model-name NAME --model-size BYTES --model-sha256 HEX --model-source-revision SHA --published-gguf-revision SHA --llama-cpp-revision SHA --run-id ID --max-ubatch-payload BYTES] [--direct-readback] [--performance-sample] [--skip-logits-write] [--fail-after-observations N] [--invalid-mixed-phase] [--missing-annotation]\n";
+        std::cerr << "usage: route-probe --model PATH --logits PATH --gpu-layers N [--expert-weights disabled|resident] [--prompt-file PATH] [--max-generate N] [--trace PATH --model-name NAME --model-size BYTES --model-sha256 HEX --model-source-revision SHA --published-gguf-revision SHA --llama-cpp-revision SHA --run-id ID --max-ubatch-payload BYTES] [--direct-readback] [--performance-sample] [--skip-logits-write] [--fail-after-observations N] [--invalid-mixed-phase] [--missing-annotation]\n";
         return 2;
     }
 
@@ -339,6 +351,7 @@ int main(int argc, char ** argv) {
     ggml_backend_load_all();
     llama_model_params model_params = llama_model_default_params();
     model_params.n_gpu_layers = args.gpu_layers;
+    model_params.expert_weights_mode = args.expert_weights_mode;
     llama_model * model = llama_model_load_from_file(args.model.c_str(), model_params);
     if (model == nullptr) {
         std::cerr << "ROUTE_ERROR: model load failed\n";
@@ -553,6 +566,31 @@ int main(int argc, char ** argv) {
                   << "\tfailures=" << stats.failures
                   << "\tgraphs_reused=" << perf.n_reused << '\n';
     }
+    const llm_expert_provider_stats provider_stats = model->expert_weight_provider_stats();
+    const llm_expert_graph_diagnostics graph_diagnostics = context->expert_graph_diagnostics();
+    std::cout << "PROVIDER_STATS"
+              << "\tmode=" << (args.expert_weights_mode == LLAMA_EXPERT_WEIGHTS_MODE_RESIDENT ? "resident" : "disabled")
+              << "\tobjects=" << provider_stats.objects_created
+              << "\tbind_calls=" << provider_stats.bind_calls
+              << "\tprepare_calls=" << provider_stats.prepare_calls
+              << "\thandles_acquired=" << provider_stats.handles_acquired
+              << "\thandles_released=" << provider_stats.handles_released
+              << "\tallocations=" << provider_stats.allocations
+              << "\tcallbacks=" << provider_stats.callbacks
+              << "\ttensor_copies=" << provider_stats.tensor_copies
+              << "\tsynchronizations=" << provider_stats.synchronizations
+              << "\tfailures=" << provider_stats.failures
+              << "\tcancellations=" << provider_stats.cancellations
+              << "\tbundle_registrations=" << provider_stats.bundle_registrations
+              << "\tbundle_full_validations=" << provider_stats.bundle_full_validations
+              << "\tbundle_fast_path_hits=" << provider_stats.bundle_fast_path_hits << '\n';
+    std::cout << "PROVIDER_GRAPH"
+              << "\tnodes=" << graph_diagnostics.node_count
+              << "\toperation_hash=" << graph_diagnostics.operation_hash
+              << "\tbindings=" << graph_diagnostics.binding_count
+              << "\tbinding_capacity=" << graph_diagnostics.binding_capacity
+              << "\tinflight_handles=" << graph_diagnostics.inflight_handles
+              << "\tgraphs_reused=" << graph_diagnostics.graphs_reused << '\n';
     std::cout << "RESULT\texit=0\n";
 
     llama_free(context);

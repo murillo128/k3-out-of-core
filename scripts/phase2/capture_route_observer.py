@@ -63,6 +63,7 @@ def compile_probe(root: Path, temporary: Path, backend: str) -> tuple[Path, list
     command = [
         "c++", "-std=c++17", "-O2", "-Wall", "-Wextra", "-Wpedantic",
         f"-I{root / 'llama.cpp/include'}",
+        f"-I{root / 'llama.cpp/src'}",
         f"-I{root / 'llama.cpp/ggml/include'}",
         str(root / "scripts/phase2/route_probe.cpp"),
         str(root / "scripts/phase2/route_trace.cpp"),

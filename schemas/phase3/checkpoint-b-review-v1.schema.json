@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/phase3/checkpoint-b-review-v1.schema.json",
+  "title": "K3 Phase 3 Checkpoint B review attestation version 1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "repository", "issue", "execution_profile", "checkpoint",
+    "comment_id", "url", "verdict", "safety_to_proceed", "project_head",
+    "llama_cpp_head", "project_range", "llama_cpp_range", "independent_read_only"
+  ],
+  "properties": {
+    "schema_version": {"const": "checkpoint-b-review-v1"},
+    "repository": {"const": "murillo128/k3-out-of-core"},
+    "issue": {"const": 13},
+    "execution_profile": {"const": "STANDARD"},
+    "checkpoint": {"const": "B"},
+    "comment_id": {"type": "integer", "minimum": 1},
+    "url": {"type": "string", "format": "uri"},
+    "verdict": {"enum": ["PASS", "PASS_WITH_NOTES"]},
+    "safety_to_proceed": {"const": "YES"},
+    "project_head": {"$ref": "#/$defs/sha1"},
+    "llama_cpp_head": {"const": "a120de8e2d0b552c51eacd7d701ef1dd994bc3db"},
+    "project_range": {"type": "string", "pattern": "^81df862da6e4ff9db005f6265470070bb5456f4c\\.\\.[0-9a-f]{40}$"},
+    "llama_cpp_range": {"const": "4daaaa1a4dd26d6465f84891b854b5f7ddc03020..a120de8e2d0b552c51eacd7d701ef1dd994bc3db"},
+    "independent_read_only": {"const": true}
+  },
+  "$defs": {"sha1": {"type": "string", "pattern": "^[0-9a-f]{40}$"}}
+}
