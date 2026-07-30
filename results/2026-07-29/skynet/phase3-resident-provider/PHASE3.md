@@ -1,8 +1,14 @@
 # Phase 3 resident-provider evidence
 
-Status: `OBSERVED` correctness/lifecycle pass; standing performance gate failed.
+Status: `OBSERVED` corrective prerequisites pass; post-optimization standing capture pending.
 
-This directory contains the committed issue #13 evidence for project base `81df862da6e4ff9db005f6265470070bb5456f4c`, nested base `4daaaa1a4dd26d6465f84891b854b5f7ddc03020`, and candidate nested head `523f825d2df5efa7c9a08561e2b64861ad5594c5`. It reuses the Phase 2 manifest and published corpus revision `2d838d6b4d0aca4e9af1e7d899e57ad29330c72e` without modifying or republishing the raw corpus.
+This directory contains the committed issue #13 evidence for project base `81df862da6e4ff9db005f6265470070bb5456f4c`, nested base `4daaaa1a4dd26d6465f84891b854b5f7ddc03020`, corrective nested base `523f825d2df5efa7c9a08561e2b64861ad5594c5`, and optimized candidate `a120de8e2d0b552c51eacd7d701ef1dd994bc3db`. It reuses the Phase 2 manifest and published corpus revision `2d838d6b4d0aca4e9af1e7d899e57ad29330c72e` without modifying or republishing the raw corpus.
+
+## Corrective administrative fast path
+
+Design-authority comment `5127774849` governs this bounded correction. `provider-parity-post-optimization.json`, `lifecycle-and-failures-post-optimization.json`, `provider-admin-fast-path.json`, and `corrective-prerequisites.json` all pass at published project evidence commit `3532655f9c11bac214269d5ab75f8dabf0f3c004`.
+
+The focused diagnostic executes the same F16 CPU work against corrective base and candidate: two contexts, two nonempty ubatches, 154 binds, and 7 routed layers. The base records 14 acquisitions/releases. The candidate records 2, exactly one per ubatch, plus 7 registrations/full validations, 147 fast-path hits, and binding-vector capacity 8 in both contexts. The repeated CPU/CUDA F16/MXFP4 parity and lifecycle/failure matrices pass, including 20 CPU cycles, 10 CUDA cycles, concurrent registry publication, cached-path fault injection, binding retry, empty bindings, asynchronous destruction, and ASan/UBSan.
 
 ## Correctness and structure
 
@@ -28,11 +34,13 @@ Every disabled provider counter is zero. The resident path records no provider a
 - exact acquired/released lease balance; and
 - a passing focused ASan/UBSan run.
 
-## Performance
+## Historical performance
 
 `provider-overhead.json` is the single complete standing capture approved prospectively in issue comment `5127588494`. It contains all raw warmups, 160 measured process runs, adjacent pair assignments, complete non-gated telemetry on both sides, and 24 gated analyses. Its result stands without retry, pooling, or cross-attempt selection: 21 cells pass and 3 fail, so the Phase 3 performance gate is not satisfied.
 
 The two earlier complete corrected attempts remain committed as historical failed evidence. The former composed report and its selection tool were rejected by independent review and are not used by the standing result.
+
+Those three files are immutable, non-authoritative history for the corrective disposition. Exactly one complete v2 capture, `provider-overhead-post-optimization.json`, is approved under rule `single-complete-post-optimization-capture-v2`. It preserves the original budgets and protocol and has not started at this handoff.
 
 | Artifact/backend | Comparison | Decode upper/budget | Prompt upper/budget | TTFT upper/budget | Result |
 |---|---|---:|---:|---:|---|

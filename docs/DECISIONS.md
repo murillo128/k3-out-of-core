@@ -168,6 +168,21 @@ Phase 3 establishes these durable runtime semantics:
 
 The only public surface added in Phase 3 is the per-model experimental disabled/resident selection. Runtime provider replacement remains test-only and is forbidden while contexts exist.
 
+### D-017 — Resident-provider administration uses bounded model and ubatch state
+
+**Status:** ACCEPTED
+
+The issue #13 corrective amendment preserves routing, tensors, kernels, graph topology, and residency while bounding administrative work:
+
+- each resident provider owns a model-lifetime, per-routed-layer descriptor registry; the first accepted descriptor receives full validation and later bindings validate stable identity plus the current symbolic selection;
+- registry publication is thread-safe, model-owned, and contains no global state;
+- each nonempty submitted ubatch holds exactly one resident lease across asynchronous completion, while an empty binding set holds none;
+- preparation validates every binding against its provider and registered descriptor, and every failure or cancellation releases an acquired lease before returning;
+- provider-enabled graph results reserve their binding vector from the model layer bound before graph construction; disabled contexts retain zero provider storage; and
+- descriptor-registration, full-validation, fast-path, lease, and binding-capacity counters remain diagnostic rather than public ABI.
+
+The original issue #13 performance budgets and workload remain unchanged. Design-authority comment `5127774849` authorizes exactly one complete post-optimization v2 standing capture after the corrective commits and all prerequisite evidence are published. Historical captures remain immutable and non-authoritative for that new disposition.
+
 ## Rejected shortcuts
 
 ### R-001 — Rely exclusively on `mmap` and OS page replacement
