@@ -29,10 +29,10 @@ COMMANDS = [
 
 def counts(name: str, output: str) -> tuple[int | None, int | None]:
     if name.startswith("ctest-"):
-        match = re.search(r"(\d+) tests passed, (\d+) tests failed", output)
+        match = re.search(r"\d+% tests passed, (\d+) tests failed out of (\d+)", output)
         if not match: return None, None
-        passed, failed = map(int, match.groups())
-        return passed, passed + failed
+        failed, total = map(int, match.groups())
+        return total - failed, total
     if name.startswith("unittest-"):
         match = re.search(r"Ran (\d+) tests?", output)
         return (int(match.group(1)), int(match.group(1))) if match else (None, None)
