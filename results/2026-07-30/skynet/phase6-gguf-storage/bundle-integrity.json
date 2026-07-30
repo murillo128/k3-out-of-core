@@ -1,0 +1,246 @@
+{
+  "cases": [
+    {
+      "bundle": {
+        "bytes": 786432,
+        "cold_dump_sha256": "fba7396fbdaf6bc07dd301309cf617513b7ce8a2cb5980a8ec5232214b78e21d",
+        "distinct_split_indices": [
+          0
+        ],
+        "expert": 3,
+        "layer": 7,
+        "source_sha256": "fba7396fbdaf6bc07dd301309cf617513b7ce8a2cb5980a8ec5232214b78e21d",
+        "spans": [
+          {
+            "count": 262144,
+            "offset": 775672256,
+            "split_index": 0
+          },
+          {
+            "count": 262144,
+            "offset": 771477952,
+            "split_index": 0
+          },
+          {
+            "count": 262144,
+            "offset": 773575104,
+            "split_index": 0
+          }
+        ]
+      },
+      "checks": {
+        "byte_count": true,
+        "command": true,
+        "sha256_exact": true,
+        "source_spans": true,
+        "split_cross_file": true
+      },
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/phase6-bundle-integrity-probe",
+        "--model",
+        "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
+        "--mode",
+        "cold",
+        "--capacity",
+        "8",
+        "--cold-bytes",
+        "67108864",
+        "--ring-bytes",
+        "16777216",
+        "--steps",
+        "3",
+        "--dump-cold-bundle",
+        "/tmp/phase6-bundle-integrity-u19y8e5f/f16-original.bin"
+      ],
+      "kind": "original",
+      "output_digests": {
+        "stderr": "cc80c63afd05e0671d67204ca088796a5ba2e60db7815cea7dfe1c1af78830bd",
+        "stdout": "9f793c8d612060e3a151c878d16ab31e771e98be212db89c9f06edaf6b93e913"
+      },
+      "representation": "f16"
+    },
+    {
+      "bundle": {
+        "bytes": 786432,
+        "cold_dump_sha256": "fba7396fbdaf6bc07dd301309cf617513b7ce8a2cb5980a8ec5232214b78e21d",
+        "distinct_split_indices": [
+          192,
+          193,
+          194
+        ],
+        "expert": 3,
+        "layer": 7,
+        "source_sha256": "fba7396fbdaf6bc07dd301309cf617513b7ce8a2cb5980a8ec5232214b78e21d",
+        "spans": [
+          {
+            "count": 262144,
+            "offset": 786624,
+            "split_index": 194
+          },
+          {
+            "count": 262144,
+            "offset": 786624,
+            "split_index": 192
+          },
+          {
+            "count": 262144,
+            "offset": 786624,
+            "split_index": 193
+          }
+        ]
+      },
+      "checks": {
+        "byte_count": true,
+        "command": true,
+        "sha256_exact": true,
+        "source_spans": true,
+        "split_cross_file": true
+      },
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/phase6-bundle-integrity-probe",
+        "--model",
+        "/usr/local/src/k3-out-of-core/results/2026-07-30/skynet/phase6-gguf-storage/generated-splits/Kimi-K3-0.40B-F16-split.gguf-00001-of-00218.gguf",
+        "--mode",
+        "cold",
+        "--capacity",
+        "8",
+        "--cold-bytes",
+        "67108864",
+        "--ring-bytes",
+        "16777216",
+        "--steps",
+        "3",
+        "--dump-cold-bundle",
+        "/tmp/phase6-bundle-integrity-u19y8e5f/f16-split.bin"
+      ],
+      "kind": "split",
+      "output_digests": {
+        "stderr": "e23d58b7b7c4c54c46ac3034b3217583ada8f30025155d29f3383fb351ed6b3d",
+        "stdout": "3c03d062216fe74d9854990c63be1dd91667c85226d5070e9e211e9fa10c7da1"
+      },
+      "representation": "f16"
+    },
+    {
+      "bundle": {
+        "bytes": 208896,
+        "cold_dump_sha256": "98c20c2fb0c99491cc1a390c1ba17d5ffeb936648460c0445071ff1231ed458b",
+        "distinct_split_indices": [
+          0
+        ],
+        "expert": 3,
+        "layer": 7,
+        "source_sha256": "98c20c2fb0c99491cc1a390c1ba17d5ffeb936648460c0445071ff1231ed458b",
+        "spans": [
+          {
+            "count": 69632,
+            "offset": 18272224,
+            "split_index": 0
+          },
+          {
+            "count": 69632,
+            "offset": 17158112,
+            "split_index": 0
+          },
+          {
+            "count": 69632,
+            "offset": 17715168,
+            "split_index": 0
+          }
+        ]
+      },
+      "checks": {
+        "byte_count": true,
+        "command": true,
+        "sha256_exact": true,
+        "source_spans": true,
+        "split_cross_file": true
+      },
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/phase6-bundle-integrity-probe",
+        "--model",
+        "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
+        "--mode",
+        "cold",
+        "--capacity",
+        "8",
+        "--cold-bytes",
+        "67108864",
+        "--ring-bytes",
+        "16777216",
+        "--steps",
+        "3",
+        "--dump-cold-bundle",
+        "/tmp/phase6-bundle-integrity-u19y8e5f/mxfp4-original.bin"
+      ],
+      "kind": "original",
+      "output_digests": {
+        "stderr": "bafbcf5d8638a03a54b07d832bea04683133fe28c1bc954ba18eeab799dc3576",
+        "stdout": "8279bebfc95aa2e40734e5df4d803f80023fe7040076f7408e3391921f498fbe"
+      },
+      "representation": "mxfp4"
+    },
+    {
+      "bundle": {
+        "bytes": 208896,
+        "cold_dump_sha256": "98c20c2fb0c99491cc1a390c1ba17d5ffeb936648460c0445071ff1231ed458b",
+        "distinct_split_indices": [
+          18,
+          19,
+          20
+        ],
+        "expert": 3,
+        "layer": 7,
+        "source_sha256": "98c20c2fb0c99491cc1a390c1ba17d5ffeb936648460c0445071ff1231ed458b",
+        "spans": [
+          {
+            "count": 69632,
+            "offset": 209088,
+            "split_index": 20
+          },
+          {
+            "count": 69632,
+            "offset": 209088,
+            "split_index": 18
+          },
+          {
+            "count": 69632,
+            "offset": 209088,
+            "split_index": 19
+          }
+        ]
+      },
+      "checks": {
+        "byte_count": true,
+        "command": true,
+        "sha256_exact": true,
+        "source_spans": true,
+        "split_cross_file": true
+      },
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/phase6-bundle-integrity-probe",
+        "--model",
+        "/usr/local/src/k3-out-of-core/results/2026-07-30/skynet/phase6-gguf-storage/generated-splits/Kimi-K3-0.40B-MXFP4-split.gguf-00001-of-00218.gguf",
+        "--mode",
+        "cold",
+        "--capacity",
+        "8",
+        "--cold-bytes",
+        "67108864",
+        "--ring-bytes",
+        "16777216",
+        "--steps",
+        "3",
+        "--dump-cold-bundle",
+        "/tmp/phase6-bundle-integrity-u19y8e5f/mxfp4-split.bin"
+      ],
+      "kind": "split",
+      "output_digests": {
+        "stderr": "9ea02558f6870608658ab8885464f06d9fd3f746809992bbe33d37f93060f3ea",
+        "stdout": "f06a8f834efd547c7713f709f0a1fc41ae342530c744078ce390ed275d2aeed5"
+      },
+      "representation": "mxfp4"
+    }
+  ],
+  "schema_version": "phase6-bundle-integrity-v1",
+  "status": "pass"
+}

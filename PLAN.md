@@ -17,7 +17,7 @@ Work proceeds strictly in phase order unless a phase explicitly contains indepen
 
 Phase 3's original 24-cell resident performance confidence gate remains recorded as a 22/24 raw failure. Design authority accepted the Phase 3 technical exit as `PASS_WITH_NOTES` for project progression only; Phase 3 is merged and its evidence remains immutable. Phase 4 issue #17 completed its synchronous mechanism and evidence, passed the final complete-PR review with safety `YES`, and merged through PR #18 as `b196cc07249726651d39aaa624703bc4256a3012`. Phase 5 issue #20 completed its bounded cold-cache and transfer-ring mechanism, passed Checkpoint A and final complete-PR review with safety `YES`, and merged through PR #21 as `c5512bc073ae7aab4a14773028828e516e16f3f6`. No Phase 3 waiver weakens any later correctness or performance gate.
 
-Phase 6 issue #22 has completed its positional GGUF storage, deferred routed loading, synchronous storage-to-cold integration, and standing evidence. Checkpoint A passed at project `34dbf82ded955913b387ec9b36d1b499362e7a1b` and nested `9af35746763913982bfd8eee995686296131c778`; final complete-PR review remains pending.
+Phase 6 issue #22 has completed its positional GGUF storage, deferred routed loading, synchronous storage-to-cold integration, and corrected standing evidence. Checkpoint A passed at project `34dbf82ded955913b387ec9b36d1b499362e7a1b` and nested `9af35746763913982bfd8eee995686296131c778`; the circuit-breaker correction adds exact source-to-cold SHA-256, split-cross-file, structured handle/admin bounds, final-head sanitizer evidence, and fail-closed negative tests. Final complete-PR review remains pending.
 
 ## Final acceptance criteria
 

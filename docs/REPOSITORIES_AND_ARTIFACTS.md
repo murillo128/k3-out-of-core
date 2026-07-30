@@ -187,7 +187,7 @@ printf '%s  %s\n' \
 
 ## Phase 6 generated split lineage
 
-Issue #22 generates 218 one-tensor splits for each immutable F16 and MXFP4 GGUF with `llama-gguf-split --split --split-max-tensors 1`. The split binaries are deleted after capture; exact path, size, SHA-256, source model identity, command, and nested tool head are recorded in the Phase 6 manifest. Because each split contains one tensor while every expert bundle has three projection spans, the split capture exercises cross-file bundle assembly. The original GGUFs and Hub revisions are unchanged.
+Issue #22 generates 218 one-tensor splits for each immutable F16 and MXFP4 GGUF with `llama-gguf-split --split --split-max-tensors 1`. The split binaries are deleted after capture; exact path, size, SHA-256, source model identity, command, and nested tool head are recorded in the Phase 6 manifest. A native read-only observer selects a populated cold bundle, and the standing capture independently reads its declared spans and requires exact byte-count and SHA-256 equality. The selected F16 and MXFP4 split bundles each span three distinct files. The original GGUFs and Hub revisions are unchanged.
 
 The standing capture filesystem and backing-device identity are recorded explicitly. Timings are descriptive and are not labeled NVMe performance unless the manifest's `physically_on_nvme` field is true.
 

@@ -27,7 +27,7 @@
         "retry_storage_reads": 15
       },
       "output_digests": {
-        "stderr": "88ff6c4a0c4cc22b00e8d8a8695901733779480873578a848edb0a33c2e1943d",
+        "stderr": "2f926bf3f4342373e918d9843153fd7e9e31c8abeb26e8bdbc18c9824498afa7",
         "stdout": "3aa4167795bbc58afcaf49674190a740516498de11847ac53a907abd3ef194ee"
       },
       "representation": "f16"
@@ -72,6 +72,25 @@
     "positional_read_faults": "test-expert-storage",
     "quiescent_unload": true,
     "trim_surrender_reinitialize": "test-hot-expert-cache"
+  },
+  "handle_lifetime": {
+    "checks": {
+      "balanced": true,
+      "command": true,
+      "peak_opened": true,
+      "supported": true
+    },
+    "diagnostics": {
+      "balanced": 1,
+      "baseline": 6,
+      "final": 6,
+      "peak": 8,
+      "supported": 1
+    },
+    "output_digests": {
+      "stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout": "eeaab62218bce7839fe9ca22ff27219665039915e3dce6a1d2cbfaf38129856e"
+    }
   },
   "schema_version": "phase6-lifecycle-v1",
   "status": "pass"

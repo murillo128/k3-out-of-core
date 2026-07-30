@@ -155,6 +155,6 @@ Status: `ACCEPTED`. Issue #20 standing evidence satisfies the exit gate; Checkpo
 - With cold/hot capacities forced small, experts are read from GGUF on demand and inference matches the monolithic baseline.
 - Host memory remains within the configured budget.
 
-Status: `ACCEPTED` for implementation and Checkpoint A. Issue #22 standing evidence records exact original/split F16 and MXFP4 parity, bounded forced-eviction demand reads, cold-hit-without-reread behavior, integrity-before-publication, cancellation cleanup/retry, and two 20-step captures per representation. Final complete-PR review remains the acceptance gate.
+Status: `ACCEPTED` for implementation and Checkpoint A. Issue #22 standing evidence records exact original/split F16 and MXFP4 parity, bounded forced-eviction demand reads, cold-hit-without-reread behavior, integrity-before-publication, independent source-span-to-cold SHA-256 equality, split-cross-file bundles, bounded administration and handle lifetime, cancellation cleanup/retry, final-head sanitizers, and two 20-step captures per representation. Final complete-PR review remains the acceptance gate.
 
 ---

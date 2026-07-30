@@ -18,7 +18,7 @@
       "name": "build-cpu",
       "passed": null,
       "stderr_sha256": "68b4c8c557fb9715c8915e960d4be4363f6f0249d11f490d3fd158e6db7af4e3",
-      "stdout_sha256": "1fe8aeabb3302caeffacd1dd9c35306b2e220d5522dce97902b0294b85f9395f",
+      "stdout_sha256": "3687349acb85973fc6bfa4ab5af3892bd083fe598dfd2028ade8213c8e9faee4",
       "total": null
     },
     {
@@ -36,13 +36,14 @@
         "test-expert-storage",
         "phase6-gguf-storage-probe",
         "phase5-cold-cache-probe",
+        "phase6-bundle-integrity-probe",
         "-j4"
       ],
       "exit_code": 0,
       "name": "build-cuda",
       "passed": null,
-      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "stdout_sha256": "40f6b3cd2cad2af736a00f3a8d7eac69c1afd3d6b208e0c5d6cd933010488091",
+      "stderr_sha256": "68b4c8c557fb9715c8915e960d4be4363f6f0249d11f490d3fd158e6db7af4e3",
+      "stdout_sha256": "f2203283963ff3d470707de8d2c22688182810643000d0e7cf345cf8fe57f12d",
       "total": null
     },
     {
@@ -74,7 +75,43 @@
       "name": "ctest-cuda",
       "passed": null,
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "stdout_sha256": "39d64945c3f2c758f4395a62c967cd5d25fa453dc78a7bfb1bd964dd2f935aba",
+      "stdout_sha256": "99e43bec8556d5396d840f42ebf0fc34b47106d6c7455ae7b534166dbbce3fb6",
+      "total": null
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "llama.cpp/build-phase5-asan",
+        "--target",
+        "test-expert-weight-provider",
+        "test-hot-expert-cache",
+        "test-cold-expert-cache",
+        "test-expert-transfer-ring",
+        "test-expert-storage",
+        "-j4"
+      ],
+      "exit_code": 0,
+      "name": "build-sanitizers",
+      "passed": null,
+      "stderr_sha256": "4a950b58e4301f72b93d13dcd4b0d8c4e13913f032a13ab474efe21ba4d07a1a",
+      "stdout_sha256": "af4faea1ec1d8ca725de406f46864419acd6b2537c24d546328a5c6431660869",
+      "total": null
+    },
+    {
+      "command": [
+        "ctest",
+        "--test-dir",
+        "llama.cpp/build-phase5-asan",
+        "--output-on-failure",
+        "-R",
+        "expert-weight-provider|hot-expert-cache|cold-expert-cache|expert-transfer-ring|expert-storage"
+      ],
+      "exit_code": 0,
+      "name": "ctest-sanitizers",
+      "passed": null,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "22384716b169305fd53822c66cd37fe8a69e8bffaee10aebc8b43386843bfd8a",
       "total": null
     },
     {
@@ -111,7 +148,7 @@
       "exit_code": 0,
       "name": "unittest-phase6",
       "passed": null,
-      "stderr_sha256": "dcd4a884b6112613a9a8b1aa5bdb40cc2c7741fb9ba78687d0bc5692885f85bc",
+      "stderr_sha256": "7ef9bd4c38c65878ac7f86744ca6fc2fea14c7740b384b04cd8dc8b937912ba9",
       "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "total": null
     },
@@ -146,8 +183,8 @@
       "total": null
     }
   ],
-  "llama_cpp_head": "1543185bd34bcde07a594064120591e61bafbeed",
-  "project_head": "6ddbe184f2b47c870ad7316fd565838684dd16e8",
+  "llama_cpp_head": "7a606dd4e11a108929f799253809a904f55feae4",
+  "project_head": "b7e653ab3fad11976b76c70225d671a92eda699c",
   "schema_version": "phase6-validation-v1",
   "status": "pass"
 }

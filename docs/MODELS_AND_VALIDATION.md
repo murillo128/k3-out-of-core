@@ -509,7 +509,7 @@ Do not report only average tokens/s; out-of-core viability depends on tail laten
 
 ### Phase 6 Level F synchronous subset
 
-Issue #22 validates cold start, repeated demand becoming a cold hit without reread, deterministic eviction/reread, aligned/unaligned positional spans, source-read versus final-destination integrity before publication, hard poison on mismatch, EOF/short/error/EINTR handling, request cancellation, quiescent teardown, and bounded zero-scratch storage administration for original and generated split F16/MXFP4 GGUFs. Direct-I/O fallback, queue saturation, asynchronous unload, overlap, speculative prefetch, and CPU fallback remain deferred to their owning phases.
+Issue #22 validates cold start, repeated demand becoming a cold hit without reread, deterministic eviction/reread, aligned/unaligned positional spans, source-read versus final-destination integrity before publication, independent SHA-256 equality between declared source spans and a populated cold bundle, per-bundle split-cross-file assembly, hard poison on mismatch, EOF/short/error/EINTR handling, request cancellation, structured handle balance, quiescent teardown, topology-bounded zero-scratch storage administration, and final-head ASan+UBSan for original and generated split F16/MXFP4 GGUFs. Direct-I/O fallback, queue saturation, asynchronous unload, overlap, speculative prefetch, and CPU fallback remain deferred to their owning phases.
 
 ## 11. Full-size physical benchmark
 

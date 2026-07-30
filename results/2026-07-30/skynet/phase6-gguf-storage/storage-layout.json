@@ -3,6 +3,7 @@
   "cases": [
     {
       "checks": {
+        "administration_bounded": true,
         "command": true,
         "cross_split_bundle": true,
         "directory_complete": true,
@@ -24,6 +25,7 @@
         "routed_null": 21,
         "routed_tensors": 21,
         "storage_admin_bytes": 10408,
+        "storage_admin_upper_bound": 80000,
         "storage_entries": 56,
         "storage_files": 1,
         "storage_reads": 0,
@@ -46,6 +48,7 @@
     },
     {
       "checks": {
+        "administration_bounded": true,
         "command": true,
         "cross_split_bundle": true,
         "directory_complete": true,
@@ -67,6 +70,7 @@
         "routed_null": 21,
         "routed_tensors": 21,
         "storage_admin_bytes": 15616,
+        "storage_admin_upper_bound": 107776,
         "storage_entries": 56,
         "storage_files": 218,
         "storage_reads": 0,
@@ -89,6 +93,7 @@
     },
     {
       "checks": {
+        "administration_bounded": true,
         "command": true,
         "cross_split_bundle": true,
         "directory_complete": true,
@@ -110,6 +115,7 @@
         "routed_null": 21,
         "routed_tensors": 21,
         "storage_admin_bytes": 10408,
+        "storage_admin_upper_bound": 80000,
         "storage_entries": 56,
         "storage_files": 1,
         "storage_reads": 0,
@@ -132,6 +138,7 @@
     },
     {
       "checks": {
+        "administration_bounded": true,
         "command": true,
         "cross_split_bundle": true,
         "directory_complete": true,
@@ -153,6 +160,7 @@
         "routed_null": 21,
         "routed_tensors": 21,
         "storage_admin_bytes": 15616,
+        "storage_admin_upper_bound": 107776,
         "storage_entries": 56,
         "storage_files": 218,
         "storage_reads": 0,
@@ -185,7 +193,7 @@
     "max_tensors": 1,
     "mode": "split",
     "tool": "llama-gguf-split",
-    "tool_head": "1543185bd34bcde07a594064120591e61bafbeed"
+    "tool_head": "7a606dd4e11a108929f799253809a904f55feae4"
   },
   "splits": {
     "f16": [

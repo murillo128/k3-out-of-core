@@ -23,7 +23,7 @@
         "cold_source_time_us": 0,
         "cold_transfer_refs": 0,
         "cold_unused_bytes": 0,
-        "decode_tokens_per_second": 145.911,
+        "decode_tokens_per_second": 138.99,
         "hot_hits": 0,
         "hot_misses": 0,
         "load_mode": "mmap",
@@ -31,7 +31,7 @@
         "mode": "disabled",
         "no_writeback_evictions": 0,
         "prompt_ids": "18805,308,799,5624,12524",
-        "prompt_tokens_per_second": 116.401,
+        "prompt_tokens_per_second": 116.257,
         "ring_acquisition": "",
         "ring_actual_bytes": 0,
         "ring_async_enqueues": 0,
@@ -61,16 +61,16 @@
         "storage_read_chunks": 0,
         "storage_read_requests": 0,
         "storage_short_reads": 0,
-        "token_p50_us": 6209,
-        "token_p95_us": 7825,
-        "token_p99_us": 42955,
+        "token_p50_us": 7722,
+        "token_p95_us": 7826,
+        "token_p99_us": 43008,
         "tokens": "318,57195,11,1459,387,1495,2189,261,56207,1765,413,3700,308,16028,13,15149,40841,554,3143,3307",
-        "ttft_us": 42955
+        "ttft_us": 43008
       },
       "baseline_exit_code": 0,
       "baseline_output_digests": {
-        "stderr": "5f6db8a04e99857cb7ae2cd885cc93923a4312285db89bbdf365b52f05a4ce5b",
-        "stdout": "827502a9f54c4169d48a98c53a417a6f88e21b134a3d3a6d5345dae662cfbdc2"
+        "stderr": "cf3ae6ca885aebdc7ce4d9f13de4b3ff94290e3b65201089fdc665a70dcd89c1",
+        "stdout": "5986935cd81350d1252d938e8c037e0b338ef89afc99a3fe701c5e2835e46c00"
       },
       "captures": [
         {
@@ -110,7 +110,7 @@
             "cold_source_time_us": 0,
             "cold_transfer_refs": 0,
             "cold_unused_bytes": 708544,
-            "decode_tokens_per_second": 36.8241,
+            "decode_tokens_per_second": 36.6872,
             "hot_hits": 0,
             "hot_misses": 336,
             "load_mode": "mmap",
@@ -125,13 +125,13 @@
             "ring_fallback": 0,
             "ring_fallback_reason": "",
             "ring_h2d_bytes": 264241152,
-            "ring_h2d_time_us": 26737,
+            "ring_h2d_time_us": 26972,
             "ring_lane_footprint": 786432,
             "ring_lanes": 21,
             "ring_pinned_bytes": 16515072,
             "ring_requested_bytes": 16777216,
             "ring_stage_bytes": 264241152,
-            "ring_stage_time_us": 9753,
+            "ring_stage_time_us": 10311,
             "ring_sync_copies": 0,
             "ring_wave_syncs": 168,
             "ring_waves": 168,
@@ -148,15 +148,15 @@
             "storage_read_chunks": 1008,
             "storage_read_requests": 336,
             "storage_short_reads": 0,
-            "token_p50_us": 26523,
-            "token_p95_us": 28311,
+            "token_p50_us": 26645,
+            "token_p95_us": 28637,
             "token_p99_us": 142933,
             "tokens": "318,57195,11,1459,387,1495,2189,261,56207,1765,413,3700,308,16028,13,15149,40841,554,3143,3307",
             "ttft_us": 142933
           },
           "output_digests": {
-            "stderr": "6ffc7fc292f5e0219a610260f40563750d269ff696e1cad8c14d86cc0b8db9ea",
-            "stdout": "7b04a1b0ae8503bb55a3b2bf8595dfa75cf7ea6881a06c9fbfb2bec15ef1c71d"
+            "stderr": "b1df92595001d0b3735b56c7e0cd102eb3feb2102f0fcf2564b3515f6aa7d88c",
+            "stdout": "36ed7f7356827325d2e8542c09cf843453d74dee46e27d222b685d6f4ea34bd9"
           }
         },
         {
@@ -196,7 +196,7 @@
             "cold_source_time_us": 0,
             "cold_transfer_refs": 0,
             "cold_unused_bytes": 708544,
-            "decode_tokens_per_second": 35.3703,
+            "decode_tokens_per_second": 35.2081,
             "hot_hits": 0,
             "hot_misses": 336,
             "load_mode": "mmap",
@@ -204,20 +204,20 @@
             "mode": "cold",
             "no_writeback_evictions": 328,
             "prompt_ids": "18805,308,799,5624,12524",
-            "prompt_tokens_per_second": 33.8769,
+            "prompt_tokens_per_second": 33.7098,
             "ring_acquisition": "device-native-host",
             "ring_actual_bytes": 16515072,
             "ring_async_enqueues": 1008,
             "ring_fallback": 0,
             "ring_fallback_reason": "",
             "ring_h2d_bytes": 264241152,
-            "ring_h2d_time_us": 27142,
+            "ring_h2d_time_us": 27218,
             "ring_lane_footprint": 786432,
             "ring_lanes": 21,
             "ring_pinned_bytes": 16515072,
             "ring_requested_bytes": 16777216,
             "ring_stage_bytes": 264241152,
-            "ring_stage_time_us": 10140,
+            "ring_stage_time_us": 9880,
             "ring_sync_copies": 0,
             "ring_wave_syncs": 168,
             "ring_waves": 168,
@@ -234,15 +234,15 @@
             "storage_read_chunks": 1008,
             "storage_read_requests": 336,
             "storage_short_reads": 0,
-            "token_p50_us": 28278,
-            "token_p95_us": 28351,
-            "token_p99_us": 147593,
+            "token_p50_us": 28387,
+            "token_p95_us": 28542,
+            "token_p99_us": 148325,
             "tokens": "318,57195,11,1459,387,1495,2189,261,56207,1765,413,3700,308,16028,13,15149,40841,554,3143,3307",
-            "ttft_us": 147593
+            "ttft_us": 148325
           },
           "output_digests": {
-            "stderr": "c5b1c5e22413cc6aeee39b3b1f6c647ccbea8555d7608a5d87d7dcc7cac550f1",
-            "stdout": "e146d3feb67e98b4bd9b8df58b3c7b4f38647aadbbac0dc78588dc2d2fb07f3e"
+            "stderr": "2060cbf0ad004cf34e7e8abaadcb633274b8ce0c9279208e7d5cf11233f58e70",
+            "stdout": "fd33d01d18256cd16842ef95ef419c948f7ed8aecd9524560ebe98da4cea0e92"
           }
         }
       ],
@@ -277,7 +277,7 @@
         "cold_source_time_us": 0,
         "cold_transfer_refs": 0,
         "cold_unused_bytes": 0,
-        "decode_tokens_per_second": 145.911,
+        "decode_tokens_per_second": 138.99,
         "hot_hits": 0,
         "hot_misses": 0,
         "load_mode": "mmap",
@@ -285,7 +285,7 @@
         "mode": "disabled",
         "no_writeback_evictions": 0,
         "prompt_ids": "18805,308,799,5624,12524",
-        "prompt_tokens_per_second": 116.401,
+        "prompt_tokens_per_second": 116.257,
         "ring_acquisition": "",
         "ring_actual_bytes": 0,
         "ring_async_enqueues": 0,
@@ -315,16 +315,16 @@
         "storage_read_chunks": 0,
         "storage_read_requests": 0,
         "storage_short_reads": 0,
-        "token_p50_us": 6209,
-        "token_p95_us": 7825,
-        "token_p99_us": 42955,
+        "token_p50_us": 7722,
+        "token_p95_us": 7826,
+        "token_p99_us": 43008,
         "tokens": "318,57195,11,1459,387,1495,2189,261,56207,1765,413,3700,308,16028,13,15149,40841,554,3143,3307",
-        "ttft_us": 42955
+        "ttft_us": 43008
       },
       "baseline_exit_code": 0,
       "baseline_output_digests": {
-        "stderr": "5f6db8a04e99857cb7ae2cd885cc93923a4312285db89bbdf365b52f05a4ce5b",
-        "stdout": "827502a9f54c4169d48a98c53a417a6f88e21b134a3d3a6d5345dae662cfbdc2"
+        "stderr": "cf3ae6ca885aebdc7ce4d9f13de4b3ff94290e3b65201089fdc665a70dcd89c1",
+        "stdout": "5986935cd81350d1252d938e8c037e0b338ef89afc99a3fe701c5e2835e46c00"
       },
       "captures": [
         {
@@ -364,7 +364,7 @@
             "cold_source_time_us": 0,
             "cold_transfer_refs": 0,
             "cold_unused_bytes": 708544,
-            "decode_tokens_per_second": 35.4082,
+            "decode_tokens_per_second": 35.2774,
             "hot_hits": 0,
             "hot_misses": 336,
             "load_mode": "mmap",
@@ -372,20 +372,20 @@
             "mode": "cold",
             "no_writeback_evictions": 328,
             "prompt_ids": "18805,308,799,5624,12524",
-            "prompt_tokens_per_second": 33.9427,
+            "prompt_tokens_per_second": 33.6587,
             "ring_acquisition": "device-native-host",
             "ring_actual_bytes": 16515072,
             "ring_async_enqueues": 1008,
             "ring_fallback": 0,
             "ring_fallback_reason": "",
             "ring_h2d_bytes": 264241152,
-            "ring_h2d_time_us": 27075,
+            "ring_h2d_time_us": 27042,
             "ring_lane_footprint": 786432,
             "ring_lanes": 21,
             "ring_pinned_bytes": 16515072,
             "ring_requested_bytes": 16777216,
             "ring_stage_bytes": 264241152,
-            "ring_stage_time_us": 9976,
+            "ring_stage_time_us": 10078,
             "ring_sync_copies": 0,
             "ring_wave_syncs": 168,
             "ring_waves": 168,
@@ -402,15 +402,15 @@
             "storage_read_chunks": 1008,
             "storage_read_requests": 336,
             "storage_short_reads": 0,
-            "token_p50_us": 28248,
-            "token_p95_us": 28346,
-            "token_p99_us": 147307,
+            "token_p50_us": 28329,
+            "token_p95_us": 28498,
+            "token_p99_us": 148550,
             "tokens": "318,57195,11,1459,387,1495,2189,261,56207,1765,413,3700,308,16028,13,15149,40841,554,3143,3307",
-            "ttft_us": 147307
+            "ttft_us": 148550
           },
           "output_digests": {
-            "stderr": "d5bfd1eb612cd7a1d11b2df1b6649c9ff2659a9b00d2b2d0e6fb9f65363d6978",
-            "stdout": "cfc4c7adceb6619d76c8aa38e2578ec2ec882389a6ec7b323a239826abcc1aeb"
+            "stderr": "91feba1b4265901ffcf4feab581046cabdbaa707ddf386f9d08cb102fc202072",
+            "stdout": "52f72cedc7fb33d64c2dc5fe7c2310a45beed453d13af1af9d28e1f0066c658d"
           }
         },
         {
@@ -450,7 +450,7 @@
             "cold_source_time_us": 0,
             "cold_transfer_refs": 0,
             "cold_unused_bytes": 708544,
-            "decode_tokens_per_second": 35.4345,
+            "decode_tokens_per_second": 35.3323,
             "hot_hits": 0,
             "hot_misses": 336,
             "load_mode": "mmap",
@@ -458,20 +458,20 @@
             "mode": "cold",
             "no_writeback_evictions": 328,
             "prompt_ids": "18805,308,799,5624,12524",
-            "prompt_tokens_per_second": 34.0328,
+            "prompt_tokens_per_second": 33.8827,
             "ring_acquisition": "device-native-host",
             "ring_actual_bytes": 16515072,
             "ring_async_enqueues": 1008,
             "ring_fallback": 0,
             "ring_fallback_reason": "",
             "ring_h2d_bytes": 264241152,
-            "ring_h2d_time_us": 27181,
+            "ring_h2d_time_us": 27083,
             "ring_lane_footprint": 786432,
             "ring_lanes": 21,
             "ring_pinned_bytes": 16515072,
             "ring_requested_bytes": 16777216,
             "ring_stage_bytes": 264241152,
-            "ring_stage_time_us": 10042,
+            "ring_stage_time_us": 10233,
             "ring_sync_copies": 0,
             "ring_wave_syncs": 168,
             "ring_waves": 168,
@@ -488,15 +488,15 @@
             "storage_read_chunks": 1008,
             "storage_read_requests": 336,
             "storage_short_reads": 0,
-            "token_p50_us": 28216,
-            "token_p95_us": 28349,
-            "token_p99_us": 146917,
+            "token_p50_us": 28312,
+            "token_p95_us": 28368,
+            "token_p99_us": 147568,
             "tokens": "318,57195,11,1459,387,1495,2189,261,56207,1765,413,3700,308,16028,13,15149,40841,554,3143,3307",
-            "ttft_us": 146917
+            "ttft_us": 147568
           },
           "output_digests": {
-            "stderr": "e4dfff6e1e040daf61cda0b6b22a59a35fd6ff0ed5c101325a8a91cb0fe909d9",
-            "stdout": "1d9ef1f9686b36d10b95ef3d84eca41b88ea1b74b5e2073976b156f7da485c7d"
+            "stderr": "939717250e9776783eecba3c5c7e04768fdfbdc8edacfdf8ad68f8b17565bfac",
+            "stdout": "5947d3d82065b26fa5852443488c0ae58706c3239d8241175a3193ef25ad8b48"
           }
         }
       ],
@@ -531,7 +531,7 @@
         "cold_source_time_us": 0,
         "cold_transfer_refs": 0,
         "cold_unused_bytes": 0,
-        "decode_tokens_per_second": 133.738,
+        "decode_tokens_per_second": 133.995,
         "hot_hits": 0,
         "hot_misses": 0,
         "load_mode": "mmap",
@@ -539,7 +539,7 @@
         "mode": "disabled",
         "no_writeback_evictions": 0,
         "prompt_ids": "18805,308,799,5624,12524",
-        "prompt_tokens_per_second": 103.336,
+        "prompt_tokens_per_second": 104.587,
         "ring_acquisition": "",
         "ring_actual_bytes": 0,
         "ring_async_enqueues": 0,
@@ -569,16 +569,16 @@
         "storage_read_chunks": 0,
         "storage_read_requests": 0,
         "storage_short_reads": 0,
-        "token_p50_us": 7481,
-        "token_p95_us": 7649,
-        "token_p99_us": 48386,
+        "token_p50_us": 7466,
+        "token_p95_us": 7624,
+        "token_p99_us": 47807,
         "tokens": "318,57195,11,1459,387,1495,2189,261,56207,1765,413,3700,308,16028,13,15149,40841,554,3143,3307",
-        "ttft_us": 48386
+        "ttft_us": 47807
       },
       "baseline_exit_code": 0,
       "baseline_output_digests": {
-        "stderr": "7cf19a1de8570938a446331f54c8e4662b1df7301e9608650b91fccfe989caa1",
-        "stdout": "2b549388eb7d160e39f47c11ed016f6c184e57bdcf8de480fd0ec523ac2a6884"
+        "stderr": "f47f30ee5099d900d1bd5081903f3b73ec907c9917483040d85fdccdb30af115",
+        "stdout": "034740651d5861c0926d208f3e0479209fbf78f646d2cf76b319e63fa78935d0"
       },
       "captures": [
         {
@@ -618,7 +618,7 @@
             "cold_source_time_us": 0,
             "cold_transfer_refs": 0,
             "cold_unused_bytes": 119936,
-            "decode_tokens_per_second": 86.3907,
+            "decode_tokens_per_second": 86.0087,
             "hot_hits": 0,
             "hot_misses": 336,
             "load_mode": "mmap",
@@ -626,20 +626,20 @@
             "mode": "cold",
             "no_writeback_evictions": 328,
             "prompt_ids": "18805,308,799,5624,12524",
-            "prompt_tokens_per_second": 67.7755,
+            "prompt_tokens_per_second": 67.2902,
             "ring_acquisition": "device-native-host",
             "ring_actual_bytes": 16711680,
             "ring_async_enqueues": 1008,
             "ring_fallback": 0,
             "ring_fallback_reason": "",
             "ring_h2d_bytes": 70189056,
-            "ring_h2d_time_us": 10957,
+            "ring_h2d_time_us": 10988,
             "ring_lane_footprint": 208896,
             "ring_lanes": 80,
             "ring_pinned_bytes": 16711680,
             "ring_requested_bytes": 16777216,
             "ring_stage_bytes": 70189056,
-            "ring_stage_time_us": 3294,
+            "ring_stage_time_us": 3370,
             "ring_sync_copies": 0,
             "ring_wave_syncs": 168,
             "ring_waves": 168,
@@ -656,15 +656,15 @@
             "storage_read_chunks": 1008,
             "storage_read_requests": 336,
             "storage_short_reads": 0,
-            "token_p50_us": 11561,
-            "token_p95_us": 11758,
-            "token_p99_us": 73773,
+            "token_p50_us": 11615,
+            "token_p95_us": 11842,
+            "token_p99_us": 74305,
             "tokens": "318,57195,11,1459,387,1495,2189,261,56207,1765,413,3700,308,16028,13,15149,40841,554,3143,3307",
-            "ttft_us": 73773
+            "ttft_us": 74305
           },
           "output_digests": {
-            "stderr": "98d10b7e8b994dfa86e67d2650751a089b5a103cf3080c57bfde5c32247f1aee",
-            "stdout": "4415446d0014f4d7b8bced2fcd6edabaee4820b9f4fecb5e4f7f603b579b0d7a"
+            "stderr": "d86a9cbe84da0efaaa4f153de30056b1c4607fefd93295135c898e5f241e5e82",
+            "stdout": "96811f4a2818167590ab93b67289ce1f6c23878e321172f04bf0c04c48325047"
           }
         },
         {
@@ -704,7 +704,7 @@
             "cold_source_time_us": 0,
             "cold_transfer_refs": 0,
             "cold_unused_bytes": 119936,
-            "decode_tokens_per_second": 86.3421,
+            "decode_tokens_per_second": 86.2589,
             "hot_hits": 0,
             "hot_misses": 336,
             "load_mode": "mmap",
@@ -712,20 +712,20 @@
             "mode": "cold",
             "no_writeback_evictions": 328,
             "prompt_ids": "18805,308,799,5624,12524",
-            "prompt_tokens_per_second": 66.9183,
+            "prompt_tokens_per_second": 67.6993,
             "ring_acquisition": "device-native-host",
             "ring_actual_bytes": 16711680,
             "ring_async_enqueues": 1008,
             "ring_fallback": 0,
             "ring_fallback_reason": "",
             "ring_h2d_bytes": 70189056,
-            "ring_h2d_time_us": 10996,
+            "ring_h2d_time_us": 11003,
             "ring_lane_footprint": 208896,
             "ring_lanes": 80,
             "ring_pinned_bytes": 16711680,
             "ring_requested_bytes": 16777216,
             "ring_stage_bytes": 70189056,
-            "ring_stage_time_us": 3355,
+            "ring_stage_time_us": 3312,
             "ring_sync_copies": 0,
             "ring_wave_syncs": 168,
             "ring_waves": 168,
@@ -742,15 +742,15 @@
             "storage_read_chunks": 1008,
             "storage_read_requests": 336,
             "storage_short_reads": 0,
-            "token_p50_us": 11573,
-            "token_p95_us": 11813,
-            "token_p99_us": 74718,
+            "token_p50_us": 11577,
+            "token_p95_us": 11796,
+            "token_p99_us": 73856,
             "tokens": "318,57195,11,1459,387,1495,2189,261,56207,1765,413,3700,308,16028,13,15149,40841,554,3143,3307",
-            "ttft_us": 74718
+            "ttft_us": 73856
           },
           "output_digests": {
-            "stderr": "d9041ba276a5aea0d9ec15299b3dbba6d5bd83c701f983334b436df6eade20fe",
-            "stdout": "76daead5b765de6f312419d568df3b87fdee5404ef5400443b14f204d3a7cf55"
+            "stderr": "56e14752146e7a5bb480fbc01a1d377b7e638d0b9f2ff220f9dfda1f417b542d",
+            "stdout": "3465c0b84ed6834becfcadae33033702a2130663b98f5e20d905cf215c39e931"
           }
         }
       ],
@@ -785,7 +785,7 @@
         "cold_source_time_us": 0,
         "cold_transfer_refs": 0,
         "cold_unused_bytes": 0,
-        "decode_tokens_per_second": 133.738,
+        "decode_tokens_per_second": 133.995,
         "hot_hits": 0,
         "hot_misses": 0,
         "load_mode": "mmap",
@@ -793,7 +793,7 @@
         "mode": "disabled",
         "no_writeback_evictions": 0,
         "prompt_ids": "18805,308,799,5624,12524",
-        "prompt_tokens_per_second": 103.336,
+        "prompt_tokens_per_second": 104.587,
         "ring_acquisition": "",
         "ring_actual_bytes": 0,
         "ring_async_enqueues": 0,
@@ -823,16 +823,16 @@
         "storage_read_chunks": 0,
         "storage_read_requests": 0,
         "storage_short_reads": 0,
-        "token_p50_us": 7481,
-        "token_p95_us": 7649,
-        "token_p99_us": 48386,
+        "token_p50_us": 7466,
+        "token_p95_us": 7624,
+        "token_p99_us": 47807,
         "tokens": "318,57195,11,1459,387,1495,2189,261,56207,1765,413,3700,308,16028,13,15149,40841,554,3143,3307",
-        "ttft_us": 48386
+        "ttft_us": 47807
       },
       "baseline_exit_code": 0,
       "baseline_output_digests": {
-        "stderr": "7cf19a1de8570938a446331f54c8e4662b1df7301e9608650b91fccfe989caa1",
-        "stdout": "2b549388eb7d160e39f47c11ed016f6c184e57bdcf8de480fd0ec523ac2a6884"
+        "stderr": "f47f30ee5099d900d1bd5081903f3b73ec907c9917483040d85fdccdb30af115",
+        "stdout": "034740651d5861c0926d208f3e0479209fbf78f646d2cf76b319e63fa78935d0"
       },
       "captures": [
         {
@@ -872,7 +872,7 @@
             "cold_source_time_us": 0,
             "cold_transfer_refs": 0,
             "cold_unused_bytes": 119936,
-            "decode_tokens_per_second": 77.8673,
+            "decode_tokens_per_second": 78.0345,
             "hot_hits": 0,
             "hot_misses": 336,
             "load_mode": "mmap",
@@ -880,20 +880,20 @@
             "mode": "cold",
             "no_writeback_evictions": 328,
             "prompt_ids": "18805,308,799,5624,12524",
-            "prompt_tokens_per_second": 64.5611,
+            "prompt_tokens_per_second": 64.2013,
             "ring_acquisition": "device-native-host",
             "ring_actual_bytes": 16711680,
             "ring_async_enqueues": 1008,
             "ring_fallback": 0,
             "ring_fallback_reason": "",
             "ring_h2d_bytes": 70189056,
-            "ring_h2d_time_us": 11115,
+            "ring_h2d_time_us": 11208,
             "ring_lane_footprint": 208896,
             "ring_lanes": 80,
             "ring_pinned_bytes": 16711680,
             "ring_requested_bytes": 16777216,
             "ring_stage_bytes": 70189056,
-            "ring_stage_time_us": 3312,
+            "ring_stage_time_us": 3354,
             "ring_sync_copies": 0,
             "ring_wave_syncs": 168,
             "ring_waves": 168,
@@ -910,15 +910,15 @@
             "storage_read_chunks": 1008,
             "storage_read_requests": 336,
             "storage_short_reads": 0,
-            "token_p50_us": 12671,
-            "token_p95_us": 13531,
-            "token_p99_us": 77446,
+            "token_p50_us": 12857,
+            "token_p95_us": 13464,
+            "token_p99_us": 77880,
             "tokens": "318,57195,11,1459,387,1495,2189,261,56207,1765,413,3700,308,16028,13,15149,40841,554,3143,3307",
-            "ttft_us": 77446
+            "ttft_us": 77880
           },
           "output_digests": {
-            "stderr": "534485c690ede1e90939115d42f0a1f286089a0368e568d27d2f973d8f53f92e",
-            "stdout": "b2de5afd64347eae8d77b8b8ca77242e5843238f1b59d059f17b9504dc1703e0"
+            "stderr": "cef9e7cd310fee33d7aa10058a13ca77958a054fb35a04051cfa58cc0784fa22",
+            "stdout": "778f3df031cd2b64988bfd21405f5dc6d2288216d0cbd43f4aeb3007da3379d0"
           }
         },
         {
@@ -958,7 +958,7 @@
             "cold_source_time_us": 0,
             "cold_transfer_refs": 0,
             "cold_unused_bytes": 119936,
-            "decode_tokens_per_second": 80.8174,
+            "decode_tokens_per_second": 81.4392,
             "hot_hits": 0,
             "hot_misses": 336,
             "load_mode": "mmap",
@@ -966,20 +966,20 @@
             "mode": "cold",
             "no_writeback_evictions": 328,
             "prompt_ids": "18805,308,799,5624,12524",
-            "prompt_tokens_per_second": 65.7246,
+            "prompt_tokens_per_second": 66.1524,
             "ring_acquisition": "device-native-host",
             "ring_actual_bytes": 16711680,
             "ring_async_enqueues": 1008,
             "ring_fallback": 0,
             "ring_fallback_reason": "",
             "ring_h2d_bytes": 70189056,
-            "ring_h2d_time_us": 11197,
+            "ring_h2d_time_us": 11026,
             "ring_lane_footprint": 208896,
             "ring_lanes": 80,
             "ring_pinned_bytes": 16711680,
             "ring_requested_bytes": 16777216,
             "ring_stage_bytes": 70189056,
-            "ring_stage_time_us": 3343,
+            "ring_stage_time_us": 3340,
             "ring_sync_copies": 0,
             "ring_wave_syncs": 168,
             "ring_waves": 168,
@@ -996,15 +996,15 @@
             "storage_read_chunks": 1008,
             "storage_read_requests": 336,
             "storage_short_reads": 0,
-            "token_p50_us": 12504,
-            "token_p95_us": 12737,
-            "token_p99_us": 76075,
+            "token_p50_us": 12382,
+            "token_p95_us": 12603,
+            "token_p99_us": 75583,
             "tokens": "318,57195,11,1459,387,1495,2189,261,56207,1765,413,3700,308,16028,13,15149,40841,554,3143,3307",
-            "ttft_us": 76075
+            "ttft_us": 75583
           },
           "output_digests": {
-            "stderr": "ea62f1857254e59857f3221b5f522518ea7e4f12450392e4196517265fe8f626",
-            "stdout": "0c07d3a0c0f98eb3908b3a400133ad11f332a8665bc3b53eaaa1f532f40456c7"
+            "stderr": "a42a5e78b3fa87eeb9fda495ca4063d938946a221bc2d416140c8aa7846933f3",
+            "stdout": "fb0f394b2dd5ab0efe5d3e0feb10ffe3d91ce5afcf25a598cf5a4460638e3e0b"
           }
         }
       ],
@@ -1047,7 +1047,7 @@
         "cold_source_time_us": 0,
         "cold_transfer_refs": 0,
         "cold_unused_bytes": 23068672,
-        "decode_tokens_per_second": 80.6257,
+        "decode_tokens_per_second": 80.26,
         "hot_hits": 0,
         "hot_misses": 98,
         "load_mode": "mmap",
@@ -1055,20 +1055,20 @@
         "mode": "cold",
         "no_writeback_evictions": 90,
         "prompt_ids": "18805,308,799,5624,12524",
-        "prompt_tokens_per_second": 48.4994,
+        "prompt_tokens_per_second": 48.5145,
         "ring_acquisition": "device-native-host",
         "ring_actual_bytes": 16515072,
         "ring_async_enqueues": 294,
         "ring_fallback": 0,
         "ring_fallback_reason": "",
         "ring_h2d_bytes": 77070336,
-        "ring_h2d_time_us": 7854,
+        "ring_h2d_time_us": 7892,
         "ring_lane_footprint": 786432,
         "ring_lanes": 21,
         "ring_pinned_bytes": 16515072,
         "ring_requested_bytes": 16777216,
         "ring_stage_bytes": 77070336,
-        "ring_stage_time_us": 3603,
+        "ring_stage_time_us": 3681,
         "ring_sync_copies": 0,
         "ring_wave_syncs": 49,
         "ring_waves": 49,
@@ -1085,11 +1085,11 @@
         "storage_read_chunks": 126,
         "storage_read_requests": 42,
         "storage_short_reads": 0,
-        "token_p50_us": 16956,
-        "token_p95_us": 103094,
-        "token_p99_us": 103094,
+        "token_p50_us": 17062,
+        "token_p95_us": 103062,
+        "token_p99_us": 103062,
         "tokens": "318,57195,11",
-        "ttft_us": 103094
+        "ttft_us": 103062
       },
       "kind": "original",
       "model": {
@@ -1098,8 +1098,8 @@
         "size": 784318432
       },
       "output_digests": {
-        "stderr": "8d281438d329319f688bf479768fa3f87caeeae8a09ae741130697b83fcb4214",
-        "stdout": "52fcf6311e242d81ff93248a44f57506050e605c8642c24eb2622a3094527d97"
+        "stderr": "3494f779a162ed3e87d365f1f3fe84cafbe6a882132e56b6d92554516a78e349",
+        "stdout": "767a20c6486e21cc2b401455f925a17c993d3d7dba882ea724969fad89a35de3"
       },
       "representation": "f16"
     },
@@ -1132,7 +1132,7 @@
         "cold_source_time_us": 0,
         "cold_transfer_refs": 0,
         "cold_unused_bytes": 23068672,
-        "decode_tokens_per_second": 71.1263,
+        "decode_tokens_per_second": 71.2733,
         "hot_hits": 0,
         "hot_misses": 98,
         "load_mode": "mmap",
@@ -1140,20 +1140,20 @@
         "mode": "cold",
         "no_writeback_evictions": 90,
         "prompt_ids": "18805,308,799,5624,12524",
-        "prompt_tokens_per_second": 47.0141,
+        "prompt_tokens_per_second": 47.1138,
         "ring_acquisition": "device-native-host",
         "ring_actual_bytes": 16515072,
         "ring_async_enqueues": 294,
         "ring_fallback": 0,
         "ring_fallback_reason": "",
         "ring_h2d_bytes": 77070336,
-        "ring_h2d_time_us": 7926,
+        "ring_h2d_time_us": 7870,
         "ring_lane_footprint": 786432,
         "ring_lanes": 21,
         "ring_pinned_bytes": 16515072,
         "ring_requested_bytes": 16777216,
         "ring_stage_bytes": 77070336,
-        "ring_stage_time_us": 3630,
+        "ring_stage_time_us": 3641,
         "ring_sync_copies": 0,
         "ring_wave_syncs": 49,
         "ring_waves": 49,
@@ -1170,11 +1170,11 @@
         "storage_read_chunks": 126,
         "storage_read_requests": 42,
         "storage_short_reads": 0,
-        "token_p50_us": 18558,
-        "token_p95_us": 106351,
-        "token_p99_us": 106351,
+        "token_p50_us": 18507,
+        "token_p95_us": 106126,
+        "token_p99_us": 106126,
         "tokens": "318,57195,11",
-        "ttft_us": 106351
+        "ttft_us": 106126
       },
       "kind": "split",
       "model": {
@@ -1183,8 +1183,8 @@
         "size": 342452864
       },
       "output_digests": {
-        "stderr": "6c31f49a8b0c558afdeb8293103381819c5a1de6836263e025e739b42f024739",
-        "stdout": "2b9ddfa54593355f4edc581ec813606e755e8919d1c3b32b77a7a89e38184662"
+        "stderr": "a6e69f87242dfbacd6d7084ae32781269f0e78bc943239a3d14d243d8bb89f35",
+        "stdout": "7479c1b03f1ad86e25c717cc8c3a473709c69d6529d362ced9f4cc1b87a84ceb"
       },
       "representation": "f16"
     },
@@ -1217,7 +1217,7 @@
         "cold_source_time_us": 0,
         "cold_transfer_refs": 0,
         "cold_unused_bytes": 55410688,
-        "decode_tokens_per_second": 125.66,
+        "decode_tokens_per_second": 125.415,
         "hot_hits": 0,
         "hot_misses": 98,
         "load_mode": "mmap",
@@ -1225,20 +1225,20 @@
         "mode": "cold",
         "no_writeback_evictions": 90,
         "prompt_ids": "18805,308,799,5624,12524",
-        "prompt_tokens_per_second": 77.6759,
+        "prompt_tokens_per_second": 77.6844,
         "ring_acquisition": "device-native-host",
         "ring_actual_bytes": 16711680,
         "ring_async_enqueues": 294,
         "ring_fallback": 0,
         "ring_fallback_reason": "",
         "ring_h2d_bytes": 20471808,
-        "ring_h2d_time_us": 3236,
+        "ring_h2d_time_us": 3305,
         "ring_lane_footprint": 208896,
         "ring_lanes": 80,
         "ring_pinned_bytes": 16711680,
         "ring_requested_bytes": 16777216,
         "ring_stage_bytes": 20471808,
-        "ring_stage_time_us": 1033,
+        "ring_stage_time_us": 1025,
         "ring_sync_copies": 0,
         "ring_wave_syncs": 49,
         "ring_waves": 49,
@@ -1255,11 +1255,11 @@
         "storage_read_chunks": 126,
         "storage_read_requests": 42,
         "storage_short_reads": 0,
-        "token_p50_us": 9257,
-        "token_p95_us": 64370,
-        "token_p99_us": 64370,
+        "token_p50_us": 9280,
+        "token_p95_us": 64363,
+        "token_p99_us": 64363,
         "tokens": "318,57195,11",
-        "ttft_us": 64370
+        "ttft_us": 64363
       },
       "kind": "original",
       "model": {
@@ -1268,8 +1268,8 @@
         "size": 751976576
       },
       "output_digests": {
-        "stderr": "c8bcf133f63b3119535b1d697f9d1eb5afb5794b0a6c2a5be4319192eb5dd7f8",
-        "stdout": "6d5f6b894d9ec623a4dda34bdc593dc60b27e31538626a4feb27f31aa5b0e8a5"
+        "stderr": "d4b68e1fa305d20496b87d78dd3756c54bdd5e08137f311ca62cb907555716ba",
+        "stdout": "e666a68b3ed821756967ed2c044ad9dd09630989289c3fb81b3f1586b787d83e"
       },
       "representation": "mxfp4"
     },
@@ -1302,7 +1302,7 @@
         "cold_source_time_us": 0,
         "cold_transfer_refs": 0,
         "cold_unused_bytes": 55410688,
-        "decode_tokens_per_second": 124.867,
+        "decode_tokens_per_second": 124.977,
         "hot_hits": 0,
         "hot_misses": 98,
         "load_mode": "mmap",
@@ -1310,20 +1310,20 @@
         "mode": "cold",
         "no_writeback_evictions": 90,
         "prompt_ids": "18805,308,799,5624,12524",
-        "prompt_tokens_per_second": 79.6369,
+        "prompt_tokens_per_second": 79.4243,
         "ring_acquisition": "device-native-host",
         "ring_actual_bytes": 16711680,
         "ring_async_enqueues": 294,
         "ring_fallback": 0,
         "ring_fallback_reason": "",
         "ring_h2d_bytes": 20471808,
-        "ring_h2d_time_us": 3245,
+        "ring_h2d_time_us": 3273,
         "ring_lane_footprint": 208896,
         "ring_lanes": 80,
         "ring_pinned_bytes": 16711680,
         "ring_requested_bytes": 16777216,
         "ring_stage_bytes": 20471808,
-        "ring_stage_time_us": 1059,
+        "ring_stage_time_us": 1021,
         "ring_sync_copies": 0,
         "ring_wave_syncs": 49,
         "ring_waves": 49,
@@ -1340,11 +1340,11 @@
         "storage_read_chunks": 126,
         "storage_read_requests": 42,
         "storage_short_reads": 0,
-        "token_p50_us": 9336,
-        "token_p95_us": 62785,
-        "token_p99_us": 62785,
+        "token_p50_us": 9362,
+        "token_p95_us": 62953,
+        "token_p99_us": 62953,
         "tokens": "318,57195,11",
-        "ttft_us": 62785
+        "ttft_us": 62953
       },
       "kind": "split",
       "model": {
@@ -1353,8 +1353,8 @@
         "size": 7465760
       },
       "output_digests": {
-        "stderr": "89acd5f9c4357aa526a0e1c330df9e3052c4e8176314c6e37078bfed2a10ca8e",
-        "stdout": "f31f461a5c7ea84c01246dfd4857d13e0565aed2df7f8b5ba956c113efc854d6"
+        "stderr": "fa987d692908c77df4c688881e87508a3646e7e0f0ca092bc7960e7002b28a4f",
+        "stdout": "115ae3fb98abf471940ea83d245b8277d38a5c28edba63a3eb21c33f849ba452"
       },
       "representation": "mxfp4"
     }
