@@ -12,6 +12,7 @@ from jsonschema import Draft202012Validator
 
 from common import (CHECKPOINT_A_COMMENT, CHECKPOINT_A_LLAMA, CHECKPOINT_A_PROJECT,
                     LLAMA_BASE, MODELS, PROJECT_BASE, git, json_write, sha256)
+from capture_validation_results import COMMANDS
 
 
 ALLOWED_NESTED = {
@@ -30,6 +31,7 @@ def validate_evidence(root: Path, manifest: dict, errors: list[str]) -> None:
     try:
         parity = json.loads((result_root / "hot-cache-parity.json").read_text())
         lifecycle = json.loads((result_root / "lifecycle-and-failures.json").read_text())
+        command_results = json.loads((result_root / "validation-results.json").read_text())
     except Exception as error:
         errors.append(f"cannot load evidence: {error}")
         return
@@ -50,10 +52,40 @@ def validate_evidence(root: Path, manifest: dict, errors: list[str]) -> None:
         errors.append("lifecycle coverage is incomplete")
     if coverage.get("warm_epochs", 0) < 20 or len(lifecycle.get("warm_runs", [])) != 2:
         errors.append("warm lifecycle evidence is incomplete")
+    validate_commands(command_results, manifest, errors)
     phase3 = manifest.get("phase3_input", {})
     phase3_path = root / phase3.get("path", "")
     if not phase3_path.is_file() or phase3_path.stat().st_size != phase3.get("size") or sha256(phase3_path) != phase3.get("sha256"):
         errors.append("immutable Phase 3 manifest identity differs")
+
+
+def validate_commands(results: dict, manifest: dict, errors: list[str]) -> None:
+    expected = {name: command for name, command in COMMANDS}
+    records = results.get("commands", [])
+    if results.get("status") != "pass" or len(records) != len(expected):
+        errors.append("validation command result set is incomplete")
+        return
+    by_name = {record.get("name"): record for record in records}
+    if set(by_name) != set(expected): errors.append("validation command names differ")
+    expected_counts = {"ctest-cpu": 2, "ctest-cuda": 2, "ctest-asan-ubsan": 2,
+                       "unittest-phase3": 12, "unittest-phase4": 6}
+    for name, command in expected.items():
+        record = by_name.get(name, {})
+        if record.get("command") != command or record.get("cwd") != "." or record.get("exit_code") != 0:
+            errors.append(f"validation command/result differs: {name}")
+        if name in expected_counts and (record.get("passed"), record.get("total")) != (expected_counts[name], expected_counts[name]):
+            errors.append(f"validation test count differs: {name}")
+        if name.startswith("status-") and record.get("stdout_bytes") != 0:
+            errors.append(f"validation tree was not clean: {name}")
+        for field in ("stdout_sha256", "stderr_sha256"):
+            value = record.get(field, "")
+            if len(value) != 64 or any(char not in "0123456789abcdef" for char in value):
+                errors.append(f"validation output identity differs: {name}/{field}")
+    if manifest.get("validation") != records:
+        errors.append("manifest validation records differ from bound command artifact")
+    evidence = manifest.get("evidence", {}).get("validation_commands", {})
+    if evidence.get("path") != "results/2026-07-30/skynet/phase4-hot-cache/validation-results.json":
+        errors.append("manifest does not bind validation command artifact")
 
 
 def validate_git(root: Path, manifest: dict, strict: bool, errors: list[str]) -> None:

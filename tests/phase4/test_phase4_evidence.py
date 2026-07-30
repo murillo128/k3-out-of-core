@@ -25,6 +25,7 @@ class Phase4EvidenceTests(unittest.TestCase):
     def setUpClass(cls):
         cls.common = load("common")
         cls.verifier = load("verify_phase4")
+        cls.capture = load("capture_validation_results")
         cls.schema = json.loads((ROOT / "schemas/phase4/phase4-manifest-v1.schema.json").read_text())
 
     def test_schema_valid(self):
@@ -61,6 +62,25 @@ class Phase4EvidenceTests(unittest.TestCase):
     def test_model_identities_are_fixed(self):
         self.assertEqual(set(self.common.MODELS), {"f16", "mxfp4"})
         self.assertTrue(all(len(value["sha256"]) == 64 for value in self.common.MODELS.values()))
+
+    def test_validation_binding_rejects_missing_or_failed_command(self):
+        records = []
+        for name, command in self.capture.COMMANDS:
+            count = {"ctest-cpu": 2, "ctest-cuda": 2, "ctest-asan-ubsan": 2,
+                     "unittest-phase3": 12, "unittest-phase4": 6}.get(name)
+            records.append({"name": name, "command": command, "cwd": ".", "exit_code": 0,
+                            "stdout_sha256": "0"*64, "stderr_sha256": "0"*64,
+                            "stdout_bytes": 0, "stderr_bytes": 0, "passed": count, "total": count})
+        results = {"status": "pass", "commands": records}
+        manifest = {"validation": copy.deepcopy(records), "evidence": {"validation_commands": {
+            "path": "results/2026-07-30/skynet/phase4-hot-cache/validation-results.json"}}}
+        errors = []
+        self.verifier.validate_commands(results, manifest, errors)
+        self.assertEqual(errors, [])
+        results["commands"][0]["exit_code"] = 1
+        errors = []
+        self.verifier.validate_commands(results, manifest, errors)
+        self.assertTrue(errors)
 
 
 if __name__ == "__main__":

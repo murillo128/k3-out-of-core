@@ -17,13 +17,14 @@ FILES = {
     "implementation": [
         "scripts/phase4/common.py", "scripts/phase4/capture_hot_cache_parity.py",
         "scripts/phase4/run_hot_cache_lifecycle.py", "scripts/phase4/build_phase4_manifest.py",
-        "scripts/phase4/verify_phase4.py",
+        "scripts/phase4/capture_validation_results.py", "scripts/phase4/verify_phase4.py",
     ],
     "schema": ["schemas/phase4/phase4-manifest-v1.schema.json"],
     "test": ["tests/phase4/test_phase4_evidence.py"],
     "evidence": [
         "results/2026-07-30/skynet/phase4-hot-cache/hot-cache-parity.json",
         "results/2026-07-30/skynet/phase4-hot-cache/lifecycle-and-failures.json",
+        "results/2026-07-30/skynet/phase4-hot-cache/validation-results.json",
         "results/2026-07-30/skynet/phase4-hot-cache/PHASE4.md",
     ],
     "source-of-truth": [
@@ -51,8 +52,10 @@ def main() -> int:
         raise RuntimeError("results root differs from issue #17 date/host contract")
     parity_path = expected_results / "hot-cache-parity.json"
     lifecycle_path = expected_results / "lifecycle-and-failures.json"
+    validation_path = expected_results / "validation-results.json"
     parity, lifecycle = json.loads(parity_path.read_text()), json.loads(lifecycle_path.read_text())
-    if parity.get("status") != "pass" or lifecycle.get("status") != "pass":
+    command_results = json.loads(validation_path.read_text())
+    if parity.get("status") != "pass" or lifecycle.get("status") != "pass" or command_results.get("status") != "pass":
         raise RuntimeError("standing evidence is not passing")
     candidate = git(root / "llama.cpp", "rev-parse", "HEAD")
     gitlink = git(root, "rev-parse", "HEAD:llama.cpp")
@@ -77,17 +80,9 @@ def main() -> int:
         "models": [MODELS[name] for name in ("f16", "mxfp4")],
         "environment": {"gpu": gpu_identity(root), "cuda_build": parity["build"]["configuration"]},
         "evidence": {"parity": identity(root, str(parity_path.relative_to(root))),
-                     "lifecycle": identity(root, str(lifecycle_path.relative_to(root)))},
-        "validation": [
-            {"name": "hot-cache-parity", "status": "pass"},
-            {"name": "lifecycle-and-failures", "status": "pass"},
-            {"name": "cpu-focused-ctest", "status": "pass"},
-            {"name": "cuda-focused-ctest", "status": "pass"},
-            {"name": "asan-ubsan", "status": "pass"},
-            {"name": "phase3-regression-tests", "status": "pass"},
-            {"name": "phase4-evidence-tests", "status": "pass"},
-            {"name": "checkpoint-a", "status": "pass"},
-        ],
+                     "lifecycle": identity(root, str(lifecycle_path.relative_to(root))),
+                     "validation_commands": identity(root, str(validation_path.relative_to(root)))},
+        "validation": command_results["commands"],
         "artifacts": sorted(artifacts, key=lambda item: item["path"]),
     }
     schema = json.loads((root / "schemas/phase4/phase4-manifest-v1.schema.json").read_text())

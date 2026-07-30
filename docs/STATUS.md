@@ -92,4 +92,4 @@ Kernel: 6.8.0-136-generic
 
 ## Immediate next action
 
-Complete the strict Phase 4 manifest verification and obtain the independent final review of draft PR #18 and issue #17. If safety is `YES`, publish the review record and hand the exact heads to design authority for merge. Do not begin Phase 5 before Phase 4 is merged, and do not reopen or rerun Phase 3 performance measurements.
+Correct the final-review validation-binding finding from issue comment `5131225605`, regenerate and strictly verify the Phase 4 manifest, then obtain a fresh independent final review of draft PR #18. If safety is `YES`, publish the review record and hand the exact heads to design authority for merge. Do not begin Phase 5 before Phase 4 is merged, and do not reopen or rerun Phase 3 performance measurements.
