@@ -115,4 +115,21 @@ Kernel: 6.8.0-136-generic
 
 ## Immediate next action
 
-Use design authority to create one self-contained controlling issue for **Phase 6 — GGUF-backed storage and synchronous demand reads** from the current verified `main` and nested gitlink. Resolve the material storage ownership, split-GGUF, offset/size validation, read, cancellation, failure, memory-budget, correctness, and evidence decisions needed to make it execution-ready. Do not implement Phase 6, create an execution branch, or open a PR in the design session.
+Publish the third corrected Phase 6 issue #22 candidate and request the circuit-breaker-authorized independent complete-PR review. Checkpoint A passed at project `34dbf82ded955913b387ec9b36d1b499362e7a1b` and nested `9af35746763913982bfd8eee995686296131c778`. Two final reviews correctly rejected first missing publication integrity and then insufficiently independent byte/SHA, sanitizer, handle-lifetime, administration-bound, and fail-closed evidence. The bounded design correction is implemented at nested `7a606dd4e11a108929f799253809a904f55feae4`; the exact-command validation head is project `b7e653ab3fad11976b76c70225d671a92eda699c` and all corrected standing captures pass.
+
+## Phase 6 candidate handoff
+
+- Issue: <https://github.com/murillo128/k3-out-of-core/issues/22>
+- Execution profile: `STANDARD`
+- Project execution base: `eb1b5baf5d505eadbc4298ecf322489cdfd7aae5`
+- Nested execution base: `26317ee1d848dd7a73f22a3666a055cad5d5cb03`
+- Checkpoint A accepted project head: `34dbf82ded955913b387ec9b36d1b499362e7a1b`
+- Checkpoint A accepted nested head: `9af35746763913982bfd8eee995686296131c778`
+- Corrected nested candidate head: `7a606dd4e11a108929f799253809a904f55feae4`
+- Original and 218-part split F16/MXFP4 runs preserve exact prompt, generated-token, logits, and route hashes.
+- Routed payload allocation, mmap binding, and prefetch are zero; demand reads go directly into bounded cold slots with zero resident-source copies.
+- A source-read digest is compared with an independent digest over the final cold destinations before publication; mismatch poisons storage and cannot publish a ready entry.
+- A test-only native observer copies a populated ready cold bundle; independent positional `pread` and SHA-256 checks match the original and 218-part split F16/MXFP4 sources byte-for-byte, with each selected split bundle crossing three files.
+- Structured descriptor evidence returns to baseline, administration is below its topology-derived bound, and the five focused tests pass in CPU, CUDA, and ASan+UBSan builds at the final nested head.
+- F16 cancellation after the first 262144-byte positional read returns public status 2, publishes no mapping, balances references, cleans failed slots, and retries successfully.
+- Evidence: [`../results/2026-07-30/skynet/phase6-gguf-storage/PHASE6.md`](../results/2026-07-30/skynet/phase6-gguf-storage/PHASE6.md)

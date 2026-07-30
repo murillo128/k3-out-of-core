@@ -1,0 +1,97 @@
+{
+  "cases": [
+    {
+      "checks": {
+        "aborted": true,
+        "cleanup": true,
+        "no_publication": true,
+        "partial_read": true,
+        "references_balanced": true,
+        "retry": true
+      },
+      "diagnostics": {
+        "cancelled_cold_admissions": 0,
+        "cancelled_cold_failed_cleanups": 1,
+        "cancelled_failed_cleanups": 2,
+        "cancelled_hot_admissions": 0,
+        "cancelled_hot_refs": 0,
+        "cancelled_request_refs": 0,
+        "cancelled_status": 2,
+        "cancelled_storage_bytes": 262144,
+        "cancelled_storage_cancellations": 1,
+        "cancelled_storage_reads": 1,
+        "cancelled_transfer_refs": 0,
+        "retry_cold_admissions": 14,
+        "retry_hot_admissions": 14,
+        "retry_status": 0,
+        "retry_storage_reads": 15
+      },
+      "output_digests": {
+        "stderr": "2f926bf3f4342373e918d9843153fd7e9e31c8abeb26e8bdbc18c9824498afa7",
+        "stdout": "3aa4167795bbc58afcaf49674190a740516498de11847ac53a907abd3ef194ee"
+      },
+      "representation": "f16"
+    },
+    {
+      "checks": {
+        "aborted": true,
+        "cleanup": true,
+        "no_publication": true,
+        "partial_read": true,
+        "references_balanced": true,
+        "retry": true
+      },
+      "diagnostics": {
+        "cancelled_cold_admissions": 0,
+        "cancelled_cold_failed_cleanups": 1,
+        "cancelled_failed_cleanups": 2,
+        "cancelled_hot_admissions": 0,
+        "cancelled_hot_refs": 0,
+        "cancelled_request_refs": 0,
+        "cancelled_status": 2,
+        "cancelled_storage_bytes": 69632,
+        "cancelled_storage_cancellations": 1,
+        "cancelled_storage_reads": 1,
+        "cancelled_transfer_refs": 0,
+        "retry_cold_admissions": 14,
+        "retry_hot_admissions": 14,
+        "retry_status": 0,
+        "retry_storage_reads": 15
+      },
+      "output_digests": {
+        "stderr": "50c1ee7f8376bd276ab7faa2470949806ad77a7e5845b946c301fb66111e4af2",
+        "stdout": "73147b814a44486c5bde1af2521d68bd9a075c744664d0147672189db146caea"
+      },
+      "representation": "mxfp4"
+    }
+  ],
+  "coverage": {
+    "atomic_publication": "test-cold-expert-cache",
+    "cancel_cleanup_retry": true,
+    "hard_integrity_poison": "test-expert-storage",
+    "positional_read_faults": "test-expert-storage",
+    "quiescent_unload": true,
+    "trim_surrender_reinitialize": "test-hot-expert-cache"
+  },
+  "handle_lifetime": {
+    "checks": {
+      "balanced": true,
+      "command": true,
+      "peak_opened": true,
+      "supported": true
+    },
+    "diagnostics": {
+      "balanced": 1,
+      "baseline": 6,
+      "final": 6,
+      "peak": 8,
+      "supported": 1
+    },
+    "output_digests": {
+      "stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout": "eeaab62218bce7839fe9ca22ff27219665039915e3dce6a1d2cbfaf38129856e"
+    }
+  },
+  "schema_version": "phase6-lifecycle-v1",
+  "status": "pass"
+}

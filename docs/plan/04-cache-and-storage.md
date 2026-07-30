@@ -130,28 +130,31 @@ Status: `ACCEPTED`. Issue #20 standing evidence satisfies the exit gate; Checkpo
 
 #### 6.1 Storage API
 
-- [ ] Open and retain explicit file handles supplied by the GGUF loader.
-- [ ] Validate all offsets and sizes at model load.
-- [ ] Support split GGUF files.
-- [ ] Define storage lifetime through model unload.
+- [x] Open and retain explicit file handles supplied by the GGUF loader.
+- [x] Validate all offsets and sizes at model load.
+- [x] Support split GGUF files.
+- [x] Define storage lifetime through model unload.
 
 #### 6.2 Read path
 
-- [ ] Implement a simple robust read-at-offset path first.
-- [ ] Read all three projections for a logical expert.
-- [ ] Verify bytes/checksums before exposing `READY` in debug builds.
-- [ ] Handle short read, EINTR, I/O error, and cancellation.
-- [ ] Ensure the complete expert tensor is not accidentally faulted into RAM by another reference.
+- [x] Implement a simple robust read-at-offset path first.
+- [x] Read all three projections for a logical expert.
+- [x] Verify destination extents and independently captured source/split identities before standing evidence.
+- [x] Compare source-read and final-destination digests before publishing a cold entry; poison storage on mismatch.
+- [x] Handle short read, EINTR, I/O error, and cancellation.
+- [x] Ensure the complete expert tensor is not accidentally faulted into RAM by another reference.
 
 #### 6.3 Model loading changes
 
-- [ ] Keep routed expert metadata resident but avoid eagerly materializing routed expert bytes.
-- [ ] Keep resident/shared/latent tensors in their normal backend allocation.
-- [ ] Make out-of-core mode explicit and validate configuration before inference.
+- [x] Keep routed expert metadata resident but avoid eagerly materializing routed expert bytes.
+- [x] Keep resident/shared/latent tensors in their normal backend allocation.
+- [x] Make out-of-core mode explicit and validate configuration before inference.
 
 ### Exit gate
 
 - With cold/hot capacities forced small, experts are read from GGUF on demand and inference matches the monolithic baseline.
 - Host memory remains within the configured budget.
+
+Status: `ACCEPTED` for implementation and Checkpoint A. Issue #22 standing evidence records exact original/split F16 and MXFP4 parity, bounded forced-eviction demand reads, cold-hit-without-reread behavior, integrity-before-publication, independent source-span-to-cold SHA-256 equality, split-cross-file bundles, bounded administration and handle lifetime, cancellation cleanup/retry, final-head sanitizers, and two 20-step captures per representation. Final complete-PR review remains the acceptance gate.
 
 ---
