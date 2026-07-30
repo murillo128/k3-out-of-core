@@ -57,7 +57,7 @@ Each bound is the paired mean slowdown plus the one-sided 95% Student-t critical
 
 ## Post-optimization standing result
 
-`provider-overhead-post-optimization.json` is the one complete v2 capture approved under rule `single-complete-post-optimization-capture-v2` and issue comment `5127774849`. It ran once against exact candidate `a120de8e2d0b552c51eacd7d701ef1dd994bc3db`, after every published prerequisite passed, and records the additional non-gated context-creation telemetry. Its result stands without retry or composition: 22 of 24 cells pass.
+`provider-overhead-post-optimization.json` is the one complete v2 capture approved under rule `single-complete-post-optimization-capture-v2` and issue comment `5127774849`. It ran once against exact candidate `a120de8e2d0b552c51eacd7d701ef1dd994bc3db`, after every published prerequisite passed, and records the additional non-gated context-creation telemetry. Its result is published at project commit `93635d7ece8fdc617291d5a036bda1c8bc2b6c77` and stands without retry or composition: 22 of 24 cells pass.
 
 Only MXFP4 CUDA disabled-versus-resident prompt performance fails. Prompt-throughput slowdown has a 3.989153% one-sided upper bound and TTFT slowdown has a 4.386548% upper bound, both above the unchanged 2.400604% budget. Decode has a 0.168984% upper bound within its 0.988906% budget. All eight baseline-versus-disabled analyses and every F16 CPU, F16 CUDA, and MXFP4 CPU resident analysis pass. Phase 3 therefore returns to `design-required`; no third capture, Checkpoint B, final review, or merge is permitted under issue #13.
 
