@@ -44,6 +44,12 @@
     },
     {
       "kind": "evidence",
+      "path": "results/2026-07-29/skynet/phase3-resident-provider/checkpoint-b-review.json",
+      "sha256": "fdf0fcd05f2aedcdd1131d78525ddc21320b26141a1d895d91c850b32a547eed",
+      "size": 717
+    },
+    {
+      "kind": "evidence",
       "path": "results/2026-07-29/skynet/phase3-resident-provider/corrective-prerequisites.json",
       "sha256": "5b785f185db37ca12e670fb6379c867c51cdc63b09119d1a965ee0d943309d86",
       "size": 3312
@@ -223,7 +229,7 @@
       "size": 9513
     }
   ],
-  "closeout_state": "checkpoint-b-candidate-with-performance-notes",
+  "closeout_state": "complete-with-performance-notes",
   "design_disposition": {
     "comment_ids": [
       5128658370,
@@ -287,12 +293,29 @@
       "safety_to_proceed": "YES",
       "url": "https://github.com/murillo128/k3-out-of-core/issues/13#issuecomment-5124005466",
       "verdict": "PASS_WITH_NOTES"
+    },
+    {
+      "checkpoint": "B",
+      "comment_id": 5128960944,
+      "execution_profile": "STANDARD",
+      "independent_read_only": true,
+      "issue": 13,
+      "llama_cpp_head": "a120de8e2d0b552c51eacd7d701ef1dd994bc3db",
+      "llama_cpp_range": "4daaaa1a4dd26d6465f84891b854b5f7ddc03020..a120de8e2d0b552c51eacd7d701ef1dd994bc3db",
+      "project_head": "6902383cc88bc249715c27e7d964223ecbcdf111",
+      "project_range": "81df862da6e4ff9db005f6265470070bb5456f4c..6902383cc88bc249715c27e7d964223ecbcdf111",
+      "repository": "murillo128/k3-out-of-core",
+      "safety_to_proceed": "YES",
+      "schema_version": "checkpoint-b-review-v1",
+      "url": "https://github.com/murillo128/k3-out-of-core/issues/13#issuecomment-5128960944",
+      "verdict": "PASS_WITH_NOTES"
     }
   ],
   "revisions": {
     "llama_cpp_base": "4daaaa1a4dd26d6465f84891b854b5f7ddc03020",
     "llama_cpp_candidate": "a120de8e2d0b552c51eacd7d701ef1dd994bc3db",
-    "project_evidence_head": "4410a7c92cc9e2678dbf8651c2f44658e875c5f3",
+    "project_checkpoint_b_head": "6902383cc88bc249715c27e7d964223ecbcdf111",
+    "project_evidence_head": "6902383cc88bc249715c27e7d964223ecbcdf111",
     "project_execution_base": "81df862da6e4ff9db005f6265470070bb5456f4c",
     "published_corpus": "2d838d6b4d0aca4e9af1e7d899e57ad29330c72e",
     "published_gguf": "88de02cf8fa37f87eb06daaed370ac9c3411d5ca"
