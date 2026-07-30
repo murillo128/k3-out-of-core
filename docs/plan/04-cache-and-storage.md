@@ -115,7 +115,7 @@ Status: `ACCEPTED`. Issue #17 standing evidence satisfies the exit gate; Checkpo
 - Inclusive-cache invariants hold under stress.
 - No whole-model pinning occurs.
 
-Status: `OBSERVED`. Issue #20 standing evidence satisfies the mechanism and evidence gates through Checkpoint A (`PASS`, safety `YES`, comment `5132379446`). F16/MXFP4 pinned and explicit pageable-fallback runs preserve exact prompt IDs, generated IDs, logical route/weight hashes, and full-logit hashes. Final complete-PR review remains pending.
+Status: `ACCEPTED`. Issue #20 standing evidence satisfies the exit gate; Checkpoint A returned `PASS`, safety `YES`, and final complete-PR review returned `PASS_WITH_NOTES`, safety `YES`, with no required delta. PR #21 squash-merged as `c5512bc073ae7aab4a14773028828e516e16f3f6` with nested `llama.cpp` head `26317ee1d848dd7a73f22a3666a055cad5d5cb03`.
 
 ---
 
