@@ -18,4 +18,31 @@ class Tests(unittest.TestCase):
  def test_closeout_is_manifest_only(self):
   self.assertEqual(self.v.ALLOWED_CLOSEOUT,{"results/2026-07-30/skynet/phase6-gguf-storage/phase6-manifest.json","results/2026-07-30/skynet/phase6-gguf-storage/verification-result.json"})
  def test_false_gate_rejected(self): gates={"parity":True,"bounded":True}; changed=copy.deepcopy(gates); changed["parity"]=False; self.assertTrue(all(gates.values())); self.assertFalse(all(changed.values()))
+ def test_missing_check_key_rejected(self):
+  record={"checks":{key:True for key in self.v.BUNDLE_CHECKS}}; self.assertTrue(self.v.exact_checks(record,self.v.BUNDLE_CHECKS))
+  del record["checks"]["sha256_exact"]; self.assertFalse(self.v.exact_checks(record,self.v.BUNDLE_CHECKS))
+ def test_altered_validation_command_rejected(self):
+  records=[{"name":name,"command":command,"exit_code":0} for name,command in self.v.EXPECTED_VALIDATION]
+  self.assertTrue(self.v.exact_validation(records)); records[0]["command"]=["true"]
+  self.assertFalse(self.v.exact_validation(records))
+ def test_missing_sanitizer_validation_rejected(self):
+  records=[{"name":name,"command":command,"exit_code":0} for name,command in self.v.EXPECTED_VALIDATION if name!="ctest-sanitizers"]
+  self.assertFalse(self.v.exact_validation(records))
+ def bundle(self):
+  spans=[{"split_index":1,"offset":10,"count":2},{"split_index":2,"offset":20,"count":3},{"split_index":3,"offset":30,"count":4}]
+  return {"kind":"split","checks":{key:True for key in self.v.BUNDLE_CHECKS},"bundle":{"bytes":9,"spans":spans,"distinct_split_indices":[1,2,3],"source_sha256":"a"*64,"cold_dump_sha256":"a"*64}}
+ def test_collapsed_split_bundle_rejected(self):
+  record=self.bundle(); self.assertTrue(self.v.bundle_case_valid(record))
+  for span in record["bundle"]["spans"]: span["split_index"]=1
+  record["bundle"]["distinct_split_indices"]=[1]; self.assertFalse(self.v.bundle_case_valid(record))
+ def test_altered_digest_rejected(self):
+  record=self.bundle(); record["bundle"]["cold_dump_sha256"]="b"*64; self.assertFalse(self.v.bundle_case_valid(record))
+ def test_unbalanced_handles_rejected(self):
+  record={"checks":{key:True for key in self.v.HANDLE_CHECKS},"diagnostics":{"supported":1,"baseline":6,"peak":8,"final":7,"balanced":1}}
+  self.assertFalse(self.v.handle_lifetime_valid(record))
+ def test_administration_overrun_rejected(self):
+  diagnostics={"storage_files":218,"storage_entries":56,"storage_spans":168}
+  diagnostics["storage_admin_upper_bound"]=65536+218*128+56*64+168*64
+  diagnostics["storage_admin_bytes"]=diagnostics["storage_admin_upper_bound"]+1
+  self.assertFalse(self.v.administration_bounded(diagnostics))
 if __name__=="__main__": unittest.main()

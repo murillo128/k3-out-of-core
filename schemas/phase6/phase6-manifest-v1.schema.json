@@ -1,1 +1,60 @@
-{"$schema":"https://json-schema.org/draft/2020-12/schema","type":"object","required":["schema_version","closeout_state","execution_profile","issue","revisions","checkpoint_a","phase5_input","models","generated_splits","environment","evidence","validation","gates","deferred","carried_notes","artifacts"],"properties":{"schema_version":{"const":"phase6-manifest-v1"},"closeout_state":{"const":"final-review-candidate"},"execution_profile":{"const":"STANDARD"},"issue":{"type":"object"},"revisions":{"type":"object","required":["project_execution_base","project_evidence_head","llama_cpp_base","llama_cpp_candidate","gitlink"]},"checkpoint_a":{"type":"object"},"phase5_input":{"$ref":"#/$defs/identity"},"models":{"type":"array","minItems":2,"items":{"$ref":"#/$defs/identity"}},"generated_splits":{"type":"object","required":["f16","mxfp4"]},"environment":{"type":"object"},"evidence":{"type":"object"},"validation":{"type":"array","minItems":8},"gates":{"type":"object","additionalProperties":false,"required":["original_and_split_parity","metadata_only_routed","split_cross_file_bundles","cold_hit_eviction_reread","byte_integrity","fault_cleanup_retry","bounded_resources","warm_captures","prior_modes"],"properties":{"original_and_split_parity":{"const":true},"metadata_only_routed":{"const":true},"split_cross_file_bundles":{"const":true},"cold_hit_eviction_reread":{"const":true},"byte_integrity":{"const":true},"fault_cleanup_retry":{"const":true},"bounded_resources":{"const":true},"warm_captures":{"const":true},"prior_modes":{"const":true}}},"deferred":{"type":"array"},"carried_notes":{"type":"array"},"artifacts":{"type":"array","minItems":10,"items":{"$ref":"#/$defs/identity"}}},"$defs":{"identity":{"type":"object","required":["path","size","sha256"],"properties":{"path":{"type":"string"},"size":{"type":"integer","minimum":0},"sha256":{"type":"string","pattern":"^[0-9a-f]{64}$"}}}}}
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schema_version", "closeout_state", "execution_profile", "issue", "revisions", "checkpoint_a", "phase5_input", "models", "generated_splits", "environment", "evidence", "validation", "gates", "deferred", "carried_notes", "artifacts"],
+  "properties": {
+    "schema_version": {"const": "phase6-manifest-v1"},
+    "closeout_state": {"const": "final-review-candidate"},
+    "execution_profile": {"const": "STANDARD"},
+    "issue": {"type": "object"},
+    "revisions": {"type": "object", "required": ["project_execution_base", "project_evidence_head", "llama_cpp_base", "llama_cpp_candidate", "gitlink"]},
+    "checkpoint_a": {"type": "object"},
+    "phase5_input": {"$ref": "#/$defs/identity"},
+    "models": {"type": "array", "minItems": 2, "items": {"$ref": "#/$defs/identity"}},
+    "generated_splits": {"type": "object", "required": ["f16", "mxfp4"]},
+    "environment": {"type": "object"},
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["storage_layout", "demand_parity", "bundle_integrity", "lifecycle", "validation"],
+      "properties": {
+        "storage_layout": {"$ref": "#/$defs/identity"},
+        "demand_parity": {"$ref": "#/$defs/identity"},
+        "bundle_integrity": {"$ref": "#/$defs/identity"},
+        "lifecycle": {"$ref": "#/$defs/identity"},
+        "validation": {"$ref": "#/$defs/identity"}
+      }
+    },
+    "validation": {"type": "array", "minItems": 10},
+    "gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["original_and_split_parity", "metadata_only_routed", "split_cross_file_bundles", "cold_hit_eviction_reread", "byte_integrity", "fault_cleanup_retry", "bounded_resources", "warm_captures", "prior_modes"],
+      "properties": {
+        "original_and_split_parity": {"const": true},
+        "metadata_only_routed": {"const": true},
+        "split_cross_file_bundles": {"const": true},
+        "cold_hit_eviction_reread": {"const": true},
+        "byte_integrity": {"const": true},
+        "fault_cleanup_retry": {"const": true},
+        "bounded_resources": {"const": true},
+        "warm_captures": {"const": true},
+        "prior_modes": {"const": true}
+      }
+    },
+    "deferred": {"type": "array"},
+    "carried_notes": {"type": "array"},
+    "artifacts": {"type": "array", "minItems": 10, "items": {"$ref": "#/$defs/identity"}}
+  },
+  "$defs": {
+    "identity": {
+      "type": "object",
+      "required": ["path", "size", "sha256"],
+      "properties": {
+        "path": {"type": "string"},
+        "size": {"type": "integer", "minimum": 0},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    }
+  }
+}

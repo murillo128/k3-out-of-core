@@ -6,9 +6,11 @@ from common import git, run, write
 
 COMMANDS = [
  ("build-cpu", ["cmake","--build","llama.cpp/build-cpu","--target","llama-gguf-split","test-expert-weight-provider","test-hot-expert-cache","test-cold-expert-cache","test-expert-transfer-ring","test-expert-storage","-j4"]),
- ("build-cuda", ["cmake","--build","llama.cpp/build-cuda","--target","llama","llama-gguf-split","test-expert-weight-provider","test-hot-expert-cache","test-cold-expert-cache","test-expert-transfer-ring","test-expert-storage","phase6-gguf-storage-probe","phase5-cold-cache-probe","-j4"]),
+ ("build-cuda", ["cmake","--build","llama.cpp/build-cuda","--target","llama","llama-gguf-split","test-expert-weight-provider","test-hot-expert-cache","test-cold-expert-cache","test-expert-transfer-ring","test-expert-storage","phase6-gguf-storage-probe","phase5-cold-cache-probe","phase6-bundle-integrity-probe","-j4"]),
  ("ctest-cpu", ["ctest","--test-dir","llama.cpp/build-cpu","--output-on-failure","-R","expert-weight-provider|hot-expert-cache|cold-expert-cache|expert-transfer-ring|expert-storage"]),
  ("ctest-cuda", ["ctest","--test-dir","llama.cpp/build-cuda","--output-on-failure","-R","expert-weight-provider|hot-expert-cache|cold-expert-cache|expert-transfer-ring|expert-storage"]),
+ ("build-sanitizers", ["cmake","--build","llama.cpp/build-phase5-asan","--target","test-expert-weight-provider","test-hot-expert-cache","test-cold-expert-cache","test-expert-transfer-ring","test-expert-storage","-j4"]),
+ ("ctest-sanitizers", ["ctest","--test-dir","llama.cpp/build-phase5-asan","--output-on-failure","-R","expert-weight-provider|hot-expert-cache|cold-expert-cache|expert-transfer-ring|expert-storage"]),
  ("unittest-phase5", ["python3","-m","unittest","discover","-s","tests/phase5","-p","test_*.py","-v"]),
  ("unittest-phase6", ["python3","-m","unittest","discover","-s","tests/phase6","-p","test_*.py","-v"]),
  ("diff-nested", ["git","-C","llama.cpp","diff","--check","26317ee1d848dd7a73f22a3666a055cad5d5cb03..HEAD"]),

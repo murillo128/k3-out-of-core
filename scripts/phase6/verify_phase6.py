@@ -9,6 +9,7 @@ from pathlib import Path
 from jsonschema import Draft202012Validator
 
 from common import *
+from capture_validation_results import COMMANDS
 
 
 ALLOWED_NESTED = {
@@ -20,6 +21,7 @@ ALLOWED_NESTED = {
     "src/llama-model-loader.cpp", "src/llama-model-loader.h", "src/llama-model.cpp",
     "src/llama-model.h", "src/llama-quant.cpp", "src/llama.cpp", "tests/CMakeLists.txt",
     "tests/phase5-cold-cache-probe.cpp", "tests/phase6-gguf-storage-probe.cpp",
+    "tests/phase6-bundle-integrity-probe.cpp",
     "tests/test-cold-expert-cache.cpp", "tests/test-expert-storage.cpp",
     "tests/test-hot-expert-cache.cpp",
 }
@@ -32,13 +34,21 @@ ALLOWED_CAPTURE_OUTPUTS = {
     "results/2026-07-30/skynet/phase6-gguf-storage/gguf-demand-parity.json",
     "results/2026-07-30/skynet/phase6-gguf-storage/lifecycle-and-failures.json",
     "results/2026-07-30/skynet/phase6-gguf-storage/validation-results.json",
+    "results/2026-07-30/skynet/phase6-gguf-storage/bundle-integrity.json",
 }
-EXPECTED_VALIDATION = {
-    "build-cpu", "build-cuda", "ctest-cpu", "ctest-cuda", "unittest-phase5",
-    "unittest-phase6", "diff-nested", "diff-project",
-}
+EXPECTED_VALIDATION = COMMANDS
 REPRESENTATIONS = {"f16", "mxfp4"}
 KINDS = {"original", "split"}
+LAYOUT_CHECKS = {"command", "no_routed_allocation", "no_mmap_binding", "no_prefetch",
+                 "metadata_only", "directory_complete", "split_handles", "cross_split_bundle",
+                 "administration_bounded"}
+HIERARCHY_CHECKS = {"command", "cold_start_reads", "cold_hits_without_reread",
+                    "integrity_before_publication"}
+CAPTURE_CHECKS = {"command", "exact_prompt", "exact_tokens", "exact_logits", "exact_routes",
+                  "storage_used", "eviction_reread", "integrity", "no_source_copy", "no_errors", "bounded"}
+LIFECYCLE_CHECKS = {"aborted", "partial_read", "no_publication", "references_balanced", "cleanup", "retry"}
+HANDLE_CHECKS = {"command", "supported", "peak_opened", "balanced"}
+BUNDLE_CHECKS = {"command", "byte_count", "sha256_exact", "source_spans", "split_cross_file"}
 
 
 def load_identity(root: Path, item: dict, errors: list[str]) -> None:
@@ -47,8 +57,41 @@ def load_identity(root: Path, item: dict, errors: list[str]) -> None:
         errors.append(f"identity mismatch: {item['path']}")
 
 
-def all_checks(record: dict) -> bool:
-    return bool(record.get("checks")) and all(value is True for value in record["checks"].values())
+def exact_checks(record: dict, expected: set[str]) -> bool:
+    checks = record.get("checks", {})
+    return set(checks) == expected and all(value is True for value in checks.values())
+
+
+def exact_validation(records: list[dict]) -> bool:
+    return len(records) == len(EXPECTED_VALIDATION) and all(
+        record.get("name") == name and record.get("command") == command and record.get("exit_code") == 0
+        for record, (name, command) in zip(records, EXPECTED_VALIDATION))
+
+
+def administration_bounded(diagnostics: dict) -> bool:
+    expected = 65536 + diagnostics.get("storage_files", 0)*128 + \
+        diagnostics.get("storage_entries", 0)*64 + diagnostics.get("storage_spans", 0)*64
+    return diagnostics.get("storage_admin_upper_bound") == expected and \
+        0 < diagnostics.get("storage_admin_bytes", 0) <= expected
+
+
+def bundle_case_valid(record: dict) -> bool:
+    bundle = record.get("bundle", {})
+    spans = bundle.get("spans", [])
+    distinct = sorted({item.get("split_index") for item in spans})
+    cross_file = len(distinct) >= 2 if record.get("kind") == "split" else distinct == [0]
+    return exact_checks(record, BUNDLE_CHECKS) and len(spans) == 3 and \
+        bundle.get("distinct_split_indices") == distinct and cross_file and \
+        bundle.get("bytes") == sum(item.get("count", 0) for item in spans) and \
+        bundle.get("source_sha256") == bundle.get("cold_dump_sha256") and \
+        len(bundle.get("source_sha256", "")) == 64
+
+
+def handle_lifetime_valid(record: dict) -> bool:
+    diagnostics = record.get("diagnostics", {})
+    return exact_checks(record, HANDLE_CHECKS) and diagnostics.get("supported") == 1 and \
+        diagnostics.get("peak") == diagnostics.get("baseline", -3) + 2 and \
+        diagnostics.get("balanced") == 1 and diagnostics.get("final") == diagnostics.get("baseline")
 
 
 def main() -> int:
@@ -120,7 +163,7 @@ def main() -> int:
     for item in layout_cases:
         diagnostics = item.get("diagnostics", {})
         expected_files = 1 if item.get("kind") == "original" else 218
-        if not all_checks(item) or diagnostics.get("storage_entries") != 56 or diagnostics.get("storage_spans") != 168 or diagnostics.get("storage_files") != expected_files:
+        if not exact_checks(item, LAYOUT_CHECKS) or not administration_bounded(diagnostics) or diagnostics.get("storage_entries") != 56 or diagnostics.get("storage_spans") != 168 or diagnostics.get("storage_files") != expected_files:
             errors.append(f"invalid storage layout case: {item.get('representation')}/{item.get('kind')}")
         if any(diagnostics.get(key) != 0 for key in ("deferred_allocated_bytes", "deferred_mmap_bound_bytes", "deferred_prefetch_bytes", "storage_reads")):
             errors.append(f"non-metadata-only layout case: {item.get('representation')}/{item.get('kind')}")
@@ -137,7 +180,7 @@ def main() -> int:
         errors.append("cold hierarchy case matrix mismatch")
     for item in hierarchy:
         diagnostics = item.get("diagnostics", {})
-        if not all_checks(item) or diagnostics.get("cold_hits", 0) <= 0 or diagnostics.get("storage_read_requests") != diagnostics.get("cold_misses"):
+        if not exact_checks(item, HIERARCHY_CHECKS) or diagnostics.get("cold_hits", 0) <= 0 or diagnostics.get("storage_read_requests") != diagnostics.get("cold_misses"):
             errors.append(f"invalid cold hierarchy case: {item.get('representation')}/{item.get('kind')}")
         if diagnostics.get("storage_integrity_checks") != diagnostics.get("storage_read_requests") or diagnostics.get("storage_integrity_mismatches") != 0:
             errors.append(f"cold hierarchy integrity mismatch: {item.get('representation')}/{item.get('kind')}")
@@ -150,7 +193,7 @@ def main() -> int:
             errors.append(f"capture count mismatch: {item.get('representation')}/{item.get('kind')}")
         for capture in captures:
             diagnostics = capture.get("diagnostics", {})
-            if not all_checks(capture) or diagnostics.get("cold_evictions", 0) <= 0 or diagnostics.get("storage_read_requests") != diagnostics.get("cold_misses"):
+            if not exact_checks(capture, CAPTURE_CHECKS) or diagnostics.get("cold_evictions", 0) <= 0 or diagnostics.get("storage_read_requests") != diagnostics.get("cold_misses"):
                 errors.append(f"invalid eviction capture: {item.get('representation')}/{item.get('kind')}")
             if diagnostics.get("storage_integrity_checks") != diagnostics.get("storage_read_requests") or diagnostics.get("storage_integrity_mismatches") != 0:
                 errors.append(f"eviction capture integrity mismatch: {item.get('representation')}/{item.get('kind')}")
@@ -159,14 +202,21 @@ def main() -> int:
     lifecycle_cases = lifecycle.get("cases", [])
     if lifecycle.get("status") != "pass" or {item.get("representation") for item in lifecycle_cases} != REPRESENTATIONS:
         errors.append("lifecycle case matrix mismatch")
-    if any(not all_checks(item) for item in lifecycle_cases) or lifecycle.get("coverage", {}).get("hard_integrity_poison") != "test-expert-storage":
+    if any(not exact_checks(item, LIFECYCLE_CHECKS) for item in lifecycle_cases) or lifecycle.get("coverage", {}).get("hard_integrity_poison") != "test-expert-storage":
         errors.append("lifecycle checks/coverage mismatch")
+    if not handle_lifetime_valid(lifecycle.get("handle_lifetime", {})):
+        errors.append("structured storage handle lifetime mismatch")
+
+    bundle_integrity = evidence["bundle_integrity"]
+    bundle_cases = bundle_integrity.get("cases", [])
+    if bundle_integrity.get("status") != "pass" or \
+            {(item.get("representation"), item.get("kind")) for item in bundle_cases} != expected_matrix or \
+            any(not bundle_case_valid(item) for item in bundle_cases):
+        errors.append("independent bundle SHA-256 evidence mismatch")
 
     validation = manifest["validation"]
-    if {item.get("name") for item in validation} != EXPECTED_VALIDATION or len(validation) != len(EXPECTED_VALIDATION):
-        errors.append("validation command matrix mismatch")
-    if any(item.get("exit_code") != 0 for item in validation):
-        errors.append("validation command failed")
+    if not exact_validation(validation):
+        errors.append("validation command matrix or exact command mismatch")
     validation_record = evidence["validation"]
     if validation_record.get("status") != "pass" or validation_record.get("commands") != validation:
         errors.append("validation evidence mismatch")
