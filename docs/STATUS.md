@@ -14,7 +14,8 @@ This file is the first handoff document for a new ChatGPT or Codex session.
 - Project Phase 3 is complete and merged. Issue #13 was implemented by PR #15 and squash-merged into `main` as `6d15dab02f8129240ca83579445898be2f5f987f`. The merged nested `murillo128/llama.cpp` gitlink is `a120de8e2d0b552c51eacd7d701ef1dd994bc3db`.
 - Phase 3 Checkpoint A, Checkpoint B, and the renewed final complete-PR review all returned **PASS_WITH_NOTES** with safety **YES**. The final reviewed integration head was `d8cfa06e39a87223ca97e3326d7e08e96cd64018`; the renewed final review is issue comment `5129200934`.
 - Phase 3 preserves the raw standing performance result as `fail`: 22/24 original cells pass, while MXFP4 CUDA disabled-to-resident prompt throughput and TTFT exceed their unchanged confidence budgets. Design-authority comments `5128658370` and `5128726338` accept this narrow Phase-3-only result as `PASS_WITH_NOTES`. This is not a waiver for correctness, default-path performance, decode, cache, transport, misses, multi-request behavior, full-size behavior, or tail latency.
-- Project Phase 4 is complete and merged. Issue #17 was implemented by PR #18 and squash-merged into `main` as `b196cc07249726651d39aaa624703bc4256a3012`. The merged nested `murillo128/llama.cpp` gitlink is `57fe1eabbe3d0ced59096a0744efc91e286fb1c7`; cold storage, demand GGUF reads, prefetch, and asynchronous transport remain future phases.
+- Project Phase 4 is complete and merged. Issue #17 was implemented by PR #18 and squash-merged into `main` as `b196cc07249726651d39aaa624703bc4256a3012`. The merged nested `murillo128/llama.cpp` gitlink is `57fe1eabbe3d0ced59096a0744efc91e286fb1c7`.
+- Project Phase 5 is complete and merged. Issue #20 was implemented by PR #21 and squash-merged into `main` as `c5512bc073ae7aab4a14773028828e516e16f3f6`. The merged nested `murillo128/llama.cpp` gitlink is `26317ee1d848dd7a73f22a3666a055cad5d5cb03`; GGUF demand reads, dedicated transfer streams/events and overlap, and CPU miss execution remain Phase 6–8 work.
 - Phase 1 evidence is descriptive for the tiny K3 fixtures on `skynet`; it is not a model-quality or production-performance claim.
 
 ## Phase 3 merged baseline
@@ -50,22 +51,24 @@ This file is the first handoff document for a new ChatGPT or Codex session.
 - Evidence: [`../results/2026-07-30/skynet/phase4-hot-cache/PHASE4.md`](../results/2026-07-30/skynet/phase4-hot-cache/PHASE4.md)
 - Final complete-PR review: issue comment `5131346667`, `PASS_WITH_NOTES`, safety `YES`; no required delta.
 
-## Phase 5 final-review candidate
+## Phase 5 merged baseline
 
 - Issue: <https://github.com/murillo128/k3-out-of-core/issues/20>
-- Draft PR: <https://github.com/murillo128/k3-out-of-core/pull/21>
+- Merged PR: <https://github.com/murillo128/k3-out-of-core/pull/21>
 - Execution profile: `STANDARD`
 - Project execution base: `114f0de6f5d1cbd5f9ef6255f9100f3f4d52380a`
 - Nested execution base: `57fe1eabbe3d0ced59096a0744efc91e286fb1c7`
 - Checkpoint A corrected project head: `6404770597f979a8290d1de3f6bc503ab7d74d8b`
 - Checkpoint A corrected nested head: `5ffed360965a1de7e2d788b8637a470183d27165`
-- Final nested evidence candidate: `26317ee1d848dd7a73f22a3666a055cad5d5cb03`
+- Final reviewed project head: `4a999c799fad77bcc0502200c8199fe01f1cbbc6`
+- Nested `llama.cpp` head: `26317ee1d848dd7a73f22a3666a055cad5d5cb03`
+- PR #21 squash merge: `c5512bc073ae7aab4a14773028828e516e16f3f6`
 - Checkpoint A: issue comment `5132379446`, `PASS`, safety `YES`.
+- Final complete-PR review: issue comment `5132639557`, `PASS_WITH_NOTES`, safety `YES`; no required delta.
 - Standing parity: 4/4 F16/MXFP4 all-routed/forced-eviction cases pass across native pinned and explicit pageable fallback with exact prompt, route/weight, generated-ID, and full-logit hashes.
 - Standing mechanism: native ring queues both top-k lanes before one barrier; fallback records zero pinned/async claims; source pinned bytes are zero.
 - Standing lifecycle: CPU/CUDA/ASan+UBSan faults and two 20-step warm runs pass with balanced references and bounded owned bytes.
 - Evidence: [`../results/2026-07-30/skynet/phase5-cold-cache/PHASE5.md`](../results/2026-07-30/skynet/phase5-cold-cache/PHASE5.md)
-- Final complete-PR review: pending exact final project/nested heads and strict manifest verification.
 
 ## Phase 1 merged baseline
 
@@ -108,7 +111,8 @@ Kernel: 6.8.0-136-generic
 - The benchmark's 128-token setting is a maximum cap. The fixture naturally emits EOG after 49 generated tokens; forcing post-EOG decoding would change semantics.
 - VRAM is sampled device-wide telemetry and the OS page cache was not flushed.
 - The Phase 3 raw performance gate and its two accepted notes must remain visible in all later performance comparisons.
+- Phase 5 performance and memory evidence is descriptive; dedicated streams/events and H2D/compute overlap remain Phase 7, and CPU miss execution/`CPU_FALLBACK` equivalence remain Phase 8.
 
 ## Immediate next action
 
-Complete the exact Phase 5 validation-result capture and strict manifest verification on the clean evidence candidate, publish the final heads, and request a fresh independent complete-PR review. Do not merge until the final review returns `PASS` or `PASS_WITH_NOTES` with safety `YES` and no required delta. Preserve the Phase 3 performance note and Phase 7/8 deferrals.
+Use design authority to create one self-contained controlling issue for **Phase 6 — GGUF-backed storage and synchronous demand reads** from the current verified `main` and nested gitlink. Resolve the material storage ownership, split-GGUF, offset/size validation, read, cancellation, failure, memory-budget, correctness, and evidence decisions needed to make it execution-ready. Do not implement Phase 6, create an execution branch, or open a PR in the design session.
