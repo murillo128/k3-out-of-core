@@ -13,7 +13,8 @@ def main():
     for name, model in (("f16",a.f16),("mxfp4",a.mxfp4)):
         files=sorted(a.split_dir.glob(f"*{'F16' if name=='f16' else 'MXFP4'}-split.gguf-*.gguf"))
         if len(files) != 218: raise RuntimeError(f"{name}: expected 218 splits")
-        splits[name]=[{**identity(root,path),"number":i+1,"count":len(files),"source_model":identity(root,model)} for i,path in enumerate(files)]
+        source_model=identity(root,model)
+        splits[name]=[{**identity(root,path),"number":i+1,"count":len(files),"source_model":source_model} for i,path in enumerate(files)]
         for kind,path in (("original",model),("split",files[0])):
             executable = (root/"llama.cpp/build-cuda/bin/phase6-gguf-storage-probe").resolve()
             command=[str(executable),"--model",str(path.resolve()),"--capacity","8","--cold-bytes","67108864","--ring-bytes","16777216"]
