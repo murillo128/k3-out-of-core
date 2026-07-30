@@ -17,8 +17,8 @@
       "exit_code": 0,
       "name": "build-cpu",
       "passed": null,
-      "stderr_sha256": "68b4c8c557fb9715c8915e960d4be4363f6f0249d11f490d3fd158e6db7af4e3",
-      "stdout_sha256": "3687349acb85973fc6bfa4ab5af3892bd083fe598dfd2028ade8213c8e9faee4",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "52ab64668e19b88d54d9fb33788b136be6c4b72c5277778f3a9936d4c7e2782b",
       "total": null
     },
     {
@@ -42,8 +42,8 @@
       "exit_code": 0,
       "name": "build-cuda",
       "passed": null,
-      "stderr_sha256": "68b4c8c557fb9715c8915e960d4be4363f6f0249d11f490d3fd158e6db7af4e3",
-      "stdout_sha256": "f2203283963ff3d470707de8d2c22688182810643000d0e7cf345cf8fe57f12d",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "20b953ddbf2b26550d2c3fadbdcc6a026e1e05756f008affe55e9158d5f8bf8c",
       "total": null
     },
     {
@@ -75,7 +75,7 @@
       "name": "ctest-cuda",
       "passed": null,
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "stdout_sha256": "99e43bec8556d5396d840f42ebf0fc34b47106d6c7455ae7b534166dbbce3fb6",
+      "stdout_sha256": "39d64945c3f2c758f4395a62c967cd5d25fa453dc78a7bfb1bd964dd2f935aba",
       "total": null
     },
     {
@@ -94,8 +94,8 @@
       "exit_code": 0,
       "name": "build-sanitizers",
       "passed": null,
-      "stderr_sha256": "4a950b58e4301f72b93d13dcd4b0d8c4e13913f032a13ab474efe21ba4d07a1a",
-      "stdout_sha256": "af4faea1ec1d8ca725de406f46864419acd6b2537c24d546328a5c6431660869",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "6b0c8fe96c29f65e1bcecfbc0f67f66737f214aa5edc098d57a0f0fc020e5506",
       "total": null
     },
     {
@@ -111,7 +111,7 @@
       "name": "ctest-sanitizers",
       "passed": null,
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "stdout_sha256": "22384716b169305fd53822c66cd37fe8a69e8bffaee10aebc8b43386843bfd8a",
+      "stdout_sha256": "ae5f7f269f54d8272e9a457d7180f598c4c9fbd51336ab178f4053d07a479ac4",
       "total": null
     },
     {
@@ -184,7 +184,7 @@
     }
   ],
   "llama_cpp_head": "7a606dd4e11a108929f799253809a904f55feae4",
-  "project_head": "b7e653ab3fad11976b76c70225d671a92eda699c",
+  "project_head": "5e15e9d4cec2d49f2402e13f8cee767b8a83117c",
   "schema_version": "phase6-validation-v1",
   "status": "pass"
 }
