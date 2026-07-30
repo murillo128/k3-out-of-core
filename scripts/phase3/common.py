@@ -108,9 +108,11 @@ def compile_cpp(
     output: Path,
     sources: list[Path],
     include_source: Path,
+    extra_options: list[str] | None = None,
 ) -> list[str]:
     command = [
         "c++", "-std=c++17", "-O2", "-Wall", "-Wextra", "-Wpedantic",
+        *(extra_options or []),
         f"-I{include_source / 'include'}", f"-I{include_source / 'src'}",
         f"-I{include_source / 'ggml/include'}", f"-I{root / 'scripts/phase2'}",
         *[str(source) for source in sources],

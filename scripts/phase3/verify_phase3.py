@@ -27,19 +27,24 @@ ALLOWED_PROJECT_PREFIXES = (
     "scripts/phase3/", "tests/phase3/",
 )
 REQUIRED_PERFORMANCE_TELEMETRY = (
-    "load_seconds", "token_latency_p50_seconds", "token_latency_p95_seconds",
+    "load_seconds", "context_create_seconds", "token_latency_p50_seconds", "token_latency_p95_seconds",
     "token_latency_p99_seconds", "peak_rss_kib", "gpu_memory_bytes", "graphs_reused",
 )
 PROVIDER_COUNTERS = (
     "provider_objects", "provider_bind_calls", "provider_prepare_calls",
     "provider_handles_acquired", "provider_handles_released", "provider_allocations",
     "provider_callbacks", "provider_tensor_copies", "provider_synchronizations",
+    "provider_bundle_registrations", "provider_bundle_full_validations",
+    "provider_bundle_fast_path_hits",
 )
 GATED_PERFORMANCE_METRICS = (
     "decode_tokens_per_second", "prompt_tokens_per_second", "ttft_seconds",
 )
-FINAL_CAPTURE_RULE = "single-complete-standing-capture-v1"
-FINAL_CAPTURE_APPROVAL_COMMENT_ID = 5127588494
+FINAL_CAPTURE_RULE = "single-complete-post-optimization-capture-v2"
+FINAL_CAPTURE_APPROVAL_COMMENT_ID = 5127774849
+FINAL_CAPTURE_NAME = "provider-overhead-post-optimization.json"
+HISTORICAL_CAPTURE_NAME = "provider-overhead.json"
+HISTORICAL_CAPTURE_SHA256 = "df0fa1f05c6a57838e54f9b9da7a8d66f6ef826adf83fe3c19ccf771d04540a5"
 
 
 def validate_performance_sample(sample: dict[str, Any], errors: list[str]) -> None:
@@ -70,6 +75,12 @@ def validate_final_capture_contract(overhead: dict[str, Any], errors: list[str])
         "complete_capture_count": 1,
         "retry_or_cross_attempt_selection": "forbidden",
         "result_stands": True,
+        "artifact": FINAL_CAPTURE_NAME,
+        "historical_capture": {
+            "artifact": HISTORICAL_CAPTURE_NAME,
+            "sha256": HISTORICAL_CAPTURE_SHA256,
+            "disposition": "immutable-non-authoritative-history",
+        },
     }
     if overhead.get("validation_contract") != expected:
         errors.append("provider overhead does not bind the approved standing final-capture contract")
@@ -80,9 +91,11 @@ def validate_final_capture_contract(overhead: dict[str, Any], errors: list[str])
 def validate_evidence(root: Path, manifest: dict[str, Any], errors: list[str]) -> None:
     result_root = root / "results/2026-07-29/skynet/phase3-resident-provider"
     try:
-        parity = json.loads((result_root / "provider-parity.json").read_text())
-        lifecycle = json.loads((result_root / "lifecycle-and-failures.json").read_text())
-        overhead = json.loads((result_root / "provider-overhead.json").read_text())
+        parity = json.loads((result_root / "provider-parity-post-optimization.json").read_text())
+        lifecycle = json.loads((result_root / "lifecycle-and-failures-post-optimization.json").read_text())
+        administration = json.loads((result_root / "provider-admin-fast-path.json").read_text())
+        prerequisites = json.loads((result_root / "corrective-prerequisites.json").read_text())
+        overhead = json.loads((result_root / FINAL_CAPTURE_NAME).read_text())
     except (FileNotFoundError, json.JSONDecodeError) as error:
         errors.append(f"Phase 3 evidence cannot be loaded: {error}")
         return
@@ -101,6 +114,12 @@ def validate_evidence(root: Path, manifest: dict[str, Any], errors: list[str]) -
             errors.append("disabled provider counters are not structurally zero")
         if resident.get("handles_acquired") != resident.get("handles_released"):
             errors.append("resident handles are not balanced")
+        if resident.get("handles_acquired") != resident.get("prepare_calls"):
+            errors.append("resident lease count is not exactly one per nonempty ubatch")
+        if resident.get("bundle_registrations") != resident.get("bundle_full_validations") or resident.get("bundle_registrations") != 7:
+            errors.append("resident bundle registry did not validate each routed layer exactly once")
+        if resident.get("bundle_fast_path_hits", 0) <= 0:
+            errors.append("resident bundle fast path was not observed")
 
     coverage = lifecycle.get("coverage", {})
     boolean_coverage = [value for value in coverage.values() if isinstance(value, bool)]
@@ -110,6 +129,13 @@ def validate_evidence(root: Path, manifest: dict[str, Any], errors: list[str]) -
         errors.append("CPU load stress is below 20 cycles")
     if coverage.get("cuda_model_load_decode_unload_cycles", 0) < 10:
         errors.append("CUDA load stress is below 10 cycles")
+    if administration.get("status") != "pass" or not all(administration.get("checks", {}).values()):
+        errors.append("resident administrative diagnostic is incomplete")
+    if prerequisites.get("status") != "pass" or not all(prerequisites.get("checks", {}).values()):
+        errors.append("corrective prerequisite attestation is incomplete")
+    historical = result_root / HISTORICAL_CAPTURE_NAME
+    if not historical.is_file() or sha256(historical) != HISTORICAL_CAPTURE_SHA256:
+        errors.append("historical provider overhead evidence identity differs")
 
     combinations = overhead.get("combinations", [])
     validate_final_capture_contract(overhead, errors)
@@ -155,7 +181,7 @@ def validate_evidence(root: Path, manifest: dict[str, Any], errors: list[str]) -
     if overhead.get("status") != derived_status:
         errors.append("provider overhead standing status is inconsistent")
     validation = next(
-        (item for item in manifest.get("validation", []) if item.get("name") == "provider-overhead"), {}
+        (item for item in manifest.get("validation", []) if item.get("name") == "provider-overhead-post-optimization"), {}
     )
     if validation.get("status") != derived_status:
         errors.append("manifest provider-overhead status differs from standing capture")

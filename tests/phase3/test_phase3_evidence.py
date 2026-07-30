@@ -90,6 +90,12 @@ class Phase3EvidenceTests(unittest.TestCase):
                 "complete_capture_count": 1,
                 "retry_or_cross_attempt_selection": "forbidden",
                 "result_stands": True,
+                "artifact": self.verifier.FINAL_CAPTURE_NAME,
+                "historical_capture": {
+                    "artifact": self.verifier.HISTORICAL_CAPTURE_NAME,
+                    "sha256": self.verifier.HISTORICAL_CAPTURE_SHA256,
+                    "disposition": "immutable-non-authoritative-history",
+                },
             },
         }
         errors = []

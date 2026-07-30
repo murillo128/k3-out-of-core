@@ -8,6 +8,7 @@ import hashlib
 import json
 import math
 import os
+import re
 import statistics
 import subprocess
 import tempfile
@@ -37,16 +38,52 @@ BUDGETS = {
     "mxfp4-cuda": {"decode": 0.00988906, "prompt": 0.02400604},
 }
 REQUIRED_TELEMETRY = (
-    "load_seconds", "token_latency_p50_seconds", "token_latency_p95_seconds",
+    "load_seconds", "context_create_seconds", "token_latency_p50_seconds", "token_latency_p95_seconds",
     "token_latency_p99_seconds", "peak_rss_kib", "gpu_memory_bytes", "graphs_reused",
 )
 PROVIDER_COUNTERS = (
     "provider_objects", "provider_bind_calls", "provider_prepare_calls",
     "provider_handles_acquired", "provider_handles_released", "provider_allocations",
     "provider_callbacks", "provider_tensor_copies", "provider_synchronizations",
+    "provider_bundle_registrations", "provider_bundle_full_validations",
+    "provider_bundle_fast_path_hits",
 )
-FINAL_CAPTURE_RULE = "single-complete-standing-capture-v1"
-FINAL_CAPTURE_APPROVAL_COMMENT_ID = 5127588494
+FINAL_CAPTURE_RULE = "single-complete-post-optimization-capture-v2"
+FINAL_CAPTURE_APPROVAL_COMMENT_ID = 5127774849
+FINAL_CAPTURE_NAME = "provider-overhead-post-optimization.json"
+HISTORICAL_CAPTURE_NAME = "provider-overhead.json"
+HISTORICAL_CAPTURE_SHA256 = "df0fa1f05c6a57838e54f9b9da7a8d66f6ef826adf83fe3c19ccf771d04540a5"
+PREREQUISITE_ARTIFACTS = {
+    "parity": "provider-parity-post-optimization.json",
+    "lifecycle": "lifecycle-and-failures-post-optimization.json",
+    "administration": "provider-admin-fast-path.json",
+}
+
+
+def validate_prerequisites(root: Path, result_root: Path, candidate_revision: str) -> dict[str, Any]:
+    prerequisite_path = result_root / "corrective-prerequisites.json"
+    prerequisite = json.loads(prerequisite_path.read_text())
+    if prerequisite.get("status") != "pass" or not all(prerequisite.get("checks", {}).values()):
+        raise RuntimeError("the corrective prerequisite attestation is not a complete pass")
+    revisions = prerequisite.get("revisions", {})
+    if revisions.get("llama_candidate") != candidate_revision:
+        raise RuntimeError("the corrective prerequisite candidate differs")
+    implementation_head = revisions.get("project_implementation_head", "")
+    if subprocess.run(
+        ["git", "merge-base", "--is-ancestor", implementation_head, "HEAD"], cwd=root, check=False,
+    ).returncode != 0:
+        raise RuntimeError("the corrective prerequisite project head is not an ancestor")
+    recorded_artifacts = prerequisite.get("artifacts", {})
+    for name, filename in PREREQUISITE_ARTIFACTS.items():
+        path = result_root / filename
+        record = recorded_artifacts.get(name, {})
+        if not path.is_file() or record.get("sha256") != sha256(path):
+            raise RuntimeError(f"corrective prerequisite artifact identity differs: {filename}")
+    return {
+        "path": str(prerequisite_path.relative_to(root)),
+        "sha256": sha256(prerequisite_path),
+        "artifacts": recorded_artifacts,
+    }
 
 
 def run_probe(binary: Path, model: Path, gpu_layers: int, mode: str | None) -> dict[str, Any]:
@@ -76,8 +113,16 @@ def run_probe(binary: Path, model: Path, gpu_layers: int, mode: str | None) -> d
         if any(metric.get(name) != 0 for name in PROVIDER_COUNTERS):
             raise RuntimeError(f"disabled structural counter is nonzero: {metric}")
     if mode == "resident":
-        if metric.get("provider_objects") != 1 or metric.get("provider_handles_acquired") != metric.get("provider_handles_released"):
+        if metric.get("provider_objects") != 1 or not (
+            metric.get("provider_handles_acquired") == metric.get("provider_handles_released") ==
+            metric.get("provider_prepare_calls")
+        ):
             raise RuntimeError(f"resident provider counters are invalid: {metric}")
+        if not (
+            metric.get("provider_bundle_registrations") == metric.get("provider_bundle_full_validations") == 7 and
+            metric.get("provider_bundle_fast_path_hits", 0) > 0
+        ):
+            raise RuntimeError(f"resident provider registry counters are invalid: {metric}")
         if any(metric.get(name) != 0 for name in (
             "provider_allocations", "provider_callbacks", "provider_tensor_copies", "provider_synchronizations"
         )):
@@ -183,15 +228,34 @@ def main() -> int:
     parser.add_argument("--mxfp4", type=Path, required=True)
     parser.add_argument("--pairs", type=int, required=True)
     parser.add_argument("--order", required=True)
-    parser.add_argument("--standing-final-capture", action="store_true")
+    parser.add_argument("--post-optimization-standing-capture", action="store_true")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[2]
     if args.baseline_ref != LLAMA_BASE or args.pairs != 10 or args.order != "ABBA":
         raise RuntimeError("performance protocol differs from the issue #13 declaration")
-    if not args.standing_final_capture:
-        raise RuntimeError("the approved standing-final-capture contract was not acknowledged")
+    if not args.post_optimization_standing_capture:
+        raise RuntimeError("the approved post-optimization standing-capture contract was not acknowledged")
+    if not re.fullmatch(r"[0-9a-f]{40}", args.candidate_ref):
+        raise RuntimeError("the candidate must be named by its exact 40-character commit SHA")
     candidate_revision = git(root / "llama.cpp", "rev-parse", args.candidate_ref)
+    if candidate_revision != args.candidate_ref or candidate_revision != git(root / "llama.cpp", "rev-parse", "HEAD"):
+        raise RuntimeError("the exact candidate is not the current nested llama.cpp head")
+    if git(root / "llama.cpp", "status", "--porcelain", "--untracked-files=all") or git(root, "status", "--porcelain", "--untracked-files=all"):
+        raise RuntimeError("the post-optimization standing capture requires clean committed worktrees")
+    if git(root / "llama.cpp", "rev-parse", "origin/codex/phase3-resident-provider") != candidate_revision:
+        raise RuntimeError("the exact nested candidate is not published on the issue branch")
+    project_revision = git(root, "rev-parse", "HEAD")
+    if git(root, "rev-parse", "origin/codex/phase3-resident-provider") != project_revision:
+        raise RuntimeError("the exact project prerequisite head is not published on the issue branch")
+    result_root = root / "results/2026-07-29/skynet/phase3-resident-provider"
+    expected_output = result_root / FINAL_CAPTURE_NAME
+    if args.output.resolve() != expected_output or args.output.exists():
+        raise RuntimeError("the v2 artifact path differs or already exists; overwrite and retry are forbidden")
+    historical_capture = expected_output.parent / HISTORICAL_CAPTURE_NAME
+    if not historical_capture.is_file() or sha256(historical_capture) != HISTORICAL_CAPTURE_SHA256:
+        raise RuntimeError("the immutable historical standing capture identity differs")
+    prerequisite_evidence = validate_prerequisites(root, result_root, candidate_revision)
     models = {"f16": args.f16.resolve(), "mxfp4": args.mxfp4.resolve()}
     validate_models(models)
     candidate_builds = {"cpu": args.cpu_build.resolve(), "cuda": args.cuda_build.resolve()}
@@ -248,17 +312,28 @@ def main() -> int:
                 })
 
         report = {
-            "schema_version": "phase3-provider-overhead-v1",
+            "schema_version": "phase3-provider-overhead-v2",
             "captured_at_utc": datetime.now(timezone.utc).isoformat(),
             "status": "pass" if all(item["passed"] for item in combinations) else "fail",
-            "revisions": {"llama_baseline": LLAMA_BASE, "llama_candidate": candidate_revision},
+            "revisions": {
+                "project_prerequisite": project_revision,
+                "llama_baseline": LLAMA_BASE,
+                "llama_candidate": candidate_revision,
+            },
             "validation_contract": {
                 "rule": FINAL_CAPTURE_RULE,
                 "approval_comment_id": FINAL_CAPTURE_APPROVAL_COMMENT_ID,
                 "complete_capture_count": 1,
                 "retry_or_cross_attempt_selection": "forbidden",
                 "result_stands": True,
+                "artifact": FINAL_CAPTURE_NAME,
+                "historical_capture": {
+                    "artifact": HISTORICAL_CAPTURE_NAME,
+                    "sha256": HISTORICAL_CAPTURE_SHA256,
+                    "disposition": "immutable-non-authoritative-history",
+                },
             },
+            "prerequisite_evidence": prerequisite_evidence,
             "protocol": {
                 "prompt": "According to all known laws", "context": 512, "generation_cap": 128,
                 "temperature": 0, "threads": 8, "warmups_per_side": 1,

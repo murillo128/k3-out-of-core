@@ -128,7 +128,9 @@ int main(int argc, char ** argv) {
     context_params.n_batch = kContext;
     context_params.n_ubatch = kContext;
     context_params.no_perf = false;
+    const auto context_begin = clock_type::now();
     llama_context * context = llama_init_from_model(model, context_params);
+    const auto context_end = clock_type::now();
     if (context == nullptr) {
         std::cerr << "OVERHEAD_ERROR: context creation failed\n";
         llama_model_free(model);
@@ -212,6 +214,7 @@ int main(int argc, char ** argv) {
               << "\tprompt_tokens_per_second=" << prompt.size()/ttft
               << "\tdecode_tokens_per_second=" << decode_tokens/decode_seconds
               << "\tload_seconds=" << elapsed(load_begin, load_end)
+              << "\tcontext_create_seconds=" << elapsed(context_begin, context_end)
               << "\ttoken_latency_p50_seconds=" << percentile(token_latencies, 0.50)
               << "\ttoken_latency_p95_seconds=" << percentile(token_latencies, 0.95)
               << "\ttoken_latency_p99_seconds=" << percentile(token_latencies, 0.99)

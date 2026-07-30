@@ -18,8 +18,11 @@ FILES = {
         "scripts/phase2/route_probe.cpp",
         "scripts/phase3/common.py",
         "scripts/phase3/overhead_probe_baseline.cpp",
+        "scripts/phase3/provider_admin_probe.cpp",
         "scripts/phase3/capture_provider_parity.py",
+        "scripts/phase3/measure_provider_admin.py",
         "scripts/phase3/run_provider_lifecycle.py",
+        "scripts/phase3/verify_corrective_prerequisites.py",
         "scripts/phase3/measure_provider_overhead.py",
         "scripts/phase3/build_phase3_manifest.py",
         "scripts/phase3/verify_phase3.py",
@@ -32,6 +35,11 @@ FILES = {
         "results/2026-07-29/skynet/phase3-resident-provider/provider-overhead-corrected-attempt1-fail.json",
         "results/2026-07-29/skynet/phase3-resident-provider/provider-overhead-corrected-attempt2-fail.json",
         "results/2026-07-29/skynet/phase3-resident-provider/provider-overhead.json",
+        "results/2026-07-29/skynet/phase3-resident-provider/provider-parity-post-optimization.json",
+        "results/2026-07-29/skynet/phase3-resident-provider/lifecycle-and-failures-post-optimization.json",
+        "results/2026-07-29/skynet/phase3-resident-provider/provider-admin-fast-path.json",
+        "results/2026-07-29/skynet/phase3-resident-provider/corrective-prerequisites.json",
+        "results/2026-07-29/skynet/phase3-resident-provider/provider-overhead-post-optimization.json",
     ],
     "source-of-truth": [
         "PLAN.md",
@@ -63,7 +71,7 @@ def main() -> int:
 
     checkpoint_b_path = results_root / "checkpoint-b-review.json"
     checkpoint_b = json.loads(checkpoint_b_path.read_text()) if checkpoint_b_path.is_file() else None
-    overhead = json.loads((results_root / "provider-overhead.json").read_text())
+    overhead = json.loads((results_root / "provider-overhead-post-optimization.json").read_text())
     overhead_status = overhead.get("status")
     if overhead_status not in {"pass", "fail"}:
         raise RuntimeError("provider overhead has no valid standing result")
@@ -131,13 +139,15 @@ def main() -> int:
         },
         "artifacts": sorted(artifacts, key=lambda item: item["path"]),
         "validation": [
-            {"name": "provider-parity", "status": "pass", "evidence": "provider-parity.json: 4/4 artifact/backend combinations"},
-            {"name": "lifecycle-and-failures", "status": "pass", "evidence": "lifecycle-and-failures.json: CPU/CUDA matrix, stress, fault injection, sanitizers"},
+            {"name": "provider-parity", "status": "pass", "evidence": "provider-parity-post-optimization.json: 4/4 artifact/backend combinations"},
+            {"name": "lifecycle-and-failures", "status": "pass", "evidence": "lifecycle-and-failures-post-optimization.json: CPU/CUDA matrix, stress, fault injection, sanitizers"},
+            {"name": "provider-administration", "status": "pass", "evidence": "provider-admin-fast-path.json: corrective base versus optimized resident administration"},
+            {"name": "corrective-prerequisites", "status": "pass", "evidence": "corrective-prerequisites.json: all comment 5127774849 prerequisites passed before capture"},
             {
-                "name": "provider-overhead", "status": overhead_status,
+                "name": "provider-overhead-post-optimization", "status": overhead_status,
                 "evidence": (
-                    "provider-overhead.json: every predeclared per-cell confidence gate" if overhead_status == "pass" else
-                    f"provider-overhead.json: standing final capture failed {failed_metric_cells} of 24 predeclared metric cells"
+                    "provider-overhead-post-optimization.json: every original per-cell confidence gate" if overhead_status == "pass" else
+                    f"provider-overhead-post-optimization.json: standing v2 capture failed {failed_metric_cells} of 24 original metric cells"
                 ),
             },
             {"name": "phase2-regression-tests", "status": "pass", "evidence": "dependency-free Phase 2 unittest suite"},

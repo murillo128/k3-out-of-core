@@ -103,6 +103,7 @@ def main() -> int:
     parser.add_argument("--mxfp4", type=Path, required=True)
     parser.add_argument("--phase2-manifest", type=Path, required=True)
     parser.add_argument("--output-root", type=Path, required=True)
+    parser.add_argument("--output-name", default="provider-parity.json")
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[2]
     models = {"f16": args.f16.resolve(), "mxfp4": args.mxfp4.resolve()}
@@ -164,8 +165,10 @@ def main() -> int:
                     "resident_repeat_routes_exact": parsed["resident"] == parsed["repeat"],
                     "graph_topology_exact": disabled["graph"]["nodes"] == resident["graph"]["nodes"] and disabled["graph"]["operation_hash"] == resident["graph"]["operation_hash"],
                     "graph_reuse_exact": disabled["graph"]["graphs_reused"] == resident["graph"]["graphs_reused"] == 30,
-                    "disabled_structural_zero": all(disabled["provider_stats"][name] == 0 for name in ("objects", "bind_calls", "prepare_calls", "handles_acquired", "handles_released", "allocations", "callbacks", "tensor_copies", "synchronizations", "failures", "cancellations")) and disabled["graph"]["bindings"] == 0,
-                    "resident_balanced": resident["provider_stats"]["objects"] == 1 and resident["provider_stats"]["prepare_calls"] == 32 and resident["provider_stats"]["handles_acquired"] == resident["provider_stats"]["handles_released"] == 224 and resident["graph"]["bindings"] == 7 and resident["graph"]["inflight_handles"] == 0,
+                    "disabled_structural_zero": all(disabled["provider_stats"][name] == 0 for name in ("objects", "bind_calls", "prepare_calls", "handles_acquired", "handles_released", "allocations", "callbacks", "tensor_copies", "synchronizations", "failures", "cancellations", "bundle_registrations", "bundle_full_validations", "bundle_fast_path_hits")) and disabled["graph"]["bindings"] == 0 and disabled["graph"]["binding_capacity"] == 0,
+                    "resident_balanced": resident["provider_stats"]["objects"] == 1 and resident["provider_stats"]["prepare_calls"] == 32 and resident["provider_stats"]["handles_acquired"] == resident["provider_stats"]["handles_released"] == 32 and resident["graph"]["bindings"] == 7 and resident["graph"]["inflight_handles"] == 0,
+                    "resident_registry_fast_path": resident["provider_stats"]["bundle_registrations"] == 7 and resident["provider_stats"]["bundle_full_validations"] == 7 and resident["provider_stats"]["bundle_fast_path_hits"] > 0,
+                    "resident_binding_storage_reserved": resident["graph"]["binding_capacity"] >= 8,
                     "resident_no_extra_work": all(resident["provider_stats"][name] == 0 for name in ("allocations", "callbacks", "tensor_copies", "synchronizations", "failures", "cancellations")),
                 }
                 if not all(checks.values()):
@@ -193,7 +196,7 @@ def main() -> int:
         "compilations": compilations,
         "cases": cases,
     }
-    output = args.output_root / "provider-parity.json"
+    output = args.output_root / args.output_name
     output.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
     print(json.dumps({"output": str(output), "cases": len(cases), "status": "pass"}, sort_keys=True))
     return 0

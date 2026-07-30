@@ -580,11 +580,15 @@ int main(int argc, char ** argv) {
               << "\ttensor_copies=" << provider_stats.tensor_copies
               << "\tsynchronizations=" << provider_stats.synchronizations
               << "\tfailures=" << provider_stats.failures
-              << "\tcancellations=" << provider_stats.cancellations << '\n';
+              << "\tcancellations=" << provider_stats.cancellations
+              << "\tbundle_registrations=" << provider_stats.bundle_registrations
+              << "\tbundle_full_validations=" << provider_stats.bundle_full_validations
+              << "\tbundle_fast_path_hits=" << provider_stats.bundle_fast_path_hits << '\n';
     std::cout << "PROVIDER_GRAPH"
               << "\tnodes=" << graph_diagnostics.node_count
               << "\toperation_hash=" << graph_diagnostics.operation_hash
               << "\tbindings=" << graph_diagnostics.binding_count
+              << "\tbinding_capacity=" << graph_diagnostics.binding_capacity
               << "\tinflight_handles=" << graph_diagnostics.inflight_handles
               << "\tgraphs_reused=" << graph_diagnostics.graphs_reused << '\n';
     std::cout << "RESULT\texit=0\n";
