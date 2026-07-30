@@ -115,7 +115,7 @@ Kernel: 6.8.0-136-generic
 
 ## Immediate next action
 
-Complete Phase 6 issue #22 final evidence verification and request the final independent complete-PR review. Checkpoint A passed at project `34dbf82ded955913b387ec9b36d1b499362e7a1b` and nested `9af35746763913982bfd8eee995686296131c778`; the cancellation corrective review is issue comment `5133647261`.
+Regenerate the corrected Phase 6 issue #22 standing evidence and request a fresh independent complete-PR review. Checkpoint A passed at project `34dbf82ded955913b387ec9b36d1b499362e7a1b` and nested `9af35746763913982bfd8eee995686296131c778`; the first final review correctly rejected missing publication-integrity and overly permissive evidence checks, now corrected at nested `1543185bd34bcde07a594064120591e61bafbeed`.
 
 ## Phase 6 candidate handoff
 
@@ -125,7 +125,9 @@ Complete Phase 6 issue #22 final evidence verification and request the final ind
 - Nested execution base: `26317ee1d848dd7a73f22a3666a055cad5d5cb03`
 - Checkpoint A accepted project head: `34dbf82ded955913b387ec9b36d1b499362e7a1b`
 - Checkpoint A accepted nested head: `9af35746763913982bfd8eee995686296131c778`
+- Corrected nested candidate head: `1543185bd34bcde07a594064120591e61bafbeed`
 - Original and 218-part split F16/MXFP4 runs preserve exact prompt, generated-token, logits, and route hashes.
 - Routed payload allocation, mmap binding, and prefetch are zero; demand reads go directly into bounded cold slots with zero resident-source copies.
+- A source-read digest is compared with an independent digest over the final cold destinations before publication; mismatch poisons storage and cannot publish a ready entry.
 - F16 cancellation after the first 262144-byte positional read returns public status 2, publishes no mapping, balances references, cleans failed slots, and retries successfully.
 - Evidence: [`../results/2026-07-30/skynet/phase6-gguf-storage/PHASE6.md`](../results/2026-07-30/skynet/phase6-gguf-storage/PHASE6.md)

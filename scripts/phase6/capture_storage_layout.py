@@ -13,13 +13,13 @@ def main():
     for name, model in (("f16",a.f16),("mxfp4",a.mxfp4)):
         files=sorted(a.split_dir.glob(f"*{'F16' if name=='f16' else 'MXFP4'}-split.gguf-*.gguf"))
         if len(files) != 218: raise RuntimeError(f"{name}: expected 218 splits")
-        splits[name]=[{**identity(root,path),"number":i+1,"count":len(files)} for i,path in enumerate(files)]
+        splits[name]=[{**identity(root,path),"number":i+1,"count":len(files),"source_model":identity(root,model)} for i,path in enumerate(files)]
         for kind,path in (("original",model),("split",files[0])):
             executable = (root/"llama.cpp/build-cuda/bin/phase6-gguf-storage-probe").resolve()
             command=[str(executable),"--model",str(path.resolve()),"--capacity","8","--cold-bytes","67108864","--ring-bytes","16777216"]
             record=run(command,root); diag=diagnostics(record["stdout"]+record["stderr"],"PHASE6_LOAD")
-            checks={"command":record["exit_code"]==0,"no_routed_allocation":diag["deferred_allocated_bytes"]==0,"no_mmap_binding":diag["deferred_mmap_bound_bytes"]==0,"no_prefetch":diag["deferred_prefetch_bytes"]==0,"metadata_only":diag["routed_tensors"]==diag["routed_null"],"directory_complete":diag["storage_entries"]==56 and diag["storage_spans"]==168,"split_handles":diag["storage_files"]==(1 if kind=="original" else 218)}
+            checks={"command":record["exit_code"]==0,"no_routed_allocation":diag["deferred_allocated_bytes"]==0,"no_mmap_binding":diag["deferred_mmap_bound_bytes"]==0,"no_prefetch":diag["deferred_prefetch_bytes"]==0,"metadata_only":diag["routed_tensors"]==diag["routed_null"],"directory_complete":diag["storage_entries"]==56 and diag["storage_spans"]==168,"split_handles":diag["storage_files"]==(1 if kind=="original" else 218),"cross_split_bundle":kind=="original" or (diag["storage_files"]==218 and diag["storage_spans"]==168)}
             cases.append({"representation":name,"kind":kind,"model":identity(root,path),"diagnostics":diag,"checks":checks,"output_digests":{"stdout":record["stdout_sha256"],"stderr":record["stderr_sha256"]}})
-    value={"schema_version":"phase6-storage-layout-v1","status":"pass" if all(all(c["checks"].values()) for c in cases) else "fail","phase5_manifest":phase5,"split_command":{"tool_head":__import__('subprocess').check_output(["git","-C","llama.cpp","rev-parse","HEAD"],text=True).strip(),"max_tensors":1},"splits":splits,"cases":cases}
+    value={"schema_version":"phase6-storage-layout-v1","status":"pass" if all(all(c["checks"].values()) for c in cases) else "fail","phase5_manifest":phase5,"split_command":{"tool":"llama-gguf-split","tool_head":__import__('subprocess').check_output(["git","-C","llama.cpp","rev-parse","HEAD"],text=True).strip(),"mode":"split","max_tensors":1},"generated_files_retained":False,"bundle_projection_spans":3,"splits":splits,"cases":cases}
     write(a.output,value); return 0 if value["status"]=="pass" else 1
 if __name__=="__main__": raise SystemExit(main())
