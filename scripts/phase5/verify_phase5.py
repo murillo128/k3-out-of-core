@@ -10,9 +10,10 @@ from common import (CHECKPOINT_A_COMMENT, CHECKPOINT_A_LLAMA, CHECKPOINT_A_PROJE
 from capture_validation_results import COMMANDS
 
 ALLOWED_NESTED = {"include/llama.h", "src/CMakeLists.txt", "src/llama-cold-expert-cache.cpp", "src/llama-cold-expert-cache.h",
+    "src/llama-context.cpp",
     "src/llama-expert-transfer-ring.cpp", "src/llama-expert-transfer-ring.h", "src/llama-expert-weight-provider.cpp",
     "src/llama-expert-weight-provider.h", "src/llama-model.cpp", "tests/CMakeLists.txt", "tests/phase5-cold-cache-probe.cpp",
-    "tests/test-cold-expert-cache.cpp", "tests/test-expert-transfer-ring.cpp", "tests/test-hot-expert-cache.cpp"}
+    "tests/test-cold-expert-cache.cpp", "tests/test-expert-transfer-ring.cpp", "tests/test-expert-weight-provider.cpp", "tests/test-hot-expert-cache.cpp"}
 ALLOWED_PROJECT_PREFIXES = ("llama.cpp", "PLAN.md", "docs/", "scripts/phase5/", "schemas/phase5/", "tests/phase5/",
                             "results/2026-07-30/skynet/phase5-cold-cache/")
 PROTECTED_PHASE4 = "results/2026-07-30/skynet/phase4-hot-cache"
