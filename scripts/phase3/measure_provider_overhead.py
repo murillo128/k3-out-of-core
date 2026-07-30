@@ -45,6 +45,8 @@ PROVIDER_COUNTERS = (
     "provider_handles_acquired", "provider_handles_released", "provider_allocations",
     "provider_callbacks", "provider_tensor_copies", "provider_synchronizations",
 )
+FINAL_CAPTURE_RULE = "single-complete-standing-capture-v1"
+FINAL_CAPTURE_APPROVAL_COMMENT_ID = 5127588494
 
 
 def run_probe(binary: Path, model: Path, gpu_layers: int, mode: str | None) -> dict[str, Any]:
@@ -181,11 +183,14 @@ def main() -> int:
     parser.add_argument("--mxfp4", type=Path, required=True)
     parser.add_argument("--pairs", type=int, required=True)
     parser.add_argument("--order", required=True)
+    parser.add_argument("--standing-final-capture", action="store_true")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[2]
     if args.baseline_ref != LLAMA_BASE or args.pairs != 10 or args.order != "ABBA":
         raise RuntimeError("performance protocol differs from the issue #13 declaration")
+    if not args.standing_final_capture:
+        raise RuntimeError("the approved standing-final-capture contract was not acknowledged")
     candidate_revision = git(root / "llama.cpp", "rev-parse", args.candidate_ref)
     models = {"f16": args.f16.resolve(), "mxfp4": args.mxfp4.resolve()}
     validate_models(models)
@@ -247,6 +252,13 @@ def main() -> int:
             "captured_at_utc": datetime.now(timezone.utc).isoformat(),
             "status": "pass" if all(item["passed"] for item in combinations) else "fail",
             "revisions": {"llama_baseline": LLAMA_BASE, "llama_candidate": candidate_revision},
+            "validation_contract": {
+                "rule": FINAL_CAPTURE_RULE,
+                "approval_comment_id": FINAL_CAPTURE_APPROVAL_COMMENT_ID,
+                "complete_capture_count": 1,
+                "retry_or_cross_attempt_selection": "forbidden",
+                "result_stands": True,
+            },
             "protocol": {
                 "prompt": "According to all known laws", "context": 512, "generation_cap": 128,
                 "temperature": 0, "threads": 8, "warmups_per_side": 1,

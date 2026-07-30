@@ -35,6 +35,8 @@ PROVIDER_COUNTERS = (
     "provider_handles_acquired", "provider_handles_released", "provider_allocations",
     "provider_callbacks", "provider_tensor_copies", "provider_synchronizations",
 )
+FINAL_CAPTURE_RULE = "single-complete-standing-capture-v1"
+FINAL_CAPTURE_APPROVAL_COMMENT_ID = 5127588494
 
 
 def validate_performance_sample(sample: dict[str, Any], errors: list[str]) -> None:
@@ -56,6 +58,20 @@ def validate_performance_sample(sample: dict[str, Any], errors: list[str]) -> No
             errors.append("candidate provider counters are not marked reported")
         if any(not isinstance(metric.get(name), (int, float)) for name in PROVIDER_COUNTERS):
             errors.append("candidate provider counters are missing or non-numeric")
+
+
+def validate_final_capture_contract(overhead: dict[str, Any], errors: list[str]) -> None:
+    expected = {
+        "rule": FINAL_CAPTURE_RULE,
+        "approval_comment_id": FINAL_CAPTURE_APPROVAL_COMMENT_ID,
+        "complete_capture_count": 1,
+        "retry_or_cross_attempt_selection": "forbidden",
+        "result_stands": True,
+    }
+    if overhead.get("validation_contract") != expected:
+        errors.append("provider overhead does not bind the approved standing final-capture contract")
+    if "composition" in overhead:
+        errors.append("provider overhead contains forbidden cross-attempt composition")
 
 
 def validate_evidence(root: Path, errors: list[str]) -> None:
@@ -93,6 +109,7 @@ def validate_evidence(root: Path, errors: list[str]) -> None:
         errors.append("CUDA load stress is below 10 cycles")
 
     combinations = overhead.get("combinations", [])
+    validate_final_capture_contract(overhead, errors)
     if overhead.get("status") != "pass" or len(combinations) != 4:
         errors.append("provider overhead is not a four-combination pass")
     for combination in combinations:
@@ -113,39 +130,6 @@ def validate_evidence(root: Path, errors: list[str]) -> None:
                 errors.append("non-gated performance summary omits required telemetry")
             elif any(set(values) != {"a", "b"} for values in reported.values()):
                 errors.append("non-gated performance summary omits a comparison side")
-
-    composition = overhead.get("composition", {})
-    attempt_documents = {}
-    for metadata in composition.get("attempts", []):
-        path = root / metadata.get("path", "")
-        if not path.is_file() or sha256(path) != metadata.get("sha256"):
-            errors.append(f"composed overhead attempt identity differs: {metadata.get('attempt')}")
-            continue
-        document = json.loads(path.read_text())
-        if document.get("status") != metadata.get("overall_status"):
-            errors.append(f"composed overhead attempt status differs: {metadata.get('attempt')}")
-        attempt_documents[metadata.get("attempt")] = document
-    selections = composition.get("selections", [])
-    selection_keys = {
-        (item.get("artifact"), item.get("backend"), item.get("comparison")) for item in selections
-    }
-    if len(attempt_documents) != 2 or len(selections) != 8 or len(selection_keys) != 8:
-        errors.append("composed overhead provenance is incomplete")
-    for selection in selections:
-        source = attempt_documents.get(selection.get("source_attempt"))
-        if source is None:
-            continue
-        source_combination = next((item for item in source["combinations"]
-            if item["artifact"] == selection["artifact"] and item["backend"] == selection["backend"]), None)
-        final_combination = next((item for item in combinations
-            if item["artifact"] == selection["artifact"] and item["backend"] == selection["backend"]), None)
-        source_comparison = next((item for item in source_combination["comparisons"]
-            if item["name"] == selection["comparison"]), None) if source_combination else None
-        final_comparison = next((item for item in final_combination["comparisons"]
-            if item["name"] == selection["comparison"]), None) if final_combination else None
-        if source_comparison is None or final_comparison != source_comparison:
-            errors.append(f"composed overhead comparison differs from raw attempt: {selection}")
-
 
 def validate_git(root: Path, manifest: dict[str, Any], strict: bool, output: Path, errors: list[str]) -> None:
     nested = root / "llama.cpp"

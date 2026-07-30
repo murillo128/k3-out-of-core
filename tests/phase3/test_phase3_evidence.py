@@ -80,6 +80,30 @@ class Phase3EvidenceTests(unittest.TestCase):
         }, errors)
         self.assertEqual(errors, [])
 
+    def test_verifier_accepts_only_approved_standing_capture_contract(self):
+        overhead = {
+            "validation_contract": {
+                "rule": self.verifier.FINAL_CAPTURE_RULE,
+                "approval_comment_id": self.verifier.FINAL_CAPTURE_APPROVAL_COMMENT_ID,
+                "complete_capture_count": 1,
+                "retry_or_cross_attempt_selection": "forbidden",
+                "result_stands": True,
+            },
+        }
+        errors = []
+        self.verifier.validate_final_capture_contract(overhead, errors)
+        self.assertEqual(errors, [])
+
+        overhead["composition"] = {"selections": []}
+        errors = []
+        self.verifier.validate_final_capture_contract(overhead, errors)
+        self.assertTrue(any("forbidden cross-attempt composition" in error for error in errors))
+
+    def test_verifier_rejects_unapproved_capture_contract(self):
+        errors = []
+        self.verifier.validate_final_capture_contract({}, errors)
+        self.assertTrue(any("standing final-capture contract" in error for error in errors))
+
 
 if __name__ == "__main__":
     unittest.main()

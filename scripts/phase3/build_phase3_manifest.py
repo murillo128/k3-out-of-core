@@ -21,7 +21,6 @@ FILES = {
         "scripts/phase3/capture_provider_parity.py",
         "scripts/phase3/run_provider_lifecycle.py",
         "scripts/phase3/measure_provider_overhead.py",
-        "scripts/phase3/merge_provider_overhead.py",
         "scripts/phase3/build_phase3_manifest.py",
         "scripts/phase3/verify_phase3.py",
     ],
