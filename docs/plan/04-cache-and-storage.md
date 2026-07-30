@@ -70,7 +70,7 @@ This synchronous path is a phase-isolation mechanism, not the final transport.
 - True cross-epoch hits occur from cache-owned memory.
 - No stale data or graph-temporary dependency exists.
 
-Status: `OBSERVED` in issue #17 standing evidence. Checkpoint A returned `PASS_WITH_NOTES`, safety `YES`; final complete-PR review is pending before the exit gate is accepted for merge.
+Status: `ACCEPTED`. Issue #17 standing evidence satisfies the exit gate; Checkpoint A and final complete-PR review returned `PASS_WITH_NOTES`, safety `YES`. PR #18 squash-merged as `b196cc07249726651d39aaa624703bc4256a3012` with nested `llama.cpp` head `57fe1eabbe3d0ced59096a0744efc91e286fb1c7`.
 
 ---
 
