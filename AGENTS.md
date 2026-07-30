@@ -4,134 +4,107 @@ Instructions for ChatGPT, Codex, and other coding agents working in this reposit
 
 ## Mission
 
-Implement the K3 out-of-core expert runtime described in `README.md` and `PLAN.md`. This repository is the cross-session source of truth. Do not infer architectural changes from chat history when committed documents say otherwise.
+Implement the K3 out-of-core expert runtime described by the committed architecture and plan. This repository is the cross-session source of truth. Chat history is provisional when it conflicts with committed state.
 
-## Required reading order
+## Load context progressively
 
-Before changing code or plans, read:
+For non-trivial work, load this bootstrap context once:
 
-1. `README.md`
-2. `docs/STATUS.md`
-3. `docs/DECISIONS.md`
-4. `PLAN.md`
-5. `docs/MODELS_AND_VALIDATION.md`
-6. `docs/PRIOR_ART.md`
-7. `.agents/skills/design-github-issue/SKILL.md`
-8. `.agents/skills/spec-driven-codex-loop/SKILL.md`
-9. `.agents/skills/codex-github-operations/SKILL.md`
-10. `.agents/skills/codex-independent-review/SKILL.md`
+1. `AGENTS.md`;
+2. `docs/STATUS.md`;
+3. the controlling GitHub issue body.
 
-Then inspect the current Git branch, commit history, open issues and pull requests, and any linked `llama.cpp` checkout.
+Then load only the context needed for the active role and phase:
+
+- exact decision IDs, plan sections, validation sections, manifests, or evidence linked by the issue;
+- relevant source, tests, build files, and pinned dependency state;
+- the one workflow skill that owns the current action.
+
+Do not preload every repository document, every skill, complete prior issue or pull-request histories, or whole result directories. Read a complete document only when the issue makes the whole document authoritative or section-level reading cannot resolve the task.
+
+On session resume, verify branch, `HEAD`, worktree state, and new issue comments since the recorded handoff. Do not replay unchanged history. Reuse already inspected facts and file contents while their path and commit or blob identity remain unchanged.
 
 ## Source-of-truth hierarchy
 
 1. Tests and captured evidence establish observed behavior.
 2. `docs/DECISIONS.md` establishes accepted architecture.
-3. `PLAN.md` establishes sequence and exit gates.
-4. `docs/MODELS_AND_VALIDATION.md` establishes models and validation requirements.
+3. `PLAN.md` and linked `docs/plan/` sections establish sequence and exit gates.
+4. `docs/MODELS_AND_VALIDATION.md` establishes model and validation requirements.
 5. `docs/STATUS.md` establishes the current handoff state.
-6. Chat messages are provisional until committed here.
+6. The controlling issue establishes the bounded execution contract for its scope.
+7. Chat messages are provisional until committed or recorded in the issue.
 
-When sources conflict, stop and document the conflict. Do not silently choose one.
+When sources materially conflict, stop and document the conflict. Do not silently choose one.
 
-## Status markers
+Use these status markers exactly in plans and design notes: `ACCEPTED`, `OPEN`, `SPECULATIVE`, `REJECTED`, `OBSERVED`, and `BLOCKED`. Never present an `OPEN` or `SPECULATIVE` item as decided.
 
-Use these exact markers in plans and design notes:
+## Role routing and instruction ownership
 
-- `ACCEPTED`
-- `OPEN`
-- `SPECULATIVE`
-- `REJECTED`
-- `OBSERVED`
-- `BLOCKED`
+Load skills lazily by role:
 
-Never present an `OPEN` or `SPECULATIVE` item as decided.
+- design authority: `.agents/skills/design-github-issue/SKILL.md`;
+- main executor: `.agents/skills/spec-driven-codex-loop/SKILL.md`;
+- Git and GitHub mutation or publication: `.agents/skills/codex-github-operations/SKILL.md`;
+- independent checkpoint or final review: `.agents/skills/codex-independent-review/SKILL.md`.
 
-## Agent workflow routing
+Do not read a role skill merely because it exists. The executor does not need the design or reviewer procedure; the reviewer does not need the executor or GitHub-operations procedure.
 
-For non-trivial implementation, refactoring, migration, performance work, investigations, or source-of-truth changes:
+`AGENTS.md` owns repository-wide invariants and routing. Each skill owns its procedure. Issues own phase-specific scope, commands, and gates. Avoid copying the same rule into all three places; reference the owning source and record only the phase-specific delta.
 
-- the design-authority session uses `.agents/skills/design-github-issue/SKILL.md`;
-- the main executor uses `.agents/skills/spec-driven-codex-loop/SKILL.md`;
-- Git and GitHub operations use `.agents/skills/codex-github-operations/SKILL.md`;
-- independent checkpoint and final reviews use `.agents/skills/codex-independent-review/SKILL.md`.
-
-`AGENTS.md` defines repository-wide invariants and routes work to skills. It intentionally does not duplicate operational procedures owned by those skills. When instructions overlap, the dedicated skill owns its stated responsibility.
+`STANDARD` is the default execution profile. `HIGH_ASSURANCE` is opt-in and must be explicit. Detailed profile, label, comment, checkpoint, publication, and review procedures belong to the workflow skills, not this file.
 
 Trivial typo-only edits may skip the complete issue workflow unless the user explicitly requests it, but repository safety and source-of-truth rules still apply.
 
-## Execution profiles
+## Context and inference economy
 
-`STANDARD` is the default profile.
+Reasoning and tool exploration are project resources. Use them where they reduce technical risk, not to reconstruct known state repeatedly.
 
-- Validate and commit each bounded phase.
-- Publish exact commits when needed for preservation, collaboration, or review.
-- Require independent review only at checkpoints declared by the issue and at final handoff.
-- Treat recoverable tool or transport failures as degraded operation or handoff, not as implementation failure.
+- Maintain a compact working ledger: controlling issue, active phase, branch, exact project and nested heads, documents or sections read, and last accepted checkpoint.
+- Re-read an input only when its identity changed, new evidence affects it, or a conflict requires broader inspection.
+- Prefer the previous phase's final machine-readable manifest and accepted review over complete historical issue, PR, and results traversal. Read older records only when the current issue identifies an unresolved dependency or dispute.
+- Prefer exact paths, symbols, commands, and section anchors supplied by the issue over repository-wide searches.
+- Under `STANDARD`, group routine progress reporting at session boundaries and checkpoints unless a failure, scope change, or handoff needs an immediate record.
+- Do not create redundant summaries of authoritative data. Link or identify the authoritative record and describe only changes, deviations, and conclusions.
 
-`HIGH_ASSURANCE` is opt-in and must be explicitly selected by the issue or user.
+## Native build and test tooling
 
-Use it for high-risk work such as architecture, concurrency and lifetime, numerical formats, routing semantics, CUDA/backend correctness, persistent storage, cache coherence, security, or other changes where every phase warrants independent review.
+Prefer repository-native build and test systems over bespoke compiler, linker, or test orchestration.
 
-The detailed profile rules belong to `design-github-issue` and `spec-driven-codex-loop`.
+- Use existing CMake targets, presets, incremental builds, and CTest integration where available.
+- A persistent C or C++ helper, probe, fixture generator, or test executable should normally be a CMake target rather than a script that reconstructs include paths, library order, `rpath`, or linker flags.
+- Do not invent committed manual `c++`, `-L`, `-l`, or `-Wl,...` command construction merely to reduce local CPU time or avoid an incremental native build. Local computation is cheaper than repeated agent reasoning and custom build maintenance.
+- Ad-hoc compiler commands are acceptable for disposable investigation. They are not the default durable implementation or validation path.
+- If the approved deliverable requires a new native target, the issue should permit the necessary build metadata. If its allowlist accidentally excludes required build files, return for a bounded contract correction instead of building a permanent workaround.
+- When the issue provides an exact native command, run it before designing an alternative. Classify actual failures rather than speculating about tool behavior.
 
-## GitHub workflow labels
+## Implementation discipline
 
-Use exactly one workflow-state label for each non-trivial open issue:
+Before changing a phase:
 
-- `design-required`
-- `investigation-required`
-- `execution-ready`
-- `in-progress`
-- `blocked`
+- identify the smallest independently verifiable outcome and its exit gate;
+- confirm exact upstream or nested revisions only when the phase touches or validates them;
+- confirm model, artifact, and checksum inputs only when the phase consumes them;
+- inspect prior art and licensing only when code or design is being reused.
 
-Labels summarize durable workflow state; they are not a substitute for issue evidence. `blocked` is reserved for a real unresolved condition that prevents meaningful technical progress and has no permitted alternative or handoff. Tool-specific failures are not automatically blockers.
+During implementation:
 
-Label mutation, verification, and transport selection belong to `codex-github-operations`.
+- make one architectural step per commit where practical;
+- keep storage, cache mechanism, policy, transport, and execution separate;
+- add tests with the implementation;
+- add telemetry before optimizing a path;
+- preserve the baseline path for A/B comparison;
+- record reproducible commands and results in machine-readable form;
+- do not report performance without exact revisions and configuration;
+- avoid unrelated cleanup and formatting.
 
-## Required execution outcomes
+At the end of an implementation session:
 
-Every non-trivial execution must provide:
-
-1. an approved, self-contained issue contract;
-2. bounded implementation phases;
-3. validation appropriate to each phase;
-4. intentional, reviewable commits;
-5. recorded evidence and deviations;
-6. independent reviews at the issue-declared checkpoints;
-7. a final external review of the complete pull request and issue history before merge.
-
-Do not implement from an underspecified prompt. When implementation exposes a material defect in the specification, architecture, phase decomposition, or validation strategy, return to design instead of accumulating compensating patches.
-
-## Working method
-
-### Before implementation
-
-- Identify the current phase and exit gate in `PLAN.md`.
-- Confirm the exact upstream `llama.cpp` commit and local diff.
-- Confirm model and checkpoint revisions and checksums.
-- State the smallest independently verifiable step.
-- Identify prior-art code to inspect and its license.
-
-### During implementation
-
-- Make one architectural step per commit where practical.
-- Keep storage, cache mechanism, policy, transport, and execution separate.
-- Add tests with the implementation, not later.
-- Add telemetry before optimizing a path.
-- Preserve the baseline path for A/B comparison.
-- Record commands and results in machine-readable form.
-- Do not report performance without exact revisions and configuration.
-
-### At the end of an implementation session
-
-- Update `docs/STATUS.md` only when the project handoff state changes, including exact relevant commit SHAs.
-- Update only completed tasks, exit gates, and evidence affected in `PLAN.md`.
-- Record decisions in `docs/DECISIONS.md` only when a decision is added, changed, or reopened.
-- Update `docs/MODELS_AND_VALIDATION.md` only when model commands, validation requirements, or evidence change.
-- Update repository/artifact records and machine-readable manifests only when revisions or artifacts change.
-- Commit required source-of-truth changes.
-- Leave the working tree clean or clearly document intentional uncommitted work.
+- update `docs/STATUS.md` only when the project handoff state changes, including exact relevant commit SHAs;
+- update only completed tasks, exit gates, and affected evidence in `PLAN.md` or linked plan sections;
+- update `docs/DECISIONS.md` only when a decision is added, changed, or reopened;
+- update model, repository, artifact, and manifest records only when their inputs or evidence changed;
+- commit required source-of-truth changes;
+- leave the working tree clean or clearly document intentional uncommitted work.
 
 ## Architectural constraints
 
@@ -193,16 +166,7 @@ Tests must include repeated warm runs because prior work failed across compute e
 
 ## Performance requirements
 
-Do not optimize from hit rate alone. Record:
-
-- prompt and decode throughput;
-- p50, p95, and p99 token latency;
-- hot, cold, and disk hits;
-- bytes moved per tier;
-- disk and H2D wait and overlap;
-- CPU miss compute;
-- useful and wasted prefetch;
-- RAM, pinned RAM, VRAM, and UMA usage.
+Do not optimize from hit rate alone. Record prompt and decode throughput; p50, p95, and p99 token latency; tier requests and hits; bytes moved; disk and H2D wait and overlap; CPU miss compute; useful and wasted prefetch; and RAM, pinned RAM, VRAM, and UMA usage.
 
 A strategy that improves warm average throughput but worsens cold or tail latency must be described accurately.
 
