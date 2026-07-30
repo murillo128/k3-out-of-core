@@ -1,6 +1,6 @@
 # Phase 3 resident-provider evidence
 
-Status: `OBSERVED` corrective prerequisites pass; post-optimization standing capture pending.
+Status: `OBSERVED` corrective prerequisites pass; post-optimization standing performance gate failed; `design-required`.
 
 This directory contains the committed issue #13 evidence for project base `81df862da6e4ff9db005f6265470070bb5456f4c`, nested base `4daaaa1a4dd26d6465f84891b854b5f7ddc03020`, corrective nested base `523f825d2df5efa7c9a08561e2b64861ad5594c5`, and optimized candidate `a120de8e2d0b552c51eacd7d701ef1dd994bc3db`. It reuses the Phase 2 manifest and published corpus revision `2d838d6b4d0aca4e9af1e7d899e57ad29330c72e` without modifying or republishing the raw corpus.
 
@@ -40,7 +40,7 @@ Every disabled provider counter is zero. The resident path records no provider a
 
 The two earlier complete corrected attempts remain committed as historical failed evidence. The former composed report and its selection tool were rejected by independent review and are not used by the standing result.
 
-Those three files are immutable, non-authoritative history for the corrective disposition. Exactly one complete v2 capture, `provider-overhead-post-optimization.json`, is approved under rule `single-complete-post-optimization-capture-v2`. It preserves the original budgets and protocol and has not started at this handoff.
+Those three files are immutable, non-authoritative history for the corrective disposition.
 
 | Artifact/backend | Comparison | Decode upper/budget | Prompt upper/budget | TTFT upper/budget | Result |
 |---|---|---:|---:|---:|---|
@@ -54,6 +54,12 @@ Those three files are immutable, non-authoritative history for the corrective di
 | MXFP4 CUDA | disabled → resident | 0.144048% / 0.988906% | 2.153824% / 2.400604% | 2.411496% / 2.400604% | FAIL |
 
 Each bound is the paired mean slowdown plus the one-sided 95% Student-t critical value with 9 degrees of freedom. Negative slowdowns, where present in raw pairs, mean the candidate observation was faster; they are not clamped.
+
+## Post-optimization standing result
+
+`provider-overhead-post-optimization.json` is the one complete v2 capture approved under rule `single-complete-post-optimization-capture-v2` and issue comment `5127774849`. It ran once against exact candidate `a120de8e2d0b552c51eacd7d701ef1dd994bc3db`, after every published prerequisite passed, and records the additional non-gated context-creation telemetry. Its result stands without retry or composition: 22 of 24 cells pass.
+
+Only MXFP4 CUDA disabled-versus-resident prompt performance fails. Prompt-throughput slowdown has a 3.989153% one-sided upper bound and TTFT slowdown has a 4.386548% upper bound, both above the unchanged 2.400604% budget. Decode has a 0.168984% upper bound within its 0.988906% budget. All eight baseline-versus-disabled analyses and every F16 CPU, F16 CUDA, and MXFP4 CPU resident analysis pass. Phase 3 therefore returns to `design-required`; no third capture, Checkpoint B, final review, or merge is permitted under issue #13.
 
 ## Review and scope
 
