@@ -7,11 +7,27 @@ import argparse
 import json
 from pathlib import Path
 
+from jsonschema import Draft202012Validator
+
 from common import LLAMA_BASE, MODELS, PROJECT_BASE, PUBLISHED_CORPUS, PUBLISHED_GGUF, git, sha256
+from phase3_disposition import (
+    CAPTURE_RELATIVE,
+    CAPTURE_SHA256,
+    DESIGN_AUTHORITY_COMMENT_IDS,
+    LLAMA_CPP_CANDIDATE,
+    RESULTS_RELATIVE,
+    validate_disposition,
+    write_disposition,
+)
 
 
 FILES = {
-    "schema": ["schemas/phase3/phase3-manifest-v1.schema.json"],
+    "schema": [
+        "schemas/phase3/phase3-manifest-v1.schema.json",
+        "schemas/phase3/phase3-manifest-v2.schema.json",
+        "schemas/phase3/phase3-disposition-v1.schema.json",
+        "schemas/phase3/checkpoint-b-review-v1.schema.json",
+    ],
     "implementation": [
         "scripts/phase2/capture_route_observer.py",
         "scripts/phase2/overhead_probe.cpp",
@@ -24,6 +40,7 @@ FILES = {
         "scripts/phase3/run_provider_lifecycle.py",
         "scripts/phase3/verify_corrective_prerequisites.py",
         "scripts/phase3/measure_provider_overhead.py",
+        "scripts/phase3/phase3_disposition.py",
         "scripts/phase3/build_phase3_manifest.py",
         "scripts/phase3/verify_phase3.py",
     ],
@@ -40,6 +57,7 @@ FILES = {
         "results/2026-07-29/skynet/phase3-resident-provider/provider-admin-fast-path.json",
         "results/2026-07-29/skynet/phase3-resident-provider/corrective-prerequisites.json",
         "results/2026-07-29/skynet/phase3-resident-provider/provider-overhead-post-optimization.json",
+        "results/2026-07-29/skynet/phase3-resident-provider/phase3-disposition.json",
     ],
     "source-of-truth": [
         "PLAN.md",
@@ -52,6 +70,30 @@ FILES = {
 }
 
 
+def validate_schema(instance: dict, schema_path: Path) -> None:
+    schema = json.loads(schema_path.read_text())
+    Draft202012Validator.check_schema(schema)
+    Draft202012Validator(schema).validate(instance)
+
+
+def validate_checkpoint_b(checkpoint: dict, root: Path) -> None:
+    validate_schema(checkpoint, root / "schemas/phase3/checkpoint-b-review-v1.schema.json")
+    project_head = checkpoint.get("project_head")
+    expected = {
+        "project_range": f"{PROJECT_BASE}..{project_head}",
+        "llama_cpp_range": f"{LLAMA_BASE}..{LLAMA_CPP_CANDIDATE}",
+        "llama_cpp_head": LLAMA_CPP_CANDIDATE,
+    }
+    for name, value in expected.items():
+        if checkpoint.get(name) != value:
+            raise RuntimeError(f"Checkpoint B attestation differs: {name}")
+    if checkpoint.get("url") != (
+        "https://github.com/murillo128/k3-out-of-core/issues/13#issuecomment-"
+        f"{checkpoint.get('comment_id')}"
+    ):
+        raise RuntimeError("Checkpoint B comment URL does not bind its comment ID")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--project-root", type=Path, required=True)
@@ -60,7 +102,7 @@ def main() -> int:
     args = parser.parse_args()
     root = args.project_root.resolve()
     results_root = args.results_root.resolve()
-    expected_results = root / "results/2026-07-29/skynet/phase3-resident-provider"
+    expected_results = root / RESULTS_RELATIVE
     if results_root != expected_results:
         raise RuntimeError("Phase 3 evidence root differs from the issue #13 host/date contract")
 
@@ -69,14 +111,22 @@ def main() -> int:
     if phase2["revisions"]["published_corpus"] != PUBLISHED_CORPUS:
         raise RuntimeError("Phase 2 manifest lineage differs")
 
+    disposition_path = results_root / "phase3-disposition.json"
+    disposition = write_disposition(root, disposition_path)
+    disposition_errors: list[str] = []
+    validate_disposition(root, disposition, disposition_errors)
+    if disposition_errors:
+        raise RuntimeError("; ".join(disposition_errors))
+    validate_schema(disposition, root / "schemas/phase3/phase3-disposition-v1.schema.json")
+
     checkpoint_b_path = results_root / "checkpoint-b-review.json"
     checkpoint_b = json.loads(checkpoint_b_path.read_text()) if checkpoint_b_path.is_file() else None
     overhead = json.loads((results_root / "provider-overhead-post-optimization.json").read_text())
     overhead_status = overhead.get("status")
     if overhead_status not in {"pass", "fail"}:
         raise RuntimeError("provider overhead has no valid standing result")
-    if checkpoint_b is not None and overhead_status != "pass":
-        raise RuntimeError("a failed performance gate cannot bind an accepted Checkpoint B")
+    if overhead_status != "fail":
+        raise RuntimeError("accepted-with-notes closeout requires the raw standing performance failure")
     failed_metric_cells = sum(
         analysis.get("passed") is not True
         for combination in overhead.get("combinations", [])
@@ -85,6 +135,7 @@ def main() -> int:
     )
     files = {kind: list(paths) for kind, paths in FILES.items()}
     if checkpoint_b is not None:
+        validate_checkpoint_b(checkpoint_b, root)
         files["evidence"].append("results/2026-07-29/skynet/phase3-resident-provider/checkpoint-b-review.json")
 
     artifacts = []
@@ -113,17 +164,22 @@ def main() -> int:
         "published_corpus": PUBLISHED_CORPUS,
     }
     if checkpoint_b is not None:
-        if checkpoint_b.get("checkpoint") != "B" or checkpoint_b.get("safety_to_proceed") != "YES":
-            raise RuntimeError("Checkpoint B attestation is not accepted")
         reviews.append(checkpoint_b)
         revisions["project_checkpoint_b_head"] = checkpoint_b["project_head"]
 
+    disposition_identity = {
+        "status": "accepted-with-notes",
+        "progression_scope": "phase3-only",
+        "path": str(disposition_path.relative_to(root)),
+        "size": disposition_path.stat().st_size,
+        "sha256": sha256(disposition_path),
+        "comment_ids": DESIGN_AUTHORITY_COMMENT_IDS,
+    }
     manifest = {
-        "schema_version": "phase3-manifest-v1",
+        "schema_version": "phase3-manifest-v2",
         "closeout_state": (
-            "complete" if checkpoint_b is not None else
-            "checkpoint-b-candidate" if overhead_status == "pass" else
-            "performance-gate-failed"
+            "complete-with-performance-notes" if checkpoint_b is not None else
+            "checkpoint-b-candidate-with-performance-notes"
         ),
         "execution_profile": "STANDARD",
         "issue": {
@@ -131,6 +187,11 @@ def main() -> int:
             "url": "https://github.com/murillo128/k3-out-of-core/issues/13", "pull_request": 15,
         },
         "revisions": revisions,
+        "raw_performance_gate": {
+            "status": "fail", "passed_cells": 22, "total_cells": 24,
+            "capture_path": CAPTURE_RELATIVE, "capture_sha256": CAPTURE_SHA256,
+        },
+        "design_disposition": disposition_identity,
         "models": [MODELS[name] for name in ("f16", "mxfp4")],
         "phase2_input": {
             "path": str(phase2_path.relative_to(root)), "size": phase2_path.stat().st_size,
@@ -163,6 +224,7 @@ def main() -> int:
     output = args.output.resolve()
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n")
+    validate_schema(manifest, root / "schemas/phase3/phase3-manifest-v2.schema.json")
     print(json.dumps({"output": str(output), "artifacts": len(artifacts), "state": manifest["closeout_state"]}, sort_keys=True))
     return 0
 

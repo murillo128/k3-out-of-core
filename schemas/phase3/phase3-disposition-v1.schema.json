@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/phase3/phase3-disposition-v1.schema.json",
+  "title": "K3 Phase 3 accepted-with-notes disposition version 1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "repository", "issue", "design_authority_comment_ids",
+    "disposition", "progression_scope", "standing_evidence_commit", "raw_performance",
+    "prerequisites", "authorization", "non_precedent_gates"
+  ],
+  "properties": {
+    "schema_version": {"const": "phase3-disposition-v1"},
+    "repository": {"const": "murillo128/k3-out-of-core"},
+    "issue": {"const": 13},
+    "design_authority_comment_ids": {"const": [5128658370, 5128726338]},
+    "disposition": {"const": "accepted-with-notes"},
+    "progression_scope": {"const": "phase3-only"},
+    "standing_evidence_commit": {"const": "93635d7ece8fdc617291d5a036bda1c8bc2b6c77"},
+    "raw_performance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status", "capture", "metric_cells", "waived_cells", "mxfp4_cuda_decode_reference",
+        "all_baseline_to_disabled_cells_pass", "all_decode_cells_pass"
+      ],
+      "properties": {
+        "status": {"const": "fail"},
+        "capture": {
+          "type": "object", "additionalProperties": false, "required": ["path", "sha256"],
+          "properties": {
+            "path": {"const": "results/2026-07-29/skynet/phase3-resident-provider/provider-overhead-post-optimization.json"},
+            "sha256": {"const": "23eff115b87a9e8cee101bd1c0b02f299786175e786b4b30dd4a7e66617d4970"}
+          }
+        },
+        "metric_cells": {
+          "type": "object", "additionalProperties": false, "required": ["passed", "total"],
+          "properties": {"passed": {"const": 22}, "total": {"const": 24}}
+        },
+        "waived_cells": {
+          "type": "array", "minItems": 2, "maxItems": 2, "prefixItems": [
+            {"$ref": "#/$defs/prompt_waiver"}, {"$ref": "#/$defs/ttft_waiver"}
+          ], "items": false
+        },
+        "mxfp4_cuda_decode_reference": {"$ref": "#/$defs/decode_reference"},
+        "all_baseline_to_disabled_cells_pass": {"const": true},
+        "all_decode_cells_pass": {"const": true}
+      }
+    },
+    "prerequisites": {
+      "type": "object", "additionalProperties": false,
+      "required": ["correctness", "lifecycle", "structural_zero_work", "graph", "scope", "evidence_integrity"],
+      "properties": {
+        "correctness": {"const": true}, "lifecycle": {"const": true},
+        "structural_zero_work": {"const": true}, "graph": {"const": true},
+        "scope": {"const": true}, "evidence_integrity": {"const": true}
+      }
+    },
+    "authorization": {
+      "type": "object", "additionalProperties": false,
+      "required": ["further_phase3_optimization_authorized", "further_phase3_capture_authorized"],
+      "properties": {
+        "further_phase3_optimization_authorized": {"const": false},
+        "further_phase3_capture_authorized": {"const": false}
+      }
+    },
+    "non_precedent_gates": {
+      "const": [
+        "later-cache-performance", "later-transport-performance", "later-miss-performance",
+        "full-size-performance", "multi-request-performance", "tail-latency", "correctness",
+        "default-path-performance", "steady-state-decode"
+      ]
+    }
+  },
+  "$defs": {
+    "waiver_base": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "artifact", "backend", "comparison", "metric", "paired_mean_slowdown",
+        "one_sided_95_percent_upper_bound", "original_budget"
+      ],
+      "properties": {
+        "artifact": {"const": "mxfp4"}, "backend": {"const": "cuda"},
+        "comparison": {"const": "disabled-vs-resident"}, "metric": {"type": "string"},
+        "paired_mean_slowdown": {"type": "number"},
+        "one_sided_95_percent_upper_bound": {"type": "number"},
+        "original_budget": {"const": 0.02400604}
+      }
+    },
+    "prompt_waiver": {
+      "allOf": [
+        {"$ref": "#/$defs/waiver_base"},
+        {"properties": {
+          "metric": {"const": "prompt_tokens_per_second"},
+          "paired_mean_slowdown": {"const": 0.016570443496638908},
+          "one_sided_95_percent_upper_bound": {"const": 0.03989153360974916}
+        }}
+      ]
+    },
+    "ttft_waiver": {
+      "allOf": [
+        {"$ref": "#/$defs/waiver_base"},
+        {"properties": {
+          "metric": {"const": "ttft_seconds"},
+          "paired_mean_slowdown": {"const": 0.018462337140491426},
+          "one_sided_95_percent_upper_bound": {"const": 0.0438654800269314}
+        }}
+      ]
+    },
+    "decode_reference": {
+      "type": "object", "additionalProperties": false,
+      "required": ["artifact", "backend", "comparison", "metric", "one_sided_95_percent_upper_bound", "original_budget"],
+      "properties": {
+        "artifact": {"const": "mxfp4"}, "backend": {"const": "cuda"},
+        "comparison": {"const": "disabled-vs-resident"},
+        "metric": {"const": "decode_tokens_per_second"},
+        "one_sided_95_percent_upper_bound": {"const": 0.0016898439137899856},
+        "original_budget": {"const": 0.00988906}
+      }
+    }
+  }
+}

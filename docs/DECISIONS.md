@@ -183,6 +183,16 @@ The issue #13 corrective amendment preserves routing, tensors, kernels, graph to
 
 The original issue #13 performance budgets and workload remain unchanged. Design-authority comment `5127774849` authorizes exactly one complete post-optimization v2 standing capture after the corrective commits and all prerequisite evidence are published. Historical captures remain immutable and non-authoritative for that new disposition.
 
+### D-018 — Accept the Phase 3 seam with narrow performance notes
+
+**Status:** ACCEPTED
+
+Design-authority comments `5128658370` and `5128726338` accept the Phase 3 technical exit as `PASS_WITH_NOTES` for project progression only. The immutable post-optimization capture remains a raw `fail`: 22 of 24 original cells pass, while MXFP4 CUDA disabled-versus-resident prompt throughput and TTFT exceed their unchanged one-sided confidence budget. The capture, statistics, and budgets are not relabelled or modified.
+
+The waiver is limited to those two representations of the same five-token prompt duration. Every baseline-to-disabled and decode cell passes, as do correctness, lifecycle, structural-zero-work, graph, scope, and evidence-integrity prerequisites. No further Phase 3 optimization or capture is authorized.
+
+This decision is not precedent for waiving correctness, default-path performance, steady-state decode, later cache/transport/miss or multi-request performance, full-size performance, or tail latency. Those later gates remain independently binding.
+
 ## Rejected shortcuts
 
 ### R-001 — Rely exclusively on `mmap` and OS page replacement

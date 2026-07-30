@@ -1,11 +1,16 @@
 {
-  "artifact_count": 32,
+  "artifact_count": 37,
+  "checkpoint_b_bound": false,
+  "checkpoint_b_eligible": true,
   "closeout_eligible": false,
-  "closeout_state": "performance-gate-failed",
+  "closeout_state": "checkpoint-b-candidate-with-performance-notes",
+  "design_disposition": "accepted-with-notes",
   "errors": [],
+  "evidence_integrity_errors": 0,
   "manifest": "results/2026-07-29/skynet/phase3-resident-provider/phase3-manifest.json",
-  "manifest_sha256": "08a12a573a7f085c120308beb4e7c1f07757750e2e7d8cedee20311984f58e30",
-  "schema_version": "phase3-verification-result-v1",
+  "manifest_sha256": "18c3736842bd830d54d8c27a4b6aea88ce699ba99d8b422924ee3d0310a72b77",
+  "raw_performance_gate": "fail",
+  "schema_version": "phase3-verification-result-v2",
   "status": "pass",
   "strict": true
 }

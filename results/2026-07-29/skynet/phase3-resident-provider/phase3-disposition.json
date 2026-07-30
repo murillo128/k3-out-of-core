@@ -1,0 +1,76 @@
+{
+  "authorization": {
+    "further_phase3_capture_authorized": false,
+    "further_phase3_optimization_authorized": false
+  },
+  "design_authority_comment_ids": [
+    5128658370,
+    5128726338
+  ],
+  "disposition": "accepted-with-notes",
+  "issue": 13,
+  "non_precedent_gates": [
+    "later-cache-performance",
+    "later-transport-performance",
+    "later-miss-performance",
+    "full-size-performance",
+    "multi-request-performance",
+    "tail-latency",
+    "correctness",
+    "default-path-performance",
+    "steady-state-decode"
+  ],
+  "prerequisites": {
+    "correctness": true,
+    "evidence_integrity": true,
+    "graph": true,
+    "lifecycle": true,
+    "scope": true,
+    "structural_zero_work": true
+  },
+  "progression_scope": "phase3-only",
+  "raw_performance": {
+    "all_baseline_to_disabled_cells_pass": true,
+    "all_decode_cells_pass": true,
+    "capture": {
+      "path": "results/2026-07-29/skynet/phase3-resident-provider/provider-overhead-post-optimization.json",
+      "sha256": "23eff115b87a9e8cee101bd1c0b02f299786175e786b4b30dd4a7e66617d4970"
+    },
+    "metric_cells": {
+      "passed": 22,
+      "total": 24
+    },
+    "mxfp4_cuda_decode_reference": {
+      "artifact": "mxfp4",
+      "backend": "cuda",
+      "comparison": "disabled-vs-resident",
+      "metric": "decode_tokens_per_second",
+      "one_sided_95_percent_upper_bound": 0.0016898439137899856,
+      "original_budget": 0.00988906
+    },
+    "status": "fail",
+    "waived_cells": [
+      {
+        "artifact": "mxfp4",
+        "backend": "cuda",
+        "comparison": "disabled-vs-resident",
+        "metric": "prompt_tokens_per_second",
+        "one_sided_95_percent_upper_bound": 0.03989153360974916,
+        "original_budget": 0.02400604,
+        "paired_mean_slowdown": 0.016570443496638908
+      },
+      {
+        "artifact": "mxfp4",
+        "backend": "cuda",
+        "comparison": "disabled-vs-resident",
+        "metric": "ttft_seconds",
+        "one_sided_95_percent_upper_bound": 0.0438654800269314,
+        "original_budget": 0.02400604,
+        "paired_mean_slowdown": 0.018462337140491426
+      }
+    ]
+  },
+  "repository": "murillo128/k3-out-of-core",
+  "schema_version": "phase3-disposition-v1",
+  "standing_evidence_commit": "93635d7ece8fdc617291d5a036bda1c8bc2b6c77"
+}

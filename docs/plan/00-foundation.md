@@ -218,6 +218,6 @@ CachePolicy
 - [ ] Resident-provider performance regression is within the predeclared noise budget.
 - [x] Interfaces are reviewed against discrete, UMA, disk, multi-request, and multi-GPU requirements.
 
-Status: BLOCKED — the prospectively approved standing capture failed three resident-provider metric cells; no recapture is authorized without a new design decision.
+Status: ACCEPTED WITH NOTES — the immutable post-optimization capture passed 22 of 24 original cells and failed the MXFP4 CUDA disabled-versus-resident prompt-throughput and TTFT confidence bounds. Design-authority comments `5128658370` and `5128726338` accept the Phase 3 technical exit for project progression without marking the unchecked raw gate as passed. No further Phase 3 measurement is authorized; Checkpoint B and final review remain pending.
 
 ---

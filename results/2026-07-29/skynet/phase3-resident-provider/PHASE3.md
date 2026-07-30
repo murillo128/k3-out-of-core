@@ -1,6 +1,6 @@
 # Phase 3 resident-provider evidence
 
-Status: `OBSERVED` corrective prerequisites pass; post-optimization standing performance gate failed; `design-required`.
+Status: `OBSERVED` raw post-optimization performance gate failed 2/24 cells; `ACCEPTED` Phase 3 technical exit with notes; Checkpoint B pending.
 
 This directory contains the committed issue #13 evidence for project base `81df862da6e4ff9db005f6265470070bb5456f4c`, nested base `4daaaa1a4dd26d6465f84891b854b5f7ddc03020`, corrective nested base `523f825d2df5efa7c9a08561e2b64861ad5594c5`, and optimized candidate `a120de8e2d0b552c51eacd7d701ef1dd994bc3db`. It reuses the Phase 2 manifest and published corpus revision `2d838d6b4d0aca4e9af1e7d899e57ad29330c72e` without modifying or republishing the raw corpus.
 
@@ -59,7 +59,13 @@ Each bound is the paired mean slowdown plus the one-sided 95% Student-t critical
 
 `provider-overhead-post-optimization.json` is the one complete v2 capture approved under rule `single-complete-post-optimization-capture-v2` and issue comment `5127774849`. It ran once against exact candidate `a120de8e2d0b552c51eacd7d701ef1dd994bc3db`, after every published prerequisite passed, and records the additional non-gated context-creation telemetry. Its result is published at project commit `93635d7ece8fdc617291d5a036bda1c8bc2b6c77` and stands without retry or composition: 22 of 24 cells pass.
 
-Only MXFP4 CUDA disabled-versus-resident prompt performance fails. Prompt-throughput slowdown has a 3.989153% one-sided upper bound and TTFT slowdown has a 4.386548% upper bound, both above the unchanged 2.400604% budget. Decode has a 0.168984% upper bound within its 0.988906% budget. All eight baseline-versus-disabled analyses and every F16 CPU, F16 CUDA, and MXFP4 CPU resident analysis pass. Phase 3 therefore returns to `design-required`; no third capture, Checkpoint B, final review, or merge is permitted under issue #13.
+Only MXFP4 CUDA disabled-versus-resident prompt performance fails. Prompt-throughput slowdown has a 3.989153% one-sided upper bound and TTFT slowdown has a 4.386548% upper bound, both above the unchanged 2.400604% budget. Decode has a 0.168984% upper bound within its 0.988906% budget. All 12 baseline-versus-disabled metric cells and every F16 CPU, F16 CUDA, and MXFP4 CPU resident analysis pass. That raw result originally returned Phase 3 to `design-required` and prohibited a third capture pending a new design decision.
+
+## Accepted-with-notes closeout disposition
+
+Design-authority comments `5128658370` and `5128726338` accept the Phase 3 technical exit as `PASS_WITH_NOTES` for project progression only. The structured `phase3-disposition.json` is derived from and checked against the immutable capture; it does not turn that capture into a pass. It binds exactly the two failed MXFP4 CUDA disabled-versus-resident prompt/TTFT cells, 22/24 passing cells, the passing baseline-to-disabled and decode gates, and the passing correctness, lifecycle, structural-zero-work, graph, scope, and evidence-integrity prerequisites.
+
+No further Phase 3 optimization, capture, retry, selection, pooling, or composition is authorized. The note is not precedent for correctness, default-path or steady-state decode regressions, or later cache, transport, miss, multi-request, full-size, or tail-latency gates. The remaining sequence is independent Checkpoint B review, a bounded structured review attestation if accepted, and a separate final complete-PR review. PR #15 remains draft; merge, issue closure, and an upstream `llama.cpp` PR remain outside this continuation.
 
 ## Review and scope
 

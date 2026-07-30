@@ -12,6 +12,13 @@ from typing import Any
 from jsonschema import Draft202012Validator
 
 from common import LLAMA_BASE, MODELS, PROJECT_BASE, PUBLISHED_CORPUS, PUBLISHED_GGUF, git, sha256
+from phase3_disposition import (
+    CAPTURE_RELATIVE,
+    CAPTURE_SHA256,
+    DESIGN_AUTHORITY_COMMENT_IDS,
+    LLAMA_CPP_CANDIDATE,
+    validate_disposition,
+)
 
 
 ALLOWED_NESTED_PATHS = {
@@ -45,6 +52,25 @@ FINAL_CAPTURE_APPROVAL_COMMENT_ID = 5127774849
 FINAL_CAPTURE_NAME = "provider-overhead-post-optimization.json"
 HISTORICAL_CAPTURE_NAME = "provider-overhead.json"
 HISTORICAL_CAPTURE_SHA256 = "df0fa1f05c6a57838e54f9b9da7a8d66f6ef826adf83fe3c19ccf771d04540a5"
+V2_CANDIDATE_STATE = "checkpoint-b-candidate-with-performance-notes"
+V2_COMPLETE_STATE = "complete-with-performance-notes"
+ATTESTATION_ONLY_PATHS = {
+    "results/2026-07-29/skynet/phase3-resident-provider/checkpoint-b-review.json",
+    "results/2026-07-29/skynet/phase3-resident-provider/phase3-manifest.json",
+    "results/2026-07-29/skynet/phase3-resident-provider/verification-result.json",
+}
+
+
+def validate_reviewed_project_head(root: Path, project_head: str, errors: list[str]) -> None:
+    if subprocess.run(
+        ["git", "merge-base", "--is-ancestor", project_head, "HEAD"], cwd=root, check=False,
+        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+    ).returncode != 0:
+        errors.append("Checkpoint B attestation is for a different project head")
+        return
+    post_review_paths = set(git(root, "diff", "--name-only", f"{project_head}..HEAD").splitlines())
+    if post_review_paths - ATTESTATION_ONLY_PATHS:
+        errors.append("project changes after the reviewed Checkpoint B head are not attestation-only")
 
 
 def validate_performance_sample(sample: dict[str, Any], errors: list[str]) -> None:
@@ -88,6 +114,57 @@ def validate_final_capture_contract(overhead: dict[str, Any], errors: list[str])
         errors.append("provider overhead contains forbidden cross-attempt composition")
 
 
+def validate_checkpoint_b(root: Path, manifest: dict[str, Any], errors: list[str]) -> bool:
+    result_root = root / "results/2026-07-29/skynet/phase3-resident-provider"
+    path = result_root / "checkpoint-b-review.json"
+    if not path.is_file():
+        if manifest.get("closeout_state") == V2_COMPLETE_STATE:
+            errors.append("complete-with-performance-notes manifest omits Checkpoint B attestation")
+        return False
+    try:
+        checkpoint = json.loads(path.read_text())
+        schema = json.loads((root / "schemas/phase3/checkpoint-b-review-v1.schema.json").read_text())
+        Draft202012Validator.check_schema(schema)
+        Draft202012Validator(schema).validate(checkpoint)
+    except Exception as error:
+        errors.append(f"Checkpoint B attestation schema validation failed: {error}")
+        return False
+
+    project_head = checkpoint.get("project_head", "")
+    expected = {
+        "repository": "murillo128/k3-out-of-core",
+        "issue": 13,
+        "execution_profile": "STANDARD",
+        "checkpoint": "B",
+        "llama_cpp_head": LLAMA_CPP_CANDIDATE,
+        "project_range": f"{PROJECT_BASE}..{project_head}",
+        "llama_cpp_range": f"{LLAMA_BASE}..{LLAMA_CPP_CANDIDATE}",
+        "independent_read_only": True,
+    }
+    for name, value in expected.items():
+        if checkpoint.get(name) != value:
+            errors.append(f"Checkpoint B attestation differs: {name}")
+    if checkpoint.get("verdict") not in {"PASS", "PASS_WITH_NOTES"}:
+        errors.append("Checkpoint B verdict is not accepted")
+    if checkpoint.get("safety_to_proceed") != "YES":
+        errors.append("Checkpoint B safety_to_proceed is not YES")
+    expected_url = (
+        "https://github.com/murillo128/k3-out-of-core/issues/13#issuecomment-"
+        f"{checkpoint.get('comment_id')}"
+    )
+    if checkpoint.get("url") != expected_url:
+        errors.append("Checkpoint B comment URL does not bind its comment ID")
+    validate_reviewed_project_head(root, project_head, errors)
+    manifest_review = next(
+        (review for review in manifest.get("reviews", []) if review.get("checkpoint") == "B"), None
+    )
+    if manifest_review != checkpoint:
+        errors.append("manifest Checkpoint B review does not exactly match its structured attestation")
+    if manifest.get("revisions", {}).get("project_checkpoint_b_head") != project_head:
+        errors.append("manifest Checkpoint B revision differs from its structured attestation")
+    return not any(error.startswith("Checkpoint B") or "reviewed Checkpoint B" in error for error in errors)
+
+
 def validate_evidence(root: Path, manifest: dict[str, Any], errors: list[str]) -> None:
     result_root = root / "results/2026-07-29/skynet/phase3-resident-provider"
     try:
@@ -96,6 +173,7 @@ def validate_evidence(root: Path, manifest: dict[str, Any], errors: list[str]) -
         administration = json.loads((result_root / "provider-admin-fast-path.json").read_text())
         prerequisites = json.loads((result_root / "corrective-prerequisites.json").read_text())
         overhead = json.loads((result_root / FINAL_CAPTURE_NAME).read_text())
+        disposition = json.loads((result_root / "phase3-disposition.json").read_text())
     except (FileNotFoundError, json.JSONDecodeError) as error:
         errors.append(f"Phase 3 evidence cannot be loaded: {error}")
         return
@@ -185,10 +263,38 @@ def validate_evidence(root: Path, manifest: dict[str, Any], errors: list[str]) -
     )
     if validation.get("status") != derived_status:
         errors.append("manifest provider-overhead status differs from standing capture")
-    expected_state = "checkpoint-b-candidate" if derived_status == "pass" else "performance-gate-failed"
-    allowed_states = {expected_state, "complete"} if derived_status == "pass" else {expected_state}
-    if manifest.get("closeout_state") not in allowed_states:
-        errors.append("manifest closeout state differs from standing performance result")
+    if manifest.get("schema_version") == "phase3-manifest-v1":
+        expected_state = "checkpoint-b-candidate" if derived_status == "pass" else "performance-gate-failed"
+        allowed_states = {expected_state, "complete"} if derived_status == "pass" else {expected_state}
+        if manifest.get("closeout_state") not in allowed_states:
+            errors.append("manifest closeout state differs from standing performance result")
+        return
+
+    validate_disposition(root, disposition, errors)
+    try:
+        disposition_schema = json.loads((root / "schemas/phase3/phase3-disposition-v1.schema.json").read_text())
+        Draft202012Validator.check_schema(disposition_schema)
+        Draft202012Validator(disposition_schema).validate(disposition)
+    except Exception as error:
+        errors.append(f"Phase 3 disposition schema validation failed: {error}")
+    raw_gate = manifest.get("raw_performance_gate", {})
+    if raw_gate != {
+        "status": "fail", "passed_cells": 22, "total_cells": 24,
+        "capture_path": CAPTURE_RELATIVE, "capture_sha256": CAPTURE_SHA256,
+    }:
+        errors.append("manifest raw performance gate differs from the immutable 22/24 failure")
+    disposition_path = result_root / "phase3-disposition.json"
+    expected_disposition_identity = {
+        "status": "accepted-with-notes", "progression_scope": "phase3-only",
+        "path": str(disposition_path.relative_to(root)), "size": disposition_path.stat().st_size,
+        "sha256": sha256(disposition_path), "comment_ids": DESIGN_AUTHORITY_COMMENT_IDS,
+    }
+    if manifest.get("design_disposition") != expected_disposition_identity:
+        errors.append("manifest design disposition identity differs")
+    if derived_status != "fail":
+        errors.append("accepted-with-notes representation relabels the raw capture as passing")
+    if manifest.get("closeout_state") not in {V2_CANDIDATE_STATE, V2_COMPLETE_STATE}:
+        errors.append("v2 manifest has an invalid accepted-with-notes closeout state")
 
 def validate_git(root: Path, manifest: dict[str, Any], strict: bool, output: Path, errors: list[str]) -> None:
     nested = root / "llama.cpp"
@@ -232,7 +338,13 @@ def validate_git(root: Path, manifest: dict[str, Any], strict: bool, output: Pat
     if strict:
         project_status = git(root, "status", "--porcelain", "--untracked-files=all").splitlines()
         output_relative = str(output.relative_to(root)) if output.is_relative_to(root) else None
-        project_status = [line for line in project_status if output_relative is None or line[3:] != output_relative]
+        allowed_dirty = {output_relative} if output_relative else set()
+        if manifest.get("schema_version") == "phase3-manifest-v2":
+            allowed_dirty.update(artifact.get("path") for artifact in manifest.get("artifacts", []))
+            allowed_dirty.add(str((root / "results/2026-07-29/skynet/phase3-resident-provider/phase3-manifest.json").relative_to(root)))
+        def status_path(line: str) -> str:
+            return line[3:] if len(line) > 2 and line[2] == " " else line[2:]
+        project_status = [line for line in project_status if status_path(line) not in allowed_dirty]
         if project_status:
             errors.append(f"project worktree is not clean: {project_status}")
         if git(nested, "status", "--porcelain", "--untracked-files=all"):
@@ -242,7 +354,10 @@ def validate_git(root: Path, manifest: dict[str, Any], strict: bool, output: Pat
     phase3 = plan.split("## Phase 3", 1)[1].split("## Phase 4", 1)[0]
     unchecked = [line for line in phase3.splitlines() if line.startswith("- [ ]")]
     failed_gate = "- [ ] Resident-provider performance regression is within the predeclared noise budget."
-    if manifest.get("closeout_state") == "performance-gate-failed":
+    if manifest.get("schema_version") == "phase3-manifest-v2":
+        if unchecked != [failed_gate]:
+            errors.append("Phase 3 plan must preserve the original failed 24-cell performance gate")
+    elif manifest.get("closeout_state") == "performance-gate-failed":
         if unchecked != [failed_gate]:
             errors.append("Phase 3 plan does not identify only the standing failed performance gate")
     elif unchecked:
@@ -250,7 +365,7 @@ def validate_git(root: Path, manifest: dict[str, Any], strict: bool, output: Pat
     reviews = {review["checkpoint"] for review in manifest.get("reviews", [])}
     if "A" not in reviews:
         errors.append("accepted Checkpoint A is not bound")
-    if manifest.get("closeout_state") == "complete" and "B" not in reviews:
+    if manifest.get("closeout_state") in {"complete", V2_COMPLETE_STATE} and "B" not in reviews:
         errors.append("complete manifest does not bind accepted Checkpoint B")
 
 
@@ -268,7 +383,13 @@ def main() -> int:
     errors: list[str] = []
     try:
         manifest = json.loads(manifest_path.read_text())
-        schema = json.loads((root / "schemas/phase3/phase3-manifest-v1.schema.json").read_text())
+        schema_name = {
+            "phase3-manifest-v1": "phase3-manifest-v1.schema.json",
+            "phase3-manifest-v2": "phase3-manifest-v2.schema.json",
+        }.get(manifest.get("schema_version"))
+        if schema_name is None:
+            raise ValueError("unsupported Phase 3 manifest schema version")
+        schema = json.loads((root / "schemas/phase3" / schema_name).read_text())
         Draft202012Validator.check_schema(schema)
         Draft202012Validator(schema).validate(manifest)
     except Exception as error:
@@ -303,15 +424,26 @@ def main() -> int:
 
     validate_evidence(root, manifest, errors)
     validate_git(root, manifest, args.strict, output, errors)
+    is_v2 = manifest.get("schema_version") == "phase3-manifest-v2"
+    checkpoint_b_bound = validate_checkpoint_b(root, manifest, errors) if is_v2 else False
+    checkpoint_b_eligible = is_v2 and not errors
+    closeout_eligible = (
+        checkpoint_b_eligible and checkpoint_b_bound and manifest.get("closeout_state") == V2_COMPLETE_STATE
+    ) if is_v2 else manifest.get("closeout_state") in {"checkpoint-b-candidate", "complete"}
     result = {
-        "schema_version": "phase3-verification-result-v1",
+        "schema_version": "phase3-verification-result-v2" if is_v2 else "phase3-verification-result-v1",
         "status": "pass" if not errors else "fail",
         "strict": args.strict,
         "manifest": str(manifest_path.relative_to(root)),
         "manifest_sha256": sha256(manifest_path) if manifest_path.is_file() else None,
         "artifact_count": len(manifest.get("artifacts", [])),
         "closeout_state": manifest.get("closeout_state"),
-        "closeout_eligible": manifest.get("closeout_state") in {"checkpoint-b-candidate", "complete"},
+        "raw_performance_gate": manifest.get("raw_performance_gate", {}).get("status"),
+        "design_disposition": manifest.get("design_disposition", {}).get("status"),
+        "checkpoint_b_eligible": checkpoint_b_eligible,
+        "checkpoint_b_bound": checkpoint_b_bound,
+        "closeout_eligible": closeout_eligible,
+        "evidence_integrity_errors": len(errors),
         "errors": errors,
     }
     output.parent.mkdir(parents=True, exist_ok=True)

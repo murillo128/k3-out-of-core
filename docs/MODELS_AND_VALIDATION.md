@@ -293,6 +293,8 @@ The performance protocol runs two independent comparisons for each model/backend
 
 The first prospectively approved standing capture completed at `2026-07-30T06:53:38.449543+00:00` and failed 3 of 24 gated metric cells. It and the two earlier corrected attempts remain immutable historical evidence; their samples were not selected, pooled, overwritten, or composed into the corrective disposition. The one complete post-optimization v2 capture authorized by design-authority comment `5127774849` completed at `2026-07-30T08:42:09.806186+00:00` against exact nested candidate `a120de8e2d0b552c51eacd7d701ef1dd994bc3db`. Twenty-two of 24 cells pass. MXFP4 CUDA disabled-versus-resident prompt throughput has a 3.989153% upper bound and TTFT has a 4.386548% upper bound, both above the unchanged 2.400604% budget. Every baseline-versus-disabled comparison and every other resident comparison passes. This result stands without retry; Phase 3 returns to design authority. These are control-derived noise gates for the tiny fixtures, not production regression tolerances.
 
+Design-authority comments `5128658370` and `5128726338` subsequently accept the Phase 3 technical exit as `PASS_WITH_NOTES` for project progression only. This is a separate materiality decision: the raw capture remains `fail`, its two failed cells and original budgets remain unchanged, and no further Phase 3 measurement is authorized. Every baseline-to-disabled and decode cell passes; the MXFP4 CUDA disabled-versus-resident decode upper bound is 0.168984% against its 0.988906% budget. The narrow waiver does not apply to correctness, default-path behavior, later cache/transport/miss or multi-request performance, full-size performance, or tail latency.
+
 Exact closeout commands are:
 
 ```bash
