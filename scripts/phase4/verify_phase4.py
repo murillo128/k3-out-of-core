@@ -65,6 +65,9 @@ def validate_commands(results: dict, manifest: dict, errors: list[str]) -> None:
     if results.get("status") != "pass" or len(records) != len(expected):
         errors.append("validation command result set is incomplete")
         return
+    revisions = manifest.get("revisions", {})
+    if results.get("project_head") != revisions.get("project_evidence_head") or results.get("llama_cpp_head") != revisions.get("llama_cpp_candidate"):
+        errors.append("validation command heads differ from manifest candidate")
     by_name = {record.get("name"): record for record in records}
     if set(by_name) != set(expected): errors.append("validation command names differ")
     expected_counts = {"ctest-cpu": 2, "ctest-cuda": 2, "ctest-asan-ubsan": 2,

@@ -27,8 +27,8 @@
     {
       "kind": "source-of-truth",
       "path": "docs/STATUS.md",
-      "sha256": "d7a34a87ffd40bc4e47c1b0e87425e3457fdfeb612d7f76412decefdd6201afe",
-      "size": 7128
+      "sha256": "d591f3a6db8eac53444926b2ae14442eb0940a2e31d2fdbdd87742b2edfecae8",
+      "size": 7207
     },
     {
       "kind": "source-of-truth",
@@ -39,8 +39,8 @@
     {
       "kind": "evidence",
       "path": "results/2026-07-30/skynet/phase4-hot-cache/PHASE4.md",
-      "sha256": "39acb2d9291d49e8b39ee3491509ca44071ef80777d092f8f6d3eeb8ef6664c8",
-      "size": 2527
+      "sha256": "6514b3007745aec783501292f202fd382241d5e2e0d19ee0edf2b6080034bbac",
+      "size": 2736
     },
     {
       "kind": "evidence",
@@ -55,22 +55,34 @@
       "size": 19353
     },
     {
+      "kind": "evidence",
+      "path": "results/2026-07-30/skynet/phase4-hot-cache/validation-results.json",
+      "sha256": "7087ea83e7b7f70d0821c0ac6c0fb33184cb4ce41bc2744bcf5b6ec6129050e5",
+      "size": 6148
+    },
+    {
       "kind": "schema",
       "path": "schemas/phase4/phase4-manifest-v1.schema.json",
-      "sha256": "ba2579ff5b07112b73b680c7711e1434a2bb7e30e9262d5d4f211751eb95f3e8",
-      "size": 3382
+      "sha256": "85dd62758bfbf7996442b93419fbcc548c19927436b09a6738b559c91b67557f",
+      "size": 4159
     },
     {
       "kind": "implementation",
       "path": "scripts/phase4/build_phase4_manifest.py",
-      "sha256": "7686e94d7072ef86679e8352a239528b19df6e808aca0d782881d961dc9cdfcb",
-      "size": 5181
+      "sha256": "cb23f3d7c09ab7da07c1476c98cbea533b996f7c2c27d0985e99295b919c92ad",
+      "size": 5104
     },
     {
       "kind": "implementation",
       "path": "scripts/phase4/capture_hot_cache_parity.py",
       "sha256": "3ec3e309b6854032d7275f0cf353339eab51ad2532fe93d8a8a86eaa7f731fca",
       "size": 7546
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase4/capture_validation_results.py",
+      "sha256": "ce43dafb192dacaf9fb5c542aab7a7f08532ac14aafbb7b62d9391eae4db55a9",
+      "size": 3952
     },
     {
       "kind": "implementation",
@@ -87,14 +99,14 @@
     {
       "kind": "implementation",
       "path": "scripts/phase4/verify_phase4.py",
-      "sha256": "c8477414509e576a8a984fef4b65945b602180a412a090e2a83ef073bd315b80",
-      "size": 7562
+      "sha256": "73bbd64dce6f5a8363b22ef3612dddaf487b0fe83515449381f19f07657ef0f0",
+      "size": 9943
     },
     {
       "kind": "test",
       "path": "tests/phase4/test_phase4_evidence.py",
-      "sha256": "58c6fa6255fa9de4828f4b649524cd33b4fcd242fba216f7277cac1aea316fcf",
-      "size": 2667
+      "sha256": "4706caa90631914743fae89d311bf85bad22571201a42fa3aea601aa36f7a94d",
+      "size": 3970
     }
   ],
   "checkpoint_a": {
@@ -250,6 +262,11 @@
       "path": "results/2026-07-30/skynet/phase4-hot-cache/hot-cache-parity.json",
       "sha256": "d11ff31d762ed0ebcfb8b3a940b8ceb78925386e4e8c925c7070912d96bab4fb",
       "size": 34762
+    },
+    "validation_commands": {
+      "path": "results/2026-07-30/skynet/phase4-hot-cache/validation-results.json",
+      "sha256": "7087ea83e7b7f70d0821c0ac6c0fb33184cb4ce41bc2744bcf5b6ec6129050e5",
+      "size": 6148
     }
   },
   "execution_profile": "STANDARD",
@@ -282,42 +299,224 @@
     "gitlink": "57fe1eabbe3d0ced59096a0744efc91e286fb1c7",
     "llama_cpp_base": "a120de8e2d0b552c51eacd7d701ef1dd994bc3db",
     "llama_cpp_candidate": "57fe1eabbe3d0ced59096a0744efc91e286fb1c7",
-    "project_evidence_head": "a038d4d7d8ffcf27632dd6c2ea7c358c3aeeab78",
+    "project_evidence_head": "355100092d4b9015523311958978b1783f6b5164",
     "project_execution_base": "0da90c6711e00613820183c1811dcaf1baffb409"
   },
   "schema_version": "phase4-manifest-v1",
   "validation": [
     {
-      "name": "hot-cache-parity",
-      "status": "pass"
+      "command": [
+        "cmake",
+        "--build",
+        "llama.cpp/build-cpu",
+        "--target",
+        "test-expert-weight-provider",
+        "test-hot-expert-cache",
+        "phase4-hot-cache-probe",
+        "-j4"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "build-cpu",
+      "passed": null,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 772,
+      "stdout_sha256": "b1cee96a9e0c2cad97e7460b02bee96c7c756da12327186ec08dd117888bece9",
+      "total": null
     },
     {
-      "name": "lifecycle-and-failures",
-      "status": "pass"
+      "command": [
+        "cmake",
+        "--build",
+        "llama.cpp/build-cuda",
+        "--target",
+        "llama",
+        "test-expert-weight-provider",
+        "test-hot-expert-cache",
+        "phase4-hot-cache-probe",
+        "-j4"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "build-cuda",
+      "passed": null,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 1002,
+      "stdout_sha256": "0c86391148cff651da2d0817d2c6f8f8cd042456aea639ea7acd9a146af5f297",
+      "total": null
     },
     {
-      "name": "cpu-focused-ctest",
-      "status": "pass"
+      "command": [
+        "ctest",
+        "--test-dir",
+        "llama.cpp/build-cpu",
+        "--output-on-failure",
+        "-R",
+        "expert-weight-provider|hot-expert-cache"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "ctest-cpu",
+      "passed": 2,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 524,
+      "stdout_sha256": "ee899aac1eeeda52855a428310333e3102dea0f3237c77e6a0a3323d0b282e49",
+      "total": 2
     },
     {
-      "name": "cuda-focused-ctest",
-      "status": "pass"
+      "command": [
+        "ctest",
+        "--test-dir",
+        "llama.cpp/build-cuda",
+        "--output-on-failure",
+        "-R",
+        "expert-weight-provider|hot-expert-cache"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "ctest-cuda",
+      "passed": 2,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 526,
+      "stdout_sha256": "61fcfdb56197dadeb381b8cbaed6f3ea24b0e80d8c41fb06ec22432a17cadcae",
+      "total": 2
     },
     {
-      "name": "asan-ubsan",
-      "status": "pass"
+      "command": [
+        "ctest",
+        "--test-dir",
+        "llama.cpp/build-asan",
+        "--output-on-failure",
+        "-R",
+        "expert-weight-provider|hot-expert-cache"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "ctest-asan-ubsan",
+      "passed": 2,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 526,
+      "stdout_sha256": "3d60c16940a4d6418240a2efbf593fb2c505b04d098a90a0ae69102ec736398f",
+      "total": 2
     },
     {
-      "name": "phase3-regression-tests",
-      "status": "pass"
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/phase3",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "unittest-phase3",
+      "passed": 12,
+      "stderr_bytes": 1759,
+      "stderr_sha256": "ae478cb29308322662a0ec49e1c21675572f5531ebd9cafb15df3c290d8f6fb5",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "total": 12
     },
     {
-      "name": "phase4-evidence-tests",
-      "status": "pass"
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/phase4",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "unittest-phase4",
+      "passed": 6,
+      "stderr_bytes": 824,
+      "stderr_sha256": "44f0fdc60ef8168b53aded9a39f63fa4dcb1543d9232e3371f79605975ce752f",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "total": 6
     },
     {
-      "name": "checkpoint-a",
-      "status": "pass"
+      "command": [
+        "git",
+        "diff",
+        "--check",
+        "0da90c6711e00613820183c1811dcaf1baffb409..HEAD"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "diff-check-project",
+      "passed": null,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "total": null
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "llama.cpp",
+        "diff",
+        "--check",
+        "a120de8e2d0b552c51eacd7d701ef1dd994bc3db..HEAD"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "diff-check-nested",
+      "passed": null,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "total": null
+    },
+    {
+      "command": [
+        "git",
+        "status",
+        "--short"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "status-project",
+      "passed": null,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "total": null
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "llama.cpp",
+        "status",
+        "--short"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "status-nested",
+      "passed": null,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "total": null
     }
   ]
 }

@@ -71,9 +71,10 @@ class Phase4EvidenceTests(unittest.TestCase):
             records.append({"name": name, "command": command, "cwd": ".", "exit_code": 0,
                             "stdout_sha256": "0"*64, "stderr_sha256": "0"*64,
                             "stdout_bytes": 0, "stderr_bytes": 0, "passed": count, "total": count})
-        results = {"status": "pass", "commands": records}
+        results = {"status": "pass", "project_head": "1"*40, "llama_cpp_head": "2"*40, "commands": records}
         manifest = {"validation": copy.deepcopy(records), "evidence": {"validation_commands": {
-            "path": "results/2026-07-30/skynet/phase4-hot-cache/validation-results.json"}}}
+            "path": "results/2026-07-30/skynet/phase4-hot-cache/validation-results.json"}},
+            "revisions": {"project_evidence_head": "1"*40, "llama_cpp_candidate": "2"*40}}
         errors = []
         self.verifier.validate_commands(results, manifest, errors)
         self.assertEqual(errors, [])
