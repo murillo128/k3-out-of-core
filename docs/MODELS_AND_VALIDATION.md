@@ -507,6 +507,10 @@ host RAM, pinned RAM, VRAM, and unified-memory usage
 
 Do not report only average tokens/s; out-of-core viability depends on tail latency and miss behavior.
 
+### Phase 6 Level F synchronous subset
+
+Issue #22 validates cold start, repeated demand, deterministic eviction/reread, aligned/unaligned positional spans, EOF/short/error/EINTR handling, request cancellation, quiescent teardown, and bounded zero-scratch storage administration for original and generated split F16/MXFP4 GGUFs. Direct-I/O fallback, queue saturation, asynchronous unload, overlap, speculative prefetch, and CPU fallback remain deferred to their owning phases.
+
 ## 11. Full-size physical benchmark
 
 The tiny model is insufficient to measure full K3 I/O. Build a synthetic expert store whose spans exactly match the full checkpoint tensor metadata and MXFP4 byte layout.

@@ -115,4 +115,17 @@ Kernel: 6.8.0-136-generic
 
 ## Immediate next action
 
-Use design authority to create one self-contained controlling issue for **Phase 6 — GGUF-backed storage and synchronous demand reads** from the current verified `main` and nested gitlink. Resolve the material storage ownership, split-GGUF, offset/size validation, read, cancellation, failure, memory-budget, correctness, and evidence decisions needed to make it execution-ready. Do not implement Phase 6, create an execution branch, or open a PR in the design session.
+Complete Phase 6 issue #22 final evidence verification and request the final independent complete-PR review. Checkpoint A passed at project `34dbf82ded955913b387ec9b36d1b499362e7a1b` and nested `9af35746763913982bfd8eee995686296131c778`; the cancellation corrective review is issue comment `5133647261`.
+
+## Phase 6 candidate handoff
+
+- Issue: <https://github.com/murillo128/k3-out-of-core/issues/22>
+- Execution profile: `STANDARD`
+- Project execution base: `eb1b5baf5d505eadbc4298ecf322489cdfd7aae5`
+- Nested execution base: `26317ee1d848dd7a73f22a3666a055cad5d5cb03`
+- Checkpoint A accepted project head: `34dbf82ded955913b387ec9b36d1b499362e7a1b`
+- Checkpoint A accepted nested head: `9af35746763913982bfd8eee995686296131c778`
+- Original and 218-part split F16/MXFP4 runs preserve exact prompt, generated-token, logits, and route hashes.
+- Routed payload allocation, mmap binding, and prefetch are zero; demand reads go directly into bounded cold slots with zero resident-source copies.
+- F16 cancellation after the first 262144-byte positional read returns public status 2, publishes no mapping, balances references, cleans failed slots, and retries successfully.
+- Evidence: [`../results/2026-07-30/skynet/phase6-gguf-storage/PHASE6.md`](../results/2026-07-30/skynet/phase6-gguf-storage/PHASE6.md)
