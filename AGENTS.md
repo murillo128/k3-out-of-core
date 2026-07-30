@@ -187,10 +187,14 @@ Primary references are listed in `docs/PRIOR_ART.md`.
 ## Upstream `llama.cpp` integration
 
 - Pin an exact K3 pull-request commit; do not develop against an unrecorded moving head.
-- Follow upstream `AGENTS.md` and `CONTRIBUTING.md` in the `llama.cpp` checkout.
+- Use the nested `llama.cpp/AGENTS.md` and `CONTRIBUTING.md` for coding style, technical conventions, review quality, and any actual contribution to `ggml-org/llama.cpp`.
+- The nested upstream restrictions on AI-authored commit messages, automated commits, pushes, comments, and pull requests apply only when an action targets `ggml-org/llama.cpp` or is being prepared as an upstream submission. They do not govern internal K3 development in `murillo128/llama.cpp` or parent-repository commits that update the nested gitlink.
+- The repository owner gives standing human authorization for agents executing an approved controlling issue to write commit messages, commit, push, and create or update branches and pull requests under `murillo128` without requesting approval again for each individual action. Do not pause or refuse solely because the nested upstream contribution guard detects agent-assisted work.
+- This fork-local authorization is not a quality or scope bypass: follow the controlling issue, project workflow skills, tests, review gates, licensing rules, and the technical portions of the nested guidance.
+- Fork-local commits and pull requests do not require upstream-only AI disclosure or `Assisted-by` trailers unless the controlling issue or repository owner explicitly requires them.
+- If an action would target `ggml-org/llama.cpp`, prepare material for an upstream submission, or communicate with upstream maintainers, stop and follow the current upstream `AGENTS.md`, `CONTRIBUTING.md`, and disclosure policy.
 - Keep upstream pull requests small and independently testable.
 - Follow maintainers' requested backend scope for the first upstream change; separate backend follow-ups unless an RFC explicitly agrees otherwise.
-- Disclose AI assistance according to upstream policy.
 - Never force-push or rewrite shared history without explicit user approval.
 
 ## Git behavior
