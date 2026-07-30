@@ -1,271 +1,201 @@
 ---
 name: design-github-issue
-description: Turn a non-trivial repository request into an approved, self-contained GitHub issue with bounded phases, objective validation, an explicit execution profile, risk-based review checkpoints, materiality rules, and clear restart conditions before Codex execution.
+description: Turn a non-trivial repository request into the smallest complete GitHub execution contract with bounded phases, objective validation, explicit risk profile, and clear checkpoint and restart rules.
 ---
 
 # Design an Implementation-Ready GitHub Issue
 
-## Purpose
+## Responsibility
 
-Use this skill in the design-authority session before `spec-driven-codex-loop` execution.
+Use this skill only in the design-authority role before execution starts or when execution returns for a material contract correction.
 
-The issue is the durable contract. A fresh executor must be able to understand the goal, scope, evidence, phases, validation, checkpoints, trust boundaries, and exit criteria without private chat context.
+This skill owns:
 
-## Core rules
+- resolving material design and validation decisions;
+- defining phase scope, invariants, exclusions, commands, evidence, checkpoints, and acceptance;
+- selecting `STANDARD` or `HIGH_ASSURANCE`;
+- creating or correcting the controlling issue and its workflow state.
 
-Do not label an issue `execution-ready` while a material architecture, behavior, numerical, performance, ownership, dependency, or validation decision remains unresolved.
+It does not implement code, operate the execution branch, publish phase commits, or perform independent review.
 
-A long issue is not necessarily a good issue. Prefer the smallest complete contract that removes material ambiguity.
+## Load only design context
 
-Design checkpoints to reduce material technical risk. Do not turn documentation, comments, labels, URLs, or other bookkeeping surfaces into security boundaries unless the project genuinely needs that threat model.
+Start with the bootstrap context from `AGENTS.md`: `AGENTS.md`, `docs/STATUS.md`, and the relevant request or controlling issue.
 
-Under STANDARD, explicitly separate material exit-gate failures from editorial, derived-state, defense-in-depth, and theoretical adversarial concerns.
+Then inspect only what is needed to settle the design:
 
-## Role boundary
+- relevant source, tests, build metadata, and configuration;
+- exact decision and plan sections affected;
+- pinned dependency, model, artifact, hardware, and license facts;
+- current overlapping issues, PRs, and evidence when they can change scope or feasibility.
 
-The design-authority session may:
+Do not preload the executor, GitHub-operations, or reviewer skills. Do not require a future executor to read this design skill.
 
-- inspect repository state, history, issues, pull requests, tests, and evidence;
-- investigate facts needed for design;
-- compare viable approaches;
-- resolve scope and architecture;
-- define phases, validation, execution profile, checkpoints, trust boundaries, materiality, and exit criteria;
-- create or update the issue and workflow label.
+Prefer the prior phase's final manifest, exact accepted head, and final accepted review over complete prior issue, PR, and result-directory history. Read older records only when an unresolved finding or disputed fact materially affects the new contract.
 
-It must not:
+## The issue is a context packet, not an archive
 
-- start implementation while designing;
-- present `OPEN` or `SPECULATIVE` items as accepted;
-- prescribe uninspected files, APIs, hardware, models, or commands;
-- encode replaceable tool choices as mandatory capabilities without reason;
-- make every phase independently reviewed by default;
-- create an issue whose success cannot be observed objectively;
-- make arbitrary Markdown or GitHub prose authoritative without an explicit need;
-- require STANDARD reviewers to defend against hostile or malformed inputs that the issue does not define.
+A fresh executor must be able to begin without private chat context, but that does not require copying the repository into the issue.
+
+The issue should contain the phase-specific delta and reference authoritative context precisely:
+
+- cite decision IDs and exact document sections instead of repeating accepted architecture;
+- cite exact files, symbols, manifests, commits, and review comments instead of listing whole directories or complete histories;
+- summarize prior-phase outcomes once and link the authoritative final evidence;
+- state new constraints, exceptions, and unresolved risks explicitly;
+- never list all workflow skills as required reading; `AGENTS.md` routes roles lazily;
+- avoid copying generic workflow, review, GitHub transport, and failure procedures owned by skills.
+
+Whole-document or whole-history reading is justified only when the entire object is authoritative to the current decision and no smaller reference is sufficient.
 
 ## Readiness states
 
-- `EXECUTION_READY`: design and validation are complete enough to execute.
-- `DESIGN_REQUIRED`: material design or product decisions remain open.
-- `INVESTIGATION_REQUIRED`: more evidence is needed before choosing the design.
-- `BLOCKED`: a required external capability is unavailable and no permitted alternative or handoff exists.
+Use exactly one workflow state for a non-trivial open issue:
 
-Only `EXECUTION_READY` enters implementation.
+- `execution-ready`: design and validation are complete enough to execute;
+- `design-required`: a material product, architecture, scope, ownership, behavior, or validation decision remains open;
+- `investigation-required`: evidence is needed before the design can be selected;
+- `blocked`: a required external capability is unavailable and no permitted alternative or handoff exists;
+- `in-progress`: execution has started under an approved contract.
+
+Do not label an issue `execution-ready` while a material decision remains unresolved.
 
 ## Design workflow
 
-### 1. Establish the outcome
+### 1. Establish the observable outcome
 
 State:
 
 - what must become observably true;
 - why it matters now;
-- the current limitation;
+- the current limitation and evidence;
 - the boundary of the requested change.
 
-Do not begin from a preferred implementation.
+Do not begin from a preferred implementation unless architecture is already accepted.
 
-### 2. Inspect context
+### 2. Build a fact and decision ledger
 
-Read `AGENTS.md` and the relevant source-of-truth documents. Inspect:
+Classify important statements as:
 
-- current code, tests, scripts, fixtures, and configuration;
-- recent commits and overlapping issues or PRs;
-- pinned upstream branches and commits;
-- model, dataset, hardware, dependency, and license assumptions;
-- existing evidence and failed attempts.
-
-Use repository and authoritative external evidence rather than memory when facts can change.
-
-### 3. Build a fact and decision ledger
-
-Classify important statements:
-
-- `OBSERVED`: directly supported by code, tests, logs, measurements, or committed evidence;
+- `OBSERVED`: supported by code, tests, logs, measurements, or committed evidence;
 - `ACCEPTED`: approved design or constraint;
 - `OPEN`: unresolved decision;
-- `SPECULATIVE`: unsupported hypothesis;
+- `SPECULATIVE`: hypothesis requiring evidence;
 - `REJECTED`: ruled-out approach;
-- `BLOCKED`: unavailable required capability with no current resolution.
+- `BLOCKED`: unavailable required capability with no current alternative.
 
-Never convert `OPEN` or `SPECULATIVE` into implementation requirements.
+Never convert `OPEN` or `SPECULATIVE` into an implementation requirement.
 
-### 4. Resolve material unknowns
+### 3. Resolve material unknowns
 
-Resolve questions that change:
+Resolve questions that change external behavior, compatibility, architecture, ownership, lifetime, numerical tolerance, backend support, failure behavior, validation, trust boundaries, licensing, or upstream strategy.
 
-- external behavior or compatibility;
-- architecture and subsystem boundaries;
-- ownership and lifetime;
-- numerical tolerance;
-- hardware and backend support;
-- failure and fallback behavior;
-- observability and validation;
-- authoritative versus derived state;
-- trust boundaries and adversarial assumptions;
-- security, privacy, licensing, or upstream strategy.
+When root cause or feasibility is unknown, create a bounded investigation contract rather than guessing a fix.
 
-When root cause or feasibility is unknown, create an investigation issue instead of guessing a fix.
+Record durable cross-phase decisions in `docs/DECISIONS.md`; keep issue-local choices in the issue. Do not duplicate the same decision prose in both places.
 
-### 5. Record durable decisions
+### 4. Select the execution profile
 
-When a decision affects future work broadly, update or plan an explicit update to repository source-of-truth documents.
+`STANDARD` is the default. Use it when bounded phases have strong local validation and intermediate defects are cheap to detect and correct.
 
-Do not let the issue become the only durable location for important architecture.
-
-### 6. Choose the execution profile
-
-#### STANDARD
-
-STANDARD is the default.
-
-Choose it when:
-
-- phases have strong local validation;
-- intermediate commits are low or moderate risk;
-- related phases can be reviewed together coherently;
-- a faulty intermediate base is cheap to detect and correct.
-
-Under STANDARD:
+Under `STANDARD`:
 
 - every phase validates and commits;
-- independent review happens at declared checkpoints;
-- final external review is mandatory;
-- review failures must be material to an explicit criterion or plausible normal-path use;
-- editorial inconsistencies and theoretical malformed-input bypasses are normally notes, not blockers.
+- independent review occurs only at declared risk checkpoints and final handoff;
+- editorial inconsistencies, optional hardening, and theoretical malformed-input bypasses are notes unless the issue makes them material.
 
-#### HIGH_ASSURANCE
+Select `HIGH_ASSURANCE` only when explicitly justified by architecture, concurrency or lifetime, numerical semantics, backend correctness, persistent state, cache coherence, security, or another risk where every phase needs independent review.
 
-Choose HIGH_ASSURANCE only when explicitly justified by risk.
+Do not choose `HIGH_ASSURANCE` because an issue is merely large. Split oversized work instead.
 
-Typical reasons:
+### 5. Define bounded phases
 
-- architecture or persistent format changes;
-- concurrency, ownership, or lifetime;
-- numerical encodings or routing semantics;
-- CUDA or backend correctness;
-- persistent storage or cache coherence;
-- security-sensitive behavior;
-- a faulty intermediate base would be expensive or unsafe.
-
-Under HIGH_ASSURANCE, every phase is independently reviewed.
-
-The issue must explain why HIGH_ASSURANCE is necessary. Do not select it solely because the issue is large; split oversized issues instead.
-
-Do not declare HIGH_ASSURANCE merely because a verifier or parser can be tested adversarially. State the actual protected risk and threat model.
-
-### 7. Define bounded phases
-
-Each phase must have:
+Each phase must identify:
 
 - one primary outcome;
-- explicit inputs and permitted scope;
+- exact inputs and permitted scope;
 - expected artifacts or behavior;
-- validation commands where knowable;
-- objective success criteria;
+- objective validation and success criteria;
 - explicit exclusions;
-- model capability class when relevant;
-- a commit boundary or documented no-code result;
-- checkpoint membership.
+- commit boundary or documented no-code result;
+- checkpoint membership;
+- required model capability only when it differs from the issue default.
 
-A phase is too large when it spans unrelated subsystems or failure would not reveal which decision or edit caused the problem.
+A phase is too large when it spans unrelated subsystems or a failure would not identify which decision or edit caused it.
 
-### 8. Define review checkpoints
+### 6. Design native build and test integration
 
-For STANDARD, group phases only when the combined checkpoint is still independently understandable and testable.
+Prefer the repository-native build and test system.
 
-Good checkpoint examples:
+For native code, specify existing or new CMake targets, presets, incremental build commands, and CTest entries where applicable. Permit the build metadata needed by the declared deliverable.
 
-- environment, fixture, and tokenizer reproducibility;
-- numerical format and backend correctness;
-- performance methodology and final closeout.
+Do not force the executor to create durable manual compiler or linker commands by accidentally excluding `CMakeLists.txt` or equivalent build files from an allowlist. If a manual compile is genuinely required, state why it is exceptional and whether it is disposable or committed.
 
-Require a dedicated checkpoint when a phase introduces:
+Do not optimize the issue around minimizing local CPU time. Prefer deterministic native builds over bespoke orchestration that costs additional reasoning and maintenance.
 
-- accepted architecture;
-- concurrency or lifetime risk;
-- persistent state or data format;
-- numerical correctness risk;
-- backend-specific execution behavior;
-- broad cross-cutting refactoring;
-- performance claims used for decisions.
+### 7. Design validation
 
-For HIGH_ASSURANCE, each phase is a checkpoint.
+Validation must prove the outcome, not merely compilation. Define only applicable items:
 
-Every checkpoint must identify:
+- exact baseline and candidate revisions;
+- native build and test commands;
+- unit, integration, regression, repeated-run, negative, and failure-path tests;
+- numerical comparisons and tolerances;
+- performance methodology, budgets, order, sample count, and resource metrics;
+- environment, hardware, model, artifact, and dataset identities;
+- required evidence paths and schemas;
+- required versus optional checks.
 
-- covered phases and commit range;
-- artifacts to inspect;
+Use exact commands when they are known and inspected. Do not make replaceable tool choices mandatory when another capability provides equivalent evidence.
+
+### 8. Define review checkpoints and materiality
+
+For `STANDARD`, group phases when the combined checkpoint remains independently understandable and testable. Add a checkpoint when work introduces material architecture, ownership or lifetime, persistent state, numerical behavior, backend execution, broad cross-cutting refactoring, or decision-driving performance evidence.
+
+For `HIGH_ASSURANCE`, every phase is normally a checkpoint.
+
+Each checkpoint must identify:
+
+- covered phases and exact commit range semantics;
+- artifacts and evidence to inspect;
 - validation to reproduce or verify;
 - scope and unexpected-change checks;
 - progression criteria;
 - material findings that require `FAIL`;
 - non-material findings that should be `PASS_WITH_NOTES`;
-- the authoritative state used for machine-enforced acceptance;
-- any explicit adversarial-input or security boundary.
+- authoritative structured state, if any;
+- explicit security or adversarial-input boundary, if any.
 
-### 9. Define materiality
+Do not copy the reviewer procedure into the issue. State the checkpoint-specific risks and criteria; `codex-independent-review` owns the review method.
 
-For each checkpoint, make the blocking boundary clear enough that a fresh reviewer does not have to invent it.
+### 9. Define authoritative state and attestations
 
-A STANDARD checkpoint should normally use `FAIL` only for:
+When machine-enforced closeout is needed:
 
-- violation of an explicit invariant, threshold, accepted decision, or exit criterion;
-- a plausible defect in normal execution or repository use;
-- missing, false, ambiguous, or non-reproducible required technical evidence;
-- unapproved scope, dependency, architecture, format, or behavior changes;
-- unsafe progression from the reviewed commit.
-
-A STANDARD checkpoint should normally use `PASS_WITH_NOTES` for:
-
-- editorial wording, formatting, or bookkeeping inconsistencies;
-- stale derived prose when authoritative state is correct and unambiguous;
-- optional defense-in-depth improvements;
-- theoretical bypasses that require deliberately malformed, duplicated, contradictory, or adversarial Markdown, comments, URLs, or metadata;
-- robustness outside the issue's declared normal inputs and threat model.
-
-If a textual surface is intended to be authoritative or security-sensitive, state that explicitly and justify why.
-
-### 10. Design validation
-
-Validation must prove the requested outcome, not merely compilation.
-
-Define as applicable:
-
-- exact baseline revision and configuration;
-- reproduction commands;
-- unit, integration, regression, and repeated-run tests;
-- negative and failure-path tests;
-- numerical comparison and tolerance;
-- performance protocol and metrics;
-- resource limits;
-- telemetry and artifact paths;
-- environment, hardware, model, and dataset identifiers;
-- required versus optional checks.
-
-Do not make an optional tool command an entry gate when another capability provides equivalent evidence.
-
-Negative tests must be proportional to the selected profile and declared trust boundary. Do not ask STANDARD reviewers to enumerate arbitrary syntactic variants of non-authoritative prose.
-
-### 11. Design authoritative state and attestations
-
-When machine-enforced closeout or review attestation is required:
-
-- choose one structured authoritative record, such as JSON or another schema-validated file;
+- choose one structured authoritative record;
 - bind it to the exact reviewed commit or range and accepted verdict;
-- separate the pre-review technical verifier from the post-review attestation update;
-- keep the post-review update small and non-circular;
-- treat `SUMMARY.md`, `STATUS.md`, issue comments, labels, and PR descriptions as derived communication unless explicitly declared otherwise;
-- avoid semantic parsing of arbitrary Markdown or external comments as a security protocol;
-- verify only the normal-path representations the workflow itself produces under STANDARD.
+- keep pre-review technical verification separate from post-review attestation;
+- keep any post-review update small and non-circular;
+- treat summaries, issue comments, labels, and PR descriptions as derived unless explicitly declared authoritative.
 
-Do not require one checkpoint to prove its own future review has already happened. The pre-review state may be explicitly pending; a bounded post-review attestation completes the gate.
+Do not make multiple Markdown renderings or comments independent security authorities under `STANDARD`.
 
-If external comment linkage is useful for audit, store an identifier or URL in the structured record. Do not make every possible textual rendering of that comment an independent source of truth.
+### 10. Define failure and restart semantics
 
-### 12. Define operational capabilities
+Distinguish:
 
-State capabilities rather than product-specific transports:
+- implementation failure: fix a bounded material delta while remaining in progress;
+- design defect: return to `design-required`;
+- evidence gap: return to `investigation-required`;
+- operational degradation: use an alternative transport or handoff;
+- editorial discrepancy: correct or carry as a note unless explicitly material;
+- real blocker: meaningful progress is impossible and no permitted alternative exists.
+
+For `STANDARD`, after two consecutive review failures in substantially the same validation, attestation, parser, documentation-sync, or bookkeeping mechanism, stop automatic compensating patches and return to design authority. A third corrective review requires an explicit decision or a materially different defect.
+
+### 11. Define required capabilities
+
+State capabilities, not product preference:
 
 - branch publication required: yes or no;
 - draft PR required before which checkpoint;
@@ -274,99 +204,61 @@ State capabilities rather than product-specific transports:
 - external hardware or data required: yes or no;
 - connector-capable handoff allowed: yes or no.
 
-Tool selection belongs to `codex-github-operations` and `codex-independent-review`.
+Exact transport selection belongs to `codex-github-operations` and `codex-independent-review`.
 
-A specific tool such as `gh` or a particular Codex sandbox may be mandatory only when that exact tool is part of the task or no equivalent capability exists.
+### 12. Search for overlap
 
-### 13. Define failure, repeated-review, and restart semantics
+Inspect only current or plausibly overlapping issues, PRs, branches, and commits. Link superseded attempts. Reuse an existing issue only when its contract still matches; otherwise create a clean contract.
 
-Distinguish:
+## Execution-ready quality gate
 
-- implementation failure: fix a bounded material delta while remaining in progress;
-- design defect: return to `design-required`;
-- evidence gap: return to `investigation-required`;
-- operational degradation: use an alternative or handoff;
-- editorial or derived-state discrepancy: correct or carry as a note unless explicitly material;
-- real blocker: required progress is impossible and no alternative or handoff exists.
-
-State when to continue, correct, split, redesign, or restart cleanly.
-
-For STANDARD, include this circuit breaker unless a stronger project-specific rule is justified:
-
-- after two consecutive review failures concerning substantially the same validation, attestation, parser, documentation-synchronization, or bookkeeping mechanism, stop automatic corrective patches;
-- return to design authority to decide whether the validation strategy or trust boundary is wrong;
-- require explicit approval before a third corrective review of that same mechanism;
-- do not treat syntax-only variants as materially different defects.
-
-The circuit breaker does not waive unresolved material defects. It prevents compensating patches from replacing design correction.
-
-### 14. Search for overlap
-
-Before creating an issue:
-
-- inspect open and recently closed issues and PRs;
-- link superseded attempts;
-- reuse an existing issue only when its contract still matches;
-- create a new issue when a clean contract is needed.
-
-### 15. Quality gate
-
-An `EXECUTION_READY` issue must answer:
+Before applying `execution-ready`, verify that the issue answers:
 
 - What exact outcome must become true?
-- What is the observed current state?
-- Which source-of-truth documents govern the work?
-- What is accepted, open, speculative, and rejected?
-- What is in and out of scope?
-- Which invariants must not change?
-- Which execution profile applies and why?
-- What are the bounded phases and deliverables?
-- Which validations prove each phase?
-- Which checkpoints require independent review?
-- Which findings are material blockers versus notes?
-- Which state is authoritative and which text is derived?
-- Is there an explicit security or adversarial-input boundary?
-- Which operational capabilities are genuinely required?
-- What is degraded operation versus a real blocker?
-- What triggers correction, redesign, the repeated-review circuit breaker, or restart?
-- What is the final acceptance criterion?
-- Can a fresh executor begin Phase 1 without guessing?
+- What current evidence matters?
+- Which exact decisions, files, sections, commits, and artifacts govern this phase?
+- What is new, in scope, excluded, invariant, and rejected?
+- Which profile applies and why?
+- What are the bounded phases, native build path, validation, and objective gates?
+- Where are the risk checkpoints and what is material?
+- Which structured state is authoritative?
+- What causes correction, redesign, investigation, blocking, or restart?
+- Can a fresh executor start without reconstructing prior history or rereading unrelated context?
 
 If a material answer is missing, do not use `execution-ready`.
 
-## Canonical issue template
+## Lean issue template
 
 ```markdown
 # <Outcome-oriented title>
 
 ## Readiness
 
-**State:** EXECUTION_READY | DESIGN_REQUIRED | INVESTIGATION_REQUIRED | BLOCKED
-**Execution profile:** STANDARD | HIGH_ASSURANCE
-**Design authority:** <session or person>
-**Repository/base:** `<repo>` / `<immutable base or branch policy>`
-**Execution branch:** `<branch convention>`
+**State:** EXECUTION_READY | DESIGN_REQUIRED | INVESTIGATION_REQUIRED | BLOCKED  
+**Execution profile:** STANDARD | HIGH_ASSURANCE  
+**Repository/base:** `<repo>` / `<exact base>`  
+**Execution branch:** `<branch>`
 
-## Goal
+## Goal and motivation
 
-<Observable outcome.>
+<Observable outcome and why it matters.>
 
-## Motivation
+## Current evidence
 
-<Why it is needed now.>
+- **OBSERVED:** <only facts needed by this phase>
+- **ACCEPTED:** <phase-specific decisions or decision IDs>
+- **OPEN:** <none or unresolved item>
+- **REJECTED:** <relevant rejected shortcut>
 
-## Current state and evidence
+## Context packet
 
-- **OBSERVED:** <fact>
-- **ACCEPTED:** <decision>
-- **OPEN:** <none or unresolved decision>
-- **REJECTED:** <rejected alternative>
+- `AGENTS.md`
+- `docs/STATUS.md`
+- `<exact decision or plan section>`
+- `<exact source/test/build paths>`
+- `<prior final manifest and accepted review, when needed>`
 
-## Source of truth
-
-- `<path or exact revision>`
-
-## Scope
+## Scope and invariants
 
 ### In scope
 - <item>
@@ -374,75 +266,36 @@ If a material answer is missing, do not use `execution-ready`.
 ### Out of scope
 - <item>
 
-## Constraints and invariants
+### Invariants
+- <item>
 
-- <constraint>
+## Native build and validation
 
-## Review materiality and trust boundary
+- Build targets/files: <exact targets and permitted metadata>
+- Commands: `<exact commands>`
+- Evidence: `<paths and schemas>`
+- Success criteria: <objective gates>
 
-- Authoritative machine-enforced state: <structured path or none>
-- Derived informational state: <docs/comments/PR text>
-- Security or adversarial-input boundary: <none or explicit boundary>
-- Material `FAIL` findings: <criteria>
-- Non-material `PASS_WITH_NOTES` findings: <criteria>
-- Repeated-review circuit breaker: after two same-mechanism failures, return to design authority before a third review
+## Phases and checkpoints
 
-## Operational capabilities
+### Phase 1 — <outcome>
+- Scope: <bounded files or subsystem>
+- Deliverable: <artifact or behavior>
+- Validation: <commands and criteria>
+- Checkpoint: <name or none>
 
-- Branch publication: required | optional
-- Draft PR required before: <checkpoint or final gate>
-- Independent review: <checkpoint list or every phase>
-- Local reviewer execution: required | optional
-- External hardware/data: <requirements>
-- Connector handoff: allowed | disallowed with reason
+## Materiality and authoritative state
 
-## Phases
+- Authoritative record: <path or none>
+- `FAIL`: <material conditions>
+- `PASS_WITH_NOTES`: <non-material conditions>
+- Threat boundary: <normal inputs or explicit adversarial boundary>
 
-### Phase N — <bounded outcome>
+## Failure, restart, and completion
 
-**Model class:** TOP_REASONING | STRONG_CODING | FAST_CODING | LIGHTWEIGHT
-**Checkpoint:** <name or none>
-**Inputs:** <paths or prior artifacts>
-**Permitted scope:** <files or subsystem>
-**Instructions:** <bounded actions>
-**Deliverables:** <artifacts or behavior>
-**Validation:**
-- `<command>`
-- Success means: <observable result>
-**Out of scope:** <exclusions>
-
-## Review checkpoints
-
-### Checkpoint A — <name>
-
-**Covered phases:** <range>
-**Review target:** <commit range policy>
-**Checks:** <scope, artifacts, validation, unexpected changes>
-**Material blockers:** <explicit criteria>
-**Non-blocking notes:** <examples>
-**Progression:** PASS or acceptable PASS_WITH_NOTES
-
-## Failure, degradation, and restart
-
-- Implementation failure: <bounded material correction>
-- Editorial/derived-state discrepancy: <note or correction policy>
-- Operational degradation: <fallback or handoff>
-- Real blocker: <condition>
-- Return to design when: <condition>
-- Repeated-review circuit breaker: <same-mechanism rule>
-- Restart cleanly when: <condition>
-
-## Final acceptance
-
-- <testable exit criterion>
+- Correction/design/investigation/blocker rules: <concise rules>
+- Final acceptance: <observable complete state>
+- Required operational capabilities: <capabilities only>
 ```
 
-## Creation and approval
-
-After approval:
-
-- create or update the issue using the GitHub connector;
-- apply the appropriate single workflow label;
-- preserve approved scope, materiality, trust boundaries, and checkpoints;
-- link dependencies and superseded attempts;
-- do not begin implementation in the design-authority session unless the user explicitly changes roles.
+Add sections only when they carry issue-specific information. Do not copy generic skill text into the issue.
