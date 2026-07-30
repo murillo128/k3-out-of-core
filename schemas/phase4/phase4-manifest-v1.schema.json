@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/phase4/phase4-manifest-v1.schema.json",
+  "title": "K3 Phase 4 hot-cache manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "closeout_state", "execution_profile", "issue", "revisions", "checkpoint_a", "phase3_input", "models", "environment", "evidence", "validation", "artifacts"],
+  "properties": {
+    "schema_version": {"const": "phase4-manifest-v1"},
+    "closeout_state": {"enum": ["final-review-candidate", "complete"]},
+    "execution_profile": {"const": "STANDARD"},
+    "issue": {
+      "type": "object", "additionalProperties": false,
+      "required": ["repository", "number", "url", "pull_request"],
+      "properties": {
+        "repository": {"const": "murillo128/k3-out-of-core"}, "number": {"const": 17},
+        "url": {"type": "string"}, "pull_request": {"const": 18}
+      }
+    },
+    "revisions": {
+      "type": "object", "additionalProperties": false,
+      "required": ["project_execution_base", "project_evidence_head", "llama_cpp_base", "llama_cpp_candidate", "gitlink"],
+      "properties": {
+        "project_execution_base": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "project_evidence_head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "llama_cpp_base": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "llama_cpp_candidate": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "gitlink": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+      }
+    },
+    "checkpoint_a": {
+      "type": "object", "additionalProperties": false,
+      "required": ["comment_id", "url", "verdict", "safety_to_proceed", "project_head", "llama_cpp_head", "independent_read_only"],
+      "properties": {
+        "comment_id": {"const": 5131012078}, "url": {"type": "string"},
+        "verdict": {"const": "PASS_WITH_NOTES"}, "safety_to_proceed": {"const": "YES"},
+        "project_head": {"type": "string"}, "llama_cpp_head": {"type": "string"},
+        "independent_read_only": {"const": true}
+      }
+    },
+    "phase3_input": {"$ref": "#/$defs/artifactIdentity"},
+    "models": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "object"}},
+    "environment": {"type": "object"},
+    "evidence": {
+      "type": "object", "additionalProperties": false,
+      "required": ["parity", "lifecycle", "validation_commands"],
+      "properties": {"parity": {"$ref": "#/$defs/artifactIdentity"}, "lifecycle": {"$ref": "#/$defs/artifactIdentity"}, "validation_commands": {"$ref": "#/$defs/artifactIdentity"}}
+    },
+    "validation": {
+      "type": "array", "minItems": 6,
+      "items": {"$ref": "#/$defs/validationResult"}
+    },
+    "artifacts": {
+      "type": "array", "minItems": 10,
+      "items": {
+        "allOf": [
+          {"$ref": "#/$defs/artifactIdentity"},
+          {"type": "object", "required": ["kind"], "properties": {"kind": {"enum": ["implementation", "schema", "test", "evidence", "source-of-truth"]}}}
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "artifactIdentity": {
+      "type": "object", "required": ["path", "size", "sha256"],
+      "properties": {"path": {"type": "string"}, "size": {"type": "integer", "minimum": 1}, "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+    },
+    "validationResult": {
+      "type": "object", "additionalProperties": false,
+      "required": ["name", "command", "cwd", "exit_code", "stdout_sha256", "stderr_sha256", "stdout_bytes", "stderr_bytes", "passed", "total"],
+      "properties": {
+        "name": {"type": "string"}, "command": {"type": "array", "minItems": 2, "items": {"type": "string"}},
+        "cwd": {"const": "."}, "exit_code": {"const": 0},
+        "stdout_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "stderr_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "stdout_bytes": {"type": "integer", "minimum": 0}, "stderr_bytes": {"type": "integer", "minimum": 0},
+        "passed": {"type": ["integer", "null"], "minimum": 0}, "total": {"type": ["integer", "null"], "minimum": 0}
+      }
+    }
+  }
+}

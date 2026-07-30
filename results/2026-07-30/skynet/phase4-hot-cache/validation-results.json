@@ -1,0 +1,223 @@
+{
+  "captured_at_utc": "2026-07-30T13:11:07.124578+00:00",
+  "commands": [
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "llama.cpp/build-cpu",
+        "--target",
+        "test-expert-weight-provider",
+        "test-hot-expert-cache",
+        "phase4-hot-cache-probe",
+        "-j4"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "build-cpu",
+      "passed": null,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 772,
+      "stdout_sha256": "b1cee96a9e0c2cad97e7460b02bee96c7c756da12327186ec08dd117888bece9",
+      "total": null
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "llama.cpp/build-cuda",
+        "--target",
+        "llama",
+        "test-expert-weight-provider",
+        "test-hot-expert-cache",
+        "phase4-hot-cache-probe",
+        "-j4"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "build-cuda",
+      "passed": null,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 1002,
+      "stdout_sha256": "0c86391148cff651da2d0817d2c6f8f8cd042456aea639ea7acd9a146af5f297",
+      "total": null
+    },
+    {
+      "command": [
+        "ctest",
+        "--test-dir",
+        "llama.cpp/build-cpu",
+        "--output-on-failure",
+        "-R",
+        "expert-weight-provider|hot-expert-cache"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "ctest-cpu",
+      "passed": 2,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 524,
+      "stdout_sha256": "ee899aac1eeeda52855a428310333e3102dea0f3237c77e6a0a3323d0b282e49",
+      "total": 2
+    },
+    {
+      "command": [
+        "ctest",
+        "--test-dir",
+        "llama.cpp/build-cuda",
+        "--output-on-failure",
+        "-R",
+        "expert-weight-provider|hot-expert-cache"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "ctest-cuda",
+      "passed": 2,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 526,
+      "stdout_sha256": "61fcfdb56197dadeb381b8cbaed6f3ea24b0e80d8c41fb06ec22432a17cadcae",
+      "total": 2
+    },
+    {
+      "command": [
+        "ctest",
+        "--test-dir",
+        "llama.cpp/build-asan",
+        "--output-on-failure",
+        "-R",
+        "expert-weight-provider|hot-expert-cache"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "ctest-asan-ubsan",
+      "passed": 2,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 526,
+      "stdout_sha256": "3d60c16940a4d6418240a2efbf593fb2c505b04d098a90a0ae69102ec736398f",
+      "total": 2
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/phase3",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "unittest-phase3",
+      "passed": 12,
+      "stderr_bytes": 1759,
+      "stderr_sha256": "ae478cb29308322662a0ec49e1c21675572f5531ebd9cafb15df3c290d8f6fb5",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "total": 12
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/phase4",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "unittest-phase4",
+      "passed": 6,
+      "stderr_bytes": 824,
+      "stderr_sha256": "44f0fdc60ef8168b53aded9a39f63fa4dcb1543d9232e3371f79605975ce752f",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "total": 6
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check",
+        "0da90c6711e00613820183c1811dcaf1baffb409..HEAD"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "diff-check-project",
+      "passed": null,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "total": null
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "llama.cpp",
+        "diff",
+        "--check",
+        "a120de8e2d0b552c51eacd7d701ef1dd994bc3db..HEAD"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "diff-check-nested",
+      "passed": null,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "total": null
+    },
+    {
+      "command": [
+        "git",
+        "status",
+        "--short"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "status-project",
+      "passed": null,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "total": null
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "llama.cpp",
+        "status",
+        "--short"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "status-nested",
+      "passed": null,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "total": null
+    }
+  ],
+  "llama_cpp_head": "57fe1eabbe3d0ced59096a0744efc91e286fb1c7",
+  "project_head": "355100092d4b9015523311958978b1783f6b5164",
+  "schema_version": "phase4-validation-results-v1",
+  "status": "pass"
+}

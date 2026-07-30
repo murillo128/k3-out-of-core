@@ -23,6 +23,9 @@ This repository is the source of truth for architecture, planning, validation re
 - Phase 3 resident-provider corrective base: `523f825d2df5efa7c9a08561e2b64861ad5594c5`
 - Phase 3 optimized resident-provider head: `a120de8e2d0b552c51eacd7d701ef1dd994bc3db`
 - Phase 3 branch: `codex/phase3-resident-provider`
+- Phase 4 mechanism head reviewed at Checkpoint A: `8ededcb548b0d9dc6248d6ba490aecedca576bec`
+- Phase 4 evidence-probe candidate: `57fe1eabbe3d0ced59096a0744efc91e286fb1c7`
+- Phase 4 branch: `codex/phase4-hot-cache`
 
 The `llama.cpp` gitlink in the Phase 3 review branch points to the Phase 3 resident-provider head. The Phase 1 and Phase 2 revisions remain immutable validation inputs.
 
@@ -35,6 +38,10 @@ Relevant behavior in this revision:
 - rejection of unknown packed MXFP4 tensors.
 
 Phase 3 adds the model-owned resident expert-weight provider, typed logical/execution ID seam, request-scoped RAII leases across asynchronous submission, structural counters, and focused CPU/CUDA lifecycle tests. It does not add a cache, storage transport, prefetch, physical slots, or any change to expert residency. No GGUF or corpus artifact was republished.
+
+Phase 4 adds one model-owned fixed-address CUDA hot pool, a preallocated transactional host directory, graph-local execution-ID remapping at the existing synchronized scheduler boundary, request-generation leases and pins, deterministic LRU validation policy, trim/surrender, and bounded diagnostics. Source routed experts remain host-resident. It does not add cold storage, demand GGUF reads, prefetch, asynchronous transport, multi-GPU, UMA, or concurrent cached submissions. No GGUF or corpus artifact was republished.
+
+The Phase 4 standing evidence is under `results/2026-07-30/skynet/phase4-hot-cache/`. `hot-cache-parity.json` has SHA-256 `d11ff31d762ed0ebcfb8b3a940b8ceb78925386e4e8c925c7070912d96bab4fb`; `lifecycle-and-failures.json` has SHA-256 `f39ebf5e2512377960d299e948e1fb21d65e3b52d1b99b9bdf75877c8f715d1a`. These artifacts reuse the existing immutable F16/MXFP4 GGUFs and Phase 3 manifest; no binary model artifact changed.
 
 The original standing Phase 3 capture approved in issue comment `5127588494` failed 3 of 24 gated metric cells and remains immutable history. The one post-optimization v2 capture authorized by comment `5127774849` is published at project evidence commit `93635d7ece8fdc617291d5a036bda1c8bc2b6c77` as `results/2026-07-29/skynet/phase3-resident-provider/provider-overhead-post-optimization.json`, SHA-256 `23eff115b87a9e8cee101bd1c0b02f299786175e786b4b30dd4a7e66617d4970`. It passes 22/24 cells and remains a raw performance-gate failure. Comments `5128658370` and `5128726338` accept the Phase 3 technical exit with narrow performance notes; no GGUF, corpus, nested implementation revision, budget, or raw evidence changed as a result.
 

@@ -73,6 +73,8 @@ ExpertBundle(gate, up, down, quant metadata)
 
 The physical tensors can remain separate. Their lifecycle is atomic because every selected routed expert needs all projections.
 
+**Phase 4 observation:** issue #17 implements this accepted decision with one model-owned CUDA pool, a preallocated host directory, generation-checked request pins, and synchronized logical-to-physical ID remapping. Checkpoint A comment `5131012078` found no material ownership, lifetime, sidecar-span, or reduction defect. This does not select the production policy in O-001 or authorize asynchronous transport.
+
 ### D-006 — Use GGUF as the initial backing store
 
 **Status:** ACCEPTED
