@@ -7,8 +7,8 @@
     },
     {
       "path": "scripts/phase6/capture_storage_layout.py",
-      "sha256": "56d59dce297da6fe901eff7f420ed709a7087d73f8784289010a881729b1e29a",
-      "size": 2924
+      "sha256": "f7f85fc40e5c9f1938754106b8d833b4ab0ca3e52ea4f35aeff3591867ddfbc4",
+      "size": 3192
     },
     {
       "path": "scripts/phase6/capture_gguf_demand_parity.py",
@@ -16,84 +16,94 @@
       "size": 4077
     },
     {
+      "path": "scripts/phase6/capture_bundle_integrity.py",
+      "sha256": "cc3fc6964b15ef586b59bb4de0c7da1672dc6d9d50a9e20a164c6fb2381b63c9",
+      "size": 5022
+    },
+    {
       "path": "scripts/phase6/run_storage_lifecycle.py",
-      "sha256": "7526651b5e767d9c6a33f2ae43e53d2c160cb809fe06102c35f5d35182bc9dea",
-      "size": 2136
+      "sha256": "35989f47b85b501d1cd25e123fc1b88424130f3c77f9854f18f17ce1e41c76c8",
+      "size": 2869
     },
     {
       "path": "scripts/phase6/capture_validation_results.py",
-      "sha256": "a30b91f8083695652e16b15028c573415e4f4eb3b766633e5a99f615ce8bed15",
-      "size": 2288
+      "sha256": "ae1061888bdb8ebea91a40ac298b1990031528577acdd4f3a87f755ebf7edddb",
+      "size": 2740
     },
     {
       "path": "scripts/phase6/build_phase6_manifest.py",
-      "sha256": "7b81c25e28c1a80413a3fcf6300cef9a2788cf7f375af4f338abe7a6cc2ee635",
-      "size": 4059
+      "sha256": "11111d35100d7040c18848e5b2a5b9e14d4831b305bc7091345883b27164d9ae",
+      "size": 4260
     },
     {
       "path": "scripts/phase6/verify_phase6.py",
-      "sha256": "09bf1e329dfe9eced1cbf422d93e1b2e419cd8ef73babf4a879708e50dc615b6",
-      "size": 11852
+      "sha256": "e58d6af49120af96a572645fa5625e5295dea0479fdf30ebd8cd06581ef2daea",
+      "size": 14914
     },
     {
       "path": "schemas/phase6/phase6-manifest-v1.schema.json",
-      "sha256": "7cbde2e567044e7af0059894e859412fd34e03bb0a3453c52f6c9c0f2c15d06d",
-      "size": 1900
+      "sha256": "1e0b06144008e518caf885007eb214c8d27ae39a5b35e0164c521121afd3c349",
+      "size": 2760
     },
     {
       "path": "tests/phase6/test_phase6_evidence.py",
-      "sha256": "185e8c5383c7d028eb0a4fcd6dd3dbe6d018a2de3e60814ac70bc9d12f81f3ad",
-      "size": 1972
+      "sha256": "b9524e6c3cb85be2d5acfc0a0f49f6b0b7c7050ca53811ccd39a0dd2b79408b2",
+      "size": 4160
     },
     {
       "path": "results/2026-07-30/skynet/phase6-gguf-storage/storage-layout.json",
-      "sha256": "1e1347775a0644087ee8032022d87537b12fb0d369d11f91bbb4177d1c3f5863",
-      "size": 229402
+      "sha256": "4f18c6b012d9390fa1455b4fa25b2f16bf22f0d71bae8b829ad0140a436afc42",
+      "size": 229740
     },
     {
       "path": "results/2026-07-30/skynet/phase6-gguf-storage/gguf-demand-parity.json",
-      "sha256": "4b58c2e4f782c1f045d8ba8a88d3fc8699784f73d99a6ad767573f966069cd09",
-      "size": 49182
+      "sha256": "b753ffb1dd1a8968f9507d2b98ba16a9c48b75e963a2477d8563821955da9b33",
+      "size": 49180
+    },
+    {
+      "path": "results/2026-07-30/skynet/phase6-gguf-storage/bundle-integrity.json",
+      "sha256": "f250b4a3b99c933693a7c77750754696b97c6e11e8f892513860e65c2426774d",
+      "size": 6959
     },
     {
       "path": "results/2026-07-30/skynet/phase6-gguf-storage/lifecycle-and-failures.json",
-      "sha256": "a68e4d3119e4625dda35887adeb10754f086117bd3d6beb405cc6166a129d51e",
-      "size": 2471
+      "sha256": "5b899b57eff5e115cfd2cbf8316422183a90cab7a911541298525f39e3cd6ece",
+      "size": 2943
     },
     {
       "path": "results/2026-07-30/skynet/phase6-gguf-storage/validation-results.json",
-      "sha256": "214631c1d59a06a36a77d90ea71e24eff71b55da244c2556ee3d8820c6b03276",
-      "size": 4446
+      "sha256": "cb774375cece766122dddea108130ac4b96556ae682a1befccd7529b6d692c40",
+      "size": 5639
     },
     {
       "path": "results/2026-07-30/skynet/phase6-gguf-storage/PHASE6.md",
-      "sha256": "06ed59f700ce3dfb2a0c5a6ca8a6de3a99d3319377b02e2ad8d8e04676afb8e2",
-      "size": 1723
+      "sha256": "33de928b99aba13cdb107c30979cff91234a7dcf62c41e32c873f3170015df1d",
+      "size": 2259
     },
     {
       "path": "PLAN.md",
-      "sha256": "762a10d6a963a8c4acfd0bd76c74bc1a7b6f947cd3f299b81a174daf6e2a7412",
-      "size": 2407
+      "sha256": "0e1da0dd352bf3cca58b7659bfbe3fa72745be6ec62c34c7905360cde90fe4e4",
+      "size": 2596
     },
     {
       "path": "docs/STATUS.md",
-      "sha256": "a6b1b5c4b569e4291482432220b0b98afd88354aa730b9e241a2c42a80827d1a",
-      "size": 10554
+      "sha256": "515f131b56b1e9c648c323622d569769326cdeb7fa8d0bd47120ffa6817c8cb0",
+      "size": 11260
     },
     {
       "path": "docs/plan/04-cache-and-storage.md",
-      "sha256": "de362c18f6dfb6d21dd083c4b8653c8b705a40e1d89efff05dc17fce145d9d4d",
-      "size": 6071
+      "sha256": "e9cf83500af06bac98ca63b80e06ac5a85ef639afc6d3b9c32d55083646cbb83",
+      "size": 6214
     },
     {
       "path": "docs/MODELS_AND_VALIDATION.md",
-      "sha256": "92f0e20f508d9a89429738d17e3b0217ddb178af5f9f7e34cf3217f3280800b5",
-      "size": 29709
+      "sha256": "f5fa77fe9d3393ebf11af2847f8876a4aef529039e0c02140b0cf2aacae19b26",
+      "size": 29894
     },
     {
       "path": "docs/REPOSITORIES_AND_ARTIFACTS.md",
-      "sha256": "19060c4943ef1c140b62f6a4381ec0733e9ce655cd6011708f70353ef5c632fe",
-      "size": 12655
+      "sha256": "f648e3f4ffdea3d9c83be0ac0297e77df6c062e9e928ef9d4c00d6baf31f6b97",
+      "size": 12756
     }
   ],
   "carried_notes": [
@@ -127,25 +137,30 @@
     "os": "Linux-6.8.0-136-generic-x86_64-with-glibc2.39"
   },
   "evidence": {
+    "bundle_integrity": {
+      "path": "results/2026-07-30/skynet/phase6-gguf-storage/bundle-integrity.json",
+      "sha256": "f250b4a3b99c933693a7c77750754696b97c6e11e8f892513860e65c2426774d",
+      "size": 6959
+    },
     "demand_parity": {
       "path": "results/2026-07-30/skynet/phase6-gguf-storage/gguf-demand-parity.json",
-      "sha256": "4b58c2e4f782c1f045d8ba8a88d3fc8699784f73d99a6ad767573f966069cd09",
-      "size": 49182
+      "sha256": "b753ffb1dd1a8968f9507d2b98ba16a9c48b75e963a2477d8563821955da9b33",
+      "size": 49180
     },
     "lifecycle": {
       "path": "results/2026-07-30/skynet/phase6-gguf-storage/lifecycle-and-failures.json",
-      "sha256": "a68e4d3119e4625dda35887adeb10754f086117bd3d6beb405cc6166a129d51e",
-      "size": 2471
+      "sha256": "5b899b57eff5e115cfd2cbf8316422183a90cab7a911541298525f39e3cd6ece",
+      "size": 2943
     },
     "storage_layout": {
       "path": "results/2026-07-30/skynet/phase6-gguf-storage/storage-layout.json",
-      "sha256": "1e1347775a0644087ee8032022d87537b12fb0d369d11f91bbb4177d1c3f5863",
-      "size": 229402
+      "sha256": "4f18c6b012d9390fa1455b4fa25b2f16bf22f0d71bae8b829ad0140a436afc42",
+      "size": 229740
     },
     "validation": {
       "path": "results/2026-07-30/skynet/phase6-gguf-storage/validation-results.json",
-      "sha256": "214631c1d59a06a36a77d90ea71e24eff71b55da244c2556ee3d8820c6b03276",
-      "size": 4446
+      "sha256": "cb774375cece766122dddea108130ac4b96556ae682a1befccd7529b6d692c40",
+      "size": 5639
     }
   },
   "execution_profile": "STANDARD",
@@ -5420,10 +5435,10 @@
     "size": 16842
   },
   "revisions": {
-    "gitlink": "1543185bd34bcde07a594064120591e61bafbeed",
+    "gitlink": "7a606dd4e11a108929f799253809a904f55feae4",
     "llama_cpp_base": "26317ee1d848dd7a73f22a3666a055cad5d5cb03",
-    "llama_cpp_candidate": "1543185bd34bcde07a594064120591e61bafbeed",
-    "project_evidence_head": "b9913d55072c2f6522b8228a093e940140e0cefe",
+    "llama_cpp_candidate": "7a606dd4e11a108929f799253809a904f55feae4",
+    "project_evidence_head": "0b129ebea800fa18e67fcad747479ad6469033b8",
     "project_execution_base": "eb1b5baf5d505eadbc4298ecf322489cdfd7aae5"
   },
   "schema_version": "phase6-manifest-v1",
@@ -5445,8 +5460,8 @@
       "exit_code": 0,
       "name": "build-cpu",
       "passed": null,
-      "stderr_sha256": "68b4c8c557fb9715c8915e960d4be4363f6f0249d11f490d3fd158e6db7af4e3",
-      "stdout_sha256": "1fe8aeabb3302caeffacd1dd9c35306b2e220d5522dce97902b0294b85f9395f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "52ab64668e19b88d54d9fb33788b136be6c4b72c5277778f3a9936d4c7e2782b",
       "total": null
     },
     {
@@ -5464,13 +5479,14 @@
         "test-expert-storage",
         "phase6-gguf-storage-probe",
         "phase5-cold-cache-probe",
+        "phase6-bundle-integrity-probe",
         "-j4"
       ],
       "exit_code": 0,
       "name": "build-cuda",
       "passed": null,
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "stdout_sha256": "40f6b3cd2cad2af736a00f3a8d7eac69c1afd3d6b208e0c5d6cd933010488091",
+      "stdout_sha256": "20b953ddbf2b26550d2c3fadbdcc6a026e1e05756f008affe55e9158d5f8bf8c",
       "total": null
     },
     {
@@ -5507,6 +5523,42 @@
     },
     {
       "command": [
+        "cmake",
+        "--build",
+        "llama.cpp/build-phase5-asan",
+        "--target",
+        "test-expert-weight-provider",
+        "test-hot-expert-cache",
+        "test-cold-expert-cache",
+        "test-expert-transfer-ring",
+        "test-expert-storage",
+        "-j4"
+      ],
+      "exit_code": 0,
+      "name": "build-sanitizers",
+      "passed": null,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "6b0c8fe96c29f65e1bcecfbc0f67f66737f214aa5edc098d57a0f0fc020e5506",
+      "total": null
+    },
+    {
+      "command": [
+        "ctest",
+        "--test-dir",
+        "llama.cpp/build-phase5-asan",
+        "--output-on-failure",
+        "-R",
+        "expert-weight-provider|hot-expert-cache|cold-expert-cache|expert-transfer-ring|expert-storage"
+      ],
+      "exit_code": 0,
+      "name": "ctest-sanitizers",
+      "passed": null,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "ae5f7f269f54d8272e9a457d7180f598c4c9fbd51336ab178f4053d07a479ac4",
+      "total": null
+    },
+    {
+      "command": [
         "python3",
         "-m",
         "unittest",
@@ -5539,7 +5591,7 @@
       "exit_code": 0,
       "name": "unittest-phase6",
       "passed": null,
-      "stderr_sha256": "dcd4a884b6112613a9a8b1aa5bdb40cc2c7741fb9ba78687d0bc5692885f85bc",
+      "stderr_sha256": "7ef9bd4c38c65878ac7f86744ca6fc2fea14c7740b384b04cd8dc8b937912ba9",
       "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "total": null
     },
