@@ -9,12 +9,29 @@ This file is the first handoff document for a new ChatGPT or Codex session.
 - Project Phase 1 is complete and merged.
 - GitHub issue #7 is closed as completed.
 - PR #8 merged into `main` as `7b4d21e8793c451ce34c691f438afceabd64a841`.
-- PR #9 merged into `main` as `eff5efc754919bf1a50735e27c7ad39f4d93384e`; its STANDARD materiality and repeated-review circuit-breaker rules now govern future issues.
-- Checkpoints A, B, and C returned **PASS_WITH_NOTES** with safety gate **YES**.
-- The final complete-PR review returned **PASS_WITH_NOTES** with safety to merge **YES**.
-- Project Phase 2 is complete and merged through PR #11. The final reviewed project head was `c56770e9148fb94173561b7c4f2aade63cdefff7`; PR #11 merged into `main` as `d74781faec12e8552c1598084b210f784ac0a43b`, with nested `murillo128/llama.cpp` gitlink `4daaaa1a4dd26d6465f84891b854b5f7ddc03020`. No out-of-core runtime implementation exists yet. The bounded F16/MXFP4 CPU corpus and CPU/CUDA subset remain reproducible, and the unchanged raw corpus is externally published at immutable Hub revision `2d838d6b4d0aca4e9af1e7d899e57ad29330c72e`.
-- Project Phase 3 issue #13 remains on `codex/phase3-resident-provider` with draft PR #15. The published pre-integration project head is `a8e5c4fa7a0a88a056957923ebff0e0ae0381a95`; the optimized nested head is `a120de8e2d0b552c51eacd7d701ef1dd994bc3db`. The immutable standing evidence commit is `93635d7ece8fdc617291d5a036bda1c8bc2b6c77`; its capture SHA-256 is `23eff115b87a9e8cee101bd1c0b02f299786175e786b4b30dd4a7e66617d4970`. The raw gate remains failed at 22/24 cells, while design-authority comments `5128658370` and `5128726338` accept the Phase 3 exit as `PASS_WITH_NOTES` for progression only. Checkpoint B comment `5128960944` and final-review comment `5129067929` both returned `PASS_WITH_NOTES` with safety `YES`. Current `main` head `2d5b472442d86976b657c26f1a84f010120f0440` is incorporated only to resolve PR integration; a renewed final review of the resulting exact head remains required. No further Phase 3 measurement or optimization is authorized.
+- PR #9 merged into `main` as `eff5efc754919bf1a50735e27c7ad39f4d93384e`; its STANDARD materiality and repeated-review circuit-breaker rules govern later issues.
+- Project Phase 2 is complete and merged through PR #11. The final reviewed project head was `c56770e9148fb94173561b7c4f2aade63cdefff7`; PR #11 merged into `main` as `d74781faec12e8552c1598084b210f784ac0a43b`, with nested `murillo128/llama.cpp` gitlink `4daaaa1a4dd26d6465f84891b854b5f7ddc03020`. The bounded F16/MXFP4 CPU corpus and CPU/CUDA subset remain reproducible, and the unchanged raw corpus is published at immutable Hub revision `2d838d6b4d0aca4e9af1e7d899e57ad29330c72e`.
+- Project Phase 3 is complete and merged. Issue #13 was implemented by PR #15 and squash-merged into `main` as `6d15dab02f8129240ca83579445898be2f5f987f`. The merged nested `murillo128/llama.cpp` gitlink is `a120de8e2d0b552c51eacd7d701ef1dd994bc3db`.
+- Phase 3 Checkpoint A, Checkpoint B, and the renewed final complete-PR review all returned **PASS_WITH_NOTES** with safety **YES**. The final reviewed integration head was `d8cfa06e39a87223ca97e3326d7e08e96cd64018`; the renewed final review is issue comment `5129200934`.
+- Phase 3 preserves the raw standing performance result as `fail`: 22/24 original cells pass, while MXFP4 CUDA disabled-to-resident prompt throughput and TTFT exceed their unchanged confidence budgets. Design-authority comments `5128658370` and `5128726338` accept this narrow Phase-3-only result as `PASS_WITH_NOTES`. This is not a waiver for correctness, default-path performance, decode, cache, transport, misses, multi-request behavior, full-size behavior, or tail latency.
+- No out-of-core cache, physical expert slots, storage transport, demand reads, prefetch policy, or asynchronous miss runtime exists yet. Those begin in Phase 4 and later phases.
 - Phase 1 evidence is descriptive for the tiny K3 fixtures on `skynet`; it is not a model-quality or production-performance claim.
+
+## Phase 3 merged baseline
+
+- Issue: <https://github.com/murillo128/k3-out-of-core/issues/13>
+- Merged PR: <https://github.com/murillo128/k3-out-of-core/pull/15>
+- Execution profile: `STANDARD`
+- Immutable Phase 3 execution base: `81df862da6e4ff9db005f6265470070bb5456f4c`
+- Final reviewed PR head: `d8cfa06e39a87223ca97e3326d7e08e96cd64018`
+- PR #15 squash merge: `6d15dab02f8129240ca83579445898be2f5f987f`
+- Nested `llama.cpp` head: `a120de8e2d0b552c51eacd7d701ef1dd994bc3db`
+- Standing evidence commit: `93635d7ece8fdc617291d5a036bda1c8bc2b6c77`
+- Standing capture SHA-256: `23eff115b87a9e8cee101bd1c0b02f299786175e786b4b30dd4a7e66617d4970`
+- Checkpoint B review: issue comment `5128960944`
+- Renewed final review: issue comment `5129200934`
+- Structured closeout: `complete-with-performance-notes`, raw performance gate `fail`, design disposition `accepted-with-notes`.
+- Evidence: [`../results/2026-07-29/skynet/phase3-resident-provider/PHASE3.md`](../results/2026-07-29/skynet/phase3-resident-provider/PHASE3.md)
 
 ## Phase 1 merged baseline
 
@@ -50,28 +67,14 @@ OS: Ubuntu 24.04.3 LTS
 Kernel: 6.8.0-136-generic
 ```
 
-## Phase 1 evidence
-
-- Stable CPU and CUDA tests: 54/54 passed in each build.
-- External tokenizer GGUF fixture: 1/1 passed in each build after verified Git LFS payload retrieval.
-- Fixed ordinary prompt tokenizer parity: exact IDs `[18805, 308, 799, 5624, 12524]` across both source models and both GGUFs.
-- Special-token conflicts are explicitly documented; general chat-template/end-of-message parity is not claimed.
-- MXFP4 integrity: 81/81 stratified samples matched scale bytes, code bytes, repacked bytes, and decoded values exactly.
-- F16 and MXFP4 monolithic CPU/CUDA inference: exact 32-token generation parity and accepted selected-logit thresholds.
-- CUDA placement: layers 0-8 and all 21 type-39 routed-expert tensors assigned to CUDA0; the unsupported layer-3 Flash Attention operation remained on CPU and is logged.
-- Repeated benchmark: one discarded warmup plus five measured runs per model/backend combination, with model retained and context recreated. All runs terminated naturally at the same 49-token sequence and EOG ID 163585.
-- Prompt/decode throughput, TTFT, per-token p50/p95/p99 latency, load time, RSS, and CUDA VRAM are committed in `benchmarks.json` and summarized in `SUMMARY.md`.
-- Strict closeout verifier passed with zero errors and all 18 evidence checksums passed.
-
 ## Review notes carried forward
 
 - Tokenizer acceptance is limited to the fixed ordinary prompt. Named HF special tokens conflict with GGUF BOS/EOS/PAD metadata and `<|im_end|>` is outside the GGUF vocabulary.
-- No converter decoder or repacker helper is called by the independent MXFP4 validator. Its metadata reader has a transitive helper import, so the recorded `gguf_quantization_helpers_imported: false` wording is conservative rather than a correctness failure.
 - MXFP4 selected top-10 ID sets match at every inference step, while ordered ranks swap within the same set at steps 8 and 24.
 - The benchmark's 128-token setting is a maximum cap. The fixture naturally emits EOG after 49 generated tokens; forcing post-EOG decoding would change semantics.
 - VRAM is sampled device-wide telemetry and the OS page cache was not flushed.
-- Five earlier Checkpoint C failures remain preserved as workflow history; they found no material technical defect.
+- The Phase 3 raw performance gate and its two accepted notes must remain visible in all later performance comparisons.
 
 ## Immediate next action
 
-Validate and publish the bounded merge-resolution commit, confirm PR #15 is mergeable, and request a fresh independent final review of the new exact head. Do not run another Phase 3 measurement, start cache implementation, merge PR #15, close issue #13, or create an upstream `llama.cpp` PR.
+Start a fresh design-authority session for **Phase 4 — persistent hot cache in accelerator memory**. Inspect the merged Phase 3 seam and `docs/plan/04-cache-and-storage.md`, then create a new self-contained GitHub issue from the current `main` head. Do not begin implementation until the Phase 4 architecture, exact base, scope, tests, evidence, checkpoints, and failure semantics are execution-ready. Do not reopen or rerun Phase 3 performance measurements as part of Phase 4 design.
