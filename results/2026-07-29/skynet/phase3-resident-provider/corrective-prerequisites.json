@@ -1,0 +1,78 @@
+{
+  "approval_comment_id": 5127774849,
+  "artifacts": {
+    "administration": {
+      "path": "results/2026-07-29/skynet/phase3-resident-provider/provider-admin-fast-path.json",
+      "sha256": "bf8db56d88cfd88432cdb35709c3802a2ff2de2bdd5dc777d13d1536a0227644"
+    },
+    "lifecycle": {
+      "path": "results/2026-07-29/skynet/phase3-resident-provider/lifecycle-and-failures-post-optimization.json",
+      "sha256": "b7d13ba46081f153d6063dada49e4eefa69cfd37ba79738b6f4ab796c8730fbd"
+    },
+    "parity": {
+      "path": "results/2026-07-29/skynet/phase3-resident-provider/provider-parity-post-optimization.json",
+      "sha256": "b8864d8e4b43572c710574458f6072be91d188b82b9937efccb526727bc93c94"
+    }
+  },
+  "captured_at_utc": "2026-07-30T08:37:44.621819+00:00",
+  "checks": {
+    "administration_revision_and_checks": true,
+    "candidate_is_clean_and_published": true,
+    "candidate_is_corrective_descendant": true,
+    "historical_evidence_immutable": true,
+    "lifecycle_revision_and_coverage": true,
+    "nested_scope_bounded": true,
+    "parity_revision_and_matrix": true,
+    "phase2_evidence_unchanged": true,
+    "project_implementation_is_published": true,
+    "project_scope_bounded": true,
+    "scope_whitespace_clean": true,
+    "v2_capture_not_started": true
+  },
+  "historical_evidence": {
+    "provider-overhead-corrected-attempt1-fail.json": {
+      "expected_sha256": "0a2110c2b6d0608c08c4d93a514b55e8b2c3d579cf893fff238123dae752958b",
+      "observed_sha256": "0a2110c2b6d0608c08c4d93a514b55e8b2c3d579cf893fff238123dae752958b"
+    },
+    "provider-overhead-corrected-attempt2-fail.json": {
+      "expected_sha256": "93e0229d852dc4248c4ca6909cd1a7043f8c49226ef213cd310d244b44c42a5d",
+      "observed_sha256": "93e0229d852dc4248c4ca6909cd1a7043f8c49226ef213cd310d244b44c42a5d"
+    },
+    "provider-overhead.json": {
+      "expected_sha256": "df0fa1f05c6a57838e54f9b9da7a8d66f6ef826adf83fe3c19ccf771d04540a5",
+      "observed_sha256": "df0fa1f05c6a57838e54f9b9da7a8d66f6ef826adf83fe3c19ccf771d04540a5"
+    }
+  },
+  "nested_changed_paths": [
+    "src/llama-context.cpp",
+    "src/llama-expert-weight-provider.cpp",
+    "src/llama-expert-weight-provider.h",
+    "src/llama-graph.cpp",
+    "src/llama-graph.h",
+    "tests/test-expert-weight-provider.cpp"
+  ],
+  "project_changed_paths": [
+    "llama.cpp",
+    "scripts/phase2/overhead_probe.cpp",
+    "scripts/phase2/route_probe.cpp",
+    "scripts/phase3/build_phase3_manifest.py",
+    "scripts/phase3/capture_provider_parity.py",
+    "scripts/phase3/common.py",
+    "scripts/phase3/measure_provider_admin.py",
+    "scripts/phase3/measure_provider_overhead.py",
+    "scripts/phase3/overhead_probe_baseline.cpp",
+    "scripts/phase3/provider_admin_probe.cpp",
+    "scripts/phase3/run_provider_lifecycle.py",
+    "scripts/phase3/verify_corrective_prerequisites.py",
+    "scripts/phase3/verify_phase3.py",
+    "tests/phase3/test_phase3_evidence.py"
+  ],
+  "revisions": {
+    "llama_candidate": "a120de8e2d0b552c51eacd7d701ef1dd994bc3db",
+    "llama_corrective_base": "523f825d2df5efa7c9a08561e2b64861ad5594c5",
+    "project_corrective_base": "bb9a7778b207c248646c46083c03bdef5076c5bf",
+    "project_implementation_head": "b93bbe070c7039edfb1a154cd2fe0b292b0d79d4"
+  },
+  "schema_version": "phase3-corrective-prerequisites-v1",
+  "status": "pass"
+}
