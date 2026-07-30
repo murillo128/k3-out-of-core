@@ -14,7 +14,7 @@ This file is the first handoff document for a new ChatGPT or Codex session.
 - Project Phase 3 is complete and merged. Issue #13 was implemented by PR #15 and squash-merged into `main` as `6d15dab02f8129240ca83579445898be2f5f987f`. The merged nested `murillo128/llama.cpp` gitlink is `a120de8e2d0b552c51eacd7d701ef1dd994bc3db`.
 - Phase 3 Checkpoint A, Checkpoint B, and the renewed final complete-PR review all returned **PASS_WITH_NOTES** with safety **YES**. The final reviewed integration head was `d8cfa06e39a87223ca97e3326d7e08e96cd64018`; the renewed final review is issue comment `5129200934`.
 - Phase 3 preserves the raw standing performance result as `fail`: 22/24 original cells pass, while MXFP4 CUDA disabled-to-resident prompt throughput and TTFT exceed their unchanged confidence budgets. Design-authority comments `5128658370` and `5128726338` accept this narrow Phase-3-only result as `PASS_WITH_NOTES`. This is not a waiver for correctness, default-path performance, decode, cache, transport, misses, multi-request behavior, full-size behavior, or tail latency.
-- No out-of-core cache, physical expert slots, storage transport, demand reads, prefetch policy, or asynchronous miss runtime exists yet. Those begin in Phase 4 and later phases.
+- Phase 4 issue #17 and draft PR #18 now contain the synchronous persistent CUDA hot-cache candidate. Fixed-address physical slots, transactional host directory remapping, request leases, and deterministic LRU exist; cold storage, demand GGUF reads, prefetch, and asynchronous transport remain future phases.
 - Phase 1 evidence is descriptive for the tiny K3 fixtures on `skynet`; it is not a model-quality or production-performance claim.
 
 ## Phase 3 merged baseline
@@ -32,6 +32,21 @@ This file is the first handoff document for a new ChatGPT or Codex session.
 - Renewed final review: issue comment `5129200934`
 - Structured closeout: `complete-with-performance-notes`, raw performance gate `fail`, design disposition `accepted-with-notes`.
 - Evidence: [`../results/2026-07-29/skynet/phase3-resident-provider/PHASE3.md`](../results/2026-07-29/skynet/phase3-resident-provider/PHASE3.md)
+
+## Phase 4 final-review candidate
+
+- Issue: <https://github.com/murillo128/k3-out-of-core/issues/17>
+- Draft PR: <https://github.com/murillo128/k3-out-of-core/pull/18>
+- Execution profile: `STANDARD`
+- Project execution base: `0da90c6711e00613820183c1811dcaf1baffb409`
+- Nested execution base: `a120de8e2d0b552c51eacd7d701ef1dd994bc3db`
+- Nested mechanism head reviewed at Checkpoint A: `8ededcb548b0d9dc6248d6ba490aecedca576bec`
+- Nested evidence-probe candidate: `57fe1eabbe3d0ced59096a0744efc91e286fb1c7`
+- Checkpoint A: issue comment `5131012078`, `PASS_WITH_NOTES`, safety `YES`.
+- Standing parity: 4/4 F16/MXFP4 exact-top-k/all-routed-key CUDA cases pass with byte-exact disabled/hot routes and logits.
+- Standing lifecycle: seven native cases and two 20-token warm runs pass; warm runs record 251 hits, 51 misses, balanced pins, and no integrity failures.
+- Evidence: [`../results/2026-07-30/skynet/phase4-hot-cache/PHASE4.md`](../results/2026-07-30/skynet/phase4-hot-cache/PHASE4.md)
+- Merge remains forbidden until the exact final manifest/docs head receives the independent complete-PR review with safety `YES`.
 
 ## Phase 1 merged baseline
 
@@ -77,4 +92,4 @@ Kernel: 6.8.0-136-generic
 
 ## Immediate next action
 
-Start a fresh design-authority session for **Phase 4 — persistent hot cache in accelerator memory**. Inspect the merged Phase 3 seam and `docs/plan/04-cache-and-storage.md`, then create a new self-contained GitHub issue from the current `main` head. Do not begin implementation until the Phase 4 architecture, exact base, scope, tests, evidence, checkpoints, and failure semantics are execution-ready. Do not reopen or rerun Phase 3 performance measurements as part of Phase 4 design.
+Complete the strict Phase 4 manifest verification and obtain the independent final review of draft PR #18 and issue #17. If safety is `YES`, publish the review record and hand the exact heads to design authority for merge. Do not begin Phase 5 before Phase 4 is merged, and do not reopen or rerun Phase 3 performance measurements.

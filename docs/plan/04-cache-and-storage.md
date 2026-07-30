@@ -10,24 +10,24 @@
 
 #### 4.1 Hot-slot allocation
 
-- [ ] Allocate persistent slots outside the graph allocator.
-- [ ] Allocate the gate/up/down physical regions required by each logical slot.
-- [ ] Preserve stable addresses for graph compatibility.
-- [ ] Reserve CUDA/cuBLAS workspace before consuming all VRAM.
-- [ ] Support cache trim/surrender on memory pressure.
+- [x] Allocate persistent slots outside the graph allocator.
+- [x] Allocate the gate/up/down physical regions required by each logical slot.
+- [x] Preserve stable addresses for graph compatibility.
+- [x] Reserve CUDA/cuBLAS workspace before consuming all VRAM.
+- [x] Support cache trim/surrender on memory pressure.
 
 #### 4.2 Directory
 
-- [ ] Implement bidirectional mapping:
+- [x] Implement bidirectional mapping:
 
   ```text
   ExpertKey -> slot
   slot -> ExpertKey
   ```
 
-- [ ] Maintain generation/version counters to detect stale handles.
-- [ ] Mirror the lookup mapping on GPU where required.
-- [ ] Update mapping in place without per-token allocation.
+- [x] Maintain generation/version counters to detect stale handles.
+- [x] Use the synchronized execution-ID tensor as the Phase 4 device-visible mapping; a persistent GPU directory is not required.
+- [x] Update mapping in place without per-token allocation.
 
 #### 4.3 State machine
 
@@ -43,32 +43,34 @@ EVICTING
 FAILED
 ```
 
-- [ ] Define legal transitions and assertions.
-- [ ] Pin slots while kernels use them.
-- [ ] Prevent eviction with nonzero reference count or outstanding event.
+- [x] Define legal transitions and assertions.
+- [x] Pin slots while kernels use them.
+- [x] Prevent eviction with nonzero reference count or outstanding request ownership.
 
 #### 4.4 Synchronous correctness path
 
-- [ ] Initially populate a missed slot from host source synchronously.
-- [ ] Remap selected IDs to slot IDs.
-- [ ] Execute existing CUDA MXFP4 grouped MoE kernels against slot buffers.
-- [ ] Preserve canonical output reduction.
+- [x] Initially populate a missed slot from host source synchronously.
+- [x] Remap selected IDs to slot IDs.
+- [x] Execute existing CUDA MXFP4 grouped MoE kernels against slot buffers.
+- [x] Preserve canonical output reduction.
 
 This synchronous path is a phase-isolation mechanism, not the final transport.
 
 #### 4.5 Tests
 
-- [ ] Deterministic capacity/eviction tests.
-- [ ] Stale-handle and generation tests.
-- [ ] Compute-epoch persistence tests.
-- [ ] Repeated warm inference.
-- [ ] CUDA error/OOM cleanup.
+- [x] Deterministic capacity/eviction tests.
+- [x] Stale-handle and generation tests.
+- [x] Compute-epoch persistence tests.
+- [x] Repeated warm inference.
+- [x] Allocation, injected-copy, abort, and scheduler-error cleanup.
 
 ### Exit gate
 
 - Forced hot-cache inference matches monolithic logits/tokens.
 - True cross-epoch hits occur from cache-owned memory.
 - No stale data or graph-temporary dependency exists.
+
+Status: `OBSERVED` in issue #17 standing evidence. Checkpoint A returned `PASS_WITH_NOTES`, safety `YES`; final complete-PR review is pending before the exit gate is accepted for merge.
 
 ---
 

@@ -1,0 +1,323 @@
+{
+  "artifacts": [
+    {
+      "kind": "source-of-truth",
+      "path": "PLAN.md",
+      "sha256": "dc7df0119e8066cd330514fb71df234d79956652997049336176a761ba20a606",
+      "size": 1841
+    },
+    {
+      "kind": "source-of-truth",
+      "path": "docs/DECISIONS.md",
+      "sha256": "eae9ac5cacb99b0d1e9670501372b2f2ffa7d79746329ab5ea8d4ca963a1dbfc",
+      "size": 13496
+    },
+    {
+      "kind": "source-of-truth",
+      "path": "docs/MODELS_AND_VALIDATION.md",
+      "sha256": "19dbce1138d6bb74cc8cbfa17a42e872563a2f9d45ca9a73392e5b9fd00d51c5",
+      "size": 27294
+    },
+    {
+      "kind": "source-of-truth",
+      "path": "docs/REPOSITORIES_AND_ARTIFACTS.md",
+      "sha256": "f9da3f6826ab0caed5538a7d5eed01074c0afefd6455298b3f75c317244e8940",
+      "size": 11170
+    },
+    {
+      "kind": "source-of-truth",
+      "path": "docs/STATUS.md",
+      "sha256": "d7a34a87ffd40bc4e47c1b0e87425e3457fdfeb612d7f76412decefdd6201afe",
+      "size": 7128
+    },
+    {
+      "kind": "source-of-truth",
+      "path": "docs/plan/04-cache-and-storage.md",
+      "sha256": "23d07b5c2d0e6d8e7715f9e9486ac3bcdb4d8a6622f1c59cdabe64812dca7636",
+      "size": 4948
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-30/skynet/phase4-hot-cache/PHASE4.md",
+      "sha256": "39acb2d9291d49e8b39ee3491509ca44071ef80777d092f8f6d3eeb8ef6664c8",
+      "size": 2527
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-30/skynet/phase4-hot-cache/hot-cache-parity.json",
+      "sha256": "d11ff31d762ed0ebcfb8b3a940b8ceb78925386e4e8c925c7070912d96bab4fb",
+      "size": 34762
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-30/skynet/phase4-hot-cache/lifecycle-and-failures.json",
+      "sha256": "f39ebf5e2512377960d299e948e1fb21d65e3b52d1b99b9bdf75877c8f715d1a",
+      "size": 19353
+    },
+    {
+      "kind": "schema",
+      "path": "schemas/phase4/phase4-manifest-v1.schema.json",
+      "sha256": "ba2579ff5b07112b73b680c7711e1434a2bb7e30e9262d5d4f211751eb95f3e8",
+      "size": 3382
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase4/build_phase4_manifest.py",
+      "sha256": "7686e94d7072ef86679e8352a239528b19df6e808aca0d782881d961dc9cdfcb",
+      "size": 5181
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase4/capture_hot_cache_parity.py",
+      "sha256": "3ec3e309b6854032d7275f0cf353339eab51ad2532fe93d8a8a86eaa7f731fca",
+      "size": 7546
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase4/common.py",
+      "sha256": "e5dd4b8a2401e605e67dd17f26bbf9e71d5cfcce71ee1591d228e77cd1e4360e",
+      "size": 4848
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase4/run_hot_cache_lifecycle.py",
+      "sha256": "eda345975399fd99dfceed30d1aee9a5247ed00a735685318099afe1d487786b",
+      "size": 5988
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase4/verify_phase4.py",
+      "sha256": "c8477414509e576a8a984fef4b65945b602180a412a090e2a83ef073bd315b80",
+      "size": 7562
+    },
+    {
+      "kind": "test",
+      "path": "tests/phase4/test_phase4_evidence.py",
+      "sha256": "58c6fa6255fa9de4828f4b649524cd33b4fcd242fba216f7277cac1aea316fcf",
+      "size": 2667
+    }
+  ],
+  "checkpoint_a": {
+    "comment_id": 5131012078,
+    "independent_read_only": true,
+    "llama_cpp_head": "8ededcb548b0d9dc6248d6ba490aecedca576bec",
+    "project_head": "b839fa407758714684c0d1769c265332ac8e713f",
+    "safety_to_proceed": "YES",
+    "url": "https://github.com/murillo128/k3-out-of-core/issues/17#issuecomment-5131012078",
+    "verdict": "PASS_WITH_NOTES"
+  },
+  "closeout_state": "final-review-candidate",
+  "environment": {
+    "cuda_build": {
+      "BUILD_SHARED_LIBS": "ON",
+      "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+      "CMAKE_CUDA_COMPILER": "/usr/bin/nvcc",
+      "CMAKE_CXX_COMPILER": "/usr/bin/c++",
+      "CMAKE_C_COMPILER": "/usr/bin/cc",
+      "GGML_ACCELERATE": "ON",
+      "GGML_ALL_WARNINGS_3RD_PARTY": "OFF",
+      "GGML_AMX_BF16": "OFF",
+      "GGML_AMX_INT8": "OFF",
+      "GGML_AMX_TILE": "OFF",
+      "GGML_AVAILABLE_BACKENDS": "ggml-cpu;ggml-cuda",
+      "GGML_AVX": "OFF",
+      "GGML_AVX2": "OFF",
+      "GGML_AVX512": "OFF",
+      "GGML_AVX512_BF16": "OFF",
+      "GGML_AVX512_VBMI": "OFF",
+      "GGML_AVX512_VNNI": "OFF",
+      "GGML_AVX_VNNI": "OFF",
+      "GGML_BACKEND_DIR": "",
+      "GGML_BACKEND_DL": "OFF",
+      "GGML_BIN_INSTALL_DIR": "bin",
+      "GGML_BLAS": "OFF",
+      "GGML_BLAS_VENDOR": "Generic",
+      "GGML_BMI2": "OFF",
+      "GGML_BUILD_EXAMPLES": "OFF",
+      "GGML_BUILD_TESTS": "OFF",
+      "GGML_CCACHE": "ON",
+      "GGML_CCACHE_FOUND": "GGML_CCACHE_FOUND-NOTFOUND",
+      "GGML_CPU": "ON",
+      "GGML_CPU_ALL_VARIANTS": "OFF",
+      "GGML_CPU_ARM_ARCH": "",
+      "GGML_CPU_HBM": "OFF",
+      "GGML_CPU_KLEIDIAI": "OFF",
+      "GGML_CPU_POWERPC_CPUTYPE": "",
+      "GGML_CPU_REPACK": "ON",
+      "GGML_CUDA": "ON",
+      "GGML_CUDA_COMPRESSION_MODE": "size",
+      "GGML_CUDA_COMPRESSION_MODE-STRINGS": "none;speed;balance;size",
+      "GGML_CUDA_FA": "ON",
+      "GGML_CUDA_FA_ALL_QUANTS": "OFF",
+      "GGML_CUDA_FORCE_CUBLAS": "OFF",
+      "GGML_CUDA_FORCE_MMQ": "OFF",
+      "GGML_CUDA_GRAPHS": "ON",
+      "GGML_CUDA_NCCL": "ON",
+      "GGML_CUDA_NO_PEER_COPY": "OFF",
+      "GGML_CUDA_NO_VMM": "OFF",
+      "GGML_CUDA_PEER_MAX_BATCH_SIZE": "128",
+      "GGML_ET": "OFF",
+      "GGML_ET_SYSEMU": "OFF",
+      "GGML_F16C": "OFF",
+      "GGML_FMA": "OFF",
+      "GGML_GPROF": "OFF",
+      "GGML_HEXAGON": "OFF",
+      "GGML_HIP": "OFF",
+      "GGML_HIP_EXPORT_METRICS": "OFF",
+      "GGML_HIP_GRAPHS": "ON",
+      "GGML_HIP_MMQ_MFMA": "ON",
+      "GGML_HIP_NO_VMM": "ON",
+      "GGML_HIP_RCCL": "OFF",
+      "GGML_INCLUDE_INSTALL_DIR": "include",
+      "GGML_LASX": "ON",
+      "GGML_LIB_INSTALL_DIR": "lib",
+      "GGML_LLAMAFILE": "ON",
+      "GGML_LSX": "ON",
+      "GGML_LTO": "OFF",
+      "GGML_METAL": "OFF",
+      "GGML_METAL_EMBED_LIBRARY": "OFF",
+      "GGML_METAL_MACOSX_VERSION_MIN": "",
+      "GGML_METAL_NDEBUG": "OFF",
+      "GGML_METAL_SHADER_DEBUG": "OFF",
+      "GGML_METAL_STD": "",
+      "GGML_MUSA": "OFF",
+      "GGML_MUSA_GRAPHS": "OFF",
+      "GGML_MUSA_MUDNN_COPY": "OFF",
+      "GGML_NATIVE": "ON",
+      "GGML_OPENCL": "OFF",
+      "GGML_OPENCL_EMBED_KERNELS": "ON",
+      "GGML_OPENCL_PROFILING": "OFF",
+      "GGML_OPENCL_TARGET_VERSION": "300",
+      "GGML_OPENCL_USE_ADRENO_KERNELS": "ON",
+      "GGML_OPENMP": "ON",
+      "GGML_OPENMP_ENABLED": "ON",
+      "GGML_OPENVINO": "OFF",
+      "GGML_RPC": "OFF",
+      "GGML_RVV": "ON",
+      "GGML_RV_ZFH": "ON",
+      "GGML_RV_ZICBOP": "ON",
+      "GGML_RV_ZIHINTPAUSE": "ON",
+      "GGML_RV_ZVFBFWMA": "OFF",
+      "GGML_RV_ZVFH": "ON",
+      "GGML_SANITIZE_ADDRESS": "OFF",
+      "GGML_SANITIZE_THREAD": "OFF",
+      "GGML_SANITIZE_UNDEFINED": "OFF",
+      "GGML_SCCACHE_FOUND": "GGML_SCCACHE_FOUND-NOTFOUND",
+      "GGML_SCHED_MAX_COPIES": "4",
+      "GGML_SCHED_NO_REALLOC": "OFF",
+      "GGML_SSE42": "OFF",
+      "GGML_STATIC": "OFF",
+      "GGML_SYCL": "OFF",
+      "GGML_SYCL_DEVICE_ARCH": "",
+      "GGML_SYCL_DNN": "ON",
+      "GGML_SYCL_F16": "OFF",
+      "GGML_SYCL_GRAPH": "ON",
+      "GGML_SYCL_HOST_MEM_FALLBACK": "ON",
+      "GGML_SYCL_SUPPORT_LEVEL_ZERO_API": "ON",
+      "GGML_SYCL_TARGET": "INTEL",
+      "GGML_VIRTGPU": "OFF",
+      "GGML_VIRTGPU_BACKEND": "OFF",
+      "GGML_VULKAN": "OFF",
+      "GGML_VULKAN_CHECK_RESULTS": "OFF",
+      "GGML_VULKAN_DEBUG": "OFF",
+      "GGML_VULKAN_MEMORY_DEBUG": "OFF",
+      "GGML_VULKAN_RUN_TESTS": "OFF",
+      "GGML_VULKAN_SHADERS_GEN_TOOLCHAIN": "",
+      "GGML_VULKAN_SHADER_DEBUG_INFO": "OFF",
+      "GGML_VULKAN_VALIDATE": "OFF",
+      "GGML_VXE": "ON",
+      "GGML_WEBGPU": "OFF",
+      "GGML_WEBGPU_CPU_PROFILE": "OFF",
+      "GGML_WEBGPU_DEBUG": "OFF",
+      "GGML_WEBGPU_GPU_PROFILE": "OFF",
+      "GGML_WEBGPU_JSPI": "ON",
+      "GGML_XTHEADVECTOR": "OFF",
+      "GGML_ZDNN": "OFF",
+      "GGML_ZENDNN": "OFF"
+    },
+    "gpu": {
+      "available": true,
+      "query": "NVIDIA GeForce GTX 1650, GPU-7d398503-6582-cb81-22f6-77600ac08618, 535.288.01, 4096, 7.5"
+    }
+  },
+  "evidence": {
+    "lifecycle": {
+      "path": "results/2026-07-30/skynet/phase4-hot-cache/lifecycle-and-failures.json",
+      "sha256": "f39ebf5e2512377960d299e948e1fb21d65e3b52d1b99b9bdf75877c8f715d1a",
+      "size": 19353
+    },
+    "parity": {
+      "path": "results/2026-07-30/skynet/phase4-hot-cache/hot-cache-parity.json",
+      "sha256": "d11ff31d762ed0ebcfb8b3a940b8ceb78925386e4e8c925c7070912d96bab4fb",
+      "size": 34762
+    }
+  },
+  "execution_profile": "STANDARD",
+  "issue": {
+    "number": 17,
+    "pull_request": 18,
+    "repository": "murillo128/k3-out-of-core",
+    "url": "https://github.com/murillo128/k3-out-of-core/issues/17"
+  },
+  "models": [
+    {
+      "name": "Kimi-K3-0.40B-F16.gguf",
+      "sha256": "411c197b503e6fb9199a2b22115e32dc4e2cad803fb112b24967737b3bab26c7",
+      "size": 784318432,
+      "source_revision": "d853649387ffe8f48ce0198a29ac1a44205031f7"
+    },
+    {
+      "name": "Kimi-K3-0.40B-MXFP4.gguf",
+      "sha256": "0379a1cc623e09eb3fbd1dfcb18737bc8c971dbfe5bf5bc3e08da8b5379ec169",
+      "size": 751976576,
+      "source_revision": "ef3902c318fb8e13c3507e26055656e687fdfe38"
+    }
+  ],
+  "phase3_input": {
+    "path": "results/2026-07-29/skynet/phase3-resident-provider/phase3-manifest.json",
+    "sha256": "0aef85f5204bfb768fc533b18b7c001f72dba326c100772fdb84bf79df6015eb",
+    "size": 13107
+  },
+  "revisions": {
+    "gitlink": "57fe1eabbe3d0ced59096a0744efc91e286fb1c7",
+    "llama_cpp_base": "a120de8e2d0b552c51eacd7d701ef1dd994bc3db",
+    "llama_cpp_candidate": "57fe1eabbe3d0ced59096a0744efc91e286fb1c7",
+    "project_evidence_head": "a038d4d7d8ffcf27632dd6c2ea7c358c3aeeab78",
+    "project_execution_base": "0da90c6711e00613820183c1811dcaf1baffb409"
+  },
+  "schema_version": "phase4-manifest-v1",
+  "validation": [
+    {
+      "name": "hot-cache-parity",
+      "status": "pass"
+    },
+    {
+      "name": "lifecycle-and-failures",
+      "status": "pass"
+    },
+    {
+      "name": "cpu-focused-ctest",
+      "status": "pass"
+    },
+    {
+      "name": "cuda-focused-ctest",
+      "status": "pass"
+    },
+    {
+      "name": "asan-ubsan",
+      "status": "pass"
+    },
+    {
+      "name": "phase3-regression-tests",
+      "status": "pass"
+    },
+    {
+      "name": "phase4-evidence-tests",
+      "status": "pass"
+    },
+    {
+      "name": "checkpoint-a",
+      "status": "pass"
+    }
+  ]
+}

@@ -315,6 +315,16 @@ python3 scripts/phase3/verify_phase3.py --project-root . --manifest results/2026
 
 Complete machine-readable evidence is under `results/2026-07-29/skynet/phase3-resident-provider/`. It reuses the immutable Phase 2 manifest and published raw-corpus revision by checksum; it does not recapture or republish that corpus. These results validate the tiny fixtures and resident integration seam only, not an out-of-core cache or production full-size performance.
 
+## 7.4 Phase 4 persistent hot-cache validation record
+
+Issue #17 uses immutable project base `0da90c6711e00613820183c1811dcaf1baffb409` and nested base `a120de8e2d0b552c51eacd7d701ef1dd994bc3db`. Checkpoint A reviewed the complete mechanism through nested `8ededcb548b0d9dc6248d6ba490aecedca576bec` and returned `PASS_WITH_NOTES`, safety `YES`, in comment `5131012078`. The evidence-only native probe advances the nested candidate to `57fe1eabbe3d0ced59096a0744efc91e286fb1c7` without changing runtime code.
+
+The CUDA parity matrix covers F16 and MXFP4 at capacity 2 with effective routed extent 1 and capacity 56 with a five-token prompt ubatch. Disabled and hot-cache execution have byte-exact logical route records, final weights, generated IDs, and full-vocabulary logits. Hot mode adds exactly seven graph-local execution-ID duplicates and remap checkpoints; disabled mode retains zero provider objects, duplicate nodes, callbacks, copies, and synchronization. The exact-top-k cases force 168 misses and 166 evictions. The all-routed-key cases record 84 hits and 50 misses with stable pool address hashes, no evictions, and H2D bytes exactly proportional to misses, proving hits reuse cache-owned bytes.
+
+Lifecycle evidence runs native CPU/CUDA mechanism and fault tests, real F16/MXFP4 CUDA integration, ASan/UBSan, abort and cross-context cleanup, plus 20-token warm captures for both model types. Each warm capture records 251 hits, 51 misses, balanced pins, zero current pins, zero stale/copy failures, and zero callback-path dynamic allocations. The evidence records prompt/decode throughput, TTFT, per-token p50/p95/p99, H2D bytes/time, process RSS, sampled device-wide VRAM, graph reuse, routes, physical IDs, generations, pins, and synchronization checkpoints.
+
+These performance values are descriptive. The synchronous Phase 4 path has no performance pass budget and is not a production-viability claim. The immutable Phase 3 22/24 raw performance failure and narrow Phase-3-only acceptance remain unchanged. Complete evidence is under `results/2026-07-30/skynet/phase4-hot-cache/`; final merge acceptance remains pending the complete-PR review.
+
 ## 8. Validation levels
 
 ### Level A — conversion integrity
