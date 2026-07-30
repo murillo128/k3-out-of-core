@@ -1,5 +1,5 @@
 {
-  "captured_at_utc": "2026-07-30T15:02:04.301168+00:00",
+  "captured_at_utc": "2026-07-30T15:02:52.463518+00:00",
   "commands": [
     {
       "command": [
@@ -17,10 +17,10 @@
       "exit_code": 0,
       "name": "build-cpu",
       "passed": null,
-      "stderr_bytes": 137,
-      "stderr_sha256": "68b4c8c557fb9715c8915e960d4be4363f6f0249d11f490d3fd158e6db7af4e3",
-      "stdout_bytes": 3081,
-      "stdout_sha256": "428356cfb26caf56cc485756a962ab2c251b510b60770adc89c97dd8666fdf01",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 1031,
+      "stdout_sha256": "a18aea20210aa29b27e34555400dbd09c727c1b16ab356f09da96152d2a1afea",
       "total": null
     },
     {
@@ -43,8 +43,8 @@
       "passed": null,
       "stderr_bytes": 0,
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "stdout_bytes": 1825,
-      "stdout_sha256": "62e6264d7705506a6ac1ee80fe5f2270183a006024c74a68d4eb2e6436d56401",
+      "stdout_bytes": 1578,
+      "stdout_sha256": "340583be040c854051ce45d67b303826a2a072abc8ec18bd1037cb1d391df3cf",
       "total": null
     },
     {
@@ -63,7 +63,7 @@
       "stderr_bytes": 0,
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "stdout_bytes": 727,
-      "stdout_sha256": "a02d333ef8aa1a21a594818494f03197dd725747e69e4f664b1fe1ba2b53c1b0",
+      "stdout_sha256": "4d3d875de4cac1dd8220f69150025db4babb4ce6aa69d9df6b6b2eb4aabcf626",
       "total": 4
     },
     {
@@ -82,7 +82,7 @@
       "stderr_bytes": 0,
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "stdout_bytes": 729,
-      "stdout_sha256": "be1367f18e9d25f429dea4b59eb8fbf05afaf2061c8ca5d149f46ca5e014b09d",
+      "stdout_sha256": "42527c586fb3414b76c995ce776342c5a7b2c89171b1e423efddbcf5693e8b3b",
       "total": 4
     },
     {
@@ -201,7 +201,7 @@
     }
   ],
   "llama_cpp_head": "26317ee1d848dd7a73f22a3666a055cad5d5cb03",
-  "project_head": "dde0a130f79a8caa11436733018db73fd6f33873",
+  "project_head": "10c77ee987df400d273db5ee9b1add887849492b",
   "schema_version": "phase5-validation-results-v1",
   "status": "pass"
 }
