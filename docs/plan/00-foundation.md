@@ -215,6 +215,9 @@ CachePolicy
 
 - [x] Resident-provider output matches the original path.
 - [x] Default-path performance regression is within the predeclared noise budget.
+- [ ] Resident-provider performance regression is within the predeclared noise budget.
 - [x] Interfaces are reviewed against discrete, UMA, disk, multi-request, and multi-GPU requirements.
+
+Status: BLOCKED — the prospectively approved standing capture failed three resident-provider metric cells; no recapture is authorized without a new design decision.
 
 ---

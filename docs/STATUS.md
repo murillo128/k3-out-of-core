@@ -1,6 +1,6 @@
 # Current Status
 
-Last updated: **2026-07-29**
+Last updated: **2026-07-30**
 
 This file is the first handoff document for a new ChatGPT or Codex session.
 
@@ -13,7 +13,7 @@ This file is the first handoff document for a new ChatGPT or Codex session.
 - Checkpoints A, B, and C returned **PASS_WITH_NOTES** with safety gate **YES**.
 - The final complete-PR review returned **PASS_WITH_NOTES** with safety to merge **YES**.
 - Project Phase 2 is complete and merged through PR #11. The final reviewed project head was `c56770e9148fb94173561b7c4f2aade63cdefff7`; PR #11 merged into `main` as `d74781faec12e8552c1598084b210f784ac0a43b`, with nested `murillo128/llama.cpp` gitlink `4daaaa1a4dd26d6465f84891b854b5f7ddc03020`. No out-of-core runtime implementation exists yet. The bounded F16/MXFP4 CPU corpus and CPU/CUDA subset remain reproducible, and the unchanged raw corpus is externally published at immutable Hub revision `2d838d6b4d0aca4e9af1e7d899e57ad29330c72e`.
-- Project Phase 3 issue #13 is implemented on `codex/phase3-resident-provider` with draft PR #15. The immutable project base is `81df862da6e4ff9db005f6265470070bb5456f4c`; correctness/lifecycle evidence is committed at `02707a0ab9e659fbdee2c282df22db781e75a413`; the nested resident-provider head is `523f825d2df5efa7c9a08561e2b64861ad5594c5`. Checkpoint A returned `PASS_WITH_NOTES`, safety `YES`, after one bounded correction and fresh review. The first Checkpoint B review at project head `92479dea5b6cd75f6674cd44227eae5923e07882` accepted implementation, parity, lifecycle, scope, lineage, and all independently recomputed gates but found missing non-gated telemetry in the isolated-baseline samples. A bounded project-only evidence correction is in progress; the nested head is unchanged.
+- Project Phase 3 issue #13 is implemented on `codex/phase3-resident-provider` with draft PR #15. The immutable project base is `81df862da6e4ff9db005f6265470070bb5456f4c`; correctness/lifecycle evidence is committed at `02707a0ab9e659fbdee2c282df22db781e75a413`; the nested resident-provider head is `523f825d2df5efa7c9a08561e2b64861ad5594c5`. Checkpoint A returned `PASS_WITH_NOTES`, safety `YES`. Checkpoint B first found missing baseline telemetry and then rejected outcome-conditioned composition. The owner approved one prospective standing capture in issue comment `5127588494`; it completed without retry and failed 3 of 24 performance cells. Correctness, lifecycle, structural zero work, and every baseline-versus-disabled performance comparison still pass. Phase 3 is not eligible for Checkpoint B acceptance or merge.
 - Phase 1 evidence is descriptive for the tiny K3 fixtures on `skynet`; it is not a model-quality or production-performance claim.
 
 ## Phase 1 merged baseline
@@ -74,4 +74,4 @@ Kernel: 6.8.0-136-generic
 
 ## Immediate next action
 
-Complete and publish the bounded Checkpoint B telemetry correction, regenerate the strict manifest/verification result, and request one fresh Checkpoint B re-review over the changed project range with unchanged nested head. After acceptance, bind its attestation and obtain the mandatory final complete-PR review before merging PR #15.
+Return issue #13 to design authority. Decide whether to optimize resident-provider prompt/TTFT overhead and approve a new prospective validation contract, or revise the Phase 3 disposition. Do not run another performance capture under the exhausted standing-capture authorization.

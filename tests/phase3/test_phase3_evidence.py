@@ -61,6 +61,8 @@ class Phase3EvidenceTests(unittest.TestCase):
     def test_manifest_schema_is_valid(self):
         schema = json.loads((ROOT / "schemas/phase3/phase3-manifest-v1.schema.json").read_text())
         Draft202012Validator.check_schema(schema)
+        self.assertIn("performance-gate-failed", schema["properties"]["closeout_state"]["enum"])
+        self.assertEqual(schema["properties"]["validation"]["items"]["properties"]["status"]["enum"], ["pass", "fail"])
 
     def test_verifier_rejects_missing_raw_telemetry(self):
         errors = []

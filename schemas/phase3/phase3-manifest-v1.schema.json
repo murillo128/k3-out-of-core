@@ -10,7 +10,7 @@
   ],
   "properties": {
     "schema_version": {"const": "phase3-manifest-v1"},
-    "closeout_state": {"enum": ["checkpoint-b-candidate", "complete"]},
+    "closeout_state": {"enum": ["performance-gate-failed", "checkpoint-b-candidate", "complete"]},
     "execution_profile": {"const": "STANDARD"},
     "issue": {
       "type": "object",
@@ -66,7 +66,7 @@
         "required": ["name", "status", "evidence"],
         "properties": {
           "name": {"type": "string", "minLength": 1},
-          "status": {"const": "pass"},
+          "status": {"enum": ["pass", "fail"]},
           "evidence": {"type": "string", "minLength": 1}
         }
       }

@@ -35,6 +35,8 @@ Relevant behavior in this revision:
 
 Phase 3 adds the model-owned resident expert-weight provider, typed logical/execution ID seam, request-scoped RAII leases across asynchronous submission, structural counters, and focused CPU/CUDA lifecycle tests. It does not add a cache, storage transport, prefetch, physical slots, or any change to expert residency. No GGUF or corpus artifact was republished.
 
+The single standing Phase 3 performance capture approved in issue comment `5127588494` failed 3 of 24 gated metric cells. It is committed as negative evidence; no GGUF, corpus, nested implementation revision, or published artifact changed as a result.
+
 The submodule configuration is:
 
 ```ini

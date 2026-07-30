@@ -15,32 +15,32 @@
     {
       "kind": "source-of-truth",
       "path": "docs/MODELS_AND_VALIDATION.md",
-      "sha256": "19fd69e1465f929ee9f6ddcdf891dabe1aa5ad4283d8f1353428eb17f279b5b2",
-      "size": 22529
+      "sha256": "75b61f3458556fc728d6f286f5282adb1837b0fd827480f1d755046dae3cf16a",
+      "size": 22763
     },
     {
       "kind": "source-of-truth",
       "path": "docs/REPOSITORIES_AND_ARTIFACTS.md",
-      "sha256": "495cb5b3ced92754be397c02fc8d495d81fe8044758598892d8baca5b93b102a",
-      "size": 9179
+      "sha256": "03a182076eee416eb5a340bfbc2968e09d0b4acd6fa860bb145c5ea4ea8c6195",
+      "size": 9432
     },
     {
       "kind": "source-of-truth",
       "path": "docs/STATUS.md",
-      "sha256": "a263d642475f0c3ea60fdd5d9ecf55390e996850d8573a429cabbc878c8a004d",
-      "size": 6269
+      "sha256": "9514efb32456b0c6426802f2c4e534cd0bb6ca6bee49b01b70e11a703a2d7b7f",
+      "size": 6247
     },
     {
       "kind": "source-of-truth",
       "path": "docs/plan/00-foundation.md",
-      "sha256": "4fe13cf108399c8442db8537b26880a226eb2503bbcc0b19a205fcd487453093",
-      "size": 9664
+      "sha256": "773e3300225b46445ddf63b39fe4825e2f512b2a60441ca92f4e543f9209466d",
+      "size": 9919
     },
     {
       "kind": "evidence",
       "path": "results/2026-07-29/skynet/phase3-resident-provider/PHASE3.md",
-      "sha256": "624a7b3d92c82cae643df167272821613611cee034e1bf06b961f882ed1adf19",
-      "size": 4976
+      "sha256": "512a7e97d2a86d3657fafe52c53b83ccc6d14d8ca9f65f5b674d7b2b5f994250",
+      "size": 5286
     },
     {
       "kind": "evidence",
@@ -63,8 +63,8 @@
     {
       "kind": "evidence",
       "path": "results/2026-07-29/skynet/phase3-resident-provider/provider-overhead.json",
-      "sha256": "338213986263bd2026fcbfc4cef503afc019f91989fd6939a788915cdb1a212f",
-      "size": 400703
+      "sha256": "df0fa1f05c6a57838e54f9b9da7a8d66f6ef826adf83fe3c19ccf771d04540a5",
+      "size": 398981
     },
     {
       "kind": "evidence",
@@ -75,8 +75,8 @@
     {
       "kind": "schema",
       "path": "schemas/phase3/phase3-manifest-v1.schema.json",
-      "sha256": "51eb77af63fede90c379f681e1ca73322a93da418982011bb2ba2d2a79162729",
-      "size": 5050
+      "sha256": "80c0560bbc61695c3c1778c285711353eae1ef81c6b3f395a57c5dfecebd467d",
+      "size": 5086
     },
     {
       "kind": "implementation",
@@ -99,8 +99,8 @@
     {
       "kind": "implementation",
       "path": "scripts/phase3/build_phase3_manifest.py",
-      "sha256": "56629675ba08241664b194225f93e9b13b4e17842b12b7d9acb76d1abfe14870",
-      "size": 6632
+      "sha256": "ee4c8bc98423f53ab957b559ea5374a776e8817a40f289e783bffc7e6c2fb062",
+      "size": 7619
     },
     {
       "kind": "implementation",
@@ -117,14 +117,8 @@
     {
       "kind": "implementation",
       "path": "scripts/phase3/measure_provider_overhead.py",
-      "sha256": "9f5a62e094a5e4f06cc0e9d8ffe0cd3b8d77a7fa69681e776f4823a21260fdf4",
-      "size": 12591
-    },
-    {
-      "kind": "implementation",
-      "path": "scripts/phase3/merge_provider_overhead.py",
-      "sha256": "03283653b718bf530bf6dc84670a5babbf9acbedaafe6ee7b42e0ece113cd675",
-      "size": 3186
+      "sha256": "5d6db64e5aab068b7f9d6133583cb10fdff83d00431dc9179ba689498b905549",
+      "size": 13225
     },
     {
       "kind": "implementation",
@@ -141,17 +135,17 @@
     {
       "kind": "implementation",
       "path": "scripts/phase3/verify_phase3.py",
-      "sha256": "23b4d1e1ff68c3123bada14a48c9d4df991ec16602a18578c66e78a5a52db98b",
-      "size": 15227
+      "sha256": "6186c1926a79931d6a23ebdf922f00892bdd17fbc43b9b58998c0526a474a45c",
+      "size": 16523
     },
     {
       "kind": "test",
       "path": "tests/phase3/test_phase3_evidence.py",
-      "sha256": "cfbc9ab1efb6dbd3e7a96c4b745ff31caeb8293136e7fe5369e1a7f158249a0a",
-      "size": 3224
+      "sha256": "492a118f016e99b3b991bdcb61c3ec9ee78b72161f798f544b8b8bb81c6e8bb5",
+      "size": 4514
     }
   ],
-  "closeout_state": "checkpoint-b-candidate",
+  "closeout_state": "performance-gate-failed",
   "execution_profile": "STANDARD",
   "issue": {
     "number": 13,
@@ -202,7 +196,7 @@
   "revisions": {
     "llama_cpp_base": "4daaaa1a4dd26d6465f84891b854b5f7ddc03020",
     "llama_cpp_candidate": "523f825d2df5efa7c9a08561e2b64861ad5594c5",
-    "project_evidence_head": "bb4b9db503a139ea65a058531327558a62c37dc9",
+    "project_evidence_head": "038ed4cf2b74c20b763ba8504c1d3d2b5eb0ea29",
     "project_execution_base": "81df862da6e4ff9db005f6265470070bb5456f4c",
     "published_corpus": "2d838d6b4d0aca4e9af1e7d899e57ad29330c72e",
     "published_gguf": "88de02cf8fa37f87eb06daaed370ac9c3411d5ca"
@@ -220,9 +214,9 @@
       "status": "pass"
     },
     {
-      "evidence": "provider-overhead.json: every predeclared per-cell confidence gate",
+      "evidence": "provider-overhead.json: standing final capture failed 3 of 24 predeclared metric cells",
       "name": "provider-overhead",
-      "status": "pass"
+      "status": "fail"
     },
     {
       "evidence": "dependency-free Phase 2 unittest suite",

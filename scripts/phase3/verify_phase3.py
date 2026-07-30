@@ -35,6 +35,9 @@ PROVIDER_COUNTERS = (
     "provider_handles_acquired", "provider_handles_released", "provider_allocations",
     "provider_callbacks", "provider_tensor_copies", "provider_synchronizations",
 )
+GATED_PERFORMANCE_METRICS = (
+    "decode_tokens_per_second", "prompt_tokens_per_second", "ttft_seconds",
+)
 FINAL_CAPTURE_RULE = "single-complete-standing-capture-v1"
 FINAL_CAPTURE_APPROVAL_COMMENT_ID = 5127588494
 
@@ -74,7 +77,7 @@ def validate_final_capture_contract(overhead: dict[str, Any], errors: list[str])
         errors.append("provider overhead contains forbidden cross-attempt composition")
 
 
-def validate_evidence(root: Path, errors: list[str]) -> None:
+def validate_evidence(root: Path, manifest: dict[str, Any], errors: list[str]) -> None:
     result_root = root / "results/2026-07-29/skynet/phase3-resident-provider"
     try:
         parity = json.loads((result_root / "provider-parity.json").read_text())
@@ -110,19 +113,32 @@ def validate_evidence(root: Path, errors: list[str]) -> None:
 
     combinations = overhead.get("combinations", [])
     validate_final_capture_contract(overhead, errors)
-    if overhead.get("status") != "pass" or len(combinations) != 4:
-        errors.append("provider overhead is not a four-combination pass")
+    if len(combinations) != 4:
+        errors.append("provider overhead does not contain four combinations")
+    derived_combination_results = []
     for combination in combinations:
-        if len(combination.get("comparisons", [])) != 2 or not combination.get("passed"):
-            errors.append(f"overhead comparison failed: {combination.get('artifact')}/{combination.get('backend')}")
-        for comparison in combination.get("comparisons", []):
+        comparisons = combination.get("comparisons", [])
+        if len(comparisons) != 2:
+            errors.append(f"overhead comparison count differs: {combination.get('artifact')}/{combination.get('backend')}")
+        derived_comparison_results = []
+        for comparison in comparisons:
             if len(comparison.get("runs", [])) != 20 or comparison.get("order") != list(("a", "b", "b", "a")*5):
                 errors.append("overhead ABBA raw sample protocol differs")
-            for analysis in comparison.get("analysis", {}).values():
+            analyses = comparison.get("analysis", {})
+            if set(analyses) != set(GATED_PERFORMANCE_METRICS):
+                errors.append("overhead gated metric set differs")
+            for analysis in analyses.values():
                 if len(analysis.get("pairs", [])) != 10 or analysis.get("degrees_of_freedom") != 9:
                     errors.append("overhead pairing/confidence metadata differs")
-                if not analysis.get("passed") or analysis.get("one_sided_95_percent_upper_bound", 1) > analysis.get("fixed_budget", 0):
-                    errors.append("overhead confidence gate did not pass")
+                calculated_pass = analysis.get("one_sided_95_percent_upper_bound", 1) <= analysis.get("fixed_budget", 0)
+                if analysis.get("passed") != calculated_pass:
+                    errors.append("overhead confidence-gate result is inconsistent")
+            derived_comparison_pass = all(
+                analysis.get("passed") is True for analysis in analyses.values()
+            ) and set(analyses) == set(GATED_PERFORMANCE_METRICS)
+            if comparison.get("passed") != derived_comparison_pass:
+                errors.append("overhead comparison result is inconsistent")
+            derived_comparison_results.append(derived_comparison_pass)
             for sample in comparison.get("warmups", []) + comparison.get("runs", []):
                 validate_performance_sample(sample, errors)
             reported = comparison.get("reported_non_gated_means", {})
@@ -130,6 +146,23 @@ def validate_evidence(root: Path, errors: list[str]) -> None:
                 errors.append("non-gated performance summary omits required telemetry")
             elif any(set(values) != {"a", "b"} for values in reported.values()):
                 errors.append("non-gated performance summary omits a comparison side")
+        derived_combination_pass = all(derived_comparison_results) and len(derived_comparison_results) == 2
+        if combination.get("passed") != derived_combination_pass:
+            errors.append("overhead combination result is inconsistent")
+        derived_combination_results.append(derived_combination_pass)
+
+    derived_status = "pass" if all(derived_combination_results) and len(derived_combination_results) == 4 else "fail"
+    if overhead.get("status") != derived_status:
+        errors.append("provider overhead standing status is inconsistent")
+    validation = next(
+        (item for item in manifest.get("validation", []) if item.get("name") == "provider-overhead"), {}
+    )
+    if validation.get("status") != derived_status:
+        errors.append("manifest provider-overhead status differs from standing capture")
+    expected_state = "checkpoint-b-candidate" if derived_status == "pass" else "performance-gate-failed"
+    allowed_states = {expected_state, "complete"} if derived_status == "pass" else {expected_state}
+    if manifest.get("closeout_state") not in allowed_states:
+        errors.append("manifest closeout state differs from standing performance result")
 
 def validate_git(root: Path, manifest: dict[str, Any], strict: bool, output: Path, errors: list[str]) -> None:
     nested = root / "llama.cpp"
@@ -181,7 +214,12 @@ def validate_git(root: Path, manifest: dict[str, Any], strict: bool, output: Pat
 
     plan = (root / "docs/plan/00-foundation.md").read_text()
     phase3 = plan.split("## Phase 3", 1)[1].split("## Phase 4", 1)[0]
-    if "- [ ]" in phase3:
+    unchecked = [line for line in phase3.splitlines() if line.startswith("- [ ]")]
+    failed_gate = "- [ ] Resident-provider performance regression is within the predeclared noise budget."
+    if manifest.get("closeout_state") == "performance-gate-failed":
+        if unchecked != [failed_gate]:
+            errors.append("Phase 3 plan does not identify only the standing failed performance gate")
+    elif unchecked:
         errors.append("Phase 3 foundation plan still contains unchecked tasks")
     reviews = {review["checkpoint"] for review in manifest.get("reviews", [])}
     if "A" not in reviews:
@@ -237,7 +275,7 @@ def main() -> int:
         if not path.is_file() or path.stat().st_size != model.get("size") or sha256(path) != model.get("sha256"):
             errors.append(f"model identity differs: {model.get('name')}")
 
-    validate_evidence(root, errors)
+    validate_evidence(root, manifest, errors)
     validate_git(root, manifest, args.strict, output, errors)
     result = {
         "schema_version": "phase3-verification-result-v1",
@@ -246,6 +284,8 @@ def main() -> int:
         "manifest": str(manifest_path.relative_to(root)),
         "manifest_sha256": sha256(manifest_path) if manifest_path.is_file() else None,
         "artifact_count": len(manifest.get("artifacts", [])),
+        "closeout_state": manifest.get("closeout_state"),
+        "closeout_eligible": manifest.get("closeout_state") in {"checkpoint-b-candidate", "complete"},
         "errors": errors,
     }
     output.parent.mkdir(parents=True, exist_ok=True)

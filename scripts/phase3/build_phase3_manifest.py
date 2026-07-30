@@ -63,6 +63,18 @@ def main() -> int:
 
     checkpoint_b_path = results_root / "checkpoint-b-review.json"
     checkpoint_b = json.loads(checkpoint_b_path.read_text()) if checkpoint_b_path.is_file() else None
+    overhead = json.loads((results_root / "provider-overhead.json").read_text())
+    overhead_status = overhead.get("status")
+    if overhead_status not in {"pass", "fail"}:
+        raise RuntimeError("provider overhead has no valid standing result")
+    if checkpoint_b is not None and overhead_status != "pass":
+        raise RuntimeError("a failed performance gate cannot bind an accepted Checkpoint B")
+    failed_metric_cells = sum(
+        analysis.get("passed") is not True
+        for combination in overhead.get("combinations", [])
+        for comparison in combination.get("comparisons", [])
+        for analysis in comparison.get("analysis", {}).values()
+    )
     files = {kind: list(paths) for kind, paths in FILES.items()}
     if checkpoint_b is not None:
         files["evidence"].append("results/2026-07-29/skynet/phase3-resident-provider/checkpoint-b-review.json")
@@ -100,7 +112,11 @@ def main() -> int:
 
     manifest = {
         "schema_version": "phase3-manifest-v1",
-        "closeout_state": "complete" if checkpoint_b is not None else "checkpoint-b-candidate",
+        "closeout_state": (
+            "complete" if checkpoint_b is not None else
+            "checkpoint-b-candidate" if overhead_status == "pass" else
+            "performance-gate-failed"
+        ),
         "execution_profile": "STANDARD",
         "issue": {
             "repository": "murillo128/k3-out-of-core", "number": 13,
@@ -117,7 +133,13 @@ def main() -> int:
         "validation": [
             {"name": "provider-parity", "status": "pass", "evidence": "provider-parity.json: 4/4 artifact/backend combinations"},
             {"name": "lifecycle-and-failures", "status": "pass", "evidence": "lifecycle-and-failures.json: CPU/CUDA matrix, stress, fault injection, sanitizers"},
-            {"name": "provider-overhead", "status": "pass", "evidence": "provider-overhead.json: every predeclared per-cell confidence gate"},
+            {
+                "name": "provider-overhead", "status": overhead_status,
+                "evidence": (
+                    "provider-overhead.json: every predeclared per-cell confidence gate" if overhead_status == "pass" else
+                    f"provider-overhead.json: standing final capture failed {failed_metric_cells} of 24 predeclared metric cells"
+                ),
+            },
             {"name": "phase2-regression-tests", "status": "pass", "evidence": "dependency-free Phase 2 unittest suite"},
             {"name": "phase3-evidence-tests", "status": "pass", "evidence": "dependency-free Phase 3 unittest suite"},
         ],
