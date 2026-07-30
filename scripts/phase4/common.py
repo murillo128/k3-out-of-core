@@ -100,8 +100,11 @@ def gpu_identity(root: Path) -> dict[str, Any]:
 def run_monitored(command: list[str], cwd: Path) -> tuple[subprocess.CompletedProcess[str], float]:
     process = subprocess.Popen(command, cwd=cwd, env=dict(os.environ), text=True,
                                stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    captured: list[tuple[str, str]] = []
+    drain = threading.Thread(target=lambda: captured.append(process.communicate()), daemon=True)
+    drain.start()
     peak_mib = 0.0
-    while process.poll() is None:
+    while drain.is_alive():
         sample = run(["nvidia-smi", "--query-gpu=memory.used", "--format=csv,noheader,nounits"],
                      cwd, check=False)
         if sample.returncode == 0:
@@ -111,7 +114,8 @@ def run_monitored(command: list[str], cwd: Path) -> tuple[subprocess.CompletedPr
                 except ValueError:
                     pass
         time.sleep(0.02)
-    stdout, stderr = process.communicate()
+    drain.join()
+    stdout, stderr = captured[0]
     return subprocess.CompletedProcess(command, process.returncode, stdout, stderr), peak_mib
 
 
