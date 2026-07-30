@@ -17,8 +17,8 @@
       "exit_code": 0,
       "name": "build-cpu",
       "passed": null,
-      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "stdout_sha256": "5290ef17c4b3b64b3a5346cf9ca59744beaa78c989adb5b04bf1e44ee619b86c",
+      "stderr_sha256": "68b4c8c557fb9715c8915e960d4be4363f6f0249d11f490d3fd158e6db7af4e3",
+      "stdout_sha256": "1fe8aeabb3302caeffacd1dd9c35306b2e220d5522dce97902b0294b85f9395f",
       "total": null
     },
     {
@@ -42,7 +42,7 @@
       "name": "build-cuda",
       "passed": null,
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "stdout_sha256": "ea1cc5198f4d4ff48d772170ccbb913c8ff819373bef8ea3ce3dd0330134fffb",
+      "stdout_sha256": "40f6b3cd2cad2af736a00f3a8d7eac69c1afd3d6b208e0c5d6cd933010488091",
       "total": null
     },
     {
@@ -111,7 +111,7 @@
       "exit_code": 0,
       "name": "unittest-phase6",
       "passed": null,
-      "stderr_sha256": "9d7fb3eac19c3a2082db30c2c238506645abcb7222d7a9de8b0013163b77d238",
+      "stderr_sha256": "dcd4a884b6112613a9a8b1aa5bdb40cc2c7741fb9ba78687d0bc5692885f85bc",
       "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "total": null
     },
@@ -146,8 +146,8 @@
       "total": null
     }
   ],
-  "llama_cpp_head": "9af35746763913982bfd8eee995686296131c778",
-  "project_head": "d5d83249f660e1a69899d73d828f53e98c4c9597",
+  "llama_cpp_head": "1543185bd34bcde07a594064120591e61bafbeed",
+  "project_head": "6ddbe184f2b47c870ad7316fd565838684dd16e8",
   "schema_version": "phase6-validation-v1",
   "status": "pass"
 }
