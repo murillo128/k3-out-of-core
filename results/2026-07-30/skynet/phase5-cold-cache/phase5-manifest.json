@@ -1,0 +1,525 @@
+{
+  "artifacts": [
+    {
+      "kind": "source-of-truth",
+      "path": "PLAN.md",
+      "sha256": "48503af3a3d591aabbb3deffdf549caf33544b8d4a58845ca0d3e9506fa79acf",
+      "size": 2047
+    },
+    {
+      "kind": "source-of-truth",
+      "path": "docs/MODELS_AND_VALIDATION.md",
+      "sha256": "1631ca8388fc89afb22b2b064be58aca7fe5c1acc846692bff3bc272c5c2a854",
+      "size": 29105
+    },
+    {
+      "kind": "source-of-truth",
+      "path": "docs/REPOSITORIES_AND_ARTIFACTS.md",
+      "sha256": "8be05cd5006fbf0e743b011d92ca8dc6dfda831186a40a0719a107bed113abc0",
+      "size": 11913
+    },
+    {
+      "kind": "source-of-truth",
+      "path": "docs/STATUS.md",
+      "sha256": "d2bbc94f8edc886c7745f2f38dc03c7324e8a53e0baf1adda3bb1b1183844dbd",
+      "size": 8660
+    },
+    {
+      "kind": "source-of-truth",
+      "path": "docs/plan/04-cache-and-storage.md",
+      "sha256": "dc93b88ada71e1038f606a839b8cf54b725db0f536b986cdfe97348db5f593d7",
+      "size": 5545
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-30/skynet/phase5-cold-cache/PHASE5.md",
+      "sha256": "bced5f8fc67c8be2688bc2065e33b1948100c1ead0b15e8996bea67b0b3722f3",
+      "size": 2194
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-30/skynet/phase5-cold-cache/cold-cache-parity.json",
+      "sha256": "fa53649903329fe9ccf362808c3b4d0f564750da3d70f9da45b479488ec427cb",
+      "size": 41138
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-30/skynet/phase5-cold-cache/lifecycle-and-failures.json",
+      "sha256": "046838a1c07d882b87d94973f67b348fefe229a79991beed9f342218b4be91cc",
+      "size": 24530
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-30/skynet/phase5-cold-cache/transfer-ring.json",
+      "sha256": "e836a31bac7a8b7c9da8da5a1906200894bea53cb88a4ce8bf0f74659da0c2cf",
+      "size": 7685
+    },
+    {
+      "kind": "evidence",
+      "path": "results/2026-07-30/skynet/phase5-cold-cache/validation-results.json",
+      "sha256": "cfe46029aa09d7027ccf8f7ce05e15a6af6b7f1dd9d7d6340daf60e75e00781e",
+      "size": 5784
+    },
+    {
+      "kind": "schema",
+      "path": "schemas/phase5/phase5-manifest-v1.schema.json",
+      "sha256": "bfdbf467e505d7e8b9c3a9f0a63c1644b2d66c8deb100bc16ed881628986eff6",
+      "size": 3673
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase5/build_phase5_manifest.py",
+      "sha256": "523e4a8714fb1879466b5cc35d9c38fc294c289f36aa2e3a5e5e96a27124a9f4",
+      "size": 5026
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase5/capture_cold_cache_parity.py",
+      "sha256": "7cb7411b922106707d25632a7004a4f6d680e12982cb225093764e462669f72a",
+      "size": 5816
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase5/capture_transfer_ring.py",
+      "sha256": "83f107788aca474023c9b09adeda8b1271bbd684831ff904f0d537af2c3e0d91",
+      "size": 3086
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase5/capture_validation_results.py",
+      "sha256": "f505c40ff9788217010572ed30414028cf9e6082e617d526b21795636ea0e8e9",
+      "size": 3654
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase5/common.py",
+      "sha256": "8d53fd4565037ac9b9f1db3540667a731dd01cb963e4223e9493e62a614af51e",
+      "size": 5155
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase5/run_cold_cache_lifecycle.py",
+      "sha256": "7ac9fc598f5959ba2ca8ef8548332bd01b437c5e69aeab2aff8eb147280b3115",
+      "size": 6156
+    },
+    {
+      "kind": "implementation",
+      "path": "scripts/phase5/verify_phase5.py",
+      "sha256": "acd3985da606e24cbce88065b84d53124d2eaebcd0e26d8f684ad4c3e16ead29",
+      "size": 9232
+    },
+    {
+      "kind": "test",
+      "path": "tests/phase5/test_phase5_evidence.py",
+      "sha256": "6cc3308b85ab9383bd21e71afee26e444aff7e79ac6a3c6de87d73350f4924cd",
+      "size": 3536
+    }
+  ],
+  "carried_notes": [
+    "Fixed ordinary-prompt tokenizer limitation remains visible.",
+    "Phase 3 standing performance remains a raw 22/24 pass under D-018."
+  ],
+  "checkpoint_a": {
+    "comment_id": 5132379446,
+    "independent_read_only": true,
+    "llama_cpp_head": "5ffed360965a1de7e2d788b8637a470183d27165",
+    "project_head": "6404770597f979a8290d1de3f6bc503ab7d74d8b",
+    "safety_to_proceed": "YES",
+    "url": "https://github.com/murillo128/k3-out-of-core/issues/20#issuecomment-5132379446",
+    "verdict": "PASS"
+  },
+  "closeout_state": "final-review-candidate",
+  "deferred": [
+    "Phase 7: dedicated transfer streams/events and H2D/compute overlap",
+    "Phase 8: CPU miss execution and CPU_FALLBACK output equivalence"
+  ],
+  "environment": {
+    "cuda_build": {
+      "BUILD_SHARED_LIBS": "ON",
+      "CMAKE_BUILD_TYPE": "Release",
+      "CMAKE_CUDA_COMPILER": "/usr/bin/nvcc",
+      "CMAKE_CXX_COMPILER": "/usr/bin/c++",
+      "CMAKE_C_COMPILER": "/usr/bin/cc",
+      "GGML_ACCELERATE": "ON",
+      "GGML_ALL_WARNINGS_3RD_PARTY": "OFF",
+      "GGML_AMX_BF16": "OFF",
+      "GGML_AMX_INT8": "OFF",
+      "GGML_AMX_TILE": "OFF",
+      "GGML_AVAILABLE_BACKENDS": "ggml-cpu;ggml-cuda",
+      "GGML_AVX": "OFF",
+      "GGML_AVX2": "OFF",
+      "GGML_AVX512": "OFF",
+      "GGML_AVX512_BF16": "OFF",
+      "GGML_AVX512_VBMI": "OFF",
+      "GGML_AVX512_VNNI": "OFF",
+      "GGML_AVX_VNNI": "OFF",
+      "GGML_BACKEND_DIR": "",
+      "GGML_BACKEND_DL": "OFF",
+      "GGML_BIN_INSTALL_DIR": "bin",
+      "GGML_BLAS": "OFF",
+      "GGML_BLAS_VENDOR": "Generic",
+      "GGML_BMI2": "OFF",
+      "GGML_BUILD_EXAMPLES": "OFF",
+      "GGML_BUILD_TESTS": "OFF",
+      "GGML_CCACHE": "ON",
+      "GGML_CCACHE_FOUND": "GGML_CCACHE_FOUND-NOTFOUND",
+      "GGML_CPU": "ON",
+      "GGML_CPU_ALL_VARIANTS": "OFF",
+      "GGML_CPU_ARM_ARCH": "",
+      "GGML_CPU_HBM": "OFF",
+      "GGML_CPU_KLEIDIAI": "OFF",
+      "GGML_CPU_POWERPC_CPUTYPE": "",
+      "GGML_CPU_REPACK": "ON",
+      "GGML_CUDA": "ON",
+      "GGML_CUDA_COMPRESSION_MODE": "size",
+      "GGML_CUDA_COMPRESSION_MODE-STRINGS": "none;speed;balance;size",
+      "GGML_CUDA_FA": "ON",
+      "GGML_CUDA_FA_ALL_QUANTS": "OFF",
+      "GGML_CUDA_FORCE_CUBLAS": "OFF",
+      "GGML_CUDA_FORCE_MMQ": "OFF",
+      "GGML_CUDA_GRAPHS": "ON",
+      "GGML_CUDA_NCCL": "ON",
+      "GGML_CUDA_NO_PEER_COPY": "OFF",
+      "GGML_CUDA_NO_VMM": "OFF",
+      "GGML_CUDA_PEER_MAX_BATCH_SIZE": "128",
+      "GGML_ET": "OFF",
+      "GGML_ET_SYSEMU": "OFF",
+      "GGML_F16C": "OFF",
+      "GGML_FMA": "OFF",
+      "GGML_GPROF": "OFF",
+      "GGML_HEXAGON": "OFF",
+      "GGML_HIP": "OFF",
+      "GGML_HIP_EXPORT_METRICS": "OFF",
+      "GGML_HIP_GRAPHS": "ON",
+      "GGML_HIP_MMQ_MFMA": "ON",
+      "GGML_HIP_NO_VMM": "ON",
+      "GGML_HIP_RCCL": "OFF",
+      "GGML_INCLUDE_INSTALL_DIR": "include",
+      "GGML_LASX": "ON",
+      "GGML_LIB_INSTALL_DIR": "lib",
+      "GGML_LLAMAFILE": "ON",
+      "GGML_LSX": "ON",
+      "GGML_LTO": "OFF",
+      "GGML_METAL": "OFF",
+      "GGML_METAL_EMBED_LIBRARY": "OFF",
+      "GGML_METAL_MACOSX_VERSION_MIN": "",
+      "GGML_METAL_NDEBUG": "OFF",
+      "GGML_METAL_SHADER_DEBUG": "OFF",
+      "GGML_METAL_STD": "",
+      "GGML_MUSA": "OFF",
+      "GGML_MUSA_GRAPHS": "OFF",
+      "GGML_MUSA_MUDNN_COPY": "OFF",
+      "GGML_NATIVE": "ON",
+      "GGML_OPENCL": "OFF",
+      "GGML_OPENCL_EMBED_KERNELS": "ON",
+      "GGML_OPENCL_PROFILING": "OFF",
+      "GGML_OPENCL_TARGET_VERSION": "300",
+      "GGML_OPENCL_USE_ADRENO_KERNELS": "ON",
+      "GGML_OPENMP": "ON",
+      "GGML_OPENMP_ENABLED": "ON",
+      "GGML_OPENVINO": "OFF",
+      "GGML_RPC": "OFF",
+      "GGML_RVV": "ON",
+      "GGML_RV_ZFH": "ON",
+      "GGML_RV_ZICBOP": "ON",
+      "GGML_RV_ZIHINTPAUSE": "ON",
+      "GGML_RV_ZVFBFWMA": "OFF",
+      "GGML_RV_ZVFH": "ON",
+      "GGML_SANITIZE_ADDRESS": "OFF",
+      "GGML_SANITIZE_THREAD": "OFF",
+      "GGML_SANITIZE_UNDEFINED": "OFF",
+      "GGML_SCCACHE_FOUND": "GGML_SCCACHE_FOUND-NOTFOUND",
+      "GGML_SCHED_MAX_COPIES": "4",
+      "GGML_SCHED_NO_REALLOC": "OFF",
+      "GGML_SSE42": "OFF",
+      "GGML_STATIC": "OFF",
+      "GGML_SYCL": "OFF",
+      "GGML_SYCL_DEVICE_ARCH": "",
+      "GGML_SYCL_DNN": "ON",
+      "GGML_SYCL_F16": "OFF",
+      "GGML_SYCL_GRAPH": "ON",
+      "GGML_SYCL_HOST_MEM_FALLBACK": "ON",
+      "GGML_SYCL_SUPPORT_LEVEL_ZERO_API": "ON",
+      "GGML_SYCL_TARGET": "INTEL",
+      "GGML_VIRTGPU": "OFF",
+      "GGML_VIRTGPU_BACKEND": "OFF",
+      "GGML_VULKAN": "OFF",
+      "GGML_VULKAN_CHECK_RESULTS": "OFF",
+      "GGML_VULKAN_DEBUG": "OFF",
+      "GGML_VULKAN_MEMORY_DEBUG": "OFF",
+      "GGML_VULKAN_RUN_TESTS": "OFF",
+      "GGML_VULKAN_SHADERS_GEN_TOOLCHAIN": "",
+      "GGML_VULKAN_SHADER_DEBUG_INFO": "OFF",
+      "GGML_VULKAN_VALIDATE": "OFF",
+      "GGML_VXE": "ON",
+      "GGML_WEBGPU": "OFF",
+      "GGML_WEBGPU_CPU_PROFILE": "OFF",
+      "GGML_WEBGPU_DEBUG": "OFF",
+      "GGML_WEBGPU_GPU_PROFILE": "OFF",
+      "GGML_WEBGPU_JSPI": "ON",
+      "GGML_XTHEADVECTOR": "OFF",
+      "GGML_ZDNN": "OFF",
+      "GGML_ZENDNN": "OFF"
+    },
+    "gpu": {
+      "available": true,
+      "query": "NVIDIA GeForce GTX 1650, GPU-7d398503-6582-cb81-22f6-77600ac08618, 535.288.01, 4096, 7.5"
+    }
+  },
+  "evidence": {
+    "lifecycle": {
+      "path": "results/2026-07-30/skynet/phase5-cold-cache/lifecycle-and-failures.json",
+      "sha256": "046838a1c07d882b87d94973f67b348fefe229a79991beed9f342218b4be91cc",
+      "size": 24530
+    },
+    "parity": {
+      "path": "results/2026-07-30/skynet/phase5-cold-cache/cold-cache-parity.json",
+      "sha256": "fa53649903329fe9ccf362808c3b4d0f564750da3d70f9da45b479488ec427cb",
+      "size": 41138
+    },
+    "transfer_ring": {
+      "path": "results/2026-07-30/skynet/phase5-cold-cache/transfer-ring.json",
+      "sha256": "e836a31bac7a8b7c9da8da5a1906200894bea53cb88a4ce8bf0f74659da0c2cf",
+      "size": 7685
+    },
+    "validation_commands": {
+      "path": "results/2026-07-30/skynet/phase5-cold-cache/validation-results.json",
+      "sha256": "cfe46029aa09d7027ccf8f7ce05e15a6af6b7f1dd9d7d6340daf60e75e00781e",
+      "size": 5784
+    }
+  },
+  "execution_profile": "STANDARD",
+  "issue": {
+    "number": 20,
+    "pull_request": 21,
+    "repository": "murillo128/k3-out-of-core",
+    "url": "https://github.com/murillo128/k3-out-of-core/issues/20"
+  },
+  "models": [
+    {
+      "name": "Kimi-K3-0.40B-F16.gguf",
+      "sha256": "411c197b503e6fb9199a2b22115e32dc4e2cad803fb112b24967737b3bab26c7",
+      "size": 784318432,
+      "source_revision": "88de02cf8fa37f87eb06daaed370ac9c3411d5ca"
+    },
+    {
+      "name": "Kimi-K3-0.40B-MXFP4.gguf",
+      "sha256": "0379a1cc623e09eb3fbd1dfcb18737bc8c971dbfe5bf5bc3e08da8b5379ec169",
+      "size": 751976576,
+      "source_revision": "88de02cf8fa37f87eb06daaed370ac9c3411d5ca"
+    }
+  ],
+  "phase4_input": {
+    "path": "results/2026-07-30/skynet/phase4-hot-cache/phase4-manifest.json",
+    "sha256": "ecd529a005cd9c2a06aa91cd886288418aa20a18a97af37e096bcf8df9f64574",
+    "size": 16437
+  },
+  "revisions": {
+    "gitlink": "26317ee1d848dd7a73f22a3666a055cad5d5cb03",
+    "llama_cpp_base": "57fe1eabbe3d0ced59096a0744efc91e286fb1c7",
+    "llama_cpp_candidate": "26317ee1d848dd7a73f22a3666a055cad5d5cb03",
+    "project_evidence_head": "dde0a130f79a8caa11436733018db73fd6f33873",
+    "project_execution_base": "114f0de6f5d1cbd5f9ef6255f9100f3f4d52380a"
+  },
+  "schema_version": "phase5-manifest-v1",
+  "validation": [
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "llama.cpp/build-cpu",
+        "--target",
+        "test-expert-weight-provider",
+        "test-hot-expert-cache",
+        "test-cold-expert-cache",
+        "test-expert-transfer-ring",
+        "-j4"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "build-cpu",
+      "passed": null,
+      "stderr_bytes": 137,
+      "stderr_sha256": "68b4c8c557fb9715c8915e960d4be4363f6f0249d11f490d3fd158e6db7af4e3",
+      "stdout_bytes": 3081,
+      "stdout_sha256": "428356cfb26caf56cc485756a962ab2c251b510b60770adc89c97dd8666fdf01",
+      "total": null
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "llama.cpp/build-cuda",
+        "--target",
+        "llama",
+        "test-expert-weight-provider",
+        "test-hot-expert-cache",
+        "test-cold-expert-cache",
+        "test-expert-transfer-ring",
+        "phase5-cold-cache-probe",
+        "-j4"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "build-cuda",
+      "passed": null,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 1825,
+      "stdout_sha256": "62e6264d7705506a6ac1ee80fe5f2270183a006024c74a68d4eb2e6436d56401",
+      "total": null
+    },
+    {
+      "command": [
+        "ctest",
+        "--test-dir",
+        "llama.cpp/build-cpu",
+        "--output-on-failure",
+        "-R",
+        "expert-weight-provider|hot-expert-cache|cold-expert-cache|expert-transfer-ring"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "ctest-cpu",
+      "passed": 4,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 727,
+      "stdout_sha256": "a02d333ef8aa1a21a594818494f03197dd725747e69e4f664b1fe1ba2b53c1b0",
+      "total": 4
+    },
+    {
+      "command": [
+        "ctest",
+        "--test-dir",
+        "llama.cpp/build-cuda",
+        "--output-on-failure",
+        "-R",
+        "expert-weight-provider|hot-expert-cache|cold-expert-cache|expert-transfer-ring"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "ctest-cuda",
+      "passed": 4,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 729,
+      "stdout_sha256": "be1367f18e9d25f429dea4b59eb8fbf05afaf2061c8ca5d149f46ca5e014b09d",
+      "total": 4
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/phase4",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "unittest-phase4",
+      "passed": 6,
+      "stderr_bytes": 824,
+      "stderr_sha256": "44f0fdc60ef8168b53aded9a39f63fa4dcb1543d9232e3371f79605975ce752f",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "total": 6
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/phase5",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "unittest-phase5",
+      "passed": 7,
+      "stderr_bytes": 890,
+      "stderr_sha256": "096955974962b6e0b3d209f446d5a105c0948bebdc10769f7f0266a1623b0fb6",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "total": 7
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "llama.cpp",
+        "diff",
+        "--check",
+        "57fe1eabbe3d0ced59096a0744efc91e286fb1c7..HEAD"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "diff-check-nested",
+      "passed": null,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "total": null
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check",
+        "114f0de6f5d1cbd5f9ef6255f9100f3f4d52380a..HEAD"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "diff-check-project",
+      "passed": null,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "total": null
+    },
+    {
+      "command": [
+        "git",
+        "status",
+        "--short"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "status-project",
+      "passed": null,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "total": null
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "llama.cpp",
+        "status",
+        "--short"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "status-nested",
+      "passed": null,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "total": null
+    }
+  ]
+}

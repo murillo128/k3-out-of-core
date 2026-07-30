@@ -1,0 +1,207 @@
+{
+  "captured_at_utc": "2026-07-30T15:02:04.301168+00:00",
+  "commands": [
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "llama.cpp/build-cpu",
+        "--target",
+        "test-expert-weight-provider",
+        "test-hot-expert-cache",
+        "test-cold-expert-cache",
+        "test-expert-transfer-ring",
+        "-j4"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "build-cpu",
+      "passed": null,
+      "stderr_bytes": 137,
+      "stderr_sha256": "68b4c8c557fb9715c8915e960d4be4363f6f0249d11f490d3fd158e6db7af4e3",
+      "stdout_bytes": 3081,
+      "stdout_sha256": "428356cfb26caf56cc485756a962ab2c251b510b60770adc89c97dd8666fdf01",
+      "total": null
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "llama.cpp/build-cuda",
+        "--target",
+        "llama",
+        "test-expert-weight-provider",
+        "test-hot-expert-cache",
+        "test-cold-expert-cache",
+        "test-expert-transfer-ring",
+        "phase5-cold-cache-probe",
+        "-j4"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "build-cuda",
+      "passed": null,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 1825,
+      "stdout_sha256": "62e6264d7705506a6ac1ee80fe5f2270183a006024c74a68d4eb2e6436d56401",
+      "total": null
+    },
+    {
+      "command": [
+        "ctest",
+        "--test-dir",
+        "llama.cpp/build-cpu",
+        "--output-on-failure",
+        "-R",
+        "expert-weight-provider|hot-expert-cache|cold-expert-cache|expert-transfer-ring"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "ctest-cpu",
+      "passed": 4,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 727,
+      "stdout_sha256": "a02d333ef8aa1a21a594818494f03197dd725747e69e4f664b1fe1ba2b53c1b0",
+      "total": 4
+    },
+    {
+      "command": [
+        "ctest",
+        "--test-dir",
+        "llama.cpp/build-cuda",
+        "--output-on-failure",
+        "-R",
+        "expert-weight-provider|hot-expert-cache|cold-expert-cache|expert-transfer-ring"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "ctest-cuda",
+      "passed": 4,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 729,
+      "stdout_sha256": "be1367f18e9d25f429dea4b59eb8fbf05afaf2061c8ca5d149f46ca5e014b09d",
+      "total": 4
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/phase4",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "unittest-phase4",
+      "passed": 6,
+      "stderr_bytes": 824,
+      "stderr_sha256": "44f0fdc60ef8168b53aded9a39f63fa4dcb1543d9232e3371f79605975ce752f",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "total": 6
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/phase5",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "unittest-phase5",
+      "passed": 7,
+      "stderr_bytes": 890,
+      "stderr_sha256": "096955974962b6e0b3d209f446d5a105c0948bebdc10769f7f0266a1623b0fb6",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "total": 7
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "llama.cpp",
+        "diff",
+        "--check",
+        "57fe1eabbe3d0ced59096a0744efc91e286fb1c7..HEAD"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "diff-check-nested",
+      "passed": null,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "total": null
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check",
+        "114f0de6f5d1cbd5f9ef6255f9100f3f4d52380a..HEAD"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "diff-check-project",
+      "passed": null,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "total": null
+    },
+    {
+      "command": [
+        "git",
+        "status",
+        "--short"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "status-project",
+      "passed": null,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "total": null
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "llama.cpp",
+        "status",
+        "--short"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "name": "status-nested",
+      "passed": null,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "total": null
+    }
+  ],
+  "llama_cpp_head": "26317ee1d848dd7a73f22a3666a055cad5d5cb03",
+  "project_head": "dde0a130f79a8caa11436733018db73fd6f33873",
+  "schema_version": "phase5-validation-results-v1",
+  "status": "pass"
+}
