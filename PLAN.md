@@ -11,6 +11,10 @@ Each phase has an **exit gate**. Do not begin a dependent phase until the gate i
 - [Phases 7–10: asynchronous runtime, miss execution, cache policy, and prefetch](docs/plan/07-async-runtime.md)
 - [Phases 11–15: UMA, concurrency, multi-GPU, full-size scaling, and hardening](docs/plan/11-scaling-and-hardening.md)
 
+## Research references
+
+- [Alternative MoE validation targets](docs/ALTERNATIVE_MOE_VALIDATION_TARGETS.md) records non-normative Qwen3-Coder-Next and DeepSeek-V4-Flash candidates, reproducibility requirements, and the proposed Phase-14 quality-versus-residency comparison. It does not change phase order, current issue scope, or K3 acceptance criteria.
+
 ## Execution rule
 
 Work proceeds strictly in phase order unless a phase explicitly contains independent subwork. A later phase may be researched in parallel, but no dependent implementation may be accepted until the earlier phase exit gate and evidence are committed.
