@@ -37,7 +37,9 @@ def record(**updates: object) -> dict[str, object]:
         "queued_cpu_work_ns": 0,
         "queued_h2d_work_ns": 0,
         "queued_gpu_work_ns": 0,
-        "same_key_submitted_bytes": 0,
+        "same_key_h2d_present": False,
+        "same_key_h2d_state": "NONE",
+        "same_key_h2d_remaining_bytes": 0,
     }
     value.update(updates)
     return value
@@ -69,11 +71,53 @@ class AutoEvaluatorTests(unittest.TestCase):
         queued = evaluate_auto(record(queued_cpu_work_ns=100, queued_h2d_work_ns=3, queued_gpu_work_ns=5))
         self.assertEqual(queued["cpu_finish_ns"], 114)
         self.assertEqual(queued["gpu_finish_ns"], 151)
-        same_key = evaluate_auto(record(bundle_bytes=100, same_key_submitted_bytes=7))
+        same_key = evaluate_auto(record(
+            bundle_bytes=100,
+            same_key_h2d_present=True,
+            same_key_h2d_state="H2D_IN_FLIGHT",
+            same_key_h2d_remaining_bytes=7,
+        ))
         self.assertEqual(same_key["h2d_work_ns"], 14)
         overflow = evaluate_auto(record(lanes=UINT64_MAX))
         self.assertEqual((overflow["backend"], overflow["reason"], overflow["overflow"]),
                          ("gpu", "overflow", True))
+
+    def test_all_same_key_states_are_unambiguous(self) -> None:
+        none = evaluate_auto(record())
+        queued = evaluate_auto(record(
+            same_key_h2d_present=True,
+            same_key_h2d_state="QUEUED_OR_STAGING",
+            same_key_h2d_remaining_bytes=100,
+        ))
+        in_flight = evaluate_auto(record(
+            same_key_h2d_present=True,
+            same_key_h2d_state="H2D_IN_FLIGHT",
+            same_key_h2d_remaining_bytes=7,
+        ))
+        complete = evaluate_auto(record(
+            same_key_h2d_present=True,
+            same_key_h2d_state="H2D_COMPLETE_UNPUBLISHED",
+            same_key_h2d_remaining_bytes=0,
+        ))
+        self.assertEqual(none["h2d_work_ns"], 107)
+        self.assertEqual(queued["h2d_work_ns"], 107)
+        self.assertEqual(in_flight["h2d_work_ns"], 14)
+        self.assertEqual(complete["h2d_work_ns"], 0)
+
+    def test_rejects_inconsistent_same_key_operands(self) -> None:
+        invalid_records = (
+            record(same_key_h2d_present=False, same_key_h2d_state="H2D_IN_FLIGHT",
+                   same_key_h2d_remaining_bytes=7),
+            record(same_key_h2d_present=True, same_key_h2d_state="NONE"),
+            record(same_key_h2d_present=True, same_key_h2d_state="QUEUED_OR_STAGING",
+                   same_key_h2d_remaining_bytes=7),
+            record(same_key_h2d_present=True, same_key_h2d_state="H2D_COMPLETE_UNPUBLISHED",
+                   same_key_h2d_remaining_bytes=1),
+        )
+        for invalid in invalid_records:
+            with self.subTest(invalid=invalid):
+                with self.assertRaises(ValueError):
+                    evaluate_auto(invalid)
 
     def test_rejects_invalid_coefficients(self) -> None:
         invalid = cost()

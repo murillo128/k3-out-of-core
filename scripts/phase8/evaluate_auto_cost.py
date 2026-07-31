@@ -24,6 +24,12 @@ REQUIRED_COST_FIELDS = (
     "h2d_bytes_per_second",
     "decision_hysteresis_ns",
 )
+SAME_KEY_H2D_STATES = (
+    "NONE",
+    "QUEUED_OR_STAGING",
+    "H2D_IN_FLIGHT",
+    "H2D_COMPLETE_UNPUBLISHED",
+)
 
 
 def _u64(value: Any, name: str) -> int:
@@ -48,7 +54,25 @@ def evaluate_auto(record: dict[str, Any]) -> dict[str, Any]:
         raise ValueError("prefill must be boolean")
     lanes = _u64(record.get("lanes"), "lanes")
     bundle_bytes = _u64(record.get("bundle_bytes"), "bundle_bytes")
-    same_key_bytes = _u64(record.get("same_key_submitted_bytes", 0), "same_key_submitted_bytes")
+    same_key_present = record.get("same_key_h2d_present")
+    if not isinstance(same_key_present, bool):
+        raise ValueError("same_key_h2d_present must be boolean")
+    same_key_state = record.get("same_key_h2d_state")
+    if same_key_state not in SAME_KEY_H2D_STATES:
+        raise ValueError(f"same_key_h2d_state must be one of {SAME_KEY_H2D_STATES}")
+    same_key_bytes = _u64(
+        record.get("same_key_h2d_remaining_bytes"), "same_key_h2d_remaining_bytes")
+    valid_same_key = (
+        (not same_key_present and same_key_state == "NONE" and same_key_bytes == 0)
+        or (same_key_present and same_key_state == "QUEUED_OR_STAGING" and
+            same_key_bytes == bundle_bytes)
+        or (same_key_present and same_key_state == "H2D_IN_FLIGHT" and
+            0 < same_key_bytes <= bundle_bytes)
+        or (same_key_present and same_key_state == "H2D_COMPLETE_UNPUBLISHED" and
+            same_key_bytes == 0)
+    )
+    if not valid_same_key:
+        raise ValueError("inconsistent same-key H2D operands")
     queued_cpu = _u64(record.get("queued_cpu_work_ns", 0), "queued_cpu_work_ns")
     queued_h2d = _u64(record.get("queued_h2d_work_ns", 0), "queued_h2d_work_ns")
     queued_gpu = _u64(record.get("queued_gpu_work_ns", 0), "queued_gpu_work_ns")
@@ -70,12 +94,15 @@ def evaluate_auto(record: dict[str, Any]) -> dict[str, Any]:
 
     bucket = "prefill" if prefill else "decode"
     cpu_work = add(cost[f"cpu_fixed_{bucket}_ns"], multiply(cost[f"cpu_per_lane_{bucket}_ns"], lanes))
-    transfer_bytes = same_key_bytes or bundle_bytes
-    transfer_ns = (transfer_bytes * 1_000_000_000 + cost["h2d_bytes_per_second"] - 1) // cost["h2d_bytes_per_second"]
-    if transfer_ns > UINT64_MAX:
-        transfer_ns = UINT64_MAX
-        overflow = True
-    h2d_work = add(cost["h2d_fixed_ns"], transfer_ns)
+    if same_key_state == "H2D_COMPLETE_UNPUBLISHED":
+        h2d_work = 0
+    else:
+        transfer_bytes = same_key_bytes if same_key_present else bundle_bytes
+        transfer_ns = (transfer_bytes * 1_000_000_000 + cost["h2d_bytes_per_second"] - 1) // cost["h2d_bytes_per_second"]
+        if transfer_ns > UINT64_MAX:
+            transfer_ns = UINT64_MAX
+            overflow = True
+        h2d_work = add(cost["h2d_fixed_ns"], transfer_ns)
     gpu_work = add(cost[f"gpu_fixed_{bucket}_ns"], multiply(cost[f"gpu_per_lane_{bucket}_ns"], lanes))
     cpu_finish = add(queued_cpu, cpu_work)
     gpu_finish = add(add(queued_h2d, h2d_work), add(queued_gpu, gpu_work))
