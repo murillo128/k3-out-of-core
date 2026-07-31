@@ -101,6 +101,19 @@ Use the repository-native build and test path declared by the issue and `AGENTS.
 
 A stale or incorrect contract command is a design defect. Record the observed failure and return for correction; do not silently substitute a different methodology that changes evidence.
 
+## Token-efficient command waiting
+
+Long-running local work must wait inside the terminal tool instead of waking the model for frequent status polls.
+
+- The Codex environment should configure `background_terminal_max_timeout = 900000` (15 minutes), or the largest supported equivalent.
+- For a command expected to run longer than 10 seconds, request a long initial `yield_time_ms` and use the same long interval for any required `write_stdin` follow-up.
+- Do not use short empty polls, repeated process-status commands, or progress narration while the command is known to be running.
+- A wait timeout or silence is not a command failure. If the process is still active and there is no contrary evidence, wait again with the same long interval.
+- Return to reasoning immediately when the command exits, fails, requests input, or produces output that requires a decision.
+- When waiting for an independently running reviewer or agent, request the longest available explicit wait timeout and do not interleave status-only checks.
+
+This changes waiting cadence only. It does not relax command timeouts, validation, reviewer independence, circuit breakers, or failure handling.
+
 ## Main execution loop
 
 ### 1. Establish the phase boundary
