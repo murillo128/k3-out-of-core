@@ -1,0 +1,1045 @@
+{
+  "artifacts": [
+    {
+      "path": "scripts/phase8/common.py",
+      "sha256": "0d20f23c68d053c979c6aa400618315bf6a7afc5da89cf9f912d7e88e0c7bf3b",
+      "size": 5533
+    },
+    {
+      "path": "scripts/phase8/evaluate_auto_cost.py",
+      "sha256": "aa12e2ab41c9514f3f84549dd5817656d58d56cb304b944f598123aa5fd51e57",
+      "size": 5709
+    },
+    {
+      "path": "scripts/phase8/verify_checkpoint_b.py",
+      "sha256": "6b7cbbf2f508d987f098e58a5e828fe2c363fe34309afc947f468a19ca1ff292",
+      "size": 23617
+    },
+    {
+      "path": "scripts/phase8/capture_miss_policy_parity.py",
+      "sha256": "a52a7f249705acafd0a08f6c5f476d4371c9e690c8bb82b505edc73060fbd625",
+      "size": 6622
+    },
+    {
+      "path": "scripts/phase8/capture_hybrid_overlap.py",
+      "sha256": "57804d9905a3cade45b6cfe3c02f89abf325447ed5ea0e15cae7acc1c82c4582",
+      "size": 3189
+    },
+    {
+      "path": "scripts/phase8/measure_miss_policies.py",
+      "sha256": "21539a715037157da18ad46a26f8efdb4355b34d819e84438c4c0eec61193ea2",
+      "size": 13862
+    },
+    {
+      "path": "scripts/phase8/capture_validation.py",
+      "sha256": "bf51341efc51230a99c23b3cc4bfb5833967f4f3c1a40a3be7c7c5e0cdf72219",
+      "size": 7147
+    },
+    {
+      "path": "scripts/phase8/build_phase8_manifest.py",
+      "sha256": "6530b3e9b323a4d829934dddcd9b35a07ac1be07e47213ea47f7085b5c467612",
+      "size": 9130
+    },
+    {
+      "path": "scripts/phase8/verify_phase8.py",
+      "sha256": "2ac91da34c0ddb58020a404c9e331907d406e73c53ad0e188ee696a64c0e5692",
+      "size": 11278
+    },
+    {
+      "path": "schemas/phase8/phase8-manifest-v1.schema.json",
+      "sha256": "57d58d0572945764d556a0680fda8d24e0a82a9d26edc0c62a380339c97b930b",
+      "size": 6695
+    },
+    {
+      "path": "tests/phase8/test_auto_evaluator.py",
+      "sha256": "226d05c2dddb82fe63ac2140d3a342a5c128663301adaadcd17a20c87cc67f45",
+      "size": 5227
+    },
+    {
+      "path": "tests/phase8/test_verify_checkpoint_b.py",
+      "sha256": "d4318f7b029729e8b570ab51548c9ac1531551650f8e01476acdcbd7013dd018",
+      "size": 14542
+    },
+    {
+      "path": "tests/phase8/test_phase8_evidence.py",
+      "sha256": "4593bfbfda09b6eff805198d04ca77ea3e25094bf31d6090293a5d22a1979fd8",
+      "size": 5592
+    },
+    {
+      "path": "PLAN.md",
+      "sha256": "ffa3574514f0f339c5977a50414389aa3b5d7a3b86f1debf7dfe707ef2f29d69",
+      "size": 3684
+    },
+    {
+      "path": "docs/STATUS.md",
+      "sha256": "2826d5e4b42590243ce7ad4114d605f4b8b75708648d76b8e90d9f9fd700db1a",
+      "size": 17408
+    },
+    {
+      "path": "docs/plan/07-async-runtime.md",
+      "sha256": "85edbe7454ccc488d8a72eef30903d7d04cc31df8e5610b4526e73b2898b3d32",
+      "size": 9588
+    },
+    {
+      "path": "docs/DECISIONS.md",
+      "sha256": "cf011b732bf2a58458aa3a3499c1e5bfc88bceef0e64926a9bec2e9bbf9749a4",
+      "size": 15073
+    },
+    {
+      "path": "docs/MODELS_AND_VALIDATION.md",
+      "sha256": "84996da7600307a884ba63deaaf14267f47fa92c7dfaee7f2fb47f409bc53201",
+      "size": 34725
+    },
+    {
+      "path": "docs/REPOSITORIES_AND_ARTIFACTS.md",
+      "sha256": "7387afaa758b5cd09ba5daf95d3c2d285f757ffd7e8dd0d31fd1694832c76d67",
+      "size": 16585
+    },
+    {
+      "path": "results/2026-07-31/skynet/phase8-miss-execution/PHASE8.md",
+      "sha256": "3cd52ea035c5e78695a679c81a211b8654d4a7deef8984368d9fd533aef5b09b",
+      "size": 4586
+    }
+  ],
+  "carried_notes": [
+    "Tiny K3 and sparse exact-size synthetic results are mechanism/crossover evidence, not full-model quality claims.",
+    "VRAM is sampled device-wide telemetry and the OS page cache was not flushed.",
+    "The accepted Phase 3 22/24 performance result remains unchanged.",
+    "Default-ASLR TSan may fail before test code; the ASLR-disabled native suite is authoritative.",
+    "Checkpoint C carried the unchanged callback-free fixture teardown race as non-material; corrected paths are clean."
+  ],
+  "checkpoint_a": {
+    "comment_id": 5141694340,
+    "independent_read_only": true,
+    "llama_cpp_head": "4cfee48aacb6b33ebcbda796b26106b69440e633",
+    "project_head": "07da45728b38b2d7c6a3a1b156dffcea6b94ec54",
+    "safety_to_proceed": "YES",
+    "verdict": "PASS"
+  },
+  "checkpoint_b": {
+    "comment_id": 5144721775,
+    "independent_read_only": true,
+    "llama_cpp_head": "a885ff7750a4e73901b7f378e7dc45880a7d1536",
+    "project_head": "30013880641fd2f10a1952b5b9619e6d872e233b",
+    "safety_to_proceed": "YES",
+    "verdict": "PASS"
+  },
+  "checkpoint_c": {
+    "comment_id": 5146173479,
+    "independent_read_only": true,
+    "llama_cpp_head": "dc4d50c68378d908131b518662160fdd08f4e005",
+    "project_head": "a52581e23b6192e51a6cd5452c121b5a014371f1",
+    "safety_to_proceed": "YES",
+    "verdict": "PASS_WITH_NOTES"
+  },
+  "closeout_state": "final-review-candidate",
+  "deferred": [
+    "Phase 9 cache policy",
+    "Phase 10 speculative prefetch",
+    "Phase 12 multi-request fairness",
+    "multi-GPU, UMA, GDS, and full production K3 quality/performance"
+  ],
+  "environment": {
+    "cmake": "cmake version 3.28.3",
+    "compiler": "c++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "cpu": "11th Gen Intel(R) Core(TM) i7-11700K @ 3.60GHz",
+    "cuda": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2023 NVIDIA Corporation\nBuilt on Fri_Jan__6_16:45:21_PST_2023\nCuda compilation tools, release 12.0, V12.0.140\nBuild cuda_12.0.r12.0/compiler.32267302_0",
+    "filesystem": "/dev/nvme1n1p5 ext4   /",
+    "gpu": "NVIDIA GeForce GTX 1650, 535.288.01, 4096 MiB, 7.5",
+    "host": "skynet",
+    "kernel": "6.8.0-136-generic",
+    "memory": "Mem:     67317436416  2559959040   592158720     4943872 64922750976 64757477376",
+    "nvme": true,
+    "os": "Linux-6.8.0-136-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3"
+  },
+  "evidence": {
+    "checkpoint_b_probe": {
+      "path": "results/2026-07-31/skynet/phase8-miss-execution/checkpoint-b-probe.json",
+      "sha256": "2598f3194e1c79c4b73a5825e2c706bca6f3bd8f4b4046351032d969a945f335",
+      "size": 40883
+    },
+    "hybrid_overlap": {
+      "path": "results/2026-07-31/skynet/phase8-miss-execution/hybrid-overlap.json",
+      "sha256": "c86d1da7f627a6569bffadc5a7caafa8257fe818c74d8b098b9cf8810a0363b3",
+      "size": 15369
+    },
+    "miss_policy_benchmarks": {
+      "path": "results/2026-07-31/skynet/phase8-miss-execution/miss-policy-benchmarks.json",
+      "sha256": "a7284cf84c623e6cf8720a593cff59e9a2bd46187956069600008c6cf7da439d",
+      "size": 245493
+    },
+    "miss_policy_parity": {
+      "path": "results/2026-07-31/skynet/phase8-miss-execution/miss-policy-parity.json",
+      "sha256": "6f36f4374c1fd14cafd0ef0171774a1ec953d695faa2e85b0b1f02608e4a3732",
+      "size": 590772
+    },
+    "synthetic_store": {
+      "path": "results/2026-07-31/skynet/phase8-miss-execution/synthetic-store.json",
+      "sha256": "74e3230b37a23b1c1b0259f663d3f24cb9fb55c06ac650fda12f25f16826c7bc",
+      "size": 4826
+    },
+    "validation_results": {
+      "path": "results/2026-07-31/skynet/phase8-miss-execution/validation-results.json",
+      "sha256": "6231eb75788deb6931660c86945e3147edbb1884f6b7453f9014635073734ffa",
+      "size": 23385
+    }
+  },
+  "execution_profile": "STANDARD",
+  "final_review": null,
+  "gates": {
+    "auto_independent_evaluator": true,
+    "background_bounded_and_truthful": true,
+    "checkpoint_a_accepted": true,
+    "checkpoint_b_accepted": true,
+    "checkpoint_c_accepted": true,
+    "cpu_and_gpu_favorable_regimes": true,
+    "default_and_prior_modes": true,
+    "exact_size_synthetic_store": true,
+    "failure_and_unload_drain": true,
+    "larger_public_moe": true,
+    "mixed_cpu_gpu_overlap": true,
+    "original_split_k3_numerical": true,
+    "sanitizers_and_thread_safety": true,
+    "scope_lineage_and_whitespace": true,
+    "tails_and_resources": true
+  },
+  "inputs": {
+    "k3_models": [
+      {
+        "bootstrap": {
+          "cold_actual_bytes": 44040192,
+          "deferred_payload_bytes": 44040192,
+          "discovery_backend_bytes": 0,
+          "discovery_graphs": 2,
+          "discovery_reserve_calls": 0,
+          "final_compute_bytes": 675168,
+          "final_source_bindings": 0,
+          "hot_pool_bytes": 25165824,
+          "ring_actual_bytes": 133693440
+        },
+        "bootstrap_structural_exclusion_all_runs": true,
+        "cold_processes": 10,
+        "model": {
+          "path": "/tmp/Kimi-K3-0.40B-GGUF-publish/Kimi-K3-0.40B-F16.gguf",
+          "sha256": "411c197b503e6fb9199a2b22115e32dc4e2cad803fb112b24967737b3bab26c7",
+          "size": 784318432
+        },
+        "name": "k3_f16_original",
+        "native_matrix": {
+          "auto_cpu_gpu_and_tie": true,
+          "background_off_and_on": true,
+          "cpu_fallback_decode_and_prefill": true,
+          "exact_top10_and_tokens": true,
+          "full_logit_gate": true,
+          "mixed_hot_gpu_and_cpu_miss": true,
+          "promote_and_gpu": true,
+          "terminal_drain": true
+        },
+        "process_latency_ms": {
+          "p50": 3297,
+          "p95": 3343,
+          "p99": 3343
+        },
+        "warm_captures": 2
+      },
+      {
+        "bootstrap": {
+          "cold_actual_bytes": 11698176,
+          "deferred_payload_bytes": 11698176,
+          "discovery_backend_bytes": 0,
+          "discovery_graphs": 2,
+          "discovery_reserve_calls": 0,
+          "final_compute_bytes": 675168,
+          "final_source_bindings": 0,
+          "hot_pool_bytes": 6684928,
+          "ring_actual_bytes": 134111232
+        },
+        "bootstrap_structural_exclusion_all_runs": true,
+        "cold_processes": 10,
+        "model": {
+          "path": "/tmp/Kimi-K3-0.40B-GGUF-publish/Kimi-K3-0.40B-MXFP4.gguf",
+          "sha256": "0379a1cc623e09eb3fbd1dfcb18737bc8c971dbfe5bf5bc3e08da8b5379ec169",
+          "size": 751976576
+        },
+        "name": "k3_mxfp4_original",
+        "native_matrix": {
+          "auto_cpu_gpu_and_tie": true,
+          "background_off_and_on": true,
+          "cpu_fallback_decode_and_prefill": true,
+          "exact_top10_and_tokens": true,
+          "full_logit_gate": true,
+          "mixed_hot_gpu_and_cpu_miss": true,
+          "promote_and_gpu": true,
+          "terminal_drain": true
+        },
+        "process_latency_ms": {
+          "p50": 3170,
+          "p95": 3186,
+          "p99": 3186
+        },
+        "warm_captures": 2
+      },
+      {
+        "bootstrap": {
+          "cold_actual_bytes": 44040192,
+          "deferred_payload_bytes": 44040192,
+          "discovery_backend_bytes": 0,
+          "discovery_graphs": 2,
+          "discovery_reserve_calls": 0,
+          "final_compute_bytes": 675168,
+          "final_source_bindings": 0,
+          "hot_pool_bytes": 25165824,
+          "ring_actual_bytes": 133693440
+        },
+        "bootstrap_structural_exclusion_all_runs": true,
+        "cold_processes": 10,
+        "model": {
+          "path": "/tmp/phase8-k3-f16-218/Kimi-K3-0.40B-F16-00001-of-00218.gguf",
+          "sha256": "f6ff6dbfb7e3659f7bf7d255ec91b90e0a8b53713fc184fa80f294604d10ac1e",
+          "size": 342452864
+        },
+        "name": "k3_f16_split",
+        "native_matrix": {
+          "auto_cpu_gpu_and_tie": true,
+          "background_off_and_on": true,
+          "cpu_fallback_decode_and_prefill": true,
+          "exact_top10_and_tokens": true,
+          "full_logit_gate": true,
+          "mixed_hot_gpu_and_cpu_miss": true,
+          "promote_and_gpu": true,
+          "terminal_drain": true
+        },
+        "process_latency_ms": {
+          "p50": 3378,
+          "p95": 3391,
+          "p99": 3391
+        },
+        "warm_captures": 2
+      },
+      {
+        "bootstrap": {
+          "cold_actual_bytes": 11698176,
+          "deferred_payload_bytes": 11698176,
+          "discovery_backend_bytes": 0,
+          "discovery_graphs": 2,
+          "discovery_reserve_calls": 0,
+          "final_compute_bytes": 675168,
+          "final_source_bindings": 0,
+          "hot_pool_bytes": 6684928,
+          "ring_actual_bytes": 134111232
+        },
+        "bootstrap_structural_exclusion_all_runs": true,
+        "cold_processes": 10,
+        "model": {
+          "path": "/tmp/phase8-k3-mxfp4-218/Kimi-K3-0.40B-MXFP4-00001-of-00218.gguf",
+          "sha256": "cdf32bde31a26b4b1f38a4328f1580ab86d4befbe6c791b1a780ac6f760bc5f9",
+          "size": 7465760
+        },
+        "name": "k3_mxfp4_split",
+        "native_matrix": {
+          "auto_cpu_gpu_and_tie": true,
+          "background_off_and_on": true,
+          "cpu_fallback_decode_and_prefill": true,
+          "exact_top10_and_tokens": true,
+          "full_logit_gate": true,
+          "mixed_hot_gpu_and_cpu_miss": true,
+          "promote_and_gpu": true,
+          "terminal_drain": true
+        },
+        "process_latency_ms": {
+          "p50": 3251,
+          "p95": 3253,
+          "p99": 3253
+        },
+        "warm_captures": 2
+      }
+    ],
+    "larger_public_moe": {
+      "bootstrap_correction_comment": 5145774054,
+      "checkpoint_c_comment": 5146173479,
+      "config": {
+        "path": "/tmp/phase8-qwen-primary/config.json",
+        "sha256": "b3e9fc1ad643d12f6536dee80a66c5ea045b571856165a598252720b6f2c553e",
+        "size": 920
+      },
+      "conversion_command": "python3 llama.cpp/convert_hf_to_gguf.py /tmp/phase8-qwen-primary --outfile /tmp/phase8-qwen1.5-moe-f16.gguf --outtype f16",
+      "converter_head": "a885ff7750a4e73901b7f378e7dc45880a7d1536",
+      "gguf": {
+        "path": "/tmp/phase8-qwen1.5-moe-f16.gguf",
+        "sha256": "fbdb28cef42831732a3e2193a70b1f50840d26d894d88bc8617c24d34d72867f",
+        "size": 28644015616
+      },
+      "previous_bootstrap_failure_comment": 5145455677,
+      "repository": "Qwen/Qwen1.5-MoE-A2.7B-Chat",
+      "runtime_head": "dc4d50c68378d908131b518662160fdd08f4e005",
+      "source_revision": "ec052fda178e241c7c443468d2fa1db6618996be",
+      "tokenizer": {
+        "path": "/tmp/phase8-qwen-primary/tokenizer.json",
+        "sha256": "f7c9b2dba4a296b1aa76c16a34b8225c0c118978400d4bb66bff0902d702f5b8",
+        "size": 7028015
+      }
+    },
+    "phase7_final_review_comment": 5140490542,
+    "phase7_manifest": {
+      "path": "results/2026-07-31/skynet/phase7-async-runtime/phase7-manifest.json",
+      "sha256": "e55666cb41e3623fb9f60f8c46ce24f444736eb9b63cefe132d0f51a350c0f2e",
+      "size": 33625
+    },
+    "synthetic_store": {
+      "path": "results/2026-07-31/skynet/phase8-miss-execution/synthetic-store.json",
+      "sha256": "74e3230b37a23b1c1b0259f663d3f24cb9fb55c06ac650fda12f25f16826c7bc",
+      "size": 4826
+    }
+  },
+  "issue": {
+    "number": 26,
+    "pull_request": 27,
+    "repository": "murillo128/k3-out-of-core"
+  },
+  "metrics": {
+    "benchmark_cells": 300,
+    "controlled_regimes": {
+      "cpu_favorable": {
+        "backend": "cpu",
+        "cpu_finish_ns": 5061001,
+        "cpu_work_ns": 5061001,
+        "gpu_finish_ns": 1022944545,
+        "gpu_work_ns": 1000000001,
+        "h2d_work_ns": 2944544,
+        "overflow": false,
+        "reason": "cpu_faster"
+      },
+      "gpu_favorable": {
+        "backend": "gpu",
+        "cpu_finish_ns": 1000000001,
+        "cpu_work_ns": 1000000001,
+        "gpu_finish_ns": 4018545,
+        "gpu_work_ns": 1074001,
+        "h2d_work_ns": 2944544,
+        "overflow": false,
+        "reason": "gpu_faster_or_hysteresis"
+      },
+      "tie": {
+        "backend": "gpu",
+        "cpu_finish_ns": 4018545,
+        "cpu_work_ns": 4018545,
+        "gpu_finish_ns": 4018545,
+        "gpu_work_ns": 1074001,
+        "h2d_work_ns": 2944544,
+        "overflow": false,
+        "reason": "tie"
+      }
+    },
+    "minimum_device_memory_free_mib": 242,
+    "minimum_overlap_us": 562,
+    "overlap_repetitions": 10,
+    "parity_cases": 5,
+    "peak_device_memory_used_mib": 3661,
+    "storage_read_ns": {
+      "p50": 282661,
+      "p95": 494605,
+      "p99": 510767
+    }
+  },
+  "policies": {
+    "auto_explicit_version": 1,
+    "background_promotion_default": false,
+    "cost_model_digests_recorded": true,
+    "cpu_fallback_explicit": true,
+    "default": "PROMOTE_AND_GPU"
+  },
+  "revisions": {
+    "branch": "codex/phase8-miss-execution",
+    "gitlink": "dc4d50c68378d908131b518662160fdd08f4e005",
+    "llama_cpp_base": "b71e40f91b1a0dab578d56ac733211453704d674",
+    "llama_cpp_final": "dc4d50c68378d908131b518662160fdd08f4e005",
+    "project_capture_head": "eb3d0093157da7757036882dc81b37dd622bbf46",
+    "project_evidence_head": "8cc2aab73559c3cb8e7f734bc435257f5792d928",
+    "project_execution_base": "5fe0bda6965da7d2b0f85dd14b97427a7b60f161",
+    "project_phase8_4_start": "a52581e23b6192e51a6cd5452c121b5a014371f1"
+  },
+  "schema_version": "phase8-manifest-v1",
+  "validation": [
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "llama.cpp/build-cpu",
+        "--target",
+        "test-expert-miss-policy",
+        "test-expert-weight-provider",
+        "test-hot-expert-cache",
+        "test-cold-expert-cache",
+        "test-expert-scheduler",
+        "-j4"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 725,
+      "exit_code": 0,
+      "name": "build-cpu",
+      "required": true,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_tail": [],
+      "stdout_sha256": "4f043318c7c26418edbed3a4211dbe4d5c531970488bccc258ef3b439c058b37",
+      "stdout_tail": [
+        "[  2%] Built target llama-common-base",
+        "[  2%] Built target cpp-httplib",
+        "[  7%] Built target ggml-base",
+        "[ 14%] Built target ggml-cpu",
+        "[ 14%] Built target ggml",
+        "[ 85%] Built target llama",
+        "[ 97%] Built target llama-common",
+        "[100%] Built target test-cold-expert-cache",
+        "[  2%] Built target llama-common-base",
+        "[  2%] Built target cpp-httplib",
+        "[  7%] Built target ggml-base",
+        "[ 14%] Built target ggml-cpu",
+        "[ 14%] Built target ggml",
+        "[ 87%] Built target llama",
+        "[100%] Built target llama-common",
+        "[100%] Built target test-expert-scheduler"
+      ]
+    },
+    {
+      "command": [
+        "ctest",
+        "--test-dir",
+        "llama.cpp/build-cpu",
+        "--output-on-failure",
+        "-R",
+        "expert-miss-policy|expert-weight-provider|hot-expert-cache|cold-expert-cache|expert-scheduler"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 31,
+      "exit_code": 0,
+      "name": "ctest-cpu",
+      "required": true,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_tail": [],
+      "stdout_sha256": "6b71498140937714a2d425a18a22ae4beadd3a65b0a61a9532137cc385dd402b",
+      "stdout_tail": [
+        "1/5 Test #44: test-expert-weight-provider ......   Passed    0.00 sec",
+        "    Start 45: test-expert-miss-policy",
+        "2/5 Test #45: test-expert-miss-policy ..........   Passed    0.01 sec",
+        "    Start 46: test-hot-expert-cache",
+        "3/5 Test #46: test-hot-expert-cache ............   Passed    0.01 sec",
+        "    Start 47: test-cold-expert-cache",
+        "4/5 Test #47: test-cold-expert-cache ...........   Passed    0.00 sec",
+        "    Start 51: test-expert-scheduler",
+        "5/5 Test #51: test-expert-scheduler ............   Passed    0.00 sec",
+        "",
+        "100% tests passed, 0 tests failed out of 5",
+        "",
+        "Label Time Summary:",
+        "model    =   0.02 sec*proc (5 tests)",
+        "",
+        "Total Test time (real) =   0.03 sec"
+      ]
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "llama.cpp/build-cuda",
+        "--target",
+        "llama",
+        "test-expert-miss-policy",
+        "test-expert-weight-provider",
+        "test-hot-expert-cache",
+        "test-cold-expert-cache",
+        "test-expert-scheduler",
+        "phase8-miss-execution-probe",
+        "phase8-checkpoint-b-probe",
+        "-j4"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 1444,
+      "exit_code": 0,
+      "name": "build-cuda",
+      "required": true,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_tail": [],
+      "stdout_sha256": "8aef2c7ccd7d5e5c74637e415dd43d8808c3e7f570d1defdece0f7001f52d474",
+      "stdout_tail": [
+        "[  3%] Built target ggml-base",
+        "[  7%] Built target ggml-cpu",
+        "[ 42%] Built target ggml-cuda",
+        "[ 42%] Built target ggml",
+        "[ 88%] Built target llama",
+        "[ 98%] Built target llama-common",
+        "[100%] Built target phase8-miss-execution-probe",
+        "[  0%] Built target llama-common-base",
+        "[  0%] Built target cpp-httplib",
+        "[  3%] Built target ggml-base",
+        "[  7%] Built target ggml-cpu",
+        "[ 43%] Built target ggml-cuda",
+        "[ 43%] Built target ggml",
+        "[ 90%] Built target llama",
+        "[100%] Built target llama-common",
+        "[100%] Built target phase8-checkpoint-b-probe"
+      ]
+    },
+    {
+      "command": [
+        "ctest",
+        "--test-dir",
+        "llama.cpp/build-cuda",
+        "--output-on-failure",
+        "-R",
+        "expert-miss-policy|expert-weight-provider|hot-expert-cache|cold-expert-cache|expert-scheduler"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 294,
+      "exit_code": 0,
+      "name": "ctest-cuda",
+      "required": true,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_tail": [],
+      "stdout_sha256": "b7a516339d6bb11e5b67fe3ddc18fe9a23fb4332ae90ea4698582c87b2e8f9a2",
+      "stdout_tail": [
+        "1/5 Test #44: test-expert-weight-provider ......   Passed    0.02 sec",
+        "    Start 45: test-expert-miss-policy",
+        "2/5 Test #45: test-expert-miss-policy ..........   Passed    0.13 sec",
+        "    Start 46: test-hot-expert-cache",
+        "3/5 Test #46: test-hot-expert-cache ............   Passed    0.09 sec",
+        "    Start 47: test-cold-expert-cache",
+        "4/5 Test #47: test-cold-expert-cache ...........   Passed    0.02 sec",
+        "    Start 51: test-expert-scheduler",
+        "5/5 Test #51: test-expert-scheduler ............   Passed    0.02 sec",
+        "",
+        "100% tests passed, 0 tests failed out of 5",
+        "",
+        "Label Time Summary:",
+        "model    =   0.29 sec*proc (5 tests)",
+        "",
+        "Total Test time (real) =   0.29 sec"
+      ]
+    },
+    {
+      "command": [
+        "cmake",
+        "-S",
+        "llama.cpp",
+        "-B",
+        "llama.cpp/build-phase8-asan",
+        "-DGGML_CUDA=OFF",
+        "-DLLAMA_BUILD_TESTS=ON",
+        "-DLLAMA_BUILD_TOOLS=ON",
+        "-DLLAMA_SANITIZE_ADDRESS=ON",
+        "-DLLAMA_SANITIZE_UNDEFINED=ON",
+        "-DCMAKE_BUILD_TYPE=RelWithDebInfo"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 381,
+      "exit_code": 0,
+      "name": "configure-asan-ubsan",
+      "required": true,
+      "stderr_sha256": "d0366d4bacaa892ba2c1762d40a256028964dc9ae5e8f769ad9238599c2a3f3d",
+      "stderr_tail": [
+        "CMAKE_BUILD_TYPE=RelWithDebInfo",
+        "CMake Warning at vendor/cpp-httplib/CMakeLists.txt:152 (message):",
+        "  OpenSSL not found, HTTPS support disabled",
+        "",
+        ""
+      ],
+      "stdout_sha256": "5970d406266bd0097b10dc108c202a129cc869063ecb1a388dd2ab845111596a",
+      "stdout_tail": [
+        "-- Using -fsanitize=undefined",
+        "-- Using -fsanitize=address",
+        "-- Using -fsanitize=undefined",
+        "-- Using -fsanitize=address",
+        "-- Using -fsanitize=undefined",
+        "-- Could NOT find OpenSSL, try to set the path to OpenSSL root folder in the system variable OPENSSL_ROOT_DIR (missing: OPENSSL_CRYPTO_LIBRARY OPENSSL_INCLUDE_DIR) ",
+        "-- Using -fsanitize=address",
+        "-- Using -fsanitize=undefined",
+        "-- Using -fsanitize=address",
+        "-- Using -fsanitize=undefined",
+        "-- Using -fsanitize=address",
+        "-- Using -fsanitize=undefined",
+        "-- Generating embedded license file for target: llama-app",
+        "-- Configuring done (0.2s)",
+        "-- Generating done (0.1s)",
+        "-- Build files have been written to: /usr/local/src/k3-out-of-core/llama.cpp/build-phase8-asan"
+      ]
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "llama.cpp/build-phase8-asan",
+        "--target",
+        "test-expert-miss-policy",
+        "test-expert-weight-provider",
+        "test-hot-expert-cache",
+        "test-cold-expert-cache",
+        "test-expert-scheduler",
+        "-j4"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 789,
+      "exit_code": 0,
+      "name": "build-asan-ubsan",
+      "required": true,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_tail": [],
+      "stdout_sha256": "8d95a2b2d6155cac6439a7c2b194b916e655c6185679c5e3f07ca94c697b3f6e",
+      "stdout_tail": [
+        "[  0%] Built target llama-common-base",
+        "[  0%] Built target cpp-httplib",
+        "[  4%] Built target ggml-base",
+        "[ 12%] Built target ggml-cpu",
+        "[ 12%] Built target ggml",
+        "[ 85%] Built target llama",
+        "[100%] Built target llama-common",
+        "[100%] Built target test-cold-expert-cache",
+        "[  0%] Built target llama-common-base",
+        "[  0%] Built target cpp-httplib",
+        "[  4%] Built target ggml-base",
+        "[ 11%] Built target ggml-cpu",
+        "[ 11%] Built target ggml",
+        "[ 83%] Built target llama",
+        "[ 97%] Built target llama-common",
+        "[100%] Built target test-expert-scheduler"
+      ]
+    },
+    {
+      "command": [
+        "ctest",
+        "--test-dir",
+        "llama.cpp/build-phase8-asan",
+        "--output-on-failure",
+        "-R",
+        "expert-miss-policy|expert-weight-provider|hot-expert-cache|cold-expert-cache|expert-scheduler"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 532,
+      "environment": {
+        "ASAN_OPTIONS": "detect_leaks=1:halt_on_error=1",
+        "UBSAN_OPTIONS": "halt_on_error=1:print_stacktrace=1"
+      },
+      "exit_code": 0,
+      "name": "ctest-asan-ubsan",
+      "required": true,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_tail": [],
+      "stdout_sha256": "e37e6968fd9558176a05f3a1a85e03708c090bce3f1e3b757fa0d1c5c2a7382b",
+      "stdout_tail": [
+        "1/5 Test #43: test-expert-weight-provider ......   Passed    0.10 sec",
+        "    Start 44: test-expert-miss-policy",
+        "2/5 Test #44: test-expert-miss-policy ..........   Passed    0.11 sec",
+        "    Start 45: test-hot-expert-cache",
+        "3/5 Test #45: test-hot-expert-cache ............   Passed    0.12 sec",
+        "    Start 46: test-cold-expert-cache",
+        "4/5 Test #46: test-cold-expert-cache ...........   Passed    0.10 sec",
+        "    Start 50: test-expert-scheduler",
+        "5/5 Test #50: test-expert-scheduler ............   Passed    0.10 sec",
+        "",
+        "100% tests passed, 0 tests failed out of 5",
+        "",
+        "Label Time Summary:",
+        "model    =   0.52 sec*proc (5 tests)",
+        "",
+        "Total Test time (real) =   0.53 sec"
+      ]
+    },
+    {
+      "command": [
+        "cmake",
+        "-S",
+        "llama.cpp",
+        "-B",
+        "llama.cpp/build-phase8-tsan",
+        "-DGGML_CUDA=OFF",
+        "-DLLAMA_BUILD_TESTS=ON",
+        "-DLLAMA_BUILD_TOOLS=ON",
+        "-DLLAMA_SANITIZE_THREAD=ON",
+        "-DCMAKE_BUILD_TYPE=RelWithDebInfo"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 337,
+      "exit_code": 0,
+      "name": "configure-tsan",
+      "required": true,
+      "stderr_sha256": "d0366d4bacaa892ba2c1762d40a256028964dc9ae5e8f769ad9238599c2a3f3d",
+      "stderr_tail": [
+        "CMAKE_BUILD_TYPE=RelWithDebInfo",
+        "CMake Warning at vendor/cpp-httplib/CMakeLists.txt:152 (message):",
+        "  OpenSSL not found, HTTPS support disabled",
+        "",
+        ""
+      ],
+      "stdout_sha256": "3ea3d84e0d8a5e17f453f8b1278287a21beb8a5814425b641e0135bca1d6acbe",
+      "stdout_tail": [
+        "-- GGML_SYSTEM_ARCH: x86",
+        "-- Including CPU backend",
+        "-- x86 detected",
+        "-- Adding CPU backend variant ggml-cpu: -march=native ",
+        "-- ggml version: 0.17.0",
+        "-- ggml commit:  dc4d50c68",
+        "-- Using -fsanitize=thread",
+        "-- Using -fsanitize=thread",
+        "-- Using -fsanitize=thread",
+        "-- Could NOT find OpenSSL, try to set the path to OpenSSL root folder in the system variable OPENSSL_ROOT_DIR (missing: OPENSSL_CRYPTO_LIBRARY OPENSSL_INCLUDE_DIR) ",
+        "-- Using -fsanitize=thread",
+        "-- Using -fsanitize=thread",
+        "-- Generating embedded license file for target: llama-app",
+        "-- Configuring done (0.2s)",
+        "-- Generating done (0.1s)",
+        "-- Build files have been written to: /usr/local/src/k3-out-of-core/llama.cpp/build-phase8-tsan"
+      ]
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "llama.cpp/build-phase8-tsan",
+        "--target",
+        "test-expert-miss-policy",
+        "test-expert-weight-provider",
+        "test-hot-expert-cache",
+        "test-cold-expert-cache",
+        "test-expert-scheduler",
+        "-j4"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 785,
+      "exit_code": 0,
+      "name": "build-tsan",
+      "required": true,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_tail": [],
+      "stdout_sha256": "d14c6cea60a07401b11447dd909730a4b3ffe5705ebb8f4029e64ef9f9ab78f3",
+      "stdout_tail": [
+        "[  0%] Built target llama-common-base",
+        "[  0%] Built target cpp-httplib",
+        "[  4%] Built target ggml-base",
+        "[ 10%] Built target ggml-cpu",
+        "[ 10%] Built target ggml",
+        "[ 82%] Built target llama",
+        "[ 97%] Built target llama-common",
+        "[100%] Built target test-cold-expert-cache",
+        "[  0%] Built target llama-common-base",
+        "[  0%] Built target cpp-httplib",
+        "[  4%] Built target ggml-base",
+        "[ 10%] Built target ggml-cpu",
+        "[ 10%] Built target ggml",
+        "[ 82%] Built target llama",
+        "[ 97%] Built target llama-common",
+        "[100%] Built target test-expert-scheduler"
+      ]
+    },
+    {
+      "command": [
+        "ctest",
+        "--test-dir",
+        "llama.cpp/build-phase8-tsan",
+        "--output-on-failure",
+        "-R",
+        "expert-miss-policy|expert-weight-provider|hot-expert-cache|cold-expert-cache|expert-scheduler"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 1112,
+      "environment": {
+        "TSAN_OPTIONS": "halt_on_error=1 ignore_noninstrumented_modules=1"
+      },
+      "exit_code": 8,
+      "name": "ctest-tsan-default-aslr",
+      "required": false,
+      "stderr_sha256": "18e00877dc1071c85cd4f479d451bebeef8309022e46cf8c63b0bed5151984a4",
+      "stderr_tail": [
+        "Errors while running CTest"
+      ],
+      "stdout_sha256": "44b2a3084b2a61de3e2333e2027084e334ff61d8c089abe8d48a0c9ede167fbd",
+      "stdout_tail": [
+        "5/5 Test #51: test-expert-scheduler ............***Failed    0.01 sec",
+        "FATAL: ThreadSanitizer: unexpected memory mapping 0x5b806ba52000-0x5b806ba54000",
+        "",
+        "",
+        "20% tests passed, 4 tests failed out of 5",
+        "",
+        "Label Time Summary:",
+        "model    =   1.11 sec*proc (5 tests)",
+        "",
+        "Total Test time (real) =   1.11 sec",
+        "",
+        "The following tests FAILED:",
+        "\t 45 - test-expert-miss-policy (SEGFAULT)",
+        "\t 46 - test-hot-expert-cache (Failed)",
+        "\t 47 - test-cold-expert-cache (Failed)",
+        "\t 51 - test-expert-scheduler (Failed)"
+      ]
+    },
+    {
+      "command": [
+        "setarch",
+        "x86_64",
+        "-R",
+        "env",
+        "TSAN_OPTIONS=halt_on_error=1 ignore_noninstrumented_modules=1",
+        "ctest",
+        "--test-dir",
+        "llama.cpp/build-phase8-tsan",
+        "--output-on-failure",
+        "-R",
+        "expert-miss-policy|expert-weight-provider|hot-expert-cache|cold-expert-cache|expert-scheduler"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 1115,
+      "exit_code": 0,
+      "name": "ctest-tsan-aslr-disabled",
+      "required": true,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_tail": [],
+      "stdout_sha256": "114baad03f8ab9b40176b765cf0fca85dbf8eb92d689c260f5fe5965650964cf",
+      "stdout_tail": [
+        "1/5 Test #44: test-expert-weight-provider ......   Passed    0.01 sec",
+        "    Start 45: test-expert-miss-policy",
+        "2/5 Test #45: test-expert-miss-policy ..........   Passed    1.04 sec",
+        "    Start 46: test-hot-expert-cache",
+        "3/5 Test #46: test-hot-expert-cache ............   Passed    0.03 sec",
+        "    Start 47: test-cold-expert-cache",
+        "4/5 Test #47: test-cold-expert-cache ...........   Passed    0.01 sec",
+        "    Start 51: test-expert-scheduler",
+        "5/5 Test #51: test-expert-scheduler ............   Passed    0.01 sec",
+        "",
+        "100% tests passed, 0 tests failed out of 5",
+        "",
+        "Label Time Summary:",
+        "model    =   1.11 sec*proc (5 tests)",
+        "",
+        "Total Test time (real) =   1.11 sec"
+      ]
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/phase7",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 90,
+      "exit_code": 0,
+      "name": "phase7-evidence-tests",
+      "required": true,
+      "stderr_sha256": "e81f90cfe5b6bbcac4bf044ffdeaee20379c6238e48d7add53599113664c3ab4",
+      "stderr_tail": [
+        "test_authority (test_phase7_evidence.Phase7EvidenceTests.test_authority) ... ok",
+        "test_closeout_preserves_nested_head (test_phase7_evidence.Phase7EvidenceTests.test_closeout_preserves_nested_head) ... ok",
+        "test_false_runtime_check_rejected (test_phase7_evidence.Phase7EvidenceTests.test_false_runtime_check_rejected) ... ok",
+        "test_final_review_candidate_is_nullable (test_phase7_evidence.Phase7EvidenceTests.test_final_review_candidate_is_nullable) ... ok",
+        "test_nested_scope_excludes_phase8_and_ggml_core (test_phase7_evidence.Phase7EvidenceTests.test_nested_scope_excludes_phase8_and_ggml_core) ... ok",
+        "test_schema_and_closed_gates (test_phase7_evidence.Phase7EvidenceTests.test_schema_and_closed_gates) ... ok",
+        "test_validation_command_set_is_exact (test_phase7_evidence.Phase7EvidenceTests.test_validation_command_set_is_exact) ... ok",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 7 tests in 0.010s",
+        "",
+        "OK"
+      ],
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_tail": []
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/phase8",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 123,
+      "exit_code": 0,
+      "name": "phase8-evidence-tests",
+      "required": true,
+      "stderr_sha256": "8d5357538ffd4b65c407a1331b2e75bdbf961f3cdf133ea4db07a2606bdc45fb",
+      "stderr_tail": [
+        "test_rejects_invalid_closeout_flags (test_verify_checkpoint_b.VerifyCheckpointBTests.test_rejects_invalid_closeout_flags) ... ok",
+        "test_rejects_missing_case (test_verify_checkpoint_b.VerifyCheckpointBTests.test_rejects_missing_case) ... ok",
+        "test_rejects_missing_or_extra_closeout_field (test_verify_checkpoint_b.VerifyCheckpointBTests.test_rejects_missing_or_extra_closeout_field) ... ok",
+        "test_rejects_nonzero_background_lifecycle (test_verify_checkpoint_b.VerifyCheckpointBTests.test_rejects_nonzero_background_lifecycle) ... ok",
+        "test_rejects_nonzero_final_state (test_verify_checkpoint_b.VerifyCheckpointBTests.test_rejects_nonzero_final_state) ... ok",
+        "test_rejects_omitted_lifecycle_field (test_verify_checkpoint_b.VerifyCheckpointBTests.test_rejects_omitted_lifecycle_field) ... ok",
+        "test_rejects_stale_gitlink (test_verify_checkpoint_b.VerifyCheckpointBTests.test_rejects_stale_gitlink) ... ok",
+        "test_rejects_stale_head (test_verify_checkpoint_b.VerifyCheckpointBTests.test_rejects_stale_head) ... ok",
+        "test_rejects_terminal_contradiction (test_verify_checkpoint_b.VerifyCheckpointBTests.test_rejects_terminal_contradiction) ... ok",
+        "test_rejects_terminal_release_imbalance (test_verify_checkpoint_b.VerifyCheckpointBTests.test_rejects_terminal_release_imbalance) ... ok",
+        "test_rejects_v1_schema (test_verify_checkpoint_b.VerifyCheckpointBTests.test_rejects_v1_schema) ... ok",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 32 tests in 0.043s",
+        "",
+        "OK"
+      ],
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_tail": []
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/phase7/verify_phase7.py",
+        "--manifest",
+        "results/2026-07-31/skynet/phase7-async-runtime/phase7-manifest.json",
+        "--strict"
+      ],
+      "cwd": "/tmp/k3-phase8-phase7-verifier-6dbyf1tz/project",
+      "duration_ms": 1074,
+      "exit_code": 0,
+      "name": "phase7-verifier",
+      "required": true,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_tail": [],
+      "stdout_sha256": "b9ae9f3e1b07f3a39f77b1e57dda0499de3c235a1fc075faac737334af238d86",
+      "stdout_tail": [
+        "PASS: Phase 7 evidence verified"
+      ]
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "llama.cpp",
+        "diff",
+        "--check",
+        "b71e40f91b1a0dab578d56ac733211453704d674..HEAD"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 17,
+      "exit_code": 0,
+      "name": "diff-check-nested",
+      "required": true,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_tail": [],
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_tail": []
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check",
+        "5fe0bda6965da7d2b0f85dd14b97427a7b60f161..HEAD"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 1,
+      "exit_code": 0,
+      "name": "diff-check-project",
+      "required": true,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_tail": [],
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_tail": []
+    }
+  ]
+}
