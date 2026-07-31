@@ -9,15 +9,17 @@ Each phase has an **exit gate**. Do not begin a dependent phase until the gate i
 - [Phases 0–3: foundation, reproducible K3 baseline, observability, and provider abstraction](docs/plan/00-foundation.md)
 - [Phases 4–6: persistent hot cache, cold cache, and GGUF-backed storage](docs/plan/04-cache-and-storage.md)
 - [Phases 7–10: asynchronous runtime, miss execution, cache policy, and prefetch](docs/plan/07-async-runtime.md)
-- [Phases 11–15: UMA, concurrency, multi-GPU, full-size scaling, and hardening](docs/plan/11-scaling-and-hardening.md)
+- [Phases 11–15: UMA, full-size scaling, concurrency, multi-GPU, and hardening](docs/plan/11-scaling-and-hardening.md)
 
 ## Research references
 
-- [Alternative MoE validation targets](docs/ALTERNATIVE_MOE_VALIDATION_TARGETS.md) records non-normative Qwen3-Coder-Next and DeepSeek-V4-Flash candidates, reproducibility requirements, and the proposed Phase-14 quality-versus-residency comparison. It does not change phase order, current issue scope, or K3 acceptance criteria.
+- [Alternative MoE validation targets](docs/ALTERNATIVE_MOE_VALIDATION_TARGETS.md) records non-normative Qwen3-Coder-Next and DeepSeek-V4-Flash candidates, reproducibility requirements, and the proposed Phase-12 quality-versus-residency comparison. It does not change current issue scope or K3 acceptance criteria.
 
 ## Execution rule
 
 Work proceeds strictly in phase order unless a phase explicitly contains independent subwork. A later phase may be researched in parallel, but no dependent implementation may be accepted until the earlier phase exit gate and evidence are committed.
+
+The remaining sequence deliberately validates physical full-size viability before service and topology complexity: Phase 11 establishes coherent UMA transport, Phase 12 establishes full-size single-request/single-device behavior and makes the storage-format decision, Phase 13 adds multi-request and batching, Phase 14 adds multi-GPU placement, and Phase 15 hardens the accepted architecture. Phase 12 does not claim concurrent-service or multi-GPU performance; those remain independent later gates.
 
 Phase 3's original 24-cell resident performance confidence gate remains recorded as a 22/24 raw failure. Design authority accepted the Phase 3 technical exit as `PASS_WITH_NOTES` for project progression only; Phase 3 is merged and its evidence remains immutable. Phase 4 issue #17 completed its synchronous mechanism and evidence, passed the final complete-PR review with safety `YES`, and merged through PR #18 as `b196cc07249726651d39aaa624703bc4256a3012`. Phase 5 issue #20 completed its bounded cold-cache and transfer-ring mechanism, passed Checkpoint A and final complete-PR review with safety `YES`, and merged through PR #21 as `c5512bc073ae7aab4a14773028828e516e16f3f6`. No Phase 3 waiver weakens any later correctness or performance gate.
 
