@@ -144,7 +144,7 @@ This file is the first handoff document for a new ChatGPT or Codex session.
 - Issue: <https://github.com/murillo128/k3-out-of-core/issues/7>
 - Merged PR: <https://github.com/murillo128/k3-out-of-core/pull/8>
 - Execution profile: `STANDARD`
-- Immutable execution base: `511e87fc98cca8069fc575265470070bb5456f4c`
+- Immutable execution base: `511e87fc98cca8069fc57526fbb04b10789967eb`
 - Final reviewed and attested branch head: `6173b5298496a5ce4ccb456cafd7b46be0e850ed`
 - PR #8 merge commit: `7b4d21e8793c451ce34c691f438afceabd64a841`
 - Current policy head after PR #9: `eff5efc754919bf1a50735e27c7ad39f4d93384e`
