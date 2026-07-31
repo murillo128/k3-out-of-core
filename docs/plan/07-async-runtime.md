@@ -114,6 +114,7 @@ The technical manifest is `results/2026-07-31/skynet/phase7-async-runtime/phase7
 ### Objectives
 
 - Separate mechanism from policy and select defaults from evidence.
+- Treat the WASTE full-K3 cache measurements as an external baseline, not as a transferable default.
 
 ### Tasks
 
@@ -123,15 +124,22 @@ The technical manifest is `results/2026-07-31/skynet/phase7-async-runtime/phase7
 - [ ] Implement SLRU with configurable protected/probationary split.
 - [ ] Implement frequency-gated admission.
 - [ ] Implement LFU-aging based on reviewed prior art.
+- [ ] Include WASTE-style sampled LRU/LFRU as external replay baselines without adopting its policy by default.
 - [ ] Replay all policies offline against the committed trace corpus.
 - [ ] Validate online behavior against simulator predictions.
 - [ ] Separate policy state per layer where required; compare global versus per-layer budgets.
 - [ ] Evaluate byte-aware policies if expert sizes vary.
+- [ ] Define exact per-model/per-format token working-set bytes and sweep budgets below, at, and above whole working-set multiples.
+- [ ] Record minor/major page faults, swap or memory-compression activity where observable, RSS, physically resident cache bytes, and hit service time; a logical hit that faults from OS-managed backing must not be reported as an equivalent resident hit.
+- [ ] Select budgets from throughput, tail latency, and physical-residency evidence rather than hit rate alone.
+- [ ] Preserve explicit headroom for the resident trunk, KV/recurrent state, CUDA/runtime allocations, filesystem metadata, and the operating system.
 
 ### Exit gate
 
 - A policy/default recommendation is documented with trace and online benchmark evidence.
 - Prefill cannot silently destroy a protected decode hot set without metrics showing it.
+- The recommended budget is evaluated around working-set boundaries and avoids a sustained paging/compression cliff.
+- Any agreement or disagreement with WASTE's observed cache floor and oversubscription collapse is documented with the differing model format, hardware, and transport.
 
 ---
 
@@ -140,6 +148,7 @@ The technical manifest is `results/2026-07-31/skynet/phase7-async-runtime/phase7
 ### Objectives
 
 - Hide remaining cold/disk misses without polluting caches or starving demand.
+- Separate exact issue-ahead after routing from speculative prediction across tokens or layers.
 
 ### Tasks
 
@@ -148,25 +157,33 @@ The technical manifest is `results/2026-07-31/skynet/phase7-async-runtime/phase7
 - [ ] Support optional profile/imatrix-derived initial hot set.
 - [ ] Version and validate profile compatibility with model/checkpoint.
 - [ ] Measure cold-start improvement and domain-shift harm.
+- [ ] Establish random and static per-layer hot-set baselines before evaluating learned predictors.
 
 #### 10.2 Temporal prefetch
 
 - [ ] Predict same-layer expert reuse from recent tokens.
-- [ ] Track precision, recall, lead time, and wasted bytes.
+- [ ] Include the previous token's same-layer expert set as a mandatory baseline.
+- [ ] Track precision, recall, lead time, wasted bytes, displacement, and useful-consumption latency.
+- [ ] Derive predictor break-even from measured storage/H2D bandwidth, hidden latency, exact expert bytes, and cache-pollution cost for each target transport.
+- [ ] Classify issuing all already-known current-layer experts after router completion as exact demand scheduling, not predictive prefetch.
 
 #### 10.3 Cross-layer prediction
 
 - [ ] Evaluate transition tables and published FATE/ExpertFlow-style predictors.
 - [ ] Ensure prediction computation is cheaper than hidden transfer latency.
 - [ ] Avoid assuming N+1 predictability.
+- [ ] Compare against WASTE's pinned negative result: on its M5 Pro CPU/UMA path, layer-to-layer co-occurrence reached 29.0% recall, previous-token reuse reached 29.5%, and its measured bandwidth model required about 60% break-even. These figures are `OBSERVED` for that engine and must be re-derived for this runtime.
+- [ ] Require any predictor to beat previous-token and static-hot baselines and to remain net-positive after wasted I/O, H2D, and cache displacement.
 
 #### 10.4 Scheduler integration
 
 - [ ] Prefetch is cancellable and lower priority than demand.
 - [ ] Set explicit bandwidth and in-flight budgets.
 - [ ] Prevent speculative cold entries from evicting protected demand-hot experts without admission approval.
+- [ ] Stop or throttle a predictor when measured utility falls below its transport-specific break-even.
 
 ### Exit gate
 
 - At least one prefetch policy improves end-to-end tail latency or throughput after accounting for wasted I/O and cache pollution.
 - Ineffective policies remain disabled.
+- Cross-layer prediction remains disabled unless it beats the required simple baselines and the measured end-to-end break-even on the target hardware.
