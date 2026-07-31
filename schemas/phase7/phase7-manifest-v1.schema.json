@@ -1,0 +1,198 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/phase7/phase7-manifest-v1.schema.json",
+  "title": "K3 out-of-core Phase 7 closeout manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "closeout_state",
+    "execution_profile",
+    "issue",
+    "revisions",
+    "checkpoint_a",
+    "checkpoint_b",
+    "final_review",
+    "inputs",
+    "environment",
+    "evidence",
+    "validation",
+    "capabilities",
+    "metrics",
+    "gates",
+    "deferred",
+    "carried_notes",
+    "artifacts"
+  ],
+  "properties": {
+    "schema_version": {"const": "phase7-manifest-v1"},
+    "closeout_state": {"enum": ["final-review-candidate", "accepted"]},
+    "execution_profile": {"const": "STANDARD"},
+    "issue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "number", "pull_request"],
+      "properties": {
+        "repository": {"const": "murillo128/k3-out-of-core"},
+        "number": {"const": 24},
+        "pull_request": {"const": 25}
+      }
+    },
+    "revisions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["branch", "project_execution_base", "project_checkpoint_b_head", "project_evidence_head", "llama_cpp_base", "llama_cpp_candidate", "gitlink", "current_main_policy"],
+      "properties": {
+        "branch": {"const": "codex/phase7-async-runtime"},
+        "project_execution_base": {"$ref": "#/$defs/sha"},
+        "project_checkpoint_b_head": {"$ref": "#/$defs/sha"},
+        "project_evidence_head": {"$ref": "#/$defs/sha"},
+        "llama_cpp_base": {"$ref": "#/$defs/sha"},
+        "llama_cpp_candidate": {"$ref": "#/$defs/sha"},
+        "gitlink": {"$ref": "#/$defs/sha"},
+        "current_main_policy": {"$ref": "#/$defs/sha"}
+      }
+    },
+    "checkpoint_a": {"$ref": "#/$defs/checkpoint"},
+    "checkpoint_b": {"$ref": "#/$defs/checkpoint"},
+    "final_review": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "#/$defs/checkpoint"}
+      ]
+    },
+    "inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["phase6_manifest", "models", "split_lineage"],
+      "properties": {
+        "phase6_manifest": {"$ref": "#/$defs/identity"},
+        "models": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"$ref": "#/$defs/identity"}},
+        "split_lineage": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["f16", "mxfp4", "runtime_evidence"],
+          "properties": {
+            "f16": {"$ref": "#/$defs/splitSummary"},
+            "mxfp4": {"$ref": "#/$defs/splitSummary"},
+            "runtime_evidence": {"$ref": "#/$defs/identity"}
+          }
+        }
+      }
+    },
+    "environment": {"type": "object", "minProperties": 8},
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["checkpoint_b_final_correction", "checkpoint_b_placement_correction", "runtime_matrix", "validation"],
+      "properties": {
+        "checkpoint_b_final_correction": {"$ref": "#/$defs/identity"},
+        "checkpoint_b_placement_correction": {"$ref": "#/$defs/identity"},
+        "runtime_matrix": {"$ref": "#/$defs/identity"},
+        "validation": {"$ref": "#/$defs/identity"}
+      }
+    },
+    "validation": {
+      "type": "array",
+      "minItems": 14,
+      "items": {"$ref": "#/$defs/commandRecord"}
+    },
+    "capabilities": {"type": "object", "minProperties": 8},
+    "metrics": {"type": "object", "minProperties": 4},
+    "gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "async_transport_and_fallback",
+        "direct_io_opt_in_and_fallback",
+        "single_flight_priority_and_saturation",
+        "cancellation_retry_and_unload",
+        "native_event_lifetime",
+        "disk_h2d_overlap",
+        "h2d_compute_overlap",
+        "exact_original_split_parity",
+        "repeated_warm_execution",
+        "prior_modes_and_cached_placement",
+        "bounded_resources_and_complete_traces",
+        "tail_latency_and_resource_metrics",
+        "sanitizers_and_thread_safety",
+        "checkpoint_a_accepted",
+        "checkpoint_b_accepted"
+      ],
+      "properties": {
+        "async_transport_and_fallback": {"const": true},
+        "direct_io_opt_in_and_fallback": {"const": true},
+        "single_flight_priority_and_saturation": {"const": true},
+        "cancellation_retry_and_unload": {"const": true},
+        "native_event_lifetime": {"const": true},
+        "disk_h2d_overlap": {"const": true},
+        "h2d_compute_overlap": {"const": true},
+        "exact_original_split_parity": {"const": true},
+        "repeated_warm_execution": {"const": true},
+        "prior_modes_and_cached_placement": {"const": true},
+        "bounded_resources_and_complete_traces": {"const": true},
+        "tail_latency_and_resource_metrics": {"const": true},
+        "sanitizers_and_thread_safety": {"const": true},
+        "checkpoint_a_accepted": {"const": true},
+        "checkpoint_b_accepted": {"const": true}
+      }
+    },
+    "deferred": {"type": "array", "minItems": 3, "items": {"type": "string"}},
+    "carried_notes": {"type": "array", "minItems": 3, "items": {"type": "string"}},
+    "artifacts": {"type": "array", "minItems": 12, "items": {"$ref": "#/$defs/identity"}}
+  },
+  "$defs": {
+    "sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "size", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "size": {"type": "integer", "minimum": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "checkpoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["comment_id", "verdict", "safety_to_proceed", "project_head", "llama_cpp_head", "independent_read_only"],
+      "properties": {
+        "comment_id": {"type": "integer", "minimum": 1},
+        "verdict": {"enum": ["PASS", "PASS_WITH_NOTES"]},
+        "safety_to_proceed": {"const": "YES"},
+        "project_head": {"$ref": "#/$defs/sha"},
+        "llama_cpp_head": {"$ref": "#/$defs/sha"},
+        "independent_read_only": {"const": true}
+      }
+    },
+    "splitSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["count", "source_model", "tool_head", "mode"],
+      "properties": {
+        "count": {"const": 218},
+        "source_model": {"$ref": "#/$defs/identity"},
+        "tool_head": {"$ref": "#/$defs/sha"},
+        "mode": {"const": "split-max-tensors-1"}
+      }
+    },
+    "commandRecord": {
+      "type": "object",
+      "required": ["name", "command", "cwd", "duration_ms", "exit_code", "stdout_sha256", "stderr_sha256", "stdout_tail", "stderr_tail", "required"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "command": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "cwd": {"type": "string", "minLength": 1},
+        "duration_ms": {"type": "integer", "minimum": 0},
+        "exit_code": {"type": "integer"},
+        "stdout_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "stderr_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "stdout_tail": {"type": "array", "items": {"type": "string"}},
+        "stderr_tail": {"type": "array", "items": {"type": "string"}},
+        "required": {"type": "boolean"},
+        "environment": {"type": "object", "additionalProperties": {"type": "string"}}
+      }
+    }
+  }
+}

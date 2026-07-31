@@ -511,6 +511,14 @@ Do not report only average tokens/s; out-of-core viability depends on tail laten
 
 Issue #22 validates cold start, repeated demand becoming a cold hit without reread, deterministic eviction/reread, aligned/unaligned positional spans, source-read versus final-destination integrity before publication, independent SHA-256 equality between declared source spans and a populated cold bundle, per-bundle split-cross-file assembly, hard poison on mismatch, EOF/short/error/EINTR handling, request cancellation, structured handle balance, quiescent teardown, topology-bounded zero-scratch storage administration, and final-head ASan+UBSan for original and generated split F16/MXFP4 GGUFs. Direct-I/O fallback, queue saturation, asynchronous unload, overlap, speculative prefetch, and CPU fallback remain deferred to their owning phases.
 
+### Phase 7 cumulative Level E/F asynchronous subset
+
+Issue #24 validates model-owned bounded `io_uring`, direct-I/O opt-in and visible buffered/synchronous fallbacks, four priority classes, duplicate single-flight promotion, demand saturation/preemption, exact-generation cancellation/retry, quiescent unload, dedicated native transfer events, cached physical-ID placement, and complete FlightId-based overlap accounting. Checkpoint A returned `PASS`, safety `YES`, in comment `5135836934`; Checkpoint B returned `PASS`, safety `YES`, in comment `5140081178` at nested head `b71e40f91b1a0dab578d56ac733211453704d674`.
+
+The final-review-candidate matrix covers original and 218-part split F16/MXFP4 GGUFs. Each case has exact disabled/cold five-step prompt, generated-token, route, and full-logit hashes plus two cold 20-step captures against one disabled 20-step baseline. It records prompt/decode throughput, TTFT, token p50/p95/p99, storage and H2D bytes, hot/cold activity, queue occupancy, cold/ring/pinned bytes, scheduler flights, trace drops, and terminal drain state. CPU, CUDA, ASan+UBSan, and the accepted ASLR-disabled TSan suites each pass 6/6.
+
+The controlled native trace records positive cross-flight disk/H2D union overlap and positive H2D/compute overlap tied to nonzero bytes/work with zero trace drops. The tiny production demand-only capture honestly records zero overlap. Forced-pageable mode records no pinned/event/async claims. Phase 8 still owns `CPU_FALLBACK` output equivalence; Phase 10 owns production speculative prefetch. These tiny-fixture measurements validate the mechanism and tail instrumentation, not full-size performance.
+
 ## 11. Full-size physical benchmark
 
 The tiny model is insufficient to measure full K3 I/O. Build a synthetic expert store whose spans exactly match the full checkpoint tensor metadata and MXFP4 byte layout.

@@ -10,32 +10,32 @@
 
 #### 7.1 `io_uring` transport
 
-- [ ] Introduce a Linux-specific I/O backend behind `ExpertStorage`/transport interfaces.
-- [ ] Implement bounded SQ/CQ depth.
-- [ ] Attach request identity/generation to completions.
-- [ ] Prevent use-after-free on cancellation/model unload.
-- [ ] Measure registered files and registered buffers versus ordinary submission.
+- [x] Introduce a Linux-specific I/O backend behind `ExpertStorage`/transport interfaces.
+- [x] Implement bounded SQ/CQ depth.
+- [x] Attach request identity/generation to completions.
+- [x] Prevent use-after-free on cancellation/model unload.
+- [x] Measure registered files and registered buffers versus ordinary submission.
 
 #### 7.2 Direct I/O
 
-- [ ] Detect filesystem/device support.
-- [ ] Compute sector/page alignment from actual requirements.
-- [ ] Read aligned supersets and expose the requested interior span.
-- [ ] Compare `O_DIRECT` with buffered `io_uring`.
-- [ ] Retain a correct buffered fallback.
+- [x] Detect filesystem/device support.
+- [x] Compute sector/page alignment from actual requirements.
+- [x] Read aligned supersets and expose the requested interior span.
+- [x] Compare `O_DIRECT` with buffered `io_uring`.
+- [x] Retain a correct buffered fallback.
 
 #### 7.3 Parallel projection reads
 
-- [ ] Compare three independent reads, coalesced adjacent ranges, and sequential bundle reads.
-- [ ] Keep the logical ExpertBundle completion atomic.
-- [ ] Do not create a new file format until measurements justify it.
+- [x] Compare three independent reads, coalesced adjacent ranges, and sequential bundle reads.
+- [x] Keep the logical ExpertBundle completion atomic.
+- [x] Do not create a new file format until measurements justify it.
 
 #### 7.4 CUDA overlap
 
-- [ ] Use dedicated transfer streams and events.
-- [ ] Allow compute to proceed for ready experts while other experts load where graph semantics permit.
-- [ ] Ensure the layer waits only for its required demand experts.
-- [ ] Record disk-ready, host-ready, device-ready, and compute-complete timestamps.
+- [x] Use dedicated transfer streams and events.
+- [x] Allow compute to proceed for ready experts while other experts load where graph semantics permit.
+- [x] Ensure the layer waits only for its required demand experts.
+- [x] Record disk-ready, host-ready, device-ready, and compute-complete timestamps.
 
 #### 7.5 Priorities
 
@@ -48,16 +48,29 @@ PREFETCH_NEXT
 PREFETCH_SPECULATIVE
 ```
 
-- [ ] Demand can preempt or cancel speculative queue entries.
-- [ ] Duplicate requests coalesce.
-- [ ] Promotion of the same ExpertKey is single-flight.
+- [x] Demand can preempt or cancel speculative queue entries.
+- [x] Duplicate requests coalesce.
+- [x] Promotion of the same ExpertKey is single-flight.
+
+#### Phase 7 evidence closeout
+
+- [x] Capture exact original/split F16/MXFP4 parity and repeated warm execution.
+- [x] Capture native and fallback transport, cancellation, overlap, placement, tail, and resource evidence.
+- [x] Publish a schema-validated authoritative manifest bound to accepted Checkpoints A and B.
+- [ ] Receive the independent final complete-PR review.
 
 ### Exit gate
 
-- Disk and H2D overlap are demonstrated in traces.
-- Resource use remains bounded under queue saturation.
-- Error/cancellation tests pass.
-- Tail latency is measured, not only average throughput.
+- [x] Disk and H2D overlap are demonstrated in traces.
+- [x] Resource use remains bounded under queue saturation.
+- [x] Error/cancellation tests pass.
+- [x] Tail latency is measured, not only average throughput.
+
+### Phase 7 execution record
+
+Issue #24 implements this phase on project base `96b0b483c6bc0f92b6fb9bb46acfd6bf06a46c4c` and nested base `7a606dd4e11a108929f799253809a904f55feae4`. Checkpoint A accepted async ownership, lifetime, and storage correctness with `PASS`, safety `YES`, in comment `5135836934`. Checkpoint B accepted CUDA readiness, overlap, and cached-only remap placement with `PASS`, safety `YES`, in comment `5140081178`. The accepted nested head is `b71e40f91b1a0dab578d56ac733211453704d674`.
+
+The authoritative final-review-candidate manifest is `results/2026-07-31/skynet/phase7-async-runtime/phase7-manifest.json`. It records exact original/split F16/MXFP4 parity, repeated 20-step warm execution, direct and buffered asynchronous paths, explicit synchronous fallback, cancellation/retry/unload drain, single-flight and priority/saturation tests, controlled positive disk/H2D and H2D/compute overlap, complete trace accounting, p50/p95/p99 tails, bounded memory/queue/event use, sanitizers, and prior-mode placement. Tiny-fixture performance is descriptive; Phase 8 and later own CPU fallback, production policy/prefetch, concurrency, UMA, multi-GPU, and full-size conclusions.
 
 ---
 

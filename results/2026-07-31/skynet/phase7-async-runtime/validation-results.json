@@ -1,0 +1,577 @@
+{
+  "commands": [
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "llama.cpp/build-cpu",
+        "--target",
+        "test-expert-async-io",
+        "test-expert-scheduler",
+        "test-expert-storage",
+        "test-cold-expert-cache",
+        "test-expert-transfer-ring",
+        "test-expert-weight-provider",
+        "-j4"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 861,
+      "exit_code": 0,
+      "name": "build-cpu",
+      "required": true,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_tail": [],
+      "stdout_sha256": "03df47f38870abbd389a3d25112a22a869259a3a15bb9d74f65989ac6a46bbbc",
+      "stdout_tail": [
+        "[ 11%] Built target ggml",
+        "[ 85%] Built target llama",
+        "[100%] Built target llama-common",
+        "[100%] Built target test-expert-transfer-ring",
+        "[  0%] Built target llama-common-base",
+        "[  0%] Built target cpp-httplib",
+        "[  4%] Built target ggml-base",
+        "[ 11%] Built target ggml-cpu",
+        "[ 11%] Built target ggml",
+        "[ 83%] Built target llama",
+        "[ 97%] Built target llama-common",
+        "[100%] Built target test-expert-weight-provider"
+      ]
+    },
+    {
+      "command": [
+        "ctest",
+        "--test-dir",
+        "llama.cpp/build-cpu",
+        "--output-on-failure",
+        "-R",
+        "expert-async-io|expert-scheduler|expert-storage|cold-expert-cache|expert-transfer-ring|expert-weight-provider"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 35,
+      "exit_code": 0,
+      "name": "ctest-cpu",
+      "required": true,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_tail": [],
+      "stdout_sha256": "d06d9994f2df8f54977269d6fb1ffb9fde3374d5bb8b39ef3ef85f3ad28b606a",
+      "stdout_tail": [
+        "4/6 Test #48: test-expert-storage ..............   Passed    0.00 sec",
+        "    Start 49: test-expert-async-io",
+        "5/6 Test #49: test-expert-async-io .............   Passed    0.01 sec",
+        "    Start 50: test-expert-scheduler",
+        "6/6 Test #50: test-expert-scheduler ............   Passed    0.00 sec",
+        "",
+        "100% tests passed, 0 tests failed out of 6",
+        "",
+        "Label Time Summary:",
+        "model    =   0.03 sec*proc (6 tests)",
+        "",
+        "Total Test time (real) =   0.03 sec"
+      ]
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "llama.cpp/build-cuda",
+        "--target",
+        "llama",
+        "test-expert-async-io",
+        "test-expert-scheduler",
+        "test-expert-storage",
+        "test-cold-expert-cache",
+        "test-expert-transfer-ring",
+        "test-expert-weight-provider",
+        "phase7-async-runtime-probe",
+        "-j4"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 1427,
+      "exit_code": 0,
+      "name": "build-cuda",
+      "required": true,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_tail": [],
+      "stdout_sha256": "fb551c87a30ca8d3643e6eb4cbd6f10c61ddf639acb0da2dc8be1f98ccc75d33",
+      "stdout_tail": [
+        "[ 88%] Built target llama",
+        "[ 98%] Built target llama-common",
+        "[100%] Built target test-expert-weight-provider",
+        "[  0%] Built target llama-common-base",
+        "[  0%] Built target cpp-httplib",
+        "[  3%] Built target ggml-base",
+        "[  7%] Built target ggml-cpu",
+        "[ 43%] Built target ggml-cuda",
+        "[ 43%] Built target ggml",
+        "[ 90%] Built target llama",
+        "[100%] Built target llama-common",
+        "[100%] Built target phase7-async-runtime-probe"
+      ]
+    },
+    {
+      "command": [
+        "ctest",
+        "--test-dir",
+        "llama.cpp/build-cuda",
+        "--output-on-failure",
+        "-R",
+        "expert-async-io|expert-scheduler|expert-storage|cold-expert-cache|expert-transfer-ring|expert-weight-provider"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 266,
+      "exit_code": 0,
+      "name": "ctest-cuda",
+      "required": true,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_tail": [],
+      "stdout_sha256": "74dbfd17a23c319502d6b486ccafb741cd4a83d29afd0aa7e1894d12174ceb5b",
+      "stdout_tail": [
+        "4/6 Test #48: test-expert-storage ..............   Passed    0.02 sec",
+        "    Start 49: test-expert-async-io",
+        "5/6 Test #49: test-expert-async-io .............   Passed    0.03 sec",
+        "    Start 50: test-expert-scheduler",
+        "6/6 Test #50: test-expert-scheduler ............   Passed    0.02 sec",
+        "",
+        "100% tests passed, 0 tests failed out of 6",
+        "",
+        "Label Time Summary:",
+        "model    =   0.26 sec*proc (6 tests)",
+        "",
+        "Total Test time (real) =   0.26 sec"
+      ]
+    },
+    {
+      "command": [
+        "cmake",
+        "-S",
+        "llama.cpp",
+        "-B",
+        "llama.cpp/build-phase7-asan",
+        "-DGGML_CUDA=OFF",
+        "-DLLAMA_BUILD_TESTS=ON",
+        "-DLLAMA_BUILD_TOOLS=ON",
+        "-DLLAMA_SANITIZE_ADDRESS=ON",
+        "-DLLAMA_SANITIZE_UNDEFINED=ON",
+        "-DCMAKE_BUILD_TYPE=RelWithDebInfo"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 377,
+      "exit_code": 0,
+      "name": "configure-asan-ubsan",
+      "required": true,
+      "stderr_sha256": "d0366d4bacaa892ba2c1762d40a256028964dc9ae5e8f769ad9238599c2a3f3d",
+      "stderr_tail": [
+        "CMAKE_BUILD_TYPE=RelWithDebInfo",
+        "CMake Warning at vendor/cpp-httplib/CMakeLists.txt:152 (message):",
+        "  OpenSSL not found, HTTPS support disabled",
+        "",
+        ""
+      ],
+      "stdout_sha256": "41e34b121058aed580355a5332a3d6ba8dde1b5f5b5e4618a2289f2b3a46e2f5",
+      "stdout_tail": [
+        "-- Using -fsanitize=undefined",
+        "-- Could NOT find OpenSSL, try to set the path to OpenSSL root folder in the system variable OPENSSL_ROOT_DIR (missing: OPENSSL_CRYPTO_LIBRARY OPENSSL_INCLUDE_DIR) ",
+        "-- Using -fsanitize=address",
+        "-- Using -fsanitize=undefined",
+        "-- Using -fsanitize=address",
+        "-- Using -fsanitize=undefined",
+        "-- Using -fsanitize=address",
+        "-- Using -fsanitize=undefined",
+        "-- Generating embedded license file for target: llama-app",
+        "-- Configuring done (0.2s)",
+        "-- Generating done (0.1s)",
+        "-- Build files have been written to: /usr/local/src/k3-out-of-core/llama.cpp/build-phase7-asan"
+      ]
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "llama.cpp/build-phase7-asan",
+        "--target",
+        "test-expert-async-io",
+        "test-expert-scheduler",
+        "test-expert-storage",
+        "test-cold-expert-cache",
+        "test-expert-transfer-ring",
+        "test-expert-weight-provider",
+        "-j4"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 920,
+      "exit_code": 0,
+      "name": "build-asan-ubsan",
+      "required": true,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_tail": [],
+      "stdout_sha256": "9a7137963b4eef566079b78e4009f559b072ee560c74d4a709e36a096f88fb77",
+      "stdout_tail": [
+        "[ 13%] Built target ggml",
+        "[ 86%] Built target llama",
+        "[100%] Built target llama-common",
+        "[100%] Built target test-expert-transfer-ring",
+        "[  2%] Built target llama-common-base",
+        "[  2%] Built target cpp-httplib",
+        "[  6%] Built target ggml-base",
+        "[ 13%] Built target ggml-cpu",
+        "[ 13%] Built target ggml",
+        "[ 84%] Built target llama",
+        "[ 97%] Built target llama-common",
+        "[100%] Built target test-expert-weight-provider"
+      ]
+    },
+    {
+      "command": [
+        "ctest",
+        "--test-dir",
+        "llama.cpp/build-phase7-asan",
+        "--output-on-failure",
+        "-R",
+        "expert-async-io|expert-scheduler|expert-storage|cold-expert-cache|expert-transfer-ring|expert-weight-provider"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 623,
+      "environment": {
+        "ASAN_OPTIONS": "detect_leaks=1:halt_on_error=1",
+        "UBSAN_OPTIONS": "halt_on_error=1:print_stacktrace=1"
+      },
+      "exit_code": 0,
+      "name": "ctest-asan-ubsan",
+      "required": true,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_tail": [],
+      "stdout_sha256": "fdfbaaa50329e2237e472983821d35e938d793e5d6d0db6d3a65098f2c3afef0",
+      "stdout_tail": [
+        "4/6 Test #47: test-expert-storage ..............   Passed    0.09 sec",
+        "    Start 48: test-expert-async-io",
+        "5/6 Test #48: test-expert-async-io .............   Passed    0.11 sec",
+        "    Start 49: test-expert-scheduler",
+        "6/6 Test #49: test-expert-scheduler ............   Passed    0.10 sec",
+        "",
+        "100% tests passed, 0 tests failed out of 6",
+        "",
+        "Label Time Summary:",
+        "model    =   0.62 sec*proc (6 tests)",
+        "",
+        "Total Test time (real) =   0.62 sec"
+      ]
+    },
+    {
+      "command": [
+        "cmake",
+        "-S",
+        "llama.cpp",
+        "-B",
+        "llama.cpp/build-phase7-tsan",
+        "-DGGML_CUDA=OFF",
+        "-DLLAMA_BUILD_TESTS=ON",
+        "-DLLAMA_BUILD_TOOLS=ON",
+        "-DLLAMA_SANITIZE_THREAD=ON",
+        "-DCMAKE_BUILD_TYPE=RelWithDebInfo"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 376,
+      "exit_code": 0,
+      "name": "configure-tsan",
+      "required": true,
+      "stderr_sha256": "d0366d4bacaa892ba2c1762d40a256028964dc9ae5e8f769ad9238599c2a3f3d",
+      "stderr_tail": [
+        "CMAKE_BUILD_TYPE=RelWithDebInfo",
+        "CMake Warning at vendor/cpp-httplib/CMakeLists.txt:152 (message):",
+        "  OpenSSL not found, HTTPS support disabled",
+        "",
+        ""
+      ],
+      "stdout_sha256": "ee0af6bc97e08aa77a396be043824c9bb328be697d3b08d716d17973d27ba8e9",
+      "stdout_tail": [
+        "-- ggml commit:  b71e40f91",
+        "-- Using -fsanitize=thread",
+        "-- Using -fsanitize=thread",
+        "-- Using -fsanitize=thread",
+        "-- Could NOT find OpenSSL, try to set the path to OpenSSL root folder in the system variable OPENSSL_ROOT_DIR (missing: OPENSSL_CRYPTO_LIBRARY OPENSSL_INCLUDE_DIR) ",
+        "-- Using -fsanitize=thread",
+        "-- Using -fsanitize=thread",
+        "-- Using -fsanitize=thread",
+        "-- Generating embedded license file for target: llama-app",
+        "-- Configuring done (0.2s)",
+        "-- Generating done (0.1s)",
+        "-- Build files have been written to: /usr/local/src/k3-out-of-core/llama.cpp/build-phase7-tsan"
+      ]
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "llama.cpp/build-phase7-tsan",
+        "--target",
+        "test-expert-async-io",
+        "test-expert-scheduler",
+        "test-expert-storage",
+        "test-cold-expert-cache",
+        "test-expert-transfer-ring",
+        "test-expert-weight-provider",
+        "-j4"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 923,
+      "exit_code": 0,
+      "name": "build-tsan",
+      "required": true,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_tail": [],
+      "stdout_sha256": "03df47f38870abbd389a3d25112a22a869259a3a15bb9d74f65989ac6a46bbbc",
+      "stdout_tail": [
+        "[ 11%] Built target ggml",
+        "[ 85%] Built target llama",
+        "[100%] Built target llama-common",
+        "[100%] Built target test-expert-transfer-ring",
+        "[  0%] Built target llama-common-base",
+        "[  0%] Built target cpp-httplib",
+        "[  4%] Built target ggml-base",
+        "[ 11%] Built target ggml-cpu",
+        "[ 11%] Built target ggml",
+        "[ 83%] Built target llama",
+        "[ 97%] Built target llama-common",
+        "[100%] Built target test-expert-weight-provider"
+      ]
+    },
+    {
+      "command": [
+        "ctest",
+        "--test-dir",
+        "llama.cpp/build-phase7-tsan",
+        "--output-on-failure",
+        "-R",
+        "expert-async-io|expert-scheduler|expert-storage|cold-expert-cache|expert-transfer-ring|expert-weight-provider"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 41,
+      "environment": {
+        "TSAN_OPTIONS": "halt_on_error=1:history_size=7"
+      },
+      "exit_code": 8,
+      "name": "ctest-tsan-default-aslr",
+      "required": false,
+      "stderr_sha256": "18e00877dc1071c85cd4f479d451bebeef8309022e46cf8c63b0bed5151984a4",
+      "stderr_tail": [
+        "Errors while running CTest"
+      ],
+      "stdout_sha256": "f13e0476194a7ff0572e226b9ff8faa3eb5ae65edc68608450bc55306c7b99ed",
+      "stdout_tail": [
+        "Label Time Summary:",
+        "model    =   0.03 sec*proc (6 tests)",
+        "",
+        "Total Test time (real) =   0.04 sec",
+        "",
+        "The following tests FAILED:",
+        "\t 44 - test-expert-weight-provider (Failed)",
+        "\t 46 - test-cold-expert-cache (Failed)",
+        "\t 47 - test-expert-transfer-ring (Failed)",
+        "\t 48 - test-expert-storage (Failed)",
+        "\t 49 - test-expert-async-io (Failed)",
+        "\t 50 - test-expert-scheduler (Failed)"
+      ]
+    },
+    {
+      "command": [
+        "setarch",
+        "x86_64",
+        "-R",
+        "env",
+        "TSAN_OPTIONS=halt_on_error=1:history_size=7",
+        "ctest",
+        "--test-dir",
+        "llama.cpp/build-phase7-tsan",
+        "--output-on-failure",
+        "-R",
+        "expert-async-io|expert-scheduler|expert-storage|cold-expert-cache|expert-transfer-ring|expert-weight-provider"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 116,
+      "exit_code": 0,
+      "name": "ctest-tsan-aslr-disabled",
+      "required": true,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_tail": [],
+      "stdout_sha256": "8bc071bcdadc373d13fc75309f53625c8bcf916396d4c3b57a0360af09f1d594",
+      "stdout_tail": [
+        "4/6 Test #48: test-expert-storage ..............   Passed    0.01 sec",
+        "    Start 49: test-expert-async-io",
+        "5/6 Test #49: test-expert-async-io .............   Passed    0.03 sec",
+        "    Start 50: test-expert-scheduler",
+        "6/6 Test #50: test-expert-scheduler ............   Passed    0.01 sec",
+        "",
+        "100% tests passed, 0 tests failed out of 6",
+        "",
+        "Label Time Summary:",
+        "model    =   0.11 sec*proc (6 tests)",
+        "",
+        "Total Test time (real) =   0.11 sec"
+      ]
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/phase5",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 87,
+      "exit_code": 0,
+      "name": "phase5-evidence-tests",
+      "required": true,
+      "stderr_sha256": "096955974962b6e0b3d209f446d5a105c0948bebdc10769f7f0266a1623b0fb6",
+      "stderr_tail": [
+        "test_exact_authority (test_phase5_evidence.Phase5EvidenceTests.test_exact_authority) ... ok",
+        "test_false_fallback_claim_is_rejected (test_phase5_evidence.Phase5EvidenceTests.test_false_fallback_claim_is_rejected) ... ok",
+        "test_false_parity_is_rejected (test_phase5_evidence.Phase5EvidenceTests.test_false_parity_is_rejected) ... ok",
+        "test_models_and_phase4_are_immutable (test_phase5_evidence.Phase5EvidenceTests.test_models_and_phase4_are_immutable) ... ok",
+        "test_schema_valid (test_phase5_evidence.Phase5EvidenceTests.test_schema_valid) ... ok",
+        "test_scope_excludes_ggml_and_kernels (test_phase5_evidence.Phase5EvidenceTests.test_scope_excludes_ggml_and_kernels) ... ok",
+        "test_validation_binding_rejects_failure (test_phase5_evidence.Phase5EvidenceTests.test_validation_binding_rejects_failure) ... ok",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 7 tests in 0.008s",
+        "",
+        "OK"
+      ],
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_tail": []
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/phase6",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 84,
+      "exit_code": 0,
+      "name": "phase6-evidence-tests",
+      "required": true,
+      "stderr_sha256": "7ef9bd4c38c65878ac7f86744ca6fc2fea14c7740b384b04cd8dc8b937912ba9",
+      "stderr_tail": [
+        "test_false_gate_rejected (test_phase6_evidence.Tests.test_false_gate_rejected) ... ok",
+        "test_missing_check_key_rejected (test_phase6_evidence.Tests.test_missing_check_key_rejected) ... ok",
+        "test_missing_sanitizer_validation_rejected (test_phase6_evidence.Tests.test_missing_sanitizer_validation_rejected) ... ok",
+        "test_required_nested_seams (test_phase6_evidence.Tests.test_required_nested_seams) ... ok",
+        "test_schema (test_phase6_evidence.Tests.test_schema) ... ok",
+        "test_scope (test_phase6_evidence.Tests.test_scope) ... ok",
+        "test_unbalanced_handles_rejected (test_phase6_evidence.Tests.test_unbalanced_handles_rejected) ... ok",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 13 tests in 0.005s",
+        "",
+        "OK"
+      ],
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_tail": []
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/phase7",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 88,
+      "exit_code": 0,
+      "name": "phase7-evidence-tests",
+      "required": true,
+      "stderr_sha256": "e81f90cfe5b6bbcac4bf044ffdeaee20379c6238e48d7add53599113664c3ab4",
+      "stderr_tail": [
+        "test_authority (test_phase7_evidence.Phase7EvidenceTests.test_authority) ... ok",
+        "test_closeout_preserves_nested_head (test_phase7_evidence.Phase7EvidenceTests.test_closeout_preserves_nested_head) ... ok",
+        "test_false_runtime_check_rejected (test_phase7_evidence.Phase7EvidenceTests.test_false_runtime_check_rejected) ... ok",
+        "test_final_review_candidate_is_nullable (test_phase7_evidence.Phase7EvidenceTests.test_final_review_candidate_is_nullable) ... ok",
+        "test_nested_scope_excludes_phase8_and_ggml_core (test_phase7_evidence.Phase7EvidenceTests.test_nested_scope_excludes_phase8_and_ggml_core) ... ok",
+        "test_schema_and_closed_gates (test_phase7_evidence.Phase7EvidenceTests.test_schema_and_closed_gates) ... ok",
+        "test_validation_command_set_is_exact (test_phase7_evidence.Phase7EvidenceTests.test_validation_command_set_is_exact) ... ok",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 7 tests in 0.010s",
+        "",
+        "OK"
+      ],
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_tail": []
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/phase6/verify_phase6.py",
+        "--project-root",
+        ".",
+        "--manifest",
+        "results/2026-07-30/skynet/phase6-gguf-storage/phase6-manifest.json",
+        "--models-dir",
+        "models/gguf"
+      ],
+      "cwd": "/tmp/phase7-phase6-verifier-jxebt_i7/project",
+      "duration_ms": 943,
+      "exit_code": 0,
+      "name": "phase6-verifier",
+      "required": true,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_tail": [],
+      "stdout_sha256": "1691a76e90e8eb71097ce192581e46d06e78a4fbfb78da3c60681eef39db658e",
+      "stdout_tail": [
+        "PASS: strict Phase 6 evidence verified"
+      ],
+      "verified_llama_cpp_head": "7a606dd4e11a108929f799253809a904f55feae4",
+      "verified_project_head": "987a6af1ffae3f95a83390d642dccea73c5566d4"
+    }
+  ],
+  "default_tsan": {
+    "exit_code": 8,
+    "known_environmental_limitation": true,
+    "observation": "default ASLR invocation either passes or fails before test code with the accepted ThreadSanitizer mapping limitation"
+  },
+  "revisions": {
+    "gitlink": "b71e40f91b1a0dab578d56ac733211453704d674",
+    "llama_cpp": "b71e40f91b1a0dab578d56ac733211453704d674",
+    "project": "a39eeafa4fee6af6a44fd03d630cf1cac79500d3"
+  },
+  "schema_version": "phase7-validation-v1",
+  "status": "pass",
+  "test_totals": {
+    "asan_ubsan": {
+      "failed": 0,
+      "passed_percent": 100,
+      "total": 6
+    },
+    "cpu": {
+      "failed": 0,
+      "passed_percent": 100,
+      "total": 6
+    },
+    "cuda": {
+      "failed": 0,
+      "passed_percent": 100,
+      "total": 6
+    },
+    "tsan": {
+      "failed": 0,
+      "passed_percent": 100,
+      "total": 6
+    }
+  }
+}
