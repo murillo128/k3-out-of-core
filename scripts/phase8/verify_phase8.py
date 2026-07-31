@@ -135,8 +135,9 @@ def main() -> int:
     public = manifest["inputs"]["larger_public_moe"]
     for name in ("config", "tokenizer", "gguf"):
         load_identity(root, public[name], errors)
-    if public.get("repository") != "Qwen/Qwen1.5-MoE-A2.7B-Chat" or \
-       public.get("source_revision") != "ec052fda178e241c7c443468d2fa1db6618996be" or \
+    if public.get("repository") != "ibm-granite/granite-3.1-3b-a800m-instruct" or \
+       public.get("source_revision") != "a02780686e08a03fe0d2679a293b5c74a90efa89" or \
+       public.get("primary_failure_comment") != 5145455677 or \
        public.get("converter_head") != LLAMA_CHECKPOINT_B:
         errors.append("larger public MoE provenance mismatch")
 

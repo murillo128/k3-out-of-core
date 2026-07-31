@@ -35,7 +35,7 @@ def main() -> int:
         "k3_mxfp4_original": args.mxfp4.resolve(),
         "k3_f16_split": sorted(split_dir.glob("*F16-split.gguf-00001-of-00218.gguf"))[0],
         "k3_mxfp4_split": sorted(split_dir.glob("*MXFP4-split.gguf-00001-of-00218.gguf"))[0],
-        "qwen15_moe_f16": args.public_moe.resolve(),
+        "larger_public_moe_f16": args.public_moe.resolve(),
     }
     cases = []
     commands = []
@@ -95,7 +95,7 @@ def main() -> int:
             "all_commands_pass": status,
             "original_and_split_f16_mxfp4": set(models) >= {
                 "k3_f16_original", "k3_mxfp4_original", "k3_f16_split", "k3_mxfp4_split"},
-            "larger_public_moe": "qwen15_moe_f16" in models,
+            "larger_public_moe": "larger_public_moe_f16" in models,
             "required_repetitions": all(
                 case["cold_processes"] >= (10 if case["name"].startswith("k3_") else 1)
                 and case["warm_captures"] >= 2 for case in cases),
