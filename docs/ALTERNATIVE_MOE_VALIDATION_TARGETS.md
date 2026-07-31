@@ -1,6 +1,6 @@
 # Alternative MoE Validation Targets
 
-Reviewed on **2026-07-31**.
+Reviewed on **2026-08-01**.
 
 This document records external model candidates that can validate whether the K3 expert-residency runtime generalizes to useful open-weight models. It is a research and validation input, not a change to the committed phase order or K3 acceptance criteria.
 
@@ -24,7 +24,7 @@ Use the repository status markers precisely:
 |---|---:|---|---|
 | Kimi K3 | 2.78T total, 104B activated | Extreme full-size NVMe/UMA scaling and architecture target | `ACCEPTED` primary target |
 | Qwen3-Coder-Next | about 80B total, 3B activated | Resident consumer-hardware baseline and provider-portability check | `OPEN` after current K3 policy work |
-| DeepSeek-V4-Flash | 284B total, 13B activated | Practical out-of-core quality/capacity comparator on 64–128 GB hosts | `OPEN` Phase-14 candidate |
+| DeepSeek-V4-Flash | 284B total, 13B activated | Practical out-of-core quality/capacity comparator on 64–128 GB hosts | `OPEN` Phase-12 candidate |
 
 ## Qwen3-Coder-Next
 
@@ -202,9 +202,9 @@ Official DSpark checkpoint reference:
 
 ### DeepSeek-V4-Flash
 
-`OPEN`: evaluate as a Phase-14 cross-model comparator after the K3 synthetic exact-size store and physical scaling gates are available. Earlier research may inspect metadata and GGUF layout, but no implementation claim should bypass the K3 phase sequence.
+`OPEN`: evaluate as a Phase-12 cross-model comparator after the K3 synthetic exact-size store and physical scaling gates are available. Earlier research may inspect metadata and GGUF layout, but no implementation claim should bypass the K3 phase sequence.
 
-A Phase-14 controlling issue should decide whether the comparison is limited to trace/layout analysis or includes complete inference, based on available storage, RAM, hardware time, and pinned upstream support.
+A Phase-12 controlling issue should decide whether the comparison is limited to trace/layout analysis or includes complete single-request inference, based on available storage, RAM, hardware time, and pinned upstream support. Multi-request and multi-GPU comparisons remain Phase 13 and Phase 14 work.
 
 ## Minimum evidence manifest for an alternative model
 
