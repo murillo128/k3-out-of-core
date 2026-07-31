@@ -84,28 +84,43 @@ The technical manifest is `results/2026-07-31/skynet/phase7-async-runtime/phase7
 
 #### 8.1 `PROMOTE_AND_GPU`
 
-- [ ] Wait for demand expert readiness, then execute on GPU.
-- [ ] Measure stall decomposition.
+- [x] Wait for demand expert readiness, then execute on GPU.
+- [x] Measure stall decomposition and preserve it as the stable default.
 
 #### 8.2 `CPU_FALLBACK`
 
-- [ ] Execute missed expert rows with the existing CPU MXFP4 path.
-- [ ] Execute hot hits on GPU concurrently when safe.
-- [ ] Optionally continue background promotion for likely reuse.
-- [ ] Merge results in canonical top-k order.
-- [ ] Handle fused gate/up/down graph dependencies correctly.
+- [x] Execute missed expert rows with the existing CPU path, including MXFP4.
+- [x] Execute independent hot hits on GPU concurrently when safe.
+- [x] Support explicit, bounded background promotion without enabling it by default.
+- [x] Merge results in canonical top-k order.
+- [x] Handle fused gate/up/down graph dependencies correctly.
 
 #### 8.3 `AUTO`
 
-- [ ] Build a cost model from measured CPU expert time, disk state, cold state, H2D time, queue depth, and reuse score.
-- [ ] Add guardrails: periodically sample baseline behavior and disable a harmful strategy.
-- [ ] Do not enable by default until stable across workloads.
+- [x] Implement the accepted deterministic v1 cost comparison over explicit caller-supplied CPU, storage, H2D, queue, and background-promotion operands.
+- [x] Fail closed to `PROMOTE_AND_GPU` for missing or invalid operands and select GPU on ties.
+- [x] Keep `AUTO` explicit and default-inert; do not add online learning, exploration, or a hidden policy switch.
+
+#### 8.4 Evidence closeout
+
+- [x] Capture exact original/split F16/MXFP4 parity and production-path policy coverage with repeated cold and warm processes.
+- [x] Capture a larger public MoE F16 bootstrap case and an exact-layout, source-derived full-K3 MXFP4 sparse-store workload without making a model-quality claim.
+- [x] Evaluate all explicit policies and controlled AUTO regimes across decode/prefill, hot ratios, reuse classes, and background-promotion states.
+- [x] Run CPU, CUDA, ASan+UBSan, accepted ASLR-disabled TSan, lifetime, cleanup, Phase 7 regression, and fail-closed verifier validation.
+- [x] Publish a schema-validated authoritative manifest bound to accepted Checkpoints A, B, and C.
+- [ ] Receive the independent final complete-PR review.
 
 ### Exit gate
 
-- All policies are numerically correct.
-- The chosen policy never silently changes.
-- Benchmarks identify regimes where each policy wins.
+- [x] All policies are numerically correct in the standing parity and production-path matrix.
+- [x] The chosen policy never silently changes.
+- [x] Controlled benchmarks identify CPU-favorable, GPU-favorable, and tie regimes; observed real-model process tails are recorded separately.
+
+### Phase 8 execution record
+
+Issue #26 implements this phase on branch `codex/phase8-miss-execution` and draft PR #27. Checkpoint A accepted the bounded miss-policy mechanism at project/nested heads `07da45728b38b2d7c6a3a1b156dffcea6b94ec54` / `4cfee48aacb6b33ebcbda796b26106b69440e633` in comment `5141694340`. Checkpoint B accepted corrected production-path evidence at `30013880641fd2f10a1952b5b9619e6d872e233b` / `a885ff7750a4e73901b7f378e7dc45880a7d1536` in comment `5144721775`. Checkpoint C accepted the bounded descriptor-only cold-cache bootstrap correction at `a52581e23b6192e51a6cd5452c121b5a014371f1` / `dc4d50c68378d908131b518662160fdd08f4e005` with `PASS_WITH_NOTES`, safety `YES`, in comment `5146173479`; no required correction remained.
+
+The closeout evidence is under `results/2026-07-31/skynet/phase8-miss-execution/`. It records a 25-case production-path probe, ten positive controlled CPU/GPU-overlap repetitions, original and 218-part split F16/MXFP4 parity with repeated cold and warm processes, a larger public MoE F16 bootstrap case, a 300-cell deterministic policy matrix, an exact 1,446,456,066,048-byte source-derived full-K3 MXFP4 sparse store, device-wide VRAM sampling, and focused CPU/CUDA/sanitizer/lifetime/cleanup validation. The full-size sparse workload validates layout and controlled policy regimes; it is not full-model inference or a model-quality result. Phase 9 policy selection, Phase 10 prefetch, multi-request concurrency, UMA, and multi-GPU remain out of scope.
 
 ---
 

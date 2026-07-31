@@ -1,0 +1,366 @@
+{
+  "checks": {
+    "all_positive_cpu_work": true,
+    "all_positive_gpu_work": true,
+    "all_positive_overlap": true,
+    "callback_installed_production_scheduler": true,
+    "completion_order_not_used_for_reduction": true
+  },
+  "commands": [
+    {
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/phase8-miss-execution-probe"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 294,
+      "exit_code": 0,
+      "name": "controlled-overlap-1",
+      "required": true,
+      "stderr_sha256": "6246d9a55e6c3f5282df9de9c6381bfd5b78a36757f9d714e30d4f009e465f64",
+      "stderr_tail": [
+        "ggml_cuda_init: found 1 CUDA devices (Total VRAM: 3903 MiB):",
+        "  Device 0: NVIDIA GeForce GTX 1650, compute capability 7.5, VMM: yes, VRAM: 3903 MiB",
+        "The following devices will have suboptimal performance due to a lack of tensor cores:",
+        "  Device 0: NVIDIA GeForce GTX 1650",
+        "Consider compiling with CMAKE_CUDA_ARCHITECTURES=61-virtual;80-virtual and DGGML_CUDA_FORCE_MMQ to force the use of the Pascal code for Turing.",
+        "ggml_backend_cuda_graph_compute: CUDA graph warmup complete",
+        "ggml_backend_cuda_graph_compute: CUDA graph warmup complete"
+      ],
+      "stdout_sha256": "e8a21520b3c937bcbd3bee527b3443994e654997dfcb47aa540b119c8617f062",
+      "stdout_tail": [
+        "PHASE8_OVERLAP\tstatus=pass\textent=3072\tcpu_us=5010\tgpu_us=1074\tmixed_us=5404\tsequential_us=6084\toverlap_us=680"
+      ]
+    },
+    {
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/phase8-miss-execution-probe"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 272,
+      "exit_code": 0,
+      "name": "controlled-overlap-2",
+      "required": true,
+      "stderr_sha256": "6246d9a55e6c3f5282df9de9c6381bfd5b78a36757f9d714e30d4f009e465f64",
+      "stderr_tail": [
+        "ggml_cuda_init: found 1 CUDA devices (Total VRAM: 3903 MiB):",
+        "  Device 0: NVIDIA GeForce GTX 1650, compute capability 7.5, VMM: yes, VRAM: 3903 MiB",
+        "The following devices will have suboptimal performance due to a lack of tensor cores:",
+        "  Device 0: NVIDIA GeForce GTX 1650",
+        "Consider compiling with CMAKE_CUDA_ARCHITECTURES=61-virtual;80-virtual and DGGML_CUDA_FORCE_MMQ to force the use of the Pascal code for Turing.",
+        "ggml_backend_cuda_graph_compute: CUDA graph warmup complete",
+        "ggml_backend_cuda_graph_compute: CUDA graph warmup complete"
+      ],
+      "stdout_sha256": "adb5ea8ba00b1fe86288a9f9256da7345d3dc10c08770cbbb09cac3b9d0fecc5",
+      "stdout_tail": [
+        "PHASE8_OVERLAP\tstatus=pass\textent=3072\tcpu_us=4996\tgpu_us=1071\tmixed_us=5477\tsequential_us=6067\toverlap_us=590"
+      ]
+    },
+    {
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/phase8-miss-execution-probe"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 285,
+      "exit_code": 0,
+      "name": "controlled-overlap-3",
+      "required": true,
+      "stderr_sha256": "6246d9a55e6c3f5282df9de9c6381bfd5b78a36757f9d714e30d4f009e465f64",
+      "stderr_tail": [
+        "ggml_cuda_init: found 1 CUDA devices (Total VRAM: 3903 MiB):",
+        "  Device 0: NVIDIA GeForce GTX 1650, compute capability 7.5, VMM: yes, VRAM: 3903 MiB",
+        "The following devices will have suboptimal performance due to a lack of tensor cores:",
+        "  Device 0: NVIDIA GeForce GTX 1650",
+        "Consider compiling with CMAKE_CUDA_ARCHITECTURES=61-virtual;80-virtual and DGGML_CUDA_FORCE_MMQ to force the use of the Pascal code for Turing.",
+        "ggml_backend_cuda_graph_compute: CUDA graph warmup complete",
+        "ggml_backend_cuda_graph_compute: CUDA graph warmup complete"
+      ],
+      "stdout_sha256": "fa9dc5783f99d3145a5d4aca83b035e98a5149679c9b4a35cea324ba68c2440b",
+      "stdout_tail": [
+        "PHASE8_OVERLAP\tstatus=pass\textent=3072\tcpu_us=5120\tgpu_us=1078\tmixed_us=5396\tsequential_us=6198\toverlap_us=802"
+      ]
+    },
+    {
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/phase8-miss-execution-probe"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 281,
+      "exit_code": 0,
+      "name": "controlled-overlap-4",
+      "required": true,
+      "stderr_sha256": "6246d9a55e6c3f5282df9de9c6381bfd5b78a36757f9d714e30d4f009e465f64",
+      "stderr_tail": [
+        "ggml_cuda_init: found 1 CUDA devices (Total VRAM: 3903 MiB):",
+        "  Device 0: NVIDIA GeForce GTX 1650, compute capability 7.5, VMM: yes, VRAM: 3903 MiB",
+        "The following devices will have suboptimal performance due to a lack of tensor cores:",
+        "  Device 0: NVIDIA GeForce GTX 1650",
+        "Consider compiling with CMAKE_CUDA_ARCHITECTURES=61-virtual;80-virtual and DGGML_CUDA_FORCE_MMQ to force the use of the Pascal code for Turing.",
+        "ggml_backend_cuda_graph_compute: CUDA graph warmup complete",
+        "ggml_backend_cuda_graph_compute: CUDA graph warmup complete"
+      ],
+      "stdout_sha256": "9c76d91d69c68e33b6eb496ad2813d458011295adba6deadd6a49a94b765d142",
+      "stdout_tail": [
+        "PHASE8_OVERLAP\tstatus=pass\textent=3072\tcpu_us=5078\tgpu_us=1072\tmixed_us=5398\tsequential_us=6150\toverlap_us=752"
+      ]
+    },
+    {
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/phase8-miss-execution-probe"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 278,
+      "exit_code": 0,
+      "name": "controlled-overlap-5",
+      "required": true,
+      "stderr_sha256": "6246d9a55e6c3f5282df9de9c6381bfd5b78a36757f9d714e30d4f009e465f64",
+      "stderr_tail": [
+        "ggml_cuda_init: found 1 CUDA devices (Total VRAM: 3903 MiB):",
+        "  Device 0: NVIDIA GeForce GTX 1650, compute capability 7.5, VMM: yes, VRAM: 3903 MiB",
+        "The following devices will have suboptimal performance due to a lack of tensor cores:",
+        "  Device 0: NVIDIA GeForce GTX 1650",
+        "Consider compiling with CMAKE_CUDA_ARCHITECTURES=61-virtual;80-virtual and DGGML_CUDA_FORCE_MMQ to force the use of the Pascal code for Turing.",
+        "ggml_backend_cuda_graph_compute: CUDA graph warmup complete",
+        "ggml_backend_cuda_graph_compute: CUDA graph warmup complete"
+      ],
+      "stdout_sha256": "c30a42a61b0f6a45b2f4e6e2493213f4e82bd2e651a625c816503994b3738cc2",
+      "stdout_tail": [
+        "PHASE8_OVERLAP\tstatus=pass\textent=3072\tcpu_us=5022\tgpu_us=1079\tmixed_us=5539\tsequential_us=6101\toverlap_us=562"
+      ]
+    },
+    {
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/phase8-miss-execution-probe"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 276,
+      "exit_code": 0,
+      "name": "controlled-overlap-6",
+      "required": true,
+      "stderr_sha256": "6246d9a55e6c3f5282df9de9c6381bfd5b78a36757f9d714e30d4f009e465f64",
+      "stderr_tail": [
+        "ggml_cuda_init: found 1 CUDA devices (Total VRAM: 3903 MiB):",
+        "  Device 0: NVIDIA GeForce GTX 1650, compute capability 7.5, VMM: yes, VRAM: 3903 MiB",
+        "The following devices will have suboptimal performance due to a lack of tensor cores:",
+        "  Device 0: NVIDIA GeForce GTX 1650",
+        "Consider compiling with CMAKE_CUDA_ARCHITECTURES=61-virtual;80-virtual and DGGML_CUDA_FORCE_MMQ to force the use of the Pascal code for Turing.",
+        "ggml_backend_cuda_graph_compute: CUDA graph warmup complete",
+        "ggml_backend_cuda_graph_compute: CUDA graph warmup complete"
+      ],
+      "stdout_sha256": "a2a977320217251926c146a33c61d7b09ce862da1c9800cecd0584adb1fee2ef",
+      "stdout_tail": [
+        "PHASE8_OVERLAP\tstatus=pass\textent=3072\tcpu_us=5061\tgpu_us=1079\tmixed_us=5488\tsequential_us=6140\toverlap_us=652"
+      ]
+    },
+    {
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/phase8-miss-execution-probe"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 266,
+      "exit_code": 0,
+      "name": "controlled-overlap-7",
+      "required": true,
+      "stderr_sha256": "6246d9a55e6c3f5282df9de9c6381bfd5b78a36757f9d714e30d4f009e465f64",
+      "stderr_tail": [
+        "ggml_cuda_init: found 1 CUDA devices (Total VRAM: 3903 MiB):",
+        "  Device 0: NVIDIA GeForce GTX 1650, compute capability 7.5, VMM: yes, VRAM: 3903 MiB",
+        "The following devices will have suboptimal performance due to a lack of tensor cores:",
+        "  Device 0: NVIDIA GeForce GTX 1650",
+        "Consider compiling with CMAKE_CUDA_ARCHITECTURES=61-virtual;80-virtual and DGGML_CUDA_FORCE_MMQ to force the use of the Pascal code for Turing.",
+        "ggml_backend_cuda_graph_compute: CUDA graph warmup complete",
+        "ggml_backend_cuda_graph_compute: CUDA graph warmup complete"
+      ],
+      "stdout_sha256": "f30f1c17abcca3c9e73a142804112d5516f83501d75018780b8d45e4a564dc9a",
+      "stdout_tail": [
+        "PHASE8_OVERLAP\tstatus=pass\textent=3072\tcpu_us=5123\tgpu_us=1073\tmixed_us=5462\tsequential_us=6196\toverlap_us=734"
+      ]
+    },
+    {
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/phase8-miss-execution-probe"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 276,
+      "exit_code": 0,
+      "name": "controlled-overlap-8",
+      "required": true,
+      "stderr_sha256": "6246d9a55e6c3f5282df9de9c6381bfd5b78a36757f9d714e30d4f009e465f64",
+      "stderr_tail": [
+        "ggml_cuda_init: found 1 CUDA devices (Total VRAM: 3903 MiB):",
+        "  Device 0: NVIDIA GeForce GTX 1650, compute capability 7.5, VMM: yes, VRAM: 3903 MiB",
+        "The following devices will have suboptimal performance due to a lack of tensor cores:",
+        "  Device 0: NVIDIA GeForce GTX 1650",
+        "Consider compiling with CMAKE_CUDA_ARCHITECTURES=61-virtual;80-virtual and DGGML_CUDA_FORCE_MMQ to force the use of the Pascal code for Turing.",
+        "ggml_backend_cuda_graph_compute: CUDA graph warmup complete",
+        "ggml_backend_cuda_graph_compute: CUDA graph warmup complete"
+      ],
+      "stdout_sha256": "4c493c56f99b1e591c76f34e795836db664b2725772ca8f6f5e4cdceb7c5b3ff",
+      "stdout_tail": [
+        "PHASE8_OVERLAP\tstatus=pass\textent=3072\tcpu_us=5210\tgpu_us=1074\tmixed_us=5505\tsequential_us=6284\toverlap_us=779"
+      ]
+    },
+    {
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/phase8-miss-execution-probe"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 268,
+      "exit_code": 0,
+      "name": "controlled-overlap-9",
+      "required": true,
+      "stderr_sha256": "6246d9a55e6c3f5282df9de9c6381bfd5b78a36757f9d714e30d4f009e465f64",
+      "stderr_tail": [
+        "ggml_cuda_init: found 1 CUDA devices (Total VRAM: 3903 MiB):",
+        "  Device 0: NVIDIA GeForce GTX 1650, compute capability 7.5, VMM: yes, VRAM: 3903 MiB",
+        "The following devices will have suboptimal performance due to a lack of tensor cores:",
+        "  Device 0: NVIDIA GeForce GTX 1650",
+        "Consider compiling with CMAKE_CUDA_ARCHITECTURES=61-virtual;80-virtual and DGGML_CUDA_FORCE_MMQ to force the use of the Pascal code for Turing.",
+        "ggml_backend_cuda_graph_compute: CUDA graph warmup complete",
+        "ggml_backend_cuda_graph_compute: CUDA graph warmup complete"
+      ],
+      "stdout_sha256": "4958ee493b074925568abf7fb73123e65177fd82a1a716ef5cf9c286931a8b79",
+      "stdout_tail": [
+        "PHASE8_OVERLAP\tstatus=pass\textent=3072\tcpu_us=4915\tgpu_us=1080\tmixed_us=5303\tsequential_us=5995\toverlap_us=692"
+      ]
+    },
+    {
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-cuda/bin/phase8-miss-execution-probe"
+      ],
+      "cwd": "/usr/local/src/k3-out-of-core",
+      "duration_ms": 284,
+      "exit_code": 0,
+      "name": "controlled-overlap-10",
+      "required": true,
+      "stderr_sha256": "6246d9a55e6c3f5282df9de9c6381bfd5b78a36757f9d714e30d4f009e465f64",
+      "stderr_tail": [
+        "ggml_cuda_init: found 1 CUDA devices (Total VRAM: 3903 MiB):",
+        "  Device 0: NVIDIA GeForce GTX 1650, compute capability 7.5, VMM: yes, VRAM: 3903 MiB",
+        "The following devices will have suboptimal performance due to a lack of tensor cores:",
+        "  Device 0: NVIDIA GeForce GTX 1650",
+        "Consider compiling with CMAKE_CUDA_ARCHITECTURES=61-virtual;80-virtual and DGGML_CUDA_FORCE_MMQ to force the use of the Pascal code for Turing.",
+        "ggml_backend_cuda_graph_compute: CUDA graph warmup complete",
+        "ggml_backend_cuda_graph_compute: CUDA graph warmup complete"
+      ],
+      "stdout_sha256": "1cd91e5f62835fff1fccd7d0190e85e95d6ac990de2e071e25dd0c3bf7a75cfd",
+      "stdout_tail": [
+        "PHASE8_OVERLAP\tstatus=pass\textent=3072\tcpu_us=5040\tgpu_us=1069\tmixed_us=5387\tsequential_us=6109\toverlap_us=722"
+      ]
+    }
+  ],
+  "overlap_us": {
+    "minimum": 562,
+    "p50": 722,
+    "p95": 802,
+    "p99": 802
+  },
+  "revisions": {
+    "gitlink": "dc4d50c68378d908131b518662160fdd08f4e005",
+    "llama_cpp": "dc4d50c68378d908131b518662160fdd08f4e005",
+    "project": "eb3d0093157da7757036882dc81b37dd622bbf46"
+  },
+  "samples": [
+    {
+      "cpu_us": 5010,
+      "exit_code": 0,
+      "extent": 3072,
+      "gpu_us": 1074,
+      "mixed_us": 5404,
+      "overlap_us": 680,
+      "sequential_us": 6084,
+      "status": "pass"
+    },
+    {
+      "cpu_us": 4996,
+      "exit_code": 0,
+      "extent": 3072,
+      "gpu_us": 1071,
+      "mixed_us": 5477,
+      "overlap_us": 590,
+      "sequential_us": 6067,
+      "status": "pass"
+    },
+    {
+      "cpu_us": 5120,
+      "exit_code": 0,
+      "extent": 3072,
+      "gpu_us": 1078,
+      "mixed_us": 5396,
+      "overlap_us": 802,
+      "sequential_us": 6198,
+      "status": "pass"
+    },
+    {
+      "cpu_us": 5078,
+      "exit_code": 0,
+      "extent": 3072,
+      "gpu_us": 1072,
+      "mixed_us": 5398,
+      "overlap_us": 752,
+      "sequential_us": 6150,
+      "status": "pass"
+    },
+    {
+      "cpu_us": 5022,
+      "exit_code": 0,
+      "extent": 3072,
+      "gpu_us": 1079,
+      "mixed_us": 5539,
+      "overlap_us": 562,
+      "sequential_us": 6101,
+      "status": "pass"
+    },
+    {
+      "cpu_us": 5061,
+      "exit_code": 0,
+      "extent": 3072,
+      "gpu_us": 1079,
+      "mixed_us": 5488,
+      "overlap_us": 652,
+      "sequential_us": 6140,
+      "status": "pass"
+    },
+    {
+      "cpu_us": 5123,
+      "exit_code": 0,
+      "extent": 3072,
+      "gpu_us": 1073,
+      "mixed_us": 5462,
+      "overlap_us": 734,
+      "sequential_us": 6196,
+      "status": "pass"
+    },
+    {
+      "cpu_us": 5210,
+      "exit_code": 0,
+      "extent": 3072,
+      "gpu_us": 1074,
+      "mixed_us": 5505,
+      "overlap_us": 779,
+      "sequential_us": 6284,
+      "status": "pass"
+    },
+    {
+      "cpu_us": 4915,
+      "exit_code": 0,
+      "extent": 3072,
+      "gpu_us": 1080,
+      "mixed_us": 5303,
+      "overlap_us": 692,
+      "sequential_us": 5995,
+      "status": "pass"
+    },
+    {
+      "cpu_us": 5040,
+      "exit_code": 0,
+      "extent": 3072,
+      "gpu_us": 1069,
+      "mixed_us": 5387,
+      "overlap_us": 722,
+      "sequential_us": 6109,
+      "status": "pass"
+    }
+  ],
+  "schema_version": "phase8-hybrid-overlap-v1",
+  "status": "pass"
+}

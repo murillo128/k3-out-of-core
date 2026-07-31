@@ -17,7 +17,8 @@ This file is the first handoff document for a new ChatGPT or Codex session.
 - Project Phase 4 is complete and merged. Issue #17 was implemented by PR #18 and squash-merged into `main` as `b196cc07249726651d39aaa624703bc4256a3012`. The merged nested `murillo128/llama.cpp` gitlink is `57fe1eabbe3d0ced59096a0744efc91e286fb1c7`.
 - Project Phase 5 is complete and merged. Issue #20 was implemented by PR #21 and squash-merged into `main` as `c5512bc073ae7aab4a14773028828e516e16f3f6`. The merged nested `murillo128/llama.cpp` gitlink is `26317ee1d848dd7a73f22a3666a055cad5d5cb03`.
 - Project Phase 6 is complete and merged. Issue #22 was implemented by PR #23 and squash-merged into `main` as `66ab6dba60b55ce47d0ecf94fcf88a778df9cdc6`. The merged nested `murillo128/llama.cpp` gitlink is `7a606dd4e11a108929f799253809a904f55feae4`; asynchronous Linux I/O, direct-I/O evaluation, transfer/compute overlap, prefetch, and CPU miss execution remain Phase 7–8 work.
-- Project Phase 7 is complete and merged. Issue #24 was implemented by PR #25 and squash-merged into `main` as `97ef68d787c54b443eac72a3480fe70eba88d8dd`. Checkpoint A, Checkpoint B, and the final complete-PR review returned **PASS** with safety **YES** at comments `5135836934`, `5140081178`, and `5140490542`. The merged nested `murillo128/llama.cpp` gitlink is `b71e40f91b1a0dab578d56ac733211453704d674`, and the Phase 7 evidence head is `1e2faeec1c1cc1781d9f65f030b1736f4adcfe51`. Phase 8 has not begun.
+- Project Phase 7 is complete and merged. Issue #24 was implemented by PR #25 and squash-merged into `main` as `97ef68d787c54b443eac72a3480fe70eba88d8dd`. Checkpoint A, Checkpoint B, and the final complete-PR review returned **PASS** with safety **YES** at comments `5135836934`, `5140081178`, and `5140490542`. The merged nested `murillo128/llama.cpp` gitlink is `b71e40f91b1a0dab578d56ac733211453704d674`, and the Phase 7 evidence head is `1e2faeec1c1cc1781d9f65f030b1736f4adcfe51`.
+- Project Phase 8 is a fully captured final-review candidate on issue #26 and PR #27; it is not merged. Checkpoints A, B, and C accepted the bounded mechanism, production-path evidence correction, and cold-cache bootstrap correction at comments `5141694340`, `5144721775`, and `5146173479`. The accepted nested candidate is `dc4d50c68378d908131b518662160fdd08f4e005`, and the exact standing-evidence capture head is `eb3d0093157da7757036882dc81b37dd622bbf46`. The authoritative manifest owns the final evidence head and final-review attestation. Phase 9 has not begun.
 - Phase 1 evidence is descriptive for the tiny K3 fixtures on `skynet`; it is not a model-quality or production-performance claim.
 
 ## Phase 3 merged baseline
@@ -112,6 +113,27 @@ This file is the first handoff document for a new ChatGPT or Codex session.
 - Technical manifest: [`../results/2026-07-31/skynet/phase7-async-runtime/phase7-manifest.json`](../results/2026-07-31/skynet/phase7-async-runtime/phase7-manifest.json), retained as the immutable final-review candidate and accepted by final review comment `5140490542`.
 - Derived summary: [`../results/2026-07-31/skynet/phase7-async-runtime/PHASE7.md`](../results/2026-07-31/skynet/phase7-async-runtime/PHASE7.md).
 
+## Phase 8 final-review candidate
+
+- Issue: <https://github.com/murillo128/k3-out-of-core/issues/26>
+- Draft PR: <https://github.com/murillo128/k3-out-of-core/pull/27>
+- Execution profile: `STANDARD`
+- Immutable project execution base: `5fe0bda6965da7d2b0f85dd14b97427a7b60f161`
+- Nested execution base: `b71e40f91b1a0dab578d56ac733211453704d674`
+- Accepted Checkpoint A project/nested heads: `07da45728b38b2d7c6a3a1b156dffcea6b94ec54` / `4cfee48aacb6b33ebcbda796b26106b69440e633`
+- Accepted Checkpoint B project/nested heads: `30013880641fd2f10a1952b5b9619e6d872e233b` / `a885ff7750a4e73901b7f378e7dc45880a7d1536`
+- Accepted Checkpoint C project/nested heads: `a52581e23b6192e51a6cd5452c121b5a014371f1` / `dc4d50c68378d908131b518662160fdd08f4e005`
+- Standing-evidence capture head: `eb3d0093157da7757036882dc81b37dd622bbf46`
+- Checkpoint A: comment `5141694340`, `PASS`, safety `YES`.
+- Checkpoint B: comment `5144721775`, `PASS`, safety `YES`.
+- Checkpoint C: comment `5146173479`, `PASS_WITH_NOTES`, safety `YES`; no required delta. The unchanged callback-free fixture teardown race remains a non-material test-only note.
+- Standing correctness: the 25-case production-path Checkpoint B probe, original/split F16/MXFP4 cold/warm matrix, larger public MoE F16 bootstrap case, and prior default modes pass. Descriptor-only PP/TG discovery records zero scheduler reserve calls and zero backend bytes before the bounded hierarchy is initialized and final `COLD_CACHE` reserve occurs.
+- Standing policy evidence: ten controlled hybrid overlap repetitions are positive; the deterministic 300-cell matrix covers all explicit policies and AUTO CPU-favorable, GPU-favorable, and tie regimes across decode/prefill, hot ratios, reuse, and background promotion.
+- Standing validation: focused CPU, CUDA, ASan+UBSan, and accepted ASLR-disabled TSan suites each pass 5/5; Phase 8 evidence tests pass 32/32; the immutable Phase 7 manifest verifies at its accepted closeout head.
+- Resource scope: peak device-wide VRAM was 3661 MiB with 242 MiB minimum free. The exact-layout 1,446,456,066,048-byte full-K3 MXFP4 sparse store validates layout and controlled policy behavior, not full-model inference or model quality.
+- Technical manifest: [`../results/2026-07-31/skynet/phase8-miss-execution/phase8-manifest.json`](../results/2026-07-31/skynet/phase8-miss-execution/phase8-manifest.json). Its `closeout_state` and `final_review` fields are authoritative for the mandatory complete-PR review.
+- Derived summary: [`../results/2026-07-31/skynet/phase8-miss-execution/PHASE8.md`](../results/2026-07-31/skynet/phase8-miss-execution/PHASE8.md).
+
 ## Phase 1 merged baseline
 
 - Issue: <https://github.com/murillo128/k3-out-of-core/issues/7>
@@ -153,8 +175,9 @@ Kernel: 6.8.0-136-generic
 - The benchmark's 128-token setting is a maximum cap. The fixture naturally emits EOG after 49 generated tokens; forcing post-EOG decoding would change semantics.
 - VRAM is sampled device-wide telemetry and the OS page cache was not flushed.
 - The Phase 3 raw performance gate and its two accepted notes must remain visible in all later performance comparisons.
-- Phase 7 tiny-fixture timings are descriptive. Production demand-only overlap was honestly zero; controlled native traces establish the mechanism. Phase 8 owns CPU fallback and AUTO miss execution, while policy, prefetch, concurrency, UMA, multi-GPU, and full-size conclusions remain later phases.
+- Phase 7 tiny-fixture timings are descriptive. Production demand-only overlap was honestly zero; controlled native traces establish the mechanism.
+- Phase 8 completes explicit CPU fallback and deterministic AUTO miss execution. Its tiny K3, larger public MoE bootstrap, and exact-layout sparse-store results are mechanism and controlled crossover evidence. Cache-policy selection, speculative prefetch, concurrency, UMA, multi-GPU, and full production K3 quality/performance remain later phases.
 
 ## Immediate next action
 
-Use design authority to create one self-contained, execution-ready controlling issue for **Phase 8 — discrete-GPU miss execution policies** from the current verified `main` and nested gitlink. Resolve `PROMOTE_AND_GPU`, `CPU_FALLBACK`, and `AUTO` policy semantics; canonical top-k result merging; fused gate/up/down dependencies; concurrent CPU/GPU execution boundaries; background promotion; cost-model inputs and guardrails; explicit configuration and failure behavior; correctness, tracing, performance-regime, and validation gates. Do not implement Phase 8, create an execution branch, or open a PR in the design session.
+Publish the exact Phase 8 final-review candidate for issue #26 / PR #27, run the fail-closed manifest verifier at the published project and nested heads, and obtain the mandatory fresh independent complete-PR review. If it returns `PASS` or `PASS_WITH_NOTES` with safety `YES` and no required delta, add only the bounded review attestation, reverify, and leave PR #27 merge-ready without merging it. Do not begin Phase 9 in the Phase 8 closeout session.
