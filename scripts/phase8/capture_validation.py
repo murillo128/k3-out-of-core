@@ -16,6 +16,7 @@ TEST_REGEX = "expert-miss-policy|expert-weight-provider|hot-expert-cache|cold-ex
 TARGETS = ["test-expert-miss-policy", "test-expert-weight-provider", "test-hot-expert-cache",
            "test-cold-expert-cache", "test-expert-scheduler"]
 EXPECTED_TOTAL = 5
+PHASE7_VALIDATION_HEAD = "1b9d040da332e547af4571f81743012cd168a4cc"
 
 
 def main() -> int:
@@ -69,13 +70,18 @@ def main() -> int:
         historical_root = Path(temporary_name) / "project"
         subprocess.check_call(["git", "clone", "--shared", "--no-checkout", str(root), str(historical_root)])
         subprocess.check_call(["git", "-C", str(historical_root), "checkout", "--detach",
-                               phase7_manifest["revisions"]["project_evidence_head"]])
+                               PHASE7_VALIDATION_HEAD])
         historical_nested = historical_root / "llama.cpp"
         if historical_nested.exists():
             historical_nested.rmdir()
         subprocess.check_call(["git", "clone", "--shared", str(nested), str(historical_nested)])
         subprocess.check_call(["git", "-C", str(historical_nested), "checkout", "--detach",
                                phase7_manifest["revisions"]["llama_cpp_candidate"]])
+        for model in phase7_manifest["inputs"]["models"]:
+            source = root / model["path"]
+            destination = historical_root / model["path"]
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            destination.symlink_to(source)
         execute("phase7-verifier", ["python3", "scripts/phase7/verify_phase7.py", "--manifest",
             "results/2026-07-31/skynet/phase7-async-runtime/phase7-manifest.json", "--strict"],
             cwd=historical_root)
