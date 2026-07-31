@@ -1,4 +1,4 @@
-# UMA, concurrency, scaling, and hardening
+# UMA, full-size scaling, concurrency, multi-GPU, and hardening
 
 The pinned WASTE implementation and measurements recorded in `docs/PRIOR_ART.md` are an external full-K3 feasibility and performance baseline. They are `OBSERVED` on a 64 GB Apple M5 Pro CPU/UMA system with a custom 3-bit expert format and internal NVMe; they are not directly transferable to GGUF/MXFP4, discrete CUDA, or DGX Spark.
 
@@ -54,11 +54,74 @@ The pinned WASTE implementation and measurements recorded in `docs/PRIOR_ART.md`
 
 ---
 
-## Phase 12 — Multi-request, batching, and CUDA graphs
+## Phase 12 — Full-size scaling and storage decision
+
+### Objectives
+
+- Prove that the design scales physically before claiming full K3 viability.
+- Establish the single-request, single-device full-size baseline before adding multi-request or multi-GPU complexity.
+- Compare against the pinned WASTE full-K3 result without conflating format, quantization, or hardware effects.
+
+### Tasks
+
+#### 12.1 Synthetic exact-size store
+
+- [ ] Generate exact full-K3 MXFP4 expert spans from real metadata.
+- [ ] Validate queue depth, cold/hot budgets, and transfer overlap.
+- [ ] Run controlled traces with realistic top-k and layer counts.
+- [ ] Cross-check full-K3 layer count, selected-expert count, exact working-set bytes, resident-trunk budget, and expected reads/token against the pinned WASTE metadata, explaining representation differences.
+- [ ] Sweep storage and cache regimes that bracket WASTE's observed one-token working-set floor and memory-oversubscription cliff.
+
+#### 12.2 GGUF layout evaluation
+
+Measure:
+
+- three-span reads per expert;
+- alignment read amplification;
+- split-file behavior;
+- queue and syscall overhead;
+- storage locality across selected experts;
+- bytes per complete expert bundle and bytes per token;
+- effective bandwidth and first-read latency at the real expert-record size;
+- the performance gap versus WASTE's one-aligned-record-per-expert custom layout, normalized for different expert precision and payload size.
+
+#### 12.3 Optional expert-specific format
+
+Only if GGUF is proven inadequate:
+
+- [ ] Specify a versioned format with checksums and explicit tensor metadata.
+- [ ] Keep resident model metadata in GGUF.
+- [ ] Build a deterministic converter and verifier.
+- [ ] Compare end-to-end gains against added complexity.
+- [ ] Measure K3 route-weight distribution before proposing partial-record or per-activation precision. WASTE observed that the lower half of selected experts carried about one third of routing mass, so no low-value tail may be assumed.
+- [ ] Compare any compressed expert representation on output quality, bytes/read, direct-kernel cost, conversion footprint, and end-to-end throughput; do not infer benefit from bit width alone.
+- [ ] Review the Apache-2.0 WASTE implementation and attribution requirements before reusing any format, direct-kernel, diskbench, or cache code.
+
+#### 12.4 Full checkpoint
+
+- [ ] Acquire/convert the full K3 text checkpoint when resources permit.
+- [ ] Validate metadata against synthetic assumptions.
+- [ ] Start with trace and I/O dry-run before inference.
+- [ ] Scale capacities gradually with hard memory limits.
+- [ ] When feasible, run the pinned WASTE commit and this runtime on the same host and NVMe; otherwise publish a normalized comparison covering bytes/token, effective bandwidth, cache residency, I/O/compute decomposition, quality constraints, and tokens/second.
+- [ ] Preserve WASTE's published 0.49–0.54 tok/s M5 Pro result as an external reference, not as a universal gate or an unverified local reproduction.
+
+### Exit gate
+
+- Full-size physical behavior is measured for a single request on each validated single-device transport.
+- Any new storage format is justified quantitatively.
+- A realistic throughput/tail-latency envelope is documented.
+- Full-size claims include an apples-to-apples WASTE comparison where possible, or a precise explanation of the remaining non-equivalent dimensions.
+- Results are explicitly scoped as single-request and single-device; service concurrency and multi-GPU scaling remain later gates.
+
+---
+
+## Phase 13 — Multi-request, batching, and CUDA graphs
 
 ### Objectives
 
 - Make the design safe beyond a single sequential request.
+- Measure concurrency and batching gains relative to the Phase 12 full-size single-request baseline.
 
 ### Tasks
 
@@ -81,14 +144,16 @@ The pinned WASTE implementation and measurements recorded in `docs/PRIOR_ART.md`
 - CUDA graph behavior is correct where enabled.
 - Multi-request metrics are exposed.
 - Reported batching gains decompose storage deduplication, transfer avoidance, compute utilization, and scheduler effects.
+- Incremental results are compared with the Phase 12 single-request baseline rather than replacing it.
 
 ---
 
-## Phase 13 — Multi-GPU and topology-aware placement
+## Phase 14 — Multi-GPU and topology-aware placement
 
 ### Objectives
 
 - Extend the provider without redesigning core policy and storage.
+- Measure topology-aware scaling relative to the Phase 12 single-device full-size baseline.
 
 ### Tasks
 
@@ -106,66 +171,7 @@ The pinned WASTE implementation and measurements recorded in `docs/PRIOR_ART.md`
 
 - Correctness across supported sharding modes.
 - Topology-aware metrics show where bytes moved.
-
----
-
-## Phase 14 — Full-size scaling and storage decision
-
-### Objectives
-
-- Prove that the design scales physically before claiming full K3 viability.
-- Compare against the pinned WASTE full-K3 result without conflating format, quantization, or hardware effects.
-
-### Tasks
-
-#### 14.1 Synthetic exact-size store
-
-- [ ] Generate exact full-K3 MXFP4 expert spans from real metadata.
-- [ ] Validate queue depth, cold/hot budgets, and transfer overlap.
-- [ ] Run controlled traces with realistic top-k and layer counts.
-- [ ] Cross-check full-K3 layer count, selected-expert count, exact working-set bytes, resident-trunk budget, and expected reads/token against the pinned WASTE metadata, explaining representation differences.
-- [ ] Sweep storage and cache regimes that bracket WASTE's observed one-token working-set floor and memory-oversubscription cliff.
-
-#### 14.2 GGUF layout evaluation
-
-Measure:
-
-- three-span reads per expert;
-- alignment read amplification;
-- split-file behavior;
-- queue and syscall overhead;
-- storage locality across selected experts;
-- bytes per complete expert bundle and bytes per token;
-- effective bandwidth and first-read latency at the real expert-record size;
-- the performance gap versus WASTE's one-aligned-record-per-expert custom layout, normalized for different expert precision and payload size.
-
-#### 14.3 Optional expert-specific format
-
-Only if GGUF is proven inadequate:
-
-- [ ] Specify a versioned format with checksums and explicit tensor metadata.
-- [ ] Keep resident model metadata in GGUF.
-- [ ] Build a deterministic converter and verifier.
-- [ ] Compare end-to-end gains against added complexity.
-- [ ] Measure K3 route-weight distribution before proposing partial-record or per-activation precision. WASTE observed that the lower half of selected experts carried about one third of routing mass, so no low-value tail may be assumed.
-- [ ] Compare any compressed expert representation on output quality, bytes/read, direct-kernel cost, conversion footprint, and end-to-end throughput; do not infer benefit from bit width alone.
-- [ ] Review the Apache-2.0 WASTE implementation and attribution requirements before reusing any format, direct-kernel, diskbench, or cache code.
-
-#### 14.4 Full checkpoint
-
-- [ ] Acquire/convert the full K3 text checkpoint when resources permit.
-- [ ] Validate metadata against synthetic assumptions.
-- [ ] Start with trace and I/O dry-run before inference.
-- [ ] Scale capacities gradually with hard memory limits.
-- [ ] When feasible, run the pinned WASTE commit and this runtime on the same host and NVMe; otherwise publish a normalized comparison covering bytes/token, effective bandwidth, cache residency, I/O/compute decomposition, quality constraints, and tokens/second.
-- [ ] Preserve WASTE's published 0.49–0.54 tok/s M5 Pro result as an external reference, not as a universal gate or an unverified local reproduction.
-
-### Exit gate
-
-- Full-size physical behavior is measured.
-- Any new storage format is justified quantitatively.
-- A realistic throughput/tail-latency envelope is documented.
-- Full-size claims include an apples-to-apples WASTE comparison where possible, or a precise explanation of the remaining non-equivalent dimensions.
+- Incremental scaling is reported against the Phase 12 single-device baseline.
 
 ---
 
