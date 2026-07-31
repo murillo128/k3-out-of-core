@@ -1,6 +1,6 @@
 # Prior Art and Reuse Plan
 
-Reviewed on **2026-07-29**. Statuses can change; verify them before basing implementation work on a branch.
+Reviewed on **2026-07-31**. Statuses can change; verify them before basing implementation work on a branch.
 
 The central conclusion is that the proposed architecture is not novel in isolation. Nearly identical systems have been designed and prototyped. The opportunity is to combine the strongest ideas behind a clean provider abstraction, avoid documented lifetime and synchronization failures, and adapt the result to Kimi-K3 MXFP4 and UMA.
 
@@ -17,6 +17,7 @@ The central conclusion is that the proposed architecture is not novel in isolati
 | vLLM RFC #38256 / PR #37190 | Open | Clean `ExpertWeightProvider`, fixed slots, persistent mapping, LFRU | Reuse software architecture |
 | tinyserve | External implementation | Independent cache behavior and benchmark evidence | Reuse tests/policy ideas after license review |
 | MoE-Infinity | Active external project | Activation tracing, activation-aware caching/prefetch | Reuse research ideas, not runtime integration |
+| WASTE | Active external implementation | Full 2.78T K3 streamed from NVMe on 64 GB, custom 3-bit experts, measured cache/prefetch limits | Use as external full-size baseline; reuse methodology and isolated ideas after review |
 
 ## 1. `llama.cpp` issue #20757
 
@@ -313,7 +314,125 @@ After reviewing license and code:
 - compare its activation-aware policies with K3 traces;
 - do not use it as the runtime base because it targets Hugging Face/PyTorch and a different execution stack.
 
-## 10. Kimi-K3 support PR
+## 10. WASTE — Weight-Aware Streaming Tensor Engine
+
+- Repository: <https://github.com/sqliteai/waste>
+- Article: <https://marcobambini.substack.com/p/the-waste-inference-engine>
+- Reviewed branch: `main`.
+- Pinned reviewed commit: `c4d45c5914d1d15643d201855128938e8fb1698a`.
+- License: Apache-2.0, copyright SQLite Cloud, Inc.
+- Observed state: active external implementation and published full-K3 proof point.
+
+### Architecture
+
+WASTE is a standalone C11 inference engine with no third-party runtime dependencies. Its K3 path uses:
+
+- a resident trunk plus disk-backed routed experts;
+- a custom `.waste` container with one aligned record containing gate/up/down data for each expert;
+- page-cache bypass through platform direct-I/O facilities;
+- bounded reader threads and issue-ahead for all experts already selected in a layer;
+- a bounded RAM expert cache;
+- three-stage residual vector quantization at 3.00 bits per expert weight;
+- direct table-based expert computation without materializing a conventional dense matrix;
+- 4- and 8-bit resident trunk tensors;
+- a compressed/absorbed attention-state representation for K3.
+
+This is a distinct design point from this project. WASTE executes the streamed experts on CPU/UMA from its custom representation. This project retains GGUF/MXFP4 compatibility and targets explicit NVMe/RAM/pinned/VRAM tiers, discrete CUDA, CPU fallback, coherent CUDA UMA, and multi-GPU.
+
+### `OBSERVED` full-K3 result
+
+At the pinned commit, WASTE reports the complete 2.78T Kimi K3 checkpoint as:
+
+```text
+container                    982 GiB
+resident trunk               about 27.28 GB
+minimum RAM to open at 4K    29.05 GB
+practical tested RAM         64 GB
+selected experts/token       16 x 92 layers = 1472 records
+expert working set/token     about 17.0 GB
+expert record                about 11.83 MB
+measured decode              0.49–0.54 tok/s
+hardware                     Apple M5 Pro, 64 GB, internal NVMe
+```
+
+Its real-record disk benchmark reports about 10.73 GB/s with one random-read thread and about 12.79 GB/s from two threads onward. Adding asynchronous issue-ahead and overlapping expert reads with arithmetic improved K3 by roughly 1.6x while preserving identical hit/miss counts. A later profile still attributed about 54.8% of the decode step to expert I/O and 27.2% to expert arithmetic.
+
+These numbers demonstrate feasibility and provide a serious external baseline. They are not direct performance predictions for this project because the hardware, quantization, expert bytes, kernels, container, cache hierarchy, and execution backend differ.
+
+### Cache findings
+
+WASTE identifies one token's expert working set as a critical cache scale. In its sweep predating read-ahead:
+
+```text
+17.32 GB expert cache    13% hit    0.32 tok/s
+29.32 GB expert cache    37% hit    0.04 tok/s
+```
+
+The larger logical cache was much slower because the host began paging/compressing cache pages. Its automatic 64 GB configuration therefore selects about a 46 GB total budget with roughly 17.5 GB of expert cache instead of filling nominal RAM. A purgeable-cache experiment made gross oversubscription degrade less catastrophically but destroyed useful hits at the normal operating point.
+
+Lessons retained for this project:
+
+- cache hit rate alone is not a valid optimization objective;
+- logical hits must be distinguished from physically resident hits and faulted/degraded hits;
+- budget sweeps should include whole token-working-set boundaries and explicit OS/runtime headroom;
+- page faults, swap/compression, RSS, physical residency, hit service time, throughput, and tails are required evidence;
+- WASTE's observed cache floor is a baseline to reproduce or refute per model, representation, hardware, and policy, not a universal invariant.
+
+### Prefetch and routing findings
+
+WASTE distinguishes exact current-layer issue-ahead from prediction. Once routing has selected all experts for a layer, issuing those reads ahead is exact and produced the measured overlap gain.
+
+Its pinned cross-layer experiment over a 214-token mixed trace reported recall@16 approximately as:
+
+```text
+random experts                    1.8%
+static per-layer hot experts     20.5%
+previous token's same-layer set  29.5%
+layer-to-next-layer predictor    29.0%
+in-sample fitted ceiling         49.7%
+measured break-even              about 60%
+```
+
+On that bandwidth-saturated CPU/UMA engine, cross-layer prediction did not beat the previous-token baseline and would increase total reads. This is a strong negative result for WASTE, not a universal rejection of prediction behind PCIe or on a different compute/storage balance.
+
+WASTE also measured a relatively flat selected-expert routing distribution: ranks 9–16 carried about 33.3% of K3 routing mass, and the lower half carried about 32% on Kimi-Linear. Therefore a cheap low-weight tail could not be assumed for partial-record precision or selective stage loading.
+
+Required implications:
+
+- Phase 10 must compare learned predictors against random, static-hot, and previous-token baselines;
+- break-even must be re-derived from this runtime's actual hidden latency, bytes, bandwidth, transfer path, and pollution cost;
+- exact issue-ahead must not be reported as predictive prefetch;
+- Phase 14 must measure routing-weight distributions before considering partial expert records or per-activation precision.
+
+### Batching finding
+
+WASTE measured that grouping tokens reduced marginal expert reads by about 70–76% while leaving per-token expert computation essentially unchanged. Its measured batching ceiling therefore came from the remaining compute and did not multiply independently with I/O overlap.
+
+Phase 12 must record unique expert records separately from token-expert compute pairs and decompose batching gains into I/O deduplication, transfer avoidance, compute utilization, and scheduling.
+
+### Storage-format comparison
+
+WASTE's custom record layout achieves one aligned read per expert and computes directly from its 3-bit representation. This is relevant to Phase 14's GGUF decision, but it does not by itself justify a new format:
+
+- GGUF must first be measured using real expert spans and split-file behavior;
+- comparisons must normalize bytes/expert, bytes/token, read count, amplification, quality, conversion footprint, and kernel cost;
+- direct code or format reuse requires an Apache-2.0 attribution and license review;
+- no WASTE code has been imported into this project at this review point.
+
+### Candidate reuse after isolated review
+
+Potentially reusable methodology or small units include:
+
+1. real-record disk benchmark methodology;
+2. working-set and memory-budget sweep methodology;
+3. route-ID/route-weight trace capture and simple predictor baselines;
+4. cache telemetry that exposes evictions, bytes, and physical-memory failure modes;
+5. one-record-per-expert layout as a Phase 14 comparator;
+6. bounded reader-queue tests and byte-identical synchronous/read-ahead checks.
+
+Do not copy the runtime wholesale. Preserve this project's provider, ownership, cancellation, generation, GGUF, CPU/CUDA, and evidence contracts.
+
+## 11. Kimi-K3 support PR
 
 - URL: <https://github.com/ggml-org/llama.cpp/pull/26185>
 - Title: *model: add Kimi-K3 text model*
