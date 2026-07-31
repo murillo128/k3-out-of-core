@@ -67,20 +67,22 @@ UNLOAD_CASES = frozenset({
 })
 MODEL_CASES = frozenset(name for name in EXPECTED_CASES if name.startswith("model_"))
 
-ZERO_CLOSEOUT_FIELDS = (
-    "scheduler_active",
-    "scheduler_queued",
-    "ring_queued_workers",
-    "ring_running_workers",
-    "ring_non_free_lanes",
-    "ring_live_events",
-    "cold_hot_refs",
-    "cold_transfer_refs",
-    "cold_request_refs",
-    "cold_cpu_execution_refs",
-    "hot_pins",
-    "published_forward_mappings",
+BACKGROUND_FIELDS = (
+    "submitted", "published_completed", "dropped", "useful", "wasted", "busy",
 )
+SCHEDULER_TERMINAL_FIELDS = (
+    "terminal_complete", "terminal_failed", "terminal_cancelled", "terminal_releases",
+)
+LIFECYCLE_FIELDS = (
+    "empty", "queued_or_staging", "h2d_in_flight", "h2d_complete_unpublished",
+    "published", "failed", "cancelled",
+)
+CLOSEOUT_FIELDS = (
+    "written", "write_count", "final_invariants_ok", "background", "scheduler",
+    "ring", "cold", "hot_pins", "published_forward_mappings",
+)
+RING_FIELDS = ("queued_workers", "running_workers", "non_free_lanes", "live_events")
+COLD_FIELDS = ("hot_refs", "transfer_refs", "request_refs", "cpu_execution_refs")
 
 
 class VerificationError(ValueError):
@@ -122,18 +124,123 @@ def require_int(value: Any, name: str) -> int:
     return value
 
 
-def verify_closeout(case_name: str, case: dict[str, Any]) -> None:
-    closeout = case.get("closeout")
-    require(isinstance(closeout, dict), f"{case_name}: closeout missing")
-    require(closeout.get("written") is True and closeout.get("write_count") == 1,
+def exact_object(value: Any, fields: tuple[str, ...], name: str) -> dict[str, Any]:
+    require(isinstance(value, dict), f"{name} must be an object")
+    expected = set(fields)
+    require(set(value) == expected,
+            f"{name} field mismatch missing={sorted(expected - set(value))} extra={sorted(set(value) - expected)}")
+    return value
+
+
+def verify_evidence(case_name: str, case: dict[str, Any]) -> dict[str, dict[str, int]]:
+    baseline = exact_object(case.get("baseline"), ("background", "scheduler"),
+                            f"{case_name}.baseline")
+    baseline_background = exact_object(
+        baseline["background"], BACKGROUND_FIELDS, f"{case_name}.baseline.background")
+    baseline_scheduler = exact_object(
+        baseline["scheduler"], SCHEDULER_TERMINAL_FIELDS, f"{case_name}.baseline.scheduler")
+
+    closeout = exact_object(case.get("closeout"), CLOSEOUT_FIELDS, f"{case_name}.closeout")
+    require(closeout["written"] is True and closeout["write_count"] == 1,
             f"{case_name}: closeout must be written exactly once")
-    require(closeout.get("final_invariants_ok") is True,
-            f"{case_name}: closeout invariants failed")
-    for field in ZERO_CLOSEOUT_FIELDS:
-        require(closeout.get(field) == 0, f"{case_name}: nonzero closeout {field}")
-    for field in ("scheduler_terminal_complete", "scheduler_terminal_failed",
-                  "scheduler_terminal_cancelled", "scheduler_terminal_releases"):
-        require_int(closeout.get(field), f"{case_name}.closeout.{field}")
+    require(closeout["final_invariants_ok"] is True, f"{case_name}: closeout invariants failed")
+    closeout_background = exact_object(
+        closeout["background"], BACKGROUND_FIELDS + ("lifecycle",),
+        f"{case_name}.closeout.background")
+    closeout_lifecycle = exact_object(
+        closeout_background["lifecycle"], LIFECYCLE_FIELDS,
+        f"{case_name}.closeout.background.lifecycle")
+    closeout_scheduler = exact_object(
+        closeout["scheduler"], ("active", "queued") + SCHEDULER_TERMINAL_FIELDS,
+        f"{case_name}.closeout.scheduler")
+    closeout_ring = exact_object(closeout["ring"], RING_FIELDS, f"{case_name}.closeout.ring")
+    closeout_cold = exact_object(closeout["cold"], COLD_FIELDS, f"{case_name}.closeout.cold")
+
+    observed = exact_object(case.get("observed_delta"), ("background", "scheduler"),
+                            f"{case_name}.observed_delta")
+    observed_background = exact_object(
+        observed["background"], BACKGROUND_FIELDS, f"{case_name}.observed_delta.background")
+    observed_scheduler = exact_object(
+        observed["scheduler"], SCHEDULER_TERMINAL_FIELDS, f"{case_name}.observed_delta.scheduler")
+
+    for group_name, fields, before, after, claimed in (
+        ("background", BACKGROUND_FIELDS, baseline_background, closeout_background, observed_background),
+        ("scheduler", SCHEDULER_TERMINAL_FIELDS, baseline_scheduler, closeout_scheduler, observed_scheduler),
+    ):
+        for field in fields:
+            baseline_value = require_int(before[field], f"{case_name}.baseline.{group_name}.{field}")
+            closeout_value = require_int(after[field], f"{case_name}.closeout.{group_name}.{field}")
+            claimed_value = require_int(claimed[field], f"{case_name}.observed_delta.{group_name}.{field}")
+            require(closeout_value >= baseline_value,
+                    f"{case_name}: {group_name}.{field} underflow")
+            require(claimed_value == closeout_value - baseline_value,
+                    f"{case_name}: {group_name}.{field} delta mismatch")
+
+    for field in ("active", "queued"):
+        require_int(closeout_scheduler[field], f"{case_name}.closeout.scheduler.{field}")
+        require(closeout_scheduler[field] == 0, f"{case_name}: nonzero closeout scheduler.{field}")
+    for field in RING_FIELDS:
+        require_int(closeout_ring[field], f"{case_name}.closeout.ring.{field}")
+        require(closeout_ring[field] == 0, f"{case_name}: nonzero closeout ring.{field}")
+    for field in COLD_FIELDS:
+        require_int(closeout_cold[field], f"{case_name}.closeout.cold.{field}")
+        require(closeout_cold[field] == 0, f"{case_name}: nonzero closeout cold.{field}")
+    for field in ("hot_pins", "published_forward_mappings"):
+        require_int(closeout[field], f"{case_name}.closeout.{field}")
+        require(closeout[field] == 0, f"{case_name}: nonzero closeout {field}")
+    for field in LIFECYCLE_FIELDS:
+        require_int(closeout_lifecycle[field], f"{case_name}.closeout.background.lifecycle.{field}")
+        require(closeout_lifecycle[field] == 0,
+                f"{case_name}: nonzero closeout background lifecycle {field}")
+
+    scheduler = observed_scheduler
+    background = observed_background
+    require(scheduler["terminal_releases"] == scheduler["terminal_complete"] +
+            scheduler["terminal_failed"] + scheduler["terminal_cancelled"],
+            f"{case_name}: scheduler terminal release imbalance")
+    require(background["submitted"] == background["published_completed"] + background["dropped"],
+            f"{case_name}: background submission imbalance")
+    require(background["useful"] + background["wasted"] == background["published_completed"],
+            f"{case_name}: background generation classification imbalance")
+    if background["dropped"] > 0:
+        require(background["published_completed"] == 0 and background["useful"] == 0 and
+                background["wasted"] == 0, f"{case_name}: dropped background overlaps publication")
+    return {"background": observed_background, "scheduler": observed_scheduler}
+
+
+def derived_terminal(case_name: str, delta: dict[str, dict[str, int]]) -> str:
+    scheduler = delta["scheduler"]
+    require(scheduler["terminal_complete"] == 0, f"{case_name}: scheduler completed before publication")
+    require(scheduler["terminal_releases"] == 1, f"{case_name}: terminal release count mismatch")
+    require((scheduler["terminal_failed"], scheduler["terminal_cancelled"]) in {(1, 0), (0, 1)},
+            f"{case_name}: failure terminal is not unique")
+    return "failed" if scheduler["terminal_failed"] == 1 else "cancelled"
+
+
+def verify_failed_flight(case_name: str, case: dict[str, Any], delta: dict[str, dict[str, int]]) -> None:
+    terminal = derived_terminal(case_name, delta)
+    require(case.get("terminal") == terminal, f"{case_name}: terminal classification mismatch")
+    background = delta["background"]
+    require(background == {
+        "submitted": 1, "published_completed": 0, "dropped": 1,
+        "useful": 0, "wasted": 0, "busy": 0,
+    }, f"{case_name}: failed background delta mismatch")
+
+
+def verify_published_flight(
+        case_name: str,
+        delta: dict[str, dict[str, int]],
+        *,
+        useful: int,
+        wasted: int) -> None:
+    require(delta["background"] == {
+        "submitted": 1, "published_completed": 1, "dropped": 0,
+        "useful": useful, "wasted": wasted, "busy": 0,
+    }, f"{case_name}: published background delta mismatch")
+    require(delta["scheduler"] == {
+        "terminal_complete": 1, "terminal_failed": 0,
+        "terminal_cancelled": 0, "terminal_releases": 1,
+    }, f"{case_name}: published scheduler delta mismatch")
 
 
 def auto_input(record: dict[str, Any]) -> dict[str, Any]:
@@ -179,7 +286,7 @@ def verify_payload(
         expected_nested: str,
         probe_path: Path | None = None,
         expected_models: dict[str, dict[str, Any]] | None = None) -> None:
-    require(payload.get("schema") == "phase8-checkpoint-b-probe-v1", "unexpected probe schema")
+    require(payload.get("schema") == "phase8-checkpoint-b-probe-v2", "unexpected probe schema")
     require(payload.get("outer_head") == expected_outer, "stale outer head")
     require(payload.get("nested_head") == expected_nested, "stale nested head")
     require(payload.get("exit_code") == 0, "probe exit code is not zero")
@@ -212,6 +319,7 @@ def verify_payload(
             f"case-key mismatch missing={sorted(EXPECTED_CASES - set(cases))} extra={sorted(set(cases) - EXPECTED_CASES)}")
     for name, case in cases.items():
         require(isinstance(case, dict) and case.get("status") == "pass", f"{name}: case did not pass")
+    deltas = {name: verify_evidence(name, case) for name, case in cases.items()}
 
     for name, (present, state, remaining) in AUTO_STATES.items():
         case = cases[name]
@@ -233,7 +341,8 @@ def verify_payload(
 
     for name in FROZEN_CASES:
         case = cases[name]
-        require(case.get("request_status") in {"failed", "cancelled"}, f"{name}: request did not fail")
+        verify_failed_flight(name, case, deltas[name])
+        require(case.get("request_status") == case["terminal"], f"{name}: request status mismatch")
         for field, expected in {
             "decision_count": 1, "backend": "gpu", "new_cpu_execution_refs": 0,
             "active_cpu_lanes": 0, "written_cpu_ids": 0, "evaluator_invocations": 1,
@@ -242,57 +351,39 @@ def verify_payload(
             require(case.get(field) == expected, f"{name}: {field} mismatch")
         verify_auto_record(name, case.get("record"))
         require(case["record"]["result"]["backend"] == "gpu", f"{name}: altered backend")
-        verify_closeout(name, case)
-        require(case["closeout"]["scheduler_terminal_complete"] == 0,
-                f"{name}: scheduler completed before publication")
 
     for name in NORMALIZATION_CASES:
         case = cases[name]
+        verify_failed_flight(name, case, deltas[name])
         for field, expected in {
             "terminalized_before_evaluation": True,
             "same_key_h2d_present": False,
-            "scheduler_complete_delta": 0,
-            "scheduler_failed_or_cancelled_delta": 1,
-            "background_drop_or_fail_delta": 1,
-            "useful_delta": 0,
-            "wasted_delta": 0,
         }.items():
             require(case.get(field) == expected, f"{name}: {field} mismatch")
         verify_auto_record(name, case.get("record"))
         require(case["record"]["same_key_h2d_present"] is False, f"{name}: stale record survived normalization")
-        verify_closeout(name, case)
-        require(case["closeout"]["scheduler_terminal_complete"] == 0,
-                f"{name}: scheduler completed before publication")
 
     for name in UNLOAD_CASES:
-        case = cases[name]
-        for field, expected in {
-            "scheduler_success_delta": 0,
-            "terminal": "cancelled",
-            "background_drop_or_fail_delta": 1,
-            "useful_delta": 0,
-            "wasted_delta": 0,
-        }.items():
-            require(case.get(field) == expected, f"{name}: {field} mismatch")
-        verify_closeout(name, case)
-        require(case["closeout"]["scheduler_terminal_complete"] == 0,
-                f"{name}: scheduler completed before publication")
+        verify_failed_flight(name, cases[name], deltas[name])
 
     nonblocking = cases["current_output_nonblocking"]
     for field in ("current_remap_returned_while_gate_closed", "later_join_same_scheduler",
                   "later_join_same_lane", "later_join_same_hot_generation"):
         require(nonblocking.get(field) is True, f"current_output_nonblocking: {field} missing")
     verify_auto_record("current_output_nonblocking", nonblocking.get("record"))
-    verify_closeout("current_output_nonblocking", nonblocking)
+    verify_published_flight("current_output_nonblocking", deltas["current_output_nonblocking"],
+                            useful=1, wasted=0)
+    require(nonblocking.get("useful_delta") == 1 and nonblocking.get("wasted_delta") == 0,
+            "current_output_nonblocking: generation classification mismatch")
 
     wasted = cases["published_wasted"]
     useful = cases["published_useful"]
-    require(wasted.get("useful_delta") == 0 and wasted.get("wasted_delta") == 1 and
-            wasted.get("counted_once") is True, "published_wasted accounting mismatch")
-    require(useful.get("useful_delta") == 1 and useful.get("wasted_delta") == 0 and
-            useful.get("counted_once") is True, "published_useful accounting mismatch")
-    verify_closeout("published_wasted", wasted)
-    verify_closeout("published_useful", useful)
+    verify_published_flight("published_wasted", deltas["published_wasted"], useful=0, wasted=1)
+    verify_published_flight("published_useful", deltas["published_useful"], useful=1, wasted=0)
+    require(wasted.get("useful_delta") == 0 and wasted.get("wasted_delta") == 1,
+            "published_wasted accounting mismatch")
+    require(useful.get("useful_delta") == 1 and useful.get("wasted_delta") == 0,
+            "published_useful accounting mismatch")
 
     for name in MODEL_CASES:
         case = cases[name]
@@ -308,9 +399,7 @@ def verify_payload(
         else:
             require(case.get("gate_reached_before_model_reset") is True,
                     f"{name}: destruction gate not observed")
-            require(case.get("useful_delta") == 0 and case.get("wasted_delta") == 0,
-                    f"{name}: prepublication useful/wasted overlap")
-        verify_closeout(name, case)
+            verify_failed_flight(name, case, deltas[name])
 
 
 def git_output(repo: Path, *args: str) -> str:
@@ -323,6 +412,51 @@ def verify_repository_binding(
     require(actual_outer == expected_outer, "current outer HEAD mismatch")
     require(actual_nested == expected_nested, "current nested HEAD mismatch")
     require(gitlink == expected_nested, "outer gitlink mismatch")
+
+
+def verify_checkpoint_b(
+        payload: dict[str, Any],
+        *,
+        expected_outer: str,
+        expected_nested: str,
+        actual_outer: str,
+        actual_nested: str,
+        gitlink: str,
+        probe_path: Path | None = None,
+        expected_models: dict[str, dict[str, Any]] | None = None) -> None:
+    verify_repository_binding(
+        actual_outer=actual_outer, actual_nested=actual_nested, gitlink=gitlink,
+        expected_outer=expected_outer, expected_nested=expected_nested)
+    verify_payload(
+        payload,
+        expected_outer=expected_outer,
+        expected_nested=expected_nested,
+        probe_path=probe_path,
+        expected_models=expected_models,
+    )
+
+
+def verify_checkpoint_b_file(
+        probe_path: Path,
+        *,
+        expected_outer: str,
+        expected_nested: str,
+        actual_outer: str,
+        actual_nested: str,
+        gitlink: str,
+        expected_models: dict[str, dict[str, Any]] | None = None) -> tuple[dict[str, Any], bytes]:
+    payload, raw = load_json(probe_path)
+    verify_checkpoint_b(
+        payload,
+        expected_outer=expected_outer,
+        expected_nested=expected_nested,
+        actual_outer=actual_outer,
+        actual_nested=actual_nested,
+        gitlink=gitlink,
+        probe_path=probe_path,
+        expected_models=expected_models,
+    )
+    return payload, raw
 
 
 def expected_models_from_manifest(manifest: Path) -> dict[str, dict[str, Any]]:
@@ -350,18 +484,16 @@ def main() -> int:
     args = parser.parse_args()
 
     repo = Path(__file__).resolve().parents[2]
-    payload, raw = load_json(args.probe)
     actual_outer = git_output(repo, "rev-parse", "HEAD")
     actual_nested = git_output(repo / "llama.cpp", "rev-parse", "HEAD")
     gitlink = git_output(repo, "ls-tree", "HEAD", "llama.cpp").split()[2]
-    verify_repository_binding(
-        actual_outer=actual_outer, actual_nested=actual_nested, gitlink=gitlink,
-        expected_outer=args.outer_head, expected_nested=args.nested_head)
-    verify_payload(
-        payload,
+    payload, raw = verify_checkpoint_b_file(
+        args.probe,
         expected_outer=args.outer_head,
         expected_nested=args.nested_head,
-        probe_path=args.probe,
+        actual_outer=actual_outer,
+        actual_nested=actual_nested,
+        gitlink=gitlink,
         expected_models=expected_models_from_manifest(args.phase7_manifest),
     )
     result = {
