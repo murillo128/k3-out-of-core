@@ -12,7 +12,8 @@ import resource
 import time
 from pathlib import Path
 
-from common import git, identity, percentile, write
+from common import (BENCHMARK_POLICIES, EXPECTED_BENCHMARK_CELLS, git, identity,
+                    percentile, write)
 from evaluate_auto_cost import AUTO_COST_MODEL_STRUCT_SIZE, evaluate_auto
 
 
@@ -34,6 +35,7 @@ def main() -> int:
     parser.add_argument("--full-k3-config", type=Path, required=True)
     parser.add_argument("--full-k3-revision", required=True)
     parser.add_argument("--overlap", type=Path, required=True)
+    parser.add_argument("--parity", type=Path, required=True)
     parser.add_argument("--store", type=Path, required=True)
     parser.add_argument("--descriptor-output", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
@@ -80,6 +82,7 @@ def main() -> int:
         os.close(fd)
 
     overlap = json.loads(args.overlap.read_text())
+    parity = json.loads(args.parity.read_text())
     cpu_us = percentile([int(sample["cpu_us"]) for sample in overlap["samples"]], 50)
     gpu_us = percentile([int(sample["gpu_us"]) for sample in overlap["samples"]], 50)
     h2d_bps = 6_000_000_000
@@ -92,54 +95,81 @@ def main() -> int:
         "h2d_fixed_ns": 20_000, "h2d_bytes_per_second": h2d_bps,
         "decision_hysteresis_ns": 1,
     }
+    cpu_samples = [int(sample["cpu_us"]) * 1000 for sample in overlap["samples"]]
+    gpu_samples = [int(sample["gpu_us"]) * 1000 for sample in overlap["samples"]]
+    auto_cpu_cost = dict(base_cost)
+    auto_cpu_cost["gpu_fixed_decode_ns"] = 1_000_000_000
+    auto_cpu_cost["gpu_fixed_prefill_ns"] = 1_000_000_000
+    auto_gpu_cost = dict(base_cost)
+    auto_gpu_cost["cpu_fixed_decode_ns"] = 1_000_000_000
+    auto_gpu_cost["cpu_fixed_prefill_ns"] = 1_000_000_000
+    tie_cost = dict(base_cost)
+    transfer_ns = tie_cost["h2d_fixed_ns"] + (bundle_bytes * 1_000_000_000 + h2d_bps - 1) // h2d_bps
+    tie_cost["cpu_fixed_decode_ns"] = tie_cost["gpu_fixed_decode_ns"] + transfer_ns
+    tie_cost["cpu_fixed_prefill_ns"] = tie_cost["gpu_fixed_prefill_ns"] + transfer_ns
+    policy_variants = {
+        "PROMOTE_AND_GPU": None,
+        "CPU_FALLBACK": None,
+        "AUTO_CPU_FAVORABLE": auto_cpu_cost,
+        "AUTO_GPU_FAVORABLE": auto_gpu_cost,
+        "AUTO_TIE": tie_cost,
+    }
+    if tuple(policy_variants) != BENCHMARK_POLICIES:
+        raise RuntimeError("benchmark policy order/authority mismatch")
     cells = []
     for bucket, prefill in (("decode", False), ("prefill", True)):
         for hot_ratio in (0, 25, 50, 75, 100):
             for reuse in ("none", "immediate", "long"):
                 for background in (False, True):
-                    misses = 4 * (100 - hot_ratio) // 100
-                    record = {
-                        "cost": base_cost, "prefill": prefill, "lanes": max(1, misses),
-                        "bundle_bytes": bundle_bytes, "queued_cpu_work_ns": 0,
-                        "queued_h2d_work_ns": 0, "queued_gpu_work_ns": 0,
-                        "same_key_h2d_present": False, "same_key_h2d_state": "NONE",
-                        "same_key_h2d_remaining_bytes": 0,
-                    }
-                    decision = evaluate_auto(record)
-                    promote_ns = decision["gpu_finish_ns"] if misses else gpu_us * 1000
-                    cpu_ns = decision["cpu_finish_ns"] if misses else gpu_us * 1000
-                    cells.append({
-                        "bucket": bucket, "hot_ratio_percent": hot_ratio, "reuse": reuse,
-                        "background_promotion": background, "miss_lanes": misses,
-                        "predicted_cpu_ns": cpu_ns, "predicted_gpu_ns": promote_ns,
-                        "auto_backend": decision["backend"], "auto_reason": decision["reason"],
-                        "prompt_tokens_per_second": round(1e9 / max(1, cpu_ns if prefill else promote_ns), 6),
-                        "decode_tokens_per_second": round(1e9 / max(1, min(cpu_ns, promote_ns)), 6),
-                        "ttft_ns": promote_ns, "token_p50_ns": min(cpu_ns, promote_ns),
-                        "token_p95_ns": max(cpu_ns, promote_ns), "token_p99_ns": max(cpu_ns, promote_ns),
-                        "h2d_bytes": misses * bundle_bytes,
-                        "h2d_bytes_avoided_for_current_output": misses * bundle_bytes if decision["backend"] == "cpu" else 0,
-                        "background_bytes": misses * bundle_bytes if background else 0,
-                        "observed_regret_ns": 0,
-                    })
+                    for policy, cost in policy_variants.items():
+                        misses = 4 * (100 - hot_ratio) // 100
+                        record = {
+                            "cost": cost or base_cost, "prefill": prefill, "lanes": max(1, misses),
+                            "bundle_bytes": bundle_bytes, "queued_cpu_work_ns": 0,
+                            "queued_h2d_work_ns": 0, "queued_gpu_work_ns": 0,
+                            "same_key_h2d_present": False, "same_key_h2d_state": "NONE",
+                            "same_key_h2d_remaining_bytes": 0,
+                        }
+                        evaluated = evaluate_auto(record)
+                        promote_ns = evaluated["gpu_finish_ns"] if misses else gpu_us * 1000
+                        cpu_ns = evaluated["cpu_finish_ns"] if misses else gpu_us * 1000
+                        if policy == "PROMOTE_AND_GPU":
+                            backend, reason = "gpu", "explicit-policy"
+                        elif policy == "CPU_FALLBACK":
+                            backend, reason = "cpu", "explicit-policy"
+                        else:
+                            backend, reason = evaluated["backend"], evaluated["reason"]
+                        service_ns = cpu_ns if backend == "cpu" else promote_ns
+                        cells.append({
+                            "bucket": bucket, "hot_ratio_percent": hot_ratio, "reuse": reuse,
+                            "policy": policy, "background_promotion": background,
+                            "miss_lanes": misses, "predicted_cpu_ns": cpu_ns,
+                            "predicted_gpu_ns": promote_ns, "selected_backend": backend,
+                            "selection_reason": reason,
+                            "cost_model_sha256": hashlib.sha256(
+                                json.dumps(record["cost"], sort_keys=True).encode()).hexdigest(),
+                            "prompt_tokens_per_second": round(1e9 / max(1, service_ns), 6) if prefill else None,
+                            "decode_tokens_per_second": round(1e9 / max(1, service_ns), 6) if not prefill else None,
+                            "ttft_ns": service_ns, "token_p50_ns": service_ns,
+                            "token_p95_ns": service_ns, "token_p99_ns": service_ns,
+                            "h2d_bytes": misses * bundle_bytes if backend == "gpu" or background else 0,
+                            "h2d_bytes_avoided_for_current_output": misses * bundle_bytes if backend == "cpu" else 0,
+                            "background_bytes": misses * bundle_bytes if background and backend == "cpu" else 0,
+                            "controlled_estimate": True, "observed_regret_ns": 0,
+                        })
 
     cpu_favorable = evaluate_auto({
-        "cost": base_cost, "prefill": False, "lanes": 1, "bundle_bytes": bundle_bytes,
+        "cost": auto_cpu_cost, "prefill": False, "lanes": 1, "bundle_bytes": bundle_bytes,
         "queued_cpu_work_ns": 0, "queued_h2d_work_ns": 20_000_000,
         "queued_gpu_work_ns": 0, "same_key_h2d_present": False,
         "same_key_h2d_state": "NONE", "same_key_h2d_remaining_bytes": 0,
     })
-    gpu_favorable_cost = dict(base_cost)
-    gpu_favorable_cost["cpu_fixed_decode_ns"] = 1_000_000_000
     gpu_favorable = evaluate_auto({
-        "cost": gpu_favorable_cost, "prefill": False, "lanes": 1,
+        "cost": auto_gpu_cost, "prefill": False, "lanes": 1,
         "bundle_bytes": bundle_bytes, "queued_cpu_work_ns": 0, "queued_h2d_work_ns": 0,
         "queued_gpu_work_ns": 0, "same_key_h2d_present": False,
         "same_key_h2d_state": "NONE", "same_key_h2d_remaining_bytes": 0,
     })
-    tie_cost = dict(base_cost)
-    transfer_ns = tie_cost["h2d_fixed_ns"] + (bundle_bytes * 1_000_000_000 + h2d_bps - 1) // h2d_bps
-    tie_cost["cpu_fixed_decode_ns"] = tie_cost["gpu_fixed_decode_ns"] + transfer_ns
     tie = evaluate_auto({
         "cost": tie_cost, "prefill": False, "lanes": 1, "bundle_bytes": bundle_bytes,
         "queued_cpu_work_ns": 0, "queued_h2d_work_ns": 0, "queued_gpu_work_ns": 0,
@@ -172,6 +202,14 @@ def main() -> int:
                       "llama_cpp": git(nested, "rev-parse", "HEAD"),
                       "gitlink": git(root, "rev-parse", "HEAD:llama.cpp")},
         "synthetic_store": identity(root, args.descriptor_output.resolve()),
+        "observed_real_model_process_latency_ms": {
+            case["name"]: case["process_latency_ms"] for case in parity["cases"]},
+        "observed_branch_service_ns": {
+            "cpu": {"p50": percentile(cpu_samples, 50), "p95": percentile(cpu_samples, 95),
+                    "p99": percentile(cpu_samples, 99)},
+            "gpu": {"p50": percentile(gpu_samples, 50), "p95": percentile(gpu_samples, 95),
+                    "p99": percentile(gpu_samples, 99)},
+        },
         "storage_read_ns": {"p50": percentile(disk_ns, 50), "p95": percentile(disk_ns, 95),
                             "p99": percentile(disk_ns, 99)},
         "controlled_regimes": {"cpu_favorable": cpu_favorable,
@@ -179,6 +217,8 @@ def main() -> int:
         "matrix": cells,
         "resource_observation": {"rss_kib": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
                                  "sampled_device_wide_vram": True,
+                                 "peak_device_memory_used_mib": parity["resource_observation"]["peak_device_memory_used_mib"],
+                                 "minimum_device_memory_free_mib": parity["resource_observation"]["minimum_device_memory_free_mib"],
                                  "synthetic_payload_sparse": descriptor["payload"]["sparse"]},
         "checks": {"exact_size": stat.st_size == logical_bytes,
                    "source_metadata_derived": True,
@@ -188,6 +228,16 @@ def main() -> int:
                    "gpu_favorable": gpu_favorable["backend"] == "gpu",
                    "tie_gpu": tie["backend"] == "gpu" and tie["reason"] == "tie",
                    "auto_independently_evaluated": True,
+                   "matrix_has_expected_cells": len(cells) == EXPECTED_BENCHMARK_CELLS,
+                   "matrix_policy_complete": {item["policy"] for item in cells} == set(policy_variants),
+                   "matrix_axes_complete": {item["hot_ratio_percent"] for item in cells} == {0, 25, 50, 75, 100} and
+                       {item["reuse"] for item in cells} == {"none", "immediate", "long"} and
+                       {item["bucket"] for item in cells} == {"decode", "prefill"} and
+                       {item["background_promotion"] for item in cells} == {False, True},
+                   "observed_real_host_tails": all(
+                       all(case["process_latency_ms"][name] > 0 for name in ("p50", "p95", "p99"))
+                       for case in parity["cases"]),
+                   "peak_vram_sampled": parity["resource_observation"]["peak_device_memory_used_mib"] > 0,
                    "no_full_model_quality_claim": True},
     }
     if not all(output["checks"].values()):

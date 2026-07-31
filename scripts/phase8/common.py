@@ -8,19 +8,27 @@ import json
 import os
 import platform
 import subprocess
+import threading
 import time
 from pathlib import Path
 from typing import Any
 
 PROJECT_BASE = "5fe0bda6965da7d2b0f85dd14b97427a7b60f161"
-PHASE8_START = "30013880641fd2f10a1952b5b9619e6d872e233b"
+PHASE8_START = "a52581e23b6192e51a6cd5452c121b5a014371f1"
 LLAMA_BASE = "b71e40f91b1a0dab578d56ac733211453704d674"
 LLAMA_CHECKPOINT_B = "a885ff7750a4e73901b7f378e7dc45880a7d1536"
+LLAMA_FINAL = "dc4d50c68378d908131b518662160fdd08f4e005"
 CHECKPOINT_A_COMMENT = 5141694340
 CHECKPOINT_B_COMMENT = 5144721775
-PHASE7_FINAL_REVIEW_COMMENT = 5140690363
+CHECKPOINT_C_COMMENT = 5146173479
+PHASE7_FINAL_REVIEW_COMMENT = 5140490542
 PHASE7_MANIFEST = "results/2026-07-31/skynet/phase7-async-runtime/phase7-manifest.json"
 RESULTS = "results/2026-07-31/skynet/phase8-miss-execution"
+BENCHMARK_POLICIES = (
+    "PROMOTE_AND_GPU", "CPU_FALLBACK", "AUTO_CPU_FAVORABLE",
+    "AUTO_GPU_FAVORABLE", "AUTO_TIE",
+)
+EXPECTED_BENCHMARK_CELLS = 2*5*3*2*len(BENCHMARK_POLICIES)
 
 
 def sha256_bytes(value: bytes) -> str:
@@ -55,14 +63,39 @@ def write(path: Path, value: Any) -> None:
 
 def run_command(
     command: list[str], cwd: Path, environment: dict[str, str] | None = None,
-    *, timeout: int | None = None,
+    *, timeout: int | None = None, sample_gpu: bool = False,
 ) -> tuple[dict[str, Any], str, str]:
     started = time.monotonic_ns()
     env = os.environ.copy()
     if environment:
         env.update(environment)
-    completed = subprocess.run(
-        command, cwd=cwd, text=True, capture_output=True, env=env, timeout=timeout)
+    gpu_samples: list[dict[str, int]] = []
+    stop_sampling = threading.Event()
+
+    def sample_device_memory() -> None:
+        while not stop_sampling.is_set():
+            sampled = subprocess.run(
+                ["nvidia-smi", "--query-gpu=memory.used,memory.free,memory.total",
+                 "--format=csv,noheader,nounits"],
+                cwd=cwd, text=True, capture_output=True)
+            if sampled.returncode == 0:
+                try:
+                    used, free, total = (int(item.strip()) for item in sampled.stdout.splitlines()[0].split(","))
+                    gpu_samples.append({"used_mib": used, "free_mib": free, "total_mib": total})
+                except (IndexError, ValueError):
+                    pass
+            stop_sampling.wait(0.05)
+
+    sampler = threading.Thread(target=sample_device_memory, daemon=True) if sample_gpu else None
+    if sampler:
+        sampler.start()
+    try:
+        completed = subprocess.run(
+            command, cwd=cwd, text=True, capture_output=True, env=env, timeout=timeout)
+    finally:
+        stop_sampling.set()
+        if sampler:
+            sampler.join()
     record: dict[str, Any] = {
         "command": command,
         "cwd": str(cwd.resolve()),
@@ -75,6 +108,11 @@ def run_command(
     }
     if environment:
         record["environment"] = environment
+    if sample_gpu:
+        record["gpu_memory_samples_mib"] = gpu_samples
+        record["gpu_peak_used_mib"] = max((item["used_mib"] for item in gpu_samples), default=0)
+        record["gpu_min_free_mib"] = min((item["free_mib"] for item in gpu_samples), default=0)
+        record["sampled_device_wide_vram"] = True
     return record, completed.stdout, completed.stderr
 
 

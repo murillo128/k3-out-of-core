@@ -11,8 +11,10 @@ from typing import Any
 
 from jsonschema import Draft202012Validator
 
-from common import (CHECKPOINT_A_COMMENT, CHECKPOINT_B_COMMENT, LLAMA_BASE,
-                    LLAMA_CHECKPOINT_B, PHASE8_START, PROJECT_BASE, git, sha256, write)
+from common import (BENCHMARK_POLICIES, CHECKPOINT_A_COMMENT, CHECKPOINT_B_COMMENT,
+                    CHECKPOINT_C_COMMENT, EXPECTED_BENCHMARK_CELLS, LLAMA_BASE,
+                    LLAMA_CHECKPOINT_B, LLAMA_FINAL, PHASE8_START, PROJECT_BASE,
+                    git, sha256, write)
 from verify_checkpoint_b import verify_checkpoint_b_file
 
 ALLOWED_AFTER_EVIDENCE = {
@@ -79,16 +81,21 @@ def verify_manifest_payload(manifest: dict[str, Any]) -> None:
     require(isinstance(revisions["project_capture_head"], str) and len(revisions["project_capture_head"]) == 40,
             "capture head missing")
     require(revisions["llama_cpp_base"] == LLAMA_BASE, "nested base mismatch")
-    require(revisions["llama_cpp_final"] == LLAMA_CHECKPOINT_B and
-            revisions["gitlink"] == LLAMA_CHECKPOINT_B, "nested final/gitlink mismatch")
+    require(revisions["llama_cpp_final"] == LLAMA_FINAL and
+            revisions["gitlink"] == LLAMA_FINAL, "nested final/gitlink mismatch")
     require(manifest["checkpoint_a"]["comment_id"] == CHECKPOINT_A_COMMENT and
             manifest["checkpoint_a"]["project_head"] == "07da45728b38b2d7c6a3a1b156dffcea6b94ec54" and
             manifest["checkpoint_a"]["llama_cpp_head"] == "4cfee48aacb6b33ebcbda796b26106b69440e633",
             "Checkpoint A binding mismatch")
     require(manifest["checkpoint_b"]["comment_id"] == CHECKPOINT_B_COMMENT and
-            manifest["checkpoint_b"]["project_head"] == PHASE8_START and
+            manifest["checkpoint_b"]["project_head"] == "30013880641fd2f10a1952b5b9619e6d872e233b" and
             manifest["checkpoint_b"]["llama_cpp_head"] == LLAMA_CHECKPOINT_B,
             "Checkpoint B binding mismatch")
+    require(manifest["checkpoint_c"]["comment_id"] == CHECKPOINT_C_COMMENT and
+            manifest["checkpoint_c"]["project_head"] == PHASE8_START and
+            manifest["checkpoint_c"]["llama_cpp_head"] == LLAMA_FINAL and
+            manifest["checkpoint_c"]["verdict"] == "PASS_WITH_NOTES",
+            "Checkpoint C binding mismatch")
     require(manifest["policies"] == {"default": "PROMOTE_AND_GPU", "cpu_fallback_explicit": True,
             "auto_explicit_version": 1, "background_promotion_default": False,
             "cost_model_digests_recorded": True}, "policy authority mismatch")
@@ -96,6 +103,10 @@ def verify_manifest_payload(manifest: dict[str, Any]) -> None:
     require(set(manifest["evidence"]) == EXPECTED_EVIDENCE, "evidence set mismatch")
     if manifest["closeout_state"] == "final-review-candidate":
         require(manifest["final_review"] is None, "candidate final review must be pending")
+    else:
+        require(isinstance(manifest["final_review"], dict) and
+                manifest["final_review"].get("safety_to_proceed") == "YES",
+                "accepted manifest requires a safe final review")
 
 
 def main() -> int:
@@ -119,7 +130,7 @@ def main() -> int:
     revisions = manifest["revisions"]
     evidence_head = revisions["project_evidence_head"]
     capture_head = revisions["project_capture_head"]
-    if git(nested, "rev-parse", "HEAD") != LLAMA_CHECKPOINT_B or git(root, "rev-parse", "HEAD:llama.cpp") != LLAMA_CHECKPOINT_B:
+    if git(nested, "rev-parse", "HEAD") != LLAMA_FINAL or git(root, "rev-parse", "HEAD:llama.cpp") != LLAMA_FINAL:
         errors.append("accepted nested head/gitlink changed")
     if subprocess.run(["git", "merge-base", "--is-ancestor", evidence_head, "HEAD"], cwd=root).returncode:
         errors.append("project evidence head is not an ancestor of current HEAD")
@@ -135,10 +146,12 @@ def main() -> int:
     public = manifest["inputs"]["larger_public_moe"]
     for name in ("config", "tokenizer", "gguf"):
         load_identity(root, public[name], errors)
-    if public.get("repository") != "ibm-granite/granite-3.1-3b-a800m-instruct" or \
-       public.get("source_revision") != "a02780686e08a03fe0d2679a293b5c74a90efa89" or \
-       public.get("primary_failure_comment") != 5145455677 or \
-       public.get("converter_head") != LLAMA_CHECKPOINT_B:
+    if public.get("repository") != "Qwen/Qwen1.5-MoE-A2.7B-Chat" or \
+       public.get("source_revision") != "ec052fda178e241c7c443468d2fa1db6618996be" or \
+       public.get("previous_bootstrap_failure_comment") != 5145455677 or \
+       public.get("bootstrap_correction_comment") != 5145774054 or \
+       public.get("checkpoint_c_comment") != CHECKPOINT_C_COMMENT or \
+       public.get("converter_head") != LLAMA_CHECKPOINT_B or public.get("runtime_head") != LLAMA_FINAL:
         errors.append("larger public MoE provenance mismatch")
 
     evidence_files = {name: load_json(root / value["path"]) for name, value in manifest["evidence"].items()}
@@ -146,13 +159,16 @@ def main() -> int:
         if evidence_files[name].get("status") != "pass":
             errors.append(f"{name} is not passing")
     parity = evidence_files["miss_policy_parity"]
-    if len(parity.get("cases", [])) != 5 or not all_true(parity.get("checks")):
+    if len(parity.get("cases", [])) != 5 or not all_true(parity.get("checks")) or \
+       parity.get("resource_observation", {}).get("peak_device_memory_used_mib", 0) <= 0:
         errors.append("policy parity matrix incomplete")
     overlap = evidence_files["hybrid_overlap"]
     if len(overlap.get("samples", [])) < 3 or not all_true(overlap.get("checks")) or overlap.get("overlap_us", {}).get("minimum", 0) <= 0:
         errors.append("controlled mixed overlap gate failed")
     benchmarks = evidence_files["miss_policy_benchmarks"]
-    if len(benchmarks.get("matrix", [])) != 120 or not all_true(benchmarks.get("checks")):
+    matrix = benchmarks.get("matrix", [])
+    if len(matrix) != EXPECTED_BENCHMARK_CELLS or not all_true(benchmarks.get("checks")) or \
+       {item.get("policy") for item in matrix} != set(BENCHMARK_POLICIES):
         errors.append("benchmark/crossover matrix incomplete")
     validation = evidence_files["validation_results"]
     records = validation.get("commands", [])
@@ -169,8 +185,8 @@ def main() -> int:
     probe_path = root / manifest["evidence"]["checkpoint_b_probe"]["path"]
     try:
         verify_checkpoint_b_file(probe_path, expected_outer=capture_head,
-            expected_nested=LLAMA_CHECKPOINT_B, actual_outer=capture_head,
-            actual_nested=LLAMA_CHECKPOINT_B, gitlink=LLAMA_CHECKPOINT_B,
+            expected_nested=LLAMA_FINAL, actual_outer=capture_head,
+            actual_nested=LLAMA_FINAL, gitlink=LLAMA_FINAL,
             expected_models={"f16": {"size": 784318432, "sha256": "411c197b503e6fb9199a2b22115e32dc4e2cad803fb112b24967737b3bab26c7"},
                              "mxfp4": {"size": 751976576, "sha256": "0379a1cc623e09eb3fbd1dfcb18737bc8c971dbfe5bf5bc3e08da8b5379ec169"}})
     except Exception as error:

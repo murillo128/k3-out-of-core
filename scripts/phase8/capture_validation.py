@@ -4,13 +4,17 @@
 from __future__ import annotations
 
 import argparse
+import json
 import re
+import subprocess
+import tempfile
 from pathlib import Path
 
 from common import git, run_command, write
 
-TEST_REGEX = "expert-miss-policy|expert-weight-provider|cold-expert-cache|expert-scheduler"
-TARGETS = ["test-expert-miss-policy", "test-expert-weight-provider", "test-cold-expert-cache", "test-expert-scheduler"]
+TEST_REGEX = "expert-miss-policy|expert-weight-provider|hot-expert-cache|cold-expert-cache|expert-scheduler"
+TARGETS = ["test-expert-miss-policy", "test-expert-weight-provider", "test-hot-expert-cache",
+           "test-cold-expert-cache", "test-expert-scheduler"]
 EXPECTED_TOTAL = 5
 
 
@@ -24,8 +28,8 @@ def main() -> int:
     records = []
 
     def execute(name: str, command: list[str], *, required: bool = True,
-                environment: dict[str, str] | None = None):
-        record, stdout, stderr = run_command(command, root, environment, timeout=3600)
+                environment: dict[str, str] | None = None, cwd: Path = root):
+        record, stdout, stderr = run_command(command, cwd, environment, timeout=3600)
         record.update(name=name, required=required)
         records.append(record)
         return record, stdout + stderr
@@ -59,8 +63,22 @@ def main() -> int:
 
     execute("phase7-evidence-tests", ["python3", "-m", "unittest", "discover", "-s", "tests/phase7", "-p", "test_*.py", "-v"])
     execute("phase8-evidence-tests", ["python3", "-m", "unittest", "discover", "-s", "tests/phase8", "-p", "test_*.py", "-v"])
-    execute("phase7-verifier", ["python3", "scripts/phase7/verify_phase7.py", "--manifest",
-        "results/2026-07-31/skynet/phase7-async-runtime/phase7-manifest.json"])
+    phase7_manifest = json.loads((root /
+        "results/2026-07-31/skynet/phase7-async-runtime/phase7-manifest.json").read_text())
+    with tempfile.TemporaryDirectory(prefix="k3-phase8-phase7-verifier-") as temporary_name:
+        historical_root = Path(temporary_name) / "project"
+        subprocess.check_call(["git", "clone", "--shared", "--no-checkout", str(root), str(historical_root)])
+        subprocess.check_call(["git", "-C", str(historical_root), "checkout", "--detach",
+                               phase7_manifest["revisions"]["project_evidence_head"]])
+        historical_nested = historical_root / "llama.cpp"
+        if historical_nested.exists():
+            historical_nested.rmdir()
+        subprocess.check_call(["git", "clone", "--shared", str(nested), str(historical_nested)])
+        subprocess.check_call(["git", "-C", str(historical_nested), "checkout", "--detach",
+                               phase7_manifest["revisions"]["llama_cpp_candidate"]])
+        execute("phase7-verifier", ["python3", "scripts/phase7/verify_phase7.py", "--manifest",
+            "results/2026-07-31/skynet/phase7-async-runtime/phase7-manifest.json", "--strict"],
+            cwd=historical_root)
     execute("diff-check-nested", ["git", "-C", "llama.cpp", "diff", "--check",
         "b71e40f91b1a0dab578d56ac733211453704d674..HEAD"])
     execute("diff-check-project", ["git", "diff", "--check", "5fe0bda6965da7d2b0f85dd14b97427a7b60f161..HEAD"])

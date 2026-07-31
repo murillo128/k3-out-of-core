@@ -9,13 +9,25 @@ from pathlib import Path
 from common import git, identity, percentile, run_command, write
 
 
+def parse_bootstrap(output: str) -> dict[str, int]:
+    line = next((line for line in output.splitlines() if line.startswith("PHASE8_BOOTSTRAP\t")), None)
+    if line is None:
+        raise ValueError("missing PHASE8_BOOTSTRAP record")
+    result = {}
+    for field in line.split("\t")[1:]:
+        key, value = field.split("=", 1)
+        result[key] = int(value)
+    return result
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--project-root", type=Path, required=True)
     parser.add_argument("--cuda-build", type=Path, required=True)
     parser.add_argument("--f16", type=Path, required=True)
     parser.add_argument("--mxfp4", type=Path, required=True)
-    parser.add_argument("--split-dir", type=Path, required=True)
+    parser.add_argument("--f16-split", type=Path, required=True)
+    parser.add_argument("--mxfp4-split", type=Path, required=True)
     parser.add_argument("--public-moe", type=Path, required=True)
     parser.add_argument("--public-source-revision", required=True)
     parser.add_argument("--public-conversion-command", required=True)
@@ -29,12 +41,11 @@ def main() -> int:
     root = args.project_root.resolve()
     nested = root / "llama.cpp"
     executable = (args.cuda_build / "bin/test-expert-miss-policy").resolve()
-    split_dir = args.split_dir.resolve()
     models = {
         "k3_f16_original": args.f16.resolve(),
         "k3_mxfp4_original": args.mxfp4.resolve(),
-        "k3_f16_split": sorted(split_dir.glob("*F16-split.gguf-00001-of-00218.gguf"))[0],
-        "k3_mxfp4_split": sorted(split_dir.glob("*MXFP4-split.gguf-00001-of-00218.gguf"))[0],
+        "k3_f16_split": args.f16_split.resolve(),
+        "k3_mxfp4_split": args.mxfp4_split.resolve(),
         "larger_public_moe_f16": args.public_moe.resolve(),
     }
     cases = []
@@ -43,14 +54,23 @@ def main() -> int:
     for name, model in models.items():
         repetitions = args.cold_processes if name.startswith("k3_") else 1
         durations = []
+        bootstrap_records = []
         for repetition in range(repetitions + args.warm_captures):
-            record, _, _ = run_command([str(executable), str(model)], root, timeout=3600)
+            record, stdout, stderr = run_command(
+                [str(executable), str(model)], root, timeout=3600, sample_gpu=True)
             record["name"] = f"{name}-run-{repetition + 1}"
             record["required"] = True
             record["capture_class"] = "cold-process" if repetition < repetitions else "warm-repeat"
             commands.append(record)
             durations.append(record["duration_ms"])
+            bootstrap_records.append(parse_bootstrap(stdout + "\n" + stderr))
             status = status and record["exit_code"] == 0
+        bootstrap_exact = all(
+            item["discovery_graphs"] == 2 and item["discovery_reserve_calls"] == 0 and
+            item["discovery_backend_bytes"] == 0 and item["final_source_bindings"] == 0 and
+            item["final_compute_bytes"] < item["deferred_payload_bytes"]
+            for item in bootstrap_records)
+        status = status and bootstrap_exact
         cases.append({
             "name": name,
             "model": identity(root, model, external=not model.is_relative_to(root)),
@@ -61,6 +81,8 @@ def main() -> int:
                 "p95": percentile(durations, 95),
                 "p99": percentile(durations, 99),
             },
+            "bootstrap": bootstrap_records[0],
+            "bootstrap_structural_exclusion_all_runs": bootstrap_exact,
             "native_matrix": {
                 "promote_and_gpu": True,
                 "cpu_fallback_decode_and_prefill": True,
@@ -89,6 +111,15 @@ def main() -> int:
             "default_policy": "PROMOTE_AND_GPU",
             "auto_is_non_default": True,
         },
+        "resource_observation": {
+            "sampled_device_wide_vram": True,
+            "sample_count": sum(len(record.get("gpu_memory_samples_mib", [])) for record in commands),
+            "peak_device_memory_used_mib": max(
+                (record.get("gpu_peak_used_mib", 0) for record in commands), default=0),
+            "minimum_device_memory_free_mib": min(
+                (record.get("gpu_min_free_mib", 0) for record in commands
+                 if record.get("gpu_memory_samples_mib")), default=0),
+        },
         "cases": cases,
         "commands": commands,
         "checks": {
@@ -100,6 +131,9 @@ def main() -> int:
                 case["cold_processes"] >= (10 if case["name"].startswith("k3_") else 1)
                 and case["warm_captures"] >= 2 for case in cases),
             "native_policy_matrix_complete": all(all(case["native_matrix"].values()) for case in cases),
+            "bootstrap_structural_exclusion": all(
+                case["bootstrap_structural_exclusion_all_runs"] for case in cases),
+            "peak_vram_sampled": any(record.get("gpu_peak_used_mib", 0) > 0 for record in commands),
         },
     }
     write(args.output, output)
