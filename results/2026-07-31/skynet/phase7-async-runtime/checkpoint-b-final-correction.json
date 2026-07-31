@@ -1,0 +1,335 @@
+{
+  "schema_version": 1,
+  "status": "OBSERVED",
+  "controlling_issue": {
+    "repository": "murillo128/k3-out-of-core",
+    "number": 24,
+    "design_authority_comment": 5137079355,
+    "run_start_comment": 5137130407,
+    "checkpoint_a_acceptance_comment": 5135836934
+  },
+  "revisions": {
+    "outer_base": "ce8ab5db73eb326f933dbfa3657fdb5240c4deb7",
+    "nested_base": "eb0b511077cf7a412afa5b91c2d6ecd1ad250fd6",
+    "nested_candidate": "4cbdef679417f328a098c5fd2ad7abac606b7f96",
+    "branch": "codex/phase7-async-runtime",
+    "draft_pull_request": 25
+  },
+  "environment": {
+    "host": "skynet",
+    "gpu": "NVIDIA GeForce GTX 1650",
+    "compute_capability": "7.5",
+    "model": "results/2026-07-30/skynet/phase7-async-runtime/generated-splits/Kimi-K3-0.40B-F16-split.gguf-00001-of-00218.gguf",
+    "model_type": "F16",
+    "hot_capacity": 16,
+    "cold_bytes": 67108864,
+    "transfer_ring_bytes": 16777216
+  },
+  "commands": {
+    "focused_cpu_ctest": "ctest --test-dir llama.cpp/build-cpu --output-on-failure -R '^(test-expert-(weight-provider|transfer-ring|async-io|scheduler)|test-(hot|cold)-expert-cache)$'",
+    "focused_cuda_ctest": "ctest --test-dir llama.cpp/build-cuda --output-on-failure -R '^(test-expert-(weight-provider|transfer-ring|async-io|scheduler)|test-(hot|cold)-expert-cache)$'",
+    "asan_ubsan_ctest": "ASAN_OPTIONS=detect_leaks=1:halt_on_error=1 UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1 ctest --test-dir llama.cpp/build-phase7-asan --output-on-failure -R '^(test-expert-(weight-provider|transfer-ring|async-io|scheduler)|test-(hot|cold)-expert-cache)$'",
+    "tsan_ctest": "setarch x86_64 -R env TSAN_OPTIONS=halt_on_error=1:history_size=7 ctest --test-dir llama.cpp/build-phase7-tsan --output-on-failure -R '^(test-expert-(weight-provider|transfer-ring|async-io|scheduler)|test-(hot|cold)-expert-cache)$'",
+    "provider_post_h2d_cancellation": "llama.cpp/build-cuda/bin/phase7-async-runtime-probe --model results/2026-07-30/skynet/phase7-async-runtime/generated-splits/Kimi-K3-0.40B-F16-split.gguf-00001-of-00218.gguf --mode cold --capacity 16 --cold-bytes 67108864 --ring-bytes 16777216 --cancel-after-h2d",
+    "storage_read_cancellation": "llama.cpp/build-cuda/bin/phase7-async-runtime-probe --model results/2026-07-30/skynet/phase7-async-runtime/generated-splits/Kimi-K3-0.40B-F16-split.gguf-00001-of-00218.gguf --mode cold --capacity 16 --cold-bytes 67108864 --ring-bytes 16777216 --cancel-on-storage",
+    "disabled_parity": "llama.cpp/build-cuda/bin/phase7-async-runtime-probe --model results/2026-07-30/skynet/phase7-async-runtime/generated-splits/Kimi-K3-0.40B-F16-split.gguf-00001-of-00218.gguf --mode disabled --steps 5",
+    "cold_parity": "llama.cpp/build-cuda/bin/phase7-async-runtime-probe --model results/2026-07-30/skynet/phase7-async-runtime/generated-splits/Kimi-K3-0.40B-F16-split.gguf-00001-of-00218.gguf --mode cold --capacity 16 --cold-bytes 67108864 --ring-bytes 16777216 --steps 5",
+    "cold_overlap_capture": "llama.cpp/build-cuda/bin/phase7-async-runtime-probe --model results/2026-07-30/skynet/phase7-async-runtime/generated-splits/Kimi-K3-0.40B-F16-split.gguf-00001-of-00218.gguf --mode cold --capacity 16 --cold-bytes 67108864 --ring-bytes 16777216 --steps 20 --require-overlap",
+    "controlled_overlap": "llama.cpp/build-cuda/bin/phase7-async-runtime-probe",
+    "forced_pageable": "llama.cpp/build-cuda/bin/phase7-async-runtime-probe --force-pageable",
+    "native_async_stress": "for i in {1..200}; do llama.cpp/build-cuda/bin/test-expert-async-io || exit; done"
+  },
+  "validation": {
+    "focused_cpu_ctest": {
+      "status": "PASS",
+      "passed": 6,
+      "failed": 0,
+      "tests": [
+        "test-expert-weight-provider",
+        "test-hot-expert-cache",
+        "test-cold-expert-cache",
+        "test-expert-transfer-ring",
+        "test-expert-async-io",
+        "test-expert-scheduler"
+      ]
+    },
+    "focused_cuda_ctest": {
+      "status": "PASS",
+      "passed": 6,
+      "failed": 0,
+      "tests": [
+        "test-expert-weight-provider",
+        "test-hot-expert-cache",
+        "test-cold-expert-cache",
+        "test-expert-transfer-ring",
+        "test-expert-async-io",
+        "test-expert-scheduler"
+      ]
+    },
+    "asan_ubsan_ctest": {
+      "status": "PASS",
+      "passed": 6,
+      "failed": 0,
+      "environment": {
+        "ASAN_OPTIONS": "detect_leaks=1:halt_on_error=1",
+        "UBSAN_OPTIONS": "halt_on_error=1:print_stacktrace=1"
+      }
+    },
+    "tsan_ctest": {
+      "status": "PASS",
+      "passed": 6,
+      "failed": 0,
+      "command_prefix": "setarch x86_64 -R",
+      "environment": {
+        "TSAN_OPTIONS": "halt_on_error=1:history_size=7"
+      },
+      "default_aslr_observation": "ThreadSanitizer failed before test execution with unexpected memory mapping; the accepted Checkpoint A procedure uses ASLR disabled."
+    },
+    "native_async_stress": {
+      "status": "PASS",
+      "iterations": 200,
+      "passed": 200
+    },
+    "diff_check": "PASS"
+  },
+  "provider_post_h2d_cancellation": {
+    "status": "PASS",
+    "decode": {
+      "cancelled_status": 2,
+      "observed_live_h2d": true,
+      "post_h2d_cancellations": 1,
+      "h2d_event_cancellations": 1,
+      "hot_admissions": 0,
+      "hot_mapping": false,
+      "cold_ready": true,
+      "cold_slot": 0,
+      "cold_generation": 1,
+      "scheduler_active": 0,
+      "live_events": 0,
+      "hot_refs": 0,
+      "transfer_refs": 0,
+      "request_refs": 0,
+      "flight_generation": 1,
+      "lane_generation": 1,
+      "hot_generation": 1
+    },
+    "same_key_retry": {
+      "status": 0,
+      "flight_generation": 2,
+      "lane_generation": 2,
+      "hot_generation": 2,
+      "hot_mapping": true,
+      "hot_admissions": 14,
+      "scheduler_active": 0,
+      "live_events": 0,
+      "execution_ids_cpu": 8,
+      "execution_ids_non_cpu": 0,
+      "execution_backend_device_type": 1,
+      "exact_cold_to_hot_bytes": true,
+      "exact_routes": true,
+      "exact_logits": true,
+      "exact_token": true
+    }
+  },
+  "storage_read_cancellation_regression": {
+    "status": "PASS",
+    "cancelled_status": 2,
+    "cancelled_reads": 2,
+    "cancelled_read_bytes": 1572864,
+    "cancelled_hot_admissions": 0,
+    "cancelled_cold_admissions": 0,
+    "cancelled_hot_refs": 0,
+    "cancelled_transfer_refs": 0,
+    "cancelled_request_refs": 0,
+    "retry_status": 0,
+    "retry_storage_reads": 16,
+    "retry_hot_admissions": 14,
+    "retry_cold_admissions": 14
+  },
+  "production_placement_and_parity": {
+    "status": "PASS",
+    "disabled_five_step": {
+      "prompt_ids": [18805, 308, 799, 5624, 12524],
+      "tokens": [318, 57195, 11, 1459, 387],
+      "logits_hash": 9216548397385032021,
+      "route_hash": 18343456112903461280,
+      "route_records": 63,
+      "execution_ids_cpu": 0,
+      "execution_ids_non_cpu": 0,
+      "execution_backend_device_type": -1,
+      "expert_runtime_activity": 0
+    },
+    "cold_five_step": {
+      "prompt_ids": [18805, 308, 799, 5624, 12524],
+      "tokens": [318, 57195, 11, 1459, 387],
+      "logits_hash": 9216548397385032021,
+      "route_hash": 18343456112903461280,
+      "route_records": 63,
+      "execution_ids_cpu": 63,
+      "execution_ids_non_cpu": 0,
+      "execution_backend_device_type": 1,
+      "scheduler_active": 0,
+      "ring_live_events": 0,
+      "io_trace_dropped": 0,
+      "ring_trace_dropped": 0
+    },
+    "cold_twenty_step": {
+      "execution_ids_cpu": 168,
+      "execution_ids_non_cpu": 0,
+      "execution_backend_device_type": 1,
+      "production_disk_h2d_overlap_us": 0,
+      "production_h2d_compute_overlap_us": 0,
+      "io_trace_dropped": 0,
+      "ring_trace_dropped": 0,
+      "scheduler_active": 0,
+      "ring_live_events": 0,
+      "honesty": "No production overlap was observed; the required controlled native capture was run separately."
+    }
+  },
+  "controlled_cross_flight_overlap": {
+    "status": "PASS",
+    "read_intervals": [
+      {
+        "flight": {
+          "transport_epoch": 1,
+          "request_slot": 0,
+          "request_generation": 1,
+          "layer": 0,
+          "expert": 1
+        },
+        "operation_index": 0,
+        "submit_us": 145044174690,
+        "complete_us": 145044184789,
+        "bytes": 100663296
+      },
+      {
+        "flight": {
+          "transport_epoch": 1,
+          "request_slot": 0,
+          "request_generation": 1,
+          "layer": 0,
+          "expert": 1
+        },
+        "operation_index": 1,
+        "submit_us": 145044174690,
+        "complete_us": 145044184789,
+        "bytes": 100663296
+      }
+    ],
+    "h2d_intervals": [
+      {
+        "flight": {
+          "transport_epoch": 1,
+          "request_slot": 0,
+          "request_generation": 1,
+          "layer": 0,
+          "expert": 0
+        },
+        "lane": 0,
+        "lane_generation": 1,
+        "hot_slot": 0,
+        "hot_generation": 1,
+        "enqueue_us": 145044174730,
+        "complete_us": 145044185139,
+        "bytes": 100663296
+      }
+    ],
+    "participating_read_flights": [
+      {
+        "transport_epoch": 1,
+        "request_slot": 0,
+        "request_generation": 1,
+        "layer": 0,
+        "expert": 1
+      }
+    ],
+    "participating_transfer_flights": [
+      {
+        "transport_epoch": 1,
+        "request_slot": 0,
+        "request_generation": 1,
+        "layer": 0,
+        "expert": 0
+      }
+    ],
+    "positive_pairs": [
+      {
+        "read_operation_index": 0,
+        "transfer_lane_generation": 1,
+        "transfer_hot_generation": 1,
+        "overlap_us": 10059,
+        "pair_hash": 8728709389346478434
+      },
+      {
+        "read_operation_index": 1,
+        "transfer_lane_generation": 1,
+        "transfer_hot_generation": 1,
+        "overlap_us": 10059,
+        "pair_hash": 3449587923014958499
+      }
+    ],
+    "same_flight_pairs_excluded": true,
+    "unique_read_flights": 1,
+    "unique_transfer_flights": 1,
+    "unique_total_flights": 2,
+    "positive_pair_count": 2,
+    "pair_digest": 12655469559912981935,
+    "unique_read_bytes": 201326592,
+    "unique_h2d_bytes": 100663296,
+    "union_overlap_us": 10059,
+    "h2d_compute_overlap_us": 10376,
+    "h2d_compute_overlap_bytes": 100663296,
+    "h2d_compute_overlap_work": 7247757312,
+    "read_trace_dropped": 0,
+    "h2d_trace_dropped": 0,
+    "reuse_was_blocked": true,
+    "unload_drained": true,
+    "recomputation": "Intersect each read half-open interval with each H2D half-open interval, exclude identical FlightIds, count each positive pair once, count each participating interval's bytes once, then merge all participating read ranges and H2D ranges separately and intersect the two unions."
+  },
+  "pageable_fallback": {
+    "status": "PASS",
+    "mode": "pageable",
+    "fallback_reason": "forced-for-testing",
+    "pageable_fallback": true,
+    "async_enqueues": 0,
+    "synchronous_copies": 6,
+    "peak_in_flight_lanes": 0,
+    "h2d_bytes": 3072
+  },
+  "event_capacity_boundary": {
+    "status": "PASS",
+    "effective_transfer_lanes": 2147483648,
+    "limit": 2147483647,
+    "expected_error": "unsupported_configuration",
+    "actual_bytes": 0,
+    "effective_lanes_after_failure": 0,
+    "pinned_or_registered_bytes": 0,
+    "dedicated_transfer_backend": false,
+    "event_capable": false,
+    "h2d_event_allocations": 0,
+    "compute_event_allocations": 0,
+    "event_capacity": 0,
+    "live_events": 0
+  },
+  "scope": {
+    "status": "PASS",
+    "nested_files": [
+      "src/llama-context.cpp",
+      "src/llama-context.h",
+      "src/llama-expert-scheduler.cpp",
+      "src/llama-expert-transfer-ring.cpp",
+      "src/llama-expert-transfer-ring.h",
+      "src/llama-expert-weight-provider.cpp",
+      "src/llama-expert-weight-provider.h",
+      "tests/phase5-cold-cache-probe.cpp",
+      "tests/test-expert-scheduler.cpp",
+      "tests/test-expert-transfer-ring.cpp"
+    ],
+    "ggml_core_or_cuda_backend_changes": false,
+    "public_api_changes": false,
+    "graph_topology_or_routing_changes": false,
+    "phase_7_5_changes": false,
+    "history_rewritten": false,
+    "new_pull_request_created": false
+  }
+}

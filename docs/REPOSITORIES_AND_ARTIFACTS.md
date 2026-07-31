@@ -29,6 +29,10 @@ This repository is the source of truth for architecture, planning, validation re
 - Phase 5 Checkpoint A corrected head: `5ffed360965a1de7e2d788b8637a470183d27165`
 - Phase 5 evidence-probe candidate: `26317ee1d848dd7a73f22a3666a055cad5d5cb03`
 - Phase 5 branch: `codex/phase5-cold-cache`
+- Phase 6 accepted storage head: `7a606dd4e11a108929f799253809a904f55feae4`
+- Phase 6 branch: `codex/phase6-gguf-storage`
+- Phase 7 accepted asynchronous-runtime head: `b71e40f91b1a0dab578d56ac733211453704d674`
+- Phase 7 branch: `codex/phase7-async-runtime`
 
 The `llama.cpp` gitlink in the Phase 3 review branch points to the Phase 3 resident-provider head. The Phase 1 and Phase 2 revisions remain immutable validation inputs.
 
@@ -45,6 +49,10 @@ Phase 3 adds the model-owned resident expert-weight provider, typed logical/exec
 Phase 4 adds one model-owned fixed-address CUDA hot pool, a preallocated transactional host directory, graph-local execution-ID remapping at the existing synchronized scheduler boundary, request-generation leases and pins, deterministic LRU validation policy, trim/surrender, and bounded diagnostics. Source routed experts remain host-resident. It does not add cold storage, demand GGUF reads, prefetch, asynchronous transport, multi-GPU, UMA, or concurrent cached submissions. No GGUF or corpus artifact was republished.
 
 Phase 5 adds one model-owned byte-budgeted pageable cold arena, generation-checked inclusive cold/hot references, a separately bounded native pinned transfer ring with explicit pageable synchronous fallback, and source-to-cold-to-ring-to-hot promotion in bounded waves. The monolithic source remains resident and must be pageable. It does not add GGUF demand reads, dedicated streams/events, H2D/compute overlap, CPU miss execution, prefetch, multi-GPU, UMA, or concurrent cached submissions. No GGUF or corpus artifact was republished.
+
+Phase 6 adds immutable split-aware GGUF source identity and spans, model-owned positional handles, deferred routed tensors, synchronous storage-to-cold population, atomic integrity-checked publication, deterministic eviction/reread, and cancellation/retry. Phase 7 adds the model-owned bounded asynchronous transport and scheduler, direct-I/O opt-in with visible fallback, priority and single-flight state, dedicated native transfer events, exact-generation cancellation/unload drain, FlightId-based overlap accounting, and cached-only physical remap placement. Phase 7 does not add CPU fallback, production speculative prefetch, multi-request concurrency, multi-GPU, UMA, a new expert format, or a new model/corpus publication.
+
+The Phase 7 final-review-candidate evidence is under `results/2026-07-31/skynet/phase7-async-runtime/`. Its authoritative record is `phase7-manifest.json` (`phase7-manifest-v1`), with bounded inputs in `checkpoint-b-final-correction.json`, `checkpoint-b-placement-correction.json`, `runtime-matrix.json`, and `validation-results.json`. The generated 218-part F16/MXFP4 splits are local reproducibility inputs whose complete path, size, SHA-256, source-model identity, and exact nested tool head are recorded in `runtime-matrix.json`; no split binary is committed or published.
 
 The Phase 4 standing evidence is under `results/2026-07-30/skynet/phase4-hot-cache/`. `hot-cache-parity.json` has SHA-256 `d11ff31d762ed0ebcfb8b3a940b8ceb78925386e4e8c925c7070912d96bab4fb`; `lifecycle-and-failures.json` has SHA-256 `f39ebf5e2512377960d299e948e1fb21d65e3b52d1b99b9bdf75877c8f715d1a`. These artifacts reuse the existing immutable F16/MXFP4 GGUFs and Phase 3 manifest; no binary model artifact changed.
 

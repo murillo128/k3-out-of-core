@@ -195,6 +195,14 @@ The waiver is limited to those two representations of the same five-token prompt
 
 This decision is not precedent for waiving correctness, default-path performance, steady-state decode, later cache/transport/miss or multi-request performance, full-size performance, or tail latency. Those later gates remain independently binding.
 
+### D-019 — Buffered `io_uring` is the default Linux cold transport; direct I/O is explicit
+
+**Status:** ACCEPTED
+
+Phase 7 resolves O-003 for the initial Linux implementation. `COLD_CACHE + MMAP` attempts bounded buffered `io_uring` and visibly falls back to the accepted synchronous positional reader when the ring or required operations are unavailable. `LLAMA_LOAD_MODE_DIRECT_IO` is an explicit opt-in: it attempts validated `O_DIRECT` handles and aligned asynchronous reads, records useful/aligned/scatter bytes, and visibly falls back per source or operation to buffered `io_uring` when direct I/O cannot represent the request safely. Hard media/I/O errors are not retried through a different path.
+
+Issue #24 evidence records 218 direct sources on the validated split F16 fixture, 117 direct operations, 30670848 useful bytes within 30730752 aligned bytes, and 21 explicit buffered fallback operations with exact disabled/cold outputs. Buffered mode remains the default because direct mode is filesystem- and alignment-dependent and the tiny fixture does not establish a universal performance advantage. This decision does not authorize automatic direct-I/O selection, GDS, a storage-to-hot bypass, or a new expert format.
+
 ## Rejected shortcuts
 
 ### R-001 — Rely exclusively on `mmap` and OS page replacement
@@ -258,12 +266,6 @@ Candidates: LFRU, SLRU plus admission filter, LFU-aging, or a hybrid. LRU exists
 **Status:** OPEN
 
 `CPU_FALLBACK` may avoid synchronous PCIe stalls; `PROMOTE_AND_GPU` may be better when CPU MXFP4 throughput is low or reuse probability is high. `AUTO` requires a calibrated cost model.
-
-### O-003 — Direct I/O versus buffered async I/O
-
-**Status:** OPEN
-
-The final Linux transport may use `io_uring` with `O_DIRECT`, buffered `io_uring`, or both. Filesystem support, alignment overhead, cache duplication, and actual NVMe queue behavior must be measured.
 
 ### O-004 — `cuFile` / GPUDirect Storage
 
