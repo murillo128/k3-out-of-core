@@ -118,7 +118,7 @@ Agents must not:
 - mix cache policy with CUDA or I/O implementation;
 - change selected expert IDs or routing weights;
 - reorder top-k accumulation without an approved numerical decision;
-- create a new expert file format before Phase 14 evidence;
+- create a new expert file format before Phase 12 evidence;
 - make N+1 prefetch mandatory without trace evidence;
 - silently downgrade unsupported configurations;
 - claim CUDA or UMA support from compilation alone;
