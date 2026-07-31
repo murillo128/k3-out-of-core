@@ -263,9 +263,11 @@ Candidates: LFRU, SLRU plus admission filter, LFU-aging, or a hybrid. LRU exists
 
 ### O-002 — Default discrete-GPU miss execution
 
-**Status:** OPEN
+**Status:** ACCEPTED
 
-`CPU_FALLBACK` may avoid synchronous PCIe stalls; `PROMOTE_AND_GPU` may be better when CPU MXFP4 throughput is low or reuse probability is high. `AUTO` requires a calibrated cost model.
+Phase 8 selects `PROMOTE_AND_GPU` as the stable default. `CPU_FALLBACK` is an explicit opt-in that executes missed routed rows on the existing CPU path, may overlap independent hot GPU work, and preserves canonical top-k accumulation order. Background promotion is disabled unless explicitly requested.
+
+`AUTO` is also explicit and deterministic. It consumes only caller-supplied, versioned cost operands and selects CPU only when its complete predicted current-output cost is strictly lower; missing or invalid operands fail closed to `PROMOTE_AND_GPU`, and ties select GPU. The runtime does not learn, explore, or silently switch policy online. A future calibrated or adaptive model requires a new decision and evidence; Phase 8's controlled matrix does not establish such a production default.
 
 ### O-004 — `cuFile` / GPUDirect Storage
 
