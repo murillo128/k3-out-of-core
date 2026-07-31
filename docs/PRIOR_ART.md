@@ -1,6 +1,6 @@
 # Prior Art and Reuse Plan
 
-Reviewed on **2026-07-31**. Statuses can change; verify them before basing implementation work on a branch.
+Reviewed on **2026-08-01**. Statuses can change; verify them before basing implementation work on a branch.
 
 The central conclusion is that the proposed architecture is not novel in isolation. Nearly identical systems have been designed and prototyped. The opportunity is to combine the strongest ideas behind a clean provider abstraction, avoid documented lifetime and synchronization failures, and adapt the result to Kimi-K3 MXFP4 and UMA.
 
@@ -402,17 +402,17 @@ Required implications:
 - Phase 10 must compare learned predictors against random, static-hot, and previous-token baselines;
 - break-even must be re-derived from this runtime's actual hidden latency, bytes, bandwidth, transfer path, and pollution cost;
 - exact issue-ahead must not be reported as predictive prefetch;
-- Phase 14 must measure routing-weight distributions before considering partial expert records or per-activation precision.
+- Phase 12 must measure routing-weight distributions before considering partial expert records or per-activation precision.
 
 ### Batching finding
 
 WASTE measured that grouping tokens reduced marginal expert reads by about 70–76% while leaving per-token expert computation essentially unchanged. Its measured batching ceiling therefore came from the remaining compute and did not multiply independently with I/O overlap.
 
-Phase 12 must record unique expert records separately from token-expert compute pairs and decompose batching gains into I/O deduplication, transfer avoidance, compute utilization, and scheduling.
+Phase 13 must record unique expert records separately from token-expert compute pairs and decompose batching gains into I/O deduplication, transfer avoidance, compute utilization, and scheduling.
 
 ### Storage-format comparison
 
-WASTE's custom record layout achieves one aligned read per expert and computes directly from its 3-bit representation. This is relevant to Phase 14's GGUF decision, but it does not by itself justify a new format:
+WASTE's custom record layout achieves one aligned read per expert and computes directly from its 3-bit representation. This is relevant to Phase 12's GGUF decision, but it does not by itself justify a new format:
 
 - GGUF must first be measured using real expert spans and split-file behavior;
 - comparisons must normalize bytes/expert, bytes/token, read count, amplification, quality, conversion footprint, and kernel cost;
@@ -427,7 +427,7 @@ Potentially reusable methodology or small units include:
 2. working-set and memory-budget sweep methodology;
 3. route-ID/route-weight trace capture and simple predictor baselines;
 4. cache telemetry that exposes evictions, bytes, and physical-memory failure modes;
-5. one-record-per-expert layout as a Phase 14 comparator;
+5. one-record-per-expert layout as a Phase 12 comparator;
 6. bounded reader-queue tests and byte-identical synchronous/read-ahead checks.
 
 Do not copy the runtime wholesale. Preserve this project's provider, ownership, cancellation, generation, GGUF, CPU/CUDA, and evidence contracts.
