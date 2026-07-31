@@ -1,6 +1,6 @@
 # Current Status
 
-Last updated: **2026-07-30**
+Last updated: **2026-07-31**
 
 This file is the first handoff document for a new ChatGPT or Codex session.
 
@@ -17,6 +17,7 @@ This file is the first handoff document for a new ChatGPT or Codex session.
 - Project Phase 4 is complete and merged. Issue #17 was implemented by PR #18 and squash-merged into `main` as `b196cc07249726651d39aaa624703bc4256a3012`. The merged nested `murillo128/llama.cpp` gitlink is `57fe1eabbe3d0ced59096a0744efc91e286fb1c7`.
 - Project Phase 5 is complete and merged. Issue #20 was implemented by PR #21 and squash-merged into `main` as `c5512bc073ae7aab4a14773028828e516e16f3f6`. The merged nested `murillo128/llama.cpp` gitlink is `26317ee1d848dd7a73f22a3666a055cad5d5cb03`.
 - Project Phase 6 is complete and merged. Issue #22 was implemented by PR #23 and squash-merged into `main` as `66ab6dba60b55ce47d0ecf94fcf88a778df9cdc6`. The merged nested `murillo128/llama.cpp` gitlink is `7a606dd4e11a108929f799253809a904f55feae4`; asynchronous Linux I/O, direct-I/O evaluation, transfer/compute overlap, prefetch, and CPU miss execution remain Phase 7–8 work.
+- Project Phase 7 implementation and standing evidence are complete on issue #24 and draft PR #25. Checkpoint A returned **PASS**, safety **YES**, at comment `5135836934`; Checkpoint B returned **PASS**, safety **YES**, at comment `5140081178`. The accepted nested `murillo128/llama.cpp` head is `b71e40f91b1a0dab578d56ac733211453704d674`, and the Phase 7 evidence head is `1e2faeec1c1cc1781d9f65f030b1736f4adcfe51`. The authoritative manifest is a final-review candidate; Phase 8 has not begun.
 - Phase 1 evidence is descriptive for the tiny K3 fixtures on `skynet`; it is not a model-quality or production-performance claim.
 
 ## Phase 3 merged baseline
@@ -90,6 +91,24 @@ This file is the first handoff document for a new ChatGPT or Codex session.
 - Standing integrity and lifetime: declared source spans and populated cold bundles match byte-for-byte and by SHA-256, split bundles cross three files, routed payload allocation/mmap binding/prefetch are zero, handles return to baseline, administration remains topology-bounded, and cancellation cleans and retries correctly.
 - Evidence: [`../results/2026-07-30/skynet/phase6-gguf-storage/PHASE6.md`](../results/2026-07-30/skynet/phase6-gguf-storage/PHASE6.md)
 
+## Phase 7 final-review candidate
+
+- Issue: <https://github.com/murillo128/k3-out-of-core/issues/24>
+- Draft PR: <https://github.com/murillo128/k3-out-of-core/pull/25>
+- Execution profile: `STANDARD`
+- Immutable project execution base: `96b0b483c6bc0f92b6fb9bb46acfd6bf06a46c4c`
+- Nested execution base: `7a606dd4e11a108929f799253809a904f55feae4`
+- Accepted Checkpoint A project/nested heads: `be8672b9ba991a108ca6d0ffb43fae0e960519d4` / `990a416b62e896e2a15f0b160236cb9e3575e4e2`
+- Accepted Checkpoint B project/nested heads: `a39eeafa4fee6af6a44fd03d630cf1cac79500d3` / `b71e40f91b1a0dab578d56ac733211453704d674`
+- Phase 7 evidence head: `1e2faeec1c1cc1781d9f65f030b1736f4adcfe51`
+- Checkpoint A: comment `5135836934`, `PASS`, safety `YES`.
+- Checkpoint B: comment `5140081178`, `PASS`, safety `YES`.
+- Standing validation: focused CPU, CUDA, ASan+UBSan, and accepted ASLR-disabled TSan suites each pass 6/6. Original/split F16/MXFP4 five-step and repeated 20-step captures preserve exact prompt, route, generated-token, and full-logit results with bounded resources and terminal drain.
+- Standing mechanism: buffered `io_uring` default; explicit direct-I/O with visible buffered fallback; bounded priority/single-flight scheduler; provider/storage/H2D cancellation and retry; native event lifetime; controlled positive disk/H2D and H2D/compute overlap; pageable fallback honesty; cached-only CPU remap placement.
+- Authoritative manifest: [`../results/2026-07-31/skynet/phase7-async-runtime/phase7-manifest.json`](../results/2026-07-31/skynet/phase7-async-runtime/phase7-manifest.json), state `final-review-candidate`.
+- Derived summary: [`../results/2026-07-31/skynet/phase7-async-runtime/PHASE7.md`](../results/2026-07-31/skynet/phase7-async-runtime/PHASE7.md).
+- Final complete-PR review: pending. PR #25 remains draft.
+
 ## Phase 1 merged baseline
 
 - Issue: <https://github.com/murillo128/k3-out-of-core/issues/7>
@@ -135,4 +154,4 @@ Kernel: 6.8.0-136-generic
 
 ## Immediate next action
 
-Use design authority to create one self-contained controlling issue for **Phase 7 — asynchronous Linux I/O and transfer pipeline** from the current verified `main` and nested gitlink. Resolve the material `io_uring` ownership and lifetime, bounded SQ/CQ and buffer/file registration, cancellation and quiescent unload, direct-I/O detection/alignment/fallback, projection read/coalescing strategy, CUDA stream/event overlap, completion generations, priority/preemption, duplicate coalescing and single-flight promotion, queue-saturation memory budgets, correctness, trace, tail-latency, and validation decisions needed to make it execution-ready. Do not implement Phase 7, create an execution branch, or open a PR in the design session.
+Publish the exact Phase 7 final-review-candidate outer head on `codex/phase7-async-runtime`, keep PR #25 draft, and request one independent complete-PR review against issue #24. Do not modify the accepted nested head, start Phase 8, mark the PR ready, or merge before that review returns `PASS` or acceptable `PASS_WITH_NOTES` with safety `YES`.
