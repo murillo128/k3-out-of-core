@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "status": "OBSERVED",
+  "controlling_issue": {
+    "repository": "murillo128/k3-out-of-core",
+    "number": 24,
+    "failed_review_comment": 5137532657,
+    "design_authority_comment": 5137570867,
+    "run_start_comment": 5139770202,
+    "draft_pull_request": 25
+  },
+  "revisions": {
+    "outer_base": "a76ef6cc460d0f92b6fb9bb46acfd6bf06a46c4c",
+    "nested_base": "4cbdef679417f328a098c5fd2ad7abac606b7f96",
+    "nested_candidate": "b71e40f91b1a0dab578d56ac733211453704d674",
+    "current_main_policy": "6ba55dcadf78cbfef4fba09bf4495c225651710b",
+    "branch": "codex/phase7-async-runtime"
+  },
+  "fixture": {
+    "host": "skynet",
+    "gpu": "NVIDIA GeForce GTX 1650",
+    "model": "results/2026-07-30/skynet/phase7-async-runtime/generated-splits/Kimi-K3-0.40B-F16-split.gguf-00001-of-00218.gguf",
+    "representation": "F16",
+    "steps": 5,
+    "hot_capacity": 16,
+    "cold_bytes": 67108864,
+    "transfer_ring_bytes": 16777216
+  },
+  "commands": {
+    "focused_cpu_ctest": "ctest --test-dir llama.cpp/build-cpu --output-on-failure -R '^(test-expert-(weight-provider|transfer-ring|async-io|scheduler)|test-(hot|cold)-expert-cache)$'",
+    "focused_cuda_ctest": "ctest --test-dir llama.cpp/build-cuda --output-on-failure -R '^(test-expert-(weight-provider|transfer-ring|async-io|scheduler)|test-(hot|cold)-expert-cache)$'",
+    "disabled": "llama.cpp/build-cuda/bin/phase7-async-runtime-probe --model results/2026-07-30/skynet/phase7-async-runtime/generated-splits/Kimi-K3-0.40B-F16-split.gguf-00001-of-00218.gguf --mode disabled --steps 5",
+    "resident": "llama.cpp/build-cuda/bin/phase7-async-runtime-probe --model results/2026-07-30/skynet/phase7-async-runtime/generated-splits/Kimi-K3-0.40B-F16-split.gguf-00001-of-00218.gguf --mode resident --steps 5",
+    "hot": "llama.cpp/build-cuda/bin/phase7-async-runtime-probe --model results/2026-07-30/skynet/phase7-async-runtime/generated-splits/Kimi-K3-0.40B-F16-split.gguf-00001-of-00218.gguf --mode hot --capacity 16 --steps 5",
+    "cold": "llama.cpp/build-cuda/bin/phase7-async-runtime-probe --model results/2026-07-30/skynet/phase7-async-runtime/generated-splits/Kimi-K3-0.40B-F16-split.gguf-00001-of-00218.gguf --mode cold --capacity 16 --cold-bytes 67108864 --ring-bytes 16777216 --steps 5"
+  },
+  "focused_ctest": {
+    "cpu": {
+      "status": "PASS",
+      "passed": 6,
+      "failed": 0
+    },
+    "cuda": {
+      "status": "PASS",
+      "passed": 6,
+      "failed": 0
+    }
+  },
+  "common_parity": {
+    "status": "PASS",
+    "modes": [
+      "disabled",
+      "resident",
+      "hot",
+      "cold"
+    ],
+    "prompt_ids": [
+      18805,
+      308,
+      799,
+      5624,
+      12524
+    ],
+    "generated_ids": [
+      318,
+      57195,
+      11,
+      1459,
+      387
+    ],
+    "logits_hash": 9216548397385032021,
+    "route_hash": 18343456112903461280,
+    "route_records": 63,
+    "disabled_resident_exact": true,
+    "disabled_hot_exact": true,
+    "disabled_cold_exact": true
+  },
+  "placement": {
+    "status": "PASS",
+    "disabled": {
+      "distinct_execution_ids_cpu": 0,
+      "distinct_execution_ids_non_cpu": 0,
+      "routing_ids_cpu": 0,
+      "routing_ids_non_cpu": 63,
+      "routing_backend_device_type": 1,
+      "routing_backend_name": "CUDA0",
+      "routing_backend_consistent": true
+    },
+    "resident": {
+      "distinct_execution_ids_cpu": 0,
+      "distinct_execution_ids_non_cpu": 0,
+      "routing_ids_cpu": 0,
+      "routing_ids_non_cpu": 63,
+      "routing_backend_device_type": 1,
+      "routing_backend_name": "CUDA0",
+      "routing_backend_consistent": true,
+      "routing_backend_matches_disabled": true
+    },
+    "hot": {
+      "distinct_execution_ids_cpu": 63,
+      "distinct_execution_ids_non_cpu": 0,
+      "distinct_execution_ids_backend_device_type": 0,
+      "distinct_execution_ids_backend_name": "CPU",
+      "routing_ids_cpu": 0,
+      "routing_ids_non_cpu": 63,
+      "routing_backend_name": "CUDA0",
+      "expert_execution_backend_device_type": 1
+    },
+    "cold": {
+      "distinct_execution_ids_cpu": 63,
+      "distinct_execution_ids_non_cpu": 0,
+      "distinct_execution_ids_backend_device_type": 0,
+      "distinct_execution_ids_backend_name": "CPU",
+      "routing_ids_cpu": 0,
+      "routing_ids_non_cpu": 63,
+      "routing_backend_name": "CUDA0",
+      "expert_execution_backend_device_type": 1
+    }
+  },
+  "resident_activity": {
+    "status": "PASS",
+    "runtime_quiet": true,
+    "hot_requested_capacity": 0,
+    "hot_effective_capacity": 0,
+    "hot_slots": 0,
+    "hot_hits": 0,
+    "hot_misses": 0,
+    "hot_admissions": 0,
+    "hot_evictions": 0,
+    "cold_actual_bytes": 0,
+    "cold_requested_bytes": 0,
+    "cold_slots": 0,
+    "storage_read_requests": 0,
+    "storage_read_bytes": 0,
+    "async_io_enabled": false,
+    "async_io_requests": 0,
+    "async_io_operations": 0,
+    "async_io_bytes": 0,
+    "scheduler_flights": 0,
+    "scheduler_active": 0,
+    "ring_requested_bytes": 0,
+    "ring_actual_bytes": 0,
+    "ring_lanes": 0,
+    "ring_async_enqueues": 0,
+    "ring_sync_copies": 0,
+    "ring_h2d_bytes": 0,
+    "ring_event_capacity": 0
+  },
+  "production_guard": {
+    "status": "PASS",
+    "requires_non_bootstrap": true,
+    "requires_execution_ids": true,
+    "requires_logical_ids": true,
+    "requires_distinct_tensor_identity": true,
+    "cached_bootstrap_override": false,
+    "resident_alias_override": false,
+    "disabled_override": false
+  },
+  "scope": {
+    "status": "PASS",
+    "nested_delta_files": [
+      "src/llama-graph.cpp",
+      "tests/phase5-cold-cache-probe.cpp"
+    ],
+    "other_production_files_changed": false,
+    "provider_changed": false,
+    "scheduler_changed": false,
+    "async_io_changed": false,
+    "transfer_ring_changed": false,
+    "ggml_or_cuda_core_changed": false,
+    "public_api_changed": false,
+    "phase_7_5_changed": false
+  },
+  "reused_accepted_evidence": {
+    "artifact": "results/2026-07-31/skynet/phase7-async-runtime/checkpoint-b-final-correction.json",
+    "provider_post_h2d_cancellation": "unchanged",
+    "cross_flight_overlap": "unchanged",
+    "event_capacity_preallocation": "unchanged"
+  }
+}
