@@ -108,7 +108,7 @@ The technical manifest is `results/2026-07-31/skynet/phase7-async-runtime/phase7
 - [x] Evaluate all explicit policies and controlled AUTO regimes across decode/prefill, hot ratios, reuse classes, and background-promotion states.
 - [x] Run CPU, CUDA, ASan+UBSan, accepted ASLR-disabled TSan, lifetime, cleanup, Phase 7 regression, and fail-closed verifier validation.
 - [x] Publish a schema-validated authoritative manifest bound to accepted Checkpoints A, B, and C.
-- [ ] Receive the independent final complete-PR review.
+- [x] Receive the independent final complete-PR review.
 
 ### Exit gate
 
@@ -118,7 +118,7 @@ The technical manifest is `results/2026-07-31/skynet/phase7-async-runtime/phase7
 
 ### Phase 8 execution record
 
-Issue #26 implements this phase on branch `codex/phase8-miss-execution` and draft PR #27. Checkpoint A accepted the bounded miss-policy mechanism at project/nested heads `07da45728b38b2d7c6a3a1b156dffcea6b94ec54` / `4cfee48aacb6b33ebcbda796b26106b69440e633` in comment `5141694340`. Checkpoint B accepted corrected production-path evidence at `30013880641fd2f10a1952b5b9619e6d872e233b` / `a885ff7750a4e73901b7f378e7dc45880a7d1536` in comment `5144721775`. Checkpoint C accepted the bounded descriptor-only cold-cache bootstrap correction at `a52581e23b6192e51a6cd5452c121b5a014371f1` / `dc4d50c68378d908131b518662160fdd08f4e005` with `PASS_WITH_NOTES`, safety `YES`, in comment `5146173479`; no required correction remained.
+Issue #26 implemented this phase through PR #27, squash-merged into `main` as `05c38f0f11bd33c3654a3d9b2c3c6aa32e7f4c35`. Checkpoint A accepted the bounded miss-policy mechanism at project/nested heads `07da45728b38b2d7c6a3a1b156dffcea6b94ec54` / `4cfee48aacb6b33ebcbda796b26106b69440e633` in comment `5141694340`. Checkpoint B accepted corrected production-path evidence at `30013880641fd2f10a1952b5b9619e6d872e233b` / `a885ff7750a4e73901b7f378e7dc45880a7d1536` in comment `5144721775`. Checkpoint C accepted the bounded descriptor-only cold-cache bootstrap correction at `a52581e23b6192e51a6cd5452c121b5a014371f1` / `dc4d50c68378d908131b518662160fdd08f4e005` with `PASS_WITH_NOTES`, safety `YES`, in comment `5146173479`; no required correction remained. The final complete-PR review returned `PASS_WITH_NOTES`, safety `YES`, with no required delta in comment `5146545713`. The merged nested head is `dc4d50c68378d908131b518662160fdd08f4e005`.
 
 The closeout evidence is under `results/2026-07-31/skynet/phase8-miss-execution/`. It records a 25-case production-path probe, ten positive controlled CPU/GPU-overlap repetitions, original and 218-part split F16/MXFP4 parity with repeated cold and warm processes, a larger public MoE F16 bootstrap case, a 300-cell deterministic policy matrix, an exact 1,446,456,066,048-byte source-derived full-K3 MXFP4 sparse store, device-wide VRAM sampling, and focused CPU/CUDA/sanitizer/lifetime/cleanup validation. The full-size sparse workload validates layout and controlled policy regimes; it is not full-model inference or a model-quality result. Phase 9 policy selection, Phase 10 prefetch, multi-request concurrency, UMA, and multi-GPU remain out of scope.
 
