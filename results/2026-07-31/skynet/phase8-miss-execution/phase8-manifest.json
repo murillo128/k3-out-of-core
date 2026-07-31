@@ -132,7 +132,7 @@
     "safety_to_proceed": "YES",
     "verdict": "PASS_WITH_NOTES"
   },
-  "closeout_state": "final-review-candidate",
+  "closeout_state": "accepted",
   "deferred": [
     "Phase 9 cache policy",
     "Phase 10 speculative prefetch",
@@ -186,7 +186,14 @@
     }
   },
   "execution_profile": "STANDARD",
-  "final_review": null,
+  "final_review": {
+    "comment_id": 5146545713,
+    "independent_read_only": true,
+    "llama_cpp_head": "dc4d50c68378d908131b518662160fdd08f4e005",
+    "project_head": "d46b9d693e283e036dfc81b9916d652b990858bf",
+    "safety_to_proceed": "YES",
+    "verdict": "PASS_WITH_NOTES"
+  },
   "gates": {
     "auto_independent_evaluator": true,
     "background_bounded_and_truthful": true,
