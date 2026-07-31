@@ -19,7 +19,7 @@ Phase 3's original 24-cell resident performance confidence gate remains recorded
 
 Phase 6 issue #22 completed positional GGUF storage, deferred routed loading, synchronous storage-to-cold integration, and corrected standing evidence. Checkpoint A returned `PASS`, safety `YES`, at comment `5133647261`; final complete-PR review returned `PASS`, safety `YES`, with no required delta at comment `5134171772`. PR #23 squash-merged into `main` as `66ab6dba60b55ce47d0ecf94fcf88a778df9cdc6` with nested `llama.cpp` head `7a606dd4e11a108929f799253809a904f55feae4`.
 
-Phase 7 issue #24 has completed implementation and standing evidence on draft PR #25 with accepted nested head `b71e40f91b1a0dab578d56ac733211453704d674`. Checkpoint A returned `PASS`, safety `YES`, at comment `5135836934`; Checkpoint B returned `PASS`, safety `YES`, at comment `5140081178`. The authoritative final-review-candidate manifest is `results/2026-07-31/skynet/phase7-async-runtime/phase7-manifest.json`. Phase 7 awaits the final complete-PR review; Phase 8 has not begun.
+Phase 7 issue #24 completed the bounded asynchronous Linux I/O, direct-I/O fallback, priority/single-flight, CUDA event/dependency, cancellation/unload, overlap, and standing-evidence work. Checkpoint A, Checkpoint B, and final complete-PR review returned `PASS`, safety `YES`, at comments `5135836934`, `5140081178`, and `5140490542`. PR #25 squash-merged into `main` as `97ef68d787c54b443eac72a3480fe70eba88d8dd` with nested `llama.cpp` head `b71e40f91b1a0dab578d56ac733211453704d674`. Phase 8 is the next implementation phase.
 
 ## Final acceptance criteria
 
