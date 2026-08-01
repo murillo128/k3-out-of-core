@@ -23,6 +23,12 @@ def git(path: Path, *arguments: str) -> str:
     return subprocess.check_output(["git", "-C", str(path), *arguments], text=True).strip()
 
 
+def repository_identity(path: Path) -> dict[str, Any]:
+    identity = file_identity(path.resolve())
+    identity["path"] = str(path.resolve().relative_to(ROOT))
+    return identity
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--implementation-head", required=True)
@@ -60,7 +66,8 @@ def main() -> int:
                     "base": "17a4e5be38a4820984a7bd4d3082695d8822c9ba"},
         "nested": {"repository": "murillo128/llama.cpp", "head": git(ROOT / "llama.cpp", "rev-parse", "HEAD"),
                    "base": "dc4d50c68378d908131b518662160fdd08f4e005"},
-        "inputs": {"phase2_manifest": file_identity(phase2), "phase8_manifest": file_identity(phase8),
+        "inputs": {"phase2_manifest": repository_identity(phase2),
+                   "phase8_manifest": repository_identity(phase8),
                    "issue": 30, "execution_profile": "STANDARD"},
         "checkpoints": {
             "A": {"comment": 5148012128, "verdict": "PASS", "safety": "YES",
