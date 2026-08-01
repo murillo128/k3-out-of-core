@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/phase9/phase9-manifest-v1.schema.json",
+  "title": "K3 Phase 9 technical manifest version 1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "project", "nested", "inputs", "checkpoints", "replay", "online", "working_sets", "evidence", "selection", "verification"],
+  "properties": {
+    "schema_version": {"const": "phase9-manifest-v1"},
+    "status": {"enum": ["in-progress", "pass", "fail", "blocked"]},
+    "project": {"type": "object"},
+    "nested": {"type": "object"},
+    "inputs": {"type": "object"},
+    "checkpoints": {"type": "object"},
+    "replay": {"type": "object"},
+    "online": {"type": "object"},
+    "working_sets": {"type": "object"},
+    "evidence": {"type": "object"},
+    "selection": {"type": "object"},
+    "verification": {"type": "object"}
+  }
+}

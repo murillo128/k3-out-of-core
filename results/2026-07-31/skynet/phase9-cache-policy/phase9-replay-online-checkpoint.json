@@ -1,0 +1,222 @@
+{
+  "schema_version": "phase9-replay-online-checkpoint-v1",
+  "status": "pass",
+  "execution_profile": "STANDARD",
+  "controlling_issue": 30,
+  "immutable_inputs": {
+    "project_base": "17a4e5be38a4820984a7bd4d3082695d8822c9ba",
+    "nested_base": "dc4d50c68378d908131b518662160fdd08f4e005",
+    "phase2_corpus_revision": "2d838d6b4d0aca4e9af1e7d899e57ad29330c72e",
+    "phase2_corpus_archive_sha256": "6aa924a6c18bee4e2490f317ced836bcc4740c3ec63e9427a95951e79a649a5f",
+    "phase8_manifest": {
+      "path": "results/2026-07-31/skynet/phase8-miss-execution/phase8-manifest.json",
+      "sha256": "0d2405cd4a13438cb78645b7349239129e3b890d8a37c1be16bc7b0fa9632222"
+    }
+  },
+  "offline_replay": {
+    "status": "pass",
+    "cases": 16,
+    "rows": 8800,
+    "phase2_lru_oracle_checks": 48,
+    "phase2_lru_oracle_native_python_exact": true,
+    "global_shortlist_profiles": 9,
+    "native_replay": {
+      "path": "llama.cpp/build-cpu/bin/phase9-cache-replay",
+      "sha256": "49b6bd656d136dd67848e0d9db399a4d312115f9d395ceb5afdd725e0cf4840d"
+    },
+    "runs": [
+      {
+        "path": "/tmp/phase9-full-native-final-a.json",
+        "size": 45288021,
+        "sha256": "3fbc702bd71dfcbdf6dc331be4bbfb682c325cfb5f7f50063125ff9155acfc3e"
+      },
+      {
+        "path": "/tmp/phase9-full-native-final-b.json",
+        "size": 45288021,
+        "sha256": "3fbc702bd71dfcbdf6dc331be4bbfb682c325cfb5f7f50063125ff9155acfc3e"
+      }
+    ],
+    "byte_identical": true
+  },
+  "online_replay": {
+    "status": "pass",
+    "case_count": 9,
+    "native_python_exact": true,
+    "all_requests_terminal": true,
+    "decision_fields_byte_identical_across_runs": true,
+    "excluded_repeat_fields": [
+      "command output path",
+      "latency_us",
+      "peak_rss_kib"
+    ],
+    "runs": [
+      {
+        "path": "/tmp/phase9-online-frozen-a/summary.json",
+        "size": 48269,
+        "sha256": "319bb72a93f3df0c34669d153699bd29595426694c1f6fcfea963a4718f436e0"
+      },
+      {
+        "path": "/tmp/phase9-online-frozen-b/summary.json",
+        "size": 48266,
+        "sha256": "5315bc4b83726128bc1e7e546b7bb45a41c091a64588472b434976d32b201c52"
+      }
+    ],
+    "tools": {
+      "capture_script": {
+        "path": "scripts/phase9/capture_online_policy.py",
+        "size": 13883,
+        "sha256": "fbecb0edec3a22b0e5d1ad91b82db71b79da7176a99e776d07b6a581ce9b591f"
+      },
+      "probe": {
+        "path": "llama.cpp/build-cuda/bin/phase9-cache-policy-probe",
+        "size": 165344,
+        "sha256": "51b085d806f63926c693b68b114578759b8dc55702feb5667dd67daefe7bcf73"
+      },
+      "probe_libllama": {
+        "path": "llama.cpp/build-cuda/bin/libllama.so",
+        "size": 4762784,
+        "sha256": "94046c366270a9dbff4688e2c6ae16d0323f3961ceac62592a4b3a4ee40c7ead"
+      },
+      "native_replay_libllama": {
+        "path": "llama.cpp/build-cpu/bin/libllama.so",
+        "size": 86750264,
+        "sha256": "a956f80719d52a179e25aabe81298ba8107f359e1bd7303f15aceacc63c4d5b3"
+      }
+    },
+    "original_split_checks": {
+      "f16_lru_background_off": {
+        "output_identity_exact": true,
+        "routes_exact": true
+      },
+      "f16_slru_background_on": {
+        "output_identity_exact": true,
+        "routes_exact": true
+      },
+      "mxfp4_lfru_hot": {
+        "output_identity_exact": true,
+        "routes_exact": true
+      },
+      "mxfp4_lfu_background_on": {
+        "output_identity_exact": true,
+        "routes_exact": true
+      }
+    },
+    "cases": [
+      {
+        "name": "tiny-f16-original-cold-lru-cpu-background-off",
+        "hot_events": 361,
+        "cold_events": 1973,
+        "hot_hits": 0,
+        "hot_misses": 302,
+        "cold_hits": 251,
+        "cold_misses": 51,
+        "h2d_bytes": 0,
+        "routes_supported": true
+      },
+      {
+        "name": "tiny-f16-split-cold-lru-cpu-background-off",
+        "hot_events": 361,
+        "cold_events": 1973,
+        "hot_hits": 0,
+        "hot_misses": 302,
+        "cold_hits": 251,
+        "cold_misses": 51,
+        "h2d_bytes": 0,
+        "routes_supported": true
+      },
+      {
+        "name": "tiny-f16-original-cold-slru-window-cpu-background-on",
+        "hot_events": 1087,
+        "cold_events": 1885,
+        "hot_hits": 128,
+        "hot_misses": 174,
+        "cold_hits": 123,
+        "cold_misses": 51,
+        "background_useful": 21,
+        "background_wasted": 22,
+        "h2d_bytes": 36175872,
+        "routes_supported": true
+      },
+      {
+        "name": "tiny-f16-split-cold-slru-window-cpu-background-on",
+        "hot_events": 1087,
+        "cold_events": 1885,
+        "hot_hits": 128,
+        "hot_misses": 174,
+        "cold_hits": 123,
+        "cold_misses": 51,
+        "background_useful": 21,
+        "background_wasted": 22,
+        "h2d_bytes": 36175872,
+        "routes_supported": true
+      },
+      {
+        "name": "tiny-mxfp4-original-hot-lfru-promote",
+        "hot_events": 2063,
+        "cold_events": 0,
+        "hot_hits": 99,
+        "hot_misses": 203,
+        "h2d_bytes": 42405888,
+        "routes_supported": true
+      },
+      {
+        "name": "tiny-mxfp4-split-hot-lfru-promote",
+        "hot_events": 2063,
+        "cold_events": 0,
+        "hot_hits": 99,
+        "hot_misses": 203,
+        "h2d_bytes": 42405888,
+        "routes_supported": true
+      },
+      {
+        "name": "tiny-mxfp4-original-cold-lfu-auto-background-on",
+        "hot_events": 1787,
+        "cold_events": 2241,
+        "hot_hits": 106,
+        "hot_misses": 196,
+        "cold_hits": 145,
+        "cold_misses": 51,
+        "background_useful": 0,
+        "background_wasted": 123,
+        "h2d_bytes": 40943616,
+        "routes_supported": true
+      },
+      {
+        "name": "tiny-mxfp4-split-cold-lfu-auto-background-on",
+        "hot_events": 1787,
+        "cold_events": 2241,
+        "hot_hits": 106,
+        "hot_misses": 196,
+        "cold_hits": 145,
+        "cold_misses": 51,
+        "background_useful": 0,
+        "background_wasted": 123,
+        "h2d_bytes": 40943616,
+        "routes_supported": true
+      },
+      {
+        "name": "qwen15-moe-f16-cold-lru-cpu-background-off",
+        "hot_events": 479,
+        "cold_events": 4129,
+        "hot_hits": 0,
+        "hot_misses": 464,
+        "cold_hits": 0,
+        "cold_misses": 464,
+        "h2d_bytes": 0,
+        "routes_supported": false,
+        "routes_unavailable_reason": "accepted model exposes a zero-extent route-observer output; topology is bound from policy events"
+      }
+    ]
+  },
+  "validation": {
+    "focused_cpu_ctest": "pass: 6/6",
+    "focused_cuda_ctest": "pass: 6/6",
+    "phase9_python_tests": "pass: 9/9",
+    "phase8_python_tests": "pass: 32/32",
+    "whitespace": "pass",
+    "phase8_strict_current_tree": {
+      "status": "not_applicable",
+      "reason": "the immutable Phase 8 verifier intentionally binds its accepted historical head and rejects a dirty descendant Phase 9 worktree; the Phase 8 manifest and artifacts were not modified"
+    }
+  }
+}

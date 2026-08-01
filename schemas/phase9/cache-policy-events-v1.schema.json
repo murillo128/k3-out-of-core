@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/phase9/cache-policy-events-v1.schema.json",
+  "title": "K3 canonical cache policy event stream version 1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "events", "dropped"],
+  "properties": {
+    "schema_version": {"const": "cache-policy-events-v1"},
+    "dropped": {"const": 0},
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["schema_version", "request_ordinal", "ubatch_ordinal", "tier", "type", "event_sequence", "demand_ordinal", "origin_operation_ordinal", "phase", "layer", "expert", "occurrence_count", "logical_payload_bytes", "physical_slot_footprint_bytes", "slot", "generation", "domain", "eligible", "decision", "reason", "state_digest"],
+        "properties": {
+          "schema_version": {"const": 1},
+          "request_ordinal": {"type": "integer", "minimum": 1},
+          "ubatch_ordinal": {"type": "integer", "minimum": 0},
+          "tier": {"enum": ["HOT", "COLD"]},
+          "type": {"enum": ["REQUEST_BEGIN", "PHASE_TRANSITION", "DEMAND", "HIT", "VICTIM_SELECTED", "EVICT", "LOAD_BEGIN", "LOAD_COMPLETE", "LOAD_FAILED", "PIN", "UNPIN", "OPTIONAL_ADMISSION", "REQUEST_END", "RESET", "SURRENDER"]},
+          "event_sequence": {"type": "integer", "minimum": 1},
+          "demand_ordinal": {"type": "integer", "minimum": 0},
+          "origin_operation_ordinal": {"type": "integer", "minimum": 0},
+          "phase": {"enum": ["PREFILL", "DECODE"]},
+          "layer": {"type": "integer", "minimum": -1},
+          "expert": {"type": "integer", "minimum": -1},
+          "occurrence_count": {"type": "integer", "minimum": 0},
+          "logical_payload_bytes": {"type": "integer", "minimum": 0},
+          "physical_slot_footprint_bytes": {"type": "integer", "minimum": 0},
+          "slot": {"type": "integer", "minimum": -1},
+          "generation": {"type": "integer", "minimum": 0},
+          "domain": {"type": "integer", "minimum": -1},
+          "eligible": {"type": "boolean"},
+          "decision": {"type": "integer", "minimum": 0, "maximum": 255},
+          "reason": {"type": "integer", "minimum": 0, "maximum": 255},
+          "state_digest": {"type": "integer", "minimum": 1}
+        }
+      }
+    }
+  }
+}

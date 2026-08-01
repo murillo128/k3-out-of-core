@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/phase9/cache-working-set-v1.schema.json",
+  "title": "K3 cache working-set evidence version 1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "model", "lineage", "one_expert_footprint_bytes", "distinct_key_count", "token_working_set_bytes", "checkpoint_working_set_bytes", "theoretical_token_working_set_bytes", "protected_decode_set_bytes", "budget_grid"],
+  "properties": {
+    "schema_version": {"const": "cache-working-set-v1"},
+    "model": {"type": "string", "minLength": 1},
+    "lineage": {"type": "object"},
+    "one_expert_footprint_bytes": {"type": "integer", "minimum": 1},
+    "distinct_key_count": {"type": "integer", "minimum": 1},
+    "token_working_set_bytes": {"type": "object"},
+    "checkpoint_working_set_bytes": {"type": "object"},
+    "theoretical_token_working_set_bytes": {"type": "integer", "minimum": 1},
+    "protected_decode_set_bytes": {"type": "integer", "minimum": 0},
+    "budget_grid": {"type": "array", "minItems": 1, "items": {"type": "object"}}
+  }
+}
