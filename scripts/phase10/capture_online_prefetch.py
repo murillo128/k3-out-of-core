@@ -13,7 +13,8 @@ from typing import Any
 
 from jsonschema import Draft202012Validator, ValidationError
 
-from prefetch_common import Phase10Error, canonical_bytes, load_json, validate_profile, write_json
+from prefetch_common import (Phase10Error, canonical_bytes, load_json, require_capture_heads,
+    validate_profile, write_json)
 from replay_prefetch import replay
 
 
@@ -336,10 +337,7 @@ def main() -> int:
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     try:
-        for name in ("project_head", "nested_head"):
-            value = getattr(args, name)
-            if len(value) != 40 or any(byte not in "0123456789abcdef" for byte in value):
-                raise Phase10Error(f"{name} must be a lowercase commit SHA")
+        require_capture_heads(args.project_head, args.nested_head)
         schema_path = Path(__file__).resolve().parents[2] / "schemas/phase10/online-capture-v1.schema.json"
         schema = load_json(schema_path)
         Draft202012Validator.check_schema(schema)

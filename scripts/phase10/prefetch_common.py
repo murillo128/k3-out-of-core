@@ -5,6 +5,7 @@ import json
 import math
 import os
 import struct
+import subprocess
 import sys
 import tarfile
 import tempfile
@@ -78,6 +79,45 @@ def require_sha256(value: Any, name: str) -> str:
     if not isinstance(value, str) or len(value) != 64 or any(byte not in "0123456789abcdef" for byte in value):
         raise Phase10Error(f"{name} must be lowercase SHA-256")
     return value
+
+
+def require_capture_heads(project_head: str, nested_head: str, root: Path | None = None) -> None:
+    """Bind captured evidence to the exact checked-out project and nested commits."""
+    project_root = root or Path(__file__).resolve().parents[2]
+    nested_root = project_root / "llama.cpp"
+
+    def resolve(repo: Path, value: str, name: str) -> str:
+        if len(value) != 40 or any(byte not in "0123456789abcdef" for byte in value):
+            raise Phase10Error(f"{name} must be a lowercase full commit SHA")
+        completed = subprocess.run(
+            ["git", "-C", str(repo), "rev-parse", "--verify", f"{value}^{{commit}}"],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        resolved = completed.stdout.strip()
+        if completed.returncode != 0 or resolved != value:
+            raise Phase10Error(f"{name} does not resolve to the supplied commit")
+        current = subprocess.run(
+            ["git", "-C", str(repo), "rev-parse", "HEAD"],
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
+        if current != value:
+            raise Phase10Error(f"{name} does not match the checked-out HEAD")
+        return resolved
+
+    resolve(project_root, project_head, "project_head")
+    resolve(nested_root, nested_head, "nested_head")
+    gitlink = subprocess.run(
+        ["git", "-C", str(project_root), "ls-tree", project_head, "--", "llama.cpp"],
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip().split()
+    if len(gitlink) < 3 or gitlink[0:2] != ["160000", "commit"] or gitlink[2] != nested_head:
+        raise Phase10Error("nested_head does not match the project commit gitlink")
 
 
 def is_power_of_two(value: int) -> bool:

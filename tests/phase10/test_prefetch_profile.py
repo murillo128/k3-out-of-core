@@ -23,7 +23,7 @@ from measure_transport_break_even import derive
 from phase9_disabled_equivalence import (build_phase9_input, normalize_phase9, normalize_phase10,
     phase9_python_replay, verify_disabled_equivalence)
 from prefetch_common import (FNV_OFFSET, Phase10Error, break_even, canonical_bytes, config_digest, cross_candidates, fold_membership,
-    load_json, predictor_candidates, splitmix64, validate_profile, write_json)
+    load_json, predictor_candidates, require_capture_heads, splitmix64, validate_profile, write_json)
 from replay_prefetch import replay
 
 
@@ -112,6 +112,17 @@ def target_costs(value: dict) -> dict:
 
 
 class PrefetchProfileTests(unittest.TestCase):
+    def test_capture_heads_must_exist_match_checkout_and_gitlink(self) -> None:
+        project_head = subprocess.run(["git", "-C", str(ROOT), "rev-parse", "HEAD"],
+            check=True, capture_output=True, text=True).stdout.strip()
+        nested_head = subprocess.run(["git", "-C", str(ROOT / "llama.cpp"), "rev-parse", "HEAD"],
+            check=True, capture_output=True, text=True).stdout.strip()
+        require_capture_heads(project_head, nested_head, ROOT)
+        with self.assertRaisesRegex(Phase10Error, "does not resolve"):
+            require_capture_heads("0" * 40, nested_head, ROOT)
+        with self.assertRaisesRegex(Phase10Error, "does not resolve"):
+            require_capture_heads(project_head, "0" * 40, ROOT)
+
     def test_folds_are_causal_and_cover_all_prompts(self) -> None:
         for index in range(6):
             fold = fold_membership(index)

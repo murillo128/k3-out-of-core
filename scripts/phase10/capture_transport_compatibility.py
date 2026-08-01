@@ -7,7 +7,7 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
-from prefetch_common import Phase10Error, load_json, validate_profile, write_json
+from prefetch_common import Phase10Error, load_json, require_capture_heads, validate_profile, write_json
 
 
 def sha256_file(path: Path) -> str:
@@ -46,6 +46,7 @@ def main() -> int:
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     try:
+        require_capture_heads(args.project_head, args.nested_head)
         profiles = [args.buffered_profile.resolve(), args.direct_profile.resolve(), args.h2d_profile.resolve()]
         for profile in profiles:
             validate_profile(load_json(profile))
