@@ -12,13 +12,17 @@
         "--model",
         "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
         "--identity",
-        "eff509d2dadde72d95e986d876bdc663f7b8f552:107f6e1111e4df5d07b2cbb46a2d12b26aa782f6"
+        "d677a54d4f7530695bd219414c82685ec236d3d4:46dd4ac03286c78b26e18666540a8e82a8acc3cf",
+        "--storage-map",
+        "/usr/local/src/k3-out-of-core/results/2026-07-29/skynet/phase2-observability/phase2-f16-expert-storage-map-v1.json"
       ],
       "measurement_path": "results/2026-08-01/skynet/phase10-prefetch/raw/transport/f16-transport-measurements.json",
-      "measurement_sha256": "351b342311976d984b5cb1e6d30fb479d89769c4bd4ab5f7c1cbdc2045d8d599",
+      "measurement_sha256": "e77126809d51e0fca517ae7b721c70e0a62cf8c64f2983d077060864b7470233",
       "profile_bytes": 62678,
       "profile_path": "results/2026-08-01/skynet/phase10-prefetch/profiles/calibration/f16-calibration-profile.json",
-      "profile_sha256": "b14e91e101f8d2ab30f4986fe00ef250dcdd8ed73c93f9b39a5fe7de038df6ed"
+      "profile_sha256": "b14e91e101f8d2ab30f4986fe00ef250dcdd8ed73c93f9b39a5fe7de038df6ed",
+      "storage_map_path": "results/2026-07-29/skynet/phase2-observability/phase2-f16-expert-storage-map-v1.json",
+      "storage_map_sha256": "42af6acd1d1f2ea77aaa9750b28141670ce69009ba06b5ddca3f42c696b51151"
     },
     "mxfp4": {
       "bootstrap_cost_path": "/tmp/phase10-mxfp4-exact-costs.json",
@@ -32,18 +36,22 @@
         "--model",
         "/usr/local/src/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
         "--identity",
-        "eff509d2dadde72d95e986d876bdc663f7b8f552:107f6e1111e4df5d07b2cbb46a2d12b26aa782f6"
+        "d677a54d4f7530695bd219414c82685ec236d3d4:46dd4ac03286c78b26e18666540a8e82a8acc3cf",
+        "--storage-map",
+        "/usr/local/src/k3-out-of-core/results/2026-07-29/skynet/phase2-observability/phase2-mxfp4-expert-storage-map-v1.json"
       ],
       "measurement_path": "results/2026-08-01/skynet/phase10-prefetch/raw/transport/mxfp4-transport-measurements.json",
-      "measurement_sha256": "9314200baddec532afc071191e28711151e0748af06729c5139f6367a868154c",
+      "measurement_sha256": "3c6d64eadb19c59e9eca7ba8de5ba8f1f0f6505e57d567258db8a48a09ccddc2",
       "profile_bytes": 62818,
       "profile_path": "results/2026-08-01/skynet/phase10-prefetch/profiles/calibration/mxfp4-calibration-profile.json",
-      "profile_sha256": "9f9a99aa59ca94c56df63a5b8906f7c5960c57e71edb4717d3cd76218fe18566"
+      "profile_sha256": "9f9a99aa59ca94c56df63a5b8906f7c5960c57e71edb4717d3cd76218fe18566",
+      "storage_map_path": "results/2026-07-29/skynet/phase2-observability/phase2-mxfp4-expert-storage-map-v1.json",
+      "storage_map_sha256": "5efd068823a1746a5b7c1ad6a5fa838803714feadb30f6e28d66431cf7660060"
     }
   },
   "bootstrap_role": "profile_shape_only; measured costs are derived at the requested exact revisions",
-  "nested_head": "107f6e1111e4df5d07b2cbb46a2d12b26aa782f6",
+  "nested_head": "46dd4ac03286c78b26e18666540a8e82a8acc3cf",
   "phase2_archive_sha256": "6aa924a6c18bee4e2490f317ced836bcc4740c3ec63e9427a95951e79a649a5f",
-  "project_head": "eff509d2dadde72d95e986d876bdc663f7b8f552",
+  "project_head": "d677a54d4f7530695bd219414c82685ec236d3d4",
   "schema_version": "phase10-transport-calibration-v1"
 }

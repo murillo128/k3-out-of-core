@@ -1,15 +1,63 @@
 {
   "costs": [
     {
-      "break_even_bps": 8175,
-      "demand_service_ns": 4663,
-      "displacement_refill_ns": 5227,
+      "break_even_bps": 9999,
+      "demand_service_ns": 2000,
+      "displacement_refill_ns": 182000,
       "h2d_bytes": 0,
-      "lead_ns": 926670,
-      "predictor_compute_ns": 1903,
+      "lead_ns": 1365625,
+      "predictor_compute_ns": 1817,
       "readiness": "HOST_READY",
-      "scheduler_demand_delay_ns": 0,
-      "speculative_service_ns": 5227,
+      "scheduler_demand_delay_ns": 495,
+      "speculative_service_ns": 732000,
+      "storage_bytes": 208896,
+      "transport": "BUFFERED",
+      "utility_min_observations": 32,
+      "utility_min_timely_successes": 64,
+      "utility_window_predictions": 64
+    },
+    {
+      "break_even_bps": 8239,
+      "demand_service_ns": 3171000,
+      "displacement_refill_ns": 3175000,
+      "h2d_bytes": 0,
+      "lead_ns": 1365625,
+      "predictor_compute_ns": 1817,
+      "readiness": "HOST_READY",
+      "scheduler_demand_delay_ns": 481,
+      "speculative_service_ns": 3202000,
+      "storage_bytes": 208896,
+      "transport": "DIRECT_IO",
+      "utility_min_observations": 32,
+      "utility_min_timely_successes": 53,
+      "utility_window_predictions": 64
+    },
+    {
+      "break_even_bps": 7093,
+      "demand_service_ns": 54000,
+      "displacement_refill_ns": 61000,
+      "h2d_bytes": 208896,
+      "lead_ns": 1365625,
+      "predictor_compute_ns": 1817,
+      "readiness": "DEVICE_READY",
+      "scheduler_demand_delay_ns": 495,
+      "speculative_service_ns": 64000,
+      "storage_bytes": 0,
+      "transport": "HOST_TO_DEVICE",
+      "utility_min_observations": 32,
+      "utility_min_timely_successes": 46,
+      "utility_window_predictions": 64
+    },
+    {
+      "break_even_bps": 8169,
+      "demand_service_ns": 676000,
+      "displacement_refill_ns": 885000,
+      "h2d_bytes": 208896,
+      "lead_ns": 1365625,
+      "predictor_compute_ns": 1817,
+      "readiness": "DEVICE_READY",
+      "scheduler_demand_delay_ns": 495,
+      "speculative_service_ns": 2120000,
       "storage_bytes": 208896,
       "transport": "BUFFERED",
       "utility_min_observations": 32,
@@ -17,67 +65,19 @@
       "utility_window_predictions": 64
     },
     {
-      "break_even_bps": 7900,
-      "demand_service_ns": 150391,
-      "displacement_refill_ns": 278216,
-      "h2d_bytes": 0,
-      "lead_ns": 926670,
-      "predictor_compute_ns": 1903,
-      "readiness": "HOST_READY",
-      "scheduler_demand_delay_ns": 0,
-      "speculative_service_ns": 278216,
+      "break_even_bps": 8428,
+      "demand_service_ns": 3613000,
+      "displacement_refill_ns": 3654000,
+      "h2d_bytes": 208896,
+      "lead_ns": 1365625,
+      "predictor_compute_ns": 1817,
+      "readiness": "DEVICE_READY",
+      "scheduler_demand_delay_ns": 481,
+      "speculative_service_ns": 3654000,
       "storage_bytes": 208896,
       "transport": "DIRECT_IO",
       "utility_min_observations": 32,
-      "utility_min_timely_successes": 51,
-      "utility_window_predictions": 64
-    },
-    {
-      "break_even_bps": 7013,
-      "demand_service_ns": 21456,
-      "displacement_refill_ns": 21994,
-      "h2d_bytes": 208896,
-      "lead_ns": 926670,
-      "predictor_compute_ns": 1903,
-      "readiness": "DEVICE_READY",
-      "scheduler_demand_delay_ns": 0,
-      "speculative_service_ns": 21994,
-      "storage_bytes": 0,
-      "transport": "HOST_TO_DEVICE",
-      "utility_min_observations": 32,
-      "utility_min_timely_successes": 45,
-      "utility_window_predictions": 64
-    },
-    {
-      "break_even_bps": 6961,
-      "demand_service_ns": 26170,
-      "displacement_refill_ns": 26839,
-      "h2d_bytes": 208896,
-      "lead_ns": 926670,
-      "predictor_compute_ns": 1903,
-      "readiness": "DEVICE_READY",
-      "scheduler_demand_delay_ns": 0,
-      "speculative_service_ns": 26839,
-      "storage_bytes": 208896,
-      "transport": "BUFFERED",
-      "utility_min_observations": 32,
-      "utility_min_timely_successes": 45,
-      "utility_window_predictions": 64
-    },
-    {
-      "break_even_bps": 7788,
-      "demand_service_ns": 172722,
-      "displacement_refill_ns": 299596,
-      "h2d_bytes": 208896,
-      "lead_ns": 926670,
-      "predictor_compute_ns": 1903,
-      "readiness": "DEVICE_READY",
-      "scheduler_demand_delay_ns": 0,
-      "speculative_service_ns": 299596,
-      "storage_bytes": 208896,
-      "transport": "DIRECT_IO",
-      "utility_min_observations": 32,
-      "utility_min_timely_successes": 50,
+      "utility_min_timely_successes": 54,
       "utility_window_predictions": 64
     }
   ],
@@ -184,7 +184,7 @@
     }
   ],
   "selection": {
-    "break_even_bps": 7013,
+    "break_even_bps": 7093,
     "candidates_per_target": 1,
     "fold_index": 1,
     "matrix_version": 1,
@@ -192,7 +192,7 @@
     "readiness": "DEVICE_READY",
     "temporal_window_tokens": 0,
     "transport": "HOST_TO_DEVICE",
-    "tuning_digest": "1d2d9f0c9613067eb59d12f64f8405ab25e3e5ee7b39ecc97fa953a5c9f91212"
+    "tuning_digest": "848cf0d85f6c612e3be30ed9ab0d84c89dce7f5a8684f615cd917699a8ca7478"
   },
   "source": {
     "artifacts": [
@@ -223,8 +223,8 @@
       },
       {
         "name": "mxfp4-transport-break-even.json",
-        "sha256": "8dd71f887555ddadd530cf2e25afccff7317ebb08cbabc696f3c00750cbac439",
-        "size": 6819
+        "sha256": "55bc4c8926d21f5ffdbd929c0ab7dc0cd51cd99dc5fec853f6f0b2ea06cadf2e",
+        "size": 15846
       }
     ],
     "fold": {
