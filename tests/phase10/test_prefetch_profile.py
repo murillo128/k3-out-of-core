@@ -18,6 +18,7 @@ from bind_target_costs import bind
 from build_online_compat_profile import adapt_profile
 from capture_offline_replay import replay_envelopes, score_replay
 from capture_profile_compatibility import frozen_tuning_digest, retained_tunings, runtime_arguments
+from capture_static_seed import compare_metric, mean_interval, seed_usage
 from capture_transport_measurements import validate_measurement
 from measure_transport_break_even import derive
 from phase9_disabled_equivalence import (build_phase9_input, normalize_phase9, normalize_phase10,
@@ -140,6 +141,27 @@ class PrefetchProfileTests(unittest.TestCase):
                 "candidates_per_target": 2, "disposition": "rejected_below_break_even"},
         ]}
         self.assertEqual([item["policy"] for item in retained_tunings(offline)], ["BLOCKING_HOT"])
+
+    def test_seed_statistics_use_paired_abba_block_means(self) -> None:
+        def run(latency: list[int]) -> dict:
+            return {"capture": {"latency_us": latency, "model_load_ns": 1_000_000,
+                "peak_rss_kib": 10, "minor_faults": 2, "major_faults": 0}}
+        blocks = [{"baseline": [run([100, 50, 50]), run([100, 50, 50])],
+            "candidate": [run([90, 50, 50]), run([90, 50, 50])]} for _ in range(10)]
+        result = compare_metric(blocks, "ttft_us", False)
+        self.assertEqual(result["relative_improvement"]["mean"], .1)
+        self.assertEqual(result["relative_improvement"]["ci95_low"], .1)
+        self.assertEqual(mean_interval([1.0] * 10)["student_t_critical"], 2.262)
+
+    def test_seed_usage_accounts_for_first_use_and_unload(self) -> None:
+        value = profile()
+        capture = {"public_routes": [{"layer": 1, "n_tokens": 1, "n_expert_used": 2,
+            "selected_experts": [1, 2]}],
+            "final_resident": [{"layer": 1, "expert": 1}]}
+        result = seed_usage(value, capture)
+        self.assertEqual(result["seed_entries"], 1)
+        self.assertEqual(result["first_use_hits"], 1)
+        self.assertEqual(result["unused_before_eviction"], 0)
 
     def test_profile_freeze_digest_excludes_held_out_test(self) -> None:
         offline = {"matrix_sha256": HASH}
