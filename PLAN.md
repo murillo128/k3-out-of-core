@@ -10,10 +10,12 @@ Each phase has an **exit gate**. Do not begin a dependent phase until the gate i
 - [Phases 4–6: persistent hot cache, cold cache, and GGUF-backed storage](docs/plan/04-cache-and-storage.md)
 - [Phases 7–10: asynchronous runtime, miss execution, cache policy, and prefetch](docs/plan/07-async-runtime.md)
 - [Phases 11–15: UMA, full-size scaling, end-to-end observability, concurrency, multi-GPU, and hardening](docs/plan/11-scaling-and-hardening.md)
+- [Phase 12–13 Colibrì comparison addendum](docs/plan/12-colibri-comparison.md) establishes mandatory storage-layout, I/O-submission, full-size K3, trace-identity, and single-request chunked-prefill comparisons without changing phase order.
 
 ## Research references
 
 - [Alternative MoE validation targets](docs/ALTERNATIVE_MOE_VALIDATION_TARGETS.md) records non-normative Qwen3-Coder-Next and DeepSeek-V4-Flash candidates, reproducibility requirements, and the proposed Phase-12 quality-versus-residency comparison. It does not change current issue scope or K3 acceptance criteria.
+- [Colibrì Kimi K3 prior art](docs/COLIBRI_K3_PRIOR_ART.md) records the v1.4.0 source-MXFP4 K3 engine, source/repacked safetensors layouts, direct-I/O and pipeline results, chunked-prefill baseline, and bounded reuse decisions.
 
 ## Execution rule
 
