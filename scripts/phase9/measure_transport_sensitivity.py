@@ -86,10 +86,14 @@ def main() -> int:
     for case in cases:
         identities = {entry["output_identity"] for entry in runs if entry["case"] == case["name"]}
         if len(identities) != 1: raise RuntimeError(f"transport changed output for {case['name']}")
-    direct_capability = next(value for value in phase7["evidence"].values()
-        if isinstance(value, dict) and value.get("path", "").endswith("transport-matrix.json")) if False else {
-            "direct_io_requested": True, "direct_operations": 117, "direct_sources": 218,
-            "direct_unsupported_sources": 0, "source": "accepted Phase 7 manifest/capture"}
+    accepted = phase7["capabilities"]
+    direct_capability = {
+        "direct_io_requested": accepted["direct_io_requested"],
+        "direct_operations": accepted["direct_operations"],
+        "direct_sources": accepted["direct_sources"],
+        "direct_unsupported_sources": accepted["direct_unsupported_sources"],
+        "source": "accepted Phase 7 manifest capabilities",
+    }
     output = {"schema_version": "phase9-transport-sensitivity-v1", "status": "pass",
               "inputs": {"probe": file_identity(args.probe), "statistics": file_identity(args.statistics),
                          "working_sets": file_identity(args.working_sets), "phase8_manifest": file_identity(args.phase8_manifest),

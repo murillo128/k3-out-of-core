@@ -40,7 +40,8 @@ def main() -> int:
     parser.add_argument("--manifest", type=Path, required=True)
     parser.add_argument("--strict", action="store_true")
     args = parser.parse_args()
-    manifest = json.loads(args.manifest.read_text())
+    manifest_path = args.manifest.resolve()
+    manifest = json.loads(manifest_path.read_text())
     schema = json.loads((ROOT / "schemas/phase9/phase9-manifest-v1.schema.json").read_text())
     jsonschema.validate(manifest, schema)
     serialized = canonical_json(manifest)
@@ -58,7 +59,7 @@ def main() -> int:
         implementation = manifest["project"]["implementation_evidence_head"]
         if subprocess.run(["git", "-C", str(ROOT), "merge-base", "--is-ancestor", implementation, current]).returncode != 0:
             raise RuntimeError("implementation evidence head is not an ancestor of current HEAD")
-        allowed = {str(args.manifest.relative_to(ROOT)),
+        allowed = {str(manifest_path.relative_to(ROOT)),
                    "results/2026-07-31/skynet/phase9-cache-policy/PHASE9.md"}
         changed = set(filter(None, git(ROOT, "diff", "--name-only", f"{implementation}..{current}").splitlines()))
         if not changed <= allowed: raise RuntimeError(f"closeout commit changed non-derived files: {sorted(changed - allowed)}")
@@ -66,8 +67,8 @@ def main() -> int:
             raise RuntimeError("strict verification requires clean project and nested worktrees")
         if git(ROOT / "llama.cpp", "rev-parse", "HEAD") != manifest["nested"]["head"]:
             raise RuntimeError("nested HEAD changed after implementation evidence")
-    print(canonical_json({"status": "pass", "manifest": str(args.manifest),
-                          "sha256": sha256_file(args.manifest), "strict": args.strict}), end="")
+    print(canonical_json({"status": "pass", "manifest": str(manifest_path),
+                          "sha256": sha256_file(manifest_path), "strict": args.strict}), end="")
     return 0
 
 
