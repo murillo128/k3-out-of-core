@@ -151,12 +151,18 @@ The closeout evidence is under `results/2026-07-31/skynet/phase8-miss-execution/
 
 ### Exit gate
 
-- A policy/default recommendation is documented with trace and online benchmark evidence.
-- Prefill cannot silently destroy a protected decode hot set without metrics showing it.
-- The recommended budget is evaluated around working-set boundaries and avoids a sustained paging/compression cliff.
-- Any agreement or disagreement with WASTE's observed cache floor and oversubscription collapse is documented with the differing model format, hardware, and transport.
+- [x] A policy/default recommendation is documented with trace and online benchmark evidence.
+- [x] Prefill cannot silently destroy a protected decode hot set without metrics showing it.
+- [x] The recommended budget is evaluated around working-set boundaries and avoids a sustained paging/compression cliff.
+- [x] Any agreement or disagreement with WASTE's observed cache floor and oversubscription collapse is documented with the differing model format, hardware, and transport.
 
-**Status:** ACCEPTED through Checkpoint C. Issue #30 provides the execution contract. Checkpoints A, B, and C returned `PASS`, safety `YES`, at comments `5148012128`, `5148752231`, and `5149625334`. The fixed selection rule retains exact global LRU/ALWAYS for both tiers because no non-LRU pair passed every default gate; per-layer configurations remain explicit-only. The safe scoped cold-budget recommendations are 44,040,192 bytes for the two-token tiny-K3 F16 boundary workload, 11,698,176 bytes for its MXFP4 counterpart, 1,678,245,888 bytes for the accepted one-token Qwen bootstrap only, and 25,829,572,608 bytes for full-K3 exact-layout physical-residency evidence only. None is a hidden runtime auto-size default. Phase 9.5 final validation, manifest publication, and final complete-PR review remain pending at this source-of-truth update.
+### Phase 9 execution record
+
+Issue #30 implemented this phase through PR #31, squash-merged into `main` as `035f099de85b3f775ae8cd6769b561156ea52317`. Checkpoints A, B, and C returned `PASS`, safety `YES`, at comments `5148012128`, `5148752231`, and `5149625334`. The final complete-PR review returned `PASS`, safety `YES`, with no required delta in comment `5149762882` for project head `32f5a2390c7e7730ec0a28677195820aedf734f3` and nested head `fd29c0f9e868e838d3641cd13eb6ceb8c1535f01`.
+
+The fixed selection rule retains exact global LRU/ALWAYS for both hot and cold null defaults because no non-LRU pair passed every default gate; explicit non-default and per-layer configurations remain available under the v1 validation rules. The scoped cold-budget recommendations are 44,040,192 bytes for the two-token tiny-K3 F16 boundary workload, 11,698,176 bytes for its MXFP4 counterpart, 1,678,245,888 bytes for the accepted one-token Qwen bootstrap only, and 25,829,572,608 bytes for full-K3 exact-layout physical-residency evidence only. None is a hidden runtime auto-size default, and the full-K3 result is not an inference, quality, or storage-throughput claim.
+
+The authoritative technical manifest is `results/2026-07-31/skynet/phase9-cache-policy/phase9-manifest.json`, SHA-256 `5295ee701dfa24636f03d4bd13e3f250560179ecbda30ad9379580a2ce1c370f`. It binds immutable replay, online agreement, policy/default equivalence, physical residency and headroom, WASTE normalization, fixed statistical selection, required CPU/CUDA/sanitizer validation, exact implementation and nested heads, and the final clean-tree/gitlink gates.
 
 ---
 
