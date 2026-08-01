@@ -2,15 +2,16 @@
   "all_demand_enqueued_before_take": true,
   "all_demand_ready_before_use": true,
   "all_storage_submitted_before_wait": true,
-  "binary_sha256": "d1da585397bf56c42b7dd1cca79b9ba4bbacd35878ce4cfafbfb0d7612cb50e7",
-  "nested_head": "b360cdecfe8fdf6094fbd545de944e20d767ce6a",
+  "binary_sha256": "875661d8eda6da9a84c8257034adcd510314b971e33985d979ba10d826548c47",
+  "nested_head": "2bf0b29d5874fc0ef3e95c087e11e6d2ba1bfe20",
   "parallel": {
     "demand_misses": 2,
     "demand_ready_before_use": 2,
     "scheduler_enqueued_before_first_take": 2,
     "storage_reads_submitted_before_first_wait": 2
   },
-  "project_head": "daac890e90db5736f86026920a2905bf3403c921",
+  "project_head": "8b6f0cc12ebc32bb6fb1b2c491cb224c8a0f47c8",
+  "queued_join_preserved_generation": true,
   "route_identity_preserved": true,
   "runs": [
     {
@@ -18,21 +19,22 @@
         "/usr/local/src/k3-out-of-core/llama.cpp/build-phase10-cpu/bin/test-hot-expert-cache"
       ],
       "exit_code": 0,
-      "stderr_sha256": "e320a02c35e505cb7c7d6eb47835cfb227195535f8186586528a345acac3f9d4",
-      "stdout_sha256": "390c6dc65102e2124a848f6eca95328be267f715b8e0213ff94cdbc98f8ec2ff"
+      "stderr_sha256": "cbcf92c61f3e77f316e5dfea2adf670cf4c84ef8b60d1adae2afab609e6235ea",
+      "stdout_sha256": "2935b995f3f7342f2efa59a77eb4aba78c42ed00f8ee388e5c079918642bf776"
     },
     {
       "command": [
         "/usr/local/src/k3-out-of-core/llama.cpp/build-phase10-cpu/bin/test-hot-expert-cache"
       ],
       "exit_code": 0,
-      "stderr_sha256": "e320a02c35e505cb7c7d6eb47835cfb227195535f8186586528a345acac3f9d4",
-      "stdout_sha256": "390c6dc65102e2124a848f6eca95328be267f715b8e0213ff94cdbc98f8ec2ff"
+      "stderr_sha256": "cbcf92c61f3e77f316e5dfea2adf670cf4c84ef8b60d1adae2afab609e6235ea",
+      "stdout_sha256": "2935b995f3f7342f2efa59a77eb4aba78c42ed00f8ee388e5c079918642bf776"
     }
   ],
   "schema_version": "phase10-exact-issue-ahead-v1",
   "serial_control": {
     "storage_reads_submitted_before_first_wait": 1
   },
-  "serial_control_distinguishes_issue_ahead": true
+  "serial_control_distinguishes_issue_ahead": true,
+  "submitted_join_consumed_ready_data": true
 }
