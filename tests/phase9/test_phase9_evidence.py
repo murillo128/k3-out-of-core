@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts" / "phase9"))
 from evidence_common import host_safe_ceiling, legal_budget_grid, paired_interval  # noqa: E402
 from measure_working_sets import event_working_sets  # noqa: E402
+from select_cache_policy import boundary_budget  # noqa: E402
 
 
 class Phase9EvidenceTests(unittest.TestCase):
@@ -44,6 +45,18 @@ class Phase9EvidenceTests(unittest.TestCase):
         self.assertEqual(result["checkpoint_working_set_bytes"]["decode"]["max"], 128)
         self.assertEqual(result["token_working_set_bytes"]["decode"]["max"], 128)
         self.assertEqual(result["protected_decode_set_bytes"], 64)
+
+    def test_budget_rule_prefers_smaller_equivalent_safe_cell(self):
+        rows = []
+        for slots, timings in ((14, (100.0, 102.0)), (16, (99.0, 101.0))):
+            for repetition, timing in enumerate(timings):
+                rows.append({"name": "fixture", "tier": "cold", "disposition": "pass",
+                             "slots": slots, "requested_bytes": slots*100, "repetition": repetition,
+                             "token_mean_us": timing, "resident_ratio": 1.0})
+        result = boundary_budget({"rules": {"fresh_process_repetitions_per_cell": 2}, "rows": rows},
+                                 "fixture", "fixture-format", 1400, {"safe_ceiling_bytes": 10000})
+        self.assertEqual(result["recommended_cold_bytes"], 1400)
+        self.assertFalse(result["runtime_auto_sizing"])
 
 
 if __name__ == "__main__":
