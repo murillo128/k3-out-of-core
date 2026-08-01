@@ -26,7 +26,7 @@ def run(probe: Path, directory: Path, case: dict[str, Any], profile: dict[str, s
     output = directory / f"{case['name']}-{transport.lower()}-{hot['policy']}-{cold['policy']}-{repetition}.json"
     command = [str(probe), "--model", case["model"], "--output", str(output), "--mode", "cold",
         "--hot-policy", hot["policy"], "--cold-policy", cold["policy"], "--scope", "GLOBAL",
-        "--admission", hot["admission"], "--miss-policy", "CPU_FALLBACK", "--hot-slots", str(case["hot_slots"]),
+        "--admission", hot["admission"], "--miss-policy", case["miss_policy"], "--hot-slots", str(case["hot_slots"]),
         "--cold-bytes", str(case["cold_bytes"]), "--ring-bytes", str(case["ring_bytes"]),
         "--ratio", str(max(hot["ratio"], cold["ratio"])), "--window", str(hot["window"]),
         "--aging", str(max(hot["aging"], cold["aging"])), "--n-ubatch", str(case["n_ubatch"]),
@@ -69,14 +69,18 @@ def main() -> int:
     by_name = {entry["name"]: entry for entry in working["cases"]}
     f16 = by_name["tiny-f16-original-cold-lru-cpu-background-off"]
     qwen = by_name["qwen15-moe-f16-cold-lru-cpu-background-off"]
+    statistics_cases = {case["name"]: case for case in stats["plan"]["cases"]}
     cases = [
         {"name": "tiny-f16-recommended", "model": models["k3_f16_original"], "hot_slots": 16,
          "cold_bytes": f16["observed_capacities"]["cold_actual_bytes"], "ring_bytes": 16777216,
-         "n_ubatch": 64, "max_generate": 8, "background": 1, "observe_routes": 1,
+         "n_ubatch": 64, "max_generate": 8,
+         "background": statistics_cases["tiny-f16-original"]["background"], "observe_routes": 1,
+         "miss_policy": statistics_cases["tiny-f16-original"]["miss_policy"],
          "w_disposition": "decode-W is below the accepted simultaneous-request feasibility floor"},
         {"name": "qwen-f16-at-w", "model": models["larger"], "hot_slots": 4,
          "cold_bytes": qwen["token_working_set_bytes"]["decode"]["max"], "ring_bytes": 134217728,
          "n_ubatch": 1, "max_generate": 1, "background": 0, "observe_routes": 0,
+         "miss_policy": statistics_cases["qwen15-moe-f16"]["miss_policy"],
          "w_disposition": "exact observed W"},
     ]
     args.output_dir.mkdir(parents=True, exist_ok=True)
