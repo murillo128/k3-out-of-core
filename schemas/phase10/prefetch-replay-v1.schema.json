@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "prefetch-replay-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "profile_path", "policy", "readiness", "temporal_window_tokens", "candidates_per_target", "request_ordinal", "events", "completion_order"],
+  "properties": {
+    "schema_version": {"const": "phase10-prefetch-replay-v1"},
+    "profile_path": {"type": "string", "minLength": 1},
+    "policy": {"enum": ["OFF", "STATIC_LAYER", "PREVIOUS_TOKEN", "TEMPORAL_FREQUENCY", "CROSS_LAYER_TRANSITION", "RANDOM_BASELINE"]},
+    "readiness": {"enum": ["HOST_READY", "DEVICE_READY"]},
+    "temporal_window_tokens": {"type": "integer", "minimum": 0, "maximum": 64},
+    "candidates_per_target": {"type": "integer", "minimum": 1, "maximum": 4294967295},
+    "request_ordinal": {"type": "integer", "minimum": 1, "maximum": 18446744073709551615},
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["token", "layers"],
+        "properties": {
+          "token": {"type": "integer", "minimum": 0},
+          "layers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["layer", "experts"],
+              "properties": {
+                "layer": {"type": "integer", "minimum": 0},
+                "experts": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "integer", "minimum": 0}}
+              }
+            }
+          }
+        }
+      }
+    },
+    "completion_order": {"type": "array", "items": {"type": "integer", "minimum": 0}}
+  }
+}

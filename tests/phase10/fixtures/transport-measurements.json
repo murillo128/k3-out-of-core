@@ -1,0 +1,41 @@
+{
+  "schema_version": "phase10-transport-measurements-v1",
+  "project_head": "d136c92303b1ef5b0ef8b630b33a25f53f351acf",
+  "nested_head": "fd29c0f9e868e838d3641cd13eb6ceb8c1535f01",
+  "host": "synthetic-test-only",
+  "profile_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "profile_parse_ns": 10000,
+  "model_profile_load_ns": 20000,
+  "envelopes": [
+    {
+      "transport": "BUFFERED",
+      "readiness": "HOST_READY",
+      "supported": true,
+      "lead_p50_ns": 100000,
+      "demand_service_p50_ns": 100000,
+      "speculative_service_p95_ns": 120000,
+      "predictor_compute_p95_ns": 1000,
+      "scheduler_demand_delay_p95_ns": 0,
+      "displacement_refill_p95_ns": 120000,
+      "storage_bytes": 786432,
+      "h2d_bytes": 0,
+      "utility_window_predictions": 64,
+      "utility_min_observations": 32
+    },
+    {
+      "transport": "BUFFERED",
+      "readiness": "DEVICE_READY",
+      "supported": true,
+      "lead_p50_ns": 150000,
+      "demand_service_p50_ns": 150000,
+      "speculative_service_p95_ns": 180000,
+      "predictor_compute_p95_ns": 1000,
+      "scheduler_demand_delay_p95_ns": 0,
+      "displacement_refill_p95_ns": 180000,
+      "storage_bytes": 786432,
+      "h2d_bytes": 786432,
+      "utility_window_predictions": 64,
+      "utility_min_observations": 32
+    }
+  ]
+}
