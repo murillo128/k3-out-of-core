@@ -45,7 +45,7 @@ def run_probe(probe: Path, output_dir: Path, case: dict[str, Any], profile: dict
     output = output_dir / f"{label}.json"
     command = [str(probe), "--model", case["model"], "--output", str(output), "--mode", "cold",
                "--hot-policy", hot["policy"], "--cold-policy", cold["policy"], "--scope", hot["scope"],
-               "--admission", hot["admission"], "--miss-policy", "CPU_FALLBACK",
+               "--admission", hot["admission"], "--miss-policy", case["miss_policy"],
                "--hot-slots", str(case["hot_slots"]), "--cold-bytes", str(case["cold_bytes"]),
                "--ring-bytes", str(case["ring_bytes"]), "--ratio", str(ratio),
                "--window", str(hot["window"]), "--aging", str(max(hot["aging"], cold["aging"])),
@@ -142,10 +142,11 @@ def main() -> int:
                 "working_set_bytes": w, "capacity_floor_bytes": current["cold_actual_bytes"],
                 "ring_bytes": 134217728 if not observe else 16777216,
                 "n_ubatch": 1 if not observe else 64, "max_generate": generate,
-                "background": background, "observe_routes": observe}
+                "background": background, "observe_routes": observe,
+                "miss_policy": "PROMOTE_AND_GPU"}
     cases = [
-        case("tiny-f16-original", models["k3_f16_original"], f16_ws, 8, 1, 1),
-        case("tiny-mxfp4-original", models["k3_mxfp4_original"], mx_ws, 8, 1, 1),
+        case("tiny-f16-original", models["k3_f16_original"], f16_ws, 8, 0, 1),
+        case("tiny-mxfp4-original", models["k3_mxfp4_original"], mx_ws, 8, 0, 1),
         case("qwen15-moe-f16", models["larger_public_moe_f16"], qwen_ws, 1, 0, 0),
     ]
     plan = {"screening_profiles": non_lru, "baseline": baseline, "per_layer": per_layer,
