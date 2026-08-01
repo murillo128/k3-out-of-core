@@ -91,6 +91,8 @@ def capture(args: argparse.Namespace) -> None:
             "storage_reads_submitted_before_first_wait": issue.get("serial_submitted_before_wait"),
         },
         "route_identity_preserved": issue.get("routes_equal") == 1,
+        "queued_join_preserved_generation": issue.get("joined_same_generation") == 1,
+        "submitted_join_consumed_ready_data": issue.get("joined_submitted_ready") == 1,
         "all_demand_enqueued_before_take": issue.get("enqueued_before_take") == issue.get("misses"),
         "all_storage_submitted_before_wait": issue.get("parallel_submitted_before_wait") == issue.get("misses"),
         "all_demand_ready_before_use": issue.get("parallel_ready_before_use") == issue.get("misses"),
@@ -107,6 +109,7 @@ def capture(args: argparse.Namespace) -> None:
         "ordinary_lru_after_startup": seed.get("ordinary_lru") == 1,
         "partial_failure_rolled_back": seed.get("failure_rolled_back") == 1,
         "scheduler_drained_after_failure": seed.get("scheduler_drained") == 1,
+        "hot_speculative_victim_order_verified": seed.get("hot_speculative_victim_order") == 1,
         "source_path": "GGUF_TO_COLD_TO_RING_TO_HOT",
     })
     write_json(output / "scheduler-lifecycle.json", {
@@ -121,6 +124,9 @@ def capture(args: argparse.Namespace) -> None:
         "retry_uses_new_generation": lifecycle.get("retry_new_generation") == 1,
         "submitted_shutdown_drained": lifecycle.get("submitted_shutdown_drained") == 1,
         "zero_final_speculative_charges": lifecycle.get("zero_final_charges") == 1,
+        "cancelling_promotion_fenced": lifecycle.get("cancelling_promotion_fenced") == 1,
+        "submitted_speculation_preserves_demand_headroom":
+            lifecycle.get("submitted_headroom_preserved") == 1,
     })
 
 

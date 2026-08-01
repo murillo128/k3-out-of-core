@@ -3,7 +3,7 @@
   "$id": "exact-issue-ahead-v1.schema.json",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "project_head", "nested_head", "binary_sha256", "runs", "parallel", "serial_control", "route_identity_preserved", "all_demand_enqueued_before_take", "all_storage_submitted_before_wait", "all_demand_ready_before_use", "serial_control_distinguishes_issue_ahead"],
+  "required": ["schema_version", "project_head", "nested_head", "binary_sha256", "runs", "parallel", "serial_control", "route_identity_preserved", "queued_join_preserved_generation", "submitted_join_consumed_ready_data", "all_demand_enqueued_before_take", "all_storage_submitted_before_wait", "all_demand_ready_before_use", "serial_control_distinguishes_issue_ahead"],
   "properties": {
     "schema_version": {"const": "phase10-exact-issue-ahead-v1"},
     "project_head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
@@ -13,6 +13,8 @@
     "parallel": {"type": "object", "required": ["demand_misses", "scheduler_enqueued_before_first_take", "storage_reads_submitted_before_first_wait", "demand_ready_before_use"]},
     "serial_control": {"type": "object", "required": ["storage_reads_submitted_before_first_wait"]},
     "route_identity_preserved": {"const": true},
+    "queued_join_preserved_generation": {"const": true},
+    "submitted_join_consumed_ready_data": {"const": true},
     "all_demand_enqueued_before_take": {"const": true},
     "all_storage_submitted_before_wait": {"const": true},
     "all_demand_ready_before_use": {"const": true},
