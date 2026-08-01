@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -12,7 +14,8 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts" / "phase10"))
 
 from combine_transport_break_even import combine
-from capture_offline_replay import score_candidates
+from capture_offline_replay import score_replay
+from capture_profile_compatibility import retained_tunings
 from capture_transport_measurements import validate_measurement
 from measure_transport_break_even import derive
 from prefetch_common import (FNV_OFFSET, Phase10Error, break_even, config_digest, cross_candidates, fold_membership,
@@ -45,10 +48,43 @@ def profile() -> dict:
         "costs": [{"transport": "BUFFERED", "readiness": "DEVICE_READY", "lead_ns": 100, "demand_service_ns": 80,
             "speculative_service_ns": 20, "predictor_compute_ns": 10, "scheduler_demand_delay_ns": 5,
             "displacement_refill_ns": 5, "storage_bytes": 128, "h2d_bytes": 128, "break_even_bps": 3637,
+            "utility_window_predictions": 8, "utility_min_observations": 4, "utility_min_timely_successes": 3},
+            {"transport": "BUFFERED", "readiness": "HOST_READY", "lead_ns": 100, "demand_service_ns": 80,
+            "speculative_service_ns": 20, "predictor_compute_ns": 10, "scheduler_demand_delay_ns": 5,
+            "displacement_refill_ns": 5, "storage_bytes": 128, "h2d_bytes": 0, "break_even_bps": 3637,
             "utility_window_predictions": 8, "utility_min_observations": 4, "utility_min_timely_successes": 3}],
         "selection": {"matrix_version": 1, "tuning_digest": HASH, "fold_index": 0, "candidates_per_target": 2,
             "policy": "TEMPORAL_FREQUENCY", "temporal_window_tokens": 4, "transport": "BUFFERED", "readiness": "DEVICE_READY", "break_even_bps": 3637},
         "seed": [{"layer": 1, "expert": 1, "count": 9, "payload_bytes": 128, "physical_bytes": 160}]}
+
+
+def limits(active: bool = True) -> dict:
+    value = {"cold_capacity_bytes": 1280, "hot_capacity_slots": 8,
+        "max_speculative_flights": 8, "max_speculative_storage_bytes_in_flight": 1280,
+        "max_speculative_h2d_bytes_in_flight": 1024, "max_speculative_storage_bytes_per_token": 1280,
+        "max_speculative_h2d_bytes_per_token": 1024, "max_speculative_cold_slots": 8,
+        "max_speculative_hot_slots": 8}
+    if not active:
+        for name in list(value):
+            if name.startswith("max_speculative"):
+                value[name] = 0
+    return value
+
+
+def predictor_upper_bound() -> dict:
+    policies = ["STATIC_LAYER", "PREVIOUS_TOKEN", "TEMPORAL_FREQUENCY",
+        "CROSS_LAYER_TRANSITION", "RANDOM_BASELINE"]
+    return {"basis": "maximum p95 over full-token topology-capped declared predictors", "upper_bound_p95_ns": 10,
+        "measurements": [{"policy": policy, "temporal_window_tokens": 64 if policy == "TEMPORAL_FREQUENCY" else 0,
+            "candidates_per_target": 4, "target_layers_per_call": 2, "repetitions": 1000,
+            "p50_ns": 8, "p95_ns": 10, "p99_ns": 12} for policy in policies]}
+
+
+def lead_measurements() -> dict:
+    return {"basis": "minimum p50 of observed token-end-to-router and adjacent-router intervals",
+        "decode_submissions": 5, "token_end_samples": 35, "cross_layer_samples": 30,
+        "token_end_p50_ns": 100, "cross_layer_p50_ns": 100, "conservative_lead_p50_ns": 100,
+        "provider_event_capacity": 256, "provider_events_dropped": 0}
 
 
 class PrefetchProfileTests(unittest.TestCase):
@@ -57,6 +93,18 @@ class PrefetchProfileTests(unittest.TestCase):
             fold = fold_membership(index)
             self.assertEqual(len(fold["training"]), 4)
             self.assertEqual(len(set(fold["training"] + [fold["validation"], fold["test"]])), 6)
+
+    def test_profile_freeze_excludes_nonprofile_controls_and_rejections(self) -> None:
+        common = {"artifact": "f16", "fold": 0, "transport": "BUFFERED", "readiness": "DEVICE_READY",
+            "temporal_window_tokens": 0, "candidates_per_target": 0}
+        offline = {"shortlist": [
+            {**common, "policy": "DEMAND_BASELINE", "disposition": "demand_baseline_control"},
+            {**common, "policy": "SERIAL_CONTROL", "disposition": "serial_control_only"},
+            {**common, "policy": "BLOCKING_HOT", "disposition": "retained_for_online_seed_evaluation"},
+            {**common, "policy": "TEMPORAL_FREQUENCY", "temporal_window_tokens": 4,
+                "candidates_per_target": 2, "disposition": "rejected_below_break_even"},
+        ]}
+        self.assertEqual([item["policy"] for item in retained_tunings(offline)], ["BLOCKING_HOT"])
 
     def test_break_even_uses_project_costs(self) -> None:
         result = break_even({"lead_ns": 100, "demand_service_ns": 80, "predictor_compute_ns": 10,
@@ -69,6 +117,8 @@ class PrefetchProfileTests(unittest.TestCase):
     def test_measurement_envelope_and_waste_nontransfer(self) -> None:
         result = derive({"schema_version": "phase10-transport-measurements-v1", "project_head": COMMIT, "nested_head": COMMIT,
             "host": "test", "profile_sha256": HASH, "profile_parse_ns": 10, "model_profile_load_ns": 20,
+            "lead_measurements": lead_measurements(),
+            "predictor_upper_bound": predictor_upper_bound(),
             "envelopes": [{"transport": "BUFFERED", "readiness": "DEVICE_READY", "supported": True,
                 "lead_p50_ns": 100, "demand_service_p50_ns": 80, "speculative_service_p95_ns": 20,
                 "predictor_compute_p95_ns": 10, "scheduler_demand_delay_p95_ns": 5, "displacement_refill_p95_ns": 5,
@@ -81,7 +131,9 @@ class PrefetchProfileTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             first = derive({"schema_version": "phase10-transport-measurements-v1", "project_head": COMMIT,
                 "nested_head": COMMIT, "host": "test", "profile_sha256": HASH, "profile_parse_ns": 10,
-                "model_profile_load_ns": 20, "envelopes": [{"transport": "BUFFERED", "readiness": "DEVICE_READY",
+                "model_profile_load_ns": 20, "lead_measurements": lead_measurements(),
+                "predictor_upper_bound": predictor_upper_bound(),
+                "envelopes": [{"transport": "BUFFERED", "readiness": "DEVICE_READY",
                     "supported": True, "lead_p50_ns": 100, "demand_service_p50_ns": 80,
                     "speculative_service_p95_ns": 20, "predictor_compute_p95_ns": 10,
                     "scheduler_demand_delay_p95_ns": 5, "displacement_refill_p95_ns": 5,
@@ -119,6 +171,13 @@ class PrefetchProfileTests(unittest.TestCase):
     def test_profile_validation_rejects_leakage_and_duplicates(self) -> None:
         document = profile()
         validate_profile(document)
+        document["selection"].update({"policy": "BLOCKING_HOT", "candidates_per_target": 0,
+            "temporal_window_tokens": 0})
+        validate_profile(document)
+        document["selection"]["policy"] = "STATIC_LAYER"
+        with self.assertRaisesRegex(Phase10Error, "selected candidates"):
+            validate_profile(document)
+        document = profile()
         document["source"]["fold"]["training"][0] = document["source"]["fold"]["test"]
         with self.assertRaisesRegex(Phase10Error, "fold"):
             validate_profile(document)
@@ -148,28 +207,113 @@ class PrefetchProfileTests(unittest.TestCase):
             write_json(profile_path, profile())
             events = [{"token": 0, "layers": [{"layer": 1, "experts": [0, 1]}, {"layer": 2, "experts": [2, 3]}]}]
             request = {"schema_version": "phase10-prefetch-replay-v1", "profile_path": str(profile_path), "policy": "OFF",
-                "readiness": "DEVICE_READY", "temporal_window_tokens": 0, "candidates_per_target": 2,
-                "request_ordinal": 1, "events": events, "completion_order": []}
+                "transport": "BUFFERED", "readiness": "DEVICE_READY", "temporal_window_tokens": 0,
+                "candidates_per_target": 0,
+                "request_ordinal": 1, "events": events, "completion_order": [], "limits": limits(False),
+                "seed_mode": "OFF", "demand_mode": "ISSUE_AHEAD"}
             output = replay(request)
             self.assertEqual(output["candidate_stream"], [])
             self.assertEqual(output["state_digest"], FNV_OFFSET)
 
+    def test_hierarchy_replay_protects_demand_and_resolves_deadlines(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            profile_path = Path(directory) / "profile.json"
+            write_json(profile_path, profile())
+            events = [
+                {"token": 0, "layers": [{"layer": 1, "experts": [0, 1]}, {"layer": 2, "experts": [2, 3]}]},
+                {"token": 1, "layers": [{"layer": 1, "experts": [1, 2]}, {"layer": 2, "experts": [0, 3]}]},
+            ]
+            request = {"schema_version": "phase10-prefetch-replay-v1", "profile_path": str(profile_path),
+                "policy": "STATIC_LAYER", "transport": "BUFFERED", "readiness": "DEVICE_READY",
+                "temporal_window_tokens": 0,
+                "candidates_per_target": 2, "request_ordinal": 1, "events": events,
+                "completion_order": [], "limits": limits(), "seed_mode": "OFF", "demand_mode": "ISSUE_AHEAD"}
+            output = replay(request)
+            self.assertEqual(output["summary"]["predictions"], 6)
+            self.assertGreater(output["summary"]["rejected"], 0)
+            self.assertGreater(output["summary"]["timely_useful"], 0)
+            self.assertTrue(all(item["origin"] == "DEMAND" for item in output["resident"]))
+
+    def test_native_hierarchy_replay_agrees(self) -> None:
+        native = os.environ.get("PHASE10_NATIVE_REPLAY")
+        if not native:
+            self.skipTest("PHASE10_NATIVE_REPLAY is not set")
+        with tempfile.TemporaryDirectory() as directory:
+            profile_path = Path(directory) / "profile.json"
+            request_path = Path(directory) / "request.json"
+            write_json(profile_path, profile())
+            base = {"schema_version": "phase10-prefetch-replay-v1", "profile_path": str(profile_path),
+                "transport": "BUFFERED",
+                "request_ordinal": 1, "events": [
+                    {"token": 0, "layers": [{"layer": 1, "experts": [0, 1]}, {"layer": 2, "experts": [2, 3]}]},
+                    {"token": 1, "layers": [{"layer": 1, "experts": [1, 2]}, {"layer": 2, "experts": [0, 3]}]},
+                ], "completion_order": []}
+            cases = [
+                ("static-device", {"policy": "STATIC_LAYER", "readiness": "DEVICE_READY", "candidates_per_target": 2,
+                    "limits": limits(), "seed_mode": "OFF", "demand_mode": "ISSUE_AHEAD"}),
+                ("static-host", {"policy": "STATIC_LAYER", "readiness": "HOST_READY", "candidates_per_target": 2,
+                    "limits": limits(), "seed_mode": "OFF", "demand_mode": "ISSUE_AHEAD"}),
+                ("baseline", {"policy": "OFF", "readiness": "DEVICE_READY", "candidates_per_target": 0,
+                    "limits": limits(False), "seed_mode": "OFF", "demand_mode": "ISSUE_AHEAD"}),
+                ("serial", {"policy": "OFF", "readiness": "DEVICE_READY", "candidates_per_target": 0,
+                    "limits": limits(False), "seed_mode": "OFF", "demand_mode": "SERIAL"}),
+                ("seed", {"policy": "OFF", "readiness": "DEVICE_READY", "candidates_per_target": 0,
+                    "limits": limits(False), "seed_mode": "BLOCKING_HOT", "demand_mode": "ISSUE_AHEAD"}),
+            ]
+            for name, values in cases:
+                request = {**base, **values, "temporal_window_tokens": 0}
+                write_json(request_path, request)
+                completed = subprocess.run([native, str(request_path)], check=False, capture_output=True, text=True)
+                self.assertEqual(completed.returncode, 0, f"{name}: {completed.stderr}")
+                native_output = json.loads(completed.stdout)
+                python_output = replay(request)
+                self.assertEqual(set(native_output), set(python_output))
+                for key in sorted(native_output):
+                    with self.subTest(case=name, field=key):
+                        self.assertEqual(native_output[key], python_output[key])
+            late_profile = profile()
+            late_cost = late_profile["costs"][0]
+            late_cost.update({"speculative_service_ns": 100, "break_even_bps": 6316,
+                "utility_min_timely_successes": 6})
+            late_profile["selection"]["break_even_bps"] = 6316
+            write_json(profile_path, late_profile)
+            late_request = {**base, "policy": "STATIC_LAYER", "readiness": "DEVICE_READY",
+                "candidates_per_target": 2, "limits": limits(), "seed_mode": "OFF",
+                "demand_mode": "ISSUE_AHEAD", "temporal_window_tokens": 0,
+                "events": [
+                    {"token": 0, "layers": [{"layer": 1, "experts": [0, 3]},
+                        {"layer": 2, "experts": [0, 1]}]},
+                    {"token": 1, "layers": [{"layer": 1, "experts": [1, 3]},
+                        {"layer": 2, "experts": [0, 1]}]},
+                ]}
+            write_json(request_path, late_request)
+            completed = subprocess.run([native, str(request_path)], check=False, capture_output=True, text=True)
+            self.assertEqual(completed.returncode, 0, completed.stderr)
+            native_output = json.loads(completed.stdout)
+            python_output = replay(late_request)
+            self.assertEqual(native_output, python_output)
+            self.assertGreater(native_output["summary"]["late_joined"], 0)
+            self.assertGreater(native_output["summary"]["cancelled_drained"], 0)
+
     def test_offline_scoring_uses_causal_deadlines_and_physical_budget(self) -> None:
-        document = profile()
-        document["_events"] = [
+        events = [
             {"token": 0, "layers": [{"layer": 1, "experts": [0, 1]}, {"layer": 2, "experts": [2, 3]}]},
             {"token": 1, "layers": [{"layer": 1, "experts": [1, 2]}, {"layer": 2, "experts": [0, 3]}]},
         ]
-        output = {"policy": "PREVIOUS_TOKEN", "candidate_stream": [
-            {"trigger_token": 0, "trigger": "TOKEN_END", "source_layer": -1,
-                "target_layer": 1, "expert": 1, "rank": 0, "score": 1},
-            {"trigger_token": 0, "trigger": "TOKEN_END", "source_layer": -1,
-                "target_layer": 2, "expert": 2, "rank": 0, "score": 1},
-        ]}
-        self.assertEqual(score_candidates(document, output, 320), {
-            "predictions": 2, "timely_successes": 1, "actual_demands": 4,
-            "precision_bps": 5000, "recall_bps": 2500, "budget_rejections": 0,
-            "predicted_physical_bytes": 320, "wasted_physical_bytes": 160})
+        with tempfile.TemporaryDirectory() as directory:
+            profile_path = Path(directory) / "profile.json"
+            write_json(profile_path, profile())
+            output = replay({"schema_version": "phase10-prefetch-replay-v1", "profile_path": str(profile_path),
+                "policy": "STATIC_LAYER", "transport": "BUFFERED", "readiness": "DEVICE_READY",
+                "temporal_window_tokens": 0,
+                "candidates_per_target": 2, "request_ordinal": 1, "events": events,
+                "completion_order": [], "limits": limits(), "seed_mode": "OFF",
+                "demand_mode": "ISSUE_AHEAD"})
+            metrics = score_replay(output, 0, events)
+            self.assertEqual(metrics["actual_demands"], 8)
+            self.assertEqual(metrics["predictions"], output["summary"]["accepted"])
+            self.assertEqual(metrics["timely_successes"], output["summary"]["timely_useful"])
+            self.assertLessEqual(metrics["predicted_physical_bytes"], 2*limits()["max_speculative_storage_bytes_per_token"])
 
 
 if __name__ == "__main__":

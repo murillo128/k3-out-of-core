@@ -3,7 +3,7 @@
   "$id": "transport-measurements-v1.schema.json",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "project_head", "nested_head", "host", "profile_sha256", "profile_parse_ns", "model_profile_load_ns", "envelopes"],
+  "required": ["schema_version", "project_head", "nested_head", "host", "profile_sha256", "profile_parse_ns", "model_profile_load_ns", "lead_measurements", "predictor_upper_bound", "envelopes"],
   "properties": {
     "schema_version": {"const": "phase10-transport-measurements-v1"},
     "project_head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
@@ -12,6 +12,32 @@
     "profile_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "profile_parse_ns": {"type": "integer", "minimum": 0},
     "model_profile_load_ns": {"type": "integer", "minimum": 0},
+    "lead_measurements": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["basis", "decode_submissions", "token_end_samples", "cross_layer_samples", "token_end_p50_ns", "cross_layer_p50_ns", "conservative_lead_p50_ns", "provider_event_capacity", "provider_events_dropped"],
+      "properties": {
+        "basis": {"const": "minimum p50 of observed token-end-to-router and adjacent-router intervals"},
+        "decode_submissions": {"type": "integer", "minimum": 1},
+        "token_end_samples": {"type": "integer", "minimum": 1},
+        "cross_layer_samples": {"type": "integer", "minimum": 1},
+        "token_end_p50_ns": {"type": "integer", "minimum": 1},
+        "cross_layer_p50_ns": {"type": "integer", "minimum": 1},
+        "conservative_lead_p50_ns": {"type": "integer", "minimum": 1},
+        "provider_event_capacity": {"type": "integer", "minimum": 1},
+        "provider_events_dropped": {"const": 0}
+      }
+    },
+    "predictor_upper_bound": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["basis", "upper_bound_p95_ns", "measurements"],
+      "properties": {
+        "basis": {"const": "maximum p95 over full-token topology-capped declared predictors"},
+        "upper_bound_p95_ns": {"type": "integer", "minimum": 1},
+        "measurements": {"type": "array", "minItems": 5, "maxItems": 5, "items": {"type": "object"}}
+      }
+    },
     "envelopes": {"type": "array", "minItems": 1, "items": {"type": "object"}}
   }
 }

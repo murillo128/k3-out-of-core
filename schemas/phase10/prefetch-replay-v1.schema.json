@@ -3,14 +3,17 @@
   "$id": "prefetch-replay-v1.schema.json",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "profile_path", "policy", "readiness", "temporal_window_tokens", "candidates_per_target", "request_ordinal", "events", "completion_order"],
+  "required": ["schema_version", "profile_path", "policy", "transport", "readiness", "temporal_window_tokens", "candidates_per_target", "request_ordinal", "events", "completion_order", "limits", "seed_mode", "demand_mode"],
   "properties": {
     "schema_version": {"const": "phase10-prefetch-replay-v1"},
     "profile_path": {"type": "string", "minLength": 1},
     "policy": {"enum": ["OFF", "STATIC_LAYER", "PREVIOUS_TOKEN", "TEMPORAL_FREQUENCY", "CROSS_LAYER_TRANSITION", "RANDOM_BASELINE"]},
+    "transport": {"enum": ["BUFFERED", "DIRECT_IO", "HOST_TO_DEVICE"]},
+    "seed_mode": {"enum": ["OFF", "BLOCKING_HOT"]},
+    "demand_mode": {"enum": ["ISSUE_AHEAD", "SERIAL"]},
     "readiness": {"enum": ["HOST_READY", "DEVICE_READY"]},
     "temporal_window_tokens": {"type": "integer", "minimum": 0, "maximum": 64},
-    "candidates_per_target": {"type": "integer", "minimum": 1, "maximum": 4294967295},
+    "candidates_per_target": {"type": "integer", "minimum": 0, "maximum": 4294967295},
     "request_ordinal": {"type": "integer", "minimum": 1, "maximum": 18446744073709551615},
     "events": {
       "type": "array",
@@ -35,6 +38,25 @@
         }
       }
     },
-    "completion_order": {"type": "array", "items": {"type": "integer", "minimum": 0}}
+    "completion_order": {"type": "array", "uniqueItems": true, "items": {"type": "integer", "minimum": 0}},
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cold_capacity_bytes", "hot_capacity_slots", "max_speculative_flights", "max_speculative_storage_bytes_in_flight", "max_speculative_h2d_bytes_in_flight", "max_speculative_storage_bytes_per_token", "max_speculative_h2d_bytes_per_token", "max_speculative_cold_slots", "max_speculative_hot_slots"],
+      "properties": {
+        "cold_capacity_bytes": {"$ref": "#/$defs/u64"},
+        "hot_capacity_slots": {"$ref": "#/$defs/u64"},
+        "max_speculative_flights": {"$ref": "#/$defs/u64"},
+        "max_speculative_storage_bytes_in_flight": {"$ref": "#/$defs/u64"},
+        "max_speculative_h2d_bytes_in_flight": {"$ref": "#/$defs/u64"},
+        "max_speculative_storage_bytes_per_token": {"$ref": "#/$defs/u64"},
+        "max_speculative_h2d_bytes_per_token": {"$ref": "#/$defs/u64"},
+        "max_speculative_cold_slots": {"$ref": "#/$defs/u64"},
+        "max_speculative_hot_slots": {"$ref": "#/$defs/u64"}
+      }
+    }
+  },
+  "$defs": {
+    "u64": {"type": "integer", "minimum": 0, "maximum": 18446744073709551615}
   }
 }

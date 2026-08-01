@@ -16,8 +16,11 @@ MATRIX = {
     "candidate_counts": [1, "n_expert_used", "2*n_expert_used", "topology_capped"],
     "readiness": ["HOST_READY", "DEVICE_READY"],
     "budget_points": ["below_working_set", "at_working_set", "above_working_set"],
-    "transports": ["BUFFERED", "DIRECT_IO_WHEN_SUPPORTED"],
+    "transports": ["BUFFERED", "DIRECT_IO_WHEN_SUPPORTED", "HOST_TO_DEVICE"],
     "sequences": ["cold", "warm_decode", "domain_shift"],
+    "causal_stages": ["validation_tune", "frozen_held_out_test"],
+    "predictor_cost_basis": "maximum_p95_full_token_topology_capped_declared_predictors",
+    "phase9_capacity_points": ["selected_minus_one_slot", "selected", "selected_plus_one_slot"],
     "shortlist_rule_version": 1,
 }
 

@@ -5,12 +5,12 @@ import argparse
 import hashlib
 import json
 import subprocess
+import tempfile
 from pathlib import Path
 from types import SimpleNamespace
 from typing import Any
 
 from build_prefetch_profile import build
-from capture_transport_measurements import validate_measurement
 from prefetch_common import (PHASE2_ARCHIVE_SHA256, Phase10Error, build_fingerprint, canonical_bytes, load_json,
     validate_profile, write_json)
 
@@ -30,14 +30,24 @@ def evidence_path(path: Path) -> str:
         return str(path)
 
 
-def selected_tuning(offline: dict[str, Any], artifact: str, fold: int) -> dict[str, Any]:
-    candidates = [record for record in offline["shortlist"] if record["artifact"] == artifact and
-        record["fold"] == fold and record["policy"] == "TEMPORAL_FREQUENCY" and
-        record["transport"] == "BUFFERED" and record["readiness"] == "DEVICE_READY"]
-    if candidates:
-        return candidates[0]
-    return {"policy": "STATIC_LAYER", "temporal_window_tokens": 0, "candidates_per_target": 2,
-        "transport": "BUFFERED", "readiness": "DEVICE_READY", "disposition": "compatibility_only_no_decode_validation"}
+def retained_tunings(offline: dict[str, Any]) -> list[dict[str, Any]]:
+    profile_policies = {"STATIC_LAYER", "PREVIOUS_TOKEN", "TEMPORAL_FREQUENCY",
+        "CROSS_LAYER_TRANSITION", "RANDOM_BASELINE", "BLOCKING_HOT"}
+    rejected = {"rejected_below_break_even"}
+    records = [record for record in offline["shortlist"] if record["policy"] in profile_policies and
+        record["disposition"] not in rejected]
+    keys = set()
+    result = []
+    for record in sorted(records, key=lambda item: (item["artifact"], item["fold"], item["policy"],
+            item["transport"], item["readiness"], item["temporal_window_tokens"], item["candidates_per_target"])):
+        key = (record["artifact"], record["fold"], record["policy"], record["transport"], record["readiness"])
+        if key in keys:
+            raise Phase10Error("offline shortlist contains duplicate frozen tuning")
+        keys.add(key)
+        result.append(record)
+    if not result:
+        raise Phase10Error("offline shortlist retained no profiles")
+    return result
 
 
 def build_profile(
@@ -58,8 +68,9 @@ def build_profile(
     return first
 
 
-def run_probe(probe: Path, profile: Path, model: Path, identity: str, output: Path | None) -> dict[str, Any]:
-    command = [str(probe), "--profile", str(profile), "--model", str(model), "--identity", identity]
+def run_validation(probe: Path, profile: Path, model: Path, identity: str) -> dict[str, Any]:
+    command = [str(probe), "--profile", str(profile), "--model", str(model), "--identity", identity,
+        "--validate-only"]
     completed = subprocess.run(command, check=False, capture_output=True)
     record = {"command": command, "exit_code": completed.returncode,
         "stderr_sha256": hashlib.sha256(completed.stderr).hexdigest()}
@@ -67,16 +78,43 @@ def run_probe(probe: Path, profile: Path, model: Path, identity: str, output: Pa
         try:
             document = json.loads(completed.stdout)
         except json.JSONDecodeError as error:
-            raise Phase10Error(f"probe emitted invalid JSON: {error}") from error
-        if output is None:
-            raise Phase10Error("successful probe requires an output path")
+            raise Phase10Error(f"validation probe emitted invalid JSON: {error}") from error
         project_head, separator, nested_head = identity.partition(":")
-        if not separator:
-            raise Phase10Error("invalid probe revision identity")
-        validate_measurement(document, project_head, nested_head, sha256_file(profile))
-        write_json(output, document)
-        record.update({"measurement_path": evidence_path(output), "measurement_sha256": sha256_file(output),
-            "profile_sha256": document["profile_sha256"]})
+        if not separator or document != {"schema_version": "phase10-profile-validation-v1",
+                "project_head": project_head, "nested_head": nested_head,
+                "profile_sha256": sha256_file(profile), "profile_parse_ns": document.get("profile_parse_ns"),
+                "model_profile_load_ns": document.get("model_profile_load_ns")}:
+            raise Phase10Error("validation probe emitted inconsistent identity")
+        if not isinstance(document["profile_parse_ns"], int) or document["profile_parse_ns"] < 0 or \
+                not isinstance(document["model_profile_load_ns"], int) or document["model_profile_load_ns"] < 0:
+            raise Phase10Error("validation probe emitted invalid timing")
+        record.update({"profile_sha256": document["profile_sha256"],
+            "profile_parse_ns": document["profile_parse_ns"],
+            "model_profile_load_ns": document["model_profile_load_ns"]})
+    return record
+
+
+def run_native_profile_validation(native: Path, profile: Path, directory: Path) -> dict[str, Any]:
+    profile_document = load_json(profile)
+    minimum_capacity = max(item["physical_bytes"] for item in profile_document["target"]["expert_bytes"])
+    request = {"schema_version": "phase10-prefetch-replay-v1", "profile_path": str(profile),
+        "policy": "OFF", "transport": profile_document["selection"]["transport"],
+        "readiness": profile_document["selection"]["readiness"], "temporal_window_tokens": 0,
+        "candidates_per_target": 0, "request_ordinal": 1, "events": [], "completion_order": [],
+        "limits": {"cold_capacity_bytes": minimum_capacity, "hot_capacity_slots": 1, "max_speculative_flights": 0,
+            "max_speculative_storage_bytes_in_flight": 0, "max_speculative_h2d_bytes_in_flight": 0,
+            "max_speculative_storage_bytes_per_token": 0, "max_speculative_h2d_bytes_per_token": 0,
+            "max_speculative_cold_slots": 0, "max_speculative_hot_slots": 0},
+        "seed_mode": "OFF", "demand_mode": "ISSUE_AHEAD"}
+    request_path = directory / "profile-validation-request.json"
+    write_json(request_path, request)
+    completed = subprocess.run([str(native), str(request_path)], check=False, capture_output=True)
+    record = {"exit_code": completed.returncode, "stderr_sha256": hashlib.sha256(completed.stderr).hexdigest()}
+    if completed.returncode == 0:
+        document = json.loads(completed.stdout)
+        if document.get("profile_sha256") != sha256_file(profile) or document.get("candidate_stream") != []:
+            raise Phase10Error("native profile validation output is inconsistent")
+        record["profile_sha256"] = document["profile_sha256"]
     return record
 
 
@@ -84,11 +122,10 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
     archive = Path(args.archive).resolve()
     offline = load_json(args.offline_replay)
     probe = Path(args.probe).resolve()
+    native = Path(args.native_replay).resolve()
     identity = f"{args.project_head}:{args.nested_head}"
     output_dir = Path(args.profile_dir).resolve()
-    measurement_dir = Path(args.measurement_dir).resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
-    measurement_dir.mkdir(parents=True, exist_ok=True)
     artifacts = {
         "f16": {"storage": Path(args.f16_storage_map).resolve(), "costs": Path(args.f16_costs).resolve(),
             "model": Path(args.f16_model).resolve()},
@@ -109,39 +146,57 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
                 cost_document.get("nested_head") != args.nested_head:
             raise Phase10Error("cost evidence revision mismatch")
     profiles = []
-    fold_zero_paths = {}
-    for artifact, inputs in artifacts.items():
-        expected_target = build_fingerprint(load_json(inputs["storage"]))
-        for fold in range(6):
-            tuning = selected_tuning(offline, artifact, fold)
-            profile = build_profile(archive, inputs["storage"], inputs["costs"], artifact, fold, tuning)
-            if profile["target"] != expected_target:
-                raise Phase10Error("profile target differs from the exact storage-map fingerprint")
-            path = output_dir / f"{profile['profile_id']}.json"
-            write_json(path, profile)
-            if fold == 0:
-                fold_zero_paths[artifact] = path
-            profiles.append({"artifact": artifact, "fold": fold, "path": evidence_path(path),
-                "sha256": sha256_file(path), "bytes": path.stat().st_size,
-                "target_package_sha256": profile["target"]["package_sha256"],
-                "tensor_layout_sha256": profile["target"]["tensor_layout_sha256"],
-                "selection": profile["selection"], "offline_disposition": tuning["disposition"],
-                "build_repeatability": "byte_identical", "storage_map_match": True})
+    profile_paths = []
+    runtime_candidates = {}
+    representative_paths = {}
+    expected_targets = {artifact: build_fingerprint(load_json(inputs["storage"]))
+        for artifact, inputs in artifacts.items()}
+    for tuning in retained_tunings(offline):
+        artifact = tuning["artifact"]
+        fold = tuning["fold"]
+        inputs = artifacts[artifact]
+        profile = build_profile(archive, inputs["storage"], inputs["costs"], artifact, fold, tuning)
+        if profile["target"] != expected_targets[artifact]:
+            raise Phase10Error("profile target differs from the exact storage-map fingerprint")
+        path = output_dir / f"{profile['profile_id']}.json"
+        write_json(path, profile)
+        profile_paths.append(path)
+        runtime_key = (artifact, tuning["policy"], tuning["readiness"])
+        runtime_candidates.setdefault(runtime_key, path)
+        representative_paths.setdefault(artifact, path)
+        profiles.append({"artifact": artifact, "fold": fold, "path": evidence_path(path),
+            "sha256": sha256_file(path), "bytes": path.stat().st_size,
+            "target_package_sha256": profile["target"]["package_sha256"],
+            "tensor_layout_sha256": profile["target"]["tensor_layout_sha256"],
+            "selection": profile["selection"], "offline_disposition": tuning["disposition"],
+            "build_repeatability": "byte_identical", "storage_map_match": True})
     exact_runtime = {}
-    for artifact, inputs in artifacts.items():
-        measurement = measurement_dir / f"{artifact}-transport-measurements.json"
-        exact_runtime[artifact] = run_probe(probe, fold_zero_paths[artifact], inputs["model"], identity, measurement)
-        if exact_runtime[artifact]["exit_code"] != 0:
-            raise Phase10Error(f"exact {artifact} profile was rejected by the runtime")
+    for (artifact, policy, readiness), path in sorted(runtime_candidates.items()):
+        key = f"{artifact}:{policy}:{readiness}"
+        exact_runtime[key] = run_validation(probe, path, artifacts[artifact]["model"], identity)
+        if exact_runtime[key]["exit_code"] != 0:
+            raise Phase10Error(f"exact {key} profile was rejected by the runtime")
+    native_profile_validation = []
+    with tempfile.TemporaryDirectory(prefix="phase10-profile-validation-") as temporary:
+        validation_root = Path(temporary)
+        for path in profile_paths:
+            record = run_native_profile_validation(native, path, validation_root)
+            if record["exit_code"] != 0:
+                raise Phase10Error(f"generated profile was rejected by the native strict loader: {path}; "
+                    f"stderr_sha256={record['stderr_sha256']}")
+            native_profile_validation.append({"path": evidence_path(path), **record})
     wrong_runtime = {
-        "mxfp4_profile_on_f16": run_probe(probe, fold_zero_paths["mxfp4"], artifacts["f16"]["model"], identity, None),
-        "f16_profile_on_mxfp4": run_probe(probe, fold_zero_paths["f16"], artifacts["mxfp4"]["model"], identity, None),
+        "mxfp4_profile_on_f16": run_validation(
+            probe, representative_paths["mxfp4"], artifacts["f16"]["model"], identity),
+        "f16_profile_on_mxfp4": run_validation(
+            probe, representative_paths["f16"], artifacts["mxfp4"]["model"], identity),
     }
     if any(record["exit_code"] == 0 for record in wrong_runtime.values()):
         raise Phase10Error("wrong-package runtime profile was accepted")
     return {"schema_version": "phase10-profile-compatibility-v1", "project_head": args.project_head,
         "nested_head": args.nested_head, "phase2_archive_sha256": sha256_file(archive),
-        "profiles": profiles, "exact_runtime": exact_runtime, "wrong_package_runtime": wrong_runtime,
+        "profiles": profiles, "native_profile_validation": native_profile_validation,
+        "exact_runtime": exact_runtime, "wrong_package_runtime": wrong_runtime,
         "strict_integer_only_profile": True, "runtime_raw_training_input": False,
         "all_exact_profiles_accepted": True, "all_wrong_packages_rejected": True}
 
@@ -157,10 +212,10 @@ def main() -> int:
     parser.add_argument("--f16-model", required=True)
     parser.add_argument("--mxfp4-model", required=True)
     parser.add_argument("--probe", required=True)
+    parser.add_argument("--native-replay", required=True)
     parser.add_argument("--project-head", required=True)
     parser.add_argument("--nested-head", required=True)
     parser.add_argument("--profile-dir", required=True)
-    parser.add_argument("--measurement-dir", required=True)
     parser.add_argument("--output", required=True)
     args = parser.parse_args()
     try:

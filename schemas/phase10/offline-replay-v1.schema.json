@@ -3,21 +3,38 @@
   "$id": "offline-replay-v1.schema.json",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "project_head", "nested_head", "phase2_archive_sha256", "matrix", "matrix_sha256", "folds", "shortlist", "malformed_rejections", "native_python_event_agreement", "repeatability", "shuffled_completion_invariant", "phase9_passthrough_unique_digests", "cache_admission_lifecycle_scope"],
+  "required": ["schema_version", "project_head", "nested_head", "phase2_archive_sha256", "phase9_manifest_sha256", "phase9_working_set_sha256", "matrix", "matrix_sha256", "folds", "shortlist", "cells_artifact", "malformed_rejections", "native_python_event_agreement", "native_python_event_agreement_checks", "repeatability", "shuffled_completion_invariant", "phase9_passthrough_unique_digests", "cache_admission_lifecycle_scope"],
   "properties": {
     "schema_version": {"const": "phase10-offline-replay-v1"},
     "project_head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
     "nested_head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
     "phase2_archive_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "phase9_manifest_sha256": {"const": "5295ee701dfa24636f03d4bd13e3f250560179ecbda30ad9379580a2ce1c370f"},
+    "phase9_working_set_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "matrix": {"type": "object"},
     "matrix_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "folds": {"type": "array", "minItems": 12, "maxItems": 12, "items": {"type": "object"}},
     "shortlist": {"type": "array", "items": {"type": "object"}},
+    "cells_artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "size", "sha256", "compression", "uncompressed_size", "uncompressed_sha256", "cell_count"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "size": {"type": "integer", "minimum": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "compression": {"const": "gzip-mtime-zero"},
+        "uncompressed_size": {"type": "integer", "minimum": 1},
+        "uncompressed_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "cell_count": {"type": "integer", "minimum": 1}
+      }
+    },
     "malformed_rejections": {"type": "object", "additionalProperties": {"const": true}},
     "native_python_event_agreement": {"const": true},
+    "native_python_event_agreement_checks": {"type": "integer", "minimum": 1},
     "repeatability": {"const": "byte_identical"},
     "shuffled_completion_invariant": {"const": true},
     "phase9_passthrough_unique_digests": {"type": "integer", "minimum": 1},
-    "cache_admission_lifecycle_scope": {"const": "deferred_to_phase10.2"}
+    "cache_admission_lifecycle_scope": {"const": "inclusive_global_lru_always_demand_protected_admission_with_cost_bound_ready_late_cancel_deadlines_and_seed"}
   }
 }

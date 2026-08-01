@@ -21,6 +21,7 @@ FNV_OFFSET = 1469598103934665603
 FNV_PRIME = 1099511628211
 MASK64 = (1 << 64) - 1
 PHASE2_ARCHIVE_SHA256 = "6aa924a6c18bee4e2490f317ced836bcc4740c3ec63e9427a95951e79a649a5f"
+PHASE9_MANIFEST_SHA256 = "5295ee701dfa24636f03d4bd13e3f250560179ecbda30ad9379580a2ce1c370f"
 
 
 class Phase10Error(ValueError):
@@ -359,8 +360,9 @@ def validate_profile(profile: dict[str, Any]) -> None:
     selection = profile["selection"]
     require_fields(selection, {"matrix_version", "tuning_digest", "fold_index", "policy", "candidates_per_target", "temporal_window_tokens", "transport", "readiness", "break_even_bps"}, "selection")
     require_sha256(selection["tuning_digest"], "tuning_digest")
-    candidates = require_uint(selection["candidates_per_target"], "selected candidates", positive=True, maximum=experts)
-    del candidates
+    candidates = require_uint(selection["candidates_per_target"], "selected candidates", maximum=experts)
+    if (selection["policy"] == "BLOCKING_HOT") != (candidates == 0):
+        raise Phase10Error("selected candidates do not match profile policy")
     window = require_uint(selection["temporal_window_tokens"], "selected temporal window", maximum=64)
     if (selection["policy"] == "TEMPORAL_FREQUENCY" and
             (window < 2 or not is_power_of_two(window))) or \
