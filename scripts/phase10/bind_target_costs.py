@@ -28,7 +28,12 @@ def bind(profile: dict[str, Any], paths: list[Path]) -> dict[str, Any]:
         if document.get("schema_version") != "phase10-transport-break-even-v1" or \
                 document.get("status") != "pass" or provenance.get("exact_runtime_provider_path") is not True:
             raise Phase10Error("target cost input is not eligible exact-runtime evidence")
-        if provenance.get("package_sha256") != target["package_sha256"]:
+        measured_package = provenance.get("package_sha256")
+        if measured_package is None and len(target["files"]) == 1 and \
+                provenance.get("model_sha256") == target["files"][0]["sha256"] and \
+                provenance.get("model_size") == target["files"][0]["size"]:
+            measured_package = target["package_sha256"]
+        if measured_package != target["package_sha256"]:
             raise Phase10Error("target cost input describes a different package")
         measurements.append({"name": path.name, "size": path.stat().st_size, "sha256": sha256_file(path),
             "project_head": document["project_head"], "nested_head": document["nested_head"],

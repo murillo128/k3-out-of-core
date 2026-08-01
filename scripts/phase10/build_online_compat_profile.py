@@ -60,7 +60,8 @@ def adapt_profile(
     experts = target["experts_per_layer"]
     byte_map = {(item["layer"], item["expert"]): item for item in target["expert_bytes"]}
     result = copy.deepcopy(base)
-    result["profile_id"] = f"{base['profile_id']}-online-compat-{target['package_sha256'][:12]}"
+    base_profile_id = base["profile_id"].split("-online-compat-", 1)[0]
+    result["profile_id"] = f"{base_profile_id}-online-compat-{target['package_sha256'][:12]}"
     result["tool"] = {"name": "phase10-online-compat-profile", "version": 2}
     result["target"] = target
     result["static_counts"] = [item for item in base["static_counts"]
@@ -86,11 +87,19 @@ def adapt_profile(
         raise Phase10Error("target-specific costs omit the selected envelope")
     costs_bytes = costs_path.read_bytes()
     costs_sha256 = hashlib.sha256(costs_bytes).hexdigest()
+    result["source"]["artifacts"] = [artifact for artifact in result["source"]["artifacts"]
+        if "exact-costs" not in artifact["name"] and "target-costs" not in artifact["name"]]
     result["source"]["artifacts"].append({"name": costs_path.name,
         "size": len(costs_bytes), "sha256": costs_sha256})
     result["selection"]["break_even_bps"] = selected["break_even_bps"]
+    predictor_training_digest = hashlib.sha256(canonical_bytes({
+        "source": {"kind": result["source"]["kind"], "fold": result["source"]["fold"],
+            "artifacts": [artifact for artifact in result["source"]["artifacts"]
+                if artifact["name"] != costs_path.name]},
+        "static_counts": result["static_counts"], "transitions": result["transitions"],
+    })).hexdigest()
     result["selection"]["tuning_digest"] = hashlib.sha256(canonical_bytes({
-        "base_tuning_digest": base["selection"]["tuning_digest"],
+        "predictor_training_digest": predictor_training_digest,
         "target_package_sha256": target["package_sha256"],
         "target_costs_sha256": costs_sha256,
         "policy": result["selection"]["policy"],

@@ -1,83 +1,51 @@
 {
   "costs": [
     {
-      "break_even_bps": 7117,
-      "demand_service_ns": 26247,
-      "displacement_refill_ns": 32274,
-      "h2d_bytes": 0,
-      "lead_ns": 26247,
-      "predictor_compute_ns": 66,
-      "readiness": "HOST_READY",
-      "scheduler_demand_delay_ns": 0,
-      "speculative_service_ns": 32274,
+      "break_even_bps": 7295,
+      "demand_service_ns": 90551000,
+      "displacement_refill_ns": 121693000,
+      "h2d_bytes": 17301504,
+      "lead_ns": 131679054,
+      "predictor_compute_ns": 26530,
+      "readiness": "DEVICE_READY",
+      "scheduler_demand_delay_ns": 492512,
+      "speculative_service_ns": 121829000,
       "storage_bytes": 17301504,
       "transport": "BUFFERED",
       "utility_min_observations": 32,
-      "utility_min_timely_successes": 46,
+      "utility_min_timely_successes": 47,
       "utility_window_predictions": 64
     },
     {
-      "break_even_bps": 6953,
-      "demand_service_ns": 481369,
-      "displacement_refill_ns": 549089,
+      "break_even_bps": 8526,
+      "demand_service_ns": 14643000,
+      "displacement_refill_ns": 41894000,
       "h2d_bytes": 0,
-      "lead_ns": 481369,
-      "predictor_compute_ns": 66,
+      "lead_ns": 131679054,
+      "predictor_compute_ns": 26530,
       "readiness": "HOST_READY",
-      "scheduler_demand_delay_ns": 0,
-      "speculative_service_ns": 549089,
+      "scheduler_demand_delay_ns": 492512,
+      "speculative_service_ns": 42068000,
       "storage_bytes": 17301504,
-      "transport": "DIRECT_IO",
+      "transport": "BUFFERED",
       "utility_min_observations": 32,
-      "utility_min_timely_successes": 45,
+      "utility_min_timely_successes": 55,
       "utility_window_predictions": 64
     },
     {
-      "break_even_bps": 6690,
-      "demand_service_ns": 66934,
-      "displacement_refill_ns": 67532,
+      "break_even_bps": 7083,
+      "demand_service_ns": 1390000,
+      "displacement_refill_ns": 1396000,
       "h2d_bytes": 17301504,
-      "lead_ns": 66934,
-      "predictor_compute_ns": 66,
+      "lead_ns": 131679054,
+      "predictor_compute_ns": 26530,
       "readiness": "DEVICE_READY",
-      "scheduler_demand_delay_ns": 0,
-      "speculative_service_ns": 67532,
+      "scheduler_demand_delay_ns": 492512,
+      "speculative_service_ns": 1395000,
       "storage_bytes": 0,
       "transport": "HOST_TO_DEVICE",
       "utility_min_observations": 32,
-      "utility_min_timely_successes": 43,
-      "utility_window_predictions": 64
-    },
-    {
-      "break_even_bps": 6818,
-      "demand_service_ns": 93169,
-      "displacement_refill_ns": 99707,
-      "h2d_bytes": 17301504,
-      "lead_ns": 93169,
-      "predictor_compute_ns": 66,
-      "readiness": "DEVICE_READY",
-      "scheduler_demand_delay_ns": 0,
-      "speculative_service_ns": 99707,
-      "storage_bytes": 17301504,
-      "transport": "BUFFERED",
-      "utility_min_observations": 32,
-      "utility_min_timely_successes": 44,
-      "utility_window_predictions": 64
-    },
-    {
-      "break_even_bps": 6922,
-      "demand_service_ns": 548291,
-      "displacement_refill_ns": 616325,
-      "h2d_bytes": 17301504,
-      "lead_ns": 548291,
-      "predictor_compute_ns": 66,
-      "readiness": "DEVICE_READY",
-      "scheduler_demand_delay_ns": 0,
-      "speculative_service_ns": 616325,
-      "storage_bytes": 17301504,
-      "transport": "DIRECT_IO",
-      "utility_min_observations": 32,
-      "utility_min_timely_successes": 45,
+      "utility_min_timely_successes": 46,
       "utility_window_predictions": 64
     }
   ],
@@ -184,7 +152,7 @@
     }
   ],
   "selection": {
-    "break_even_bps": 6818,
+    "break_even_bps": 7295,
     "candidates_per_target": 2,
     "fold_index": 0,
     "matrix_version": 1,
@@ -192,7 +160,7 @@
     "readiness": "DEVICE_READY",
     "temporal_window_tokens": 4,
     "transport": "BUFFERED",
-    "tuning_digest": "651a6830451b4ecb7e5508f33b882e4e2ffd363150eec198a61d140b5aa293a2"
+    "tuning_digest": "b9a6de67ee47eda0a530efd5c71753688e5e2c2dccb385784fdecd5664c43969"
   },
   "source": {
     "artifacts": [
@@ -222,9 +190,9 @@
         "size": 323723
       },
       {
-        "name": "phase10-f16-exact-costs.json",
-        "sha256": "c4f6048ebeb13cc3cda51beeff6a71f28dffa9b503131c4d03d58a326195fb61",
-        "size": 4935
+        "name": "qwen-f16-target-costs.json",
+        "sha256": "077d499a80e796c281012f558da64167cb30b76858518e442bf8220184361526",
+        "size": 2660
       }
     ],
     "fold": {
@@ -9205,7 +9173,7 @@
   },
   "tool": {
     "name": "phase10-online-compat-profile",
-    "version": 1
+    "version": 2
   },
   "transitions": [
     {

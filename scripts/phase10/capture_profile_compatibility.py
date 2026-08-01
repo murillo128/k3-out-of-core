@@ -76,9 +76,21 @@ def build_profile(
     return first
 
 
+def runtime_arguments(profile: dict[str, Any]) -> list[str]:
+    transport = profile["selection"]["transport"]
+    if transport == "HOST_TO_DEVICE":
+        return ["HOT_CACHE", "BUFFERED", "PROMOTE_AND_GPU", "16", "0"]
+    if transport == "DIRECT_IO":
+        return ["COLD_CACHE", "DIRECT_IO", "PROMOTE_AND_GPU", "16", "16"]
+    if transport == "BUFFERED":
+        return ["COLD_CACHE", "BUFFERED", "PROMOTE_AND_GPU", "16", "16"]
+    raise Phase10Error("unknown profile transport")
+
+
 def run_validation(probe: Path, profile: Path, model: Path, identity: str) -> dict[str, Any]:
+    profile_document = load_json(profile)
     command = [str(probe), "--profile", str(profile), "--model", str(model), "--identity", identity,
-        "--validate-only"]
+        "--validate-only", *runtime_arguments(profile_document)]
     completed = subprocess.run(command, check=False, capture_output=True)
     record = {"command": command, "exit_code": completed.returncode,
         "stderr_sha256": hashlib.sha256(completed.stderr).hexdigest()}
@@ -105,14 +117,17 @@ def run_validation(probe: Path, profile: Path, model: Path, identity: str) -> di
 def run_native_profile_validation(native: Path, profile: Path, directory: Path) -> dict[str, Any]:
     profile_document = load_json(profile)
     minimum_capacity = max(item["physical_bytes"] for item in profile_document["target"]["expert_bytes"])
+    hot_cache = profile_document["selection"]["transport"] == "HOST_TO_DEVICE"
     request = {"schema_version": "phase10-prefetch-replay-v1", "profile_path": str(profile),
         "initial_resident": [],
-        "policy": "OFF", "cache_mode": "COLD_CACHE", "miss_policy": "PROMOTE_AND_GPU",
+        "policy": "OFF", "cache_mode": "HOT_CACHE" if hot_cache else "COLD_CACHE",
+        "miss_policy": "PROMOTE_AND_GPU",
         "transport": profile_document["selection"]["transport"],
         "readiness": profile_document["selection"]["readiness"], "temporal_window_tokens": 0,
         "candidates_per_target": 0, "request_ordinal": 1, "events": [], "completion_order": [],
         "ready_before_deadline": [],
-        "limits": {"cold_capacity_bytes": minimum_capacity, "hot_capacity_slots": 1, "max_speculative_flights": 0,
+        "limits": {"cold_capacity_bytes": 0 if hot_cache else minimum_capacity,
+            "hot_capacity_slots": 1, "max_speculative_flights": 0,
             "max_speculative_storage_bytes_in_flight": 0, "max_speculative_h2d_bytes_in_flight": 0,
             "max_speculative_storage_bytes_per_token": 0, "max_speculative_h2d_bytes_per_token": 0,
             "max_speculative_cold_slots": 0, "max_speculative_hot_slots": 0},
@@ -176,7 +191,7 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
         path = output_dir / f"{profile['profile_id']}.json"
         write_json(path, profile)
         profile_paths.append(path)
-        runtime_key = (artifact, tuning["policy"], tuning["readiness"])
+        runtime_key = (artifact, tuning["policy"], tuning["transport"], tuning["readiness"])
         runtime_candidates.setdefault(runtime_key, path)
         representative_paths.setdefault(artifact, path)
         profiles.append({"artifact": artifact, "fold": fold, "path": evidence_path(path),
@@ -186,8 +201,8 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
             "selection": profile["selection"], "offline_disposition": tuning["disposition"],
             "build_repeatability": "byte_identical", "storage_map_match": True})
     exact_runtime = {}
-    for (artifact, policy, readiness), path in sorted(runtime_candidates.items()):
-        key = f"{artifact}:{policy}:{readiness}"
+    for (artifact, policy, transport, readiness), path in sorted(runtime_candidates.items()):
+        key = f"{artifact}:{policy}:{transport}:{readiness}"
         exact_runtime[key] = run_validation(probe, path, artifacts[artifact]["model"], identity)
         if exact_runtime[key]["exit_code"] != 0:
             raise Phase10Error(f"exact {key} profile was rejected by the runtime")

@@ -1,0 +1,1405 @@
+{
+  "costs": [
+    {
+      "break_even_bps": 8267,
+      "demand_service_ns": 2874000,
+      "displacement_refill_ns": 3038000,
+      "h2d_bytes": 786432,
+      "lead_ns": 2223155,
+      "predictor_compute_ns": 1754,
+      "readiness": "DEVICE_READY",
+      "scheduler_demand_delay_ns": 54352,
+      "speculative_service_ns": 7496000,
+      "storage_bytes": 786432,
+      "transport": "BUFFERED",
+      "utility_min_observations": 32,
+      "utility_min_timely_successes": 53,
+      "utility_window_predictions": 64
+    },
+    {
+      "break_even_bps": 10000,
+      "demand_service_ns": 2000,
+      "displacement_refill_ns": 680000,
+      "h2d_bytes": 0,
+      "lead_ns": 2223155,
+      "predictor_compute_ns": 1754,
+      "readiness": "HOST_READY",
+      "scheduler_demand_delay_ns": 54352,
+      "speculative_service_ns": 2648000,
+      "storage_bytes": 786432,
+      "transport": "BUFFERED",
+      "utility_min_observations": 32,
+      "utility_min_timely_successes": 64,
+      "utility_window_predictions": 64
+    },
+    {
+      "break_even_bps": 6729,
+      "demand_service_ns": 3192000,
+      "displacement_refill_ns": 3200000,
+      "h2d_bytes": 0,
+      "lead_ns": 5428954,
+      "predictor_compute_ns": 1756,
+      "readiness": "HOST_READY",
+      "scheduler_demand_delay_ns": 54230,
+      "speculative_service_ns": 3306000,
+      "storage_bytes": 786432,
+      "transport": "DIRECT_IO",
+      "utility_min_observations": 32,
+      "utility_min_timely_successes": 44,
+      "utility_window_predictions": 64
+    },
+    {
+      "break_even_bps": 7408,
+      "demand_service_ns": 90000,
+      "displacement_refill_ns": 98000,
+      "h2d_bytes": 786432,
+      "lead_ns": 2223155,
+      "predictor_compute_ns": 1754,
+      "readiness": "DEVICE_READY",
+      "scheduler_demand_delay_ns": 54352,
+      "speculative_service_ns": 98000,
+      "storage_bytes": 0,
+      "transport": "HOST_TO_DEVICE",
+      "utility_min_observations": 32,
+      "utility_min_timely_successes": 48,
+      "utility_window_predictions": 64
+    }
+  ],
+  "measurements": [
+    {
+      "name": "f16-split-buffered-break-even.json",
+      "nested_head": "31da30047fa05ef752c93e4b213264b4d41ccac6",
+      "profile_sha256": "c90e6dcee1335f5886345cfd15d22f286adefb3c93fa859be51a14fc28eea6b1",
+      "project_head": "e0d279d3c7575d7a380608897c9636fbc0a2227d",
+      "sha256": "c375724ec3d9ae150ccf2c8474f2df61aabbe43ad0314fe15d5d321edc615bec",
+      "size": 10947,
+      "storage_map_sha256": "0c51b433d361a2cb33eafbb7e1b63183cdb6508feb572ad14bdd4e5f0d48f368"
+    },
+    {
+      "name": "f16-split-direct-break-even.json",
+      "nested_head": "31da30047fa05ef752c93e4b213264b4d41ccac6",
+      "profile_sha256": "680a4f5a4dcb04967ce278506e5d2a751c9bbb6b676f1c097d17a15ffe02aefd",
+      "project_head": "e0d279d3c7575d7a380608897c9636fbc0a2227d",
+      "sha256": "e1f26272ed2121d93830d9212095673ef762764f05e6e22b827d40cd07b828e2",
+      "size": 6317,
+      "storage_map_sha256": "0c51b433d361a2cb33eafbb7e1b63183cdb6508feb572ad14bdd4e5f0d48f368"
+    }
+  ],
+  "schema_version": "phase10-target-costs-v1",
+  "status": "pass",
+  "target": {
+    "expert_bytes_sha256": "b43302d118a2a80d993d56ffcc42a7a5936f000135a8f55036249ce11dc88162",
+    "files": [
+      {
+        "name": "Kimi-K3-0.40B-F16-00001-of-00218.gguf",
+        "ordinal": 0,
+        "sha256": "f6ff6dbfb7e3659f7bf7d255ec91b90e0a8b53713fc184fa80f294604d10ac1e",
+        "size": 342452864
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00002-of-00218.gguf",
+        "ordinal": 1,
+        "sha256": "ab906a7d444353dd7179cc27a0aa1ac1f9219d2fe32540a9b655b444550e5b05",
+        "size": 335544512
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00003-of-00218.gguf",
+        "ordinal": 2,
+        "sha256": "cdff398aa4f96aab88815238329f444781dce036ddd5e6c53d5058d1fa5a8702",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00004-of-00218.gguf",
+        "ordinal": 3,
+        "sha256": "28166cc6e66e2c2e9be18cee99c50608bbbbd74de0994da67f3ccd0a7cdeacee",
+        "size": 4194496
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00005-of-00218.gguf",
+        "ordinal": 4,
+        "sha256": "697256827fba8e596f49394b52eb4a9cc9fcaa0cdd48f7ba2a1138e37ca794d5",
+        "size": 4194496
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00006-of-00218.gguf",
+        "ordinal": 5,
+        "sha256": "bf3b7b4cf2b1ffc47e51ec8ceca9d04ae3be572cbdcead540121b13d5902829e",
+        "size": 4194496
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00007-of-00218.gguf",
+        "ordinal": 6,
+        "sha256": "6eec552505f4a5a474219f4fe10038aed9814b284fb415c8b0d9f8fd3cd8737f",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00008-of-00218.gguf",
+        "ordinal": 7,
+        "sha256": "31e9d23743b45db219093102464ba9c37c277745067f531638d50caf37012891",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00009-of-00218.gguf",
+        "ordinal": 8,
+        "sha256": "2ba5dd315d5b13c08c20b2e5365dbdfa44dce948b6e77d415746479b6fefdb4d",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00010-of-00218.gguf",
+        "ordinal": 9,
+        "sha256": "6499846393f2f689765747554bd0c999317b9cf7f6f4055ee25e1968b90468c5",
+        "size": 192
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00011-of-00218.gguf",
+        "ordinal": 10,
+        "sha256": "fb739e6ba6e5fa1acdce77dd4e1f5e13d837b549357f97c918e9ff49091cc456",
+        "size": 16576
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00012-of-00218.gguf",
+        "ordinal": 11,
+        "sha256": "42cecc7ff6a761bdd2e5a325838f9a0361025fac996a8bec0af2a68b70935a4f",
+        "size": 1184
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00013-of-00218.gguf",
+        "ordinal": 12,
+        "sha256": "22709aa2f2207ff490a67a6f296da3985bac04ea3806fdb833ad85aa9c4b1636",
+        "size": 65728
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00014-of-00218.gguf",
+        "ordinal": 13,
+        "sha256": "0077ce0cc6f6b297dc02148a60358f1f9745536ce49f671272cec56dcf9892bf",
+        "size": 16576
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00015-of-00218.gguf",
+        "ordinal": 14,
+        "sha256": "88ace84b33d9099e746d1cb6df1ed92548be46ee15b016ff63d2a1ea09858fea",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00016-of-00218.gguf",
+        "ordinal": 15,
+        "sha256": "fe7a8a0a98cbcefe585899ce75f85ecf2b1c389c09bd11b680f4fa259104d6dc",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00017-of-00218.gguf",
+        "ordinal": 16,
+        "sha256": "76377e51ec8773f74035f871b0a741d99c2d6e393444d726182fca23a2c60864",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00018-of-00218.gguf",
+        "ordinal": 17,
+        "sha256": "c8cf65eaef7b182395592384951cae888f5cae1f834bc52832139eb3a37bdb5c",
+        "size": 288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00019-of-00218.gguf",
+        "ordinal": 18,
+        "sha256": "a9fd221f99516927ff543da4a617412471fb422fa8d7774fe726b911acf12433",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00020-of-00218.gguf",
+        "ordinal": 19,
+        "sha256": "911c4f60c109869316f8eecf12e029293b793a5d80bc27b4aaf03522157ae618",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00021-of-00218.gguf",
+        "ordinal": 20,
+        "sha256": "2a379133bf824c3a6b369781a8123614505b6e39a706628588f96dc012fb823f",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00022-of-00218.gguf",
+        "ordinal": 21,
+        "sha256": "477e67b25c956cc0a51fa2d43c89f262c4b738b7a9ed0cb43a0fb53da2a42fe2",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00023-of-00218.gguf",
+        "ordinal": 22,
+        "sha256": "7bb79fdfa4178c57a6f86d36590ef005a49c9df05967cf6aeb26362e52565ee8",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00024-of-00218.gguf",
+        "ordinal": 23,
+        "sha256": "c68bc4e049f89bac1da8028a3c69814406e8160f6fb20be53eb221789d440019",
+        "size": 2097344
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00025-of-00218.gguf",
+        "ordinal": 24,
+        "sha256": "02363b1e2579f59a94b7e7b474239811e208c58e9f4379eddbba4840e3c0c26d",
+        "size": 2097344
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00026-of-00218.gguf",
+        "ordinal": 25,
+        "sha256": "bc83cb79b31b9b5aba5b43e07acc1795f5c80be628c7f61529e318bfde56bde1",
+        "size": 2097344
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00027-of-00218.gguf",
+        "ordinal": 26,
+        "sha256": "f58051d7a87dd7cb29f4d6ecf651f949e22d348bba548facacec12d168877938",
+        "size": 192
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00028-of-00218.gguf",
+        "ordinal": 27,
+        "sha256": "5f560f1bfb933602cda177fdead48bca6dec7991fc9b7ee7be207fbbe28b629f",
+        "size": 32960
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00029-of-00218.gguf",
+        "ordinal": 28,
+        "sha256": "c10111789de27cab5a929b3a2980f7ea7b3ff508df7edb09b67a6bf300dc810d",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00030-of-00218.gguf",
+        "ordinal": 29,
+        "sha256": "2623551df47b4feefdb2086366d031f7abaa303e7dfb3c73500c41d090782668",
+        "size": 2240
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00031-of-00218.gguf",
+        "ordinal": 30,
+        "sha256": "88914791a3f5dc3bbb335d73ec583b7c3c11067acf44d3d8b5018bb6dab639f4",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00032-of-00218.gguf",
+        "ordinal": 31,
+        "sha256": "6ec290678f7f17be5f4789aaa4610fecdac429e467640ce5debe41d0c681f4d9",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00033-of-00218.gguf",
+        "ordinal": 32,
+        "sha256": "9db4f676f47d6fc83c801a43451afa93e22dadb5e0cdcf3db9818b8e02af5f5a",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00034-of-00218.gguf",
+        "ordinal": 33,
+        "sha256": "c281a4ad467cbb14ac25e07a54b6c949e09b0c6dcd9258b50d5c3ed1a8ff963c",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00035-of-00218.gguf",
+        "ordinal": 34,
+        "sha256": "06f9cc7477b482046ccd48b084bcaa5075058ec76221fe4b31e30607ad95a82e",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00036-of-00218.gguf",
+        "ordinal": 35,
+        "sha256": "39e632e8b767c0c7a1f53d92cd7509b11b459a3bb537def26423533b840ee582",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00037-of-00218.gguf",
+        "ordinal": 36,
+        "sha256": "799057c641b7746274a808912e9b1462cba2bd75499a0b44d353577e2f7ca2dd",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00038-of-00218.gguf",
+        "ordinal": 37,
+        "sha256": "568b60fee82fee6ad3f474ea74f16d30f477201457b399c43d7205d5c782d787",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00039-of-00218.gguf",
+        "ordinal": 38,
+        "sha256": "2b0e86a69e82a5eee708f74a84ddb66c28632c27b4a3e26859aee21f891b23e2",
+        "size": 192
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00040-of-00218.gguf",
+        "ordinal": 39,
+        "sha256": "575d10b39a7f31da527da4f0eebe6d9ba98ccbb139a2beda5feb4a86a43773f0",
+        "size": 16576
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00041-of-00218.gguf",
+        "ordinal": 40,
+        "sha256": "5cf103ee938ab192a030801ab486db9d393ad0b0ba856f6ff28c3fb19452d1aa",
+        "size": 1184
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00042-of-00218.gguf",
+        "ordinal": 41,
+        "sha256": "7ee64f736c59b3f2da2f1fe57c774287503b1fa60db29d05638d94daf1310950",
+        "size": 65728
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00043-of-00218.gguf",
+        "ordinal": 42,
+        "sha256": "482f905e7e84d4c7be745aed4c18b9a30f98ab1b5f0f05de4bbfd7a62e5ca192",
+        "size": 16576
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00044-of-00218.gguf",
+        "ordinal": 43,
+        "sha256": "c497a8bdb27c685763abb3ef16b0509c3c361ff21165681838d330406fb092f9",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00045-of-00218.gguf",
+        "ordinal": 44,
+        "sha256": "8f8ee1f4261eb2964cd37a77fdfa84ec63983551cf82b7c4e40abf53252297c0",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00046-of-00218.gguf",
+        "ordinal": 45,
+        "sha256": "114585b0b843ac8d49dd4e185e743422d443a993e2527870f9afe5e2efb47694",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00047-of-00218.gguf",
+        "ordinal": 46,
+        "sha256": "af620e3f2ec78c6c859d4f18897555a368a680d1e1d2190ec75833b24c4ea1bd",
+        "size": 288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00048-of-00218.gguf",
+        "ordinal": 47,
+        "sha256": "15e9a2eb4224a42cc20a774676ae9aeb30b7b2a6432eba77c02786732b37ca22",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00049-of-00218.gguf",
+        "ordinal": 48,
+        "sha256": "362ea99146a747d3c603d65feda331536073391cae774a24a42518fcd7e942c3",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00050-of-00218.gguf",
+        "ordinal": 49,
+        "sha256": "3b3f8b3879aee05539e3d8b13fe6761cb03b6d2c2de9ccd1b5190aebdda184a3",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00051-of-00218.gguf",
+        "ordinal": 50,
+        "sha256": "a18628184848c05dac908dec94212801ec97fc9b119cdd06ab472735eba31ba6",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00052-of-00218.gguf",
+        "ordinal": 51,
+        "sha256": "3e50b05d8ec136210e6150d5c8783ed812d377add7fbb28ab37dc0958f27d106",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00053-of-00218.gguf",
+        "ordinal": 52,
+        "sha256": "3d8c2b3a3dcc5fcbadc022c638902877b790efe499eec6472e87cfaeb62227a8",
+        "size": 2097344
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00054-of-00218.gguf",
+        "ordinal": 53,
+        "sha256": "6d9d4d9af0f8e073040080e421572752bc400de19b5f099df1bf4a520bd4a7db",
+        "size": 2097344
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00055-of-00218.gguf",
+        "ordinal": 54,
+        "sha256": "bcfce8a91c5a0adf63fafba3fec8a33a21a0df5aeca68e0e7155e2038eee18ae",
+        "size": 2097344
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00056-of-00218.gguf",
+        "ordinal": 55,
+        "sha256": "17f93a62ed47a940adaf90c9acc617b1ead2245d15469822f89974a2f5113ca4",
+        "size": 192
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00057-of-00218.gguf",
+        "ordinal": 56,
+        "sha256": "20852b3091179977e7939ecfb121576e8ccb53340eba38e149612546847a0075",
+        "size": 32960
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00058-of-00218.gguf",
+        "ordinal": 57,
+        "sha256": "6291959ce842e1ecb653c4a54498140b0ab03bf45f118000bf59085d57d16a00",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00059-of-00218.gguf",
+        "ordinal": 58,
+        "sha256": "bda3b752f69d7176b5ddd9308c22da2413e47ae36a4125877d25aa0246cb8952",
+        "size": 2240
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00060-of-00218.gguf",
+        "ordinal": 59,
+        "sha256": "90c7677a635ef96955c0317755f7cbcc7e26c29a51a0181fa3de560b2477f58b",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00061-of-00218.gguf",
+        "ordinal": 60,
+        "sha256": "aabf7f44dcc55f0dd0612bee52db8ac03993cb71651e1f03fb4acba23ff0f130",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00062-of-00218.gguf",
+        "ordinal": 61,
+        "sha256": "2f82ed854426a2110e6976b98f9e79c0931739dbc95a94a4957b5e1374fd8d7c",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00063-of-00218.gguf",
+        "ordinal": 62,
+        "sha256": "357fe029a9e148201a53ddb640850c9d292631f3d9ec422ddb41c2fb006b2989",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00064-of-00218.gguf",
+        "ordinal": 63,
+        "sha256": "d48f73d19b8da3bc88f9479bbe9aa9aa59154d83074c19670764d44eb10ddba1",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00065-of-00218.gguf",
+        "ordinal": 64,
+        "sha256": "9bbbc982e434131c83fb7b936d05a592fd730f3521f565bab02882b71f75aa93",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00066-of-00218.gguf",
+        "ordinal": 65,
+        "sha256": "24e386ce6d20fabc1660e0a3a792ce66bb2c44f7c40d1235891781e87674a08f",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00067-of-00218.gguf",
+        "ordinal": 66,
+        "sha256": "07d60c55544c4cab48fc6a3a7a35976926420c917dcee554c875982ae323ee24",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00068-of-00218.gguf",
+        "ordinal": 67,
+        "sha256": "24c80dc56f65d648ad01f0863a00485040f7b37995d594fdf25e53c9e3bca315",
+        "size": 192
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00069-of-00218.gguf",
+        "ordinal": 68,
+        "sha256": "5b8ec794723bfd73045a6473192705236e1439c28b79f8b52cd9046b8b3714d3",
+        "size": 16576
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00070-of-00218.gguf",
+        "ordinal": 69,
+        "sha256": "cb3b1a21e509fe25c8fc0e23ecce2cd168a0156fcdf0add6d1de1f53828c4082",
+        "size": 1184
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00071-of-00218.gguf",
+        "ordinal": 70,
+        "sha256": "00791501849043408b9d42f8a79d0b991f49fc84b77b37079c5416db14b35c70",
+        "size": 65728
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00072-of-00218.gguf",
+        "ordinal": 71,
+        "sha256": "a92c0ff2136fd760099228799178d3e1a838d86c66a316a7218f5d3b4fa878f6",
+        "size": 16576
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00073-of-00218.gguf",
+        "ordinal": 72,
+        "sha256": "8a4fb09d8c13c6c90d4ef9cc69c2cecaaa25e03b2494593bcbeb5282a44f26fa",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00074-of-00218.gguf",
+        "ordinal": 73,
+        "sha256": "d0c15daacd3b686b7950ceab1c0710dfd583b247e302d665b0c7fd79a9e61d63",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00075-of-00218.gguf",
+        "ordinal": 74,
+        "sha256": "70711cc24bce173e5e2a8a3a94a568b8f81f749856c14fa32859282b30f0ebd5",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00076-of-00218.gguf",
+        "ordinal": 75,
+        "sha256": "06e2652b039dc6e24975ed735f7b53e5c4599a6260fd92573f7879df7dfea180",
+        "size": 288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00077-of-00218.gguf",
+        "ordinal": 76,
+        "sha256": "c53a62ef2249128177d48ddd621fbcadab7c139c3064041e3d397c67b1f39a2d",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00078-of-00218.gguf",
+        "ordinal": 77,
+        "sha256": "54aa14299ed85f8be5589e2393475d4ccba2a9b9e5d27a5a950680bf926d155c",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00079-of-00218.gguf",
+        "ordinal": 78,
+        "sha256": "558da731b69554dc655ddde4293e25fcf7872972291f3a222e82ee55d042b685",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00080-of-00218.gguf",
+        "ordinal": 79,
+        "sha256": "cbfa244b4b4f9186fb551b7dceaa70e41b51e425722b07c844aab7e01416ae19",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00081-of-00218.gguf",
+        "ordinal": 80,
+        "sha256": "faa92dcae0d8519b859efc8e190324dec61c6375c1c55fe913c527991af90350",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00082-of-00218.gguf",
+        "ordinal": 81,
+        "sha256": "790cc50bf18c0bb023cfef8da9b971c0179079abb3c01c5418d3016b75e39a9e",
+        "size": 2097344
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00083-of-00218.gguf",
+        "ordinal": 82,
+        "sha256": "49f78166cd61b55a59e7f67fc05cba84b922ae44dedf0a0ca03756f137cfd173",
+        "size": 2097344
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00084-of-00218.gguf",
+        "ordinal": 83,
+        "sha256": "ae78f5e6a180225c3f9e5fe5ea56c5f51ba3ebb52beb4cda256bf9fe6f398fd7",
+        "size": 2097344
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00085-of-00218.gguf",
+        "ordinal": 84,
+        "sha256": "b2f4df2365e65d9e8bdc6022d5be857538ca47d844c0ac3e7376b619db835ef4",
+        "size": 192
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00086-of-00218.gguf",
+        "ordinal": 85,
+        "sha256": "af9826a5f0f49cce074a0d196001092f6400f23409cea7d72bad59fa9d1a8c86",
+        "size": 32960
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00087-of-00218.gguf",
+        "ordinal": 86,
+        "sha256": "d7e444beecf8156a7cfd76c5633e20f9351756d7fd7387d869ee85dbfbc53d40",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00088-of-00218.gguf",
+        "ordinal": 87,
+        "sha256": "5fc9484ac6c3add5efe2d54e180ff2e8219bd1973bd31edbec9c605a3abbb722",
+        "size": 2240
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00089-of-00218.gguf",
+        "ordinal": 88,
+        "sha256": "a5f0bc731ef52d8d62fb8bd5718dfa69842377ddecf19120732f8b118d38392a",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00090-of-00218.gguf",
+        "ordinal": 89,
+        "sha256": "5fa410dae525dfa2ea4bb293d85b5486235747dba2b890ab1b127297c7e371c2",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00091-of-00218.gguf",
+        "ordinal": 90,
+        "sha256": "90b743ec6f9dda2176fd0059b21b173a2501c8e9dc5cd26fc81384b408287778",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00092-of-00218.gguf",
+        "ordinal": 91,
+        "sha256": "82fb074b6fef66454bc48d018f9f94616b2beb38a3756e9be63c190f919e7698",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00093-of-00218.gguf",
+        "ordinal": 92,
+        "sha256": "c09ec866b7de3b99ad4eef561a9293d95f186eb6391d5d97827c234fcf710406",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00094-of-00218.gguf",
+        "ordinal": 93,
+        "sha256": "94802ba942e5d2613f59c6a51b37f1f382681a5ac0e5759bef71490ff501adb2",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00095-of-00218.gguf",
+        "ordinal": 94,
+        "sha256": "6a308704bbbdea0b94ae966974cd59760a739877223478a0aa0e35ec53881bc4",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00096-of-00218.gguf",
+        "ordinal": 95,
+        "sha256": "15114660400b325023e22cbadb97b313cba7e34806cfa831c41b6c7b930e36ab",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00097-of-00218.gguf",
+        "ordinal": 96,
+        "sha256": "9c7f491d6c9ffcba30f0ac20677be3392a0cc8b5ea12a52e45d80e9c1d5b888c",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00098-of-00218.gguf",
+        "ordinal": 97,
+        "sha256": "ad360570ef8d14fdd293c2dcfccbe2a9881dbb7f140bac7738c4b599b8e12703",
+        "size": 704
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00099-of-00218.gguf",
+        "ordinal": 98,
+        "sha256": "c8a0ef6c2a380e1e0cb1471fe2ed8420c584848c056bdc0dc6396a8c66260a74",
+        "size": 327872
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00100-of-00218.gguf",
+        "ordinal": 99,
+        "sha256": "b54908d7a3a11475277082257495bc7520003488744e871bbf6ca365ac14392d",
+        "size": 131264
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00101-of-00218.gguf",
+        "ordinal": 100,
+        "sha256": "185f8156892bf3b7f461dda3ef6c4d7bc8071e02bb799e0dd8131d66f8034704",
+        "size": 131264
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00102-of-00218.gguf",
+        "ordinal": 101,
+        "sha256": "a1db882c59b03e601a6063cb2adb4e3bf2eb068d0fb727968233d22c6c24663c",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00103-of-00218.gguf",
+        "ordinal": 102,
+        "sha256": "513191059f9a8e8b176a4a8684771aa925cea2049cc52548492ea6d974670a93",
+        "size": 1216
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00104-of-00218.gguf",
+        "ordinal": 103,
+        "sha256": "1bdb85104df97e8ede20cec1c3007fb243e2dc8dd1b749486685339c4afbaafe",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00105-of-00218.gguf",
+        "ordinal": 104,
+        "sha256": "84c3b0bc3dc97d1911431ab3625443b0b82efaa9cce491e39e8344e50a752262",
+        "size": 393408
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00106-of-00218.gguf",
+        "ordinal": 105,
+        "sha256": "86781be9da5c60f2e1144361a769dd006d9ec85ebd594b3c2f89d22234dbab95",
+        "size": 2097344
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00107-of-00218.gguf",
+        "ordinal": 106,
+        "sha256": "57a628af0525ee454e5805e2e0fac40a6dceabb71d8100d8f7a212a5cc7634c2",
+        "size": 2097344
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00108-of-00218.gguf",
+        "ordinal": 107,
+        "sha256": "335fa3caecfe43b46938c5b04e925cac2d83c5f04ab30ab2eb464eeffb79e3bd",
+        "size": 2097344
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00109-of-00218.gguf",
+        "ordinal": 108,
+        "sha256": "7dc5628d5d82059c003e4b39171bd702ca367f73ea818f6e8c7767d174c42ca1",
+        "size": 192
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00110-of-00218.gguf",
+        "ordinal": 109,
+        "sha256": "37363565c7acf4a495455323e7c40aa8091b572c695b5bcf2fb423e878dd7e69",
+        "size": 32960
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00111-of-00218.gguf",
+        "ordinal": 110,
+        "sha256": "212dc38a3ef718c4186881b77a6fb071e3e6ce0df02cf57e5af44ab0ba2d4145",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00112-of-00218.gguf",
+        "ordinal": 111,
+        "sha256": "7fc87744410d29093671991656e9f6bf8b11ecf8281e956896c6c4f87e2e6db0",
+        "size": 2240
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00113-of-00218.gguf",
+        "ordinal": 112,
+        "sha256": "7825bec2e26e34ac844c6edba8777c47a47ec63a91a685c4d36e40c4a3b5a398",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00114-of-00218.gguf",
+        "ordinal": 113,
+        "sha256": "668945d473b32ac9758efad3ac951989193f0f0d334c8afe48c6754d0723cff9",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00115-of-00218.gguf",
+        "ordinal": 114,
+        "sha256": "92401248eabf7cbf55551d294e50967048b6d198e842debc0a393060c336e33b",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00116-of-00218.gguf",
+        "ordinal": 115,
+        "sha256": "13af70c525c9c861fcf3d27ecbecd5d71ac9ed1247110a20e31e7e650061f766",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00117-of-00218.gguf",
+        "ordinal": 116,
+        "sha256": "ef7f86d8c0d83fd2b7f82439e183ceca0abd48811926308754fddf7547be5b6e",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00118-of-00218.gguf",
+        "ordinal": 117,
+        "sha256": "7162f2be9ee517cc81d5b8d7a6dc305f759d5d700a11377f321bd66427bc3778",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00119-of-00218.gguf",
+        "ordinal": 118,
+        "sha256": "c57138a02ee053caa6d1e2f5f0e44919231af56ddb6cf180552a3b6d0e4f4856",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00120-of-00218.gguf",
+        "ordinal": 119,
+        "sha256": "fc80d83a2f28c5c245fef43fe12119d3fca56481a3934a47fcf3fcfef83eeb70",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00121-of-00218.gguf",
+        "ordinal": 120,
+        "sha256": "ec37cb991f784182c6d9bdcb85c362571fd3def559a47c90ddefe135c27cc4f6",
+        "size": 192
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00122-of-00218.gguf",
+        "ordinal": 121,
+        "sha256": "ac3253cdbdb5a9d983f0570a550bed38bbb59df9933ae1e8cfece3087a0cec44",
+        "size": 16576
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00123-of-00218.gguf",
+        "ordinal": 122,
+        "sha256": "5b5de3941af7af2f03150842863ba18398cbfdbb05ef4048b915493523bc4c9b",
+        "size": 1184
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00124-of-00218.gguf",
+        "ordinal": 123,
+        "sha256": "fcb5930711d9a89f8168134f083e0b6102556e180ac37cfa61550c573777d004",
+        "size": 65728
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00125-of-00218.gguf",
+        "ordinal": 124,
+        "sha256": "a0658bbe4762c642c31f7abc2077a6f1ee5c8bb0de04e926bb4c417f2cd88d17",
+        "size": 16576
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00126-of-00218.gguf",
+        "ordinal": 125,
+        "sha256": "0a24d65755ce5670d0077f57c2c5844c508434e53fce90a85cb672a1a039ecbf",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00127-of-00218.gguf",
+        "ordinal": 126,
+        "sha256": "d76acc12c366b4ac70796055801da37dd2ee596c9c2b722ee97c8f56aace0135",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00128-of-00218.gguf",
+        "ordinal": 127,
+        "sha256": "787d7c87e42c851cdb24bf3cb148d3a9d6eb56da7b086cb28353fd17d08953cd",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00129-of-00218.gguf",
+        "ordinal": 128,
+        "sha256": "155ef368e80c0f9c2ab77941541cfa4b727981dc822477c28af3e51451b04849",
+        "size": 288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00130-of-00218.gguf",
+        "ordinal": 129,
+        "sha256": "3362ec160b36a5a88d8e5851a202feccdac87a482d2c32bfabc124a5302df30a",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00131-of-00218.gguf",
+        "ordinal": 130,
+        "sha256": "b04b4e7cbb4634cd54cea10390d37a6780294729a77e99e7e5234a62e1b1ac2d",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00132-of-00218.gguf",
+        "ordinal": 131,
+        "sha256": "23cbf4f7141721d27949a9ef2a09b51b13716ac617043cb2275603dbaf4bdca4",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00133-of-00218.gguf",
+        "ordinal": 132,
+        "sha256": "ae58dd88b88c122588a95d72662a8f16c727944822b7c67c1797b4519e558e5f",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00134-of-00218.gguf",
+        "ordinal": 133,
+        "sha256": "84363410732235b7755523fd1b2885b45b7ee9001ce1bdff051d7755bf3d552f",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00135-of-00218.gguf",
+        "ordinal": 134,
+        "sha256": "016c2d45a3072011ea9c937e1e101d1c6757ebaf4e8703d8a4e4558585cf936b",
+        "size": 2097344
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00136-of-00218.gguf",
+        "ordinal": 135,
+        "sha256": "8be9d15f6392a7a7e25ef0a43260282677b904a139d47ec538fa8f50e5a43bea",
+        "size": 2097344
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00137-of-00218.gguf",
+        "ordinal": 136,
+        "sha256": "d14b044a2f8244e1086efecf2a23328ddeb94864674a988a730fc2724a2b4385",
+        "size": 2097344
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00138-of-00218.gguf",
+        "ordinal": 137,
+        "sha256": "4e41a53892db631b5f77ca0ccff0fd539ff210f7afe861538e55e5c0e54e7a73",
+        "size": 192
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00139-of-00218.gguf",
+        "ordinal": 138,
+        "sha256": "6fac69f1116dc7be4ce3d2ce32c0be124d3744cebe0f7ecc52d43df055325dcc",
+        "size": 32960
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00140-of-00218.gguf",
+        "ordinal": 139,
+        "sha256": "673bd63a85286e02d0257e30295e172b62ce0a89e8e35794b16c0b342f532451",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00141-of-00218.gguf",
+        "ordinal": 140,
+        "sha256": "c4fcdbf9e03c80511c2210265ed98a27deda6d2bc7dca3e450c1876e56aa0f8d",
+        "size": 2240
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00142-of-00218.gguf",
+        "ordinal": 141,
+        "sha256": "7ab214526667010303020681e555a7ac96cdee811b12fa389b4e058e57e541d4",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00143-of-00218.gguf",
+        "ordinal": 142,
+        "sha256": "3989e6aa3a1da1d401ecff640b706cc26f4b4510746f4575e5ec12cee3f42253",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00144-of-00218.gguf",
+        "ordinal": 143,
+        "sha256": "167c68100b508c8ee116fb0dbb896415b9be31931fda48241fc8092e75ff3e9c",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00145-of-00218.gguf",
+        "ordinal": 144,
+        "sha256": "d397de82db55619d5ebaaa39c053166717a50323bfba20f7ea603bcbdb86b937",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00146-of-00218.gguf",
+        "ordinal": 145,
+        "sha256": "cbdf8cf21811be80bdf3d3f7cad975e895f6ba0ba5c61ec299cb569480a4191d",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00147-of-00218.gguf",
+        "ordinal": 146,
+        "sha256": "11b742187001adbf3f4978241a1575944ed97fe78cd492d7315450f577cb2f13",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00148-of-00218.gguf",
+        "ordinal": 147,
+        "sha256": "5aab3c11714f10627356260d563747b780d831dda6b931b17e64611351b7f71d",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00149-of-00218.gguf",
+        "ordinal": 148,
+        "sha256": "482581072a2fbe2afdbd7b036c652077accfde3a1afc9414857f1536fb45810f",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00150-of-00218.gguf",
+        "ordinal": 149,
+        "sha256": "4b2a7e3ce967c04cec034c257e63e307c56f98b35f52b55df901874150893627",
+        "size": 192
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00151-of-00218.gguf",
+        "ordinal": 150,
+        "sha256": "2bde1fda45965db065bb2ff084fb6c27856473c2b39ee8a96eb5c5c432396800",
+        "size": 16576
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00152-of-00218.gguf",
+        "ordinal": 151,
+        "sha256": "1dad76671ee5ec8b6bd5cf4f4f6cdbc0115fa95d6eaa8532f90b894e1d305560",
+        "size": 1184
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00153-of-00218.gguf",
+        "ordinal": 152,
+        "sha256": "b6d1462f0c0fddcb55c20aee930227387a1b35faaf0e5a286dd62b74625ca983",
+        "size": 65728
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00154-of-00218.gguf",
+        "ordinal": 153,
+        "sha256": "136f1a3afd7989189ddcc7e70ce6dc83bdca5963b9b10642bffbfbdda6976c76",
+        "size": 16576
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00155-of-00218.gguf",
+        "ordinal": 154,
+        "sha256": "d9185b0f80dbaa92deaa453c14e0dc38d3518f8b96f76c302f402da1c52d56a0",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00156-of-00218.gguf",
+        "ordinal": 155,
+        "sha256": "3f7d473a126c9548f45d62be098069010957d7c88584a7a054d529c936d30f2c",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00157-of-00218.gguf",
+        "ordinal": 156,
+        "sha256": "a16f1fcd99739407e9c8149115aa7a4d9ddf56b279121c65853684c975cbc7ee",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00158-of-00218.gguf",
+        "ordinal": 157,
+        "sha256": "76bf1e88113f4feb05ce23f39bacfe0b955a801359a315644b6d73ba61544081",
+        "size": 288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00159-of-00218.gguf",
+        "ordinal": 158,
+        "sha256": "22351e0532d3a0cf9de85bf0b145dec4bd6bb4d9fa0894c37e3e1df2ce564d9d",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00160-of-00218.gguf",
+        "ordinal": 159,
+        "sha256": "043f015f582a0a621640ec807a937b31caf362cd3781c456af8f4ff507547e64",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00161-of-00218.gguf",
+        "ordinal": 160,
+        "sha256": "3e7f791d5c21e4ec4f19c9df5053c2302b4029b81406eb8be6440e0512e0764b",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00162-of-00218.gguf",
+        "ordinal": 161,
+        "sha256": "feac292206fa0cae73006f5cfed5733fd9f9b9a4782dcf40430c7ce2649e0c0c",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00163-of-00218.gguf",
+        "ordinal": 162,
+        "sha256": "508ae68229ba5f065cc7ad3b8a22faf474b2b7968c6e7cd59812d294f58445b1",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00164-of-00218.gguf",
+        "ordinal": 163,
+        "sha256": "257cb7dba0881cf597360f63d835a90eedeee87abaf13712870a521130436634",
+        "size": 2097344
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00165-of-00218.gguf",
+        "ordinal": 164,
+        "sha256": "061fab5737d55c408ce0056dc3c302cdf2b177087ceea9a79a8b4bdf541a3d03",
+        "size": 2097344
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00166-of-00218.gguf",
+        "ordinal": 165,
+        "sha256": "6aea597d1cf0a0840f7dbdb6348612c87d3e163bb57d856d042dbc9cbd8d5860",
+        "size": 2097344
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00167-of-00218.gguf",
+        "ordinal": 166,
+        "sha256": "8ab698432698c541eab91007a28de4da13ad00cc9dd6926873e81908f681bcd8",
+        "size": 192
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00168-of-00218.gguf",
+        "ordinal": 167,
+        "sha256": "b54dd073e830879c6e38c96811f0a66ea5313842358fcb59d8662d81fe7a1940",
+        "size": 32960
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00169-of-00218.gguf",
+        "ordinal": 168,
+        "sha256": "5f7b595d3889694565f08b5632bfc5c851a12afc89c72e61309fb46e61d50524",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00170-of-00218.gguf",
+        "ordinal": 169,
+        "sha256": "8fec32197ea2683dd92a0333f20b71631ac632a5b5f2ea6215a303558b2b4090",
+        "size": 2240
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00171-of-00218.gguf",
+        "ordinal": 170,
+        "sha256": "b0b5b4390796bfac65134015aadb0cda433e7ccdd6d2203b062f79e56029d634",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00172-of-00218.gguf",
+        "ordinal": 171,
+        "sha256": "023ea124e2f775f9d89ac9b7079a3804fec98c59f1c422d99c5a4cdc03650d23",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00173-of-00218.gguf",
+        "ordinal": 172,
+        "sha256": "b0f4390887c6cee1a713c739d5c1b98b98dd42742adacf69696c360d3cf06f75",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00174-of-00218.gguf",
+        "ordinal": 173,
+        "sha256": "c918f4ac29a74051ece3484133e19fa6b6e709dbed8ca5397a1ae63ca53486f6",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00175-of-00218.gguf",
+        "ordinal": 174,
+        "sha256": "b2022455a5be526cd014eb5939fe39f7b26d583ca3c56fb5f912cbcee55dd6cc",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00176-of-00218.gguf",
+        "ordinal": 175,
+        "sha256": "8a7b10ad1b7e94013ff7103805af9a44f0a0baee86784f50c4dfc271282650e2",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00177-of-00218.gguf",
+        "ordinal": 176,
+        "sha256": "ac24b98a1bb5cafcd47b5d64587d19b298cef6440fb4a84ad9a9589a626a567d",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00178-of-00218.gguf",
+        "ordinal": 177,
+        "sha256": "7ed100fe824d306c5db63ae2578687452689f1676453d1121d5f41757824458a",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00179-of-00218.gguf",
+        "ordinal": 178,
+        "sha256": "9d18e6a31f526382f896676236c4fd557f446cbbf0c96e1c55b29a45e36e05f8",
+        "size": 192
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00180-of-00218.gguf",
+        "ordinal": 179,
+        "sha256": "7e2fd223241cf1576e9e73dc4543b2c33b1eda866b368e14006db0e8e3f4a119",
+        "size": 16576
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00181-of-00218.gguf",
+        "ordinal": 180,
+        "sha256": "4044af4414a27c29768563c6f59571b7f93f39fbcef1daba8d36ba7e96a89995",
+        "size": 1184
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00182-of-00218.gguf",
+        "ordinal": 181,
+        "sha256": "89acfaeffa410544e848bb99ea13bfafe5a2dd1db9ebe6e7f88f9b7326f28335",
+        "size": 65728
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00183-of-00218.gguf",
+        "ordinal": 182,
+        "sha256": "626615f149ae628cc48a5fbda4b74d55a5138caee24b3784a53fc06f064176a7",
+        "size": 16576
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00184-of-00218.gguf",
+        "ordinal": 183,
+        "sha256": "d547b607d931a3cd27eddf97fdccdeca2f76b215e0ecfa24dd7beac2e9f23425",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00185-of-00218.gguf",
+        "ordinal": 184,
+        "sha256": "299073ed0f036846bbaf6cf49b60a65165b688a69d47c64da00992f3a12e6cfd",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00186-of-00218.gguf",
+        "ordinal": 185,
+        "sha256": "cac432d6d744b7befcfea11a4944357991284e2b8b8fb1e9385f988ebf36f343",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00187-of-00218.gguf",
+        "ordinal": 186,
+        "sha256": "7f60707e015a72c130211943cc4a8a3255a2a131bd6e21c237d295ab3690da22",
+        "size": 288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00188-of-00218.gguf",
+        "ordinal": 187,
+        "sha256": "f08edc2770bbda0783d183907774fbf0e7a372746059e3eb66c77cbf5cf6441a",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00189-of-00218.gguf",
+        "ordinal": 188,
+        "sha256": "bb5e1349e54d86789741b76c26f4753eefcf4006218b7198d1fb58bfc9595dda",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00190-of-00218.gguf",
+        "ordinal": 189,
+        "sha256": "42ddb39ef8e7e150d524e700c3d226b55c3a0f7880280f97049a2d33891f1c78",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00191-of-00218.gguf",
+        "ordinal": 190,
+        "sha256": "274a67a8abb57beb560529ac7c137984c41b30b709ae2f94060236d183c40083",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00192-of-00218.gguf",
+        "ordinal": 191,
+        "sha256": "11054e8b1912c82bcd6ead805102f232b6d54754e52ba21ddf38e09b1e013a5e",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00193-of-00218.gguf",
+        "ordinal": 192,
+        "sha256": "c97df5e73827bc6a67c8d243aabf0e906e8be556f8ab1d070ed06460aef32d88",
+        "size": 2097344
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00194-of-00218.gguf",
+        "ordinal": 193,
+        "sha256": "ab72a42498af7cc78030ed53d06fcb2fde4444108220da80595a674ccd6847fe",
+        "size": 2097344
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00195-of-00218.gguf",
+        "ordinal": 194,
+        "sha256": "a4ae314255096288538c341e55d29aa8cb0938a7e2ccc2f718874982bc2f5373",
+        "size": 2097344
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00196-of-00218.gguf",
+        "ordinal": 195,
+        "sha256": "f9b1e3bc8909376520f556d326c129a5c260b18db51ae89bd4de61b5e8ef1309",
+        "size": 192
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00197-of-00218.gguf",
+        "ordinal": 196,
+        "sha256": "b8eb79472aa531ed92abf22907789c96c39bf04519dbbde693e4a586d57fd1f9",
+        "size": 32960
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00198-of-00218.gguf",
+        "ordinal": 197,
+        "sha256": "2fe59b47ebd13fb15eebe9d232c1732d5a1f10372e04dd65204173ca059b5589",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00199-of-00218.gguf",
+        "ordinal": 198,
+        "sha256": "0e8dfc394cc1468bc021498de4c907a67d963d0857e690c4944b6914e1599b85",
+        "size": 2240
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00200-of-00218.gguf",
+        "ordinal": 199,
+        "sha256": "9f2d3af19c4502f298df23b52fd77a20e6aa2088ed999f50f0801a2ba1056394",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00201-of-00218.gguf",
+        "ordinal": 200,
+        "sha256": "56dd943668ed4e608936671df9dad54391e4c43c55f576ad328f8a2b5963c8ae",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00202-of-00218.gguf",
+        "ordinal": 201,
+        "sha256": "b1460b303cfc8e45d167263ff1e944cf8cc5c06fe6729c75d549b2105e3ad464",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00203-of-00218.gguf",
+        "ordinal": 202,
+        "sha256": "8f21af131c8562bd2c92f6da70c073ad82363532284b5ecc971b5aa7d79b7269",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00204-of-00218.gguf",
+        "ordinal": 203,
+        "sha256": "e033ba0892795fd828ce87c3d2e47606f0b3bf2be7215a207e711819272c92dd",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00205-of-00218.gguf",
+        "ordinal": 204,
+        "sha256": "5722aaae0aa03f132b17d7b1ab6a555f99fd901ac5fab1be0275dfae7fd4e750",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00206-of-00218.gguf",
+        "ordinal": 205,
+        "sha256": "f5ab4762ff221291686757d8a9de7d26c0cea58031dc70d28c35c8f6940baa9b",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00207-of-00218.gguf",
+        "ordinal": 206,
+        "sha256": "d3d7148ecfce78bb76583598807bee5078f8cf2c71dfab44e575731e431e2c31",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00208-of-00218.gguf",
+        "ordinal": 207,
+        "sha256": "26dfa879052c36ef6b2d4858b02ac99625c10c7b794cbc9a44599ba4814daf69",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00209-of-00218.gguf",
+        "ordinal": 208,
+        "sha256": "f40b48d3fcdc1c04c0ba16517242160be2cf78a886296a3fec1b4bc22c40270d",
+        "size": 704
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00210-of-00218.gguf",
+        "ordinal": 209,
+        "sha256": "e69b08b43ece655552dea78ee16e0fdb2bc4a38e3fd898ad291feba4492d9407",
+        "size": 327872
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00211-of-00218.gguf",
+        "ordinal": 210,
+        "sha256": "0398465b03214c36b46cf1a8d566c1efa8c372ba2ea194acd8536708d06f59ba",
+        "size": 131264
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00212-of-00218.gguf",
+        "ordinal": 211,
+        "sha256": "c204c506dd0d1aac4751a556277797212cb45cc16c82fe49c86552a4f5bb03f3",
+        "size": 131264
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00213-of-00218.gguf",
+        "ordinal": 212,
+        "sha256": "fa596ff4af468ccfb0c0e2734c5b3e740a7ac4f242e57447d26b36dbc2d6582d",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00214-of-00218.gguf",
+        "ordinal": 213,
+        "sha256": "38042e7f5c0aeb2d8248b280e3545a73dc9e4db769deb24f0545dc0fe9cfbcb4",
+        "size": 1216
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00215-of-00218.gguf",
+        "ordinal": 214,
+        "sha256": "820290db0a100bbc9b95904396e674878ab98fb5fa5624797ce34e3eff8da9f6",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00216-of-00218.gguf",
+        "ordinal": 215,
+        "sha256": "f3c7c337171687cfa931c1b063ffef70635f032f9cfb72349a89a13161a9dcc3",
+        "size": 393408
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00217-of-00218.gguf",
+        "ordinal": 216,
+        "sha256": "4cf3507dbfc5ead01c3df2d5623aaf582c85f6351b9720892769e6298cfa288e",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-F16-00218-of-00218.gguf",
+        "ordinal": 217,
+        "sha256": "da4b979b302b7c5abc6987005a014a0e5541bee482fa2c69a2397eaf19d1acba",
+        "size": 4288
+      }
+    ],
+    "package_sha256": "79958dc4f35d3493c4c85049b4f8372d358c13cf1fb09f2472c61a23cdedc308",
+    "tensor_layout_sha256": "2f6ed43c1de6c59580849d32c37baf92beac80b2546e3cf84dbdff2cc729567a"
+  }
+}

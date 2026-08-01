@@ -1,81 +1,49 @@
 {
   "costs": [
     {
-      "break_even_bps": 6802,
-      "demand_service_ns": 5186,
-      "displacement_refill_ns": 5407,
-      "h2d_bytes": 0,
-      "lead_ns": 5186,
-      "predictor_compute_ns": 68,
-      "readiness": "HOST_READY",
-      "scheduler_demand_delay_ns": 0,
-      "speculative_service_ns": 5407,
+      "break_even_bps": 8334,
+      "demand_service_ns": 681000,
+      "displacement_refill_ns": 996000,
+      "h2d_bytes": 208896,
+      "lead_ns": 1432055,
+      "predictor_compute_ns": 1790,
+      "readiness": "DEVICE_READY",
+      "scheduler_demand_delay_ns": 54452,
+      "speculative_service_ns": 2344000,
       "storage_bytes": 208896,
       "transport": "BUFFERED",
       "utility_min_observations": 32,
-      "utility_min_timely_successes": 44,
+      "utility_min_timely_successes": 54,
       "utility_window_predictions": 64
     },
     {
-      "break_even_bps": 8084,
-      "demand_service_ns": 129832,
-      "displacement_refill_ns": 273576,
+      "break_even_bps": 9998,
+      "demand_service_ns": 2000,
+      "displacement_refill_ns": 182000,
       "h2d_bytes": 0,
-      "lead_ns": 129832,
-      "predictor_compute_ns": 68,
+      "lead_ns": 1432055,
+      "predictor_compute_ns": 1790,
       "readiness": "HOST_READY",
-      "scheduler_demand_delay_ns": 0,
-      "speculative_service_ns": 273576,
+      "scheduler_demand_delay_ns": 54452,
+      "speculative_service_ns": 719000,
       "storage_bytes": 208896,
-      "transport": "DIRECT_IO",
+      "transport": "BUFFERED",
       "utility_min_observations": 32,
-      "utility_min_timely_successes": 52,
+      "utility_min_timely_successes": 64,
       "utility_window_predictions": 64
     },
     {
-      "break_even_bps": 6726,
-      "demand_service_ns": 21350,
-      "displacement_refill_ns": 21825,
+      "break_even_bps": 7899,
+      "demand_service_ns": 54000,
+      "displacement_refill_ns": 70000,
       "h2d_bytes": 208896,
-      "lead_ns": 21350,
-      "predictor_compute_ns": 68,
+      "lead_ns": 1432055,
+      "predictor_compute_ns": 1790,
       "readiness": "DEVICE_READY",
-      "scheduler_demand_delay_ns": 0,
-      "speculative_service_ns": 21825,
+      "scheduler_demand_delay_ns": 54452,
+      "speculative_service_ns": 70000,
       "storage_bytes": 0,
       "transport": "HOST_TO_DEVICE",
-      "utility_min_observations": 32,
-      "utility_min_timely_successes": 44,
-      "utility_window_predictions": 64
-    },
-    {
-      "break_even_bps": 6720,
-      "demand_service_ns": 26541,
-      "displacement_refill_ns": 27073,
-      "h2d_bytes": 208896,
-      "lead_ns": 26541,
-      "predictor_compute_ns": 68,
-      "readiness": "DEVICE_READY",
-      "scheduler_demand_delay_ns": 0,
-      "speculative_service_ns": 27073,
-      "storage_bytes": 208896,
-      "transport": "BUFFERED",
-      "utility_min_observations": 32,
-      "utility_min_timely_successes": 44,
-      "utility_window_predictions": 64
-    },
-    {
-      "break_even_bps": 7962,
-      "demand_service_ns": 151075,
-      "displacement_refill_ns": 294861,
-      "h2d_bytes": 208896,
-      "lead_ns": 151075,
-      "predictor_compute_ns": 68,
-      "readiness": "DEVICE_READY",
-      "scheduler_demand_delay_ns": 0,
-      "speculative_service_ns": 294861,
-      "storage_bytes": 208896,
-      "transport": "DIRECT_IO",
       "utility_min_observations": 32,
       "utility_min_timely_successes": 51,
       "utility_window_predictions": 64
@@ -184,7 +152,7 @@
     }
   ],
   "selection": {
-    "break_even_bps": 6720,
+    "break_even_bps": 8334,
     "candidates_per_target": 2,
     "fold_index": 0,
     "matrix_version": 1,
@@ -192,7 +160,7 @@
     "readiness": "DEVICE_READY",
     "temporal_window_tokens": 4,
     "transport": "BUFFERED",
-    "tuning_digest": "651a6830451b4ecb7e5508f33b882e4e2ffd363150eec198a61d140b5aa293a2"
+    "tuning_digest": "36b93cfe7a8ca50871508a9b95490815b8ac31435bcbe103c28826aeceeebc1c"
   },
   "source": {
     "artifacts": [
@@ -222,9 +190,9 @@
         "size": 323723
       },
       {
-        "name": "phase10-mxfp4-exact-costs.json",
-        "sha256": "d582653c08f7a0724a3bdaca8c5c380d31748a38f7908d3da0643faecc758283",
-        "size": 4926
+        "name": "mxfp4-split-target-costs.json",
+        "sha256": "7c89a7958db951423aa2c9ea2b8c76f1fc44150f44769d3d4df75a7c2cb663f7",
+        "size": 47684
       }
     ],
     "fold": {
@@ -2186,7 +2154,7 @@
   },
   "tool": {
     "name": "phase10-online-compat-profile",
-    "version": 1
+    "version": 2
   },
   "transitions": [
     {

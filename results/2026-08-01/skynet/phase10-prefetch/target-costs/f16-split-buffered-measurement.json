@@ -1,0 +1,295 @@
+{
+  "envelopes": [
+    {
+      "demand_service_p50_ns": 2000,
+      "displacement_refill_p95_ns": 680000,
+      "h2d_bytes": 0,
+      "lead_p50_ns": 2223155,
+      "measurement_basis": {
+        "all_observed_spans_exact": true,
+        "h2d_flights": 149,
+        "h2d_refill_samples": 98,
+        "h2d_timer_censored_samples": 0,
+        "h2d_trace_capacity": 1024,
+        "load_mode": "MMAP_BUFFERED",
+        "model_sha256": "",
+        "model_size": 784345248,
+        "package_sha256": "79958dc4f35d3493c4c85049b4f8372d358c13cf1fb09f2472c61a23cdedc308",
+        "path": "runtime COLD_CACHE scheduler -> exact ExpertStorage read plan -> cold cache -> transfer ring -> hot cache",
+        "representative_bundle": {
+          "completed_bytes": 786432,
+          "expert": 0,
+          "layer": 1,
+          "spans": [
+            {
+              "file_offset": 192,
+              "length": 262144
+            },
+            {
+              "file_offset": 192,
+              "length": 262144
+            },
+            {
+              "file_offset": 192,
+              "length": 262144
+            }
+          ],
+          "useful_bytes": 786432
+        },
+        "scheduler_samples": 149,
+        "scheduler_trace_capacity": 256,
+        "source_file_count": 218,
+        "storage_flights": 149,
+        "storage_map_sha256": "0c51b433d361a2cb33eafbb7e1b63183cdb6508feb572ad14bdd4e5f0d48f368",
+        "storage_operations": 447,
+        "storage_refill_samples": 98,
+        "storage_timer_censored_samples": 0,
+        "storage_trace_capacity": 1024
+      },
+      "predictor_compute_p95_ns": 1754,
+      "readiness": "HOST_READY",
+      "scheduler_demand_delay_p95_ns": 54352,
+      "speculative_service_p95_ns": 2648000,
+      "storage_bytes": 786432,
+      "supported": true,
+      "transport": "BUFFERED",
+      "utility_min_observations": 32,
+      "utility_window_predictions": 64
+    },
+    {
+      "demand_service_p50_ns": 90000,
+      "displacement_refill_p95_ns": 98000,
+      "h2d_bytes": 786432,
+      "lead_p50_ns": 2223155,
+      "measurement_basis": {
+        "all_observed_spans_exact": true,
+        "h2d_flights": 149,
+        "h2d_refill_samples": 98,
+        "h2d_timer_censored_samples": 0,
+        "h2d_trace_capacity": 1024,
+        "load_mode": "MMAP_BUFFERED",
+        "model_sha256": "",
+        "model_size": 784345248,
+        "package_sha256": "79958dc4f35d3493c4c85049b4f8372d358c13cf1fb09f2472c61a23cdedc308",
+        "path": "runtime COLD_CACHE scheduler -> exact ExpertStorage read plan -> cold cache -> transfer ring -> hot cache",
+        "representative_bundle": {
+          "completed_bytes": 786432,
+          "expert": 0,
+          "layer": 1,
+          "spans": [
+            {
+              "file_offset": 192,
+              "length": 262144
+            },
+            {
+              "file_offset": 192,
+              "length": 262144
+            },
+            {
+              "file_offset": 192,
+              "length": 262144
+            }
+          ],
+          "useful_bytes": 786432
+        },
+        "scheduler_samples": 149,
+        "scheduler_trace_capacity": 256,
+        "source_file_count": 218,
+        "storage_flights": 149,
+        "storage_map_sha256": "0c51b433d361a2cb33eafbb7e1b63183cdb6508feb572ad14bdd4e5f0d48f368",
+        "storage_operations": 447,
+        "storage_refill_samples": 98,
+        "storage_timer_censored_samples": 0,
+        "storage_trace_capacity": 1024
+      },
+      "predictor_compute_p95_ns": 1754,
+      "readiness": "DEVICE_READY",
+      "scheduler_demand_delay_p95_ns": 54352,
+      "speculative_service_p95_ns": 98000,
+      "storage_bytes": 0,
+      "supported": true,
+      "transport": "HOST_TO_DEVICE",
+      "utility_min_observations": 32,
+      "utility_window_predictions": 64
+    },
+    {
+      "demand_service_p50_ns": 2874000,
+      "displacement_refill_p95_ns": 3038000,
+      "h2d_bytes": 786432,
+      "lead_p50_ns": 2223155,
+      "measurement_basis": {
+        "all_observed_spans_exact": true,
+        "h2d_flights": 149,
+        "h2d_refill_samples": 98,
+        "h2d_timer_censored_samples": 0,
+        "h2d_trace_capacity": 1024,
+        "load_mode": "MMAP_BUFFERED",
+        "model_sha256": "",
+        "model_size": 784345248,
+        "package_sha256": "79958dc4f35d3493c4c85049b4f8372d358c13cf1fb09f2472c61a23cdedc308",
+        "path": "runtime COLD_CACHE scheduler -> exact ExpertStorage read plan -> cold cache -> transfer ring -> hot cache",
+        "representative_bundle": {
+          "completed_bytes": 786432,
+          "expert": 0,
+          "layer": 1,
+          "spans": [
+            {
+              "file_offset": 192,
+              "length": 262144
+            },
+            {
+              "file_offset": 192,
+              "length": 262144
+            },
+            {
+              "file_offset": 192,
+              "length": 262144
+            }
+          ],
+          "useful_bytes": 786432
+        },
+        "scheduler_samples": 149,
+        "scheduler_trace_capacity": 256,
+        "source_file_count": 218,
+        "storage_flights": 149,
+        "storage_map_sha256": "0c51b433d361a2cb33eafbb7e1b63183cdb6508feb572ad14bdd4e5f0d48f368",
+        "storage_operations": 447,
+        "storage_refill_samples": 98,
+        "storage_timer_censored_samples": 0,
+        "storage_trace_capacity": 1024
+      },
+      "predictor_compute_p95_ns": 1754,
+      "readiness": "DEVICE_READY",
+      "scheduler_demand_delay_p95_ns": 54352,
+      "speculative_service_p95_ns": 7496000,
+      "storage_bytes": 786432,
+      "supported": true,
+      "transport": "BUFFERED",
+      "utility_min_observations": 32,
+      "utility_window_predictions": 64
+    }
+  ],
+  "host": "skynet",
+  "lead_measurements": {
+    "basis": "minimum p50 of observed token-end-to-router and adjacent-router intervals",
+    "conservative_lead_p50_ns": 2223155,
+    "cross_layer_p50_ns": 2223155,
+    "cross_layer_samples": 72,
+    "decode_submissions": 12,
+    "provider_event_capacity": 256,
+    "provider_events_dropped": 0,
+    "token_end_p50_ns": 9652642,
+    "token_end_samples": 84
+  },
+  "model_profile_load_ns": 2642175709,
+  "nested_head": "31da30047fa05ef752c93e4b213264b4d41ccac6",
+  "path_provenance": {
+    "buffered": {
+      "all_observed_spans_exact": true,
+      "h2d_flights": 149,
+      "h2d_refill_samples": 98,
+      "h2d_timer_censored_samples": 0,
+      "h2d_trace_capacity": 1024,
+      "load_mode": "MMAP_BUFFERED",
+      "model_sha256": "",
+      "model_size": 784345248,
+      "package_sha256": "79958dc4f35d3493c4c85049b4f8372d358c13cf1fb09f2472c61a23cdedc308",
+      "path": "runtime COLD_CACHE scheduler -> exact ExpertStorage read plan -> cold cache -> transfer ring -> hot cache",
+      "representative_bundle": {
+        "completed_bytes": 786432,
+        "expert": 0,
+        "layer": 1,
+        "spans": [
+          {
+            "file_offset": 192,
+            "length": 262144
+          },
+          {
+            "file_offset": 192,
+            "length": 262144
+          },
+          {
+            "file_offset": 192,
+            "length": 262144
+          }
+        ],
+        "useful_bytes": 786432
+      },
+      "scheduler_samples": 149,
+      "scheduler_trace_capacity": 256,
+      "source_file_count": 218,
+      "storage_flights": 149,
+      "storage_map_sha256": "0c51b433d361a2cb33eafbb7e1b63183cdb6508feb572ad14bdd4e5f0d48f368",
+      "storage_operations": 447,
+      "storage_refill_samples": 98,
+      "storage_timer_censored_samples": 0,
+      "storage_trace_capacity": 1024
+    },
+    "exact_runtime_provider_path": true,
+    "model_sha256": "",
+    "model_size": 784345248,
+    "package_sha256": "79958dc4f35d3493c4c85049b4f8372d358c13cf1fb09f2472c61a23cdedc308",
+    "source_file_count": 218,
+    "storage_map_sha256": "0c51b433d361a2cb33eafbb7e1b63183cdb6508feb572ad14bdd4e5f0d48f368"
+  },
+  "predictor_upper_bound": {
+    "basis": "maximum p95 over full-token topology-capped declared predictors",
+    "measurements": [
+      {
+        "candidates_per_target": 8,
+        "p50_ns": 409,
+        "p95_ns": 414,
+        "p99_ns": 463,
+        "policy": "STATIC_LAYER",
+        "repetitions": 1000,
+        "target_layers_per_call": 7,
+        "temporal_window_tokens": 0
+      },
+      {
+        "candidates_per_target": 8,
+        "p50_ns": 133,
+        "p95_ns": 136,
+        "p99_ns": 158,
+        "policy": "PREVIOUS_TOKEN",
+        "repetitions": 1000,
+        "target_layers_per_call": 7,
+        "temporal_window_tokens": 0
+      },
+      {
+        "candidates_per_target": 8,
+        "p50_ns": 1514,
+        "p95_ns": 1572,
+        "p99_ns": 1616,
+        "policy": "TEMPORAL_FREQUENCY",
+        "repetitions": 1000,
+        "target_layers_per_call": 7,
+        "temporal_window_tokens": 64
+      },
+      {
+        "candidates_per_target": 8,
+        "p50_ns": 1716,
+        "p95_ns": 1754,
+        "p99_ns": 2084,
+        "policy": "CROSS_LAYER_TRANSITION",
+        "repetitions": 1000,
+        "target_layers_per_call": 6,
+        "temporal_window_tokens": 0
+      },
+      {
+        "candidates_per_target": 8,
+        "p50_ns": 683,
+        "p95_ns": 700,
+        "p99_ns": 745,
+        "policy": "RANDOM_BASELINE",
+        "repetitions": 1000,
+        "target_layers_per_call": 7,
+        "temporal_window_tokens": 0
+      }
+    ],
+    "upper_bound_p95_ns": 1754
+  },
+  "profile_parse_ns": 1869448,
+  "profile_sha256": "c90e6dcee1335f5886345cfd15d22f286adefb3c93fa859be51a14fc28eea6b1",
+  "project_head": "e0d279d3c7575d7a380608897c9636fbc0a2227d",
+  "schema_version": "phase10-transport-measurements-v1"
+}

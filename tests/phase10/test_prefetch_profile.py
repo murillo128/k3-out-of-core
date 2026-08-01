@@ -17,7 +17,7 @@ from combine_transport_break_even import combine
 from bind_target_costs import bind
 from build_online_compat_profile import adapt_profile
 from capture_offline_replay import replay_envelopes, score_replay
-from capture_profile_compatibility import frozen_tuning_digest, retained_tunings
+from capture_profile_compatibility import frozen_tuning_digest, retained_tunings, runtime_arguments
 from capture_transport_measurements import validate_measurement
 from measure_transport_break_even import derive
 from phase9_disabled_equivalence import (build_phase9_input, normalize_phase9, normalize_phase10,
@@ -139,6 +139,16 @@ class PrefetchProfileTests(unittest.TestCase):
         changed_validation = {**tuning, "precision_bps": 5001}
         self.assertEqual(digest, frozen_tuning_digest(offline, changed_test))
         self.assertNotEqual(digest, frozen_tuning_digest(offline, changed_validation))
+
+    def test_profile_validation_runtime_matches_selected_transport(self) -> None:
+        value = profile()
+        self.assertEqual(runtime_arguments(value),
+            ["COLD_CACHE", "BUFFERED", "PROMOTE_AND_GPU", "16", "16"])
+        value["selection"]["transport"] = "DIRECT_IO"
+        self.assertEqual(runtime_arguments(value)[0:2], ["COLD_CACHE", "DIRECT_IO"])
+        value["selection"]["transport"] = "HOST_TO_DEVICE"
+        self.assertEqual(runtime_arguments(value),
+            ["HOT_CACHE", "BUFFERED", "PROMOTE_AND_GPU", "16", "0"])
 
     def test_replay_envelopes_are_canonical(self) -> None:
         cells = [{"transport": "HOST_TO_DEVICE", "readiness": "DEVICE_READY"},

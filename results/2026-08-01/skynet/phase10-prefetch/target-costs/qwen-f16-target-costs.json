@@ -1,0 +1,78 @@
+{
+  "costs": [
+    {
+      "break_even_bps": 7295,
+      "demand_service_ns": 90551000,
+      "displacement_refill_ns": 121693000,
+      "h2d_bytes": 17301504,
+      "lead_ns": 131679054,
+      "predictor_compute_ns": 26530,
+      "readiness": "DEVICE_READY",
+      "scheduler_demand_delay_ns": 492512,
+      "speculative_service_ns": 121829000,
+      "storage_bytes": 17301504,
+      "transport": "BUFFERED",
+      "utility_min_observations": 32,
+      "utility_min_timely_successes": 47,
+      "utility_window_predictions": 64
+    },
+    {
+      "break_even_bps": 8526,
+      "demand_service_ns": 14643000,
+      "displacement_refill_ns": 41894000,
+      "h2d_bytes": 0,
+      "lead_ns": 131679054,
+      "predictor_compute_ns": 26530,
+      "readiness": "HOST_READY",
+      "scheduler_demand_delay_ns": 492512,
+      "speculative_service_ns": 42068000,
+      "storage_bytes": 17301504,
+      "transport": "BUFFERED",
+      "utility_min_observations": 32,
+      "utility_min_timely_successes": 55,
+      "utility_window_predictions": 64
+    },
+    {
+      "break_even_bps": 7083,
+      "demand_service_ns": 1390000,
+      "displacement_refill_ns": 1396000,
+      "h2d_bytes": 17301504,
+      "lead_ns": 131679054,
+      "predictor_compute_ns": 26530,
+      "readiness": "DEVICE_READY",
+      "scheduler_demand_delay_ns": 492512,
+      "speculative_service_ns": 1395000,
+      "storage_bytes": 0,
+      "transport": "HOST_TO_DEVICE",
+      "utility_min_observations": 32,
+      "utility_min_timely_successes": 46,
+      "utility_window_predictions": 64
+    }
+  ],
+  "measurements": [
+    {
+      "name": "qwen-buffered-break-even.json",
+      "nested_head": "31da30047fa05ef752c93e4b213264b4d41ccac6",
+      "profile_sha256": "c2b054b5e065b03eb1d945a8dd208710a8aad3069476d25c7548257776e3c359",
+      "project_head": "e0d279d3c7575d7a380608897c9636fbc0a2227d",
+      "sha256": "7bc922645119e7ac6d4aaa6b3de03c9d8e817bf9c100a5be566c46c6744af05a",
+      "size": 11123,
+      "storage_map_sha256": "7d4ac89c29e56cc97cc52ef6a5fbe841eae2994cc72f96f39e52fd91fa3cdba1"
+    }
+  ],
+  "schema_version": "phase10-target-costs-v1",
+  "status": "pass",
+  "target": {
+    "expert_bytes_sha256": "222888efd9e99e155d3727c539b2307be40e4646094e51a5a920de76ad26b6ad",
+    "files": [
+      {
+        "name": "phase8-qwen1.5-moe-f16.gguf",
+        "ordinal": 0,
+        "sha256": "fbdb28cef42831732a3e2193a70b1f50840d26d894d88bc8617c24d34d72867f",
+        "size": 28644015616
+      }
+    ],
+    "package_sha256": "9a02e67cf11bf93b589453e4615bdc6c95db09489d20b8be4a1b8de0570c306e",
+    "tensor_layout_sha256": "8e85cf53933b345b0183b5efabdd90cc59f1a2ec6a8a5d9722bad466b3946dc3"
+  }
+}

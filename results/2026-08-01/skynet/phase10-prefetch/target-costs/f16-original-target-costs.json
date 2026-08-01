@@ -1,0 +1,110 @@
+{
+  "costs": [
+    {
+      "break_even_bps": 8226,
+      "demand_service_ns": 2877000,
+      "displacement_refill_ns": 2939000,
+      "h2d_bytes": 786432,
+      "lead_ns": 2175031,
+      "predictor_compute_ns": 1825,
+      "readiness": "DEVICE_READY",
+      "scheduler_demand_delay_ns": 478,
+      "speculative_service_ns": 7135000,
+      "storage_bytes": 786432,
+      "transport": "BUFFERED",
+      "utility_min_observations": 32,
+      "utility_min_timely_successes": 53,
+      "utility_window_predictions": 64
+    },
+    {
+      "break_even_bps": 10000,
+      "demand_service_ns": 2000,
+      "displacement_refill_ns": 681000,
+      "h2d_bytes": 0,
+      "lead_ns": 2175031,
+      "predictor_compute_ns": 1825,
+      "readiness": "HOST_READY",
+      "scheduler_demand_delay_ns": 478,
+      "speculative_service_ns": 2658000,
+      "storage_bytes": 786432,
+      "transport": "BUFFERED",
+      "utility_min_observations": 32,
+      "utility_min_timely_successes": 64,
+      "utility_window_predictions": 64
+    },
+    {
+      "break_even_bps": 8144,
+      "demand_service_ns": 4681000,
+      "displacement_refill_ns": 4710000,
+      "h2d_bytes": 786432,
+      "lead_ns": 2175031,
+      "predictor_compute_ns": 1825,
+      "readiness": "DEVICE_READY",
+      "scheduler_demand_delay_ns": 470,
+      "speculative_service_ns": 4821000,
+      "storage_bytes": 786432,
+      "transport": "DIRECT_IO",
+      "utility_min_observations": 32,
+      "utility_min_timely_successes": 53,
+      "utility_window_predictions": 64
+    },
+    {
+      "break_even_bps": 7499,
+      "demand_service_ns": 3194000,
+      "displacement_refill_ns": 3206000,
+      "h2d_bytes": 0,
+      "lead_ns": 2175031,
+      "predictor_compute_ns": 1825,
+      "readiness": "HOST_READY",
+      "scheduler_demand_delay_ns": 470,
+      "speculative_service_ns": 3306000,
+      "storage_bytes": 786432,
+      "transport": "DIRECT_IO",
+      "utility_min_observations": 32,
+      "utility_min_timely_successes": 48,
+      "utility_window_predictions": 64
+    },
+    {
+      "break_even_bps": 7028,
+      "demand_service_ns": 95000,
+      "displacement_refill_ns": 109000,
+      "h2d_bytes": 786432,
+      "lead_ns": 2175031,
+      "predictor_compute_ns": 1825,
+      "readiness": "DEVICE_READY",
+      "scheduler_demand_delay_ns": 478,
+      "speculative_service_ns": 109000,
+      "storage_bytes": 0,
+      "transport": "HOST_TO_DEVICE",
+      "utility_min_observations": 32,
+      "utility_min_timely_successes": 45,
+      "utility_window_predictions": 64
+    }
+  ],
+  "measurements": [
+    {
+      "name": "f16-transport-break-even.json",
+      "nested_head": "46dd4ac03286c78b26e18666540a8e82a8acc3cf",
+      "profile_sha256": "b14e91e101f8d2ab30f4986fe00ef250dcdd8ed73c93f9b39a5fe7de038df6ed",
+      "project_head": "d677a54d4f7530695bd219414c82685ec236d3d4",
+      "sha256": "7835a8c49081801103bcd2a8c3451673db484b122aa51423b3a1d1defada8441",
+      "size": 15905,
+      "storage_map_sha256": "42af6acd1d1f2ea77aaa9750b28141670ce69009ba06b5ddca3f42c696b51151"
+    }
+  ],
+  "schema_version": "phase10-target-costs-v1",
+  "status": "pass",
+  "target": {
+    "expert_bytes_sha256": "b43302d118a2a80d993d56ffcc42a7a5936f000135a8f55036249ce11dc88162",
+    "files": [
+      {
+        "name": "Kimi-K3-0.40B-F16.gguf",
+        "ordinal": 0,
+        "sha256": "411c197b503e6fb9199a2b22115e32dc4e2cad803fb112b24967737b3bab26c7",
+        "size": 784318432
+      }
+    ],
+    "package_sha256": "aeef1800c3d6339813e4e1e444e54c93a34e3f98b58a43989d0e4c7a8cd1f818",
+    "tensor_layout_sha256": "33b88b1078d38762b8a62c5ce824d33bc132c403a0fe9bc3c62aa28da31013d5"
+  }
+}

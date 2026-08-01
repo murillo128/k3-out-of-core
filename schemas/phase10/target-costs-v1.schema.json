@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "target-costs-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "target", "measurements", "costs"],
+  "properties": {
+    "schema_version": {"const": "phase10-target-costs-v1"},
+    "status": {"const": "pass"},
+    "target": {"type": "object", "additionalProperties": false, "required": ["package_sha256", "files", "tensor_layout_sha256", "expert_bytes_sha256"], "properties": {
+      "package_sha256": {"$ref": "#/$defs/sha256"}, "tensor_layout_sha256": {"$ref": "#/$defs/sha256"}, "expert_bytes_sha256": {"$ref": "#/$defs/sha256"},
+      "files": {"type": "array", "minItems": 1, "items": {"type": "object", "additionalProperties": false, "required": ["ordinal", "name", "size", "sha256"], "properties": {"ordinal": {"type": "integer", "minimum": 0}, "name": {"type": "string", "minLength": 1}, "size": {"type": "integer", "minimum": 1}, "sha256": {"$ref": "#/$defs/sha256"}}}}
+    }},
+    "measurements": {"type": "array", "minItems": 1, "items": {"type": "object", "additionalProperties": false, "required": ["name", "size", "sha256", "project_head", "nested_head", "profile_sha256", "storage_map_sha256"], "properties": {"name": {"type": "string", "minLength": 1}, "size": {"type": "integer", "minimum": 1}, "sha256": {"$ref": "#/$defs/sha256"}, "project_head": {"$ref": "#/$defs/commit"}, "nested_head": {"$ref": "#/$defs/commit"}, "profile_sha256": {"$ref": "#/$defs/sha256"}, "storage_map_sha256": {"$ref": "#/$defs/sha256"}}}},
+    "costs": {"type": "array", "minItems": 1, "items": {"type": "object"}}
+  },
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"}}
+}

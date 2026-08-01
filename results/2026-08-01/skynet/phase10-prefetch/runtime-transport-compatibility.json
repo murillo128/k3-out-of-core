@@ -1,0 +1,259 @@
+{
+  "cases": [
+    {
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-phase10-cuda/bin/phase10-prefetch-probe",
+        "--profile",
+        "/usr/local/src/k3-out-of-core/results/2026-08-01/skynet/phase10-prefetch/profiles/online-compat/f16-split-temporal-buffered-device-ready.json",
+        "--model",
+        "/tmp/phase8-k3-f16-218/Kimi-K3-0.40B-F16-00001-of-00218.gguf",
+        "--identity",
+        "e0d279d3c7575d7a380608897c9636fbc0a2227d:31da30047fa05ef752c93e4b213264b4d41ccac6",
+        "--validate-only",
+        "COLD_CACHE",
+        "BUFFERED",
+        "PROMOTE_AND_GPU",
+        "16",
+        "16"
+      ],
+      "exit_code": 0,
+      "expected_accept": true,
+      "profile": "f16-split-temporal-buffered-device-ready.json",
+      "profile_sha256": "ef5cbf3a7b29410150c988fa4541e171d3b564888243108fe6be147c0e8a9627",
+      "runtime": {
+        "cache_mode": "COLD_CACHE",
+        "cold_slots": 16,
+        "hot_slots": 16,
+        "load_mode": "BUFFERED",
+        "miss_policy": "PROMOTE_AND_GPU"
+      },
+      "selected_transport": "BUFFERED",
+      "stderr_sha256": "56471e0a373008638b1bb01cb56b4646265e45416fe3d354168ce59ac9afe141"
+    },
+    {
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-phase10-cuda/bin/phase10-prefetch-probe",
+        "--profile",
+        "/usr/local/src/k3-out-of-core/results/2026-08-01/skynet/phase10-prefetch/profiles/online-compat/f16-split-temporal-buffered-device-ready.json",
+        "--model",
+        "/tmp/phase8-k3-f16-218/Kimi-K3-0.40B-F16-00001-of-00218.gguf",
+        "--identity",
+        "e0d279d3c7575d7a380608897c9636fbc0a2227d:31da30047fa05ef752c93e4b213264b4d41ccac6",
+        "--validate-only",
+        "COLD_CACHE",
+        "DIRECT_IO",
+        "PROMOTE_AND_GPU",
+        "16",
+        "16"
+      ],
+      "exit_code": 1,
+      "expected_accept": false,
+      "profile": "f16-split-temporal-buffered-device-ready.json",
+      "profile_sha256": "ef5cbf3a7b29410150c988fa4541e171d3b564888243108fe6be147c0e8a9627",
+      "runtime": {
+        "cache_mode": "COLD_CACHE",
+        "cold_slots": 16,
+        "hot_slots": 16,
+        "load_mode": "DIRECT_IO",
+        "miss_policy": "PROMOTE_AND_GPU"
+      },
+      "selected_transport": "BUFFERED",
+      "stderr_sha256": "9c7eea10b1d30fa31068eac8c8b675b1bd6d8b5fdcb39a08c3d9b040484cf5de"
+    },
+    {
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-phase10-cuda/bin/phase10-prefetch-probe",
+        "--profile",
+        "/usr/local/src/k3-out-of-core/results/2026-08-01/skynet/phase10-prefetch/profiles/online-compat/f16-split-temporal-buffered-device-ready.json",
+        "--model",
+        "/tmp/phase8-k3-f16-218/Kimi-K3-0.40B-F16-00001-of-00218.gguf",
+        "--identity",
+        "e0d279d3c7575d7a380608897c9636fbc0a2227d:31da30047fa05ef752c93e4b213264b4d41ccac6",
+        "--validate-only",
+        "HOT_CACHE",
+        "BUFFERED",
+        "PROMOTE_AND_GPU",
+        "16",
+        "0"
+      ],
+      "exit_code": 1,
+      "expected_accept": false,
+      "profile": "f16-split-temporal-buffered-device-ready.json",
+      "profile_sha256": "ef5cbf3a7b29410150c988fa4541e171d3b564888243108fe6be147c0e8a9627",
+      "runtime": {
+        "cache_mode": "HOT_CACHE",
+        "cold_slots": 0,
+        "hot_slots": 16,
+        "load_mode": "BUFFERED",
+        "miss_policy": "PROMOTE_AND_GPU"
+      },
+      "selected_transport": "BUFFERED",
+      "stderr_sha256": "6258a80cdd52881408b81f35fe348d1e61deb12590b09e7de33f04c2ecbd02b8"
+    },
+    {
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-phase10-cuda/bin/phase10-prefetch-probe",
+        "--profile",
+        "/usr/local/src/k3-out-of-core/results/2026-08-01/skynet/phase10-prefetch/profiles/online-compat/f16-split-previous-direct-io-host-ready.json",
+        "--model",
+        "/tmp/phase8-k3-f16-218/Kimi-K3-0.40B-F16-00001-of-00218.gguf",
+        "--identity",
+        "e0d279d3c7575d7a380608897c9636fbc0a2227d:31da30047fa05ef752c93e4b213264b4d41ccac6",
+        "--validate-only",
+        "COLD_CACHE",
+        "DIRECT_IO",
+        "PROMOTE_AND_GPU",
+        "16",
+        "16"
+      ],
+      "exit_code": 0,
+      "expected_accept": true,
+      "profile": "f16-split-previous-direct-io-host-ready.json",
+      "profile_sha256": "07427ebf54cfc8e793543005ace8dabe29d1e015c612302f10d3893c833d0d9a",
+      "runtime": {
+        "cache_mode": "COLD_CACHE",
+        "cold_slots": 16,
+        "hot_slots": 16,
+        "load_mode": "DIRECT_IO",
+        "miss_policy": "PROMOTE_AND_GPU"
+      },
+      "selected_transport": "DIRECT_IO",
+      "stderr_sha256": "c4d9d5bc0fdb8eaa326ad1053bcd2d882c2e41d55af3e34e4b37c31dd240e30f"
+    },
+    {
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-phase10-cuda/bin/phase10-prefetch-probe",
+        "--profile",
+        "/usr/local/src/k3-out-of-core/results/2026-08-01/skynet/phase10-prefetch/profiles/online-compat/f16-split-previous-direct-io-host-ready.json",
+        "--model",
+        "/tmp/phase8-k3-f16-218/Kimi-K3-0.40B-F16-00001-of-00218.gguf",
+        "--identity",
+        "e0d279d3c7575d7a380608897c9636fbc0a2227d:31da30047fa05ef752c93e4b213264b4d41ccac6",
+        "--validate-only",
+        "COLD_CACHE",
+        "BUFFERED",
+        "PROMOTE_AND_GPU",
+        "16",
+        "16"
+      ],
+      "exit_code": 1,
+      "expected_accept": false,
+      "profile": "f16-split-previous-direct-io-host-ready.json",
+      "profile_sha256": "07427ebf54cfc8e793543005ace8dabe29d1e015c612302f10d3893c833d0d9a",
+      "runtime": {
+        "cache_mode": "COLD_CACHE",
+        "cold_slots": 16,
+        "hot_slots": 16,
+        "load_mode": "BUFFERED",
+        "miss_policy": "PROMOTE_AND_GPU"
+      },
+      "selected_transport": "DIRECT_IO",
+      "stderr_sha256": "eb67182eb1fa666d3405564fa8c1e127c7ea8cabec76e7d0fdfd0556d646f4ce"
+    },
+    {
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-phase10-cuda/bin/phase10-prefetch-probe",
+        "--profile",
+        "/usr/local/src/k3-out-of-core/results/2026-08-01/skynet/phase10-prefetch/profiles/online-compat/f16-split-cross-host-to-device-device-ready.json",
+        "--model",
+        "/tmp/phase8-k3-f16-218/Kimi-K3-0.40B-F16-00001-of-00218.gguf",
+        "--identity",
+        "e0d279d3c7575d7a380608897c9636fbc0a2227d:31da30047fa05ef752c93e4b213264b4d41ccac6",
+        "--validate-only",
+        "HOT_CACHE",
+        "BUFFERED",
+        "PROMOTE_AND_GPU",
+        "16",
+        "0"
+      ],
+      "exit_code": 0,
+      "expected_accept": true,
+      "profile": "f16-split-cross-host-to-device-device-ready.json",
+      "profile_sha256": "b6c3f6e23d56f7e99526892dec7a06c2c0d23cbfb834ff687a7bc942b137dede",
+      "runtime": {
+        "cache_mode": "HOT_CACHE",
+        "cold_slots": 0,
+        "hot_slots": 16,
+        "load_mode": "BUFFERED",
+        "miss_policy": "PROMOTE_AND_GPU"
+      },
+      "selected_transport": "HOST_TO_DEVICE",
+      "stderr_sha256": "80c3704b743c3e807bbf8818c2f0af5b0fef6e21727a61bb10e8391cc2a57268"
+    },
+    {
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-phase10-cuda/bin/phase10-prefetch-probe",
+        "--profile",
+        "/usr/local/src/k3-out-of-core/results/2026-08-01/skynet/phase10-prefetch/profiles/online-compat/f16-split-cross-host-to-device-device-ready.json",
+        "--model",
+        "/tmp/phase8-k3-f16-218/Kimi-K3-0.40B-F16-00001-of-00218.gguf",
+        "--identity",
+        "e0d279d3c7575d7a380608897c9636fbc0a2227d:31da30047fa05ef752c93e4b213264b4d41ccac6",
+        "--validate-only",
+        "COLD_CACHE",
+        "BUFFERED",
+        "PROMOTE_AND_GPU",
+        "16",
+        "16"
+      ],
+      "exit_code": 1,
+      "expected_accept": false,
+      "profile": "f16-split-cross-host-to-device-device-ready.json",
+      "profile_sha256": "b6c3f6e23d56f7e99526892dec7a06c2c0d23cbfb834ff687a7bc942b137dede",
+      "runtime": {
+        "cache_mode": "COLD_CACHE",
+        "cold_slots": 16,
+        "hot_slots": 16,
+        "load_mode": "BUFFERED",
+        "miss_policy": "PROMOTE_AND_GPU"
+      },
+      "selected_transport": "HOST_TO_DEVICE",
+      "stderr_sha256": "eb67182eb1fa666d3405564fa8c1e127c7ea8cabec76e7d0fdfd0556d646f4ce"
+    },
+    {
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-phase10-cuda/bin/phase10-prefetch-probe",
+        "--profile",
+        "/usr/local/src/k3-out-of-core/results/2026-08-01/skynet/phase10-prefetch/profiles/online-compat/f16-split-cross-host-to-device-device-ready.json",
+        "--model",
+        "/tmp/phase8-k3-f16-218/Kimi-K3-0.40B-F16-00001-of-00218.gguf",
+        "--identity",
+        "e0d279d3c7575d7a380608897c9636fbc0a2227d:31da30047fa05ef752c93e4b213264b4d41ccac6",
+        "--validate-only",
+        "HOT_CACHE",
+        "DIRECT_IO",
+        "PROMOTE_AND_GPU",
+        "16",
+        "0"
+      ],
+      "exit_code": 1,
+      "expected_accept": false,
+      "profile": "f16-split-cross-host-to-device-device-ready.json",
+      "profile_sha256": "b6c3f6e23d56f7e99526892dec7a06c2c0d23cbfb834ff687a7bc942b137dede",
+      "runtime": {
+        "cache_mode": "HOT_CACHE",
+        "cold_slots": 0,
+        "hot_slots": 16,
+        "load_mode": "DIRECT_IO",
+        "miss_policy": "PROMOTE_AND_GPU"
+      },
+      "selected_transport": "HOST_TO_DEVICE",
+      "stderr_sha256": "02faae4655e553bb2d6f3e9c72eade0f0865c8d80fe0f292fa92b76971ff44f1"
+    }
+  ],
+  "mapping": {
+    "COLD_CACHE_BUFFERED": "BUFFERED",
+    "COLD_CACHE_DIRECT_IO": "DIRECT_IO",
+    "HOT_CACHE": "HOST_TO_DEVICE"
+  },
+  "model": {
+    "path": "/tmp/phase8-k3-f16-218/Kimi-K3-0.40B-F16-00001-of-00218.gguf",
+    "size": 342452864
+  },
+  "negative_cases": 5,
+  "nested_head": "31da30047fa05ef752c93e4b213264b4d41ccac6",
+  "positive_cases": 3,
+  "project_head": "e0d279d3c7575d7a380608897c9636fbc0a2227d",
+  "schema_version": "phase10-runtime-transport-compatibility-v1",
+  "status": "pass"
+}
