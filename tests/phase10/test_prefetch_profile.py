@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts" / "phase10"))
 
 from combine_transport_break_even import combine
-from capture_offline_replay import score_replay
+from capture_offline_replay import replay_envelopes, score_replay
 from capture_profile_compatibility import frozen_tuning_digest, retained_tunings
 from capture_transport_measurements import validate_measurement
 from measure_transport_break_even import derive
@@ -115,6 +115,14 @@ class PrefetchProfileTests(unittest.TestCase):
         changed_validation = {**tuning, "precision_bps": 5001}
         self.assertEqual(digest, frozen_tuning_digest(offline, changed_test))
         self.assertNotEqual(digest, frozen_tuning_digest(offline, changed_validation))
+
+    def test_replay_envelopes_are_canonical(self) -> None:
+        cells = [{"transport": "HOST_TO_DEVICE", "readiness": "DEVICE_READY"},
+            {"transport": "BUFFERED", "readiness": "DEVICE_READY"},
+            {"transport": "BUFFERED", "readiness": "HOST_READY"},
+            {"transport": "BUFFERED", "readiness": "DEVICE_READY"}]
+        self.assertEqual(replay_envelopes(cells), [("BUFFERED", "DEVICE_READY"),
+            ("BUFFERED", "HOST_READY"), ("HOST_TO_DEVICE", "DEVICE_READY")])
 
     def test_break_even_uses_project_costs(self) -> None:
         result = break_even({"lead_ns": 100, "demand_service_ns": 80, "predictor_compute_ns": 10,

@@ -211,6 +211,10 @@ def observed_working_set(profile: dict[str, Any], events: list[dict[str, Any]]) 
     return maximum
 
 
+def replay_envelopes(cells: list[dict[str, Any]]) -> list[tuple[str, str]]:
+    return sorted({(cell["transport"], cell["readiness"]) for cell in cells})
+
+
 def build_calibration_profile(
         archive: Path,
         storage_map: Path,
@@ -443,7 +447,7 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
                                                 "passes_point_break_even": metrics["predictions"] > 0 and
                                                     metrics["precision_bps"] >= cost["break_even_bps"]})
                 fold_shortlist = []
-                for envelope in {(cell["transport"], cell["readiness"]) for cell in cells}:
+                for envelope in replay_envelopes(cells):
                     for policy in ("STATIC_LAYER", "PREVIOUS_TOKEN", "TEMPORAL_FREQUENCY",
                             "CROSS_LAYER_TRANSITION", "RANDOM_BASELINE"):
                         eligible = [cell for cell in cells if (cell["transport"], cell["readiness"]) == envelope and
