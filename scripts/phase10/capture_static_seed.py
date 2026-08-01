@@ -105,8 +105,13 @@ def compare_metric(blocks: list[dict[str, Any]], name: str, higher_is_better: bo
     pairs = [block_means(block, name) for block in blocks]
     baseline = [pair[0] for pair in pairs]
     candidate = [pair[1] for pair in pairs]
-    relative = [((right - left)/left if higher_is_better else (left - right)/left)
-        for left, right in pairs]
+    def relative_change(left: float, right: float) -> float:
+        if left == 0:
+            if right == 0:
+                return 0.0
+            return 1.0 if higher_is_better else -1.0
+        return (right - left)/left if higher_is_better else (left - right)/left
+    relative = [relative_change(left, right) for left, right in pairs]
     absolute = [right - left for left, right in pairs]
     return {"baseline": distribution(baseline), "candidate": distribution(candidate),
         "absolute_candidate_minus_baseline": mean_interval(absolute),

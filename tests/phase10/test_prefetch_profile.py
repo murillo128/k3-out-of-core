@@ -152,6 +152,8 @@ class PrefetchProfileTests(unittest.TestCase):
         self.assertEqual(result["relative_improvement"]["mean"], .1)
         self.assertEqual(result["relative_improvement"]["ci95_low"], .1)
         self.assertEqual(mean_interval([1.0] * 10)["student_t_critical"], 2.262)
+        zero = compare_metric(blocks, "major_faults", False)
+        self.assertEqual(zero["relative_improvement"]["mean"], 0.0)
 
     def test_seed_usage_accounts_for_first_use_and_unload(self) -> None:
         value = profile()
