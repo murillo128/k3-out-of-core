@@ -51,19 +51,27 @@ def run_probe(probe: Path, output_dir: Path, case: dict[str, Any], profile: dict
                "--window", str(hot["window"]), "--aging", str(max(hot["aging"], cold["aging"])),
                "--n-ubatch", str(case["n_ubatch"]), "--max-generate", str(case["max_generate"]),
                "--background", str(case["background"]), "--observe-routes", str(case["observe_routes"])]
-    started = time.monotonic_ns()
-    completed = subprocess.run(command, capture_output=True, text=True, check=False)
-    wall_us = (time.monotonic_ns() - started)//1000
-    if completed.returncode != 0:
-        raise RuntimeError(f"{label} failed ({completed.returncode}): {completed.stderr[-4000:]}")
-    capture = json.loads(output.read_text())
+    capture = None
+    if output.exists():
+        try: capture = json.loads(output.read_text())
+        except (OSError, json.JSONDecodeError): pass
+    reused = capture is not None and capture.get("status") == "pass" and capture.get("command") == command
+    wall_us = None
+    if not reused:
+        started = time.monotonic_ns()
+        completed = subprocess.run(command, capture_output=True, text=True, check=False)
+        wall_us = (time.monotonic_ns() - started)//1000
+        if completed.returncode != 0:
+            raise RuntimeError(f"{label} failed ({completed.returncode}): {completed.stderr[-4000:]}")
+        capture = json.loads(output.read_text())
     latency = capture["latency_us"]
     output_identity = hashlib.sha256(canonical_json({"generated_ids": capture["generated_ids"],
         "logits_fnv64": capture["logits_fnv64"], "routes": capture["routes"]}).encode()).hexdigest()
     token_mean = statistics.fmean(latency)
     return {
         "label": label, "profile": profile, "artifact": file_identity(output), "command": command,
-        "wall_time_us": wall_us, "token_mean_us": token_mean, "token_latency_us": latency,
+        "wall_time_us": wall_us, "reused_exact_capture": reused,
+        "token_mean_us": token_mean, "token_latency_us": latency,
         "token_p95_us": distribution(latency)["p95"], "ttft_us": latency[0],
         "prompt_tokens_per_second": len(capture["prompt_ids"])*1e6/latency[0],
         "decode_tokens_per_second": ((len(latency) - 1)*1e6/sum(latency[1:]) if len(latency) > 1 else None),
@@ -88,6 +96,8 @@ def summarize_pair(case: dict[str, Any], candidate: dict[str, str], warmups: lis
     baseline_mean = statistics.fmean(baseline_token)
     return {
         "case": case["name"], "candidate": candidate, "abba_blocks": len(blocks),
+        "execution_regime": {"miss_policy": case["miss_policy"], "background": case["background"],
+                             "hot_slots": case["hot_slots"], "cold_bytes": case["cold_bytes"]},
         "output_identity_exact": len(identities) == 1,
         "token_time": {"baseline": distribution(baseline_token), "candidate": distribution(candidate_token),
                        "paired": token_interval,
@@ -170,21 +180,24 @@ def main() -> int:
         for case_index, case_value in enumerate(cases):
             candidates = finalists[1:] + ([per_layer] if case_value["observe_routes"] else [])
             for candidate_index, candidate in enumerate(candidates):
+                execution_case = dict(case_value)
+                if "PER_LAYER" in candidate["hot"] or "PER_LAYER" in candidate["cold"]:
+                    execution_case.update(miss_policy="CPU_FALLBACK", background=0)
                 warmups = [
-                    run_probe(args.probe, args.output_dir, case_value, baseline,
+                    run_probe(args.probe, args.output_dir, execution_case, baseline,
                               f"c{case_index}-p{candidate_index}-warmup-a"),
-                    run_probe(args.probe, args.output_dir, case_value, candidate,
+                    run_probe(args.probe, args.output_dir, execution_case, candidate,
                               f"c{case_index}-p{candidate_index}-warmup-b"),
                 ]
                 blocks = []
                 for block in range(args.abba_blocks):
                     prefix = f"c{case_index}-p{candidate_index}-b{block}"
-                    a1 = run_probe(args.probe, args.output_dir, case_value, baseline, prefix + "-a1")
-                    b1 = run_probe(args.probe, args.output_dir, case_value, candidate, prefix + "-b1")
-                    b2 = run_probe(args.probe, args.output_dir, case_value, candidate, prefix + "-b2")
-                    a2 = run_probe(args.probe, args.output_dir, case_value, baseline, prefix + "-a2")
+                    a1 = run_probe(args.probe, args.output_dir, execution_case, baseline, prefix + "-a1")
+                    b1 = run_probe(args.probe, args.output_dir, execution_case, candidate, prefix + "-b1")
+                    b2 = run_probe(args.probe, args.output_dir, execution_case, candidate, prefix + "-b2")
+                    a2 = run_probe(args.probe, args.output_dir, execution_case, baseline, prefix + "-a2")
                     blocks.append({"a": [a1, a2], "b": [b1, b2]})
-                comparisons.append(summarize_pair(case_value, candidate, warmups, blocks))
+                comparisons.append(summarize_pair(execution_case, candidate, warmups, blocks))
         if not all(row["output_identity_exact"] for row in comparisons):
             raise RuntimeError("a finalist changed model output identity")
         output = {"schema_version": "phase9-policy-statistics-v1", "status": "pass", "plan": plan,
