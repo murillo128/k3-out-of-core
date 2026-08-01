@@ -2,15 +2,16 @@
   "all_demand_enqueued_before_take": true,
   "all_demand_ready_before_use": true,
   "all_storage_submitted_before_wait": true,
-  "binary_sha256": "875661d8eda6da9a84c8257034adcd510314b971e33985d979ba10d826548c47",
-  "nested_head": "2bf0b29d5874fc0ef3e95c087e11e6d2ba1bfe20",
+  "binary_sha256": "2b23b1056a2515de0aed3e3bb3060ac308590d0feb9de5ac793fe92f1ea07485",
+  "deferred_retry_attempted_all_demands_before_wait": true,
+  "nested_head": "92d0a96ab86c8803a52dd1ce371e036462673d38",
   "parallel": {
     "demand_misses": 2,
     "demand_ready_before_use": 2,
     "scheduler_enqueued_before_first_take": 2,
     "storage_reads_submitted_before_first_wait": 2
   },
-  "project_head": "8b6f0cc12ebc32bb6fb1b2c491cb224c8a0f47c8",
+  "project_head": "71388f190ec65d3eac629e7d67a6c14f0e25e9e0",
   "queued_join_preserved_generation": true,
   "route_identity_preserved": true,
   "runs": [
@@ -19,16 +20,16 @@
         "/usr/local/src/k3-out-of-core/llama.cpp/build-phase10-cpu/bin/test-hot-expert-cache"
       ],
       "exit_code": 0,
-      "stderr_sha256": "cbcf92c61f3e77f316e5dfea2adf670cf4c84ef8b60d1adae2afab609e6235ea",
-      "stdout_sha256": "2935b995f3f7342f2efa59a77eb4aba78c42ed00f8ee388e5c079918642bf776"
+      "stderr_sha256": "09105985b4cd0ceb468e26d12fd375c264b0bd500870618ce48443b0a8c98300",
+      "stdout_sha256": "eae7575f84f6febf4e93cbcc39dbd73b18f660bd1afcbce82b03273d5da384fb"
     },
     {
       "command": [
         "/usr/local/src/k3-out-of-core/llama.cpp/build-phase10-cpu/bin/test-hot-expert-cache"
       ],
       "exit_code": 0,
-      "stderr_sha256": "cbcf92c61f3e77f316e5dfea2adf670cf4c84ef8b60d1adae2afab609e6235ea",
-      "stdout_sha256": "2935b995f3f7342f2efa59a77eb4aba78c42ed00f8ee388e5c079918642bf776"
+      "stderr_sha256": "09105985b4cd0ceb468e26d12fd375c264b0bd500870618ce48443b0a8c98300",
+      "stdout_sha256": "eae7575f84f6febf4e93cbcc39dbd73b18f660bd1afcbce82b03273d5da384fb"
     }
   ],
   "schema_version": "phase10-exact-issue-ahead-v1",

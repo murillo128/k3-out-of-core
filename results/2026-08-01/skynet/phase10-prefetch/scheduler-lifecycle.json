@@ -1,9 +1,9 @@
 {
-  "binary_sha256": "29b1094f238b4616a3f6b17758b4e850181748a07f8b593eb2a55800969ccf81",
+  "binary_sha256": "d677e255e8d21134c459a3a7301ccf348d431ec1f48b7288e8e172a4d3982b04",
   "cancelling_promotion_fenced": true,
   "demand_preemptions": 1,
-  "nested_head": "2bf0b29d5874fc0ef3e95c087e11e6d2ba1bfe20",
-  "project_head": "8b6f0cc12ebc32bb6fb1b2c491cb224c8a0f47c8",
+  "nested_head": "92d0a96ab86c8803a52dd1ce371e036462673d38",
+  "project_head": "71388f190ec65d3eac629e7d67a6c14f0e25e9e0",
   "queued_speculative_cancellations": 1,
   "retry_uses_new_generation": true,
   "runs": [
@@ -13,7 +13,7 @@
       ],
       "exit_code": 0,
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "stdout_sha256": "ca3f0d32cece771f501d3805e341781ad91cf76c691bf90ea0b0d903b60785cd"
+      "stdout_sha256": "e133cb8299d75eecec4b30932c976ebb7f83e63efcf4c5b21f7e549380528263"
     },
     {
       "command": [
@@ -21,13 +21,13 @@
       ],
       "exit_code": 0,
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "stdout_sha256": "ca3f0d32cece771f501d3805e341781ad91cf76c691bf90ea0b0d903b60785cd"
+      "stdout_sha256": "e133cb8299d75eecec4b30932c976ebb7f83e63efcf4c5b21f7e549380528263"
     }
   ],
   "same_generation_demand_promotions": 1,
   "schema_version": "phase10-scheduler-lifecycle-v1",
   "speculative_budget_rejections": 1,
   "submitted_shutdown_drained": true,
-  "submitted_speculation_preserves_demand_headroom": true,
+  "submitted_speculation_preserves_demand_set_headroom": true,
   "zero_final_speculative_charges": true
 }
