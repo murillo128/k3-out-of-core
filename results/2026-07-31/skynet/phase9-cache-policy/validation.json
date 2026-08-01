@@ -22,7 +22,7 @@
         "-j4"
       ],
       "cwd": "/usr/local/src/k3-out-of-core",
-      "duration_ms": 876,
+      "duration_ms": 874,
       "exit_code": 0,
       "name": "build-cpu",
       "required": true,
@@ -64,11 +64,11 @@
       "required": true,
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "stderr_tail": [],
-      "stdout_sha256": "7b074cbd5db3a438c4d9fb6199adc800040183436937d859b82a9edc20aad5f1",
+      "stdout_sha256": "b3aaa16aad1a9802556f79aba1acf4bfd72e4fb8396ab9cb366f18de0bacbecb",
       "stdout_tail": [
         "1/5 Test #44: test-expert-weight-provider ......   Passed    0.00 sec",
         "    Start 45: test-expert-miss-policy",
-        "2/5 Test #45: test-expert-miss-policy ..........   Passed    0.01 sec",
+        "2/5 Test #45: test-expert-miss-policy ..........   Passed    0.02 sec",
         "    Start 46: test-expert-cache-policy",
         "3/5 Test #46: test-expert-cache-policy .........   Passed    0.00 sec",
         "    Start 49: test-hot-expert-cache",
@@ -101,7 +101,7 @@
         "-j4"
       ],
       "cwd": "/usr/local/src/k3-out-of-core",
-      "duration_ms": 1459,
+      "duration_ms": 1450,
       "exit_code": 0,
       "name": "build-cuda",
       "required": true,
@@ -137,13 +137,13 @@
         "expert-cache-policy|hot-expert-cache|cold-expert-cache|expert-weight-provider|expert-miss-policy"
       ],
       "cwd": "/usr/local/src/k3-out-of-core",
-      "duration_ms": 339,
+      "duration_ms": 318,
       "exit_code": 0,
       "name": "ctest-cuda",
       "required": true,
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "stderr_tail": [],
-      "stdout_sha256": "b4129e88c05382184b16037e6c31e460a9dd77928c17677eea3bc8176952070f",
+      "stdout_sha256": "95fcce659ce624cea8650dd93107287d91da6666e62be34ccb71f3a47edaafc5",
       "stdout_tail": [
         "1/5 Test #44: test-expert-weight-provider ......   Passed    0.02 sec",
         "    Start 45: test-expert-miss-policy",
@@ -151,16 +151,16 @@
         "    Start 46: test-expert-cache-policy",
         "3/5 Test #46: test-expert-cache-policy .........   Passed    0.02 sec",
         "    Start 49: test-hot-expert-cache",
-        "4/5 Test #49: test-hot-expert-cache ............   Passed    0.13 sec",
+        "4/5 Test #49: test-hot-expert-cache ............   Passed    0.11 sec",
         "    Start 50: test-cold-expert-cache",
         "5/5 Test #50: test-cold-expert-cache ...........   Passed    0.02 sec",
         "",
         "100% tests passed, 0 tests failed out of 5",
         "",
         "Label Time Summary:",
-        "model    =   0.33 sec*proc (5 tests)",
+        "model    =   0.31 sec*proc (5 tests)",
         "",
-        "Total Test time (real) =   0.33 sec"
+        "Total Test time (real) =   0.31 sec"
       ]
     },
     {
@@ -178,7 +178,7 @@
         "-DCMAKE_BUILD_TYPE=RelWithDebInfo"
       ],
       "cwd": "/usr/local/src/k3-out-of-core",
-      "duration_ms": 386,
+      "duration_ms": 383,
       "exit_code": 0,
       "name": "configure-asan-ubsan",
       "required": true,
@@ -225,7 +225,7 @@
         "-j4"
       ],
       "cwd": "/usr/local/src/k3-out-of-core",
-      "duration_ms": 941,
+      "duration_ms": 940,
       "exit_code": 0,
       "name": "build-asan-ubsan",
       "required": true,
@@ -261,7 +261,7 @@
         "expert-cache-policy|hot-expert-cache|cold-expert-cache|expert-weight-provider|expert-miss-policy"
       ],
       "cwd": "/usr/local/src/k3-out-of-core",
-      "duration_ms": 652,
+      "duration_ms": 645,
       "environment": {
         "ASAN_OPTIONS": "detect_leaks=1:halt_on_error=1",
         "UBSAN_OPTIONS": "halt_on_error=1:print_stacktrace=1"
@@ -271,15 +271,15 @@
       "required": true,
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "stderr_tail": [],
-      "stdout_sha256": "1913ba90205e56909e2984e6cad819711b37299324463e3b7f71a5aa98f4f2c1",
+      "stdout_sha256": "de8c9c99d98c63edf8e3126d20ed6a1ee33c810751d25711dacebfc4fdd0b42a",
       "stdout_tail": [
-        "1/5 Test #43: test-expert-weight-provider ......   Passed    0.11 sec",
+        "1/5 Test #43: test-expert-weight-provider ......   Passed    0.10 sec",
         "    Start 44: test-expert-miss-policy",
         "2/5 Test #44: test-expert-miss-policy ..........   Passed    0.12 sec",
         "    Start 45: test-expert-cache-policy",
         "3/5 Test #45: test-expert-cache-policy .........   Passed    0.10 sec",
         "    Start 48: test-hot-expert-cache",
-        "4/5 Test #48: test-hot-expert-cache ............   Passed    0.19 sec",
+        "4/5 Test #48: test-hot-expert-cache ............   Passed    0.18 sec",
         "    Start 49: test-cold-expert-cache",
         "5/5 Test #49: test-cold-expert-cache ...........   Passed    0.13 sec",
         "",
@@ -288,7 +288,7 @@
         "Label Time Summary:",
         "model    =   0.64 sec*proc (5 tests)",
         "",
-        "Total Test time (real) =   0.65 sec"
+        "Total Test time (real) =   0.64 sec"
       ]
     },
     {
@@ -305,7 +305,7 @@
         "-DCMAKE_BUILD_TYPE=RelWithDebInfo"
       ],
       "cwd": "/usr/local/src/k3-out-of-core",
-      "duration_ms": 384,
+      "duration_ms": 383,
       "exit_code": 0,
       "name": "configure-tsan",
       "required": true,
@@ -388,7 +388,7 @@
         "expert-cache-policy|hot-expert-cache|cold-expert-cache|expert-weight-provider|expert-miss-policy"
       ],
       "cwd": "/usr/local/src/k3-out-of-core",
-      "duration_ms": 36,
+      "duration_ms": 1098,
       "environment": {
         "TSAN_OPTIONS": "halt_on_error=1 history_size=7 ignore_noninstrumented_modules=1"
       },
@@ -399,21 +399,21 @@
       "stderr_tail": [
         "Errors while running CTest"
       ],
-      "stdout_sha256": "3641a86d2532781fe0435f15b3baabd23c4e3982f41dd9718a0a77d1034483fa",
+      "stdout_sha256": "534e32dcc6482009e657382f2b185e673d7cca06ed49d7463995fcaa541bfb0f",
       "stdout_tail": [
-        "FATAL: ThreadSanitizer: unexpected memory mapping 0x5f428729f000-0x5f42872a2000",
+        "5/5 Test #50: test-cold-expert-cache ...........***Failed    0.01 sec",
+        "FATAL: ThreadSanitizer: unexpected memory mapping 0x62d95e7e5000-0x62d95e7e8000",
         "",
         "",
-        "0% tests passed, 5 tests failed out of 5",
+        "20% tests passed, 4 tests failed out of 5",
         "",
         "Label Time Summary:",
-        "model    =   0.03 sec*proc (5 tests)",
+        "model    =   1.09 sec*proc (5 tests)",
         "",
-        "Total Test time (real) =   0.03 sec",
+        "Total Test time (real) =   1.09 sec",
         "",
         "The following tests FAILED:",
         "\t 44 - test-expert-weight-provider (Failed)",
-        "\t 45 - test-expert-miss-policy (Failed)",
         "\t 46 - test-expert-cache-policy (Failed)",
         "\t 49 - test-hot-expert-cache (Failed)",
         "\t 50 - test-cold-expert-cache (Failed)"
@@ -434,13 +434,13 @@
         "expert-cache-policy|hot-expert-cache|cold-expert-cache|expert-weight-provider|expert-miss-policy"
       ],
       "cwd": "/usr/local/src/k3-out-of-core",
-      "duration_ms": 1556,
+      "duration_ms": 1555,
       "exit_code": 0,
       "name": "ctest-tsan-aslr-disabled",
       "required": true,
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "stderr_tail": [],
-      "stdout_sha256": "dc28835d62249d7fee4b56d841a87080665e8f8547b3fc929be930aa0fbbc602",
+      "stdout_sha256": "56b052d6e559ae2d2e3de7ef68de8c2bb1b73882a156014a4f9ad464730ae1fc",
       "stdout_tail": [
         "1/5 Test #44: test-expert-weight-provider ......   Passed    0.01 sec",
         "    Start 45: test-expert-miss-policy",
@@ -450,7 +450,7 @@
         "    Start 49: test-hot-expert-cache",
         "4/5 Test #49: test-hot-expert-cache ............   Passed    0.35 sec",
         "    Start 50: test-cold-expert-cache",
-        "5/5 Test #50: test-cold-expert-cache ...........   Passed    0.11 sec",
+        "5/5 Test #50: test-cold-expert-cache ...........   Passed    0.10 sec",
         "",
         "100% tests passed, 0 tests failed out of 5",
         "",
@@ -473,7 +473,7 @@
         "-v"
       ],
       "cwd": "/usr/local/src/k3-out-of-core",
-      "duration_ms": 52,
+      "duration_ms": 51,
       "exit_code": 0,
       "name": "phase2-evidence-tests",
       "required": true,
@@ -512,11 +512,11 @@
         "-v"
       ],
       "cwd": "/usr/local/src/k3-out-of-core",
-      "duration_ms": 124,
+      "duration_ms": 119,
       "exit_code": 0,
       "name": "phase8-evidence-tests",
       "required": true,
-      "stderr_sha256": "e2a6b0a4b153007458efd8e331bcd31acd57ee6d72f0245771155f28e4a3d894",
+      "stderr_sha256": "33f02c1e51126c14163345d64244cdec104dd36e603f55b2abc63e74da3e9714",
       "stderr_tail": [
         "test_rejects_invalid_closeout_flags (test_verify_checkpoint_b.VerifyCheckpointBTests.test_rejects_invalid_closeout_flags) ... ok",
         "test_rejects_missing_case (test_verify_checkpoint_b.VerifyCheckpointBTests.test_rejects_missing_case) ... ok",
@@ -531,7 +531,7 @@
         "test_rejects_v1_schema (test_verify_checkpoint_b.VerifyCheckpointBTests.test_rejects_v1_schema) ... ok",
         "",
         "----------------------------------------------------------------------",
-        "Ran 32 tests in 0.045s",
+        "Ran 32 tests in 0.040s",
         "",
         "OK"
       ],
@@ -551,11 +551,11 @@
         "-v"
       ],
       "cwd": "/usr/local/src/k3-out-of-core",
-      "duration_ms": 2365,
+      "duration_ms": 2353,
       "exit_code": 0,
       "name": "phase9-evidence-tests",
       "required": true,
-      "stderr_sha256": "21084f9ab032d27b5f1604d8fd592dc08ecb9e96c547a079d7bae67496d00a62",
+      "stderr_sha256": "39917f02195d5b59aae87734b8ce6b302dd357579199bc0f3789a88f4cde5142",
       "stderr_tail": [
         "test_hand_computed_shuffled_terminal_order (test_cache_policy_simulator.CachePolicySimulatorTests.test_hand_computed_shuffled_terminal_order) ... ok",
         "test_native_python_metamorphic_matrix (test_cache_policy_simulator.CachePolicySimulatorTests.test_native_python_metamorphic_matrix) ... ok",
@@ -570,7 +570,7 @@
         "test_working_set_uses_canonical_demand_keys (test_phase9_evidence.Phase9EvidenceTests.test_working_set_uses_canonical_demand_keys) ... ok",
         "",
         "----------------------------------------------------------------------",
-        "Ran 14 tests in 2.282s",
+        "Ran 14 tests in 2.270s",
         "",
         "OK"
       ],
@@ -585,8 +585,8 @@
         "results/2026-07-31/skynet/phase8-miss-execution/phase8-manifest.json",
         "--strict"
       ],
-      "cwd": "/tmp/k3-phase9-phase8-current-fkturpf3/project",
-      "duration_ms": 16479,
+      "cwd": "/tmp/k3-phase9-phase8-current-fap3c63x/project",
+      "duration_ms": 16443,
       "exit_code": 1,
       "name": "phase8-verifier-current-superseded",
       "required": false,
@@ -613,8 +613,8 @@
         "results/2026-07-31/skynet/phase8-miss-execution/phase8-manifest.json",
         "--strict"
       ],
-      "cwd": "/tmp/k3-phase9-phase8-accepted-ck1z2h3q/project",
-      "duration_ms": 16918,
+      "cwd": "/tmp/k3-phase9-phase8-accepted-on8d__pl/project",
+      "duration_ms": 16928,
       "exit_code": 0,
       "name": "phase8-verifier-accepted-head",
       "required": true,
@@ -635,7 +635,7 @@
         "dc4d50c68378d908131b518662160fdd08f4e005..HEAD"
       ],
       "cwd": "/usr/local/src/k3-out-of-core",
-      "duration_ms": 8,
+      "duration_ms": 9,
       "exit_code": 0,
       "name": "diff-check-nested",
       "required": true,
@@ -652,7 +652,7 @@
         "17a4e5be38a4820984a7bd4d3082695d8822c9ba..HEAD"
       ],
       "cwd": "/usr/local/src/k3-out-of-core",
-      "duration_ms": 3,
+      "duration_ms": 4,
       "exit_code": 0,
       "name": "diff-check-project",
       "required": true,
@@ -748,7 +748,7 @@
   "revisions": {
     "gitlink": "fd29c0f9e868e838d3641cd13eb6ceb8c1535f01",
     "llama_cpp": "fd29c0f9e868e838d3641cd13eb6ceb8c1535f01",
-    "project": "f2389e0373af95d46532c911809316e22fd61c3c"
+    "project": "97144b9419bd26099a1b4143f71c84e299d8e117"
   },
   "schema_version": "phase9-validation-v1",
   "status": "pass",
