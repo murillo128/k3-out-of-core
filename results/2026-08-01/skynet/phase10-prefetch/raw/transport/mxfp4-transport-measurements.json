@@ -1,0 +1,153 @@
+{
+  "envelopes": [
+    {
+      "demand_service_p50_ns": 4663,
+      "displacement_refill_p95_ns": 5227,
+      "h2d_bytes": 0,
+      "lead_p50_ns": 926670,
+      "predictor_compute_p95_ns": 1903,
+      "readiness": "HOST_READY",
+      "scheduler_demand_delay_p95_ns": 0,
+      "speculative_service_p95_ns": 5227,
+      "storage_bytes": 208896,
+      "supported": true,
+      "transport": "BUFFERED",
+      "utility_min_observations": 32,
+      "utility_window_predictions": 64
+    },
+    {
+      "demand_service_p50_ns": 150391,
+      "displacement_refill_p95_ns": 278216,
+      "h2d_bytes": 0,
+      "lead_p50_ns": 926670,
+      "predictor_compute_p95_ns": 1903,
+      "readiness": "HOST_READY",
+      "scheduler_demand_delay_p95_ns": 0,
+      "speculative_service_p95_ns": 278216,
+      "storage_bytes": 208896,
+      "supported": true,
+      "transport": "DIRECT_IO",
+      "utility_min_observations": 32,
+      "utility_window_predictions": 64
+    },
+    {
+      "demand_service_p50_ns": 21456,
+      "displacement_refill_p95_ns": 21994,
+      "h2d_bytes": 208896,
+      "lead_p50_ns": 926670,
+      "predictor_compute_p95_ns": 1903,
+      "readiness": "DEVICE_READY",
+      "scheduler_demand_delay_p95_ns": 0,
+      "speculative_service_p95_ns": 21994,
+      "storage_bytes": 0,
+      "supported": true,
+      "transport": "HOST_TO_DEVICE",
+      "utility_min_observations": 32,
+      "utility_window_predictions": 64
+    },
+    {
+      "demand_service_p50_ns": 26170,
+      "displacement_refill_p95_ns": 26839,
+      "h2d_bytes": 208896,
+      "lead_p50_ns": 926670,
+      "predictor_compute_p95_ns": 1903,
+      "readiness": "DEVICE_READY",
+      "scheduler_demand_delay_p95_ns": 0,
+      "speculative_service_p95_ns": 26839,
+      "storage_bytes": 208896,
+      "supported": true,
+      "transport": "BUFFERED",
+      "utility_min_observations": 32,
+      "utility_window_predictions": 64
+    },
+    {
+      "demand_service_p50_ns": 172722,
+      "displacement_refill_p95_ns": 299596,
+      "h2d_bytes": 208896,
+      "lead_p50_ns": 926670,
+      "predictor_compute_p95_ns": 1903,
+      "readiness": "DEVICE_READY",
+      "scheduler_demand_delay_p95_ns": 0,
+      "speculative_service_p95_ns": 299596,
+      "storage_bytes": 208896,
+      "supported": true,
+      "transport": "DIRECT_IO",
+      "utility_min_observations": 32,
+      "utility_window_predictions": 64
+    }
+  ],
+  "host": "skynet",
+  "lead_measurements": {
+    "basis": "minimum p50 of observed token-end-to-router and adjacent-router intervals",
+    "conservative_lead_p50_ns": 926670,
+    "cross_layer_p50_ns": 926670,
+    "cross_layer_samples": 30,
+    "decode_submissions": 5,
+    "provider_event_capacity": 256,
+    "provider_events_dropped": 0,
+    "token_end_p50_ns": 3241674,
+    "token_end_samples": 35
+  },
+  "model_profile_load_ns": 2523496933,
+  "nested_head": "107f6e1111e4df5d07b2cbb46a2d12b26aa782f6",
+  "predictor_upper_bound": {
+    "basis": "maximum p95 over full-token topology-capped declared predictors",
+    "measurements": [
+      {
+        "candidates_per_target": 8,
+        "p50_ns": 599,
+        "p95_ns": 618,
+        "p99_ns": 657,
+        "policy": "STATIC_LAYER",
+        "repetitions": 1000,
+        "target_layers_per_call": 7,
+        "temporal_window_tokens": 0
+      },
+      {
+        "candidates_per_target": 8,
+        "p50_ns": 223,
+        "p95_ns": 225,
+        "p99_ns": 241,
+        "policy": "PREVIOUS_TOKEN",
+        "repetitions": 1000,
+        "target_layers_per_call": 7,
+        "temporal_window_tokens": 0
+      },
+      {
+        "candidates_per_target": 8,
+        "p50_ns": 1072,
+        "p95_ns": 1111,
+        "p99_ns": 1151,
+        "policy": "TEMPORAL_FREQUENCY",
+        "repetitions": 1000,
+        "target_layers_per_call": 7,
+        "temporal_window_tokens": 64
+      },
+      {
+        "candidates_per_target": 8,
+        "p50_ns": 1891,
+        "p95_ns": 1903,
+        "p99_ns": 1987,
+        "policy": "CROSS_LAYER_TRANSITION",
+        "repetitions": 1000,
+        "target_layers_per_call": 6,
+        "temporal_window_tokens": 0
+      },
+      {
+        "candidates_per_target": 8,
+        "p50_ns": 1006,
+        "p95_ns": 1033,
+        "p99_ns": 1373,
+        "policy": "RANDOM_BASELINE",
+        "repetitions": 1000,
+        "target_layers_per_call": 7,
+        "temporal_window_tokens": 0
+      }
+    ],
+    "upper_bound_p95_ns": 1903
+  },
+  "profile_parse_ns": 1145322,
+  "profile_sha256": "9f9a99aa59ca94c56df63a5b8906f7c5960c57e71edb4717d3cd76218fe18566",
+  "project_head": "eff509d2dadde72d95e986d876bdc663f7b8f552",
+  "schema_version": "phase10-transport-measurements-v1"
+}
