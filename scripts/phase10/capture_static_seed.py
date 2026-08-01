@@ -178,9 +178,10 @@ def validate_capture(document: dict[str, Any], validator: Draft202012Validator,
     expected_entries = len(profile["seed"])
     expected_bytes = sum(item["physical_bytes"] for item in profile["seed"])
     if enabled:
+        expected_storage = expected_bytes if runtime["cache_mode"] == "COLD_CACHE" else 0
         if not seed["configured"] or not seed["complete"] or seed["attempts"] != 1 or \
                 seed["failures"] != 0 or seed["entries"] != expected_entries or \
-                seed["storage_bytes"] != expected_bytes or seed["h2d_bytes"] != expected_bytes:
+                seed["storage_bytes"] != expected_storage or seed["h2d_bytes"] != expected_bytes:
             raise Phase10Error("blocking seed accounting mismatch")
     elif any((seed["configured"], seed["complete"], seed["attempts"], seed["failures"],
             seed["entries"], seed["storage_bytes"], seed["h2d_bytes"])):
@@ -271,11 +272,14 @@ def main() -> int:
         runtime = {"cache_mode": args.cache_mode, "load_mode": args.load_mode,
             "miss_policy": args.miss_policy, "hot_slots": args.hot_slots, "cold_slots": args.cold_slots}
         footprint = {item["physical_bytes"] for item in profile["target"]["expert_bytes"]}
-        if len(footprint) != 1 or next(iter(footprint)) != working["one_expert_footprint_bytes"]:
+        bundle_bytes = next(iter(footprint)) if len(footprint) == 1 else 0
+        slot_footprint = working["one_expert_footprint_bytes"]
+        if bundle_bytes == 0 or bundle_bytes > slot_footprint or slot_footprint - bundle_bytes > 4096:
             raise Phase10Error("profile bundle bytes differ from Phase 9 working-set evidence")
         observed = working["observed_capacities"]
-        exact_phase9_capacity = args.hot_slots == observed["hot_effective_slots"] and \
-            args.cold_slots == observed["cold_effective_slots"]
+        exact_phase9_capacity = args.hot_slots == observed["hot_effective_slots"] and (
+            (args.cache_mode == "COLD_CACHE" and args.cold_slots == observed["cold_effective_slots"]) or
+            (args.cache_mode == "HOT_CACHE" and args.cold_slots == 0))
         if not exact_phase9_capacity:
             raise Phase10Error("seed qualification must use the accepted Phase 9 capacity point")
         schema_path = ROOT / "schemas/phase10/performance-capture-v1.schema.json"
@@ -340,7 +344,6 @@ def main() -> int:
             "runtime_learning_absent": True,
         }
         qualifies = all(gates.values())
-        bundle_bytes = next(iter(footprint))
         output = {"schema_version": "phase10-seed-performance-v1",
             "status": "pass" if qualifies else "fail", "project_head": args.project_head,
             "nested_head": args.nested_head, "profile": file_record(args.profile),
@@ -353,9 +356,12 @@ def main() -> int:
             "cells": summaries, "raw_runs": file_record(args.raw_output),
             "headroom": {"phase9_working_sets": file_record(args.phase9_working_sets),
                 "phase9_case": args.phase9_case, "exact_capacity_point": exact_phase9_capacity,
-                "hot_bytes": args.hot_slots*bundle_bytes, "cold_bytes": args.cold_slots*bundle_bytes,
-                "seed_ring_bytes": len(profile["seed"])*bundle_bytes,
-                "host_managed_bytes": (args.cold_slots + len(profile["seed"]))*bundle_bytes,
+                "expert_bundle_bytes": bundle_bytes, "phase9_slot_footprint_bytes": slot_footprint,
+                "hot_bytes": args.hot_slots*slot_footprint,
+                "cold_bytes": args.cold_slots*slot_footprint,
+                "seed_ring_bytes": len(profile["seed"])*bundle_bytes if args.cache_mode == "COLD_CACHE" else 0,
+                "host_managed_bytes": args.cold_slots*slot_footprint +
+                    (len(profile["seed"])*bundle_bytes if args.cache_mode == "COLD_CACHE" else 0),
                 "safe_ceiling_bytes": working_sets["headroom"]["safe_ceiling_bytes"]},
             "gates": gates, "qualifies": qualifies}
         aggregate_schema = load(ROOT / "schemas/phase10/seed-performance-v1.schema.json")
