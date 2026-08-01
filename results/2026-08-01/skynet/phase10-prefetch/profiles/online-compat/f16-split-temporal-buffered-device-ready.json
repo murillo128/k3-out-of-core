@@ -1,15 +1,15 @@
 {
   "costs": [
     {
-      "break_even_bps": 8267,
-      "demand_service_ns": 2874000,
-      "displacement_refill_ns": 3038000,
+      "break_even_bps": 8247,
+      "demand_service_ns": 2970000,
+      "displacement_refill_ns": 3112000,
       "h2d_bytes": 786432,
-      "lead_ns": 2223155,
-      "predictor_compute_ns": 1754,
+      "lead_ns": 2290267,
+      "predictor_compute_ns": 1756,
       "readiness": "DEVICE_READY",
-      "scheduler_demand_delay_ns": 54352,
-      "speculative_service_ns": 7496000,
+      "scheduler_demand_delay_ns": 55417,
+      "speculative_service_ns": 7594000,
       "storage_bytes": 786432,
       "transport": "BUFFERED",
       "utility_min_observations": 32,
@@ -19,13 +19,13 @@
     {
       "break_even_bps": 10000,
       "demand_service_ns": 2000,
-      "displacement_refill_ns": 680000,
+      "displacement_refill_ns": 683000,
       "h2d_bytes": 0,
-      "lead_ns": 2223155,
-      "predictor_compute_ns": 1754,
+      "lead_ns": 2290267,
+      "predictor_compute_ns": 1756,
       "readiness": "HOST_READY",
-      "scheduler_demand_delay_ns": 54352,
-      "speculative_service_ns": 2648000,
+      "scheduler_demand_delay_ns": 55417,
+      "speculative_service_ns": 2643000,
       "storage_bytes": 786432,
       "transport": "BUFFERED",
       "utility_min_observations": 32,
@@ -33,15 +33,15 @@
       "utility_window_predictions": 64
     },
     {
-      "break_even_bps": 6729,
+      "break_even_bps": 6731,
       "demand_service_ns": 3192000,
-      "displacement_refill_ns": 3200000,
+      "displacement_refill_ns": 3201000,
       "h2d_bytes": 0,
-      "lead_ns": 5428954,
-      "predictor_compute_ns": 1756,
+      "lead_ns": 5434063,
+      "predictor_compute_ns": 1762,
       "readiness": "HOST_READY",
-      "scheduler_demand_delay_ns": 54230,
-      "speculative_service_ns": 3306000,
+      "scheduler_demand_delay_ns": 55129,
+      "speculative_service_ns": 3308000,
       "storage_bytes": 786432,
       "transport": "DIRECT_IO",
       "utility_min_observations": 32,
@@ -49,15 +49,15 @@
       "utility_window_predictions": 64
     },
     {
-      "break_even_bps": 7408,
-      "demand_service_ns": 90000,
-      "displacement_refill_ns": 98000,
+      "break_even_bps": 7428,
+      "demand_service_ns": 95000,
+      "displacement_refill_ns": 106000,
       "h2d_bytes": 786432,
-      "lead_ns": 2223155,
-      "predictor_compute_ns": 1754,
+      "lead_ns": 2290267,
+      "predictor_compute_ns": 1756,
       "readiness": "DEVICE_READY",
-      "scheduler_demand_delay_ns": 54352,
-      "speculative_service_ns": 98000,
+      "scheduler_demand_delay_ns": 55417,
+      "speculative_service_ns": 106000,
       "storage_bytes": 0,
       "transport": "HOST_TO_DEVICE",
       "utility_min_observations": 32,
@@ -168,7 +168,7 @@
     }
   ],
   "selection": {
-    "break_even_bps": 8267,
+    "break_even_bps": 8247,
     "candidates_per_target": 2,
     "fold_index": 0,
     "matrix_version": 1,
@@ -176,7 +176,7 @@
     "readiness": "DEVICE_READY",
     "temporal_window_tokens": 4,
     "transport": "BUFFERED",
-    "tuning_digest": "d94642d47249a5f131b0bf84f34d5e14a31db3dd00c563f89ee692228fb4baea"
+    "tuning_digest": "2d9bf9fb9583397e7d68bba0f9277b601ee444e3eac88a3ab14fd523c897f0b2"
   },
   "source": {
     "artifacts": [
@@ -207,8 +207,8 @@
       },
       {
         "name": "f16-split-target-costs.json",
-        "sha256": "bbe13d2f516c6ba7a494e3359b7856f239e36f41f52e15eb725cd4dd498b6b29",
-        "size": 48257
+        "sha256": "90b588504d2f292e9ec72c3e07816847e173c019dc11693aee134df843bcbaec",
+        "size": 48259
       }
     ],
     "fold": {

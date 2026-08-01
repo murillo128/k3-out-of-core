@@ -1,15 +1,15 @@
 {
   "costs": [
     {
-      "break_even_bps": 8334,
+      "break_even_bps": 8328,
       "demand_service_ns": 681000,
-      "displacement_refill_ns": 996000,
+      "displacement_refill_ns": 965000,
       "h2d_bytes": 208896,
-      "lead_ns": 1432055,
-      "predictor_compute_ns": 1790,
+      "lead_ns": 1352685,
+      "predictor_compute_ns": 1815,
       "readiness": "DEVICE_READY",
-      "scheduler_demand_delay_ns": 54452,
-      "speculative_service_ns": 2344000,
+      "scheduler_demand_delay_ns": 54136,
+      "speculative_service_ns": 2361000,
       "storage_bytes": 208896,
       "transport": "BUFFERED",
       "utility_min_observations": 32,
@@ -17,15 +17,15 @@
       "utility_window_predictions": 64
     },
     {
-      "break_even_bps": 9998,
+      "break_even_bps": 9999,
       "demand_service_ns": 2000,
       "displacement_refill_ns": 182000,
       "h2d_bytes": 0,
-      "lead_ns": 1432055,
-      "predictor_compute_ns": 1790,
+      "lead_ns": 1352685,
+      "predictor_compute_ns": 1815,
       "readiness": "HOST_READY",
-      "scheduler_demand_delay_ns": 54452,
-      "speculative_service_ns": 719000,
+      "scheduler_demand_delay_ns": 54136,
+      "speculative_service_ns": 722000,
       "storage_bytes": 208896,
       "transport": "BUFFERED",
       "utility_min_observations": 32,
@@ -33,14 +33,14 @@
       "utility_window_predictions": 64
     },
     {
-      "break_even_bps": 7899,
-      "demand_service_ns": 54000,
-      "displacement_refill_ns": 70000,
+      "break_even_bps": 7945,
+      "demand_service_ns": 52000,
+      "displacement_refill_ns": 68000,
       "h2d_bytes": 208896,
-      "lead_ns": 1432055,
-      "predictor_compute_ns": 1790,
+      "lead_ns": 1352685,
+      "predictor_compute_ns": 1815,
       "readiness": "DEVICE_READY",
-      "scheduler_demand_delay_ns": 54452,
+      "scheduler_demand_delay_ns": 54136,
       "speculative_service_ns": 70000,
       "storage_bytes": 0,
       "transport": "HOST_TO_DEVICE",
@@ -152,7 +152,7 @@
     }
   ],
   "selection": {
-    "break_even_bps": 8334,
+    "break_even_bps": 8328,
     "candidates_per_target": 2,
     "fold_index": 0,
     "matrix_version": 1,
@@ -160,7 +160,7 @@
     "readiness": "DEVICE_READY",
     "temporal_window_tokens": 4,
     "transport": "BUFFERED",
-    "tuning_digest": "36b93cfe7a8ca50871508a9b95490815b8ac31435bcbe103c28826aeceeebc1c"
+    "tuning_digest": "8f5a774ed9521903f6c4882b663b55131dd05af811393be4278c8bdd860ef44e"
   },
   "source": {
     "artifacts": [
@@ -191,7 +191,7 @@
       },
       {
         "name": "mxfp4-split-target-costs.json",
-        "sha256": "7c89a7958db951423aa2c9ea2b8c76f1fc44150f44769d3d4df75a7c2cb663f7",
+        "sha256": "96cc29410ec060c669dda5ff036b6d2397956a5ad4893b361904f651f8629729",
         "size": 47684
       }
     ],

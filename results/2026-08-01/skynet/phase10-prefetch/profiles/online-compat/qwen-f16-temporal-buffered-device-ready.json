@@ -1,15 +1,15 @@
 {
   "costs": [
     {
-      "break_even_bps": 7295,
-      "demand_service_ns": 90551000,
-      "displacement_refill_ns": 121693000,
+      "break_even_bps": 7310,
+      "demand_service_ns": 89797000,
+      "displacement_refill_ns": 121699000,
       "h2d_bytes": 17301504,
-      "lead_ns": 131679054,
-      "predictor_compute_ns": 26530,
+      "lead_ns": 131563251,
+      "predictor_compute_ns": 26350,
       "readiness": "DEVICE_READY",
-      "scheduler_demand_delay_ns": 492512,
-      "speculative_service_ns": 121829000,
+      "scheduler_demand_delay_ns": 486420,
+      "speculative_service_ns": 121699000,
       "storage_bytes": 17301504,
       "transport": "BUFFERED",
       "utility_min_observations": 32,
@@ -17,15 +17,15 @@
       "utility_window_predictions": 64
     },
     {
-      "break_even_bps": 8526,
-      "demand_service_ns": 14643000,
-      "displacement_refill_ns": 41894000,
+      "break_even_bps": 8562,
+      "demand_service_ns": 14203000,
+      "displacement_refill_ns": 41956000,
       "h2d_bytes": 0,
-      "lead_ns": 131679054,
-      "predictor_compute_ns": 26530,
+      "lead_ns": 131563251,
+      "predictor_compute_ns": 26350,
       "readiness": "HOST_READY",
-      "scheduler_demand_delay_ns": 492512,
-      "speculative_service_ns": 42068000,
+      "scheduler_demand_delay_ns": 486420,
+      "speculative_service_ns": 41932000,
       "storage_bytes": 17301504,
       "transport": "BUFFERED",
       "utility_min_observations": 32,
@@ -33,15 +33,15 @@
       "utility_window_predictions": 64
     },
     {
-      "break_even_bps": 7083,
-      "demand_service_ns": 1390000,
-      "displacement_refill_ns": 1396000,
+      "break_even_bps": 7079,
+      "demand_service_ns": 1389000,
+      "displacement_refill_ns": 1395000,
       "h2d_bytes": 17301504,
-      "lead_ns": 131679054,
-      "predictor_compute_ns": 26530,
+      "lead_ns": 131563251,
+      "predictor_compute_ns": 26350,
       "readiness": "DEVICE_READY",
-      "scheduler_demand_delay_ns": 492512,
-      "speculative_service_ns": 1395000,
+      "scheduler_demand_delay_ns": 486420,
+      "speculative_service_ns": 1393000,
       "storage_bytes": 0,
       "transport": "HOST_TO_DEVICE",
       "utility_min_observations": 32,
@@ -152,7 +152,7 @@
     }
   ],
   "selection": {
-    "break_even_bps": 7295,
+    "break_even_bps": 7310,
     "candidates_per_target": 2,
     "fold_index": 0,
     "matrix_version": 1,
@@ -160,7 +160,7 @@
     "readiness": "DEVICE_READY",
     "temporal_window_tokens": 4,
     "transport": "BUFFERED",
-    "tuning_digest": "b9a6de67ee47eda0a530efd5c71753688e5e2c2dccb385784fdecd5664c43969"
+    "tuning_digest": "08b917af3b1e5cfae7bcda46e137ac51a6c0b84ec18a944e57d91a497f0cc10b"
   },
   "source": {
     "artifacts": [
@@ -191,7 +191,7 @@
       },
       {
         "name": "qwen-f16-target-costs.json",
-        "sha256": "077d499a80e796c281012f558da64167cb30b76858518e442bf8220184361526",
+        "sha256": "28a4d3c9e5e6268a9f2fc6d871efa60837b4c4bc53eb203b64d7238664f73cba",
         "size": 2660
       }
     ],

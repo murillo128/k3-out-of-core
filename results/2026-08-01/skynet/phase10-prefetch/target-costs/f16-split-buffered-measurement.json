@@ -2,9 +2,9 @@
   "envelopes": [
     {
       "demand_service_p50_ns": 2000,
-      "displacement_refill_p95_ns": 680000,
+      "displacement_refill_p95_ns": 683000,
       "h2d_bytes": 0,
-      "lead_p50_ns": 2223155,
+      "lead_p50_ns": 2290267,
       "measurement_basis": {
         "all_observed_spans_exact": true,
         "h2d_flights": 149,
@@ -46,10 +46,10 @@
         "storage_timer_censored_samples": 0,
         "storage_trace_capacity": 1024
       },
-      "predictor_compute_p95_ns": 1754,
+      "predictor_compute_p95_ns": 1756,
       "readiness": "HOST_READY",
-      "scheduler_demand_delay_p95_ns": 54352,
-      "speculative_service_p95_ns": 2648000,
+      "scheduler_demand_delay_p95_ns": 55417,
+      "speculative_service_p95_ns": 2643000,
       "storage_bytes": 786432,
       "supported": true,
       "transport": "BUFFERED",
@@ -57,10 +57,10 @@
       "utility_window_predictions": 64
     },
     {
-      "demand_service_p50_ns": 90000,
-      "displacement_refill_p95_ns": 98000,
+      "demand_service_p50_ns": 95000,
+      "displacement_refill_p95_ns": 106000,
       "h2d_bytes": 786432,
-      "lead_p50_ns": 2223155,
+      "lead_p50_ns": 2290267,
       "measurement_basis": {
         "all_observed_spans_exact": true,
         "h2d_flights": 149,
@@ -102,10 +102,10 @@
         "storage_timer_censored_samples": 0,
         "storage_trace_capacity": 1024
       },
-      "predictor_compute_p95_ns": 1754,
+      "predictor_compute_p95_ns": 1756,
       "readiness": "DEVICE_READY",
-      "scheduler_demand_delay_p95_ns": 54352,
-      "speculative_service_p95_ns": 98000,
+      "scheduler_demand_delay_p95_ns": 55417,
+      "speculative_service_p95_ns": 106000,
       "storage_bytes": 0,
       "supported": true,
       "transport": "HOST_TO_DEVICE",
@@ -113,10 +113,10 @@
       "utility_window_predictions": 64
     },
     {
-      "demand_service_p50_ns": 2874000,
-      "displacement_refill_p95_ns": 3038000,
+      "demand_service_p50_ns": 2970000,
+      "displacement_refill_p95_ns": 3112000,
       "h2d_bytes": 786432,
-      "lead_p50_ns": 2223155,
+      "lead_p50_ns": 2290267,
       "measurement_basis": {
         "all_observed_spans_exact": true,
         "h2d_flights": 149,
@@ -158,10 +158,10 @@
         "storage_timer_censored_samples": 0,
         "storage_trace_capacity": 1024
       },
-      "predictor_compute_p95_ns": 1754,
+      "predictor_compute_p95_ns": 1756,
       "readiness": "DEVICE_READY",
-      "scheduler_demand_delay_p95_ns": 54352,
-      "speculative_service_p95_ns": 7496000,
+      "scheduler_demand_delay_p95_ns": 55417,
+      "speculative_service_p95_ns": 7594000,
       "storage_bytes": 786432,
       "supported": true,
       "transport": "BUFFERED",
@@ -172,17 +172,17 @@
   "host": "skynet",
   "lead_measurements": {
     "basis": "minimum p50 of observed token-end-to-router and adjacent-router intervals",
-    "conservative_lead_p50_ns": 2223155,
-    "cross_layer_p50_ns": 2223155,
+    "conservative_lead_p50_ns": 2290267,
+    "cross_layer_p50_ns": 2290267,
     "cross_layer_samples": 72,
     "decode_submissions": 12,
     "provider_event_capacity": 256,
     "provider_events_dropped": 0,
-    "token_end_p50_ns": 9652642,
+    "token_end_p50_ns": 10015311,
     "token_end_samples": 84
   },
-  "model_profile_load_ns": 2642175709,
-  "nested_head": "31da30047fa05ef752c93e4b213264b4d41ccac6",
+  "model_profile_load_ns": 2644489866,
+  "nested_head": "31da300472a435fdcfeb3fa155edb6dad6ce4c53",
   "path_provenance": {
     "buffered": {
       "all_observed_spans_exact": true,
@@ -237,9 +237,9 @@
     "measurements": [
       {
         "candidates_per_target": 8,
-        "p50_ns": 409,
+        "p50_ns": 406,
         "p95_ns": 414,
-        "p99_ns": 463,
+        "p99_ns": 474,
         "policy": "STATIC_LAYER",
         "repetitions": 1000,
         "target_layers_per_call": 7,
@@ -247,9 +247,9 @@
       },
       {
         "candidates_per_target": 8,
-        "p50_ns": 133,
-        "p95_ns": 136,
-        "p99_ns": 158,
+        "p50_ns": 132,
+        "p95_ns": 135,
+        "p99_ns": 159,
         "policy": "PREVIOUS_TOKEN",
         "repetitions": 1000,
         "target_layers_per_call": 7,
@@ -257,9 +257,9 @@
       },
       {
         "candidates_per_target": 8,
-        "p50_ns": 1514,
-        "p95_ns": 1572,
-        "p99_ns": 1616,
+        "p50_ns": 1499,
+        "p95_ns": 1555,
+        "p99_ns": 1594,
         "policy": "TEMPORAL_FREQUENCY",
         "repetitions": 1000,
         "target_layers_per_call": 7,
@@ -267,9 +267,9 @@
       },
       {
         "candidates_per_target": 8,
-        "p50_ns": 1716,
-        "p95_ns": 1754,
-        "p99_ns": 2084,
+        "p50_ns": 1722,
+        "p95_ns": 1756,
+        "p99_ns": 2066,
         "policy": "CROSS_LAYER_TRANSITION",
         "repetitions": 1000,
         "target_layers_per_call": 6,
@@ -277,19 +277,19 @@
       },
       {
         "candidates_per_target": 8,
-        "p50_ns": 683,
-        "p95_ns": 700,
-        "p99_ns": 745,
+        "p50_ns": 692,
+        "p95_ns": 708,
+        "p99_ns": 735,
         "policy": "RANDOM_BASELINE",
         "repetitions": 1000,
         "target_layers_per_call": 7,
         "temporal_window_tokens": 0
       }
     ],
-    "upper_bound_p95_ns": 1754
+    "upper_bound_p95_ns": 1756
   },
-  "profile_parse_ns": 1869448,
-  "profile_sha256": "c90e6dcee1335f5886345cfd15d22f286adefb3c93fa859be51a14fc28eea6b1",
-  "project_head": "e0d279d3c7575d7a380608897c9636fbc0a2227d",
+  "profile_parse_ns": 1861471,
+  "profile_sha256": "ef5cbf3a7b29410150c988fa4541e171d3b564888243108fe6be147c0e8a9627",
+  "project_head": "032b13c57e99adbd3eef58401740660355b7502d",
   "schema_version": "phase10-transport-measurements-v1"
 }

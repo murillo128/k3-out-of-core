@@ -1,10 +1,10 @@
 {
   "envelopes": [
     {
-      "demand_service_p50_ns": 14643000,
-      "displacement_refill_p95_ns": 41894000,
+      "demand_service_p50_ns": 14203000,
+      "displacement_refill_p95_ns": 41956000,
       "h2d_bytes": 0,
-      "lead_p50_ns": 131679054,
+      "lead_p50_ns": 131563251,
       "measurement_basis": {
         "all_observed_spans_exact": true,
         "h2d_flights": 192,
@@ -46,10 +46,10 @@
         "storage_timer_censored_samples": 0,
         "storage_trace_capacity": 1024
       },
-      "predictor_compute_p95_ns": 26530,
+      "predictor_compute_p95_ns": 26350,
       "readiness": "HOST_READY",
-      "scheduler_demand_delay_p95_ns": 492512,
-      "speculative_service_p95_ns": 42068000,
+      "scheduler_demand_delay_p95_ns": 486420,
+      "speculative_service_p95_ns": 41932000,
       "storage_bytes": 17301504,
       "supported": true,
       "transport": "BUFFERED",
@@ -57,10 +57,10 @@
       "utility_window_predictions": 64
     },
     {
-      "demand_service_p50_ns": 1390000,
-      "displacement_refill_p95_ns": 1396000,
+      "demand_service_p50_ns": 1389000,
+      "displacement_refill_p95_ns": 1395000,
       "h2d_bytes": 17301504,
-      "lead_p50_ns": 131679054,
+      "lead_p50_ns": 131563251,
       "measurement_basis": {
         "all_observed_spans_exact": true,
         "h2d_flights": 192,
@@ -102,10 +102,10 @@
         "storage_timer_censored_samples": 0,
         "storage_trace_capacity": 1024
       },
-      "predictor_compute_p95_ns": 26530,
+      "predictor_compute_p95_ns": 26350,
       "readiness": "DEVICE_READY",
-      "scheduler_demand_delay_p95_ns": 492512,
-      "speculative_service_p95_ns": 1395000,
+      "scheduler_demand_delay_p95_ns": 486420,
+      "speculative_service_p95_ns": 1393000,
       "storage_bytes": 0,
       "supported": true,
       "transport": "HOST_TO_DEVICE",
@@ -113,10 +113,10 @@
       "utility_window_predictions": 64
     },
     {
-      "demand_service_p50_ns": 90551000,
-      "displacement_refill_p95_ns": 121693000,
+      "demand_service_p50_ns": 89797000,
+      "displacement_refill_p95_ns": 121699000,
       "h2d_bytes": 17301504,
-      "lead_p50_ns": 131679054,
+      "lead_p50_ns": 131563251,
       "measurement_basis": {
         "all_observed_spans_exact": true,
         "h2d_flights": 192,
@@ -158,10 +158,10 @@
         "storage_timer_censored_samples": 0,
         "storage_trace_capacity": 1024
       },
-      "predictor_compute_p95_ns": 26530,
+      "predictor_compute_p95_ns": 26350,
       "readiness": "DEVICE_READY",
-      "scheduler_demand_delay_p95_ns": 492512,
-      "speculative_service_p95_ns": 121829000,
+      "scheduler_demand_delay_p95_ns": 486420,
+      "speculative_service_p95_ns": 121699000,
       "storage_bytes": 17301504,
       "supported": true,
       "transport": "BUFFERED",
@@ -172,17 +172,17 @@
   "host": "skynet",
   "lead_measurements": {
     "basis": "minimum p50 of observed token-end-to-router and adjacent-router intervals",
-    "conservative_lead_p50_ns": 131679054,
-    "cross_layer_p50_ns": 131679054,
+    "conservative_lead_p50_ns": 131563251,
+    "cross_layer_p50_ns": 131563251,
     "cross_layer_samples": 23,
     "decode_submissions": 1,
     "provider_event_capacity": 256,
     "provider_events_dropped": 0,
-    "token_end_p50_ns": 1450916442,
+    "token_end_p50_ns": 1448224751,
     "token_end_samples": 24
   },
-  "model_profile_load_ns": 85500700034,
-  "nested_head": "31da30047fa05ef752c93e4b213264b4d41ccac6",
+  "model_profile_load_ns": 85447064658,
+  "nested_head": "31da300472a435fdcfeb3fa155edb6dad6ce4c53",
   "path_provenance": {
     "buffered": {
       "all_observed_spans_exact": true,
@@ -237,9 +237,9 @@
     "measurements": [
       {
         "candidates_per_target": 60,
-        "p50_ns": 755,
-        "p95_ns": 883,
-        "p99_ns": 975,
+        "p50_ns": 753,
+        "p95_ns": 887,
+        "p99_ns": 956,
         "policy": "STATIC_LAYER",
         "repetitions": 1000,
         "target_layers_per_call": 24,
@@ -247,9 +247,9 @@
       },
       {
         "candidates_per_target": 60,
-        "p50_ns": 633,
-        "p95_ns": 637,
-        "p99_ns": 658,
+        "p50_ns": 629,
+        "p95_ns": 631,
+        "p99_ns": 639,
         "policy": "PREVIOUS_TOKEN",
         "repetitions": 1000,
         "target_layers_per_call": 24,
@@ -257,9 +257,9 @@
       },
       {
         "candidates_per_target": 60,
-        "p50_ns": 9274,
-        "p95_ns": 9367,
-        "p99_ns": 9712,
+        "p50_ns": 9323,
+        "p95_ns": 9437,
+        "p99_ns": 9836,
         "policy": "TEMPORAL_FREQUENCY",
         "repetitions": 1000,
         "target_layers_per_call": 24,
@@ -267,9 +267,9 @@
       },
       {
         "candidates_per_target": 60,
-        "p50_ns": 9365,
-        "p95_ns": 9424,
-        "p99_ns": 10382,
+        "p50_ns": 9350,
+        "p95_ns": 9430,
+        "p99_ns": 10556,
         "policy": "CROSS_LAYER_TRANSITION",
         "repetitions": 1000,
         "target_layers_per_call": 23,
@@ -277,19 +277,19 @@
       },
       {
         "candidates_per_target": 60,
-        "p50_ns": 22889,
-        "p95_ns": 26530,
-        "p99_ns": 28473,
+        "p50_ns": 23034,
+        "p95_ns": 26350,
+        "p99_ns": 27714,
         "policy": "RANDOM_BASELINE",
         "repetitions": 1000,
         "target_layers_per_call": 24,
         "temporal_window_tokens": 0
       }
     ],
-    "upper_bound_p95_ns": 26530
+    "upper_bound_p95_ns": 26350
   },
-  "profile_parse_ns": 4067342,
-  "profile_sha256": "c2b054b5e065b03eb1d945a8dd208710a8aad3069476d25c7548257776e3c359",
-  "project_head": "e0d279d3c7575d7a380608897c9636fbc0a2227d",
+  "profile_parse_ns": 4088664,
+  "profile_sha256": "a22cd0173c08d558de3b08a07fdc4e92ef5e7ced53592844d42afcccf28c9104",
+  "project_head": "032b13c57e99adbd3eef58401740660355b7502d",
   "schema_version": "phase10-transport-measurements-v1"
 }

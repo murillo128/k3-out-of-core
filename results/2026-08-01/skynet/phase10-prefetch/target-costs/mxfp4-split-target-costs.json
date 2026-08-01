@@ -1,15 +1,15 @@
 {
   "costs": [
     {
-      "break_even_bps": 8334,
+      "break_even_bps": 8328,
       "demand_service_ns": 681000,
-      "displacement_refill_ns": 996000,
+      "displacement_refill_ns": 965000,
       "h2d_bytes": 208896,
-      "lead_ns": 1432055,
-      "predictor_compute_ns": 1790,
+      "lead_ns": 1352685,
+      "predictor_compute_ns": 1815,
       "readiness": "DEVICE_READY",
-      "scheduler_demand_delay_ns": 54452,
-      "speculative_service_ns": 2344000,
+      "scheduler_demand_delay_ns": 54136,
+      "speculative_service_ns": 2361000,
       "storage_bytes": 208896,
       "transport": "BUFFERED",
       "utility_min_observations": 32,
@@ -17,15 +17,15 @@
       "utility_window_predictions": 64
     },
     {
-      "break_even_bps": 9998,
+      "break_even_bps": 9999,
       "demand_service_ns": 2000,
       "displacement_refill_ns": 182000,
       "h2d_bytes": 0,
-      "lead_ns": 1432055,
-      "predictor_compute_ns": 1790,
+      "lead_ns": 1352685,
+      "predictor_compute_ns": 1815,
       "readiness": "HOST_READY",
-      "scheduler_demand_delay_ns": 54452,
-      "speculative_service_ns": 719000,
+      "scheduler_demand_delay_ns": 54136,
+      "speculative_service_ns": 722000,
       "storage_bytes": 208896,
       "transport": "BUFFERED",
       "utility_min_observations": 32,
@@ -33,14 +33,14 @@
       "utility_window_predictions": 64
     },
     {
-      "break_even_bps": 7899,
-      "demand_service_ns": 54000,
-      "displacement_refill_ns": 70000,
+      "break_even_bps": 7945,
+      "demand_service_ns": 52000,
+      "displacement_refill_ns": 68000,
       "h2d_bytes": 208896,
-      "lead_ns": 1432055,
-      "predictor_compute_ns": 1790,
+      "lead_ns": 1352685,
+      "predictor_compute_ns": 1815,
       "readiness": "DEVICE_READY",
-      "scheduler_demand_delay_ns": 54452,
+      "scheduler_demand_delay_ns": 54136,
       "speculative_service_ns": 70000,
       "storage_bytes": 0,
       "transport": "HOST_TO_DEVICE",
@@ -52,10 +52,10 @@
   "measurements": [
     {
       "name": "mxfp4-split-buffered-break-even.json",
-      "nested_head": "31da30047fa05ef752c93e4b213264b4d41ccac6",
-      "profile_sha256": "522fc8eca33ddab84d3723432dd2a34d158fdf1a85abaa08fdaf0734a09198df",
-      "project_head": "e0d279d3c7575d7a380608897c9636fbc0a2227d",
-      "sha256": "9961a31c140eb00474b11aec4ae19aa92ff78b1a36a2c53e7fc5e4f81b5ba3f1",
+      "nested_head": "31da300472a435fdcfeb3fa155edb6dad6ce4c53",
+      "profile_sha256": "dad723a5c2b66c2d78d052c60cc327455d30049a88b595ab0c0b0722a357d1f9",
+      "project_head": "032b13c57e99adbd3eef58401740660355b7502d",
+      "sha256": "3802b3a1dd0f07520eb63bcb2391da66d1961dbec90766353a3b1a1c9f75a841",
       "size": 10951,
       "storage_map_sha256": "16c7c2135edf93fa385b728c7c73d0d4ebb315a75e254c8f18ff9f50b2e815b7"
     }
