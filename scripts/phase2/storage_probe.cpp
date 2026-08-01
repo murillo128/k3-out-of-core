@@ -15,6 +15,8 @@ struct arguments {
     std::string model;
     std::string input_mode = "path";
     int gpu_layers = 0;
+    int routed_layer_begin = 1;
+    int routed_layer_end = 7;
 };
 
 bool parse_int(const char * text, int & value) {
@@ -38,11 +40,20 @@ bool parse_arguments(int argc, char ** argv, arguments & result) {
             }
         } else if (std::strcmp(argv[i], "--input-mode") == 0 && i + 1 < argc) {
             result.input_mode = argv[++i];
+        } else if (std::strcmp(argv[i], "--routed-layer-begin") == 0 && i + 1 < argc) {
+            if (!parse_int(argv[++i], result.routed_layer_begin)) {
+                return false;
+            }
+        } else if (std::strcmp(argv[i], "--routed-layer-end") == 0 && i + 1 < argc) {
+            if (!parse_int(argv[++i], result.routed_layer_end)) {
+                return false;
+            }
         } else {
             return false;
         }
     }
-    return !result.model.empty() &&
+    return !result.model.empty() && result.routed_layer_begin >= 0 &&
+        result.routed_layer_end >= result.routed_layer_begin &&
         (result.input_mode == "path" || result.input_mode == "file-pointer" || result.input_mode == "user-metadata");
 }
 
@@ -114,7 +125,7 @@ struct ggml_deleter {
 int main(int argc, char ** argv) {
     arguments args;
     if (!parse_arguments(argc, argv, args)) {
-        std::cerr << "usage: storage-probe --model PATH --gpu-layers N [--input-mode path|file-pointer|user-metadata]\n";
+        std::cerr << "usage: storage-probe --model PATH --gpu-layers N [--input-mode path|file-pointer|user-metadata] [--routed-layer-begin N --routed-layer-end N]\n";
         return 2;
     }
 
@@ -199,7 +210,7 @@ int main(int argc, char ** argv) {
     std::cout << "],\"tensors\":[";
     bool first_tensor = true;
     const char * projections[] = {"gate", "up", "down"};
-    for (int layer = 1; layer <= 7; ++layer) {
+    for (int layer = args.routed_layer_begin; layer <= args.routed_layer_end; ++layer) {
         for (const char * projection : projections) {
             const std::string name = "blk." + std::to_string(layer) + ".ffn_" + projection + "_exps.weight";
             struct llama_model_tensor_storage_metadata storage = {};

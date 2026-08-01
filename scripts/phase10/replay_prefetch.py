@@ -584,6 +584,10 @@ def replay(document: dict) -> dict:
         raise Phase10Error("unknown readiness")
     if not isinstance(document["transport"], str) or document["transport"] not in {"BUFFERED", "DIRECT_IO", "HOST_TO_DEVICE"}:
         raise Phase10Error("unknown transport")
+    if document["transport"] != profile["selection"]["transport"]:
+        raise Phase10Error("replay transport does not match profile selection")
+    if (cache_mode == "HOT_CACHE") != (document["transport"] == "HOST_TO_DEVICE"):
+        raise Phase10Error("replay transport does not match cache mode")
     candidate_count = require_uint(document["candidates_per_target"], "candidates_per_target", positive=policy != "OFF",
         maximum=profile["target"]["experts_per_layer"])
     if policy == "OFF" and candidate_count != 0:

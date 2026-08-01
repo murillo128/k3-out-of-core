@@ -14,13 +14,15 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts" / "phase10"))
 
 from combine_transport_break_even import combine
+from bind_target_costs import bind
+from build_online_compat_profile import adapt_profile
 from capture_offline_replay import replay_envelopes, score_replay
 from capture_profile_compatibility import frozen_tuning_digest, retained_tunings
 from capture_transport_measurements import validate_measurement
 from measure_transport_break_even import derive
 from phase9_disabled_equivalence import (build_phase9_input, normalize_phase9, normalize_phase10,
     phase9_python_replay, verify_disabled_equivalence)
-from prefetch_common import (FNV_OFFSET, Phase10Error, break_even, config_digest, cross_candidates, fold_membership,
+from prefetch_common import (FNV_OFFSET, Phase10Error, break_even, canonical_bytes, config_digest, cross_candidates, fold_membership,
     load_json, predictor_candidates, splitmix64, validate_profile, write_json)
 from replay_prefetch import replay
 
@@ -100,6 +102,15 @@ def path_provenance() -> dict:
         "direct": measurement_basis()}
 
 
+def target_costs(value: dict) -> dict:
+    target = value["target"]
+    return {"schema_version": "phase10-target-costs-v1", "status": "pass",
+        "target": {"package_sha256": target["package_sha256"], "files": target["files"],
+            "tensor_layout_sha256": target["tensor_layout_sha256"],
+            "expert_bytes_sha256": hashlib.sha256(canonical_bytes(target["expert_bytes"])).hexdigest()},
+        "measurements": [{"name": "cost.json"}], "costs": value["costs"]}
+
+
 class PrefetchProfileTests(unittest.TestCase):
     def test_folds_are_causal_and_cover_all_prompts(self) -> None:
         for index in range(6):
@@ -159,6 +170,39 @@ class PrefetchProfileTests(unittest.TestCase):
         self.assertEqual(result["status"], "pass")
         self.assertFalse(result["waste_external_threshold_transferred"])
         self.assertEqual(result["envelopes"][0]["break_even_bps"], 3637)
+
+    def test_online_adaptation_requires_target_bound_measured_costs(self) -> None:
+        base = profile()
+        costs = target_costs(base)
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "target-costs.json"
+            write_json(path, costs)
+            adapted = adapt_profile(base, base["target"], costs, path)
+            self.assertEqual(adapted["costs"], costs["costs"])
+            self.assertNotEqual(adapted["selection"]["tuning_digest"], base["selection"]["tuning_digest"])
+            self.assertEqual(adapted["source"]["artifacts"][-1]["sha256"],
+                hashlib.sha256(path.read_bytes()).hexdigest())
+            wrong = json.loads(json.dumps(costs))
+            wrong["target"]["package_sha256"] = "b" * 64
+            with self.assertRaisesRegex(Phase10Error, "different package"):
+                adapt_profile(base, base["target"], wrong, path)
+
+    def test_target_cost_binding_rejects_package_transfer(self) -> None:
+        value = profile()
+        derived = {"schema_version": "phase10-transport-break-even-v1", "status": "pass",
+            "project_head": COMMIT, "nested_head": COMMIT, "profile_sha256": HASH,
+            "path_provenance": {"exact_runtime_provider_path": True,
+                "package_sha256": value["target"]["package_sha256"], "storage_map_sha256": HASH},
+            "envelopes": [{"eligible": True, "profile_record": value["costs"][0]}]}
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "derived.json"
+            write_json(path, derived)
+            document = bind(value, [path])
+            self.assertEqual(document["costs"], [value["costs"][0]])
+            derived["path_provenance"]["package_sha256"] = "b" * 64
+            write_json(path, derived)
+            with self.assertRaisesRegex(Phase10Error, "different package"):
+                bind(value, [path])
 
     def test_transport_matrix_requires_matching_identities(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -374,6 +418,14 @@ class PrefetchProfileTests(unittest.TestCase):
                     "limits": limits(False), "seed_mode": "BLOCKING_HOT", "demand_mode": "ISSUE_AHEAD"}),
             ]
             for name, values in cases:
+                case_profile = profile()
+                if name == "static-hot":
+                    selected = case_profile["costs"][0].copy()
+                    selected.update({"transport": "HOST_TO_DEVICE", "storage_bytes": 0})
+                    case_profile["costs"] = [selected]
+                    case_profile["selection"].update({"transport": "HOST_TO_DEVICE"})
+                    values = {**values, "transport": "HOST_TO_DEVICE"}
+                write_json(profile_path, case_profile)
                 request = {**base, **values, "temporal_window_tokens": 0}
                 write_json(request_path, request)
                 completed = subprocess.run([native, str(request_path)], check=False, capture_output=True, text=True)
@@ -407,6 +459,31 @@ class PrefetchProfileTests(unittest.TestCase):
             self.assertEqual(native_output, python_output)
             self.assertGreater(native_output["summary"]["late_joined"], 0)
             self.assertGreater(native_output["summary"]["cancelled_drained"], 0)
+
+    def test_replay_rejects_profile_and_cache_transport_mismatches(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            profile_path = Path(directory) / "profile.json"
+            write_json(profile_path, profile())
+            request = {"schema_version": "phase10-prefetch-replay-v1", "profile_path": str(profile_path),
+                "policy": "OFF", "cache_mode": "COLD_CACHE", "miss_policy": "PROMOTE_AND_GPU",
+                "transport": "DIRECT_IO", "readiness": "DEVICE_READY", "temporal_window_tokens": 0,
+                "candidates_per_target": 0, "request_ordinal": 1, "events": [], "completion_order": [],
+                "ready_before_deadline": [], "initial_resident": [], "limits": limits(False),
+                "seed_mode": "OFF", "demand_mode": "ISSUE_AHEAD"}
+            with self.assertRaisesRegex(Phase10Error, "profile selection"):
+                replay(request)
+            native = os.environ.get("PHASE10_NATIVE_REPLAY")
+            if native:
+                request_path = Path(directory) / "request.json"
+                write_json(request_path, request)
+                completed = subprocess.run([native, str(request_path)], check=False, capture_output=True, text=True)
+                self.assertNotEqual(completed.returncode, 0)
+                self.assertIn("profile selection", completed.stderr)
+            request["transport"] = "BUFFERED"
+            request["cache_mode"] = "HOT_CACHE"
+            request["limits"] = {**limits(False), "cold_capacity_bytes": 0}
+            with self.assertRaisesRegex(Phase10Error, "cache mode"):
+                replay(request)
 
     def test_offline_scoring_uses_causal_deadlines_and_physical_budget(self) -> None:
         events = [
