@@ -96,7 +96,8 @@ def simulate(
         codes = {"DEMAND_ISSUE": 1, "DEMAND_HIT": 2, "DEMAND_LOAD": 3, "ENQUEUE": 4, "READY": 5,
             "REJECTED": 6, "EVICT": 7, "TIMELY_USEFUL": 8, "LATE_JOINED": 9, "WASTED_UNUSED": 10,
             "SEED_LOAD": 11, "SEED_TOUCH": 12, "DEMAND_PROMOTE": 13,
-            "CANCELLED_BEFORE_IO": 14, "CANCELLED_DRAINED": 15}
+            "CANCELLED_BEFORE_IO": 14, "CANCELLED_DRAINED": 15,
+            "DEMAND_COLD_EVICT": 16, "DEMAND_HOT_EVICT": 17}
         digest = fnv_append(digest, codes[record["type"]])
         for name in ("flight_ordinal", "token", "layer", "expert", "cold_slot", "hot_slot"):
             value = record.get(name, -1)
@@ -137,12 +138,19 @@ def simulate(
             return None
         return min(resident, key=lambda item: (item[1].last_touch, item[1].layer, item[1].expert))[0]
 
-    def ensure_demand_capacity(payload: int, physical: int) -> tuple[int, int]:
+    def emit_demand_eviction(kind: str, token: int, key: tuple[int, int]) -> None:
+        entry = entries[key]
+        emit(actions, {"type": kind, "flight_ordinal": entry.flight, "token": token,
+            "layer": key[0], "expert": key[1], "cold_slot": entry.cold_slot,
+            "hot_slot": entry.hot_slot, "reason": "phase9_lru_capacity"})
+
+    def ensure_demand_capacity(token: int, payload: int, physical: int) -> tuple[int, int]:
         while occupied_bytes() + physical > limits["cold_capacity_bytes"] or \
                 free_slot("cold_slot", cold_slot_capacity) < 0:
             victim = demand_victim("cold")
             if victim is None:
                 raise Phase10Error("mandatory cold demand cannot be admitted")
+            emit_demand_eviction("DEMAND_COLD_EVICT", token, victim)
             discard(victim, "demand_cold_eviction")
         cold_slot = free_slot("cold_slot", cold_slot_capacity)
         while free_slot("hot_slot", limits["hot_capacity_slots"]) < 0:
@@ -150,6 +158,7 @@ def simulate(
             if victim is None:
                 raise Phase10Error("mandatory hot demand cannot be admitted")
             victim_entry = entries[victim]
+            emit_demand_eviction("DEMAND_HOT_EVICT", token, victim)
             if victim_entry.origin == "SPECULATIVE":
                 discard(victim, "demand_hot_eviction")
             else:
@@ -174,6 +183,7 @@ def simulate(
             entry = entries.get(key)
             if entry is not None and (entry.origin != "SPECULATIVE" or entry.phase == "READY"):
                 source_origin = entry.origin
+                source_tier = "HOT" if entry.hot_slot >= 0 else "COLD"
                 if entry.origin == "SPECULATIVE":
                     counters["timely_useful"] += 1
                     emit(outcomes, {"type": "TIMELY_USEFUL", "flight_ordinal": entry.flight, "token": token,
@@ -188,6 +198,7 @@ def simulate(
                         if victim is None:
                             raise Phase10Error("mandatory hot promotion cannot be admitted")
                         victim_entry = entries[victim]
+                        emit_demand_eviction("DEMAND_HOT_EVICT", token, victim)
                         if victim_entry.origin == "SPECULATIVE":
                             discard(victim, "demand_hot_eviction")
                         else:
@@ -197,7 +208,7 @@ def simulate(
                 counters["demand_hits"] += 1
                 emit(actions, {"type": "DEMAND_HIT", "flight_ordinal": entry.flight, "token": token,
                     "layer": layer, "expert": expert, "cold_slot": entry.cold_slot, "hot_slot": entry.hot_slot,
-                    "source_origin": source_origin})
+                    "source_origin": source_origin, "source_tier": source_tier})
                 continue
             if entry is not None and entry.origin == "SPECULATIVE":
                 source_phase = entry.phase
@@ -214,6 +225,7 @@ def simulate(
                         if victim is None:
                             raise Phase10Error("mandatory late promotion cannot be admitted")
                         victim_entry = entries[victim]
+                        emit_demand_eviction("DEMAND_HOT_EVICT", token, victim)
                         if victim_entry.origin == "SPECULATIVE":
                             discard(victim, "demand_hot_eviction")
                         else:
@@ -227,7 +239,7 @@ def simulate(
             if entry is not None:
                 discard(key, "demand_replaced_unready")
             payload, physical = sizes[key]
-            cold_slot, hot_slot = ensure_demand_capacity(payload, physical)
+            cold_slot, hot_slot = ensure_demand_capacity(token, payload, physical)
             entries[key] = Entry(layer, expert, payload, physical, cold_slot, hot_slot, "DEMAND",
                 token, layer, 0, -1, clock, "READY")
             counters["demand_loads"] += 1
@@ -482,20 +494,16 @@ def replay(document: dict) -> dict:
                         profile, policy, history, layer, candidate_count, digest, request_ordinal, token)):
                     stream.append({"trigger_token": token, "trigger": "TOKEN_END", "source_layer": -1,
                         "target_layer": layer, "expert": expert, "rank": rank, "score": score})
-    compact_events = json.dumps(document["events"], ensure_ascii=True, separators=(",", ":"), sort_keys=True)
     if document["completion_order"] and (len(document["completion_order"]) != len(stream) or
             sorted(document["completion_order"]) != list(range(len(stream)))):
         raise Phase10Error("completion order is not a candidate permutation")
     state = simulate(profile, document["events"], stream, document["transport"], document["readiness"],
         limits, seed_mode, demand_mode)
-    if policy == "OFF" and seed_mode == "OFF":
-        state["state_digest"] = FNV_OFFSET
     return {"schema_version": "phase10-prefetch-replay-output-v1",
         "profile_sha256": profile_sha256, "policy": policy, "transport": document["transport"], "seed_mode": seed_mode,
         "demand_mode": demand_mode,
         "candidate_stream": stream, "predictor_state_digest": FNV_OFFSET if policy == "OFF" else rolling,
-        **state,
-        "phase9_passthrough_sha256": hashlib.sha256(compact_events.encode("utf-8")).hexdigest()}
+        **state}
 
 
 def main() -> int:

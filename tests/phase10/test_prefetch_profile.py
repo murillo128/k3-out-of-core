@@ -18,6 +18,8 @@ from capture_offline_replay import replay_envelopes, score_replay
 from capture_profile_compatibility import frozen_tuning_digest, retained_tunings
 from capture_transport_measurements import validate_measurement
 from measure_transport_break_even import derive
+from phase9_disabled_equivalence import (build_phase9_input, normalize_phase9, normalize_phase10,
+    phase9_python_replay, verify_disabled_equivalence)
 from prefetch_common import (FNV_OFFSET, Phase10Error, break_even, config_digest, cross_candidates, fold_membership,
     load_json, predictor_candidates, splitmix64, validate_profile, write_json)
 from replay_prefetch import replay
@@ -244,7 +246,31 @@ class PrefetchProfileTests(unittest.TestCase):
                 "seed_mode": "OFF", "demand_mode": "ISSUE_AHEAD"}
             output = replay(request)
             self.assertEqual(output["candidate_stream"], [])
-            self.assertEqual(output["state_digest"], FNV_OFFSET)
+            self.assertNotEqual(output["state_digest"], FNV_OFFSET)
+            self.assertNotIn("phase9_passthrough_sha256", output)
+
+    def test_disabled_replay_matches_independent_phase9_hierarchy(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            profile_path = Path(directory) / "profile.json"
+            document = profile()
+            write_json(profile_path, document)
+            events = [
+                {"token": 0, "layers": [{"layer": 1, "experts": [0, 1]}, {"layer": 2, "experts": [2, 3]}]},
+                {"token": 1, "layers": [{"layer": 1, "experts": [1, 2]}, {"layer": 2, "experts": [0, 3]}]},
+            ]
+            disabled_limits = {**limits(False), "cold_capacity_bytes": 480, "hot_capacity_slots": 2}
+            output = replay({"schema_version": "phase10-prefetch-replay-v1", "profile_path": str(profile_path),
+                "policy": "OFF", "transport": "BUFFERED", "readiness": "DEVICE_READY",
+                "temporal_window_tokens": 0, "candidates_per_target": 0, "request_ordinal": 1,
+                "events": events, "completion_order": [], "limits": disabled_limits,
+                "seed_mode": "OFF", "demand_mode": "ISSUE_AHEAD"})
+            phase9_input = build_phase9_input(document, events, disabled_limits)
+            self.assertEqual(normalize_phase10(output), normalize_phase9(phase9_python_replay(phase9_input)))
+            native = os.environ.get("PHASE9_NATIVE_REPLAY")
+            if native:
+                evidence = verify_disabled_equivalence(document, events, disabled_limits, output, Path(native))
+                self.assertEqual(evidence["status"], "pass")
+                self.assertTrue(evidence["phase9_native_python_exact"])
 
     def test_hierarchy_replay_protects_demand_and_resolves_deadlines(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

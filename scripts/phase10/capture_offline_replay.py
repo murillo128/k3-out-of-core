@@ -13,6 +13,7 @@ from types import SimpleNamespace
 from typing import Any
 
 from build_prefetch_profile import MATRIX, build
+from phase9_disabled_equivalence import verify_disabled_equivalence
 from prefetch_common import (PHASE2_ARCHIVE_SHA256, PHASE9_MANIFEST_SHA256, Phase10Error, break_even,
     build_fingerprint, canonical_bytes, fold_membership, load_json, read_phase2_corpus, token_events,
     validate_profile, write_json)
@@ -329,6 +330,9 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
     native = Path(args.native_replay).resolve()
     if not native.is_file():
         raise Phase10Error("native replay executable is unavailable")
+    phase9_native = Path(args.phase9_native_replay).resolve()
+    if not phase9_native.is_file():
+        raise Phase10Error("Phase 9 native replay executable is unavailable")
     archive = Path(args.archive).resolve()
     for name in ("project_head", "nested_head"):
         value = getattr(args, name)
@@ -351,6 +355,8 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
     shortlist = []
     malformed = None
     agreement_checks = 0
+    phase9_equivalence_checks = 0
+    phase9_equivalence_records = []
     working_set_digests = set()
     with tempfile.TemporaryDirectory(prefix="phase10-offline-") as temporary:
         root = Path(temporary)
@@ -385,6 +391,24 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
                     "at_working_set": working_set, "above_working_set": working_set*2}
                 cells = []
                 replay_digests = []
+                fold_phase9_equivalence = []
+                reference_cost = eligible_costs[0]
+                for sequence_name, (events, _) in sequences.items():
+                    for capacity_name, capacity in capacities.items():
+                        for demand_mode in ("ISSUE_AHEAD", "SERIAL"):
+                            disabled_limits = replay_limits(capacity, budgets["at_working_set"], False)
+                            disabled_output = replay_cell(native, profile_path, "OFF",
+                                reference_cost["transport"], 0, 0, events, disabled_limits,
+                                reference_cost["readiness"], "OFF", demand_mode, root)
+                            agreement_checks += 1
+                            equivalence = verify_disabled_equivalence(profile, events, disabled_limits,
+                                disabled_output, phase9_native)
+                            phase9_equivalence_checks += 1
+                            phase9_equivalence_records.append(equivalence)
+                            fold_phase9_equivalence.append({"sequence": sequence_name,
+                                "capacity_point": capacity_name, "demand_mode": demand_mode,
+                                "transport": reference_cost["transport"],
+                                "readiness": reference_cost["readiness"], **equivalence})
                 configurations = [{"policy": policy, "runtime_policy": policy, "seed_mode": "OFF",
                     "demand_mode": "ISSUE_AHEAD", "window": window,
                     "candidate_grid": sorted(set([1, profile["target"]["experts_per_token"],
@@ -408,7 +432,7 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
                                         native_limits, readiness, configuration["seed_mode"],
                                         configuration["demand_mode"], root)
                                     agreement_checks += 1
-                                    replay_digests.append({"policy": configuration["policy"],
+                                    replay_record = {"policy": configuration["policy"],
                                         "runtime_policy": configuration["runtime_policy"],
                                         "seed_mode": configuration["seed_mode"],
                                         "demand_mode": configuration["demand_mode"], "window": configuration["window"],
@@ -418,8 +442,8 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
                                         "action_stream_sha256": sha256(native_output["action_stream"]),
                                         "outcome_stream_sha256": sha256(native_output["outcome_stream"]),
                                         "state_digest": native_output["state_digest"],
-                                        "predictor_state_digest": native_output["predictor_state_digest"],
-                                        "phase9_passthrough_sha256": native_output["phase9_passthrough_sha256"]})
+                                        "predictor_state_digest": native_output["predictor_state_digest"]}
+                                    replay_digests.append(replay_record)
                                     for capacity_name, capacity in capacities.items():
                                         for budget_name, budget in budgets.items():
                                             selected_point = capacity_name == "selected" and \
@@ -571,6 +595,7 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
                         for name, value in sequences.items()},
                     "test_sequence_events": {name: {"total": len(value[0]), "score_from_token": value[1]}
                         for name, value in test_sequences.items()},
+                    "phase9_disabled_equivalence": fold_phase9_equivalence,
                     "replay": replay_digests, "cell_count": len(cells), "cells_sha256": cells_sha256,
                     "shortlist": fold_shortlist})
                 if malformed is None and validation_events:
@@ -590,7 +615,8 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
         "sha256": hashlib.sha256(compressed).hexdigest(), "compression": "gzip-mtime-zero",
         "uncompressed_size": len(cells_bytes), "uncompressed_sha256": hashlib.sha256(cells_bytes).hexdigest(),
         "cell_count": sum(item["cell_count"] for item in folds)}
-    phase9_hashes = {item["phase9_passthrough_sha256"] for fold in folds for item in fold["replay"]}
+    if phase9_equivalence_checks == 0:
+        raise Phase10Error("no disabled Phase 9 equivalence checks were executed")
     return {"schema_version": "phase10-offline-replay-v1", "project_head": args.project_head,
         "nested_head": args.nested_head, "phase2_archive_sha256": archive_sha256,
         "phase9_manifest_sha256": PHASE9_MANIFEST_SHA256,
@@ -600,7 +626,13 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
         "malformed_rejections": malformed, "native_python_event_agreement": True,
         "native_python_event_agreement_checks": agreement_checks,
         "repeatability": "byte_identical", "shuffled_completion_invariant": True,
-        "phase9_passthrough_unique_digests": len(phase9_hashes),
+        "phase9_disabled_equivalence": True,
+        "phase9_disabled_equivalence_checks": phase9_equivalence_checks,
+        "phase9_native_replay_sha256": hashlib.sha256(phase9_native.read_bytes()).hexdigest(),
+        "phase9_unique_inputs": len({item["phase9_input_sha256"] for item in phase9_equivalence_records}),
+        "phase9_unique_outputs": len({item["phase9_native_output_sha256"] for item in phase9_equivalence_records}),
+        "phase9_unique_final_states": len({item["normalized_final_state_sha256"]
+            for item in phase9_equivalence_records}),
         "cache_admission_lifecycle_scope":
             "inclusive_global_lru_always_demand_protected_admission_with_cost_bound_ready_late_cancel_deadlines_and_seed"}
 
@@ -613,6 +645,7 @@ def main() -> int:
     parser.add_argument("--f16-costs", required=True)
     parser.add_argument("--mxfp4-costs", required=True)
     parser.add_argument("--native-replay", required=True)
+    parser.add_argument("--phase9-native-replay", required=True)
     parser.add_argument("--phase9-manifest", required=True)
     parser.add_argument("--project-head", required=True)
     parser.add_argument("--nested-head", required=True)
