@@ -4,17 +4,27 @@
   "title": "K3 cache working-set evidence version 1",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "model", "lineage", "one_expert_footprint_bytes", "distinct_key_count", "token_working_set_bytes", "checkpoint_working_set_bytes", "theoretical_token_working_set_bytes", "protected_decode_set_bytes", "budget_grid"],
+  "required": ["schema_version", "status", "inputs", "headroom", "cases", "full_k3_mxfp4"],
   "properties": {
     "schema_version": {"const": "cache-working-set-v1"},
-    "model": {"type": "string", "minLength": 1},
-    "lineage": {"type": "object"},
-    "one_expert_footprint_bytes": {"type": "integer", "minimum": 1},
-    "distinct_key_count": {"type": "integer", "minimum": 1},
-    "token_working_set_bytes": {"type": "object"},
-    "checkpoint_working_set_bytes": {"type": "object"},
-    "theoretical_token_working_set_bytes": {"type": "integer", "minimum": 1},
-    "protected_decode_set_bytes": {"type": "integer", "minimum": 0},
-    "budget_grid": {"type": "array", "minItems": 1, "items": {"type": "object"}}
+    "status": {"const": "pass"},
+    "inputs": {"type": "object", "required": ["online", "synthetic_store"]},
+    "headroom": {"type": "object", "required": ["physical_bytes", "available_bytes", "reserve_bytes", "safe_ceiling_bytes"]},
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "model", "capture", "observed_capacities", "derivation", "one_expert_footprint_bytes",
+          "distinct_key_count", "token_working_set_bytes", "checkpoint_working_set_bytes",
+          "theoretical_token_working_set_bytes", "protected_decode_set_bytes", "reuse_distance",
+          "per_layer_demand_occurrences", "per_layer_max_simultaneous_unique", "cold_budget_grid"]
+      }
+    },
+    "full_k3_mxfp4": {
+      "type": "object",
+      "required": ["descriptor", "descriptor_constants_verified", "one_expert_footprint_bytes",
+        "theoretical_token_working_set_bytes", "budget_grid", "scope_limit"]
+    }
   }
 }

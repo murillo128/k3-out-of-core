@@ -10,6 +10,8 @@ from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
 
+import jsonschema
+
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts" / "phase9"))
@@ -143,6 +145,8 @@ def main() -> int:
     output = {"schema_version": "cache-working-set-v1", "status": "pass",
               "inputs": {"online": file_identity(args.online_summary), "synthetic_store": file_identity(args.synthetic_store)},
               "headroom": headroom, "cases": cases, "full_k3_mxfp4": full_k3}
+    schema = json.loads((ROOT / "schemas/phase9/cache-working-set-v1.schema.json").read_text())
+    jsonschema.validate(output, schema)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(canonical_json(output))
     print(canonical_json({"status": "pass", "output": str(args.output), "cases": len(cases)}), end="")

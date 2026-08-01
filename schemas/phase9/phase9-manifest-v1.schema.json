@@ -4,7 +4,7 @@
   "title": "K3 Phase 9 technical manifest version 1",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "status", "project", "nested", "inputs", "checkpoints", "replay", "online", "working_sets", "evidence", "selection", "verification"],
+  "required": ["schema_version", "status", "project", "nested", "inputs", "checkpoints", "replay", "online", "working_sets", "evidence", "selection", "verification", "environment", "technical_closeout_state", "evidence_limits"],
   "properties": {
     "schema_version": {"const": "phase9-manifest-v1"},
     "status": {"enum": ["in-progress", "pass", "fail", "blocked"]},
@@ -17,6 +17,9 @@
     "working_sets": {"type": "object"},
     "evidence": {"type": "object"},
     "selection": {"type": "object"},
-    "verification": {"type": "object"}
+    "verification": {"type": "object"},
+    "environment": {"type": "object"},
+    "technical_closeout_state": {"type": "string", "minLength": 1},
+    "evidence_limits": {"type": "array", "items": {"type": "string"}}
   }
 }
