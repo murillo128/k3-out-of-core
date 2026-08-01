@@ -1,4 +1,4 @@
-# UMA, full-size scaling, concurrency, multi-GPU, and hardening
+# UMA, full-size scaling, end-to-end observability, concurrency, multi-GPU, and hardening
 
 The pinned WASTE implementation and measurements recorded in `docs/PRIOR_ART.md` are an external full-K3 feasibility and performance baseline. They are `OBSERVED` on a 64 GB Apple M5 Pro CPU/UMA system with a custom 3-bit expert format and internal NVMe; they are not directly transferable to GGUF/MXFP4, discrete CUDA, or DGX Spark.
 
@@ -116,12 +116,89 @@ Only if GGUF is proven inadequate:
 
 ---
 
+## Phase 12.5 — End-to-end tracing and hardware-benchmark readiness
+
+Phase 12.5 begins after the Phase 12 mechanism, storage-layout, and full-size dry-run work is accepted. Functional platform bring-up and bounded characterization in Phases 11–12 may use real hardware, but no authoritative cross-hardware performance campaign should begin until this phase can attribute end-to-end token latency without relying on subsystem-local counters alone.
+
+### Objectives
+
+- Make the complete single-request token path causally observable from `llama_decode` through graph construction, routing, expert readiness, backend execution, synchronization, sampling, and token delivery.
+- Correlate application decisions with Linux scheduling, `io_uring`, block-device activity, CUDA transfers/compute, and UMA residency behavior where applicable.
+- Establish a reusable benchmark schema before expensive discrete-GPU, DGX Spark, and cloud measurements.
+- Preserve the existing bounded deterministic trace and replay formats as correctness and policy evidence; Perfetto is an optional diagnostic timeline, not their replacement.
+
+### Tasks
+
+#### 12.5.1 Optional direct instrumentation
+
+- [ ] Add compile-time optional Perfetto TrackEvent support with no Perfetto dependency, initialization, runtime branch, or argument evaluation in ordinary builds.
+- [ ] Put semantic tracepoints directly at the state transition or subsystem boundary that owns the event; do not add a generic trace sink, virtual interface, event bus, intermediate queue, or dynamically typed attribute container.
+- [ ] Use one minimal header-only shim for categories, compile-time no-op macros, and stable track/flow identity helpers.
+- [ ] Keep each callsite as one `LLM_EXPERT_TRACE_*` invocation on one source line within the nested `llama.cpp` formatting limit where practical, so instrumentation remains easy to identify, remove, rebase, or upstream-split.
+- [ ] Use static categories and event names. Tracepoint arguments must be primitive values or stable identifiers and must not allocate, lock, format strings, or copy payloads on hot paths.
+- [ ] Instrument the out-of-core provider at material transitions only: router selection available, exact issue-ahead, prediction, enqueue/join/promotion, cache lookup/admission/eviction, I/O reservation/submission/completion/cancellation, host ready, H2D or UMA preparation, device ready, expert consume, and request drain.
+- [ ] Instrument only the minimum stable `llama.cpp`/GGML/GGML-backend boundaries needed for E2E attribution: decode/token begin and end, graph build, graph submission, backend queue or synchronization, router completion, routed-MoE execution, remaining graph compute, sampling, and user-visible token delivery where the frontend exposes it.
+- [ ] Do not trace every helper, tensor, allocator operation, lock, or kernel launch merely because it is available. Instrument state changes and cross-subsystem handoffs, not function entry/exit indiscriminately.
+
+#### 12.5.2 Identity, tracks, and causal correlation
+
+- [ ] Define collision-free identities for request, token, graph epoch, layer, expert or expert set, transport epoch, request slot/generation, operation index, cache slot/generation, backend, device, CUDA stream, and `io_uring user_data` where applicable.
+- [ ] Use slices for owned operation lifetimes, flows for work handed between threads/subsystems, counters for queue depths and bounded resources, and instant events for hits, misses, promotions, cancellations, evictions, errors, and circuit transitions.
+- [ ] Ensure direct, prefetch, fallback, cancellation, retry, joined-demand, and stale-completion paths terminate or link their tracks correctly.
+- [ ] Correlate application I/O identities with Linux `io_uring` and block tracepoints. The capture configuration should include the minimal useful scheduler, wakeup, `io_uring`, and block events, with syscall, page-fault, reclaim, and writeback tracing enabled only for focused investigations because of overhead and trace volume.
+- [ ] Correlate H2D, CUDA stream readiness, graph compute, and synchronization at the application boundary. Use Nsight Systems as the CUDA-internal reference where detailed API, memcpy, kernel, or stream analysis is needed; do not claim that Perfetto alone replaces CUDA-specific profiling.
+- [ ] Support the equivalent logical tracks on coherent UMA even when promotion is residency preparation rather than a physical H2D copy.
+
+#### 12.5.3 Derived analysis and benchmark schema
+
+- [ ] Commit reproducible Perfetto capture configurations and Trace Processor SQL or equivalent analysis scripts for the accepted Linux environments.
+- [ ] Derive at minimum: scheduler queue time, storage queue time, `io_uring` service time, completion-to-worker-wakeup, wakeup-to-host-ready, host-ready-to-device-ready, demand-blocked time, prefetch lead time, exposed versus hidden disk/H2D time, graph/backend synchronization, useful GPU compute, router/MoE compute, residual compute, and unattributed time.
+- [ ] Produce a token-level decomposition with stable definitions:
+
+```text
+end-to-end token latency
+├── graph construction and submission
+├── router and routed-MoE compute
+├── remaining useful compute
+├── provider/cache scheduling
+├── exposed storage wait
+├── exposed H2D or UMA readiness wait
+├── backend and CPU/GPU synchronization
+├── sampling and token delivery
+└── residual or unattributed time
+```
+
+- [ ] Distinguish elapsed service time from exposed critical-path stall. Overlapped storage, H2D, and compute must not be summed as if they were serial.
+- [ ] Record queue depth, in-flight reads/transfers, hot/cold occupancy, useful/wasted prefetch bytes, dropped trace events, and trace-buffer saturation alongside the timeline.
+- [ ] Bind every benchmark trace to exact project and nested revisions, build options, Perfetto version, capture configuration, kernel/driver/CUDA versions, hardware/storage identity, runtime configuration, workload, and trace checksum.
+
+#### 12.5.4 Correctness, overhead, and benchmark-readiness validation
+
+- [ ] Verify exact output parity and lifecycle behavior with instrumentation compiled out, compiled in but inactive, and actively captured.
+- [ ] Compare tracing-disabled and tracing-enabled-but-inactive performance to detect compile-time or callsite overhead. Separately measure active-capture overhead and never report active diagnostic captures as ordinary production throughput.
+- [ ] Demonstrate clean compilation and execution without the Perfetto SDK or tracing libraries when the feature is disabled.
+- [ ] Demonstrate bounded trace memory, explicit dropped-event accounting, clean shutdown/drain, and no new unbounded allocation or global lifetime dependency.
+- [ ] Capture representative tiny-model and exact-size synthetic single-request timelines for discrete CUDA and coherent UMA where those transports are available.
+- [ ] Confirm that the deterministic canonical traces, replay manifests, policy selection, and phase acceptance evidence remain independent of Perfetto availability and output.
+- [ ] Publish one benchmark-readiness record defining the authoritative event vocabulary, capture configurations, derived metrics, known blind spots, measured overhead, and accepted commands for later hardware campaigns.
+
+### Exit gate
+
+- A complete token can be reconstructed from decode start through token delivery, including every material out-of-core handoff and backend synchronization that affects the critical path.
+- Application tracks correlate unambiguously with relevant scheduler, `io_uring`, block-device, and CUDA or UMA events on each validated transport.
+- The standard analysis reports exposed storage/H2D/UMA stalls separately from overlapped service and reports any material residual or unattributed interval explicitly.
+- Instrumentation is structurally absent when disabled, exact outputs remain unchanged, and inactive/active overhead plus dropped-event behavior are measured and documented.
+- Trace configurations and analysis scripts are reproducible and bound to exact revisions and environment metadata.
+- No authoritative cross-hardware performance comparison is accepted until this gate is satisfied; later Phases 13–15 must reuse or deliberately version this event and metric schema rather than invent incompatible measurements.
+
+---
+
 ## Phase 13 — Multi-request, batching, and CUDA graphs
 
 ### Objectives
 
 - Make the design safe beyond a single sequential request.
-- Measure concurrency and batching gains relative to the Phase 12 full-size single-request baseline.
+- Measure concurrency and batching gains relative to the Phase 12 full-size single-request baseline using the Phase 12.5 event and metric schema.
 
 ### Tasks
 
@@ -144,7 +221,7 @@ Only if GGUF is proven inadequate:
 - CUDA graph behavior is correct where enabled.
 - Multi-request metrics are exposed.
 - Reported batching gains decompose storage deduplication, transfer avoidance, compute utilization, and scheduler effects.
-- Incremental results are compared with the Phase 12 single-request baseline rather than replacing it.
+- Incremental results are compared with the Phase 12 single-request baseline and decomposed through the Phase 12.5 schema rather than replacing it.
 
 ---
 
@@ -153,7 +230,7 @@ Only if GGUF is proven inadequate:
 ### Objectives
 
 - Extend the provider without redesigning core policy and storage.
-- Measure topology-aware scaling relative to the Phase 12 single-device full-size baseline.
+- Measure topology-aware scaling relative to the Phase 12 single-device full-size baseline using the Phase 12.5 event and metric schema.
 
 ### Tasks
 
@@ -171,7 +248,7 @@ Only if GGUF is proven inadequate:
 
 - Correctness across supported sharding modes.
 - Topology-aware metrics show where bytes moved.
-- Incremental scaling is reported against the Phase 12 single-device baseline.
+- Incremental scaling is reported against the Phase 12 single-device baseline and decomposed through the Phase 12.5 schema.
 
 ---
 
@@ -187,6 +264,7 @@ Only if GGUF is proven inadequate:
 - [ ] Run ASan/UBSan/TSan where applicable.
 - [ ] Add long-running load/unload and warm-cache stress tests.
 - [ ] Expose stable CLI/config and structured metrics.
+- [ ] Preserve or explicitly version the Phase 12.5 E2E event and metric schema for production diagnostics while keeping active high-volume tracing opt-in.
 - [ ] Distinguish logical cache hits, physically resident hits, faulted/degraded hits, and true storage misses in stable telemetry.
 - [ ] Add safe autofit that reserves CUDA/runtime/KV/workspace budgets.
 - [ ] Make safe autofit reason in whole token-working-set increments where useful and retain explicit OS headroom rather than filling nominal RAM.
@@ -211,3 +289,4 @@ The project is successful only when:
 8. The design can progress to the full K3 checkpoint without another architecture rewrite.
 9. Cache defaults remain physically resident under their declared operating envelope and do not trade higher logical hit rate for uncontrolled paging.
 10. Full-size performance is compared with the pinned WASTE baseline on common hardware where practical, or through a documented normalized comparison that exposes all material differences.
+11. Authoritative hardware benchmarks can attribute end-to-end token time across `llama.cpp`/GGML, the expert runtime, storage, transfer or UMA readiness, backend synchronization, and compute, with tracing overhead and residual time disclosed.
