@@ -52,11 +52,17 @@ def main() -> int:
     for identity in manifest["evidence"].values(): verify_identity(identity)
     if not all(manifest["checkpoints"][name]["safety"] == "YES" for name in ("A", "B", "C")):
         raise RuntimeError("checkpoint safety is not YES")
-    if manifest["selection"]["candidate_heads"]["nested"] != manifest["nested"]["head"]:
-        raise RuntimeError("selection does not bind the final Phase 9.4 nested candidate")
+    selection_project = manifest["selection"]["candidate_heads"]["project"]
+    selection_nested = manifest["selection"]["candidate_heads"]["nested"]
+    implementation = manifest["project"]["implementation_evidence_head"]
+    if subprocess.run(["git", "-C", str(ROOT), "merge-base", "--is-ancestor",
+                       selection_project, implementation]).returncode != 0:
+        raise RuntimeError("Phase 9.4 project selection is not an ancestor of implementation evidence")
+    if subprocess.run(["git", "-C", str(ROOT / "llama.cpp"), "merge-base", "--is-ancestor",
+                       selection_nested, manifest["nested"]["head"]]).returncode != 0:
+        raise RuntimeError("Phase 9.4 nested selection is not an ancestor of the final default-resolution head")
     if args.strict:
         current = git(ROOT, "rev-parse", "HEAD")
-        implementation = manifest["project"]["implementation_evidence_head"]
         if subprocess.run(["git", "-C", str(ROOT), "merge-base", "--is-ancestor", implementation, current]).returncode != 0:
             raise RuntimeError("implementation evidence head is not an ancestor of current HEAD")
         allowed = {str(manifest_path.relative_to(ROOT)),
