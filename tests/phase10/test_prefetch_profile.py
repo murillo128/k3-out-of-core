@@ -200,6 +200,19 @@ class PrefetchProfileTests(unittest.TestCase):
         with self.assertRaisesRegex(Phase10Error, "fold"):
             validate_profile(document)
         document = profile()
+        document["source"]["fold"]["validation"], document["source"]["fold"]["test"] = (
+            document["source"]["fold"]["test"], document["source"]["fold"]["validation"])
+        with self.assertRaisesRegex(Phase10Error, "fold"):
+            validate_profile(document)
+        document = profile()
+        document["source"]["fold"]["training"][0] = "arbitrary-prompt"
+        with self.assertRaisesRegex(Phase10Error, "fold"):
+            validate_profile(document)
+        document = profile()
+        document["source"]["fold"]["training"][0:2] = reversed(document["source"]["fold"]["training"][0:2])
+        with self.assertRaisesRegex(Phase10Error, "fold"):
+            validate_profile(document)
+        document = profile()
         document["transitions"].append(document["transitions"][0].copy())
         with self.assertRaisesRegex(Phase10Error, "duplicate"):
             validate_profile(document)

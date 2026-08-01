@@ -28,9 +28,19 @@
     "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "artifact": {"type": "object", "additionalProperties": false, "required": ["name", "size", "sha256"], "properties": {"name": {"type": "string", "minLength": 1}, "size": {"$ref": "#/$defs/positive_u64"}, "sha256": {"$ref": "#/$defs/sha256"}}},
     "fold": {"type": "object", "additionalProperties": false, "required": ["index", "training", "validation", "test", "training_rows", "validation_rows", "test_rows"], "properties": {
-      "index": {"type": "integer", "minimum": 0, "maximum": 5}, "training": {"type": "array", "minItems": 4, "maxItems": 4, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
-      "validation": {"type": "string", "minLength": 1}, "test": {"type": "string", "minLength": 1}, "training_rows": {"$ref": "#/$defs/positive_u64"}, "validation_rows": {"$ref": "#/$defs/positive_u64"}, "test_rows": {"$ref": "#/$defs/positive_u64"}
-    }},
+      "index": {"type": "integer", "minimum": 0, "maximum": 5},
+      "training": {"type": "array", "minItems": 4, "maxItems": 4, "uniqueItems": true, "items": {"enum": ["prose-en-small", "code-en-small", "structured-en-small", "technical-en-large", "narrative-en-large", "narrative-es-large"]}},
+      "validation": {"enum": ["prose-en-small", "code-en-small", "structured-en-small", "technical-en-large", "narrative-en-large", "narrative-es-large"]},
+      "test": {"enum": ["prose-en-small", "code-en-small", "structured-en-small", "technical-en-large", "narrative-en-large", "narrative-es-large"]},
+      "training_rows": {"$ref": "#/$defs/positive_u64"}, "validation_rows": {"$ref": "#/$defs/positive_u64"}, "test_rows": {"$ref": "#/$defs/positive_u64"}
+    }, "allOf": [
+      {"if": {"properties": {"index": {"const": 0}}}, "then": {"properties": {"training": {"prefixItems": [{"const": "structured-en-small"}, {"const": "technical-en-large"}, {"const": "narrative-en-large"}, {"const": "narrative-es-large"}]}, "validation": {"const": "code-en-small"}, "test": {"const": "prose-en-small"}}}},
+      {"if": {"properties": {"index": {"const": 1}}}, "then": {"properties": {"training": {"prefixItems": [{"const": "prose-en-small"}, {"const": "technical-en-large"}, {"const": "narrative-en-large"}, {"const": "narrative-es-large"}]}, "validation": {"const": "structured-en-small"}, "test": {"const": "code-en-small"}}}},
+      {"if": {"properties": {"index": {"const": 2}}}, "then": {"properties": {"training": {"prefixItems": [{"const": "prose-en-small"}, {"const": "code-en-small"}, {"const": "narrative-en-large"}, {"const": "narrative-es-large"}]}, "validation": {"const": "technical-en-large"}, "test": {"const": "structured-en-small"}}}},
+      {"if": {"properties": {"index": {"const": 3}}}, "then": {"properties": {"training": {"prefixItems": [{"const": "prose-en-small"}, {"const": "code-en-small"}, {"const": "structured-en-small"}, {"const": "narrative-es-large"}]}, "validation": {"const": "narrative-en-large"}, "test": {"const": "technical-en-large"}}}},
+      {"if": {"properties": {"index": {"const": 4}}}, "then": {"properties": {"training": {"prefixItems": [{"const": "prose-en-small"}, {"const": "code-en-small"}, {"const": "structured-en-small"}, {"const": "technical-en-large"}]}, "validation": {"const": "narrative-es-large"}, "test": {"const": "narrative-en-large"}}}},
+      {"if": {"properties": {"index": {"const": 5}}}, "then": {"properties": {"training": {"prefixItems": [{"const": "code-en-small"}, {"const": "structured-en-small"}, {"const": "technical-en-large"}, {"const": "narrative-en-large"}]}, "validation": {"const": "prose-en-small"}, "test": {"const": "narrative-es-large"}}}}
+    ]},
     "file": {"type": "object", "additionalProperties": false, "required": ["ordinal", "name", "size", "sha256"], "properties": {"ordinal": {"$ref": "#/$defs/u32"}, "name": {"type": "string", "minLength": 1}, "size": {"$ref": "#/$defs/positive_u64"}, "sha256": {"$ref": "#/$defs/sha256"}}},
     "key_bytes": {"type": "object", "additionalProperties": false, "required": ["layer", "expert", "payload_bytes", "physical_bytes"], "properties": {"layer": {"$ref": "#/$defs/u32"}, "expert": {"$ref": "#/$defs/u32"}, "payload_bytes": {"$ref": "#/$defs/positive_u64"}, "physical_bytes": {"$ref": "#/$defs/positive_u64"}}},
     "target": {"type": "object", "additionalProperties": false, "required": ["package_sha256", "files", "layer_count", "routed_layers", "experts_per_layer", "experts_per_token", "tensor_layout_sha256", "expert_bytes"], "properties": {
