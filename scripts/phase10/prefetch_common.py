@@ -356,15 +356,19 @@ def validate_profile(profile: dict[str, Any]) -> None:
         if not is_power_of_two(window) or successes != expected_successes:
             raise Phase10Error("invalid utility threshold")
     selection = profile["selection"]
-    require_fields(selection, {"matrix_version", "tuning_digest", "fold_index", "candidates_per_target", "temporal_window_tokens", "transport", "readiness", "break_even_bps"}, "selection")
+    require_fields(selection, {"matrix_version", "tuning_digest", "fold_index", "policy", "candidates_per_target", "temporal_window_tokens", "transport", "readiness", "break_even_bps"}, "selection")
     require_sha256(selection["tuning_digest"], "tuning_digest")
     candidates = require_uint(selection["candidates_per_target"], "selected candidates", positive=True, maximum=experts)
     del candidates
     window = require_uint(selection["temporal_window_tokens"], "selected temporal window", maximum=64)
-    if window != 0 and (window < 2 or not is_power_of_two(window)):
+    if (selection["policy"] == "TEMPORAL_FREQUENCY" and
+            (window < 2 or not is_power_of_two(window))) or \
+            (selection["policy"] != "TEMPORAL_FREQUENCY" and window != 0):
         raise Phase10Error("invalid selected temporal window")
     require_uint(selection["break_even_bps"], "selected break even", maximum=10000)
-    if selection["fold_index"] != fold["index"] or selection["readiness"] not in READINESS or \
+    if selection["policy"] not in {"STATIC_LAYER", "PREVIOUS_TOKEN", "TEMPORAL_FREQUENCY",
+            "CROSS_LAYER_TRANSITION", "RANDOM_BASELINE", "BLOCKING_HOT"} or \
+            selection["fold_index"] != fold["index"] or selection["readiness"] not in READINESS or \
             selection["transport"] not in {"BUFFERED", "DIRECT_IO", "HOST_TO_DEVICE"}:
         raise Phase10Error("invalid selection provenance")
     selected_cost = next((cost for cost in profile["costs"]

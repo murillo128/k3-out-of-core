@@ -48,9 +48,18 @@ def build(args: argparse.Namespace) -> dict:
     source_artifacts = [corpus["identities"][prompt] for prompt in fold["training"]]
     source_artifacts.append(corpus["archive"])
     tuning_digest = sha256_bytes(canonical_bytes(MATRIX))
+    temporal_window = args.temporal_window
+    if temporal_window is None:
+        temporal_window = 4 if args.policy == "TEMPORAL_FREQUENCY" else 0
+    if args.policy == "TEMPORAL_FREQUENCY":
+        if temporal_window not in MATRIX["temporal_windows"]:
+            raise Phase10Error("temporal policy requires a declared temporal window")
+    elif temporal_window != 0:
+        raise Phase10Error("non-temporal policy requires a zero temporal window")
     profile = {
         "schema_version": "expert-prefetch-profile-v1",
-        "profile_id": f"phase10-{args.artifact}-fold{args.fold}",
+        "profile_id": (f"phase10-{args.artifact}-fold{args.fold}-{args.policy.lower().replace('_', '-')}-"
+            f"{args.transport.lower().replace('_', '-')}-{args.readiness.lower().replace('_', '-')}"),
         "tool": {"name": "build_prefetch_profile.py", "version": 1},
         "source": {"kind": "route_trace", "artifacts": source_artifacts,
             "fold": {**fold, "training_rows": training_rows, "validation_rows": validation_rows, "test_rows": test_rows}},
@@ -59,7 +68,7 @@ def build(args: argparse.Namespace) -> dict:
         "transitions": transitions,
         "costs": costs,
         "selection": {"matrix_version": 1, "tuning_digest": tuning_digest, "fold_index": args.fold,
-            "candidates_per_target": args.candidates, "temporal_window_tokens": args.temporal_window,
+            "policy": args.policy, "candidates_per_target": args.candidates, "temporal_window_tokens": temporal_window,
             "transport": args.transport, "readiness": args.readiness,
             "break_even_bps": selected_cost["break_even_bps"]},
         "seed": seed,
@@ -77,8 +86,10 @@ def main() -> int:
     parser.add_argument("--costs", required=True)
     parser.add_argument("--transport", choices=["BUFFERED", "DIRECT_IO", "HOST_TO_DEVICE"], default="BUFFERED")
     parser.add_argument("--readiness", choices=["HOST_READY", "DEVICE_READY"], default="DEVICE_READY")
+    parser.add_argument("--policy", choices=["STATIC_LAYER", "PREVIOUS_TOKEN", "TEMPORAL_FREQUENCY",
+        "CROSS_LAYER_TRANSITION", "RANDOM_BASELINE", "BLOCKING_HOT"], default="TEMPORAL_FREQUENCY")
     parser.add_argument("--candidates", type=int, default=2)
-    parser.add_argument("--temporal-window", type=int, default=4)
+    parser.add_argument("--temporal-window", type=int)
     parser.add_argument("--seed-slots", type=int, default=14)
     parser.add_argument("--output", required=True)
     args = parser.parse_args()

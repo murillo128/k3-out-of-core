@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts" / "phase10"))
 
 from measure_transport_break_even import derive
+from capture_offline_replay import score_candidates
 from prefetch_common import (FNV_OFFSET, Phase10Error, break_even, config_digest, cross_candidates, fold_membership,
     load_json, predictor_candidates, splitmix64, validate_profile, write_json)
 from replay_prefetch import replay
@@ -44,7 +45,7 @@ def profile() -> dict:
             "displacement_refill_ns": 5, "storage_bytes": 128, "h2d_bytes": 128, "break_even_bps": 3637,
             "utility_window_predictions": 8, "utility_min_observations": 4, "utility_min_timely_successes": 3}],
         "selection": {"matrix_version": 1, "tuning_digest": HASH, "fold_index": 0, "candidates_per_target": 2,
-            "temporal_window_tokens": 4, "transport": "BUFFERED", "readiness": "DEVICE_READY", "break_even_bps": 3637},
+            "policy": "TEMPORAL_FREQUENCY", "temporal_window_tokens": 4, "transport": "BUFFERED", "readiness": "DEVICE_READY", "break_even_bps": 3637},
         "seed": [{"layer": 1, "expert": 1, "count": 9, "payload_bytes": 128, "physical_bytes": 160}]}
 
 
@@ -122,6 +123,23 @@ class PrefetchProfileTests(unittest.TestCase):
             output = replay(request)
             self.assertEqual(output["candidate_stream"], [])
             self.assertEqual(output["state_digest"], FNV_OFFSET)
+
+    def test_offline_scoring_uses_causal_deadlines_and_physical_budget(self) -> None:
+        document = profile()
+        document["_events"] = [
+            {"token": 0, "layers": [{"layer": 1, "experts": [0, 1]}, {"layer": 2, "experts": [2, 3]}]},
+            {"token": 1, "layers": [{"layer": 1, "experts": [1, 2]}, {"layer": 2, "experts": [0, 3]}]},
+        ]
+        output = {"policy": "PREVIOUS_TOKEN", "candidate_stream": [
+            {"trigger_token": 0, "trigger": "TOKEN_END", "source_layer": -1,
+                "target_layer": 1, "expert": 1, "rank": 0, "score": 1},
+            {"trigger_token": 0, "trigger": "TOKEN_END", "source_layer": -1,
+                "target_layer": 2, "expert": 2, "rank": 0, "score": 1},
+        ]}
+        self.assertEqual(score_candidates(document, output, 320), {
+            "predictions": 2, "timely_successes": 1, "actual_demands": 4,
+            "precision_bps": 5000, "recall_bps": 2500, "budget_rejections": 0,
+            "predicted_physical_bytes": 320, "wasted_physical_bytes": 160})
 
 
 if __name__ == "__main__":
