@@ -106,7 +106,7 @@ def candidate_gate(candidate: dict[str, str], rows: list[dict[str, Any]], benchm
             "protected_resume": protected}
 
 
-def boundary_budget(boundaries: dict[str, Any], name: str, model_format: str, w: int,
+def boundary_budget(boundaries: dict[str, Any], name: str, model_format: str, scope: str, w: int,
                     headroom: dict[str, Any]) -> dict[str, Any]:
     passing = [row for row in boundaries["rows"] if row["name"] == name and row["tier"] == "cold"
                and row["disposition"] == "pass"]
@@ -130,7 +130,8 @@ def boundary_budget(boundaries: dict[str, Any], name: str, model_format: str, w:
     attempted = [row for row in boundaries["rows"] if row["name"] == name and row["tier"] == "cold"]
     footprint = attempted[0]["requested_bytes"]//attempted[0]["slots"]
     w_slots = w//footprint
-    return {"model_format": model_format, "recommended_cold_bytes": selected["budget_bytes"],
+    return {"model_format": model_format, "scope": scope,
+            "recommended_cold_bytes": selected["budget_bytes"],
             "decode_w_bytes": w, "budget_over_w": selected["budget_bytes"]/w,
             "selection_rule": "lowest median; within 3% with overlapping 95% mean intervals chooses fewer bytes",
             "selected_cell": selected, "safe_cells": cells,
@@ -191,12 +192,15 @@ def main() -> int:
         disposition = "no non-LRU finalist satisfies every frozen default gate; retain exact global LRU/ALWAYS"
     ws_by_name = {case["name"]: case for case in working["cases"]}
     budgets = []
-    for boundary_name, working_name, model_format in (
-        ("tiny-f16-original", "tiny-f16-original-cold-lru-cpu-background-off", "tiny-k3-f16"),
-        ("tiny-mxfp4-original", "tiny-mxfp4-original-cold-lfu-auto-background-on", "tiny-k3-mxfp4"),
-        ("qwen15-moe-f16", "qwen15-moe-f16-cold-lru-cpu-background-off", "qwen1.5-moe-f16")):
+    for boundary_name, working_name, model_format, scope in (
+        ("tiny-f16-original", "tiny-f16-original-cold-lru-cpu-background-off", "tiny-k3-f16",
+         "two-token tiny-K3 CPU_FALLBACK boundary workload"),
+        ("tiny-mxfp4-original", "tiny-mxfp4-original-cold-lfu-auto-background-on", "tiny-k3-mxfp4",
+         "two-token tiny-K3 CPU_FALLBACK boundary workload"),
+        ("qwen15-moe-f16", "qwen15-moe-f16-cold-lru-cpu-background-off", "qwen1.5-moe-f16",
+         "one-token accepted Qwen bootstrap; not a long-decode recommendation")):
         case = ws_by_name[working_name]
-        budgets.append(boundary_budget(boundaries, boundary_name, model_format,
+        budgets.append(boundary_budget(boundaries, boundary_name, model_format, scope,
                                        case["token_working_set_bytes"]["decode"]["max"], working["headroom"]))
     full_k3_w = working["full_k3_mxfp4"]["theoretical_token_working_set_bytes"]
     budgets.append({"model_format": "full-k3-mxfp4-exact-layout", "recommended_cold_bytes": full_k3_w,

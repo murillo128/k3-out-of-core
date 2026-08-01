@@ -54,7 +54,8 @@ class Phase9EvidenceTests(unittest.TestCase):
                              "slots": slots, "requested_bytes": slots*100, "repetition": repetition,
                              "token_mean_us": timing, "resident_ratio": 1.0})
         result = boundary_budget({"rules": {"fresh_process_repetitions_per_cell": 2}, "rows": rows},
-                                 "fixture", "fixture-format", 1400, {"safe_ceiling_bytes": 10000})
+                                 "fixture", "fixture-format", "fixture scope", 1400,
+                                 {"safe_ceiling_bytes": 10000})
         self.assertEqual(result["recommended_cold_bytes"], 1400)
         self.assertFalse(result["runtime_auto_sizing"])
 
