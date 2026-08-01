@@ -1,0 +1,31 @@
+{
+  "binary_sha256": "e94c033588e304f167f1d37b76b8a472daeac501128da893aec2f07b085f6bcf",
+  "demand_preemptions": 1,
+  "nested_head": "b360cdecfe8fdf6094fbd545de944e20d767ce6a",
+  "project_head": "daac890e90db5736f86026920a2905bf3403c921",
+  "queued_speculative_cancellations": 1,
+  "retry_uses_new_generation": true,
+  "runs": [
+    {
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-phase10-cpu/bin/test-expert-scheduler"
+      ],
+      "exit_code": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "048d3fa7e28129db29e1739d4d4747e2738d4b75338a244affeccd0c3884c395"
+    },
+    {
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-phase10-cpu/bin/test-expert-scheduler"
+      ],
+      "exit_code": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "048d3fa7e28129db29e1739d4d4747e2738d4b75338a244affeccd0c3884c395"
+    }
+  ],
+  "same_generation_demand_promotions": 1,
+  "schema_version": "phase10-scheduler-lifecycle-v1",
+  "speculative_budget_rejections": 1,
+  "submitted_shutdown_drained": true,
+  "zero_final_speculative_charges": true
+}

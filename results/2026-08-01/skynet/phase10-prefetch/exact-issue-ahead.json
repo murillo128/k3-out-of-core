@@ -1,0 +1,38 @@
+{
+  "all_demand_enqueued_before_take": true,
+  "all_demand_ready_before_use": true,
+  "all_storage_submitted_before_wait": true,
+  "binary_sha256": "d1da585397bf56c42b7dd1cca79b9ba4bbacd35878ce4cfafbfb0d7612cb50e7",
+  "nested_head": "b360cdecfe8fdf6094fbd545de944e20d767ce6a",
+  "parallel": {
+    "demand_misses": 2,
+    "demand_ready_before_use": 2,
+    "scheduler_enqueued_before_first_take": 2,
+    "storage_reads_submitted_before_first_wait": 2
+  },
+  "project_head": "daac890e90db5736f86026920a2905bf3403c921",
+  "route_identity_preserved": true,
+  "runs": [
+    {
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-phase10-cpu/bin/test-hot-expert-cache"
+      ],
+      "exit_code": 0,
+      "stderr_sha256": "e320a02c35e505cb7c7d6eb47835cfb227195535f8186586528a345acac3f9d4",
+      "stdout_sha256": "390c6dc65102e2124a848f6eca95328be267f715b8e0213ff94cdbc98f8ec2ff"
+    },
+    {
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-phase10-cpu/bin/test-hot-expert-cache"
+      ],
+      "exit_code": 0,
+      "stderr_sha256": "e320a02c35e505cb7c7d6eb47835cfb227195535f8186586528a345acac3f9d4",
+      "stdout_sha256": "390c6dc65102e2124a848f6eca95328be267f715b8e0213ff94cdbc98f8ec2ff"
+    }
+  ],
+  "schema_version": "phase10-exact-issue-ahead-v1",
+  "serial_control": {
+    "storage_reads_submitted_before_first_wait": 1
+  },
+  "serial_control_distinguishes_issue_ahead": true
+}

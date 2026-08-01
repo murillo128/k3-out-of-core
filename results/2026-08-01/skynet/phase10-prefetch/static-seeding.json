@@ -1,0 +1,31 @@
+{
+  "binary_sha256": "d1da585397bf56c42b7dd1cca79b9ba4bbacd35878ce4cfafbfb0d7612cb50e7",
+  "h2d_bytes": 3416,
+  "nested_head": "b360cdecfe8fdf6094fbd545de944e20d767ce6a",
+  "ordinary_lru_after_startup": true,
+  "partial_failure_rolled_back": true,
+  "project_head": "daac890e90db5736f86026920a2905bf3403c921",
+  "runs": [
+    {
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-phase10-cpu/bin/test-hot-expert-cache"
+      ],
+      "exit_code": 0,
+      "stderr_sha256": "e320a02c35e505cb7c7d6eb47835cfb227195535f8186586528a345acac3f9d4",
+      "stdout_sha256": "390c6dc65102e2124a848f6eca95328be267f715b8e0213ff94cdbc98f8ec2ff"
+    },
+    {
+      "command": [
+        "/usr/local/src/k3-out-of-core/llama.cpp/build-phase10-cpu/bin/test-hot-expert-cache"
+      ],
+      "exit_code": 0,
+      "stderr_sha256": "e320a02c35e505cb7c7d6eb47835cfb227195535f8186586528a345acac3f9d4",
+      "stdout_sha256": "390c6dc65102e2124a848f6eca95328be267f715b8e0213ff94cdbc98f8ec2ff"
+    }
+  ],
+  "scheduler_drained_after_failure": true,
+  "schema_version": "phase10-static-seeding-v1",
+  "seed_entries": 2,
+  "source_path": "GGUF_TO_COLD_TO_RING_TO_HOT",
+  "storage_bytes": 3416
+}
