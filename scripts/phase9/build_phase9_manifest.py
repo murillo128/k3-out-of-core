@@ -5,7 +5,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import platform
 import subprocess
 import sys
 from pathlib import Path
@@ -62,9 +61,14 @@ def main() -> int:
     phase2 = ROOT / "results/2026-07-29/skynet/phase2-observability/phase2-manifest.json"
     manifest: dict[str, Any] = {
         "schema_version": "phase9-manifest-v1", "status": "pass",
-        "project": {"repository": "murillo128/k3-out-of-core", "implementation_evidence_head": args.implementation_head,
-                    "base": "17a4e5be38a4820984a7bd4d3082695d8822c9ba"},
+        "project": {"repository": "murillo128/k3-out-of-core", "branch": "codex/phase9-cache-policy",
+                    "pull_request": 31, "implementation_evidence_head": args.implementation_head,
+                    "base": "17a4e5be38a4820984a7bd4d3082695d8822c9ba",
+                    "closeout_allowed_paths": [
+                        "results/2026-07-31/skynet/phase9-cache-policy/phase9-manifest.json",
+                        "results/2026-07-31/skynet/phase9-cache-policy/PHASE9.md"]},
         "nested": {"repository": "murillo128/llama.cpp", "head": git(ROOT / "llama.cpp", "rev-parse", "HEAD"),
+                   "gitlink": git(ROOT, "rev-parse", "HEAD:llama.cpp"),
                    "base": "dc4d50c68378d908131b518662160fdd08f4e005"},
         "inputs": {"phase2_manifest": repository_identity(phase2),
                    "phase8_manifest": repository_identity(phase8),
@@ -84,7 +88,7 @@ def main() -> int:
         "evidence": {name: file_identity(path) for name, path in evidence_paths.items()},
         "selection": selection,
         "verification": validation,
-        "environment": {"platform": platform.platform(), "python": platform.python_version()},
+        "environment": validation["environment"],
         "technical_closeout_state": "complete-with-global-lru-retained" if selection["selected"]["hot"] == "LRU-GLOBAL"
                                     else "complete-with-evidence-selected-default",
         "evidence_limits": selection["limits"],

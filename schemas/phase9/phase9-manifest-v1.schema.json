@@ -8,8 +8,33 @@
   "properties": {
     "schema_version": {"const": "phase9-manifest-v1"},
     "status": {"enum": ["in-progress", "pass", "fail", "blocked"]},
-    "project": {"type": "object"},
-    "nested": {"type": "object"},
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "branch", "pull_request", "implementation_evidence_head", "base", "closeout_allowed_paths"],
+      "properties": {
+        "repository": {"const": "murillo128/k3-out-of-core"},
+        "branch": {"const": "codex/phase9-cache-policy"},
+        "pull_request": {"const": 31},
+        "implementation_evidence_head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "base": {"const": "17a4e5be38a4820984a7bd4d3082695d8822c9ba"},
+        "closeout_allowed_paths": {
+          "type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true,
+          "items": {"enum": ["results/2026-07-31/skynet/phase9-cache-policy/phase9-manifest.json", "results/2026-07-31/skynet/phase9-cache-policy/PHASE9.md"]}
+        }
+      }
+    },
+    "nested": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "head", "gitlink", "base"],
+      "properties": {
+        "repository": {"const": "murillo128/llama.cpp"},
+        "head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "gitlink": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "base": {"const": "dc4d50c68378d908131b518662160fdd08f4e005"}
+      }
+    },
     "inputs": {"type": "object"},
     "checkpoints": {"type": "object"},
     "replay": {"type": "object"},
@@ -18,7 +43,25 @@
     "evidence": {"type": "object"},
     "selection": {"type": "object"},
     "verification": {"type": "object"},
-    "environment": {"type": "object"},
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["host", "os", "kernel", "python", "cpu", "memory", "filesystem", "nvme", "gpu", "cuda", "compiler", "cmake"],
+      "properties": {
+        "host": {"type": "string", "minLength": 1},
+        "os": {"type": "string", "minLength": 1},
+        "kernel": {"type": "string", "minLength": 1},
+        "python": {"type": "string", "minLength": 1},
+        "cpu": {"type": "string", "minLength": 1},
+        "memory": {"type": "string", "minLength": 1},
+        "filesystem": {"type": "string", "minLength": 1},
+        "nvme": {"type": "boolean"},
+        "gpu": {"type": "string", "minLength": 1},
+        "cuda": {"type": "string", "minLength": 1},
+        "compiler": {"type": "string", "minLength": 1},
+        "cmake": {"type": "string", "minLength": 1}
+      }
+    },
     "technical_closeout_state": {"type": "string", "minLength": 1},
     "evidence_limits": {"type": "array", "items": {"type": "string"}}
   }

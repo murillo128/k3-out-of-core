@@ -14,7 +14,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts" / "phase8"))
-from common import git, run_command, write  # noqa: E402
+from common import environment, git, run_command, write  # noqa: E402
 
 
 PROJECT_BASE = "17a4e5be38a4820984a7bd4d3082695d8822c9ba"
@@ -166,6 +166,7 @@ def main() -> int:
         },
         "phase9_strict": {"state": "pending-parent-only-closeout",
                           "reason": "the non-circular manifest is built after this implementation evidence is committed"},
+        "environment": environment(root, root / "results/2026-07-31/skynet/phase9-cache-policy"),
         "commands": records,
     }
     write(args.output, output)
