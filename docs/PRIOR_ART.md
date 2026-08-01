@@ -378,6 +378,8 @@ Lessons retained for this project:
 - page faults, swap/compression, RSS, physical residency, hit service time, throughput, and tails are required evidence;
 - WASTE's observed cache floor is a baseline to reproduce or refute per model, representation, hardware, and policy, not a universal invariant.
 
+Phase 9 independently reproduced WASTE's sampled LRU/LFRU semantics for replay only; no WASTE source was imported. Its evidence agrees that physical residency and headroom, rather than logical hit rate alone, control safe cache sizing, but does not transfer WASTE's approximately 17 GB floor to GGUF/MXFP4 on this discrete-GPU host. The corrected full-K3 MXFP4 top-16 working set is 25,829,572,608 bytes, and the safe exact-layout sweep observed no paging cliff. Global LRU/ALWAYS remains this runtime's default because no non-LRU pair passed the fixed online/statistical gates, not because WASTE selected or implied it.
+
 ### Prefetch and routing findings
 
 WASTE distinguishes exact current-layer issue-ahead from prediction. Once routing has selected all experts for a layer, issuing those reads ahead is exact and produced the measured overlap gain.

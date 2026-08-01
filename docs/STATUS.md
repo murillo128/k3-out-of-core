@@ -18,7 +18,8 @@ This file is the first handoff document for a new ChatGPT or Codex session.
 - Project Phase 5 is complete and merged. Issue #20 was implemented by PR #21 and squash-merged into `main` as `c5512bc073ae7aab4a14773028828e516e16f3f6`. The merged nested `murillo128/llama.cpp` gitlink is `26317ee1d848dd7a73f22a3666a055cad5d5cb03`.
 - Project Phase 6 is complete and merged. Issue #22 was implemented by PR #23 and squash-merged into `main` as `66ab6dba60b55ce47d0ecf94fcf88a778df9cdc6`. The merged nested `murillo128/llama.cpp` gitlink is `7a606dd4e11a108929f799253809a904f55feae4`; asynchronous Linux I/O, direct-I/O evaluation, transfer/compute overlap, prefetch, and CPU miss execution remain Phase 7–8 work.
 - Project Phase 7 is complete and merged. Issue #24 was implemented by PR #25 and squash-merged into `main` as `97ef68d787c54b443eac72a3480fe70eba88d8dd`. Checkpoint A, Checkpoint B, and the final complete-PR review returned **PASS** with safety **YES** at comments `5135836934`, `5140081178`, and `5140490542`. The merged nested `murillo128/llama.cpp` gitlink is `b71e40f91b1a0dab578d56ac733211453704d674`, and the Phase 7 evidence head is `1e2faeec1c1cc1781d9f65f030b1736f4adcfe51`.
-- Project Phase 8 is complete and merged. Issue #26 was implemented by PR #27 and squash-merged into `main` as `05c38f0f11bd33c3654a3d9b2c3c6aa32e7f4c35`. Checkpoints A, B, and C accepted the bounded miss-policy mechanism, fail-closed production evidence, and cold-cache bootstrap correction at comments `5141694340`, `5144721775`, and `5146173479`. The final complete-PR review returned **PASS_WITH_NOTES**, safety **YES**, with no required delta at comment `5146545713`. The merged nested `murillo128/llama.cpp` gitlink is `dc4d50c68378d908131b518662160fdd08f4e005`, and the standing-evidence capture head is `eb3d0093157da7757036882dc81b37dd622bbf46`. Phase 9 has not begun.
+- Project Phase 8 is complete and merged. Issue #26 was implemented by PR #27 and squash-merged into `main` as `05c38f0f11bd33c3654a3d9b2c3c6aa32e7f4c35`. Checkpoints A, B, and C accepted the bounded miss-policy mechanism, fail-closed production evidence, and cold-cache bootstrap correction at comments `5141694340`, `5144721775`, and `5146173479`. The final complete-PR review returned **PASS_WITH_NOTES**, safety **YES**, with no required delta at comment `5146545713`. The merged nested `murillo128/llama.cpp` gitlink is `dc4d50c68378d908131b518662160fdd08f4e005`, and the standing-evidence capture head is `eb3d0093157da7757036882dc81b37dd622bbf46`.
+- Project Phase 9 is in Phase 9.5 closeout on issue #30 / draft PR #31. Checkpoints A, B, and C returned **PASS**, safety **YES**, at comments `5148012128`, `5148752231`, and `5149625334`. The accepted selection retains exact global LRU/ALWAYS for both null defaults; no non-LRU pair passed every frozen gate, per-layer remains explicit-only, and no hidden budget auto-sizing was added. The nested retained-default head is `fd29c0f9e868e838d3641cd13eb6ceb8c1535f01`. Full closeout validation, the non-circular technical manifest, and the mandatory final complete-PR review remain pending at this handoff update.
 - Phase 1 evidence is descriptive for the tiny K3 fixtures on `skynet`; it is not a model-quality or production-performance claim.
 
 ## Phase 3 merged baseline
@@ -139,6 +140,22 @@ This file is the first handoff document for a new ChatGPT or Codex session.
 - Technical manifest: [`../results/2026-07-31/skynet/phase8-miss-execution/phase8-manifest.json`](../results/2026-07-31/skynet/phase8-miss-execution/phase8-manifest.json), accepted with SHA-256 `0d2405cd4a13438cb78645b7349239129e3b890d8a37c1be16bc7b0fa9632222`.
 - Derived summary: [`../results/2026-07-31/skynet/phase8-miss-execution/PHASE8.md`](../results/2026-07-31/skynet/phase8-miss-execution/PHASE8.md).
 
+## Phase 9 closeout candidate
+
+- Issue: <https://github.com/murillo128/k3-out-of-core/issues/30>
+- Draft PR: <https://github.com/murillo128/k3-out-of-core/pull/31>
+- Execution profile: `STANDARD`
+- Immutable project execution base: `17a4e5be38a4820984a7bd4d3082695d8822c9ba`
+- Nested execution base: `dc4d50c68378d908131b518662160fdd08f4e005`
+- Accepted Checkpoint A: comment `5148012128`, `PASS`, safety `YES`.
+- Accepted Checkpoint B: comment `5148752231`, `PASS`, safety `YES`.
+- Accepted Checkpoint C: comment `5149625334`, `PASS`, safety `YES`; reviewed project/nested heads `4240919ff9633feff4c60af2731a0d7decb03691` / `75a4ecc0fa2249e3c0c4163dd3b692c7ebf705e0`.
+- Nested retained-default head: `fd29c0f9e868e838d3641cd13eb6ceb8c1535f01`; it exposes explicit/null evidence selection without changing the selected LRU semantics.
+- Selected null defaults: global LRU/ALWAYS for hot and cold. Explicit non-default and per-layer configurations remain available under the v1 validation rules.
+- Scoped cold-budget evidence: 44,040,192 bytes for the two-token tiny F16 boundary workload; 11,698,176 bytes for tiny MXFP4; 1,678,245,888 bytes for the one-token accepted Qwen bootstrap only; and 25,829,572,608 bytes for full-K3 exact-layout physical-residency evidence only. These are not runtime defaults.
+- Frozen evidence: [`../results/2026-07-31/skynet/phase9-cache-policy/selection.json`](../results/2026-07-31/skynet/phase9-cache-policy/selection.json).
+- Pending authority: `phase9-manifest.json` will bind the exact implementation evidence head; the final review comment will separately attest its externally computed SHA-256.
+
 ## Phase 1 merged baseline
 
 - Issue: <https://github.com/murillo128/k3-out-of-core/issues/7>
@@ -185,4 +202,4 @@ Kernel: 6.8.0-136-generic
 
 ## Immediate next action
 
-Use the current `main`, `docs/STATUS.md`, and the Phase 9 section of `docs/plan/07-async-runtime.md` to create one self-contained, execution-ready controlling issue for **Phase 9 — cache-policy framework and trace-driven selection**. Follow `AGENTS.md` and `.agents/skills/design-github-issue/SKILL.md`; verify the current project head and nested `llama.cpp` gitlink, resolve all material policy, simulator, online-validation, memory-budget, paging/residency, telemetry, failure, and acceptance decisions, and retain the committed WASTE findings as external prior art rather than a transferable default. Do not implement code, create an execution branch, or open a PR in the design session.
+Complete issue #30 Phase 9.5 from the exact `codex/phase9-cache-policy` branch and accepted Checkpoint C. Commit the affected source-of-truth and full validation evidence as the implementation evidence head, build the non-circular Phase 9 manifest from that exact head, add only the manifest and derived `PHASE9.md` in the parent closeout commit, then request a fresh final complete-PR review over the exact final heads and manifest SHA-256. Do not change the accepted global LRU/ALWAYS selection, evidence rules, budget recommendations, or nested default head without returning to Phase 9.4/design authority.
