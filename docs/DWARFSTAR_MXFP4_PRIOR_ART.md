@@ -7,7 +7,7 @@ This document records DwarfStar's emerging native-MXFP4 DeepSeek-V4-Flash path a
 Use the repository status markers precisely:
 
 - `OBSERVED`: verified from repository code, metadata, or published artifacts;
-- `EXTERNAL CLAIM`: reported by the external author but not reproduced with a complete project-quality manifest;
+- `SPECULATIVE`: plausible or externally claimed behavior that is not yet reproduced with a complete project-quality manifest;
 - `OPEN`: a project decision or comparison deferred to a controlling issue.
 
 ## Sources and reviewed state
@@ -78,7 +78,7 @@ The project owner supplied the following DwarfStar author claim:
 
 > The `ds4f-mxfp4` branch can run a lossless MXFP4 DeepSeek V4 Flash GGUF, including SSD streaming on 128 GB systems, at more than 20 tokens/second.
 
-Disposition: **`EXTERNAL CLAIM` pending reproduction**.
+Disposition: **`SPECULATIVE` pending reproduction**.
 
 The inspected code and artifact structure make the claim technically plausible, but no complete benchmark record was located during this review that binds the headline number to all of the following:
 
@@ -169,6 +169,6 @@ Do not transplant DwarfStar's vertical runtime, global assumptions, model-specif
 ## Current disposition
 
 - DwarfStar native-MXFP4 conversion and Metal execution: **`OBSERVED` external prior art**.
-- `>20 tok/s` with SSD streaming on a 128 GB system: **`EXTERNAL CLAIM` pending reproduction**.
+- `>20 tok/s` with SSD streaming on a 128 GB system: **`SPECULATIVE` pending reproduction**.
 - Importing code: **`OPEN`**, allowed only as isolated reviewed units with tests, attribution, and a controlling issue.
 - Replacing the project's runtime architecture with DwarfStar: **`REJECTED`**.
