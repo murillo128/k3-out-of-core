@@ -168,12 +168,16 @@ The authoritative technical manifest is `results/2026-07-31/skynet/phase9-cache-
 
 ## Phase 10 — Prefetch and hot-set seeding
 
+**Disposition:** `REJECTED` for the evaluated static-seeding and predictive-prefetch mechanisms. The investigation is complete enough to reject the tested mechanisms, but the implementation phase did not satisfy its exit gate and was not merged.
+
 ### Objectives
 
 - Hide remaining cold/disk misses without polluting caches or starving demand.
 - Separate exact issue-ahead after routing from speculative prediction across tokens or layers.
 
 ### Tasks
+
+The unchecked implementation tasks below are retained as the original scope and as a record of what remains unaccepted. They are not current implementation work.
 
 #### 10.1 Static seeding
 
@@ -207,6 +211,70 @@ The authoritative technical manifest is `results/2026-07-31/skynet/phase9-cache-
 
 ### Exit gate
 
-- At least one prefetch policy improves end-to-end tail latency or throughput after accounting for wasted I/O and cache pollution.
-- Ineffective policies remain disabled.
-- Cross-layer prediction remains disabled unless it beats the required simple baselines and the measured end-to-end break-even on the target hardware.
+- [ ] At least one prefetch policy improves end-to-end tail latency or throughput after accounting for wasted I/O and cache pollution.
+- [x] Ineffective policies remain disabled.
+- [x] Cross-layer prediction remains disabled because it did not beat the required simple baselines and measured end-to-end break-even on the validated hardware.
+
+### Phase 10 investigation record
+
+Issue #32 executed the fixed Phase 10 investigation through draft PR #33. Checkpoints A and B and the corrected online/runtime-equivalence work were accepted with safety `YES`. Phase 10.4 then produced a reviewed negative selection: no predictive envelope cleared its exact held-out break-even, the buffered blocking seed improved cold TTFT but failed steady-throughput and domain-shift gates, and the H2D blocking seed failed cold-TTFT, steady-throughput, and domain-shift gates. The second failure of the blocking-hot-seed mechanism triggered the `STANDARD` circuit breaker.
+
+The authoritative negative-selection artifact on the research branch is `results/2026-08-01/skynet/phase10-prefetch/selection.json`. It selects zero profiles, disables every evaluated profile hash, and preserves the accepted Phase 9 global LRU/ALWAYS defaults. Draft PR #33 is retained only as read-only research evidence at project head `d4159abcb1234287d7a21047a34a354ab6ae7e38` and nested `llama.cpp` head `b617680ca030f7e81d2446c4fabb24225947538c`; it must not be merged, extended, or used as the base for later phases.
+
+Exact current-layer issue-ahead is not speculative prefetch. PR #33 demonstrated that all known current-layer misses can be enqueued and submitted before the first storage wait while preserving routes, but that mechanism is entangled with rejected Phase 10 infrastructure. It therefore moves to the bounded Phase 10R extraction below and must be reimplemented from current `main`, not cherry-picked wholesale.
+
+Speculative prefetch is no longer a prerequisite for Phases 11–15. Those phases use the accepted Phase 9 demand-only baseline plus Phase 10R if Phase 10R independently passes its own exit gate.
+
+---
+
+## Phase 10R — Exact current-layer demand issue-ahead extraction
+
+**Status:** `OPEN`. This is the immediate next implementation phase.
+
+### Objectives
+
+- Extract the useful non-speculative result of the Phase 10 investigation into a minimal demand-only change based on current `main`.
+- Submit every already-known current-layer demand miss before the first storage wait where scheduler and transport capacity permit.
+- Preserve Phase 9 global LRU/ALWAYS defaults, exact routing/output semantics, and all accepted Phase 7–9 ownership and lifetime rules.
+
+### Tasks
+
+#### 10R.1 Minimal demand scheduling
+
+- [ ] At the accepted router/remap checkpoint, deduplicate selected current-layer expert keys in canonical order while retaining all execution occurrences.
+- [ ] Reserve and enqueue the complete bounded current-layer miss set before taking or waiting on individual requests.
+- [ ] Submit every acquired exact storage read before the first storage wait; join an existing exact same-key generation rather than duplicating work.
+- [ ] Preserve canonical accumulation order, selected expert IDs and weights, miss-policy semantics, and exact generation identity.
+- [ ] Do not add profiles, static seed, predictor state, speculative origins, utility circuits, new cache policy, or a Phase 10 public prefetch API.
+
+#### 10R.2 Demand safety and boundedness
+
+- [ ] Reserve enough scheduler headroom for the maximum legal current-layer demand width or synchronously reclaim lower-priority work without waiting before the full demand set is enqueued.
+- [ ] Ensure cancellation or drain of an older same-key request cannot cause a wait before later current-layer demands are enqueued.
+- [ ] Keep demand non-droppable and higher priority than all existing optional background work.
+- [ ] Prove bounded scheduler, request, transfer, event, and telemetry storage under saturation.
+- [ ] Preserve cancellation, retry, trim, surrender, context destruction, and model unload drain behavior.
+
+#### 10R.3 Evidence and performance
+
+- [ ] Add a test-only serial-demand control; it must not be a public mode or selectable runtime policy.
+- [ ] Record selected/unique/missing keys, enqueued-before-first-take, submitted-before-first-wait, ready-before-use, first wait, storage/H2D overlap, and demand completion.
+- [ ] Validate duplicate-lane, multi-miss, saturation, same-key cancellation/drain, retry, shuffled completion, original/split F16/MXFP4, and prior Phase 7–9 modes.
+- [ ] Run focused CPU, CUDA, ASan+UBSan, and accepted TSan validation.
+- [ ] Compare fresh-process demand issue-ahead versus the serial control and current `main` using exact revisions, routes, outputs, endpoint timings, tails, bytes, and resource use.
+
+### Exit gate
+
+- [ ] Every legal current-layer demand miss is enqueued before the first scheduler-release or storage wait and every acquired read is submitted before the first storage wait.
+- [ ] Routes, weights, generated tokens, logits, canonical reduction, cache defaults, and miss-policy behavior remain equivalent to the accepted baseline.
+- [ ] No demand is dropped, delayed behind unrelated optional work, assigned a stale generation, or cancelled after promotion.
+- [ ] Cancellation, retry, trim, surrender, context destruction, and model unload terminate with no leak, UAF, stale publication, or undrained request.
+- [ ] At least one controlled storage-bound cell shows positive exposed-wait or endpoint improvement without a material regression in mandatory real-model cells.
+- [ ] The final implementation contains no static-seeding or predictive-prefetch mechanism and is reviewable independently of PR #33.
+
+### Sequence after Phase 10R
+
+- Phase 11 and Phase 12 proceed with demand-only execution whether or not speculative prefetch is ever revisited.
+- Phase 12.5 remains the observability gate before authoritative cross-hardware benchmarking.
+- Speculative prefetch may be reconsidered only after Phase 12.5 if representative full-size traces show material exposed storage/readiness latency and a materially different mechanism has a predeclared, target-specific path for the held-out confidence bound to clear break-even without repeating steady-throughput or domain-shift regressions.
+- If those conditions are not met, speculative prefetch remains permanently disabled and Phase 10 stays `REJECTED`.
