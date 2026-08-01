@@ -3,11 +3,13 @@
   "$id": "prefetch-replay-v1.schema.json",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "profile_path", "policy", "transport", "readiness", "temporal_window_tokens", "candidates_per_target", "request_ordinal", "events", "completion_order", "limits", "seed_mode", "demand_mode"],
+  "required": ["schema_version", "profile_path", "policy", "cache_mode", "miss_policy", "transport", "readiness", "temporal_window_tokens", "candidates_per_target", "request_ordinal", "events", "completion_order", "ready_before_deadline", "initial_resident", "limits", "seed_mode", "demand_mode"],
   "properties": {
     "schema_version": {"const": "phase10-prefetch-replay-v1"},
     "profile_path": {"type": "string", "minLength": 1},
     "policy": {"enum": ["OFF", "STATIC_LAYER", "PREVIOUS_TOKEN", "TEMPORAL_FREQUENCY", "CROSS_LAYER_TRANSITION", "RANDOM_BASELINE"]},
+    "cache_mode": {"enum": ["HOT_CACHE", "COLD_CACHE"]},
+    "miss_policy": {"enum": ["PROMOTE_AND_GPU", "CPU_FALLBACK", "AUTO"]},
     "transport": {"enum": ["BUFFERED", "DIRECT_IO", "HOST_TO_DEVICE"]},
     "seed_mode": {"enum": ["OFF", "BLOCKING_HOT"]},
     "demand_mode": {"enum": ["ISSUE_AHEAD", "SERIAL"]},
@@ -39,6 +41,26 @@
       }
     },
     "completion_order": {"type": "array", "uniqueItems": true, "items": {"type": "integer", "minimum": 0}},
+    "ready_before_deadline": {"type": "array", "uniqueItems": true, "items": {"type": "integer", "minimum": 0}},
+    "initial_resident": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["layer", "expert", "cold_slot", "hot_slot", "cold_generation", "hot_generation", "cold_last_use", "hot_last_use", "origin"],
+        "properties": {
+          "layer": {"type": "integer", "minimum": 0, "maximum": 2147483647},
+          "expert": {"type": "integer", "minimum": 0, "maximum": 2147483647},
+          "cold_slot": {"type": "integer", "minimum": -1, "maximum": 2147483647},
+          "hot_slot": {"type": "integer", "minimum": -1, "maximum": 2147483647},
+          "cold_generation": {"$ref": "#/$defs/u64"},
+          "hot_generation": {"$ref": "#/$defs/u64"},
+          "cold_last_use": {"$ref": "#/$defs/u64"},
+          "hot_last_use": {"$ref": "#/$defs/u64"},
+          "origin": {"enum": ["DEMAND", "STATIC_SEED"]}
+        }
+      }
+    },
     "limits": {
       "type": "object",
       "additionalProperties": false,

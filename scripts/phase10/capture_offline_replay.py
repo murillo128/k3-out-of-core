@@ -246,8 +246,11 @@ def replay_cell(
         demand_mode: str,
         directory: Path) -> dict[str, Any]:
     request = {"schema_version": "phase10-prefetch-replay-v1", "profile_path": str(profile_path),
-        "policy": policy, "transport": transport, "readiness": readiness, "temporal_window_tokens": window,
+        "initial_resident": [],
+        "policy": policy, "cache_mode": "COLD_CACHE", "miss_policy": "PROMOTE_AND_GPU",
+        "transport": transport, "readiness": readiness, "temporal_window_tokens": window,
         "candidates_per_target": candidates, "request_ordinal": 1, "events": events, "completion_order": [],
+        "ready_before_deadline": [],
         "limits": limits, "seed_mode": seed_mode, "demand_mode": demand_mode}
     request_path = directory / "request.json"
     write_json(request_path, request)
@@ -282,9 +285,12 @@ def python_replay_cell(
         seed_mode: str,
         demand_mode: str) -> dict[str, Any]:
     request = {"schema_version": "phase10-prefetch-replay-v1", "profile_path": str(profile_path),
-        "policy": policy, "transport": transport, "readiness": readiness, "temporal_window_tokens": window,
+        "initial_resident": [],
+        "policy": policy, "cache_mode": "COLD_CACHE", "miss_policy": "PROMOTE_AND_GPU",
+        "transport": transport, "readiness": readiness, "temporal_window_tokens": window,
         "candidates_per_target": candidates, "request_ordinal": 1, "events": events,
-        "completion_order": [], "limits": limits, "seed_mode": seed_mode, "demand_mode": demand_mode}
+        "completion_order": [], "ready_before_deadline": [], "limits": limits,
+        "seed_mode": seed_mode, "demand_mode": demand_mode}
     return replay(request)
 
 
@@ -295,8 +301,11 @@ def malformed_cases(native: Path, profile_path: Path, events: list[dict[str, Any
         "max_speculative_h2d_bytes_per_token": 1 << 30, "max_speculative_cold_slots": 32,
         "max_speculative_hot_slots": 32}
     base = {"schema_version": "phase10-prefetch-replay-v1", "profile_path": str(profile_path),
-        "policy": "PREVIOUS_TOKEN", "transport": "BUFFERED", "readiness": "DEVICE_READY", "temporal_window_tokens": 0,
+        "initial_resident": [],
+        "policy": "PREVIOUS_TOKEN", "cache_mode": "COLD_CACHE", "miss_policy": "PROMOTE_AND_GPU",
+        "transport": "BUFFERED", "readiness": "DEVICE_READY", "temporal_window_tokens": 0,
         "candidates_per_target": 2, "request_ordinal": 1, "events": events, "completion_order": [],
+        "ready_before_deadline": [],
         "limits": active_limits, "seed_mode": "OFF", "demand_mode": "ISSUE_AHEAD"}
     cases = {}
     variants = {}

@@ -106,9 +106,12 @@ def run_native_profile_validation(native: Path, profile: Path, directory: Path) 
     profile_document = load_json(profile)
     minimum_capacity = max(item["physical_bytes"] for item in profile_document["target"]["expert_bytes"])
     request = {"schema_version": "phase10-prefetch-replay-v1", "profile_path": str(profile),
-        "policy": "OFF", "transport": profile_document["selection"]["transport"],
+        "initial_resident": [],
+        "policy": "OFF", "cache_mode": "COLD_CACHE", "miss_policy": "PROMOTE_AND_GPU",
+        "transport": profile_document["selection"]["transport"],
         "readiness": profile_document["selection"]["readiness"], "temporal_window_tokens": 0,
         "candidates_per_target": 0, "request_ordinal": 1, "events": [], "completion_order": [],
+        "ready_before_deadline": [],
         "limits": {"cold_capacity_bytes": minimum_capacity, "hot_capacity_slots": 1, "max_speculative_flights": 0,
             "max_speculative_storage_bytes_in_flight": 0, "max_speculative_h2d_bytes_in_flight": 0,
             "max_speculative_storage_bytes_per_token": 0, "max_speculative_h2d_bytes_per_token": 0,

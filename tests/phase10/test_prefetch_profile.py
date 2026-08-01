@@ -255,9 +255,12 @@ class PrefetchProfileTests(unittest.TestCase):
             write_json(profile_path, profile())
             events = [{"token": 0, "layers": [{"layer": 1, "experts": [0, 1]}, {"layer": 2, "experts": [2, 3]}]}]
             request = {"schema_version": "phase10-prefetch-replay-v1", "profile_path": str(profile_path), "policy": "OFF",
+                "cache_mode": "COLD_CACHE", "miss_policy": "PROMOTE_AND_GPU",
                 "transport": "BUFFERED", "readiness": "DEVICE_READY", "temporal_window_tokens": 0,
                 "candidates_per_target": 0,
-                "request_ordinal": 1, "events": events, "completion_order": [], "limits": limits(False),
+                "request_ordinal": 1, "events": events, "completion_order": [], "ready_before_deadline": [],
+                "limits": limits(False),
+                "initial_resident": [],
                 "seed_mode": "OFF", "demand_mode": "ISSUE_AHEAD"}
             output = replay(request)
             self.assertEqual(output["candidate_stream"], [])
@@ -275,9 +278,11 @@ class PrefetchProfileTests(unittest.TestCase):
             ]
             disabled_limits = {**limits(False), "cold_capacity_bytes": 480, "hot_capacity_slots": 2}
             output = replay({"schema_version": "phase10-prefetch-replay-v1", "profile_path": str(profile_path),
-                "policy": "OFF", "transport": "BUFFERED", "readiness": "DEVICE_READY",
+                "policy": "OFF", "cache_mode": "COLD_CACHE", "miss_policy": "PROMOTE_AND_GPU",
+                "transport": "BUFFERED", "readiness": "DEVICE_READY",
                 "temporal_window_tokens": 0, "candidates_per_target": 0, "request_ordinal": 1,
-                "events": events, "completion_order": [], "limits": disabled_limits,
+                "events": events, "completion_order": [], "ready_before_deadline": [], "limits": disabled_limits,
+                "initial_resident": [],
                 "seed_mode": "OFF", "demand_mode": "ISSUE_AHEAD"})
             phase9_input = build_phase9_input(document, events, disabled_limits)
             self.assertEqual(normalize_phase10(output), normalize_phase9(phase9_python_replay(phase9_input)))
@@ -296,15 +301,44 @@ class PrefetchProfileTests(unittest.TestCase):
                 {"token": 1, "layers": [{"layer": 1, "experts": [1, 2]}, {"layer": 2, "experts": [0, 3]}]},
             ]
             request = {"schema_version": "phase10-prefetch-replay-v1", "profile_path": str(profile_path),
-                "policy": "STATIC_LAYER", "transport": "BUFFERED", "readiness": "DEVICE_READY",
+                "policy": "STATIC_LAYER", "cache_mode": "COLD_CACHE", "miss_policy": "PROMOTE_AND_GPU",
+                "transport": "BUFFERED", "readiness": "DEVICE_READY",
                 "temporal_window_tokens": 0,
                 "candidates_per_target": 2, "request_ordinal": 1, "events": events,
-                "completion_order": [], "limits": limits(), "seed_mode": "OFF", "demand_mode": "ISSUE_AHEAD"}
+                "completion_order": [], "ready_before_deadline": [], "initial_resident": [], "limits": limits(),
+                "seed_mode": "OFF", "demand_mode": "ISSUE_AHEAD"}
             output = replay(request)
             self.assertEqual(output["summary"]["predictions"], 6)
             self.assertGreater(output["summary"]["rejected"], 0)
             self.assertGreater(output["summary"]["timely_useful"], 0)
             self.assertTrue(all(item["origin"] == "DEMAND" for item in output["resident"]))
+
+    def test_cpu_fallback_replay_promotes_cold_predictions_without_storage_io(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            profile_path = Path(directory) / "profile.json"
+            write_json(profile_path, profile())
+            events = [
+                {"token": 0, "layers": [{"layer": 1, "experts": [0, 1]},
+                    {"layer": 2, "experts": [2, 3]}]},
+                {"token": 1, "layers": [{"layer": 1, "experts": [1, 2]},
+                    {"layer": 2, "experts": [0, 3]}]},
+            ]
+            request = {"schema_version": "phase10-prefetch-replay-v1",
+                "profile_path": str(profile_path), "policy": "STATIC_LAYER",
+                "cache_mode": "COLD_CACHE", "miss_policy": "CPU_FALLBACK",
+                "transport": "BUFFERED", "readiness": "DEVICE_READY",
+                "temporal_window_tokens": 0, "candidates_per_target": 2,
+                "request_ordinal": 1, "events": events, "completion_order": [],
+                "ready_before_deadline": [0, 1, 2], "initial_resident": [],
+                "limits": limits(), "seed_mode": "OFF", "demand_mode": "ISSUE_AHEAD"}
+            output = replay(request)
+            enqueues = {item["flight_ordinal"]: item for item in output["action_stream"]
+                if item["type"] == "ENQUEUE"}
+            self.assertEqual(output["summary"]["accepted"], 3)
+            self.assertEqual(output["summary"]["timely_useful"], 3)
+            self.assertEqual(enqueues[0]["storage_bytes"], 0)
+            self.assertEqual(enqueues[1]["storage_bytes"], 160)
+            self.assertEqual(enqueues[2]["storage_bytes"], 0)
 
     def test_native_hierarchy_replay_agrees(self) -> None:
         native = os.environ.get("PHASE10_NATIVE_REPLAY")
@@ -315,16 +349,23 @@ class PrefetchProfileTests(unittest.TestCase):
             request_path = Path(directory) / "request.json"
             write_json(profile_path, profile())
             base = {"schema_version": "phase10-prefetch-replay-v1", "profile_path": str(profile_path),
-                "transport": "BUFFERED",
+                "cache_mode": "COLD_CACHE", "miss_policy": "PROMOTE_AND_GPU", "transport": "BUFFERED",
                 "request_ordinal": 1, "events": [
                     {"token": 0, "layers": [{"layer": 1, "experts": [0, 1]}, {"layer": 2, "experts": [2, 3]}]},
                     {"token": 1, "layers": [{"layer": 1, "experts": [1, 2]}, {"layer": 2, "experts": [0, 3]}]},
-                ], "completion_order": []}
+                ], "completion_order": [], "ready_before_deadline": [], "initial_resident": []}
             cases = [
                 ("static-device", {"policy": "STATIC_LAYER", "readiness": "DEVICE_READY", "candidates_per_target": 2,
                     "limits": limits(), "seed_mode": "OFF", "demand_mode": "ISSUE_AHEAD"}),
                 ("static-host", {"policy": "STATIC_LAYER", "readiness": "HOST_READY", "candidates_per_target": 2,
                     "limits": limits(), "seed_mode": "OFF", "demand_mode": "ISSUE_AHEAD"}),
+                ("static-cpu", {"policy": "STATIC_LAYER", "readiness": "DEVICE_READY",
+                    "miss_policy": "CPU_FALLBACK", "candidates_per_target": 2,
+                    "limits": limits(), "seed_mode": "OFF", "demand_mode": "ISSUE_AHEAD"}),
+                ("static-hot", {"policy": "STATIC_LAYER", "cache_mode": "HOT_CACHE",
+                    "readiness": "DEVICE_READY", "candidates_per_target": 2,
+                    "limits": {**limits(), "cold_capacity_bytes": 0},
+                    "seed_mode": "OFF", "demand_mode": "ISSUE_AHEAD"}),
                 ("baseline", {"policy": "OFF", "readiness": "DEVICE_READY", "candidates_per_target": 0,
                     "limits": limits(False), "seed_mode": "OFF", "demand_mode": "ISSUE_AHEAD"}),
                 ("serial", {"policy": "OFF", "readiness": "DEVICE_READY", "candidates_per_target": 0,
@@ -376,10 +417,12 @@ class PrefetchProfileTests(unittest.TestCase):
             profile_path = Path(directory) / "profile.json"
             write_json(profile_path, profile())
             output = replay({"schema_version": "phase10-prefetch-replay-v1", "profile_path": str(profile_path),
-                "policy": "STATIC_LAYER", "transport": "BUFFERED", "readiness": "DEVICE_READY",
+                "policy": "STATIC_LAYER", "cache_mode": "COLD_CACHE", "miss_policy": "PROMOTE_AND_GPU",
+                "transport": "BUFFERED", "readiness": "DEVICE_READY",
                 "temporal_window_tokens": 0,
                 "candidates_per_target": 2, "request_ordinal": 1, "events": events,
-                "completion_order": [], "limits": limits(), "seed_mode": "OFF",
+                "completion_order": [], "ready_before_deadline": [], "initial_resident": [],
+                "limits": limits(), "seed_mode": "OFF",
                 "demand_mode": "ISSUE_AHEAD"})
             metrics = score_replay(output, 0, events)
             self.assertEqual(metrics["actual_demands"], 8)
