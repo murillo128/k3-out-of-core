@@ -74,14 +74,16 @@ def run_probe(probe: Path, output_dir: Path, case: dict[str, Any], profile: dict
     }
 
 
-def summarize_pair(case: dict[str, Any], candidate: dict[str, str], blocks: list[dict[str, Any]]) -> dict[str, Any]:
+def summarize_pair(case: dict[str, Any], candidate: dict[str, str], warmups: list[dict[str, Any]],
+                   blocks: list[dict[str, Any]]) -> dict[str, Any]:
     baseline_token = [statistics.fmean(block["a"][index]["token_mean_us"] for index in range(2)) for block in blocks]
     candidate_token = [statistics.fmean(block["b"][index]["token_mean_us"] for index in range(2)) for block in blocks]
     baseline_p95 = [statistics.fmean(block["a"][index]["token_p95_us"] for index in range(2)) for block in blocks]
     candidate_p95 = [statistics.fmean(block["b"][index]["token_p95_us"] for index in range(2)) for block in blocks]
     baseline_throughput = [statistics.fmean(1e6/block["a"][index]["token_mean_us"] for index in range(2)) for block in blocks]
     candidate_throughput = [statistics.fmean(1e6/block["b"][index]["token_mean_us"] for index in range(2)) for block in blocks]
-    identities = {run["output_identity"] for block in blocks for side in ("a", "b") for run in block[side]}
+    identities = ({run["output_identity"] for run in warmups} |
+                  {run["output_identity"] for block in blocks for side in ("a", "b") for run in block[side]})
     token_interval = paired_interval(candidate_token, baseline_token)
     baseline_mean = statistics.fmean(baseline_token)
     return {
@@ -96,6 +98,7 @@ def summarize_pair(case: dict[str, Any], candidate: dict[str, str], blocks: list
                        "paired": paired_interval(candidate_throughput, baseline_throughput)},
         "policy_administration_peak_bytes": max(run["policy_administration_bytes"] for block in blocks
                                                  for side in ("a", "b") for run in block[side]),
+        "unmeasured_warmup_artifacts": [run["artifact"] for run in warmups],
         "raw_run_artifacts": [run["artifact"] for block in blocks for side in ("a", "b") for run in block[side]],
     }
 
@@ -166,6 +169,12 @@ def main() -> int:
         for case_index, case_value in enumerate(cases):
             candidates = finalists[1:] + ([per_layer] if case_value["observe_routes"] else [])
             for candidate_index, candidate in enumerate(candidates):
+                warmups = [
+                    run_probe(args.probe, args.output_dir, case_value, baseline,
+                              f"c{case_index}-p{candidate_index}-warmup-a"),
+                    run_probe(args.probe, args.output_dir, case_value, candidate,
+                              f"c{case_index}-p{candidate_index}-warmup-b"),
+                ]
                 blocks = []
                 for block in range(args.abba_blocks):
                     prefix = f"c{case_index}-p{candidate_index}-b{block}"
@@ -174,7 +183,7 @@ def main() -> int:
                     b2 = run_probe(args.probe, args.output_dir, case_value, candidate, prefix + "-b2")
                     a2 = run_probe(args.probe, args.output_dir, case_value, baseline, prefix + "-a2")
                     blocks.append({"a": [a1, a2], "b": [b1, b2]})
-                comparisons.append(summarize_pair(case_value, candidate, blocks))
+                comparisons.append(summarize_pair(case_value, candidate, warmups, blocks))
         if not all(row["output_identity_exact"] for row in comparisons):
             raise RuntimeError("a finalist changed model output identity")
         output = {"schema_version": "phase9-policy-statistics-v1", "status": "pass", "plan": plan,
