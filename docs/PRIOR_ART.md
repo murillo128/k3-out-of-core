@@ -18,6 +18,7 @@ The central conclusion is that the proposed architecture is not novel in isolati
 | tinyserve | External implementation | Independent cache behavior and benchmark evidence | Reuse tests/policy ideas after license review |
 | MoE-Infinity | Active external project | Activation tracing, activation-aware caching/prefetch | Reuse research ideas, not runtime integration |
 | WASTE | Active external implementation | Full 2.78T K3 streamed from NVMe on 64 GB, custom 3-bit experts, measured cache/prefetch limits | Use as external full-size baseline; reuse methodology and isolated ideas after review |
+| Colibrì v1.4.0 | Active external implementation | Full text K3 with source MXFP4 experts, direct/repacked safetensors, direct I/O, CPU/Vulkan tiers, and chunked prefill | Use as primary high-fidelity K3 layout/execution baseline; reuse isolated ideas after review |
 
 ## 1. `llama.cpp` issue #20757
 
@@ -434,7 +435,37 @@ Potentially reusable methodology or small units include:
 
 Do not copy the runtime wholesale. Preserve this project's provider, ownership, cancellation, generation, GGUF, CPU/CUDA, and evidence contracts.
 
-## 11. Kimi-K3 support PR
+## 11. Colibrì v1.4.0 — source-MXFP4 K3 streaming
+
+- Repository: <https://github.com/JustVugg/colibri>
+- Pinned reviewed commit: `b085b48888a88d9a1c00b151a9979774b72cdbfd`.
+- License: Apache-2.0.
+- Detailed review: [`COLIBRI_K3_PRIOR_ART.md`](COLIBRI_K3_PRIOR_ART.md).
+- Observed state: active external implementation with a text-only full-K3 engine.
+
+Colibrì provides the closest published fidelity and physical-layout baseline for this project:
+
+- source routed-expert MXFP4 codes and scales are executed without persistent requantization;
+- the original safetensors layout is reported to place each complete expert bundle contiguously, enabling one `pread` per expert;
+- an optional spec-valid safetensors repack keeps expert payloads byte-identical while ordering experts and prequantizing the resident trunk;
+- K3 uses a bounded per-layer LRU, offset-ordered parallel direct reads, compute/read overlap, optional multi-drive placement, and CPU/Vulkan tiers;
+- single-request chunked prefill reports about 2.7x unique-expert deduplication while preserving the documented output comparison.
+
+The public 25 GB memory headline is not accepted for K3: the pinned K3 document reports about 35 GiB for the int4 resident trunk before state, buffers, and expert cache. The low-memory figure belongs to a different streamed model-family regime.
+
+The reported K3 decode improvement from roughly 21 seconds/token to 9.4 seconds/token is host-specific. WASTE remains the stronger published throughput baseline, while Colibrì is the stronger direct source-MXFP4 and safetensors-layout baseline.
+
+Required implications are normative in [`plan/12-colibri-comparison.md`](plan/12-colibri-comparison.md):
+
+- Phase 10 is not expanded because K3-specific learned-pinning or predictive-lookahead evidence was not found at the pinned revision;
+- Phase 12 must compare original/repacked safetensors, GGUF, WASTE, ordinary parallel direct reads, `io_uring`, offset ordering, and multi-NVMe where available;
+- Phase 12.5 must retain backing-file offset, submission order, and drive identity where available;
+- Phase 13 must establish a bit-exact single-request chunked-prefill baseline before cross-request batching;
+- any full-size evidence that materially reverses Phase 9's global-LRU decision must return to design authority instead of silently changing the default.
+
+Reuse only isolated, independently tested mechanisms. Do not transplant Colibrì's one-engine-per-family runtime or model-specific lifetime assumptions into the provider.
+
+## 12. Kimi-K3 support PR
 
 - URL: <https://github.com/ggml-org/llama.cpp/pull/26185>
 - Title: *model: add Kimi-K3 text model*
