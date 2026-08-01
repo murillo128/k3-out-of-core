@@ -26,6 +26,7 @@ from phase9_disabled_equivalence import (build_phase9_input, normalize_phase9, n
 from prefetch_common import (FNV_OFFSET, Phase10Error, break_even, canonical_bytes, config_digest, cross_candidates, fold_membership,
     load_json, predictor_candidates, require_capture_heads, splitmix64, validate_profile, write_json)
 from replay_prefetch import replay
+from select_prefetch_policy import wilson_lower_bps
 
 
 HASH = "a" * 64
@@ -164,6 +165,12 @@ class PrefetchProfileTests(unittest.TestCase):
         self.assertEqual(result["seed_entries"], 1)
         self.assertEqual(result["first_use_hits"], 1)
         self.assertEqual(result["unused_before_eviction"], 0)
+
+    def test_selection_precision_lcb_is_conservative(self) -> None:
+        self.assertEqual(wilson_lower_bps(0, 0), 0)
+        self.assertEqual(wilson_lower_bps(0, 64), 0)
+        self.assertLess(wilson_lower_bps(48, 64), 7500)
+        self.assertGreater(wilson_lower_bps(64, 64), 9000)
 
     def test_profile_freeze_digest_excludes_held_out_test(self) -> None:
         offline = {"matrix_sha256": HASH}

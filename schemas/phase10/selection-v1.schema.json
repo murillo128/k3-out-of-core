@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "selection-v1.schema.json",
+  "title": "Phase 10 evidence-derived selection v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "status", "project_head", "nested_head", "inputs", "rules",
+    "seed_envelopes", "predictive_envelopes", "qualifying_profiles", "selected_profiles",
+    "disabled_profiles", "defaults", "circuit_breaker", "technical_closeout_state"
+  ],
+  "properties": {
+    "schema_version": {"const": "phase10-selection-v1"},
+    "status": {"const": "investigation-required"},
+    "project_head": {"$ref": "#/$defs/commit"},
+    "nested_head": {"$ref": "#/$defs/commit"},
+    "inputs": {"type": "object"},
+    "rules": {"type": "object"},
+    "seed_envelopes": {"type": "array", "minItems": 2, "items": {"type": "object"}},
+    "predictive_envelopes": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+    "qualifying_profiles": {"type": "array", "maxItems": 0},
+    "selected_profiles": {"type": "array", "maxItems": 0},
+    "disabled_profiles": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/sha256"}},
+    "defaults": {
+      "type": "object", "additionalProperties": false,
+      "required": ["phase9_unchanged", "prefetch_config", "prefetch_profile_path", "implicit_enablement"],
+      "properties": {
+        "phase9_unchanged": {"const": true}, "prefetch_config": {"type": "null"},
+        "prefetch_profile_path": {"type": "null"}, "implicit_enablement": {"const": false}
+      }
+    },
+    "circuit_breaker": {"type": "object"},
+    "technical_closeout_state": {"const": "investigation-required"}
+  },
+  "$defs": {
+    "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}
