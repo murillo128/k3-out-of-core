@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "profile-compatibility-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "project_head", "nested_head", "phase2_archive_sha256", "profiles", "exact_runtime", "wrong_package_runtime", "strict_integer_only_profile", "runtime_raw_training_input", "all_exact_profiles_accepted", "all_wrong_packages_rejected"],
+  "properties": {
+    "schema_version": {"const": "phase10-profile-compatibility-v1"},
+    "project_head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "nested_head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "phase2_archive_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "profiles": {"type": "array", "minItems": 12, "maxItems": 12, "items": {"type": "object"}},
+    "exact_runtime": {"type": "object"},
+    "wrong_package_runtime": {"type": "object"},
+    "strict_integer_only_profile": {"const": true},
+    "runtime_raw_training_input": {"const": false},
+    "all_exact_profiles_accepted": {"const": true},
+    "all_wrong_packages_rejected": {"const": true}
+  }
+}

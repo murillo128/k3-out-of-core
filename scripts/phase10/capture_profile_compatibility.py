@@ -10,7 +10,9 @@ from types import SimpleNamespace
 from typing import Any
 
 from build_prefetch_profile import build
-from prefetch_common import Phase10Error, build_fingerprint, canonical_bytes, load_json, validate_profile, write_json
+from capture_transport_measurements import validate_measurement
+from prefetch_common import (PHASE2_ARCHIVE_SHA256, Phase10Error, build_fingerprint, canonical_bytes, load_json,
+    validate_profile, write_json)
 
 
 def sha256_file(path: Path) -> str:
@@ -19,6 +21,13 @@ def sha256_file(path: Path) -> str:
         while chunk := handle.read(1024*1024):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def evidence_path(path: Path) -> str:
+    try:
+        return str(path.relative_to(Path.cwd().resolve()))
+    except ValueError:
+        return str(path)
 
 
 def selected_tuning(offline: dict[str, Any], artifact: str, fold: int) -> dict[str, Any]:
@@ -61,8 +70,12 @@ def run_probe(probe: Path, profile: Path, model: Path, identity: str, output: Pa
             raise Phase10Error(f"probe emitted invalid JSON: {error}") from error
         if output is None:
             raise Phase10Error("successful probe requires an output path")
+        project_head, separator, nested_head = identity.partition(":")
+        if not separator:
+            raise Phase10Error("invalid probe revision identity")
+        validate_measurement(document, project_head, nested_head, sha256_file(profile))
         write_json(output, document)
-        record.update({"measurement_path": str(output), "measurement_sha256": sha256_file(output),
+        record.update({"measurement_path": evidence_path(output), "measurement_sha256": sha256_file(output),
             "profile_sha256": document["profile_sha256"]})
     return record
 
@@ -82,6 +95,19 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
         "mxfp4": {"storage": Path(args.mxfp4_storage_map).resolve(), "costs": Path(args.mxfp4_costs).resolve(),
             "model": Path(args.mxfp4_model).resolve()},
     }
+    for name in ("project_head", "nested_head"):
+        value = getattr(args, name)
+        if len(value) != 40 or any(byte not in "0123456789abcdef" for byte in value):
+            raise Phase10Error(f"{name} must be a lowercase commit SHA")
+    if sha256_file(archive) != PHASE2_ARCHIVE_SHA256:
+        raise Phase10Error("Phase 2 archive identity mismatch")
+    if offline.get("project_head") != args.project_head or offline.get("nested_head") != args.nested_head:
+        raise Phase10Error("offline replay revision mismatch")
+    for inputs in artifacts.values():
+        cost_document = load_json(inputs["costs"])
+        if cost_document.get("project_head") != args.project_head or \
+                cost_document.get("nested_head") != args.nested_head:
+            raise Phase10Error("cost evidence revision mismatch")
     profiles = []
     fold_zero_paths = {}
     for artifact, inputs in artifacts.items():
@@ -95,7 +121,7 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
             write_json(path, profile)
             if fold == 0:
                 fold_zero_paths[artifact] = path
-            profiles.append({"artifact": artifact, "fold": fold, "path": str(path),
+            profiles.append({"artifact": artifact, "fold": fold, "path": evidence_path(path),
                 "sha256": sha256_file(path), "bytes": path.stat().st_size,
                 "target_package_sha256": profile["target"]["package_sha256"],
                 "tensor_layout_sha256": profile["target"]["tensor_layout_sha256"],

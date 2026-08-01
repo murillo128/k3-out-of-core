@@ -12,8 +12,8 @@ from types import SimpleNamespace
 from typing import Any
 
 from build_prefetch_profile import MATRIX, build
-from prefetch_common import (Phase10Error, break_even, canonical_bytes, fold_membership, load_json,
-    read_phase2_corpus, token_events, validate_profile, write_json)
+from prefetch_common import (PHASE2_ARCHIVE_SHA256, Phase10Error, break_even, canonical_bytes, fold_membership,
+    load_json, read_phase2_corpus, token_events, validate_profile, write_json)
 from replay_prefetch import replay
 
 
@@ -198,6 +198,17 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
     if not native.is_file():
         raise Phase10Error("native replay executable is unavailable")
     archive = Path(args.archive).resolve()
+    for name in ("project_head", "nested_head"):
+        value = getattr(args, name)
+        if len(value) != 40 or any(byte not in "0123456789abcdef" for byte in value):
+            raise Phase10Error(f"{name} must be a lowercase commit SHA")
+    archive_sha256 = hashlib.sha256()
+    with archive.open("rb") as handle:
+        while chunk := handle.read(1024*1024):
+            archive_sha256.update(chunk)
+    archive_sha256 = archive_sha256.hexdigest()
+    if archive_sha256 != PHASE2_ARCHIVE_SHA256:
+        raise Phase10Error("Phase 2 archive identity mismatch")
     artifacts = {
         "f16": (Path(args.f16_storage_map).resolve(), Path(args.f16_costs).resolve()),
         "mxfp4": (Path(args.mxfp4_storage_map).resolve(), Path(args.mxfp4_costs).resolve()),
@@ -210,6 +221,9 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
         for artifact, (storage_map, costs_path) in artifacts.items():
             corpus = read_phase2_corpus(archive, artifact)
             cost_document = load_json(costs_path)
+            if cost_document.get("project_head") != args.project_head or \
+                    cost_document.get("nested_head") != args.nested_head:
+                raise Phase10Error("cost evidence revision mismatch")
             for fold_index in range(6):
                 profile = build_calibration_profile(archive, storage_map, artifact, fold_index, costs_path)
                 validate_profile(profile)
@@ -280,7 +294,7 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
         raise Phase10Error("one or more malformed replay cases were accepted")
     phase9_hashes = {item["phase9_passthrough_sha256"] for fold in folds for item in fold["replay"]}
     return {"schema_version": "phase10-offline-replay-v1", "project_head": args.project_head,
-        "nested_head": args.nested_head, "phase2_archive_sha256": hashlib.sha256(archive.read_bytes()).hexdigest(),
+        "nested_head": args.nested_head, "phase2_archive_sha256": archive_sha256,
         "matrix": MATRIX, "matrix_sha256": sha256(MATRIX), "folds": folds, "shortlist": shortlist,
         "malformed_rejections": malformed, "native_python_event_agreement": True,
         "repeatability": "byte_identical", "shuffled_completion_invariant": True,

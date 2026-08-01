@@ -11,8 +11,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts" / "phase10"))
 
-from measure_transport_break_even import derive
+from combine_transport_break_even import combine
 from capture_offline_replay import score_candidates
+from capture_transport_measurements import validate_measurement
+from measure_transport_break_even import derive
 from prefetch_common import (FNV_OFFSET, Phase10Error, break_even, config_digest, cross_candidates, fold_membership,
     load_json, predictor_candidates, splitmix64, validate_profile, write_json)
 from replay_prefetch import replay
@@ -74,6 +76,34 @@ class PrefetchProfileTests(unittest.TestCase):
         self.assertEqual(result["status"], "pass")
         self.assertFalse(result["waste_external_threshold_transferred"])
         self.assertEqual(result["envelopes"][0]["break_even_bps"], 3637)
+
+    def test_transport_matrix_requires_matching_identities(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            first = derive({"schema_version": "phase10-transport-measurements-v1", "project_head": COMMIT,
+                "nested_head": COMMIT, "host": "test", "profile_sha256": HASH, "profile_parse_ns": 10,
+                "model_profile_load_ns": 20, "envelopes": [{"transport": "BUFFERED", "readiness": "DEVICE_READY",
+                    "supported": True, "lead_p50_ns": 100, "demand_service_p50_ns": 80,
+                    "speculative_service_p95_ns": 20, "predictor_compute_p95_ns": 10,
+                    "scheduler_demand_delay_p95_ns": 5, "displacement_refill_p95_ns": 5,
+                    "storage_bytes": 128, "h2d_bytes": 128, "utility_window_predictions": 8,
+                    "utility_min_observations": 4}]})
+            f16 = Path(directory) / "f16.json"
+            mxfp4 = Path(directory) / "mxfp4.json"
+            write_json(f16, first)
+            write_json(mxfp4, first)
+            self.assertEqual(combine(str(f16), str(mxfp4))["status"], "pass")
+            first["nested_head"] = "b" * 40
+            write_json(mxfp4, first)
+            with self.assertRaisesRegex(Phase10Error, "identities differ"):
+                combine(str(f16), str(mxfp4))
+
+    def test_calibration_measurement_is_revision_and_profile_bound(self) -> None:
+        document = {"schema_version": "phase10-transport-measurements-v1", "project_head": COMMIT,
+            "nested_head": COMMIT, "profile_sha256": HASH}
+        validate_measurement(document, COMMIT, COMMIT, HASH)
+        document["profile_sha256"] = "b" * 64
+        with self.assertRaisesRegex(Phase10Error, "different profile"):
+            validate_measurement(document, COMMIT, COMMIT, HASH)
 
     def test_duplicate_keys_and_float_are_rejected(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

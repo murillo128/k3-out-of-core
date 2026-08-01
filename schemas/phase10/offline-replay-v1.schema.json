@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "offline-replay-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "project_head", "nested_head", "phase2_archive_sha256", "matrix", "matrix_sha256", "folds", "shortlist", "malformed_rejections", "native_python_event_agreement", "repeatability", "shuffled_completion_invariant", "phase9_passthrough_unique_digests", "cache_admission_lifecycle_scope"],
+  "properties": {
+    "schema_version": {"const": "phase10-offline-replay-v1"},
+    "project_head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "nested_head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "phase2_archive_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "matrix": {"type": "object"},
+    "matrix_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "folds": {"type": "array", "minItems": 12, "maxItems": 12, "items": {"type": "object"}},
+    "shortlist": {"type": "array", "items": {"type": "object"}},
+    "malformed_rejections": {"type": "object", "additionalProperties": {"const": true}},
+    "native_python_event_agreement": {"const": true},
+    "repeatability": {"const": "byte_identical"},
+    "shuffled_completion_invariant": {"const": true},
+    "phase9_passthrough_unique_digests": {"type": "integer", "minimum": 1},
+    "cache_admission_lifecycle_scope": {"const": "deferred_to_phase10.2"}
+  }
+}
