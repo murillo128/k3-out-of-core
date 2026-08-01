@@ -50,7 +50,11 @@ def build(args: argparse.Namespace) -> dict:
     seed.sort(key=lambda value: (value["count"], value["layer"], value["expert"]))
     source_artifacts = [corpus["identities"][prompt] for prompt in fold["training"]]
     source_artifacts.append(corpus["archive"])
-    tuning_digest = sha256_bytes(canonical_bytes(MATRIX))
+    source_artifacts.append(file_identity(args.costs))
+    tuning_digest = getattr(args, "tuning_digest", None) or sha256_bytes(canonical_bytes(MATRIX))
+    if not isinstance(tuning_digest, str) or len(tuning_digest) != 64 or \
+            any(byte not in "0123456789abcdef" for byte in tuning_digest):
+        raise Phase10Error("tuning digest must be a lowercase SHA-256")
     temporal_window = args.temporal_window
     if temporal_window is None:
         temporal_window = 4 if args.policy == "TEMPORAL_FREQUENCY" else 0
@@ -94,6 +98,7 @@ def main() -> int:
     parser.add_argument("--candidates", type=int, default=2)
     parser.add_argument("--temporal-window", type=int)
     parser.add_argument("--seed-slots", type=int, default=14)
+    parser.add_argument("--tuning-digest")
     parser.add_argument("--output", required=True)
     args = parser.parse_args()
     try:

@@ -15,7 +15,7 @@ sys.path.insert(0, str(ROOT / "scripts" / "phase10"))
 
 from combine_transport_break_even import combine
 from capture_offline_replay import score_replay
-from capture_profile_compatibility import retained_tunings
+from capture_profile_compatibility import frozen_tuning_digest, retained_tunings
 from capture_transport_measurements import validate_measurement
 from measure_transport_break_even import derive
 from prefetch_common import (FNV_OFFSET, Phase10Error, break_even, config_digest, cross_candidates, fold_membership,
@@ -105,6 +105,16 @@ class PrefetchProfileTests(unittest.TestCase):
                 "candidates_per_target": 2, "disposition": "rejected_below_break_even"},
         ]}
         self.assertEqual([item["policy"] for item in retained_tunings(offline)], ["BLOCKING_HOT"])
+
+    def test_profile_freeze_digest_excludes_held_out_test(self) -> None:
+        offline = {"matrix_sha256": HASH}
+        tuning = {"policy": "TEMPORAL_FREQUENCY", "precision_bps": 5000,
+            "held_out_test": {"precision_bps": 1000}}
+        digest = frozen_tuning_digest(offline, tuning)
+        changed_test = {**tuning, "held_out_test": {"precision_bps": 9000}}
+        changed_validation = {**tuning, "precision_bps": 5001}
+        self.assertEqual(digest, frozen_tuning_digest(offline, changed_test))
+        self.assertNotEqual(digest, frozen_tuning_digest(offline, changed_validation))
 
     def test_break_even_uses_project_costs(self) -> None:
         result = break_even({"lead_ns": 100, "demand_service_ns": 80, "predictor_compute_ns": 10,

@@ -12,7 +12,7 @@ from typing import Any
 
 from build_prefetch_profile import build
 from prefetch_common import (PHASE2_ARCHIVE_SHA256, Phase10Error, build_fingerprint, canonical_bytes, load_json,
-    validate_profile, write_json)
+    sha256_bytes, validate_profile, write_json)
 
 
 def sha256_file(path: Path) -> str:
@@ -50,16 +50,24 @@ def retained_tunings(offline: dict[str, Any]) -> list[dict[str, Any]]:
     return result
 
 
+def frozen_tuning_digest(offline: dict[str, Any], tuning: dict[str, Any]) -> str:
+    validation_record = {key: value for key, value in tuning.items() if key != "held_out_test"}
+    return sha256_bytes(canonical_bytes({"matrix_sha256": offline["matrix_sha256"],
+        "validation_record": validation_record}))
+
+
 def build_profile(
         archive: Path,
         storage_map: Path,
         costs: Path,
         artifact: str,
         fold: int,
-        tuning: dict[str, Any]) -> dict[str, Any]:
+        tuning: dict[str, Any],
+        tuning_digest: str) -> dict[str, Any]:
     arguments = SimpleNamespace(archive=str(archive), storage_map=str(storage_map), artifact=artifact, fold=fold,
         costs=str(costs), transport=tuning["transport"], readiness=tuning["readiness"], policy=tuning["policy"],
-        candidates=tuning["candidates_per_target"], temporal_window=tuning["temporal_window_tokens"], seed_slots=14)
+        candidates=tuning["candidates_per_target"], temporal_window=tuning["temporal_window_tokens"], seed_slots=14,
+        tuning_digest=tuning_digest)
     first = build(arguments)
     second = build(arguments)
     if canonical_bytes(first) != canonical_bytes(second):
@@ -138,6 +146,8 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
             raise Phase10Error(f"{name} must be a lowercase commit SHA")
     if sha256_file(archive) != PHASE2_ARCHIVE_SHA256:
         raise Phase10Error("Phase 2 archive identity mismatch")
+    if offline.get("matrix_sha256") != sha256_bytes(canonical_bytes(offline.get("matrix"))):
+        raise Phase10Error("offline replay matrix identity mismatch")
     if offline.get("project_head") != args.project_head or offline.get("nested_head") != args.nested_head:
         raise Phase10Error("offline replay revision mismatch")
     for inputs in artifacts.values():
@@ -155,7 +165,9 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
         artifact = tuning["artifact"]
         fold = tuning["fold"]
         inputs = artifacts[artifact]
-        profile = build_profile(archive, inputs["storage"], inputs["costs"], artifact, fold, tuning)
+        tuning_digest = frozen_tuning_digest(offline, tuning)
+        profile = build_profile(archive, inputs["storage"], inputs["costs"], artifact, fold, tuning,
+            tuning_digest)
         if profile["target"] != expected_targets[artifact]:
             raise Phase10Error("profile target differs from the exact storage-map fingerprint")
         path = output_dir / f"{profile['profile_id']}.json"
@@ -195,6 +207,7 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
         raise Phase10Error("wrong-package runtime profile was accepted")
     return {"schema_version": "phase10-profile-compatibility-v1", "project_head": args.project_head,
         "nested_head": args.nested_head, "phase2_archive_sha256": sha256_file(archive),
+        "offline_replay_sha256": sha256_file(Path(args.offline_replay)),
         "profiles": profiles, "native_profile_validation": native_profile_validation,
         "exact_runtime": exact_runtime, "wrong_package_runtime": wrong_runtime,
         "strict_integer_only_profile": True, "runtime_raw_training_input": False,
