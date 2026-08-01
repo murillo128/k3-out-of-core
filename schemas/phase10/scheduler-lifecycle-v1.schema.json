@@ -3,7 +3,7 @@
   "$id": "scheduler-lifecycle-v1.schema.json",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "project_head", "nested_head", "binary_sha256", "runs", "speculative_budget_rejections", "same_generation_demand_promotions", "queued_speculative_cancellations", "demand_preemptions", "retry_uses_new_generation", "submitted_shutdown_drained", "zero_final_speculative_charges", "cancelling_promotion_fenced", "submitted_speculation_preserves_demand_headroom"],
+  "required": ["schema_version", "project_head", "nested_head", "binary_sha256", "runs", "speculative_budget_rejections", "same_generation_demand_promotions", "queued_speculative_cancellations", "demand_preemptions", "retry_uses_new_generation", "submitted_shutdown_drained", "zero_final_speculative_charges", "cancelling_promotion_fenced", "submitted_speculation_preserves_demand_set_headroom"],
   "properties": {
     "schema_version": {"const": "phase10-scheduler-lifecycle-v1"},
     "project_head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
@@ -18,6 +18,6 @@
     "submitted_shutdown_drained": {"const": true},
     "zero_final_speculative_charges": {"const": true},
     "cancelling_promotion_fenced": {"const": true},
-    "submitted_speculation_preserves_demand_headroom": {"const": true}
+    "submitted_speculation_preserves_demand_set_headroom": {"const": true}
   }
 }

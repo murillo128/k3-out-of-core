@@ -93,6 +93,8 @@ def capture(args: argparse.Namespace) -> None:
         "route_identity_preserved": issue.get("routes_equal") == 1,
         "queued_join_preserved_generation": issue.get("joined_same_generation") == 1,
         "submitted_join_consumed_ready_data": issue.get("joined_submitted_ready") == 1,
+        "deferred_retry_attempted_all_demands_before_wait":
+            issue.get("deferred_retry_multi_key_ordered") == 1,
         "all_demand_enqueued_before_take": issue.get("enqueued_before_take") == issue.get("misses"),
         "all_storage_submitted_before_wait": issue.get("parallel_submitted_before_wait") == issue.get("misses"),
         "all_demand_ready_before_use": issue.get("parallel_ready_before_use") == issue.get("misses"),
@@ -125,8 +127,8 @@ def capture(args: argparse.Namespace) -> None:
         "submitted_shutdown_drained": lifecycle.get("submitted_shutdown_drained") == 1,
         "zero_final_speculative_charges": lifecycle.get("zero_final_charges") == 1,
         "cancelling_promotion_fenced": lifecycle.get("cancelling_promotion_fenced") == 1,
-        "submitted_speculation_preserves_demand_headroom":
-            lifecycle.get("submitted_headroom_preserved") == 1,
+        "submitted_speculation_preserves_demand_set_headroom":
+            lifecycle.get("submitted_demand_set_headroom_preserved") == 1,
     })
 
 
