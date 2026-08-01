@@ -1,0 +1,63 @@
+{
+  "cold": {
+    "config": {
+      "admission": "ALWAYS",
+      "admission_window_events": 0,
+      "lfu_aging_interval_events": 0,
+      "policy": "LRU",
+      "schema_version": "cache-policy-config-v1",
+      "scope": "GLOBAL",
+      "slru_protected_ratio_bps": 0
+    },
+    "slots": 3
+  },
+  "hot": {
+    "config": {
+      "admission": "ALWAYS",
+      "admission_window_events": 0,
+      "lfu_aging_interval_events": 0,
+      "policy": "LRU",
+      "schema_version": "cache-policy-config-v1",
+      "scope": "GLOBAL",
+      "slru_protected_ratio_bps": 0
+    },
+    "slots": 2
+  },
+  "requests": [
+    {
+      "checkpoints": [
+        {
+          "checkpoint_ordinal": 1,
+          "demands": [
+            {
+              "expert": 0,
+              "hot_admission": "MANDATORY_CURRENT_OUTPUT",
+              "layer": 0,
+              "logical_payload_bytes": 64,
+              "occurrence_count": 1
+            },
+            {
+              "expert": 1,
+              "hot_admission": "MANDATORY_CURRENT_OUTPUT",
+              "layer": 0,
+              "logical_payload_bytes": 64,
+              "occurrence_count": 1
+            }
+          ],
+          "phase": "DECODE",
+          "ubatch_ordinal": 1
+        }
+      ],
+      "outcome": "SUCCESS",
+      "request_ordinal": 1
+    }
+  ],
+  "schema_version": "cache-policy-replay-input-v1",
+  "topology": {
+    "experts_per_layer": 4,
+    "physical_slot_footprint_bytes": 128,
+    "routed_layers": [
+      0
+    ]
+  }
+}

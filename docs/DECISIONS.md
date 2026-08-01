@@ -257,9 +257,11 @@ Conversion and runtime behavior follow the actual downloaded checkpoint. Discrep
 
 ### O-001 — Production cache policy
 
-**Status:** OPEN
+**Status:** ACCEPTED
 
-Candidates: LFRU, SLRU plus admission filter, LFU-aging, or a hybrid. LRU exists only as a test baseline. Selection requires K3 prefill and decode traces.
+For the supported single-request discrete-GPU envelope, exact global LRU with `ALWAYS` admission is the production null default for both hot and cold tiers. Phase 9 issue #30 evaluated deterministic LFRU, SLRU, frequency-gated SLRU admission, LFU-aging, WASTE-style sampled replay baselines, and hard per-layer domains against immutable trace replay, online agreement, fixed statistical gates, physical-residency sweeps, and prefill/decode behavior. No non-LRU global pair satisfied every frozen default gate, so retaining LRU is an evidence-derived choice rather than a test-only placeholder.
+
+Per-layer policy remains explicit-only in v1. Explicit valid caller configurations are preserved, invalid configurations fail closed before cache initialization, and no runtime auto-sizing or adaptive policy is authorized. The scoped evidence-derived cold-budget recommendations are not compiled defaults. Concurrent requests, UMA, multi-GPU, speculative prefetch, new formats, and full production-K3 performance require their later-phase decisions and evidence.
 
 ### O-002 — Default discrete-GPU miss execution
 

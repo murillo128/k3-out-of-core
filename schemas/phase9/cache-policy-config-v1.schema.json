@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/phase9/cache-policy-config-v1.schema.json",
+  "title": "K3 cache policy configuration version 1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "policy", "scope", "slru_protected_ratio_bps", "admission", "admission_window_events", "lfu_aging_interval_events"],
+  "properties": {
+    "schema_version": {"const": "cache-policy-config-v1"},
+    "policy": {"enum": ["LRU", "LFRU", "SLRU", "LFU_AGING"]},
+    "scope": {"enum": ["GLOBAL", "PER_LAYER"]},
+    "slru_protected_ratio_bps": {"type": "integer", "minimum": 0, "maximum": 9000},
+    "admission": {"enum": ["ALWAYS", "FREQUENCY_WINDOW"]},
+    "admission_window_events": {"type": "integer", "minimum": 0, "maximum": 1048576},
+    "lfu_aging_interval_events": {"type": "integer", "minimum": 0, "maximum": 1048576}
+  }
+}

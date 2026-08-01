@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/phase9/cache-policy-replay-v1.schema.json",
+  "title": "K3 cache policy replay input/output version 1",
+  "type": "object",
+  "required": ["schema_version"],
+  "oneOf": [
+    {
+      "additionalProperties": false,
+      "required": ["schema_version", "topology", "hot", "cold", "requests"],
+      "properties": {
+        "schema_version": {"const": "cache-policy-replay-input-v1"},
+        "topology": {
+          "type": "object", "additionalProperties": false,
+          "required": ["routed_layers", "experts_per_layer", "physical_slot_footprint_bytes"],
+          "properties": {
+            "routed_layers": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "integer", "minimum": 0}},
+            "experts_per_layer": {"type": "integer", "minimum": 1},
+            "physical_slot_footprint_bytes": {"type": "integer", "minimum": 1}
+          }
+        },
+        "hot": {"$ref": "#/$defs/tier"},
+        "cold": {"$ref": "#/$defs/tier"},
+        "requests": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/request"}}
+      }
+    },
+    {
+      "additionalProperties": false,
+      "required": ["schema_version", "status", "input_sha256", "tiers", "summary"],
+      "properties": {
+        "schema_version": {"const": "cache-policy-replay-v1"},
+        "status": {"const": "pass"},
+        "input_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "tiers": {"type": "object"},
+        "summary": {"type": "object"}
+      }
+    }
+  ],
+  "$defs": {
+    "tier": {
+      "type": "object", "additionalProperties": false,
+      "required": ["slots", "config"],
+      "properties": {
+        "slots": {"type": "integer", "minimum": 1},
+        "config": {"$ref": "cache-policy-config-v1.schema.json"}
+      }
+    },
+    "demand": {
+      "type": "object", "additionalProperties": false,
+      "required": ["layer", "expert", "occurrence_count", "logical_payload_bytes", "hot_admission"],
+      "properties": {
+        "layer": {"type": "integer", "minimum": 0},
+        "expert": {"type": "integer", "minimum": 0},
+        "occurrence_count": {"type": "integer", "minimum": 1},
+        "logical_payload_bytes": {"type": "integer", "minimum": 1},
+        "hot_admission": {"enum": ["MANDATORY_CURRENT_OUTPUT", "OPTIONAL_CPU_SERVED", "OPTIONAL_BACKGROUND"]}
+      }
+    },
+    "checkpoint": {
+      "type": "object", "additionalProperties": false,
+      "required": ["checkpoint_ordinal", "ubatch_ordinal", "phase", "demands"],
+      "properties": {
+        "checkpoint_ordinal": {"type": "integer", "minimum": 1},
+        "ubatch_ordinal": {"type": "integer", "minimum": 0},
+        "phase": {"enum": ["PREFILL", "DECODE"]},
+        "demands": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/demand"}}
+      }
+    },
+    "request": {
+      "type": "object", "additionalProperties": false,
+      "required": ["request_ordinal", "checkpoints", "outcome"],
+      "properties": {
+        "request_ordinal": {"type": "integer", "minimum": 1},
+        "checkpoints": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/checkpoint"}},
+        "outcome": {"enum": ["SUCCESS", "FAILURE", "CANCELLED"]}
+      }
+    }
+  }
+}

@@ -133,21 +133,21 @@ The closeout evidence is under `results/2026-07-31/skynet/phase8-miss-execution/
 
 ### Tasks
 
-- [ ] Define callbacks/events for admission, hit, load, pin, unpin, eviction, prefill transition, and request end.
-- [ ] Implement deterministic LRU for test reference.
-- [ ] Implement LFRU.
-- [ ] Implement SLRU with configurable protected/probationary split.
-- [ ] Implement frequency-gated admission.
-- [ ] Implement LFU-aging based on reviewed prior art.
-- [ ] Include WASTE-style sampled LRU/LFRU as external replay baselines without adopting its policy by default.
-- [ ] Replay all policies offline against the committed trace corpus.
-- [ ] Validate online behavior against simulator predictions.
-- [ ] Separate policy state per layer where required; compare global versus per-layer budgets.
-- [ ] Evaluate byte-aware policies if expert sizes vary.
-- [ ] Define exact per-model/per-format token working-set bytes and sweep budgets below, at, and above whole working-set multiples.
-- [ ] Record minor/major page faults, swap or memory-compression activity where observable, RSS, physically resident cache bytes, and hit service time; a logical hit that faults from OS-managed backing must not be reported as an equivalent resident hit.
-- [ ] Select budgets from throughput, tail latency, and physical-residency evidence rather than hit rate alone.
-- [ ] Preserve explicit headroom for the resident trunk, KV/recurrent state, CUDA/runtime allocations, filesystem metadata, and the operating system.
+- [x] Define callbacks/events for admission, hit, load, pin, unpin, eviction, prefill transition, and request end.
+- [x] Implement deterministic LRU for test reference.
+- [x] Implement LFRU.
+- [x] Implement SLRU with configurable protected/probationary split.
+- [x] Implement frequency-gated admission.
+- [x] Implement LFU-aging based on reviewed prior art.
+- [x] Include WASTE-style sampled LRU/LFRU as external replay baselines without adopting its policy by default.
+- [x] Replay all policies offline against the committed trace corpus.
+- [x] Validate online behavior against simulator predictions.
+- [x] Separate policy state per layer where required; compare global versus per-layer budgets.
+- [x] Evaluate byte-aware policies if expert sizes vary.
+- [x] Define exact per-model/per-format token working-set bytes and sweep budgets below, at, and above whole working-set multiples.
+- [x] Record minor/major page faults, swap or memory-compression activity where observable, RSS, physically resident cache bytes, and hit service time; a logical hit that faults from OS-managed backing must not be reported as an equivalent resident hit.
+- [x] Select budgets from throughput, tail latency, and physical-residency evidence rather than hit rate alone.
+- [x] Preserve explicit headroom for the resident trunk, KV/recurrent state, CUDA/runtime allocations, filesystem metadata, and the operating system.
 
 ### Exit gate
 
@@ -155,6 +155,8 @@ The closeout evidence is under `results/2026-07-31/skynet/phase8-miss-execution/
 - Prefill cannot silently destroy a protected decode hot set without metrics showing it.
 - The recommended budget is evaluated around working-set boundaries and avoids a sustained paging/compression cliff.
 - Any agreement or disagreement with WASTE's observed cache floor and oversubscription collapse is documented with the differing model format, hardware, and transport.
+
+**Status:** ACCEPTED through Checkpoint C. Issue #30 provides the execution contract. Checkpoints A, B, and C returned `PASS`, safety `YES`, at comments `5148012128`, `5148752231`, and `5149625334`. The fixed selection rule retains exact global LRU/ALWAYS for both tiers because no non-LRU pair passed every default gate; per-layer configurations remain explicit-only. The safe scoped cold-budget recommendations are 44,040,192 bytes for the two-token tiny-K3 F16 boundary workload, 11,698,176 bytes for its MXFP4 counterpart, 1,678,245,888 bytes for the accepted one-token Qwen bootstrap only, and 25,829,572,608 bytes for full-K3 exact-layout physical-residency evidence only. None is a hidden runtime auto-size default. Phase 9.5 final validation, manifest publication, and final complete-PR review remain pending at this source-of-truth update.
 
 ---
 
