@@ -1,6 +1,6 @@
 # Current Status
 
-Last updated: **2026-07-31**
+Last updated: **2026-08-01**
 
 This file is the first handoff document for a new ChatGPT or Codex session.
 
@@ -19,7 +19,7 @@ This file is the first handoff document for a new ChatGPT or Codex session.
 - Project Phase 6 is complete and merged. Issue #22 was implemented by PR #23 and squash-merged into `main` as `66ab6dba60b55ce47d0ecf94fcf88a778df9cdc6`. The merged nested `murillo128/llama.cpp` gitlink is `7a606dd4e11a108929f799253809a904f55feae4`; asynchronous Linux I/O, direct-I/O evaluation, transfer/compute overlap, prefetch, and CPU miss execution remain Phase 7–8 work.
 - Project Phase 7 is complete and merged. Issue #24 was implemented by PR #25 and squash-merged into `main` as `97ef68d787c54b443eac72a3480fe70eba88d8dd`. Checkpoint A, Checkpoint B, and the final complete-PR review returned **PASS** with safety **YES** at comments `5135836934`, `5140081178`, and `5140490542`. The merged nested `murillo128/llama.cpp` gitlink is `b71e40f91b1a0dab578d56ac733211453704d674`, and the Phase 7 evidence head is `1e2faeec1c1cc1781d9f65f030b1736f4adcfe51`.
 - Project Phase 8 is complete and merged. Issue #26 was implemented by PR #27 and squash-merged into `main` as `05c38f0f11bd33c3654a3d9b2c3c6aa32e7f4c35`. Checkpoints A, B, and C accepted the bounded miss-policy mechanism, fail-closed production evidence, and cold-cache bootstrap correction at comments `5141694340`, `5144721775`, and `5146173479`. The final complete-PR review returned **PASS_WITH_NOTES**, safety **YES**, with no required delta at comment `5146545713`. The merged nested `murillo128/llama.cpp` gitlink is `dc4d50c68378d908131b518662160fdd08f4e005`, and the standing-evidence capture head is `eb3d0093157da7757036882dc81b37dd622bbf46`.
-- Project Phase 9 is in Phase 9.5 closeout on issue #30 / draft PR #31. Checkpoints A, B, and C returned **PASS**, safety **YES**, at comments `5148012128`, `5148752231`, and `5149625334`. The accepted selection retains exact global LRU/ALWAYS for both null defaults; no non-LRU pair passed every frozen gate, per-layer remains explicit-only, and no hidden budget auto-sizing was added. The nested retained-default head is `fd29c0f9e868e838d3641cd13eb6ceb8c1535f01`. Full closeout validation, the non-circular technical manifest, and the mandatory final complete-PR review remain pending at this handoff update.
+- Project Phase 9 is complete and merged. Issue #30 was implemented by PR #31 and squash-merged into `main` as `035f099de85b3f775ae8cd6769b561156ea52317`. Checkpoints A, B, and C returned **PASS**, safety **YES**, at comments `5148012128`, `5148752231`, and `5149625334`. The final complete-PR review returned **PASS**, safety **YES**, with no required delta at comment `5149762882`. The merged nested `murillo128/llama.cpp` gitlink is `fd29c0f9e868e838d3641cd13eb6ceb8c1535f01`, and the authoritative Phase 9 manifest has SHA-256 `5295ee701dfa24636f03d4bd13e3f250560179ecbda30ad9379580a2ce1c370f`. Exact global LRU/ALWAYS remains the hot and cold null default; per-layer policy remains explicit-only and no hidden budget auto-sizing was added.
 - Phase 1 evidence is descriptive for the tiny K3 fixtures on `skynet`; it is not a model-quality or production-performance claim.
 
 ## Phase 3 merged baseline
@@ -140,21 +140,26 @@ This file is the first handoff document for a new ChatGPT or Codex session.
 - Technical manifest: [`../results/2026-07-31/skynet/phase8-miss-execution/phase8-manifest.json`](../results/2026-07-31/skynet/phase8-miss-execution/phase8-manifest.json), accepted with SHA-256 `0d2405cd4a13438cb78645b7349239129e3b890d8a37c1be16bc7b0fa9632222`.
 - Derived summary: [`../results/2026-07-31/skynet/phase8-miss-execution/PHASE8.md`](../results/2026-07-31/skynet/phase8-miss-execution/PHASE8.md).
 
-## Phase 9 closeout candidate
+## Phase 9 merged baseline
 
 - Issue: <https://github.com/murillo128/k3-out-of-core/issues/30>
-- Draft PR: <https://github.com/murillo128/k3-out-of-core/pull/31>
+- Merged PR: <https://github.com/murillo128/k3-out-of-core/pull/31>
 - Execution profile: `STANDARD`
 - Immutable project execution base: `17a4e5be38a4820984a7bd4d3082695d8822c9ba`
 - Nested execution base: `dc4d50c68378d908131b518662160fdd08f4e005`
-- Accepted Checkpoint A: comment `5148012128`, `PASS`, safety `YES`.
-- Accepted Checkpoint B: comment `5148752231`, `PASS`, safety `YES`.
-- Accepted Checkpoint C: comment `5149625334`, `PASS`, safety `YES`; reviewed project/nested heads `4240919ff9633feff4c60af2731a0d7decb03691` / `75a4ecc0fa2249e3c0c4163dd3b692c7ebf705e0`.
-- Nested retained-default head: `fd29c0f9e868e838d3641cd13eb6ceb8c1535f01`; it exposes explicit/null evidence selection without changing the selected LRU semantics.
-- Selected null defaults: global LRU/ALWAYS for hot and cold. Explicit non-default and per-layer configurations remain available under the v1 validation rules.
-- Scoped cold-budget evidence: 44,040,192 bytes for the two-token tiny F16 boundary workload; 11,698,176 bytes for tiny MXFP4; 1,678,245,888 bytes for the one-token accepted Qwen bootstrap only; and 25,829,572,608 bytes for full-K3 exact-layout physical-residency evidence only. These are not runtime defaults.
-- Frozen evidence: [`../results/2026-07-31/skynet/phase9-cache-policy/selection.json`](../results/2026-07-31/skynet/phase9-cache-policy/selection.json).
-- Pending authority: `phase9-manifest.json` will bind the exact implementation evidence head; the final review comment will separately attest its externally computed SHA-256.
+- Accepted Checkpoint A project/nested heads: `35348d78022419fa14296d5bc4c3e87d28242914` / `fb691026b3cc3a75842b1d0432e4f8449e078243`; comment `5148012128`, `PASS`, safety `YES`.
+- Accepted Checkpoint B project/nested heads: `91446113847fbb4fd382e1694241ca0c54dae020` / `665ae2af902c8ceab8444b77c964ed2af461405b`; comment `5148752231`, `PASS`, safety `YES`.
+- Accepted Checkpoint C project/nested heads: `4240919ff9633feff4c60af2731a0d7decb03691` / `75a4ecc0fa2249e3c0c4163dd3b692c7ebf705e0`; comment `5149625334`, `PASS`, safety `YES`.
+- Implementation evidence head: `deaa3d0dc317356ffe656ef5345e175a7acd3d9e`.
+- Final reviewed project head: `32f5a2390c7e7730ec0a28677195820aedf734f3`.
+- Nested `llama.cpp` head: `fd29c0f9e868e838d3641cd13eb6ceb8c1535f01`.
+- PR #31 squash merge: `035f099de85b3f775ae8cd6769b561156ea52317`.
+- Final complete-PR review: comment `5149762882`, `PASS`, safety `YES`; no required delta.
+- Selected null defaults: exact global LRU/ALWAYS for hot and cold. Explicit non-default and per-layer configurations remain available under the v1 validation rules.
+- Scoped cold-budget evidence: 44,040,192 bytes for the two-token tiny F16 boundary workload; 11,698,176 bytes for tiny MXFP4; 1,678,245,888 bytes for the one-token accepted Qwen bootstrap only; and 25,829,572,608 bytes for full-K3 exact-layout physical-residency evidence only. These are evidence outputs, not runtime defaults.
+- Standing validation: focused CPU, CUDA, ASan+UBSan, and accepted ASLR-disabled TSan suites each pass 5/5; Phase 2, Phase 8, and Phase 9 evidence tests pass 20/20, 32/32, and 14/14; 36/36 repeated explicit/null default-equivalence runs preserve exact outputs.
+- Authoritative manifest: [`../results/2026-07-31/skynet/phase9-cache-policy/phase9-manifest.json`](../results/2026-07-31/skynet/phase9-cache-policy/phase9-manifest.json), SHA-256 `5295ee701dfa24636f03d4bd13e3f250560179ecbda30ad9379580a2ce1c370f`.
+- Derived summary: [`../results/2026-07-31/skynet/phase9-cache-policy/PHASE9.md`](../results/2026-07-31/skynet/phase9-cache-policy/PHASE9.md).
 
 ## Phase 1 merged baseline
 
@@ -198,8 +203,9 @@ Kernel: 6.8.0-136-generic
 - VRAM is sampled device-wide telemetry and the OS page cache was not flushed.
 - The Phase 3 raw performance gate and its two accepted notes must remain visible in all later performance comparisons.
 - Phase 7 tiny-fixture timings are descriptive. Production demand-only overlap was honestly zero; controlled native traces establish the mechanism.
-- Phase 8 completes explicit CPU fallback and deterministic AUTO miss execution. Its tiny K3, larger public MoE bootstrap, and exact-layout sparse-store results are mechanism and controlled crossover evidence. Cache-policy selection, speculative prefetch, concurrency, UMA, multi-GPU, and full production K3 quality/performance remain later phases.
+- Phase 8 completes explicit CPU fallback and deterministic AUTO miss execution. Its tiny K3, larger public MoE bootstrap, and exact-layout sparse-store results are mechanism and controlled crossover evidence.
+- Phase 9 retains exact global LRU/ALWAYS as the hot and cold null default after trace replay, online validation, fixed statistical gates, and physical-residency sweeps. Its scoped budget recommendations do not install runtime auto-sizing, and its full-K3 result is exact-layout residency evidence only. Speculative prefetch, UMA, full-size inference, concurrency, multi-GPU, and production K3 quality/performance remain later phases.
 
 ## Immediate next action
 
-Complete issue #30 Phase 9.5 from the exact `codex/phase9-cache-policy` branch and accepted Checkpoint C. Commit the affected source-of-truth and full validation evidence as the implementation evidence head, build the non-circular Phase 9 manifest from that exact head, add only the manifest and derived `PHASE9.md` in the parent closeout commit, then request a fresh final complete-PR review over the exact final heads and manifest SHA-256. Do not change the accepted global LRU/ALWAYS selection, evidence rules, budget recommendations, or nested default head without returning to Phase 9.4/design authority.
+Use the current `main`, this status, and the Phase 10 section of `docs/plan/07-async-runtime.md` to create one self-contained, execution-ready controlling issue for **Phase 10 — prefetch and hot-set seeding**. Follow `AGENTS.md` and `.agents/skills/design-github-issue/SKILL.md`; verify the current project head and nested `llama.cpp` gitlink, preserve the accepted Phase 9 global LRU/ALWAYS defaults, and resolve all material static-seeding, exact issue-ahead, temporal/cross-layer prediction, admission, cache-pollution, priority, bandwidth, cancellation, break-even, replay/online-validation, evidence, checkpoint, restart, and exit-gate decisions. Treat WASTE's predictor results as pinned external evidence rather than transferable thresholds. Do not implement code, create an execution branch, or open a PR in the design session.
