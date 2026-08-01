@@ -102,4 +102,3 @@ def paired_interval(candidate: list[float], baseline: list[float]) -> dict[str, 
     half = critical*standard_error
     return {"n": len(differences), "mean_difference": mean, "ci95_low": mean - half,
             "ci95_high": mean + half, "differences": differences, "student_t_critical": critical}
-
