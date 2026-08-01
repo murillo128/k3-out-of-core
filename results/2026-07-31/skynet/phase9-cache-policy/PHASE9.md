@@ -2,13 +2,13 @@
 
 Status: **OBSERVED — final-review candidate**
 
-This is a derived human-readable summary of issue #30 and PR #31. The authoritative machine-readable record is `phase9-manifest.json`, SHA-256 `67854066235d134984d749d8956191a6c13d09e1cc10a9805687abe299121b76`. The manifest and the later separate final-review attestation take precedence.
+This is a derived human-readable summary of issue #30 and PR #31. The authoritative machine-readable record is `phase9-manifest.json`, SHA-256 `5295ee701dfa24636f03d4bd13e3f250560179ecbda30ad9379580a2ce1c370f`. The manifest and the later separate final-review attestation take precedence.
 
 ## Scope and revisions
 
 - Execution profile: `STANDARD`
 - Project execution base: `17a4e5be38a4820984a7bd4d3082695d8822c9ba`
-- Implementation evidence head: `587a48560cbd2f80d0dd8513ad7794442580e63c`
+- Implementation evidence head: `deaa3d0dc317356ffe656ef5345e175a7acd3d9e`
 - Nested execution base: `dc4d50c68378d908131b518662160fdd08f4e005`
 - Final nested `llama.cpp` / gitlink: `fd29c0f9e868e838d3641cd13eb6ceb8c1535f01`
 - Checkpoint A: comment `5148012128`, `PASS`, safety `YES`
@@ -80,7 +80,7 @@ Default-ASLR TSan fails before test code with the accepted `unexpected memory ma
 | `transport-sensitivity.json` | `fc2c592aab2ea0f23fd83d8bc57843e7e262e94489fb2dc428669fbe1276ebbb` |
 | `selection.json` | `fe1775a3ba5a1c2f70da173a0ce0ef98463b0bac47a2bd6604f04c271c3f905a` |
 | `default-equivalence.json` | `ba094524256ec49419a6947187433c849420bdc72f009cf8d1b0562a5bf9acfd` |
-| `validation.json` | `194537b6a8e68bd3ffc7112d142bd3ac7a5116eb9b33728739caa3944253a606` |
+| `validation.json` | `0800db81d3cd4e45fb86de62a20019cf91624fb370d8ec4c1c5d0c437fcfb4d3` |
 
 ## Deferred
 
