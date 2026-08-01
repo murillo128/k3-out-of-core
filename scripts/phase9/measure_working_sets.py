@@ -108,6 +108,7 @@ def main() -> int:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--host-obligations-bytes", type=int, default=4*1024**3)
     parser.add_argument("--operator-ceiling-bytes", type=int)
+    parser.add_argument("--full-k3-routed-experts-per-layer", type=int, default=16)
     args = parser.parse_args()
     online = json.loads(args.online_summary.read_text())
     descriptor = json.loads(args.synthetic_store.read_text())
@@ -135,9 +136,13 @@ def main() -> int:
     recomputed_bundle = layout["projection_bytes"]*layout["projections_per_bundle"]
     if recomputed_bundle != layout["bundle_bytes"] or layout["bundle_count"] != layout["layers"]*layout["experts_per_layer"]:
         raise RuntimeError("full-K3 descriptor constants do not recompute")
-    full_w = layout["layers"]*8*layout["bundle_bytes"]
+    if not 0 < args.full_k3_routed_experts_per_layer <= layout["experts_per_layer"]:
+        raise RuntimeError("full-K3 routed expert count is outside descriptor topology")
+    full_w = layout["layers"]*args.full_k3_routed_experts_per_layer*layout["bundle_bytes"]
     full_k3 = {
         "descriptor": file_identity(args.synthetic_store), "descriptor_constants_verified": True,
+        "routed_experts_per_layer": args.full_k3_routed_experts_per_layer,
+        "routing_authority": "issue 30 accepted full-K3 top-16 architecture fact",
         "one_expert_footprint_bytes": layout["bundle_bytes"], "theoretical_token_working_set_bytes": full_w,
         "budget_grid": legal_budget_grid(full_w, layout["bundle_bytes"], 0, headroom["safe_ceiling_bytes"]),
         "scope_limit": "exact-layout sparse-store mechanism/residency only; no quality or token-throughput claim",

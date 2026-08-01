@@ -61,9 +61,10 @@ def meminfo() -> dict[str, int]:
 def run_cell(probe: Path, output_dir: Path, name: str, budget: int, touch: int,
              layout: dict[str, Any], policy: str = "LRU", classifications: int = 0) -> dict[str, Any]:
     output = output_dir / f"{name}.json"
+    experts_used = layout.get("experts_used", min(8, layout["experts_per_layer"]))
     command = [str(probe), "--output", str(output), "--budget-bytes", str(budget),
                "--projection-bytes", str(layout["projection_bytes"]), "--layers", str(layout["layers"]),
-               "--experts-per-layer", str(layout["experts_per_layer"]), "--experts-used", str(min(8, layout["experts_per_layer"])),
+               "--experts-per-layer", str(layout["experts_per_layer"]), "--experts-used", str(experts_used),
                "--touch-slots", str(touch), "--classification-samples", str(classifications),
                "--policy", policy]
     before = meminfo()
@@ -113,6 +114,7 @@ def main() -> int:
     descriptor = json.loads(args.synthetic_store.read_text())
     args.output_dir.mkdir(parents=True, exist_ok=True)
     layout = descriptor["layout"]
+    layout = {**layout, "experts_used": working["full_k3_mxfp4"]["routed_experts_per_layer"]}
     footprint = layout["bundle_bytes"]
     working_set = working["full_k3_mxfp4"]["theoretical_token_working_set_bytes"]
     w_slots = working_set//footprint
