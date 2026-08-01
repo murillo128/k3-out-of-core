@@ -9,7 +9,8 @@ from prefetch_common import Phase10Error, break_even, load_json, require_fields,
 
 def derive(document: dict) -> dict:
     require_fields(document, {"schema_version", "project_head", "nested_head", "host", "profile_sha256",
-        "profile_parse_ns", "model_profile_load_ns", "lead_measurements", "predictor_upper_bound", "envelopes"}, "measurements")
+        "profile_parse_ns", "model_profile_load_ns", "lead_measurements", "predictor_upper_bound",
+        "path_provenance", "envelopes"}, "measurements")
     if document["schema_version"] != "phase10-transport-measurements-v1":
         raise Phase10Error("unsupported measurement schema")
     for name in ("project_head", "nested_head"):
@@ -52,12 +53,16 @@ def derive(document: dict) -> dict:
         raise Phase10Error("predictor upper bound does not match measured p95 values")
     if not isinstance(document["envelopes"], list) or not document["envelopes"]:
         raise Phase10Error("measurement envelopes are empty")
+    path_provenance = document["path_provenance"]
+    if not isinstance(path_provenance, dict) or path_provenance.get("exact_runtime_provider_path") is not True:
+        raise Phase10Error("measurement does not use the exact runtime provider path")
+    storage_map_sha256 = require_sha256(path_provenance.get("storage_map_sha256"), "storage map sha256")
     output = []
     for envelope in document["envelopes"]:
         require_fields(envelope, {"transport", "readiness", "supported", "lead_p50_ns", "demand_service_p50_ns",
             "speculative_service_p95_ns", "predictor_compute_p95_ns", "scheduler_demand_delay_p95_ns",
             "displacement_refill_p95_ns", "storage_bytes", "h2d_bytes", "utility_window_predictions",
-            "utility_min_observations"}, "measurement envelope")
+            "utility_min_observations", "measurement_basis"}, "measurement envelope")
         if envelope["readiness"] not in {"HOST_READY", "DEVICE_READY"}:
             raise Phase10Error("invalid readiness")
         record = {"lead_ns": require_uint(envelope["lead_p50_ns"], "lead_p50_ns"),
@@ -73,6 +78,18 @@ def derive(document: dict) -> dict:
         if not isinstance(envelope["supported"], bool):
             raise Phase10Error("supported must be boolean")
         eligible = envelope["supported"]
+        basis = envelope["measurement_basis"]
+        if eligible:
+            if not isinstance(basis, dict) or basis.get("storage_map_sha256") != storage_map_sha256 or \
+                    basis.get("all_observed_spans_exact") is not True or \
+                    require_uint(basis.get("scheduler_samples"), "scheduler samples", positive=True) == 0:
+                raise Phase10Error("supported envelope lacks exact runtime-path provenance")
+            storage_refills = require_uint(basis.get("storage_refill_samples"), "storage refill samples")
+            h2d_refills = require_uint(basis.get("h2d_refill_samples"), "h2d refill samples")
+            if storage_refills == 0 and h2d_refills == 0:
+                raise Phase10Error("supported envelope lacks measured displacement/refill samples")
+            if record["scheduler_demand_delay_ns"] == 0 or record["displacement_refill_ns"] == 0:
+                raise Phase10Error("supported envelope substituted a zero scheduler or displacement cost")
         reason = "eligible"
         try:
             computed = break_even(record)
@@ -90,13 +107,13 @@ def derive(document: dict) -> dict:
             "utility_min_observations": minimum, "utility_min_timely_successes": minimum_successes}
         output.append({"transport": envelope["transport"], "readiness": envelope["readiness"],
             "eligible": eligible, "reason": reason, "conservative_basis": "p50 useful lower envelope; p95 predictor/service/delay/displacement waste upper envelope",
-            **computed, "profile_record": profile_record})
+            "measurement_basis": basis, **computed, "profile_record": profile_record})
     return {"schema_version": "phase10-transport-break-even-v1", "status": "pass" if any(item["eligible"] for item in output) else "fail",
         "project_head": document["project_head"], "nested_head": document["nested_head"], "host": document["host"],
         "profile_sha256": document["profile_sha256"],
         "profile_parse_ns": require_uint(document["profile_parse_ns"], "profile_parse_ns"),
         "model_profile_load_ns": require_uint(document["model_profile_load_ns"], "model_profile_load_ns"),
-        "lead_measurements": lead,
+        "lead_measurements": lead, "path_provenance": path_provenance,
         "predictor_upper_bound": predictor,
         "formula": "waste/(hidden+waste)", "waste_external_threshold_transferred": False, "envelopes": output}
 

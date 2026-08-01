@@ -3,7 +3,7 @@
   "$id": "transport-break-even-v1.schema.json",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "status", "project_head", "nested_head", "host", "profile_sha256", "profile_parse_ns", "model_profile_load_ns", "lead_measurements", "predictor_upper_bound", "formula", "waste_external_threshold_transferred", "envelopes"],
+  "required": ["schema_version", "status", "project_head", "nested_head", "host", "profile_sha256", "profile_parse_ns", "model_profile_load_ns", "lead_measurements", "predictor_upper_bound", "path_provenance", "formula", "waste_external_threshold_transferred", "envelopes"],
   "properties": {
     "schema_version": {"const": "phase10-transport-break-even-v1"},
     "status": {"enum": ["pass", "fail"]},
@@ -15,6 +15,7 @@
     "model_profile_load_ns": {"type": "integer", "minimum": 0},
     "lead_measurements": {"type": "object"},
     "predictor_upper_bound": {"type": "object"},
+    "path_provenance": {"type": "object"},
     "formula": {"const": "waste/(hidden+waste)"},
     "waste_external_threshold_transferred": {"const": false},
     "envelopes": {"type": "array", "minItems": 1, "items": {"type": "object"}}

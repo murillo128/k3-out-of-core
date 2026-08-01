@@ -3,7 +3,7 @@
   "$id": "transport-measurements-v1.schema.json",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "project_head", "nested_head", "host", "profile_sha256", "profile_parse_ns", "model_profile_load_ns", "lead_measurements", "predictor_upper_bound", "envelopes"],
+  "required": ["schema_version", "project_head", "nested_head", "host", "profile_sha256", "profile_parse_ns", "model_profile_load_ns", "lead_measurements", "predictor_upper_bound", "path_provenance", "envelopes"],
   "properties": {
     "schema_version": {"const": "phase10-transport-measurements-v1"},
     "project_head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
@@ -38,6 +38,43 @@
         "measurements": {"type": "array", "minItems": 5, "maxItems": 5, "items": {"type": "object"}}
       }
     },
-    "envelopes": {"type": "array", "minItems": 1, "items": {"type": "object"}}
+    "path_provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["storage_map_sha256", "model_sha256", "model_size", "exact_runtime_provider_path", "buffered", "direct"],
+      "properties": {
+        "storage_map_sha256": {"$ref": "#/$defs/sha256"},
+        "model_sha256": {"$ref": "#/$defs/sha256"},
+        "model_size": {"type": "integer", "minimum": 1},
+        "exact_runtime_provider_path": {"const": true},
+        "buffered": {"type": "object"},
+        "direct": {"type": "object"}
+      }
+    },
+    "envelopes": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/envelope"}}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "envelope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["transport", "readiness", "supported", "lead_p50_ns", "demand_service_p50_ns", "speculative_service_p95_ns", "predictor_compute_p95_ns", "scheduler_demand_delay_p95_ns", "displacement_refill_p95_ns", "storage_bytes", "h2d_bytes", "utility_window_predictions", "utility_min_observations", "measurement_basis"],
+      "properties": {
+        "transport": {"enum": ["BUFFERED", "DIRECT_IO", "HOST_TO_DEVICE"]},
+        "readiness": {"enum": ["HOST_READY", "DEVICE_READY"]},
+        "supported": {"type": "boolean"},
+        "lead_p50_ns": {"type": "integer", "minimum": 1},
+        "demand_service_p50_ns": {"type": "integer", "minimum": 0},
+        "speculative_service_p95_ns": {"type": "integer", "minimum": 0},
+        "predictor_compute_p95_ns": {"type": "integer", "minimum": 1},
+        "scheduler_demand_delay_p95_ns": {"type": "integer", "minimum": 0},
+        "displacement_refill_p95_ns": {"type": "integer", "minimum": 0},
+        "storage_bytes": {"type": "integer", "minimum": 0},
+        "h2d_bytes": {"type": "integer", "minimum": 0},
+        "utility_window_predictions": {"type": "integer", "minimum": 1},
+        "utility_min_observations": {"type": "integer", "minimum": 1},
+        "measurement_basis": {"type": "object"}
+      }
+    }
   }
 }

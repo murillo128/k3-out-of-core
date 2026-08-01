@@ -6,6 +6,36 @@
   "profile_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
   "profile_parse_ns": 10000,
   "model_profile_load_ns": 20000,
+  "lead_measurements": {
+    "basis": "minimum p50 of observed token-end-to-router and adjacent-router intervals",
+    "decode_submissions": 5,
+    "token_end_samples": 35,
+    "cross_layer_samples": 30,
+    "token_end_p50_ns": 100000,
+    "cross_layer_p50_ns": 100000,
+    "conservative_lead_p50_ns": 100000,
+    "provider_event_capacity": 256,
+    "provider_events_dropped": 0
+  },
+  "predictor_upper_bound": {
+    "basis": "maximum p95 over full-token topology-capped declared predictors",
+    "upper_bound_p95_ns": 1000,
+    "measurements": [
+      {"policy": "STATIC_LAYER", "temporal_window_tokens": 0, "candidates_per_target": 8, "target_layers_per_call": 7, "repetitions": 1000, "p50_ns": 800, "p95_ns": 1000, "p99_ns": 1200},
+      {"policy": "PREVIOUS_TOKEN", "temporal_window_tokens": 0, "candidates_per_target": 8, "target_layers_per_call": 7, "repetitions": 1000, "p50_ns": 800, "p95_ns": 1000, "p99_ns": 1200},
+      {"policy": "TEMPORAL_FREQUENCY", "temporal_window_tokens": 64, "candidates_per_target": 8, "target_layers_per_call": 7, "repetitions": 1000, "p50_ns": 800, "p95_ns": 1000, "p99_ns": 1200},
+      {"policy": "CROSS_LAYER_TRANSITION", "temporal_window_tokens": 0, "candidates_per_target": 8, "target_layers_per_call": 6, "repetitions": 1000, "p50_ns": 800, "p95_ns": 1000, "p99_ns": 1200},
+      {"policy": "RANDOM_BASELINE", "temporal_window_tokens": 0, "candidates_per_target": 8, "target_layers_per_call": 7, "repetitions": 1000, "p50_ns": 800, "p95_ns": 1000, "p99_ns": 1200}
+    ]
+  },
+  "path_provenance": {
+    "storage_map_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "model_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "model_size": 1024,
+    "exact_runtime_provider_path": true,
+    "buffered": {},
+    "direct": {}
+  },
   "envelopes": [
     {
       "transport": "BUFFERED",
@@ -15,27 +45,29 @@
       "demand_service_p50_ns": 100000,
       "speculative_service_p95_ns": 120000,
       "predictor_compute_p95_ns": 1000,
-      "scheduler_demand_delay_p95_ns": 0,
+      "scheduler_demand_delay_p95_ns": 5000,
       "displacement_refill_p95_ns": 120000,
       "storage_bytes": 786432,
       "h2d_bytes": 0,
       "utility_window_predictions": 64,
-      "utility_min_observations": 32
+      "utility_min_observations": 32,
+      "measurement_basis": {"storage_map_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "all_observed_spans_exact": true, "scheduler_samples": 20, "storage_refill_samples": 10, "h2d_refill_samples": 0}
     },
     {
       "transport": "BUFFERED",
       "readiness": "DEVICE_READY",
       "supported": true,
-      "lead_p50_ns": 150000,
+      "lead_p50_ns": 100000,
       "demand_service_p50_ns": 150000,
       "speculative_service_p95_ns": 180000,
       "predictor_compute_p95_ns": 1000,
-      "scheduler_demand_delay_p95_ns": 0,
+      "scheduler_demand_delay_p95_ns": 5000,
       "displacement_refill_p95_ns": 180000,
       "storage_bytes": 786432,
       "h2d_bytes": 786432,
       "utility_window_predictions": 64,
-      "utility_min_observations": 32
+      "utility_min_observations": 32,
+      "measurement_basis": {"storage_map_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "all_observed_spans_exact": true, "scheduler_samples": 20, "storage_refill_samples": 10, "h2d_refill_samples": 10}
     }
   ]
 }

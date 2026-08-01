@@ -34,13 +34,33 @@ def require_commit(value: str, name: str) -> None:
         raise Phase10Error(f"{name} must be a lowercase commit SHA")
 
 
-def validate_measurement(document: dict[str, Any], project_head: str, nested_head: str, profile_sha256: str) -> None:
+def validate_measurement(
+        document: dict[str, Any],
+        project_head: str,
+        nested_head: str,
+        profile_sha256: str,
+        storage_map_sha256: str) -> None:
     if document.get("schema_version") != "phase10-transport-measurements-v1":
         raise Phase10Error("probe emitted an unsupported measurement schema")
     if document.get("project_head") != project_head or document.get("nested_head") != nested_head:
         raise Phase10Error("probe emitted a different revision identity")
     if document.get("profile_sha256") != profile_sha256:
         raise Phase10Error("probe measured a different profile")
+    provenance = document.get("path_provenance")
+    if not isinstance(provenance, dict) or provenance.get("storage_map_sha256") != storage_map_sha256 or \
+            provenance.get("exact_runtime_provider_path") is not True:
+        raise Phase10Error("probe did not bind the exact runtime storage path")
+    for envelope in document.get("envelopes", []):
+        basis = envelope.get("measurement_basis")
+        if not isinstance(basis, dict):
+            raise Phase10Error("measurement envelope lacks path provenance")
+        if envelope.get("supported") and (basis.get("storage_map_sha256") != storage_map_sha256 or
+                basis.get("all_observed_spans_exact") is not True or
+                envelope.get("scheduler_demand_delay_p95_ns", 0) <= 0 or
+                envelope.get("displacement_refill_p95_ns", 0) <= 0 or
+                basis.get("scheduler_samples", 0) <= 0 or
+                (basis.get("storage_refill_samples", 0) <= 0 and basis.get("h2d_refill_samples", 0) <= 0)):
+            raise Phase10Error("supported envelope lacks measured scheduler or displacement/refill samples")
 
 
 def build_calibration_profile(archive: Path, storage_map: Path, costs: Path, artifact: str) -> dict[str, Any]:
@@ -87,7 +107,7 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
         write_json(profile_path, profile)
         profile_sha256 = sha256_file(profile_path)
         command = [str(probe), "--profile", str(profile_path), "--model", str(inputs["model"]),
-            "--identity", identity]
+            "--identity", identity, "--storage-map", str(inputs["storage"])]
         completed = subprocess.run(command, check=False, capture_output=True)
         if completed.returncode != 0:
             raise Phase10Error(f"{artifact} transport probe failed; stderr sha256 "
@@ -96,7 +116,9 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
             measurement = json.loads(completed.stdout)
         except json.JSONDecodeError as error:
             raise Phase10Error(f"{artifact} transport probe emitted invalid JSON: {error}") from error
-        validate_measurement(measurement, args.project_head, args.nested_head, profile_sha256)
+        storage_map_sha256 = sha256_file(inputs["storage"])
+        validate_measurement(measurement, args.project_head, args.nested_head, profile_sha256,
+            storage_map_sha256)
         measurement_path = measurement_dir / f"{artifact}-transport-measurements.json"
         write_json(measurement_path, measurement)
         records[artifact] = {"profile_path": evidence_path(profile_path), "profile_sha256": profile_sha256,
@@ -104,6 +126,8 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
             "measurement_sha256": sha256_file(measurement_path), "command": command,
             "bootstrap_cost_path": evidence_path(inputs["bootstrap_costs"]),
             "bootstrap_cost_sha256": sha256_file(inputs["bootstrap_costs"]),
+            "storage_map_path": evidence_path(inputs["storage"]),
+            "storage_map_sha256": storage_map_sha256,
             "bootstrap_cost_revision_binding": "calibration_only_not_transferred",
             "build_repeatability": "byte_identical"}
     return {"schema_version": "phase10-transport-calibration-v1", "project_head": args.project_head,

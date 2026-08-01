@@ -24,16 +24,18 @@
     "artifact": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["profile_path", "profile_sha256", "profile_bytes", "measurement_path", "measurement_sha256", "command", "bootstrap_cost_path", "bootstrap_cost_sha256", "bootstrap_cost_revision_binding", "build_repeatability"],
+      "required": ["profile_path", "profile_sha256", "profile_bytes", "measurement_path", "measurement_sha256", "command", "bootstrap_cost_path", "bootstrap_cost_sha256", "storage_map_path", "storage_map_sha256", "bootstrap_cost_revision_binding", "build_repeatability"],
       "properties": {
         "profile_path": {"type": "string", "minLength": 1},
         "profile_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
         "profile_bytes": {"type": "integer", "minimum": 1},
         "measurement_path": {"type": "string", "minLength": 1},
         "measurement_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
-        "command": {"type": "array", "minItems": 7, "items": {"type": "string"}},
+        "command": {"type": "array", "minItems": 9, "items": {"type": "string"}},
         "bootstrap_cost_path": {"type": "string", "minLength": 1},
         "bootstrap_cost_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "storage_map_path": {"type": "string", "minLength": 1},
+        "storage_map_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
         "bootstrap_cost_revision_binding": {"const": "calibration_only_not_transferred"},
         "build_repeatability": {"const": "byte_identical"}
       }

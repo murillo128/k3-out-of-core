@@ -89,6 +89,17 @@ def lead_measurements() -> dict:
         "provider_event_capacity": 256, "provider_events_dropped": 0}
 
 
+def measurement_basis() -> dict:
+    return {"storage_map_sha256": HASH, "all_observed_spans_exact": True,
+        "scheduler_samples": 20, "storage_refill_samples": 10, "h2d_refill_samples": 10}
+
+
+def path_provenance() -> dict:
+    return {"storage_map_sha256": HASH, "model_sha256": HASH, "model_size": 1024,
+        "exact_runtime_provider_path": True, "buffered": measurement_basis(),
+        "direct": measurement_basis()}
+
+
 class PrefetchProfileTests(unittest.TestCase):
     def test_folds_are_causal_and_cover_all_prompts(self) -> None:
         for index in range(6):
@@ -139,10 +150,12 @@ class PrefetchProfileTests(unittest.TestCase):
             "host": "test", "profile_sha256": HASH, "profile_parse_ns": 10, "model_profile_load_ns": 20,
             "lead_measurements": lead_measurements(),
             "predictor_upper_bound": predictor_upper_bound(),
+            "path_provenance": path_provenance(),
             "envelopes": [{"transport": "BUFFERED", "readiness": "DEVICE_READY", "supported": True,
                 "lead_p50_ns": 100, "demand_service_p50_ns": 80, "speculative_service_p95_ns": 20,
                 "predictor_compute_p95_ns": 10, "scheduler_demand_delay_p95_ns": 5, "displacement_refill_p95_ns": 5,
-                "storage_bytes": 128, "h2d_bytes": 128, "utility_window_predictions": 8, "utility_min_observations": 4}]})
+                "storage_bytes": 128, "h2d_bytes": 128, "utility_window_predictions": 8,
+                "utility_min_observations": 4, "measurement_basis": measurement_basis()}]})
         self.assertEqual(result["status"], "pass")
         self.assertFalse(result["waste_external_threshold_transferred"])
         self.assertEqual(result["envelopes"][0]["break_even_bps"], 3637)
@@ -153,12 +166,13 @@ class PrefetchProfileTests(unittest.TestCase):
                 "nested_head": COMMIT, "host": "test", "profile_sha256": HASH, "profile_parse_ns": 10,
                 "model_profile_load_ns": 20, "lead_measurements": lead_measurements(),
                 "predictor_upper_bound": predictor_upper_bound(),
+                "path_provenance": path_provenance(),
                 "envelopes": [{"transport": "BUFFERED", "readiness": "DEVICE_READY",
                     "supported": True, "lead_p50_ns": 100, "demand_service_p50_ns": 80,
                     "speculative_service_p95_ns": 20, "predictor_compute_p95_ns": 10,
                     "scheduler_demand_delay_p95_ns": 5, "displacement_refill_p95_ns": 5,
                     "storage_bytes": 128, "h2d_bytes": 128, "utility_window_predictions": 8,
-                    "utility_min_observations": 4}]})
+                    "utility_min_observations": 4, "measurement_basis": measurement_basis()}]})
             f16 = Path(directory) / "f16.json"
             mxfp4 = Path(directory) / "mxfp4.json"
             write_json(f16, first)
@@ -171,11 +185,12 @@ class PrefetchProfileTests(unittest.TestCase):
 
     def test_calibration_measurement_is_revision_and_profile_bound(self) -> None:
         document = {"schema_version": "phase10-transport-measurements-v1", "project_head": COMMIT,
-            "nested_head": COMMIT, "profile_sha256": HASH}
-        validate_measurement(document, COMMIT, COMMIT, HASH)
+            "nested_head": COMMIT, "profile_sha256": HASH, "path_provenance": path_provenance(),
+            "envelopes": []}
+        validate_measurement(document, COMMIT, COMMIT, HASH, HASH)
         document["profile_sha256"] = "b" * 64
         with self.assertRaisesRegex(Phase10Error, "different profile"):
-            validate_measurement(document, COMMIT, COMMIT, HASH)
+            validate_measurement(document, COMMIT, COMMIT, HASH, HASH)
 
     def test_duplicate_keys_and_float_are_rejected(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
