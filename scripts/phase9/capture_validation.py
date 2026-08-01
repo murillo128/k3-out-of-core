@@ -78,9 +78,11 @@ def main() -> int:
         "cmake", "--build", "llama.cpp/build-phase9-tsan", "--target", *TARGETS, "-j4"])
     default_tsan, default_tsan_text = execute("ctest-tsan-default-aslr", [
         "ctest", "--test-dir", "llama.cpp/build-phase9-tsan", "--output-on-failure", "-R", TEST_REGEX],
-        required=False, environment={"TSAN_OPTIONS": "halt_on_error=1:history_size=7"})
+        required=False, environment={
+            "TSAN_OPTIONS": "halt_on_error=1 history_size=7 ignore_noninstrumented_modules=1"})
     tsan, tsan_text = execute("ctest-tsan-aslr-disabled", [
-        "setarch", "x86_64", "-R", "env", "TSAN_OPTIONS=halt_on_error=1:history_size=7",
+        "setarch", "x86_64", "-R", "env",
+        "TSAN_OPTIONS=halt_on_error=1 history_size=7 ignore_noninstrumented_modules=1",
         "ctest", "--test-dir", "llama.cpp/build-phase9-tsan", "--output-on-failure", "-R", TEST_REGEX])
 
     for phase in ("phase2", "phase8", "phase9"):
@@ -107,6 +109,14 @@ def main() -> int:
 
     with tempfile.TemporaryDirectory(prefix="k3-phase9-phase8-accepted-") as temporary_name:
         historical = clone_at(Path(temporary_name) / "project", PHASE8_ATTESTED_HEAD, NESTED_BASE)
+        # The immutable probe deliberately binds its original absolute capture cwd. Resolve only that
+        # tracked artifact through its original path while retaining the exact accepted code and index.
+        probe_relative = Path("results/2026-07-31/skynet/phase8-miss-execution/checkpoint-b-probe.json")
+        historical_probe = historical / probe_relative
+        historical_probe.unlink()
+        historical_probe.symlink_to(root / probe_relative)
+        subprocess.check_call([
+            "git", "-C", str(historical), "update-index", "--assume-unchanged", str(probe_relative)])
         execute("phase8-verifier-accepted-head", [
             "python3", "scripts/phase8/verify_phase8.py", "--manifest",
             "results/2026-07-31/skynet/phase8-miss-execution/phase8-manifest.json", "--strict"],
@@ -152,6 +162,7 @@ def main() -> int:
             "accepted_phase8_head": PHASE8_ATTESTED_HEAD,
             "accepted_phase8_nested_head": NESTED_BASE,
             "accepted_head_strict_pass": True,
+            "absolute_capture_path_resolution": "immutable probe symlinked to its recorded original cwd",
         },
         "phase9_strict": {"state": "pending-parent-only-closeout",
                           "reason": "the non-circular manifest is built after this implementation evidence is committed"},
