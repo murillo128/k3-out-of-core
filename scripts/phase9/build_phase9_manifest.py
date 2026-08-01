@@ -35,6 +35,7 @@ def main() -> int:
     parser.add_argument("--prefill-protection", type=Path, required=True)
     parser.add_argument("--policy-benchmark", type=Path, required=True)
     parser.add_argument("--transport", type=Path, required=True)
+    parser.add_argument("--online-boundaries", type=Path, required=True)
     parser.add_argument("--validation", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
@@ -46,7 +47,8 @@ def main() -> int:
         "replay_online_checkpoint": args.checkpoint_evidence, "working_sets": args.working_sets,
         "residency": args.residency, "waste": args.waste, "statistics": args.statistics,
         "prefill_protection": args.prefill_protection, "policy_benchmark": args.policy_benchmark,
-        "transport": args.transport, "selection": args.selection, "validation": args.validation,
+        "transport": args.transport, "online_boundaries": args.online_boundaries,
+        "selection": args.selection, "validation": args.validation,
     }
     phase8 = ROOT / "results/2026-07-31/skynet/phase8-miss-execution/phase8-manifest.json"
     phase2 = ROOT / "results/2026-07-29/skynet/phase2-observability/phase2-manifest.json"
