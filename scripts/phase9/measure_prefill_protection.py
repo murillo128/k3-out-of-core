@@ -17,12 +17,13 @@ sys.path.insert(0, str(ROOT / "scripts" / "phase9"))
 from evidence_common import canonical_json, file_identity  # noqa: E402
 
 
-def run(probe: Path, directory: Path, policy: str, repetition: int) -> dict[str, Any]:
+def run(probe: Path, directory: Path, policy: str, repetition: int, slru_ratio_bps: int) -> dict[str, Any]:
     output = directory / f"{policy.lower()}-{repetition}.json"
     command = [str(probe), "--output", str(output), "--budget-bytes", "1572864",
                "--projection-bytes", "65536", "--layers", "4", "--experts-per-layer", "8",
                "--experts-used", "2", "--touch-slots", "16", "--classification-samples", "0",
-               "--prefill-protection", "1", "--policy", policy]
+               "--prefill-protection", "1", "--policy", policy,
+               "--slru-ratio-bps", str(slru_ratio_bps)]
     completed = subprocess.run(command, capture_output=True, text=True, check=False)
     if completed.returncode != 0:
         raise RuntimeError(f"{policy} prefill protection failed: {completed.stderr[-4000:]}")
@@ -39,10 +40,11 @@ def main() -> int:
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--summary", type=Path, required=True)
     parser.add_argument("--repetitions", type=int, default=3)
+    parser.add_argument("--slru-ratio-bps", type=int, default=8750)
     args = parser.parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=True)
     policies = ("LRU", "LFRU", "SLRU")
-    runs = [run(args.probe, args.output_dir, policy, repetition)
+    runs = [run(args.probe, args.output_dir, policy, repetition, args.slru_ratio_bps)
             for policy in policies for repetition in range(args.repetitions)]
     by_policy = {policy: [entry for entry in runs if entry["policy"] == policy] for policy in policies}
     for policy, entries in by_policy.items():
@@ -55,6 +57,7 @@ def main() -> int:
     output = {
         "schema_version": "phase9-prefill-protection-v1", "status": "pass",
         "input": {"probe": file_identity(args.probe)},
+        "slru_ratio_bps": args.slru_ratio_bps,
         "sequence": ["decode warmup", "large prefill burst", "repeat identical decode routes for eight tokens"],
         "runs": runs,
         "comparison": {
