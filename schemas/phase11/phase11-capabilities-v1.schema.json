@@ -4,7 +4,7 @@
   "title": "Phase 11 GB10 capability and Checkpoint A evidence",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "status", "scope", "revisions", "platform", "gpu_inventory", "toolkit", "storage_inventory", "filesystem", "ats_evidence", "c2c_evidence", "memlock_limit_bytes", "probe", "commands"],
+  "required": ["schema_version", "status", "scope", "revisions", "platform", "board_firmware", "cpu_topology", "gpu_inventory", "toolkit", "cuda_runtime_version", "storage_inventory", "filesystem", "iommu", "ats_evidence", "c2c_evidence", "thermal_inventory", "service_measurements", "memlock_limit_bytes", "probe", "commands"],
   "properties": {
     "schema_version": {"const": "phase11-capabilities-v1"},
     "status": {"const": "pass"},
@@ -30,21 +30,33 @@
         "swap_total_bytes": {"type": "integer", "minimum": 0}, "seccomp_mode": {"const": 2}
       }
     },
+    "board_firmware": {"type": "object", "required": ["board_vendor", "board_version", "bios_vendor", "bios_version", "bios_date"]},
+    "cpu_topology": {"type": "object", "required": ["lscpu"]},
     "gpu_inventory": {"type": "string", "pattern": "NVIDIA GB10.*12\\.1"},
-    "toolkit": {"type": "string", "minLength": 1}, "storage_inventory": {"type": "object"},
+    "toolkit": {"type": "string", "minLength": 1}, "cuda_runtime_version": {"type": "integer", "minimum": 13000},
+    "storage_inventory": {"type": "object"},
     "filesystem": {"type": "object"}, "ats_evidence": {"type": "string", "minLength": 1},
-    "c2c_evidence": {"type": "string", "minLength": 1}, "memlock_limit_bytes": {"const": 8388608},
+    "iommu": {"type": "object", "required": ["group_count", "ats_event_count", "implementation"]},
+    "c2c_evidence": {"type": "string", "minLength": 1},
+    "thermal_inventory": {"type": "array"},
+    "service_measurements": {"type": "object", "required": ["bytes", "memory_handoff_ns", "readiness_ns", "buffered_pread_ns"]},
+    "memlock_limit_bytes": {"const": 8388608},
     "commands": {"type": "array", "minItems": 5, "items": {"type": "string", "minLength": 1}},
     "probe": {
       "type": "object",
-      "required": ["schema_version", "board", "product", "gpu", "compute_capability", "device_count", "pageable_memory_access", "pageable_uses_host_page_tables", "native_io_uring", "io_uring_errno", "memlock_limit_bytes", "registered_large_buffer_evidence", "storage_transport", "allocation_bytes", "resident_pages", "status"],
+      "required": ["schema_version", "board", "product", "gpu", "compute_capability", "device_count", "cuda_driver_version", "cuda_runtime_version", "pageable_memory_access", "pageable_uses_host_page_tables", "native_io_uring", "io_uring_errno", "memlock_limit_bytes", "registered_large_buffer_evidence", "storage_transport", "direct_io_mem_alignment", "direct_io_offset_alignment", "allocation_bytes", "memory_handoff_service_ns", "readiness_service_ns", "buffered_pread_service_ns", "resident_pages", "status"],
       "properties": {
         "schema_version": {"const": "phase11-uma-probe-v1"}, "board": {"const": "EdgeXpert (MS-C931)"},
         "product": {"const": "MS-C931"}, "gpu": {"const": "NVIDIA GB10"}, "compute_capability": {"const": "12.1"},
+        "cuda_driver_version": {"type": "integer", "minimum": 13000}, "cuda_runtime_version": {"type": "integer", "minimum": 13000},
         "device_count": {"const": 1}, "pageable_memory_access": {"const": 1}, "pageable_uses_host_page_tables": {"const": 1},
         "native_io_uring": {"const": "unavailable_host_seccomp"}, "io_uring_errno": {"const": 1},
         "memlock_limit_bytes": {"const": 8388608}, "registered_large_buffer_evidence": {"const": "unavailable"},
-        "storage_transport": {"const": "buffered_pread"}, "allocation_bytes": {"type": "integer", "minimum": 1},
+        "storage_transport": {"const": "buffered_pread"},
+        "direct_io_mem_alignment": {"type": "integer", "minimum": 1}, "direct_io_offset_alignment": {"type": "integer", "minimum": 1},
+        "allocation_bytes": {"type": "integer", "minimum": 1},
+        "memory_handoff_service_ns": {"type": "integer", "minimum": 1}, "readiness_service_ns": {"type": "integer", "minimum": 1},
+        "buffered_pread_service_ns": {"type": "integer", "minimum": 1},
         "resident_pages": {"type": "integer", "minimum": 1}, "status": {"const": "pass"}
       }
     }

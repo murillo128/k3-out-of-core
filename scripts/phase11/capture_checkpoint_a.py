@@ -33,6 +33,16 @@ def meminfo() -> dict[str, int]:
     return values
 
 
+def optional_read(path: Path) -> str:
+    return read(path) if path.exists() else "unavailable"
+
+
+def thermal_inventory() -> list[dict[str, str]]:
+    return [{"zone": zone.name, "type": optional_read(zone / "type"),
+        "temperature_millicelsius": optional_read(zone / "temp")}
+        for zone in sorted(Path("/sys/class/thermal").glob("thermal_zone*"))]
+
+
 def gitlink(project_head: str) -> str:
     fields = run(["git", "-C", str(ROOT), "ls-tree", project_head, "--", "llama.cpp"]).split()
     if len(fields) < 3:
@@ -41,8 +51,10 @@ def gitlink(project_head: str) -> str:
 
 
 def validate(document: dict[str, Any]) -> None:
-    required = {"schema_version", "status", "scope", "revisions", "platform", "gpu_inventory", "toolkit",
-        "storage_inventory", "filesystem", "ats_evidence", "c2c_evidence", "memlock_limit_bytes", "probe", "commands"}
+    required = {"schema_version", "status", "scope", "revisions", "platform", "board_firmware", "cpu_topology",
+        "gpu_inventory", "toolkit", "cuda_runtime_version", "storage_inventory", "filesystem", "iommu",
+        "ats_evidence", "c2c_evidence", "thermal_inventory", "service_measurements", "memlock_limit_bytes",
+        "probe", "commands"}
     if set(document) != required or document["schema_version"] != "phase11-capabilities-v1" or \
             document["status"] != "pass" or document["scope"] != "gb10_coherent_uma_buffered_storage_fallback":
         raise ValueError("unsupported Phase 11 capability document")
@@ -64,6 +76,9 @@ def validate(document: dict[str, Any]) -> None:
         raise ValueError("project/nested gitlink mismatch")
     if document["memlock_limit_bytes"] != 8 * 1024 * 1024 or len(document["commands"]) < 5:
         raise ValueError("capability evidence is incomplete")
+    if document["iommu"]["ats_event_count"] == 0 or document["service_measurements"]["buffered_pread_ns"] <= 0 or \
+            probe["direct_io_mem_alignment"] <= 0 or probe["direct_io_offset_alignment"] <= 0:
+        raise ValueError("IOMMU, direct-I/O alignment, or service measurements are incomplete")
 
 
 def capture(probe_path: Path, project_head: str, nested_head: str) -> dict[str, Any]:
@@ -104,13 +119,25 @@ def capture(probe_path: Path, project_head: str, nested_head: str) -> dict[str, 
             "seccomp_mode": int(next(line.split(":", 1)[1] for line in read(Path("/proc/self/status")).splitlines()
                 if line.startswith("Seccomp:"))),
         },
-        "gpu_inventory": run(["nvidia-smi", "--query-gpu=name,uuid,pci.bus_id,compute_cap,driver_version",
+        "board_firmware": {name: optional_read(Path("/sys/class/dmi/id") / name) for name in
+            ("board_vendor", "board_version", "bios_vendor", "bios_version", "bios_date")},
+        "cpu_topology": json.loads(run(["lscpu", "-J"])),
+        "gpu_inventory": run(["nvidia-smi", "--query-gpu=name,uuid,pci.bus_id,compute_cap,driver_version,temperature.gpu,clocks.current.sm,clocks.current.memory",
             "--format=csv,noheader,nounits"]),
         "toolkit": run(["nvcc", "--version"]).splitlines()[-1],
+        "cuda_runtime_version": probe["cuda_runtime_version"],
         "storage_inventory": storage,
         "filesystem": filesystem,
+        "iommu": {"group_count": len(list(Path("/sys/kernel/iommu_groups").glob("[0-9]*"))),
+            "ats_event_count": len(list(Path("/sys/devices/platform").glob("**/events/pcie_ats_trans_*"))),
+            "implementation": "arm-smmu-v3"},
         "ats_evidence": "arm-smmu-v3 PMCG pcie_ats_trans_* events exposed",
         "c2c_evidence": "NVIDIA GB10 coherent CPU/GPU final-address probe",
+        "thermal_inventory": thermal_inventory(),
+        "service_measurements": {"bytes": probe["allocation_bytes"],
+            "memory_handoff_ns": probe["memory_handoff_service_ns"],
+            "readiness_ns": probe["readiness_service_ns"],
+            "buffered_pread_ns": probe["buffered_pread_service_ns"]},
         "memlock_limit_bytes": resource.getrlimit(resource.RLIMIT_MEMLOCK)[0],
         "probe": probe,
         "commands": [
