@@ -33,7 +33,7 @@
           "cold_source_time_us": 0,
           "cold_transfer_refs": 0,
           "cold_unused_bytes": 0,
-          "decode_tokens_per_second": 213.208,
+          "decode_tokens_per_second": 104.286,
           "disk_h2d_overlap_bytes": 0,
           "disk_h2d_overlap_events": 0,
           "disk_h2d_overlap_flights": 0,
@@ -95,7 +95,7 @@
           "mode": "disabled",
           "no_writeback_evictions": 0,
           "prompt_ids": "18805,308,799,5624,12524",
-          "prompt_tokens_per_second": 74.0357,
+          "prompt_tokens_per_second": 80.1256,
           "provider_effective_capacity": 0,
           "provider_failures": 0,
           "provider_pool_bytes": 0,
@@ -167,14 +167,14 @@
           "storage_read_chunks": 0,
           "storage_read_requests": 0,
           "storage_short_reads": 0,
-          "token_p50_us": 4600,
-          "token_p95_us": 67535,
-          "token_p99_us": 67535,
+          "token_p50_us": 11558,
+          "token_p95_us": 62402,
+          "token_p99_us": 62402,
           "tokens": "318,57195,11,1459,387",
-          "ttft_us": 67535
+          "ttft_us": 62402
         },
-        "stderr_sha256": "27e9a2bbe2f7d0c22e7aa0b5b95e8bc941e6c59359e6cacafb80ae82214ae531",
-        "stdout_sha256": "375dd6adec3c27d59526909e43c1bd9851f99b95dee716f2fd27a7718c83d7ae"
+        "stderr_sha256": "64cad06ef896a49920313093bb958cfbe3354865f2d19a56bb52c3f151f0935a",
+        "stdout_sha256": "9947e45c264bd30369593d732a24ed62e9d35b36ba513b4f7ecf4e5edf160fac"
       },
       "original_uma": {
         "command": [
@@ -214,7 +214,7 @@
           "cold_source_time_us": 0,
           "cold_transfer_refs": 0,
           "cold_unused_bytes": 0,
-          "decode_tokens_per_second": 27.3248,
+          "decode_tokens_per_second": 26.5361,
           "disk_h2d_overlap_bytes": 0,
           "disk_h2d_overlap_events": 0,
           "disk_h2d_overlap_flights": 0,
@@ -276,7 +276,7 @@
           "mode": "uma",
           "no_writeback_evictions": 0,
           "prompt_ids": "18805,308,799,5624,12524",
-          "prompt_tokens_per_second": 21.2354,
+          "prompt_tokens_per_second": 21.2265,
           "provider_effective_capacity": 2,
           "provider_failures": 0,
           "provider_pool_bytes": 1572864,
@@ -348,28 +348,28 @@
           "storage_read_chunks": 378,
           "storage_read_requests": 126,
           "storage_short_reads": 0,
-          "token_p50_us": 37111,
-          "token_p95_us": 235456,
-          "token_p99_us": 235456,
+          "token_p50_us": 38062,
+          "token_p95_us": 235555,
+          "token_p99_us": 235555,
           "tokens": "318,57195,11,1459,387",
-          "ttft_us": 235456
+          "ttft_us": 235555
         },
-        "stderr_sha256": "a98da3e58df4865b500f05ee2636860e588a63e38802de2b6120b0afac961a59",
-        "stdout_sha256": "69b423359a30c37fb96766a884c006980a1299f920ad8004d9a901799cdc31d5"
+        "stderr_sha256": "089955d1b9539f5bc313401589acb3d6ac1039f6fb0345e96c43e8a5e1c33842",
+        "stdout_sha256": "c87e2ef7b498d64c0f85582480013a927e8d9fb4d479d3f3740d45e758c49df1"
       },
       "split_command": [
         "/workspace/k3-out-of-core/llama.cpp/build-phase11-a-cuda/bin/llama-gguf-split",
         "--split-max-tensors",
         "30",
         "/workspace/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
-        "/tmp/phase11-checkpoint-b-1_f989xd/f16/Kimi-K3-0.40B-F16.gguf"
+        "/tmp/phase11-checkpoint-b-1qggpsfm/f16/Kimi-K3-0.40B-F16.gguf"
       ],
       "split_count": 8,
       "split_uma": {
         "command": [
           "/workspace/k3-out-of-core/llama.cpp/build-phase11-a-cuda/bin/phase11-uma-runtime-probe",
           "--model",
-          "/tmp/phase11-checkpoint-b-1_f989xd/f16/Kimi-K3-0.40B-F16.gguf-00001-of-00008.gguf",
+          "/tmp/phase11-checkpoint-b-1qggpsfm/f16/Kimi-K3-0.40B-F16.gguf-00001-of-00008.gguf",
           "--mode",
           "uma",
           "--steps",
@@ -403,7 +403,7 @@
           "cold_source_time_us": 0,
           "cold_transfer_refs": 0,
           "cold_unused_bytes": 0,
-          "decode_tokens_per_second": 24.6513,
+          "decode_tokens_per_second": 26.2185,
           "disk_h2d_overlap_bytes": 0,
           "disk_h2d_overlap_events": 0,
           "disk_h2d_overlap_flights": 0,
@@ -465,7 +465,7 @@
           "mode": "uma",
           "no_writeback_evictions": 0,
           "prompt_ids": "18805,308,799,5624,12524",
-          "prompt_tokens_per_second": 20.4703,
+          "prompt_tokens_per_second": 21.9305,
           "provider_effective_capacity": 2,
           "provider_failures": 0,
           "provider_pool_bytes": 1572864,
@@ -537,14 +537,14 @@
           "storage_read_chunks": 378,
           "storage_read_requests": 126,
           "storage_short_reads": 0,
-          "token_p50_us": 41009,
-          "token_p95_us": 244256,
-          "token_p99_us": 244256,
+          "token_p50_us": 38052,
+          "token_p95_us": 227993,
+          "token_p99_us": 227993,
           "tokens": "318,57195,11,1459,387",
-          "ttft_us": 244256
+          "ttft_us": 227993
         },
-        "stderr_sha256": "0592426e6f8a4b894c292a94500bdb7924d94429e5b24d875e83e960281b4a63",
-        "stdout_sha256": "b48433838fa049cc1de396643a926c9297b9cad25fa7e5d6c73edfb980d4744c"
+        "stderr_sha256": "1e0e76f02337e69ea3494885b3ac61d0aff18ffd972cd7558b41203c2469495c",
+        "stdout_sha256": "c7a0b71fac7cff60d7314b0745edfb2b1d223611df5648ab49e74b873452c955"
       }
     },
     "mxfp4": {
@@ -580,7 +580,7 @@
           "cold_source_time_us": 0,
           "cold_transfer_refs": 0,
           "cold_unused_bytes": 0,
-          "decode_tokens_per_second": 293.513,
+          "decode_tokens_per_second": 204.248,
           "disk_h2d_overlap_bytes": 0,
           "disk_h2d_overlap_events": 0,
           "disk_h2d_overlap_flights": 0,
@@ -642,7 +642,7 @@
           "mode": "disabled",
           "no_writeback_evictions": 0,
           "prompt_ids": "18805,308,799,5624,12524",
-          "prompt_tokens_per_second": 93.8773,
+          "prompt_tokens_per_second": 73.6312,
           "provider_effective_capacity": 0,
           "provider_failures": 0,
           "provider_pool_bytes": 0,
@@ -714,14 +714,14 @@
           "storage_read_chunks": 0,
           "storage_read_requests": 0,
           "storage_short_reads": 0,
-          "token_p50_us": 3436,
-          "token_p95_us": 53261,
-          "token_p99_us": 53261,
+          "token_p50_us": 3835,
+          "token_p95_us": 67906,
+          "token_p99_us": 67906,
           "tokens": "318,57195,11,1459,387",
-          "ttft_us": 53261
+          "ttft_us": 67906
         },
-        "stderr_sha256": "88515aa17c7373e468a15bf3327825d0015048894f7a05efb31cdf11bbbceaa3",
-        "stdout_sha256": "f05cfd664f2a128e3cf8f96c650d2b8be0519ea4672a875fe82d4e6c5c01ece5"
+        "stderr_sha256": "ae595c7e36df5344ff441cf64b41735ca2c270a7370b6314676ab6294d97b169",
+        "stdout_sha256": "2480daa7c1966b19e96e0e247b66f3bc43de12af845636ad6abd1ba25f6af7a2"
       },
       "original_uma": {
         "command": [
@@ -761,7 +761,7 @@
           "cold_source_time_us": 0,
           "cold_transfer_refs": 0,
           "cold_unused_bytes": 0,
-          "decode_tokens_per_second": 62.7579,
+          "decode_tokens_per_second": 48.7805,
           "disk_h2d_overlap_bytes": 0,
           "disk_h2d_overlap_events": 0,
           "disk_h2d_overlap_flights": 0,
@@ -823,7 +823,7 @@
           "mode": "uma",
           "no_writeback_evictions": 0,
           "prompt_ids": "18805,308,799,5624,12524",
-          "prompt_tokens_per_second": 51.6892,
+          "prompt_tokens_per_second": 40.593,
           "provider_effective_capacity": 2,
           "provider_failures": 0,
           "provider_pool_bytes": 417792,
@@ -895,28 +895,28 @@
           "storage_read_chunks": 378,
           "storage_read_requests": 126,
           "storage_short_reads": 0,
-          "token_p50_us": 15888,
-          "token_p95_us": 96732,
-          "token_p99_us": 96732,
+          "token_p50_us": 20410,
+          "token_p95_us": 123174,
+          "token_p99_us": 123174,
           "tokens": "318,57195,11,1459,387",
-          "ttft_us": 96732
+          "ttft_us": 123174
         },
-        "stderr_sha256": "443000cfdef122677a9c1b7f34591cfb33ace2d6333ab2df29aeb4a518b65d8b",
-        "stdout_sha256": "515b783b0a31cead7b8d69335dd8b3431e3f2e75e7665479b13eaa0c0b344ed8"
+        "stderr_sha256": "24a6ce281df2b7f7bda4a25c1dfdd336e42277357afa858eb80f845a8b0fe011",
+        "stdout_sha256": "fe06fd949690fa57cea050b4c011b0c13dd825cf0b00c397d6c20d36cb25f81f"
       },
       "split_command": [
         "/workspace/k3-out-of-core/llama.cpp/build-phase11-a-cuda/bin/llama-gguf-split",
         "--split-max-tensors",
         "30",
         "/workspace/k3-out-of-core/models/gguf/Kimi-K3-0.40B-MXFP4.gguf",
-        "/tmp/phase11-checkpoint-b-1_f989xd/mxfp4/Kimi-K3-0.40B-MXFP4.gguf"
+        "/tmp/phase11-checkpoint-b-1qggpsfm/mxfp4/Kimi-K3-0.40B-MXFP4.gguf"
       ],
       "split_count": 8,
       "split_uma": {
         "command": [
           "/workspace/k3-out-of-core/llama.cpp/build-phase11-a-cuda/bin/phase11-uma-runtime-probe",
           "--model",
-          "/tmp/phase11-checkpoint-b-1_f989xd/mxfp4/Kimi-K3-0.40B-MXFP4.gguf-00001-of-00008.gguf",
+          "/tmp/phase11-checkpoint-b-1qggpsfm/mxfp4/Kimi-K3-0.40B-MXFP4.gguf-00001-of-00008.gguf",
           "--mode",
           "uma",
           "--steps",
@@ -950,7 +950,7 @@
           "cold_source_time_us": 0,
           "cold_transfer_refs": 0,
           "cold_unused_bytes": 0,
-          "decode_tokens_per_second": 53.2772,
+          "decode_tokens_per_second": 70.9963,
           "disk_h2d_overlap_bytes": 0,
           "disk_h2d_overlap_events": 0,
           "disk_h2d_overlap_flights": 0,
@@ -1012,7 +1012,7 @@
           "mode": "uma",
           "no_writeback_evictions": 0,
           "prompt_ids": "18805,308,799,5624,12524",
-          "prompt_tokens_per_second": 40.5397,
+          "prompt_tokens_per_second": 44.9361,
           "provider_effective_capacity": 2,
           "provider_failures": 0,
           "provider_pool_bytes": 417792,
@@ -1084,14 +1084,14 @@
           "storage_read_chunks": 378,
           "storage_read_requests": 126,
           "storage_short_reads": 0,
-          "token_p50_us": 19598,
-          "token_p95_us": 123336,
-          "token_p99_us": 123336,
+          "token_p50_us": 14179,
+          "token_p95_us": 111269,
+          "token_p99_us": 111269,
           "tokens": "318,57195,11,1459,387",
-          "ttft_us": 123336
+          "ttft_us": 111269
         },
-        "stderr_sha256": "1f731c0a47f0c9a8c24349a1febe8cc839469f2f629751a7a59a4b547c9449e0",
-        "stdout_sha256": "173bb55efe09b1afd151f39babd6287949683b9676963c59926bce1a4d6d40ad"
+        "stderr_sha256": "636de5b2dc28ba3d74eff3934037a0b21cfce205d82d8805f47c93d240193983",
+        "stdout_sha256": "9f64a9aed71c1835999ddb0259a3a9fa168d1906eb35ca29ad31b90e65c09932"
       }
     }
   },
@@ -1099,6 +1099,16 @@
     "cmake --build build-phase11-a-cuda --target test-expert-uma-provider phase11-uma-runtime-probe llama-gguf-split -j20",
     "ctest --test-dir build-phase11-a-cuda -R ^test-expert-uma-provider$ --output-on-failure"
   ],
+  "failure_lifecycle": {
+    "auto_prefetch_probes": 1,
+    "auto_touch_calls": 4,
+    "cancellation_cleanups": 1,
+    "cancellation_retry": 1,
+    "readiness_retry_generation": 2,
+    "restored_capacity": 1,
+    "scheduler_active": 0,
+    "stale_rejected": 1
+  },
   "models": {
     "f16": {
       "path": "/workspace/k3-out-of-core/models/gguf/Kimi-K3-0.40B-F16.gguf",
@@ -1112,9 +1122,9 @@
     }
   },
   "revisions": {
-    "gitlink": "7ab15843de681bdfde24a17a69f105278ffe4223",
-    "nested_head": "7ab15843de681bdfde24a17a69f105278ffe4223",
-    "project_head": "3130e7a248a479181034ca182f4567d80f283253"
+    "gitlink": "bc425246dd30fe85a4c8b1390a0c502ba1df96ca",
+    "nested_head": "bc425246dd30fe85a4c8b1390a0c502ba1df96ca",
+    "project_head": "27996b73ebb38539bfac57edfe5ca02c91114d2c"
   },
   "schema_version": "phase11-checkpoint-b-v1",
   "scope": "gb10_coherent_uma_buffered_storage_fallback",
