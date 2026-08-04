@@ -1,0 +1,128 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/dsv4/dsv4-24gb-validation-v1.schema.json",
+  "title": "DeepSeek V4 24 GB validation technical manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "observed_at_utc",
+    "revisions",
+    "artifact",
+    "environment",
+    "builds",
+    "fixed_defaults",
+    "commands",
+    "checkpoint_a",
+    "measurements",
+    "result",
+    "limitations",
+    "archive"
+  ],
+  "properties": {
+    "schema_version": { "const": "dsv4-24gb-validation-v1" },
+    "observed_at_utc": { "type": "string", "format": "date-time" },
+    "revisions": { "$ref": "#/definitions/revisions" },
+    "artifact": { "$ref": "#/definitions/artifact" },
+    "environment": { "type": "object" },
+    "builds": {
+      "type": "array",
+      "minItems": 2,
+      "items": { "type": "object" }
+    },
+    "fixed_defaults": { "type": "object" },
+    "commands": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "command"],
+        "properties": {
+          "name": { "type": "string" },
+          "command": { "type": "string" }
+        }
+      }
+    },
+    "checkpoint_a": {
+      "type": "object",
+      "required": ["status", "gates", "k3_focused_tests"],
+      "properties": {
+        "status": { "enum": ["pass", "fail", "blocked"] },
+        "gates": { "type": "object" },
+        "k3_focused_tests": { "type": "object" }
+      }
+    },
+    "measurements": { "type": "object" },
+    "result": {
+      "type": "object",
+      "required": ["status", "checkpoint", "hard_stop", "limiting_factor", "exact_unsupported_seam", "disposition"],
+      "properties": {
+        "status": { "const": "negative" },
+        "checkpoint": { "const": "A" },
+        "hard_stop": { "const": true },
+        "limiting_factor": { "type": "string" },
+        "exact_unsupported_seam": { "type": "string" },
+        "disposition": { "const": "stop_before_checkpoint_b" },
+        "claims": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "limitations": { "type": "array", "items": { "type": "string" } },
+    "archive": { "$ref": "#/definitions/archive" }
+  },
+  "definitions": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "revision": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "revisions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["project_execution_base", "nested_base", "nested_candidate"],
+      "properties": {
+        "project_execution_base": { "$ref": "#/definitions/revision" },
+        "nested_base": { "$ref": "#/definitions/revision" },
+        "nested_candidate": { "$ref": "#/definitions/revision" }
+      }
+    },
+    "artifact_file": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "bytes", "sha256"],
+      "properties": {
+        "name": { "type": "string" },
+        "bytes": { "type": "integer", "minimum": 1 },
+        "sha256": { "$ref": "#/definitions/sha256" }
+      }
+    },
+    "artifact": {
+      "type": "object",
+      "required": ["model_family", "architecture", "repository", "revision", "variant", "total_bytes", "files", "verification"],
+      "properties": {
+        "model_family": { "type": "string" },
+        "architecture": { "type": "string" },
+        "repository": { "type": "string" },
+        "revision": { "$ref": "#/definitions/revision" },
+        "variant": { "type": "string" },
+        "total_bytes": { "type": "integer", "minimum": 1 },
+        "files": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": { "$ref": "#/definitions/artifact_file" }
+        },
+        "verification": { "type": "object" }
+      }
+    },
+    "archive": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["format", "storage_path", "bytes", "sha256", "member_count", "index"],
+      "properties": {
+        "format": { "const": "tar.zst" },
+        "storage_path": { "type": "string" },
+        "bytes": { "type": "integer", "minimum": 1 },
+        "sha256": { "$ref": "#/definitions/sha256" },
+        "member_count": { "type": "integer", "minimum": 1 },
+        "index": { "type": "string" }
+      }
+    }
+  }
+}

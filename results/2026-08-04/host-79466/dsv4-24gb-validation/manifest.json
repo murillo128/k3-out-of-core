@@ -1,0 +1,262 @@
+{
+  "schema_version": "dsv4-24gb-validation-v1",
+  "observed_at_utc": "2026-08-04T21:59:01Z",
+  "revisions": {
+    "project_execution_base": "b4368697c92d8b5e0814023b1cb3288636769eda",
+    "nested_base": "6339ee371ff898dea5057c7bfedf91adbe44c111",
+    "nested_candidate": "9e8d62a465f9663e2a81c0362c2ce530fe442f28"
+  },
+  "artifact": {
+    "model_family": "deepseek-ai/DeepSeek-V4-Flash",
+    "architecture": "deepseek4",
+    "repository": "unsloth/DeepSeek-V4-Flash-GGUF",
+    "revision": "85ce4196ab6e82852e25dfec2b7e2beaae56f5f1",
+    "variant": "UD-Q3_K_XL",
+    "total_bytes": 129448242976,
+    "files": [
+      { "name": "DeepSeek-V4-Flash-UD-Q3_K_XL-00001-of-00004.gguf", "bytes": 5256864, "sha256": "951458825be77e285141adb8a71bcb72abf26ab33a39bbdead9eb7d73ef7b396" },
+      { "name": "DeepSeek-V4-Flash-UD-Q3_K_XL-00002-of-00004.gguf", "bytes": 49350774208, "sha256": "63c873e288a2ab222bf902cfda53105cdf37fd714f0aa939070f8106fdda3242" },
+      { "name": "DeepSeek-V4-Flash-UD-Q3_K_XL-00003-of-00004.gguf", "bytes": 49189072672, "sha256": "9c2c9878beb485d3553fe272edcc13f5959c31ec371f5df947fa0514b83cd4dc" },
+      { "name": "DeepSeek-V4-Flash-UD-Q3_K_XL-00004-of-00004.gguf", "bytes": 30903139232, "sha256": "2deb9faaa22707d4af983955f517f961d7e939e169a11ec129066186918a13ea" }
+    ],
+    "verification": {
+      "status": "pass",
+      "method": "exact byte size followed by SHA-256 for all four splits",
+      "checksum_wall_seconds": 891.58,
+      "checksum_max_rss_kib": 3344,
+      "swap_events": 0,
+      "acquisition_failure_fixtures": ["missing split", "wrong size", "wrong SHA-256"]
+    }
+  },
+  "environment": {
+    "host": "79466",
+    "kernel": "Linux 6.8.0-59-generic x86_64",
+    "virtualization": "KVM full virtualization",
+    "cpu": {
+      "model": "Intel Xeon E5-2673 v4 @ 2.30GHz",
+      "logical_cpus": 38,
+      "online_cpus": "0-37",
+      "numa_nodes": 1,
+      "numa_observation": "lscpu reports one node; numactl was unavailable"
+    },
+    "memory": {
+      "physical_bytes": 159296397312,
+      "available_bytes_before_validation": 152336478208,
+      "swap_bytes": 0
+    },
+    "gpu": {
+      "model": "NVIDIA GeForce RTX 3090",
+      "count": 1,
+      "compute_capability": "8.6",
+      "advertised_vram_mib": 24576,
+      "runtime_free_vram_mib": 24125,
+      "driver": "580.173.02",
+      "pci_address": "00000000:00:08.0",
+      "pcie": {
+        "nvidia_smi_sample": "generation 3 x16 current and maximum negotiated width; device maximum generation 4",
+        "lspci_idle_sample": "2.5 GT/s x16, downshifted",
+        "classification": "virtualized pass-through; samples were taken at different activity states"
+      }
+    },
+    "cuda": {
+      "driver_reported_version": "13.0",
+      "toolkit_version": "12.8.93"
+    },
+    "storage": {
+      "filesystem": "ext4",
+      "mount": "/",
+      "source": "/dev/vda1",
+      "mount_options": "rw,relatime,discard,errors=remount-ro",
+      "filesystem_bytes": 207929917440,
+      "available_bytes_before_artifact": 190131097600,
+      "available_bytes_after_artifact_and_builds": 60557897728,
+      "required_post_artifact_reserve_bytes": 59055800320,
+      "checkout_build_model_evidence_same_filesystem": true,
+      "block_device": "/dev/vda",
+      "block_device_bytes": 214748364800,
+      "block_scheduler": "none",
+      "physical_nvme_identity_visible": false,
+      "physical_model_serial_firmware_controller": "unavailable through the virtual block device"
+    }
+  },
+  "builds": [
+    {
+      "name": "cpu",
+      "directory": "/workspace/builds/k3-out-of-core-38c6322-cpu",
+      "cmake": { "build_type": "Release", "ggml_native": true, "ggml_cuda": false, "tests": true },
+      "targets": ["llama-cli", "dsv4-artifact-inventory", "dsv4-source-span-probe"],
+      "status": "pass"
+    },
+    {
+      "name": "cuda",
+      "directory": "/workspace/builds/k3-out-of-core-38c6322-cuda",
+      "cmake": { "build_type": "Release", "ggml_native": true, "ggml_cuda": true, "cuda_architectures": "86", "tests": true },
+      "targets": ["llama-cli", "dsv4-artifact-inventory", "dsv4-source-span-probe", "phase6-gguf-storage-probe", "phase9-cache-policy-probe"],
+      "status": "pass"
+    }
+  ],
+  "fixed_defaults": {
+    "hot_cache_policy": "global LRU",
+    "cold_cache_policy": "global LRU",
+    "admission": "ALWAYS",
+    "miss_policy": "PROMOTE_AND_GPU",
+    "background_promotion": false,
+    "static_seed": false,
+    "predictive_prefetch": false,
+    "prefetch_profile": null,
+    "request_concurrency": 1,
+    "multi_gpu": false,
+    "speculative_decoding": false,
+    "mtp": false,
+    "expert_dropping": false
+  },
+  "commands": [
+    {
+      "name": "artifact_verify",
+      "command": "scripts/dsv4/acquire_ud_q3_k_xl.sh --verify-only /workspace/models/DeepSeek-V4-Flash-85ce4196-UD-Q3_K_XL"
+    },
+    {
+      "name": "disabled_baseline",
+      "command": "/workspace/builds/k3-out-of-core-38c6322-cuda/bin/llama-cli -m MODEL_SPLIT_1 -c 4096 -n 1 -b 128 -ub 128 -t 19 -tb 19 -p 'Explain why a careful measurement should distinguish observed facts from assumptions.' --temp 0 --seed 1 --no-warmup --fit on --perf --simple-io --no-display-prompt -st"
+    },
+    {
+      "name": "metadata_inventory",
+      "command": "/workspace/builds/k3-out-of-core-38c6322-cuda/bin/dsv4-artifact-inventory --model MODEL_SPLIT_1 --output a2-inventory.json --direct-alignment 4096"
+    },
+    {
+      "name": "generic_storage_probe",
+      "command": "/workspace/builds/k3-out-of-core-38c6322-cuda/bin/phase6-gguf-storage-probe --model MODEL_SPLIT_1 --capacity 16 --cold-bytes 1073741824 --ring-bytes 43515904"
+    },
+    {
+      "name": "source_span_probe",
+      "command": "/workspace/builds/k3-out-of-core-38c6322-cuda/bin/dsv4-source-span-probe --model MODEL_SPLIT_1 --output a3-source-spans.json --cold-bytes 1073741824 --ring-bytes 67108864"
+    },
+    {
+      "name": "focused_runtime_attempt",
+      "command": "/workspace/builds/k3-out-of-core-38c6322-cuda/bin/phase9-cache-policy-probe --model MODEL_SPLIT_1 --output a4b-phase9-focused.json --mode cold --hot-policy LRU --cold-policy LRU --scope GLOBAL --admission ALWAYS --miss-policy PROMOTE_AND_GPU --hot-slots 16 --cold-bytes 1073741824 --ring-bytes 43515904 --n-ubatch 1 --max-generate 1 --background 0 --observe-routes 1 --transport BUFFERED --config-source NULL"
+    },
+    {
+      "name": "k3_focused_tests",
+      "command": "ctest --test-dir /workspace/builds/k3-out-of-core-38c6322-cuda --output-on-failure -R 'test-(expert-weight-provider|hot-expert-cache|cold-expert-cache|expert-transfer-ring|expert-storage|expert-async-io|expert-scheduler)$'"
+    },
+    {
+      "name": "real_record_direct_io",
+      "command": "fio --name=dsv4-real-record --filename=SPLIT_2 --ioengine=io_uring --direct=1 --rw=read --bs=1M --iodepth=8 --offset=1G --size=4G --time_based=1 --runtime=30 --output-format=json"
+    }
+  ],
+  "checkpoint_a": {
+    "status": "fail",
+    "gates": {
+      "a1_disabled_baseline": {
+        "status": "pass",
+        "metadata": { "split_count": 4, "tensor_count": 1328, "tokenizer_vocab": 129280, "chat_template_present": true },
+        "ordinary_inference": { "exit_status": 0, "generated_token_text": "We", "wall_seconds": 25.34, "max_rss_kib": 126798452, "major_faults": 0, "swaps": 0 },
+        "placement": {
+          "method": "--fit on",
+          "gpu_layers": "44/44 graph layers",
+          "cpu_mapped_expert_mib": 122989,
+          "cuda_model_buffer_mib": 20954.82,
+          "cuda_compute_buffer_mib": 1711.32,
+          "explicit_cpu_moe_equivalent": {
+            "available": true,
+            "options": ["--cpu-moe", "--n-cpu-moe N"],
+            "matched_tensor_pattern": "\\.ffn_(up|down|gate|gate_up)_(ch|)exps",
+            "exercised": false,
+            "reason_not_exercised": "The ordinary automatic-fit baseline passed, then the architecture gate terminated the track before the conventional placement comparison matrix."
+          }
+        }
+      },
+      "a2_generic_descriptor_inventory": {
+        "status": "fail",
+        "intentional_probe_exit_status": 10,
+        "routed_layers": 43,
+        "routed_tensors": 129,
+        "layout_classes": 3,
+        "single_fixed_slot_layout_representable": false,
+        "inventory_summary": "inventory-summary.json"
+      },
+      "a3_deferred_payload_source_spans": {
+        "status": "pass",
+        "deferred_routed_payload_bytes": 121634816000,
+        "metadata_payload_backed_tensors": 0,
+        "metadata_payload_read_bytes": 0,
+        "source_files": 4,
+        "directory_entries": 11008,
+        "source_spans": 33024,
+        "sampled_bundles": 10,
+        "cross_split_sample_present": true,
+        "bytes_compared_per_path": 116064256,
+        "source_sync_async_byte_equal": true,
+        "async_io_uring_enabled": true,
+        "async_fallback_reason_mask": 0,
+        "short_reads": 0,
+        "io_errors": 0,
+        "shutdown_quiescent": true,
+        "other_failure_coverage": "Existing focused storage and async-I/O tests cover injected short reads, EIO, integrity failure, generations, cancellation, and terminal drain."
+      },
+      "a4_slot_kernel_compatibility": {
+        "status": "not_run_after_hard_stop",
+        "runtime_attempt_exit_status": 6,
+        "provider_status": 2,
+        "provider_error": 2,
+        "message": "cold-cache descriptor discovery failed",
+        "cache_pool_allocated": false,
+        "reason": "A2 proved that the current single-prototype fixed-slot boundary cannot represent the real artifact. Proceeding to slot/kernel execution would violate the checkpoint hard-stop rule."
+      }
+    },
+    "k3_focused_tests": {
+      "candidate": { "passed": 6, "failed": 1, "total": 7 },
+      "failure": "test-expert-transfer-ring native-event reuse assertion at tests/test-expert-transfer-ring.cpp:380",
+      "isolated_candidate_rerun": "same failure",
+      "exact_nested_base_comparison": { "revision": "6339ee371ff898dea5057c7bfedf91adbe44c111", "result": "same failure at the same assertion" },
+      "classification": "OBSERVED pre-existing host/driver-sensitive failure; not introduced by the candidate inventory/probe delta"
+    }
+  },
+  "measurements": {
+    "disabled_baseline_gpu_sampling": { "samples": 84, "peak_used_mib": 23041, "minimum_free_mib": 1084, "peak_gpu_utilization_percent": 53, "peak_memory_utilization_percent": 3, "peak_power_watts": 170.35 },
+    "metadata_inventory": { "wall_seconds": 3.04, "max_rss_kib": 385124, "major_faults": 0, "swaps": 0 },
+    "source_span_probe": { "wall_seconds": 6.01, "max_rss_kib": 7394844, "major_faults": 0, "swaps": 0 },
+    "failed_runtime_attempt": { "wall_seconds": 5.26, "max_rss_kib": 7394852, "major_faults": 0, "swaps": 0 },
+    "direct_io_real_record": {
+      "file_region": "split 2, offset 1 GiB, 4 GiB span",
+      "engine": "io_uring",
+      "direct": true,
+      "block_bytes": 1048576,
+      "queue_depth": 8,
+      "runtime_ms": 30002,
+      "io_bytes": 100353966080,
+      "bandwidth_bytes_per_second": 3344909208,
+      "iops": 3189.954003,
+      "completion_latency_ns": { "p50": 2310144, "p95": 3293184, "p99": 4177920, "maximum": 15303835 }
+    }
+  },
+  "result": {
+    "status": "negative",
+    "checkpoint": "A",
+    "hard_stop": true,
+    "limiting_factor": "generic descriptor and fixed-slot layout-class compatibility",
+    "exact_unsupported_seam": "The model-owned provider assumes one routed-expert prototype layout and rejects layer 26 when its MXFP4/MXFP4/Q6_K bundle differs from the common IQ3_XXS/IQ3_XXS/MXFP4 bundle; layer 42 adds a third IQ3_XXS/IQ3_XXS/Q6_K class. One prototype currently owns hot-slot, cold-cache, and transfer-ring sizing.",
+    "disposition": "stop_before_checkpoint_b",
+    "claims": [
+      "The exact artifact executes with the provider disabled on this host.",
+      "Deferred payload and loader-owned split/source spans work for the exact artifact.",
+      "The existing single-fixed-layout provider boundary does not generalize to the exact artifact.",
+      "Supporting the artifact safely requires a design decision for typed layout classes and bounded per-class resources, not a minimal descriptor field extension."
+    ]
+  },
+  "limitations": [
+    "No provider-enabled expert operation, route parity, token parity, lifecycle matrix, or full-model performance matrix was run after the Checkpoint A hard stop.",
+    "The result applies only to the exact UD-Q3_K_XL revision and the observed single RTX 3090 virtualized host.",
+    "The physical NVMe namespace, model, firmware, and controller were hidden behind /dev/vda and therefore could not be verified.",
+    "The provider-disabled baseline used automatic fit. The generic explicit --cpu-moe and --n-cpu-moe placement controls were available but were not exercised before the architecture hard stop.",
+    "The existing transfer-ring native-event test fails identically at the exact nested base on this host and is not treated as a candidate regression."
+  ],
+  "archive": {
+    "format": "tar.zst",
+    "storage_path": "/workspace/k3-evidence/dsv4-24gb-validation/archive/dsv4-24gb-validation-23547fa277fc35958fe725c06d565cf82b064fd52cd803ba900f3e599fa41477.tar.zst",
+    "bytes": 64288,
+    "sha256": "23547fa277fc35958fe725c06d565cf82b064fd52cd803ba900f3e599fa41477",
+    "member_count": 23,
+    "index": "archive-index.json"
+  }
+}
