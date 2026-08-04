@@ -1,0 +1,34 @@
+{
+  "schema": "dsv4-evidence-archive-index-v1",
+  "archive": {
+    "name": "dsv4-24gb-validation-23547fa277fc35958fe725c06d565cf82b064fd52cd803ba900f3e599fa41477.tar.zst",
+    "bytes": 64288,
+    "sha256": "23547fa277fc35958fe725c06d565cf82b064fd52cd803ba900f3e599fa41477",
+    "member_count": 23
+  },
+  "members": [
+    { "name": "a1-disabled-auto-fit-trace.log", "bytes": 33723, "sha256": "ba4997796adea2f4f0069790dfc0b6130b9e08d03c92962e361c47750ff66ba2" },
+    { "name": "a1-disabled-auto-fit.after.txt", "bytes": 312, "sha256": "b15b3e82da3ed07b82c43edf168c0349c0fda210a56a43bff8435c8e64f3ac2d" },
+    { "name": "a1-disabled-auto-fit.before.txt", "bytes": 312, "sha256": "f3fbd343673e5e30ea550e9d3de8ee43c98fea23f7e08331282a1737bcafd33b" },
+    { "name": "a1-disabled-auto-fit.gpu.csv", "bytes": 4479, "sha256": "8baf0749d2b51598f0db5870946f7ea46a43e7d80b594e355dda9df5c6b1bb12" },
+    { "name": "a1-disabled-auto-fit.log", "bytes": 2232, "sha256": "972110a0aa7758412a0792836c161c9e592167eded4bcc0c55c1ff95c4b2e492" },
+    { "name": "a2-inventory.json", "bytes": 1172059, "sha256": "ac133a932d7e6dad625372b199544395d81b929c244fe1586d448a551de85d54" },
+    { "name": "a2b-inventory.log", "bytes": 198207, "sha256": "0f1ceb5ec5c1a73b2f79b9771bd6af6cb1ed5ad221e37f25381538aa2bd2d047" },
+    { "name": "a3-acquisition-failures.log", "bytes": 111, "sha256": "f57ebb96f3d4426c4063140b88b451515735304f6c9ce8c4355d5bb8c5036473" },
+    { "name": "a3-phase6-storage-probe.log", "bytes": 210049, "sha256": "102bd276797d018f6e17ac4d2d6b95bd8c447e0fff2ae1610e80086e94bb0aa3" },
+    { "name": "a3-source-spans.json", "bytes": 15422, "sha256": "1c6ceaa1add31d7335ab8594f5ffc2e4274239a2cfa69976bc1d52c0dbca2466" },
+    { "name": "a3b-source-spans.log", "bytes": 209798, "sha256": "c0da244713f720aa7ae9482b5cdf780261d938e77c7978446bc1f60785f94793" },
+    { "name": "a4b-phase9-focused.log", "bytes": 224604, "sha256": "172296678cd6af9f1af373f82f8e4232935ebd0558c992c36164ec42ef566fb5" },
+    { "name": "artifact-verify-only.log", "bytes": 1095, "sha256": "ab10365824333e26d29658b086a75fbed8663039d9c6e0262caa8a08aa1fb5d5" },
+    { "name": "build-identities.txt", "bytes": 20455, "sha256": "0d8522d61618b508baecd2004fc157fc6bb4e196b79942b3e1b7fa316cc5202e" },
+    { "name": "environment.txt", "bytes": 10667, "sha256": "0fd00593d6c287ee815ab1917164568d41915960e7bb29bbe49bc3f3e3f44d3d" },
+    { "name": "filesystem-bytes.txt", "bytes": 309, "sha256": "723d2993a83f1e28a563df035adaa6c02eca624311d4b5e50ea6cfeab0818adb" },
+    { "name": "fio-real-record-read.json", "bytes": 6834, "sha256": "bef8f98556623d8f77b0d18711f621d5d4e9d25312ba809ad0da811095459095" },
+    { "name": "gpu-environment.txt", "bytes": 150, "sha256": "44b9df1f73ef62380c4ee45dbcc49bed6c3d7bcecd879a82cb5da4eb22642e49" },
+    { "name": "k3-focused-ctest.log", "bytes": 3107, "sha256": "ec06efa8c8ce76f6ed5a08d669917607266e4a14fc29ac7dda27ab23384f2c54" },
+    { "name": "k3-transfer-ring-baseline-identity.txt", "bytes": 261, "sha256": "810c6b3fa10ec969a426240679d77ff7eacf3c043a7d51a9f36032afbf1dbb55" },
+    { "name": "k3-transfer-ring-baseline.log", "bytes": 2443, "sha256": "4c244babad36df7c450e009517119ebac522f39a35f68df7ea9aa7e14fc88a21" },
+    { "name": "k3-transfer-ring-rerun.log", "bytes": 6613, "sha256": "d63c1d7d2485da9f629faca2c535966d662abc23a16594beba4eeaa2d1cd6eb8" },
+    { "name": "nvidia-smi-q.txt", "bytes": 13345, "sha256": "24edc7ce531950773e5a497d3e6516e5e151c7fcf44c68622461f3325257db70" }
+  ]
+}

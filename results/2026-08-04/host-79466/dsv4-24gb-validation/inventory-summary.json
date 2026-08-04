@@ -1,0 +1,72 @@
+{
+  "schema": "dsv4-artifact-inventory-summary-v1",
+  "architecture": "deepseek4",
+  "topology": {
+    "model_layers": 43,
+    "routed_layers": 43,
+    "experts_per_layer": 256,
+    "selected_top_k": 6,
+    "shared_experts_per_layer": 1,
+    "routed_projections": ["up.weight", "gate.weight", "down.weight"]
+  },
+  "deferred_payload": {
+    "routed_tensor_count": 129,
+    "routed_payload_bytes": 121634816000,
+    "resident_payload_bytes": 7808082268,
+    "metadata_inventory_payload_backed_tensor_count": 0,
+    "metadata_inventory_payload_read_bytes": 0
+  },
+  "bundle": {
+    "all_expert_axes_contiguous": true,
+    "any_bundle_crosses_source_files": true,
+    "direct_io_alignment": 4096,
+    "maximum_bundle_bytes": 15794176,
+    "maximum_direct_aligned_bundle_bytes": 15806464,
+    "layout_class_count": 3,
+    "single_fixed_slot_layout_representable": false
+  },
+  "layout_classes": [
+    {
+      "layers": "0-25,27-41",
+      "layer_count": 41,
+      "bundle_bytes": 10878976,
+      "direct_aligned_bundle_bytes": 10891264,
+      "projections": {
+        "up.weight": { "ggml_type": "IQ3_XXS", "shape": [4096, 2048, 256], "strides": [98, 1568, 3211264] },
+        "gate.weight": { "ggml_type": "IQ3_XXS", "shape": [4096, 2048, 256], "strides": [98, 1568, 3211264] },
+        "down.weight": { "ggml_type": "MXFP4", "shape": [2048, 4096, 256], "strides": [17, 1088, 4456448] }
+      }
+    },
+    {
+      "layers": "26",
+      "layer_count": 1,
+      "bundle_bytes": 15794176,
+      "direct_aligned_bundle_bytes": 15806464,
+      "projections": {
+        "up.weight": { "ggml_type": "MXFP4", "shape": [4096, 2048, 256], "strides": [17, 2176, 4456448] },
+        "gate.weight": { "ggml_type": "MXFP4", "shape": [4096, 2048, 256], "strides": [17, 2176, 4456448] },
+        "down.weight": { "ggml_type": "Q6_K", "shape": [2048, 4096, 256], "strides": [210, 1680, 6881280] }
+      }
+    },
+    {
+      "layers": "42",
+      "layer_count": 1,
+      "bundle_bytes": 13303808,
+      "direct_aligned_bundle_bytes": 13316096,
+      "projections": {
+        "up.weight": { "ggml_type": "IQ3_XXS", "shape": [4096, 2048, 256], "strides": [98, 1568, 3211264] },
+        "gate.weight": { "ggml_type": "IQ3_XXS", "shape": [4096, 2048, 256], "strides": [98, 1568, 3211264] },
+        "down.weight": { "ggml_type": "Q6_K", "shape": [2048, 4096, 256], "strides": [210, 1680, 6881280] }
+      }
+    }
+  ],
+  "hard_stop": {
+    "status": "OBSERVED",
+    "provider_status": 2,
+    "provider_error": 2,
+    "message": "cold-cache descriptor discovery failed",
+    "cause": "The model-owned provider derives one prototype layout, requires every routed layer to match it, and sizes one hot-slot pool, cold cache, and transfer-ring layout from that prototype. DeepSeek-V4 requires three complete bundle layout classes.",
+    "required_boundary_change": "Typed layout-class ownership and bounded per-class resource accounting across the hot pool, cold cache, and transfer ring.",
+    "minimal_descriptor_extension_sufficient": false
+  }
+}
