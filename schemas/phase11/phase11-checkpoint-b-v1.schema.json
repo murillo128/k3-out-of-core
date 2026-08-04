@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/phase11/phase11-checkpoint-b-v1.schema.json",
+  "title": "Phase 11 Checkpoint B one-pool and readiness evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "scope", "revisions", "models", "cases", "commands"],
+  "properties": {
+    "schema_version": {"const": "phase11-checkpoint-b-v1"},
+    "status": {"const": "pass"},
+    "scope": {"const": "gb10_coherent_uma_buffered_storage_fallback"},
+    "revisions": {"type": "object", "required": ["project_head", "nested_head", "gitlink"]},
+    "models": {"type": "object", "required": ["f16", "mxfp4"]},
+    "cases": {"type": "object", "required": ["f16", "mxfp4"]},
+    "commands": {"type": "array", "minItems": 2, "items": {"type": "string"}}
+  }
+}
