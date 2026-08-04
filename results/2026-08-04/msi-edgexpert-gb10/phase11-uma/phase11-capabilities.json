@@ -1,0 +1,89 @@
+{
+  "ats_evidence": "arm-smmu-v3 PMCG pcie_ats_trans_* events exposed",
+  "c2c_evidence": "NVIDIA GB10 coherent CPU/GPU final-address probe",
+  "commands": [
+    "cmake --build build-phase11-a-cpu --target test-expert-uma -j20",
+    "ctest --test-dir build-phase11-a-cpu -R ^test-expert-uma$ --output-on-failure",
+    "cmake --build build-phase11-a-cuda --target test-expert-uma phase11-uma-probe -j20",
+    "ctest --test-dir build-phase11-a-cuda -R ^test-expert-uma$ --output-on-failure",
+    "./build-phase11-a-cuda/bin/phase11-uma-probe"
+  ],
+  "filesystem": {
+    "fstype": "overlay",
+    "options": [
+      "rw",
+      "relatime",
+      "nouserxattr"
+    ],
+    "source": "overlay",
+    "target": "/"
+  },
+  "gpu_inventory": "NVIDIA GB10, GPU-a3e950b5-e7bb-f2cb-e388-bceee1ab77e0, 0000000F:01:00.0, 12.1, 580.173.02",
+  "memlock_limit_bytes": 8388608,
+  "platform": {
+    "architecture": "aarch64",
+    "board": "EdgeXpert (MS-C931)",
+    "cgroup_memory_current_bytes": 4012429312,
+    "cgroup_memory_max_bytes": 125371940864,
+    "cpu_count": 20,
+    "kernel": "6.17.0-1026-nvidia",
+    "mem_available_bytes": 126805585920,
+    "mem_total_bytes": 130596102144,
+    "product": "MS-C931",
+    "seccomp_mode": 2,
+    "swap_total_bytes": 0
+  },
+  "probe": {
+    "allocation_bytes": 4194304,
+    "board": "EdgeXpert (MS-C931)",
+    "compute_capability": "12.1",
+    "concurrent_managed_access": 1,
+    "device_count": 1,
+    "direct_io": "not_selected_buffered_fallback",
+    "direct_managed_host_access": 0,
+    "gpu": "NVIDIA GB10",
+    "host_native_atomic": 1,
+    "integrated": 1,
+    "io_uring_errno": 1,
+    "major_faults": 0,
+    "memlock_limit_bytes": 8388608,
+    "minor_faults": 44886,
+    "native_io_uring": "unavailable_host_seccomp",
+    "negative_controls": [
+      "cudaMalloc_device",
+      "cudaMallocManaged_managed",
+      "cudaHostAlloc_pinned"
+    ],
+    "pageable_memory_access": 1,
+    "pageable_uses_host_page_tables": 1,
+    "product": "MS-C931",
+    "registered_large_buffer_evidence": "unavailable",
+    "resident_pages": 1024,
+    "schema_version": "phase11-uma-probe-v1",
+    "status": "pass",
+    "storage_transport": "buffered_pread",
+    "unified_addressing": 1
+  },
+  "revisions": {
+    "gitlink": "ecaf4f9e176fc105b431ae8e1152f4f95bf25ed5",
+    "nested_head": "ecaf4f9e176fc105b431ae8e1152f4f95bf25ed5",
+    "project_head": "f0d6e53b6d0b277ef8d45c3e707b1a6681052a45"
+  },
+  "schema_version": "phase11-capabilities-v1",
+  "scope": "gb10_coherent_uma_buffered_storage_fallback",
+  "status": "pass",
+  "storage_inventory": {
+    "blockdevices": [
+      {
+        "firmware": "ERFM12.0",
+        "model": "ESL04TBTLCZ-27J4-TYN                    ",
+        "name": "nvme0n1",
+        "rota": false,
+        "serial": "511250701427000061  ",
+        "size": "3.6T",
+        "tran": "nvme"
+      }
+    ]
+  },
+  "toolkit": "Build cuda_13.0.r13.0/compiler.36424714_0"
+}
