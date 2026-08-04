@@ -1,6 +1,6 @@
 # Current Status
 
-Last updated: **2026-08-02**
+Last updated: **2026-08-04**
 
 This file is the first handoff document for a new ChatGPT or Codex session.
 
@@ -20,9 +20,9 @@ This file is the first handoff document for a new ChatGPT or Codex session.
 - Project Phase 7 is complete and merged. Issue #24 was implemented by PR #25 and squash-merged into `main` as `97ef68d787c54b443eac72a3480fe70eba88d8dd`. Checkpoint A, Checkpoint B, and the final complete-PR review returned **PASS** with safety **YES** at comments `5135836934`, `5140081178`, and `5140490542`. The merged nested `murillo128/llama.cpp` gitlink is `b71e40f91b1a0dab578d56ac733211453704d674`, and the Phase 7 evidence head is `1e2faeec1c1cc1781d9f65f030b1736f4adcfe51`.
 - Project Phase 8 is complete and merged. Issue #26 was implemented by PR #27 and squash-merged into `main` as `05c38f0f11bd33c3654a3d9b2c3c6aa32e7f4c35`. Checkpoints A, B, and C accepted the bounded miss-policy mechanism, fail-closed production evidence, and cold-cache bootstrap correction at comments `5141694340`, `5144721775`, and `5146173479`. The final complete-PR review returned **PASS_WITH_NOTES**, safety **YES**, with no required delta at comment `5146545713`. The merged nested `murillo128/llama.cpp` gitlink is `dc4d50c68378d908131b518662160fdd08f4e005`, and the standing-evidence capture head is `eb3d0093157da7757036882dc81b37dd622bbf46`.
 - Project Phase 9 is complete and merged. Issue #30 was implemented by PR #31 and squash-merged into `main` as `035f099de85b3f775ae8cd6769b561156ea52317`. Checkpoints A, B, and C returned **PASS**, safety **YES**, at comments `5148012128`, `5148752231`, and `5149625334`. The final complete-PR review returned **PASS**, safety **YES**, with no required delta at comment `5149762882`. The merged nested `murillo128/llama.cpp` gitlink is `fd29c0f9e868e838d3641cd13eb6ceb8c1535f01`, and the authoritative Phase 9 manifest has SHA-256 `5295ee701dfa24636f03d4bd13e3f250560179ecbda30ad9379580a2ce1c370f`. Exact global LRU/ALWAYS remains the hot and cold null default; per-layer policy remains explicit-only and no hidden budget auto-sizing was added.
-- Phase 10 was investigated through issue #32 and draft PR #33, but no static-seeding or predictive-prefetch profile satisfied the fixed exit gate. The reviewed negative selection chooses zero profiles, the blocking-hot-seed mechanism triggered the `STANDARD` circuit breaker, and all Phase 10 functionality remains disabled and unmerged. PR #33 is retained only as read-only research evidence at project head `d4159abcb1234287d7a21047a34a354ab6ae7e38` and nested head `b617680ca030f7e81d2446c4fabb24225947538c`; it must not be merged or extended.
-- Phase 10R — exact current-layer demand issue-ahead extraction — is the immediate next implementation phase. It must be reimplemented from current `main`, use PR #33 only as prior evidence, and contain no profile, seed, predictor, speculative admission, utility circuit, or Phase 10 public prefetch API.
-- Phases 11–15 are explicitly decoupled from speculative prefetch. Their accepted baseline is Phase 9 global LRU/ALWAYS plus Phase 10R only if Phase 10R independently passes its own exit gate.
+- Project Phase 10 is complete and integrated. Issue #32 was implemented by PR #33 and squash-merged into `main` as `75ae9fb0d775fb75513117f929d15945dd71fa58` with a **negative performance selection**. The accepted nested `murillo128/llama.cpp` head is `b617680ca030f7e81d2446c4fabb24225947538c`. The complete functionally validated implementation is retained, while `selection.json` selects zero profiles; null prefetch config/path keep static seed and predictive prefetch OFF and preserve the accepted Phase 9 global LRU/ALWAYS defaults. The negative result applies only to the tested `skynet` models, workloads, and hardware.
+- Phase 10R issue #36 and PR #37 are superseded by the accepted Phase 10 integration. PR #37 is closed without merge; its project/nested heads remain unaccepted historical evidence.
+- Phases 11–15 remain independent of speculative prefetch being enabled. Phase 11 is the immediate next implementation phase.
 - Phase 1 evidence is descriptive for the tiny K3 fixtures on `skynet`; it is not a model-quality or production-performance claim.
 
 ## Phase 3 merged baseline
@@ -63,14 +63,14 @@ This file is the first handoff document for a new ChatGPT or Codex session.
 - Issue: <https://github.com/murillo128/k3-out-of-core/issues/20>
 - Merged PR: <https://github.com/murillo128/k3-out-of-core/pull/21>
 - Execution profile: `STANDARD`
-- Project execution base: `114f0de6f5d1cbd5f9ef6255f9100f3f4d52380a`
+- Project execution base: `114f0de6f5d505eadbc4298ecf322489cdfd7aae5`
 - Nested execution base: `57fe1eabbe3d0ced59096a0744efc91e286fb1c7`
 - Checkpoint A corrected project head: `6404770597f979a8290d1de3f6bc503ab7d74d8b`
 - Checkpoint A corrected nested head: `5ffed360965a1de7e2d788b8637a470183d27165`
 - Final reviewed project head: `4a999c799fad77bcc0502200c8199fe01f1cbbc6`
 - Nested `llama.cpp` head: `26317ee1d848dd7a73f22a3666a055cad5d5cb03`
 - PR #21 squash merge: `c5512bc073ae7aab4a14773028828e516e16f3f6`
-- Checkpoint A: issue comment `5132379446`, `PASS`, safety `YES`.
+- Checkpoint A: issue comment `5132379557`, `PASS`, safety `YES`.
 - Final complete-PR review: issue comment `5132639557`, `PASS_WITH_NOTES`, safety `YES`; no required delta.
 - Standing parity: 4/4 F16/MXFP4 all-routed/forced-eviction cases pass across native pinned and explicit pageable fallback with exact prompt, route/weight, generated-ID, and full-logit hashes.
 - Standing mechanism: native ring queues both top-k lanes before one barrier; fallback records zero pinned/async claims; source pinned bytes are zero.
@@ -164,22 +164,25 @@ This file is the first handoff document for a new ChatGPT or Codex session.
 - Authoritative manifest: [`../results/2026-07-31/skynet/phase9-cache-policy/phase9-manifest.json`](../results/2026-07-31/skynet/phase9-cache-policy/phase9-manifest.json), SHA-256 `5295ee701dfa24636f03d4bd13e3f250560179ecbda30ad9379580a2ce1c370f`.
 - Derived summary: [`../results/2026-07-31/skynet/phase9-cache-policy/PHASE9.md`](../results/2026-07-31/skynet/phase9-cache-policy/PHASE9.md).
 
-## Phase 10 investigation disposition
+## Phase 10 accepted integration
 
-- Controlling issue: <https://github.com/murillo128/k3-out-of-core/issues/32>
-- Research PR: <https://github.com/murillo128/k3-out-of-core/pull/33>, open draft and explicitly non-mergeable.
+- Controlling issue: <https://github.com/murillo128/k3-out-of-core/issues/32>.
+- Merged PR: <https://github.com/murillo128/k3-out-of-core/pull/33>.
 - Execution profile: `STANDARD`.
 - Immutable project execution base: `d136c92303b1ef5b0ef8b630b33a25f53f351acf`.
 - Nested execution base: `fd29c0f9e868e838d3641cd13eb6ceb8c1535f01`.
-- Frozen research project head: `d4159abcb1234287d7a21047a34a354ab6ae7e38`.
-- Frozen research nested head: `b617680ca030f7e81d2446c4fabb24225947538c`.
-- Selection artifact: `results/2026-08-01/skynet/phase10-prefetch/selection.json` on the research branch.
-- Checkpoints A and B and the corrected online/runtime-equivalence work passed with safety `YES`.
-- The reviewed Phase 10.4 selection result is negative: no predictive profile clears its exact held-out break-even; buffered blocking seed improves cold TTFT but fails steady-throughput and domain-shift gates; H2D blocking seed fails cold-TTFT, steady-throughput, and domain-shift gates.
-- The second blocking-hot-seed failure triggered the `STANDARD` circuit breaker. Zero profiles are selected, all evaluated hashes remain disabled, and Phase 9 global LRU/ALWAYS remains authoritative.
-- Phase 10.5, a final Phase 10 manifest, merge, and further tuning of the rejected mechanisms are not authorized.
-- Exact current-layer issue-ahead produced useful non-speculative evidence, but it is entangled with rejected infrastructure in PR #33. Phase 10R must reconstruct the minimal mechanism from current `main`; no wholesale cherry-pick or PR #33 base is allowed.
-- Speculative prefetch may be reconsidered only after Phase 12.5 and only from representative full-size traces plus a materially different mechanism with predeclared target-specific break-even, held-out confidence, domain-shift, and stop gates.
+- Squash merge: `75ae9fb0d775fb75513117f929d15945dd71fa58`.
+- Accepted nested `llama.cpp` head: `b617680ca030f7e81d2446c4fabb24225947538c`.
+- Selection evidence head: `d665d424bccc37a549a845c41f3f78074fb00c90`.
+- Selection artifact: [`../results/2026-08-01/skynet/phase10-prefetch/selection.json`](../results/2026-08-01/skynet/phase10-prefetch/selection.json).
+- Checkpoints A and B and the corrected Phase 10.3 online/runtime-equivalence work passed with safety `YES`.
+- The Phase 10.4 performance selection is negative: no predictive profile clears its exact held-out break-even; buffered blocking seed improves cold TTFT but fails steady-throughput and domain-shift gates; H2D blocking seed fails cold-TTFT, steady-throughput, and domain-shift gates.
+- Zero profiles are selected, every evaluated profile hash remains disabled, implicit enablement is false, prefetch config/path are null by default, and Phase 9 global LRU/ALWAYS remains authoritative.
+- Exact current-layer issue-ahead, profile compatibility, deterministic predictors, static seed, bounded speculative admission, scheduler/lifetime handling, replay, tests, and evidence are retained as experimental explicit-opt-in mechanisms.
+- The performance result is scoped to the exact tested models, workloads, storage envelopes, and `skynet` hardware; it is not a universal rejection of the mechanisms.
+- Design-authority comment `5180884067` accepts integration with negative selection and removes the former qualifying-profile requirement as a merge gate while retaining it as the gate for any default recommendation or enablement.
+- The reduced Phase 10.5 closeout consists of the accepted selection artifact, the design-authority decision, the merged implementation PR, and this status. No profile-selection manifest claiming a winner is produced.
+- Phase 10R issue #36 and PR #37 are superseded; PR #37 is closed unmerged and remains unaccepted historical evidence.
 
 ## Phase 1 merged baseline
 
@@ -225,9 +228,9 @@ Kernel: 6.8.0-136-generic
 - Phase 7 tiny-fixture timings are descriptive. Production demand-only overlap was honestly zero; controlled native traces establish the mechanism.
 - Phase 8 completes explicit CPU fallback and deterministic AUTO miss execution. Its tiny K3, larger public MoE bootstrap, and exact-layout sparse-store results are mechanism and controlled crossover evidence.
 - Phase 9 retains exact global LRU/ALWAYS as the hot and cold null default after trace replay, online validation, fixed statistical gates, and physical-residency sweeps. Its scoped budget recommendations do not install runtime auto-sizing, and its full-K3 result is exact-layout residency evidence only.
-- Phase 10 rejects the evaluated static-seeding and token/layer predictive mechanisms under their fixed target-specific gates. PR #33 is research evidence only; no Phase 10 implementation is part of `main`.
-- Phase 10R owns only exact current-layer demand issue-ahead. It must not reintroduce speculative prefetch or make later phases depend on it.
+- Phase 10 retains validated issue-ahead, seed, profile, predictor, scheduler, and lifecycle mechanisms with zero selected profiles and no implicit enablement. The tested performance selection is negative and does not transfer to other models or hardware.
+- Phase 10R is superseded by the accepted Phase 10 implementation; PR #37 was not accepted or merged.
 
 ## Immediate next action
 
-Use the current `main`, this status, the Phase 10R section of `docs/plan/07-async-runtime.md`, the accepted Phase 9 manifest, and issue #32 / draft PR #33 as read-only prior evidence to create one self-contained, execution-ready controlling issue for **Phase 10R — exact current-layer demand issue-ahead extraction**. Follow `AGENTS.md` and `.agents/skills/design-github-issue/SKILL.md`; verify the current project head and nested `llama.cpp` gitlink; require a clean implementation from `main`; resolve all material canonical deduplication, enqueue-all-before-wait ordering, scheduler headroom, same-key cancellation/drain, generation, storage submission, demand priority, bounded telemetry, lifetime, failure/retry, original/split parity, sanitizer, performance-control, evidence-manifest, checkpoint, and exit-gate decisions. Explicitly exclude profiles, static seed, predictors, speculative admission/origins, utility circuits, and the Phase 10 public prefetch API. Do not implement code, create an execution branch, or open a PR in the design session.
+Use the current `main`, this status, and the Phase 11 section of `docs/plan/11-scaling-and-hardening.md` to create one self-contained, execution-ready controlling issue for **Phase 11 — coherent/UMA transport and placement**. Follow `AGENTS.md` and `.agents/skills/design-github-issue/SKILL.md`; verify the current project head and nested `llama.cpp` gitlink; preserve Phase 9 global LRU/ALWAYS as the null cache-policy default and keep all Phase 10 seed/predictive mechanisms explicit opt-in and OFF by default; resolve all material UMA capability detection, ownership, cache/transport semantics, fallback, parity, lifetime, telemetry, sanitizer, performance, evidence, checkpoint, and exit-gate decisions. Do not make Phase 11 depend on speculative prefetch being enabled, and do not implement code, create an execution branch, or open a PR in the design session.
