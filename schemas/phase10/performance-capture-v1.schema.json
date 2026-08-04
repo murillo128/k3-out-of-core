@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "performance-capture-v1.schema.json",
+  "title": "Phase 10 fresh-process performance capture v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "project_head", "nested_head", "profile_enabled", "profile_sha256",
+    "cache_mode", "load_mode", "miss_policy", "hot_slots", "cold_slots", "model_load_ns",
+    "generated_tokens", "logit_sha256", "initial_resident", "routes", "predictions", "summary",
+    "selected_policy", "prompt", "latency_us", "peak_rss_kib", "minor_faults", "major_faults",
+    "public_routes", "final_resident", "seed"
+  ],
+  "properties": {
+    "schema_version": {"const": "phase10-performance-capture-v1"},
+    "project_head": {"$ref": "#/$defs/commit"},
+    "nested_head": {"$ref": "#/$defs/commit"},
+    "profile_enabled": {"type": "boolean"},
+    "profile_sha256": {"$ref": "#/$defs/sha256"},
+    "cache_mode": {"enum": ["HOT_CACHE", "COLD_CACHE"]},
+    "load_mode": {"enum": ["BUFFERED", "DIRECT_IO"]},
+    "miss_policy": {"enum": ["PROMOTE_AND_GPU", "CPU_FALLBACK", "AUTO"]},
+    "hot_slots": {"$ref": "#/$defs/u32"},
+    "cold_slots": {"$ref": "#/$defs/u32"},
+    "model_load_ns": {"$ref": "#/$defs/u64"},
+    "generated_tokens": {"type": "array", "minItems": 1, "items": {"type": "integer", "minimum": 0}},
+    "logit_sha256": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/sha256"}},
+    "initial_resident": {"type": "array", "items": {"type": "object"}},
+    "routes": {"type": "array", "items": {"type": "object"}},
+    "predictions": {"type": "array", "items": {"type": "object"}},
+    "summary": {"type": "object"},
+    "selected_policy": {"enum": ["BLOCKING_HOT", "STATIC_LAYER", "PREVIOUS_TOKEN", "TEMPORAL_FREQUENCY", "CROSS_LAYER_TRANSITION", "RANDOM_BASELINE"]},
+    "prompt": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "sha256", "token_ids"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "token_ids": {"type": "array", "minItems": 1, "items": {"type": "integer", "minimum": 0}}
+      }
+    },
+    "latency_us": {"type": "array", "minItems": 1, "maxItems": 128, "items": {"$ref": "#/$defs/u64"}},
+    "peak_rss_kib": {"$ref": "#/$defs/u64"},
+    "minor_faults": {"$ref": "#/$defs/u64"},
+    "major_faults": {"$ref": "#/$defs/u64"},
+    "public_routes": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/public_route"}},
+    "final_resident": {"type": "array", "items": {"type": "object"}},
+    "seed": {"$ref": "#/$defs/seed"}
+  },
+  "$defs": {
+    "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "u32": {"type": "integer", "minimum": 0, "maximum": 4294967295},
+    "u64": {"type": "integer", "minimum": 0, "maximum": 18446744073709551615},
+    "public_route": {
+      "type": "object", "additionalProperties": false,
+      "required": ["request", "ubatch", "phase", "layer", "n_tokens", "n_expert_used", "selected_experts", "weight_f32_bits"],
+      "properties": {
+        "request": {"$ref": "#/$defs/u64"}, "ubatch": {"$ref": "#/$defs/u64"},
+        "phase": {"enum": ["PREFILL", "DECODE"]}, "layer": {"type": "integer"},
+        "n_tokens": {"$ref": "#/$defs/u32"}, "n_expert_used": {"$ref": "#/$defs/u32"},
+        "selected_experts": {"type": "array", "items": {"type": "integer"}},
+        "weight_f32_bits": {"type": "array", "items": {"$ref": "#/$defs/u32"}}
+      }
+    },
+    "seed": {
+      "type": "object", "additionalProperties": false,
+      "required": ["configured", "complete", "attempts", "failures", "entries", "storage_bytes", "h2d_bytes", "last_touch"],
+      "properties": {
+        "configured": {"type": "boolean"}, "complete": {"type": "boolean"},
+        "attempts": {"$ref": "#/$defs/u64"}, "failures": {"$ref": "#/$defs/u64"},
+        "entries": {"$ref": "#/$defs/u64"}, "storage_bytes": {"$ref": "#/$defs/u64"},
+        "h2d_bytes": {"$ref": "#/$defs/u64"},
+        "last_touch": {
+          "type": "object", "additionalProperties": false, "required": ["layer", "expert"],
+          "properties": {"layer": {"type": "integer"}, "expert": {"type": "integer"}}
+        }
+      }
+    }
+  }
+}

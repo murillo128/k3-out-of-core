@@ -1,0 +1,483 @@
+{
+  "circuit_breaker": {
+    "action": "stop-tuning-and-return-to-investigation-required",
+    "consecutive_failures": 2,
+    "mechanism": "blocking-hot-seed",
+    "profile": "STANDARD",
+    "triggered": true
+  },
+  "defaults": {
+    "implicit_enablement": false,
+    "phase9_unchanged": true,
+    "prefetch_config": null,
+    "prefetch_profile_path": null
+  },
+  "disabled_profiles": [
+    "075a39703f2ae1cab730efdeb391284969c1f3f0329d27107d3d304d3154b412",
+    "1c1b8e896c4d7d8c16baca0063a998db43f5a23eaf3d2101a56e8b0a6a5f191c",
+    "3df27ea3d6df68199875c550e735296faa268c2d25ee0f4d60ba963a4f16c228",
+    "4ce00fba78164f6d046bdca30049c97669bbb0d8260b1b7fc57d2b073ef3e524",
+    "59768bb56dbc17aaa8157f081ba059225ad3e9b6fb371090dc730f139a8f2cea",
+    "6aeccebe7ada95c54179f4912448d09197879391d419a24e467f9664069f9d31",
+    "7a8b62e0a3fe2d74df80b1a20135ac11f85d204128fb48969baf5f9a6276ca90",
+    "80b7ff8cfb294297a0f4c24c037c5fa0e0f62f5ccfd45e7d4a9948891d1eba3d",
+    "90a2cc1f23eee45e340a1820289a553799c4ea496762c51000683296f698a0a0",
+    "92c92553273c6bc920204b8e685dae0a52c2827efa6e5102d33b13ba53975759",
+    "a03c1aa5fd2ea3922c4b4c7ae747a1e020314977a9855ca51043a9a0c3e79054",
+    "bb5813477005c71e360736786767200cbee1ff0953dcfb02b6ffc36ce5a23df1",
+    "e55a64d0a3cfa58fae501cc416d6ee985d464e0f711d06bb308375ac49899385",
+    "faceaa2f595c52541fe59c5556d5bca4024a7d3114aa15aee1c683788f64a5bb"
+  ],
+  "inputs": {
+    "offline_replay": {
+      "path": "results/2026-08-01/skynet/phase10-prefetch/offline-replay.json",
+      "sha256": "03592812c7ed1b4b524b17d10c86e961b22a355f7e1cfbcc0896b522ed2b45cc",
+      "size": 5821026
+    },
+    "online_matrix": {
+      "path": "results/2026-08-01/skynet/phase10-prefetch/online-prefetch-matrix.json",
+      "sha256": "57c130869b8b2231ca2a7aec6f0eeb7b11d1fd6825aed03da91a2c2a5a6ac303",
+      "size": 58751
+    },
+    "transport_break_even": {
+      "path": "results/2026-08-01/skynet/phase10-prefetch/transport-break-even.json",
+      "sha256": "8f45c1407faa88e8dfa502a1c3c5f7e761442d5b037611269a3b03a8028d2cc3",
+      "size": 36028
+    },
+    "waste_comparison": {
+      "path": "results/2026-07-31/skynet/phase9-cache-policy/waste-comparison.json",
+      "sha256": "b14310ec94453083455cca00ba2c71695fb510cda0ce634bc049f9a4b746428a",
+      "size": 173785
+    }
+  },
+  "nested_head": "b617680ca030f7e81d2446c4fabb24225947538c",
+  "predictive_envelopes": [
+    {
+      "break_even_bps": 7428,
+      "cases": [
+        {
+          "admitted": 0,
+          "name": "f16-split-cross-hot",
+          "predictions": 72,
+          "timely_useful": 0,
+          "wasted_unused": 0
+        },
+        {
+          "admitted": 2,
+          "name": "f16-split-cross-hot40",
+          "predictions": 72,
+          "timely_useful": 1,
+          "wasted_unused": 1
+        }
+      ],
+      "disposition": "disabled-held-out-precision-lcb-not-above-break-even",
+      "held_out": {
+        "offline_disposition": "retained",
+        "precision_bps": 6666,
+        "precision_lcb_bps": 2999,
+        "predictions": 6,
+        "timely_successes": 4
+      },
+      "policy": "CROSS_LAYER_TRANSITION",
+      "profile": {
+        "path": "results/2026-08-01/skynet/phase10-prefetch/profiles/online-compat/f16-split-cross-host-to-device-device-ready.json",
+        "sha256": "075a39703f2ae1cab730efdeb391284969c1f3f0329d27107d3d304d3154b412",
+        "size": 107420
+      },
+      "profile_id": "phase10-f16-fold1-cross-layer-transition-host-to-device-device-ready-online-compat-79958dc4f35d",
+      "qualifies": false,
+      "readiness": "DEVICE_READY",
+      "transport": "HOST_TO_DEVICE"
+    },
+    {
+      "break_even_bps": 8169,
+      "cases": [
+        {
+          "admitted": 0,
+          "name": "mxfp4-original-buffered-promote",
+          "predictions": 84,
+          "timely_useful": 0,
+          "wasted_unused": 0
+        }
+      ],
+      "disposition": "disabled-held-out-precision-lcb-not-above-break-even",
+      "held_out": {
+        "offline_disposition": "comparator_only_below_break_even",
+        "precision_bps": 0,
+        "precision_lcb_bps": 0,
+        "predictions": 0,
+        "timely_successes": 0
+      },
+      "policy": "PREVIOUS_TOKEN",
+      "profile": {
+        "path": "results/2026-08-01/skynet/phase10-prefetch/profiles/online-compat/mxfp4-original-previous-buffered-device-ready.json",
+        "sha256": "1c1b8e896c4d7d8c16baca0063a998db43f5a23eaf3d2101a56e8b0a6a5f191c",
+        "size": 63062
+      },
+      "profile_id": "phase10-mxfp4-fold0-previous-token-buffered-device-ready-online-compat-b30e266f5120",
+      "qualifies": false,
+      "readiness": "DEVICE_READY",
+      "transport": "BUFFERED"
+    },
+    {
+      "break_even_bps": 7028,
+      "cases": [
+        {
+          "admitted": 0,
+          "name": "f16-original-hot",
+          "predictions": 84,
+          "timely_useful": 0,
+          "wasted_unused": 0
+        }
+      ],
+      "disposition": "disabled-held-out-precision-lcb-not-above-break-even",
+      "held_out": {
+        "offline_disposition": "comparator_only_below_break_even",
+        "precision_bps": 0,
+        "precision_lcb_bps": 0,
+        "predictions": 0,
+        "timely_successes": 0
+      },
+      "policy": "PREVIOUS_TOKEN",
+      "profile": {
+        "path": "results/2026-08-01/skynet/phase10-prefetch/profiles/online-compat/f16-original-previous-host-to-device-device-ready.json",
+        "sha256": "59768bb56dbc17aaa8157f081ba059225ad3e9b6fb371090dc730f139a8f2cea",
+        "size": 62934
+      },
+      "profile_id": "phase10-f16-fold0-previous-token-host-to-device-device-ready-online-compat-aeef1800c3d6",
+      "qualifies": false,
+      "readiness": "DEVICE_READY",
+      "transport": "HOST_TO_DEVICE"
+    },
+    {
+      "break_even_bps": 8226,
+      "cases": [
+        {
+          "admitted": 0,
+          "name": "f16-original-buffered-promote",
+          "predictions": 84,
+          "timely_useful": 0,
+          "wasted_unused": 0
+        }
+      ],
+      "disposition": "disabled-held-out-precision-lcb-not-above-break-even",
+      "held_out": {
+        "offline_disposition": "comparator_only_below_break_even",
+        "precision_bps": 0,
+        "precision_lcb_bps": 0,
+        "predictions": 0,
+        "timely_successes": 0
+      },
+      "policy": "PREVIOUS_TOKEN",
+      "profile": {
+        "path": "results/2026-08-01/skynet/phase10-prefetch/profiles/online-compat/f16-original-previous-buffered-device-ready.json",
+        "sha256": "a03c1aa5fd2ea3922c4b4c7ae747a1e020314977a9855ca51043a9a0c3e79054",
+        "size": 62922
+      },
+      "profile_id": "phase10-f16-fold0-previous-token-buffered-device-ready-online-compat-aeef1800c3d6",
+      "qualifies": false,
+      "readiness": "DEVICE_READY",
+      "transport": "BUFFERED"
+    },
+    {
+      "break_even_bps": 6731,
+      "cases": [
+        {
+          "admitted": 0,
+          "name": "f16-split-direct-host",
+          "predictions": 84,
+          "timely_useful": 0,
+          "wasted_unused": 0
+        }
+      ],
+      "disposition": "disabled-held-out-precision-lcb-not-above-break-even",
+      "held_out": {
+        "offline_disposition": "comparator_only_below_break_even",
+        "precision_bps": 0,
+        "precision_lcb_bps": 0,
+        "predictions": 0,
+        "timely_successes": 0
+      },
+      "policy": "PREVIOUS_TOKEN",
+      "profile": {
+        "path": "results/2026-08-01/skynet/phase10-prefetch/profiles/online-compat/f16-split-previous-direct-io-host-ready.json",
+        "sha256": "bb5813477005c71e360736786767200cbee1ff0953dcfb02b6ffc36ce5a23df1",
+        "size": 107068
+      },
+      "profile_id": "phase10-f16-fold0-previous-token-direct-io-host-ready-online-compat-79958dc4f35d",
+      "qualifies": false,
+      "readiness": "HOST_READY",
+      "transport": "DIRECT_IO"
+    },
+    {
+      "break_even_bps": 7428,
+      "cases": [
+        {
+          "admitted": 0,
+          "name": "f16-split-hot",
+          "predictions": 84,
+          "timely_useful": 0,
+          "wasted_unused": 0
+        }
+      ],
+      "disposition": "disabled-held-out-precision-lcb-not-above-break-even",
+      "held_out": {
+        "offline_disposition": "comparator_only_below_break_even",
+        "precision_bps": 0,
+        "precision_lcb_bps": 0,
+        "predictions": 0,
+        "timely_successes": 0
+      },
+      "policy": "PREVIOUS_TOKEN",
+      "profile": {
+        "path": "results/2026-08-01/skynet/phase10-prefetch/profiles/online-compat/f16-split-previous-host-to-device-device-ready.json",
+        "sha256": "faceaa2f595c52541fe59c5556d5bca4024a7d3114aa15aee1c683788f64a5bb",
+        "size": 107082
+      },
+      "profile_id": "phase10-f16-fold0-previous-token-host-to-device-device-ready-online-compat-79958dc4f35d",
+      "qualifies": false,
+      "readiness": "DEVICE_READY",
+      "transport": "HOST_TO_DEVICE"
+    },
+    {
+      "break_even_bps": 10000,
+      "cases": [
+        {
+          "admitted": 0,
+          "name": "f16-split-random-host",
+          "predictions": 84,
+          "timely_useful": 0,
+          "wasted_unused": 0
+        }
+      ],
+      "disposition": "disabled-random-control-never-selectable",
+      "held_out": {
+        "offline_disposition": "control_only",
+        "precision_bps": 0,
+        "precision_lcb_bps": 0,
+        "predictions": 136,
+        "timely_successes": 0
+      },
+      "policy": "RANDOM_BASELINE",
+      "profile": {
+        "path": "results/2026-08-01/skynet/phase10-prefetch/profiles/online-compat/f16-split-random-buffered-host-ready.json",
+        "sha256": "90a2cc1f23eee45e340a1820289a553799c4ea496762c51000683296f698a0a0",
+        "size": 107069
+      },
+      "profile_id": "phase10-f16-fold0-random-baseline-buffered-host-ready-online-compat-79958dc4f35d",
+      "qualifies": false,
+      "readiness": "HOST_READY",
+      "transport": "BUFFERED"
+    },
+    {
+      "break_even_bps": 10000,
+      "cases": [
+        {
+          "admitted": 0,
+          "name": "f16-split-static-host",
+          "predictions": 84,
+          "timely_useful": 0,
+          "wasted_unused": 0
+        }
+      ],
+      "disposition": "disabled-held-out-precision-lcb-not-above-break-even",
+      "held_out": {
+        "offline_disposition": "comparator_only_below_break_even",
+        "precision_bps": 0,
+        "precision_lcb_bps": 0,
+        "predictions": 1,
+        "timely_successes": 0
+      },
+      "policy": "STATIC_LAYER",
+      "profile": {
+        "path": "results/2026-08-01/skynet/phase10-prefetch/profiles/online-compat/f16-split-static-buffered-host-ready.json",
+        "sha256": "80b7ff8cfb294297a0f4c24c037c5fa0e0f62f5ccfd45e7d4a9948891d1eba3d",
+        "size": 107063
+      },
+      "profile_id": "phase10-f16-fold0-static-layer-buffered-host-ready-online-compat-79958dc4f35d",
+      "qualifies": false,
+      "readiness": "HOST_READY",
+      "transport": "BUFFERED"
+    },
+    {
+      "break_even_bps": 7310,
+      "cases": [
+        {
+          "admitted": 0,
+          "name": "qwen-f16-temporal-promote",
+          "predictions": 96,
+          "timely_useful": 0,
+          "wasted_unused": 0
+        }
+      ],
+      "disposition": "disabled-no-exact-held-out-selection-evidence",
+      "held_out": null,
+      "policy": "TEMPORAL_FREQUENCY",
+      "profile": {
+        "path": "results/2026-08-01/skynet/phase10-prefetch/profiles/online-compat/qwen-f16-temporal-buffered-device-ready.json",
+        "sha256": "3df27ea3d6df68199875c550e735296faa268c2d25ee0f4d60ba963a4f16c228",
+        "size": 241434
+      },
+      "profile_id": "phase10-f16-fold0-temporal-frequency-buffered-device-ready-online-compat-9a02e67cf11b",
+      "qualifies": false,
+      "readiness": "DEVICE_READY",
+      "transport": "BUFFERED"
+    },
+    {
+      "break_even_bps": 10000,
+      "cases": [
+        {
+          "admitted": 0,
+          "name": "f16-split-host-cpu",
+          "predictions": 168,
+          "timely_useful": 0,
+          "wasted_unused": 0
+        },
+        {
+          "admitted": 0,
+          "name": "f16-split-host-auto",
+          "predictions": 168,
+          "timely_useful": 0,
+          "wasted_unused": 0
+        }
+      ],
+      "disposition": "disabled-no-exact-held-out-selection-evidence",
+      "held_out": null,
+      "policy": "TEMPORAL_FREQUENCY",
+      "profile": {
+        "path": "results/2026-08-01/skynet/phase10-prefetch/profiles/online-compat/f16-split-temporal-buffered-host-ready.json",
+        "sha256": "4ce00fba78164f6d046bdca30049c97669bbb0d8260b1b7fc57d2b073ef3e524",
+        "size": 106901
+      },
+      "profile_id": "phase10-f16-fold0-temporal-frequency-buffered-host-ready-online-compat-79958dc4f35d",
+      "qualifies": false,
+      "readiness": "HOST_READY",
+      "transport": "BUFFERED"
+    },
+    {
+      "break_even_bps": 8247,
+      "cases": [
+        {
+          "admitted": 0,
+          "name": "f16-split-buffered-promote",
+          "predictions": 168,
+          "timely_useful": 0,
+          "wasted_unused": 0
+        }
+      ],
+      "disposition": "disabled-no-exact-held-out-selection-evidence",
+      "held_out": null,
+      "policy": "TEMPORAL_FREQUENCY",
+      "profile": {
+        "path": "results/2026-08-01/skynet/phase10-prefetch/profiles/online-compat/f16-split-temporal-buffered-device-ready.json",
+        "sha256": "92c92553273c6bc920204b8e685dae0a52c2827efa6e5102d33b13ba53975759",
+        "size": 106904
+      },
+      "profile_id": "phase10-f16-fold0-temporal-frequency-buffered-device-ready-online-compat-79958dc4f35d",
+      "qualifies": false,
+      "readiness": "DEVICE_READY",
+      "transport": "BUFFERED"
+    },
+    {
+      "break_even_bps": 8328,
+      "cases": [
+        {
+          "admitted": 0,
+          "name": "mxfp4-split-buffered-promote",
+          "predictions": 168,
+          "timely_useful": 0,
+          "wasted_unused": 0
+        }
+      ],
+      "disposition": "disabled-no-exact-held-out-selection-evidence",
+      "held_out": null,
+      "policy": "TEMPORAL_FREQUENCY",
+      "profile": {
+        "path": "results/2026-08-01/skynet/phase10-prefetch/profiles/online-compat/mxfp4-split-temporal-buffered-device-ready.json",
+        "sha256": "e55a64d0a3cfa58fae501cc416d6ee985d464e0f711d06bb308375ac49899385",
+        "size": 106954
+      },
+      "profile_id": "phase10-mxfp4-fold0-temporal-frequency-buffered-device-ready-online-compat-74e9dcd104af",
+      "qualifies": false,
+      "readiness": "DEVICE_READY",
+      "transport": "BUFFERED"
+    }
+  ],
+  "project_head": "d665d424bccc37a549a845c41f3f78074fb00c90",
+  "qualifying_profiles": [],
+  "rules": {
+    "exact_envelope_only": true,
+    "frozen_before_online_results": true,
+    "held_out_precision_lcb": "two-sided 95% Wilson lower bound",
+    "performance": "two-sided 95% Student-t paired ABBA block means",
+    "precision_must_exceed_exact_break_even": true,
+    "random_selectable": false,
+    "universal_claim": false,
+    "waste_external_threshold_transferred": false
+  },
+  "schema_version": "phase10-selection-v1",
+  "seed_envelopes": [
+    {
+      "disposition": "disabled-fixed-performance-gates-failed",
+      "evidence": {
+        "path": "results/2026-08-01/skynet/phase10-prefetch/seed-performance.json",
+        "sha256": "cce8f0b75d7b2fc347699b9a09ba4ac36600b7c016054eee21983694d68cc901",
+        "size": 61622
+      },
+      "failed_gates": [
+        "domain_shift_p95_not_worse_10pct",
+        "mandatory_token_p95_not_worse_10pct",
+        "steady_throughput_not_worse_5pct"
+      ],
+      "profile": {
+        "path": "results/2026-08-01/skynet/phase10-prefetch/profiles/online-compat/f16-split-blocking-buffered-device-ready.json",
+        "sha256": "6aeccebe7ada95c54179f4912448d09197879391d419a24e467f9664069f9d31",
+        "size": 107066
+      },
+      "profile_id": "phase10-f16-fold0-blocking-hot-buffered-device-ready-online-compat-79958dc4f35d",
+      "qualifies": false,
+      "readiness": "DEVICE_READY",
+      "runtime": {
+        "cache_mode": "COLD_CACHE",
+        "cold_slots": 56,
+        "hot_slots": 16,
+        "load_mode": "BUFFERED",
+        "miss_policy": "PROMOTE_AND_GPU"
+      },
+      "transport": "BUFFERED"
+    },
+    {
+      "disposition": "disabled-fixed-performance-gates-failed",
+      "evidence": {
+        "path": "results/2026-08-01/skynet/phase10-prefetch/seed-performance-h2d.json",
+        "sha256": "f38512cb19e08311c106fd184ae28838d01705ae2a62c0dc84c558630c629dcc",
+        "size": 62252
+      },
+      "failed_gates": [
+        "cold_ttft_improvement_3pct",
+        "domain_shift_p95_not_worse_10pct",
+        "mandatory_token_p95_not_worse_10pct",
+        "steady_throughput_not_worse_5pct"
+      ],
+      "profile": {
+        "path": "results/2026-08-01/skynet/phase10-prefetch/profiles/online-compat/f16-split-blocking-host-to-device-device-ready.json",
+        "sha256": "7a8b62e0a3fe2d74df80b1a20135ac11f85d204128fb48969baf5f9a6276ca90",
+        "size": 107078
+      },
+      "profile_id": "phase10-f16-fold0-blocking-hot-host-to-device-device-ready-online-compat-79958dc4f35d",
+      "qualifies": false,
+      "readiness": "DEVICE_READY",
+      "runtime": {
+        "cache_mode": "HOT_CACHE",
+        "cold_slots": 0,
+        "hot_slots": 16,
+        "load_mode": "BUFFERED",
+        "miss_policy": "PROMOTE_AND_GPU"
+      },
+      "transport": "HOST_TO_DEVICE"
+    }
+  ],
+  "selected_profiles": [],
+  "status": "investigation-required",
+  "technical_closeout_state": "investigation-required"
+}

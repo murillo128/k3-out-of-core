@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "offline-replay-cells-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "project_head", "nested_head", "matrix_sha256", "folds"],
+  "properties": {
+    "schema_version": {"const": "phase10-offline-replay-cells-v1"},
+    "project_head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "nested_head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "matrix_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "folds": {
+      "type": "array",
+      "minItems": 12,
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["artifact", "fold", "cells"],
+        "properties": {
+          "artifact": {"enum": ["f16", "mxfp4"]},
+          "fold": {"type": "integer", "minimum": 0, "maximum": 5},
+          "cells": {"type": "array", "items": {"type": "object"}}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "scheduler-lifecycle-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "project_head", "nested_head", "binary_sha256", "runs", "speculative_budget_rejections", "same_generation_demand_promotions", "queued_speculative_cancellations", "demand_preemptions", "retry_uses_new_generation", "submitted_shutdown_drained", "zero_final_speculative_charges", "cancelling_promotion_fenced", "submitted_speculation_preserves_demand_set_headroom"],
+  "properties": {
+    "schema_version": {"const": "phase10-scheduler-lifecycle-v1"},
+    "project_head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "nested_head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "binary_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "runs": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "object"}},
+    "speculative_budget_rejections": {"type": "integer", "minimum": 1},
+    "same_generation_demand_promotions": {"type": "integer", "minimum": 1},
+    "queued_speculative_cancellations": {"type": "integer", "minimum": 1},
+    "demand_preemptions": {"type": "integer", "minimum": 1},
+    "retry_uses_new_generation": {"const": true},
+    "submitted_shutdown_drained": {"const": true},
+    "zero_final_speculative_charges": {"const": true},
+    "cancelling_promotion_fenced": {"const": true},
+    "submitted_speculation_preserves_demand_set_headroom": {"const": true}
+  }
+}

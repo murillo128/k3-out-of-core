@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "seed-performance-v1.schema.json",
+  "title": "Phase 10 blocking seed performance evidence v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "status", "project_head", "nested_head", "profile", "model",
+    "prompt_corpus", "probe", "runtime", "abba_blocks", "statistics", "cells",
+    "raw_runs", "headroom", "gates", "qualifies"
+  ],
+  "properties": {
+    "schema_version": {"const": "phase10-seed-performance-v1"},
+    "status": {"enum": ["pass", "fail"]},
+    "project_head": {"$ref": "#/$defs/commit"},
+    "nested_head": {"$ref": "#/$defs/commit"},
+    "profile": {"$ref": "#/$defs/file"},
+    "model": {"type": "object"},
+    "prompt_corpus": {"$ref": "#/$defs/file"},
+    "probe": {"$ref": "#/$defs/file"},
+    "runtime": {"type": "object"},
+    "abba_blocks": {"type": "integer", "minimum": 10},
+    "statistics": {"const": "two-sided-95%-Student-t-paired-ABBA-block-means"},
+    "cells": {"type": "array", "minItems": 3, "items": {"type": "object"}},
+    "raw_runs": {"$ref": "#/$defs/file"},
+    "headroom": {"type": "object"},
+    "gates": {"type": "object"},
+    "qualifies": {"type": "boolean"}
+  },
+  "$defs": {
+    "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "file": {
+      "type": "object", "additionalProperties": false, "required": ["path", "size", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1}, "size": {"type": "integer", "minimum": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    }
+  }
+}

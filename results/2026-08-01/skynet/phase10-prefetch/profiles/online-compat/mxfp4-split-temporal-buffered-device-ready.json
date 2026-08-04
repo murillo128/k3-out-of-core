@@ -1,0 +1,4534 @@
+{
+  "costs": [
+    {
+      "break_even_bps": 8328,
+      "demand_service_ns": 681000,
+      "displacement_refill_ns": 965000,
+      "h2d_bytes": 208896,
+      "lead_ns": 1352685,
+      "predictor_compute_ns": 1815,
+      "readiness": "DEVICE_READY",
+      "scheduler_demand_delay_ns": 54136,
+      "speculative_service_ns": 2361000,
+      "storage_bytes": 208896,
+      "transport": "BUFFERED",
+      "utility_min_observations": 32,
+      "utility_min_timely_successes": 54,
+      "utility_window_predictions": 64
+    },
+    {
+      "break_even_bps": 9999,
+      "demand_service_ns": 2000,
+      "displacement_refill_ns": 182000,
+      "h2d_bytes": 0,
+      "lead_ns": 1352685,
+      "predictor_compute_ns": 1815,
+      "readiness": "HOST_READY",
+      "scheduler_demand_delay_ns": 54136,
+      "speculative_service_ns": 722000,
+      "storage_bytes": 208896,
+      "transport": "BUFFERED",
+      "utility_min_observations": 32,
+      "utility_min_timely_successes": 64,
+      "utility_window_predictions": 64
+    },
+    {
+      "break_even_bps": 7945,
+      "demand_service_ns": 52000,
+      "displacement_refill_ns": 68000,
+      "h2d_bytes": 208896,
+      "lead_ns": 1352685,
+      "predictor_compute_ns": 1815,
+      "readiness": "DEVICE_READY",
+      "scheduler_demand_delay_ns": 54136,
+      "speculative_service_ns": 70000,
+      "storage_bytes": 0,
+      "transport": "HOST_TO_DEVICE",
+      "utility_min_observations": 32,
+      "utility_min_timely_successes": 51,
+      "utility_window_predictions": 64
+    }
+  ],
+  "profile_id": "phase10-mxfp4-fold0-temporal-frequency-buffered-device-ready-online-compat-74e9dcd104af",
+  "schema_version": "expert-prefetch-profile-v1",
+  "seed": [
+    {
+      "count": 320,
+      "expert": 2,
+      "layer": 2,
+      "payload_bytes": 208896,
+      "physical_bytes": 208896
+    },
+    {
+      "count": 327,
+      "expert": 6,
+      "layer": 1,
+      "payload_bytes": 208896,
+      "physical_bytes": 208896
+    },
+    {
+      "count": 377,
+      "expert": 0,
+      "layer": 1,
+      "payload_bytes": 208896,
+      "physical_bytes": 208896
+    },
+    {
+      "count": 390,
+      "expert": 1,
+      "layer": 1,
+      "payload_bytes": 208896,
+      "physical_bytes": 208896
+    },
+    {
+      "count": 440,
+      "expert": 5,
+      "layer": 2,
+      "payload_bytes": 208896,
+      "physical_bytes": 208896
+    },
+    {
+      "count": 462,
+      "expert": 7,
+      "layer": 2,
+      "payload_bytes": 208896,
+      "physical_bytes": 208896
+    },
+    {
+      "count": 463,
+      "expert": 5,
+      "layer": 7,
+      "payload_bytes": 208896,
+      "physical_bytes": 208896
+    },
+    {
+      "count": 660,
+      "expert": 3,
+      "layer": 5,
+      "payload_bytes": 208896,
+      "physical_bytes": 208896
+    },
+    {
+      "count": 751,
+      "expert": 3,
+      "layer": 6,
+      "payload_bytes": 208896,
+      "physical_bytes": 208896
+    },
+    {
+      "count": 820,
+      "expert": 6,
+      "layer": 4,
+      "payload_bytes": 208896,
+      "physical_bytes": 208896
+    },
+    {
+      "count": 839,
+      "expert": 2,
+      "layer": 5,
+      "payload_bytes": 208896,
+      "physical_bytes": 208896
+    },
+    {
+      "count": 875,
+      "expert": 4,
+      "layer": 4,
+      "payload_bytes": 208896,
+      "physical_bytes": 208896
+    },
+    {
+      "count": 900,
+      "expert": 3,
+      "layer": 7,
+      "payload_bytes": 208896,
+      "physical_bytes": 208896
+    },
+    {
+      "count": 959,
+      "expert": 5,
+      "layer": 6,
+      "payload_bytes": 208896,
+      "physical_bytes": 208896
+    }
+  ],
+  "selection": {
+    "break_even_bps": 8328,
+    "candidates_per_target": 2,
+    "fold_index": 0,
+    "matrix_version": 1,
+    "policy": "TEMPORAL_FREQUENCY",
+    "readiness": "DEVICE_READY",
+    "temporal_window_tokens": 4,
+    "transport": "BUFFERED",
+    "tuning_digest": "8f5a774ed9521903f6c4882b663b55131dd05af811393be4278c8bdd860ef44e"
+  },
+  "source": {
+    "artifacts": [
+      {
+        "name": "mxfp4-cpu-structured-en-small.bin",
+        "sha256": "a673539bc94448adad6d81962741033abc8cd2d9842cbbd48cc5cec437439a13",
+        "size": 20563
+      },
+      {
+        "name": "mxfp4-cpu-technical-en-large.bin",
+        "sha256": "f464ae781ffa044adccb1f4cd6b4291525ec02387353bb4d1712266265824ad7",
+        "size": 158350
+      },
+      {
+        "name": "mxfp4-cpu-narrative-en-large.bin",
+        "sha256": "89e17b6f722f6dc24ffc6e2df28b441a36265d2f483648e5ebfe3d217540735b",
+        "size": 164734
+      },
+      {
+        "name": "mxfp4-cpu-narrative-es-large.bin",
+        "sha256": "2c15345340c32003412281e0c64407fdabea3e7064d8882bb5330dec0489047d",
+        "size": 187078
+      },
+      {
+        "name": "phase2-k3-route-corpus-v1.tar.gz",
+        "sha256": "6aa924a6c18bee4e2490f317ced836bcc4740c3ec63e9427a95951e79a649a5f",
+        "size": 323723
+      },
+      {
+        "name": "mxfp4-split-target-costs.json",
+        "sha256": "96cc29410ec060c669dda5ff036b6d2397956a5ad4893b361904f651f8629729",
+        "size": 47684
+      }
+    ],
+    "fold": {
+      "index": 0,
+      "test": "prose-en-small",
+      "test_rows": 189,
+      "training": [
+        "structured-en-small",
+        "technical-en-large",
+        "narrative-en-large",
+        "narrative-es-large"
+      ],
+      "training_rows": 6965,
+      "validation": "code-en-small",
+      "validation_rows": 378
+    },
+    "kind": "route_trace"
+  },
+  "static_counts": [
+    {
+      "count": 377,
+      "expert": 0,
+      "layer": 1
+    },
+    {
+      "count": 390,
+      "expert": 1,
+      "layer": 1
+    },
+    {
+      "count": 79,
+      "expert": 2,
+      "layer": 1
+    },
+    {
+      "count": 129,
+      "expert": 3,
+      "layer": 1
+    },
+    {
+      "count": 201,
+      "expert": 4,
+      "layer": 1
+    },
+    {
+      "count": 284,
+      "expert": 5,
+      "layer": 1
+    },
+    {
+      "count": 327,
+      "expert": 6,
+      "layer": 1
+    },
+    {
+      "count": 203,
+      "expert": 7,
+      "layer": 1
+    },
+    {
+      "count": 143,
+      "expert": 0,
+      "layer": 2
+    },
+    {
+      "count": 103,
+      "expert": 1,
+      "layer": 2
+    },
+    {
+      "count": 320,
+      "expert": 2,
+      "layer": 2
+    },
+    {
+      "count": 232,
+      "expert": 3,
+      "layer": 2
+    },
+    {
+      "count": 121,
+      "expert": 4,
+      "layer": 2
+    },
+    {
+      "count": 440,
+      "expert": 5,
+      "layer": 2
+    },
+    {
+      "count": 169,
+      "expert": 6,
+      "layer": 2
+    },
+    {
+      "count": 462,
+      "expert": 7,
+      "layer": 2
+    },
+    {
+      "count": 250,
+      "expert": 0,
+      "layer": 3
+    },
+    {
+      "count": 284,
+      "expert": 1,
+      "layer": 3
+    },
+    {
+      "count": 201,
+      "expert": 2,
+      "layer": 3
+    },
+    {
+      "count": 244,
+      "expert": 3,
+      "layer": 3
+    },
+    {
+      "count": 242,
+      "expert": 4,
+      "layer": 3
+    },
+    {
+      "count": 257,
+      "expert": 5,
+      "layer": 3
+    },
+    {
+      "count": 290,
+      "expert": 6,
+      "layer": 3
+    },
+    {
+      "count": 222,
+      "expert": 7,
+      "layer": 3
+    },
+    {
+      "count": 11,
+      "expert": 0,
+      "layer": 4
+    },
+    {
+      "count": 105,
+      "expert": 1,
+      "layer": 4
+    },
+    {
+      "count": 56,
+      "expert": 2,
+      "layer": 4
+    },
+    {
+      "count": 46,
+      "expert": 3,
+      "layer": 4
+    },
+    {
+      "count": 875,
+      "expert": 4,
+      "layer": 4
+    },
+    {
+      "count": 32,
+      "expert": 5,
+      "layer": 4
+    },
+    {
+      "count": 820,
+      "expert": 6,
+      "layer": 4
+    },
+    {
+      "count": 45,
+      "expert": 7,
+      "layer": 4
+    },
+    {
+      "count": 44,
+      "expert": 0,
+      "layer": 5
+    },
+    {
+      "count": 141,
+      "expert": 1,
+      "layer": 5
+    },
+    {
+      "count": 839,
+      "expert": 2,
+      "layer": 5
+    },
+    {
+      "count": 660,
+      "expert": 3,
+      "layer": 5
+    },
+    {
+      "count": 206,
+      "expert": 4,
+      "layer": 5
+    },
+    {
+      "count": 14,
+      "expert": 6,
+      "layer": 5
+    },
+    {
+      "count": 86,
+      "expert": 7,
+      "layer": 5
+    },
+    {
+      "count": 4,
+      "expert": 0,
+      "layer": 6
+    },
+    {
+      "count": 9,
+      "expert": 1,
+      "layer": 6
+    },
+    {
+      "count": 131,
+      "expert": 2,
+      "layer": 6
+    },
+    {
+      "count": 751,
+      "expert": 3,
+      "layer": 6
+    },
+    {
+      "count": 17,
+      "expert": 4,
+      "layer": 6
+    },
+    {
+      "count": 959,
+      "expert": 5,
+      "layer": 6
+    },
+    {
+      "count": 24,
+      "expert": 6,
+      "layer": 6
+    },
+    {
+      "count": 95,
+      "expert": 7,
+      "layer": 6
+    },
+    {
+      "count": 182,
+      "expert": 0,
+      "layer": 7
+    },
+    {
+      "count": 42,
+      "expert": 1,
+      "layer": 7
+    },
+    {
+      "count": 53,
+      "expert": 2,
+      "layer": 7
+    },
+    {
+      "count": 900,
+      "expert": 3,
+      "layer": 7
+    },
+    {
+      "count": 311,
+      "expert": 4,
+      "layer": 7
+    },
+    {
+      "count": 463,
+      "expert": 5,
+      "layer": 7
+    },
+    {
+      "count": 5,
+      "expert": 6,
+      "layer": 7
+    },
+    {
+      "count": 34,
+      "expert": 7,
+      "layer": 7
+    }
+  ],
+  "target": {
+    "expert_bytes": [
+      {
+        "expert": 0,
+        "layer": 1,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 1,
+        "layer": 1,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 2,
+        "layer": 1,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 3,
+        "layer": 1,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 4,
+        "layer": 1,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 5,
+        "layer": 1,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 6,
+        "layer": 1,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 7,
+        "layer": 1,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 0,
+        "layer": 2,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 1,
+        "layer": 2,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 2,
+        "layer": 2,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 3,
+        "layer": 2,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 4,
+        "layer": 2,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 5,
+        "layer": 2,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 6,
+        "layer": 2,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 7,
+        "layer": 2,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 0,
+        "layer": 3,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 1,
+        "layer": 3,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 2,
+        "layer": 3,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 3,
+        "layer": 3,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 4,
+        "layer": 3,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 5,
+        "layer": 3,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 6,
+        "layer": 3,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 7,
+        "layer": 3,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 0,
+        "layer": 4,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 1,
+        "layer": 4,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 2,
+        "layer": 4,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 3,
+        "layer": 4,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 4,
+        "layer": 4,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 5,
+        "layer": 4,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 6,
+        "layer": 4,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 7,
+        "layer": 4,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 0,
+        "layer": 5,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 1,
+        "layer": 5,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 2,
+        "layer": 5,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 3,
+        "layer": 5,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 4,
+        "layer": 5,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 5,
+        "layer": 5,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 6,
+        "layer": 5,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 7,
+        "layer": 5,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 0,
+        "layer": 6,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 1,
+        "layer": 6,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 2,
+        "layer": 6,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 3,
+        "layer": 6,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 4,
+        "layer": 6,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 5,
+        "layer": 6,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 6,
+        "layer": 6,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 7,
+        "layer": 6,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 0,
+        "layer": 7,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 1,
+        "layer": 7,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 2,
+        "layer": 7,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 3,
+        "layer": 7,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 4,
+        "layer": 7,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 5,
+        "layer": 7,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 6,
+        "layer": 7,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      },
+      {
+        "expert": 7,
+        "layer": 7,
+        "payload_bytes": 208896,
+        "physical_bytes": 208896
+      }
+    ],
+    "experts_per_layer": 8,
+    "experts_per_token": 2,
+    "files": [
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00001-of-00218.gguf",
+        "ordinal": 0,
+        "sha256": "cdf32bde31a26b4b1f38a4328f1580ab86d4befbe6c791b1a780ac6f760bc5f9",
+        "size": 7465760
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00002-of-00218.gguf",
+        "ordinal": 1,
+        "sha256": "45bcb408b7c78b9c5e77385b0dc8ec4b0aea8e0c06ac8caf8a310928b508b362",
+        "size": 557248
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00003-of-00218.gguf",
+        "ordinal": 2,
+        "sha256": "1e474a1b25c67126025b63acb1f81e1d34cd378d24dd8617953f37c05b3bc7d7",
+        "size": 557248
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00004-of-00218.gguf",
+        "ordinal": 3,
+        "sha256": "9e6b78c7739d2555ff309494f3fea2e7a74c1badda44fc759840b5c788421ef6",
+        "size": 557248
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00005-of-00218.gguf",
+        "ordinal": 4,
+        "sha256": "25140655a70997d9dc41a886c248810be83379057ff2bc9bd1f95807ec225c31",
+        "size": 557248
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00006-of-00218.gguf",
+        "ordinal": 5,
+        "sha256": "d37cae6bc7565f05ceb4a4e87b588b66477b9d08abe41ef13790e9bf1f281463",
+        "size": 557248
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00007-of-00218.gguf",
+        "ordinal": 6,
+        "sha256": "ab55b3f3151ddf25a933781da1d43083d6f44c514a89d8a86ae6d30c48841775",
+        "size": 557248
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00008-of-00218.gguf",
+        "ordinal": 7,
+        "sha256": "75dd476d4a773dc8ed9116a2f300377d8fc6c76017ce737679c21cf6b7eb3c43",
+        "size": 557248
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00009-of-00218.gguf",
+        "ordinal": 8,
+        "sha256": "0a8d306b94987a8b696ed2046a55f4d4cdd5cad2cd9f91add656d97c91c5c0ba",
+        "size": 557248
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00010-of-00218.gguf",
+        "ordinal": 9,
+        "sha256": "4f422c1e3dd0a26fd38fb40699236ce88ee555968247bf656c65e1573cca7a76",
+        "size": 557248
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00011-of-00218.gguf",
+        "ordinal": 10,
+        "sha256": "28f215e96b628453c96147e2bae89a1c6a182895a04da9fe58346894047ab359",
+        "size": 557248
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00012-of-00218.gguf",
+        "ordinal": 11,
+        "sha256": "f759f273051210b963b1492d1fef29f8d6b96ecc2f2f41b27de5f00b7106cd72",
+        "size": 557248
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00013-of-00218.gguf",
+        "ordinal": 12,
+        "sha256": "16f961ba197c029b81d6d71da9bcc4685f2796c6006528333f4450da424a87d2",
+        "size": 557248
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00014-of-00218.gguf",
+        "ordinal": 13,
+        "sha256": "695218c674774775bcdac8375ae3d0379f47d869fc696273fc3dbb64b9b7015f",
+        "size": 557248
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00015-of-00218.gguf",
+        "ordinal": 14,
+        "sha256": "b2a148718d4c0881a4393874d2e69bb25fcd3761f13d989bee957392be7fc1cd",
+        "size": 557248
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00016-of-00218.gguf",
+        "ordinal": 15,
+        "sha256": "3835f989a092b3005bfa71a0689526f80de51ebab426051b9ae4b239bd467f55",
+        "size": 557248
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00017-of-00218.gguf",
+        "ordinal": 16,
+        "sha256": "f6785700ff117f2ab248999fcec7b84ab8cef53d8467b4ed49aaa8300bedcbd7",
+        "size": 557248
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00018-of-00218.gguf",
+        "ordinal": 17,
+        "sha256": "95e576926a7f1046903efbc5e8d18105bc7990d10019981a62eb434d84c4c7b9",
+        "size": 557248
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00019-of-00218.gguf",
+        "ordinal": 18,
+        "sha256": "5fecc0e1b9a5f118ccf9be5e81408ebe6bb7caf8eb6c9458fc8654f1da83ad97",
+        "size": 557248
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00020-of-00218.gguf",
+        "ordinal": 19,
+        "sha256": "32ebd7c9f203ba7a930adb08e552eec484a4e18242800ccfe529b461c9d39f1a",
+        "size": 557248
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00021-of-00218.gguf",
+        "ordinal": 20,
+        "sha256": "42ec7ca0ed60e76a0041312f6e2dd6bf5341292f3f4af235e06507d088de0ab9",
+        "size": 557248
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00022-of-00218.gguf",
+        "ordinal": 21,
+        "sha256": "6bc16d19714ce88bb3c1c62f82c90b05a34d8505a4fdfc994b003061a0ed2759",
+        "size": 335544480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00023-of-00218.gguf",
+        "ordinal": 22,
+        "sha256": "9b7ad873efd263ecf80814e9931a76c5fd5857b21627472bb242fbafff514f4d",
+        "size": 335544512
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00024-of-00218.gguf",
+        "ordinal": 23,
+        "sha256": "0f9d6f86df3be63a9965a5b473fff854988cea0adff2d5aa2b9cac310f591a01",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00025-of-00218.gguf",
+        "ordinal": 24,
+        "sha256": "5e1873ffdfa763422d081a61767b23fff054f03c6996343e6443ca983e07d054",
+        "size": 4194496
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00026-of-00218.gguf",
+        "ordinal": 25,
+        "sha256": "6b30fc9c9469e871a6455ac8e4b08fb06213bea53de829482dda01b4f3f625bf",
+        "size": 4194496
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00027-of-00218.gguf",
+        "ordinal": 26,
+        "sha256": "031aff7dc83c820f866cfa1b4fcffa1d1be2e5558213493a6ac3545671cf2c28",
+        "size": 4194496
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00028-of-00218.gguf",
+        "ordinal": 27,
+        "sha256": "be0914bb214bdf22a5253ca60a6ff5b2af0746319fecd143e751964ef06a32f9",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00029-of-00218.gguf",
+        "ordinal": 28,
+        "sha256": "7b60ac2a90f31bcde910ec3ad1a05bb13f63e8c250957de2c9a541e6c69a9629",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00030-of-00218.gguf",
+        "ordinal": 29,
+        "sha256": "498e69896dd60aed69772287afe4a07cf6ae91e7ebfbe6c23ad4101032391a99",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00031-of-00218.gguf",
+        "ordinal": 30,
+        "sha256": "821388304d2bb03597e92e3b4908a62a1d4dd06cca0762898c1588184eb8ee5d",
+        "size": 192
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00032-of-00218.gguf",
+        "ordinal": 31,
+        "sha256": "7b4dd5a6f0d5e82afd78f151f9ffdea902e7f2896c4868ded24f7b15cc4280d2",
+        "size": 16576
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00033-of-00218.gguf",
+        "ordinal": 32,
+        "sha256": "152d27f3e3ce388bcc82bd2f1095d99dbe9867dabb1972993103c6b4b9eb3631",
+        "size": 1184
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00034-of-00218.gguf",
+        "ordinal": 33,
+        "sha256": "1e6a7d27e590970d4019e2598c227f01184ffc1a5f036072db02fbaf159e6ce9",
+        "size": 65728
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00035-of-00218.gguf",
+        "ordinal": 34,
+        "sha256": "d4251d93eadae1dc8cdde3de86b23a2ab4ab4dbdefcebf2ae5121805580a1cb1",
+        "size": 16576
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00036-of-00218.gguf",
+        "ordinal": 35,
+        "sha256": "7d46e2e0a49661738db2b20ef9202620632f67521814c5822b9e3bd22846ebb0",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00037-of-00218.gguf",
+        "ordinal": 36,
+        "sha256": "459aa8c46d2ad47269996a4560b5c8e5bfa93ab111c88916d522ff1f636834a2",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00038-of-00218.gguf",
+        "ordinal": 37,
+        "sha256": "4228e6fb478ff309bdea6d44429d87afacb3370b40938d99035092c476328046",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00039-of-00218.gguf",
+        "ordinal": 38,
+        "sha256": "8eccd497f77bc8dcfd7f2c4a6379d52310b887f3095a7ba586e8833b796b3911",
+        "size": 288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00040-of-00218.gguf",
+        "ordinal": 39,
+        "sha256": "a8bb416829fb34993d75bbe1967ad2b4230030537a0a88007593266b055207d8",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00041-of-00218.gguf",
+        "ordinal": 40,
+        "sha256": "6779bb183992d4bccf514259cc640fb5469c3b180c8f911390a371c4d4b8bfc0",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00042-of-00218.gguf",
+        "ordinal": 41,
+        "sha256": "06feec4c1b8dbf0e6d1d7bd5070a9328852877b96f329d4c5e13b97d6e61d10c",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00043-of-00218.gguf",
+        "ordinal": 42,
+        "sha256": "97d2d4d6254a1b1b562d4b3e7bdf9f870050b1681acd2a8762dbdeee8e13e037",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00044-of-00218.gguf",
+        "ordinal": 43,
+        "sha256": "2bbd6cbaac151e47d84a5f75dfcc3205561fc10795c7072e841e63808b24c437",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00045-of-00218.gguf",
+        "ordinal": 44,
+        "sha256": "e179601998d03939aa446641b21067373d1c05e53cefdd97066e5d376f7f4f2b",
+        "size": 192
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00046-of-00218.gguf",
+        "ordinal": 45,
+        "sha256": "30a4a49746d42f696bd5de2d9c30901b51d4b26d65654180124b7316486868c0",
+        "size": 32960
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00047-of-00218.gguf",
+        "ordinal": 46,
+        "sha256": "6293951b55dbbce36b46c91698c04eb699da16936aff9aa2055423c3694b25d5",
+        "size": 2240
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00048-of-00218.gguf",
+        "ordinal": 47,
+        "sha256": "526c5bff2ad1751c948c54a40ee78db493c9522b9d319736ce2799a1b4d17a2a",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00049-of-00218.gguf",
+        "ordinal": 48,
+        "sha256": "0e4901325eca7d9a5ca19e197e6dba8234de71d7c1acd9e2b61f1df319f352b0",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00050-of-00218.gguf",
+        "ordinal": 49,
+        "sha256": "da6b66fcaa936fa0e017f12034033d9c325f26a08b62df5fe8bcec1297676446",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00051-of-00218.gguf",
+        "ordinal": 50,
+        "sha256": "c1f95b8de5cbdb5d29b4d4b88e3759ccbbc3a459c9733cefa01cc6b13af7eb13",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00052-of-00218.gguf",
+        "ordinal": 51,
+        "sha256": "9fdcbd0c873b5573ea85345525f9f40962785bb04245480180beb5b3df2bb930",
+        "size": 192
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00053-of-00218.gguf",
+        "ordinal": 52,
+        "sha256": "a380d78d882e536180d21b9c53a92e837bdf66db76191d34c4eb7425ccfcdb97",
+        "size": 16576
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00054-of-00218.gguf",
+        "ordinal": 53,
+        "sha256": "8c92de8f09b0acfd0e8b1b2d577b26e059d6701f1998408415c3829fb1c61265",
+        "size": 1184
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00055-of-00218.gguf",
+        "ordinal": 54,
+        "sha256": "fc6a82bd441d17726f756d1fd7a30b558db2c272a357939b39438d11f9fe85ba",
+        "size": 65728
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00056-of-00218.gguf",
+        "ordinal": 55,
+        "sha256": "1a84f8c49d7f3b9bc6b489252a900fc67119c51c62e20fec275216635be288d2",
+        "size": 16576
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00057-of-00218.gguf",
+        "ordinal": 56,
+        "sha256": "09c89f826588cf6d5bc5547ed4a396095efee32897961561e909355ecae782f8",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00058-of-00218.gguf",
+        "ordinal": 57,
+        "sha256": "982a92a0239e48a446fe0a10305ef4199fc2a68bf72cd7063b60df6298d6f6f1",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00059-of-00218.gguf",
+        "ordinal": 58,
+        "sha256": "334cc224e47ecbf467f4acc94684d3b7310c39f1552d2d761498ab068d601e26",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00060-of-00218.gguf",
+        "ordinal": 59,
+        "sha256": "4fe829d60a99206c560c0c4b012b9ebf4840edfd14a7c1e8745a4534470fabf1",
+        "size": 288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00061-of-00218.gguf",
+        "ordinal": 60,
+        "sha256": "79eda0935644ed515ac5c2454d5de1b330976e8aa9e8f1437476b36a75e2ac2a",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00062-of-00218.gguf",
+        "ordinal": 61,
+        "sha256": "b91581897ceecd87b8ca8a36dafbd069f81e8cdf4e9edce50f843f892e4aa4b8",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00063-of-00218.gguf",
+        "ordinal": 62,
+        "sha256": "099f071a30c5f90ecf2295caef023650cad12073e3d1afe95f4161f027b64972",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00064-of-00218.gguf",
+        "ordinal": 63,
+        "sha256": "b25e9eb3d4c5e94461601dc9f17133d39241edda938a47c7aa04c5ff63bd5974",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00065-of-00218.gguf",
+        "ordinal": 64,
+        "sha256": "5c1e7c6d34e966c0936230c0f92ef3aa98205ebc99d33b840562f8fabc578b27",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00066-of-00218.gguf",
+        "ordinal": 65,
+        "sha256": "f89909344afa54582996ea509bdf988059d5f57b44d8477e4e78d5507ebc1ea6",
+        "size": 192
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00067-of-00218.gguf",
+        "ordinal": 66,
+        "sha256": "640e00aa403b9e91bfde502ba9ea5be53884d1fc973421be01139b79df1b7562",
+        "size": 32960
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00068-of-00218.gguf",
+        "ordinal": 67,
+        "sha256": "8858af693835a0d365947003decf068d795fca9302280add91048aff96506011",
+        "size": 2240
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00069-of-00218.gguf",
+        "ordinal": 68,
+        "sha256": "ecd2a459e6f63e6f934f1c0c651d67198235381a5173469b1fc601018f0fd28e",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00070-of-00218.gguf",
+        "ordinal": 69,
+        "sha256": "119f143479227d12a3aab6e27bc5d87f21c7796fa8563f80cba2368c575e4fce",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00071-of-00218.gguf",
+        "ordinal": 70,
+        "sha256": "8758031910b2b57055781731303be08a66002564c3f671642f65f3924c36de0e",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00072-of-00218.gguf",
+        "ordinal": 71,
+        "sha256": "c582498a93521f4a87f0e3e7faf3863b976e421966abb960dcf42d898e9d0a90",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00073-of-00218.gguf",
+        "ordinal": 72,
+        "sha256": "5262a1548edabc913c1e33a779fe836fe3ab41a26d4d49647b66b61eaa23303e",
+        "size": 192
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00074-of-00218.gguf",
+        "ordinal": 73,
+        "sha256": "bfd9381da7c22e95221664edbb7d5575d3e8e0a3b80035b392b72f6a93a714c7",
+        "size": 16576
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00075-of-00218.gguf",
+        "ordinal": 74,
+        "sha256": "9e8e8c4006e96ac1c8c3ad9d92cfddaefd0a206cab1f47b3777f1c942d04d390",
+        "size": 1184
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00076-of-00218.gguf",
+        "ordinal": 75,
+        "sha256": "1f65709624b8d4e1275bdd1a667fb00b4b07f5d2fc247160ff7a577635acdd34",
+        "size": 65728
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00077-of-00218.gguf",
+        "ordinal": 76,
+        "sha256": "4508183cbf2f52bc4ee932908b49c7803b42f9bee1403af15559c466bdb28fc5",
+        "size": 16576
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00078-of-00218.gguf",
+        "ordinal": 77,
+        "sha256": "ac89040682cd41455888ff9ce6d9b34e07c6b80a53c4a9c6d5467e5beb2371d8",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00079-of-00218.gguf",
+        "ordinal": 78,
+        "sha256": "8899c23f20a4c4fdb7d2a8a449349437fd9c3ab048ba1bc359964efe371dd1f5",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00080-of-00218.gguf",
+        "ordinal": 79,
+        "sha256": "2059d58e05d5c28867f198abfa04c15a047e9cfacde005f7b54d2be9da8c5301",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00081-of-00218.gguf",
+        "ordinal": 80,
+        "sha256": "56e9bcbdcf75bb855f4b37733e0ba57258a61629cfa4f7ab412d1ee6105d4841",
+        "size": 288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00082-of-00218.gguf",
+        "ordinal": 81,
+        "sha256": "21afb8d639b9638d9232040bbc7430ac945926d6b3664352ab3d00e5c189efd2",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00083-of-00218.gguf",
+        "ordinal": 82,
+        "sha256": "ce7881373fa9bd468420d39ccbc2c67ed57abfa39c0d5020285c7dd771caecf0",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00084-of-00218.gguf",
+        "ordinal": 83,
+        "sha256": "6d619e47253c89ad630be28d880a3134e6ba2607def80747003418104c11e09c",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00085-of-00218.gguf",
+        "ordinal": 84,
+        "sha256": "9ad6ba73d2b547ef6fd449b807debe6fa7ce13a781f775b56846c191edc5cce9",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00086-of-00218.gguf",
+        "ordinal": 85,
+        "sha256": "bc6d464f6ca413ea234e15806dd461979dc6bcfbc341bbe61f95893830059305",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00087-of-00218.gguf",
+        "ordinal": 86,
+        "sha256": "e8e4eef8d4467ef1ccd18e688a11380f30e041aa057ef059a47838030a5d3a72",
+        "size": 192
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00088-of-00218.gguf",
+        "ordinal": 87,
+        "sha256": "29cb3e53fc0c8d5afb8f07e6b6954efcd19d907a1665fa668476d0fc7373bfa5",
+        "size": 32960
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00089-of-00218.gguf",
+        "ordinal": 88,
+        "sha256": "43f779ae1359c52f7cbf5f06ae24f16c2bf0d4d0990ed2f93347e3209bf0da5e",
+        "size": 2240
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00090-of-00218.gguf",
+        "ordinal": 89,
+        "sha256": "ed40d8612f5a5aea9e50f75a6fa5643eaa252d2d52df1ce0aa6140b62ea7e4da",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00091-of-00218.gguf",
+        "ordinal": 90,
+        "sha256": "4936cb7b015ddda0b0c18d2c3a47b262bd84ed5131448c706a18ad1be1e8ea88",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00092-of-00218.gguf",
+        "ordinal": 91,
+        "sha256": "a7af2a54b05c6e3255b0334e91ce4e60897bbc0688f82619ca82cfb9f634a039",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00093-of-00218.gguf",
+        "ordinal": 92,
+        "sha256": "d2492037a0a7d0b04f885988671a5956bf9f418cf02403e7132cd0e496798c99",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00094-of-00218.gguf",
+        "ordinal": 93,
+        "sha256": "9642056de441d1c015376d48d9abd0bf9a14fa8ebc49a0b835bde008aeed8d71",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00095-of-00218.gguf",
+        "ordinal": 94,
+        "sha256": "8f04746195a417220d639df6e09a7e8cddd1d322dbc8c5a048de4fb92b70f634",
+        "size": 704
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00096-of-00218.gguf",
+        "ordinal": 95,
+        "sha256": "b582ce7452accb0d5d39065906a9fdea75e3bc00604eb819e773fc2389e08ee9",
+        "size": 327872
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00097-of-00218.gguf",
+        "ordinal": 96,
+        "sha256": "83ed187f43268013074c3f0c757738d44cee0c31f2eefadf92a5a6019095da36",
+        "size": 131264
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00098-of-00218.gguf",
+        "ordinal": 97,
+        "sha256": "82d4aaac6cda874f255899eff1be2b1a9d5ee96ca851222c648fc49c0b935158",
+        "size": 131264
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00099-of-00218.gguf",
+        "ordinal": 98,
+        "sha256": "761705198c67ba2f2388579ded9781b9886faeeeee117cabc0b968dc69127c2f",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00100-of-00218.gguf",
+        "ordinal": 99,
+        "sha256": "39c927dee79fdca3efdc2944fdb0b43aca59e252edfc6b987e014b037e7bb042",
+        "size": 1216
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00101-of-00218.gguf",
+        "ordinal": 100,
+        "sha256": "ac57962cc53072dcae4e79fa48a96c5058285ff68e2f2aa1b7834f34bfadb4c3",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00102-of-00218.gguf",
+        "ordinal": 101,
+        "sha256": "173d82b8d5baabd2ded05bb03f5db6e95ea73c2552743aea67ed7a5ae1325d3f",
+        "size": 393408
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00103-of-00218.gguf",
+        "ordinal": 102,
+        "sha256": "976c96b05524c20cb27101c452d9ecb4aea8aeecb82b332c4c832d9bacba539f",
+        "size": 192
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00104-of-00218.gguf",
+        "ordinal": 103,
+        "sha256": "b29e5ac2b760402f1886515ba8a5a9ddb2133e88c4ccdb58175fb13e6b56e0f5",
+        "size": 32960
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00105-of-00218.gguf",
+        "ordinal": 104,
+        "sha256": "1706a4d06e82d4da0173830e42113d7e1a74bece745ffd0498642b782bb045e3",
+        "size": 2240
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00106-of-00218.gguf",
+        "ordinal": 105,
+        "sha256": "58a14f6ca8232e589b1ea9cc24fde032e112abfe6425a18bae369d741313b39d",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00107-of-00218.gguf",
+        "ordinal": 106,
+        "sha256": "f8cee01314bca8a18c8fec4f28070a670c74a74c24c59ceb3997bc456893271a",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00108-of-00218.gguf",
+        "ordinal": 107,
+        "sha256": "4747aa0051b188ef2181f2a8ec8cc5bd34c5fd156828f9ec0a469b3cc6e05706",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00109-of-00218.gguf",
+        "ordinal": 108,
+        "sha256": "72765dbcd0d9d4165754d913469ee8b28c826eda8e06aba18f0a493fb25b4984",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00110-of-00218.gguf",
+        "ordinal": 109,
+        "sha256": "72fdb0db57dc3dc99f9fc3115da7fb95a148c4675c610945da2255d72c1f25e5",
+        "size": 192
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00111-of-00218.gguf",
+        "ordinal": 110,
+        "sha256": "533043924c0bf02470846487cbb981235f3e6426bccee78ef2801e99dc440e05",
+        "size": 16576
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00112-of-00218.gguf",
+        "ordinal": 111,
+        "sha256": "f605b65aa5927e9071e68512dbbe1ea662b78e5ee892480846805f6ed2f0aa23",
+        "size": 1184
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00113-of-00218.gguf",
+        "ordinal": 112,
+        "sha256": "051b51e7a4aa11c77795e9c02d699c17bf8507cb408f9b1931a185bc19696dd5",
+        "size": 65728
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00114-of-00218.gguf",
+        "ordinal": 113,
+        "sha256": "518ceeb58e70840b84ce1dbcab9c515f49928195fbc9e731451e49a23970a339",
+        "size": 16576
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00115-of-00218.gguf",
+        "ordinal": 114,
+        "sha256": "7bba6d9e513306f95172c5cb2cbdfa06011cede382b6ab2f6e53b22da33d747f",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00116-of-00218.gguf",
+        "ordinal": 115,
+        "sha256": "aaefb1ceac3a63ec3880e75def93963a64a9e7517f778ce048012f0ee758a2ca",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00117-of-00218.gguf",
+        "ordinal": 116,
+        "sha256": "76ccb6ee6025285550a674faf0ca1d47a896bbaf806b278684fc2bfa48433c12",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00118-of-00218.gguf",
+        "ordinal": 117,
+        "sha256": "4ab2d264b0ac617af6e2f12d556c9e3d6612b74dde48d51ba97201186bf1b54a",
+        "size": 288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00119-of-00218.gguf",
+        "ordinal": 118,
+        "sha256": "65a26e182af697117751f1d8ec4aefa2ae96757b1a51926779f14bf201667445",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00120-of-00218.gguf",
+        "ordinal": 119,
+        "sha256": "066af2121e3dffb3e9106418d769a2937b40bf99b5c8f8383783af7acb4eaeb3",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00121-of-00218.gguf",
+        "ordinal": 120,
+        "sha256": "2975af55e1f369d61d2aef62be6fad7db011c6b3b3798f4f0033bde0abfb41fa",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00122-of-00218.gguf",
+        "ordinal": 121,
+        "sha256": "58f55301992006f3fd59636313c58ae2e2d0764af863a43c6eb3eb5c2824b770",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00123-of-00218.gguf",
+        "ordinal": 122,
+        "sha256": "b709f56b45dfe76f6204f4d769c3be68518cca4d824e851e1ff697917c807a0e",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00124-of-00218.gguf",
+        "ordinal": 123,
+        "sha256": "c42d1f6f4866cbfd32195465b930c709eb846343f308079130315594997a4d13",
+        "size": 192
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00125-of-00218.gguf",
+        "ordinal": 124,
+        "sha256": "efd4372488baefb7e47416283c8a04a67446722d92c863d29f0d13967b9dd205",
+        "size": 32960
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00126-of-00218.gguf",
+        "ordinal": 125,
+        "sha256": "f77d820983cc336186ddd3705d16361d743ace7ad4bc3743a51137e1db7f4e57",
+        "size": 2240
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00127-of-00218.gguf",
+        "ordinal": 126,
+        "sha256": "8c7f7b0f87d19c863b04226bc35a6c75db0845a77820ac22a6717f64b5e6f9d8",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00128-of-00218.gguf",
+        "ordinal": 127,
+        "sha256": "dead1ddb367420847a7836e7593cd0116a6253fcc3947f47f9592d169b7a087e",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00129-of-00218.gguf",
+        "ordinal": 128,
+        "sha256": "b4af0cbfd3902601575f1a32f3c50b73001a95ea2363d95185924556c3ecc823",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00130-of-00218.gguf",
+        "ordinal": 129,
+        "sha256": "1f812350cabcf762509a30f3d21dea9577163d51a9567be12fa9607c055ed8ab",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00131-of-00218.gguf",
+        "ordinal": 130,
+        "sha256": "b2d21074ad8d0228e7d31ef8395c3f1df00e5989d6cb1c909dacafdab387c7be",
+        "size": 192
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00132-of-00218.gguf",
+        "ordinal": 131,
+        "sha256": "231897b4ee3cdfbb7249256ae281d1d9ce04805be29cedd73da12ee93d472f66",
+        "size": 16576
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00133-of-00218.gguf",
+        "ordinal": 132,
+        "sha256": "5b098cd75907765ec574c5f88d5e08a686addef8d4dfa382068ab0d8379c0c13",
+        "size": 1184
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00134-of-00218.gguf",
+        "ordinal": 133,
+        "sha256": "9b218df088ad3c640e07548ce4face82ad54e56ff261f8ae939861958b3a1fe3",
+        "size": 65728
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00135-of-00218.gguf",
+        "ordinal": 134,
+        "sha256": "33f8a81434e2ef9375031e08977bce6ef7b153e809f05b45fe1f7e377530b138",
+        "size": 16576
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00136-of-00218.gguf",
+        "ordinal": 135,
+        "sha256": "9209dda0854d238919f2edc43ab2c6e448975f1f35c5cd56e0b9f7a1bcec8366",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00137-of-00218.gguf",
+        "ordinal": 136,
+        "sha256": "8286c9c2f6c7a84b38c5e5424fa6c52c4031cd3f8d8ce2a3e14a3bdbe942f4b5",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00138-of-00218.gguf",
+        "ordinal": 137,
+        "sha256": "362cb9ba2b648aa28d03b80c85fe854024672be014088320225fe6fa045e4667",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00139-of-00218.gguf",
+        "ordinal": 138,
+        "sha256": "f7c516e355c5e6469809df3ecb0b5aa69d43c028647d5b8f36dae3b5460c6045",
+        "size": 288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00140-of-00218.gguf",
+        "ordinal": 139,
+        "sha256": "985196e07ed16a98f1454fa0adcf67e79127ec0f6457291b6069a8ecb18817c1",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00141-of-00218.gguf",
+        "ordinal": 140,
+        "sha256": "dd1b6a907a193b4f503d9fcb7c9133c2bd00237ec432820bcd2195845241e975",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00142-of-00218.gguf",
+        "ordinal": 141,
+        "sha256": "5ee9ceefe6768f87f1a2766eef069f1b16a16d255656127c4f95e69d73610e86",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00143-of-00218.gguf",
+        "ordinal": 142,
+        "sha256": "82e3b5feba99029bb516e3876414787449f170885512c313da843eb500274064",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00144-of-00218.gguf",
+        "ordinal": 143,
+        "sha256": "a4bd3b695859583e3ab96f9b8450387a9b08fc32ad6ccf120243c993e3c656a5",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00145-of-00218.gguf",
+        "ordinal": 144,
+        "sha256": "19e2a1d07ec84b316aedff0fcffbb50f00e5dfb195a8ce7ecb57774d6d2787e7",
+        "size": 192
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00146-of-00218.gguf",
+        "ordinal": 145,
+        "sha256": "a93aa1e4d641d3346543debff18d0fd15ea11455e465aeec86f4969e5d96f6fa",
+        "size": 32960
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00147-of-00218.gguf",
+        "ordinal": 146,
+        "sha256": "862f3005de208900627f20dac5441cbff0119d8130591ad3a566c9f327481386",
+        "size": 2240
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00148-of-00218.gguf",
+        "ordinal": 147,
+        "sha256": "19569cbd545cf85d92f1972fff8b6fe45afa39e1cfc7feb05230e3326223f534",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00149-of-00218.gguf",
+        "ordinal": 148,
+        "sha256": "77f2786db1245cd8bd9f64ff39b46c48606b04eda3ec5446c13ef06f41e055de",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00150-of-00218.gguf",
+        "ordinal": 149,
+        "sha256": "12a57e7a2a6542304d5b7f635321940d133dc5ed52c7ea477ecdb4bdd8943bc0",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00151-of-00218.gguf",
+        "ordinal": 150,
+        "sha256": "c0804fa9d853e30d463aa9bcec892b6891849e9846b4700a2b75d75787d6e2ba",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00152-of-00218.gguf",
+        "ordinal": 151,
+        "sha256": "42189d439c205c414c5edaae09e35f479525cd58accf84e565e90adf6fe0e42f",
+        "size": 192
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00153-of-00218.gguf",
+        "ordinal": 152,
+        "sha256": "9f2ae8b3421a771614a2cfe124b87badde4bd08d0a9b50d6b6e5752058b044aa",
+        "size": 16576
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00154-of-00218.gguf",
+        "ordinal": 153,
+        "sha256": "18d9fe56ddc45619e949327b476defc56a10c7023fc551d14d4e705fb3bdd5e3",
+        "size": 1184
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00155-of-00218.gguf",
+        "ordinal": 154,
+        "sha256": "796dc9b00eab2af487a82316449aa4a02bad33cda5b5c8315e76c9acaaba917d",
+        "size": 65728
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00156-of-00218.gguf",
+        "ordinal": 155,
+        "sha256": "a32b64bb1f378123224aae5b23d66a5255a27dc84b518682dc48185d435ce343",
+        "size": 16576
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00157-of-00218.gguf",
+        "ordinal": 156,
+        "sha256": "c3bbd3297294dffa28dd43b1d403bf901e6ef4f1cac70c4359abc8aed181b5a2",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00158-of-00218.gguf",
+        "ordinal": 157,
+        "sha256": "c7073a26244cd8014c9c4141fe8d19398f2721a32f6e3c404552c37df307f538",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00159-of-00218.gguf",
+        "ordinal": 158,
+        "sha256": "00f77d9629c6cfdf49b4e510d5030a41ba7e2f038d56a11a6316445be94c3da8",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00160-of-00218.gguf",
+        "ordinal": 159,
+        "sha256": "ed2d1b4eb180f13082a1ee9d6fc1f8b42647d57f8ad14d9557df35b766ead40b",
+        "size": 288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00161-of-00218.gguf",
+        "ordinal": 160,
+        "sha256": "9f148a6aff21bd9e03eb0619cabc3908b887746643170a4a2ad22e88079e50f0",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00162-of-00218.gguf",
+        "ordinal": 161,
+        "sha256": "55cdb96a625771123f0b2f90bb6d5cb2049f7b9d8cca6346ebd5e0d05e247836",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00163-of-00218.gguf",
+        "ordinal": 162,
+        "sha256": "0e8f8229c70b16d37779579e42ffb075886245112c36c17879c88fea2731167e",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00164-of-00218.gguf",
+        "ordinal": 163,
+        "sha256": "7b10b946297ebee4cd092dd0a971276f2e56d23d4f99c13b7c748d202121e77f",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00165-of-00218.gguf",
+        "ordinal": 164,
+        "sha256": "a6628a86c5972f3210f762d2c613ae1739fa2054e0e4d5a1f1c240de1d688d3c",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00166-of-00218.gguf",
+        "ordinal": 165,
+        "sha256": "229e90d7006c8c623e2941e06bae3064f80bbdcbd03d86eb9055e5b6ccaeda4a",
+        "size": 192
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00167-of-00218.gguf",
+        "ordinal": 166,
+        "sha256": "e865dbc90afcc787930b523c2c8e8e022ffc35a7415ec7c5b50e1e85c666a7fc",
+        "size": 32960
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00168-of-00218.gguf",
+        "ordinal": 167,
+        "sha256": "d0fe5808b45378f9c1f5288a598e033a55306a953e0f57289ca7b14a6587c350",
+        "size": 2240
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00169-of-00218.gguf",
+        "ordinal": 168,
+        "sha256": "c3811d3766ef07293c828af307e559811b25fdcd464221bfa359a072c7b8deb3",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00170-of-00218.gguf",
+        "ordinal": 169,
+        "sha256": "8271de72c69c8fc2048b285f565a0216e50fd1d9c3aea6e347b55ae2929e30ae",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00171-of-00218.gguf",
+        "ordinal": 170,
+        "sha256": "5768b93f2a2e1f1da5bd51d465d4f156f83b93699bd4055022124fb6c00cc9ad",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00172-of-00218.gguf",
+        "ordinal": 171,
+        "sha256": "c1a94a1569c77715a230d12a324f5d081f6e95b877cef0478cd038e9e5ac2856",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00173-of-00218.gguf",
+        "ordinal": 172,
+        "sha256": "57f2d45f5bfcb3f8cdba08e374579d9164703c6ccb5030867b652cab3a37e787",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00174-of-00218.gguf",
+        "ordinal": 173,
+        "sha256": "37e01cc0db76c1585e75cde19c4516ab40ee17d7e4040b5af675fedc64cf73b8",
+        "size": 704
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00175-of-00218.gguf",
+        "ordinal": 174,
+        "sha256": "f25f4e7070df721370d0965017dc197dced2a1c0b4ab9986fffe47d90d90c753",
+        "size": 327872
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00176-of-00218.gguf",
+        "ordinal": 175,
+        "sha256": "56c879f2c929375e36554d289124a17329b1ea25cd264ce80e05f753e422785f",
+        "size": 131264
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00177-of-00218.gguf",
+        "ordinal": 176,
+        "sha256": "05da87227b4e812ea060e06c7896581cc169e39ff683dc36cfdb2e54c6743bc7",
+        "size": 131264
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00178-of-00218.gguf",
+        "ordinal": 177,
+        "sha256": "15c980c5ec5ebb5e2611feacba1dffff536c27e9f7c4e3e7ab38dcb01dc14e23",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00179-of-00218.gguf",
+        "ordinal": 178,
+        "sha256": "179c8071670edf49498be2ccaecf8b54aa732fc47e32132a2e5ebb3398d73021",
+        "size": 1216
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00180-of-00218.gguf",
+        "ordinal": 179,
+        "sha256": "513cdcd131d3856b965af70aa266478dbe0fd5d37a983b94d2ca8c48c6e29fec",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00181-of-00218.gguf",
+        "ordinal": 180,
+        "sha256": "a40dbb34f70096357fc30c644742c60220cd46b72b0bf2a24836a2896048a34e",
+        "size": 393408
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00182-of-00218.gguf",
+        "ordinal": 181,
+        "sha256": "bcb2e0811768304f87938a3f18f59fd301674b64e167ce817c9a83d5aa067511",
+        "size": 4256
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00183-of-00218.gguf",
+        "ordinal": 182,
+        "sha256": "0bab38e452a3471d317ba0a92eac01f0121c84bfb67451511e7d1e32e803655c",
+        "size": 4288
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00184-of-00218.gguf",
+        "ordinal": 183,
+        "sha256": "eadd460a0521569771bbf83d478dc40c22d0eff7d1a230c78247af64c80b2049",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00185-of-00218.gguf",
+        "ordinal": 184,
+        "sha256": "571011aa89bcf085da9a440ad9534d7bd21c7a369a9668b6008fcbcfa41e743a",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00186-of-00218.gguf",
+        "ordinal": 185,
+        "sha256": "c5bdeaffea628465404ce93614f885be4d9adcf382fcc025987418ba97c86b5f",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00187-of-00218.gguf",
+        "ordinal": 186,
+        "sha256": "fe89d5c133a21c35b6e92c9a5313044c773a6f3ddb68010f81bd92a485822fea",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00188-of-00218.gguf",
+        "ordinal": 187,
+        "sha256": "2e03d8e57c31db8fabe62058095359ece43accf6e61bec80649e9e05b07abb70",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00189-of-00218.gguf",
+        "ordinal": 188,
+        "sha256": "8ded92932e2352b39a7c750d1e0a36c5593c437b8885b7b1d608c5d7db9bf770",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00190-of-00218.gguf",
+        "ordinal": 189,
+        "sha256": "31c80bfa1e1e7bbcfb5191a399dd6e5668dbae015a7db794ab022dc444677311",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00191-of-00218.gguf",
+        "ordinal": 190,
+        "sha256": "a8813ce3276b748aa25fea58109479013da9a279560e2b0c731381c2bff86e63",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00192-of-00218.gguf",
+        "ordinal": 191,
+        "sha256": "4a9e4bf9afd390f88e6437a42ab8a27a0b047a57e4819b493e532a1e3e10df30",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00193-of-00218.gguf",
+        "ordinal": 192,
+        "sha256": "9201c57f58df50f49b858746408468c354e78a28d7c2e6dbce4e5e4afd957948",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00194-of-00218.gguf",
+        "ordinal": 193,
+        "sha256": "140d98334017e4a9ba037d44619deffee47ae6e6af9b0e0bc22f5ed361a77ab1",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00195-of-00218.gguf",
+        "ordinal": 194,
+        "sha256": "aad0bd96ae089622d538198c090d7671f3ecd3e86c2a64a03fe1e285b30a6ada",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00196-of-00218.gguf",
+        "ordinal": 195,
+        "sha256": "48dcaa17979bf3e692e16e1bebc176272420c6ccba35d9e5c1f8fb410382460b",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00197-of-00218.gguf",
+        "ordinal": 196,
+        "sha256": "d892b8b2e70885586d9603b7cd4525fab126919db1f7253908a45d4cb58ad617",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00198-of-00218.gguf",
+        "ordinal": 197,
+        "sha256": "d0efd7878827dadfebd4c47a751693017a6691ab4544db7c42215f4d45b8e2e0",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00199-of-00218.gguf",
+        "ordinal": 198,
+        "sha256": "c42a355c253bc0a2062c723d54bf25c17378c3bfddbd3db5a4cf0e57a4c524ba",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00200-of-00218.gguf",
+        "ordinal": 199,
+        "sha256": "c5fc85638fd5dd8428ba30db395d65a616945c9e82e4032f5c2c5ddb53652c4e",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00201-of-00218.gguf",
+        "ordinal": 200,
+        "sha256": "49d3239428593fade54fd2e3bec9948e1ec48502875deb37e0d67514a490a42a",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00202-of-00218.gguf",
+        "ordinal": 201,
+        "sha256": "f19468a70c93e7978071c07415bdcb6d8f56acb3718554788f127fcf03df0dd7",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00203-of-00218.gguf",
+        "ordinal": 202,
+        "sha256": "047d8cf7916a77d343472affb43a5a4cec5916a2abcb9a4a47aa000bc9793699",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00204-of-00218.gguf",
+        "ordinal": 203,
+        "sha256": "14bdd34b613eaa52f40f0577f1ec0991acedfbc6def82b1767d2f0d2b2b170f9",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00205-of-00218.gguf",
+        "ordinal": 204,
+        "sha256": "15cde1c983d75835ced9e7292fa49cef09db86149aea65db7aacbc30d0c55a58",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00206-of-00218.gguf",
+        "ordinal": 205,
+        "sha256": "d187b16667a12f1c3d859f3c270be64dc09bd54a1471ca9fd751f6b72e4c0f7e",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00207-of-00218.gguf",
+        "ordinal": 206,
+        "sha256": "87cb5765ffc5bd6795fbe0a78db3cbef11e52986f7eb0080fdc3624737c309a0",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00208-of-00218.gguf",
+        "ordinal": 207,
+        "sha256": "9cf9f60ba2234db516278daefa0c55e0f0d031be00b79a8afc5fbcdf57605acf",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00209-of-00218.gguf",
+        "ordinal": 208,
+        "sha256": "60896ab77a2e58b2eaef7c883d199aeab900c937020bf6d8e807c0a1013d051b",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00210-of-00218.gguf",
+        "ordinal": 209,
+        "sha256": "4d8b2bc9d36ec59d2c3c153cea448ba834b8cf11582fabf8ea2819a2129b60eb",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00211-of-00218.gguf",
+        "ordinal": 210,
+        "sha256": "5926725d00f70b8c0556e71ed19dd07922e64c59d32acb1f38e83bcfa2280129",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00212-of-00218.gguf",
+        "ordinal": 211,
+        "sha256": "95595bf8b414463c5e355f9b66976365e993bb40f3bc53dcac4e97d6b7ad83b5",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00213-of-00218.gguf",
+        "ordinal": 212,
+        "sha256": "cea87c88d352ed50ef28b4995a65ee0604bd67ab4d219a84e5457b2898f5ca61",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00214-of-00218.gguf",
+        "ordinal": 213,
+        "sha256": "4b7ab2c4c9dd36e9322f8eb023f3d8328459e69d92455d8aff9e6c9f385cf657",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00215-of-00218.gguf",
+        "ordinal": 214,
+        "sha256": "3f0089e3ca8449f1bc25dca8fd863373b12bf3e3834a288012bce863cd29f1cb",
+        "size": 1048768
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00216-of-00218.gguf",
+        "ordinal": 215,
+        "sha256": "08907775830ae4dc7ea3d05cfba01add31d9d23b811d73aa1fdd8ebaf0262536",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00217-of-00218.gguf",
+        "ordinal": 216,
+        "sha256": "3d9698d3135c155a5473eccd046cd3442f8223d24362277c427103012852b9c5",
+        "size": 524480
+      },
+      {
+        "name": "Kimi-K3-0.40B-MXFP4-00218-of-00218.gguf",
+        "ordinal": 217,
+        "sha256": "b792611fe9ee97eedc8221720325da28166bbe683b53ef46e2a90510b41cb731",
+        "size": 524480
+      }
+    ],
+    "layer_count": 8,
+    "package_sha256": "74e9dcd104af04c747c5f16b4a572020b455c9cc526734381493cb6c6b483ef1",
+    "routed_layers": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "tensor_layout_sha256": "1e7508d5f1755c4be32ff60dc6180e87ca89fb2caa69a880b1e055739b885241"
+  },
+  "tool": {
+    "name": "phase10-online-compat-profile",
+    "version": 2
+  },
+  "transitions": [
+    {
+      "count": 35,
+      "source_expert": 0,
+      "source_layer": 1,
+      "target_expert": 0,
+      "target_layer": 2
+    },
+    {
+      "count": 18,
+      "source_expert": 0,
+      "source_layer": 1,
+      "target_expert": 1,
+      "target_layer": 2
+    },
+    {
+      "count": 116,
+      "source_expert": 0,
+      "source_layer": 1,
+      "target_expert": 2,
+      "target_layer": 2
+    },
+    {
+      "count": 57,
+      "source_expert": 0,
+      "source_layer": 1,
+      "target_expert": 3,
+      "target_layer": 2
+    },
+    {
+      "count": 28,
+      "source_expert": 0,
+      "source_layer": 1,
+      "target_expert": 4,
+      "target_layer": 2
+    },
+    {
+      "count": 226,
+      "source_expert": 0,
+      "source_layer": 1,
+      "target_expert": 5,
+      "target_layer": 2
+    },
+    {
+      "count": 82,
+      "source_expert": 0,
+      "source_layer": 1,
+      "target_expert": 6,
+      "target_layer": 2
+    },
+    {
+      "count": 192,
+      "source_expert": 0,
+      "source_layer": 1,
+      "target_expert": 7,
+      "target_layer": 2
+    },
+    {
+      "count": 62,
+      "source_expert": 1,
+      "source_layer": 1,
+      "target_expert": 0,
+      "target_layer": 2
+    },
+    {
+      "count": 15,
+      "source_expert": 1,
+      "source_layer": 1,
+      "target_expert": 1,
+      "target_layer": 2
+    },
+    {
+      "count": 116,
+      "source_expert": 1,
+      "source_layer": 1,
+      "target_expert": 2,
+      "target_layer": 2
+    },
+    {
+      "count": 102,
+      "source_expert": 1,
+      "source_layer": 1,
+      "target_expert": 3,
+      "target_layer": 2
+    },
+    {
+      "count": 34,
+      "source_expert": 1,
+      "source_layer": 1,
+      "target_expert": 4,
+      "target_layer": 2
+    },
+    {
+      "count": 160,
+      "source_expert": 1,
+      "source_layer": 1,
+      "target_expert": 5,
+      "target_layer": 2
+    },
+    {
+      "count": 37,
+      "source_expert": 1,
+      "source_layer": 1,
+      "target_expert": 6,
+      "target_layer": 2
+    },
+    {
+      "count": 254,
+      "source_expert": 1,
+      "source_layer": 1,
+      "target_expert": 7,
+      "target_layer": 2
+    },
+    {
+      "count": 22,
+      "source_expert": 2,
+      "source_layer": 1,
+      "target_expert": 0,
+      "target_layer": 2
+    },
+    {
+      "count": 9,
+      "source_expert": 2,
+      "source_layer": 1,
+      "target_expert": 1,
+      "target_layer": 2
+    },
+    {
+      "count": 20,
+      "source_expert": 2,
+      "source_layer": 1,
+      "target_expert": 2,
+      "target_layer": 2
+    },
+    {
+      "count": 13,
+      "source_expert": 2,
+      "source_layer": 1,
+      "target_expert": 3,
+      "target_layer": 2
+    },
+    {
+      "count": 14,
+      "source_expert": 2,
+      "source_layer": 1,
+      "target_expert": 4,
+      "target_layer": 2
+    },
+    {
+      "count": 20,
+      "source_expert": 2,
+      "source_layer": 1,
+      "target_expert": 5,
+      "target_layer": 2
+    },
+    {
+      "count": 27,
+      "source_expert": 2,
+      "source_layer": 1,
+      "target_expert": 6,
+      "target_layer": 2
+    },
+    {
+      "count": 33,
+      "source_expert": 2,
+      "source_layer": 1,
+      "target_expert": 7,
+      "target_layer": 2
+    },
+    {
+      "count": 33,
+      "source_expert": 3,
+      "source_layer": 1,
+      "target_expert": 0,
+      "target_layer": 2
+    },
+    {
+      "count": 16,
+      "source_expert": 3,
+      "source_layer": 1,
+      "target_expert": 1,
+      "target_layer": 2
+    },
+    {
+      "count": 43,
+      "source_expert": 3,
+      "source_layer": 1,
+      "target_expert": 2,
+      "target_layer": 2
+    },
+    {
+      "count": 16,
+      "source_expert": 3,
+      "source_layer": 1,
+      "target_expert": 3,
+      "target_layer": 2
+    },
+    {
+      "count": 35,
+      "source_expert": 3,
+      "source_layer": 1,
+      "target_expert": 4,
+      "target_layer": 2
+    },
+    {
+      "count": 35,
+      "source_expert": 3,
+      "source_layer": 1,
+      "target_expert": 5,
+      "target_layer": 2
+    },
+    {
+      "count": 30,
+      "source_expert": 3,
+      "source_layer": 1,
+      "target_expert": 6,
+      "target_layer": 2
+    },
+    {
+      "count": 50,
+      "source_expert": 3,
+      "source_layer": 1,
+      "target_expert": 7,
+      "target_layer": 2
+    },
+    {
+      "count": 28,
+      "source_expert": 4,
+      "source_layer": 1,
+      "target_expert": 0,
+      "target_layer": 2
+    },
+    {
+      "count": 14,
+      "source_expert": 4,
+      "source_layer": 1,
+      "target_expert": 1,
+      "target_layer": 2
+    },
+    {
+      "count": 77,
+      "source_expert": 4,
+      "source_layer": 1,
+      "target_expert": 2,
+      "target_layer": 2
+    },
+    {
+      "count": 46,
+      "source_expert": 4,
+      "source_layer": 1,
+      "target_expert": 3,
+      "target_layer": 2
+    },
+    {
+      "count": 18,
+      "source_expert": 4,
+      "source_layer": 1,
+      "target_expert": 4,
+      "target_layer": 2
+    },
+    {
+      "count": 88,
+      "source_expert": 4,
+      "source_layer": 1,
+      "target_expert": 5,
+      "target_layer": 2
+    },
+    {
+      "count": 58,
+      "source_expert": 4,
+      "source_layer": 1,
+      "target_expert": 6,
+      "target_layer": 2
+    },
+    {
+      "count": 73,
+      "source_expert": 4,
+      "source_layer": 1,
+      "target_expert": 7,
+      "target_layer": 2
+    },
+    {
+      "count": 26,
+      "source_expert": 5,
+      "source_layer": 1,
+      "target_expert": 0,
+      "target_layer": 2
+    },
+    {
+      "count": 53,
+      "source_expert": 5,
+      "source_layer": 1,
+      "target_expert": 1,
+      "target_layer": 2
+    },
+    {
+      "count": 87,
+      "source_expert": 5,
+      "source_layer": 1,
+      "target_expert": 2,
+      "target_layer": 2
+    },
+    {
+      "count": 67,
+      "source_expert": 5,
+      "source_layer": 1,
+      "target_expert": 3,
+      "target_layer": 2
+    },
+    {
+      "count": 26,
+      "source_expert": 5,
+      "source_layer": 1,
+      "target_expert": 4,
+      "target_layer": 2
+    },
+    {
+      "count": 153,
+      "source_expert": 5,
+      "source_layer": 1,
+      "target_expert": 5,
+      "target_layer": 2
+    },
+    {
+      "count": 30,
+      "source_expert": 5,
+      "source_layer": 1,
+      "target_expert": 6,
+      "target_layer": 2
+    },
+    {
+      "count": 126,
+      "source_expert": 5,
+      "source_layer": 1,
+      "target_expert": 7,
+      "target_layer": 2
+    },
+    {
+      "count": 57,
+      "source_expert": 6,
+      "source_layer": 1,
+      "target_expert": 0,
+      "target_layer": 2
+    },
+    {
+      "count": 69,
+      "source_expert": 6,
+      "source_layer": 1,
+      "target_expert": 1,
+      "target_layer": 2
+    },
+    {
+      "count": 100,
+      "source_expert": 6,
+      "source_layer": 1,
+      "target_expert": 2,
+      "target_layer": 2
+    },
+    {
+      "count": 106,
+      "source_expert": 6,
+      "source_layer": 1,
+      "target_expert": 3,
+      "target_layer": 2
+    },
+    {
+      "count": 63,
+      "source_expert": 6,
+      "source_layer": 1,
+      "target_expert": 4,
+      "target_layer": 2
+    },
+    {
+      "count": 125,
+      "source_expert": 6,
+      "source_layer": 1,
+      "target_expert": 5,
+      "target_layer": 2
+    },
+    {
+      "count": 56,
+      "source_expert": 6,
+      "source_layer": 1,
+      "target_expert": 6,
+      "target_layer": 2
+    },
+    {
+      "count": 78,
+      "source_expert": 6,
+      "source_layer": 1,
+      "target_expert": 7,
+      "target_layer": 2
+    },
+    {
+      "count": 23,
+      "source_expert": 7,
+      "source_layer": 1,
+      "target_expert": 0,
+      "target_layer": 2
+    },
+    {
+      "count": 12,
+      "source_expert": 7,
+      "source_layer": 1,
+      "target_expert": 1,
+      "target_layer": 2
+    },
+    {
+      "count": 81,
+      "source_expert": 7,
+      "source_layer": 1,
+      "target_expert": 2,
+      "target_layer": 2
+    },
+    {
+      "count": 57,
+      "source_expert": 7,
+      "source_layer": 1,
+      "target_expert": 3,
+      "target_layer": 2
+    },
+    {
+      "count": 24,
+      "source_expert": 7,
+      "source_layer": 1,
+      "target_expert": 4,
+      "target_layer": 2
+    },
+    {
+      "count": 73,
+      "source_expert": 7,
+      "source_layer": 1,
+      "target_expert": 5,
+      "target_layer": 2
+    },
+    {
+      "count": 18,
+      "source_expert": 7,
+      "source_layer": 1,
+      "target_expert": 6,
+      "target_layer": 2
+    },
+    {
+      "count": 118,
+      "source_expert": 7,
+      "source_layer": 1,
+      "target_expert": 7,
+      "target_layer": 2
+    },
+    {
+      "count": 65,
+      "source_expert": 0,
+      "source_layer": 2,
+      "target_expert": 0,
+      "target_layer": 3
+    },
+    {
+      "count": 67,
+      "source_expert": 0,
+      "source_layer": 2,
+      "target_expert": 1,
+      "target_layer": 3
+    },
+    {
+      "count": 16,
+      "source_expert": 0,
+      "source_layer": 2,
+      "target_expert": 2,
+      "target_layer": 3
+    },
+    {
+      "count": 25,
+      "source_expert": 0,
+      "source_layer": 2,
+      "target_expert": 3,
+      "target_layer": 3
+    },
+    {
+      "count": 25,
+      "source_expert": 0,
+      "source_layer": 2,
+      "target_expert": 4,
+      "target_layer": 3
+    },
+    {
+      "count": 32,
+      "source_expert": 0,
+      "source_layer": 2,
+      "target_expert": 5,
+      "target_layer": 3
+    },
+    {
+      "count": 27,
+      "source_expert": 0,
+      "source_layer": 2,
+      "target_expert": 6,
+      "target_layer": 3
+    },
+    {
+      "count": 29,
+      "source_expert": 0,
+      "source_layer": 2,
+      "target_expert": 7,
+      "target_layer": 3
+    },
+    {
+      "count": 18,
+      "source_expert": 1,
+      "source_layer": 2,
+      "target_expert": 0,
+      "target_layer": 3
+    },
+    {
+      "count": 22,
+      "source_expert": 1,
+      "source_layer": 2,
+      "target_expert": 1,
+      "target_layer": 3
+    },
+    {
+      "count": 8,
+      "source_expert": 1,
+      "source_layer": 2,
+      "target_expert": 2,
+      "target_layer": 3
+    },
+    {
+      "count": 51,
+      "source_expert": 1,
+      "source_layer": 2,
+      "target_expert": 3,
+      "target_layer": 3
+    },
+    {
+      "count": 12,
+      "source_expert": 1,
+      "source_layer": 2,
+      "target_expert": 4,
+      "target_layer": 3
+    },
+    {
+      "count": 16,
+      "source_expert": 1,
+      "source_layer": 2,
+      "target_expert": 5,
+      "target_layer": 3
+    },
+    {
+      "count": 64,
+      "source_expert": 1,
+      "source_layer": 2,
+      "target_expert": 6,
+      "target_layer": 3
+    },
+    {
+      "count": 15,
+      "source_expert": 1,
+      "source_layer": 2,
+      "target_expert": 7,
+      "target_layer": 3
+    },
+    {
+      "count": 76,
+      "source_expert": 2,
+      "source_layer": 2,
+      "target_expert": 0,
+      "target_layer": 3
+    },
+    {
+      "count": 84,
+      "source_expert": 2,
+      "source_layer": 2,
+      "target_expert": 1,
+      "target_layer": 3
+    },
+    {
+      "count": 74,
+      "source_expert": 2,
+      "source_layer": 2,
+      "target_expert": 2,
+      "target_layer": 3
+    },
+    {
+      "count": 72,
+      "source_expert": 2,
+      "source_layer": 2,
+      "target_expert": 3,
+      "target_layer": 3
+    },
+    {
+      "count": 70,
+      "source_expert": 2,
+      "source_layer": 2,
+      "target_expert": 4,
+      "target_layer": 3
+    },
+    {
+      "count": 80,
+      "source_expert": 2,
+      "source_layer": 2,
+      "target_expert": 5,
+      "target_layer": 3
+    },
+    {
+      "count": 94,
+      "source_expert": 2,
+      "source_layer": 2,
+      "target_expert": 6,
+      "target_layer": 3
+    },
+    {
+      "count": 90,
+      "source_expert": 2,
+      "source_layer": 2,
+      "target_expert": 7,
+      "target_layer": 3
+    },
+    {
+      "count": 39,
+      "source_expert": 3,
+      "source_layer": 2,
+      "target_expert": 0,
+      "target_layer": 3
+    },
+    {
+      "count": 54,
+      "source_expert": 3,
+      "source_layer": 2,
+      "target_expert": 1,
+      "target_layer": 3
+    },
+    {
+      "count": 55,
+      "source_expert": 3,
+      "source_layer": 2,
+      "target_expert": 2,
+      "target_layer": 3
+    },
+    {
+      "count": 82,
+      "source_expert": 3,
+      "source_layer": 2,
+      "target_expert": 3,
+      "target_layer": 3
+    },
+    {
+      "count": 49,
+      "source_expert": 3,
+      "source_layer": 2,
+      "target_expert": 4,
+      "target_layer": 3
+    },
+    {
+      "count": 58,
+      "source_expert": 3,
+      "source_layer": 2,
+      "target_expert": 5,
+      "target_layer": 3
+    },
+    {
+      "count": 82,
+      "source_expert": 3,
+      "source_layer": 2,
+      "target_expert": 6,
+      "target_layer": 3
+    },
+    {
+      "count": 45,
+      "source_expert": 3,
+      "source_layer": 2,
+      "target_expert": 7,
+      "target_layer": 3
+    },
+    {
+      "count": 44,
+      "source_expert": 4,
+      "source_layer": 2,
+      "target_expert": 0,
+      "target_layer": 3
+    },
+    {
+      "count": 38,
+      "source_expert": 4,
+      "source_layer": 2,
+      "target_expert": 1,
+      "target_layer": 3
+    },
+    {
+      "count": 19,
+      "source_expert": 4,
+      "source_layer": 2,
+      "target_expert": 2,
+      "target_layer": 3
+    },
+    {
+      "count": 30,
+      "source_expert": 4,
+      "source_layer": 2,
+      "target_expert": 3,
+      "target_layer": 3
+    },
+    {
+      "count": 24,
+      "source_expert": 4,
+      "source_layer": 2,
+      "target_expert": 4,
+      "target_layer": 3
+    },
+    {
+      "count": 30,
+      "source_expert": 4,
+      "source_layer": 2,
+      "target_expert": 5,
+      "target_layer": 3
+    },
+    {
+      "count": 35,
+      "source_expert": 4,
+      "source_layer": 2,
+      "target_expert": 6,
+      "target_layer": 3
+    },
+    {
+      "count": 22,
+      "source_expert": 4,
+      "source_layer": 2,
+      "target_expert": 7,
+      "target_layer": 3
+    },
+    {
+      "count": 105,
+      "source_expert": 5,
+      "source_layer": 2,
+      "target_expert": 0,
+      "target_layer": 3
+    },
+    {
+      "count": 112,
+      "source_expert": 5,
+      "source_layer": 2,
+      "target_expert": 1,
+      "target_layer": 3
+    },
+    {
+      "count": 93,
+      "source_expert": 5,
+      "source_layer": 2,
+      "target_expert": 2,
+      "target_layer": 3
+    },
+    {
+      "count": 95,
+      "source_expert": 5,
+      "source_layer": 2,
+      "target_expert": 3,
+      "target_layer": 3
+    },
+    {
+      "count": 147,
+      "source_expert": 5,
+      "source_layer": 2,
+      "target_expert": 4,
+      "target_layer": 3
+    },
+    {
+      "count": 119,
+      "source_expert": 5,
+      "source_layer": 2,
+      "target_expert": 5,
+      "target_layer": 3
+    },
+    {
+      "count": 113,
+      "source_expert": 5,
+      "source_layer": 2,
+      "target_expert": 6,
+      "target_layer": 3
+    },
+    {
+      "count": 96,
+      "source_expert": 5,
+      "source_layer": 2,
+      "target_expert": 7,
+      "target_layer": 3
+    },
+    {
+      "count": 52,
+      "source_expert": 6,
+      "source_layer": 2,
+      "target_expert": 0,
+      "target_layer": 3
+    },
+    {
+      "count": 70,
+      "source_expert": 6,
+      "source_layer": 2,
+      "target_expert": 1,
+      "target_layer": 3
+    },
+    {
+      "count": 40,
+      "source_expert": 6,
+      "source_layer": 2,
+      "target_expert": 2,
+      "target_layer": 3
+    },
+    {
+      "count": 38,
+      "source_expert": 6,
+      "source_layer": 2,
+      "target_expert": 3,
+      "target_layer": 3
+    },
+    {
+      "count": 28,
+      "source_expert": 6,
+      "source_layer": 2,
+      "target_expert": 4,
+      "target_layer": 3
+    },
+    {
+      "count": 39,
+      "source_expert": 6,
+      "source_layer": 2,
+      "target_expert": 5,
+      "target_layer": 3
+    },
+    {
+      "count": 35,
+      "source_expert": 6,
+      "source_layer": 2,
+      "target_expert": 6,
+      "target_layer": 3
+    },
+    {
+      "count": 36,
+      "source_expert": 6,
+      "source_layer": 2,
+      "target_expert": 7,
+      "target_layer": 3
+    },
+    {
+      "count": 101,
+      "source_expert": 7,
+      "source_layer": 2,
+      "target_expert": 0,
+      "target_layer": 3
+    },
+    {
+      "count": 121,
+      "source_expert": 7,
+      "source_layer": 2,
+      "target_expert": 1,
+      "target_layer": 3
+    },
+    {
+      "count": 97,
+      "source_expert": 7,
+      "source_layer": 2,
+      "target_expert": 2,
+      "target_layer": 3
+    },
+    {
+      "count": 95,
+      "source_expert": 7,
+      "source_layer": 2,
+      "target_expert": 3,
+      "target_layer": 3
+    },
+    {
+      "count": 129,
+      "source_expert": 7,
+      "source_layer": 2,
+      "target_expert": 4,
+      "target_layer": 3
+    },
+    {
+      "count": 140,
+      "source_expert": 7,
+      "source_layer": 2,
+      "target_expert": 5,
+      "target_layer": 3
+    },
+    {
+      "count": 130,
+      "source_expert": 7,
+      "source_layer": 2,
+      "target_expert": 6,
+      "target_layer": 3
+    },
+    {
+      "count": 111,
+      "source_expert": 7,
+      "source_layer": 2,
+      "target_expert": 7,
+      "target_layer": 3
+    },
+    {
+      "count": 1,
+      "source_expert": 0,
+      "source_layer": 3,
+      "target_expert": 0,
+      "target_layer": 4
+    },
+    {
+      "count": 16,
+      "source_expert": 0,
+      "source_layer": 3,
+      "target_expert": 1,
+      "target_layer": 4
+    },
+    {
+      "count": 15,
+      "source_expert": 0,
+      "source_layer": 3,
+      "target_expert": 2,
+      "target_layer": 4
+    },
+    {
+      "count": 19,
+      "source_expert": 0,
+      "source_layer": 3,
+      "target_expert": 3,
+      "target_layer": 4
+    },
+    {
+      "count": 202,
+      "source_expert": 0,
+      "source_layer": 3,
+      "target_expert": 4,
+      "target_layer": 4
+    },
+    {
+      "count": 9,
+      "source_expert": 0,
+      "source_layer": 3,
+      "target_expert": 5,
+      "target_layer": 4
+    },
+    {
+      "count": 215,
+      "source_expert": 0,
+      "source_layer": 3,
+      "target_expert": 6,
+      "target_layer": 4
+    },
+    {
+      "count": 23,
+      "source_expert": 0,
+      "source_layer": 3,
+      "target_expert": 7,
+      "target_layer": 4
+    },
+    {
+      "count": 3,
+      "source_expert": 1,
+      "source_layer": 3,
+      "target_expert": 0,
+      "target_layer": 4
+    },
+    {
+      "count": 18,
+      "source_expert": 1,
+      "source_layer": 3,
+      "target_expert": 1,
+      "target_layer": 4
+    },
+    {
+      "count": 5,
+      "source_expert": 1,
+      "source_layer": 3,
+      "target_expert": 2,
+      "target_layer": 4
+    },
+    {
+      "count": 9,
+      "source_expert": 1,
+      "source_layer": 3,
+      "target_expert": 3,
+      "target_layer": 4
+    },
+    {
+      "count": 241,
+      "source_expert": 1,
+      "source_layer": 3,
+      "target_expert": 4,
+      "target_layer": 4
+    },
+    {
+      "count": 13,
+      "source_expert": 1,
+      "source_layer": 3,
+      "target_expert": 5,
+      "target_layer": 4
+    },
+    {
+      "count": 264,
+      "source_expert": 1,
+      "source_layer": 3,
+      "target_expert": 6,
+      "target_layer": 4
+    },
+    {
+      "count": 15,
+      "source_expert": 1,
+      "source_layer": 3,
+      "target_expert": 7,
+      "target_layer": 4
+    },
+    {
+      "count": 3,
+      "source_expert": 2,
+      "source_layer": 3,
+      "target_expert": 0,
+      "target_layer": 4
+    },
+    {
+      "count": 12,
+      "source_expert": 2,
+      "source_layer": 3,
+      "target_expert": 1,
+      "target_layer": 4
+    },
+    {
+      "count": 8,
+      "source_expert": 2,
+      "source_layer": 3,
+      "target_expert": 2,
+      "target_layer": 4
+    },
+    {
+      "count": 5,
+      "source_expert": 2,
+      "source_layer": 3,
+      "target_expert": 3,
+      "target_layer": 4
+    },
+    {
+      "count": 184,
+      "source_expert": 2,
+      "source_layer": 3,
+      "target_expert": 4,
+      "target_layer": 4
+    },
+    {
+      "count": 4,
+      "source_expert": 2,
+      "source_layer": 3,
+      "target_expert": 5,
+      "target_layer": 4
+    },
+    {
+      "count": 178,
+      "source_expert": 2,
+      "source_layer": 3,
+      "target_expert": 6,
+      "target_layer": 4
+    },
+    {
+      "count": 8,
+      "source_expert": 2,
+      "source_layer": 3,
+      "target_expert": 7,
+      "target_layer": 4
+    },
+    {
+      "count": 1,
+      "source_expert": 3,
+      "source_layer": 3,
+      "target_expert": 0,
+      "target_layer": 4
+    },
+    {
+      "count": 55,
+      "source_expert": 3,
+      "source_layer": 3,
+      "target_expert": 1,
+      "target_layer": 4
+    },
+    {
+      "count": 12,
+      "source_expert": 3,
+      "source_layer": 3,
+      "target_expert": 2,
+      "target_layer": 4
+    },
+    {
+      "count": 14,
+      "source_expert": 3,
+      "source_layer": 3,
+      "target_expert": 3,
+      "target_layer": 4
+    },
+    {
+      "count": 215,
+      "source_expert": 3,
+      "source_layer": 3,
+      "target_expert": 4,
+      "target_layer": 4
+    },
+    {
+      "count": 13,
+      "source_expert": 3,
+      "source_layer": 3,
+      "target_expert": 5,
+      "target_layer": 4
+    },
+    {
+      "count": 172,
+      "source_expert": 3,
+      "source_layer": 3,
+      "target_expert": 6,
+      "target_layer": 4
+    },
+    {
+      "count": 6,
+      "source_expert": 3,
+      "source_layer": 3,
+      "target_expert": 7,
+      "target_layer": 4
+    },
+    {
+      "count": 1,
+      "source_expert": 4,
+      "source_layer": 3,
+      "target_expert": 0,
+      "target_layer": 4
+    },
+    {
+      "count": 11,
+      "source_expert": 4,
+      "source_layer": 3,
+      "target_expert": 1,
+      "target_layer": 4
+    },
+    {
+      "count": 34,
+      "source_expert": 4,
+      "source_layer": 3,
+      "target_expert": 2,
+      "target_layer": 4
+    },
+    {
+      "count": 18,
+      "source_expert": 4,
+      "source_layer": 3,
+      "target_expert": 3,
+      "target_layer": 4
+    },
+    {
+      "count": 228,
+      "source_expert": 4,
+      "source_layer": 3,
+      "target_expert": 4,
+      "target_layer": 4
+    },
+    {
+      "count": 3,
+      "source_expert": 4,
+      "source_layer": 3,
+      "target_expert": 5,
+      "target_layer": 4
+    },
+    {
+      "count": 183,
+      "source_expert": 4,
+      "source_layer": 3,
+      "target_expert": 6,
+      "target_layer": 4
+    },
+    {
+      "count": 6,
+      "source_expert": 4,
+      "source_layer": 3,
+      "target_expert": 7,
+      "target_layer": 4
+    },
+    {
+      "count": 5,
+      "source_expert": 5,
+      "source_layer": 3,
+      "target_expert": 0,
+      "target_layer": 4
+    },
+    {
+      "count": 33,
+      "source_expert": 5,
+      "source_layer": 3,
+      "target_expert": 1,
+      "target_layer": 4
+    },
+    {
+      "count": 12,
+      "source_expert": 5,
+      "source_layer": 3,
+      "target_expert": 2,
+      "target_layer": 4
+    },
+    {
+      "count": 8,
+      "source_expert": 5,
+      "source_layer": 3,
+      "target_expert": 3,
+      "target_layer": 4
+    },
+    {
+      "count": 224,
+      "source_expert": 5,
+      "source_layer": 3,
+      "target_expert": 4,
+      "target_layer": 4
+    },
+    {
+      "count": 2,
+      "source_expert": 5,
+      "source_layer": 3,
+      "target_expert": 5,
+      "target_layer": 4
+    },
+    {
+      "count": 219,
+      "source_expert": 5,
+      "source_layer": 3,
+      "target_expert": 6,
+      "target_layer": 4
+    },
+    {
+      "count": 11,
+      "source_expert": 5,
+      "source_layer": 3,
+      "target_expert": 7,
+      "target_layer": 4
+    },
+    {
+      "count": 6,
+      "source_expert": 6,
+      "source_layer": 3,
+      "target_expert": 0,
+      "target_layer": 4
+    },
+    {
+      "count": 55,
+      "source_expert": 6,
+      "source_layer": 3,
+      "target_expert": 1,
+      "target_layer": 4
+    },
+    {
+      "count": 4,
+      "source_expert": 6,
+      "source_layer": 3,
+      "target_expert": 2,
+      "target_layer": 4
+    },
+    {
+      "count": 7,
+      "source_expert": 6,
+      "source_layer": 3,
+      "target_expert": 3,
+      "target_layer": 4
+    },
+    {
+      "count": 254,
+      "source_expert": 6,
+      "source_layer": 3,
+      "target_expert": 4,
+      "target_layer": 4
+    },
+    {
+      "count": 17,
+      "source_expert": 6,
+      "source_layer": 3,
+      "target_expert": 5,
+      "target_layer": 4
+    },
+    {
+      "count": 228,
+      "source_expert": 6,
+      "source_layer": 3,
+      "target_expert": 6,
+      "target_layer": 4
+    },
+    {
+      "count": 9,
+      "source_expert": 6,
+      "source_layer": 3,
+      "target_expert": 7,
+      "target_layer": 4
+    },
+    {
+      "count": 2,
+      "source_expert": 7,
+      "source_layer": 3,
+      "target_expert": 0,
+      "target_layer": 4
+    },
+    {
+      "count": 10,
+      "source_expert": 7,
+      "source_layer": 3,
+      "target_expert": 1,
+      "target_layer": 4
+    },
+    {
+      "count": 22,
+      "source_expert": 7,
+      "source_layer": 3,
+      "target_expert": 2,
+      "target_layer": 4
+    },
+    {
+      "count": 12,
+      "source_expert": 7,
+      "source_layer": 3,
+      "target_expert": 3,
+      "target_layer": 4
+    },
+    {
+      "count": 202,
+      "source_expert": 7,
+      "source_layer": 3,
+      "target_expert": 4,
+      "target_layer": 4
+    },
+    {
+      "count": 3,
+      "source_expert": 7,
+      "source_layer": 3,
+      "target_expert": 5,
+      "target_layer": 4
+    },
+    {
+      "count": 181,
+      "source_expert": 7,
+      "source_layer": 3,
+      "target_expert": 6,
+      "target_layer": 4
+    },
+    {
+      "count": 12,
+      "source_expert": 7,
+      "source_layer": 3,
+      "target_expert": 7,
+      "target_layer": 4
+    },
+    {
+      "count": 6,
+      "source_expert": 0,
+      "source_layer": 4,
+      "target_expert": 1,
+      "target_layer": 5
+    },
+    {
+      "count": 8,
+      "source_expert": 0,
+      "source_layer": 4,
+      "target_expert": 2,
+      "target_layer": 5
+    },
+    {
+      "count": 7,
+      "source_expert": 0,
+      "source_layer": 4,
+      "target_expert": 3,
+      "target_layer": 5
+    },
+    {
+      "count": 1,
+      "source_expert": 0,
+      "source_layer": 4,
+      "target_expert": 7,
+      "target_layer": 5
+    },
+    {
+      "count": 40,
+      "source_expert": 1,
+      "source_layer": 4,
+      "target_expert": 0,
+      "target_layer": 5
+    },
+    {
+      "count": 14,
+      "source_expert": 1,
+      "source_layer": 4,
+      "target_expert": 1,
+      "target_layer": 5
+    },
+    {
+      "count": 52,
+      "source_expert": 1,
+      "source_layer": 4,
+      "target_expert": 2,
+      "target_layer": 5
+    },
+    {
+      "count": 59,
+      "source_expert": 1,
+      "source_layer": 4,
+      "target_expert": 3,
+      "target_layer": 5
+    },
+    {
+      "count": 6,
+      "source_expert": 1,
+      "source_layer": 4,
+      "target_expert": 4,
+      "target_layer": 5
+    },
+    {
+      "count": 39,
+      "source_expert": 1,
+      "source_layer": 4,
+      "target_expert": 7,
+      "target_layer": 5
+    },
+    {
+      "count": 3,
+      "source_expert": 2,
+      "source_layer": 4,
+      "target_expert": 1,
+      "target_layer": 5
+    },
+    {
+      "count": 53,
+      "source_expert": 2,
+      "source_layer": 4,
+      "target_expert": 2,
+      "target_layer": 5
+    },
+    {
+      "count": 45,
+      "source_expert": 2,
+      "source_layer": 4,
+      "target_expert": 3,
+      "target_layer": 5
+    },
+    {
+      "count": 9,
+      "source_expert": 2,
+      "source_layer": 4,
+      "target_expert": 4,
+      "target_layer": 5
+    },
+    {
+      "count": 2,
+      "source_expert": 2,
+      "source_layer": 4,
+      "target_expert": 7,
+      "target_layer": 5
+    },
+    {
+      "count": 1,
+      "source_expert": 3,
+      "source_layer": 4,
+      "target_expert": 0,
+      "target_layer": 5
+    },
+    {
+      "count": 7,
+      "source_expert": 3,
+      "source_layer": 4,
+      "target_expert": 1,
+      "target_layer": 5
+    },
+    {
+      "count": 37,
+      "source_expert": 3,
+      "source_layer": 4,
+      "target_expert": 2,
+      "target_layer": 5
+    },
+    {
+      "count": 29,
+      "source_expert": 3,
+      "source_layer": 4,
+      "target_expert": 3,
+      "target_layer": 5
+    },
+    {
+      "count": 13,
+      "source_expert": 3,
+      "source_layer": 4,
+      "target_expert": 4,
+      "target_layer": 5
+    },
+    {
+      "count": 1,
+      "source_expert": 3,
+      "source_layer": 4,
+      "target_expert": 6,
+      "target_layer": 5
+    },
+    {
+      "count": 4,
+      "source_expert": 3,
+      "source_layer": 4,
+      "target_expert": 7,
+      "target_layer": 5
+    },
+    {
+      "count": 35,
+      "source_expert": 4,
+      "source_layer": 4,
+      "target_expert": 0,
+      "target_layer": 5
+    },
+    {
+      "count": 111,
+      "source_expert": 4,
+      "source_layer": 4,
+      "target_expert": 1,
+      "target_layer": 5
+    },
+    {
+      "count": 756,
+      "source_expert": 4,
+      "source_layer": 4,
+      "target_expert": 2,
+      "target_layer": 5
+    },
+    {
+      "count": 588,
+      "source_expert": 4,
+      "source_layer": 4,
+      "target_expert": 3,
+      "target_layer": 5
+    },
+    {
+      "count": 192,
+      "source_expert": 4,
+      "source_layer": 4,
+      "target_expert": 4,
+      "target_layer": 5
+    },
+    {
+      "count": 9,
+      "source_expert": 4,
+      "source_layer": 4,
+      "target_expert": 6,
+      "target_layer": 5
+    },
+    {
+      "count": 59,
+      "source_expert": 4,
+      "source_layer": 4,
+      "target_expert": 7,
+      "target_layer": 5
+    },
+    {
+      "count": 8,
+      "source_expert": 5,
+      "source_layer": 4,
+      "target_expert": 0,
+      "target_layer": 5
+    },
+    {
+      "count": 6,
+      "source_expert": 5,
+      "source_layer": 4,
+      "target_expert": 1,
+      "target_layer": 5
+    },
+    {
+      "count": 15,
+      "source_expert": 5,
+      "source_layer": 4,
+      "target_expert": 2,
+      "target_layer": 5
+    },
+    {
+      "count": 19,
+      "source_expert": 5,
+      "source_layer": 4,
+      "target_expert": 3,
+      "target_layer": 5
+    },
+    {
+      "count": 6,
+      "source_expert": 5,
+      "source_layer": 4,
+      "target_expert": 4,
+      "target_layer": 5
+    },
+    {
+      "count": 4,
+      "source_expert": 5,
+      "source_layer": 4,
+      "target_expert": 6,
+      "target_layer": 5
+    },
+    {
+      "count": 6,
+      "source_expert": 5,
+      "source_layer": 4,
+      "target_expert": 7,
+      "target_layer": 5
+    },
+    {
+      "count": 3,
+      "source_expert": 6,
+      "source_layer": 4,
+      "target_expert": 0,
+      "target_layer": 5
+    },
+    {
+      "count": 119,
+      "source_expert": 6,
+      "source_layer": 4,
+      "target_expert": 1,
+      "target_layer": 5
+    },
+    {
+      "count": 727,
+      "source_expert": 6,
+      "source_layer": 4,
+      "target_expert": 2,
+      "target_layer": 5
+    },
+    {
+      "count": 562,
+      "source_expert": 6,
+      "source_layer": 4,
+      "target_expert": 3,
+      "target_layer": 5
+    },
+    {
+      "count": 168,
+      "source_expert": 6,
+      "source_layer": 4,
+      "target_expert": 4,
+      "target_layer": 5
+    },
+    {
+      "count": 11,
+      "source_expert": 6,
+      "source_layer": 4,
+      "target_expert": 6,
+      "target_layer": 5
+    },
+    {
+      "count": 50,
+      "source_expert": 6,
+      "source_layer": 4,
+      "target_expert": 7,
+      "target_layer": 5
+    },
+    {
+      "count": 1,
+      "source_expert": 7,
+      "source_layer": 4,
+      "target_expert": 0,
+      "target_layer": 5
+    },
+    {
+      "count": 16,
+      "source_expert": 7,
+      "source_layer": 4,
+      "target_expert": 1,
+      "target_layer": 5
+    },
+    {
+      "count": 30,
+      "source_expert": 7,
+      "source_layer": 4,
+      "target_expert": 2,
+      "target_layer": 5
+    },
+    {
+      "count": 11,
+      "source_expert": 7,
+      "source_layer": 4,
+      "target_expert": 3,
+      "target_layer": 5
+    },
+    {
+      "count": 18,
+      "source_expert": 7,
+      "source_layer": 4,
+      "target_expert": 4,
+      "target_layer": 5
+    },
+    {
+      "count": 3,
+      "source_expert": 7,
+      "source_layer": 4,
+      "target_expert": 6,
+      "target_layer": 5
+    },
+    {
+      "count": 11,
+      "source_expert": 7,
+      "source_layer": 4,
+      "target_expert": 7,
+      "target_layer": 5
+    },
+    {
+      "count": 1,
+      "source_expert": 0,
+      "source_layer": 5,
+      "target_expert": 0,
+      "target_layer": 6
+    },
+    {
+      "count": 5,
+      "source_expert": 0,
+      "source_layer": 5,
+      "target_expert": 1,
+      "target_layer": 6
+    },
+    {
+      "count": 3,
+      "source_expert": 0,
+      "source_layer": 5,
+      "target_expert": 2,
+      "target_layer": 6
+    },
+    {
+      "count": 12,
+      "source_expert": 0,
+      "source_layer": 5,
+      "target_expert": 3,
+      "target_layer": 6
+    },
+    {
+      "count": 9,
+      "source_expert": 0,
+      "source_layer": 5,
+      "target_expert": 4,
+      "target_layer": 6
+    },
+    {
+      "count": 30,
+      "source_expert": 0,
+      "source_layer": 5,
+      "target_expert": 5,
+      "target_layer": 6
+    },
+    {
+      "count": 28,
+      "source_expert": 0,
+      "source_layer": 5,
+      "target_expert": 7,
+      "target_layer": 6
+    },
+    {
+      "count": 3,
+      "source_expert": 1,
+      "source_layer": 5,
+      "target_expert": 1,
+      "target_layer": 6
+    },
+    {
+      "count": 20,
+      "source_expert": 1,
+      "source_layer": 5,
+      "target_expert": 2,
+      "target_layer": 6
+    },
+    {
+      "count": 106,
+      "source_expert": 1,
+      "source_layer": 5,
+      "target_expert": 3,
+      "target_layer": 6
+    },
+    {
+      "count": 5,
+      "source_expert": 1,
+      "source_layer": 5,
+      "target_expert": 4,
+      "target_layer": 6
+    },
+    {
+      "count": 137,
+      "source_expert": 1,
+      "source_layer": 5,
+      "target_expert": 5,
+      "target_layer": 6
+    },
+    {
+      "count": 1,
+      "source_expert": 1,
+      "source_layer": 5,
+      "target_expert": 6,
+      "target_layer": 6
+    },
+    {
+      "count": 10,
+      "source_expert": 1,
+      "source_layer": 5,
+      "target_expert": 7,
+      "target_layer": 6
+    },
+    {
+      "count": 3,
+      "source_expert": 2,
+      "source_layer": 5,
+      "target_expert": 0,
+      "target_layer": 6
+    },
+    {
+      "count": 1,
+      "source_expert": 2,
+      "source_layer": 5,
+      "target_expert": 1,
+      "target_layer": 6
+    },
+    {
+      "count": 121,
+      "source_expert": 2,
+      "source_layer": 5,
+      "target_expert": 2,
+      "target_layer": 6
+    },
+    {
+      "count": 654,
+      "source_expert": 2,
+      "source_layer": 5,
+      "target_expert": 3,
+      "target_layer": 6
+    },
+    {
+      "count": 2,
+      "source_expert": 2,
+      "source_layer": 5,
+      "target_expert": 4,
+      "target_layer": 6
+    },
+    {
+      "count": 822,
+      "source_expert": 2,
+      "source_layer": 5,
+      "target_expert": 5,
+      "target_layer": 6
+    },
+    {
+      "count": 23,
+      "source_expert": 2,
+      "source_layer": 5,
+      "target_expert": 6,
+      "target_layer": 6
+    },
+    {
+      "count": 52,
+      "source_expert": 2,
+      "source_layer": 5,
+      "target_expert": 7,
+      "target_layer": 6
+    },
+    {
+      "count": 4,
+      "source_expert": 3,
+      "source_layer": 5,
+      "target_expert": 0,
+      "target_layer": 6
+    },
+    {
+      "count": 7,
+      "source_expert": 3,
+      "source_layer": 5,
+      "target_expert": 1,
+      "target_layer": 6
+    },
+    {
+      "count": 83,
+      "source_expert": 3,
+      "source_layer": 5,
+      "target_expert": 2,
+      "target_layer": 6
+    },
+    {
+      "count": 492,
+      "source_expert": 3,
+      "source_layer": 5,
+      "target_expert": 3,
+      "target_layer": 6
+    },
+    {
+      "count": 13,
+      "source_expert": 3,
+      "source_layer": 5,
+      "target_expert": 4,
+      "target_layer": 6
+    },
+    {
+      "count": 641,
+      "source_expert": 3,
+      "source_layer": 5,
+      "target_expert": 5,
+      "target_layer": 6
+    },
+    {
+      "count": 20,
+      "source_expert": 3,
+      "source_layer": 5,
+      "target_expert": 6,
+      "target_layer": 6
+    },
+    {
+      "count": 60,
+      "source_expert": 3,
+      "source_layer": 5,
+      "target_expert": 7,
+      "target_layer": 6
+    },
+    {
+      "count": 1,
+      "source_expert": 4,
+      "source_layer": 5,
+      "target_expert": 1,
+      "target_layer": 6
+    },
+    {
+      "count": 28,
+      "source_expert": 4,
+      "source_layer": 5,
+      "target_expert": 2,
+      "target_layer": 6
+    },
+    {
+      "count": 167,
+      "source_expert": 4,
+      "source_layer": 5,
+      "target_expert": 3,
+      "target_layer": 6
+    },
+    {
+      "count": 1,
+      "source_expert": 4,
+      "source_layer": 5,
+      "target_expert": 4,
+      "target_layer": 6
+    },
+    {
+      "count": 201,
+      "source_expert": 4,
+      "source_layer": 5,
+      "target_expert": 5,
+      "target_layer": 6
+    },
+    {
+      "count": 3,
+      "source_expert": 4,
+      "source_layer": 5,
+      "target_expert": 6,
+      "target_layer": 6
+    },
+    {
+      "count": 11,
+      "source_expert": 4,
+      "source_layer": 5,
+      "target_expert": 7,
+      "target_layer": 6
+    },
+    {
+      "count": 13,
+      "source_expert": 6,
+      "source_layer": 5,
+      "target_expert": 3,
+      "target_layer": 6
+    },
+    {
+      "count": 1,
+      "source_expert": 6,
+      "source_layer": 5,
+      "target_expert": 4,
+      "target_layer": 6
+    },
+    {
+      "count": 12,
+      "source_expert": 6,
+      "source_layer": 5,
+      "target_expert": 5,
+      "target_layer": 6
+    },
+    {
+      "count": 1,
+      "source_expert": 6,
+      "source_layer": 5,
+      "target_expert": 6,
+      "target_layer": 6
+    },
+    {
+      "count": 1,
+      "source_expert": 6,
+      "source_layer": 5,
+      "target_expert": 7,
+      "target_layer": 6
+    },
+    {
+      "count": 1,
+      "source_expert": 7,
+      "source_layer": 5,
+      "target_expert": 1,
+      "target_layer": 6
+    },
+    {
+      "count": 7,
+      "source_expert": 7,
+      "source_layer": 5,
+      "target_expert": 2,
+      "target_layer": 6
+    },
+    {
+      "count": 58,
+      "source_expert": 7,
+      "source_layer": 5,
+      "target_expert": 3,
+      "target_layer": 6
+    },
+    {
+      "count": 3,
+      "source_expert": 7,
+      "source_layer": 5,
+      "target_expert": 4,
+      "target_layer": 6
+    },
+    {
+      "count": 75,
+      "source_expert": 7,
+      "source_layer": 5,
+      "target_expert": 5,
+      "target_layer": 6
+    },
+    {
+      "count": 28,
+      "source_expert": 7,
+      "source_layer": 5,
+      "target_expert": 7,
+      "target_layer": 6
+    },
+    {
+      "count": 2,
+      "source_expert": 0,
+      "source_layer": 6,
+      "target_expert": 0,
+      "target_layer": 7
+    },
+    {
+      "count": 1,
+      "source_expert": 0,
+      "source_layer": 6,
+      "target_expert": 1,
+      "target_layer": 7
+    },
+    {
+      "count": 3,
+      "source_expert": 0,
+      "source_layer": 6,
+      "target_expert": 3,
+      "target_layer": 7
+    },
+    {
+      "count": 2,
+      "source_expert": 0,
+      "source_layer": 6,
+      "target_expert": 4,
+      "target_layer": 7
+    },
+    {
+      "count": 1,
+      "source_expert": 1,
+      "source_layer": 6,
+      "target_expert": 2,
+      "target_layer": 7
+    },
+    {
+      "count": 5,
+      "source_expert": 1,
+      "source_layer": 6,
+      "target_expert": 3,
+      "target_layer": 7
+    },
+    {
+      "count": 3,
+      "source_expert": 1,
+      "source_layer": 6,
+      "target_expert": 4,
+      "target_layer": 7
+    },
+    {
+      "count": 3,
+      "source_expert": 1,
+      "source_layer": 6,
+      "target_expert": 6,
+      "target_layer": 7
+    },
+    {
+      "count": 6,
+      "source_expert": 1,
+      "source_layer": 6,
+      "target_expert": 7,
+      "target_layer": 7
+    },
+    {
+      "count": 17,
+      "source_expert": 2,
+      "source_layer": 6,
+      "target_expert": 0,
+      "target_layer": 7
+    },
+    {
+      "count": 2,
+      "source_expert": 2,
+      "source_layer": 6,
+      "target_expert": 1,
+      "target_layer": 7
+    },
+    {
+      "count": 6,
+      "source_expert": 2,
+      "source_layer": 6,
+      "target_expert": 2,
+      "target_layer": 7
+    },
+    {
+      "count": 120,
+      "source_expert": 2,
+      "source_layer": 6,
+      "target_expert": 3,
+      "target_layer": 7
+    },
+    {
+      "count": 65,
+      "source_expert": 2,
+      "source_layer": 6,
+      "target_expert": 4,
+      "target_layer": 7
+    },
+    {
+      "count": 47,
+      "source_expert": 2,
+      "source_layer": 6,
+      "target_expert": 5,
+      "target_layer": 7
+    },
+    {
+      "count": 5,
+      "source_expert": 2,
+      "source_layer": 6,
+      "target_expert": 7,
+      "target_layer": 7
+    },
+    {
+      "count": 153,
+      "source_expert": 3,
+      "source_layer": 6,
+      "target_expert": 0,
+      "target_layer": 7
+    },
+    {
+      "count": 17,
+      "source_expert": 3,
+      "source_layer": 6,
+      "target_expert": 1,
+      "target_layer": 7
+    },
+    {
+      "count": 28,
+      "source_expert": 3,
+      "source_layer": 6,
+      "target_expert": 2,
+      "target_layer": 7
+    },
+    {
+      "count": 702,
+      "source_expert": 3,
+      "source_layer": 6,
+      "target_expert": 3,
+      "target_layer": 7
+    },
+    {
+      "count": 201,
+      "source_expert": 3,
+      "source_layer": 6,
+      "target_expert": 4,
+      "target_layer": 7
+    },
+    {
+      "count": 380,
+      "source_expert": 3,
+      "source_layer": 6,
+      "target_expert": 5,
+      "target_layer": 7
+    },
+    {
+      "count": 21,
+      "source_expert": 3,
+      "source_layer": 6,
+      "target_expert": 7,
+      "target_layer": 7
+    },
+    {
+      "count": 4,
+      "source_expert": 4,
+      "source_layer": 6,
+      "target_expert": 1,
+      "target_layer": 7
+    },
+    {
+      "count": 2,
+      "source_expert": 4,
+      "source_layer": 6,
+      "target_expert": 2,
+      "target_layer": 7
+    },
+    {
+      "count": 7,
+      "source_expert": 4,
+      "source_layer": 6,
+      "target_expert": 3,
+      "target_layer": 7
+    },
+    {
+      "count": 6,
+      "source_expert": 4,
+      "source_layer": 6,
+      "target_expert": 4,
+      "target_layer": 7
+    },
+    {
+      "count": 2,
+      "source_expert": 4,
+      "source_layer": 6,
+      "target_expert": 5,
+      "target_layer": 7
+    },
+    {
+      "count": 4,
+      "source_expert": 4,
+      "source_layer": 6,
+      "target_expert": 6,
+      "target_layer": 7
+    },
+    {
+      "count": 9,
+      "source_expert": 4,
+      "source_layer": 6,
+      "target_expert": 7,
+      "target_layer": 7
+    },
+    {
+      "count": 173,
+      "source_expert": 5,
+      "source_layer": 6,
+      "target_expert": 0,
+      "target_layer": 7
+    },
+    {
+      "count": 31,
+      "source_expert": 5,
+      "source_layer": 6,
+      "target_expert": 1,
+      "target_layer": 7
+    },
+    {
+      "count": 43,
+      "source_expert": 5,
+      "source_layer": 6,
+      "target_expert": 2,
+      "target_layer": 7
+    },
+    {
+      "count": 878,
+      "source_expert": 5,
+      "source_layer": 6,
+      "target_expert": 3,
+      "target_layer": 7
+    },
+    {
+      "count": 304,
+      "source_expert": 5,
+      "source_layer": 6,
+      "target_expert": 4,
+      "target_layer": 7
+    },
+    {
+      "count": 459,
+      "source_expert": 5,
+      "source_layer": 6,
+      "target_expert": 5,
+      "target_layer": 7
+    },
+    {
+      "count": 3,
+      "source_expert": 5,
+      "source_layer": 6,
+      "target_expert": 6,
+      "target_layer": 7
+    },
+    {
+      "count": 27,
+      "source_expert": 5,
+      "source_layer": 6,
+      "target_expert": 7,
+      "target_layer": 7
+    },
+    {
+      "count": 12,
+      "source_expert": 6,
+      "source_layer": 6,
+      "target_expert": 0,
+      "target_layer": 7
+    },
+    {
+      "count": 1,
+      "source_expert": 6,
+      "source_layer": 6,
+      "target_expert": 1,
+      "target_layer": 7
+    },
+    {
+      "count": 23,
+      "source_expert": 6,
+      "source_layer": 6,
+      "target_expert": 3,
+      "target_layer": 7
+    },
+    {
+      "count": 2,
+      "source_expert": 6,
+      "source_layer": 6,
+      "target_expert": 4,
+      "target_layer": 7
+    },
+    {
+      "count": 10,
+      "source_expert": 6,
+      "source_layer": 6,
+      "target_expert": 5,
+      "target_layer": 7
+    },
+    {
+      "count": 7,
+      "source_expert": 7,
+      "source_layer": 6,
+      "target_expert": 0,
+      "target_layer": 7
+    },
+    {
+      "count": 28,
+      "source_expert": 7,
+      "source_layer": 6,
+      "target_expert": 1,
+      "target_layer": 7
+    },
+    {
+      "count": 26,
+      "source_expert": 7,
+      "source_layer": 6,
+      "target_expert": 2,
+      "target_layer": 7
+    },
+    {
+      "count": 62,
+      "source_expert": 7,
+      "source_layer": 6,
+      "target_expert": 3,
+      "target_layer": 7
+    },
+    {
+      "count": 39,
+      "source_expert": 7,
+      "source_layer": 6,
+      "target_expert": 4,
+      "target_layer": 7
+    },
+    {
+      "count": 28,
+      "source_expert": 7,
+      "source_layer": 6,
+      "target_expert": 5,
+      "target_layer": 7
+    }
+  ]
+}

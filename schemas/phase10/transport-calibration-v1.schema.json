@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "transport-calibration-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "project_head", "nested_head", "phase2_archive_sha256", "bootstrap_role", "artifacts"],
+  "properties": {
+    "schema_version": {"const": "phase10-transport-calibration-v1"},
+    "project_head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "nested_head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "phase2_archive_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "bootstrap_role": {"const": "profile_shape_only; measured costs are derived at the requested exact revisions"},
+    "artifacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["f16", "mxfp4"],
+      "properties": {
+        "f16": {"$ref": "#/$defs/artifact"},
+        "mxfp4": {"$ref": "#/$defs/artifact"}
+      }
+    }
+  },
+  "$defs": {
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profile_path", "profile_sha256", "profile_bytes", "measurement_path", "measurement_sha256", "command", "bootstrap_cost_path", "bootstrap_cost_sha256", "storage_map_path", "storage_map_sha256", "bootstrap_cost_revision_binding", "build_repeatability"],
+      "properties": {
+        "profile_path": {"type": "string", "minLength": 1},
+        "profile_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "profile_bytes": {"type": "integer", "minimum": 1},
+        "measurement_path": {"type": "string", "minLength": 1},
+        "measurement_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "command": {"type": "array", "minItems": 9, "items": {"type": "string"}},
+        "bootstrap_cost_path": {"type": "string", "minLength": 1},
+        "bootstrap_cost_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "storage_map_path": {"type": "string", "minLength": 1},
+        "storage_map_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "bootstrap_cost_revision_binding": {"const": "calibration_only_not_transferred"},
+        "build_repeatability": {"const": "byte_identical"}
+      }
+    }
+  }
+}

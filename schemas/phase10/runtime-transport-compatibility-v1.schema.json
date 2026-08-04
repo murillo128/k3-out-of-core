@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "runtime-transport-compatibility-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "project_head", "nested_head", "model", "mapping", "positive_cases", "negative_cases", "cases"],
+  "properties": {
+    "schema_version": {"const": "phase10-runtime-transport-compatibility-v1"},
+    "status": {"const": "pass"},
+    "project_head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "nested_head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "model": {"type": "object", "additionalProperties": false, "required": ["path", "size"], "properties": {"path": {"type": "string", "minLength": 1}, "size": {"type": "integer", "minimum": 1}}},
+    "mapping": {"type": "object", "additionalProperties": false, "required": ["HOT_CACHE", "COLD_CACHE_BUFFERED", "COLD_CACHE_DIRECT_IO"], "properties": {"HOT_CACHE": {"const": "HOST_TO_DEVICE"}, "COLD_CACHE_BUFFERED": {"const": "BUFFERED"}, "COLD_CACHE_DIRECT_IO": {"const": "DIRECT_IO"}}},
+    "positive_cases": {"const": 3},
+    "negative_cases": {"const": 5},
+    "cases": {"type": "array", "minItems": 8, "maxItems": 8, "items": {"type": "object", "additionalProperties": false, "required": ["profile", "profile_sha256", "selected_transport", "runtime", "expected_accept", "exit_code", "stderr_sha256", "command"], "properties": {
+      "profile": {"type": "string", "minLength": 1}, "profile_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "selected_transport": {"enum": ["BUFFERED", "DIRECT_IO", "HOST_TO_DEVICE"]},
+      "runtime": {"type": "object", "additionalProperties": false, "required": ["cache_mode", "load_mode", "miss_policy", "hot_slots", "cold_slots"], "properties": {"cache_mode": {"enum": ["HOT_CACHE", "COLD_CACHE"]}, "load_mode": {"enum": ["BUFFERED", "DIRECT_IO"]}, "miss_policy": {"const": "PROMOTE_AND_GPU"}, "hot_slots": {"type": "integer", "minimum": 1}, "cold_slots": {"type": "integer", "minimum": 0}}},
+      "expected_accept": {"type": "boolean"}, "exit_code": {"type": "integer", "minimum": 0}, "stderr_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "command": {"type": "array", "minItems": 13, "items": {"type": "string"}}
+    }}}
+  }
+}

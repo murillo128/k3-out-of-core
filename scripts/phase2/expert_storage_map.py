@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -103,12 +104,26 @@ def build_storage_map(
         raise ValueError("loader did not return authoritative file-backing metadata")
     sources = {source["index"]: source for source in probe["source_files"]}
     tensors = {tensor["tensor_name"]: tensor for tensor in probe["tensors"]}
-    if len(tensors) != 21:
-        raise ValueError("expected exactly 21 routed projection tensors")
+    names = {}
+    for name in tensors:
+        match = re.fullmatch(r"blk\.(\d+)\.ffn_(gate|up|down)_exps\.weight", name)
+        if match is None:
+            raise ValueError(f"unsupported routed tensor name: {name}")
+        names.setdefault(int(match.group(1)), set()).add(match.group(2))
+    routed_layers = sorted(names)
+    if not routed_layers or any(value != set(PROJECTIONS) for value in names.values()):
+        raise ValueError("routed projection tensor set is incomplete")
+    expert_counts = {tensors[f"blk.{layer}.ffn_{projection}_exps.weight"]["logical_shape"][2]
+        for layer in routed_layers for projection in PROJECTIONS}
+    if len(expert_counts) != 1:
+        raise ValueError("routed projections disagree on expert count")
+    expert_count = expert_counts.pop()
+    if expert_count <= 0:
+        raise ValueError("routed expert count is invalid")
 
     entries = []
-    for layer in range(1, 8):
-        for expert_id in range(8):
+    for layer in routed_layers:
+        for expert_id in range(expert_count):
             projections = {}
             for projection_name in PROJECTIONS:
                 tensor_name = f"blk.{layer}.ffn_{projection_name}_exps.weight"
@@ -135,8 +150,8 @@ def build_storage_map(
             "llama_cpp_revision": llama_cpp_revision,
         },
         "source_files": probe["source_files"],
-        "expert_count": 8,
-        "routed_layers": list(range(1, 8)),
+        "expert_count": expert_count,
+        "routed_layers": routed_layers,
         "entries": entries,
     }
 
@@ -172,14 +187,15 @@ def validate_source_bytes(storage_map: dict[str, Any]) -> dict[str, Any]:
 
     tensor_evidence = []
     for tensor_name, projections in sorted(tensor_projections.items()):
-        if len(projections) != 8:
-            raise ValueError(f"{tensor_name} does not have all eight expert slices")
+        expert_count = storage_map["expert_count"]
+        if len(projections) != expert_count:
+            raise ValueError(f"{tensor_name} does not have all expert slices")
         projections.sort(key=lambda projection: projection["spans"][0]["file_offset"])
         first = projections[0]
         source_path = sources[first["source_file_index"]][1]
         base = first["tensor_base_offset"]
         size = first["tensor_byte_size"]
-        expected_offsets = [base + index * first["expert_slice_bytes"] for index in range(8)]
+        expected_offsets = [base + index * first["expert_slice_bytes"] for index in range(expert_count)]
         observed_offsets = [projection["spans"][0]["file_offset"] for projection in projections]
         if observed_offsets != expected_offsets or sum(
             projection["spans"][0]["length"] for projection in projections

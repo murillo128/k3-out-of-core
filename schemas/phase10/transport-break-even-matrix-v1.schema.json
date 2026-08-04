@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "transport-break-even-matrix-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "project_head", "nested_head", "host", "formula", "conservative_basis", "waste_external_threshold_transferred", "artifacts"],
+  "properties": {
+    "schema_version": {"const": "phase10-transport-break-even-matrix-v1"},
+    "status": {"enum": ["pass", "fail"]},
+    "project_head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "nested_head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "host": {"type": "string", "minLength": 1},
+    "formula": {"const": "waste/(hidden+waste)"},
+    "conservative_basis": {"type": "string", "minLength": 1},
+    "waste_external_threshold_transferred": {"const": false},
+    "artifacts": {"type": "object", "additionalProperties": false, "required": ["f16", "mxfp4"], "properties": {"f16": {"$ref": "transport-break-even-v1.schema.json"}, "mxfp4": {"$ref": "transport-break-even-v1.schema.json"}}}
+  }
+}

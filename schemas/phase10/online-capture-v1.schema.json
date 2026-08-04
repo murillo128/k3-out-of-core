@@ -1,0 +1,189 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "online-capture-v1.schema.json",
+  "title": "Phase 10 online prefetch capture v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "project_head",
+    "nested_head",
+    "profile_enabled",
+    "profile_sha256",
+    "cache_mode",
+    "load_mode",
+    "miss_policy",
+    "hot_slots",
+    "cold_slots",
+    "model_load_ns",
+    "generated_tokens",
+    "logit_sha256",
+    "initial_resident",
+    "routes",
+    "predictions",
+    "summary"
+  ],
+  "properties": {
+    "schema_version": {"const": "phase10-online-capture-v1"},
+    "project_head": {"$ref": "#/$defs/commit"},
+    "nested_head": {"$ref": "#/$defs/commit"},
+    "profile_enabled": {"type": "boolean"},
+    "profile_sha256": {"$ref": "#/$defs/sha256"},
+    "cache_mode": {"enum": ["HOT_CACHE", "COLD_CACHE"]},
+    "load_mode": {"enum": ["BUFFERED", "DIRECT_IO"]},
+    "miss_policy": {"enum": ["PROMOTE_AND_GPU", "CPU_FALLBACK", "AUTO"]},
+    "hot_slots": {"$ref": "#/$defs/u32"},
+    "cold_slots": {"$ref": "#/$defs/u32"},
+    "model_load_ns": {"$ref": "#/$defs/u64"},
+    "generated_tokens": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "integer", "minimum": 0, "maximum": 2147483647}
+    },
+    "logit_sha256": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/sha256"}
+    },
+    "initial_resident": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/resident"}
+    },
+    "routes": {"type": "array", "items": {"$ref": "#/$defs/route"}},
+    "predictions": {"type": "array", "items": {"$ref": "#/$defs/prediction"}},
+    "summary": {"$ref": "#/$defs/summary"}
+  },
+  "$defs": {
+    "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "u8": {"type": "integer", "minimum": 0, "maximum": 255},
+    "u32": {"type": "integer", "minimum": 0, "maximum": 4294967295},
+    "u64": {"type": "integer", "minimum": 0, "maximum": 18446744073709551615},
+    "i32": {"type": "integer", "minimum": -2147483648, "maximum": 2147483647},
+    "resident": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "layer", "expert", "cold_slot", "hot_slot", "cold_generation", "hot_generation",
+        "cold_last_use", "hot_last_use", "origin"
+      ],
+      "properties": {
+        "layer": {"$ref": "#/$defs/i32"},
+        "expert": {"$ref": "#/$defs/i32"},
+        "cold_slot": {"$ref": "#/$defs/i32"},
+        "hot_slot": {"$ref": "#/$defs/i32"},
+        "cold_generation": {"$ref": "#/$defs/u64"},
+        "hot_generation": {"$ref": "#/$defs/u64"},
+        "cold_last_use": {"$ref": "#/$defs/u64"},
+        "hot_last_use": {"$ref": "#/$defs/u64"},
+        "origin": {"enum": ["DEMAND", "STATIC_SEED", "SPECULATIVE"]}
+      }
+    },
+    "route": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["request", "token", "layer", "selected_experts", "post_event_digest"],
+      "properties": {
+        "request": {"$ref": "#/$defs/u64"},
+        "token": {"$ref": "#/$defs/u64"},
+        "layer": {"$ref": "#/$defs/i32"},
+        "selected_experts": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/i32"}
+        },
+        "post_event_digest": {"$ref": "#/$defs/u64"}
+      }
+    },
+    "timing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["predictor_compute_ns", "enqueue_us", "host_ready_us", "device_ready_us"],
+      "properties": {
+        "predictor_compute_ns": {"$ref": "#/$defs/u64"},
+        "enqueue_us": {"$ref": "#/$defs/u64"},
+        "host_ready_us": {"$ref": "#/$defs/u64"},
+        "device_ready_us": {"$ref": "#/$defs/u64"}
+      }
+    },
+    "prediction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sequence", "request", "token", "deadline_token", "source_layer", "target_layer",
+        "expert", "rank", "score", "trigger", "readiness", "priority", "config_digest",
+        "predictor_digest", "post_event_digest", "outcome", "admitted", "demand_claimed",
+        "cold_ready", "device_ready", "circuit_open_after", "storage_bytes", "h2d_bytes",
+        "cold_slot", "cold_generation", "hot_slot", "hot_generation", "scheduler_slot",
+        "scheduler_generation", "timing"
+      ],
+      "properties": {
+        "sequence": {"$ref": "#/$defs/u64"},
+        "request": {"$ref": "#/$defs/u64"},
+        "token": {"$ref": "#/$defs/u64"},
+        "deadline_token": {"$ref": "#/$defs/u64"},
+        "source_layer": {"$ref": "#/$defs/i32"},
+        "target_layer": {"$ref": "#/$defs/i32"},
+        "expert": {"$ref": "#/$defs/i32"},
+        "rank": {"$ref": "#/$defs/u32"},
+        "score": {"$ref": "#/$defs/u64"},
+        "trigger": {"enum": ["TOKEN_END", "ROUTER_RESULT"]},
+        "readiness": {"enum": ["HOST_READY", "DEVICE_READY"]},
+        "priority": {"$ref": "#/$defs/u8"},
+        "config_digest": {"$ref": "#/$defs/u64"},
+        "predictor_digest": {"$ref": "#/$defs/u64"},
+        "post_event_digest": {"$ref": "#/$defs/u64"},
+        "outcome": {
+          "enum": [
+            "TIMELY_USEFUL", "LATE_JOINED", "WASTED_UNUSED", "CANCELLED_BEFORE_IO",
+            "CANCELLED_DRAINED", "REJECTED"
+          ]
+        },
+        "admitted": {"type": "boolean"},
+        "demand_claimed": {"type": "boolean"},
+        "cold_ready": {"type": "boolean"},
+        "device_ready": {"type": "boolean"},
+        "circuit_open_after": {"type": "boolean"},
+        "storage_bytes": {"$ref": "#/$defs/u64"},
+        "h2d_bytes": {"$ref": "#/$defs/u64"},
+        "cold_slot": {"$ref": "#/$defs/u32"},
+        "cold_generation": {"$ref": "#/$defs/u64"},
+        "hot_slot": {"$ref": "#/$defs/u32"},
+        "hot_generation": {"$ref": "#/$defs/u64"},
+        "scheduler_slot": {"$ref": "#/$defs/u32"},
+        "scheduler_generation": {"$ref": "#/$defs/u64"},
+        "timing": {"$ref": "#/$defs/timing"}
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "route_events", "prediction_events", "admitted", "rejected", "timely_useful",
+        "late_joined", "wasted_unused", "cancelled_before_io", "cancelled_drained",
+        "predictor_compute_ns", "predictor_digest", "predictor_state_digest", "circuit_opens", "circuit_open", "runtime_failed",
+        "active_background_flights", "current_pins"
+      ],
+      "properties": {
+        "route_events": {"$ref": "#/$defs/u64"},
+        "prediction_events": {"$ref": "#/$defs/u64"},
+        "admitted": {"$ref": "#/$defs/u64"},
+        "rejected": {"$ref": "#/$defs/u64"},
+        "timely_useful": {"$ref": "#/$defs/u64"},
+        "late_joined": {"$ref": "#/$defs/u64"},
+        "wasted_unused": {"$ref": "#/$defs/u64"},
+        "cancelled_before_io": {"$ref": "#/$defs/u64"},
+        "cancelled_drained": {"$ref": "#/$defs/u64"},
+        "predictor_compute_ns": {"$ref": "#/$defs/u64"},
+        "predictor_digest": {"$ref": "#/$defs/u64"},
+        "predictor_state_digest": {"$ref": "#/$defs/u64"},
+        "circuit_opens": {"$ref": "#/$defs/u64"},
+        "circuit_open": {"type": "boolean"},
+        "runtime_failed": {"type": "boolean"},
+        "active_background_flights": {"$ref": "#/$defs/u64"},
+        "current_pins": {"$ref": "#/$defs/u64"}
+      }
+    }
+  }
+}

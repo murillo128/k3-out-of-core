@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "static-seeding-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "project_head", "nested_head", "binary_sha256", "runs", "seed_entries", "storage_bytes", "h2d_bytes", "ordinary_lru_after_startup", "partial_failure_rolled_back", "scheduler_drained_after_failure", "hot_speculative_victim_order_verified", "source_path"],
+  "properties": {
+    "schema_version": {"const": "phase10-static-seeding-v1"},
+    "project_head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "nested_head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "binary_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "runs": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "object"}},
+    "seed_entries": {"type": "integer", "minimum": 1},
+    "storage_bytes": {"type": "integer", "minimum": 1},
+    "h2d_bytes": {"type": "integer", "minimum": 1},
+    "ordinary_lru_after_startup": {"const": true},
+    "partial_failure_rolled_back": {"const": true},
+    "scheduler_drained_after_failure": {"const": true},
+    "hot_speculative_victim_order_verified": {"const": true},
+    "source_path": {"const": "GGUF_TO_COLD_TO_RING_TO_HOT"}
+  }
+}
