@@ -1,6 +1,6 @@
 ---
 name: codex-github-operations
-description: Publish branches and commits, operate issues and pull requests, and preserve exact review targets using the simplest available Git and GitHub transport without turning metadata synchronization into an implementation gate.
+description: Publish branches and commits, operate issues and pull requests, and preserve exact review targets using the simplest available Git and GitHub transport without turning metadata synchronization or parent gitlink churn into implementation gates.
 ---
 
 # Codex GitHub Operations
@@ -56,6 +56,18 @@ Publish and verify the remote ref with local Git. Use the full SHA when another 
 
 Do not repeat the full SHA in every issue comment, PR update, or handoff. Git and GitHub already preserve ordinary branch and commit identity.
 
+## Nested repository publication
+
+When implementation occurs primarily in nested `llama.cpp`:
+
+- publish coherent nested commits to the nested branch as implementation or collaboration requires;
+- do not create a parent-repository gitlink commit for every nested commit;
+- update the parent gitlink at a declared checkpoint, final integration candidate, or explicit compatibility/recovery boundary;
+- verify that the committed parent gitlink equals the exact nested target before requesting a combined parent+nested review;
+- never present an uncommitted or unpublished nested checkout as a reviewable parent target.
+
+If parent-side code, tests, evidence, or configuration depends on an intermediate nested revision, the controlling issue may require an earlier gitlink boundary. Otherwise avoid parent commits whose only purpose is to mirror routine nested progress.
+
 ## Pull requests
 
 Create or reuse one PR for one controlling issue unless the issue explicitly requires decomposition.
@@ -74,11 +86,19 @@ Keep the PR draft while required implementation or review remains incomplete. Ma
 
 ## Exact review targets
 
-An independent review request must identify one exact published commit or range. Verify that target before review and preserve it unchanged during the review.
+An independent review request must identify one exact published project commit or range and the exact nested target when applicable. Verify those targets before review and preserve them unchanged during the review.
 
-Do not amend, recreate, reset, rebase, squash, cherry-pick, or force-push a valid target merely to repair comments, labels, PR descriptions, transport, or other derived metadata.
+Do not amend, recreate, reset, rebase, squash, cherry-pick, or force-push a valid target merely to repair comments, labels, PR descriptions, transport, roadmap state, or other derived metadata.
 
-A new implementation correction creates a new target; it does not erase the prior reviewed finding.
+A new implementation, test, technical-evidence, dependency, configuration, or technical-claim correction creates a new target; it does not erase the prior reviewed finding.
+
+A final-capable checkpoint may serve as the final PR review when the issue and reviewer confirm that it covers the complete final diff and immutable technical evidence. Do not request another review of the unchanged target merely because labels, PR prose, merge metadata, or roadmap state changed.
+
+## Technical evidence and workflow metadata
+
+Technical manifests do not need branch names, issue or PR numbers, comment IDs, review verdicts, labels, merge commits, or closeout state unless the controlling issue identifies one as a technical input to the tested system.
+
+Do not mutate implementation or evidence commits solely to embed GitHub review or merge state. Record the external review against the exact immutable target in the issue or PR discussion.
 
 ## Degraded control-plane operation
 
@@ -95,7 +115,7 @@ Use a real `BLOCKED` outcome only when the missing operation is required before 
 
 - Never force-push or rewrite shared history without explicit authorization.
 - Never stage or publish unrelated changes.
-- Never publish secrets, model weights, generated binaries, or prohibited artifacts.
+- Never publish secrets, model weights, generated binaries, prohibited artifacts, or evidence without distribution rights.
 - Never silently change the controlling issue, base branch, head branch, labels, or PR state.
 - Never mutate implementation commits to compensate for GitHub transport limitations.
 - Never claim a state change that was not observed.
@@ -107,7 +127,7 @@ Report only the operational facts the caller needs:
 - branch or PR affected;
 - operation completed;
 - verification result;
-- exact target only when another actor must use it;
+- exact project/nested target only when another actor must use it;
 - degraded operation or real blocker, if any.
 
 Do not add administrative ledgers or repeat information already visible in the linked GitHub object.
