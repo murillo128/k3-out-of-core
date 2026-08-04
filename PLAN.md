@@ -13,6 +13,7 @@ Live phase status, active ownership, ordering changes, and links to controlling 
 - [Phases 7–10: asynchronous runtime, miss execution, cache policy, and prefetch](docs/plan/07-async-runtime.md)
 - [Phases 11–15: UMA, full-size scaling, end-to-end observability, concurrency, multi-GPU, and hardening](docs/plan/11-scaling-and-hardening.md)
 - [Phase 12–13 Colibrì comparison addendum](docs/plan/12-colibri-comparison.md) establishes mandatory storage-layout, I/O-submission, full-size K3, trace-identity, and single-request chunked-prefill comparisons without changing phase order.
+- [Cross-model portability follow-up](docs/plan/12-heterogeneous-layout-classes.md) defines bounded heterogeneous expert layout classes and the conditions for resuming full-model DeepSeek-V4 validation without changing K3 Phase 12 gates or runtime defaults.
 
 ## Research references
 
