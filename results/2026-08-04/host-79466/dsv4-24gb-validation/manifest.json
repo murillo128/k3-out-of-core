@@ -151,7 +151,20 @@
         "status": "pass",
         "metadata": { "split_count": 4, "tensor_count": 1328, "tokenizer_vocab": 129280, "chat_template_present": true },
         "ordinary_inference": { "exit_status": 0, "generated_token_text": "We", "wall_seconds": 25.34, "max_rss_kib": 126798452, "major_faults": 0, "swaps": 0 },
-        "placement": { "method": "--fit on", "gpu_layers": "44/44 graph layers", "cpu_mapped_expert_mib": 122989, "cuda_model_buffer_mib": 20954.82, "cuda_compute_buffer_mib": 1711.32, "explicit_cpu_moe_equivalent": "not exposed for this architecture by the pinned CLI" }
+        "placement": {
+          "method": "--fit on",
+          "gpu_layers": "44/44 graph layers",
+          "cpu_mapped_expert_mib": 122989,
+          "cuda_model_buffer_mib": 20954.82,
+          "cuda_compute_buffer_mib": 1711.32,
+          "explicit_cpu_moe_equivalent": {
+            "available": true,
+            "options": ["--cpu-moe", "--n-cpu-moe N"],
+            "matched_tensor_pattern": "\\.ffn_(up|down|gate|gate_up)_(ch|)exps",
+            "exercised": false,
+            "reason_not_exercised": "The ordinary automatic-fit baseline passed, then the architecture gate terminated the track before the conventional placement comparison matrix."
+          }
+        }
       },
       "a2_generic_descriptor_inventory": {
         "status": "fail",
@@ -235,7 +248,7 @@
     "No provider-enabled expert operation, route parity, token parity, lifecycle matrix, or full-model performance matrix was run after the Checkpoint A hard stop.",
     "The result applies only to the exact UD-Q3_K_XL revision and the observed single RTX 3090 virtualized host.",
     "The physical NVMe namespace, model, firmware, and controller were hidden behind /dev/vda and therefore could not be verified.",
-    "The provider-disabled baseline used automatic fit; the pinned CLI did not expose a DeepSeek-specific explicit CPU-MoE placement switch.",
+    "The provider-disabled baseline used automatic fit. The generic explicit --cpu-moe and --n-cpu-moe placement controls were available but were not exercised before the architecture hard stop.",
     "The existing transfer-ring native-event test fails identically at the exact nested base on this host and is not treated as a candidate regression."
   ],
   "archive": {
