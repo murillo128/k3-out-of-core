@@ -69,7 +69,8 @@ def execute(binary: Path, model: Path, mode: str, pool_bytes: int = 0) -> dict[s
 
 
 def validate(document: dict[str, Any]) -> None:
-    if set(document) != {"schema_version", "status", "scope", "revisions", "models", "cases", "commands"} or \
+    if set(document) != {"schema_version", "status", "scope", "revisions", "models", "cases",
+            "failure_lifecycle", "commands"} or \
             document["schema_version"] != "phase11-checkpoint-b-v1" or document["status"] != "pass" or \
             document["scope"] != "gb10_coherent_uma_buffered_storage_fallback":
         raise ValueError("unsupported Checkpoint B evidence")
@@ -77,6 +78,11 @@ def validate(document: dict[str, Any]) -> None:
         raise ValueError("project/nested gitlink mismatch")
     if set(document["cases"]) != set(MODELS):
         raise ValueError("both bound model cases are required")
+    lifecycle = document["failure_lifecycle"]
+    if lifecycle != {"auto_prefetch_probes": 1, "auto_touch_calls": 4,
+            "readiness_retry_generation": 2, "stale_rejected": 1, "restored_capacity": 1,
+            "cancellation_cleanups": 1, "cancellation_retry": 1, "scheduler_active": 0}:
+        raise ValueError("readiness selection/failure lifecycle evidence failed")
     for name, case in document["cases"].items():
         baseline = case["original_baseline"]["diagnostics"]
         original = case["original_uma"]["diagnostics"]
@@ -98,7 +104,7 @@ def validate(document: dict[str, Any]) -> None:
             raise ValueError(f"{name}: split-aware case is not split")
 
 
-def capture(binary: Path, splitter: Path, models: dict[str, Path], project_head: str,
+def capture(binary: Path, focused_test: Path, splitter: Path, models: dict[str, Path], project_head: str,
         nested_head: str) -> dict[str, Any]:
     observed_models = {}
     for name, path in models.items():
@@ -109,6 +115,8 @@ def capture(binary: Path, splitter: Path, models: dict[str, Path], project_head:
             "sha256": sha256(path)}
     gitlink = subprocess.run(["git", "ls-tree", project_head, "--", "llama.cpp"], cwd=ROOT,
         text=True, capture_output=True, check=True).stdout.split()[2]
+    lifecycle_run = run([str(focused_test)])
+    lifecycle = fields(lifecycle_run.stdout, "PHASE11_UMA_FAILURES")
     cases = {}
     with tempfile.TemporaryDirectory(prefix="phase11-checkpoint-b-") as temporary:
         temp = Path(temporary)
@@ -127,7 +135,7 @@ def capture(binary: Path, splitter: Path, models: dict[str, Path], project_head:
     document = {"schema_version": "phase11-checkpoint-b-v1", "status": "pass",
         "scope": "gb10_coherent_uma_buffered_storage_fallback",
         "revisions": {"project_head": project_head, "nested_head": nested_head, "gitlink": gitlink},
-        "models": observed_models, "cases": cases,
+        "models": observed_models, "cases": cases, "failure_lifecycle": lifecycle,
         "commands": ["cmake --build build-phase11-a-cuda --target test-expert-uma-provider phase11-uma-runtime-probe llama-gguf-split -j20",
             "ctest --test-dir build-phase11-a-cuda -R ^test-expert-uma-provider$ --output-on-failure"]}
     validate(document)
@@ -141,6 +149,7 @@ def canonical(document: dict[str, Any]) -> bytes:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--binary", type=Path)
+    parser.add_argument("--focused-test", type=Path)
     parser.add_argument("--splitter", type=Path)
     parser.add_argument("--f16", type=Path)
     parser.add_argument("--mxfp4", type=Path)
@@ -154,11 +163,11 @@ def main() -> int:
         validate(document)
         print(f"{args.verify} {hashlib.sha256(canonical(document)).hexdigest()}")
         return 0
-    required = (args.binary, args.splitter, args.f16, args.mxfp4, args.project_head,
+    required = (args.binary, args.focused_test, args.splitter, args.f16, args.mxfp4, args.project_head,
         args.nested_head, args.output)
     if not all(required):
         parser.error("capture arguments are incomplete")
-    document = capture(args.binary.resolve(), args.splitter.resolve(),
+    document = capture(args.binary.resolve(), args.focused_test.resolve(), args.splitter.resolve(),
         {"f16": args.f16.resolve(), "mxfp4": args.mxfp4.resolve()}, args.project_head, args.nested_head)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_bytes(canonical(document))

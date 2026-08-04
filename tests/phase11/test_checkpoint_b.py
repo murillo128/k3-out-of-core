@@ -31,7 +31,11 @@ def valid_document():
     return {"schema_version": "phase11-checkpoint-b-v1", "status": "pass",
         "scope": "gb10_coherent_uma_buffered_storage_fallback",
         "revisions": {"project_head": "1" * 40, "nested_head": "2" * 40, "gitlink": "2" * 40},
-        "models": {}, "cases": cases, "commands": ["build", "test"]}
+        "models": {}, "cases": cases,
+        "failure_lifecycle": {"auto_prefetch_probes": 1, "auto_touch_calls": 4,
+            "readiness_retry_generation": 2, "stale_rejected": 1, "restored_capacity": 1,
+            "cancellation_cleanups": 1, "cancellation_retry": 1, "scheduler_active": 0},
+        "commands": ["build", "test"]}
 
 
 class CheckpointBTest(unittest.TestCase):
@@ -45,6 +49,12 @@ class CheckpointBTest(unittest.TestCase):
                 document["cases"]["f16"]["split_uma"]["diagnostics"][field] = value
                 with self.assertRaises(ValueError):
                     MODULE.validate(document)
+
+    def test_rejects_failure_lifecycle_drift(self):
+        document = valid_document()
+        document["failure_lifecycle"]["stale_rejected"] = 0
+        with self.assertRaises(ValueError):
+            MODULE.validate(document)
 
 
 if __name__ == "__main__":
