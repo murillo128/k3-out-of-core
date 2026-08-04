@@ -1,223 +1,254 @@
-# Foundation and monolithic baseline
+# Foundation, observability, and provider abstraction
 
-## Phase 0 — Repository and evidence discipline
+## Phase 0 — Repository, provenance, and baseline freeze
 
 ### Objectives
 
-- Establish this repository as the authoritative project record.
-- Ensure every benchmark can be reproduced from committed metadata.
-- Prevent architecture drift across ChatGPT and Codex sessions.
+- Freeze the reference artifacts, repositories, and validation environment.
+- Define reproducibility and comparison rules before implementation.
 
 ### Tasks
 
-- [x] Clone `murillo128/k3-out-of-core` into the development workspace.
-- [ ] Add scripts for environment, hardware, model, and build manifests.
-- [x] Define a results directory convention:
+#### Repository setup
 
-  ```text
-  results/YYYY-MM-DD/<host>/<experiment-id>/
-  ```
+- Create `murillo128/k3-out-of-core`.
+- Add `llama.cpp` as a pinned submodule or exact revision dependency.
+- Record exact commits for:
+  - upstream `llama.cpp`;
+  - K3 support branch/PR;
+  - converter patch;
+  - prior-art forks.
+- Add CI for formatting, unit tests, schema validation, and small model tests.
 
-- [x] Define a machine-readable result structure containing configuration, revisions, metrics, and checksums.
-- [ ] Add a decision-update checklist to pull requests.
-- [ ] Add CI for Markdown links, formatting, and any scripts introduced here.
-- [ ] Select a project license before importing third-party code.
+#### Artifact manifest
+
+- Create a machine-readable manifest containing:
+  - model repository and revision;
+  - original shard hashes;
+  - tokenizer/config hashes;
+  - conversion command;
+  - converter revision;
+  - `llama.cpp` revision;
+  - GGUF output hash;
+  - quantization details;
+  - expected file size and metadata summary.
+- Preserve the original F16 and MXFP4 artifacts.
+- Never overwrite converted artifacts in place.
+
+#### Baseline environment
+
+- Record:
+  - OS, kernel, filesystem, and mount options;
+  - CPU, RAM, GPU, VRAM, PCIe generation/width;
+  - NVMe model, firmware, and benchmark results;
+  - CUDA, compiler, CMake, and build flags;
+  - NUMA topology;
+  - huge-page and swap configuration.
+- Add reproducible scripts for environment capture.
 
 ### Exit gate
 
-- [x] A new agent can identify the current phase, exact upstream revision, local patches, models, commands, and outstanding decisions without relying on chat history.
+- A clean machine can reproduce the reference builds and locate every required artifact by immutable ID.
+- No benchmark or correctness comparison depends on an unrecorded local file.
 
 ---
 
-## Phase 1 — Reproducible K3 monolithic baseline
+## Phase 1 — Reproducible Kimi K3 monolithic baseline
 
 ### Objectives
 
-- Prove that the tiny K3 F16 and MXFP4 checkpoints convert and execute in the selected `llama.cpp` revision.
-- Establish CPU and CUDA correctness/performance baselines before changing residency.
-
-### Current evidence
-
-- Phase 1 technical exit gate: **ACCEPTED** under GitHub issue #7.
-- Checkpoint C: **PASS_WITH_NOTES**
-- Checkpoint C reviewed head: `4f1dcae3024bebcb932f95dfbab9ef7e5154a68c`
-- Checkpoint C review: https://github.com/murillo128/k3-out-of-core/issues/7#issuecomment-5120875092
-- Five earlier **FAIL / NO** attempts remain preserved. The calibrated STANDARD review accepted the technical evidence after the repository owner applied the repeated-review circuit breaker.
-- Clean execution base: `511e87fc98cca8069fc57526fbb04b10789967eb`.
-- Execution branch: `codex/phase1-closeout-clean`.
-- Pinned `llama.cpp` commit: `84245db4c790af22135f34992689edcc11877003`.
-- Published GGUF revision: `88de02cf8fa37f87eb06daaed370ac9c3411d5ca`.
-- Evidence directory: `results/2026-07-29/skynet/phase1-closeout-clean/`.
-- Conversion evidence confirms 21 repacked MXFP4 expert groups and 35 resident F16 dequantizations.
-- Stable CPU and CUDA suites each pass 54/54; the separated external GGUF-vocabulary fixture passes 1/1 after verified Git LFS payload retrieval.
-- F16 and MXFP4 CPU/CUDA inference produce exact prompt/generated IDs and pass selected-logit thresholds. Complete logs include backend placement and the known layer-3 Flash Attention CPU operation.
-- An independent validator matched 81/81 stratified MXFP4 samples exactly.
-- Repeated descriptive CPU/CUDA benchmarks capture load time, prompt/decode throughput, TTFT, token-latency percentiles, RSS, and CUDA VRAM.
+- Prove that the chosen tiny K3 artifacts load and run correctly before any residency changes.
+- Establish numerical and performance baselines.
 
 ### Tasks
 
-#### 1.1 Pin upstream
+#### Build matrix
 
-- [x] Fetch `ggml-org/llama.cpp` PR #26185.
-- [x] Record the selected exact commit SHA.
-- [x] Record the upstream base commit and a complete local-diff description.
-- [x] Record the policy not to automatically track a moving PR head during experiments.
-- [x] Record the policy that any rebase or update requires a dedicated commit followed by a complete baseline rerun.
+- Build CPU and CUDA configurations from the pinned source.
+- Record all CMake options and compiler versions.
+- Run stable unit tests.
+- Record optional external-data test failures separately.
 
-#### 1.2 Build environments
+#### Model validation
 
-- [x] Create separate CPU and CUDA build directories.
-- [x] Record compiler, CMake, CUDA toolkit, driver, GPU, and build flags completely.
-- [x] Build the relevant tests and tools for CPU and CUDA.
-- [x] Separate stable architecture/conversion tests from external-fixture tests and resolve `test-tokenizers-ggml-vocabs` with checksum-verified payloads.
+- Convert or acquire:
+  - F16 GGUF;
+  - hybrid MXFP4 GGUF.
+- Validate:
+  - metadata;
+  - tensor counts and types;
+  - tokenizer special tokens;
+  - model size;
+  - first-token generation;
+  - repeated inference.
 
-#### 1.3 Normalize Python conversion environment
+#### Correctness baseline
 
-- [x] Pin `transformers==4.57.6` for the selected branch.
-- [x] Install `tiktoken` and the conversion requirements.
-- [x] Record the conversion package versions in the published conversion manifest.
-- [x] Back up and patch tokenizer configuration through a reproducible project command.
-- [x] Convert the tokenizer workaround into a reversible script; original and patched hashes are recorded and source snapshots remain unchanged after validation.
+For fixed prompts, seeds, and runtime options, capture:
 
-#### 1.4 F16 conversion
+- prompt token IDs;
+- generated token IDs;
+- selected routing records where available;
+- sampled logits or full-logit hashes;
+- NaN/Inf checks;
+- deterministic behavior across repeated runs.
 
-- [x] Convert `Kimi-K3-0.40B` to F16 GGUF.
-- [x] Capture the complete conversion log.
-- [x] Record tensor names, shapes, metadata, artifact size, and file checksum.
-- [x] Validate and record tokenizer metadata, BOS/EOS, and named special-token behavior; preserve the observed HF/GGUF conflict without claiming general chat parity.
+#### Performance baseline
 
-#### 1.5 MXFP4 conversion
+Measure:
 
-- [x] Review and commit converter support for the observed 35 resident packed tensors.
-- [x] Preserve the 168 routed expert tensors in MXFP4.
-- [x] Require and observe exactly 21 repacked expert groups and 35 resident dequantizations for this checkpoint revision.
-- [x] Sample source and GGUF blocks with an independent decoder and validate 81/81 scale, code, repacked-byte, and decoded-value samples exactly.
-- [x] Capture the complete conversion log, artifact size, and checksum.
+- model load time;
+- prompt throughput;
+- decode throughput;
+- TTFT;
+- per-token p50/p95/p99 latency;
+- peak RSS;
+- peak VRAM;
+- CPU utilization;
+- storage read volume.
 
-#### 1.6 Monolithic inference
-
-- [x] Run F16 CPU inference.
-- [x] Run hybrid MXFP4 CPU inference.
-- [x] Build CUDA and run both models with `-ngl 999`.
-- [x] Confirm and record actual backend placement, supported-layer offload, and CPU operations.
-- [x] Recapture complete CPU inference logs in the committed evidence directory.
-- [x] Capture deterministic prompt/generated token IDs and selected logits.
-- [x] Resolve the perplexity/loss item for this closeout through the issue-approved full-vocabulary and selected-logit comparison; no separate quality claim is made for the tiny fixture.
-- [x] Run repeated warm inference to detect persistent-state errors.
-
-#### 1.7 Baseline benchmark
-
-- [x] Measure prompt and decode throughput separately with repeated runs and a declared aggregation method.
-- [x] Record CPU/GPU memory usage.
-- [x] Record per-token latency distribution.
-- [x] Record model-load time.
+Use one warm-up, multiple measured runs, raw data, median, and dispersion.
 
 ### Exit gate
 
-- [x] Both GGUF files are reproducibly generated and checksum-verified.
-- [x] CPU inference works for both artifacts.
-- [x] CUDA backend placement is understood and works within the recorded operation support boundary.
-- [x] No unexplained tensor drop, NaN, invalid expert ID, tokenizer conflict, or unresolved required test remains.
-- [x] Complete baseline evidence, including usable CPU logs and required correctness comparisons, is committed.
+- F16 and MXFP4 artifacts run on CPU and CUDA.
+- Correctness evidence is stable and reproducible.
+- Baseline performance and memory results are committed.
+- The tested artifact revisions and hashes are immutable.
 
 ---
 
-## Phase 2 — Routing and expert-layout observability
+## Phase 2 — Routing traces and expert storage map
 
 ### Objectives
 
-- Expose the actual expert selections and physical storage spans without changing computation.
-- Produce traces for cache simulation and exact storage metadata for out-of-core reads.
+- Capture real routing behavior.
+- Prove the exact physical backing of every routed expert.
+- Create the data needed for cache simulation.
 
 ### Tasks
 
-#### 2.1 Router trace
+#### Route tracing
 
-- [x] Add an opt-in trace hook at the selected-expert ID tensor.
-- [x] Record model, layer, token/batch position, selected IDs, routing weights, request/sequence ID, and phase (prefill/decode).
-- [x] Use a compact binary or structured format with a version.
-- [x] Ensure trace-disabled overhead is negligible.
-- [x] Ensure trace order is deterministic.
+- Add opt-in tracing at the point where selected expert IDs and final weights are available.
+- Record:
+  - request/run ID;
+  - token position;
+  - prefill/decode phase;
+  - layer;
+  - selected expert IDs;
+  - selected weights;
+  - sequence/batch information;
+  - deterministic ordering.
+- Keep tracing disabled by default and quantify overhead.
 
-#### 2.2 Expert storage map
+#### Expert storage directory
 
-- [x] Extend the GGUF/model loader to expose file identity, file offset, byte size, type, logical shape, row stride, and alignment for each routed-expert projection.
-- [x] Define `ExpertStorageEntry` containing gate/up/down spans.
-- [x] Validate every span against GGUF metadata and file bounds.
-- [x] Do not infer offsets through virtual-memory mappings.
+For each `(layer, expert)` record:
 
-#### 2.3 Offline simulator
+- source tensor names;
+- gate/up/down or merged projection roles;
+- source file index and identity;
+- file offsets and byte lengths;
+- tensor type;
+- logical shape and physical strides;
+- alignment;
+- layout kind;
+- exact file spans;
+- total atomic bundle bytes.
 
-- [x] Implement trace replay independent of GGML/CUDA.
-- [x] Model hot and cold capacities in bytes and expert slots.
-- [x] Implement LRU baseline.
-- [x] Implement perfect-oracle lower bound.
-- [x] Report tier hit rates, bytes, evictions, reuse distances, and theoretical stalls.
-- [x] Separate prefill and decode analysis.
+- Support contiguous, strided, or segmented representations in the schema.
+- Validate all spans against file bounds and tensor metadata.
+- Reject unavailable or ambiguous file backing explicitly.
 
-#### 2.4 Trace corpus
+#### Trace corpus
 
-- [x] Capture multiple prompts and domains.
-- [x] Capture short and long decode.
-- [x] Capture small and large prefill.
-- [x] Preserve raw traces and summarized results with model/checkpoint revisions.
+- Create deterministic prompts covering prose, code, structured data, technical material, narrative, and English/Spanish text.
+- Cover small and larger prefill plus short and longer decode within the validated context.
+- Capture F16 and MXFP4 CPU traces and a representative CUDA subset.
+- Commit only small fixtures, summaries, manifests, and checksums.
+- Publish the complete raw corpus as an immutable external artifact.
+
+#### Offline simulator
+
+- Implement a GGML/CUDA-independent simulator consuming only traces and storage maps.
+- Support:
+  - slot and byte capacities;
+  - inclusive hot/cold hierarchy;
+  - LRU baseline;
+  - Belady/MIN oracle lower bound;
+  - hit/miss/admission/eviction accounting;
+  - bytes transferred;
+  - reuse distance and expert skew;
+  - prefill/decode separation;
+  - explicit theoretical latency/bandwidth cost models.
+- Do not select a production cache policy in this phase.
 
 ### Exit gate
 
-- [x] Every routed expert can be mapped to exact backing-file spans.
-- [x] Real K3 traces can be replayed offline.
-- [x] No inference result changes with tracing enabled.
+- Route traces are deterministic and preserve baseline outputs.
+- Every routed expert maps to exact authoritative backing spans.
+- The simulator reproduces hand-checkable LRU and oracle cases.
+- The corpus and evidence are reproducible from pinned revisions and checksums.
 
 ---
 
-## Phase 3 — Provider abstraction with resident parity
+## Phase 3 — Expert weight provider abstraction
 
 ### Objectives
 
-- Introduce the final integration seam without changing residency or performance behavior.
+- Introduce the final execution seam while all experts remain resident.
+- Preserve exact default behavior and numerical results.
 
 ### Tasks
 
-#### 3.1 Interfaces
+#### Provider contract
 
-Define and review concepts equivalent to:
+Introduce internal concepts equivalent to:
 
 ```text
 ExpertKey
 ExpertBundleDescriptor
 ExpertSelection
+ExpertGraphBinding
 ExpertExecutionPlan
 ExpertHandle
 ExpertWeightProvider
-ExpertStorage
-ExpertTransport
-CachePolicy
 ```
 
-- [x] Keep C ABI boundaries minimal where CPU and CUDA compilation units cannot link directly.
-- [x] Define ownership and lifetime explicitly.
-- [x] Define cancellation and error propagation.
-- [x] Define per-model and per-device context; prohibit global singleton model state.
+- Keep original logical expert IDs distinct from future physical slot IDs.
+- Treat gate/up/down weights and sidecars as one atomic expert bundle.
+- Keep routing and canonical reduction outside the provider.
+- Make provider state model-owned and request plans context-owned.
+- Hold handles until asynchronous scheduler completion.
 
-#### 3.2 Resident provider
+#### Default path
 
-- [x] Implement pass-through provider for a fully resident model.
-- [x] Preserve original model IDs in the resident provider and distinguish logical IDs from future physical execution slots.
-- [x] Add a disabled path with structural zero work and performance within the predeclared gate.
+- Preserve the existing direct resident path when the provider is disabled.
+- Create no provider object, plan, handle, copy, callback, allocation, or synchronization in disabled mode.
+- Preserve graph topology, kernel selection, selected IDs, weights, and canonical reduction.
 
-#### 3.3 Lifecycle
+#### Resident provider
 
-- [x] Model creation, provider initialization, request use, model unload, backend recreation, and failure cleanup.
-- [x] Multiple model contexts and mixed-mode F16/MXFP4 models in one process.
-- [x] Repeated load/unload stress tests.
+- Add an explicit resident-provider mode.
+- Bind existing resident expert tensors without copying or remapping.
+- Alias logical and execution ID tensors in resident mode.
+- Prepare one bounded synchronously ready request plan per ubatch.
+- Support multiple contexts, multiple models, graph reuse, repeated load/unload, cancellation, and partial initialization failure.
+
+#### Validation
+
+- Compare disabled and resident paths for F16/MXFP4 on CPU and CUDA.
+- Require exact prompt/generated IDs and same-backend route parity.
+- Apply the accepted logit comparison policy.
+- Assert balanced plan/handle lifetime and no provider work on the disabled path.
+- Measure disabled and resident overhead with the predeclared interleaved protocol.
 
 ### Exit gate
 
-- [x] Resident-provider output matches the original path.
-- [x] Default-path performance regression is within the predeclared noise budget.
-- [ ] Resident-provider performance regression is within the predeclared noise budget.
-- [x] Interfaces are reviewed against discrete, UMA, disk, multi-request, and multi-GPU requirements.
-
-Status: ACCEPTED WITH NOTES — the immutable post-optimization capture passed 22 of 24 original cells and failed the MXFP4 CUDA disabled-versus-resident prompt-throughput and TTFT confidence bounds. Design-authority comments `5128658370` and `5128726338` accept the Phase 3 technical exit for project progression without marking the unchecked raw gate as passed. No further Phase 3 measurement is authorized; Checkpoint B and final review remain pending.
-
----
+- The provider can reproduce the monolithic path with unchanged semantics.
+- Disabled mode remains structurally zero-work.
+- Ownership, lifetime, graph reuse, failure, and cleanup tests pass.
+- F16/MXFP4 CPU/CUDA correctness and route parity pass.
+- Performance evidence is reported against the predeclared statistical budgets; any accepted exception remains explicitly scoped and cannot weaken later gates.
+- No cache, storage transport, prefetch, miss policy, or residency change is introduced.
