@@ -1,47 +1,29 @@
 ---
 name: codex-independent-review
-description: Review an exact published commit or range in a fresh read-only context using only the checkpoint contract, diff, and authoritative evidence needed for a risk-calibrated verdict.
+description: Independently review an exact published target against the controlling issue's material risks and acceptance criteria, returning a concise risk-calibrated verdict without reconstructing project history or enforcing administrative consistency.
 ---
 
 # Codex Independent Review
 
 ## Responsibility
 
-Use this skill only for:
+Use this skill for declared `STANDARD` checkpoints, issue-defined `HIGH_ASSURANCE` checkpoints, and final PR review.
 
-- checkpoints declared by a `STANDARD` issue;
-- every phase declared as a checkpoint by `HIGH_ASSURANCE`;
-- final pull-request review.
+The reviewer owns independent exact-target inspection, proportional validation, materiality, and the verdict. It does not implement fixes, redesign the issue, mutate workflow state, publish commits, or continue execution.
 
-This skill owns reviewer independence, exact-target inspection, evidence assessment, proportional testing, materiality, reviewer-transport fallback, and structured verdict reporting.
+## Minimal review packet
 
-It does not implement fixes, redesign the issue, mutate labels, publish commits, or continue execution.
-
-## Load a minimal review packet
-
-A fresh reviewer starts with:
+A fresh reviewer needs:
 
 1. `AGENTS.md`;
-2. this reviewer skill;
-3. the controlling issue body or exact checkpoint section;
-4. the exact published commit or range and diff;
-5. the authoritative manifest and checkpoint evidence identified by the issue;
-6. only the issue comments or prior reviews explicitly needed to understand current progression or a repeated-review circuit breaker.
+2. this skill;
+3. the controlling issue or exact checkpoint section;
+4. the exact published commit or range and its diff;
+5. the authoritative evidence required by that checkpoint.
 
-Do not preload `design-github-issue`, `spec-driven-codex-loop`, or `codex-github-operations`. Do not read complete prior issue or PR histories, unrelated repository documents, or whole result directories by default.
+Load prior comments or reviews only when an unresolved finding or circuit breaker depends on them. Do not preload executor, design, or GitHub-operations skills; complete historical issues; unrelated PR discussion; or whole result directories.
 
-For a prior phase, prefer its final manifest and accepted review over reconstructing the full execution history. Expand context only when a concrete inconsistency, missing dependency, or disputed finding requires it.
-
-The review request must identify:
-
-- repository and controlling issue;
-- profile and checkpoint or final review;
-- exact full commit SHA or range;
-- checkpoint-specific scope, risks, and acceptance criteria;
-- authoritative evidence and validation commands;
-- read-only behavior.
-
-Never repair an invalid or unavailable target by guessing another SHA.
+The request must identify the target, checkpoint outcome, material risks, acceptance criteria, and evidence. Never guess a replacement SHA when the requested target is unavailable.
 
 ## Independence
 
@@ -50,210 +32,144 @@ The reviewer must:
 - use a fresh context that does not inherit the executor's hidden reasoning;
 - inspect exactly the requested target;
 - remain read-only;
-- not edit files, create commits, mutate workflow state, or implement corrections;
-- not continue to later phases;
-- judge the evidence rather than the executor's intended conclusion.
+- judge evidence rather than intent;
+- not implement corrections or advance later work.
 
-Independence does not mean maximal hostility. Test the declared risk, not every imaginable representation or malformed input.
+Independence does not mean maximal hostility. Test the declared risk and plausible normal use, not every imaginable metadata, Markdown, malformed-input, or representational variant.
 
-## Apply the selected profile
+## Profiles
 
 ### STANDARD
 
-Review only declared checkpoints and final handoff. Prioritize plausible normal-path failures and explicit exit criteria.
-
-A mechanical phase does not need its own review merely because it produced a commit. Stop when the declared risk has been adequately tested and no material defect remains.
+Review only declared checkpoints and final handoff. Stop when the material risk is adequately covered and no unsafe defect remains.
 
 ### HIGH_ASSURANCE
 
-Review every declared phase checkpoint and final handoff. Extend adversarial testing only within the issue's explicit architecture, numerical, concurrency, persistence, backend, or security boundary.
-
-Do not infer `HIGH_ASSURANCE` from issue size.
+Apply additional issue-defined checks only within the explicit architecture, numerical, concurrency, persistence, backend, or security boundary. Do not infer this profile from issue size.
 
 ## Materiality
 
-Under `STANDARD`, return `FAIL` only when a finding:
+Return `FAIL` only when a finding:
 
-- violates an explicit invariant, exit criterion, accepted decision, or approved scope;
-- exposes a plausible defect in normal repository use or execution;
-- makes required technical evidence incomplete, false, ambiguous, or non-reproducible;
-- changes an unapproved dependency, architecture, format, or behavior;
-- makes progression from the reviewed target technically unsafe.
+- violates an explicit invariant or acceptance criterion;
+- exposes a plausible normal-path defect;
+- makes required technical evidence materially false, incomplete, ambiguous, or non-reproducible;
+- introduces unapproved scope, architecture, dependency, format, or behavior;
+- makes progression from the reviewed target unsafe.
 
-Normally use `PASS_WITH_NOTES` for:
+Use `PASS_WITH_NOTES` for editorial wording, derived status, bookkeeping, optional hardening, stale non-authoritative prose, or robustness outside the declared boundary when the technical outcome and authoritative evidence remain trustworthy.
 
-- editorial wording, formatting, or bookkeeping that does not alter authoritative state;
-- stale derived prose when structured evidence is correct and unambiguous;
-- optional defense in depth or process improvements;
-- theoretical bypasses requiring deliberately malformed, duplicated, contradictory, or adversarial non-authoritative prose or metadata;
-- robustness outside the declared normal inputs and threat boundary.
+For every `FAIL`, state:
 
-A review or attestation finding is material only when that mechanism is an explicit authoritative gate and the defect can plausibly accept incomplete or false normal-path evidence.
+1. the exact criterion violated;
+2. the material consequence;
+3. the smallest corrective delta, or why design must reopen.
 
-For every proposed `FAIL`, identify:
-
-1. the exact approved criterion violated;
-2. the plausible material consequence;
-3. why `PASS_WITH_NOTES` is insufficient;
-4. the smallest corrective delta or the reason design must reopen.
-
-If these cannot be stated concretely, do not return `FAIL`.
-
-## Reviewer transport
-
-Use any fresh isolated read-only reviewer capable of inspecting the exact target, such as a new Codex CLI process, isolated sandbox, separate Desktop session, or another approved environment.
-
-When one transport fails:
-
-1. record `TRANSPORT_FAILED` with the exact error;
-2. preserve the exact review target and packet;
-3. try another permitted transport;
-4. do not amend or recreate implementation commits;
-5. do not fall back to executor self-review.
-
-Return final verdict `BLOCKED` only when permitted reviewer transports are exhausted or required evidence is genuinely unavailable.
+When those cannot be stated concretely, do not fail the checkpoint.
 
 ## Review procedure
 
-### 1. Establish authority and risk
+### 1. Establish risk and authority
 
-From the issue packet, identify:
+Identify the checkpoint outcome, scope, invariants, acceptance criteria, authoritative evidence, and explicit threat boundary.
 
-- profile and checkpoint;
-- exact scope and invariants;
-- explicit risks and success criteria;
-- authoritative structured state;
-- derived informational state;
-- security or adversarial boundary, if any.
-
-Do not reconstruct generic workflow policy from unrelated skills or comments.
+Treat issue comments, labels, PR descriptions, roadmap state, and Markdown summaries as derived unless the issue explicitly declares one authoritative.
 
 ### 2. Inspect the exact target
 
-Verify:
+Check:
 
 - diff and scope compliance;
-- expected artifacts and build integration;
-- credibility and reproducibility of required evidence;
-- unexpected files, dependencies, secrets, behavior, or source-of-truth changes;
-- explicit deviations and residual risks;
-- safety to continue from the exact target.
+- implementation and native build integration;
+- credible required evidence;
+- plausible correctness, ownership, lifetime, numerical, backend, or performance failures covered by the checkpoint;
+- unexpected dependencies, secrets, prohibited artifacts, or behavior;
+- safety to proceed.
 
-Use the exact diff or range. For final review, inspect the complete PR diff plus the current authoritative issue state and accepted checkpoint records; complete historical replay is unnecessary unless unresolved history affects acceptance.
+For final review, inspect the complete PR diff and unresolved material findings. Do not replay accepted history without a concrete reason.
 
 ### 3. Test proportionally
 
-Prioritize tests capable of falsifying the claimed outcome under plausible use.
+Run issue-defined native validation when the environment supports it. Prioritize checks capable of falsifying the claimed outcome.
 
-- Run issue-defined native build and validation commands when the environment supports them.
-- Inspect representative negative and failure paths required by the checkpoint.
-- Distinguish commands personally run from committed evidence inspected.
-- Do not recreate custom compiler or linker commands when the issue declares a native target.
-- Do not enumerate endless syntactic variants of non-authoritative prose or metadata.
-- Stop when the declared risk is covered and no material defect remains.
+Distinguish commands personally run from committed evidence inspected. Do not invent bespoke compiler or linker paths or enumerate endless syntactic variants of non-authoritative data.
 
-### 4. Report evidence honestly
+### 4. Report honestly and briefly
 
-Separate:
+Record only:
 
-- exact target and artifacts inspected;
-- commands run and results;
-- commands not run;
-- environmental limitations;
+- exact target;
+- verdict and safety to proceed;
 - material findings;
-- non-material notes;
-- transport attempts.
+- validation run or evidence inspected;
+- smallest required delta or non-blocking notes.
 
-Never claim a command passed when it was not run successfully.
+Mention transport or environment details only when they limit confidence or prevent completion.
+
+## Reviewer transport
+
+Use any fresh isolated read-only reviewer capable of inspecting the exact target.
+
+If one transport fails, preserve the target and try another permitted route. Do not amend implementation commits, guess a different target, or fall back to executor self-review.
+
+Return `BLOCKED` only when required evidence or independent-review capability remains unavailable after practical alternatives are exhausted.
 
 ## Repeated-review circuit breaker
 
-Review the relevant accepted and failed verdicts for the same mechanism, not the complete issue history.
+When two consecutive reviews have failed for substantially the same validation, attestation, parser, documentation-sync, or bookkeeping mechanism under `STANDARD`:
 
-When two consecutive reviews have already failed for substantially the same validation, attestation, parser, documentation-sync, or bookkeeping mechanism under `STANDARD`:
-
-- do not continue an open-ended search for representational variants;
-- decide whether the remaining concern is materially different and affects normal-path acceptance;
-- use `PASS_WITH_NOTES` when progression is safe and the remaining concern is non-material;
+- do not continue open-ended searches for representational variants;
+- use `PASS_WITH_NOTES` when progression is technically safe and the remaining concern is non-material;
 - request design review when the validation strategy itself prevents a trustworthy decision;
-- require an explicit design-authority decision before a third corrective review of the same mechanism.
+- require explicit design-authority direction before a third corrective review of the same mechanism.
 
 The circuit breaker never waives a continuing material defect.
 
 ## Verdicts
 
-Return exactly one final verdict:
+Return exactly one:
 
-- `PASS`: reviewed scope and evidence are sufficient; progression is safe;
-- `PASS_WITH_NOTES`: progression is safe with explicit non-blocking notes;
-- `FAIL`: a material implementation, evidence, or scope defect violates an approved criterion;
-- `BLOCKED`: review cannot complete after permitted transports are exhausted or required evidence is unavailable.
+- `PASS`: acceptance is met and progression is safe;
+- `PASS_WITH_NOTES`: progression is safe with non-blocking notes;
+- `FAIL`: a material defect or untrustworthy required evidence makes progression unsafe;
+- `BLOCKED`: the review cannot complete because required evidence or independent capability is unavailable.
 
-`TRANSPORT_FAILED` is an attempt result, not a final verdict.
+Transport failure is an attempt result, not a verdict. Do not use `FAIL` to request general hardening, extra documentation, or administrative synchronization.
 
-Do not use `FAIL` to request general hardening, extra documentation, or process improvements.
-
-## Review request
-
-Use a prompt equivalent to:
+## Concise review request
 
 ```text
-Act as an independent read-only reviewer for <checkpoint> of issue #<issue>
-under the <STANDARD or HIGH_ASSURANCE> profile.
+Act as a fresh independent read-only reviewer for <checkpoint> of issue #<issue>.
 
-Review exact published target <sha-or-range> against the checkpoint-specific
-scope, risks, acceptance criteria, and authoritative evidence listed in the
-review packet. Read only the context needed for this checkpoint; do not
-reconstruct unrelated issue or PR history.
+Review exact target <sha-or-range> against the checkpoint's scope, material
+risks, acceptance criteria, and authoritative evidence. Inspect only the
+context needed to determine whether progression is technically safe.
 
-Return FAIL only for a material violation of an explicit criterion, a plausible
-normal-path defect, untrustworthy required evidence, unapproved scope, or unsafe
-progression. Treat editorial issues, optional hardening, and theoretical bypasses
-outside the declared trust boundary as PASS_WITH_NOTES.
+Return FAIL only for a concrete material violation, plausible normal-path
+defect, untrustworthy required evidence, unapproved scope, or unsafe
+progression. Treat editorial, bookkeeping, derived-status, and optional
+hardening concerns as PASS_WITH_NOTES.
 
-Do not implement fixes, edit files, create commits, mutate GitHub state, or
-continue execution. Return exactly PASS, PASS_WITH_NOTES, FAIL, or BLOCKED.
+Do not implement fixes or mutate repository or GitHub state. Return exactly
+PASS, PASS_WITH_NOTES, FAIL, or BLOCKED.
 ```
 
-## Issue comment
+## Concise review comment
 
 ```markdown
-## [REVIEW][<CHECKPOINT OR FINAL>]
+## <Checkpoint> — PASS | PASS_WITH_NOTES | FAIL | BLOCKED
 
-**Profile:** STANDARD | HIGH_ASSURANCE
-**Reviewed target:** `<full SHA or range>`
-**Reviewer transport:** `<transport>`
-**Verdict:** PASS | PASS_WITH_NOTES | FAIL | BLOCKED
-**Safety to proceed:** YES | NO
-**Materiality:** NONE | NON_MATERIAL | MATERIAL
-**Explicit criterion violated:** <none or exact criterion>
+**Target:** `<full SHA or range>`
+**Safe to proceed:** yes | no
 
-**Scope and artifacts:** <assessment>
-**Validation:** <assessment>
-**Unexpected changes:** <none or list>
+**Material findings:**
+- <none or finding with violated criterion and consequence>
 
-**Evidence inspected or run:**
-- `<command or artifact>` — <result>
+**Validation/evidence:**
+- <command or artifact and result>
 
-**Transport attempts:**
-- `<transport>` — PASS | TRANSPORT_FAILED
-
-**Required delta:**
-- <none, smallest material correction, design-review request, or missing evidence>
-
-**Notes carried forward:**
-- <none or note>
+**Required delta or notes:**
+- <none, smallest correction, design return, missing evidence, or non-blocking note>
 ```
 
-For `FAIL`, `Materiality` must be `MATERIAL` and `Explicit criterion violated` must identify the exact contract criterion.
-
-## Handoff and safety
-
-The executor owns progression after the verdict.
-
-- `PASS`: checkpoint complete.
-- `PASS_WITH_NOTES`: checkpoint complete when notes do not violate an exit gate.
-- `FAIL`: only the bounded material correction may proceed before fresh review, or design must reopen.
-- `BLOCKED`: report unavailable evidence or exhausted independent-review capability.
-
-Never modify the worktree to make validation pass, review a different target, approve solely from narrative, convert transport failure into implementation failure, or invent a threat model absent from the issue.
+The executor owns progression after the verdict. Never modify the worktree to make validation pass, approve a different target, or infer a threat model absent from the issue.
