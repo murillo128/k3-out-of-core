@@ -4,15 +4,14 @@ Instructions for ChatGPT, Codex, and other coding agents working in this reposit
 
 ## Mission
 
-Implement the K3 out-of-core expert runtime described by the committed architecture and plan. This repository is the cross-session source of truth. Chat history is provisional when it conflicts with committed state.
+Implement the K3 out-of-core expert runtime described by the committed architecture and technical plan. Repository documents define durable architecture and validation; GitHub issues and pull requests define active work. Chat history is provisional when it conflicts with those sources.
 
 ## Load context progressively
 
 For non-trivial work, load this bootstrap context once:
 
 1. `AGENTS.md`;
-2. `docs/STATUS.md`;
-3. the controlling GitHub issue body.
+2. the controlling GitHub issue body.
 
 Then load only the context needed for the active role and phase:
 
@@ -20,23 +19,26 @@ Then load only the context needed for the active role and phase:
 - relevant source, tests, build files, and pinned dependency state;
 - the one workflow skill that owns the current action.
 
+Read epic #39 only when selecting the next phase, checking roadmap dependencies, or updating global project status. An executor with a controlling issue does not need the epic as routine implementation context.
+
 Do not preload every repository document, every skill, complete prior issue or pull-request histories, or whole result directories. Read a complete document only when the issue makes the whole document authoritative or section-level reading cannot resolve the task.
 
-On session resume, verify branch, `HEAD`, worktree state, and new issue comments since the recorded handoff. Do not replay unchanged history. Reuse already inspected facts and file contents while their path and commit or blob identity remain unchanged.
+On session resume, verify branch, `HEAD`, worktree state, and new controlling-issue or PR discussion since the last material handoff. Do not replay unchanged history. Reuse already inspected facts and file contents while their path and commit or blob identity remain unchanged.
 
 ## Source-of-truth hierarchy
 
 1. Tests and captured evidence establish observed behavior.
 2. `docs/DECISIONS.md` establishes accepted architecture.
-3. `PLAN.md` and linked `docs/plan/` sections establish sequence and exit gates.
+3. `PLAN.md` and linked `docs/plan/` sections establish technical sequence and exit gates.
 4. `docs/MODELS_AND_VALIDATION.md` establishes model and validation requirements.
-5. `docs/STATUS.md` establishes the current handoff state.
-6. The controlling issue establishes the bounded execution contract for its scope.
-7. Chat messages are provisional until committed or recorded in the issue.
+5. The controlling issue establishes the bounded execution contract for its scope.
+6. Pull requests, checks, reviews, manifests, and Git history preserve implementation and reproducible evidence.
+7. Epic #39 establishes operational roadmap status only.
+8. Chat messages are provisional until recorded in an authoritative source.
 
 When sources materially conflict, stop and document the conflict. Do not silently choose one.
 
-Use these status markers exactly in plans and design notes: `ACCEPTED`, `OPEN`, `SPECULATIVE`, `REJECTED`, `OBSERVED`, and `BLOCKED`. Never present an `OPEN` or `SPECULATIVE` item as decided.
+Use these decision markers exactly in design notes: `ACCEPTED`, `OPEN`, `SPECULATIVE`, `REJECTED`, `OBSERVED`, and `BLOCKED`. Never present an `OPEN` or `SPECULATIVE` item as decided.
 
 ## Role routing and instruction ownership
 
@@ -59,11 +61,11 @@ Trivial typo-only edits may skip the complete issue workflow unless the user exp
 
 Reasoning and tool exploration are project resources. Use them where they reduce technical risk, not to reconstruct known state repeatedly.
 
-- Maintain a compact working ledger: controlling issue, active phase, branch, exact project and nested heads, documents or sections read, and last accepted checkpoint.
+- Maintain a compact working ledger containing only the controlling issue, active phase, branch, changed inputs, last accepted checkpoint, and exact revisions required for the current decision.
 - Re-read an input only when its identity changed, new evidence affects it, or a conflict requires broader inspection.
 - Prefer the previous phase's final machine-readable manifest and accepted review over complete historical issue, PR, and results traversal. Read older records only when the current issue identifies an unresolved dependency or dispute.
 - Prefer exact paths, symbols, commands, and section anchors supplied by the issue over repository-wide searches.
-- Under `STANDARD`, group routine progress reporting at session boundaries and checkpoints unless a failure, scope change, or handoff needs an immediate record.
+- Under `STANDARD`, report only material starts, checkpoints, failures, blockers, scope changes, and handoffs.
 - Do not create redundant summaries of authoritative data. Link or identify the authoritative record and describe only changes, deviations, and conclusions.
 
 ## Native build and test tooling
@@ -99,11 +101,12 @@ During implementation:
 
 At the end of an implementation session:
 
-- update `docs/STATUS.md` only when the project handoff state changes, including exact relevant commit SHAs;
-- update only completed tasks, exit gates, and affected evidence in `PLAN.md` or linked plan sections;
-- update `docs/DECISIONS.md` only when a decision is added, changed, or reopened;
+- update the controlling issue or PR only when a material result, finding, blocker, scope change, or handoff needs to be recorded;
+- update epic #39 only when phase status, order, dependency, or active ownership changes;
+- update `PLAN.md` or linked plan sections only when the technical plan, sequence, scope, or exit gate changes, never merely to synchronize execution status;
+- update `docs/DECISIONS.md` only when a durable decision is added, changed, or reopened;
 - update model, repository, artifact, and manifest records only when their inputs or evidence changed;
-- commit required source-of-truth changes;
+- avoid commits whose sole purpose is to copy status already visible in GitHub;
 - leave the working tree clean or clearly document intentional uncommitted work.
 
 ## Architectural constraints
@@ -208,4 +211,4 @@ Primary references are listed in `docs/PRIOR_ART.md`.
 
 ## Current work
 
-Read `docs/STATUS.md` for the current phase, active issue, exact handoff state, and immediate next action. Do not encode a phase-specific task in this file.
+Use epic #39 to identify the current phase and controlling issue. Once a controlling issue exists, that issue and its PR are the active execution context; do not encode phase-specific status in this file or duplicate it into repository documents.
