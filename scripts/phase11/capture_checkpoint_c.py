@@ -93,6 +93,11 @@ def validate_uma(name: str, run_record: dict[str, Any], *, autofit: bool) -> Non
             "cold_policy", "cold_policy_scope", "cold_policy_admission")):
         raise ValueError(f"{name}: Phase 9 global LRU/ALWAYS defaults drifted")
     if d["uma_swap_counters_supported"] != 1 or d["uma_telemetry_unavailable_reason"] != "" or \
+            d["uma_psi_full_supported"] != 1 or d["uma_zram_present"] != 0 or \
+            d["uma_zram_status_reason"] != "unsupported: no zram block device" or \
+            d["uma_zswap_enabled"] != 0 or d["uma_zswap_status_reason"] != "unsupported: zswap disabled" or \
+            d["uma_nvidia_hmm_counters_supported"] != 0 or \
+            not d["uma_nvidia_hmm_status_reason"].startswith("unsupported:") or \
             d["resident_runtime_quiet"] != 1 or d["storage_read_requests"] <= 0 or \
             d["uma_storage_misses"] <= 0 or d["scheduler_flights"] <= 0 or \
             d["provider_pool_generations"] != 1:
@@ -122,7 +127,8 @@ def validate(document: dict[str, Any]) -> None:
         raise ValueError("failure/cancellation lifecycle evidence failed")
     lifecycle = document["policy_pressure_lifecycle"]
     required = {"autofit": 1, "explicit_policy": 1, "pressure_circuit": 1, "before_io": 1,
-        "trim_zero_refs": 1, "surrender": 1}
+        "trim_zero_refs": 1, "surrender": 1, "fault_degraded": 1, "psi_circuit": 1,
+        "compression_circuit": 1}
     if any(lifecycle.get(key) != value for key, value in required.items()) or \
             lifecycle.get("pressure_rejections", 0) < 3 or lifecycle.get("pressure_samples", 0) < 4:
         raise ValueError("policy/pressure/trim/surrender evidence failed")
