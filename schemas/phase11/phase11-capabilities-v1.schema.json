@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/phase11/phase11-capabilities-v1.schema.json",
+  "title": "Phase 11 GB10 capability and Checkpoint A evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "scope", "revisions", "platform", "gpu_inventory", "toolkit", "storage_inventory", "filesystem", "ats_evidence", "c2c_evidence", "memlock_limit_bytes", "probe", "commands"],
+  "properties": {
+    "schema_version": {"const": "phase11-capabilities-v1"},
+    "status": {"const": "pass"},
+    "scope": {"const": "gb10_coherent_uma_buffered_storage_fallback"},
+    "revisions": {
+      "type": "object", "additionalProperties": false,
+      "required": ["project_head", "nested_head", "gitlink"],
+      "properties": {
+        "project_head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "nested_head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "gitlink": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+      }
+    },
+    "platform": {
+      "type": "object", "additionalProperties": false,
+      "required": ["board", "product", "architecture", "kernel", "cpu_count", "mem_total_bytes", "mem_available_bytes", "cgroup_memory_max_bytes", "cgroup_memory_current_bytes", "swap_total_bytes", "seccomp_mode"],
+      "properties": {
+        "board": {"const": "EdgeXpert (MS-C931)"}, "product": {"const": "MS-C931"},
+        "architecture": {"const": "aarch64"}, "kernel": {"type": "string", "minLength": 1},
+        "cpu_count": {"type": "integer", "minimum": 1},
+        "mem_total_bytes": {"type": "integer", "minimum": 1}, "mem_available_bytes": {"type": "integer", "minimum": 1},
+        "cgroup_memory_max_bytes": {"type": "integer", "minimum": 1}, "cgroup_memory_current_bytes": {"type": "integer", "minimum": 0},
+        "swap_total_bytes": {"type": "integer", "minimum": 0}, "seccomp_mode": {"const": 2}
+      }
+    },
+    "gpu_inventory": {"type": "string", "pattern": "NVIDIA GB10.*12\\.1"},
+    "toolkit": {"type": "string", "minLength": 1}, "storage_inventory": {"type": "object"},
+    "filesystem": {"type": "object"}, "ats_evidence": {"type": "string", "minLength": 1},
+    "c2c_evidence": {"type": "string", "minLength": 1}, "memlock_limit_bytes": {"const": 8388608},
+    "commands": {"type": "array", "minItems": 5, "items": {"type": "string", "minLength": 1}},
+    "probe": {
+      "type": "object",
+      "required": ["schema_version", "board", "product", "gpu", "compute_capability", "device_count", "pageable_memory_access", "pageable_uses_host_page_tables", "native_io_uring", "io_uring_errno", "memlock_limit_bytes", "registered_large_buffer_evidence", "storage_transport", "allocation_bytes", "resident_pages", "status"],
+      "properties": {
+        "schema_version": {"const": "phase11-uma-probe-v1"}, "board": {"const": "EdgeXpert (MS-C931)"},
+        "product": {"const": "MS-C931"}, "gpu": {"const": "NVIDIA GB10"}, "compute_capability": {"const": "12.1"},
+        "device_count": {"const": 1}, "pageable_memory_access": {"const": 1}, "pageable_uses_host_page_tables": {"const": 1},
+        "native_io_uring": {"const": "unavailable_host_seccomp"}, "io_uring_errno": {"const": 1},
+        "memlock_limit_bytes": {"const": 8388608}, "registered_large_buffer_evidence": {"const": "unavailable"},
+        "storage_transport": {"const": "buffered_pread"}, "allocation_bytes": {"type": "integer", "minimum": 1},
+        "resident_pages": {"type": "integer", "minimum": 1}, "status": {"const": "pass"}
+      }
+    }
+  }
+}
