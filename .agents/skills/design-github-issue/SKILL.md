@@ -1,6 +1,6 @@
 ---
 name: design-github-issue
-description: Define the smallest execution-ready GitHub issue that resolves material design decisions, bounds implementation, and states objective acceptance criteria without duplicating repository history or workflow procedure.
+description: Define a self-contained execution-ready GitHub issue that resolves material decisions, gives a fresh executor every fact needed to implement safely, and avoids duplicating workflow history or derived metadata.
 ---
 
 # Design a GitHub Execution Issue
@@ -13,45 +13,70 @@ The design authority owns:
 
 - the observable outcome;
 - material architectural and validation decisions;
-- scope, invariants, exclusions, and acceptance criteria;
+- the complete phase-specific context needed to execute safely;
+- scope, invariants, exclusions, failure semantics, and acceptance criteria;
 - risk-based review checkpoints;
 - the issue's readiness state.
 
-It does not implement code, operate the branch, publish commits, or perform independent review.
+It does not implement code, operate branches, publish commits, or perform independent review.
 
-## Load only material context
+## Assume a fresh, less-capable executor
+
+Design the issue for an executor that:
+
+- has no access to the design session's reasoning;
+- may be less capable than the design authority at resolving ambiguity;
+- should not need to reconstruct material facts from prior issues, PR histories, or broad repository reading;
+- must be able to distinguish required behavior from examples, observations, alternatives, and future work.
+
+The issue must therefore contain every **phase-specific fact, decision, constraint, and acceptance rule** required for correct implementation. Links are supporting references, not substitutes for material instructions.
+
+A self-contained issue is not an archive. Include the current technical contract in full; omit historical narration and generic workflow already owned elsewhere.
+
+## Load material design context
 
 Start with:
 
 1. `AGENTS.md`;
-2. the request or existing controlling issue.
+2. the request, roadmap epic, or existing controlling issue.
 
-Then load only the plan or decision sections, source, tests, build metadata, prior manifest, external revisions, and current overlapping work needed to settle this issue.
+Then inspect only what is needed to settle the phase:
 
-Prefer links and exact section references over copied prose. Prefer the prior phase's final manifest and accepted result over its complete issue, PR, and comment history. Do not require future executors to read this design skill.
+- exact plan and decision sections;
+- relevant source seams, APIs, ownership, state machines, and tests;
+- the prior accepted manifest or baseline behavior;
+- required hardware, model, artifact, and nested-repository inputs;
+- overlapping current work and superseded attempts when their findings constrain the design.
 
-## The issue is a contract, not an archive
+Prefer authoritative current outcomes over complete historical issue or PR traversal. Expand history only when a material finding, rejected mechanism, or provenance boundary affects the new contract.
 
-A controlling issue should let a fresh executor start safely, but it should contain only the phase-specific delta.
+## The issue is the executor's complete contract
 
-Include:
+Include enough concrete detail that implementation does not depend on unstated inference. Depending on the phase, this may require:
 
-- the outcome and current limitation;
-- accepted decisions and genuinely open questions;
-- scope, exclusions, and invariants;
-- objective acceptance criteria;
-- risk checkpoints, when needed;
-- links to authoritative design, evidence, source, and tests.
+- current limitation and observable goal;
+- accepted baseline behavior and defaults that must remain unchanged;
+- exact relevant repository and nested inputs when reproducibility or compatibility depends on them;
+- inspected implementation seams, ownership and lifetime boundaries, data shapes, states, identifiers, and error mapping;
+- resolved API/configuration semantics and invalid combinations;
+- ordering, concurrency, cancellation, teardown, and failure behavior;
+- required telemetry and resource bounds;
+- permitted implementation scope and explicit exclusions;
+- stable commands, targets, fixtures, hardware, and artifact identities needed for validation;
+- objective acceptance criteria and material review risks;
+- prior negative evidence or superseded attempts when they prohibit repeating a known-invalid mechanism.
+
+Use precise names, paths, values, examples, and equations where they remove ambiguity. Summarize the relevant content of linked documents rather than expecting the executor to infer the contract by reading them wholesale.
 
 Do not copy:
 
-- generic workflow, Git, review, or failure procedures owned by skills;
-- historical phase narratives;
-- complete command output or machine-readable evidence;
-- information already visible in GitHub or Git;
-- the same decision in both the issue and repository documentation.
+- generic Git, publication, review, label, or reporting procedure owned by skills;
+- chronological phase histories, complete review transcripts, or commit ledgers;
+- complete command output or machine-readable evidence already stored as artifacts;
+- routine GitHub metadata visible on the issue or PR;
+- the same rule into multiple sections merely for emphasis.
 
-Use exact commits only when reproducibility, an external dependency, a prior accepted result, or branch ownership depends on them. Do not pin or repeat routine heads merely for bookkeeping.
+Exact commits are required when reproducibility, a nested dependency, accepted evidence, branch ownership, or review identity depends on them. Do not repeat routine heads merely for bookkeeping.
 
 ## Readiness
 
@@ -63,15 +88,15 @@ Use one current state for a non-trivial open issue:
 - `blocked`: a required external capability is unavailable with no practical alternative;
 - `in-progress`: execution has started.
 
-A label is a useful projection of this state, not a separate source of truth. Do not create compliance work solely to synchronize equivalent prose, labels, comments, and PR metadata.
+A label is a useful projection, not a separate authority. Do not create compliance work solely to synchronize equivalent prose, labels, comments, and PR metadata.
 
 ## Design method
 
 ### 1. Define the observable outcome
 
-State what must become true, why it matters, the current limitation, and the requested boundary.
+State what must become true, why it matters, the current limitation, and the boundary of the requested change.
 
-### 2. Resolve only material unknowns
+### 2. Resolve material unknowns
 
 Resolve questions that can change behavior, compatibility, architecture, ownership, lifetime, numerical semantics, backend support, failure handling, validation, licensing, or upstream strategy.
 
@@ -84,47 +109,69 @@ Use these classifications only where they clarify a real decision:
 - `REJECTED`
 - `BLOCKED`
 
-Do not turn `OPEN` or `SPECULATIVE` items into implementation requirements.
+Do not turn `OPEN` or `SPECULATIVE` items into implementation requirements. Record durable cross-phase architecture in `docs/DECISIONS.md`; keep phase-local choices in the issue.
 
-Record durable cross-phase architecture in `docs/DECISIONS.md`. Keep issue-local choices in the issue.
-
-### 3. Bound the implementation
+### 3. Bound implementation without under-specifying it
 
 Define the smallest coherent outcome, permitted subsystem or files, explicit exclusions, and invariants. Split work only when a failure would otherwise obscure which design or edit caused it.
 
-Avoid exhaustive allowlists when normal repository boundaries and review can control scope more clearly.
+Avoid exhaustive file allowlists when subsystem boundaries and review are clearer, but include exact files or seams when a less-capable executor could otherwise modify the wrong layer.
 
-### 4. Define validation
+### 4. Define validation that proves the outcome
 
-Validation must prove the observable outcome, not merely compilation.
-
-Specify only what is material:
+Specify only material validation, but specify it concretely:
 
 - native build or test targets;
-- correctness, repeated-run, failure-path, numerical, or performance checks;
-- required environment or external artifacts;
+- correctness, repeated-run, failure-path, numerical, concurrency, lifetime, or performance checks;
+- required environment and external artifacts;
 - objective pass/fail criteria;
-- the authoritative manifest or evidence artifact, when one is needed.
+- the authoritative technical evidence artifact, when needed.
 
-Prefer repository-native targets. Use exact commands when they are stable and important; otherwise identify the target and expected result without freezing replaceable invocation details.
+Prefer repository-native targets. Use exact commands when their arguments or environment are part of what is being proven; otherwise identify the target and required result without freezing replaceable invocation syntax.
 
-### 5. Add risk-based checkpoints
+### 5. Keep technical evidence independent from workflow
 
-Under `STANDARD`, add an independent checkpoint only for material architecture, ownership or lifetime, persistent state, numerical behavior, backend execution, broad refactoring, or decision-driving performance evidence.
+For new phases, a machine-readable technical manifest should contain technical and reproducibility data only, such as:
+
+- project and nested implementation revisions;
+- input identities and hashes;
+- environment and configuration;
+- commands, results, artifacts, metrics, gates, and limitations.
+
+Do not require it to contain branch names, issue or PR numbers, labels, comment IDs, review verdicts, merge identity, or closeout status unless one is itself a technical input to the software being tested. Review is an external attestation over an immutable target and manifest.
+
+When raw evidence is large or highly repetitive, require an immutable external archive with checksums and keep in Git only the manifest, bounded summaries, schemas, reproduction tooling, small fixtures, and archive index. Do not externalize artifacts needed for ordinary deterministic tests.
+
+### 6. Add risk-based checkpoints
+
+Under `STANDARD`, add independent checkpoints only for distinct material risks such as architecture, ownership or lifetime, persistent state, numerical behavior, concurrency, backend execution, broad refactoring, or decision-driving performance evidence.
 
 Use `HIGH_ASSURANCE` only when explicitly justified; issue size alone is not a reason.
 
-A checkpoint needs only:
+A checkpoint defines:
 
-- the covered outcome;
-- the exact target semantics;
-- the risks and acceptance criteria;
-- the evidence to inspect;
+- the covered outcome and exact target semantics;
+- material risks and acceptance criteria;
+- evidence to inspect or reproduce;
 - what would make progression unsafe.
 
-The reviewer skill owns the review procedure and verdict format.
+When the last checkpoint can inspect the complete final PR diff, immutable final technical evidence, and all remaining acceptance criteria, declare it **final-capable**. A passing review of that exact unchanged target also serves as the final PR review; do not require a duplicate review.
 
-### 6. Define restart semantics
+Any later change to code, tests, technical evidence, manifest, dependencies, configuration, or technical claims invalidates final-capable status and requires review of the changed target. Changes only to labels, issue/PR prose, roadmap state, or other derived metadata do not.
+
+### 7. Define nested publication boundaries
+
+When implementation lives primarily in nested `llama.cpp`, permit coherent nested commits without requiring a parent gitlink commit for every nested step.
+
+Require the parent gitlink to be updated at:
+
+- a checkpoint that needs an exact parent+nested review target;
+- the final integration candidate;
+- another explicit recovery or compatibility boundary.
+
+The issue may require more frequent updates only when parent-side code or evidence genuinely depends on each nested revision.
+
+### 8. Define restart semantics
 
 Distinguish:
 
@@ -136,71 +183,57 @@ Distinguish:
 
 Under `STANDARD`, two consecutive review failures for substantially the same validation, attestation, parser, documentation-sync, or bookkeeping mechanism trigger design review before a third corrective cycle. This never waives a continuing material defect.
 
-### 7. Check overlap
+### 9. Check overlap
 
-Inspect only plausibly overlapping open issues, PRs, branches, and recent attempts. Link superseded work rather than copying its history.
+Inspect only plausibly overlapping open issues, PRs, branches, and recent attempts. Link superseded work and summarize its material constraint instead of copying its history.
 
 ## Execution-ready check
 
 Before marking the issue `execution-ready`, confirm:
 
-- the observable outcome is unambiguous;
-- material decisions are resolved;
-- scope and invariants are clear;
-- acceptance is objective;
-- required context is linked;
-- checkpoints match actual risk;
-- a fresh executor can start without reconstructing unrelated history.
+- a fresh executor can implement without access to design-session reasoning;
+- the observable outcome and terminology are unambiguous;
+- all material facts and decisions are present in the issue;
+- linked sources supplement rather than replace the contract;
+- scope, invariants, failure behavior, and acceptance are clear;
+- required inputs and validation capabilities are identified;
+- checkpoints match distinct risks and avoid duplicate final review;
+- technical evidence is independent from GitHub workflow metadata;
+- nested and external-evidence publication boundaries are explicit when applicable.
 
-## Lean issue template
+## Issue structure
+
+Use the sections that carry phase-specific information:
 
 ```markdown
 # <Outcome-oriented title>
 
 ## Readiness
-
 **State:** execution-ready | design-required | investigation-required | blocked
 **Profile:** STANDARD | HIGH_ASSURANCE
 
-## Goal
+## Goal and current limitation
+<Observable outcome, why it matters, and current behavior.>
 
-<Observable outcome and why it matters.>
+## Authoritative baseline and inputs
+<All material baseline facts, revisions, manifests, artifacts, and defaults.>
 
-## Current limitation
-
-<Only the evidence needed to understand this phase.>
-
-## Decisions and references
-
-- <accepted decision or exact link>
-- <open question, or none>
-- <prior manifest or attempt only when material>
+## Resolved technical contract
+<APIs, ownership, state, ordering, failure semantics, bounds, and concrete seams.>
 
 ## Scope
-
 ### In scope
-- <bounded outcome>
-
 ### Out of scope
-- <explicit exclusion>
-
 ### Invariants
-- <must remain true>
 
-## Acceptance criteria
-
-- [ ] <objective criterion>
-- [ ] <objective criterion>
+## Validation and evidence
+<Required targets, cases, environment, artifacts, and objective gates.>
 
 ## Checkpoints
-
-- <risk checkpoint and exact target semantics, or none>
+<Distinct risk checkpoints; mark the last one final-capable when applicable.>
 
 ## Delivery
-
-- PR: <one coherent PR>
-- Evidence: <manifest/artifact/checks, or none>
-- Completion: <observable final state>
+<One coherent PR, parent/nested publication boundaries, evidence retention, and observable completion.>
 ```
 
-Add sections only when they carry issue-specific information.
+Add or split sections freely when technical completeness requires it. Do not impose an arbitrary line limit on a genuinely complex phase.
