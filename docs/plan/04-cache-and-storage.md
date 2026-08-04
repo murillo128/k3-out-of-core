@@ -1,76 +1,52 @@
-# Persistent caches and GGUF storage
+# Persistent hot cache, cold cache, and GGUF-backed storage
 
 ## Phase 4 — Persistent hot cache in accelerator memory
 
 ### Objectives
 
-- Create correct fixed-address hot slots and runtime ID remapping while all source experts remain host-resident.
+- Keep a bounded set of routed experts in fixed-address accelerator memory.
+- Establish logical-to-physical slot remapping without changing model routing.
 
 ### Tasks
 
-#### 4.1 Hot-slot allocation
+#### Cache-owned storage
 
-- [x] Allocate persistent slots outside the graph allocator.
-- [x] Allocate the gate/up/down physical regions required by each logical slot.
-- [x] Preserve stable addresses for graph compatibility.
-- [x] Reserve CUDA/cuBLAS workspace before consuming all VRAM.
-- [x] Support cache trim/surrender on memory pressure.
+- Allocate fixed-address expert slots outside graph-temporary memory.
+- Keep gate/up/down projections and sidecars atomic at the expert-bundle lifecycle level.
+- Support bounded configurable capacity.
+- Preserve stable slot addresses until an explicit quiescent surrender/reinitialization.
+- Reserve graph/backend workspace before allocating persistent cache storage.
 
-#### 4.2 Directory
+#### Directory and generations
 
-- [x] Implement bidirectional mapping:
+- Maintain bidirectional mappings between logical `ExpertKey` and physical slot.
+- Increment slot generations whenever content identity changes.
+- Reject stale handles and stale slot generations.
+- Keep metadata and content publication atomic.
+- Use a minimal deterministic LRU mechanism for validation, not as the final policy decision.
 
-  ```text
-  ExpertKey -> slot
-  slot -> ExpertKey
-  ```
+#### Execution remapping
 
-- [x] Maintain generation/version counters to detect stale handles.
-- [x] Use the synchronized execution-ID tensor as the Phase 4 device-visible mapping; a persistent GPU directory is not required.
-- [x] Update mapping in place without per-token allocation.
+- Preserve original selected expert IDs for route observation.
+- Create distinct execution IDs only in cached mode.
+- Materialize logical IDs at the accepted scheduler checkpoint, populate required slots synchronously, and rewrite execution IDs to physical slots.
+- Keep activation, final routing weights, graph semantics after the checkpoint, kernels, and canonical reduction unchanged.
 
-#### 4.3 State machine
+#### Lifetime and failure
 
-Implement explicit states:
-
-```text
-FREE
-RESERVED
-LOADING
-READY
-PINNED
-EVICTING
-FAILED
-```
-
-- [x] Define legal transitions and assertions.
-- [x] Pin slots while kernels use them.
-- [x] Prevent eviction with nonzero reference count or outstanding request ownership.
-
-#### 4.4 Synchronous correctness path
-
-- [x] Initially populate a missed slot from host source synchronously.
-- [x] Remap selected IDs to slot IDs.
-- [x] Execute existing CUDA MXFP4 grouped MoE kernels against slot buffers.
-- [x] Preserve canonical output reduction.
-
-This synchronous path is a phase-isolation mechanism, not the final transport.
-
-#### 4.5 Tests
-
-- [x] Deterministic capacity/eviction tests.
-- [x] Stale-handle and generation tests.
-- [x] Compute-epoch persistence tests.
-- [x] Repeated warm inference.
-- [x] Allocation, injected-copy, abort, and scheduler-error cleanup.
+- Hold graph-generation and request leases while referenced.
+- Support cancellation, compute failure, context destruction, model unload, trim, surrender, and reinitialization.
+- Prevent slot eviction while pinned or referenced.
+- Keep disabled and resident-provider paths unchanged.
 
 ### Exit gate
 
-- Forced hot-cache inference matches monolithic logits/tokens.
-- True cross-epoch hits occur from cache-owned memory.
-- No stale data or graph-temporary dependency exists.
-
-Status: `ACCEPTED`. Issue #17 standing evidence satisfies the exit gate; Checkpoint A and final complete-PR review returned `PASS_WITH_NOTES`, safety `YES`. PR #18 squash-merged as `b196cc07249726651d39aaa624703bc4256a3012` with nested `llama.cpp` head `57fe1eabbe3d0ced59096a0744efc91e286fb1c7`.
+- F16 and MXFP4 CUDA hot-cache execution matches the monolithic/disabled reference under accepted correctness semantics.
+- A real miss becomes a persistent cross-epoch hit with stable address and no repeated H2D copy.
+- Directory, generation, pin, eviction, trim, surrender, and failure tests pass.
+- Persistent expert bytes are not owned by graph-temporary or scheduler-staging storage.
+- Disabled and resident paths perform no hot-cache work.
+- Memory and administration remain bounded.
 
 ---
 
@@ -78,44 +54,55 @@ Status: `ACCEPTED`. Issue #17 standing evidence satisfies the exit gate; Checkpo
 
 ### Objectives
 
-- Add an explicit, bounded host cache and decouple large cold capacity from pinned transfer capacity.
+- Add a bounded pageable host cache beneath the hot cache.
+- Decouple large cold capacity from a smaller bounded pinned/registered H2D transfer ring.
 
 ### Tasks
 
-#### 5.1 Cold slots
+#### Cold cache
 
-- [x] Allocate aligned cold slots by bytes, not only expert count.
-- [x] Implement cold directory and state machine.
-- [x] Enforce the initial inclusive invariant for hot entries.
-- [x] Define host-memory pressure and allocation failure behavior.
-- [x] Leave hugepage advice optional and unused; correctness does not depend on it.
+- Add an explicitly byte-budgeted pageable host cache for complete expert bundles.
+- Derive exact bundle layout and reject ambiguous or non-contiguous per-expert spans.
+- Use generation-checked bidirectional mappings and deterministic validation LRU.
+- Keep the initial discrete-GPU hierarchy inclusive: every hot entry has exact cold backing.
+- Populate cold misses from the still-resident host source in this phase.
+- Prohibit hot eviction writeback.
 
-#### 5.2 Pinned ring
+#### Transfer ring
 
-- [x] Allocate bounded pinned/registered transfer buffers.
-- [x] Support multiple queued H2D transfers per synchronous wave.
-- [x] Fall back cleanly when pinned acquisition fails.
-- [x] Track pinned-memory budget and expose acquisition/fallback telemetry.
+- Allocate a separately byte-budgeted ring with lanes sized for one complete aligned bundle.
+- Prefer native CUDA host memory or bounded registration for the ring only.
+- Provide an explicit bounded pageable synchronous fallback.
+- Queue multiple H2D copies before one completion barrier when native pinned/registered transfer is available.
+- Never pin/register the full cold cache, source tensors, or whole model.
 
-#### 5.3 Promotion
+#### Promotion and coherence
 
-- [x] Cold hit copies to a pinned lane if needed, then asynchronously or synchronously to hot according to the current phase.
-- [x] Preserve ready hot hits without recopy or eviction; current-layer misses complete in bounded waves.
-- [x] Populate a cold slot from the existing pageable host-resident monolithic tensor for this phase.
+- Serve hot miss/cold hit without rereading the monolithic source.
+- Serve cold miss by atomically populating cold before promotion.
+- Coalesce duplicate keys in one checkpoint.
+- Publish hot only after complete transfer and preserve cold backing references.
+- Prevent eviction of loading, pinned, referenced, hot-backed, or in-flight cold entries.
+- Roll back partial source, lane, H2D, synchronization, or cancellation failures.
 
-#### 5.4 Eviction
+#### Validation and telemetry
 
-- [x] Implement deterministic LRU mechanism for tests.
-- [x] Prevent cold eviction while hot, transferring, loading, or referenced.
-- [x] Verify hot eviction requires no writeback.
+- Record exact requested/effective cold and ring bytes, slot/lane counts, references, generations, copies, H2D bytes, waves, synchronizations, and fallback state.
+- Prove source-copy bytes increase only on cold misses.
+- Prove cold-to-lane/H2D bytes increase only on hot misses.
+- Prove hot hits perform no transfer.
+- Stress trim, surrender, reinitialize, cancellation, unload, and failure cleanup.
 
 ### Exit gate
 
-- Hot miss/cold hit behavior is correct and bounded.
-- Inclusive-cache invariants hold under stress.
-- No whole-model pinning occurs.
-
-Status: `ACCEPTED`. Issue #20 standing evidence satisfies the exit gate; Checkpoint A returned `PASS`, safety `YES`, and final complete-PR review returned `PASS_WITH_NOTES`, safety `YES`, with no required delta. PR #21 squash-merged as `c5512bc073ae7aab4a14773028828e516e16f3f6` with nested `llama.cpp` head `26317ee1d848dd7a73f22a3666a055cad5d5cb03`.
+- F16 and MXFP4 tiered execution preserves exact accepted routes, weights, generated IDs, and logits.
+- Repeated hot evictions become genuine cold hits without source reread.
+- Inclusive hot/cold invariants survive deterministic hot and cold eviction.
+- Native bounded multi-lane and forced pageable fallback paths are truthful and correct.
+- Cold and pinned allocations never exceed their configured budgets.
+- Source tensors and the cold arena remain unpinned/unregistered.
+- References, lanes, and handles balance after success, failure, cancellation, trim, surrender, and unload.
+- No disk I/O, async compute overlap, CPU miss execution, prefetch, or production policy is introduced.
 
 ---
 
@@ -123,38 +110,51 @@ Status: `ACCEPTED`. Issue #20 standing evidence satisfies the exit gate; Checkpo
 
 ### Objectives
 
-- Stop treating the complete expert tensor as host-resident.
-- Read an absent `ExpertBundle` from its exact GGUF spans into bounded buffers/cold slots.
+- Stop eagerly materializing routed expert payloads in cold-cache mode.
+- Read exact missing bundles positionally from loader-owned GGUF handles into cold slots.
 
 ### Tasks
 
-#### 6.1 Storage API
+#### Model-owned storage
 
-- [x] Open and retain explicit file handles supplied by the GGUF loader.
-- [x] Validate all offsets and sizes at model load.
-- [x] Support split GGUF files.
-- [x] Define storage lifetime through model unload.
+- Introduce focused expert storage separate from cache, transport, and policy.
+- Duplicate loader-opened read-only handles without reopening by path.
+- Validate native file identity, size, split index, alignment, and lifetime.
+- Build an immutable split-aware `ExpertKey -> spans` directory.
+- Support one-file and split GGUFs, including bundles whose projections reside in different splits.
 
-#### 6.2 Read path
+#### Deferred routed payloads
 
-- [x] Implement a simple robust read-at-offset path first.
-- [x] Read all three projections for a logical expert.
-- [x] Verify destination extents and independently captured source/split identities before standing evidence.
-- [x] Compare source-read and final-destination digests before publishing a cold entry; poison storage on mismatch.
-- [x] Handle short read, EINTR, I/O error, and cancellation.
-- [x] Ensure the complete expert tensor is not accidentally faulted into RAM by another reference.
+- Keep routed tensor metadata without allocating, mmap-binding, prefetching, mlocking, or loading routed payload bytes.
+- Keep routed `data` and `buffer` null in cold-cache mode.
+- Preserve normal resident loading for shared, latent, router, attention, embedding, output, and other non-routed tensors.
+- Reject unsupported load modes or any non-provider attempt to use deferred routed data.
 
-#### 6.3 Model loading changes
+#### Synchronous positional reads
 
-- [x] Keep routed expert metadata resident but avoid eagerly materializing routed expert bytes.
-- [x] Keep resident/shared/latent tensors in their normal backend allocation.
-- [x] Make out-of-core mode explicit and validate configuration before inference.
+- Use true positional reads with no shared cursor or read mutex.
+- Read directly into reserved cold destinations with zero routed-payload scratch.
+- Use bounded chunks and cancellation checks.
+- Handle `EINTR`, partial positive reads, short reads, EOF, ordinary I/O errors, and cancellation deterministically.
+- Publish a cold entry only after every required span and integrity check succeeds.
+- Keep ordinary I/O failure/cancellation retryable after cleanup and poison the provider on hard integrity mismatch.
+
+#### Validation and accounting
+
+- Compare populated cold bytes independently against immutable GGUF source spans.
+- Validate original and generated-split F16/MXFP4 parity.
+- Prove cold hit avoids reread and deterministic eviction causes exact reread.
+- Prove file handles, directories, spans, cancellation scratch, and administration remain topology-bounded.
+- Record zero routed allocation, mmap binding, prefetch, source pinning, and demand-read payload scratch.
+- Preserve the accepted cold -> ring -> hot hierarchy with no storage-to-hot bypass.
 
 ### Exit gate
 
-- With cold/hot capacities forced small, experts are read from GGUF on demand and inference matches the monolithic baseline.
-- Host memory remains within the configured budget.
-
-Status: `ACCEPTED`. Issue #22 standing evidence satisfies the exit gate; Checkpoint A corrective review returned `PASS`, safety `YES`, and final complete-PR review returned `PASS`, safety `YES`, with no required delta. PR #23 squash-merged as `66ab6dba60b55ce47d0ecf94fcf88a778df9cdc6` with nested `llama.cpp` head `7a606dd4e11a108929f799253809a904f55feae4`.
-
----
+- F16 and MXFP4 original/split execution preserves exact accepted routes, weights, generated IDs, and logits.
+- Every routed tensor is metadata-only in cold-cache mode and every non-routed tensor retains normal behavior.
+- The storage directory covers every required routed projection/sidecar exactly once with checked bounds.
+- First demand reads exact source spans, a cold hit reads zero bytes, and post-eviction demand rereads the exact bundle.
+- Populated cold bundles are byte/SHA-256 exact against independent extraction.
+- Error, cancellation, retry, poison, trim, surrender, reinitialize, and unload paths balance all resources.
+- Owned cache/transfer bytes remain within configured budgets; storage administration is bounded and repeated runs do not grow hidden state.
+- No asynchronous/direct I/O, prefetch, CPU miss execution, concurrency, UMA, multi-GPU, or new storage format is introduced.

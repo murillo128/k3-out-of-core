@@ -2,9 +2,7 @@
 
 A research and engineering project to run the text portion of **Kimi-K3** when the routed-expert weights are much larger than available accelerator memory and, ultimately, much larger than host memory.
 
-This repository is the **source of truth** for architecture, decisions, validation evidence, implementation planning, and handoff between ChatGPT and Codex sessions.
-
-> Project status: architecture and implementation plan defined; tiny K3 checkpoints downloaded; the `llama.cpp` K3 model-support branch is under validation. No out-of-core runtime code has been implemented yet.
+This repository is the **source of truth** for architecture, decisions, validation evidence, and technical implementation planning. Live project status and phase ownership are maintained in [epic #39](https://github.com/murillo128/k3-out-of-core/issues/39).
 
 ## Goal
 
@@ -159,15 +157,15 @@ Selected IDs are remapped to slot IDs before the MoE kernel indexes the hot cach
 
 A cache miss is not automatically forced onto the synchronous H2D critical path.
 
-The runtime must support:
+The runtime supports:
 
 ```text
 PROMOTE_AND_GPU  load/promote, then execute on GPU
 CPU_FALLBACK     execute the demand miss on CPU while optionally promoting in background
-AUTO             choose from measured transfer and compute costs
+AUTO             choose from explicit measured transfer and compute costs
 ```
 
-`AUTO` is intentionally undecided until measurements exist. UMA is expected to prefer GPU execution; discrete GPUs may benefit from hit-on-GPU/miss-on-CPU overlap.
+UMA is expected to prefer GPU execution; discrete GPUs may benefit from hit-on-GPU/miss-on-CPU overlap.
 
 ### I/O and transfer
 
@@ -190,7 +188,7 @@ Requirements:
 
 ### Cache policies
 
-The mechanism must not hard-code one policy. At minimum, the evaluation set includes:
+The mechanism does not hard-code one policy. The evaluation set includes:
 
 - LRU as a deterministic test baseline;
 - LFRU;
@@ -198,11 +196,11 @@ The mechanism must not hard-code one policy. At minimum, the evaluation set incl
 - optional frequency-gated admission;
 - LFU with aging.
 
-The production default is **open** and will be selected from real K3 routing traces. Prefill and decode must be measured separately because prefill can pollute a decode-optimized cache.
+Defaults are selected from real K3 routing traces and online validation. Prefill and decode are measured separately because prefill can pollute a decode-optimized cache.
 
 ### Prefetch
 
-Prefetch is subordinate to demand correctness and latency. Candidate predictors include:
+Prefetch is subordinate to demand correctness and latency. Candidate mechanisms include:
 
 - same-expert temporal reuse across tokens;
 - per-layer transition history;
@@ -210,7 +208,7 @@ Prefetch is subordinate to demand correctness and latency. Candidate predictors 
 - static/imatrix-derived hot-set seeding;
 - trace-trained policies.
 
-No N+1 predictor is assumed effective until K3 traces demonstrate useful precision and lead time.
+No N+1 predictor is assumed effective until K3 traces demonstrate useful precision, lead time, and end-to-end benefit. Ineffective mechanisms remain disabled by default.
 
 ## Core design principles
 
@@ -225,40 +223,28 @@ No N+1 predictor is assumed effective until K3 traces demonstrate useful precisi
 9. **Small integration surfaces.** `ggml-backend.cpp` should expose hooks, not contain the full implementation.
 10. **No premature file-format fork.** Use GGUF as backing store until measurements justify an expert-specific format.
 
-## Current baseline
+## Project status
 
-As of **2026-07-29**:
-
-- Upstream K3 text support is under review in `ggml-org/llama.cpp#26185`.
-- Current upstream PR head observed while creating this repository: `cf67f0d24511864d2d3da0769108fd6fc16d00d1`.
-- Local development models:
-  - `inference-optimization/Kimi-K3-0.40B`;
-  - `inference-optimization/Kimi-K3-0.40B-MXFP4`.
-- The tiny model preserves KDA/MLA, latent MoE, residual paths, eight experts, and top-2 routing.
-- Local MXFP4 inspection observed 203 packed tensors:
-  - 168 per-expert routed tensors;
-  - 35 additional resident MoE tensors.
-- Conversion workarounds have been identified but end-to-end GGUF conversion and inference have not yet been recorded as completed.
-
-See [Models and validation](docs/MODELS_AND_VALIDATION.md) and [Current status](docs/STATUS.md).
+Live phase status, active work, superseded attempts, and links to controlling issues are maintained in [epic #39](https://github.com/murillo128/k3-out-of-core/issues/39). Historical implementation details remain in Git history, phase issues, pull requests, reviews, and manifests rather than being copied into this file.
 
 ## Repository map
 
-- [`PLAN.md`](PLAN.md) — detailed implementation sequence and exit gates.
+- [`PLAN.md`](PLAN.md) — technical implementation sequence and exit gates.
 - [`AGENTS.md`](AGENTS.md) — operating instructions for Codex and other coding agents.
 - [`docs/DECISIONS.md`](docs/DECISIONS.md) — accepted decisions, rejected shortcuts, and open questions.
 - [`docs/PRIOR_ART.md`](docs/PRIOR_ART.md) — related work and exact reuse plan.
 - [`docs/MODELS_AND_VALIDATION.md`](docs/MODELS_AND_VALIDATION.md) — checkpoints, conversion, hardware, tests, and benchmark matrix.
-- [`docs/STATUS.md`](docs/STATUS.md) — dated handoff state for new sessions.
+- [Epic #39](https://github.com/murillo128/k3-out-of-core/issues/39) — live roadmap status and phase ownership.
 
 ## Source-of-truth rules
 
 1. Accepted architectural choices live in `docs/DECISIONS.md`.
-2. Work sequencing and gates live in `PLAN.md`.
-3. Reproducible model commands and evidence live in `docs/MODELS_AND_VALIDATION.md`.
-4. The latest session handoff lives in `docs/STATUS.md`.
-5. A chat conclusion is not authoritative until the relevant file is updated and committed.
-6. Speculation must be marked **OPEN** or **SPECULATIVE**; it must not silently become an implementation requirement.
+2. Technical sequencing and gates live in `PLAN.md` and `docs/plan/`.
+3. Reproducible model commands and evidence live in `docs/MODELS_AND_VALIDATION.md`, manifests, and results.
+4. Bounded execution contracts live in phase issues; implementation and review live in pull requests and checks.
+5. Live roadmap status and active ownership live in epic #39.
+6. A chat conclusion is not authoritative until recorded in the appropriate durable source.
+7. Speculation must be marked **OPEN** or **SPECULATIVE**; it must not silently become an implementation requirement.
 
 ## License
 
