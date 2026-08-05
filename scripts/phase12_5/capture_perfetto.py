@@ -8,6 +8,7 @@ import json
 import os
 import platform
 import re
+import select
 import shutil
 import signal
 import subprocess
@@ -46,8 +47,20 @@ def config_preflight(path: Path) -> dict[str, Any]:
     sizes = [int(value) * 1024 for value in re.findall(r"\bsize_kb:\s*(\d+)", text)]
     if not sizes or sum(sizes) > MAX_CONFIGURED_BUFFER:
         raise ValueError("configured Perfetto buffers must total 1 GiB or less")
-    if "fill_policy: DISCARD" not in text:
-        raise ValueError("qualifying config must use fail-closed DISCARD buffers")
+    fill_policies = re.findall(r"\bfill_policy:\s*(\w+)", text)
+    if len(fill_policies) != len(sizes) or any(value != "DISCARD" for value in fill_policies):
+        raise ValueError("every qualifying buffer must use fail-closed DISCARD policy")
+    if not re.search(r"\bwrite_into_file:\s*true\b", text):
+        raise ValueError("qualifying config must periodically drain buffers into the bounded output file")
+    file_limits = [int(value) for value in re.findall(r"\bmax_file_size_bytes:\s*(\d+)", text)]
+    if file_limits != [MAX_TRACE_BYTES]:
+        raise ValueError("qualifying config must set the exact 2 GiB output-file maximum")
+    write_periods = [int(value) for value in re.findall(r"\bfile_write_period_ms:\s*(\d+)", text)]
+    if len(write_periods) != 1 or not 100 <= write_periods[0] <= 5000:
+        raise ValueError("qualifying config must use a 100-5000 ms periodic file drain")
+    flush_periods = [int(value) for value in re.findall(r"\bflush_period_ms:\s*(\d+)", text)]
+    if len(flush_periods) != 1 or not 100 <= flush_periods[0] <= 30000:
+        raise ValueError("qualifying config must periodically flush producers")
     sources = re.findall(r'\bname:\s*"([^"]+)"', text)
     missing_sources = [source for source in REQUIRED_SOURCES if source not in sources]
     if missing_sources:
@@ -154,6 +167,8 @@ def main() -> int:
     env = os.environ.copy()
     env.update(extra_env)
     env["LLAMA_PERFETTO_CAPTURE"] = "1"
+    stop_read_fd, stop_write_fd = os.pipe()
+    env["LLAMA_PERFETTO_STOP_FD"] = str(stop_write_fd)
     trace_process: subprocess.Popen[Any] | None = None
     workload_process: subprocess.Popen[Any] | None = None
     workload_returncode = -1
@@ -169,13 +184,31 @@ def main() -> int:
                 raise RuntimeError("Perfetto CLI exited before the workload started")
             with exclusive_log(args.stdout) as stdout, exclusive_log(args.stderr) as stderr:
                 workload_process = subprocess.Popen(command, stdout=stdout, stderr=stderr, cwd=Path.cwd(), env=env,
-                    text=True)
-                workload_returncode = workload_process.wait(timeout=args.timeout_seconds)
+                    text=True, pass_fds=(stop_write_fd,))
+                os.close(stop_write_fd)
+                stop_write_fd = -1
+                deadline = time.monotonic() + args.timeout_seconds
+                while True:
+                    if workload_process.poll() is not None:
+                        raise RuntimeError("workload exited before requesting a trace stop")
+                    if trace_process.poll() is not None:
+                        raise RuntimeError("Perfetto CLI exited before the workload requested a trace stop")
+                    remaining = deadline - time.monotonic()
+                    if remaining <= 0:
+                        raise subprocess.TimeoutExpired(command, args.timeout_seconds)
+                    readable, _, _ = select.select([stop_read_fd], [], [], min(remaining, 0.25))
+                    if readable:
+                        marker = os.read(stop_read_fd, 1)
+                        if marker != b"\x01":
+                            raise RuntimeError("workload trace-stop handshake was incomplete")
+                        break
+                trace_process.send_signal(signal.SIGTERM)
+                trace_returncode = trace_process.wait(timeout=60)
+                workload_returncode = workload_process.wait(timeout=60)
                 stdout.flush(); os.fsync(stdout.fileno())
                 stderr.flush(); os.fsync(stderr.fileno())
             if workload_returncode != 0:
                 raise RuntimeError(f"workload exited with {workload_returncode}")
-            trace_returncode = trace_process.wait(timeout=60)
             trace_log.flush(); os.fsync(trace_log.fileno())
             if trace_returncode != 0:
                 raise RuntimeError(f"Perfetto CLI exited with {trace_returncode}")
@@ -185,6 +218,10 @@ def main() -> int:
         if trace_process is not None:
             terminate_owned(trace_process)
         raise
+    finally:
+        if stop_write_fd >= 0:
+            os.close(stop_write_fd)
+        os.close(stop_read_fd)
 
     if not args.trace.is_file() or args.trace.stat().st_size == 0:
         raise RuntimeError("TRACE_INVALID: Perfetto did not produce a trace")
@@ -205,7 +242,7 @@ def main() -> int:
         "config": {**file_identity(args.config), **config},
         "capture": {"started_utc": started.isoformat(), "completed_utc": completed.isoformat(),
             "perfetto_command": perfetto_command, "workload_command": command,
-            "workload_environment_names": sorted(extra_env) + ["LLAMA_PERFETTO_CAPTURE"],
+            "workload_environment_names": sorted(extra_env) + ["LLAMA_PERFETTO_CAPTURE", "LLAMA_PERFETTO_STOP_FD"],
             "workload_pid": workload_process.pid if workload_process else None,
             "workload_returncode": workload_returncode, "perfetto_pid": trace_process.pid if trace_process else None,
             "perfetto_returncode": trace_returncode, "output_free_bytes_before": usage.free},

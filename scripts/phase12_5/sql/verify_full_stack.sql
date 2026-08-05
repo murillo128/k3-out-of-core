@@ -61,7 +61,7 @@ anchors AS (
 loss AS (
   SELECT COALESCE(SUM(ABS(value)), 0) AS total
   FROM stats
-  WHERE severity = 'data_loss'
+  WHERE (severity = 'data_loss' AND name != 'config_write_into_file_discard')
      OR name IN ('ftrace_cpu_dropped_events_delta', 'ftrace_cpu_commit_overrun_delta',
        'traced_buf_incremental_sequences_dropped', 'traced_buf_sequence_packet_loss',
        'traced_buf_trace_writer_packet_loss', 'traced_final_flush_failed', 'traced_flushes_failed',
@@ -113,6 +113,8 @@ SELECT
     AND snapshot_id IN (SELECT snapshot_id FROM clock_snapshot WHERE clock_name = 'MONOTONIC_RAW')) AS common_clock_snapshots,
   (SELECT ABS((stop_ts - start_ts) - (stop_raw - start_raw)) FROM anchors) AS clock_anchor_residual_ns,
   (SELECT total FROM loss) AS required_source_loss,
+  (SELECT COALESCE(SUM(ABS(value)), 0) FROM stats
+    WHERE name = 'config_write_into_file_discard') AS streaming_discard_config_warnings,
   (SELECT COUNT(*) FROM raw WHERE name = 'sched_switch') AS sched_switch_count,
   (SELECT COUNT(*) FROM raw WHERE name IN ('sched_waking', 'sched_wakeup')) AS sched_wake_count,
   (SELECT COUNT(*) FROM raw WHERE name GLOB 'sys_enter_*') AS syscall_enter_count,
