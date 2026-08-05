@@ -26,19 +26,19 @@
     "status": "pass"
   },
   "capacity": {
-    "actual_arena_bytes": 81243832320,
-    "alignment_remainder_bytes": 13787136,
-    "effective_slots": 4630,
-    "first_unsafe_bytes": 81261379584,
+    "actual_arena_bytes": 81156096000,
+    "alignment_remainder_bytes": 7102464,
+    "effective_slots": 4625,
+    "first_unsafe_bytes": 81173643264,
     "model_cap_unused_safe_bytes": 0,
     "model_capacity_bytes": 1446456066048,
     "requested_modes": {
       "autofit_enabled": true,
       "autofit_requested_bytes": 0,
-      "explicit_requested_bytes": 81243832320
+      "explicit_requested_bytes": 81156096000
     },
-    "safe_ceiling_bytes": 81257619456,
-    "safe_explicit_and_autofit_bytes": 81243832320,
+    "safe_ceiling_bytes": 81163198464,
+    "safe_explicit_and_autofit_bytes": 81156096000,
     "slot_footprint_bytes": 17547264
   },
   "checkpoints": {
@@ -58,8 +58,8 @@
       "verdict": "PASS"
     },
     "d": {
-      "nested_head": "79b6f75c64cfe097a9e80f5cb3625c0be598b60c",
-      "project_head": "e5d2b502f1ab9b1302e26d94a9ebb006dbd87324",
+      "nested_head": "add1ee6adbe5264387b8b1eef0eed0ba51a59a8a",
+      "project_head": "fd439e9cb5fa693e3c061381707fadaf3f668f83",
       "verdict": "PASS"
     }
   },
@@ -69,49 +69,49 @@
   },
   "closeout_artifacts": [
     {
-      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/c06d505f12b144e0637fce74c837397653788215/results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-decision.json",
+      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/258a440b0c7ee114ad3cd6e434af68ca9dd855e5/results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-decision.json",
       "path": "results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-decision.json",
       "sha256": "a748c8e795bcc9af1277715fffe21eb38ca4b2a5a0230d2a97cf95ebfcc7f62c",
       "size": 601
     },
     {
-      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/c06d505f12b144e0637fce74c837397653788215/results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-summary.json",
+      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/258a440b0c7ee114ad3cd6e434af68ca9dd855e5/results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-summary.json",
       "path": "results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-summary.json",
-      "sha256": "3d3a59f294b602ac6e6fa72fc40bb436ab3bc716c0a3747ef736531556231900",
-      "size": 3278
+      "sha256": "94f6b19ea73a9239dc2afd45f55d6745bf173527881789e46f7d66d90c306ec3",
+      "size": 3279
     },
     {
-      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/c06d505f12b144e0637fce74c837397653788215/results/2026-08-04/msi-edgexpert-gb10/phase11-uma/PHASE11.md",
+      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/258a440b0c7ee114ad3cd6e434af68ca9dd855e5/results/2026-08-04/msi-edgexpert-gb10/phase11-uma/PHASE11.md",
       "path": "results/2026-08-04/msi-edgexpert-gb10/phase11-uma/PHASE11.md",
-      "sha256": "b400b9299ded99502e9ee251a19dd4bd6d224fdcd0823a94f2964f0ce0e09d08",
+      "sha256": "b10e45bce599b5eb045792b0b145055e425f4c4c424fd7c1621b14e622a8ee9b",
       "size": 1129
     },
     {
-      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/c06d505f12b144e0637fce74c837397653788215/results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-checksums.json",
+      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/258a440b0c7ee114ad3cd6e434af68ca9dd855e5/results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-checksums.json",
       "path": "results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-checksums.json",
-      "sha256": "9929da13eab1b4d808ce2760f5570f72b2a63947c6c79b2eeb22d5f595193e7f",
+      "sha256": "55ae185f87ca4fce92b9b06a56ef71cb65801d1ef48354411d0efa2b8cc5601e",
       "size": 2084
     },
     {
-      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/c06d505f12b144e0637fce74c837397653788215/scripts/phase11/build_phase11_closeout.py",
+      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/258a440b0c7ee114ad3cd6e434af68ca9dd855e5/scripts/phase11/build_phase11_closeout.py",
       "path": "scripts/phase11/build_phase11_closeout.py",
-      "sha256": "56afde9c2eb9f84a968f027998cfef99a14e007b73eb09e9aa5a004348f91429",
+      "sha256": "d172d16ebbfcee05896ed187ea7d787377af036d0d24bed67df86f4a9d24f5b0",
       "size": 16576
     },
     {
-      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/c06d505f12b144e0637fce74c837397653788215/scripts/phase11/verify_phase11.py",
+      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/258a440b0c7ee114ad3cd6e434af68ca9dd855e5/scripts/phase11/verify_phase11.py",
       "path": "scripts/phase11/verify_phase11.py",
       "sha256": "a6b6babe4aac6756ef6a3ba6daec5622d8366501c80796d92f913d459346f482",
       "size": 1623
     },
     {
-      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/c06d505f12b144e0637fce74c837397653788215/schemas/phase11/phase11-manifest-v1.schema.json",
+      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/258a440b0c7ee114ad3cd6e434af68ca9dd855e5/schemas/phase11/phase11-manifest-v1.schema.json",
       "path": "schemas/phase11/phase11-manifest-v1.schema.json",
       "sha256": "ed7391c2a9e7cfaa006ca07ada20101483b3db0931a5f18aecefd28d484ecdc9",
       "size": 2754
     },
     {
-      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/c06d505f12b144e0637fce74c837397653788215/tests/phase11/test_phase11_closeout.py",
+      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/258a440b0c7ee114ad3cd6e434af68ca9dd855e5/tests/phase11/test_phase11_closeout.py",
       "path": "tests/phase11/test_phase11_closeout.py",
       "sha256": "2c603f6447e59098e379fd46dd5e8d955d3846c220ac5740938b5674bfcbd2c5",
       "size": 1645
@@ -152,37 +152,37 @@
   },
   "evidence": [
     {
-      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/c06d505f12b144e0637fce74c837397653788215/results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-capabilities.json",
+      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/258a440b0c7ee114ad3cd6e434af68ca9dd855e5/results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-capabilities.json",
       "path": "results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-capabilities.json",
       "sha256": "ded948c3ab933d40dd8b323ae7bda33330e041541cd34807f4170240419c2cbe",
       "size": 9662
     },
     {
-      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/c06d505f12b144e0637fce74c837397653788215/results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-checkpoint-b.json",
+      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/258a440b0c7ee114ad3cd6e434af68ca9dd855e5/results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-checkpoint-b.json",
       "path": "results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-checkpoint-b.json",
       "sha256": "48eab1be1f38c5799a46f9fa8cdec473dee47aa969e6aacf2d430301e200bd14",
       "size": 41727
     },
     {
-      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/c06d505f12b144e0637fce74c837397653788215/results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-checkpoint-c.json",
+      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/258a440b0c7ee114ad3cd6e434af68ca9dd855e5/results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-checkpoint-c.json",
       "path": "results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-checkpoint-c.json",
       "sha256": "53cc4a6c24d14053ee76ff6e05c157e8ac0172d56ea128b2ff9051deab04b3d7",
       "size": 56309
     },
     {
-      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/c06d505f12b144e0637fce74c837397653788215/results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-checkpoint-d.json",
+      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/258a440b0c7ee114ad3cd6e434af68ca9dd855e5/results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-checkpoint-d.json",
       "path": "results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-checkpoint-d.json",
-      "sha256": "4462609347673565687dee55cb77c26c27c4fd4a494d2d31d219d3f46db7c089",
-      "size": 8157741
+      "sha256": "d4830f8520676bbad07ac6fad5a0de9142c1d10113cac9a689c334ad4eead674",
+      "size": 8157771
     },
     {
-      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/c06d505f12b144e0637fce74c837397653788215/results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-v4-raw-index.json",
+      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/258a440b0c7ee114ad3cd6e434af68ca9dd855e5/results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-v4-raw-index.json",
       "path": "results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-v4-raw-index.json",
       "sha256": "b62dd81e41dfbc1e3f84c5eeb0a48ededdbb16f1f3cd3be9d20a9bc7ed64b8e2",
       "size": 94700
     },
     {
-      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/c06d505f12b144e0637fce74c837397653788215/results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-v4-raw.tar.gz",
+      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/258a440b0c7ee114ad3cd6e434af68ca9dd855e5/results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-v4-raw.tar.gz",
       "path": "results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-v4-raw.tar.gz",
       "sha256": "9ac954aded2efd9ada6bec19efe4b9c9c2b6846673610c322334f9b512267327",
       "size": 247926
@@ -237,12 +237,12 @@
     "uma_default_enabled": false
   },
   "revisions": {
-    "checkpoint_d_published_head": "e5d2b502f1ab9b1302e26d94a9ebb006dbd87324",
-    "evidence_head": "c06d505f12b144e0637fce74c837397653788215",
-    "gitlink": "79b6f75c64cfe097a9e80f5cb3625c0be598b60c",
-    "implementation_head": "324cfa043b30f769578a60bfdd3a3f54a42c2f2c",
+    "checkpoint_d_published_head": "fd439e9cb5fa693e3c061381707fadaf3f668f83",
+    "evidence_head": "258a440b0c7ee114ad3cd6e434af68ca9dd855e5",
+    "gitlink": "add1ee6adbe5264387b8b1eef0eed0ba51a59a8a",
+    "implementation_head": "8f10f5d56d79b7052da92217d408ce143a85a8e3",
     "nested_base": "6339ee371ff898dea5057c7bfedf91adbe44c111",
-    "nested_head": "79b6f75c64cfe097a9e80f5cb3625c0be598b60c",
+    "nested_head": "add1ee6adbe5264387b8b1eef0eed0ba51a59a8a",
     "project_base": "b4368697c92d8b5e0814023b1cb3288636769eda"
   },
   "schema_version": "phase11-manifest-v1",
