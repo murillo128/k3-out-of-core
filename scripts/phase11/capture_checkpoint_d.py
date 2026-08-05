@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import itertools
 import json
 import math
 import subprocess
@@ -109,6 +110,18 @@ def summary(records: list[dict[str, Any]]) -> dict[str, Any]:
         "max_us": max(warm), "throughput_median": sorted(r["diagnostics"]["decode_tokens_per_second"] for r in records)[len(records)//2]}
 
 
+def paired_interval(autofit: list[dict[str, Any]], explicit: list[dict[str, Any]], cell: str) -> dict[str, Any]:
+    ratios = [auto["diagnostics"]["decode_tokens_per_second"]/reference["diagnostics"]["decode_tokens_per_second"]
+        for auto, reference in zip(autofit, explicit, strict=True)]
+    ordered = sorted(ratios); estimate = ordered[len(ordered)//2]
+    bootstrapped = sorted(sorted(ratios[index] for index in sample)[len(ratios)//2]
+        for sample in itertools.product(range(len(ratios)), repeat=len(ratios)))
+    return {"explicit_cell": cell, "estimator": "median_of_paired_process_throughput_ratios",
+        "ratios": ratios, "estimate": estimate,
+        "bootstrap_percentile_95_interval": [bootstrapped[int(.025*(len(bootstrapped) - 1))],
+            bootstrapped[math.ceil(.975*(len(bootstrapped) - 1))]]}
+
+
 def validate_uma(name: str, record: dict[str, Any], identity: dict[str, Any]) -> None:
     d = record["diagnostics"]
     if any(d[key] != identity[key] for key in IDENTITY): raise ValueError(f"{name}: output identity drift")
@@ -141,8 +154,13 @@ def validate(document: dict[str, Any]) -> None:
         w = matrix["uma"]["w"]
         if any(r["diagnostics"]["cold_evictions"] != 0 or r["diagnostics"]["cold_hits"] <= 0 for r in w):
             raise ValueError(f"{name}: fitting warm set reread/eviction")
-        best = max(document["statistics"][name][cell]["throughput_median"] for cell in ("w_minus_slot", "w", "w_plus_slot", "one_point_five_w"))
-        if document["statistics"][name]["autofit"]["throughput_median"] < .95*best:
+        candidates = ("w_minus_slot", "w", "w_plus_slot", "one_point_five_w")
+        best_cell = max(candidates, key=lambda cell: document["statistics"][name][cell]["throughput_median"])
+        paired = document["statistics"][name]["autofit_vs_best_explicit"]
+        if paired["explicit_cell"] != best_cell or paired["estimator"] != "median_of_paired_process_throughput_ratios" or \
+                len(paired["ratios"]) != 5 or len(paired["bootstrap_percentile_95_interval"]) != 2:
+            raise ValueError(f"{name}: paired throughput analysis invalid")
+        if paired["estimate"] < .95:
             raise ValueError(f"{name}: autofit throughput gate failed")
     for record in document["epoch_runs"].values():
         validate_uma("epoch", record, record["diagnostics"])
@@ -211,6 +229,9 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
                     model, "uma", 21, pools[cell]))
         matrix[name] = {"baseline": baseline, "uma": uma, "copy_w": copy, "pools": pools}
         statistics[name] = {cell: summary(uma[cell]) for cell in cells}
+        candidates = ("w_minus_slot", "w", "w_plus_slot", "one_point_five_w")
+        best_cell = max(candidates, key=lambda cell: statistics[name][cell]["throughput_median"])
+        statistics[name]["autofit_vs_best_explicit"] = paired_interval(uma["autofit"], uma[best_cell], best_cell)
     epochs = {name: cached_execute(cache, f"{name}-epochs", args.binary.resolve(), model, "uma", 100,
         MODELS[name]["working_set"], ignore_eog=True)
         for name, model in models.items()}
