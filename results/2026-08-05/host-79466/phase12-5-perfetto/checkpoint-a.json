@@ -1,0 +1,139 @@
+{
+  "schema_version": "phase12.5-checkpoint-a-v1",
+  "captured_at_utc": "2026-08-05T20:15:00Z",
+  "status": "pass",
+  "decision_marker": "OBSERVED",
+  "issue": 54,
+  "project_base": "7567428d45a78731c3da856a32d623a9ee377a83",
+  "nested_base": "c5a3b0bac47d89bfa4b7807a5ebf1e87a1e692e2",
+  "host": {
+    "id": "79466",
+    "kernel": "6.8.0-59-generic",
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "driver": "580.173.02",
+    "cuda_toolkit": "12.8",
+    "cupti_activity_api_version": 26
+  },
+  "dependency": {
+    "perfetto_release": "v50.1",
+    "perfetto_commit": "2c4d2ffa7ff300e0b0feb8b8553e42afc7945870",
+    "sdk_provenance": "llama.cpp/vendor/perfetto-v50.1/PROVENANCE.md",
+    "cli_asset_sha256": "7165d3ee71e13204f37c16ff0bff8bb6e73f2c484a33b85d1a185bd81930c3a5"
+  },
+  "builds": {
+    "off": {
+      "LLAMA_PERFETTO": false,
+      "libllama_sha256": "cb2bdda0ea95a466985bdc59da4a4ec76f35becc704fed510e9b0e2ba5bc4f30",
+      "perfetto_or_cupti_dynamic_symbols": 0,
+      "cupti_dynamic_dependencies": 0
+    },
+    "on": {
+      "LLAMA_PERFETTO": true,
+      "libllama_sha256": "c39c71fc87e5ee5c3e3a2cb0190c6c04e57ae1a797396a020afcb1bbb8aeb64b",
+      "cupti_dynamic_dependencies": 1
+    },
+    "default_option": false
+  },
+  "focused_tests": {
+    "command": "ctest --test-dir BUILD --output-on-failure -R 'test-(expert|hot-expert|cold-expert|perfetto)' -E '^test-expert-uma-provider$' -j 8",
+    "off": { "passed": 12, "failed": 0 },
+    "on": { "passed": 12, "failed": 0 },
+    "covered": [
+      "test-expert-weight-provider",
+      "test-expert-miss-policy",
+      "test-expert-cache-policy",
+      "test-expert-prefetch",
+      "test-expert-uma",
+      "test-hot-expert-cache",
+      "test-cold-expert-cache",
+      "test-expert-transfer-ring",
+      "test-expert-storage",
+      "test-expert-async-io",
+      "test-expert-scheduler",
+      "test-perfetto-trace"
+    ],
+    "capability_limited_test": {
+      "name": "test-expert-uma-provider",
+      "off_result": "unsupported: UMA arena initialization failed",
+      "on_result": "unsupported: UMA arena initialization failed",
+      "classification": "same host capability result in both builds; test-expert-uma configuration/no-work coverage passed"
+    }
+  },
+  "no_active_session": {
+    "trace_files_created": 0,
+    "producer_initialized": false,
+    "cupti_active": false,
+    "cupti_records": 0,
+    "cupti_dropped_records": 0,
+    "macro_argument_evaluation": 0,
+    "verified_by": "test-perfetto-trace in both builds"
+  },
+  "tiny_abba": {
+    "model": {
+      "repository": "murillo2000/Kimi-K3-0.40B-GGUF",
+      "revision": "88de02cf8fa37f87eb06daaed370ac9c3411d5ca",
+      "file": "Kimi-K3-0.40B-MXFP4.gguf",
+      "size": 751976576,
+      "sha256": "0379a1cc623e09eb3fbd1dfcb18737bc8c971dbfe5bf5bc3e08da8b5379ec169"
+    },
+    "protocol": {
+      "order": ["off", "on", "on", "off", "off", "on", "on", "off", "off", "on", "on", "off", "off", "on", "on", "off", "off", "on", "on", "off"],
+      "pairs": 10,
+      "generated_tokens": 20,
+      "provider_mode": "disabled",
+      "active_trace_session": false
+    },
+    "exact_identity_count": 1,
+    "identity_sha256": "ec02c471669fcbb4c14f3c1bf2c9022271fc41009bee12e6183200674b9b291e",
+    "side_medians": {
+      "off": {
+        "ttft_us": 291604.5,
+        "decode_latency_us": 78108,
+        "decode_tokens_per_second": 243.2541669165453
+      },
+      "on": {
+        "ttft_us": 293612,
+        "decode_latency_us": 77077,
+        "decode_tokens_per_second": 246.52964854094495
+      }
+    },
+    "paired_median_shift": {
+      "ttft": 0.0010101554545358105,
+      "decode_latency": -0.011511141683009263,
+      "decode_throughput": 0.011645206550799703
+    },
+    "gate": {
+      "maximum_regression": 0.01,
+      "pass": true
+    }
+  },
+  "deepseek_confirmation": {
+    "model_revision": "85ce4196ab6e82852e25dfec2b7e2beaae56f5f1",
+    "case": "provider-positional-selected",
+    "generated_tokens": 1,
+    "active_trace_session": false,
+    "exact_identity_count": 1,
+    "identity_sha256": "368127e9467569974af81c62b2462c53180a4a75cf9bd3cac3d6def772fe70c3",
+    "generated_ids": [2581],
+    "off_latency_us": 62517873,
+    "on_latency_us": 62418817,
+    "latency_shift": -0.001584443985537371,
+    "gate": {
+      "maximum_regression": 0.02,
+      "pass": true
+    }
+  },
+  "bounds": {
+    "perfetto_producer_shmem_kib": 32768,
+    "cupti_callback_buffer_bytes": 1048576,
+    "cupti_retained_bytes_max": 268435456,
+    "one_session": true,
+    "one_cuda_device": true,
+    "static_categories": true,
+    "pointer_values_exported": false
+  },
+  "limitations": [
+    "The RTX 3090 does not expose the Phase 11 UMA arena capability; identical ON/OFF rejection is recorded instead of emulation.",
+    "This checkpoint establishes optional integration and no-session behavior only; full-stack capture evidence belongs to Checkpoint B."
+  ]
+}
