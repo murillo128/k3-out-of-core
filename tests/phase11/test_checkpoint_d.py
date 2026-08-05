@@ -19,9 +19,11 @@ def main() -> int:
     try: module.validate(changed)
     except ValueError as error: assert "25-cycle" in str(error)
     else: raise AssertionError("leaking lifecycle evidence passed")
-    changed = copy.deepcopy(document); changed["statistics"]["mxfp4"]["autofit_vs_best_explicit"]["estimate"] = .949
+    changed = copy.deepcopy(document); changed["statistics"]["mxfp4"]["autofit_vs_best_explicit"]["estimate"] = .1
+    module.validate(changed)
+    changed = copy.deepcopy(document); changed["structural_equivalence"]["mxfp4"]["equivalent"] = False
     try: module.validate(changed)
-    except ValueError as error: assert "autofit throughput" in str(error)
-    else: raise AssertionError("sub-threshold paired autofit evidence passed")
+    except ValueError as error: assert "structural equivalence" in str(error)
+    else: raise AssertionError("structurally divergent autofit evidence passed")
     print("phase11 checkpoint D evidence verifier passed"); return 0
 if __name__ == "__main__": raise SystemExit(main())

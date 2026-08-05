@@ -4,11 +4,12 @@
   "title": "Phase 11 Checkpoint D Physical Qualification",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "status", "scope", "revisions", "models", "tiny_matrix", "epoch_runs", "lifecycle", "full_k3", "negative", "comparisons", "statistics", "disposition_inputs", "commands"],
+  "required": ["schema_version", "status", "scope", "revisions", "models", "tiny_matrix", "structural_equivalence", "raw_archive", "epoch_runs", "lifecycle", "full_k3", "negative", "comparisons", "statistics", "disposition_inputs", "commands"],
   "properties": {
     "schema_version": {"const": "phase11-checkpoint-d-v1"}, "status": {"const": "pass"},
     "scope": {"const": "msi_edgexpert_gb10_coherent_uma_buffered_storage_fallback"},
     "revisions": {"type": "object"}, "models": {"type": "object"}, "tiny_matrix": {"type": "object"},
+    "structural_equivalence": {"type": "object"}, "raw_archive": {"type": "object"},
     "epoch_runs": {"type": "object"}, "lifecycle": {"type": "object"}, "full_k3": {"type": "object"},
     "negative": {"type": "object"}, "comparisons": {"type": "object"}, "statistics": {"type": "object"},
     "disposition_inputs": {"type": "object"}, "commands": {"type": "array", "minItems": 4}

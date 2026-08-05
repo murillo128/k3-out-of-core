@@ -4,11 +4,14 @@
 from __future__ import annotations
 
 import argparse
+import gzip
 import hashlib
+import io
 import json
 import math
 import random
 import subprocess
+import tarfile
 from pathlib import Path
 from typing import Any
 
@@ -23,6 +26,25 @@ IDENTITY = ("prompt_ids", "tokens", "logits_hash", "route_hash", "route_records"
 PROCESS_COUNT = 15
 LONGITUDINAL_PROCESS_COUNT = 101
 AUTOFIT_ESTIMATOR = "ratio_of_process_throughput_medians"
+DESCRIPTIVE_PROJECT_HEAD = "d25b4b7eed7139f3fafa4cdf717fa8c97e6fcb37"
+DESCRIPTIVE_NESTED_HEAD = "89c430735b0b8986ddb8b202b09e60e1f3340a71"
+STRUCTURAL_FIELDS = IDENTITY + (
+    "cold_actual_bytes", "cold_unused_bytes", "cold_bundle_payload", "cold_slot_footprint", "cold_alignment",
+    "cold_slots", "cold_hits", "cold_misses", "cold_evictions", "cold_source_bytes", "cold_failed_copies",
+    "cold_failed_cleanups", "cold_reclaimed_bytes", "cold_reclaim_failures", "cold_policy", "cold_policy_scope",
+    "cold_policy_admission", "cold_policy_digest", "cold_policy_drops", "hot_hits", "hot_misses",
+    "hot_admissions", "hot_evictions", "hot_policy", "hot_policy_scope", "hot_policy_admission",
+    "hot_policy_digest", "hot_policy_drops", "provider_pool_bytes", "provider_effective_capacity",
+    "provider_tensor_copies", "provider_failures", "uma_effective_pool_bytes", "uma_model_capacity_bytes",
+    "uma_effective_slot_count", "uma_storage_misses", "uma_resident_hot_hits",
+    "uma_prepared_cold_hits", "uma_degraded_hits", "uma_unknown_residency_hits", "storage_read_requests",
+    "storage_read_chunks", "storage_read_bytes", "storage_short_reads", "storage_io_errors",
+    "storage_integrity_mismatches", "io_requests", "io_operations", "io_bytes", "io_buffered_fallback_operations",
+    "io_buffered_fallback_bytes", "io_active_requests", "io_active_operations", "io_trace_dropped",
+    "scheduler_active", "cold_hot_refs", "cold_transfer_refs", "cold_request_refs", "ring_actual_bytes",
+    "ring_lanes", "ring_h2d_bytes", "ring_live_events", "ring_live_h2d_events", "ring_live_compute_events",
+    "source_pinned_bytes",
+)
 
 
 def sha256(path: Path) -> str:
@@ -30,6 +52,43 @@ def sha256(path: Path) -> str:
     with path.open("rb") as source:
         for block in iter(lambda: source.read(1024*1024), b""): digest.update(block)
     return digest.hexdigest()
+
+
+def expected_descriptive_files() -> list[str]:
+    cells = ("half_w", "w_minus_slot", "w", "autofit", "w_plus_slot", "one_point_five_w")
+    names: list[str] = []
+    for model in MODELS:
+        names.append(f"{model}-baseline.json")
+        names.extend(f"{model}-{cell}-{index}.json" for cell in cells for index in range(PROCESS_COUNT))
+        names.extend(f"{model}-longitudinal-{cell}-{index}.json"
+            for cell in ("w", "autofit") for index in range(LONGITUDINAL_PROCESS_COUNT))
+    return sorted(names)
+
+
+def publish_descriptive_archive(source: Path, archive: Path, index_path: Path) -> dict[str, Any]:
+    names = expected_descriptive_files()
+    actual = sorted(path.name for path in source.glob("*.json"))
+    if actual != names: raise ValueError("v4 descriptive raw set is incomplete or contains unexpected files")
+    entries = [{"path": name, "size": (source/name).stat().st_size, "sha256": sha256(source/name)} for name in names]
+    index = {"schema_version": "phase11-v4-raw-index-v1", "status": "complete",
+        "source_revisions": {"project_head": DESCRIPTIVE_PROJECT_HEAD, "nested_head": DESCRIPTIVE_NESTED_HEAD},
+        "files": entries}
+    index_bytes = canonical(index)
+    archive.parent.mkdir(parents=True, exist_ok=True); index_path.parent.mkdir(parents=True, exist_ok=True)
+    index_path.write_bytes(index_bytes)
+    with archive.open("wb") as destination:
+        with gzip.GzipFile(filename="", mode="wb", fileobj=destination, mtime=0) as compressed:
+            with tarfile.open(fileobj=compressed, mode="w") as tar:
+                for name, data in [("phase11-v4-raw/index.json", index_bytes)] + [
+                        (f"phase11-v4-raw/{entry['path']}", (source/entry["path"]).read_bytes()) for entry in entries]:
+                    info = tarfile.TarInfo(name); info.size = len(data); info.mtime = 0
+                    info.uid = info.gid = 0; info.uname = info.gname = ""; info.mode = 0o644
+                    tar.addfile(info, io.BytesIO(data))
+    archive_label = str(archive.relative_to(ROOT)) if archive.is_relative_to(ROOT) else str(archive)
+    index_label = str(index_path.relative_to(ROOT)) if index_path.is_relative_to(ROOT) else str(index_path)
+    return {"archive_path": archive_label, "archive_size": archive.stat().st_size,
+        "archive_sha256": sha256(archive), "index_path": index_label,
+        "index_size": index_path.stat().st_size, "index_sha256": sha256(index_path), "index": index}
 
 
 def run(command: list[str], *, success: bool = True) -> subprocess.CompletedProcess[str]:
@@ -145,6 +204,13 @@ def delta_series(record: dict[str, Any], key: str) -> list[int]:
     return [values[0]] + [values[index] - values[index - 1] for index in range(1, len(values))]
 
 
+def structural_signature(record: dict[str, Any]) -> dict[str, Any]:
+    diagnostics = record["diagnostics"]
+    missing = [key for key in STRUCTURAL_FIELDS if key not in diagnostics]
+    if missing: raise ValueError("structural evidence missing: " + ",".join(missing))
+    return {key: diagnostics[key] for key in STRUCTURAL_FIELDS}
+
+
 def epoch_analysis(record: dict[str, Any], slot: int) -> dict[str, Any]:
     tail = trace(record, "token_samples_us")[20:]
     result = {"final_80_epochs": len(tail), "first_40_p99_us": nearest(tail[:40], 99),
@@ -175,10 +241,22 @@ def validate_uma(name: str, record: dict[str, Any], identity: dict[str, Any]) ->
 
 def validate(document: dict[str, Any]) -> None:
     required = {"schema_version", "status", "scope", "revisions", "models", "tiny_matrix", "epoch_runs",
-        "lifecycle", "full_k3", "negative", "comparisons", "statistics", "disposition_inputs", "commands"}
+        "structural_equivalence", "raw_archive", "lifecycle", "full_k3", "negative", "comparisons",
+        "statistics", "disposition_inputs", "commands"}
     if set(document) != required or document["schema_version"] != "phase11-checkpoint-d-v1" or \
             document["status"] != "pass": raise ValueError("unsupported Checkpoint D evidence")
     if document["revisions"]["gitlink"] != document["revisions"]["nested_head"]: raise ValueError("gitlink mismatch")
+    if document["revisions"]["descriptive_project_head"] != DESCRIPTIVE_PROJECT_HEAD or \
+            document["revisions"]["descriptive_nested_head"] != DESCRIPTIVE_NESTED_HEAD:
+        raise ValueError("descriptive revision mismatch")
+    archive = document["raw_archive"]
+    archive_path = ROOT/archive["archive_path"]; index_path = ROOT/archive["index_path"]
+    if not archive_path.is_file() or archive_path.stat().st_size != archive["archive_size"] or \
+            sha256(archive_path) != archive["archive_sha256"] or not index_path.is_file() or \
+            index_path.stat().st_size != archive["index_size"] or sha256(index_path) != archive["index_sha256"] or \
+            json.loads(index_path.read_text()) != archive["index"] or \
+            len(archive["index"]["files"]) != len(expected_descriptive_files()):
+        raise ValueError("descriptive raw archive identity failed")
     for name, matrix in document["tiny_matrix"].items():
         identity = matrix["baseline"]["diagnostics"]
         for cell, records in matrix["uma"].items():
@@ -211,8 +289,23 @@ def validate(document: dict[str, Any]) -> None:
                 len(paired["ratios"]) != PROCESS_COUNT or paired["paired_bootstrap_seed"] != 2608 or \
                 paired["paired_bootstrap_replicates"] != 10000 or len(paired["paired_bootstrap_95_interval"]) != 2:
             raise ValueError(f"{name}: paired throughput analysis invalid")
-        if paired["estimate"] < .95:
-            raise ValueError(f"{name}: autofit throughput gate failed")
+    for name, cells in document["structural_equivalence"].items():
+        if set(cells) != {"explicit_w", "autofit", "signature", "equivalent"} or not cells["equivalent"] or \
+                len(cells["explicit_w"]) != 5 or len(cells["autofit"]) != 5:
+            raise ValueError(f"{name}: structural equivalence evidence incomplete")
+        signatures = [structural_signature(record) for record in cells["explicit_w"] + cells["autofit"]]
+        if any(signature != cells["signature"] for signature in signatures):
+            raise ValueError(f"{name}: structural equivalence drift")
+        identity = document["tiny_matrix"][name]["baseline"]["diagnostics"]
+        for record in cells["explicit_w"] + cells["autofit"]: validate_uma(name, record, identity)
+        for explicit, autofit in zip(cells["explicit_w"], cells["autofit"], strict=True):
+            ed = explicit["diagnostics"]; ad = autofit["diagnostics"]
+            if ed["uma_autofit"] != 0 or ad["uma_autofit"] != 1 or \
+                    ed["uma_effective_pool_bytes"] != ad["uma_effective_pool_bytes"] or \
+                    ed["cold_actual_bytes"] != ad["cold_actual_bytes"] or \
+                    ed["uma_effective_slot_count"] != ad["uma_effective_slot_count"] or \
+                    ad["uma_model_cap_unused_safe_bytes"] != ad["uma_safe_pool_bytes"] - ad["uma_effective_pool_bytes"]:
+                raise ValueError(f"{name}: model-capped autofit telemetry mismatch")
     for name, record in document["epoch_runs"].items():
         validate_uma("epoch", record, record["diagnostics"])
         if len(str(record["diagnostics"]["token_samples_us"]).split(",")) != 100: raise ValueError("100 epochs required")
@@ -250,7 +343,8 @@ def validate(document: dict[str, Any]) -> None:
         raise ValueError("full-K3 autofit/unsafe proximity gate failed")
     if document["negative"]["returncode"] == 0 or document["negative"]["io_started"]:
         raise ValueError("above-safe negative failed")
-    if document["disposition_inputs"]["recommended"] != "SUPPORTED_EXPLICIT_NONDEFAULT":
+    if document["disposition_inputs"]["recommended"] != "SUPPORTED_EXPLICIT_NONDEFAULT" or \
+            document["disposition_inputs"]["autofit_claim"] != "SAFE_CAPACITY_ONLY_NOT_PERFORMANCE_SELECTED":
         raise ValueError("unsupported disposition")
 
 
@@ -279,6 +373,9 @@ def full_k3_cell(probe: Path, cache: Path, name: str, budget: int, run_index: in
 def capture(args: argparse.Namespace) -> dict[str, Any]:
     cache = args.cache_dir.resolve()/args.nested_head
     cache.mkdir(parents=True, exist_ok=True)
+    args.descriptive_cache = args.descriptive_cache.resolve()
+    raw_archive = publish_descriptive_archive(
+        args.descriptive_cache, args.raw_archive.resolve(), args.raw_index.resolve())
     models = {"f16": args.f16.resolve(), "mxfp4": args.mxfp4.resolve()}
     identities = {}
     for name, path in models.items():
@@ -290,11 +387,12 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
     cells = ("half_w", "w_minus_slot", "w", "autofit", "w_plus_slot", "one_point_five_w")
     for name, model in models.items():
         spec = MODELS[name]
-        baseline = cached_execute(cache, f"{name}-baseline", args.binary.resolve(), model, "disabled", 21)
+        baseline = json.loads((args.descriptive_cache/f"{name}-baseline.json").read_text())
         pools = {"half_w": spec["working_set"]//2, "w_minus_slot": spec["working_set"] - spec["slot"],
             "w": spec["working_set"], "w_plus_slot": spec["working_set"] + spec["slot"],
             "one_point_five_w": spec["working_set"]*3//2, "autofit": 0}
-        uma = {cell: [] for cell in cells}
+        uma = {cell: [json.loads((args.descriptive_cache/f"{name}-{cell}-{index}.json").read_text())
+            for index in range(PROCESS_COUNT)] for cell in cells}
         copy_command = [str(args.binary.resolve()), "--model", str(model), "--mode", "cold", "--steps", "21",
             "--capacity", "2", "--cold-bytes", str(spec["working_set"]), "--ring-bytes", str(4*1024*1024)]
         copy_attempt = run(copy_command, success=False)
@@ -303,26 +401,16 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
             "stdout_sha256": hashlib.sha256(copy_attempt.stdout.encode()).hexdigest(),
             "stderr_sha256": hashlib.sha256(copy_attempt.stderr.encode()).hexdigest()}
         if copy_attempt.returncode == 0: raise ValueError("same-host copy path unexpectedly became supported")
-        for index in range(PROCESS_COUNT):
-            order = cells[index % len(cells):] + cells[:index % len(cells)]
-            for cell in order:
-                uma[cell].append(cached_execute(cache, f"{name}-{cell}-{index}", args.binary.resolve(),
-                    model, "uma", 21, pools[cell]))
         matrix[name] = {"baseline": baseline, "uma": uma, "copy_w": copy, "pools": pools}
         statistics[name] = {cell: summary(uma[cell]) for cell in cells}
         candidates = ("w_minus_slot", "w", "w_plus_slot", "one_point_five_w")
         best_cell = max(candidates, key=lambda cell: statistics[name][cell]["throughput_median"])
         statistics[name]["autofit_vs_best_explicit"] = paired_interval(uma["autofit"], uma[best_cell], best_cell)
-        longitudinal = {"w": [], "autofit": []}
-        for index in range(LONGITUDINAL_PROCESS_COUNT):
-            order = ("w", "autofit") if index % 2 == 0 else ("autofit", "w")
-            for cell in order:
-                longitudinal[cell].append(cached_execute(cache, f"{name}-longitudinal-{cell}-{index}",
-                    args.binary.resolve(), model, "uma", 11, pools[cell]))
+        longitudinal = {cell: [json.loads((args.descriptive_cache/
+            f"{name}-longitudinal-{cell}-{index}.json").read_text()) for index in range(LONGITUDINAL_PROCESS_COUNT)]
+            for cell in ("w", "autofit")}
         matrix[name]["longitudinal"] = longitudinal
         statistics[name]["longitudinal"] = {cell: longitudinal_summary(records) for cell, records in longitudinal.items()}
-        if statistics[name]["autofit_vs_best_explicit"]["estimate"] < .95:
-            raise ValueError(f"{name}: autofit throughput gate failed before full-K3 capture")
         for cell, records in longitudinal.items():
             for record in records:
                 hits = delta_series(record, "epoch_cold_hits"); misses = delta_series(record, "epoch_cold_misses")
@@ -332,6 +420,18 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
             stats = statistics[name]["longitudinal"][cell]
             if stats["warm_run_10_p99_us"] > 1.10*stats["warm_run_2_p99_us"]:
                 raise ValueError(f"{name}/{cell}: longitudinal warm tail failed before full-K3 capture")
+    structural = {}
+    for name, model in models.items():
+        pairs = {"explicit_w": [], "autofit": []}
+        for index in range(5):
+            order = ("explicit_w", "autofit") if index % 2 == 0 else ("autofit", "explicit_w")
+            for cell in order:
+                pool = MODELS[name]["working_set"] if cell == "explicit_w" else 0
+                pairs[cell].append(cached_execute(cache, f"{name}-structural-{cell}-{index}",
+                    args.binary.resolve(), model, "uma", 21, pool))
+        signatures = [structural_signature(record) for record in pairs["explicit_w"] + pairs["autofit"]]
+        structural[name] = {**pairs, "signature": signatures[0],
+            "equivalent": all(signature == signatures[0] for signature in signatures)}
     epochs = {name: cached_execute(cache, f"{name}-epochs", args.binary.resolve(), model, "uma", 100,
         MODELS[name]["working_set"], ignore_eog=True)
         for name, model in models.items()}
@@ -365,7 +465,7 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
         "artifact_size": full_negative_output.stat().st_size, "artifact_sha256": sha256(full_negative_output),
         "artifact_text": full_negative_text,
         "stdout_sha256": hashlib.sha256(full_negative_completed.stdout.encode()).hexdigest(), "raw": full_negative_raw}
-    safe = min(r["diagnostics"]["uma_safe_pool_bytes"] for r in matrix["mxfp4"]["uma"]["w"])
+    safe = full_safe_source["diagnostics"]["uma_safe_pool_bytes"]
     negative_command = [str(args.binary.resolve()), "--model", str(models["mxfp4"]), "--mode", "uma", "--steps", "1",
         "--capacity", "2", "--cold-bytes", str(safe + MODELS["mxfp4"]["slot"]), "--ring-bytes", "0"]
     neg_before = snapshot(); negative = run(negative_command, success=False); neg_after = snapshot()
@@ -375,8 +475,10 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
         "stderr_sha256": hashlib.sha256(negative.stderr.encode()).hexdigest()}
     document = {"schema_version": "phase11-checkpoint-d-v1", "status": "pass",
         "scope": "msi_edgexpert_gb10_coherent_uma_buffered_storage_fallback",
-        "revisions": {"project_head": args.project_head, "nested_head": args.nested_head, "gitlink": gitlink},
-        "models": identities, "tiny_matrix": matrix, "epoch_runs": epochs,
+        "revisions": {"project_head": args.project_head, "nested_head": args.nested_head, "gitlink": gitlink,
+            "descriptive_project_head": DESCRIPTIVE_PROJECT_HEAD, "descriptive_nested_head": DESCRIPTIVE_NESTED_HEAD},
+        "models": identities, "tiny_matrix": matrix, "structural_equivalence": structural,
+        "raw_archive": raw_archive, "epoch_runs": epochs,
         "lifecycle": {"cycles": 25, "before": cycle_before, "after": cycle_after, "records": cycle_records,
             "max_return_delta_bytes": return_delta, "return_threshold_bytes": threshold},
         "full_k3": {"descriptor_revision": "9f62e4e9fffbd0a83ddd60e1c209d828994b3569",
@@ -394,10 +496,13 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
                 "limits": "normalized context only; different model representation, kernels, hardware, storage and quality; no ranking"}},
         "statistics": statistics,
         "disposition_inputs": {"recommended": "SUPPORTED_EXPLICIT_NONDEFAULT",
+            "autofit_claim": "SAFE_CAPACITY_ONLY_NOT_PERFORMANCE_SELECTED",
+            "explicit_budget_guidance": "use an evidence-backed explicit budget for performance-critical deployments",
             "storage_claim": "buffered threaded pread only; no native io_uring or storage-overlap claim",
             "performance_claim": "no minimum speedup; safe single-request single-device envelope only"},
-        "commands": ["15 fresh rotated-interleaved processes per tiny capacity/model with frozen ratio-of-medians gate",
-            "101 fresh alternating W/autofit processes per model for nearest-rank warm-run-2/run-10 p99",
+        "commands": ["reuse and publish frozen v4 descriptive matrix without relabeling its source target",
+            "five fresh exact-target W/autofit structural-equivalence pairs per model",
+            "101 frozen v4 alternating W/autofit processes per model for nearest-rank warm-run-2/run-10 p99",
             "100 fixed deterministic-route epochs per model with per-epoch resource series",
             "25 uncached complete fresh-process load/run/unload cycles",
             "five fresh exact-layout full-K3 residency processes per explicit/autofit capacity plus first-unsafe rejection"]}
@@ -416,11 +521,14 @@ def main() -> int:
     parser.add_argument("--f16", type=Path); parser.add_argument("--mxfp4", type=Path)
     parser.add_argument("--project-head"); parser.add_argument("--nested-head"); parser.add_argument("--output", type=Path)
     parser.add_argument("--cache-dir", type=Path, default=Path("/tmp/phase11-checkpoint-d-cache"))
+    parser.add_argument("--descriptive-cache", type=Path); parser.add_argument("--raw-archive", type=Path)
+    parser.add_argument("--raw-index", type=Path)
     parser.add_argument("--verify", type=Path); args = parser.parse_args()
     if args.verify:
         document = json.loads(args.verify.read_text()); validate(document)
         print(f"{args.verify} {hashlib.sha256(canonical(document)).hexdigest()}"); return 0
-    if not all((args.binary, args.residency_probe, args.f16, args.mxfp4, args.project_head, args.nested_head, args.output)):
+    if not all((args.binary, args.residency_probe, args.f16, args.mxfp4, args.project_head, args.nested_head,
+            args.output, args.descriptive_cache, args.raw_archive, args.raw_index)):
         parser.error("capture arguments are incomplete")
     document = capture(args); args.output.parent.mkdir(parents=True, exist_ok=True); args.output.write_bytes(canonical(document))
     print(f"{args.output} {hashlib.sha256(canonical(document)).hexdigest()}"); return 0
