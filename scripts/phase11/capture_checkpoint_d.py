@@ -8,7 +8,6 @@ import hashlib
 import json
 import math
 import subprocess
-import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -85,6 +84,16 @@ def execute(binary: Path, model: Path, mode: str, steps: int, pool: int = 0,
         "stderr_sha256": hashlib.sha256(completed.stderr.encode()).hexdigest()}
 
 
+def cached_execute(cache: Path, key: str, binary: Path, model: Path, mode: str, steps: int,
+        pool: int = 0, *, ignore_eog: bool = False) -> dict[str, Any]:
+    path = cache/f"{key}.json"
+    if path.exists(): return json.loads(path.read_text())
+    value = execute(binary, model, mode, steps, pool, ignore_eog=ignore_eog)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(canonical(value))
+    return value
+
+
 def nearest(values: list[int], numerator: int, denominator: int = 100) -> int:
     ordered = sorted(values)
     return ordered[max(0, min(len(ordered) - 1, math.ceil(len(ordered)*numerator/denominator) - 1))]
@@ -126,10 +135,9 @@ def validate(document: dict[str, Any]) -> None:
             if len(records) != 5: raise ValueError(f"{name}/{cell}: five processes required")
             for record in records: validate_uma(name, record, identity)
             if document["statistics"][name][cell]["warm_samples"] < 100: raise ValueError("tail sample gate failed")
-        for record in matrix["copy_w"]:
-            if any(record["diagnostics"][key] != identity[key] for key in IDENTITY) or \
-                    record["diagnostics"]["ring_h2d_bytes"] <= 0:
-                raise ValueError(f"{name}: copy comparison invalid")
+        copy = matrix["copy_w"]
+        if copy["status"] != "unsupported" or "hot-cache target must be one CUDA device" not in copy["reason"]:
+            raise ValueError(f"{name}: same-host copy capability classification invalid")
         w = matrix["uma"]["w"]
         if any(r["diagnostics"]["cold_evictions"] != 0 or r["diagnostics"]["cold_hits"] <= 0 for r in w):
             raise ValueError(f"{name}: fitting warm set reread/eviction")
@@ -151,22 +159,28 @@ def validate(document: dict[str, Any]) -> None:
         raise ValueError("unsupported disposition")
 
 
-def full_k3_cell(probe: Path, temporary: Path, name: str, budget: int, run_index: int) -> dict[str, Any]:
-    output = temporary/f"{name}-{run_index}.json"
+def full_k3_cell(probe: Path, cache: Path, name: str, budget: int, run_index: int) -> dict[str, Any]:
+    record = cache/f"full-k3-{name}-{run_index}-record.json"
+    if record.exists(): return json.loads(record.read_text())
+    output = cache/f"full-k3-{name}-{run_index}-raw.json"
     command = [str(probe), "--output", str(output), "--budget-bytes", str(budget),
         "--projection-bytes", "5849088", "--layers", "92", "--experts-per-layer", "896",
         "--experts-used", "16", "--touch-slots", "1472", "--classification-samples", "100", "--policy", "LRU"]
     before = snapshot(); completed = run(command); after = snapshot(); value = json.loads(output.read_text())
-    return {"command": command, "elapsed_us": value["elapsed_us"],
+    result = {"command": command, "elapsed_us": value["elapsed_us"],
         "major_fault_delta": value["faults_after"]["major_faults"] - value["faults_before"]["major_faults"],
         "swap_growth_bytes": max(0, (value["smaps_after_kib"].get("Swap", 0) - value["smaps_before_kib"].get("Swap", 0))*1024),
         "fully_resident": value["residency"]["ready_pages"] == value["residency"]["resident_ready_pages"],
         "capacity": value["capacity"], "policy_digest": value["policy_digest"], "before": before, "after": after,
         "stdout_sha256": hashlib.sha256(completed.stdout.encode()).hexdigest(),
         "artifact_sha256": sha256(output)}
+    record.write_bytes(canonical(result))
+    return result
 
 
 def capture(args: argparse.Namespace) -> dict[str, Any]:
+    cache = args.cache_dir.resolve()/args.nested_head
+    cache.mkdir(parents=True, exist_ok=True)
     models = {"f16": args.f16.resolve(), "mxfp4": args.mxfp4.resolve()}
     identities = {}
     for name, path in models.items():
@@ -175,30 +189,41 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
         identities[name] = {"path": str(path), "size": path.stat().st_size, "sha256": sha256(path)}
     gitlink = run(["git", "ls-tree", args.project_head, "--", "llama.cpp"]).stdout.split()[2]
     matrix = {}; statistics = {}
-    cells = ("half_w", "w_minus_slot", "w", "w_plus_slot", "one_point_five_w", "autofit")
+    cells = ("half_w", "w_minus_slot", "w", "autofit", "w_plus_slot", "one_point_five_w")
     for name, model in models.items():
-        spec = MODELS[name]; baseline = execute(args.binary.resolve(), model, "disabled", 21)
+        spec = MODELS[name]
+        baseline = cached_execute(cache, f"{name}-baseline", args.binary.resolve(), model, "disabled", 21)
         pools = {"half_w": spec["working_set"]//2, "w_minus_slot": spec["working_set"] - spec["slot"],
             "w": spec["working_set"], "w_plus_slot": spec["working_set"] + spec["slot"],
             "one_point_five_w": spec["working_set"]*3//2, "autofit": 0}
-        uma = {cell: [] for cell in cells}; copies = []
-        for _ in range(5):
-            copies.append(execute(args.binary.resolve(), model, "cold", 21, spec["working_set"]))
-            for cell in cells: uma[cell].append(execute(args.binary.resolve(), model, "uma", 21, pools[cell]))
-        matrix[name] = {"baseline": baseline, "uma": uma, "copy_w": copies, "pools": pools}
+        uma = {cell: [] for cell in cells}
+        copy_command = [str(args.binary.resolve()), "--model", str(model), "--mode", "cold", "--steps", "21",
+            "--capacity", "2", "--cold-bytes", str(spec["working_set"]), "--ring-bytes", str(4*1024*1024)]
+        copy_attempt = run(copy_command, success=False)
+        copy = {"status": "unsupported", "command": copy_command, "returncode": copy_attempt.returncode,
+            "reason": "hot-cache target must be one CUDA device" if "hot-cache target must be one CUDA device" in copy_attempt.stderr else copy_attempt.stderr[-500:],
+            "stdout_sha256": hashlib.sha256(copy_attempt.stdout.encode()).hexdigest(),
+            "stderr_sha256": hashlib.sha256(copy_attempt.stderr.encode()).hexdigest()}
+        if copy_attempt.returncode == 0: raise ValueError("same-host copy path unexpectedly became supported")
+        for index in range(5):
+            for cell in cells:
+                uma[cell].append(cached_execute(cache, f"{name}-{cell}-{index}", args.binary.resolve(),
+                    model, "uma", 21, pools[cell]))
+        matrix[name] = {"baseline": baseline, "uma": uma, "copy_w": copy, "pools": pools}
         statistics[name] = {cell: summary(uma[cell]) for cell in cells}
-        statistics[name]["copy_w"] = summary(copies)
-    epochs = {name: execute(args.binary.resolve(), model, "uma", 100, MODELS[name]["working_set"], ignore_eog=True)
+    epochs = {name: cached_execute(cache, f"{name}-epochs", args.binary.resolve(), model, "uma", 100,
+        MODELS[name]["working_set"], ignore_eog=True)
         for name, model in models.items()}
     cycle_before = snapshot(); cycle_records = []
-    for _ in range(25): cycle_records.append(execute(args.binary.resolve(), models["mxfp4"], "uma", 2, MODELS["mxfp4"]["working_set"]))
+    for index in range(25):
+        cycle_records.append(cached_execute(cache, f"lifecycle-{index}", args.binary.resolve(), models["mxfp4"],
+            "uma", 2, MODELS["mxfp4"]["working_set"]))
     cycle_after = snapshot(); threshold = max(256*1024*1024, int(.01*125371940864))
     return_delta = max(abs(cycle_after["memory.current"] - cycle_before["memory.current"]),
         abs(cycle_after["cuda_process_used_mib"] - cycle_before["cuda_process_used_mib"])*1024*1024)
-    with tempfile.TemporaryDirectory(prefix="phase11-full-k3-") as temp:
-        temp_path = Path(temp); full_cells = {}
-        for cell, budget in {"half_w": 12914786304, "w": 25829572608, "one_point_five_w": 38744358912}.items():
-            full_cells[cell] = [full_k3_cell(args.residency_probe.resolve(), temp_path, cell, budget, index) for index in range(5)]
+    full_cells = {}
+    for cell, budget in {"half_w": 12914786304, "w": 25829572608, "one_point_five_w": 38744358912}.items():
+        full_cells[cell] = [full_k3_cell(args.residency_probe.resolve(), cache, cell, budget, index) for index in range(5)]
     safe = min(r["diagnostics"]["uma_safe_pool_bytes"] for r in matrix["mxfp4"]["uma"]["w"])
     negative_command = [str(args.binary.resolve()), "--model", str(models["mxfp4"]), "--mode", "uma", "--steps", "1",
         "--capacity", "2", "--cold-bytes", str(safe + MODELS["mxfp4"]["slot"]), "--ring-bytes", "0"]
@@ -217,7 +242,7 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
             "bundle_bytes": 17547264, "working_set_bytes": 25829572608,
             "scope_limit": "exact-layout materialized residency and pressure only; not full-checkpoint quality or throughput", "cells": full_cells},
         "negative": negative_record,
-        "comparisons": {"spark_copy_path": "actual_same_host_interleaved",
+        "comparisons": {"spark_copy_path": "unsupported_on_integrated_GB10_target_validation",
             "discrete_cuda": "historical_phase7_to_phase10_context_only_no_direct_ranking",
             "qwen": "unavailable_exact_package_not_present",
             "waste": {"revision": "c4d45c5914d1d15643d201855128938e8fb1698a", "license": "Apache-2.0",
@@ -230,6 +255,7 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
             "performance_claim": "no minimum speedup; safe single-request single-device envelope only"},
         "commands": ["five fresh interleaved processes per tiny capacity/model", "100 fixed deterministic-route epochs per model",
             "25 complete fresh-process load/run/unload cycles", "five fresh exact-layout full-K3 residency processes per capacity"]}
+    (cache/"candidate.json").write_bytes(canonical(document))
     validate(document)
     return document
 
@@ -243,6 +269,7 @@ def main() -> int:
     parser.add_argument("--binary", type=Path); parser.add_argument("--residency-probe", type=Path)
     parser.add_argument("--f16", type=Path); parser.add_argument("--mxfp4", type=Path)
     parser.add_argument("--project-head"); parser.add_argument("--nested-head"); parser.add_argument("--output", type=Path)
+    parser.add_argument("--cache-dir", type=Path, default=Path("/tmp/phase11-checkpoint-d-cache"))
     parser.add_argument("--verify", type=Path); args = parser.parse_args()
     if args.verify:
         document = json.loads(args.verify.read_text()); validate(document)
