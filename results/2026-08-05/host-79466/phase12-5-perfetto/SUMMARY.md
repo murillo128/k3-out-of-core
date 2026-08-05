@@ -8,6 +8,8 @@ The focused provider, cache, scheduler, storage, async-I/O, transfer, UMA config
 
 With the ON build and no active external session, trace macros do not evaluate arguments, no tracing owner is initialized, no trace file is created, and all CUPTI activity/drop counters remain zero.
 
-The 20-run tiny-fixture ABBA comparison produced one exact generated/logit/route identity. Paired median shift was +0.10% TTFT, -1.15% decode latency, and +1.16% decode throughput; no metric regressed beyond the 1% gate. The adjacent one-token DeepSeek provider confirmation was exact and the ON/no-session latency improved 0.16%, passing the 2% gate.
+The direct event schema covers the selected route keys; hot lookup, hit, miss, victim, eviction, admission, pin, and unpin transitions; cold victim, eviction, and admission transitions; hot-cache, cold-cache, and transfer-lane occupancy counters; and graph reserve. A 16 MiB system trace probe retained 8,388,600 bytes of record capacity and peaked at 9,437,176 bytes across that capacity plus all active CUPTI buffers, with 250 records and no errors or drops. The same allocation accounting enforces the configured 256 MiB hard maximum.
+
+The refreshed 20-run tiny-fixture ABBA comparison produced one exact generated/logit/route identity. Paired median shift was -0.12% TTFT, -0.45% decode latency, and +0.45% decode throughput; no metric regressed beyond the 1% gate. The adjacent one-token DeepSeek provider confirmation was exact and the ON/no-session latency improved 0.47%, passing the 2% gate.
 
 Machine-readable evidence is in `checkpoint-a.json`. Checkpoint B full-stack traces and SQL verification are intentionally not claimed by this checkpoint.

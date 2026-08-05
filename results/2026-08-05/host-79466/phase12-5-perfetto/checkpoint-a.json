@@ -1,6 +1,6 @@
 {
   "schema_version": "phase12.5-checkpoint-a-v1",
-  "captured_at_utc": "2026-08-05T20:15:00Z",
+  "captured_at_utc": "2026-08-05T20:50:00Z",
   "status": "pass",
   "decision_marker": "OBSERVED",
   "issue": 54,
@@ -23,13 +23,13 @@
   "builds": {
     "off": {
       "LLAMA_PERFETTO": false,
-      "libllama_sha256": "cb2bdda0ea95a466985bdc59da4a4ec76f35becc704fed510e9b0e2ba5bc4f30",
+      "libllama_sha256": "a4c61007e611a3b6d0ec8368b2eedae6d4499be366da050ceb7d14dcc1bf47a1",
       "perfetto_or_cupti_dynamic_symbols": 0,
       "cupti_dynamic_dependencies": 0
     },
     "on": {
       "LLAMA_PERFETTO": true,
-      "libllama_sha256": "c39c71fc87e5ee5c3e3a2cb0190c6c04e57ae1a797396a020afcb1bbb8aeb64b",
+      "libllama_sha256": "14b17b3e631d167f46ddeca0c4c43c49a8f0586c90bd18caa1360f0fdaf2173d",
       "cupti_dynamic_dependencies": 1
     },
     "default_option": false
@@ -87,20 +87,20 @@
     "identity_sha256": "ec02c471669fcbb4c14f3c1bf2c9022271fc41009bee12e6183200674b9b291e",
     "side_medians": {
       "off": {
-        "ttft_us": 291604.5,
-        "decode_latency_us": 78108,
-        "decode_tokens_per_second": 243.2541669165453
+        "ttft_us": 289196.5,
+        "decode_latency_us": 74592.5,
+        "decode_tokens_per_second": 254.74518814796392
       },
       "on": {
-        "ttft_us": 293612,
-        "decode_latency_us": 77077,
-        "decode_tokens_per_second": 246.52964854094495
+        "ttft_us": 289145.5,
+        "decode_latency_us": 73768,
+        "decode_tokens_per_second": 257.56600034118867
       }
     },
     "paired_median_shift": {
-      "ttft": 0.0010101554545358105,
-      "decode_latency": -0.011511141683009263,
-      "decode_throughput": 0.011645206550799703
+      "ttft": -0.0011902725681373627,
+      "decode_latency": -0.0044668638661016224,
+      "decode_throughput": 0.004487473756263793
     },
     "gate": {
       "maximum_regression": 0.01,
@@ -115,18 +115,31 @@
     "exact_identity_count": 1,
     "identity_sha256": "368127e9467569974af81c62b2462c53180a4a75cf9bd3cac3d6def772fe70c3",
     "generated_ids": [2581],
-    "off_latency_us": 62517873,
-    "on_latency_us": 62418817,
-    "latency_shift": -0.001584443985537371,
+    "off_latency_us": 62822229,
+    "on_latency_us": 62529479,
+    "latency_shift": -0.0046599747360126301,
     "gate": {
       "maximum_regression": 0.02,
       "pass": true
     }
   },
+  "direct_event_schema": {
+    "route": ["selected_key"],
+    "hot_cache": ["lookup", "hit", "miss", "victim", "eviction", "admission", "pin", "unpin"],
+    "cold_cache": ["victim", "eviction", "admission"],
+    "resource_counters": ["hot_cache_occupancy", "cold_cache_occupancy", "transfer_lane_occupancy"],
+    "graph": ["graph_reserve"]
+  },
   "bounds": {
     "perfetto_producer_shmem_kib": 32768,
     "cupti_callback_buffer_bytes": 1048576,
-    "cupti_retained_bytes_max": 268435456,
+    "cupti_total_memory_bytes_max": 268435456,
+    "cupti_budget_scope": "retained-record capacity plus all active callback buffers",
+    "system_probe_config_bytes": 16777216,
+    "system_probe_retained_capacity_bytes": 8388600,
+    "system_probe_peak_total_bytes": 9437176,
+    "system_probe_records": 250,
+    "system_probe_errors_or_drops": 0,
     "one_session": true,
     "one_cuda_device": true,
     "static_categories": true,
@@ -135,5 +148,12 @@
   "limitations": [
     "The RTX 3090 does not expose the Phase 11 UMA arena capability; identical ON/OFF rejection is recorded instead of emulation.",
     "This checkpoint establishes optional integration and no-session behavior only; full-stack capture evidence belongs to Checkpoint B."
-  ]
+  ],
+  "review_correction": {
+    "round": 2,
+    "addressed": [
+      "completed direct route, hot-cache, cold-cache, resource-occupancy, and graph-reserve trace seams",
+      "enforced one shared hard allocation budget across retained CUPTI records and active CUPTI callback buffers"
+    ]
+  }
 }
