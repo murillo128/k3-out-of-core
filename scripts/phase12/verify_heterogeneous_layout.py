@@ -108,6 +108,9 @@ def validate_manifest(document: dict[str, Any], verify_archives: bool) -> None:
     provider = correctness["real_provider_path"]
     require(provider["status"] == "pass" and provider["finite"], "real provider path")
     require(provider["class_count"] == 3 and provider["active_background_flights"] == 0, "provider terminal state")
+    binding = correctness["sealed_binding_class_match"]
+    require(binding["status"] == "pass" and binding["mismatched_valid_class_family_error"] == "invalid_binding",
+            "cross-class graph binding did not fail closed")
     sanitizer = correctness["compute_sanitizer"]
     require(sanitizer["status"] == "pass" and sanitizer["errors"] == sanitizer["leaked_bytes"] == 0, "CUDA sanitizer")
 

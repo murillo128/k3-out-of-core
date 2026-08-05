@@ -1,6 +1,6 @@
 # Heterogeneous expert layout validation
 
-Checkpoint A passes at parent revision `a6e0b2a339523fb6ecb60f2cbf7c6bff8a1d1923` and nested revision `063200af644bc4b0138f60642f68c687a5731069`.
+Checkpoint A passes at parent revision `6d774a46e46e01ebde235906f290f6987b185dfa` and nested revision `1fdb55b891a3ac09ea7f4b1e7e0e50ae40060afc`.
 
 The accepted DeepSeek V4 UD-Q3_K_XL artifact contains three routed-expert layout classes: the common 41-layer class plus distinct layer 26 and layer 42 classes. Class IDs are assigned from full canonical descriptor bytes, propagated through every cache and transfer identity, and exposed in bounded telemetry. All tiers retain one global LRU/ALWAYS policy while allocating universal, class-independent physical slots.
 

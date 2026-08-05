@@ -1,12 +1,12 @@
 {
   "schema_version": "heterogeneous-layout-validation-v1",
-  "observed_at_utc": "2026-08-05T11:51:53Z",
+  "observed_at_utc": "2026-08-05T12:05:42Z",
   "revisions": {
     "project_base": "450d5d1eb35a688b7380eee6b84bd3b0837a11c2",
-    "project_technical_head": "a6e0b2a339523fb6ecb60f2cbf7c6bff8a1d1923",
+    "project_technical_head": "6d774a46e46e01ebde235906f290f6987b185dfa",
     "nested_base": "add1ee6adbe5264387b8b1eef0eed0ba51a59a8a",
-    "nested_head": "063200af644bc4b0138f60642f68c687a5731069",
-    "gitlink": "063200af644bc4b0138f60642f68c687a5731069"
+    "nested_head": "1fdb55b891a3ac09ea7f4b1e7e0e50ae40060afc",
+    "gitlink": "1fdb55b891a3ac09ea7f4b1e7e0e50ae40060afc"
   },
   "artifact": {
     "model_family": "deepseek-ai/DeepSeek-V4-Flash",
@@ -72,6 +72,7 @@
     "artifact_inventory": {"status":"pass","routed_layers":43,"routed_tensors":129,"layout_classes":3,"single_fixed_slot_layout_representable":false,"intentional_exit_status":10},
     "source_span_comparison": {"status":"pass","samples":11,"cross_split_sample_present":true,"bytes_per_path":131858432,"source_sync_async_equal":true,"io_uring":true,"fallback_reason_mask":0,"terminal_operations":0,"shutdown":true},
     "real_cuda_kernel_comparison": {"status":"pass","representative_layers":[0,26,42],"projections":["up","gate","down"],"comparison_count":9,"same_source_bytes":true,"same_input":true,"same_expert":0,"same_routing_weight":0.25,"all_bit_exact":true,"all_finite":true,"maximum_absolute_error":0.0,"maximum_scaled_absolute_error":0.0,"all_padding_guards_intact":true},
+    "sealed_binding_class_match": {"status":"pass","mismatched_valid_class_family_error":"invalid_binding"},
     "real_provider_path": {"status":"pass","finite":true,"class_count":3,"route_records":86,"stage_bundles":516,"h2d_bundles":516,"generated_ids":[270],"logits_fnv1a64":[9441011415740606347],"active_background_flights":0,"current_request_refs":0,"current_transfer_refs":0,"current_hot_pins":0,"trace_records_dropped":0},
     "disabled_comparison": {"status":"pass","prompt_ids_equal":true,"generated_ids_equal":true,"first_layer_routes_equal":true,"whole_run_logits_equal":false,"classification":"OBSERVED backend numerical divergence; direct same-kernel universal-view comparison is bit-exact"},
     "compute_sanitizer": {"status":"pass","targets":["real provider path","real CUDA compact-versus-universal kernel comparison"],"errors":0,"leaked_bytes":0},
@@ -83,7 +84,7 @@
     "hot":{"payload_bytes":255897600,"administration_bytes":8654556,"peak_slots":16},
     "cold":{"payload_bytes":1023590400,"administration_bytes":8654940,"peak_slots":20},
     "transfer":{"pinned_bytes":67173120,"lanes":4,"peak_in_flight_lanes":1,"live_h2d_events_terminal":0,"live_compute_events_terminal":0,"failed_cleanup":0},
-    "provider":{"peak_rss_kib":7394856,"major_faults":0,"swap_bytes":0,"stage_bytes":5701632000,"h2d_bytes":5701632000,"stage_time_us":571421,"h2d_time_us":15286},
+    "provider":{"peak_rss_kib":7394856,"major_faults":0,"swap_bytes":0,"stage_bytes":5701632000,"h2d_bytes":5701632000,"stage_time_us":692939,"h2d_time_us":21400},
     "policy":{"hot_policy":"LRU","cold_policy":"LRU","scope":"GLOBAL","admission":"ALWAYS","hot_demands":516,"hot_evictions":500,"cold_demands":516,"cold_evictions":496,"transcript_dropped":0},
     "scheduler":{"selected_top_k":6,"minimum_lanes":2,"tested_two_lane_waves":3},
     "storage":{"read_requests":11,"read_operations":33,"read_bytes":131858432,"short_reads":0,"io_errors":0},
@@ -106,6 +107,6 @@
     "Cgroup memory.events was unavailable; process peak RSS, host swap state, tier allocations, and provider telemetry were captured instead."
   ],
   "archives": [
-    {"checkpoint":"mechanism","format":"tar.zst","storage_path":"/workspace/evidence/issue49-checkpoint-a/adc0f64768ea62667d0547960429efbd574891db65515e225444ae9e8efe84da.tar.zst","bytes":206714,"sha256":"adc0f64768ea62667d0547960429efbd574891db65515e225444ae9e8efe84da","member_count":29,"index":"results/2026-08-05/host-79466/heterogeneous-layout/archive-index.json"}
+    {"checkpoint":"mechanism","format":"tar.zst","storage_path":"/workspace/evidence/issue49-checkpoint-a/8e94fbc95e5f6f9c338b29eef1606acf7ea84c5ab3d62b67facbb453f935af2f.tar.zst","bytes":206683,"sha256":"8e94fbc95e5f6f9c338b29eef1606acf7ea84c5ab3d62b67facbb453f935af2f","member_count":29,"index":"results/2026-08-05/host-79466/heterogeneous-layout/archive-index.json"}
   ]
 }
