@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/phase11/phase11-manifest-v1.schema.json",
+  "title": "K3 out-of-core Phase 11 closeout manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "execution_profile", "revisions", "clean_input_state", "environment", "models", "checkpoints", "capability", "build", "validation", "capacity", "policies", "gates", "evidence", "closeout_artifacts", "disposition", "limits", "deferred", "self_identity"],
+  "properties": {
+    "schema_version": {"const": "phase11-manifest-v1"},
+    "status": {"enum": ["final-review-candidate", "accepted"]},
+    "execution_profile": {"const": "STANDARD"},
+    "revisions": {"type": "object", "required": ["project_base", "implementation_head", "checkpoint_d_published_head", "evidence_head", "nested_base", "nested_head", "gitlink"]},
+    "clean_input_state": {"type": "object", "required": ["project", "nested"]},
+    "environment": {"type": "object", "minProperties": 10},
+    "models": {"type": "array", "minItems": 2, "maxItems": 2},
+    "checkpoints": {"type": "object", "required": ["a", "b", "c", "d"]},
+    "capability": {"type": "object", "minProperties": 6},
+    "build": {"type": "object", "required": ["release_cuda", "asan_ubsan_cuda", "tsan_cpu"]},
+    "validation": {"type": "object", "minProperties": 8},
+    "capacity": {"type": "object", "required": ["safe_ceiling_bytes", "requested_modes", "safe_explicit_and_autofit_bytes", "effective_slots", "actual_arena_bytes", "slot_footprint_bytes", "first_unsafe_bytes", "model_capacity_bytes", "model_cap_unused_safe_bytes", "alignment_remainder_bytes"]},
+    "policies": {"type": "object", "minProperties": 4},
+    "gates": {"type": "object", "minProperties": 14},
+    "evidence": {"type": "array", "minItems": 6, "items": {"$ref": "#/$defs/artifact"}},
+    "closeout_artifacts": {"type": "array", "minItems": 8, "items": {"$ref": "#/$defs/artifact"}},
+    "disposition": {"type": "object", "required": ["schema_version", "status", "autofit_claim", "default_enabled", "explicit_configuration_required"]},
+    "limits": {"type": "array", "minItems": 6, "items": {"type": "string"}},
+    "deferred": {"type": "array", "minItems": 5, "items": {"type": "string"}},
+    "self_identity": {"type": "string", "minLength": 1}
+  },
+  "$defs": {
+    "artifact": {"type": "object", "additionalProperties": false, "required": ["path", "size", "sha256", "immutable_url"], "properties": {"path": {"type": "string", "minLength": 1}, "size": {"type": "integer", "minimum": 1}, "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "immutable_url": {"type": "string", "pattern": "^https://"}}}
+  }
+}
