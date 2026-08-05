@@ -7,10 +7,10 @@
     "storage_transport": "buffered_pread"
   },
   "capacity": {
-    "first_unsafe_bytes": 81261379584,
+    "first_unsafe_bytes": 81173643264,
     "first_unsafe_rejected_before_io": true,
-    "safe_effective_slots": 4630,
-    "safe_explicit_and_autofit_bytes": 81243832320,
+    "safe_effective_slots": 4625,
+    "safe_explicit_and_autofit_bytes": 81156096000,
     "slot_footprint_bytes": 17547264,
     "working_set_bytes": 25829572608
   },
@@ -93,15 +93,15 @@
     "analyzed_epochs": 80,
     "epochs": 100,
     "f16_first_last_p99_us": [
-      22527,
-      21221
+      34869,
+      36146
     ],
     "lifecycle_cycles": 25,
     "mxfp4_first_last_p99_us": [
-      14888,
-      15165
+      18577,
+      15771
     ],
-    "return_delta_bytes": 241664,
+    "return_delta_bytes": 1687552,
     "return_threshold_bytes": 1253719408
   },
   "schema_version": "phase11-summary-v1",

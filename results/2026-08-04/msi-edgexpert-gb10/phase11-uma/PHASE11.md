@@ -9,8 +9,8 @@ behavior are unchanged.
 
 Autofit is **SAFE_CAPACITY_ONLY_NOT_PERFORMANCE_SELECTED**. The full-K3 exact-layout residency probe
 materialized five clean runs each at 0.5W, W, 1.5W, safe explicit, and autofit. Safe explicit/autofit
-resolved to 81,243,832,320 bytes (4,630
-slots); 81,261,379,584 bytes, one slot higher, was rejected before I/O. This proves
+resolved to 81,156,096,000 bytes (4,625
+slots); 81,173,643,264 bytes, one slot higher, was rejected before I/O. This proves
 bounded residency and pressure behavior, not full-model inference quality or throughput.
 
 Tiny F16 and MXFP4 explicit-W/autofit pairs are structurally equivalent. Their throughput ratios
