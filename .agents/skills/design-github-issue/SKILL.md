@@ -16,7 +16,7 @@ The design authority owns:
 - the complete phase-specific context needed to execute safely;
 - scope, invariants, exclusions, failure semantics, and acceptance criteria;
 - risk-based review checkpoints;
-- the issue's readiness state.
+- the issue's initial readiness and any design-authority state transition.
 
 It does not implement code, operate branches, publish commits, or perform independent review.
 
@@ -80,15 +80,18 @@ Exact commits are required when reproducibility, a nested dependency, accepted e
 
 ## Readiness
 
-Use one current state for a non-trivial open issue:
+The controlling issue's current workflow state is the single authoritative state label. Use exactly one of:
 
 - `execution-ready`: no material design or validation decision remains;
 - `design-required`: a material decision remains unresolved;
 - `investigation-required`: bounded evidence is needed before choosing a design;
 - `blocked`: a required external capability is unavailable with no practical alternative;
-- `in-progress`: execution has started.
+- `in-progress`: execution has started;
+- `completed`: the accepted terminal outcome has been reached and the issue is closing or closed.
 
-A label is a useful projection, not a separate authority. Do not create compliance work solely to synchronize equivalent prose, labels, comments, and PR metadata.
+At issue publication, set exactly one state label through `codex-github-operations`. The issue body may record **Initial state** so a fresh executor understands the publication context, but that field is historical and is not updated for routine transitions. The label alone answers the current-state question.
+
+When design authority changes the technical contract, update the issue body or add a material amendment comment as appropriate, then change the state label if progression changes. Do not create a comment whose only purpose is to announce a state transition, and do not repeat a mutable `State:` field in amendment comments.
 
 ## Design method
 
@@ -157,7 +160,7 @@ A checkpoint defines:
 
 When the last checkpoint can inspect the complete final PR diff, immutable final technical evidence, and all remaining acceptance criteria, declare it **final-capable**. A passing review of that exact unchanged target also serves as the final PR review; do not require a duplicate review.
 
-Any later change to code, tests, technical evidence, manifest, dependencies, configuration, or technical claims invalidates final-capable status and requires review of the changed target. Changes only to labels, issue/PR prose, roadmap state, or other derived metadata do not.
+Any later change to code, tests, technical evidence, manifest, dependencies, configuration, or technical claims invalidates final-capable status and requires review of the changed target. Changes only to labels, issue/PR prose, roadmap state, or other workflow metadata do not.
 
 ### 7. Define nested publication boundaries
 
@@ -199,7 +202,8 @@ Before marking the issue `execution-ready`, confirm:
 - required inputs and validation capabilities are identified;
 - checkpoints match distinct risks and avoid duplicate final review;
 - technical evidence is independent from GitHub workflow metadata;
-- nested and external-evidence publication boundaries are explicit when applicable.
+- nested and external-evidence publication boundaries are explicit when applicable;
+- `execution-ready` is the issue's only state label.
 
 ## Issue structure
 
@@ -209,7 +213,7 @@ Use the sections that carry phase-specific information:
 # <Outcome-oriented title>
 
 ## Readiness
-**State:** execution-ready | design-required | investigation-required | blocked
+**Initial state:** execution-ready | design-required | investigation-required | blocked
 **Profile:** STANDARD | HIGH_ASSURANCE
 
 ## Goal and current limitation
