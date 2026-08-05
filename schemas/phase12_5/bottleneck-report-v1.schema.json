@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/phase12_5/bottleneck-report-v1.schema.json",
+  "title": "Phase 12.5 bottleneck attribution report v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "source_revisions", "trace_index", "method", "cases", "rankings", "limitations", "conclusion"],
+  "properties": {
+    "schema_version": {"const": "phase12-5-bottleneck-report-v1"},
+    "status": {"enum": ["SUPPORTED_BOTTLENECK_ATTRIBUTION", "ANALYSIS_INCONCLUSIVE"]},
+    "source_revisions": {
+      "type": "object", "additionalProperties": false, "required": ["project", "nested"],
+      "properties": {"project": {"$ref": "#/$defs/sha1"}, "nested": {"$ref": "#/$defs/sha1"}}
+    },
+    "trace_index": {"$ref": "#/$defs/file"},
+    "method": {
+      "type": "object", "additionalProperties": false,
+      "required": ["accounting", "percentile_definition", "observation_inference_rule"],
+      "properties": {"accounting": {"type": "string", "minLength": 1},
+        "percentile_definition": {"type": "string", "minLength": 1},
+        "observation_inference_rule": {"type": "string", "minLength": 1}}
+    },
+    "cases": {"type": "array", "minItems": 5, "items": {"type": "object", "required": ["name", "observations"],
+      "properties": {"name": {"type": "string"}, "observations": {"type": "object"}}, "additionalProperties": true}},
+    "rankings": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/ranking"}},
+    "limitations": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "conclusion": {"type": "string", "minLength": 1}
+  },
+  "$defs": {
+    "sha1": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "file": {"type": "object", "additionalProperties": false, "required": ["path", "size", "sha256"],
+      "properties": {"path": {"type": "string"}, "size": {"type": "integer", "minimum": 1}, "sha256": {"$ref": "#/$defs/sha256"}}},
+    "ranking": {
+      "type": "object", "additionalProperties": false,
+      "required": ["rank", "bottleneck", "observation", "alternative_explanation", "falsifier", "confidence",
+        "affected", "critical_path_share", "accounting", "smallest_next_action"],
+      "properties": {
+        "rank": {"type": "integer", "minimum": 1}, "bottleneck": {"type": "string", "minLength": 1},
+        "observation": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "alternative_explanation": {"type": "string", "minLength": 1}, "falsifier": {"type": "string", "minLength": 1},
+        "confidence": {"enum": ["HIGH", "MEDIUM", "LOW"]},
+        "affected": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["case"],
+          "properties": {"case": {"type": "string"}, "request_id": {"type": ["integer", "null"]},
+            "token_index": {"type": ["integer", "null"]}, "layer": {"type": ["integer", "null"]},
+            "flight_id": {"type": ["integer", "null"]}}, "additionalProperties": false}},
+        "critical_path_share": {"type": "number", "minimum": 0, "maximum": 1},
+        "accounting": {"type": "string", "minLength": 1}, "smallest_next_action": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}
