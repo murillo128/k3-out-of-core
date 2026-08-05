@@ -5,9 +5,9 @@ from __future__ import annotations
 
 import argparse
 import hashlib
-import itertools
 import json
 import math
+import random
 import subprocess
 from pathlib import Path
 from typing import Any
@@ -20,6 +20,8 @@ MODELS = {
         "slot": 208896, "working_set": 11698176},
 }
 IDENTITY = ("prompt_ids", "tokens", "logits_hash", "route_hash", "route_records")
+PROCESS_COUNT = 15
+AUTOFIT_ESTIMATOR = "ratio_of_process_throughput_medians"
 
 
 def sha256(path: Path) -> str:
@@ -105,21 +107,48 @@ def summary(records: list[dict[str, Any]]) -> dict[str, Any]:
         for record in records]
     samples = [value for values in per_process for value in values]
     warm = [value for values in per_process for value in values[1:]]
+    warm_two = [values[2] for values in per_process]
+    warm_ten = [values[10] for values in per_process]
     return {"processes": len(records), "samples": len(samples), "warm_samples": len(warm),
         "p50_us": nearest(warm, 50), "p95_us": nearest(warm, 95), "p99_us": nearest(warm, 99),
-        "max_us": max(warm), "throughput_median": sorted(r["diagnostics"]["decode_tokens_per_second"] for r in records)[len(records)//2]}
+        "max_us": max(warm), "warm_run_2_p99_us": nearest(warm_two, 99),
+        "warm_run_10_p99_us": nearest(warm_ten, 99),
+        "throughput_median": sorted(r["diagnostics"]["decode_tokens_per_second"] for r in records)[len(records)//2]}
 
 
 def paired_interval(autofit: list[dict[str, Any]], explicit: list[dict[str, Any]], cell: str) -> dict[str, Any]:
     ratios = [auto["diagnostics"]["decode_tokens_per_second"]/reference["diagnostics"]["decode_tokens_per_second"]
         for auto, reference in zip(autofit, explicit, strict=True)]
-    ordered = sorted(ratios); estimate = ordered[len(ordered)//2]
-    bootstrapped = sorted(sorted(ratios[index] for index in sample)[len(ratios)//2]
-        for sample in itertools.product(range(len(ratios)), repeat=len(ratios)))
-    return {"explicit_cell": cell, "estimator": "median_of_paired_process_throughput_ratios",
-        "ratios": ratios, "estimate": estimate,
-        "bootstrap_percentile_95_interval": [bootstrapped[int(.025*(len(bootstrapped) - 1))],
-            bootstrapped[math.ceil(.975*(len(bootstrapped) - 1))]]}
+    estimate = sorted(auto["diagnostics"]["decode_tokens_per_second"] for auto in autofit)[len(autofit)//2]/\
+        sorted(reference["diagnostics"]["decode_tokens_per_second"] for reference in explicit)[len(explicit)//2]
+    generator = random.Random(2608)
+    bootstrap = sorted(sorted(generator.choices(ratios, k=len(ratios)))[len(ratios)//2] for _ in range(10000))
+    return {"explicit_cell": cell, "estimator": AUTOFIT_ESTIMATOR, "ratios": ratios, "estimate": estimate,
+        "paired_bootstrap_seed": 2608, "paired_bootstrap_replicates": 10000,
+        "paired_bootstrap_95_interval": [bootstrap[249], bootstrap[9749]]}
+
+
+def trace(record: dict[str, Any], key: str) -> list[int]:
+    return [int(value) for value in str(record["diagnostics"][key]).split(",")]
+
+
+def delta_series(record: dict[str, Any], key: str) -> list[int]:
+    values = trace(record, key)
+    return [values[0]] + [values[index] - values[index - 1] for index in range(1, len(values))]
+
+
+def epoch_analysis(record: dict[str, Any], slot: int) -> dict[str, Any]:
+    tail = trace(record, "token_samples_us")[20:]
+    result = {"final_80_epochs": len(tail), "first_40_p99_us": nearest(tail[:40], 99),
+        "last_40_p99_us": nearest(tail[40:], 99), "slot_bytes": slot, "series": {}}
+    for key in ("epoch_cold_actual_bytes", "epoch_process_rss_bytes", "epoch_process_swap_bytes",
+            "epoch_major_faults", "epoch_degraded_hits", "epoch_unknown_hits", "epoch_storage_read_bytes",
+            "epoch_policy_drops", "epoch_scheduler_active", "epoch_cold_hot_refs", "epoch_cold_transfer_refs",
+            "epoch_cold_request_refs", "epoch_ring_live_events", "epoch_io_active_operations"):
+        values = trace(record, key)[20:]
+        result["series"][key] = {"first": values[0], "last": values[-1], "minimum": min(values),
+            "maximum": max(values), "growth": values[-1] - values[0]}
+    return result
 
 
 def validate_uma(name: str, record: dict[str, Any], identity: dict[str, Any]) -> None:
@@ -145,7 +174,7 @@ def validate(document: dict[str, Any]) -> None:
     for name, matrix in document["tiny_matrix"].items():
         identity = matrix["baseline"]["diagnostics"]
         for cell, records in matrix["uma"].items():
-            if len(records) != 5: raise ValueError(f"{name}/{cell}: five processes required")
+            if len(records) != PROCESS_COUNT: raise ValueError(f"{name}/{cell}: process count invalid")
             for record in records: validate_uma(name, record, identity)
             if document["statistics"][name][cell]["warm_samples"] < 100: raise ValueError("tail sample gate failed")
         copy = matrix["copy_w"]
@@ -154,44 +183,85 @@ def validate(document: dict[str, Any]) -> None:
         w = matrix["uma"]["w"]
         if any(r["diagnostics"]["cold_evictions"] != 0 or r["diagnostics"]["cold_hits"] <= 0 for r in w):
             raise ValueError(f"{name}: fitting warm set reread/eviction")
+        for records in (w, matrix["uma"]["autofit"]):
+            for record in records:
+                hits = delta_series(record, "epoch_cold_hits")
+                misses = delta_series(record, "epoch_cold_misses")
+                storage = delta_series(record, "epoch_storage_read_bytes")
+                if (hits[2], misses[2], storage[2]) != (hits[10], misses[10], storage[10]):
+                    raise ValueError(f"{name}: warm run hit mix drift")
+        for cell in ("w", "autofit"):
+            stats = document["statistics"][name][cell]
+            if stats["warm_run_10_p99_us"] > 1.10*stats["warm_run_2_p99_us"]:
+                raise ValueError(f"{name}/{cell}: longitudinal warm tail gate failed")
         candidates = ("w_minus_slot", "w", "w_plus_slot", "one_point_five_w")
         best_cell = max(candidates, key=lambda cell: document["statistics"][name][cell]["throughput_median"])
         paired = document["statistics"][name]["autofit_vs_best_explicit"]
-        if paired["explicit_cell"] != best_cell or paired["estimator"] != "median_of_paired_process_throughput_ratios" or \
-                len(paired["ratios"]) != 5 or len(paired["bootstrap_percentile_95_interval"]) != 2:
+        if paired["explicit_cell"] != best_cell or paired["estimator"] != AUTOFIT_ESTIMATOR or \
+                len(paired["ratios"]) != PROCESS_COUNT or paired["paired_bootstrap_seed"] != 2608 or \
+                paired["paired_bootstrap_replicates"] != 10000 or len(paired["paired_bootstrap_95_interval"]) != 2:
             raise ValueError(f"{name}: paired throughput analysis invalid")
         if paired["estimate"] < .95:
             raise ValueError(f"{name}: autofit throughput gate failed")
-    for record in document["epoch_runs"].values():
+    for name, record in document["epoch_runs"].items():
         validate_uma("epoch", record, record["diagnostics"])
         if len(str(record["diagnostics"]["token_samples_us"]).split(",")) != 100: raise ValueError("100 epochs required")
+        analysis = document["statistics"][name]["epoch_longitudinal"]
+        if analysis != epoch_analysis(record, MODELS[name]["slot"]): raise ValueError("epoch analysis mismatch")
+        if analysis["last_40_p99_us"] > 1.10*analysis["first_40_p99_us"]:
+            raise ValueError("100-epoch tail drift")
+        for key, values in analysis["series"].items():
+            if len(trace(record, key)) != 100: raise ValueError("100-epoch resource series required")
+            if key == "epoch_cold_actual_bytes" and values["growth"] > MODELS[name]["slot"]:
+                raise ValueError("100-epoch resource growth")
+            if key in ("epoch_process_swap_bytes", "epoch_major_faults", "epoch_degraded_hits",
+                    "epoch_unknown_hits", "epoch_policy_drops") and values["growth"] != 0:
+                raise ValueError("100-epoch counter drift")
+            if key in ("epoch_scheduler_active", "epoch_cold_transfer_refs", "epoch_cold_request_refs",
+                    "epoch_ring_live_events", "epoch_io_active_operations") and values["maximum"] != 0:
+                raise ValueError("100-epoch live resource not drained")
     lifecycle = document["lifecycle"]
     if lifecycle["cycles"] != 25 or lifecycle["max_return_delta_bytes"] > lifecycle["return_threshold_bytes"]:
         raise ValueError("25-cycle resource-return gate failed")
     for records in document["full_k3"]["cells"].values():
         if len(records) != 5 or any(r["major_fault_delta"] != 0 or r["swap_growth_bytes"] != 0 or
                 not r["fully_resident"] for r in records): raise ValueError("full-K3 residency cell failed")
+        for record in records:
+            raw_bytes = record["artifact_text"].encode()
+            if len(raw_bytes) != record["artifact_size"] or hashlib.sha256(raw_bytes).hexdigest() != record["artifact_sha256"]:
+                raise ValueError("full-K3 embedded artifact identity failed")
+    full = document["full_k3"]
+    if set(full["cells"]) != {"half_w", "w", "one_point_five_w", "safe_explicit", "autofit"} or \
+            full["autofit_bytes"] + full["slot_footprint_bytes"] != full["first_unsafe_bytes"] or \
+            any(record["capacity"]["requested_bytes"] != full["autofit_bytes"] for record in full["cells"]["safe_explicit"]) or \
+            full["negative"]["returncode"] == 0 or full["negative"]["raw"]["io_started"] or \
+            full["negative"]["raw"]["reason"] != "requested_above_safe_limit" or \
+            hashlib.sha256(full["negative"]["artifact_text"].encode()).hexdigest() != full["negative"]["artifact_sha256"]:
+        raise ValueError("full-K3 autofit/unsafe proximity gate failed")
     if document["negative"]["returncode"] == 0 or document["negative"]["io_started"]:
         raise ValueError("above-safe negative failed")
     if document["disposition_inputs"]["recommended"] != "SUPPORTED_EXPLICIT_NONDEFAULT":
         raise ValueError("unsupported disposition")
 
 
-def full_k3_cell(probe: Path, cache: Path, name: str, budget: int, run_index: int) -> dict[str, Any]:
+def full_k3_cell(probe: Path, cache: Path, name: str, budget: int, run_index: int,
+        safe_limit: int = 0) -> dict[str, Any]:
     record = cache/f"full-k3-{name}-{run_index}-record.json"
     if record.exists(): return json.loads(record.read_text())
     output = cache/f"full-k3-{name}-{run_index}-raw.json"
     command = [str(probe), "--output", str(output), "--budget-bytes", str(budget),
         "--projection-bytes", "5849088", "--layers", "92", "--experts-per-layer", "896",
         "--experts-used", "16", "--touch-slots", "1472", "--classification-samples", "100", "--policy", "LRU"]
-    before = snapshot(); completed = run(command); after = snapshot(); value = json.loads(output.read_text())
+    if safe_limit: command += ["--safe-limit-bytes", str(safe_limit)]
+    before = snapshot(); completed = run(command); after = snapshot(); artifact_text = output.read_text(); value = json.loads(artifact_text)
     result = {"command": command, "elapsed_us": value["elapsed_us"],
         "major_fault_delta": value["faults_after"]["major_faults"] - value["faults_before"]["major_faults"],
         "swap_growth_bytes": max(0, (value["smaps_after_kib"].get("Swap", 0) - value["smaps_before_kib"].get("Swap", 0))*1024),
         "fully_resident": value["residency"]["ready_pages"] == value["residency"]["resident_ready_pages"],
         "capacity": value["capacity"], "policy_digest": value["policy_digest"], "before": before, "after": after,
         "stdout_sha256": hashlib.sha256(completed.stdout.encode()).hexdigest(),
-        "artifact_sha256": sha256(output)}
+        "artifact_size": output.stat().st_size, "artifact_sha256": sha256(output),
+        "artifact_text": artifact_text, "raw": value}
     record.write_bytes(canonical(result))
     return result
 
@@ -223,8 +293,9 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
             "stdout_sha256": hashlib.sha256(copy_attempt.stdout.encode()).hexdigest(),
             "stderr_sha256": hashlib.sha256(copy_attempt.stderr.encode()).hexdigest()}
         if copy_attempt.returncode == 0: raise ValueError("same-host copy path unexpectedly became supported")
-        for index in range(5):
-            for cell in cells:
+        for index in range(PROCESS_COUNT):
+            order = cells[index % len(cells):] + cells[:index % len(cells)]
+            for cell in order:
                 uma[cell].append(cached_execute(cache, f"{name}-{cell}-{index}", args.binary.resolve(),
                     model, "uma", 21, pools[cell]))
         matrix[name] = {"baseline": baseline, "uma": uma, "copy_w": copy, "pools": pools}
@@ -235,16 +306,36 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
     epochs = {name: cached_execute(cache, f"{name}-epochs", args.binary.resolve(), model, "uma", 100,
         MODELS[name]["working_set"], ignore_eog=True)
         for name, model in models.items()}
+    for name, record in epochs.items(): statistics[name]["epoch_longitudinal"] = epoch_analysis(record, MODELS[name]["slot"])
     cycle_before = snapshot(); cycle_records = []
     for index in range(25):
-        cycle_records.append(cached_execute(cache, f"lifecycle-{index}", args.binary.resolve(), models["mxfp4"],
-            "uma", 2, MODELS["mxfp4"]["working_set"]))
+        cycle_records.append(execute(args.binary.resolve(), models["mxfp4"], "uma", 2, MODELS["mxfp4"]["working_set"]))
     cycle_after = snapshot(); threshold = max(256*1024*1024, int(.01*125371940864))
     return_delta = max(abs(cycle_after["memory.current"] - cycle_before["memory.current"]),
         abs(cycle_after["cuda_process_used_mib"] - cycle_before["cuda_process_used_mib"])*1024*1024)
+    full_safe_source = execute(args.binary.resolve(), models["mxfp4"], "uma", 2, 0)
+    full_safe_cap = full_safe_source["diagnostics"]["uma_safe_pool_bytes"]
+    slot_footprint = 17547264
+    full_autofit = full_safe_cap//slot_footprint*slot_footprint
+    first_unsafe = full_autofit + slot_footprint
     full_cells = {}
     for cell, budget in {"half_w": 12914786304, "w": 25829572608, "one_point_five_w": 38744358912}.items():
         full_cells[cell] = [full_k3_cell(args.residency_probe.resolve(), cache, cell, budget, index) for index in range(5)]
+    full_cells["safe_explicit"] = [full_k3_cell(args.residency_probe.resolve(), cache, "safe_explicit",
+        full_autofit, index, full_autofit) for index in range(5)]
+    full_cells["autofit"] = [full_k3_cell(args.residency_probe.resolve(), cache, "autofit", full_autofit,
+        index, full_autofit) for index in range(5)]
+    full_negative_output = cache/"full-k3-first-unsafe-raw.json"
+    full_negative_command = [str(args.residency_probe.resolve()), "--output", str(full_negative_output),
+        "--budget-bytes", str(first_unsafe), "--safe-limit-bytes", str(full_autofit),
+        "--projection-bytes", "5849088", "--layers", "92", "--experts-per-layer", "896",
+        "--experts-used", "16", "--touch-slots", "1472", "--classification-samples", "100", "--policy", "LRU"]
+    full_negative_completed = run(full_negative_command, success=False)
+    full_negative_text = full_negative_output.read_text(); full_negative_raw = json.loads(full_negative_text)
+    full_negative = {"command": full_negative_command, "returncode": full_negative_completed.returncode,
+        "artifact_size": full_negative_output.stat().st_size, "artifact_sha256": sha256(full_negative_output),
+        "artifact_text": full_negative_text,
+        "stdout_sha256": hashlib.sha256(full_negative_completed.stdout.encode()).hexdigest(), "raw": full_negative_raw}
     safe = min(r["diagnostics"]["uma_safe_pool_bytes"] for r in matrix["mxfp4"]["uma"]["w"])
     negative_command = [str(args.binary.resolve()), "--model", str(models["mxfp4"]), "--mode", "uma", "--steps", "1",
         "--capacity", "2", "--cold-bytes", str(safe + MODELS["mxfp4"]["slot"]), "--ring-bytes", "0"]
@@ -261,6 +352,8 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
             "max_return_delta_bytes": return_delta, "return_threshold_bytes": threshold},
         "full_k3": {"descriptor_revision": "9f62e4e9fffbd0a83ddd60e1c209d828994b3569",
             "bundle_bytes": 17547264, "working_set_bytes": 25829572608,
+            "slot_footprint_bytes": slot_footprint, "safe_cap_source": full_safe_source,
+            "autofit_bytes": full_autofit, "first_unsafe_bytes": first_unsafe, "negative": full_negative,
             "scope_limit": "exact-layout materialized residency and pressure only; not full-checkpoint quality or throughput", "cells": full_cells},
         "negative": negative_record,
         "comparisons": {"spark_copy_path": "unsupported_on_integrated_GB10_target_validation",
@@ -274,8 +367,10 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
         "disposition_inputs": {"recommended": "SUPPORTED_EXPLICIT_NONDEFAULT",
             "storage_claim": "buffered threaded pread only; no native io_uring or storage-overlap claim",
             "performance_claim": "no minimum speedup; safe single-request single-device envelope only"},
-        "commands": ["five fresh interleaved processes per tiny capacity/model", "100 fixed deterministic-route epochs per model",
-            "25 complete fresh-process load/run/unload cycles", "five fresh exact-layout full-K3 residency processes per capacity"]}
+        "commands": ["15 fresh rotated-interleaved processes per tiny capacity/model with frozen ratio-of-medians gate",
+            "100 fixed deterministic-route epochs per model with per-epoch resource series",
+            "25 uncached complete fresh-process load/run/unload cycles",
+            "five fresh exact-layout full-K3 residency processes per explicit/autofit capacity plus first-unsafe rejection"]}
     (cache/"candidate.json").write_bytes(canonical(document))
     validate(document)
     return document
