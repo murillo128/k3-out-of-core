@@ -269,10 +269,11 @@ def validate(document: dict[str, Any]) -> None:
         w = matrix["uma"]["w"]
         if any(r["diagnostics"]["cold_evictions"] != 0 or r["diagnostics"]["cold_hits"] <= 0 for r in w):
             raise ValueError(f"{name}: fitting warm set reread/eviction")
+        longitudinal_identity = matrix["longitudinal"]["w"][0]["diagnostics"]
         for cell, records in matrix["longitudinal"].items():
             if len(records) != LONGITUDINAL_PROCESS_COUNT: raise ValueError(f"{name}/{cell}: longitudinal process count invalid")
             for record in records:
-                validate_uma(name, record, identity)
+                validate_uma(name, record, longitudinal_identity)
                 hits = delta_series(record, "epoch_cold_hits")
                 misses = delta_series(record, "epoch_cold_misses")
                 storage = delta_series(record, "epoch_storage_read_bytes")
