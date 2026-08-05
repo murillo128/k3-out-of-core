@@ -11,7 +11,7 @@ import tarfile
 from pathlib import Path
 from typing import Any
 
-from jsonschema import Draft7Validator
+from jsonschema import Draft7Validator, FormatChecker
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -133,7 +133,7 @@ def validate_confirmation(document: dict[str, Any]) -> None:
     require(provider["all_gates_pass"] and provider["all_repeats_exact"], "confirmation provider gates")
     require(provider["generated_ids"][:8] == EXPECTED_FIRST_IDS, "confirmation generated IDs")
     require(len(provider["generated_ids"]) == 24, "confirmation token count")
-    require(provider["transport"] == "POSITIONAL", "confirmation transport")
+    require(provider["configuration"]["transport"] == "POSITIONAL", "confirmation transport")
     require(provider["resources"]["minimum_mem_available_bytes"] >= 16 * GIB, "RAM floor")
     require(provider["resources"]["minimum_gpu_free_mib"] >= 6144, "VRAM floor")
     require(provider["resources"]["minimum_disk_available_bytes"] >= 55 * GIB, "filesystem floor")
@@ -152,7 +152,7 @@ def validate_confirmation(document: dict[str, Any]) -> None:
 
 def validate_manifest(document: dict[str, Any], directory: Path, verify_archive_members: bool) -> None:
     schema = json.loads(SCHEMA.read_text())
-    Draft7Validator(schema, format_checker=Draft7Validator.FORMAT_CHECKER).validate(document)
+    Draft7Validator(schema, format_checker=FormatChecker()).validate(document)
     reject_workflow_metadata(document)
     revisions = document["revisions"]
     require(revisions["gitlink"] == revisions["nested_head"], "gitlink/nested target mismatch")
@@ -169,8 +169,8 @@ def validate_manifest(document: dict[str, Any], directory: Path, verify_archive_
     for key, value in (("screening", screening), ("confirmation", confirmation)):
         reference = document[key]
         path = ROOT / reference["path"]
-        require(path == directory / f"{key}-matrix.json" if key == "screening" else path == directory / "confirmation.json",
-                f"{key} path")
+        expected_path = directory / ("screening-matrix.json" if key == "screening" else "confirmation.json")
+        require(path == expected_path, f"{key} path")
         require(path.stat().st_size == reference["bytes"] and sha256(path) == reference["sha256"],
                 f"{key} identity")
     validate_screening(screening)

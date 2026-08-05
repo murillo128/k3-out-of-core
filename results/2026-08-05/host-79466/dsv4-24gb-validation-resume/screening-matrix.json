@@ -1,0 +1,316 @@
+{
+  "exploratory_cells": [
+    {
+      "disposition": "rejected_preflight",
+      "finding": "requested depth 1 is below the integrated transport invariant [8,4096]",
+      "name": "preflight-q1",
+      "record": {
+        "archive_member": "./preflight/preflight-q1.record.json",
+        "bytes": 1104,
+        "sha256": "71623248db8b4f9bf8a13f3b554fe472c7237fddb1427a30e970537d297503d0"
+      },
+      "status": "preflight_rejected"
+    },
+    {
+      "disposition": "rejected_preflight",
+      "finding": "requested depth 4 is below the integrated transport invariant [8,4096]",
+      "name": "preflight-q4",
+      "record": {
+        "archive_member": "./screening/preflight-q4.record.json",
+        "bytes": 1274,
+        "sha256": "3b27a4dbba096f3c9ac84189fd10e784da4dc9281f94a372091eb4392e23c702"
+      },
+      "status": "preflight_rejected"
+    },
+    {
+      "disposition": "rejected_correctness",
+      "finding": "depth 8 cannot hold the 83-request/249-operation concurrent read plan and failed closed on the first decode",
+      "name": "screen-q8-r1",
+      "record": {
+        "archive_member": "./screening/screen-q8-r1.record.json",
+        "bytes": 3957,
+        "sha256": "3ece48603cb783b2d02136d82bafb929d85cdf8323d6bf4ed142badd672382d8"
+      },
+      "status": "fail"
+    },
+    {
+      "disposition": "rejected_preflight",
+      "finding": "335 cold slots cannot cover 537 hot slots",
+      "name": "preflight-hot8-cold16",
+      "record": {
+        "archive_member": "./screening/preflight-hot8-cold16.record.json",
+        "bytes": 1274,
+        "sha256": "3bf41d6935982cff1116ee6f61f76a07d6b8173be28249557d7b433d62233530"
+      },
+      "status": "preflight_rejected"
+    },
+    {
+      "disposition": "discarded",
+      "finding": "pre-defect-fix run fell back from native submission and was slower than the anchor",
+      "name": "screen-hot8-cold32-r1",
+      "observed": {
+        "decode_p95_us": 12770496,
+        "decode_throughput_tps": 0.1317951732051225,
+        "storage_read_bytes": 35411263488,
+        "transport_actual": null,
+        "transport_requested": null
+      },
+      "record": {
+        "archive_member": "./screening/screen-hot8-cold32-r1.record.json",
+        "bytes": 10462,
+        "sha256": "e1bab7300a200e8d120e4459f1a0542fb717b6c01881fe7f045c30f38f126c11"
+      },
+      "status": "pass"
+    },
+    {
+      "disposition": "rejected_preflight",
+      "finding": "anchor-derived minimum free VRAM estimate was 4,275 MiB, below the 6 GiB floor",
+      "name": "preflight-hot12-cold48",
+      "record": {
+        "archive_member": "./screening/preflight-hot12-cold48.record.json",
+        "bytes": 1282,
+        "sha256": "6fe0145d35b8cbaf09cc8bf89b37120a457658dc84624481c373a33588571023"
+      },
+      "status": "preflight_rejected"
+    },
+    {
+      "disposition": "discarded_after_one",
+      "finding": "reduced submitted bytes but worsened latency and did not improve throughput",
+      "name": "screen-cold32-r1",
+      "observed": {
+        "decode_p95_us": 11381135,
+        "decode_throughput_tps": 0.14507656861500975,
+        "storage_read_bytes": 35411263488,
+        "transport_actual": "POSITIONAL",
+        "transport_requested": "POSITIONAL"
+      },
+      "record": {
+        "archive_member": "./screening/screen-cold32-r1.record.json",
+        "bytes": 10538,
+        "sha256": "6c8f7da129dc8b9132cfa0a0a69fbcc6ed035aecd881f1cc0391e96e2d5465d4"
+      },
+      "status": "pass"
+    },
+    {
+      "disposition": "discarded_after_one",
+      "finding": "reduced submitted bytes but worsened latency and did not improve throughput",
+      "name": "screen-cold48-r1",
+      "observed": {
+        "decode_p95_us": 11580307,
+        "decode_throughput_tps": 0.14331024011651206,
+        "storage_read_bytes": 34090713088,
+        "transport_actual": "POSITIONAL",
+        "transport_requested": "POSITIONAL"
+      },
+      "record": {
+        "archive_member": "./screening/screen-cold48-r1.record.json",
+        "bytes": 10540,
+        "sha256": "2561330a1867171532dbaff164dd313c378e58d13fa5abf0debb808f4fa91586"
+      },
+      "status": "pass"
+    },
+    {
+      "disposition": "discarded_after_one",
+      "finding": "reduced submitted bytes but worsened latency and did not improve throughput",
+      "name": "screen-cold64-r1",
+      "observed": {
+        "decode_p95_us": 11183521,
+        "decode_throughput_tps": 0.14584718577749917,
+        "storage_read_bytes": 32893698048,
+        "transport_actual": "POSITIONAL",
+        "transport_requested": "POSITIONAL"
+      },
+      "record": {
+        "archive_member": "./screening/screen-cold64-r1.record.json",
+        "bytes": 10540,
+        "sha256": "a7bcc6a1c53154c0f998b234bfcd0cf6f02e2d3f7adc9db16f04f65981456753"
+      },
+      "status": "pass"
+    },
+    {
+      "disposition": "discarded_after_one",
+      "finding": "native buffered io_uring was exact after the single-mmap fix but materially slower",
+      "name": "screen-buffered-auto-r1",
+      "observed": {
+        "decode_p95_us": 15505614,
+        "decode_throughput_tps": 0.09411667267444761,
+        "storage_read_bytes": 36992450560,
+        "transport_actual": "BUFFERED",
+        "transport_requested": "BUFFERED"
+      },
+      "record": {
+        "archive_member": "./screening/screen-buffered-auto-r1.record.json",
+        "bytes": 10578,
+        "sha256": "154cc92b22befa74bdedca9eea4ad3220039591693aee6e6d6334dc6cadb317b"
+      },
+      "status": "pass"
+    },
+    {
+      "disposition": "BLOCKED",
+      "finding": "all four source opens returned EOPNOTSUPP and the process explicitly fell back to buffered I/O",
+      "name": "screen-direct-r1",
+      "observed": {
+        "decode_p95_us": 11034566,
+        "decode_throughput_tps": 0.13985259257037896,
+        "storage_read_bytes": 36992450560,
+        "transport_actual": "BUFFERED",
+        "transport_requested": "DIRECT_IO"
+      },
+      "record": {
+        "archive_member": "./screening/screen-direct-r1.record.json",
+        "bytes": 10553,
+        "sha256": "2f6f67229fc1c58c09214d8bbb0e9c082fc3d08fcdb7316bb1172e93592a5d58"
+      },
+      "status": "fail"
+    }
+  ],
+  "process_state_definition": {
+    "fresh": "new process with empty provider hot/cold tiers",
+    "warm": "post-prefill decode tokens within that process; no cross-process provider state exists"
+  },
+  "retained_cells": [
+    {
+      "all_gates_pass": true,
+      "configuration": {
+        "cold_requested_bytes": 17179869184,
+        "hot_slots": 268,
+        "queue_depth": 0,
+        "transfer_lanes": 4,
+        "transport": "POSITIONAL"
+      },
+      "cpu_total_time_us_per_process": [
+        199782287,
+        198464305,
+        198314608
+      ],
+      "decode": {
+        "maximum_us": 9991012,
+        "median_process_throughput_tps": 0.1485745397829343,
+        "method": "nearest-rank over all post-prefill token latencies",
+        "p50_us": 6163812,
+        "p95_us": 9793816,
+        "p99_us": 9991012,
+        "process_throughput_tps": [
+          0.1485745397829343,
+          0.14930316692706205,
+          0.1476640662743331
+        ],
+        "samples": 21
+      },
+      "deterministic": true,
+      "generated_logits_sha256": "19e98eec848b2e0283e231f4abdb1a3420d57b6dd9c7a782456c70837ebc0b8c",
+      "minimum_disk_available_bytes": 59064795136,
+      "minimum_gpu_free_mib": 12466,
+      "minimum_mem_available_bytes": 137480065024,
+      "name": "positional-lanes4",
+      "physical_hot_cold_pinned_bytes": 21498597120,
+      "process_state": "new process, empty provider tiers; decode follows prompt prefill",
+      "processes": 3,
+      "records": [
+        {
+          "archive_member": "./screening-final/positional-lanes4-r1.record.json",
+          "bytes": 11441,
+          "sha256": "1eb08f57693b52bf38713d555f90d9f4197077cf7c68b7e6ce3e75a7946a9fcf"
+        },
+        {
+          "archive_member": "./screening-final/positional-lanes4-r2.record.json",
+          "bytes": 11443,
+          "sha256": "f2fec9042ceb418f1769cf4fec9fa0c128e460629f45b6cc2ff0a9d9f7fe4f7f"
+        },
+        {
+          "archive_member": "./screening-final/positional-lanes4-r3.record.json",
+          "bytes": 11443,
+          "sha256": "3adf6f839eaea03112f24afa42ef3e16d3a1b0addc8d42e61109a94e48aea42d"
+        }
+      ],
+      "routes_sha256": "d36d2e6c3c61028d23fad44e49412052790d68da5a44384836eea7fe84d1f84f",
+      "submitted_bytes_per_process": 36992450560
+    },
+    {
+      "all_gates_pass": true,
+      "configuration": {
+        "cold_requested_bytes": 17179869184,
+        "hot_slots": 268,
+        "queue_depth": 0,
+        "transfer_lanes": 2,
+        "transport": "POSITIONAL"
+      },
+      "cpu_total_time_us_per_process": [
+        199011568,
+        198548690,
+        198283301
+      ],
+      "decode": {
+        "maximum_us": 9992074,
+        "median_process_throughput_tps": 0.14856695603901648,
+        "method": "nearest-rank over all post-prefill token latencies",
+        "p50_us": 6181121,
+        "p95_us": 9815492,
+        "p99_us": 9992074,
+        "process_throughput_tps": [
+          0.14856695603901648,
+          0.14843819795773214,
+          0.14862835456584925
+        ],
+        "samples": 21
+      },
+      "deterministic": true,
+      "generated_logits_sha256": "19e98eec848b2e0283e231f4abdb1a3420d57b6dd9c7a782456c70837ebc0b8c",
+      "minimum_disk_available_bytes": 59057893376,
+      "minimum_gpu_free_mib": 12466,
+      "minimum_mem_available_bytes": 137535033344,
+      "name": "positional-lanes2",
+      "physical_hot_cold_pinned_bytes": 21465010560,
+      "process_state": "new process, empty provider tiers; decode follows prompt prefill",
+      "processes": 3,
+      "records": [
+        {
+          "archive_member": "./screening-final/positional-lanes2-r1.record.json",
+          "bytes": 11444,
+          "sha256": "1c061f8944a320662a27adaac9ae97d6aa11ebaaa162c16d50c26adf8db48104"
+        },
+        {
+          "archive_member": "./screening-final/positional-lanes2-r2.record.json",
+          "bytes": 11444,
+          "sha256": "d792f2a6540f31b76aab68d1ff31ffd3c6f011d076ea525368526973596556b7"
+        },
+        {
+          "archive_member": "./screening-final/positional-lanes2-r3.record.json",
+          "bytes": 11444,
+          "sha256": "97d59f15c9853a909abfdfc5013476e6dbc7522a8e87473889ccd5c6f743d351"
+        }
+      ],
+      "routes_sha256": "d36d2e6c3c61028d23fad44e49412052790d68da5a44384836eea7fe84d1f84f",
+      "submitted_bytes_per_process": 36992450560
+    }
+  ],
+  "schema_version": "dsv4-24gb-resume-screening-v1",
+  "selection_rule": [
+    "all correctness, determinism, lifecycle, and resource gates pass",
+    "maximize median decode throughput",
+    "within 3 percent, minimize aggregate p95 latency",
+    "then minimize storage submitted bytes",
+    "then minimize physical hot+cold+pinned bytes"
+  ],
+  "shortlist": {
+    "decision": {
+      "four_lane_median_tps": 0.1485745397829343,
+      "four_lane_p95_us": 9793816,
+      "throughput_within_three_percent": true,
+      "two_lane_median_tps": 0.14856695603901648,
+      "two_lane_p95_us": 9815492,
+      "winning_tiebreak": "lower aggregate p95 latency"
+    },
+    "frozen": true,
+    "selected": {
+      "configuration": {
+        "cold_requested_bytes": 17179869184,
+        "hot_slots": 268,
+        "queue_depth": 0,
+        "transfer_lanes": 4,
+        "transport": "POSITIONAL"
+      },
+      "name": "positional-lanes4"
+    }
+  }
+}
