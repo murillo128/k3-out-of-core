@@ -83,7 +83,7 @@ def prepare() -> None:
     summary = {
         "schema_version": "phase11-summary-v1", "status": "pass",
         "capability": {"gpu": capability["probe"]["gpu"], "integrated": capability["probe"]["integrated"],
-            "allocation": "anonymous page-aligned system memory registered with CUDA",
+            "allocation": "anonymous pageable mmap directly CUDA-addressable through host page tables",
             "storage_transport": capability["probe"]["storage_transport"],
             "native_io_uring": capability["probe"]["native_io_uring"]},
         "correctness": {"f16_structural_equivalence": d["structural_equivalence"]["f16"]["equivalent"],

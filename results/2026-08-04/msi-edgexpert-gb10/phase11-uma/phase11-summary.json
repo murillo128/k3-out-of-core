@@ -1,6 +1,6 @@
 {
   "capability": {
-    "allocation": "anonymous page-aligned system memory registered with CUDA",
+    "allocation": "anonymous pageable mmap directly CUDA-addressable through host page tables",
     "gpu": "NVIDIA GB10",
     "integrated": 1,
     "native_io_uring": "unavailable_host_seccomp",
