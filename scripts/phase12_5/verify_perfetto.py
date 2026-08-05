@@ -38,6 +38,8 @@ def check(row: dict[str, str], profile: str) -> list[str]:
     if profile == "provider":
         minimums.update({"application_category_count": 10, "flow_count": 1,
             "flight_memcpy_matches": 1, "storage_syscall_count": 1, "filemap_event_count": 1})
+        if scalar(row, "zero_correlated_sync_in_request") != 0:
+            errors.append("zero-correlated CUDA synchronization overlaps a provider request")
     for key, minimum in minimums.items():
         if scalar(row, key) < minimum:
             errors.append(f"{key}={row[key]} (expected >= {minimum})")

@@ -28,6 +28,10 @@ cuda_activity AS MATERIALIZED (
     CAST(EXTRACT_ARG(arg_set_id, 'debug.application_correlation_id') AS INT) AS application_id
   FROM slice WHERE category = 'k3.cuda' AND name != 'kernel_queued'
 ),
+request_windows AS MATERIALIZED (
+  SELECT ts, ts + dur AS end_ts
+  FROM slice WHERE category = 'k3.request' AND name = 'process_ubatch' AND dur > 0
+),
 ordered_cuda AS (
   SELECT id, track_id, ts, LAG(ts) OVER (PARTITION BY track_id ORDER BY id) AS prior_ts
   FROM cuda_activity
@@ -91,6 +95,9 @@ SELECT
   (SELECT COUNT(*) FROM cuda_activity c WHERE c.application_id != 0
     AND c.application_id IN (SELECT application_id FROM application_ids)) AS cuda_application_matches,
   (SELECT COUNT(*) FROM cuda_activity WHERE application_id != 0) AS cuda_application_nonzero,
+  (SELECT COUNT(*) FROM cuda_activity c WHERE c.name = 'synchronization' AND c.application_id = 0
+    AND EXISTS (SELECT 1 FROM request_windows r WHERE c.ts < r.end_ts AND c.ts + c.dur > r.ts))
+    AS zero_correlated_sync_in_request,
   (SELECT COUNT(*) FROM cuda_activity c WHERE c.name = 'kernel'
     AND c.application_id IN (SELECT application_id FROM graph_ids)) AS graph_kernel_matches,
   (SELECT COUNT(*) FROM cuda_activity c WHERE c.name = 'memcpy'
