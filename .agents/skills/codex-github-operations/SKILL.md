@@ -29,19 +29,29 @@ A failure of one replaceable transport is not a technical blocker when another r
 
 ## Workflow state
 
-Issue labels and metadata are useful projections of current state, not independent compliance authorities unless the issue explicitly declares otherwise.
+The controlling issue's current workflow state is authoritative only through exactly one state label. The allowed state labels are:
 
-Apply a state transition when it helps coordination, especially when work:
+- `execution-ready`;
+- `in-progress`;
+- `design-required`;
+- `investigation-required`;
+- `blocked`;
+- `completed`.
 
-- becomes ready;
-- starts;
-- returns to design or investigation;
-- encounters a real blocker;
-- completes or is superseded.
+Every non-trivial controlling issue must carry exactly one of those labels. Preserve all unrelated labels, but replace the previous state label instead of adding another. The issue body may record the initial readiness at publication; body prose and comments do not override the current state label.
 
-Preserve unrelated labels. Verify the result before relying on it, but do not fetch and re-verify equivalent state before and after every comment, commit, or routine operation.
+Apply the corresponding transition when work:
 
-Do not stop valid technical work solely because derived labels, prose, PR metadata, or roadmap state are temporarily out of sync. Correct them when practical and report only material ambiguity.
+- becomes ready: `execution-ready`;
+- starts or resumes active execution: `in-progress`;
+- returns for a material design decision: `design-required`;
+- needs bounded evidence before design can continue: `investigation-required`;
+- encounters a real external blocker: `blocked`;
+- reaches its accepted terminal outcome and closes: `completed`.
+
+A transition that changes only workflow state is a label mutation, not an issue comment. Add a comment only when material technical information must be preserved, such as a contract amendment, exact checkpoint target or verdict, blocker cause and unavailable capability, failed evidence, or final handoff. Do not repeat a `State:` field in those comments.
+
+Before relying on issue state, verify that exactly one state label is present. If the label is missing or multiple state labels exist and the intended state is unambiguous, repair the labels without adding a comment. If the intended state is ambiguous, stop and request state clarification. Do not rewrite historical comments or the issue body merely to mirror a routine label transition.
 
 ## Publish a branch
 
@@ -88,11 +98,11 @@ Keep the PR draft while required implementation or review remains incomplete. Ma
 
 An independent review request must identify one exact published project commit or range and the exact nested target when applicable. Verify those targets before review and preserve them unchanged during the review.
 
-Do not amend, recreate, reset, rebase, squash, cherry-pick, or force-push a valid target merely to repair comments, labels, PR descriptions, transport, roadmap state, or other derived metadata.
+Do not amend, recreate, reset, rebase, squash, cherry-pick, or force-push a valid target merely to repair comments, state labels, PR descriptions, transport, roadmap state, or other workflow metadata.
 
 A new implementation, test, technical-evidence, dependency, configuration, or technical-claim correction creates a new target; it does not erase the prior reviewed finding.
 
-A final-capable checkpoint may serve as the final PR review when the issue and reviewer confirm that it covers the complete final diff and immutable technical evidence. Do not request another review of the unchanged target merely because labels, PR prose, merge metadata, or roadmap state changed.
+A final-capable checkpoint may serve as the final PR review when the issue and reviewer confirm that it covers the complete final diff and immutable technical evidence. Do not request another review of the unchanged target merely because a state label, PR prose, merge metadata, or roadmap state changed.
 
 ## Technical evidence and workflow metadata
 

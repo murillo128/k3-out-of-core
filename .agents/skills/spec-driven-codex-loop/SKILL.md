@@ -1,263 +1,168 @@
 ---
 name: spec-driven-codex-loop
-description: Execute a self-contained approved GitHub issue through bounded implementation, native validation, intentional publication, risk-based review, and a concise handoff without reconstructing project history or coupling technical evidence to workflow metadata.
+description: Execute an approved controlling issue through bounded implementation, native validation, publication, independent review, and concise handoff.
 ---
 
 # Spec-Driven Codex Loop
 
 ## Responsibility
 
-Use this skill for non-trivial implementation under an approved controlling issue.
+Use this skill for non-trivial implementation under an approved controlling issue. The issue is the complete phase-specific contract; repository documents define durable architecture; branches and PRs preserve implementation; tests and technical manifests preserve evidence.
 
-The controlling issue is the complete phase-specific execution contract. Repository documents define durable architecture. Branches and PRs record implementation. Tests and technical manifests record reproducible evidence.
+The executor owns implementation, validation, commits, progression, and handoff. Delegate GitHub mutations to `codex-github-operations` and checkpoint/final review to `codex-independent-review`. The executor may not review its own work independently.
 
-The executor owns implementation, validation, commits, progression, and handoff. It delegates GitHub transport to `codex-github-operations` and independent review to `codex-independent-review`. The executor may not act as its own independent reviewer.
+## Context and authority
 
-## Treat the issue as authoritative and complete
-
-Assume the design authority may have more context or stronger reasoning than the executor. Do not weaken, reinterpret, or silently fill gaps in the approved contract.
-
-The issue should already contain all material phase-specific facts. Read its linked sources only to inspect the exact implementation, evidence, or durable decision it identifies—not to reconstruct the intended design from scratch.
-
-When two plausible implementations would differ materially and the issue does not resolve the choice, return to design. Do not choose based on convenience or broad historical inference.
-
-## Load context once
-
-Start with:
+Load once:
 
 1. `AGENTS.md`;
-2. the controlling issue.
+2. the controlling issue;
+3. only the exact plan, decision, source, test, build, manifest, or external inputs needed by the active outcome.
 
-Then read only the exact plan or decision sections, source, tests, build metadata, prior manifest, and external inputs required by the issue or active change.
+Assume the design authority may have more context and stronger reasoning. Do not weaken the issue, reconstruct its intent from history, or choose between materially different implementations when the issue is silent. Return to design instead.
 
-Do not preload other role skills, complete historical issues, PR discussions, result directories, or unrelated repository documents.
-
-On resume, verify branch, `HEAD`, worktree, current issue state, and new material comments. Reuse previously inspected facts while their source identity is unchanged. Keep a compact local ledger rather than publishing repeated state summaries.
+On resume, verify branch, `HEAD`, worktree, the controlling issue's single authoritative state label, and new material comments. Body readiness and state prose in comments are historical; the label alone determines current workflow state. Reuse unchanged inspected context.
 
 ## Profiles
 
-### STANDARD
+`STANDARD` is the default: implement one coherent outcome at a time, validate before publication, review only declared material checkpoints, reuse an unchanged final-capable checkpoint as final review, and report only material events.
 
-Default profile:
+Use `HIGH_ASSURANCE` only when the issue explicitly requires it and only for the additional risks or evidence it defines.
 
-- implement one coherent bounded outcome at a time;
-- validate before publication;
-- use independent review only at declared material checkpoints;
-- reuse a final-capable checkpoint as final review when its target remains unchanged;
-- report only material events;
-- treat editorial or administrative inconsistencies as notes unless they affect authoritative technical evidence or safe progression.
-
-### HIGH_ASSURANCE
-
-Use only when the issue explicitly requires it. Apply the same workflow with additional issue-defined risks or evidence. Do not infer it from issue size or reviewer preference.
-
-## Entry gate
+## Entry gate and workflow state
 
 Before editing, confirm:
 
-- the issue is ready or already in progress;
-- the intended branch and current worktree are safe;
-- the bounded outcome, scope, invariants, failure semantics, and acceptance criteria are clear;
-- required technical inputs are available;
+- exactly one state label exists;
+- it is `execution-ready` or `in-progress`;
+- branch and worktree are safe;
+- scope, invariants, failure semantics, acceptance, and required inputs are clear;
 - no competing branch or PR creates ambiguous ownership.
 
-An exact base commit is required only when the issue, reproducibility, compatibility, or branch ownership depends on it. Do not create a new administrative baseline after every documentation or metadata change.
+Before the first implementation edit, use `codex-github-operations` to replace `execution-ready` with `in-progress`. Do not post a `Started` comment solely for this transition. An issue already labelled `in-progress` resumes without a state comment.
 
-Return to design when a material contract decision is missing. Return to investigation when evidence is required before the design can be chosen.
+Use label replacements for later transitions:
 
-## Native tooling
+- missing material design decision: `design-required`;
+- evidence needed before design: `investigation-required`;
+- genuinely unavailable external capability: `blocked`;
+- accepted merged terminal outcome: `completed` and close the issue.
 
-Use repository-native build and test paths. Prefer CMake targets, presets, incremental builds, and CTest over durable ad-hoc compiler or linker orchestration.
-
-A disposable diagnostic command is acceptable during investigation, but required validation should use the approved native path unless the issue explicitly defines an exception.
-
-If the issue contains a stale replaceable invocation but the intended native target and acceptance remain unambiguous, use the equivalent current invocation and note the deviation. Return to design only when changing the command would change what is being proven.
-
-## Efficient command waiting
-
-For long-running commands, use the longest practical terminal wait instead of repeated short polls. Silence or a wait timeout is not a failure while the process is still active. Do not narrate routine waiting.
-
-This does not relax validation, command timeouts, reviewer independence, or failure handling.
+Add a comment only when a material reason, technical finding, contract amendment, exact checkpoint target/verdict, blocker capability, or final handoff must be preserved. Never add a mutable `State:` field.
 
 ## Execution loop
 
 ### 1. Establish the bounded outcome
 
-Confirm the intended behavior, exact technical contract, permitted subsystem, invariants, required validation, evidence, and next risk checkpoint. Do not combine unrelated work for convenience.
+Confirm the intended behavior, permitted subsystem, invariants, required validation/evidence, and next checkpoint. Do not combine unrelated work.
 
 ### 2. Implement the smallest coherent delta
 
-- follow the accepted issue contract and architecture;
-- preserve baseline behavior outside the approved change;
-- add or update tests with implementation;
-- keep build integration native;
+- follow the issue and accepted architecture;
+- preserve baseline behavior outside scope;
+- add tests with implementation;
+- use repository-native build integration;
 - avoid unrelated cleanup and formatting;
-- capture only measurements and evidence needed to support the declared claims;
-- stop when new evidence invalidates the design or acceptance strategy.
+- stop when evidence invalidates the design or acceptance strategy.
 
-A commit should represent a reviewable outcome. Mechanical substeps do not require separate commits merely for compliance.
+Commits should represent reviewable outcomes. Mechanical substeps do not need separate commits.
 
-### 3. Work efficiently across a nested repository
+### 3. Handle nested `llama.cpp` efficiently
 
-When the primary implementation is in nested `llama.cpp`:
-
-- make coherent nested commits as needed for implementation and local validation;
-- publish the exact nested target when checkpoint or collaboration requires it;
+- make coherent nested commits as needed;
+- publish an exact nested target when collaboration or review requires it;
 - do not update the parent gitlink after every nested commit;
-- update and commit the parent gitlink at declared checkpoints, the final integration candidate, or another explicit compatibility/recovery boundary;
-- keep parent-side code, tooling, and evidence aligned with the nested target whenever they genuinely depend on it.
-
-Do not hide an uncommitted or unpublished nested dependency at a review boundary.
+- update the gitlink at declared checkpoints, the final integration candidate, or an explicit recovery/compatibility boundary;
+- never present an uncommitted or unpublished nested checkout as a review target.
 
 ### 4. Validate honestly
 
-Run the issue-required validation and useful narrower checks. Record commands not run, environmental limits, deviations, and generated evidence where they matter to acceptance.
+Prefer CMake targets, presets, incremental builds, and CTest. Disposable diagnostics are acceptable during investigation; durable required validation should use the approved native path.
 
-Never claim an unrun check passed. Implementation failures are not blockers; correct them within scope or report the bounded failed outcome.
+Run required and useful narrower checks. Record material deviations, environmental limits, and checks not run. Never claim an unrun check passed. A local implementation failure is corrected within scope; it is not an external blocker.
 
-### 5. Build immutable technical evidence
+For long commands, use the longest practical wait instead of repeated short polling. Silence or a wait timeout is not failure while the process remains active.
 
-Use one machine-readable technical manifest only when reproducible evidence is required.
+### 5. Build and retain evidence proportionally
 
-For new phases, the manifest should bind technical facts such as:
+When required, use one machine-readable technical manifest containing technical facts only:
 
-- project and nested implementation revisions;
+- project and nested revisions;
 - input identities and hashes;
-- environment, configuration, commands, and exit results;
-- evidence artifact identities;
-- technical metrics, gates, outcomes, and limitations.
+- environment, configuration, commands, and results;
+- artifact identities;
+- metrics, gates, outcomes, and limitations.
 
-Do not add branch names, issue or PR numbers, labels, comment IDs, review verdicts, merge commits, or closeout state unless the issue demonstrates that one is a technical input to the tested system. The review record remains external to the immutable technical manifest.
+Do not add issue/PR numbers, branch names, labels, comment IDs, review verdicts, merge commits, or closeout state unless one is a technical input to the tested system. Do not modify a manifest merely to record review or merge.
 
-Do not modify a technical manifest merely to record that it was reviewed or merged.
+Keep manifests, bounded summaries, schemas, reproduction tooling, small deterministic fixtures, and checksum indexes in Git. Put large repetitive raw evidence in an authorized immutable checksum-addressed archive. Never publish secrets or prohibited artifacts.
 
-### 6. Retain evidence proportionally
+### 6. Publish intentionally
 
-Keep in Git:
+Publish when remote preservation, collaboration, a checkpoint, or PR review requires it. Exact full SHAs belong at review targets, immutable evidence boundaries, recovery handoffs, and pinned dependencies—not routine progress prose.
 
-- the technical manifest;
-- bounded summaries and selected conclusions;
-- schemas and reproduction tooling;
-- small deterministic fixtures;
-- an archive index with size and checksum when evidence is externalized.
+## Material comments
 
-Use an immutable checksum-addressed external archive for large or highly repetitive raw samples, matrices, generated profiles, traces, or logs when the issue permits it. Preserve enough local evidence to reproduce claims and run ordinary tests without downloading unnecessary bulk.
+Under `STANDARD`, comment only when:
 
-Never externalize secrets, prohibited artifacts, or data whose distribution is not authorized.
-
-### 7. Publish when useful
-
-Publish when remote preservation, collaboration, a declared checkpoint, or PR review requires it. Use `codex-github-operations` for transport.
-
-Exact full SHAs belong at trust boundaries:
-
-- a published review target;
-- a final immutable technical manifest or evidence record;
-- a recovery handoff where branch identity is otherwise ambiguous;
-- a pinned external or nested dependency.
-
-Do not repeat SHAs in routine progress comments, PR prose, roadmap state, or summaries when GitHub or Git already exposes them.
-
-### 8. Report material events only
-
-Under `STANDARD`, comment when:
-
-- execution starts after a real handoff;
 - a checkpoint is ready;
 - scope or acceptance changes;
-- a material failure, blocker, or design return occurs;
+- a material failure, blocker, design return, or investigation return needs its cause preserved;
 - final handoff is ready.
 
-Do not comment for every commit, test invocation, gitlink movement, label transition, or unchanged resume.
+State-only transitions use the label and no comment. Do not comment for every commit, test, gitlink movement, label transition, or unchanged resume.
 
-Use concise human-readable updates:
+Use:
 
 ```markdown
-## <Started | Checkpoint ready | Design required | Blocked | Complete>
+## <Checkpoint ready | Contract amendment | Design required | Investigation required | Blocked | Complete>
 
 **Delivered or confirmed:** <one to three bullets>
-**Validation:** <result or authoritative evidence link>
+**Validation:** <result or authoritative evidence>
 **Material issue:** <none or concise finding>
 **Next:** <one bounded action>
 ```
 
-At a review checkpoint, add the exact published project and nested targets required to reproduce the review. Otherwise omit routine commit metadata.
+At a checkpoint, include the exact published project and nested targets. Otherwise omit routine commit metadata.
 
 ## Review checkpoints
 
 At a declared checkpoint:
 
 1. publish the exact target;
-2. provide the checkpoint scope, material risks, acceptance criteria, and immutable technical evidence;
+2. provide scope, material risks, acceptance criteria, and immutable evidence;
 3. invoke one fresh independent review;
-4. continue only after `PASS` or a non-blocking `PASS_WITH_NOTES`.
+4. continue only after `PASS` or non-blocking `PASS_WITH_NOTES`.
 
-Do not copy the reviewer procedure into the request. The reviewer skill owns inspection, testing depth, materiality, and verdict format.
+A final-capable checkpoint is the final PR review only when it covers the complete final diff, final project/nested targets, immutable final evidence, and all remaining acceptance criteria. Any later technical change invalidates it; workflow-only changes do not.
 
-### Final-capable checkpoint
+Progression:
 
-When the issue declares a checkpoint final-capable, it serves as the final PR review only when the reviewer inspects:
-
-- the complete final PR diff;
-- the final project and nested targets;
-- the immutable final technical manifest and required evidence;
-- all remaining acceptance criteria and unresolved findings.
-
-After a passing final-capable review, do not request another review of the same target.
-
-A later change to code, tests, technical evidence, manifest, dependencies, configuration, or technical claims requires a new review of the changed target. Changes only to issue/PR prose, labels, roadmap state, merge metadata, or other derived workflow state do not.
-
-### Progression
-
-- `PASS`: continue.
-- `PASS_WITH_NOTES`: continue unless a note violates an exit gate.
-- `FAIL`: classify the material defect before editing.
-- `BLOCKED`: stop only when required evidence or review capability is unavailable with no safe alternative.
-- transport failure: use another permitted route or leave a precise handoff; it is not an implementation verdict.
-
-For a `FAIL`, choose one:
-
-- bounded local correction;
-- return to `design-required`;
-- return to `investigation-required`;
-- request calibration when a non-material note was presented as a failure.
+- `PASS`: continue with `in-progress`;
+- `PASS_WITH_NOTES`: continue unless a note violates an exit gate;
+- `FAIL`: choose a bounded correction, `design-required`, `investigation-required`, or calibration;
+- `BLOCKED`: set `blocked` only when required evidence/review capability has no safe alternative and record the exact missing capability;
+- transport failure: use another route or leave a precise handoff; it is not an implementation verdict.
 
 Do not mechanically implement every reviewer suggestion.
 
 ## Repeated-review circuit breaker
 
-Under `STANDARD`, after two consecutive failures concerning substantially the same validation, attestation, parser, documentation-sync, or bookkeeping mechanism:
-
-- stop automatic compensating patches;
-- preserve the material findings and valid technical evidence;
-- return to design authority before a third corrective cycle unless the new defect is materially different.
-
-Representational variants alone are not materially different. The circuit breaker never waives a continuing technical defect.
+Under `STANDARD`, after two consecutive failures in substantially the same validation, attestation, parser, documentation-sync, or bookkeeping mechanism, stop compensating patches, preserve valid evidence, and return to design authority before a third cycle unless the defect is materially different. This never waives a continuing technical defect.
 
 ## Pull request discipline
 
-Use one PR for one controlling issue unless the issue explicitly decomposes delivery.
-
-The PR body should contain only:
-
-- the controlling issue;
-- delivered behavior;
-- current validation and review state;
-- material deviations or residual risks.
-
-GitHub already records base, head, commits, checks, and discussion. Do not reproduce complete issue history, command logs, manifests, or routine SHAs in the PR body.
-
-Keep the PR draft while required implementation or review remains incomplete. Merge only after the issue's final acceptance and required independent review, including a passing unchanged final-capable checkpoint where applicable.
+Use one PR per controlling issue unless the issue explicitly decomposes delivery. The PR body contains only the controlling issue, delivered behavior, current validation/review state, and material deviations or residual risks. Keep it draft until required implementation and review are complete.
 
 ## Handoff
 
-A handoff should contain only what the next actor cannot derive cheaply:
+Include only what the next actor cannot derive cheaply:
 
 - issue and current bounded outcome;
 - branch or PR;
 - last accepted checkpoint;
-- material validation or evidence link;
-- unresolved material finding;
+- material evidence;
+- unresolved finding;
 - one immediate next action.
 
-Include exact project or nested heads only when needed to disambiguate the target or preserve a recovery boundary. Do not reconstruct completed history.
+Do not repeat current workflow state in prose; the label is authoritative. Include exact heads only when needed to disambiguate a target or preserve recovery.
