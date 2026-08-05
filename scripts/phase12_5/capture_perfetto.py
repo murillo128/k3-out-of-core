@@ -162,7 +162,7 @@ def main() -> int:
         with exclusive_log(args.perfetto_log) as trace_log:
             trace_process = subprocess.Popen(perfetto_command, stdout=trace_log, stderr=subprocess.STDOUT,
                 cwd=Path.cwd(), text=True)
-            deadline = time.monotonic() + 5
+            deadline = time.monotonic() + 0.25
             while time.monotonic() < deadline and trace_process.poll() is None and not args.trace.exists():
                 time.sleep(0.05)
             if trace_process.poll() is not None:
