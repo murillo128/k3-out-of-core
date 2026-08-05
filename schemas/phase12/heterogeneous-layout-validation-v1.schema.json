@@ -129,8 +129,20 @@
         "transfer_ring": { "$ref": "#/definitions/tier" }
       }
     },
-    "correctness": { "type": "object" },
-    "resource_bounds": { "type": "object" },
+    "correctness": {
+      "type": "object",
+      "required": ["real_cuda_kernel_comparison", "real_provider_path", "full_model_matrix"],
+      "properties": {
+        "full_model_matrix": { "$ref": "#/definitions/full_model_matrix" }
+      }
+    },
+    "resource_bounds": {
+      "type": "object",
+      "required": ["full_model"],
+      "properties": {
+        "full_model": { "$ref": "#/definitions/full_model_bounds" }
+      }
+    },
     "checkpoints": {
       "type": "object",
       "additionalProperties": false,
@@ -201,6 +213,72 @@
         "status": { "enum": ["pending", "pass", "fail", "blocked"] },
         "final_capable": { "type": "boolean" },
         "gates": { "type": "object" }
+      }
+    },
+    "full_model_matrix": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status", "runtime", "rendered_prompt", "fit", "cpu_moe", "universal_provider",
+        "provider_vs_cpu_generated_ids_equal", "same_kernel_compact_vs_universal_bit_exact", "analysis"
+      ],
+      "properties": {
+        "status": { "const": "pass" },
+        "runtime": {
+          "type": "object",
+          "required": ["n_ctx", "n_batch", "n_ubatch", "generated_tokens", "seed", "temperature"]
+        },
+        "rendered_prompt": { "$ref": "#/definitions/identity" },
+        "fit": { "$ref": "#/definitions/matrix_placement" },
+        "cpu_moe": { "$ref": "#/definitions/matrix_placement" },
+        "universal_provider": { "type": "object" },
+        "provider_vs_cpu_generated_ids_equal": { "type": "boolean" },
+        "same_kernel_compact_vs_universal_bit_exact": { "type": "boolean" },
+        "analysis": {
+          "type": "object",
+          "required": ["archive_member", "bytes", "sha256"],
+          "properties": {
+            "archive_member": { "type": "string" },
+            "bytes": { "type": "integer", "minimum": 1 },
+            "sha256": { "$ref": "#/definitions/sha256" }
+          }
+        }
+      }
+    },
+    "matrix_placement": {
+      "type": "object",
+      "required": ["processes", "status", "generated_text_sha256"],
+      "properties": {
+        "processes": { "type": "integer", "minimum": 3 },
+        "status": { "const": "pass" },
+        "generated_text_sha256": { "$ref": "#/definitions/sha256" }
+      }
+    },
+    "identity": {
+      "type": "object",
+      "required": ["bytes", "sha256"],
+      "properties": {
+        "bytes": { "type": "integer", "minimum": 1 },
+        "sha256": { "$ref": "#/definitions/sha256" }
+      }
+    },
+    "full_model_bounds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider_tiers", "provider_safety", "filesystem", "provider_policy", "provider_storage",
+        "provider_transfer", "provider_terminal", "provider_latency", "conventional"
+      ],
+      "properties": {
+        "provider_tiers": { "type": "object" },
+        "provider_safety": { "type": "object" },
+        "filesystem": { "type": "object" },
+        "provider_policy": { "type": "object" },
+        "provider_storage": { "type": "object" },
+        "provider_transfer": { "type": "object" },
+        "provider_terminal": { "type": "object" },
+        "provider_latency": { "type": "object" },
+        "conventional": { "type": "object" }
       }
     },
     "archive": {

@@ -1,12 +1,12 @@
 {
   "schema_version": "heterogeneous-layout-validation-v1",
-  "observed_at_utc": "2026-08-05T12:05:42Z",
+  "observed_at_utc": "2026-08-05T13:05:37Z",
   "revisions": {
     "project_base": "450d5d1eb35a688b7380eee6b84bd3b0837a11c2",
-    "project_technical_head": "6d774a46e46e01ebde235906f290f6987b185dfa",
+    "project_technical_head": "4e5418483db5c39afcce698fa7c42e00a107f8ef",
     "nested_base": "add1ee6adbe5264387b8b1eef0eed0ba51a59a8a",
-    "nested_head": "1fdb55b891a3ac09ea7f4b1e7e0e50ae40060afc",
-    "gitlink": "1fdb55b891a3ac09ea7f4b1e7e0e50ae40060afc"
+    "nested_head": "87f6fdbb04db24078d4d5b9bdc5cd0502e17290c",
+    "gitlink": "87f6fdbb04db24078d4d5b9bdc5cd0502e17290c"
   },
   "artifact": {
     "model_family": "deepseek-ai/DeepSeek-V4-Flash",
@@ -49,7 +49,11 @@
     {"name":"real_provider","argv":["/workspace/builds/k3-issue49-cuda/bin/phase9-cache-policy-probe","--model","MODEL_SPLIT_1","--output","issue49-checkpoint-a-provider-final.json","--mode","cold","--prompt","According to","--hot-slots","16","--cold-bytes","1073741824","--ring-bytes","67173120","--n-ubatch","1","--max-generate","1","--miss-policy","PROMOTE_AND_GPU","--hot-policy","LRU","--cold-policy","LRU","--scope","GLOBAL","--admission","ALWAYS","--background","0","--observe-routes","1","--transport","BUFFERED","--config-source","NULL"],"exit_status":0},
     {"name":"real_provider_compute_sanitizer","argv":["compute-sanitizer","--tool","memcheck","--error-exitcode","99","--leak-check","full","phase9-cache-policy-probe","PROVIDER_ARGS"],"exit_status":0},
     {"name":"real_kernel_compute_sanitizer","argv":["compute-sanitizer","--tool","memcheck","--error-exitcode","99","--leak-check","full","dsv4-source-span-probe","SOURCE_ARGS"],"exit_status":0},
-    {"name":"focused_tests","argv":["ctest","--test-dir","BUILD_DIRECTORY","--output-on-failure","-R","^(test-expert-weight-provider|test-expert-cache-policy|test-hot-expert-cache|test-cold-expert-cache|test-expert-transfer-ring|test-expert-storage|test-expert-async-io|test-expert-scheduler)$"],"exit_status":0}
+    {"name":"focused_tests","argv":["ctest","--test-dir","BUILD_DIRECTORY","--output-on-failure","-R","^(test-expert-weight-provider|test-expert-cache-policy|test-hot-expert-cache|test-cold-expert-cache|test-expert-transfer-ring|test-expert-storage|test-expert-async-io|test-expert-scheduler)$"],"exit_status":0},
+    {"name":"full_model_fit","argv":["/workspace/builds/k3-issue49-cuda/bin/llama-cli","-m","MODEL_SPLIT_1","-c","4096","-n","8","-b","128","-ub","128","-t","19","-tb","19","-p","Explain why a careful measurement should distinguish observed facts from assumptions.","--temp","0","--seed","1","--no-warmup","--fit","on","--perf","--simple-io","--no-display-prompt","-st"],"exit_status":0},
+    {"name":"full_model_cpu_moe","argv":["/workspace/builds/k3-issue49-cuda/bin/llama-cli","-m","MODEL_SPLIT_1","-c","4096","-n","8","-b","128","-ub","128","-t","19","-tb","19","-p","Explain why a careful measurement should distinguish observed facts from assumptions.","--temp","0","--seed","1","--no-warmup","--fit","on","--cpu-moe","--perf","--simple-io","--no-display-prompt","-st"],"exit_status":0},
+    {"name":"full_model_universal_provider","argv":["/workspace/builds/k3-issue49-cuda/bin/phase9-cache-policy-probe","--model","MODEL_SPLIT_1","--output","PROVIDER_OUTPUT","--mode","cold","--prompt","<｜begin▁of▁sentence｜><｜User｜>Explain why a careful measurement should distinguish observed facts from assumptions.<｜Assistant｜><think>","--hot-slots","268","--cold-bytes","17179869184","--ring-bytes","67173120","--n-ctx","4096","--n-batch","128","--n-ubatch","128","--max-generate","8","--miss-policy","PROMOTE_AND_GPU","--hot-policy","LRU","--cold-policy","LRU","--scope","GLOBAL","--admission","ALWAYS","--background","0","--observe-routes","1","--transport","BUFFERED","--config-source","NULL"],"exit_status":0},
+    {"name":"full_model_provider_disabled_route_comparison","argv":["/workspace/builds/k3-issue49-cuda/bin/phase9-cache-policy-probe","--model","MODEL_SPLIT_1","--output","DISABLED_OUTPUT","--mode","disabled","--prompt","RENDERED_PROMPT","--hot-slots","16","--cold-bytes","1073741824","--ring-bytes","67173120","--n-ctx","4096","--n-batch","128","--n-ubatch","128","--max-generate","8","--observe-routes","1"],"exit_status":0}
   ],
   "layout_registry": {
     "maximum_classes": 8,
@@ -74,10 +78,21 @@
     "real_cuda_kernel_comparison": {"status":"pass","representative_layers":[0,26,42],"projections":["up","gate","down"],"comparison_count":9,"same_source_bytes":true,"same_input":true,"same_expert":0,"same_routing_weight":0.25,"all_bit_exact":true,"all_finite":true,"maximum_absolute_error":0.0,"maximum_scaled_absolute_error":0.0,"all_padding_guards_intact":true},
     "sealed_binding_class_match": {"status":"pass","mismatched_valid_class_family_error":"invalid_binding"},
     "real_provider_path": {"status":"pass","finite":true,"class_count":3,"route_records":86,"stage_bundles":516,"h2d_bundles":516,"generated_ids":[270],"logits_fnv1a64":[9441011415740606347],"active_background_flights":0,"current_request_refs":0,"current_transfer_refs":0,"current_hot_pins":0,"trace_records_dropped":0},
-    "disabled_comparison": {"status":"pass","prompt_ids_equal":true,"generated_ids_equal":true,"first_layer_routes_equal":true,"whole_run_logits_equal":false,"classification":"OBSERVED backend numerical divergence; direct same-kernel universal-view comparison is bit-exact"},
+    "disabled_comparison": {"status":"pass","prompt_ids_equal":true,"generated_ids_equal":true,"generated_token_count":8,"route_records_per_path":344,"selected_experts_exact_records":207,"weight_bits_exact_records":8,"first_layer_route_records":8,"first_layer_selected_experts_exact_records":8,"first_layer_weight_bits_exact_records":8,"whole_run_logits_equal":false,"classification":"OBSERVED cross-backend CPU-versus-CUDA numerical divergence after exact layer-0 routes; direct same-kernel universal-view comparison is bit-exact"},
     "compute_sanitizer": {"status":"pass","targets":["real provider path","real CUDA compact-versus-universal kernel comparison"],"errors":0,"leaked_bytes":0},
     "focused_tests": {"cpu_debug":"8/8 pass","cuda_release":"8/8 pass","cpu_asan":"8/8 pass","baseline_cpu":"7/7 pass"},
-    "repeated_warm_runs": {"status":"pass","covered_by":["hot cache cross-epoch tests","scheduler repeated-wave tests","provider prefill and decode epochs"]}
+    "repeated_warm_runs": {"status":"pass","covered_by":["hot cache cross-epoch tests","scheduler repeated-wave tests","fit cold/warm/repeat processes","CPU-MoE cold/warm/repeat processes","four exact provider processes"]},
+    "full_model_matrix": {
+      "status":"pass",
+      "runtime":{"n_ctx":4096,"n_batch":128,"n_ubatch":128,"generated_tokens":8,"seed":1,"temperature":0},
+      "rendered_prompt":{"bytes":150,"sha256":"956f20dbb9de59aba70bd6a510ad3c8ab46df35046000d925f0ae874d433a8b8"},
+      "fit":{"processes":3,"status":"pass","generated_text_sha256":"f757a1253ab8e9d19cce5a4e1c430bebd8859ed37a66cc0d41ab7571eca4820f"},
+      "cpu_moe":{"processes":3,"status":"pass","generated_text_sha256":"f757a1253ab8e9d19cce5a4e1c430bebd8859ed37a66cc0d41ab7571eca4820f"},
+      "universal_provider":{"timed_processes":3,"pss_processes":1,"status":"pass","generated_ids":[2581,1309,304,8470,3939,16372,11226,1531],"generated_and_logits_sha256":"556b683e7c57f587c0d9a186d473ef947007e2360da3289f72d70daf657b6845","routes_sha256":"aa8c22dfb22d2d627cb30d97619cdec1bd25c8de49f5840bcf3a430333cdb459","all_repeats_exact":true,"all_finite":true},
+      "provider_vs_cpu_generated_ids_equal":true,
+      "same_kernel_compact_vs_universal_bit_exact":true,
+      "analysis":{"archive_member":"full-model-analysis.json","bytes":8410,"sha256":"ed60112f0397a90f2ae77e7c5eec8852a56949666c15104ee2837a0e5c282798"}
+    }
   },
   "resource_bounds": {
     "registry_administration_bytes":1200,
@@ -88,25 +103,43 @@
     "policy":{"hot_policy":"LRU","cold_policy":"LRU","scope":"GLOBAL","admission":"ALWAYS","hot_demands":516,"hot_evictions":500,"cold_demands":516,"cold_evictions":496,"transcript_dropped":0},
     "scheduler":{"selected_top_k":6,"minimum_lanes":2,"tested_two_lane_waves":3},
     "storage":{"read_requests":11,"read_operations":33,"read_bytes":131858432,"short_reads":0,"io_errors":0},
-    "async_io":{"io_uring":true,"fallback_reason_mask":0,"active_operations_terminal":0,"active_requests_terminal":0,"shutdown":true}
+    "async_io":{"io_uring":true,"fallback_reason_mask":0,"active_operations_terminal":0,"active_requests_terminal":0,"shutdown":true},
+    "full_model": {
+      "provider_tiers": {
+        "hot":{"budget_bytes":4294967296,"actual_bytes":4286284800,"unused_bytes":8682496,"slots":268,"slot_stride_bytes":15993600,"context_required_slots":256},
+        "cold":{"requested_bytes":17179869184,"actual_bytes":17145139200,"unused_bytes":34729984,"slots":335,"slot_stride_bytes":51179520,"ready_logical_bytes":3720282112,"resident_ready_bytes":17145143296},
+        "transfer":{"requested_bytes":67173120,"actual_bytes":67173120,"pinned_or_registered_bytes":67173120,"lanes":4,"lane_stride_bytes":16793280,"pageable_fallback":false}
+      },
+      "provider_safety":{"minimum_vram_free_mib":12466,"required_vram_free_mib":6144,"minimum_memavailable_bytes":137690427392,"required_memavailable_bytes":17179869184,"declared_os_reserve_bytes":34359738368,"peak_rss_kib":17649484,"peak_pss_kib":17604560,"peak_pss_anon_kib":17356860,"peak_pss_file_kib_at_peak_pss":171860,"major_faults":0,"swap_bytes":0,"cgroup_memory_event_delta":0},
+      "filesystem":{"minimum_available_bytes":59390513152,"required_available_bytes":59055800320},
+      "provider_policy":{"hot_hits":609,"hot_misses":3354,"hot_admissions":3354,"hot_evictions":3086,"cold_hits":4,"cold_misses":3350,"cold_admissions":3350,"cold_evictions":3015,"transcript_dropped":0},
+      "provider_storage":{"source_files":4,"directory_entries":11008,"spans":33024,"administration_bytes":1937880,"read_requests":3350,"read_operations":10050,"read_bytes":36992450560,"short_reads":0,"io_errors":0},
+      "provider_transfer":{"h2d_bytes":37040816128,"peak_hot_pins":83,"peak_cold_hot_refs":268,"peak_cold_transfer_refs":2,"peak_cold_request_refs":1,"peak_in_flight_lanes":1,"peak_background_flights":0},
+      "provider_terminal":{"active_background_flights":0,"hot_pins":0,"cold_transfer_refs":0,"cold_request_refs":0,"failed_cleanups":0,"transcript_dropped":0,"context_capacity_rejections":0},
+      "provider_latency":{"prompt_mean_us":62458200.333333336,"decode_mean_us":6352921.80952381,"decode_p50_us":6097586,"decode_p95_us":8418622,"decode_p99_us":8459623,"decode_max_us":8459623,"decode_throughput_tps":0.15740788726549054},
+      "conventional":{"fit_generation_tps":[9.6,8.2,9.2],"fit_minimum_vram_free_mib":1040,"cpu_moe_generation_tps":[9.1,8.5,8.8],"cpu_moe_minimum_vram_free_mib":15084}
+    }
   },
   "checkpoints": {
     "mechanism": {"status":"pass","final_capable":false,"gates":{"bounded_class_registry":"pass","all_classes_exercised":"pass","same_kernel_parity":"pass","real_provider":"pass","sanitizers":"pass","resource_accounting":"pass"}},
-    "full_model": {"status":"pending","final_capable":false,"gates":{}}
+    "full_model": {"status":"pass","final_capable":true,"gates":{"exact_artifact":"pass","required_matrix":"pass","deterministic_repeats":"pass","generated_token_parity":"pass","same_kernel_layout_parity":"pass","provider_resource_bounds":"pass","vram_headroom":"pass","ram_headroom":"pass","zero_swap_and_cgroup_oom":"pass","filesystem_reserve":"pass","latency_and_throughput":"pass","pss_and_residency":"pass","terminal_cleanup":"pass"}}
   },
   "result": {
-    "status":"in_progress",
-    "final_capable":false,
-    "disposition":"Checkpoint A supports the heterogeneous-layout mechanism; a final runtime claim awaits the full-model matrix and Checkpoint B.",
-    "claims":["OBSERVED: three deterministic layout classes cover all 43 routed layers.","OBSERVED: universal tier views are bit-exact against compact views for nine real CUDA projections.","OBSERVED: all three classes complete real provider staging and H2D execution within bounded allocations."]
+    "status":"positive",
+    "final_capable":true,
+    "disposition":"The heterogeneous universal-slot provider completes the exact DeepSeek-V4 full-model matrix with deterministic output and bounded resources. No speedup is claimed.",
+    "claims":["OBSERVED: three deterministic layout classes cover all 43 routed layers.","OBSERVED: universal tier views are bit-exact against compact views for nine real CUDA projections.","OBSERVED: four provider processes produced identical tokens, logits hashes, all 344 route records, mechanism counts, tier geometry, and terminal state.","OBSERVED: the accepted provider cell retained at least 12,466 MiB free VRAM, 137,690,427,392 available RAM bytes, zero swap/cgroup events, and the 55 GiB filesystem reserve.","OBSERVED: the provider is materially slower than conventional CPU-MoE for this short matrix; the result is correctness/capacity evidence, not a performance improvement."]
   },
   "limitations": [
-    "Checkpoint A uses a focused two-token prompt and one generated token; it is not a final throughput or capacity result.",
-    "Whole-run disabled CPU-expert and provider CUDA logits differ after the first routed layer because backend kernels differ numerically; direct same-kernel comparisons isolate layout-view parity.",
+    "Whole-run CPU-expert and provider CUDA logits differ after the first routed layer because backend kernels differ numerically; all eight generated IDs and all layer-0 route IDs/weight bits match, while direct same-kernel compact-versus-universal CUDA views are bit-exact.",
+    "No speedup is claimed: the provider decoded at 0.1574 token/s versus 8.5-9.1 token/s for explicit CPU-MoE in these short processes.",
+    "The physical OS page cache was already warm. Cold denotes a new process with empty provider hot/cold state; every accepted process had zero major faults and zero swap.",
+    "The fit baseline retained only 1,040 MiB free VRAM and is a conventional comparison, not an accepted provider resource cell.",
     "clang-format was unavailable on the validation host; compiled tests and git diff whitespace checks passed.",
-    "Cgroup memory.events was unavailable; process peak RSS, host swap state, tier allocations, and provider telemetry were captured instead."
+    "The provider terminal snapshot is taken after context teardown while model-owned resident cache entries still exist; focused unload/destruction tests and clean process exits cover final arena destruction."
   ],
   "archives": [
-    {"checkpoint":"mechanism","format":"tar.zst","storage_path":"/workspace/evidence/issue49-checkpoint-a/8e94fbc95e5f6f9c338b29eef1606acf7ea84c5ab3d62b67facbb453f935af2f.tar.zst","bytes":206683,"sha256":"8e94fbc95e5f6f9c338b29eef1606acf7ea84c5ab3d62b67facbb453f935af2f","member_count":29,"index":"results/2026-08-05/host-79466/heterogeneous-layout/archive-index.json"}
+    {"checkpoint":"mechanism","format":"tar.zst","storage_path":"/workspace/evidence/issue49-checkpoint-a/8e94fbc95e5f6f9c338b29eef1606acf7ea84c5ab3d62b67facbb453f935af2f.tar.zst","bytes":206683,"sha256":"8e94fbc95e5f6f9c338b29eef1606acf7ea84c5ab3d62b67facbb453f935af2f","member_count":29,"index":"results/2026-08-05/host-79466/heterogeneous-layout/archive-index.json"},
+    {"checkpoint":"full_model","format":"tar.zst","storage_path":"/workspace/evidence/issue49-full-model/bda99191979056b6f4c05403224d5d6af39101044df72f4f17912c265e34e59f.tar.zst","bytes":8797461,"sha256":"bda99191979056b6f4c05403224d5d6af39101044df72f4f17912c265e34e59f","member_count":172,"index":"results/2026-08-05/host-79466/heterogeneous-layout/full-model-archive-index.json"}
   ]
 }
