@@ -1,0 +1,76 @@
+{
+  "schema_version": "phase12.5-checkpoint-b-v1",
+  "captured_at_utc": "2026-08-05T22:29:09Z",
+  "status": "pass",
+  "decision_marker": "OBSERVED",
+  "issue": 54,
+  "capture_project_target": "2fed7264d1f76041d34c2ac82854d21d1079e751",
+  "analysis_project_target": "d4674ae8b81c1c0d6c8470f333da3cb831ab2963",
+  "nested_target": "6de4f4fef72e9346bdad03459302adcfa19fd576",
+  "config": {
+    "path": "scripts/phase12_5/configs/full-stack-1g.pbtxt",
+    "sha256": "4cd0d07f529da5a3ad87da5b0cbaf08695821b90f7f2e65933dafd8173c34019",
+    "buffer_bytes": 1073741824,
+    "fill_policy": "DISCARD",
+    "required_ftrace_events_available": 30,
+    "required_ftrace_events_missing": 0
+  },
+  "tools": {
+    "perfetto_version": "Perfetto v50.1-2c4d2ffa7",
+    "perfetto_cli_sha256": "29d8cefa70e7186bb274b72ab0e1615f9ae6bb3119026ed3d8bcc1f3b8f0991e",
+    "trace_processor_sha256": "4b86aaf94d2ba9f517ddee817aaae7c12089d6ce078924e708d38f9cf0c0b517",
+    "trace_processor_rpc_api": 14,
+    "cupti_activity_api_version": 26
+  },
+  "cases": [
+    {
+      "name": "tiny-fixture",
+      "trace": {"size": 14032888, "sha256": "3ded545d33ef52ce30149c00ef20eb18234fc82ef04cc202254b907ddf86ccf3"},
+      "workload_identity_sha256": "649a76ea47817578bc2f6689a3267ebfa5e2de070fd69d2900eaf09e7c1eb17e",
+      "exact_reference_match": true,
+      "application_categories": 7,
+      "cuda": {"kernels": 10349, "memcpys": 2428, "synchronizations": 1947, "graph_kernel_matches": 10349},
+      "os": {"sched_switch": 1080, "sched_wake": 1098, "syscalls": 3652, "block_events": 32, "faults": 94258, "filemap_events": 564, "process_stats": 2952, "system_stats": 2829},
+      "clock": {"common_snapshots": 6, "raw_samples": 1097, "mismatches": 0, "anchor_residual_ns": 105647},
+      "loss": {"required_source": 0, "cupti_errors": 0, "cupti_drops": 0, "unknown_timestamps": 0},
+      "teardown_slices": 1,
+      "query_rows": {"token_critical_path": 20, "storage_queue_service": 0, "cpu_runqueue": 32, "cuda_activity": 130, "overlap_and_idle": 20}
+    },
+    {
+      "name": "short-provider",
+      "trace": {"size": 427617299, "sha256": "d56eb60fd6b9377f8cf0f79aedfa5db56ed04535b172f64435bb985bf49bd287"},
+      "workload_identity_sha256": "54189fa794f8002ba56f5af1646984f88d5f7d3f906799ed6b1bb3052fe0bf74",
+      "exact_reference_match": true,
+      "generated_ids": [2581],
+      "application_categories": 11,
+      "flows": {"dispatch_terminal": 2157, "invalid": 0},
+      "cuda": {"kernels": 6251, "memcpys": 8118, "synchronizations": 5808, "graph_kernel_matches": 6251, "flight_memcpy_matches": 6471},
+      "os": {"sched_switch": 55132, "sched_wake": 62009, "syscalls": 48960, "storage_syscalls": 7480, "block_events": 2350, "faults": 4621548, "filemap_events": 365805, "process_stats": 113512, "system_stats": 107881},
+      "clock": {"common_snapshots": 15, "raw_samples": 6251, "mismatches": 0, "anchor_residual_ns": 422613},
+      "loss": {"required_source": 0, "cupti_errors": 0, "cupti_drops": 0, "unknown_timestamps": 0},
+      "cupti_memory": {"retained_capacity_bytes": 134217600, "peak_total_bytes": 136314752, "hard_max_bytes": 268435456},
+      "teardown_slices": 7,
+      "query_rows": {"token_critical_path": 1, "storage_queue_service": 2157, "cpu_runqueue": 51, "cuda_activity": 4332, "overlap_and_idle": 1},
+      "descriptive_query_checks": {
+        "token_wall_ns": 63620277430,
+        "nonoverlap_storage_ns": 48042588786,
+        "nonoverlap_scheduler_ns": 5475880093,
+        "nonoverlap_provider_residual_ns": 9827912675,
+        "storage_queue_wait_p95_ns": 1196786000,
+        "storage_operation_service_wall_p95_ns": 3987527,
+        "cpu_runnable_delay_sum_ns": 709614891
+      }
+    }
+  ],
+  "analysis": {
+    "queries": ["token_critical_path.sql", "storage_queue_service.sql", "cpu_runqueue.sql", "cuda_activity.sql", "overlap_and_idle.sql"],
+    "runner": "scripts/phase12_5/analyze_perfetto.py",
+    "verifier": "scripts/phase12_5/verify_perfetto.py",
+    "path_sanitization": "scripts/phase12_5/package_checkpoint_b.py"
+  },
+  "limitations": [
+    "The host storage is virtio/ext4 with a warm OS page cache; this is diagnostic evidence for the accepted #53 workload and is not Phase 12 physical-NVMe evidence.",
+    "The tiny fixture has no provider flights by design; the short provider trace supplies scheduler, storage, cache, transfer and flight-to-CUDA correlation coverage.",
+    "Checkpoint B raw traces remain local bounded artifacts. Immutable external publication is a Checkpoint C deliverable."
+  ]
+}
