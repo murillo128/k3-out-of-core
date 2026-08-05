@@ -21,6 +21,7 @@ MODELS = {
 }
 IDENTITY = ("prompt_ids", "tokens", "logits_hash", "route_hash", "route_records")
 PROCESS_COUNT = 15
+LONGITUDINAL_PROCESS_COUNT = 101
 AUTOFIT_ESTIMATOR = "ratio_of_process_throughput_medians"
 
 
@@ -116,6 +117,13 @@ def summary(records: list[dict[str, Any]]) -> dict[str, Any]:
         "throughput_median": sorted(r["diagnostics"]["decode_tokens_per_second"] for r in records)[len(records)//2]}
 
 
+def longitudinal_summary(records: list[dict[str, Any]]) -> dict[str, Any]:
+    run_two = [trace(record, "token_samples_us")[2] for record in records]
+    run_ten = [trace(record, "token_samples_us")[10] for record in records]
+    return {"processes": len(records), "warm_run_2_p99_us": nearest(run_two, 99),
+        "warm_run_10_p99_us": nearest(run_ten, 99), "raw_run_2_us": run_two, "raw_run_10_us": run_ten}
+
+
 def paired_interval(autofit: list[dict[str, Any]], explicit: list[dict[str, Any]], cell: str) -> dict[str, Any]:
     ratios = [auto["diagnostics"]["decode_tokens_per_second"]/reference["diagnostics"]["decode_tokens_per_second"]
         for auto, reference in zip(autofit, explicit, strict=True)]
@@ -183,15 +191,17 @@ def validate(document: dict[str, Any]) -> None:
         w = matrix["uma"]["w"]
         if any(r["diagnostics"]["cold_evictions"] != 0 or r["diagnostics"]["cold_hits"] <= 0 for r in w):
             raise ValueError(f"{name}: fitting warm set reread/eviction")
-        for records in (w, matrix["uma"]["autofit"]):
+        for cell, records in matrix["longitudinal"].items():
+            if len(records) != LONGITUDINAL_PROCESS_COUNT: raise ValueError(f"{name}/{cell}: longitudinal process count invalid")
             for record in records:
+                validate_uma(name, record, identity)
                 hits = delta_series(record, "epoch_cold_hits")
                 misses = delta_series(record, "epoch_cold_misses")
                 storage = delta_series(record, "epoch_storage_read_bytes")
                 if (hits[2], misses[2], storage[2]) != (hits[10], misses[10], storage[10]):
                     raise ValueError(f"{name}: warm run hit mix drift")
         for cell in ("w", "autofit"):
-            stats = document["statistics"][name][cell]
+            stats = document["statistics"][name]["longitudinal"][cell]
             if stats["warm_run_10_p99_us"] > 1.10*stats["warm_run_2_p99_us"]:
                 raise ValueError(f"{name}/{cell}: longitudinal warm tail gate failed")
         candidates = ("w_minus_slot", "w", "w_plus_slot", "one_point_five_w")
@@ -303,6 +313,25 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
         candidates = ("w_minus_slot", "w", "w_plus_slot", "one_point_five_w")
         best_cell = max(candidates, key=lambda cell: statistics[name][cell]["throughput_median"])
         statistics[name]["autofit_vs_best_explicit"] = paired_interval(uma["autofit"], uma[best_cell], best_cell)
+        longitudinal = {"w": [], "autofit": []}
+        for index in range(LONGITUDINAL_PROCESS_COUNT):
+            order = ("w", "autofit") if index % 2 == 0 else ("autofit", "w")
+            for cell in order:
+                longitudinal[cell].append(cached_execute(cache, f"{name}-longitudinal-{cell}-{index}",
+                    args.binary.resolve(), model, "uma", 11, pools[cell]))
+        matrix[name]["longitudinal"] = longitudinal
+        statistics[name]["longitudinal"] = {cell: longitudinal_summary(records) for cell, records in longitudinal.items()}
+        if statistics[name]["autofit_vs_best_explicit"]["estimate"] < .95:
+            raise ValueError(f"{name}: autofit throughput gate failed before full-K3 capture")
+        for cell, records in longitudinal.items():
+            for record in records:
+                hits = delta_series(record, "epoch_cold_hits"); misses = delta_series(record, "epoch_cold_misses")
+                storage = delta_series(record, "epoch_storage_read_bytes")
+                if (hits[2], misses[2], storage[2]) != (hits[10], misses[10], storage[10]):
+                    raise ValueError(f"{name}/{cell}: longitudinal hit mix drift before full-K3 capture")
+            stats = statistics[name]["longitudinal"][cell]
+            if stats["warm_run_10_p99_us"] > 1.10*stats["warm_run_2_p99_us"]:
+                raise ValueError(f"{name}/{cell}: longitudinal warm tail failed before full-K3 capture")
     epochs = {name: cached_execute(cache, f"{name}-epochs", args.binary.resolve(), model, "uma", 100,
         MODELS[name]["working_set"], ignore_eog=True)
         for name, model in models.items()}
@@ -368,6 +397,7 @@ def capture(args: argparse.Namespace) -> dict[str, Any]:
             "storage_claim": "buffered threaded pread only; no native io_uring or storage-overlap claim",
             "performance_claim": "no minimum speedup; safe single-request single-device envelope only"},
         "commands": ["15 fresh rotated-interleaved processes per tiny capacity/model with frozen ratio-of-medians gate",
+            "101 fresh alternating W/autofit processes per model for nearest-rank warm-run-2/run-10 p99",
             "100 fixed deterministic-route epochs per model with per-epoch resource series",
             "25 uncached complete fresh-process load/run/unload cycles",
             "five fresh exact-layout full-K3 residency processes per explicit/autofit capacity plus first-unsafe rejection"]}
