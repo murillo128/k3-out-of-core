@@ -1,0 +1,261 @@
+{
+  "build": {
+    "asan_ubsan_cuda": {
+      "build_type": "RelWithDebInfo",
+      "ggml_cuda": true,
+      "tests": true
+    },
+    "release_cuda": {
+      "build_type": "Release",
+      "ggml_cuda": true,
+      "tests": true
+    },
+    "tsan_cpu": {
+      "build_type": "RelWithDebInfo",
+      "ggml_cuda": false,
+      "tests": true
+    }
+  },
+  "capability": {
+    "host_native_atomic": 1,
+    "integrated": 1,
+    "native_io_uring": "unavailable_host_seccomp",
+    "native_io_uring_reason": "host seccomp prevents setup; bounded threaded pread fallback is visible",
+    "pageable_memory_access": 1,
+    "pageable_uses_host_page_tables": 1,
+    "status": "pass"
+  },
+  "capacity": {
+    "actual_arena_bytes": 81156096000,
+    "alignment_remainder_bytes": 7102464,
+    "effective_slots": 4625,
+    "first_unsafe_bytes": 81173643264,
+    "model_cap_unused_safe_bytes": 0,
+    "model_capacity_bytes": 1446456066048,
+    "requested_modes": {
+      "autofit_enabled": true,
+      "autofit_requested_bytes": 0,
+      "explicit_requested_bytes": 81156096000
+    },
+    "safe_ceiling_bytes": 81163198464,
+    "safe_explicit_and_autofit_bytes": 81156096000,
+    "slot_footprint_bytes": 17547264
+  },
+  "checkpoints": {
+    "a": {
+      "nested_head": "ac8e897c20b9c4c61f06a6aa90e19aade1916b30",
+      "project_head": "da6e966fdd5a678b3626ba9a41ad2facccd5e225",
+      "verdict": "PASS"
+    },
+    "b": {
+      "nested_head": "bc425246dd30fe85a4c8b1390a0c502ba1df96ca",
+      "project_head": "27996b73ebb38539bfac57edfe5ca02c91114d2c",
+      "verdict": "PASS"
+    },
+    "c": {
+      "nested_head": "0d910bb29e5d019e9e257317270ec423d50a2278",
+      "project_head": "fde9d25fe9ac2d95bd088a3a6887083445e3e920",
+      "verdict": "PASS"
+    },
+    "d": {
+      "nested_head": "add1ee6adbe5264387b8b1eef0eed0ba51a59a8a",
+      "project_head": "fd439e9cb5fa693e3c061381707fadaf3f668f83",
+      "verdict": "PASS"
+    }
+  },
+  "clean_input_state": {
+    "nested": true,
+    "project": true
+  },
+  "closeout_artifacts": [
+    {
+      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/e5445138c7db9665beb1e67772b8e222a7de4d45/results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-decision.json",
+      "path": "results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-decision.json",
+      "sha256": "a748c8e795bcc9af1277715fffe21eb38ca4b2a5a0230d2a97cf95ebfcc7f62c",
+      "size": 601
+    },
+    {
+      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/e5445138c7db9665beb1e67772b8e222a7de4d45/results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-summary.json",
+      "path": "results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-summary.json",
+      "sha256": "75a2b8107d8951c8f72a2be0f4723a438761f4acb10f438b2c808672bac0e548",
+      "size": 3296
+    },
+    {
+      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/e5445138c7db9665beb1e67772b8e222a7de4d45/results/2026-08-04/msi-edgexpert-gb10/phase11-uma/PHASE11.md",
+      "path": "results/2026-08-04/msi-edgexpert-gb10/phase11-uma/PHASE11.md",
+      "sha256": "b10e45bce599b5eb045792b0b145055e425f4c4c424fd7c1621b14e622a8ee9b",
+      "size": 1129
+    },
+    {
+      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/e5445138c7db9665beb1e67772b8e222a7de4d45/results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-checksums.json",
+      "path": "results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-checksums.json",
+      "sha256": "d9c106f1e78f7f53071b2d21c6449ec744e61d508de36cb38fef0f8ea210c2ae",
+      "size": 2084
+    },
+    {
+      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/e5445138c7db9665beb1e67772b8e222a7de4d45/scripts/phase11/build_phase11_closeout.py",
+      "path": "scripts/phase11/build_phase11_closeout.py",
+      "sha256": "cf0397718b1c6261fe910c68b9199022dcf9fd863f615b6780b4fb70a180331e",
+      "size": 16593
+    },
+    {
+      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/e5445138c7db9665beb1e67772b8e222a7de4d45/scripts/phase11/verify_phase11.py",
+      "path": "scripts/phase11/verify_phase11.py",
+      "sha256": "a6b6babe4aac6756ef6a3ba6daec5622d8366501c80796d92f913d459346f482",
+      "size": 1623
+    },
+    {
+      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/e5445138c7db9665beb1e67772b8e222a7de4d45/schemas/phase11/phase11-manifest-v1.schema.json",
+      "path": "schemas/phase11/phase11-manifest-v1.schema.json",
+      "sha256": "ed7391c2a9e7cfaa006ca07ada20101483b3db0931a5f18aecefd28d484ecdc9",
+      "size": 2754
+    },
+    {
+      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/e5445138c7db9665beb1e67772b8e222a7de4d45/tests/phase11/test_phase11_closeout.py",
+      "path": "tests/phase11/test_phase11_closeout.py",
+      "sha256": "2c603f6447e59098e379fd46dd5e8d955d3846c220ac5740938b5674bfcbd2c5",
+      "size": 1645
+    }
+  ],
+  "deferred": [
+    "Phase 12 storage format and full-size inference",
+    "Phase 12.5 end-to-end tracing",
+    "multi-request batching",
+    "multi-GPU",
+    "GDS and new expert formats"
+  ],
+  "disposition": {
+    "autofit_claim": "SAFE_CAPACITY_ONLY_NOT_PERFORMANCE_SELECTED",
+    "default_enabled": false,
+    "explicit_configuration_required": true,
+    "full_k3_limit": "exact-layout materialized residency and pressure only; not inference quality or throughput",
+    "performance_claim": "no minimum speedup; throughput measurements are descriptive",
+    "schema_version": "phase11-decision-v1",
+    "scope": "single-request single-device coherent CUDA UMA on NVIDIA GB10",
+    "status": "SUPPORTED_EXPLICIT_NONDEFAULT",
+    "storage_transport": "buffered threaded pread; native io_uring unavailable under host seccomp"
+  },
+  "environment": {
+    "architecture": "aarch64",
+    "cgroup_limit_bytes": 125371940864,
+    "compute_capability": "12.1",
+    "cpu_count": 20,
+    "cuda_driver_version": 13000,
+    "cuda_runtime_version": 13000,
+    "gpu": "NVIDIA GB10",
+    "host_class": "NVIDIA GB10 coherent UMA",
+    "kernel": "6.17.0-1026-nvidia",
+    "physical_ram_bytes": 130596102144,
+    "storage_transport": "buffered_pread",
+    "swap_total_bytes": 0,
+    "toolkit": "Build cuda_13.0.r13.0/compiler.36424714_0"
+  },
+  "evidence": [
+    {
+      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/e5445138c7db9665beb1e67772b8e222a7de4d45/results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-capabilities.json",
+      "path": "results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-capabilities.json",
+      "sha256": "ded948c3ab933d40dd8b323ae7bda33330e041541cd34807f4170240419c2cbe",
+      "size": 9662
+    },
+    {
+      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/e5445138c7db9665beb1e67772b8e222a7de4d45/results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-checkpoint-b.json",
+      "path": "results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-checkpoint-b.json",
+      "sha256": "48eab1be1f38c5799a46f9fa8cdec473dee47aa969e6aacf2d430301e200bd14",
+      "size": 41727
+    },
+    {
+      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/e5445138c7db9665beb1e67772b8e222a7de4d45/results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-checkpoint-c.json",
+      "path": "results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-checkpoint-c.json",
+      "sha256": "53cc4a6c24d14053ee76ff6e05c157e8ac0172d56ea128b2ff9051deab04b3d7",
+      "size": 56309
+    },
+    {
+      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/e5445138c7db9665beb1e67772b8e222a7de4d45/results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-checkpoint-d.json",
+      "path": "results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-checkpoint-d.json",
+      "sha256": "d4830f8520676bbad07ac6fad5a0de9142c1d10113cac9a689c334ad4eead674",
+      "size": 8157771
+    },
+    {
+      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/e5445138c7db9665beb1e67772b8e222a7de4d45/results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-v4-raw-index.json",
+      "path": "results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-v4-raw-index.json",
+      "sha256": "b62dd81e41dfbc1e3f84c5eeb0a48ededdbb16f1f3cd3be9d20a9bc7ed64b8e2",
+      "size": 94700
+    },
+    {
+      "immutable_url": "https://github.com/murillo128/k3-out-of-core/blob/e5445138c7db9665beb1e67772b8e222a7de4d45/results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-v4-raw.tar.gz",
+      "path": "results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-v4-raw.tar.gz",
+      "sha256": "9ac954aded2efd9ada6bec19efe4b9c9c2b6846673610c322334f9b512267327",
+      "size": 247926
+    }
+  ],
+  "execution_profile": "STANDARD",
+  "gates": {
+    "cancellation_unload_lifetime": true,
+    "checkpoints_a_through_d_accepted": true,
+    "comparisons_bounded_without_overclaim": true,
+    "correctness": true,
+    "eviction_reclamation": true,
+    "first_unsafe_rejected_before_io": true,
+    "full_k3_residency": true,
+    "immutable_evidence": true,
+    "one_pool_fixed_address": true,
+    "phase9_phase10_defaults_unchanged": true,
+    "pressure_fail_closed": true,
+    "readiness_generation": true,
+    "repeated_100_epochs": true,
+    "tail_stability": true,
+    "zero_h2d_and_ring_payload": true
+  },
+  "limits": [
+    "single request and single device only",
+    "explicit nondefault UMA mode",
+    "autofit is safe-capacity only and not performance selected",
+    "full-K3 result is residency/pressure evidence, not inference quality or throughput",
+    "no direct Spark versus discrete CUDA or WASTE performance ranking",
+    "buffered threaded pread only; no native io_uring, GDS, or storage-overlap claim"
+  ],
+  "models": [
+    {
+      "filename": "Kimi-K3-0.40B-F16.gguf",
+      "immutable_url": "https://huggingface.co/murillo2000/Kimi-K3-0.40B-GGUF/blob/88de02cf8fa37f87eb06daaed370ac9c3411d5ca/Kimi-K3-0.40B-F16.gguf",
+      "name": "f16",
+      "sha256": "411c197b503e6fb9199a2b22115e32dc4e2cad803fb112b24967737b3bab26c7",
+      "size": 784318432
+    },
+    {
+      "filename": "Kimi-K3-0.40B-MXFP4.gguf",
+      "immutable_url": "https://huggingface.co/murillo2000/Kimi-K3-0.40B-GGUF/blob/88de02cf8fa37f87eb06daaed370ac9c3411d5ca/Kimi-K3-0.40B-MXFP4.gguf",
+      "name": "mxfp4",
+      "sha256": "0379a1cc623e09eb3fbd1dfcb18737bc8c971dbfe5bf5bc3e08da8b5379ec169",
+      "size": 751976576
+    }
+  ],
+  "policies": {
+    "cache": "global LRU/ALWAYS unchanged",
+    "miss_execution": "PROMOTE_AND_GPU",
+    "prefetch": "Phase 10 default off unchanged",
+    "uma_default_enabled": false
+  },
+  "revisions": {
+    "checkpoint_d_published_head": "fd439e9cb5fa693e3c061381707fadaf3f668f83",
+    "evidence_head": "e5445138c7db9665beb1e67772b8e222a7de4d45",
+    "gitlink": "add1ee6adbe5264387b8b1eef0eed0ba51a59a8a",
+    "implementation_head": "8f10f5d56d79b7052da92217d408ce143a85a8e3",
+    "nested_base": "6339ee371ff898dea5057c7bfedf91adbe44c111",
+    "nested_head": "add1ee6adbe5264387b8b1eef0eed0ba51a59a8a",
+    "project_base": "b4368697c92d8b5e0814023b1cb3288636769eda"
+  },
+  "schema_version": "phase11-manifest-v1",
+  "self_identity": "phase11-manifest.json excludes its own hash and immutable URL to remain non-circular",
+  "status": "final-review-candidate",
+  "validation": {
+    "capability_probe": "pass",
+    "checkpoint_b_provider": "pass",
+    "checkpoint_c_asan_ubsan_suite": "pass",
+    "checkpoint_c_release_suite": "pass",
+    "checkpoint_d_semantic_verifier": "pass",
+    "compute_sanitizer_error_summary": 0,
+    "focused_final_ctest": "3/3 pass",
+    "tsan": "unsupported_host_runtime"
+  }
+}

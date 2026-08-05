@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/phase11/phase11-checkpoint-b-v1.schema.json",
+  "title": "Phase 11 Checkpoint B one-pool and readiness evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "scope", "revisions", "models", "cases", "failure_lifecycle", "commands"],
+  "properties": {
+    "schema_version": {"const": "phase11-checkpoint-b-v1"},
+    "status": {"const": "pass"},
+    "scope": {"const": "gb10_coherent_uma_buffered_storage_fallback"},
+    "revisions": {"type": "object", "required": ["project_head", "nested_head", "gitlink"]},
+    "models": {"type": "object", "required": ["f16", "mxfp4"]},
+    "cases": {"type": "object", "required": ["f16", "mxfp4"]},
+    "failure_lifecycle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["auto_prefetch_probes", "auto_touch_calls", "readiness_retry_generation", "stale_rejected", "restored_capacity", "cancellation_cleanups", "cancellation_retry", "scheduler_active"],
+      "properties": {
+        "auto_prefetch_probes": {"const": 1},
+        "auto_touch_calls": {"const": 4},
+        "readiness_retry_generation": {"minimum": 2},
+        "stale_rejected": {"const": 1},
+        "restored_capacity": {"const": 1},
+        "cancellation_cleanups": {"minimum": 1},
+        "cancellation_retry": {"const": 1},
+        "scheduler_active": {"const": 0}
+      }
+    },
+    "commands": {"type": "array", "minItems": 2, "items": {"type": "string"}}
+  }
+}

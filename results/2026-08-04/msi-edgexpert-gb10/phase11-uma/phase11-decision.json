@@ -1,0 +1,11 @@
+{
+  "autofit_claim": "SAFE_CAPACITY_ONLY_NOT_PERFORMANCE_SELECTED",
+  "default_enabled": false,
+  "explicit_configuration_required": true,
+  "full_k3_limit": "exact-layout materialized residency and pressure only; not inference quality or throughput",
+  "performance_claim": "no minimum speedup; throughput measurements are descriptive",
+  "schema_version": "phase11-decision-v1",
+  "scope": "single-request single-device coherent CUDA UMA on NVIDIA GB10",
+  "status": "SUPPORTED_EXPLICIT_NONDEFAULT",
+  "storage_transport": "buffered threaded pread; native io_uring unavailable under host seccomp"
+}

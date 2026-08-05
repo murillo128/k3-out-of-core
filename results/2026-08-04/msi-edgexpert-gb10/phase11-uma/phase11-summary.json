@@ -1,0 +1,109 @@
+{
+  "capability": {
+    "allocation": "anonymous pageable mmap directly CUDA-addressable through host page tables",
+    "gpu": "NVIDIA GB10",
+    "integrated": 1,
+    "native_io_uring": "unavailable_host_seccomp",
+    "storage_transport": "buffered_pread"
+  },
+  "capacity": {
+    "first_unsafe_bytes": 81173643264,
+    "first_unsafe_rejected_before_io": true,
+    "safe_effective_slots": 4625,
+    "safe_explicit_and_autofit_bytes": 81156096000,
+    "slot_footprint_bytes": 17547264,
+    "working_set_bytes": 25829572608
+  },
+  "correctness": {
+    "expert_h2d_payload_bytes": 0,
+    "f16_structural_equivalence": true,
+    "mxfp4_structural_equivalence": true,
+    "transfer_ring_payload_bytes": 0
+  },
+  "descriptive_performance": {
+    "f16": {
+      "estimate": 0.9884070779620306,
+      "estimator": "ratio_of_process_throughput_medians",
+      "explicit_cell": "w",
+      "paired_bootstrap_95_interval": [
+        0.9499490178563905,
+        1.0489688591209778
+      ],
+      "paired_bootstrap_replicates": 10000,
+      "paired_bootstrap_seed": 2608,
+      "ratios": [
+        0.858658098468942,
+        0.9292074645660962,
+        0.8489171599808802,
+        1.0489688591209778,
+        0.9395325203252032,
+        0.9499490178563905,
+        1.1934098042902812,
+        1.0562477667291805,
+        1.0163922195109105,
+        1.0155275445871683,
+        1.0714228008994333,
+        1.0042635138575773,
+        1.016491043415032,
+        1.0877882689951193,
+        1.0056967063227418
+      ]
+    },
+    "mxfp4": {
+      "estimate": 0.9254506115259986,
+      "estimator": "ratio_of_process_throughput_medians",
+      "explicit_cell": "w_minus_slot",
+      "paired_bootstrap_95_interval": [
+        0.8852537571102899,
+        1.0887018675570215
+      ],
+      "paired_bootstrap_replicates": 10000,
+      "paired_bootstrap_seed": 2608,
+      "ratios": [
+        1.0073566150934599,
+        1.1617680656237441,
+        0.9814235612219198,
+        0.8796236617090968,
+        0.9650861839641389,
+        1.0829728233940767,
+        1.1145664938975275,
+        0.899884827890945,
+        0.8852537571102899,
+        0.860409435051909,
+        0.9417999072878758,
+        0.8256680177137281,
+        1.135047543016054,
+        0.946742589694031,
+        1.0887018675570215
+      ]
+    }
+  },
+  "disposition": {
+    "autofit_claim": "SAFE_CAPACITY_ONLY_NOT_PERFORMANCE_SELECTED",
+    "default_enabled": false,
+    "explicit_configuration_required": true,
+    "full_k3_limit": "exact-layout materialized residency and pressure only; not inference quality or throughput",
+    "performance_claim": "no minimum speedup; throughput measurements are descriptive",
+    "schema_version": "phase11-decision-v1",
+    "scope": "single-request single-device coherent CUDA UMA on NVIDIA GB10",
+    "status": "SUPPORTED_EXPLICIT_NONDEFAULT",
+    "storage_transport": "buffered threaded pread; native io_uring unavailable under host seccomp"
+  },
+  "lifetime": {
+    "analyzed_epochs": 80,
+    "epochs": 100,
+    "f16_first_last_p99_us": [
+      34869,
+      36146
+    ],
+    "lifecycle_cycles": 25,
+    "mxfp4_first_last_p99_us": [
+      18577,
+      15771
+    ],
+    "return_delta_bytes": 1687552,
+    "return_threshold_bytes": 1253719408
+  },
+  "schema_version": "phase11-summary-v1",
+  "status": "pass"
+}

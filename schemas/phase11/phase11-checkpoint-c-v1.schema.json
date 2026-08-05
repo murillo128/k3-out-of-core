@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "phase11-checkpoint-c-v1.schema.json",
+  "title": "Phase 11 Checkpoint C Evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "scope", "revisions", "models", "cases", "failure_lifecycle", "policy_pressure_lifecycle", "sanitizers", "commands"],
+  "properties": {
+    "schema_version": {"const": "phase11-checkpoint-c-v1"},
+    "status": {"const": "pass"},
+    "scope": {"const": "gb10_coherent_uma_buffered_storage_fallback"},
+    "revisions": {"type": "object", "required": ["project_head", "nested_head", "gitlink"], "additionalProperties": {"type": "string"}},
+    "models": {"type": "object", "required": ["f16", "mxfp4"]},
+    "cases": {"type": "object", "required": ["f16", "mxfp4"]},
+    "failure_lifecycle": {"type": "object"},
+    "policy_pressure_lifecycle": {"type": "object"},
+    "sanitizers": {"type": "object", "required": ["asan_ubsan", "tsan", "compute_sanitizer"]},
+    "commands": {"type": "array", "minItems": 4}
+  }
+}
