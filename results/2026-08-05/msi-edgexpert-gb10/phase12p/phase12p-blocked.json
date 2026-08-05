@@ -1,0 +1,32 @@
+{
+  "mandatory_gates_not_run": [
+    "two_clean_full_generations",
+    "physical_backing_proof",
+    "full_matrix",
+    "full_restart_cleanup",
+    "optional_uma"
+  ],
+  "observed_nvme": "A 3.6 TB NVMe partition is reported by lsblk/findmnt only through file bind mounts for /etc/hosts, /etc/hostname, and /etc/resolv.conf; neither its block node nor a writable filesystem mount is exposed.",
+  "preliminary_screening_disposition": "SCREENING_BLOCKED",
+  "reason": "No writable mounted filesystem in the execution container satisfies declared 64 GiB maximum new bytes plus the required max(96 GiB, 10% capacity) reserve.",
+  "safety_action": "Stopped before creating the 1,446,456,066,048-byte logical sparse store or any generated payload.",
+  "schema_version": "phase12p-blocked-evidence-v1",
+  "status": "BLOCKED_BEFORE_CORPUS",
+  "thresholds": {
+    "absolute_high_water_bytes": 68719476736,
+    "available_bytes": 22163910656,
+    "available_inodes": 378823838,
+    "capacity_bytes": 34359738368,
+    "compression": "not_proven_inactive",
+    "declared_max_new_bytes": 68719476736,
+    "deduplication": "not_proven_inactive",
+    "passed": false,
+    "path": "/workspace/k3-out-of-core",
+    "persistent_ceiling_bytes": 60129542144,
+    "post_high_water_reserve_bytes": 103079215104,
+    "reflink_cow": "not_accepted_as_physical_backing",
+    "required_available_bytes": 171798691840,
+    "schema_version": "phase12p-storage-preflight-v1",
+    "temporary_ceiling_bytes": 8589934592
+  }
+}

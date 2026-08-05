@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/phase12p/phase12p-route-corpus-v1.schema.json",
+  "title": "Phase 12P deterministic route corpus",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "source_revision", "config_sha256", "seed", "dimensions", "requests"],
+  "properties": {
+    "schema_version": {"const": "phase12p-route-corpus-v1"},
+    "source_revision": {"const": "9f62e4e9fffbd0a83ddd60e1c209d828994b3569"},
+    "config_sha256": {"const": "9710e121a58d03ac92c8d6da287a19541994319afbbe6d6202af001ffd379213"},
+    "seed": {"const": 2608},
+    "dimensions": {"type": "object", "required": ["layers", "experts", "tokens", "selected"]},
+    "requests": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "object", "required": ["request", "records"]}}
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "architecture": "aarch64",
+  "block_devices": {
+    "command": [
+      "lsblk",
+      "-J",
+      "-b",
+      "-o",
+      "NAME,PATH,TYPE,FSTYPE,SIZE,FSAVAIL,MOUNTPOINTS,MODEL,SERIAL,SCHED"
+    ],
+    "exit_code": 0,
+    "stderr": "",
+    "stdout": "{\n   \"blockdevices\": [\n      {\n         \"name\": \"loop0\",\n         \"path\": \"/dev/loop0\",\n         \"type\": \"loop\",\n         \"fstype\": null,\n         \"size\": 4096,\n         \"fsavail\": null,\n         \"mountpoints\": [\n             null\n         ],\n         \"model\": null,\n         \"serial\": null,\n         \"sched\": \"none\"\n      },{\n         \"name\": \"loop1\",\n         \"path\": \"/dev/loop1\",\n         \"type\": \"loop\",\n         \"fstype\": null,\n         \"size\": 64864256,\n         \"fsavail\": null,\n         \"mountpoints\": [\n             null\n         ],\n         \"model\": null,\n         \"serial\": null,\n         \"sched\": \"none\"\n      },{\n         \"name\": \"loop3\",\n         \"path\": \"/dev/loop3\",\n         \"type\": \"loop\",\n         \"fstype\": null,\n         \"size\": 72310784,\n         \"fsavail\": null,\n         \"mountpoints\": [\n             null\n         ],\n         \"model\": null,\n         \"serial\": null,\n         \"sched\": \"none\"\n      },{\n         \"name\": \"loop4\",\n         \"path\": \"/dev/loop4\",\n         \"type\": \"loop\",\n         \"fstype\": null,\n         \"size\": 252334080,\n         \"fsavail\": null,\n         \"mountpoints\": [\n             null\n         ],\n         \"model\": null,\n         \"serial\": null,\n         \"sched\": \"none\"\n      },{\n         \"name\": \"loop5\",\n         \"path\": \"/dev/loop5\",\n         \"type\": \"loop\",\n         \"fstype\": null,\n         \"size\": 16310272,\n         \"fsavail\": null,\n         \"mountpoints\": [\n             null\n         ],\n         \"model\": null,\n         \"serial\": null,\n         \"sched\": \"none\"\n      },{\n         \"name\": \"loop6\",\n         \"path\": \"/dev/loop6\",\n         \"type\": \"loop\",\n         \"fstype\": null,\n         \"size\": 527392768,\n         \"fsavail\": null,\n         \"mountpoints\": [\n             null\n         ],\n         \"model\": null,\n         \"serial\": null,\n         \"sched\": \"none\"\n      },{\n         \"name\": \"loop7\",\n         \"path\": \"/dev/loop7\",\n         \"type\": \"loop\",\n         \"fstype\": null,\n         \"size\": 10719232,\n         \"fsavail\": null,\n         \"mountpoints\": [\n             null\n         ],\n         \"model\": null,\n         \"serial\": null,\n         \"sched\": \"none\"\n      },{\n         \"name\": \"loop8\",\n         \"path\": \"/dev/loop8\",\n         \"type\": \"loop\",\n         \"fstype\": null,\n         \"size\": 527577088,\n         \"fsavail\": null,\n         \"mountpoints\": [\n             null\n         ],\n         \"model\": null,\n         \"serial\": null,\n         \"sched\": \"none\"\n      },{\n         \"name\": \"loop9\",\n         \"path\": \"/dev/loop9\",\n         \"type\": \"loop\",\n         \"fstype\": null,\n         \"size\": 96141312,\n         \"fsavail\": null,\n         \"mountpoints\": [\n             null\n         ],\n         \"model\": null,\n         \"serial\": null,\n         \"sched\": \"none\"\n      },{\n         \"name\": \"loop10\",\n         \"path\": \"/dev/loop10\",\n         \"type\": \"loop\",\n         \"fstype\": null,\n         \"size\": 197390336,\n         \"fsavail\": null,\n         \"mountpoints\": [\n             null\n         ],\n         \"model\": null,\n         \"serial\": null,\n         \"sched\": \"none\"\n      },{\n         \"name\": \"loop11\",\n         \"path\": \"/dev/loop11\",\n         \"type\": \"loop\",\n         \"fstype\": null,\n         \"size\": 579809280,\n         \"fsavail\": null,\n         \"mountpoints\": [\n             null\n         ],\n         \"model\": null,\n         \"serial\": null,\n         \"sched\": \"none\"\n      },{\n         \"name\": \"loop12\",\n         \"path\": \"/dev/loop12\",\n         \"type\": \"loop\",\n         \"fstype\": null,\n         \"size\": 12808192,\n         \"fsavail\": null,\n         \"mountpoints\": [\n             null\n         ],\n         \"model\": null,\n         \"serial\": null,\n         \"sched\": \"none\"\n      },{\n         \"name\": \"loop13\",\n         \"path\": \"/dev/loop13\",\n         \"type\": \"loop\",\n         \"fstype\": null,\n         \"size\": 183046144,\n         \"fsavail\": null,\n         \"mountpoints\": [\n             null\n         ],\n         \"model\": null,\n         \"serial\": null,\n         \"sched\": \"none\"\n      },{\n         \"name\": \"loop14\",\n         \"path\": \"/dev/loop14\",\n         \"type\": \"loop\",\n         \"fstype\": null,\n         \"size\": 45477888,\n         \"fsavail\": null,\n         \"mountpoints\": [\n             null\n         ],\n         \"model\": null,\n         \"serial\": null,\n         \"sched\": \"none\"\n      },{\n         \"name\": \"loop15\",\n         \"path\": \"/dev/loop15\",\n         \"type\": \"loop\",\n         \"fstype\": null,\n         \"size\": 10530816,\n         \"fsavail\": null,\n         \"mountpoints\": [\n             null\n         ],\n         \"model\": null,\n         \"serial\": null,\n         \"sched\": \"none\"\n      },{\n         \"name\": \"loop16\",\n         \"path\": \"/dev/loop16\",\n         \"type\": \"loop\",\n         \"fstype\": null,\n         \"size\": 45477888,\n         \"fsavail\": null,\n         \"mountpoints\": [\n             null\n         ],\n         \"model\": null,\n         \"serial\": null,\n         \"sched\": \"none\"\n      },{\n         \"name\": \"loop17\",\n         \"path\": \"/dev/loop17\",\n         \"type\": \"loop\",\n         \"fstype\": null,\n         \"size\": 819200,\n         \"fsavail\": null,\n         \"mountpoints\": [\n             null\n         ],\n         \"model\": null,\n         \"serial\": null,\n         \"sched\": \"none\"\n      },{\n         \"name\": \"loop18\",\n         \"path\": \"/dev/loop18\",\n         \"type\": \"loop\",\n         \"fstype\": null,\n         \"size\": 257073152,\n         \"fsavail\": null,\n         \"mountpoints\": [\n             null\n         ],\n         \"model\": null,\n         \"serial\": null,\n         \"sched\": \"none\"\n      },{\n         \"name\": \"loop19\",\n         \"path\": \"/dev/loop19\",\n         \"type\": \"loop\",\n         \"fstype\": null,\n         \"size\": 823296,\n         \"fsavail\": null,\n         \"mountpoints\": [\n             null\n         ],\n         \"model\": null,\n         \"serial\": null,\n         \"sched\": \"none\"\n      },{\n         \"name\": \"loop20\",\n         \"path\": \"/dev/loop20\",\n         \"type\": \"loop\",\n         \"fstype\": null,\n         \"size\": 213495808,\n         \"fsavail\": null,\n         \"mountpoints\": [\n             null\n         ],\n         \"model\": null,\n         \"serial\": null,\n         \"sched\": \"none\"\n      },{\n         \"name\": \"loop21\",\n         \"path\": \"/dev/loop21\",\n         \"type\": \"loop\",\n         \"fstype\": null,\n         \"size\": 223092736,\n         \"fsavail\": null,\n         \"mountpoints\": [\n             null\n         ],\n         \"model\": null,\n         \"serial\": null,\n         \"sched\": \"none\"\n      },{\n         \"name\": \"nvme0n1\",\n         \"path\": \"/dev/nvme0n1\",\n         \"type\": \"disk\",\n         \"fstype\": null,\n         \"size\": 4000787030016,\n         \"fsavail\": null,\n         \"mountpoints\": [\n             null\n         ],\n         \"model\": \"ESL04TBTLCZ-27J4-TYN                    \",\n         \"serial\": \"511250701427000061  \",\n         \"sched\": \"none\",\n         \"children\": [\n            {\n               \"name\": \"nvme0n1p1\",\n               \"path\": \"/dev/nvme0n1p1\",\n               \"type\": \"part\",\n               \"fstype\": null,\n               \"size\": 536870912,\n               \"fsavail\": null,\n               \"mountpoints\": [\n                   null\n               ],\n               \"model\": null,\n               \"serial\": null,\n               \"sched\": \"none\"\n            },{\n               \"name\": \"nvme0n1p2\",\n               \"path\": \"/dev/nvme0n1p2\",\n               \"type\": \"part\",\n               \"fstype\": null,\n               \"size\": 85899345920,\n               \"fsavail\": 32228904960,\n               \"mountpoints\": [\n                   \"/usr/lib/aarch64-linux-gnu/nvidia/xorg/nvidia_drv.so\", \"/usr/lib/aarch64-linux-gnu/nvidia/xorg/libglxserver_nvidia.so.580.173.02\", \"/usr/share/glvnd/egl_vendor.d/10_nvidia.json\", \"/usr/share/egl/egl_external_platform.d/15_nvidia_gbm.json\", \"/usr/share/egl/egl_external_platform.d/10_nvidia_wayland.json\", \"/usr/share/X11/xorg.conf.d/10-nvidia.conf\", \"/usr/lib/aarch64-linux-gnu/vdpau/libvdpau_nvidia.so.580.173.02\", \"/usr/lib/firmware/nvidia/580.173.02/gsp_tu10x.bin\", \"/usr/lib/firmware/nvidia/580.173.02/gsp_ga10x.bin\", \"/usr/share/nvidia/nvoptix.bin\", \"/usr/lib/aarch64-linux-gnu/libnvoptix.so.580.173.02\", \"/usr/lib/aarch64-linux-gnu/libnvidia-tls.so.580.173.02\", \"/usr/lib/aarch64-linux-gnu/libnvidia-rtcore.so.580.173.02\", \"/usr/lib/aarch64-linux-gnu/libnvidia-ptxjitcompiler.so.580.173.02\", \"/usr/lib/aarch64-linux-gnu/libnvidia-opticalflow.so.580.173.02\", \"/usr/lib/aarch64-linux-gnu/libnvidia-opencl.so.580.173.02\", \"/usr/lib/aarch64-linux-gnu/libnvidia-nvvm.so.580.173.02\", \"/usr/lib/aarch64-linux-gnu/libnvidia-ngx.so.580.173.02\", \"/usr/lib/aarch64-linux-gnu/libnvidia-ml.so.580.173.02\", \"/usr/lib/aarch64-linux-gnu/libnvidia-gpucomp.so.580.173.02\", \"/usr/lib/aarch64-linux-gnu/libnvidia-glvkspirv.so.580.173.02\", \"/usr/lib/aarch64-linux-gnu/libnvidia-glsi.so.580.173.02\", \"/usr/lib/aarch64-linux-gnu/libnvidia-glcore.so.580.173.02\", \"/usr/lib/aarch64-linux-gnu/libnvidia-fbc.so.580.173.02\", \"/usr/lib/aarch64-linux-gnu/libnvidia-encode.so.580.173.02\", \"/usr/lib/aarch64-linux-gnu/libnvidia-eglcore.so.580.173.02\", \"/usr/lib/aarch64-linux-gnu/libnvidia-egl-wayland.so.1.1.21\", \"/usr/lib/aarch64-linux-gnu/libnvidia-egl-gbm.so.1.1.3\", \"/usr/lib/aarch64-linux-gnu/libnvidia-cfg.so.580.173.02\", \"/usr/lib/aarch64-linux-gnu/libnvidia-allocator.so.580.173.02\", \"/usr/lib/aarch64-linux-gnu/libnvcuvid.so.580.173.02\", \"/usr/lib/aarch64-linux-gnu/libcudadebugger.so.580.173.02\", \"/usr/lib/aarch64-linux-gnu/libcuda.so.580.173.02\", \"/usr/lib/aarch64-linux-gnu/libGLX_nvidia.so.580.173.02\", \"/usr/lib/aarch64-linux-gnu/libGLESv2_nvidia.so.580.173.02\", \"/usr/lib/aarch64-linux-gnu/libGLESv1_CM_nvidia.so.580.173.02\", \"/usr/lib/aarch64-linux-gnu/libEGL_nvidia.so.580.173.02\", \"/etc/vulkan/implicit_layer.d/nvidia_layers.json\", \"/etc/vulkan/icd.d/nvidia_icd.json\", \"/usr/bin/nvidia-smi\", \"/usr/bin/nvidia-persistenced\", \"/usr/bin/nvidia-debugdump\", \"/usr/bin/nvidia-cuda-mps-server\", \"/usr/bin/nvidia-cuda-mps-control\"\n               ],\n               \"model\": null,\n               \"serial\": null,\n               \"sched\": \"none\"\n            },{\n               \"name\": \"nvme0n1p3\",\n               \"path\": \"/dev/nvme0n1p3\",\n               \"type\": \"part\",\n               \"fstype\": null,\n               \"size\": 3914348888064,\n               \"fsavail\": 3320698916864,\n               \"mountpoints\": [\n                   \"/etc/hosts\", \"/etc/hostname\", \"/etc/resolv.conf\"\n               ],\n               \"model\": null,\n               \"serial\": null,\n               \"sched\": \"none\"\n            }\n         ]\n      }\n   ]\n}\n"
+  },
+  "captured_at_utc": "2026-08-05",
+  "cgroup": {
+    "memory_current": "14321344512",
+    "memory_max": "125371940864"
+  },
+  "compression_dedup_reflink_gate": "UNPROVEN_AND_NOT_ACCEPTED",
+  "device_nodes_visible": {
+    "/dev/nvme0n1": false,
+    "/dev/nvme0n1p3": false
+  },
+  "host": "1bc9cbb91577",
+  "host_class": "NVIDIA GB10 coherent UMA",
+  "io_uring": {
+    "entries": 1,
+    "errno": 1,
+    "errno_name": "EPERM",
+    "result": -1,
+    "seccomp_status": "2",
+    "syscall": "io_uring_setup"
+  },
+  "kernel": "6.17.0-1026-nvidia",
+  "mount": {
+    "command": [
+      "findmnt",
+      "-J",
+      "-o",
+      "TARGET,SOURCE,FSTYPE,OPTIONS,SIZE,USED,AVAIL",
+      "-T",
+      "/workspace/k3-out-of-core"
+    ],
+    "exit_code": 0,
+    "stderr": "",
+    "stdout": "{\n   \"filesystems\": [\n      {\n         \"target\": \"/\",\n         \"source\": \"overlay\",\n         \"fstype\": \"overlay\",\n         \"options\": \"rw,relatime,lowerdir=7877/fs:7876/fs:7875/fs:7874/fs:7873/fs:7872/fs:7871/fs:7870/fs:7869/fs:95/fs:73/fs:72/fs:71/fs:70/fs:69/fs:68/fs:67/fs:66/fs:65/fs:64/fs:63/fs:62/fs:61/fs:60/fs:59/fs:58/fs:57/fs:56/fs:55/fs:54/fs:53/fs:52/fs:51/fs:50/fs:49/fs:48/fs:47/fs:46/fs:45/fs:44/fs:43/fs:42/fs:41/fs:40/fs:39/fs:38/fs:37/fs:36/fs:35/fs:34/fs:33/fs:32/fs:31/fs:30/fs,upperdir=/var/lib/docker/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/7878/fs,workdir=/var/lib/docker/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/7878/work,nouserxattr\",\n         \"size\": \"32G\",\n         \"used\": \"11.4G\",\n         \"avail\": \"20.6G\"\n      }\n   ]\n}\n"
+  },
+  "nested_head": "add1ee6adbe5264387b8b1eef0eed0ba51a59a8a",
+  "project_head": "450d5d1eb35a688b7380eee6b84bd3b0837a11c2",
+  "schema_version": "phase12p-capabilities-v1",
+  "storage_preflight": {
+    "absolute_high_water_bytes": 68719476736,
+    "available_bytes": 22163910656,
+    "available_inodes": 378823838,
+    "capacity_bytes": 34359738368,
+    "compression": "not_proven_inactive",
+    "declared_max_new_bytes": 68719476736,
+    "deduplication": "not_proven_inactive",
+    "passed": false,
+    "path": "/workspace/k3-out-of-core",
+    "persistent_ceiling_bytes": 60129542144,
+    "post_high_water_reserve_bytes": 103079215104,
+    "reflink_cow": "not_accepted_as_physical_backing",
+    "required_available_bytes": 171798691840,
+    "schema_version": "phase12p-storage-preflight-v1",
+    "temporary_ceiling_bytes": 8589934592
+  },
+  "temporary_paths": {
+    "/dev/shm": {
+      "absolute_high_water_bytes": 68719476736,
+      "available_bytes": 64424509440,
+      "available_inodes": 15941906,
+      "capacity_bytes": 64424509440,
+      "compression": "not_proven_inactive",
+      "declared_max_new_bytes": 0,
+      "deduplication": "not_proven_inactive",
+      "passed": false,
+      "path": "/dev/shm",
+      "persistent_ceiling_bytes": 60129542144,
+      "post_high_water_reserve_bytes": 103079215104,
+      "reflink_cow": "not_accepted_as_physical_backing",
+      "required_available_bytes": 103079215104,
+      "schema_version": "phase12p-storage-preflight-v1",
+      "temporary_ceiling_bytes": 8589934592
+    },
+    "/tmp": {
+      "absolute_high_water_bytes": 68719476736,
+      "available_bytes": 22163910656,
+      "available_inodes": 378823838,
+      "capacity_bytes": 34359738368,
+      "compression": "not_proven_inactive",
+      "declared_max_new_bytes": 0,
+      "deduplication": "not_proven_inactive",
+      "passed": false,
+      "path": "/tmp",
+      "persistent_ceiling_bytes": 60129542144,
+      "post_high_water_reserve_bytes": 103079215104,
+      "reflink_cow": "not_accepted_as_physical_backing",
+      "required_available_bytes": 103079215104,
+      "schema_version": "phase12p-storage-preflight-v1",
+      "temporary_ceiling_bytes": 8589934592
+    }
+  }
+}

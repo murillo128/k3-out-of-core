@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/phase12p/phase12p-storage-preflight-v1.schema.json",
+  "title": "Phase 12P storage reserve preflight",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "path", "capacity_bytes", "available_bytes", "available_inodes", "declared_max_new_bytes", "post_high_water_reserve_bytes", "required_available_bytes", "persistent_ceiling_bytes", "temporary_ceiling_bytes", "absolute_high_water_bytes", "passed", "compression", "deduplication", "reflink_cow"],
+  "properties": {
+    "schema_version": {"const": "phase12p-storage-preflight-v1"},
+    "path": {"type": "string"},
+    "capacity_bytes": {"type": "integer", "minimum": 1},
+    "available_bytes": {"type": "integer", "minimum": 0},
+    "available_inodes": {"type": "integer", "minimum": 0},
+    "declared_max_new_bytes": {"type": "integer", "minimum": 0},
+    "post_high_water_reserve_bytes": {"type": "integer", "minimum": 103079215104},
+    "required_available_bytes": {"type": "integer", "minimum": 103079215104},
+    "persistent_ceiling_bytes": {"const": 60129542144},
+    "temporary_ceiling_bytes": {"const": 8589934592},
+    "absolute_high_water_bytes": {"const": 68719476736},
+    "passed": {"type": "boolean"},
+    "compression": {"type": "string"}, "deduplication": {"type": "string"}, "reflink_cow": {"type": "string"}
+  }
+}

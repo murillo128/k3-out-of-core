@@ -1,0 +1,74 @@
+{
+  "all_shortlisted_qd_order_cache_state_cells": [],
+  "base_project_head": "450d5d1eb35a688b7380eee6b84bd3b0837a11c2",
+  "best_fair_buffered_pread_cell_per_layout_and_route_class": null,
+  "blocking_evidence": {
+    "mandatory_gates_not_run": [
+      "two_clean_full_generations",
+      "physical_backing_proof",
+      "full_matrix",
+      "full_restart_cleanup",
+      "optional_uma"
+    ],
+    "observed_nvme": "A 3.6 TB NVMe partition is reported by lsblk/findmnt only through file bind mounts for /etc/hosts, /etc/hostname, and /etc/resolv.conf; neither its block node nor a writable filesystem mount is exposed.",
+    "preliminary_screening_disposition": "SCREENING_BLOCKED",
+    "reason": "No writable mounted filesystem in the execution container satisfies declared 64 GiB maximum new bytes plus the required max(96 GiB, 10% capacity) reserve.",
+    "safety_action": "Stopped before creating the 1,446,456,066,048-byte logical sparse store or any generated payload.",
+    "schema_version": "phase12p-blocked-evidence-v1",
+    "status": "BLOCKED_BEFORE_CORPUS",
+    "thresholds": {
+      "absolute_high_water_bytes": 68719476736,
+      "available_bytes": 22163910656,
+      "available_inodes": 378823838,
+      "capacity_bytes": 34359738368,
+      "compression": "not_proven_inactive",
+      "declared_max_new_bytes": 68719476736,
+      "deduplication": "not_proven_inactive",
+      "passed": false,
+      "path": "/workspace/k3-out-of-core",
+      "persistent_ceiling_bytes": 60129542144,
+      "post_high_water_reserve_bytes": 103079215104,
+      "reflink_cow": "not_accepted_as_physical_backing",
+      "required_available_bytes": 171798691840,
+      "schema_version": "phase12p-storage-preflight-v1",
+      "temporary_ceiling_bytes": 8589934592
+    }
+  },
+  "checksum_index_sha256": "cec9d5b17cc9f2a92b2df93161c787aa22429df1ca91d7fe403877437ad9586e",
+  "corpus_identity": null,
+  "correctness_and_negative_test_disposition": "TOOLING_FIXTURES_ONLY_FULL_SCALE_BLOCKED",
+  "execution_profile": "STANDARD",
+  "generator_version": "phase12p-k3-payload-v1",
+  "layout_a_definition_sha256": null,
+  "layout_b_definition_sha256": null,
+  "limitations": [
+    "No full corpus or decision-driving measurement was created.",
+    "Fixture tests are tooling validation and not storage performance evidence.",
+    "No storage-layout conclusion, full-model inference, native io_uring, GDS, or cross-hardware claim is made."
+  ],
+  "optional_uma_disposition": "BLOCKED_CORPUS_UNAVAILABLE",
+  "per_layout_physical_allocation_and_extent_proof": null,
+  "phase11_manifest_identity": {
+    "git_blob": "7e17f92dfed17fbf02b39d3e75621112f05c1ea7",
+    "path": "results/2026-08-04/msi-edgexpert-gb10/phase11-uma/phase11-manifest.json",
+    "sha256": "d1858c68c77f75bb13ed5567533b85204b26dea67fdae6de537c65f198c4bfda",
+    "size": 11577
+  },
+  "phase12p_final_nested_gitlink": "add1ee6adbe5264387b8b1eef0eed0ba51a59a8a",
+  "phase12p_final_project_head": null,
+  "phase12p_schema_version": "phase12p-manifest-v1",
+  "phase8_descriptor_identity": {
+    "git_blob": "7dfba1fb4f03a33735d160a77f683a34db05f59d",
+    "path": "results/2026-07-31/skynet/phase8-miss-execution/synthetic-store.json",
+    "sha256": "74e3230b37a23b1c1b0259f663d3f24cb9fb55c06ac650fda12f25f16826c7bc",
+    "size": 4826
+  },
+  "preliminary_screening_disposition": "SCREENING_BLOCKED",
+  "raw_archive_sha256": "118b41535b28eea4a5baa0e5dc26618eac9e87d7862056021e9b4a0468f4bf9e",
+  "raw_archive_size": 20480,
+  "raw_archive_uri": "results/2026-08-05/msi-edgexpert-gb10/phase12p/phase12p-raw.tar",
+  "route_artifact_sha256": "260b81ad71bc0c6b8ffcd31ac7b60e139a363152009021d41d5c8b69ac8cd919",
+  "route_schema_version": "phase12p-route-corpus-v1",
+  "self_identity": "manifest excludes its own hash and final project head remains unset until publication",
+  "status": "blocked-review-candidate"
+}

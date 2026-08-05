@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/phase12p/phase12p-manifest-v1.schema.json",
+  "title": "Phase 12P technical manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["phase12p_schema_version", "execution_profile", "status", "phase12p_final_project_head", "phase12p_final_nested_gitlink", "base_project_head", "phase8_descriptor_identity", "phase11_manifest_identity", "corpus_identity", "generator_version", "route_schema_version", "route_artifact_sha256", "layout_a_definition_sha256", "layout_b_definition_sha256", "per_layout_physical_allocation_and_extent_proof", "best_fair_buffered_pread_cell_per_layout_and_route_class", "all_shortlisted_qd_order_cache_state_cells", "correctness_and_negative_test_disposition", "optional_uma_disposition", "preliminary_screening_disposition", "limitations", "raw_archive_uri", "raw_archive_size", "raw_archive_sha256", "checksum_index_sha256", "blocking_evidence", "self_identity"],
+  "properties": {
+    "phase12p_schema_version": {"const": "phase12p-manifest-v1"},
+    "execution_profile": {"const": "STANDARD"},
+    "status": {"enum": ["blocked-review-candidate", "final-review-candidate", "accepted"]},
+    "phase12p_final_project_head": {"type": ["string", "null"], "pattern": "^[0-9a-f]{40}$"},
+    "phase12p_final_nested_gitlink": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "base_project_head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "phase8_descriptor_identity": {"$ref": "#/$defs/identity"},
+    "phase11_manifest_identity": {"$ref": "#/$defs/identity"},
+    "corpus_identity": {"type": ["object", "null"]},
+    "generator_version": {"const": "phase12p-k3-payload-v1"},
+    "route_schema_version": {"const": "phase12p-route-corpus-v1"},
+    "route_artifact_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "layout_a_definition_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+    "layout_b_definition_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+    "per_layout_physical_allocation_and_extent_proof": {"type": ["object", "null"]},
+    "best_fair_buffered_pread_cell_per_layout_and_route_class": {"type": ["object", "null"]},
+    "all_shortlisted_qd_order_cache_state_cells": {"type": "array"},
+    "correctness_and_negative_test_disposition": {"type": "string", "minLength": 1},
+    "optional_uma_disposition": {"type": "string", "minLength": 1},
+    "preliminary_screening_disposition": {"enum": ["GGUF_SCREENING_NOT_DISADVANTAGED", "CONTIGUOUS_LAYOUT_WORTH_DISCRETE_CONFIRMATION", "SCREENING_INCONCLUSIVE", "SCREENING_BLOCKED"]},
+    "limitations": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "raw_archive_uri": {"type": "string", "minLength": 1},
+    "raw_archive_size": {"type": "integer", "minimum": 1},
+    "raw_archive_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "checksum_index_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "blocking_evidence": {"type": "object"},
+    "self_identity": {"type": "string", "minLength": 1}
+  },
+  "$defs": {
+    "identity": {"type": "object", "additionalProperties": false, "required": ["path", "git_blob", "size", "sha256"], "properties": {"path": {"type": "string"}, "git_blob": {"type": "string", "pattern": "^[0-9a-f]{40}$"}, "size": {"type": "integer", "minimum": 1}, "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}}
+  }
+}
