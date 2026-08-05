@@ -1,0 +1,221 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/phase12/heterogeneous-layout-validation-v1.schema.json",
+  "title": "Heterogeneous expert layout validation technical manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "observed_at_utc",
+    "revisions",
+    "artifact",
+    "environment",
+    "builds",
+    "fixed_defaults",
+    "commands",
+    "layout_registry",
+    "universal_tiers",
+    "correctness",
+    "resource_bounds",
+    "checkpoints",
+    "result",
+    "limitations",
+    "archives"
+  ],
+  "properties": {
+    "schema_version": { "const": "heterogeneous-layout-validation-v1" },
+    "observed_at_utc": { "type": "string", "format": "date-time" },
+    "revisions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["project_base", "project_technical_head", "nested_base", "nested_head", "gitlink"],
+      "properties": {
+        "project_base": { "$ref": "#/definitions/revision" },
+        "project_technical_head": { "$ref": "#/definitions/revision" },
+        "nested_base": { "$ref": "#/definitions/revision" },
+        "nested_head": { "$ref": "#/definitions/revision" },
+        "gitlink": { "$ref": "#/definitions/revision" }
+      }
+    },
+    "artifact": {
+      "type": "object",
+      "required": ["model_family", "architecture", "repository", "revision", "variant", "files", "accepted_verification"],
+      "properties": {
+        "model_family": { "type": "string" },
+        "architecture": { "type": "string" },
+        "repository": { "type": "string" },
+        "revision": { "$ref": "#/definitions/revision" },
+        "variant": { "type": "string" },
+        "files": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": { "$ref": "#/definitions/artifact_file" }
+        },
+        "accepted_verification": { "$ref": "#/definitions/evidence_reference" }
+      }
+    },
+    "environment": { "type": "object" },
+    "builds": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["name", "configuration", "status"],
+        "properties": {
+          "name": { "type": "string" },
+          "configuration": { "type": "object" },
+          "status": { "enum": ["pass", "fail", "not_run"] },
+          "tests_passed": { "type": "integer", "minimum": 0 },
+          "tests_total": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "fixed_defaults": { "type": "object" },
+    "commands": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "argv"],
+        "properties": {
+          "name": { "type": "string" },
+          "argv": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+          "exit_status": { "type": "integer" }
+        }
+      }
+    },
+    "layout_registry": {
+      "type": "object",
+      "required": ["maximum_classes", "class_count", "ordering", "classes", "layer_class_ids", "preflight"],
+      "properties": {
+        "maximum_classes": { "const": 8 },
+        "class_count": { "type": "integer", "minimum": 1, "maximum": 8 },
+        "ordering": { "type": "object" },
+        "classes": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": {
+            "type": "object",
+            "required": [
+              "id", "canonical_digest_fnv1a64", "layers", "projection_types", "payload_bytes",
+              "hot_padding_bytes", "cold_padding_bytes", "lane_padding_bytes",
+              "stage_bundles", "stage_bytes", "h2d_bundles", "h2d_bytes"
+            ]
+          }
+        },
+        "layer_class_ids": { "type": "array", "minItems": 1, "items": { "type": "integer", "minimum": 0, "maximum": 7 } },
+        "preflight": {
+          "type": "object",
+          "required": ["passed", "consumer_count", "operation", "allocation_before_workers"],
+          "properties": {
+            "passed": { "type": "boolean" },
+            "consumer_count": { "type": "integer", "minimum": 0 },
+            "operation": { "type": "string" },
+            "allocation_before_workers": { "type": "boolean" }
+          }
+        }
+      }
+    },
+    "universal_tiers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["hot", "cold", "transfer_ring"],
+      "properties": {
+        "hot": { "$ref": "#/definitions/tier" },
+        "cold": { "$ref": "#/definitions/tier" },
+        "transfer_ring": { "$ref": "#/definitions/tier" }
+      }
+    },
+    "correctness": { "type": "object" },
+    "resource_bounds": { "type": "object" },
+    "checkpoints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mechanism", "full_model"],
+      "properties": {
+        "mechanism": { "$ref": "#/definitions/checkpoint" },
+        "full_model": { "$ref": "#/definitions/checkpoint" }
+      }
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "final_capable", "disposition", "claims"],
+      "properties": {
+        "status": { "enum": ["in_progress", "positive", "negative"] },
+        "final_capable": { "type": "boolean" },
+        "disposition": { "type": "string" },
+        "claims": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "limitations": { "type": "array", "items": { "type": "string" } },
+    "archives": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/definitions/archive" }
+    }
+  },
+  "definitions": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "revision": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "artifact_file": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "bytes", "sha256"],
+      "properties": {
+        "name": { "type": "string" },
+        "bytes": { "type": "integer", "minimum": 1 },
+        "sha256": { "$ref": "#/definitions/sha256" }
+      }
+    },
+    "evidence_reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "bytes", "sha256"],
+      "properties": {
+        "path": { "type": "string" },
+        "bytes": { "type": "integer", "minimum": 1 },
+        "sha256": { "$ref": "#/definitions/sha256" }
+      }
+    },
+    "tier": {
+      "type": "object",
+      "required": ["requested", "actual", "stride", "count", "unused", "role_offsets", "role_extents"],
+      "properties": {
+        "requested": { "type": "integer", "minimum": 0 },
+        "actual": { "type": "integer", "minimum": 0 },
+        "stride": { "type": "integer", "minimum": 1 },
+        "count": { "type": "integer", "minimum": 1 },
+        "unused": { "type": "integer", "minimum": 0 },
+        "role_offsets": { "type": "array", "items": { "type": "integer", "minimum": 0 } },
+        "role_extents": { "type": "array", "items": { "type": "integer", "minimum": 0 } }
+      }
+    },
+    "checkpoint": {
+      "type": "object",
+      "required": ["status", "final_capable", "gates"],
+      "properties": {
+        "status": { "enum": ["pending", "pass", "fail", "blocked"] },
+        "final_capable": { "type": "boolean" },
+        "gates": { "type": "object" }
+      }
+    },
+    "archive": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["checkpoint", "format", "storage_path", "bytes", "sha256", "member_count", "index"],
+      "properties": {
+        "checkpoint": { "enum": ["mechanism", "full_model"] },
+        "format": { "enum": ["tar.zst", "tar.gz"] },
+        "storage_path": { "type": "string" },
+        "bytes": { "type": "integer", "minimum": 1 },
+        "sha256": { "$ref": "#/definitions/sha256" },
+        "member_count": { "type": "integer", "minimum": 1 },
+        "index": { "type": "string" }
+      }
+    }
+  }
+}
