@@ -1,0 +1,11 @@
+# DeepSeek-V4 24 GB continuation validation
+
+Checkpoint B is final-capable at project technical revision `781d50a632227c19f310ee0b24e6034fc9ceda04` and nested revision `c5a3b0bac47d89bfa4b7807a5ebf1e87a1e692e2`. The exact four-split UD-Q3_K_XL artifact and accepted #47/#52 evidence were verified and reused; artifact acquisition, inventory, layout design, and prior correctness proofs were not repeated.
+
+The final disposition is `SUPPORTED_EXPERIMENTAL_UNSELECTED`. The provider remains correct, deterministic, bounded, and explicit/nondefault, but no tested cell justifies selection over a conventional path on this exact RTX 3090 host. Five confirmed provider processes produced identical 24-token IDs/text, logits hashes, all 1,032 route records, semantic policy sequences, mechanism counts, and terminal state digests. Across 115 post-prefill samples, nearest-rank latency was p50 `6.123 s`, p95 `7.437 s`, p99 `9.909 s`, at `0.1579 token/s`.
+
+The selected confirmation cell used 268 hot slots (`4,286,284,800` bytes), 335 cold slots (`17,145,139,200` bytes), four transfer lanes (`67,173,120` pinned bytes), automatic effective queue depth 256, and forced positional reads. It retained at least `12,466 MiB` free VRAM, `137,306,861,568` MemAvailable bytes, and `59,082,264,576` filesystem bytes, with zero major faults, swap, cgroup pressure/OOM events, short reads, I/O errors, dropped traces, or cleanup failures.
+
+The refreshed conventional medians were `5.9 token/s` for `--fit` and `3.8 token/s` for explicit CPU-MoE, versus provider median process throughput `0.1579 token/s`. Larger cold capacities reduced bytes but not latency/throughput; two and four lanes tied on throughput; native buffered io_uring was slower; queue depths 1/4 were below the validated invariant and depth 8 failed closed; direct I/O was unavailable with `EOPNOTSUPP`.
+
+The authoritative technical record is `manifest.json`; screening and confirmation detail are in `screening-matrix.json` and `confirmation.json`. Raw evidence is archived at `/workspace/evidence/issue45-resume-archive/4dd6719656829425f0481bfde7b707a4c079d8b584d2338416c7ba077d54ebed.tar.zst` with SHA-256 `4dd6719656829425f0481bfde7b707a4c079d8b584d2338416c7ba077d54ebed`.

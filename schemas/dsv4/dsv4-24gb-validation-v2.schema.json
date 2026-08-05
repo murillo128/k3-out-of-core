@@ -1,0 +1,191 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/dsv4/dsv4-24gb-validation-v2.schema.json",
+  "title": "DeepSeek V4 24 GB continuation validation technical manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "observed_at_utc",
+    "revisions",
+    "accepted_evidence",
+    "artifact",
+    "environment",
+    "fixed_workload",
+    "fixed_defaults",
+    "runtime_changes",
+    "screening",
+    "confirmation",
+    "attribution",
+    "checkpoint_b",
+    "result",
+    "limitations",
+    "archive"
+  ],
+  "properties": {
+    "schema_version": { "const": "dsv4-24gb-validation-v2" },
+    "observed_at_utc": { "type": "string", "format": "date-time" },
+    "revisions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["project_base", "project_technical_head", "nested_base", "nested_head", "gitlink"],
+      "properties": {
+        "project_base": { "$ref": "#/definitions/revision" },
+        "project_technical_head": { "$ref": "#/definitions/revision" },
+        "nested_base": { "$ref": "#/definitions/revision" },
+        "nested_head": { "$ref": "#/definitions/revision" },
+        "gitlink": { "$ref": "#/definitions/revision" }
+      }
+    },
+    "accepted_evidence": {
+      "type": "array",
+      "minItems": 4,
+      "items": { "$ref": "#/definitions/evidence_reference" }
+    },
+    "artifact": {
+      "type": "object",
+      "required": ["repository", "revision", "variant", "total_bytes", "files", "verification"],
+      "properties": {
+        "repository": { "type": "string" },
+        "revision": { "$ref": "#/definitions/revision" },
+        "variant": { "type": "string" },
+        "total_bytes": { "type": "integer", "minimum": 1 },
+        "files": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": { "$ref": "#/definitions/artifact_file" }
+        },
+        "verification": { "type": "object" }
+      }
+    },
+    "environment": { "type": "object" },
+    "fixed_workload": {
+      "type": "object",
+      "required": ["n_ctx", "n_batch", "n_ubatch", "seed", "temperature", "screening_tokens", "confirmation_tokens", "rendered_prompt"],
+      "properties": {
+        "n_ctx": { "const": 4096 },
+        "n_batch": { "const": 128 },
+        "n_ubatch": { "const": 128 },
+        "seed": { "const": 1 },
+        "temperature": { "const": 0 },
+        "screening_tokens": { "type": "integer", "minimum": 8 },
+        "confirmation_tokens": { "type": "integer", "minimum": 8 },
+        "rendered_prompt": { "$ref": "#/definitions/identity" }
+      }
+    },
+    "fixed_defaults": { "type": "object" },
+    "runtime_changes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["revision", "classification", "purpose", "regression"],
+        "properties": {
+          "revision": { "$ref": "#/definitions/revision" },
+          "classification": { "enum": ["evidence_only", "defect_fix"] },
+          "purpose": { "type": "string" },
+          "regression": { "type": "string" }
+        }
+      }
+    },
+    "screening": { "$ref": "#/definitions/committed_document" },
+    "confirmation": { "$ref": "#/definitions/committed_document" },
+    "attribution": { "type": "object" },
+    "checkpoint_b": {
+      "type": "object",
+      "required": ["status", "final_capable", "gates"],
+      "properties": {
+        "status": { "const": "pass" },
+        "final_capable": { "const": true },
+        "gates": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": { "const": "pass" }
+        }
+      }
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "disposition", "selected_provider_configuration", "claims"],
+      "properties": {
+        "status": { "enum": ["positive", "negative", "blocked"] },
+        "disposition": {
+          "enum": [
+            "SUPPORTED_EXPLICIT_NONDEFAULT",
+            "SUPPORTED_EXPERIMENTAL_UNSELECTED",
+            "NOT_RECOMMENDED_ON_24GB",
+            "BLOCKED"
+          ]
+        },
+        "selected_provider_configuration": { "type": ["object", "null"] },
+        "claims": { "type": "array", "minItems": 1, "items": { "type": "string" } }
+      }
+    },
+    "limitations": { "type": "array", "items": { "type": "string" } },
+    "archive": { "$ref": "#/definitions/archive" }
+  },
+  "definitions": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "revision": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["bytes", "sha256"],
+      "properties": {
+        "bytes": { "type": "integer", "minimum": 1 },
+        "sha256": { "$ref": "#/definitions/sha256" }
+      }
+    },
+    "artifact_file": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "bytes", "sha256"],
+      "properties": {
+        "name": { "type": "string" },
+        "bytes": { "type": "integer", "minimum": 1 },
+        "sha256": { "$ref": "#/definitions/sha256" }
+      }
+    },
+    "evidence_reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "path", "bytes", "sha256", "accepted_revisions"],
+      "properties": {
+        "role": { "type": "string" },
+        "path": { "type": "string" },
+        "bytes": { "type": "integer", "minimum": 1 },
+        "sha256": { "$ref": "#/definitions/sha256" },
+        "accepted_revisions": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": { "$ref": "#/definitions/revision" }
+        }
+      }
+    },
+    "committed_document": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "bytes", "sha256"],
+      "properties": {
+        "path": { "type": "string" },
+        "bytes": { "type": "integer", "minimum": 1 },
+        "sha256": { "$ref": "#/definitions/sha256" }
+      }
+    },
+    "archive": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["format", "storage_path", "bytes", "sha256", "member_count", "index"],
+      "properties": {
+        "format": { "const": "tar.zst" },
+        "storage_path": { "type": "string" },
+        "bytes": { "type": "integer", "minimum": 1 },
+        "sha256": { "$ref": "#/definitions/sha256" },
+        "member_count": { "type": "integer", "minimum": 1 },
+        "index": { "type": "string" }
+      }
+    }
+  }
+}

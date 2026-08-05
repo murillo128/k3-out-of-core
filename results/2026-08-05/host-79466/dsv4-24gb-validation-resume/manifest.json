@@ -1,0 +1,261 @@
+{
+  "accepted_evidence": [
+    {
+      "accepted_revisions": {
+        "nested": "9e8d62a465f9663e2a81c0362c2ce530fe442f28",
+        "project": "d9a0c60649816d436a86aa9c3d8d928f426b3d92"
+      },
+      "bytes": 13340,
+      "path": "results/2026-08-04/host-79466/dsv4-24gb-validation/manifest.json",
+      "role": "accepted v1 manifest",
+      "sha256": "6b322143b4c499cf5bbfe9ea0103d42931f2888699fac014178e7f530380b137"
+    },
+    {
+      "accepted_revisions": {
+        "nested": "9e8d62a465f9663e2a81c0362c2ce530fe442f28",
+        "project": "d9a0c60649816d436a86aa9c3d8d928f426b3d92"
+      },
+      "bytes": 3476,
+      "path": "results/2026-08-04/host-79466/dsv4-24gb-validation/archive-index.json",
+      "role": "accepted v1 archive index",
+      "sha256": "e19c51121cb332183d935307edbb9a126f1952b93ea6a9597c7154ec5c20a1c9"
+    },
+    {
+      "accepted_revisions": {
+        "nested": "87f6fdbb04db24078d4d5b9bdc5cd0502e17290c",
+        "project": "4e5418483db5c39afcce698fa7c42e00a107f8ef"
+      },
+      "bytes": 19630,
+      "path": "results/2026-08-05/host-79466/heterogeneous-layout/manifest.json",
+      "role": "accepted heterogeneous-layout manifest",
+      "sha256": "9dc0cab80ad751fc26ae6ea7488b3dfacb2631b3f82b92623dcf7393c79291dc"
+    },
+    {
+      "accepted_revisions": {
+        "nested": "87f6fdbb04db24078d4d5b9bdc5cd0502e17290c",
+        "project": "4e5418483db5c39afcce698fa7c42e00a107f8ef"
+      },
+      "bytes": 28793,
+      "path": "results/2026-08-05/host-79466/heterogeneous-layout/full-model-archive-index.json",
+      "role": "accepted heterogeneous-layout full-model archive index",
+      "sha256": "c7fedef97e37033a37af646e76bf779c088cb52188d732f6521ccd5a13c7cb35"
+    }
+  ],
+  "archive": {
+    "bytes": 85223833,
+    "format": "tar.zst",
+    "index": "results/2026-08-05/host-79466/dsv4-24gb-validation-resume/archive-index.json",
+    "member_count": 208,
+    "sha256": "4dd6719656829425f0481bfde7b707a4c079d8b584d2338416c7ba077d54ebed",
+    "storage_path": "/workspace/evidence/issue45-resume-archive/4dd6719656829425f0481bfde7b707a4c079d8b584d2338416c7ba077d54ebed.tar.zst"
+  },
+  "artifact": {
+    "files": [
+      {
+        "bytes": 5256864,
+        "name": "DeepSeek-V4-Flash-UD-Q3_K_XL-00001-of-00004.gguf",
+        "sha256": "951458825be77e285141adb8a71bcb72abf26ab33a39bbdead9eb7d73ef7b396"
+      },
+      {
+        "bytes": 49350774208,
+        "name": "DeepSeek-V4-Flash-UD-Q3_K_XL-00002-of-00004.gguf",
+        "sha256": "63c873e288a2ab222bf902cfda53105cdf37fd714f0aa939070f8106fdda3242"
+      },
+      {
+        "bytes": 49189072672,
+        "name": "DeepSeek-V4-Flash-UD-Q3_K_XL-00003-of-00004.gguf",
+        "sha256": "9c2c9878beb485d3553fe272edcc13f5959c31ec371f5df947fa0514b83cd4dc"
+      },
+      {
+        "bytes": 30903139232,
+        "name": "DeepSeek-V4-Flash-UD-Q3_K_XL-00004-of-00004.gguf",
+        "sha256": "2deb9faaa22707d4af983955f517f961d7e939e169a11ec129066186918a13ea"
+      }
+    ],
+    "repository": "unsloth/DeepSeek-V4-Flash-GGUF",
+    "revision": "85ce4196ab6e82852e25dfec2b7e2beaae56f5f1",
+    "total_bytes": 129448242976,
+    "variant": "UD-Q3_K_XL",
+    "verification": {
+      "additional_complete_copy_created": false,
+      "artifact_reused": true,
+      "method": "entry-gate exact size and SHA-256 refresh",
+      "status": "pass"
+    }
+  },
+  "attribution": {
+    "cache_working_set": {
+      "cold_hit_rate": 0.0006703536115300822,
+      "finding": "Larger cold capacities reduced submitted bytes by at most 11 percent in screening but did not improve throughput or p95 latency.",
+      "hot_hit_rate": 0.2625139043381535
+    },
+    "execution": {
+      "finding": "Measured storage service, staging, and H2D times do not explain the roughly 24-37x conventional gap by themselves. Kernel execution, synchronization, and non-overlapped miss handling remain a combined residual because separate GPU-kernel timing was not observable in this harness.",
+      "overlap_caveat": "Queue, service, stage, and H2D counters are cumulative across operations and must not be added as wall time."
+    },
+    "storage": {
+      "observed": "Each confirmed process submitted 65,788,575,744 bytes in 5,963 requests/17,889 positional operations with zero short reads or errors.",
+      "queue_wait_p95_us": 950481,
+      "service_p95_us": 1316
+    },
+    "transfer": {
+      "finding": "Two and four lanes were throughput-tied and the observed peak was one in-flight lane; lane count was not the limiting factor.",
+      "median_h2d_time_us_per_process": 184074,
+      "median_stage_time_us_per_process": 6823902,
+      "peak_in_flight_lanes": 1
+    },
+    "transport": {
+      "finding": "Native buffered io_uring was slower than forced positional reads; direct I/O was unavailable with EOPNOTSUPP on all four source files."
+    }
+  },
+  "checkpoint_b": {
+    "final_capable": true,
+    "gates": {
+      "accepted_evidence_reused": "pass",
+      "confirmation_sample_count": "pass",
+      "conventional_comparison": "pass",
+      "deterministic_output_and_routes": "pass",
+      "exact_artifact": "pass",
+      "immutable_archive": "pass",
+      "incremental_screening": "pass",
+      "resource_bounds": "pass",
+      "same_kernel_layout_parity_reused": "pass",
+      "shortlist_frozen": "pass",
+      "storage_integrity": "pass",
+      "terminal_cleanup": "pass"
+    },
+    "status": "pass"
+  },
+  "confirmation": {
+    "bytes": 11867,
+    "path": "results/2026-08-05/host-79466/dsv4-24gb-validation-resume/confirmation.json",
+    "sha256": "7303dd110a900cf96173c481b9cface7840b1b1f8fec4998bfe9e14d6b515126"
+  },
+  "environment": {
+    "cpu": {
+      "logical_cpus": 38,
+      "model": "Intel Xeon E5-2673 v4 @ 2.30GHz",
+      "numa_nodes": 1
+    },
+    "cuda": {
+      "toolkit": "12.8.93"
+    },
+    "gpu": {
+      "driver": "580.173.02",
+      "model": "NVIDIA GeForce RTX 3090",
+      "pci": "0000:00:08.0",
+      "vram_mib": 24576
+    },
+    "host_identifier": "79466",
+    "io_uring": {
+      "direct_io_source_support": false,
+      "kernel_disabled_sysctl": 0,
+      "native_buffered_observed": true
+    },
+    "kernel": "Linux 6.8.0-59-generic x86_64",
+    "memory": {
+      "physical_bytes": 159296397312,
+      "swap_bytes": 0
+    },
+    "observed_hostname": "ubuntu",
+    "storage": {
+      "controller": "Red Hat Virtio block 1af4:1001",
+      "filesystem": "ext4",
+      "mount_options": "rw,relatime,discard,errors=remount-ro",
+      "physical_nvme_identity_visible": false,
+      "rotational_reported": true,
+      "scheduler_reported": "none",
+      "source": "/dev/vda1",
+      "transport_reported": "none"
+    }
+  },
+  "fixed_defaults": {
+    "admission": "ALWAYS",
+    "background_promotion": false,
+    "cold_policy": "global LRU",
+    "config_source": "NULL",
+    "cuda_devices": 1,
+    "expert_dropping": false,
+    "hot_policy": "global LRU",
+    "miss_policy": "PROMOTE_AND_GPU",
+    "mtp": false,
+    "multi_gpu": false,
+    "predictive_prefetch": false,
+    "prefetch_profile": null,
+    "requests": 1,
+    "speculative_decoding": false,
+    "static_seed": false
+  },
+  "fixed_workload": {
+    "confirmation_tokens": 24,
+    "n_batch": 128,
+    "n_ctx": 4096,
+    "n_ubatch": 128,
+    "rendered_prompt": {
+      "bytes": 150,
+      "sha256": "956f20dbb9de59aba70bd6a510ad3c8ab46df35046000d925f0ae874d433a8b8"
+    },
+    "screening_tokens": 8,
+    "seed": 1,
+    "temperature": 0
+  },
+  "limitations": [
+    "The disposition applies only to the exact UD-Q3_K_XL artifact, measured runtime revisions, host class, prompt, and one-request methodology.",
+    "The physical OS page cache was warm; fresh means a new process with empty provider tiers, while decode is post-prefill warm state within that process.",
+    "Chronological cold telemetry has one benign completion/unpin interleaving variant; per-type event sequences, choices, terminal state digests, routes, logits, text, and generated IDs are exact.",
+    "Native direct I/O is BLOCKED on this filesystem/source combination by EOPNOTSUPP and was not emulated.",
+    "GPU kernel time and synchronization were not independently observable, so the residual execution cost is not split more finely than the recorded queue/service/stage/H2D data permits.",
+    "The conventional --fit path does not meet the provider VRAM reserve and is used only as the prescribed performance comparison."
+  ],
+  "observed_at_utc": "2026-08-05T16:48:36Z",
+  "result": {
+    "claims": [
+      "OBSERVED: the integrated provider is deterministic, bounded, and correct for the exact artifact and host methodology.",
+      "OBSERVED: no tested capacity, lane, queue-depth, or native-transport cell justified selection over the conventional paths.",
+      "OBSERVED: confirmed provider median process throughput was 0.157860 token/s versus 5.9 for --fit and 3.8 for explicit CPU-MoE.",
+      "OBSERVED: every confirmed provider process preserved the 6 GiB VRAM, 16 GiB MemAvailable, 55 GiB filesystem, 1 GiB pinned-memory, zero-swap, and zero-cgroup-event gates."
+    ],
+    "disposition": "SUPPORTED_EXPERIMENTAL_UNSELECTED",
+    "selected_provider_configuration": null,
+    "status": "negative"
+  },
+  "revisions": {
+    "gitlink": "c5a3b0bac47d89bfa4b7807a5ebf1e87a1e692e2",
+    "nested_base": "87f6fdbb04db24078d4d5b9bdc5cd0502e17290c",
+    "nested_head": "c5a3b0bac47d89bfa4b7807a5ebf1e87a1e692e2",
+    "project_base": "69d140e1bdc1d2462d326b101b1ae94235b85669",
+    "project_technical_head": "781d50a632227c19f310ee0b24e6034fc9ceda04"
+  },
+  "runtime_changes": [
+    {
+      "classification": "evidence_only",
+      "purpose": "Expose forced positional reads, bounded queue/service intervals, and requested queue depth.",
+      "regression": "focused expert async-I/O test passed",
+      "revision": "f94f0f600ea66af6c94d5b7920509492c038e408"
+    },
+    {
+      "classification": "defect_fix",
+      "purpose": "Accept valid IORING_FEAT_SINGLE_MMAP layouts whose SQ array follows the CQE region.",
+      "regression": "deterministic and native single-mmap tests plus focused expert async-I/O test passed",
+      "revision": "df0edbf08aa7fa1c99e6cb9e411c78d43cfa7297"
+    },
+    {
+      "classification": "evidence_only",
+      "purpose": "Expose an explicit bounded long-run async trace capacity.",
+      "regression": "focused expert async-I/O test passed",
+      "revision": "4b91b9382e669d405d7b213625a26ec7554799cf"
+    },
+    {
+      "classification": "evidence_only",
+      "purpose": "Record generated text and process CPU time in the existing provider probe.",
+      "regression": "CUDA target rebuilt and focused expert async-I/O test passed",
+      "revision": "c5a3b0bac47d89bfa4b7807a5ebf1e87a1e692e2"
+    }
+  ],
+  "schema_version": "dsv4-24gb-validation-v2",
+  "screening": {
+    "bytes": 11422,
+    "path": "results/2026-08-05/host-79466/dsv4-24gb-validation-resume/screening-matrix.json",
+    "sha256": "ae446832ba8c5891d814593d26eeec904263965d9679014cbced76cbd9e16387"
+  }
+}

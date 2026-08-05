@@ -1,0 +1,387 @@
+{
+  "baselines": {
+    "cpu_moe": {
+      "all_outputs_exact": true,
+      "all_processes_valid": true,
+      "cpu_total_time_us_per_process": [
+        63411487,
+        62257949,
+        62892516,
+        63080106,
+        62976576
+      ],
+      "generated_text": "We need to explain why careful measurement should",
+      "generated_text_sha256": "f757a1253ab8e9d19cce5a4e1c430bebd8859ed37a66cc0d41ab7571eca4820f",
+      "generated_tokens_per_process": 8,
+      "generation_tps": [
+        3.8,
+        3.8,
+        3.8,
+        3.8,
+        3.8
+      ],
+      "median_generation_tps": 3.8,
+      "minimum_disk_available_bytes": 59168284672,
+      "minimum_gpu_free_mib": 15084,
+      "minimum_mem_available_bytes": 154539745280,
+      "processes": 5,
+      "prompt_tps": [
+        4.3,
+        4.3,
+        4.2,
+        4.3,
+        4.2
+      ],
+      "records": [
+        {
+          "archive_member": "./confirmation-final/cpu-moe-r1.record.json",
+          "bytes": 2518,
+          "sha256": "8ecdb76623a62be56c41afaca3853bfad93874febc72dadae8e80978f5fc507e"
+        },
+        {
+          "archive_member": "./confirmation-final/cpu-moe-r2.record.json",
+          "bytes": 2518,
+          "sha256": "baefd3b879e9f6be1ebf62c1eb17672c95312b5db38c0f64b85a7f9575f1180b"
+        },
+        {
+          "archive_member": "./confirmation-final/cpu-moe-r3.record.json",
+          "bytes": 2518,
+          "sha256": "3065fd991fe27632f3879874bf541ca3af61e609baa391ec213a7cef49eea50f"
+        },
+        {
+          "archive_member": "./confirmation-final/cpu-moe-r4.record.json",
+          "bytes": 2518,
+          "sha256": "00ce1c410f7c586f17f58c0bd46a261f936aa27a4bd49db1b456828ee0099707"
+        },
+        {
+          "archive_member": "./confirmation-final/cpu-moe-r5.record.json",
+          "bytes": 2518,
+          "sha256": "654e3512a879722846459728c7dd8ef545d61a7c28af074973906538dc55d673"
+        }
+      ]
+    },
+    "fit": {
+      "all_outputs_exact": true,
+      "all_processes_valid": true,
+      "cpu_total_time_us_per_process": [
+        65880218,
+        67725663,
+        67047161,
+        65440679,
+        65526660
+      ],
+      "generated_text": "We need to explain why careful measurement should",
+      "generated_text_sha256": "f757a1253ab8e9d19cce5a4e1c430bebd8859ed37a66cc0d41ab7571eca4820f",
+      "generated_tokens_per_process": 8,
+      "generation_tps": [
+        6.3,
+        5.9,
+        4.0,
+        6.3,
+        4.2
+      ],
+      "median_generation_tps": 5.9,
+      "minimum_disk_available_bytes": 59102941184,
+      "minimum_gpu_free_mib": 1040,
+      "minimum_mem_available_bytes": 154738597888,
+      "processes": 5,
+      "prompt_tps": [
+        4.0,
+        4.1,
+        3.9,
+        3.8,
+        4.0
+      ],
+      "records": [
+        {
+          "archive_member": "./confirmation-final/fit-r1.record.json",
+          "bytes": 2485,
+          "sha256": "139f236bce260a2a1ff0fe8bf0f9acabc0daaf0f41ac30bfe59df2fc3c6dccd7"
+        },
+        {
+          "archive_member": "./confirmation-final/fit-r2.record.json",
+          "bytes": 2485,
+          "sha256": "413de39ae1d9b7f0148e144cd943abb7f6d9ced3b2e6e72307adcb712f49ae66"
+        },
+        {
+          "archive_member": "./confirmation-final/fit-r3.record.json",
+          "bytes": 2485,
+          "sha256": "dfbd4e55887ed7f523e9d4f0e3ec98322ff035b2a5c50478cecb6270d530761d"
+        },
+        {
+          "archive_member": "./confirmation-final/fit-r4.record.json",
+          "bytes": 2485,
+          "sha256": "8d5bf9b7c5d2b682a49e9c796c9a1223a87fbb79c66ae763649948b75f9b4c9d"
+        },
+        {
+          "archive_member": "./confirmation-final/fit-r5.record.json",
+          "bytes": 2485,
+          "sha256": "69fd2f1315f1631b2bf3aee827fcb9c5f2bebb77109239c8ed639b0c9460dc07"
+        }
+      ]
+    }
+  },
+  "comparison": {
+    "conventional_generated_text_equal": true,
+    "first_eight_generated_text_equal": true,
+    "provider_vs_cpu_moe_median_slowdown_factor": 24.071945582608695,
+    "provider_vs_fit_median_slowdown_factor": 37.37486287826088
+  },
+  "interleaving": {
+    "order": [
+      "fit-r1",
+      "provider-r1",
+      "cpu-moe-r1",
+      "fit-r2",
+      "provider-r2",
+      "cpu-moe-r2",
+      "fit-r3",
+      "provider-r3",
+      "cpu-moe-r3",
+      "fit-r4",
+      "provider-r4",
+      "cpu-moe-r4",
+      "fit-r5",
+      "provider-r5",
+      "cpu-moe-r5"
+    ],
+    "status": "pass"
+  },
+  "provider": {
+    "all_finite": true,
+    "all_gates_pass": true,
+    "all_repeats_exact": true,
+    "cache": {
+      "chronological_interleaving_observation": "One process interleaved LOAD_COMPLETE and UNPIN records differently; every per-type sequence, policy choice, terminal state, route, logit, and output digest remained exact.",
+      "chronological_transcript_unique_hashes": [
+        "2594eb6eb0874f704af406871a8bf4de0be9f328b9d73646fcb60b8a20eda8ae",
+        "c58c0ff5954baa8b1c80afb3ba722904a4ed56e4b130f8969dfd47c5bf73adbd"
+      ],
+      "event_type_counts_per_process": {
+        "DEMAND": 8091,
+        "EVICT": 5628,
+        "HIT": 2128,
+        "LOAD_BEGIN": 5963,
+        "LOAD_COMPLETE": 5963,
+        "PHASE_TRANSITION": 23,
+        "PIN": 14058,
+        "REQUEST_BEGIN": 24,
+        "REQUEST_END": 24,
+        "UNPIN": 13790,
+        "VICTIM_SELECTED": 5963
+      },
+      "mechanism_per_process": {
+        "active_background_flights": 0,
+        "background_useful": 0,
+        "background_wasted": 0,
+        "cold_admissions": 5963,
+        "cold_evictions": 5628,
+        "cold_hits": 4,
+        "cold_misses": 5963,
+        "cold_source_copy_bundles": 0,
+        "cold_source_copy_bytes": 0,
+        "cold_source_copy_time_us": 0,
+        "h2d_bytes": 65836941312,
+        "hot_admissions": 5967,
+        "hot_evictions": 5699,
+        "hot_hits": 2124,
+        "hot_misses": 5967
+      },
+      "semantic_per_type_transcript_sha256": "c8657ffbf36f5bd5d8e5ee21e3249b873bdedd282fbeb1a8b96ea60bcf061d75",
+      "terminal_cold_state_digest": 11688505590022919515,
+      "terminal_hot_state_digest": 18117857318770612753
+    },
+    "configuration": {
+      "cold_actual_bytes": 17145139200,
+      "cold_slots": 335,
+      "hot_actual_bytes": 4286284800,
+      "hot_slots": 268,
+      "pinned_bytes": 67173120,
+      "queue_depth_effective": 256,
+      "queue_depth_requested": 0,
+      "trace_capacity": 65536,
+      "transfer_lanes": 4,
+      "transport": "POSITIONAL"
+    },
+    "cpu_total_time_us_per_process": [
+      351011226,
+      350077227,
+      351290512,
+      349884548,
+      349702740
+    ],
+    "decode": {
+      "aggregate_throughput_tps": 0.1579495255205181,
+      "maximum_us": 9912998,
+      "median_process_throughput_tps": 0.1578601109311826,
+      "method": "nearest-rank over all post-prefill token latencies",
+      "p50_us": 6122643,
+      "p95_us": 7437376,
+      "p99_us": 9908981,
+      "process_throughput_tps": [
+        0.15821336008505715,
+        0.15759595294689152,
+        0.1578601109311826,
+        0.15864547117187616,
+        0.15743872655891378
+      ],
+      "samples": 115
+    },
+    "generated_ids": [
+      2581,
+      1309,
+      304,
+      8470,
+      3939,
+      16372,
+      11226,
+      1531,
+      23656,
+      7199,
+      9616,
+      538,
+      22283,
+      16,
+      1162,
+      344,
+      260,
+      11264,
+      12047,
+      295,
+      9356,
+      22499,
+      16,
+      455
+    ],
+    "generated_logits_sha256": "72ae0613b782685237ece586b403758383bedcdc3574a9cafbb4f66520a854db",
+    "generated_text": "We need to explain why careful measurement should distinguish observed facts from assumptions. This is a fundamental principle in scientific methodology. The",
+    "generated_text_sha256": "09e60debdbf2a04f0b2c8e9ccfcb5fe24a525086251b2ccb3468263d0841117c",
+    "processes": 5,
+    "prompt_ttft": {
+      "maximum_us": 63615238,
+      "method": "nearest-rank over one prefill/TTFT latency per process",
+      "p50_us": 63226610,
+      "p95_us": 63615238,
+      "p99_us": 63615238,
+      "samples": 5
+    },
+    "raw_probes": [
+      {
+        "archive_member": "./confirmation-final/provider-r1.probe.json.zst",
+        "bytes": 3940240,
+        "sha256": "e812b8a647250211454bf988d433df6f07cf0e2b3c29ade904e38ed4daebdd1d"
+      },
+      {
+        "archive_member": "./confirmation-final/provider-r2.probe.json.zst",
+        "bytes": 3939377,
+        "sha256": "df5bddb1c311783af7fa9ffe46b8a0c5ca3c7fb25735bc9de20c1929ee9d0d3b"
+      },
+      {
+        "archive_member": "./confirmation-final/provider-r3.probe.json.zst",
+        "bytes": 3940264,
+        "sha256": "0ec2d033478781bb8b49c3f9729fe941bd9c0ce170f5622f6860398b25b25085"
+      },
+      {
+        "archive_member": "./confirmation-final/provider-r4.probe.json.zst",
+        "bytes": 3939418,
+        "sha256": "28f56c906e481e36cd7e4df9713fd6fbcd97abacdd4e39c88a762a064846ad13"
+      },
+      {
+        "archive_member": "./confirmation-final/provider-r5.probe.json.zst",
+        "bytes": 3940100,
+        "sha256": "dc368f51190caba7edf1840a1951e35fde1be16530cf4e0522ba830091c58ecc"
+      }
+    ],
+    "records": [
+      {
+        "archive_member": "./confirmation-final/provider-r1.record.json",
+        "bytes": 12389,
+        "sha256": "2dc0864379c00da6a796b8033d9a230c047af8d313fab0f532e468b82db6278e"
+      },
+      {
+        "archive_member": "./confirmation-final/provider-r2.record.json",
+        "bytes": 12389,
+        "sha256": "542e0f1e70cbe8dd1391ea03bfd432c04a67601c1e96498bf8b897c5d7a69d5b"
+      },
+      {
+        "archive_member": "./confirmation-final/provider-r3.record.json",
+        "bytes": 12388,
+        "sha256": "6fd945d938e6583e54e32b171eb1429689197f9d2dda9341119d67cb6e5b83e0"
+      },
+      {
+        "archive_member": "./confirmation-final/provider-r4.record.json",
+        "bytes": 12388,
+        "sha256": "e8a95d9a2ac468050664ef83cae502b85aa8ea0eb8dde97b05b1c3c4f3bb6b67"
+      },
+      {
+        "archive_member": "./confirmation-final/provider-r5.record.json",
+        "bytes": 12389,
+        "sha256": "98f2ccac235eb79f87a0850f0f49a485c01114b6faf55255073bf763ba7e3004"
+      }
+    ],
+    "resources": {
+      "cgroup_memory_event_delta": 0,
+      "major_faults": 0,
+      "minimum_disk_available_bytes": 59082264576,
+      "minimum_gpu_free_mib": 12466,
+      "minimum_mem_available_bytes": 137306861568,
+      "peak_process_swap_bytes": 0,
+      "peak_pss_anon_bytes": 18058899456,
+      "peak_pss_bytes": 18313867264,
+      "peak_pss_file_bytes_at_peak_pss": 177885184,
+      "peak_rss_kib": 17951164,
+      "pinned_bytes": 67173120
+    },
+    "route_records_per_process": 1032,
+    "routes_sha256": "ea94b6f037049b8eba64505348f9ceae309321b2f3c23848add8e0a775a50231",
+    "storage": {
+      "io_errors": 0,
+      "queue_wait": {
+        "maximum_us": 1799241,
+        "method": "nearest-rank",
+        "p50_us": 64650,
+        "p95_us": 950481,
+        "p99_us": 1342759,
+        "samples": 89445
+      },
+      "read_operations_per_process": 17889,
+      "read_requests_per_process": 5963,
+      "service": {
+        "maximum_us": 7676,
+        "method": "nearest-rank",
+        "p50_us": 902,
+        "p95_us": 1316,
+        "p99_us": 1915,
+        "samples": 89445
+      },
+      "short_reads": 0,
+      "submitted_bytes_per_process": 65788575744
+    },
+    "traces": {
+      "async_records_per_process": 17889,
+      "dropped": 0,
+      "transfer_records_per_process": 5967
+    },
+    "transfer": {
+      "failed_cleanup": 0,
+      "h2d_bytes_per_process": 65836941312,
+      "h2d_time_us_per_process": [
+        179947,
+        184074,
+        177390,
+        203778,
+        196112
+      ],
+      "peak_in_flight_lanes": 1,
+      "stage_bytes_per_process": 65836941312,
+      "stage_time_us_per_process": [
+        6823902,
+        6746412,
+        6841524,
+        6915049,
+        6713003
+      ]
+    }
+  },
+  "schema_version": "dsv4-24gb-resume-confirmation-v1"
+}
