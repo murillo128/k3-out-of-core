@@ -18,7 +18,7 @@ def check(row: dict[str, str], profile: str) -> list[str]:
     errors: list[str] = []
     exact_zero = (
         "incomplete_application_slices", "cuda_packet_order_regressions", "incomplete_cuda_slices",
-        "invalid_cuda_intervals", "invalid_flows", "cuda_application_clock_mismatches",
+        "invalid_cuda_intervals", "invalid_flows", "cuda_raw_clock_mismatches",
         "required_source_loss", "cupti_errors",
         "cupti_dropped_records", "cupti_unknown_timestamps",
     )
@@ -30,7 +30,8 @@ def check(row: dict[str, str], profile: str) -> list[str]:
         "trace_stop_count": 1, "teardown_slice_count": 1, "cuda_kernel_count": 1,
         "cuda_memcpy_count": 1, "cuda_sync_count": 1, "cuda_kernel_api_matches": 1,
         "cuda_memcpy_api_matches": 1, "cuda_application_nonzero": 1, "cuda_application_matches": 1,
-        "graph_kernel_matches": 1, "common_clock_snapshots": 1, "sched_switch_count": 1,
+        "graph_kernel_matches": 1, "cuda_clock_sample_count": 1, "common_clock_snapshots": 1,
+        "sched_switch_count": 1,
         "sched_wake_count": 1, "syscall_enter_count": 1, "fault_event_count": 1,
         "process_stat_count": 1, "system_stat_count": 1,
     }

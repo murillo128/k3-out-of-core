@@ -32,6 +32,20 @@ ordered_cuda AS (
   SELECT id, track_id, ts, LAG(ts) OVER (PARTITION BY track_id ORDER BY id) AS prior_ts
   FROM cuda_activity
 ),
+kernel_raw_clock AS MATERIALIZED (
+  SELECT id, CAST(EXTRACT_ARG(arg_set_id, 'debug.correlation_id') AS INT) AS correlation_id,
+    CAST(EXTRACT_ARG(arg_set_id, 'debug.queued_ns') AS INT) AS queued_raw_ns
+  FROM slice WHERE category = 'k3.cuda' AND name = 'kernel'
+    AND CAST(EXTRACT_ARG(arg_set_id, 'debug.queued_ns') AS INT) > 0
+),
+kernel_queued_clock AS MATERIALIZED (
+  SELECT ts, CAST(EXTRACT_ARG(arg_set_id, 'debug.correlation_id') AS INT) AS correlation_id
+  FROM slice WHERE category = 'k3.cuda' AND name = 'kernel_queued'
+),
+kernel_clock_samples AS MATERIALIZED (
+  SELECT k.id, q.ts - k.queued_raw_ns AS observed_offset_ns
+  FROM kernel_raw_clock k JOIN kernel_queued_clock q USING (correlation_id)
+),
 anchors AS (
   SELECT
     MAX(CASE WHEN name = 'trace_session_start' THEN ts END) AS start_ts,
@@ -81,16 +95,10 @@ SELECT
     AND c.application_id IN (SELECT application_id FROM graph_ids)) AS graph_kernel_matches,
   (SELECT COUNT(*) FROM cuda_activity c WHERE c.name = 'memcpy'
     AND c.application_id IN (SELECT application_id FROM flight_ids)) AS flight_memcpy_matches,
-  ((SELECT COUNT(*) FROM cuda_activity c WHERE c.name = 'kernel'
-    AND c.application_id IN (SELECT application_id FROM graph_ids)
-    AND NOT EXISTS (SELECT 1 FROM graph_ids g WHERE g.application_id = c.application_id
-      AND c.ts >= g.ts - 1000000 AND c.ts + c.dur <= g.end_ts + 1000000))
-   +
-   (SELECT COUNT(*) FROM cuda_activity c WHERE c.name = 'memcpy'
-    AND c.application_id IN (SELECT application_id FROM flight_ids)
-    AND NOT EXISTS (SELECT 1 FROM flight_ids f WHERE f.application_id = c.application_id
-      AND c.ts >= f.ts - 1000000 AND c.ts + c.dur <= f.end_ts + 1000000))
-  ) AS cuda_application_clock_mismatches,
+  (SELECT COUNT(*) FROM kernel_clock_samples) AS cuda_clock_sample_count,
+  (SELECT COUNT(*) FROM kernel_clock_samples k, anchors a
+    WHERE ABS(k.observed_offset_ns - (((a.start_ts - a.start_raw) + (a.stop_ts - a.stop_raw)) / 2))
+      > 1000000) AS cuda_raw_clock_mismatches,
   (SELECT COUNT(*) FROM flows_checked) AS flow_count,
   (SELECT COUNT(*) FROM flows_checked WHERE out_category != 'k3.scheduler' OR out_name != 'flight_dispatch'
     OR in_category != 'k3.scheduler' OR in_name != 'flight_terminal' OR flight_id IS NULL) AS invalid_flows,
