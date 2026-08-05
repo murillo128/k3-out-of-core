@@ -352,7 +352,13 @@ def validate(document: dict[str, Any]) -> None:
 def full_k3_cell(probe: Path, cache: Path, name: str, budget: int, run_index: int,
         safe_limit: int = 0) -> dict[str, Any]:
     record = cache/f"full-k3-{name}-{run_index}-record.json"
-    if record.exists(): return json.loads(record.read_text())
+    if record.exists():
+        cached = json.loads(record.read_text())
+        command = cached.get("command", [])
+        cached_safe_limit = int(command[command.index("--safe-limit-bytes") + 1]) \
+            if "--safe-limit-bytes" in command else 0
+        if cached["capacity"]["requested_bytes"] == budget and cached_safe_limit == safe_limit:
+            return cached
     output = cache/f"full-k3-{name}-{run_index}-raw.json"
     command = [str(probe), "--output", str(output), "--budget-bytes", str(budget),
         "--projection-bytes", "5849088", "--layers", "92", "--experts-per-layer", "896",
