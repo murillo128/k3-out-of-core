@@ -1,0 +1,40 @@
+{
+  "schema_version": "evidence-archive-index-v1",
+  "archive": {
+    "path": "/workspace/evidence/issue49-checkpoint-a/8e94fbc95e5f6f9c338b29eef1606acf7ea84c5ab3d62b67facbb453f935af2f.tar.zst",
+    "bytes": 206683,
+    "sha256": "8e94fbc95e5f6f9c338b29eef1606acf7ea84c5ab3d62b67facbb453f935af2f",
+    "member_count": 29
+  },
+  "members": [
+    {"path":"accepted-dsv4-validation-manifest.json","bytes":13340,"sha256":"6b322143b4c499cf5bbfe9ea0103d42931f2888699fac014178e7f530380b137"},
+    {"path":"issue49-baseline-cpu-ctest.log","bytes":1042,"sha256":"3767d048baeeac14594f33aaee65c3aa8af9119a9ded5fb92c0bc23c6b4659b3"},
+    {"path":"issue49-checkpoint-a-artifact-sizes.txt","bytes":488,"sha256":"c2e450430aba6b0fe2861fcb7e2a40721dbf9f43f7fdfa44ea8f230847e3bb4e"},
+    {"path":"issue49-checkpoint-a-asan-ctest.log","bytes":1119,"sha256":"8bca5650fd13ad7d3f5b73543263651b0d6fb097f6e747935a3df54f00a9dbd2"},
+    {"path":"issue49-checkpoint-a-compute-sanitizer.json","bytes":5867825,"sha256":"503dc998831ac3b1d02f1f5b0977b90d57935663c1cb41128c7f3a7cf839d495"},
+    {"path":"issue49-checkpoint-a-compute-sanitizer.stderr","bytes":227566,"sha256":"e5885258f1abf3973d5faebfc11aea83ee76d89f0f2013cd42eabf9cd3812b08"},
+    {"path":"issue49-checkpoint-a-compute-sanitizer.stdout","bytes":235,"sha256":"6b1d6b9feb6d1eb2f6a684014774d48ae1240c1c5e9fbcd47f98435db00ed5f7"},
+    {"path":"issue49-checkpoint-a-cpu-ctest.log","bytes":1117,"sha256":"5f774f9d1a9d95ffdf265d8020037f5865fb4aa3a8c4d53bf8831f6f3b9d8ec5"},
+    {"path":"issue49-checkpoint-a-cuda-ctest.log","bytes":1119,"sha256":"63f9be5d0084acc1314a73573d37e5060a4357a09e23c2d54cd425e5912c9bb4"},
+    {"path":"issue49-checkpoint-a-disabled-final.json","bytes":37527,"sha256":"c0dc030d799e84a19ccbad05a2b3e21a5b3cd3b298df65550b66a8a258925676"},
+    {"path":"issue49-checkpoint-a-disabled-final.stderr","bytes":232121,"sha256":"9509e48771b9021e5ca3cd179e9ea5a758f85343dad74d977e5f44c1e6079177"},
+    {"path":"issue49-checkpoint-a-filesystem.txt","bytes":189,"sha256":"27de11fd0477ced5b80bf70823c07234b50f6054f8d59dbcc25615779de4dc1f"},
+    {"path":"issue49-checkpoint-a-gpu.csv","bytes":121,"sha256":"2cc53383f3912a919ed1116e42b63759762235565b4105d9b3446d787a9d9a08"},
+    {"path":"issue49-checkpoint-a-inventory.json","bytes":1172059,"sha256":"ac133a932d7e6dad625372b199544395d81b929c244fe1586d448a551de85d54"},
+    {"path":"issue49-checkpoint-a-inventory.stderr","bytes":196985,"sha256":"e4bcdeeedd1613ad5e388c99f49b965732f399c98bc11b784d2a1837b87506ef"},
+    {"path":"issue49-checkpoint-a-inventory.stdout","bytes":176,"sha256":"a2945801804fe54e2f812e97e4fda2669dc4ea0312ba1811f535987b972037e0"},
+    {"path":"issue49-checkpoint-a-kernel-sanitizer.json","bytes":22420,"sha256":"53787b20623fafc5227250e47e3fda6e4120fb2d40dcfefc47fb8716c30cf507"},
+    {"path":"issue49-checkpoint-a-kernel-sanitizer.stderr","bytes":208659,"sha256":"06fb17828a596be190c4892a49afb14bb900821a0b564c2882604bb025146d65"},
+    {"path":"issue49-checkpoint-a-kernel-sanitizer.stdout","bytes":260,"sha256":"57d57392d79e9e35edde58cc92939a515359e8cafd92019cd5e9402c54c5daa0"},
+    {"path":"issue49-checkpoint-a-lscpu.json","bytes":4133,"sha256":"22efbb01c35e9766fe3708a0cf46666dcececa5a52335d67c4c3dba797e61099"},
+    {"path":"issue49-checkpoint-a-meminfo.txt","bytes":565,"sha256":"5289237b6f0d8b2494e96122cca474167e5fd437933f0bfdbaeeda689e8c48fb"},
+    {"path":"issue49-checkpoint-a-memory.txt","bytes":210,"sha256":"242a54c45c3c22f40f9102ee8e720cccf9a551640b5b7ec4ba197394d51386df"},
+    {"path":"issue49-checkpoint-a-provider-final.json","bytes":5867822,"sha256":"509e51ddf63e0611b33770924b7600b6db1538b12406cdf7ffa4cc82e3745afd"},
+    {"path":"issue49-checkpoint-a-provider-final.stderr","bytes":230687,"sha256":"f61c1ce9191453e17772e84c782cea704fa70215a61b523e29a23cfcfd25119d"},
+    {"path":"issue49-checkpoint-a-source-spans.json","bytes":22420,"sha256":"53787b20623fafc5227250e47e3fda6e4120fb2d40dcfefc47fb8716c30cf507"},
+    {"path":"issue49-checkpoint-a-source-spans.stderr","bytes":208719,"sha256":"33884c70423240cb3f318210ec46e1d71b9f6a35f6efaf7ee43a83157bef1067"},
+    {"path":"issue49-checkpoint-a-source-spans.stdout","bytes":142,"sha256":"09f7fbcb2c2eded359435c32f443d6aaa170e35f87910be5bcd96b568e39bf3b"},
+    {"path":"issue49-checkpoint-a-swap.txt","bytes":0,"sha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},
+    {"path":"issue49-checkpoint-a-uname.txt","bytes":126,"sha256":"b63f53a3aadd2fed0dc232715319d641129ce2f352f80b8dae3e1c07711626ff"}
+  ]
+}
