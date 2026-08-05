@@ -8,7 +8,7 @@ The optional `LLAMA_PERFETTO` build emits static `k3.*` TrackEvent categories. T
 
 All application identities are unsigned numeric values. The high byte identifies the domain: request `1`, token `2`, graph `3`, scheduler flight `4`, storage `5`, transfer `6`, CUDA `7`, and resource `8`. Pair and operation identities pack bounded slot/generation/operation components below the domain byte. They are values, not addresses.
 
-Application TrackEvents use Perfetto's default `CLOCK_BOOTTIME` domain. CUPTI is registered with a `CLOCK_MONOTONIC_RAW` callback and every retained CUPTI interval is emitted with Perfetto built-in clock ID `5` (`MONOTONIC_RAW`), allowing Trace Processor clock snapshots to normalize it onto the common timeline. `trace_session_start` and `trace_session_stop` publish raw-clock anchors. Qualifying verification permits at most 1 ms of anchor residual and rejects unknown CUPTI timestamps, negative intervals, or packet order regression on a CUDA track.
+Application TrackEvents are emitted on `CLOCK_MONOTONIC_RAW`; Trace Processor normalizes them onto its common timeline. CUPTI is registered with a `CLOCK_MONOTONIC_RAW` callback and every retained CUPTI interval is emitted with Perfetto built-in clock ID `5` (`MONOTONIC_RAW`). `trace_session_start` and `trace_session_stop` publish raw-clock anchors. Qualifying verification permits at most 1 ms of anchor residual and rejects unknown CUPTI timestamps, negative intervals, or packet order regression on a CUDA track.
 
 ## Static categories
 
