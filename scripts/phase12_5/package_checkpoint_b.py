@@ -71,14 +71,17 @@ def main() -> int:
     output = args.output / args.case_name
     if output.exists():
         raise FileExistsError(output)
-    replacements = sorted((
+    replacements = [
         (str(args.capture_root), "<CAPTURE_ROOT>"),
         ("/workspace/k3-out-of-core", "<PROJECT_ROOT>"),
         ("/workspace/builds/k3-issue54-on", "<TRACE_BUILD>"),
         ("/workspace/builds/k3-issue54-tools", "<PERFETTO_TOOLS>"),
         ("/workspace/models/DeepSeek-V4-Flash-85ce4196-UD-Q3_K_XL", "<DEEPSEEK_ARTIFACT_ROOT>"),
         ("/dev/shm/k3-issue54-tiny", "<TINY_ARTIFACT_ROOT>"),
-    ), key=lambda item: len(item[0]), reverse=True)
+    ]
+    if args.reference_workload is not None:
+        replacements.append((str(args.reference_workload.parent), "<REFERENCE_ROOT>"))
+    replacements = sorted(replacements, key=lambda item: len(item[0]), reverse=True)
     inputs = {
         "capture": args.capture_root / "capture.json",
         "verification": args.capture_root / "verification.json",
