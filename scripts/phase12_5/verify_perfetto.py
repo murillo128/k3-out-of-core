@@ -49,8 +49,13 @@ def check(row: dict[str, str], profile: str) -> list[str]:
         errors.append("one or more non-zero CUPTI application correlations do not resolve")
     if scalar(row, "cuda_kernel_api_matches") != scalar(row, "cuda_kernel_count"):
         errors.append("one or more kernels do not resolve to a CUPTI API correlation")
-    if scalar(row, "clock_anchor_residual_ns") > 1_000_000:
-        errors.append(f"common-clock anchor residual exceeds 1 ms: {row['clock_anchor_residual_ns']}")
+    try:
+        clock_residual = scalar(row, "clock_anchor_residual_ns")
+    except ValueError:
+        errors.append("common-clock anchors are missing")
+    else:
+        if clock_residual > 1_000_000:
+            errors.append(f"common-clock anchor residual exceeds 1 ms: {clock_residual}")
     if scalar(row, "cupti_peak_total_bytes") < 0 or scalar(row, "cupti_peak_total_bytes") > MAX_CUPTI_BYTES:
         errors.append("CUPTI shared peak exceeds the 256 MiB hard bound or is absent")
     if scalar(row, "cupti_retained_capacity_bytes") < 0 or scalar(row, "cupti_retained_capacity_bytes") > MAX_CUPTI_BYTES:
