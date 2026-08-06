@@ -10,7 +10,7 @@ All application identities are unsigned numeric values. The high byte identifies
 
 Application TrackEvents are emitted on `CLOCK_MONOTONIC_RAW`; Trace Processor normalizes them onto its common timeline. CUPTI is registered with a `CLOCK_MONOTONIC_RAW` callback and every retained CUPTI interval is emitted with Perfetto built-in clock ID `5` (`MONOTONIC_RAW`). `trace_session_start` and `trace_session_stop` publish raw-clock anchors. Qualifying verification permits at most 1 ms of anchor residual and rejects unknown CUPTI timestamps, negative intervals, or packet order regression on a CUDA track.
 
-The SDK can repeat `OnStart`/`OnStop` callbacks for the same active high-volume system session. The producer deduplicates callbacks only while that one session is active, records `perfetto_redundant_starts` in `trace_session_stop`, and still rejects any later session after the first has stopped. Logical lifecycle verification therefore continues to require exactly one emitted start and one emitted stop.
+The SDK can repeat `OnStart`/`OnStop` callbacks for the same high-volume system session, including callbacks delivered after its logical finalization. The producer counts and ignores those callbacks without reactivating CUPTI, records `perfetto_redundant_starts` in `trace_session_stop`, and remains single-initialization per process. Logical lifecycle verification therefore continues to require exactly one emitted start and one emitted stop.
 
 ## Static categories
 
