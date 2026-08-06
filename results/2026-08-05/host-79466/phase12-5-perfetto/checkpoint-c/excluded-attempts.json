@@ -35,6 +35,30 @@
         "clock_anchor_residual_ns=1147775"
       ],
       "reason": "TRACE_INVALID"
+    },
+    {
+      "capture_target": {
+        "nested": "32d7dbd4cf1c3c0392828449bc7c29163e8831e1",
+        "project": "5a900559b53683dffad086f925e46a8870917169"
+      },
+      "case": "fit-control-r10",
+      "errors": [
+        "streamed generated_ids=0",
+        "streamed logits_fnv64=0"
+      ],
+      "reason": "IDENTITY_INCOMPLETE"
+    },
+    {
+      "capture_target": {
+        "nested": "32d7dbd4cf1c3c0392828449bc7c29163e8831e1",
+        "project": "5a900559b53683dffad086f925e46a8870917169"
+      },
+      "case": "fit-control-r11",
+      "errors": [
+        "streamed generated_ids=0",
+        "streamed logits_fnv64=0"
+      ],
+      "reason": "IDENTITY_INCOMPLETE"
     }
   ],
   "capture_target": {
@@ -42,5 +66,5 @@
     "project": "d4665e95f6bdb8ed2647c5228d7e311357411b0b"
   },
   "schema_version": "phase12-5-excluded-attempts-v1",
-  "selection_rule": "Only zero-error traces at the frozen capture target are decision-driving. Earlier pre-final-target diagnostics are also excluded by revision identity."
+  "selection_rule": "Only zero-error traces with complete adjacent identities at their recorded immutable capture target are selected. Earlier diagnostics are excluded by revision identity or the stated fixed gate."
 }

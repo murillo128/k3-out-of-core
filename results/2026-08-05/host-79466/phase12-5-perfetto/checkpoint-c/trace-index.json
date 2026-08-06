@@ -468,9 +468,9 @@
             "-st"
           ],
           "compressed": {
-            "sha256": "2936af45c7b93c171dc11d41018bda679f31ff72ff4a4444c5a8d24fc5f85c3a",
-            "size": 132178188,
-            "url": "https://github.com/murillo128/k3-out-of-core/releases/download/phase12-5-issue54-v1/fit-control-r9.pftrace.zst"
+            "sha256": "6df372d59c6ab005167aed45eb09e6401292da46571840c58b862f541ce75ab7",
+            "size": 208111114,
+            "url": "https://github.com/murillo128/k3-out-of-core/releases/download/phase12-5-issue54-v2/fit-control-r12.pftrace.zst"
           },
           "config": {
             "path": "full-stack-split-1g.pbtxt",
@@ -486,36 +486,36 @@
             "incomplete_cuda_slices": 0,
             "required_source_loss": 0
           },
-          "duration_ns": 93936732000,
-          "pid": 605398,
+          "duration_ns": 101444752000,
+          "pid": 633058,
           "query_output": {
-            "path": "cases/fit-control-r9/query-output.json",
-            "sha256": "01f7b0b8735f62f924bd7e23a993efabd4ed207afe3f207ae8df7fdabd24d694",
-            "size": 206673
+            "path": "cases/fit-control-r12/query-output.json",
+            "sha256": "5eca4be1601fd37d0c0f9e8b525bb290581048db952ec6b2018e4c9e173e9a95",
+            "size": 208334
           },
           "raw": {
-            "sha256": "75817eb53b0ff7cd8ef37d1f96bb0e9620593a8286ab7b109cab524c35bf90bf",
-            "size": 819738552,
-            "url": "https://github.com/murillo128/k3-out-of-core/releases/download/phase12-5-issue54-v1/fit-control-r9.pftrace"
+            "sha256": "1b6c40309ba922c980dc427263f26eb13eea5648482b98bbe476fa478bd12535",
+            "size": 1188116132,
+            "url": "https://github.com/murillo128/k3-out-of-core/releases/download/phase12-5-issue54-v2/fit-control-r12.pftrace"
           },
           "verification": {
-            "path": "cases/fit-control-r9/verification.json",
-            "sha256": "17466220ac4be18ab7df296e4c7247e5826f9d189de3f133003c7f846e4a50f3",
-            "size": 2454
+            "path": "cases/fit-control-r12/verification.json",
+            "sha256": "a7025a3ab913f92ff760ed054cc11eca97465b98297af54938cb493d633c5dbc",
+            "size": 2458
           }
         }
       ],
       "untraced": [
         {
-          "path": "cases/fit-control-r9/untraced-run.json",
-          "sha256": "7859f4eccf99ab33ccefcd01e1fca98bd7637918be52ad9781a3d678577757b4",
-          "size": 1721
+          "path": "cases/fit-control-r12/untraced-run.json",
+          "sha256": "78af68c96179aa00524bfaaa5d4f40258ba2089fbbae3bbaabc2c6067d361da2",
+          "size": 1725
         }
       ],
       "workload_identity": {
         "capture_target": {
-          "nested": "90347c79c8348ecf2199a419ee4112ea18238d66",
-          "project": "d4665e95f6bdb8ed2647c5228d7e311357411b0b"
+          "nested": "d67525814502370a554ca851a0057bf4b8a735f8",
+          "project": "f589f6782009480257abbcf844a3c8db3499a221"
         },
         "model_revision": "85ce4196ab6e82852e25dfec2b7e2beaae56f5f1",
         "tokens": 24
@@ -558,9 +558,9 @@
             "-st"
           ],
           "compressed": {
-            "sha256": "77a42a8bd14b4abbbaba94d457087ba39327dca933c4262e59bc4387736c2d57",
-            "size": 115263044,
-            "url": "https://github.com/murillo128/k3-out-of-core/releases/download/phase12-5-issue54-v1/cpu-moe-control-r2.pftrace.zst"
+            "sha256": "90e55555776a1f588a0f884be1aabb76f4433f82d5edfbea38400b1ed317da1f",
+            "size": 203919035,
+            "url": "https://github.com/murillo128/k3-out-of-core/releases/download/phase12-5-issue54-v2/cpu-moe-control-r3.pftrace.zst"
           },
           "config": {
             "path": "full-stack-split-1g.pbtxt",
@@ -576,36 +576,36 @@
             "incomplete_cuda_slices": 0,
             "required_source_loss": 0
           },
-          "duration_ns": 83916851000,
-          "pid": 605706,
+          "duration_ns": 85089203000,
+          "pid": 633778,
           "query_output": {
-            "path": "cases/cpu-moe-control-r2/query-output.json",
-            "sha256": "a234a6582d09c083f2007e6f380762dc8b0eb94a4317d34002b406e7398b7e8b",
-            "size": 206587
+            "path": "cases/cpu-moe-control-r3/query-output.json",
+            "sha256": "625dddf016c146be1ca824e6ce5da81e3690b4ce034a8240075d596124367a16",
+            "size": 214520
           },
           "raw": {
-            "sha256": "8fcee486b17cebd0fe03fa7b02232a2c140464fefed976bf7a82481fe766eade",
-            "size": 714426089,
-            "url": "https://github.com/murillo128/k3-out-of-core/releases/download/phase12-5-issue54-v1/cpu-moe-control-r2.pftrace"
+            "sha256": "fa412d563f293ec06fdf55592f83872a975c4084c19354799847aa7304d03ef8",
+            "size": 1156440901,
+            "url": "https://github.com/murillo128/k3-out-of-core/releases/download/phase12-5-issue54-v2/cpu-moe-control-r3.pftrace"
           },
           "verification": {
-            "path": "cases/cpu-moe-control-r2/verification.json",
-            "sha256": "980d3fbeefc3ed31aa9c5fba0102308846b33faa2482bb1d21a0cb356dea72d8",
-            "size": 2459
+            "path": "cases/cpu-moe-control-r3/verification.json",
+            "sha256": "b7dfe876b24cfbfff34475449ddf6eff33f75ef347c0569355922a326c739a32",
+            "size": 2462
           }
         }
       ],
       "untraced": [
         {
-          "path": "cases/cpu-moe-control-r2/untraced-run.json",
-          "sha256": "46385b86ea08f0884abe8fbcd6685bba04adf238a1570d8cc0f267b6af8dbe3f",
-          "size": 1746
+          "path": "cases/cpu-moe-control-r3/untraced-run.json",
+          "sha256": "41b849c656e699e2c9a6cfd62a65ef6b64b5e41829ecc1b792966d8320c156d7",
+          "size": 1748
         }
       ],
       "workload_identity": {
         "capture_target": {
-          "nested": "90347c79c8348ecf2199a419ee4112ea18238d66",
-          "project": "d4665e95f6bdb8ed2647c5228d7e311357411b0b"
+          "nested": "d67525814502370a554ca851a0057bf4b8a735f8",
+          "project": "f589f6782009480257abbcf844a3c8db3499a221"
         },
         "model_revision": "85ce4196ab6e82852e25dfec2b7e2beaae56f5f1",
         "tokens": 24
@@ -625,17 +625,17 @@
   "packet": {
     "index": {
       "path": "packet-index.json",
-      "sha256": "2edf444b8e95a91b6cdcc6045deb4fb7551357a650f9ea0b6989e621809c4783",
-      "size": 10850
+      "sha256": "c9b44f22ae75abce78f10feb11f07d3a965f9ebbd729b28cc6d0008d53d38140",
+      "size": 10856
     },
-    "sha256": "df3a7e3074029ee32079f80fe8229b5ddf0c0b7b3b6ae57e43112c51082bc40e",
-    "size": 3302624,
-    "url": "https://github.com/murillo128/k3-out-of-core/releases/download/phase12-5-issue54-v1/independent-analysis-packet.tar.zst"
+    "sha256": "e63c79e50dbcb22a51466709e82addda4f001181b6bc78a78eb16fc729f762c3",
+    "size": 1958470,
+    "url": "https://github.com/murillo128/k3-out-of-core/releases/download/phase12-5-issue54-v2/independent-analysis-packet.tar.zst"
   },
   "schema_version": "phase12-5-trace-index-v1",
   "source_revisions": {
-    "nested": "90347c79c8348ecf2199a419ee4112ea18238d66",
-    "project": "d4665e95f6bdb8ed2647c5228d7e311357411b0b"
+    "nested": "d67525814502370a554ca851a0057bf4b8a735f8",
+    "project": "f589f6782009480257abbcf844a3c8db3499a221"
   },
   "status": "complete",
   "tools": {

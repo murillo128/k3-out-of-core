@@ -28,8 +28,8 @@
     "variant": "UD-Q3_K_XL"
   },
   "capture_target": {
-    "nested": "90347c79c8348ecf2199a419ee4112ea18238d66",
-    "project": "d4665e95f6bdb8ed2647c5228d7e311357411b0b"
+    "nested": "d67525814502370a554ca851a0057bf4b8a735f8",
+    "project": "f589f6782009480257abbcf844a3c8db3499a221"
   },
   "cases": [
     {
@@ -782,28 +782,33 @@
     },
     {
       "analysis_summary": {
-        "cpu_runnable_delay_ns_across_threads": 3339364502,
-        "gpu_busy_share": 0.09538295382249629,
-        "gpu_storage_idle_share": 0.9046170461775037,
+        "cpu_runnable_delay_ns_across_threads": 4928183282,
+        "exact_generated_ids_match": true,
+        "exact_logits_identity_match": true,
+        "exact_text_match": true,
+        "finite_logits": true,
+        "gpu_busy_share": 0.07284879617099854,
+        "gpu_storage_idle_share": 0.9271512038290015,
         "gpu_storage_overlap_share": 0.0,
+        "matches_provider_generated_ids": true,
         "nonoverlap_shares": {
           "cache": 0.0,
-          "cuda_kernel": 0.02253034877437116,
-          "cuda_memcpy": 0.0010317944447434874,
-          "cuda_sync": 0.07764587970907481,
+          "cuda_kernel": 0.016790635805424094,
+          "cuda_memcpy": 0.0007770096886601951,
+          "cuda_sync": 0.059317002617425695,
           "provider_residual": 0.0,
           "scheduler": 0.0,
           "storage": 0.0,
           "transfer": 0.0,
-          "unattributed": 0.8987919770718106
+          "unattributed": 0.92311535188849
         },
-        "p50_wall_ns": 139647115,
-        "p95_wall_ns": 473583084,
-        "p99_wall_ns": 557152717,
+        "p50_wall_ns": 153592739,
+        "p95_wall_ns": 637076782,
+        "p99_wall_ns": 873893702,
         "rows": 26,
-        "traced_generation_tps_displayed": 7.0,
-        "untraced_generation_tps_displayed": 8.4,
-        "wall_sum_ns": 5919960154
+        "traced_generation_tps_displayed": 6.5,
+        "untraced_generation_tps_displayed": 7.5,
+        "wall_sum_ns": 7743799193
       },
       "capture_command": [
         "<TRACE_BUILD>/bin/llama-cli",
@@ -836,84 +841,84 @@
         "-st"
       ],
       "capture_target": {
-        "nested": "90347c79c8348ecf2199a419ee4112ea18238d66",
-        "project": "d4665e95f6bdb8ed2647c5228d7e311357411b0b"
+        "nested": "d67525814502370a554ca851a0057bf4b8a735f8",
+        "project": "f589f6782009480257abbcf844a3c8db3499a221"
       },
       "compressed": {
-        "sha256": "2936af45c7b93c171dc11d41018bda679f31ff72ff4a4444c5a8d24fc5f85c3a",
-        "size": 132178188,
-        "url": "https://github.com/murillo128/k3-out-of-core/releases/download/phase12-5-issue54-v1/fit-control-r9.pftrace.zst"
+        "sha256": "6df372d59c6ab005167aed45eb09e6401292da46571840c58b862f541ce75ab7",
+        "size": 208111114,
+        "url": "https://github.com/murillo128/k3-out-of-core/releases/download/phase12-5-issue54-v2/fit-control-r12.pftrace.zst"
       },
       "config": {
         "path": "full-stack-split-1g.pbtxt",
         "sha256": "8c55bee5e8db49bbb33ab8fa901d051e23ff22750bbdb48118308086d0b66f65",
         "size": 2520
       },
-      "directory": "fit-control-r9",
-      "duration_ns": 93936732000,
+      "directory": "fit-control-r12",
+      "duration_ns": 101444752000,
       "model_revision": "85ce4196ab6e82852e25dfec2b7e2beaae56f5f1",
       "name": "fit-control",
       "packet_documents": {
         "capture.json": {
-          "path": "cases/fit-control-r9/capture.json",
-          "sha256": "558936c7a7ed1ce45296201fcf5097c7efb152cdbe93f095e0f4427415886c03",
-          "size": 9447
+          "path": "cases/fit-control-r12/capture.json",
+          "sha256": "19656f5587be186eef33a4e5c1664ec560e37840405d686a52cd4a24a9d8cc98",
+          "size": 9499
         },
         "case.json": {
-          "path": "cases/fit-control-r9/case.json",
-          "sha256": "121ec14cda71c91f489ab24cb4ba84c92804d3c46910c2b59261efd00fa8ee32",
-          "size": 295
+          "path": "cases/fit-control-r12/case.json",
+          "sha256": "62df2038383dfc9e2b50af297ece48367acd3102675a9d75612bc27ef8fd7cb8",
+          "size": 296
         },
         "comparison.json": {
-          "path": "cases/fit-control-r9/comparison.json",
-          "sha256": "7a32d9a57fdc99a6ec740b73747687b8b2905cc17bae6f1416cacaa3dede4fcc",
-          "size": 2168
+          "path": "cases/fit-control-r12/comparison.json",
+          "sha256": "7787c722668615051c68812aef84efde0ea9ace484764cff02cbd18481ddcaae",
+          "size": 4391
         },
         "query-output.json": {
-          "path": "cases/fit-control-r9/query-output.json",
-          "sha256": "01f7b0b8735f62f924bd7e23a993efabd4ed207afe3f207ae8df7fdabd24d694",
-          "size": 206673
+          "path": "cases/fit-control-r12/query-output.json",
+          "sha256": "5eca4be1601fd37d0c0f9e8b525bb290581048db952ec6b2018e4c9e173e9a95",
+          "size": 208334
         },
         "untraced-run.json": {
-          "path": "cases/fit-control-r9/untraced-run.json",
-          "sha256": "7859f4eccf99ab33ccefcd01e1fca98bd7637918be52ad9781a3d678577757b4",
-          "size": 1721
+          "path": "cases/fit-control-r12/untraced-run.json",
+          "sha256": "78af68c96179aa00524bfaaa5d4f40258ba2089fbbae3bbaabc2c6067d361da2",
+          "size": 1725
         },
         "verification.json": {
-          "path": "cases/fit-control-r9/verification.json",
-          "sha256": "17466220ac4be18ab7df296e4c7247e5826f9d189de3f133003c7f846e4a50f3",
-          "size": 2454
+          "path": "cases/fit-control-r12/verification.json",
+          "sha256": "a7025a3ab913f92ff760ed054cc11eca97465b98297af54938cb493d633c5dbc",
+          "size": 2458
         }
       },
-      "pid": 605398,
+      "pid": 633058,
       "raw": {
-        "sha256": "75817eb53b0ff7cd8ef37d1f96bb0e9620593a8286ab7b109cab524c35bf90bf",
-        "size": 819738552,
-        "url": "https://github.com/murillo128/k3-out-of-core/releases/download/phase12-5-issue54-v1/fit-control-r9.pftrace"
+        "sha256": "1b6c40309ba922c980dc427263f26eb13eea5648482b98bbe476fa478bd12535",
+        "size": 1188116132,
+        "url": "https://github.com/murillo128/k3-out-of-core/releases/download/phase12-5-issue54-v2/fit-control-r12.pftrace"
       },
       "role": "control",
       "verification_metrics": {
         "application_category_count": 7,
-        "block_event_count": 757258,
-        "clock_anchor_residual_ns": 967008,
-        "common_clock_snapshots": 108,
+        "block_event_count": 1099919,
+        "clock_anchor_residual_ns": 547343,
+        "common_clock_snapshots": 116,
         "cuda_application_matches": 267497,
         "cuda_application_nonzero": 267497,
-        "cuda_clock_sample_count": 19776,
+        "cuda_clock_sample_count": 19790,
         "cuda_kernel_api_matches": 125346,
         "cuda_kernel_count": 125346,
         "cuda_memcpy_api_matches": 12695,
         "cuda_memcpy_count": 12695,
         "cuda_packet_order_regressions": 0,
         "cuda_raw_clock_mismatches": 0,
-        "cuda_sync_count": 10521,
+        "cuda_sync_count": 10545,
         "cupti_dropped_records": 0,
         "cupti_errors": 0,
         "cupti_peak_total_bytes": 248512288,
         "cupti_retained_capacity_bytes": 234880800,
         "cupti_unknown_timestamps": 0,
-        "fault_event_count": 440745,
-        "filemap_event_count": 18816384,
+        "fault_event_count": 591365,
+        "filemap_event_count": 28234835,
         "flight_memcpy_matches": 0,
         "flow_count": 0,
         "graph_kernel_matches": 125346,
@@ -922,15 +927,15 @@
         "invalid_cuda_intervals": 0,
         "invalid_flows": 0,
         "perfetto_redundant_starts": 0,
-        "process_stat_count": 123320,
+        "process_stat_count": 133408,
         "required_source_loss": 0,
-        "sched_switch_count": 427614,
-        "sched_wake_count": 431842,
-        "slice_count": 297409,
-        "storage_syscall_count": 697,
+        "sched_switch_count": 602645,
+        "sched_wake_count": 607060,
+        "slice_count": 297495,
+        "storage_syscall_count": 808,
         "streaming_discard_config_warnings": 2,
-        "syscall_enter_count": 25890,
-        "system_stat_count": 114420,
+        "syscall_enter_count": 29828,
+        "system_stat_count": 123453,
         "teardown_slice_count": 10,
         "trace_start_count": 1,
         "trace_stop_count": 1,
@@ -939,28 +944,33 @@
     },
     {
       "analysis_summary": {
-        "cpu_runnable_delay_ns_across_threads": 3489517196,
-        "gpu_busy_share": 0.08219086528481455,
-        "gpu_storage_idle_share": 0.9178091347151854,
+        "cpu_runnable_delay_ns_across_threads": 5408895345,
+        "exact_generated_ids_match": true,
+        "exact_logits_identity_match": true,
+        "exact_text_match": true,
+        "finite_logits": true,
+        "gpu_busy_share": 0.050602176452376864,
+        "gpu_storage_idle_share": 0.9493978235476231,
         "gpu_storage_overlap_share": 0.0,
+        "matches_provider_generated_ids": false,
         "nonoverlap_shares": {
           "cache": 0.0,
-          "cuda_kernel": 0.01769305814399635,
-          "cuda_memcpy": 0.00136543011882835,
-          "cuda_sync": 0.06721407767486332,
+          "cuda_kernel": 0.012585218362120098,
+          "cuda_memcpy": 0.0005095318836001102,
+          "cuda_sync": 0.041692775038370315,
           "provider_residual": 0.0,
           "scheduler": 0.0,
           "storage": 0.0,
           "transfer": 0.0,
-          "unattributed": 0.9137274340623119
+          "unattributed": 0.9452124747159095
         },
-        "p50_wall_ns": 151726151,
-        "p95_wall_ns": 538068816,
-        "p99_wall_ns": 553889681,
+        "p50_wall_ns": 210897399,
+        "p95_wall_ns": 888165690,
+        "p99_wall_ns": 1115361064,
         "rows": 26,
-        "traced_generation_tps_displayed": 6.4,
-        "untraced_generation_tps_displayed": 7.0,
-        "wall_sum_ns": 6625768595
+        "traced_generation_tps_displayed": 4.9,
+        "untraced_generation_tps_displayed": 6.4,
+        "wall_sum_ns": 10747718006
       },
       "capture_command": [
         "<TRACE_BUILD>/bin/llama-cli",
@@ -994,67 +1004,67 @@
         "-st"
       ],
       "capture_target": {
-        "nested": "90347c79c8348ecf2199a419ee4112ea18238d66",
-        "project": "d4665e95f6bdb8ed2647c5228d7e311357411b0b"
+        "nested": "d67525814502370a554ca851a0057bf4b8a735f8",
+        "project": "f589f6782009480257abbcf844a3c8db3499a221"
       },
       "compressed": {
-        "sha256": "77a42a8bd14b4abbbaba94d457087ba39327dca933c4262e59bc4387736c2d57",
-        "size": 115263044,
-        "url": "https://github.com/murillo128/k3-out-of-core/releases/download/phase12-5-issue54-v1/cpu-moe-control-r2.pftrace.zst"
+        "sha256": "90e55555776a1f588a0f884be1aabb76f4433f82d5edfbea38400b1ed317da1f",
+        "size": 203919035,
+        "url": "https://github.com/murillo128/k3-out-of-core/releases/download/phase12-5-issue54-v2/cpu-moe-control-r3.pftrace.zst"
       },
       "config": {
         "path": "full-stack-split-1g.pbtxt",
         "sha256": "8c55bee5e8db49bbb33ab8fa901d051e23ff22750bbdb48118308086d0b66f65",
         "size": 2520
       },
-      "directory": "cpu-moe-control-r2",
-      "duration_ns": 83916851000,
+      "directory": "cpu-moe-control-r3",
+      "duration_ns": 85089203000,
       "model_revision": "85ce4196ab6e82852e25dfec2b7e2beaae56f5f1",
       "name": "cpu-moe-control",
       "packet_documents": {
         "capture.json": {
-          "path": "cases/cpu-moe-control-r2/capture.json",
-          "sha256": "1eb18459883e3f16b9a28efc6c9ae4aafe0b2e1ebd535885ff7d16743f3d6769",
-          "size": 9493
+          "path": "cases/cpu-moe-control-r3/capture.json",
+          "sha256": "5c9785a39406fbfae6c91fe5f72c643d68afc2b777274c071c941ccd22c369c6",
+          "size": 9538
         },
         "case.json": {
-          "path": "cases/cpu-moe-control-r2/case.json",
-          "sha256": "7d777f01e5e2a635a7b69864dc8916ea4c6d651512abd682691c40b596fdd531",
+          "path": "cases/cpu-moe-control-r3/case.json",
+          "sha256": "5a5b3e8348ba7b3867cc5b1f378f74cb55c0bfc7cb9a7d05f4c4030f9857fb61",
           "size": 298
         },
         "comparison.json": {
-          "path": "cases/cpu-moe-control-r2/comparison.json",
-          "sha256": "ee345e37d5fed4d77cc0513626a565be6352a9ab45bae210381ce7c08a67fdca",
-          "size": 2198
+          "path": "cases/cpu-moe-control-r3/comparison.json",
+          "sha256": "5bec4d8ff0db70d089ca156282ff5f43fdb58600d15e259445996eac4f243f99",
+          "size": 4434
         },
         "query-output.json": {
-          "path": "cases/cpu-moe-control-r2/query-output.json",
-          "sha256": "a234a6582d09c083f2007e6f380762dc8b0eb94a4317d34002b406e7398b7e8b",
-          "size": 206587
+          "path": "cases/cpu-moe-control-r3/query-output.json",
+          "sha256": "625dddf016c146be1ca824e6ce5da81e3690b4ce034a8240075d596124367a16",
+          "size": 214520
         },
         "untraced-run.json": {
-          "path": "cases/cpu-moe-control-r2/untraced-run.json",
-          "sha256": "46385b86ea08f0884abe8fbcd6685bba04adf238a1570d8cc0f267b6af8dbe3f",
-          "size": 1746
+          "path": "cases/cpu-moe-control-r3/untraced-run.json",
+          "sha256": "41b849c656e699e2c9a6cfd62a65ef6b64b5e41829ecc1b792966d8320c156d7",
+          "size": 1748
         },
         "verification.json": {
-          "path": "cases/cpu-moe-control-r2/verification.json",
-          "sha256": "980d3fbeefc3ed31aa9c5fba0102308846b33faa2482bb1d21a0cb356dea72d8",
-          "size": 2459
+          "path": "cases/cpu-moe-control-r3/verification.json",
+          "sha256": "b7dfe876b24cfbfff34475449ddf6eff33f75ef347c0569355922a326c739a32",
+          "size": 2462
         }
       },
-      "pid": 605706,
+      "pid": 633778,
       "raw": {
-        "sha256": "8fcee486b17cebd0fe03fa7b02232a2c140464fefed976bf7a82481fe766eade",
-        "size": 714426089,
-        "url": "https://github.com/murillo128/k3-out-of-core/releases/download/phase12-5-issue54-v1/cpu-moe-control-r2.pftrace"
+        "sha256": "fa412d563f293ec06fdf55592f83872a975c4084c19354799847aa7304d03ef8",
+        "size": 1156440901,
+        "url": "https://github.com/murillo128/k3-out-of-core/releases/download/phase12-5-issue54-v2/cpu-moe-control-r3.pftrace"
       },
       "role": "control",
       "verification_metrics": {
         "application_category_count": 7,
-        "block_event_count": 736332,
-        "clock_anchor_residual_ns": 82336,
-        "common_clock_snapshots": 95,
+        "block_event_count": 1159996,
+        "clock_anchor_residual_ns": 92161,
+        "common_clock_snapshots": 96,
         "cuda_application_matches": 266546,
         "cuda_application_nonzero": 266546,
         "cuda_clock_sample_count": 19619,
@@ -1064,14 +1074,14 @@
         "cuda_memcpy_count": 12864,
         "cuda_packet_order_regressions": 0,
         "cuda_raw_clock_mismatches": 0,
-        "cuda_sync_count": 10840,
+        "cuda_sync_count": 10864,
         "cupti_dropped_records": 0,
         "cupti_errors": 0,
         "cupti_peak_total_bytes": 248512288,
         "cupti_retained_capacity_bytes": 234880800,
         "cupti_unknown_timestamps": 0,
-        "fault_event_count": 405145,
-        "filemap_event_count": 15858307,
+        "fault_event_count": 732504,
+        "filemap_event_count": 26092360,
         "flight_memcpy_matches": 0,
         "flow_count": 0,
         "graph_kernel_matches": 124207,
@@ -1080,15 +1090,15 @@
         "invalid_cuda_intervals": 0,
         "invalid_flows": 0,
         "perfetto_redundant_starts": 0,
-        "process_stat_count": 109536,
+        "process_stat_count": 110592,
         "required_source_loss": 0,
-        "sched_switch_count": 427838,
-        "sched_wake_count": 433026,
-        "slice_count": 295394,
-        "storage_syscall_count": 627,
+        "sched_switch_count": 652053,
+        "sched_wake_count": 656783,
+        "slice_count": 295466,
+        "storage_syscall_count": 998,
         "streaming_discard_config_warnings": 2,
-        "syscall_enter_count": 29165,
-        "system_stat_count": 101646,
+        "syscall_enter_count": 164703,
+        "system_stat_count": 102589,
         "teardown_slice_count": 2,
         "trace_start_count": 1,
         "trace_stop_count": 1,
@@ -1106,8 +1116,8 @@
       "not Phase 12 physical-NVMe or cold-state evidence"
     ]
   },
-  "release_tag": "phase12-5-issue54-v1",
-  "release_url": "https://github.com/murillo128/k3-out-of-core/releases/tag/phase12-5-issue54-v1",
+  "release_tag": "phase12-5-issue54-v2",
+  "release_url": "https://github.com/murillo128/k3-out-of-core/releases/tag/phase12-5-issue54-v2",
   "schema_version": "phase12-5-capture-selection-v1",
   "status": "complete",
   "tools": {
