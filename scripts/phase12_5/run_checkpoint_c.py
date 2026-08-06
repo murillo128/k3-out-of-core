@@ -264,13 +264,14 @@ def main() -> int:
         exact_text = first["generated_text_sha256"] == second["generated_text_sha256"]
         exact_ids = first["generated_ids"] == second["generated_ids"]
         exact_logits = first["logits_fnv64"] == second["logits_fnv64"]
-        expected_ids = second["generated_ids"] == EXPECTED_PROVIDER_IDS
+        matches_provider_ids = second["generated_ids"] == EXPECTED_PROVIDER_IDS
         finite_logits = first["nonfinite_logits"] == 0 and second["nonfinite_logits"] == 0
         comparison = {"kind": "control", "untraced": first, "traced": second,
             "exact_text_match": exact_text, "exact_generated_ids_match": exact_ids,
-            "exact_logits_identity_match": exact_logits, "expected_generated_ids": expected_ids,
+            "exact_logits_identity_match": exact_logits,
+            "matches_provider_generated_ids": matches_provider_ids,
             "finite_logits": finite_logits,
-            "exact_identity_match": exact_text and exact_ids and exact_logits and expected_ids and finite_logits}
+            "exact_identity_match": exact_text and exact_ids and exact_logits and finite_logits}
     event_delta = {key: after_capture["cgroup_memory_events"].get(key, 0) -
         before_capture["cgroup_memory_events"].get(key, 0) for key in
         sorted(set(before_capture["cgroup_memory_events"]) | set(after_capture["cgroup_memory_events"]))}
