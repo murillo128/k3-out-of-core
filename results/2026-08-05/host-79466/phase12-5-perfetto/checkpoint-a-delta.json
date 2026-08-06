@@ -1,0 +1,63 @@
+{
+  "schema_version": "phase12.5-checkpoint-a-delta-v1",
+  "captured_at_utc": "2026-08-05T22:29:09Z",
+  "status": "pass",
+  "decision_marker": "OBSERVED",
+  "issue": 54,
+  "captured_project_target": "d4674ae8b81c1c0d6c8470f333da3cb831ab2963",
+  "nested_target": "6de4f4fef72e9346bdad03459302adcfa19fd576",
+  "delta_from_accepted_checkpoint": {
+    "project_target": "d0caa24f117325aecad5d0b989b0e27a030be472",
+    "nested_target": "8b542eccafb6f7bc10fba7e8321029cd1ce1d5df",
+    "changes": [
+      "CUPTI intervals now carry an explicit Perfetto MONOTONIC_RAW clock ID instead of relying only on the process-global raw-clock selection",
+      "storage request spans now carry slot and ordinal identity and request-start instants carry the already measured queue wait"
+    ]
+  },
+  "builds": {
+    "off": {
+      "LLAMA_PERFETTO": false,
+      "libllama_sha256": "c22307ed59262e97181e6bec4af2eaec622f987cae70b3362dd855972f504c55",
+      "cupti_dynamic_dependencies": 0
+    },
+    "on": {
+      "LLAMA_PERFETTO": true,
+      "libllama_sha256": "c54124b4cf0b48013b06be3e1da064dc4f30ac10821ed28005794da25cf824f5",
+      "cupti_dynamic_dependencies": 1
+    }
+  },
+  "focused_tests": {
+    "command": "ctest --test-dir BUILD --output-on-failure -R 'test-(expert|hot-expert|cold-expert|perfetto)' -E '^test-expert-uma-provider$' -j 8",
+    "off": {"passed": 12, "failed": 0},
+    "on": {"passed": 12, "failed": 0}
+  },
+  "tiny_abba": {
+    "order": ["off", "on", "on", "off", "off", "on", "on", "off", "off", "on", "on", "off", "off", "on", "on", "off", "off", "on", "on", "off"],
+    "pairs": 10,
+    "exact_identity_count": 1,
+    "identity_sha256": "649a76ea47817578bc2f6689a3267ebfa5e2de070fd69d2900eaf09e7c1eb17e",
+    "side_medians": {
+      "off": {"ttft_us": 293370.0, "decode_latency_us": 73909.5, "decode_tokens_per_second": 257.0714378190783},
+      "on": {"ttft_us": 293603.0, "decode_latency_us": 73308.5, "decode_tokens_per_second": 259.1787806943802}
+    },
+    "paired_median_shift": {
+      "ttft": 0.0019678862959845445,
+      "decode_latency": -0.00022956681728031336,
+      "decode_throughput": 0.00024482119850338657
+    },
+    "maximum_regression": 0.01,
+    "pass": true
+  },
+  "deepseek_confirmation": {
+    "case": "provider-positional-selected",
+    "generated_tokens": 1,
+    "exact_identity_count": 1,
+    "identity_sha256": "54189fa794f8002ba56f5af1646984f88d5f7d3f906799ed6b1bb3052fe0bf74",
+    "generated_ids": [2581],
+    "off_latency_us": 62784414,
+    "on_latency_us": 62804424,
+    "latency_shift": 0.0003187096721171123,
+    "maximum_regression": 0.02,
+    "pass": true
+  }
+}

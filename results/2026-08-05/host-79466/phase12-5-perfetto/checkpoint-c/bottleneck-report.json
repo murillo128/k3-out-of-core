@@ -1,0 +1,363 @@
+{
+  "cases": [
+    {
+      "name": "provider-positional-selected-r12",
+      "observations": {
+        "cold_hits": 4,
+        "cold_misses": 5963,
+        "cpu_runnable_delay_ns_across_threads": 3975592221,
+        "gpu_busy_share": 0.029388481260160203,
+        "gpu_storage_idle_share": 0.35746138131652433,
+        "gpu_storage_overlap_share": 0.0190303427475495,
+        "io_uring_enabled": false,
+        "nonoverlap_shares": {
+          "cache": 0.0,
+          "cuda_kernel": 0.0007533702667386932,
+          "cuda_memcpy": 2.5350772583313333e-05,
+          "cuda_sync": 0.002652023609111683,
+          "provider_residual": 0.18741020298938385,
+          "scheduler": 0.16063877278617697,
+          "storage": 0.6321804801708649,
+          "transfer": 0.01623055414204376,
+          "unattributed": 0.00010924526309677364
+        },
+        "p50_wall_ns": 6133169155,
+        "p95_operation_service_wall_ns": 3668132,
+        "p95_storage_queue_wait_ns": 957116000,
+        "p95_wall_ns": 7247538937,
+        "p99_operation_service_wall_ns": 4520658,
+        "p99_storage_queue_wait_ns": 1344676000,
+        "p99_wall_ns": 8553626085,
+        "peak_rss_kib": 17619776,
+        "read_bytes": 65788575744,
+        "rows": 24,
+        "storage_requests": 5963,
+        "synchronous_fallback_operations": 17889,
+        "traced_decode_p95_us": 7251974,
+        "traced_throughput_tps": 0.1586801564117201,
+        "transport_actual": "POSITIONAL",
+        "untraced_decode_p95_us": 7251553,
+        "untraced_throughput_tps": 0.16143004333968522,
+        "wall_sum_ns": 208186436238
+      }
+    },
+    {
+      "name": "provider-positional-selected-r16",
+      "observations": {
+        "cold_hits": 4,
+        "cold_misses": 5963,
+        "cpu_runnable_delay_ns_across_threads": 2758039416,
+        "gpu_busy_share": 0.029430739621492154,
+        "gpu_storage_idle_share": 0.3549563652614525,
+        "gpu_storage_overlap_share": 0.018862568452671334,
+        "io_uring_enabled": false,
+        "nonoverlap_shares": {
+          "cache": 0.0,
+          "cuda_kernel": 0.0007426138551410598,
+          "cuda_memcpy": 2.5907762495081683e-05,
+          "cuda_sync": 0.0026905988931809114,
+          "provider_residual": 0.18768708107249907,
+          "scheduler": 0.1585931420926749,
+          "storage": 0.6344754635697266,
+          "transfer": 0.015673929588454878,
+          "unattributed": 0.00011126316582746253
+        },
+        "p50_wall_ns": 6165902638,
+        "p95_operation_service_wall_ns": 3623103,
+        "p95_storage_queue_wait_ns": 952287000,
+        "p95_wall_ns": 7237351295,
+        "p99_operation_service_wall_ns": 4430632,
+        "p99_storage_queue_wait_ns": 1342826000,
+        "p99_wall_ns": 8472021344,
+        "peak_rss_kib": 17619196,
+        "read_bytes": 65788575744,
+        "rows": 24,
+        "storage_requests": 5963,
+        "synchronous_fallback_operations": 17889,
+        "traced_decode_p95_us": 7241855,
+        "traced_throughput_tps": 0.15945955136887185,
+        "transport_actual": "POSITIONAL",
+        "untraced_decode_p95_us": 7169191,
+        "untraced_throughput_tps": 0.16179631275066866,
+        "wall_sum_ns": 206819056683
+      }
+    },
+    {
+      "name": "provider-buffered-io-uring-r12",
+      "observations": {
+        "cold_hits": 4,
+        "cold_misses": 5963,
+        "cpu_runnable_delay_ns_across_threads": 2871063061,
+        "gpu_busy_share": 0.018149023334141753,
+        "gpu_storage_idle_share": 0.5916345167199069,
+        "gpu_storage_overlap_share": 1.7082502819522496e-05,
+        "io_uring_enabled": true,
+        "nonoverlap_shares": {
+          "cache": 0.0,
+          "cuda_kernel": 0.0006827154722013303,
+          "cuda_memcpy": 1.816924648507539e-05,
+          "cuda_sync": 0.001486614890950805,
+          "provider_residual": 0.11548588888378188,
+          "scheduler": 0.44436826679799063,
+          "storage": 0.3902335424487709,
+          "transfer": 0.047658678972248354,
+          "unattributed": 6.612328757101697e-05
+        },
+        "p50_wall_ns": 9692997477,
+        "p95_operation_service_wall_ns": 821139222,
+        "p95_storage_queue_wait_ns": 921000,
+        "p95_wall_ns": 12032424964,
+        "p99_operation_service_wall_ns": 1139648099,
+        "p99_storage_queue_wait_ns": 1238000,
+        "p99_wall_ns": 14122966928,
+        "peak_rss_kib": 17605216,
+        "read_bytes": 65788575744,
+        "rows": 24,
+        "storage_requests": 5963,
+        "synchronous_fallback_operations": 0,
+        "traced_decode_p95_us": 12036917,
+        "traced_throughput_tps": 0.10074653268323962,
+        "transport_actual": "BUFFERED",
+        "untraced_decode_p95_us": 12250576,
+        "untraced_throughput_tps": 0.09730894811709427,
+        "wall_sum_ns": 337882806810
+      }
+    },
+    {
+      "name": "provider-cold64-positional-r2",
+      "observations": {
+        "cold_hits": 1540,
+        "cold_misses": 4427,
+        "cpu_runnable_delay_ns_across_threads": 3414868254,
+        "gpu_busy_share": 0.033146750165987914,
+        "gpu_storage_idle_share": 0.43109035140381197,
+        "gpu_storage_overlap_share": 0.020360923905025842,
+        "io_uring_enabled": false,
+        "nonoverlap_shares": {
+          "cache": 0.0,
+          "cuda_kernel": 0.0008433902033456109,
+          "cuda_memcpy": 2.9834925023024144e-05,
+          "cuda_sync": 0.0030117184653801875,
+          "provider_residual": 0.22511796849466043,
+          "scheduler": 0.19054164546285846,
+          "storage": 0.556123822335226,
+          "transfer": 0.024206234410914858,
+          "unattributed": 0.0001253857025915044
+        },
+        "p50_wall_ns": 5179799193,
+        "p95_operation_service_wall_ns": 4159016,
+        "p95_storage_queue_wait_ns": 1026087000,
+        "p95_wall_ns": 6323985274,
+        "p99_operation_service_wall_ns": 10438423,
+        "p99_storage_queue_wait_ns": 1442119000,
+        "p99_wall_ns": 6613011221,
+        "peak_rss_kib": 67913992,
+        "read_bytes": 48811933696,
+        "rows": 24,
+        "storage_requests": 4427,
+        "synchronous_fallback_operations": 13281,
+        "traced_decode_p95_us": 6328800,
+        "traced_throughput_tps": 0.19476998059066333,
+        "transport_actual": "POSITIONAL",
+        "untraced_decode_p95_us": 6107008,
+        "untraced_throughput_tps": 0.20377153107584953,
+        "wall_sum_ns": 184083284800
+      }
+    },
+    {
+      "name": "fit-control-r12",
+      "observations": {
+        "cpu_runnable_delay_ns_across_threads": 4928183282,
+        "exact_generated_ids_match": true,
+        "exact_logits_identity_match": true,
+        "exact_text_match": true,
+        "finite_logits": true,
+        "gpu_busy_share": 0.07284879617099854,
+        "gpu_storage_idle_share": 0.9271512038290015,
+        "gpu_storage_overlap_share": 0.0,
+        "matches_provider_generated_ids": true,
+        "nonoverlap_shares": {
+          "cache": 0.0,
+          "cuda_kernel": 0.016790635805424094,
+          "cuda_memcpy": 0.0007770096886601951,
+          "cuda_sync": 0.059317002617425695,
+          "provider_residual": 0.0,
+          "scheduler": 0.0,
+          "storage": 0.0,
+          "transfer": 0.0,
+          "unattributed": 0.92311535188849
+        },
+        "p50_wall_ns": 153592739,
+        "p95_wall_ns": 637076782,
+        "p99_wall_ns": 873893702,
+        "rows": 26,
+        "traced_generation_tps_displayed": 6.5,
+        "untraced_generation_tps_displayed": 7.5,
+        "wall_sum_ns": 7743799193
+      }
+    },
+    {
+      "name": "cpu-moe-control-r3",
+      "observations": {
+        "cpu_runnable_delay_ns_across_threads": 5408895345,
+        "exact_generated_ids_match": true,
+        "exact_logits_identity_match": true,
+        "exact_text_match": true,
+        "finite_logits": true,
+        "gpu_busy_share": 0.050602176452376864,
+        "gpu_storage_idle_share": 0.9493978235476231,
+        "gpu_storage_overlap_share": 0.0,
+        "matches_provider_generated_ids": false,
+        "nonoverlap_shares": {
+          "cache": 0.0,
+          "cuda_kernel": 0.012585218362120098,
+          "cuda_memcpy": 0.0005095318836001102,
+          "cuda_sync": 0.041692775038370315,
+          "provider_residual": 0.0,
+          "scheduler": 0.0,
+          "storage": 0.0,
+          "transfer": 0.0,
+          "unattributed": 0.9452124747159095
+        },
+        "p50_wall_ns": 210897399,
+        "p95_wall_ns": 888165690,
+        "p99_wall_ns": 1115361064,
+        "rows": 26,
+        "traced_generation_tps_displayed": 4.9,
+        "untraced_generation_tps_displayed": 6.4,
+        "wall_sum_ns": 10747718006
+      }
+    }
+  ],
+  "conclusion": "INFERENCE: storage request queue lifetime is the dominant selected positional-provider bottleneck, with provider/scheduler serialization and insufficient storage/GPU overlap second. GPU kernels, copies, synchronization, CPU runqueue delay, and physical read service do not explain the observed slowdown on this host. Buffered io_uring is causally slower here, while 64 GiB cold caching helps but leaves the same bottleneck shape at a large RAM cost. The result is SUPPORTED_BOTTLENECK_ATTRIBUTION, not authorization to optimize and not a substitute for Phase 12 physical-storage evidence.",
+  "limitations": [
+    "The host uses virtio/ext4 with a warm OS page cache; this is diagnostic evidence for #53 and not Phase 12 physical-NVMe, direct-I/O, or cold-state evidence.",
+    "The matrix is one prompt, one request, 24 generated tokens, one RTX 3090, and one selected provider policy/configuration.",
+    "The priority accounting intentionally assigns overlapping time to one category; changing priority would change category shares but not the recorded interval unions.",
+    "Fit and CPU-MoE controls leave 92.3% and 94.5% unattributed by provider-focused categories, so their traces reject provider/GPU explanations but do not identify their complete CPU critical path.",
+    "Selected repeats are valid and repeatable. Selected r13-r15 and fit r7-r8 were excluded by the fixed 1 ms clock gate; fit r10-r11 were superseded because their opt-in streaming identity envelopes were incomplete.",
+    "The two streaming DISCARD warnings are configuration-only; required-source loss, CUPTI drops/errors, invalid intervals, and packet-order regressions are zero in every selected trace."
+  ],
+  "method": {
+    "accounting": "Sweep-line union with fixed mutually exclusive priority: storage, transfer, CUDA sync, CUDA copy, CUDA kernel, scheduler, cache, provider, residual. Shares within a trace sum to one; cumulative counters are not treated as wall time.",
+    "observation_inference_rule": "OBSERVED values come from accepted trace intervals, verifier metrics, or adjacent run results. INFERENCE rankings require repeatability or a bounded perturbation/control contrast and state an alternative and falsifier.",
+    "percentile_definition": "Nearest-rank array index floor((N-1)*p) after ascending sort; token_critical_path has 24 provider rows and 26 control rows."
+  },
+  "rankings": [
+    {
+      "accounting": "Mean of the storage-priority union share from the two independent selected traces; disjoint from all lower-priority categories.",
+      "affected": [
+        {
+          "case": "provider-positional-selected-r12",
+          "flight_id": null,
+          "layer": null,
+          "request_id": 2,
+          "token_index": 0
+        },
+        {
+          "case": "provider-positional-selected-r16",
+          "flight_id": null,
+          "layer": null,
+          "request_id": 2,
+          "token_index": 0
+        }
+      ],
+      "alternative_explanation": "The storage span may expose upstream single-flight dispatch serialization rather than physical media latency.",
+      "bottleneck": "Positional provider storage-request queue lifetime",
+      "confidence": "HIGH",
+      "critical_path_share": 0.6333279718702958,
+      "falsifier": "A bounded later experiment that keeps media/cache state fixed but permits independent positional requests to overlap would falsify this ranking if queue-wait and token wall do not fall.",
+      "observation": [
+        "Selected repeats assign 63.218% and 63.448% of non-overlapping token wall time to storage intervals.",
+        "Storage queue-wait p95 is 957.116 ms and 952.287 ms, while operation-service-wall p95 is 3.668 ms and 3.623 ms.",
+        "Both repeats preserve 5,963 storage requests, 65,788,575,744 read bytes, exact output identity, and 0.1587-0.1595 token/s traced throughput."
+      ],
+      "rank": 1,
+      "smallest_next_action": "In a new controlling issue, run one fixed-workload positional-read scheduling experiment that changes only bounded independent-request overlap and measures the same SQL shares."
+    },
+    {
+      "accounting": "Mean selected scheduler-priority plus provider-priority union; these categories are disjoint from storage and from each other.",
+      "affected": [
+        {
+          "case": "provider-positional-selected-r12",
+          "flight_id": null,
+          "layer": null,
+          "request_id": 1,
+          "token_index": 0
+        }
+      ],
+      "alternative_explanation": "Uninstrumented CPU work nested below provider scopes could be labeled provider residual rather than true coordination wait.",
+      "bottleneck": "Provider scheduler and residual serialization outside storage",
+      "confidence": "HIGH",
+      "critical_path_share": 0.3471645994703674,
+      "falsifier": "Add bounded sub-slices around the largest provider residual intervals or sample them in a later experiment; substantial CPU execution with no wait would lower confidence.",
+      "observation": [
+        "Selected repeats assign 15.864-16.064% to scheduler intervals and 18.741-18.769% to provider residual, 34.716% combined on average.",
+        "GPU busy share is only 2.939-2.943%, and GPU/storage overlap is 1.886-1.903% of token wall.",
+        "The fit and CPU-MoE controls have p95 critical-path rows of 0.637 s and 0.888 s versus 7.237-7.248 s for the selected provider repeats.",
+        "Both adjacent control pairs preserve exact generated text, all 24 token IDs, and all 24 whole-logit identities with zero non-finite logits."
+      ],
+      "rank": 2,
+      "smallest_next_action": "In a later diagnostic issue, subdivide only the provider residual and scheduler wait/dispatch intervals for one selected repeat before changing runtime policy."
+    },
+    {
+      "accounting": "Buffered-only sum of mutually exclusive storage-priority and scheduler-priority interval unions.",
+      "affected": [
+        {
+          "case": "provider-buffered-io-uring-r12",
+          "flight_id": null,
+          "layer": null,
+          "request_id": 2,
+          "token_index": 0
+        }
+      ],
+      "alternative_explanation": "The regression could be specific to the host kernel/filesystem io_uring behavior rather than the runtime completion path.",
+      "bottleneck": "Buffered io_uring service and scheduler coordination regression",
+      "confidence": "HIGH",
+      "critical_path_share": 0.8346018092467615,
+      "falsifier": "Repeat the exact buffered case on the Phase 12 physical storage host; comparable service and scheduler shares would support a runtime cause, while their disappearance would support a host cause.",
+      "observation": [
+        "Native io_uring is enabled with zero synchronous fallback, yet traced throughput is 0.1007 token/s and p95 decode is 12.037 s.",
+        "Buffered storage service p95 is 821.139 ms while queue-wait p95 is 0.921 ms; scheduler plus storage consume 83.460% of non-overlapping token wall.",
+        "GPU/storage overlap falls to 0.0017%, so the transport does not hide the provider miss path."
+      ],
+      "rank": 3,
+      "smallest_next_action": "Do not select buffered io_uring from this host result; carry one unchanged reproduction into the physical-storage Phase 12 matrix before any implementation change."
+    },
+    {
+      "accounting": "Mechanism ranking only; no extra wall share is assigned because its latency is already accounted under storage/scheduler/provider, preventing double counting.",
+      "affected": [
+        {
+          "case": "provider-cold64-positional-r2",
+          "flight_id": null,
+          "layer": null,
+          "request_id": 2,
+          "token_index": 0
+        }
+      ],
+      "alternative_explanation": "Warm page-cache variation could contribute to the single cold64 contrast.",
+      "bottleneck": "Cold-cache miss pressure is material but RAM-expensive",
+      "confidence": "MEDIUM",
+      "critical_path_share": 0,
+      "falsifier": "A repeated fixed-cache-size physical cold-state comparison with unchanged routing would falsify the mechanism if miss/byte reductions do not track critical-path reductions.",
+      "observation": [
+        "The 64 GiB cold tier reduces misses and storage rows from 5,963 to 4,427 and read bytes from 65.789 GB to 48.812 GB.",
+        "Traced throughput rises from 0.1587-0.1595 to 0.1948 token/s, while peak RSS rises from about 17.62 million KiB to 67.91 million KiB.",
+        "Even at 64 GiB, storage remains 55.612% and scheduler/provider 41.566% of non-overlapping token wall."
+      ],
+      "rank": 4,
+      "smallest_next_action": "Retain the original Phase 12 capacity and physical-storage gates; do not adopt a 64 GiB default from this one warm-cache host trace."
+    }
+  ],
+  "schema_version": "phase12-5-bottleneck-report-v1",
+  "source_revisions": {
+    "nested": "d67525814502370a554ca851a0057bf4b8a735f8",
+    "project": "f589f6782009480257abbcf844a3c8db3499a221"
+  },
+  "status": "SUPPORTED_BOTTLENECK_ATTRIBUTION",
+  "trace_index": {
+    "path": "capture-selection.json",
+    "sha256": "6233a53128f02656c0d8e24a74763306deb11ed3f24e07cf7b5028f6eb42b007",
+    "size": 41513
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/phase12_5/trace-index-v1.schema.json",
+  "title": "Phase 12.5 immutable trace index v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "source_revisions", "artifact", "host", "tools", "cases", "packet"],
+  "properties": {
+    "schema_version": {"const": "phase12-5-trace-index-v1"},
+    "status": {"enum": ["complete", "blocked", "invalid"]},
+    "source_revisions": {
+      "type": "object", "additionalProperties": false,
+      "required": ["project", "nested"],
+      "properties": {"project": {"$ref": "#/$defs/sha1"}, "nested": {"$ref": "#/$defs/sha1"}}
+    },
+    "artifact": {
+      "type": "object", "additionalProperties": false,
+      "required": ["repository", "revision", "variant", "total_size", "splits"],
+      "properties": {
+        "repository": {"type": "string", "minLength": 1}, "revision": {"$ref": "#/$defs/sha1"},
+        "variant": {"type": "string", "minLength": 1}, "total_size": {"type": "integer", "minimum": 1},
+        "splits": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/file"}}
+      }
+    },
+    "host": {"type": "object", "required": ["identity", "kernel", "gpu", "storage_limitations"], "properties": {
+      "identity": {"type": "string"}, "kernel": {"type": "string"}, "gpu": {"type": "string"},
+      "storage_limitations": {"type": "array", "items": {"type": "string"}}
+    }, "additionalProperties": true},
+    "tools": {
+      "type": "object", "additionalProperties": false,
+      "required": ["perfetto_version", "trace_processor", "cuda_version", "cupti_version"],
+      "properties": {
+        "perfetto_version": {"const": "v50.1"}, "trace_processor": {"$ref": "#/$defs/file"},
+        "cuda_version": {"type": "string"}, "cupti_version": {"type": ["string", "integer"]}
+      }
+    },
+    "cases": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/case"}},
+    "packet": {
+      "type": "object", "additionalProperties": false,
+      "required": ["url", "size", "sha256", "index"],
+      "properties": {"url": {"type": "string", "format": "uri"}, "size": {"type": "integer", "minimum": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}, "index": {"$ref": "#/$defs/file"}}
+    }
+  },
+  "$defs": {
+    "sha1": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "file": {
+      "type": "object", "additionalProperties": false, "required": ["path", "size", "sha256"],
+      "properties": {"path": {"type": "string", "minLength": 1}, "size": {"type": "integer", "minimum": 0},
+        "sha256": {"$ref": "#/$defs/sha256"}}
+    },
+    "external_file": {
+      "type": "object", "additionalProperties": false,
+      "required": ["url", "size", "sha256"],
+      "properties": {"url": {"type": "string", "format": "uri"}, "size": {"type": "integer", "minimum": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}}
+    },
+    "run": {
+      "type": "object", "additionalProperties": false,
+      "required": ["capture_command", "pid", "duration_ns", "config", "raw", "compressed", "verification", "query_output", "drop_counts"],
+      "properties": {
+        "capture_command": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "pid": {"type": "integer", "minimum": 1}, "duration_ns": {"type": "integer", "minimum": 1},
+        "config": {"$ref": "#/$defs/file"}, "raw": {"$ref": "#/$defs/external_file"},
+        "compressed": {"$ref": "#/$defs/external_file"}, "verification": {"$ref": "#/$defs/file"},
+        "query_output": {"$ref": "#/$defs/file"},
+        "drop_counts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}}
+      }
+    },
+    "case": {
+      "type": "object", "additionalProperties": false,
+      "required": ["name", "role", "workload_identity", "untraced", "traced"],
+      "properties": {
+        "name": {"enum": ["tiny-fixture", "short-provider", "provider-positional-selected",
+          "provider-buffered-io-uring", "provider-cold64-positional", "fit-control", "cpu-moe-control"]},
+        "role": {"enum": ["checkpoint-b", "decision-driving", "control"]},
+        "workload_identity": {"type": "object", "minProperties": 1},
+        "untraced": {"type": "array", "minItems": 0, "items": {"$ref": "#/$defs/file"}},
+        "traced": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/run"}}
+      }
+    }
+  }
+}
