@@ -126,6 +126,8 @@ SELECT
   (SELECT COUNT(*) FROM counter c JOIN counter_track t ON t.id = c.track_id WHERE t.type IN ('cpustat', 'meminfo')) AS system_stat_count,
   (SELECT COALESCE(MAX(CAST(EXTRACT_ARG(arg_set_id, 'debug.cupti_errors') AS INT)), -1)
     FROM slice WHERE category = 'k3.lifecycle' AND name = 'trace_session_stop') AS cupti_errors,
+  (SELECT COALESCE(MAX(CAST(EXTRACT_ARG(arg_set_id, 'debug.perfetto_redundant_starts') AS INT)), -1)
+    FROM slice WHERE category = 'k3.lifecycle' AND name = 'trace_session_stop') AS perfetto_redundant_starts,
   (SELECT COALESCE(MAX(CAST(EXTRACT_ARG(arg_set_id, 'debug.cupti_dropped_records') AS INT)), -1)
     FROM slice WHERE category = 'k3.lifecycle' AND name = 'trace_session_stop') AS cupti_dropped_records,
   (SELECT COALESCE(MAX(CAST(EXTRACT_ARG(arg_set_id, 'debug.cupti_unknown_timestamps') AS INT)), -1)
