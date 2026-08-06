@@ -29,6 +29,7 @@ PROVIDER_CASES = {
     "provider-buffered-io-uring": {"cold_bytes": 17179869184, "transport": "BUFFERED", "trace_capacity": 0},
     "provider-cold64-positional": {"cold_bytes": 68719476736, "transport": "POSITIONAL", "trace_capacity": 0},
 }
+EVIDENCE_ENVIRONMENT = {"LLAMA_PERFETTO_EVIDENCE_IDENTITY": "1"}
 
 
 def sha256_text(value: str) -> str:
@@ -102,9 +103,12 @@ def control_command(binary: Path, cpu_moe: bool) -> list[str]:
     return command + ["--perf", "--simple-io", "--no-display-prompt", "-st"]
 
 
-def run_untraced(command: list[str], stdout: Path, stderr: Path, timeout: int) -> dict[str, Any]:
+def run_untraced(command: list[str], stdout: Path, stderr: Path, timeout: int,
+        extra_env: dict[str, str] | None = None) -> dict[str, Any]:
     env = os.environ.copy()
     env.pop("LLAMA_PERFETTO_CAPTURE", None)
+    env.pop("LLAMA_PERFETTO_EVIDENCE_IDENTITY", None)
+    env.update(extra_env or {})
     before = resource_snapshot()
     started = time.monotonic_ns()
     with stdout.open("xb") as out, stderr.open("xb") as err:
@@ -147,14 +151,28 @@ def provider_summary(path: Path) -> dict[str, Any]:
         "peak_rss_kib": value["peak_rss_kib"], "route_records": len(value["routes"])}
 
 
-def control_summary(stdout: Path) -> dict[str, Any]:
+def control_summary(stdout: Path, stderr: Path) -> dict[str, Any]:
     value = stdout.read_text(errors="replace")
     generated = re.search(r"\[Start thinking\]\s*(.*?)\s*\[ Prompt:", value, re.DOTALL)
     perf = re.search(r"\[ Prompt:\s*([0-9.]+) t/s \| Generation:\s*([0-9.]+) t/s \]", value)
     if not generated or not perf:
         raise ValueError("could not extract control generation/performance")
+    markers = re.findall(r"^LLAMA_PERFETTO_EVIDENCE_IDENTITY (\{.*\})$",
+        stderr.read_text(errors="replace"), re.MULTILINE)
+    if len(markers) != 1:
+        raise ValueError(f"expected one control identity marker, found {len(markers)}")
+    identity = json.loads(markers[0])
+    generated_ids = identity.get("generated_ids")
+    logits_fnv64 = identity.get("logits_fnv64")
+    nonfinite_logits = identity.get("nonfinite_logits")
+    if not isinstance(generated_ids, list) or not isinstance(logits_fnv64, list) or \
+            len(generated_ids) != 24 or len(logits_fnv64) != len(generated_ids) or \
+            not isinstance(nonfinite_logits, int):
+        raise ValueError("control identity marker is incomplete")
     text = generated.group(1).strip()
     return {"stdout": file_identity(stdout), "generated_text": text, "generated_text_sha256": sha256_text(text),
+        "generated_ids": generated_ids, "logits_fnv64": logits_fnv64,
+        "nonfinite_logits": nonfinite_logits,
         "prompt_tps_displayed": float(perf.group(1)), "generation_tps_displayed": float(perf.group(2))}
 
 
@@ -193,12 +211,14 @@ def main() -> int:
     case_metadata["nested_revision"] = revision(ROOT / "llama.cpp")
     case_metadata["model_revision"] = "85ce4196ab6e82852e25dfec2b7e2beaae56f5f1"
 
+    evidence_environment = {} if is_provider else EVIDENCE_ENVIRONMENT
     untraced = run_untraced(command_untraced, output / "untraced.stdout", output / "untraced.stderr",
-        args.timeout_seconds)
+        args.timeout_seconds, evidence_environment)
     if untraced["returncode"] != 0:
         raise RuntimeError(f"untraced workload exited {untraced['returncode']}")
     write_json(output / "untraced-run.json", untraced)
-    write_json(output / "command.json", {"command": command_traced})
+    write_json(output / "command.json", {"command": command_traced,
+        "environment": evidence_environment})
     write_json(output / "case.json", case_metadata)
 
     capture_command = [sys.executable, str(ROOT / "scripts/phase12_5/capture_perfetto.py"),
@@ -239,10 +259,18 @@ def main() -> int:
             "selected_perturbation_gate": args.case != "provider-positional-selected" or (
                 throughput_shift >= -.15 and p95_shift <= .20)}
     else:
-        first = control_summary(output / "untraced.stdout")
-        second = control_summary(output / "traced.stdout")
+        first = control_summary(output / "untraced.stdout", output / "untraced.stderr")
+        second = control_summary(output / "traced.stdout", output / "traced.stderr")
+        exact_text = first["generated_text_sha256"] == second["generated_text_sha256"]
+        exact_ids = first["generated_ids"] == second["generated_ids"]
+        exact_logits = first["logits_fnv64"] == second["logits_fnv64"]
+        expected_ids = second["generated_ids"] == EXPECTED_PROVIDER_IDS
+        finite_logits = first["nonfinite_logits"] == 0 and second["nonfinite_logits"] == 0
         comparison = {"kind": "control", "untraced": first, "traced": second,
-            "exact_identity_match": first["generated_text_sha256"] == second["generated_text_sha256"]}
+            "exact_text_match": exact_text, "exact_generated_ids_match": exact_ids,
+            "exact_logits_identity_match": exact_logits, "expected_generated_ids": expected_ids,
+            "finite_logits": finite_logits,
+            "exact_identity_match": exact_text and exact_ids and exact_logits and expected_ids and finite_logits}
     event_delta = {key: after_capture["cgroup_memory_events"].get(key, 0) -
         before_capture["cgroup_memory_events"].get(key, 0) for key in
         sorted(set(before_capture["cgroup_memory_events"]) | set(after_capture["cgroup_memory_events"]))}
