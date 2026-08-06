@@ -11,10 +11,13 @@ from datetime import datetime
 from pathlib import Path
 
 
-PROJECT = "d4665e95f6bdb8ed2647c5228d7e311357411b0b"
-NESTED = "90347c79c8348ecf2199a419ee4112ea18238d66"
+PROJECT = "f589f6782009480257abbcf844a3c8db3499a221"
+NESTED = "d67525814502370a554ca851a0057bf4b8a735f8"
+PROVIDER_PROJECT = "d4665e95f6bdb8ed2647c5228d7e311357411b0b"
+PROVIDER_NESTED = "90347c79c8348ecf2199a419ee4112ea18238d66"
 MODEL_REVISION = "85ce4196ab6e82852e25dfec2b7e2beaae56f5f1"
-RELEASE_TAG = "phase12-5-issue54-v1"
+RELEASE_TAG = "phase12-5-issue54-v2"
+PROVIDER_RELEASE_TAG = "phase12-5-issue54-v1"
 RELEASE_ROOT = (
     "https://github.com/murillo128/k3-out-of-core/releases/download/"
     f"{RELEASE_TAG}"
@@ -68,22 +71,22 @@ CASES = (
         "compressed_sha256": "e5c2de8b60d64e96304af4499c01754da60a9f5e6c46ac26c225e431b767abac",
     },
     {
-        "directory": "fit-control-r9",
+        "directory": "fit-control-r12",
         "name": "fit-control",
         "role": "control",
-        "raw_size": 819738552,
-        "raw_sha256": "75817eb53b0ff7cd8ef37d1f96bb0e9620593a8286ab7b109cab524c35bf90bf",
-        "compressed_size": 132178188,
-        "compressed_sha256": "2936af45c7b93c171dc11d41018bda679f31ff72ff4a4444c5a8d24fc5f85c3a",
+        "raw_size": 1188116132,
+        "raw_sha256": "1b6c40309ba922c980dc427263f26eb13eea5648482b98bbe476fa478bd12535",
+        "compressed_size": 208111114,
+        "compressed_sha256": "6df372d59c6ab005167aed45eb09e6401292da46571840c58b862f541ce75ab7",
     },
     {
-        "directory": "cpu-moe-control-r2",
+        "directory": "cpu-moe-control-r3",
         "name": "cpu-moe-control",
         "role": "control",
-        "raw_size": 714426089,
-        "raw_sha256": "8fcee486b17cebd0fe03fa7b02232a2c140464fefed976bf7a82481fe766eade",
-        "compressed_size": 115263044,
-        "compressed_sha256": "77a42a8bd14b4abbbaba94d457087ba39327dca933c4262e59bc4387736c2d57",
+        "raw_size": 1156440901,
+        "raw_sha256": "fa412d563f293ec06fdf55592f83872a975c4084c19354799847aa7304d03ef8",
+        "compressed_size": 203919035,
+        "compressed_sha256": "90e55555776a1f588a0f884be1aabb76f4433f82d5edfbea38400b1ed317da1f",
     },
 )
 
@@ -255,6 +258,14 @@ def main() -> int:
     selection_cases: list[dict[str, object]] = []
 
     for case in CASES:
+        is_provider = case["name"].startswith("provider-")
+        case_project = PROVIDER_PROJECT if is_provider else PROJECT
+        case_nested = PROVIDER_NESTED if is_provider else NESTED
+        case_release_tag = PROVIDER_RELEASE_TAG if is_provider else RELEASE_TAG
+        case_release_root = (
+            "https://github.com/murillo128/k3-out-of-core/releases/download/"
+            f"{case_release_tag}"
+        )
         source = args.capture_root / case["directory"]
         packet_case = args.packet_root / "cases" / case["directory"]
         packet_case.mkdir(parents=True, exist_ok=True)
@@ -272,7 +283,8 @@ def main() -> int:
         verification = read_json(source / "verification.json")
         query = read_json(source / "query-output.json")
         comparison = read_json(source / "comparison.json")
-        if case_json["project_revision"] != PROJECT or case_json["nested_revision"] != NESTED:
+        if (case_json["project_revision"] != case_project or
+                case_json["nested_revision"] != case_nested):
             raise RuntimeError(f"revision mismatch in {case['directory']}")
         if verification["status"] != "valid" or comparison["status"] != "pass":
             raise RuntimeError(f"invalid selected case {case['directory']}")
@@ -299,6 +311,11 @@ def main() -> int:
             summary.update({
                 "traced_generation_tps_displayed": comparison["traced"]["generation_tps_displayed"],
                 "untraced_generation_tps_displayed": comparison["untraced"]["generation_tps_displayed"],
+                "exact_text_match": comparison["exact_text_match"],
+                "exact_generated_ids_match": comparison["exact_generated_ids_match"],
+                "exact_logits_identity_match": comparison["exact_logits_identity_match"],
+                "finite_logits": comparison["finite_logits"],
+                "matches_provider_generated_ids": comparison["matches_provider_generated_ids"],
             })
         summaries[case["directory"]] = summary
 
@@ -308,15 +325,15 @@ def main() -> int:
             "directory": case["directory"],
             "name": case["name"],
             "role": case["role"],
-            "capture_target": {"project": PROJECT, "nested": NESTED},
+            "capture_target": {"project": case_project, "nested": case_nested},
             "model_revision": MODEL_REVISION,
             "capture_command": sanitize(capture["capture"]["workload_command"], case["directory"]),
             "pid": capture["capture"]["workload_pid"],
             "duration_ns": duration_ns(capture),
             "config": CONFIG,
-            "raw": {"url": f"{RELEASE_ROOT}/{raw_name}", "size": case["raw_size"],
+            "raw": {"url": f"{case_release_root}/{raw_name}", "size": case["raw_size"],
                     "sha256": case["raw_sha256"]},
-            "compressed": {"url": f"{RELEASE_ROOT}/{raw_name}.zst",
+            "compressed": {"url": f"{case_release_root}/{raw_name}.zst",
                            "size": case["compressed_size"],
                            "sha256": case["compressed_sha256"]},
             "verification_metrics": metrics,
@@ -402,7 +419,8 @@ def main() -> int:
                 "observation": [
                     "Selected repeats assign 15.864-16.064% to scheduler intervals and 18.741-18.769% to provider residual, 34.716% combined on average.",
                     "GPU busy share is only 2.939-2.943%, and GPU/storage overlap is 1.886-1.903% of token wall.",
-                    "The fit and CPU-MoE controls have p95 critical-path rows of 0.474 s and 0.538 s versus 7.237-7.248 s for the selected provider repeats.",
+                    "The fit and CPU-MoE controls have p95 critical-path rows of 0.637 s and 0.888 s versus 7.237-7.248 s for the selected provider repeats.",
+                    "Both adjacent control pairs preserve exact generated text, all 24 token IDs, and all 24 whole-logit identities with zero non-finite logits.",
                 ],
                 "alternative_explanation": "Uninstrumented CPU work nested below provider scopes could be labeled provider residual rather than true coordination wait.",
                 "falsifier": "Add bounded sub-slices around the largest provider residual intervals or sample them in a later experiment; substantial CPU execution with no wait would lower confidence.",
@@ -452,8 +470,8 @@ def main() -> int:
             "The host uses virtio/ext4 with a warm OS page cache; this is diagnostic evidence for #53 and not Phase 12 physical-NVMe, direct-I/O, or cold-state evidence.",
             "The matrix is one prompt, one request, 24 generated tokens, one RTX 3090, and one selected provider policy/configuration.",
             "The priority accounting intentionally assigns overlapping time to one category; changing priority would change category shares but not the recorded interval unions.",
-            "Fit and CPU-MoE controls leave 89.9% and 91.4% unattributed by provider-focused categories, so their traces reject provider/GPU explanations but do not identify their complete CPU critical path.",
-            "Selected repeats are valid and repeatable, but selected r13-r15 and fit r7-r8 were excluded by the fixed 1 ms clock gate; exclusions are recorded separately.",
+            "Fit and CPU-MoE controls leave 92.3% and 94.5% unattributed by provider-focused categories, so their traces reject provider/GPU explanations but do not identify their complete CPU critical path.",
+            "Selected repeats are valid and repeatable. Selected r13-r15 and fit r7-r8 were excluded by the fixed 1 ms clock gate; fit r10-r11 were superseded because their opt-in streaming identity envelopes were incomplete.",
             "The two streaming DISCARD warnings are configuration-only; required-source loss, CUPTI drops/errors, invalid intervals, and packet-order regressions are zero in every selected trace.",
         ],
         "conclusion": "INFERENCE: storage request queue lifetime is the dominant selected positional-provider bottleneck, with provider/scheduler serialization and insufficient storage/GPU overlap second. GPU kernels, copies, synchronization, CPU runqueue delay, and physical read service do not explain the observed slowdown on this host. Buffered io_uring is causally slower here, while 64 GiB cold caching helps but leaves the same bottleneck shape at a large RAM cost. The result is SUPPORTED_BOTTLENECK_ATTRIBUTION, not authorization to optimize and not a substitute for Phase 12 physical-storage evidence.",
@@ -464,7 +482,7 @@ def main() -> int:
 
     excluded = {
         "schema_version": "phase12-5-excluded-attempts-v1",
-        "capture_target": {"project": PROJECT, "nested": NESTED},
+        "capture_target": {"project": PROVIDER_PROJECT, "nested": PROVIDER_NESTED},
         "attempts": [
             {"case": "provider-positional-selected-r13", "reason": "TRACE_INVALID",
              "errors": ["cuda_raw_clock_mismatches=746", "clock_anchor_residual_ns=2593949"]},
@@ -476,8 +494,16 @@ def main() -> int:
              "errors": ["clock_anchor_residual_ns=1440614"]},
             {"case": "fit-control-r8", "reason": "TRACE_INVALID",
              "errors": ["clock_anchor_residual_ns=1147775"]},
+            {"case": "fit-control-r10", "reason": "IDENTITY_INCOMPLETE",
+             "capture_target": {"project": "5a900559b53683dffad086f925e46a8870917169",
+                                "nested": "32d7dbd4cf1c3c0392828449bc7c29163e8831e1"},
+             "errors": ["streamed generated_ids=0", "streamed logits_fnv64=0"]},
+            {"case": "fit-control-r11", "reason": "IDENTITY_INCOMPLETE",
+             "capture_target": {"project": "5a900559b53683dffad086f925e46a8870917169",
+                                "nested": "32d7dbd4cf1c3c0392828449bc7c29163e8831e1"},
+             "errors": ["streamed generated_ids=0", "streamed logits_fnv64=0"]},
         ],
-        "selection_rule": "Only zero-error traces at the frozen capture target are decision-driving. Earlier pre-final-target diagnostics are also excluded by revision identity.",
+        "selection_rule": "Only zero-error traces with complete adjacent identities at their recorded immutable capture target are selected. Earlier diagnostics are excluded by revision identity or the stated fixed gate.",
     }
     write_json(args.results_root / "excluded-attempts.json", excluded)
     shutil.copy2(args.results_root / "excluded-attempts.json",
@@ -485,15 +511,15 @@ def main() -> int:
 
     summary = f"""# Phase 12.5 Checkpoint C — causal bottleneck report
 
-`SUPPORTED_BOTTLENECK_ATTRIBUTION` at capture target `{PROJECT}` with nested `{NESTED}`.
+`SUPPORTED_BOTTLENECK_ATTRIBUTION` with provider captures at `{PROVIDER_PROJECT}` / `{PROVIDER_NESTED}` and corrected control captures at `{PROJECT}` / `{NESTED}`.
 
 `OBSERVED`: both selected positional repeats are exact and pass the active-trace gate. Traced throughput is 0.1587 and 0.1595 token/s. Non-overlapping critical-path accounting assigns 63.218% and 63.448% to storage intervals, 15.864-16.064% to scheduler intervals, and 18.741-18.769% to provider residual. Storage queue-wait p95 is 952-957 ms while operation-service-wall p95 is 3.62-3.67 ms. GPU busy time is about 2.94% and storage/GPU overlap about 1.9%.
 
-`OBSERVED`: the buffered native-io_uring case uses zero synchronous fallback but falls to 0.1007 token/s. Storage service p95 becomes 821 ms, scheduler plus storage consume 83.46% of token wall, and storage/GPU overlap is effectively zero. The 64 GiB cold case reduces misses from 5,963 to 4,427 and improves traced throughput to 0.1948 token/s, but peak RSS rises to 67,913,992 KiB and storage remains 55.61% of token wall. Fit and CPU-MoE controls have zero provider-storage rows and p95 critical-path rows of 0.474 s and 0.538 s.
+`OBSERVED`: the buffered native-io_uring case uses zero synchronous fallback but falls to 0.1007 token/s. Storage service p95 becomes 821 ms, scheduler plus storage consume 83.46% of token wall, and storage/GPU overlap is effectively zero. The 64 GiB cold case reduces misses from 5,963 to 4,427 and improves traced throughput to 0.1948 token/s, but peak RSS rises to 67,913,992 KiB and storage remains 55.61% of token wall. Fit and CPU-MoE controls have zero provider-storage rows and p95 critical-path rows of 0.637 s and 0.888 s. Both adjacent controls preserve exact generated text, all 24 token IDs, and all 24 whole-logit identities with zero non-finite logits.
 
 `INFERENCE`: storage-request queue lifetime is the dominant selected-path bottleneck; provider/scheduler serialization and insufficient overlap are second. GPU execution, synchronization, CPU scheduling, and physical read-service time do not explain the provider slowdown on this host. Buffered io_uring is slower here. Larger cold capacity helps but does not remove the bottleneck shape and is not a justified default.
 
-`BLOCKED`: none. All six selected raws are below 2 GiB, all compressed forms are below 1 GiB, total raw plus compressed size is 5,234,360,066 bytes, and every required loss/drop/error counter is zero. Five final-target attempts rejected by the 1 ms clock gate are listed in `excluded-attempts.json`.
+`BLOCKED`: none. All six selected raws are below 2 GiB, all compressed forms are below 1 GiB, total raw plus compressed size is 6,209,341,375 bytes, and every required loss/drop/error counter is zero. Five attempts rejected by the fixed 1 ms clock gate and two superseded incomplete-identity controls are listed in `excluded-attempts.json`.
 
 This evidence comes from virtio/ext4 with a warm page cache and does not weaken or replace Phase 12 physical-NVMe, cold-state, direct-I/O, full-size, statistical, or storage-layout gates.
 """
@@ -502,13 +528,13 @@ This evidence comes from virtio/ext4 with a warm page cache and does not weaken 
 
     reproduce = f"""# Independent reproduction
 
-1. Verify every URL, size, and SHA-256 in `capture-selection.json` and download all six raw `.pftrace` files. The immutable release tag targets `{PROJECT}`.
+1. Verify every URL, size, and SHA-256 in `capture-selection.json` and download all six raw `.pftrace` files. Each immutable release tag targets the per-case capture revision recorded in the index.
 2. Acquire Perfetto v50.1 `trace_processor_shell` from the official v50.1 release and verify SHA-256 `{TRACE_PROCESSOR['sha256']}` and size `{TRACE_PROCESSOR['size']}`.
 3. For each raw trace, run `<TRACE_PROCESSOR> --full-sort -q <SQL> <TRACE>` for the five SQL files in `sql/`, or run `python3 analyze_perfetto.py --trace-processor <TRACE_PROCESSOR> --trace <TRACE> --verification <CASE>/verification.json --output <OUTPUT> --case-name <CASE>`.
 4. Compare the regenerated JSON with `cases/<case>/query-output.json`. Inspect selected-provider p95/p99 rows and compare them with both controls before accepting attribution.
 5. Treat `bottleneck-report.json` observations as measured and its rankings as qualified inference. Do not treat this packet as Phase 12 physical-storage evidence.
 
-The packet indexes immutable raw URLs instead of embedding 4.79 GB of raw traces. No access to the capture host or original checkout is required.
+The packet indexes immutable raw URLs instead of embedding 5.60 GB of raw traces. No access to the capture host or original checkout is required.
 """
     (args.packet_root / "REPRODUCE.md").write_text(reproduce, encoding="utf-8")
 
