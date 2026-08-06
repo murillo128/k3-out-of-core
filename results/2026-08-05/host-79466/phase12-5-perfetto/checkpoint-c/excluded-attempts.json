@@ -1,0 +1,46 @@
+{
+  "attempts": [
+    {
+      "case": "provider-positional-selected-r13",
+      "errors": [
+        "cuda_raw_clock_mismatches=746",
+        "clock_anchor_residual_ns=2593949"
+      ],
+      "reason": "TRACE_INVALID"
+    },
+    {
+      "case": "provider-positional-selected-r14",
+      "errors": [
+        "clock_anchor_residual_ns=1567553"
+      ],
+      "reason": "TRACE_INVALID"
+    },
+    {
+      "case": "provider-positional-selected-r15",
+      "errors": [
+        "clock_anchor_residual_ns=1102356"
+      ],
+      "reason": "TRACE_INVALID"
+    },
+    {
+      "case": "fit-control-r7",
+      "errors": [
+        "clock_anchor_residual_ns=1440614"
+      ],
+      "reason": "TRACE_INVALID"
+    },
+    {
+      "case": "fit-control-r8",
+      "errors": [
+        "clock_anchor_residual_ns=1147775"
+      ],
+      "reason": "TRACE_INVALID"
+    }
+  ],
+  "capture_target": {
+    "nested": "90347c79c8348ecf2199a419ee4112ea18238d66",
+    "project": "d4665e95f6bdb8ed2647c5228d7e311357411b0b"
+  },
+  "schema_version": "phase12-5-excluded-attempts-v1",
+  "selection_rule": "Only zero-error traces at the frozen capture target are decision-driving. Earlier pre-final-target diagnostics are also excluded by revision identity."
+}
