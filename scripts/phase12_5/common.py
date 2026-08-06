@@ -57,7 +57,7 @@ def trace_processor_version(binary: Path) -> str:
 
 
 def query_trace(binary: Path, trace: Path, sql: Path, *, timeout: int = 900) -> list[dict[str, str]]:
-    completed = run([str(binary), str(trace), "--query-file", str(sql)], timeout=timeout)
+    completed = run([str(binary), "--full-sort", str(trace), "--query-file", str(sql)], timeout=timeout)
     output = completed.stdout.strip()
     if not output:
         return []
