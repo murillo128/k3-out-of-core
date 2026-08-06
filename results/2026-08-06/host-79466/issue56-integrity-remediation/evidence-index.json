@@ -1,0 +1,341 @@
+{
+  "schema_version": "issue56-integrity-remediation-v1",
+  "status": "SELECT_DEFAULT_OFF",
+  "issue": "https://github.com/murillo128/k3-out-of-core/issues/56",
+  "pull_request": "https://github.com/murillo128/k3-out-of-core/pull/57",
+  "host": {
+    "id": "79466",
+    "gpu": "NVIDIA GeForce RTX 3090 24 GB",
+    "kernel": "6.8.0-59-generic",
+    "storage_path": "virtio/ext4",
+    "cache_state": "warm page cache; unchanged and explicitly declared for every pair"
+  },
+  "revisions": {
+    "accepted_project_base": "71e671539813fba188b3b94ffbf96c4ae647fee7",
+    "accepted_nested_base": "d67525814502370a554ca851a0057bf4b8a735f8",
+    "integrity_implementation_project": "5383a66589849c7be1cd5a092380240b4016346b",
+    "integrity_implementation_nested": "762305b06",
+    "published_code_target_project": "6427196c866991fe1123a11712b7d10aa242fd6d",
+    "published_code_target_nested": "71b4b0251fb314cb955fe5f43b6a1e382fc2b65c",
+    "published_nested_tree": "fb0c4566355144afeae4e83b66ede13d238ca953",
+    "integrity_implementation_nested_tree": "fb0c4566355144afeae4e83b66ede13d238ca953",
+    "worker_experiment": {
+      "project": "34f3ef84f3ff3d8be6a780f6ff3f437aafb1daf9",
+      "nested": "8f085f15b",
+      "reverted": true
+    }
+  },
+  "accepted_inputs": {
+    "model": {
+      "repository": "unsloth/DeepSeek-V4-Flash-GGUF",
+      "revision": "85ce4196ab6e82852e25dfec2b7e2beaae56f5f1",
+      "variant": "DeepSeek-V4-Flash-UD-Q3_K_XL",
+      "accepted_index": "https://github.com/murillo128/k3-out-of-core/blob/71e671539813fba188b3b94ffbf96c4ae647fee7/results/2026-08-05/host-79466/phase12-5-perfetto/checkpoint-c/trace-index.json"
+    },
+    "prior_trace_releases": [
+      "https://github.com/murillo128/k3-out-of-core/releases/tag/phase12-5-issue54-v1",
+      "https://github.com/murillo128/k3-out-of-core/releases/tag/phase12-5-issue54-v2"
+    ],
+    "trace_config": {
+      "path": "scripts/phase12_5/configs/full-stack-split-1g.pbtxt",
+      "size": 2520,
+      "sha256": "8c55bee5e8db49bbb33ab8fa901d051e23ff22750bbdb48118308086d0b66f65"
+    },
+    "trace_processor": {
+      "version": "Perfetto v50.1-2c4d2ffa7",
+      "size": 11313840,
+      "sha256": "4b86aaf94d2ba9f517ddee817aaae7c12089d6ce078924e708d38f9cf0c0b517"
+    },
+    "trace_binary": {
+      "sha256": "acdaf790229577580aebc188774168ed236552ecfd83fcf9d9c67fd0932b6c41",
+      "note": "The exact integrity-only binary used for both accepted traces; the source tree is reproduced by the published nested tree above."
+    }
+  },
+  "release": {
+    "tag": "phase12-5-issue56-integrity-v1",
+    "url": "https://github.com/murillo128/k3-out-of-core/releases/tag/phase12-5-issue56-integrity-v1",
+    "assets": [
+      {
+        "name": "issue56-fnv64-end-to-end.trace.pftrace",
+        "kind": "raw_trace",
+        "size": 569617832,
+        "sha256": "aca71cfaf8396c6b9d9b57bb37f3f6f04e0c00fddfa694cad4bc97064b64f650"
+      },
+      {
+        "name": "issue56-fnv64-end-to-end.trace.pftrace.zst",
+        "kind": "zstd_trace",
+        "size": 38160901,
+        "sha256": "382d4d9c80cb6f10a695acef06caa098dec1d814c2575354e427679dbc4b8c13"
+      },
+      {
+        "name": "issue56-integrity-none.trace.pftrace",
+        "kind": "raw_trace",
+        "size": 533546895,
+        "sha256": "6b2ace62bda02446f0a295282fed96ef32cb687ac061ecf409b5f738c4859953"
+      },
+      {
+        "name": "issue56-integrity-none.trace.pftrace.zst",
+        "kind": "zstd_trace",
+        "size": 33379196,
+        "sha256": "05013c42c91ce0b7f83919bcb8fd0cc8269a6e7c50840e165a468259b9b2c4de"
+      },
+      {
+        "name": "issue56-integrity-evidence-index.json",
+        "kind": "index",
+        "source": "evidence-index.json"
+      },
+      {
+        "name": "issue56-integrity-SUMMARY.md",
+        "kind": "summary",
+        "source": "SUMMARY.md"
+      },
+      {
+        "name": "SHA256SUMS",
+        "kind": "checksums"
+      }
+    ]
+  },
+  "workload": {
+    "positional_workers": 1,
+    "transport": "POSITIONAL",
+    "integrity_baseline": "FNV64_END_TO_END",
+    "integrity_candidate": "NONE",
+    "hot_slots": 268,
+    "cold_bytes": 17179869184,
+    "ring_bytes": 67173120,
+    "effective_transfer_lanes": 4,
+    "queue_depth_argument": 0,
+    "requested_sq_entries": 256,
+    "max_generate": 24,
+    "post_warmup_decode_samples_per_process": 23,
+    "fresh_processes_per_mode": 5,
+    "post_warmup_samples_per_mode": 115,
+    "pair_order": ["A/B", "B/A", "A/B", "B/A", "A/B"]
+  },
+  "confirmation": {
+    "baseline_fnv64_end_to_end": {
+      "throughput_tps_mean": 0.158918,
+      "ttft_s_mean": 63.150,
+      "per_run_p50_s_mean": 6.111,
+      "per_run_p95_s_mean": 7.474,
+      "per_run_p99_max_s_mean": 8.498,
+      "pooled_p50_s": 6.106,
+      "pooled_p95_s": 8.466,
+      "pooled_p99_s": 8.540,
+      "pooled_max_s": 8.606,
+      "aggregate_queue_wait_s_mean": 1371.437,
+      "process_user_cpu_s_mean": 319.458,
+      "peak_rss_kib_mean": 17491680
+    },
+    "candidate_integrity_none": {
+      "throughput_tps_mean": 0.396604,
+      "ttft_s_mean": 24.360,
+      "per_run_p50_s_mean": 2.474,
+      "per_run_p95_s_mean": 2.809,
+      "per_run_p99_max_s_mean": 3.176,
+      "pooled_p50_s": 2.477,
+      "pooled_p95_s": 2.819,
+      "pooled_p99_s": 3.189,
+      "pooled_max_s": 3.195,
+      "aggregate_queue_wait_s_mean": 215.500,
+      "process_user_cpu_s_mean": 98.672,
+      "peak_rss_kib_mean": 17491419
+    },
+    "paired_change": {
+      "throughput_percent": 149.67,
+      "throughput_95_percent_ci": [142.40, 156.95],
+      "ttft_reduction_percent": 61.43,
+      "ttft_reduction_95_percent_ci": [61.13, 61.73],
+      "p50_reduction_percent": 59.51,
+      "p50_reduction_95_percent_ci": [59.14, 59.88],
+      "p95_reduction_percent": 62.25,
+      "p95_reduction_95_percent_ci": [58.95, 65.54],
+      "p99_max_reduction_percent": 62.63,
+      "p99_max_reduction_95_percent_ci": [62.14, 63.12],
+      "queue_wait_reduction_percent": 84.29,
+      "queue_wait_reduction_95_percent_ci": [84.14, 84.43],
+      "user_cpu_reduction_percent": 69.11,
+      "user_cpu_reduction_95_percent_ci": [68.65, 69.57]
+    },
+    "confidence_method": "paired t interval over five fresh-process relative changes, df=4, t=2.776; token samples are not treated as independent"
+  },
+  "trace_comparison": {
+    "fnv64_end_to_end": {
+      "throughput_tps": 0.158653,
+      "ttft_s": 63.640,
+      "token_latency_s": {"p50": 6.205, "p95": 7.332, "p99": 8.565, "max": 8.565},
+      "storage_queue_wait": {"aggregate_s": 1370.402, "p95_ms": 964.831, "p99_ms": 1357.179, "max_ms": 1787.323},
+      "post_queue_service": {"aggregate_s": 132.315, "p95_ms": 22.489},
+      "actual_operation_service_s": 20.119,
+      "critical_path": {
+        "storage": {"seconds": 132.612, "percent": 63.64},
+        "scheduler_admission": {"seconds": 33.124, "percent": 15.90},
+        "provider_residual": {"seconds": 38.828, "percent": 18.63},
+        "transfer": {"seconds": 3.077, "percent": 1.48},
+        "unattributed": {"seconds": 0.022804, "percent": 0.011}
+      },
+      "integrity_scopes": {
+        "transport_digest": {"executions": 5963, "seconds": 111.928587136, "mean_ms": 18.770516, "max_ms": 44.039283},
+        "provider_digest": {"executions": 5963, "seconds": 113.292177347, "mean_ms": 18.999191, "max_ms": 37.517016},
+        "finalization": {"executions": 5963, "seconds": 0.024209946}
+      },
+      "concurrency": {
+        "peak_active_storage_operations": 1,
+        "operation_parallel_s": 0.0,
+        "operation_busy_s": 20.118786779,
+        "peak_active_requests": 83,
+        "request_busy_s": 132.573622982,
+        "request_backlog_s": 109.741515524,
+        "time_weighted_active_requests_while_busy": 11.34,
+        "peak_active_h2d": 1
+      },
+      "bytes_and_operations": {"useful_bytes": 65788575744, "submitted_bytes": 65788575744, "operations": 17889, "requests": 5963},
+      "stage_s": 6.258897,
+      "h2d_s": 0.390663,
+      "peak_transfer_lane_occupancy": 1,
+      "operation_h2d_overlap": {"seconds": 1.600643010, "percent_of_operation_wall": 7.96},
+      "gpu_busy_s": 6.223,
+      "storage_gpu_overlap": {"seconds": 4.163, "percent_of_storage": 3.14},
+      "cpu": {"running_s": 365.180, "runnable_delay_s": 2.800, "futex_calls": 155164, "epoll_wait_calls": 81},
+      "peak_rss_kib": 17619508
+    },
+    "integrity_none": {
+      "throughput_tps": 0.374701,
+      "ttft_s": 24.696,
+      "token_latency_s": {"p50": 2.660, "p95": 3.002, "p99": 3.424, "max": 3.424},
+      "storage_queue_wait": {"aggregate_s": 224.433, "p95_ms": 153.582, "p99_ms": 212.514, "max_ms": 284.519},
+      "post_queue_service": {"aggregate_s": 23.626, "p95_ms": 4.656},
+      "actual_operation_service_s": 23.353,
+      "critical_path": {
+        "storage": {"seconds": 23.974, "percent": 27.92},
+        "scheduler_admission": {"seconds": 13.013, "percent": 15.16},
+        "provider_residual": {"seconds": 39.884, "percent": 46.45},
+        "transfer": {"seconds": 8.254, "percent": 9.61},
+        "unattributed": {"seconds": 0.021925, "percent": 0.026}
+      },
+      "integrity_scopes": {
+        "transport_digest": {"executions": 0, "seconds": 0.0},
+        "provider_digest": {"executions": 0, "seconds": 0.0},
+        "finalization": {"executions": 5963, "seconds": 0.008869017, "status": "not_checked"}
+      },
+      "concurrency": {
+        "peak_active_storage_operations": 1,
+        "operation_parallel_s": 0.0,
+        "operation_busy_s": 23.353180492,
+        "peak_active_requests": 83,
+        "request_busy_s": 23.940183693,
+        "request_backlog_s": 19.551845342,
+        "time_weighted_active_requests_while_busy": 10.36,
+        "peak_active_h2d": 1
+      },
+      "bytes_and_operations": {"useful_bytes": 65788575744, "submitted_bytes": 65788575744, "operations": 17889, "requests": 5963},
+      "stage_s": 10.768327,
+      "h2d_s": 0.379053,
+      "peak_transfer_lane_occupancy": 1,
+      "operation_h2d_overlap": {"seconds": 3.304332442, "percent_of_operation_wall": 14.15},
+      "gpu_busy_s": 6.082,
+      "storage_gpu_overlap": {"seconds": 3.217, "percent_of_storage": 13.42},
+      "cpu": {"running_s": 149.141, "runnable_delay_s": 3.555, "futex_calls": 148958, "epoll_wait_calls": 32},
+      "peak_rss_kib": 17617368
+    },
+    "memory_common": {
+      "pinned_ring_bytes": 67173120,
+      "hot_expert_pool_bytes": 4286284800,
+      "logged_cuda_model_buffer_mib": 6909.82,
+      "logged_static_cuda_buffer_components_mib": 7201.49,
+      "peak_vram_sampling": "not available; the exact logged CUDA allocation inputs are identical in both traces",
+      "swap_activity": 0,
+      "cgroup_high_max_oom_events": 0
+    },
+    "strict_validation": {
+      "provider_verifier": "valid",
+      "sql_suite": "10/10 complete: five pinned queries per trace",
+      "critical_path_coverage_percent": ">99.97",
+      "short_reads": 0,
+      "io_errors": 0,
+      "stale_completions": 0,
+      "cancellations": 0,
+      "cleanup_errors": 0,
+      "trace_records_dropped": 0,
+      "required_source_loss": 0,
+      "cupti_errors": 0,
+      "cupti_dropped_records": 0,
+      "oom_events": 0
+    }
+  },
+  "trace_files": {
+    "fnv64_end_to_end": {
+      "capture_json": {"size": 8049, "sha256": "42a89090821819e5658358f2653e44e51aded6591e3290a8f5e59beb028d00e5"},
+      "command_json": {"size": 1062, "sha256": "be9bb2596b22e5034c737c98c85e616c6f2777d597c570dfbff3ee07b338fa5a"},
+      "query_output_json": {"size": 8574108, "sha256": "3052c5047f2424f06f017d6909035e86bbccc48efea8b78a3d321f9b2deed085"},
+      "verification_json": {"size": 2130, "sha256": "37cdb68a325536c1a816f1aceec5a5e14075928d3b4f711340555f8b5e80ad9f"},
+      "workload_json": {"size": 90055173, "sha256": "f26275564c03db8117e08034f43223a99587bfc2924077dd6450c67ec2c02a73"}
+    },
+    "integrity_none": {
+      "capture_json": {"size": 8020, "sha256": "ec3d1762f750490288a109b1d4ec36de052269ba401b6a1650562c77289df60b"},
+      "command_json": {"size": 1051, "sha256": "48a3965315e2c9823fdc7a24d980f573d19e3d6dbca7bf2cf9bed7b13518b3c1"},
+      "query_output_json": {"size": 8567218, "sha256": "ab5ac739ed25cda72788104d5ed6ed7d550dc8fa68cb52dad5829f10a23c1b40"},
+      "verification_json": {"size": 2132, "sha256": "84af3d7776542a673e606da4830d12041f80709c31bfa95a895d0de6a5880195"},
+      "workload_json": {"size": 90055030, "sha256": "82448e71f14cb8cf9eceb58a04b5925f991846c5c72fe55798f87285ad1421d2"}
+    }
+  },
+  "correctness_identity": {
+    "sha256": "6d2d3c5cb735d4df1bb1f67993bcf745ab49a5a57ff1096c4a61c9a70f2e3dac",
+    "generated_token_count": 24,
+    "route_record_count": 1032,
+    "generated_ids_text_logits_routes_exact": true,
+    "non_finite_logits": 0,
+    "fnv_transport_bytes_per_run": 65788575744,
+    "fnv_provider_bytes_per_run": 65788575744,
+    "fnv_mismatches": 0,
+    "none_transport_digest_bytes": 0,
+    "none_provider_digest_bytes": 0,
+    "none_integrity_checks": 0,
+    "none_not_checked_completions_per_run": 5963
+  },
+  "focused_validation": {
+    "joint_suites_passed": [
+      "test-expert-weight-provider",
+      "test-expert-miss-policy",
+      "phase10-prefetch-replay",
+      "phase9-cache-replay",
+      "test-hot-expert-cache",
+      "test-cold-expert-cache",
+      "test-expert-storage",
+      "test-expert-async-io",
+      "test-expert-scheduler"
+    ],
+    "async_io_repeated_cycles": 10,
+    "hot_cache_repeated_cycles": 10,
+    "default_none_zero_digest_work": "pass",
+    "enabled_digest_identity": "pass",
+    "enabled_corruption_detection": "pass",
+    "disabled_failure_and_lifetime_matrix": "pass",
+    "phase9_defaults_unchanged": true,
+    "phase10_defaults_unchanged": true,
+    "uma_provider_host_capability_note": "The candidate and accepted-base binaries both fail before provider use with the same UMA arena initialization failure; it is not a regression discriminator on this host."
+  },
+  "causal_attribution": {
+    "transport_hash": "111.929 s across 5,963 scopes is inside the sole positional worker's post-queue service. Removing it accounts for the 108.689 s post-queue reduction and queue-backlog collapse; actual pread64/operation service did not improve.",
+    "provider_hash": "113.292 s across 5,963 full destination traversals disappears. It overlaps storage/worker progress, so it is not additively convertible to end-to-end wall time; its removal contributes to the 219.1 s user-CPU reduction while non-overlapping provider residual remains about 39 s.",
+    "combined_effect": "Five-pair production result: throughput +149.67% and p95 -62.25%, with exact outputs and all gates passing.",
+    "remaining_bottleneck": "Provider residual is the largest non-overlapping share at 46.45%; actual serialized operation service is 23.353 s and storage remains 27.92%. Staging/transfer is newly exposed at 9.61%."
+  },
+  "rejected_worker_candidate": {
+    "configuration": "four positional workers, integrity none; no other causal change",
+    "screen_pairs": 2,
+    "throughput_changes_percent": [1.74, 0.41],
+    "p95_reductions_percent": [1.44, 2.47],
+    "queue_wait_reductions_percent": [73.79, 73.34],
+    "reason": "Queue accounting moved, but throughput and p95 missed the 10% promising threshold in both reciprocal pairs; staging and CPU cost increased.",
+    "fnv64_end_to_end_concurrent_correctness": "pass",
+    "reverted": true,
+    "confirmation_trace_published": false
+  },
+  "stop_condition": "No remaining trace-supported bounded hypothesis: worker parallelism was non-promising, and neither accepted trace nor the worker screen proves two host-ready demanded bundles entering one transfer wave.",
+  "assurance": {
+    "production": "Short read, EOF, native I/O, completed-byte, source identity/size, generation, cancellation, staging, copy, publication, lifecycle, cleanup, and resource-bound protections remain enabled. Payload FNV is not performed and integrity status is explicitly not_checked.",
+    "development_and_evidence": "Explicit fnv64_end_to_end mode preserves canonical transport digest, full destination digest, fail-closed comparison, diagnostics, and corruption-injection coverage."
+  },
+  "operational_note": "One non-target full-build invocation caused the repository's existing UI asset target to retrieve/build UI output under the build directory. It did not touch model, trace, packet, Perfetto, dependency, source, or accepted evidence bytes; all subsequent work used existing local inputs."
+}
