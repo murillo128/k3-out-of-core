@@ -51,7 +51,7 @@ A naïve implementation can easily be slower than CPU inference because every mi
 - Pluggable admission, eviction, and prefetch policies.
 - Discrete-GPU miss policies, including optional CPU execution of demand misses.
 - Correctness, trace capture, replay, simulation, and performance telemetry.
-- Single-request implementation first, followed by multi-request and multi-GPU correctness.
+- Single-request implementation first, followed by multi-GPU topology/placement and then multi-request correctness/batching.
 - Selective reuse of prior work in `llama.cpp`, vLLM, tinyserve, the Lidenburg fork, and MoE-Infinity.
 
 ### Explicitly out of scope for the initial implementation
