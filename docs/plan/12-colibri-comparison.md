@@ -1,6 +1,6 @@
 # Phase 12–14 Colibrì comparison addendum
 
-This addendum is normative for the Colibrì-derived comparison work in Phases 12, 13.5, and 14. Phase 13.5 is the roadmap name for the tracing work executed early under the historical name Phase 12.5 through #54/#55. This addendum does not authorize Colibrì code import, reopen Phase 9, or expand the approved Phase 10 controlling issue.
+This addendum is normative for the Colibrì-derived comparison work in Phases 12, 12.5, 13.5, and 14. Phase 12.5 is the bounded diagnostic tracing subset already exercised on DeepSeek and physical-NVMe/K3 paths; Phase 13.5 owns the remaining end-to-end and multi-device benchmark-readiness delta. This addendum does not authorize Colibrì code import, reopen Phase 9, or expand the approved Phase 10 controlling issue.
 
 The external prior-art record is [`../COLIBRI_K3_PRIOR_ART.md`](../COLIBRI_K3_PRIOR_ART.md).
 
@@ -116,17 +116,29 @@ Colibrì uses a per-layer LRU while Phase 9 retained exact global LRU/ALWAYS as 
 - [ ] If full-size evidence materially reverses the Phase 9 decision, return to design authority with the trace, online measurements, physical-residency evidence, and proposed bounded policy change.
 - [ ] Do not silently switch defaults in Phase 12.
 
-## Phase 13.5 additions — trace identity
+## Phase 12.5 additions — diagnostic trace identity subset
 
-**Historical identity:** these requirements were implemented and accepted early as Phase 12.5 in #54/#55. Existing evidence retains that name; no rerun or artifact rename is implied.
+These requirements belong to the bounded tracing subset exercised by #54/#55 and the later physical-NVMe/K3 work. Existing evidence retains its historical identities and is not rerun merely because the roadmap now separates a later Phase 13.5.
 
-The Phase 13.5 event and manifest schema must be able to attribute Colibrì-relevant storage effects without becoming format-specific.
+The Phase 12.5 event schema must attribute Colibrì-relevant storage effects without becoming format-specific:
 
 - [ ] Include backing artifact, shard/file identity, requested span, aligned span, and physical file offset in storage events where available.
 - [ ] Include logical demand ordinal and actual submission ordinal so offset reordering can be reconstructed.
 - [ ] Include drive/controller identity for multi-NVMe runs.
 - [ ] Correlate read completion with the exact logical expert bundle and canonical consumption order.
-- [ ] Distinguish ordinary parallel reads from `io_uring` submissions in the environment and event metadata.
+- [ ] Distinguish ordinary parallel reads from `io_uring` submissions in environment and event metadata.
+
+These fields are sufficient for the accepted DeepSeek and NVMe/K3 diagnostic subsets. They do not establish complete multi-GPU or cross-hardware benchmark identity.
+
+## Phase 13.5 additions — remaining benchmark identity
+
+After Phase 13 establishes multi-GPU ownership/topology, extend the accepted Phase 12.5 schema only where needed to make selected single- and multi-GPU runs directly attributable:
+
+- [ ] include stable GPU/device, ownership/shard and device-local slot/generation identity;
+- [ ] include peer source/destination and interconnect class for peer/NVLink/PCIe movement;
+- [ ] distinguish H2D, peer transfer, replicated load, remote-owner wait and device synchronization;
+- [ ] preserve normalized NVMe/host/H2D/peer bytes per token so later hardware comparisons do not conflate format, placement and transport effects;
+- [ ] version the event/manifest schema explicitly if these additions cannot be represented compatibly.
 
 ## Phase 14 additions — single-request chunked prefill and multi-request batching
 
@@ -163,5 +175,7 @@ Compare the resulting deduplication with Colibrì's externally reported K3 resul
 ## Exit implications
 
 Phase 12 cannot close its storage decision without explaining the measured position of original safetensors, repacked safetensors, GGUF, WASTE, and Colibrì where the required artifacts and hardware are available. A missing comparison must be documented with the exact blocking dimension rather than silently omitted.
+
+Phase 13.5 owns the remaining multi-device/cross-hardware attribution gap; Phase 12.5 subset evidence is imported rather than repeated.
 
 Phase 14 cannot claim batching or prefill-deduplication gains without a token-at-a-time and single-request chunked baseline.
