@@ -1,0 +1,123 @@
+{
+  "comparisons": [
+    {
+      "equal": true,
+      "field": "generation.scale",
+      "first": {
+        "experts": 896,
+        "layers": 92,
+        "projection_bytes": 5849088,
+        "selected": 16,
+        "tokens": 32
+      },
+      "second": {
+        "experts": 896,
+        "layers": 92,
+        "projection_bytes": 5849088,
+        "selected": 16,
+        "tokens": 32
+      }
+    },
+    {
+      "equal": true,
+      "field": "generation.route_sha256",
+      "first": "260b81ad71bc0c6b8ffcd31ac7b60e139a363152009021d41d5c8b69ac8cd919",
+      "second": "260b81ad71bc0c6b8ffcd31ac7b60e139a363152009021d41d5c8b69ac8cd919"
+    },
+    {
+      "equal": true,
+      "field": "generation.layout_a_definition_sha256",
+      "first": "8caa3ea8101629c8ec4f6063bfd476239a9cc0b4e708aeab3cc9ca0e78b613a9",
+      "second": "8caa3ea8101629c8ec4f6063bfd476239a9cc0b4e708aeab3cc9ca0e78b613a9"
+    },
+    {
+      "equal": true,
+      "field": "generation.layout_b_definition_sha256",
+      "first": "c76892e08bf6b873f1fb933daf5d47f0a3a49fae55b9d31d2a2874a55a7f8bda",
+      "second": "c76892e08bf6b873f1fb933daf5d47f0a3a49fae55b9d31d2a2874a55a7f8bda"
+    },
+    {
+      "equal": true,
+      "field": "generation.aggregate_useful_sha256",
+      "first": "a8de945bf7560e1b2e3d0e80feffc34af5a712e7b9c80dba5345f00d077c8141",
+      "second": "a8de945bf7560e1b2e3d0e80feffc34af5a712e7b9c80dba5345f00d077c8141"
+    },
+    {
+      "equal": true,
+      "field": "generation.record_count",
+      "first": 1472,
+      "second": 1472
+    },
+    {
+      "equal": true,
+      "field": "verification.status",
+      "first": "PASS",
+      "second": "PASS"
+    },
+    {
+      "equal": true,
+      "field": "verification.record_count",
+      "first": 1472,
+      "second": 1472
+    },
+    {
+      "equal": true,
+      "field": "verification.verified_useful_bytes_per_layout",
+      "first": 25829572608,
+      "second": 25829572608
+    },
+    {
+      "equal": true,
+      "field": "verification.aggregate_useful_sha256",
+      "first": "a8de945bf7560e1b2e3d0e80feffc34af5a712e7b9c80dba5345f00d077c8141",
+      "second": "a8de945bf7560e1b2e3d0e80feffc34af5a712e7b9c80dba5345f00d077c8141"
+    },
+    {
+      "equal": true,
+      "field": "verification.route_sha256",
+      "first": "260b81ad71bc0c6b8ffcd31ac7b60e139a363152009021d41d5c8b69ac8cd919",
+      "second": "260b81ad71bc0c6b8ffcd31ac7b60e139a363152009021d41d5c8b69ac8cd919"
+    },
+    {
+      "equal": true,
+      "field": "layout_identity.layout_a_entries_sha256",
+      "first": "25a84945a69f77d66fcbf11f28ec5e84b9cdc25cdf7791742318d0687b09e176",
+      "second": "25a84945a69f77d66fcbf11f28ec5e84b9cdc25cdf7791742318d0687b09e176"
+    },
+    {
+      "equal": true,
+      "field": "layout_identity.layout_b_index_sha256",
+      "first": "d6e275039a59b0af5024508002a2842bf382547636b0f840640bf6baf6fa792d",
+      "second": "d6e275039a59b0af5024508002a2842bf382547636b0f840640bf6baf6fa792d"
+    },
+    {
+      "equal": true,
+      "field": "physical_stores.logical_size_and_content",
+      "first": [
+        [
+          1446456066048,
+          "a8de945bf7560e1b2e3d0e80feffc34af5a712e7b9c80dba5345f00d077c8141"
+        ],
+        [
+          25829765120,
+          "a8de945bf7560e1b2e3d0e80feffc34af5a712e7b9c80dba5345f00d077c8141"
+        ]
+      ],
+      "second": [
+        [
+          1446456066048,
+          "a8de945bf7560e1b2e3d0e80feffc34af5a712e7b9c80dba5345f00d077c8141"
+        ],
+        [
+          25829765120,
+          "a8de945bf7560e1b2e3d0e80feffc34af5a712e7b9c80dba5345f00d077c8141"
+        ]
+      ]
+    }
+  ],
+  "first": "results/2026-08-06/sergio-test/phase12-nvme/checkpoint-a/generation-1.json",
+  "manifest_hash_note": "Layout A manifest hashes may differ only when extent-summary representation changes; the compared layout definition, full entry hash, aggregate payload, sizes, and complete proofs are authoritative.",
+  "schema_version": "phase12-nvme-clean-generation-comparison-v1",
+  "second": "results/2026-08-06/sergio-test/phase12-nvme/checkpoint-a/generation-2.json",
+  "status": "PASS"
+}

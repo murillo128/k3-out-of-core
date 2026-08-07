@@ -1,0 +1,151 @@
+{
+  "du_allocated_bytes": 51677777920,
+  "du_apparent_bytes": 1472304199017,
+  "generation": {
+    "aggregate_useful_sha256": "a8de945bf7560e1b2e3d0e80feffc34af5a712e7b9c80dba5345f00d077c8141",
+    "layout_a_definition_sha256": "8caa3ea8101629c8ec4f6063bfd476239a9cc0b4e708aeab3cc9ca0e78b613a9",
+    "layout_a_manifest_sha256": "e85113c6f06e448e5595f694ba2e230ca253a5f6c16b42370e1a929dc78313fd",
+    "layout_b_definition_sha256": "c76892e08bf6b873f1fb933daf5d47f0a3a49fae55b9d31d2a2874a55a7f8bda",
+    "layout_b_manifest_sha256": "3034a960e5162366661e55b6ec6f013f9eca8eaf53199861dbaabe251b438035",
+    "record_count": 1472,
+    "route_sha256": "260b81ad71bc0c6b8ffcd31ac7b60e139a363152009021d41d5c8b69ac8cd919",
+    "scale": {
+      "experts": 896,
+      "layers": 92,
+      "projection_bytes": 5849088,
+      "selected": 16,
+      "tokens": 32
+    },
+    "schema_version": "phase12p-generation-v1"
+  },
+  "layout_identity": {
+    "layout_a_entries_sha256": "25a84945a69f77d66fcbf11f28ec5e84b9cdc25cdf7791742318d0687b09e176",
+    "layout_a_manifest_sha256": "e85113c6f06e448e5595f694ba2e230ca253a5f6c16b42370e1a929dc78313fd",
+    "layout_b_index_sha256": "d6e275039a59b0af5024508002a2842bf382547636b0f840640bf6baf6fa792d",
+    "layout_b_manifest_sha256": "3034a960e5162366661e55b6ec6f013f9eca8eaf53199861dbaabe251b438035"
+  },
+  "metadata_files": [
+    {
+      "allocated_bytes": 4096,
+      "path": "generation.json",
+      "sha256": "cd6bde59c620f09dbd89badfec4c8501a7a752fd63062b52fdf90ff08d8faced",
+      "size": 778
+    },
+    {
+      "allocated_bytes": 73728,
+      "path": "verification.json",
+      "sha256": "bbefbcb063b569fc913fbd1b0ae4e4498bd8cb3d6bb656c91bafe1093c7ca482",
+      "size": 69997
+    },
+    {
+      "allocated_bytes": 4096,
+      "path": "storage-preflight.json",
+      "sha256": "92733ec39574b6227fe7fd69c7eb63138fdcd3edda4c7275127a7be569fa91dc",
+      "size": 628
+    },
+    {
+      "allocated_bytes": 13828096,
+      "path": "route-corpus.json",
+      "sha256": "b084bb80656ce1b444c974cb588a46a7d20577f002b6b7b23e306f141254f7b5",
+      "size": 13824743
+    },
+    {
+      "allocated_bytes": 73728,
+      "path": "layout-a/manifest.json",
+      "sha256": "e85113c6f06e448e5595f694ba2e230ca253a5f6c16b42370e1a929dc78313fd",
+      "size": 70306
+    },
+    {
+      "allocated_bytes": 1093632,
+      "path": "layout-a/index.json",
+      "sha256": "db05d3a88f72236ee6f5532c18b7c0f9e8532e6efdc819d65c4abf329ec1d0b6",
+      "size": 1092671
+    },
+    {
+      "allocated_bytes": 1654784,
+      "path": "layout-a/journal.jsonl",
+      "sha256": "24c6f45ab560a573c2157c4342eed786729292640c61c470fbf1ef2b0334835f",
+      "size": 1647618
+    },
+    {
+      "allocated_bytes": 4096,
+      "path": "layout-a/SEALED.json",
+      "sha256": "13a2b24d3beab3b2935707d2bd9959847988450a85be149db6714a08f4ebc1f4",
+      "size": 123
+    },
+    {
+      "allocated_bytes": 4096,
+      "path": "layout-b/manifest.json",
+      "sha256": "3034a960e5162366661e55b6ec6f013f9eca8eaf53199861dbaabe251b438035",
+      "size": 1117
+    },
+    {
+      "allocated_bytes": 1667072,
+      "path": "layout-b/journal.jsonl",
+      "sha256": "4a5c3cc9afd7e4585eaef4a82e7edb01ad4a30e2e14bf0c1187b30c64858ad15",
+      "size": 1659394
+    },
+    {
+      "allocated_bytes": 4096,
+      "path": "layout-b/SEALED.json",
+      "sha256": "3e21acd00f146b06d2bc2ea5910ac885ccda5a96eaaeb7af0b649285834ac1da",
+      "size": 123
+    }
+  ],
+  "name": "clean-generation-1",
+  "physical_stores": [
+    {
+      "allocated_bytes": 25829597184,
+      "logical_size": 1446456066048,
+      "path": "layout-a/projection-spans.bin",
+      "planned_content_sha256": "a8de945bf7560e1b2e3d0e80feffc34af5a712e7b9c80dba5345f00d077c8141"
+    },
+    {
+      "allocated_bytes": 25829769216,
+      "logical_size": 25829765120,
+      "path": "layout-b/contiguous-experts.bin",
+      "planned_content_sha256": "a8de945bf7560e1b2e3d0e80feffc34af5a712e7b9c80dba5345f00d077c8141"
+    }
+  ],
+  "schema_version": "phase12-nvme-generation-capture-v1",
+  "swap_used_bytes": 0,
+  "verification": {
+    "aggregate_useful_sha256": "a8de945bf7560e1b2e3d0e80feffc34af5a712e7b9c80dba5345f00d077c8141",
+    "layout_a_extent_proof": {
+      "complete": true,
+      "extent_count": 1472,
+      "extent_length_distribution": {
+        "count": 1472,
+        "histogram": {
+          "17547264": 1472
+        },
+        "maximum": 17547264,
+        "minimum": 17547264
+      },
+      "method": "SEEK_DATA_SEEK_HOLE",
+      "st_blocks_512": 25829597184,
+      "st_size": 1446456066048,
+      "supported": true
+    },
+    "layout_b_extent_proof": {
+      "complete": true,
+      "extent_count": 1,
+      "extent_length_distribution": {
+        "count": 1,
+        "histogram": {
+          "25829761024": 1
+        },
+        "maximum": 25829761024,
+        "minimum": 25829761024
+      },
+      "method": "SEEK_DATA_SEEK_HOLE",
+      "st_blocks_512": 25829769216,
+      "st_size": 25829765120,
+      "supported": true
+    },
+    "record_count": 1472,
+    "route_sha256": "260b81ad71bc0c6b8ffcd31ac7b60e139a363152009021d41d5c8b69ac8cd919",
+    "status": "PASS",
+    "verified_useful_bytes_per_layout": 25829572608
+  }
+}
