@@ -1,0 +1,48 @@
+{
+  "application_markers": {
+    "captured_k3_slices": 0,
+    "marker_bridge_log_sha256": "e1d2470cefb5cf9252051994bb5cc2bdaf800280aff3463fb8f1980951092b20",
+    "marker_bridge_status": "FAIL: inherited marker descriptor did not survive the perf wrapper"
+  },
+  "capture": {
+    "completed_decode_forwards_before_stop": 6,
+    "configured_max_trace_bytes": 2147483648,
+    "perfetto_elapsed_seconds": 301.128,
+    "stop_reason": "fail-closed manual stop after projected trace size exceeded the fixed 2 GiB bound",
+    "trace": {
+      "path": "/mnt/nvme0/k3-phase12-nvme-evidence/colibri-endpoint/trace-max-safe/trace.pftrace",
+      "sha256": "6aefa5c1fece3327db2ff3caeb870ad5dc29c2cf39227ab02023538ca5c0d0ec",
+      "size": 631555030
+    },
+    "trace_growth_interpretation": "The first six decode forwards plus prefill already produced 631,555,030 bytes; preserving both block issue and completion for the remaining physical traffic projected beyond the accepted 2 GiB file bound."
+  },
+  "disposition": "rejected",
+  "events_observed": {
+    "block_rq_complete": 4591851,
+    "block_rq_issue": 4591851,
+    "sched_switch": 1757897,
+    "sched_wakeup": 882255,
+    "sched_waking": 882242,
+    "sys_enter_pread64": 34206,
+    "sys_exit_pread64": 34206
+  },
+  "identity": {
+    "colibri_commit": "b085b48888a88d9a1c00b151a9979774b72cdbfd",
+    "command_sha256": "570ab63de33a417b7b57796dab5711bf73b68f7e07df1ecbcd3d9b07d1561ecc",
+    "config_sha256": "f1a7d46780c2979a90bd7cc698ca914d8be5c43943ecb4bec2b170de06ca3c84",
+    "model_revision": "9f62e4e9fffbd0a83ddd60e1c209d828994b3569"
+  },
+  "loss_counters": {
+    "ftrace_cpu_dropped_events_begin": 0,
+    "ftrace_cpu_dropped_events_delta": 0,
+    "ftrace_cpu_dropped_events_end": 0,
+    "traced_buf_incremental_sequences_dropped": 0,
+    "traced_buf_sequence_packet_loss": 0,
+    "traced_buf_trace_writer_packet_loss": 0,
+    "traced_final_flush_failed": 0,
+    "traced_flushes_failed": 0
+  },
+  "next_action": "make the application marker descriptor reach the direct Kimi child, retain block issue coverage while removing redundant block completion and duplicate scheduler events, qualify with a short smoke trace, then repeat the unchanged 256-forward MAX_SAFE run",
+  "schema_version": "phase12-nvme-colibri-endpoint-perfetto-attempt-v1",
+  "status": "FAIL"
+}

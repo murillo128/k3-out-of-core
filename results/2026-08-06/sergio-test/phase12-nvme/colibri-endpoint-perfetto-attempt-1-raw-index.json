@@ -1,0 +1,79 @@
+{
+  "archive": {
+    "format": "deterministic POSIX tar; uid/gid/mtime normalized",
+    "path": "/mnt/nvme0/k3-phase12-nvme-evidence/archives/colibri-endpoint-perfetto-attempt-1.tar",
+    "sha256": "cd3dbc7ac3f929ee58eba0d1d29e62c867beba187aa132e22da1308b313b809f",
+    "size": 639528960
+  },
+  "experiment": "colibri-endpoint-perfetto-attempt-1",
+  "file_count": 13,
+  "files": [
+    {
+      "archive_path": "raw/case.json",
+      "sha256": "0cf7fcb4ddfd2d533465ce6a576250abf9bbf69d86b728ea26fe6e07463bec3e",
+      "size": 254
+    },
+    {
+      "archive_path": "raw/command.json",
+      "sha256": "570ab63de33a417b7b57796dab5711bf73b68f7e07df1ecbcd3d9b07d1561ecc",
+      "size": 1097
+    },
+    {
+      "archive_path": "raw/perfetto.log",
+      "sha256": "3684fa28dfbd187b00637c0fa129bc1400950efe0451e23ca0f55d6b1904f41c",
+      "size": 240
+    },
+    {
+      "archive_path": "raw/run/endpoint-trace.tsv",
+      "sha256": "8a069752d179065d6d292c9780cf8004b3d4ad31634ad070164468e1ea09b8bd",
+      "size": 7335936
+    },
+    {
+      "archive_path": "raw/run/perf-stat.csv",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "archive_path": "raw/run/route-trace.txt",
+      "sha256": "01f93fe806e0cb8ab377d92255fea8361c740e2107f8c1f68103a32cd8a5cb75",
+      "size": 614400
+    },
+    {
+      "archive_path": "raw/run/stderr.log",
+      "sha256": "0e817071c3122477a6ff451d859019f873d9a558793be5abda281ce4d37e54df",
+      "size": 1312
+    },
+    {
+      "archive_path": "raw/run/stdout.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "archive_path": "raw/run/trace-marker-bridge.log",
+      "sha256": "e1d2470cefb5cf9252051994bb5cc2bdaf800280aff3463fb8f1980951092b20",
+      "size": 59
+    },
+    {
+      "archive_path": "raw/trace.pftrace",
+      "sha256": "6aefa5c1fece3327db2ff3caeb870ad5dc29c2cf39227ab02023538ca5c0d0ec",
+      "size": 631555030
+    },
+    {
+      "archive_path": "raw/workload-stderr.log",
+      "sha256": "0e817071c3122477a6ff451d859019f873d9a558793be5abda281ce4d37e54df",
+      "size": 1312
+    },
+    {
+      "archive_path": "raw/workload-stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "archive_path": "compact/colibri-endpoint-perfetto-attempt-1.json",
+      "sha256": "a4ca0d4b7f2f0e6f4609e3df8dc9dd57bc580597b27c1253eaa4890ee4d71ba3",
+      "size": 2315
+    }
+  ],
+  "schema_version": "phase12-nvme-experiment-raw-index-v1",
+  "status": "PASS"
+}

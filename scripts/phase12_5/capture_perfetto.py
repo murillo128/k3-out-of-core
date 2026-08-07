@@ -24,6 +24,23 @@ MAX_TRACE_BYTES = 2 * 1024 * 1024 * 1024
 REQUIRED_SOURCES = ("track_event", "linux.ftrace", "linux.process_stats", "linux.sys_stats", "linux.system_info")
 
 
+def ftrace_event_availability(tracefs: Path, event: str) -> dict[str, Any]:
+    enable = tracefs / "events" / event / "enable"
+    event_format = tracefs / "events" / event / "format"
+    trace_marker = tracefs / "trace_marker"
+    # ftrace/print is the trace_marker pseudo-event.  Kernels expose its
+    # format and trace_marker endpoint but intentionally provide no
+    # per-event enable file; Perfetto enables it by requesting the event.
+    pseudo_print = event == "ftrace/print" and event_format.is_file() and trace_marker.exists()
+    return {
+        "event": event,
+        "enable_path": str(enable),
+        "format_path": str(event_format),
+        "pseudo_event": event == "ftrace/print",
+        "available": enable.is_file() or pseudo_print,
+    }
+
+
 def read_spec(path: Path) -> tuple[list[str], dict[str, str]]:
     value = json.loads(path.read_text())
     if isinstance(value, list):
@@ -69,10 +86,7 @@ def config_preflight(path: Path) -> dict[str, Any]:
     tracefs = Path("/sys/kernel/tracing")
     if not tracefs.is_dir():
         raise RuntimeError("BLOCKED_OS_TRACE: /sys/kernel/tracing is unavailable")
-    availability = []
-    for event in events:
-        enable = tracefs / "events" / event / "enable"
-        availability.append({"event": event, "enable_path": str(enable), "available": enable.is_file()})
+    availability = [ftrace_event_availability(tracefs, event) for event in events]
     missing_events = [item["event"] for item in availability if not item["available"]]
     if missing_events:
         raise RuntimeError("BLOCKED_OS_TRACE: unavailable ftrace events: " + ",".join(missing_events))
