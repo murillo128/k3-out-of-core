@@ -13,6 +13,7 @@ sys.path.insert(0, str(ROOT / "scripts/phase12_nvme"))
 sys.path.insert(0, str(ROOT / "scripts/phase9"))
 
 from analyze_cache_locality import Event, replay_capacity, reuse_statistics  # noqa: E402
+from analyze_colibri_endpoint_campaign import mean_ci_95  # noqa: E402
 from cache_policy_simulator import replay as phase9_replay  # noqa: E402
 from common import Scale  # noqa: E402
 from capture_real_routing import normalize_route  # noqa: E402
@@ -191,6 +192,15 @@ class Phase12NvmePlanTests(unittest.TestCase):
             self.assertEqual(parsed["decode_forwards"][0]["duration_seconds"], 4e-9)
             self.assertEqual(parsed["layer_stats"][0]["v1"], 14)
             self.assertEqual(parsed["run_stats"]["v7"], 0)
+
+    def test_colibri_endpoint_paired_interval_uses_three_predeclared_pairs(self) -> None:
+        interval = mean_ci_95([0.90, 0.91, 0.92])
+        self.assertEqual(interval["degrees_of_freedom"], 2)
+        self.assertAlmostEqual(interval["mean"], 0.91)
+        self.assertLess(interval["lower"], interval["mean"])
+        self.assertGreater(interval["upper"], interval["mean"])
+        with self.assertRaisesRegex(ValueError, "exactly three"):
+            mean_ci_95([0.90, 0.91])
 
 
 if __name__ == "__main__":

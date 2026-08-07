@@ -1,0 +1,369 @@
+{
+  "archive": {
+    "format": "deterministic POSIX tar; uid/gid/mtime normalized",
+    "path": "/mnt/nvme0/k3-phase12-nvme-evidence/archives/colibri-endpoint-campaign.tar",
+    "sha256": "3acf1e2871ea14f08196c6e8bedfb14a8765fef248dada72c5c1c099eace3fdc",
+    "size": 945612800
+  },
+  "experiment": "colibri-endpoint-campaign",
+  "file_count": 71,
+  "files": [
+    {
+      "archive_path": "raw/anchor-96g/endpoint-trace.tsv",
+      "sha256": "38bea868c2b01915db6a22a5e92a6f21f5ac97674b254bc435a781f8b6d16743",
+      "size": 106460213
+    },
+    {
+      "archive_path": "raw/anchor-96g/normalized-route.tsv",
+      "sha256": "a995951e6f8086a985792f9443280670582a292d580bbd2309a2c570f9f82410",
+      "size": 9149241
+    },
+    {
+      "archive_path": "raw/anchor-96g/perf-stat.csv",
+      "sha256": "d73b9d46ffe392857d0b6bc8a6e8eb0a6c629bb7e77d5f2bb28db7e79d23b0ac",
+      "size": 503
+    },
+    {
+      "archive_path": "raw/anchor-96g/resource-samples.json",
+      "sha256": "ac2294d30045eb3f25c319ba820e5cee7367f42b81f31306b0eedc03cda6ee90",
+      "size": 2582519
+    },
+    {
+      "archive_path": "raw/anchor-96g/route-trace.txt",
+      "sha256": "8b9767b30b9134f1a98f76f8abc102bfbfc9e5bfd6b88fc09ba6aea0a2d29791",
+      "size": 4761690
+    },
+    {
+      "archive_path": "raw/anchor-96g/run.json",
+      "sha256": "8cedf18c5739d3c52fc44ec60c2512718fbb54dd3e2ba3ef7e206db99265d847",
+      "size": 115479
+    },
+    {
+      "archive_path": "raw/anchor-96g/stderr-events.json",
+      "sha256": "2245cfa1f924f303288d40ff51c0960ec5e9054b175eb0123c34313ccdfa32e4",
+      "size": 31141
+    },
+    {
+      "archive_path": "raw/anchor-96g/stderr.log",
+      "sha256": "f96e52d0b066f6aa6ebaed8b124e0f7e9c22544b6d32a66dc61d1580d45a6dbf",
+      "size": 13075
+    },
+    {
+      "archive_path": "raw/anchor-96g/stdout-events.json",
+      "sha256": "5983b48200c7de9f5c0aa44f7ad716e012f4b79dd230b0e53e1f39810c053ea2",
+      "size": 71
+    },
+    {
+      "archive_path": "raw/anchor-96g/stdout.bin",
+      "sha256": "fc917a03def5738751ea1a384661b037ecc21f62df64507abeb64b0cad25a44a",
+      "size": 635
+    },
+    {
+      "archive_path": "raw/pair-01-8g/endpoint-trace.tsv",
+      "sha256": "d1b7a7c8e463cb4418260329cfa3d3820b4b3f84f245421e788553c984857b49",
+      "size": 132667812
+    },
+    {
+      "archive_path": "raw/pair-01-8g/normalized-route.tsv",
+      "sha256": "a995951e6f8086a985792f9443280670582a292d580bbd2309a2c570f9f82410",
+      "size": 9149241
+    },
+    {
+      "archive_path": "raw/pair-01-8g/perf-stat.csv",
+      "sha256": "0e8f304fa6a80705dd9ba51daa3a539d41c64ef67bb0a81792ec1f784ad19954",
+      "size": 512
+    },
+    {
+      "archive_path": "raw/pair-01-8g/resource-samples.json",
+      "sha256": "d301eeb45dc4b6a1e23dcf03d37ebf078fa77e701f3d02d39db6e0f2503dde4d",
+      "size": 4225386
+    },
+    {
+      "archive_path": "raw/pair-01-8g/route-trace.txt",
+      "sha256": "8b9767b30b9134f1a98f76f8abc102bfbfc9e5bfd6b88fc09ba6aea0a2d29791",
+      "size": 4761690
+    },
+    {
+      "archive_path": "raw/pair-01-8g/run.json",
+      "sha256": "5232be01b1562b98eb970667e508ea14281afe15c41035318e4d8e0b9d6d1119",
+      "size": 115493
+    },
+    {
+      "archive_path": "raw/pair-01-8g/stderr-events.json",
+      "sha256": "40c26d4d43ecc408ed01783a51746628f628d093e84015df0a5abdc0c6e73b71",
+      "size": 30983
+    },
+    {
+      "archive_path": "raw/pair-01-8g/stderr.log",
+      "sha256": "86a279f990ca252a826ce81c3bb61f11d1c2945ca1ee2d3aa265a02eccb92713",
+      "size": 12864
+    },
+    {
+      "archive_path": "raw/pair-01-8g/stdout-events.json",
+      "sha256": "8e0b6c8fe547e0e1ea92e7e5b03db7eb22195bcd1f6d660ac5af047673d83701",
+      "size": 71
+    },
+    {
+      "archive_path": "raw/pair-01-8g/stdout.bin",
+      "sha256": "fc917a03def5738751ea1a384661b037ecc21f62df64507abeb64b0cad25a44a",
+      "size": 635
+    },
+    {
+      "archive_path": "raw/pair-01-max-safe/endpoint-trace.tsv",
+      "sha256": "e92cd98d09a251b4a321456ba0efe1c1094098cd3a6959804606754efbbc5819",
+      "size": 104705913
+    },
+    {
+      "archive_path": "raw/pair-01-max-safe/normalized-route.tsv",
+      "sha256": "a995951e6f8086a985792f9443280670582a292d580bbd2309a2c570f9f82410",
+      "size": 9149241
+    },
+    {
+      "archive_path": "raw/pair-01-max-safe/perf-stat.csv",
+      "sha256": "27efc68a4863c48c2272fa132f7a1e6ac4dca3d0e2a0f43497c96b9ccdb2825f",
+      "size": 503
+    },
+    {
+      "archive_path": "raw/pair-01-max-safe/resource-samples.json",
+      "sha256": "ed797a35bffbcb4748d4c6dffade05b5d2cc04cab4995098cf04608d53d44c98",
+      "size": 2458359
+    },
+    {
+      "archive_path": "raw/pair-01-max-safe/route-trace.txt",
+      "sha256": "8b9767b30b9134f1a98f76f8abc102bfbfc9e5bfd6b88fc09ba6aea0a2d29791",
+      "size": 4761690
+    },
+    {
+      "archive_path": "raw/pair-01-max-safe/run.json",
+      "sha256": "df426f934370d8f1c034f99965a5dc1d206b36504a26bda4de3aa49591003f09",
+      "size": 115481
+    },
+    {
+      "archive_path": "raw/pair-01-max-safe/stderr-events.json",
+      "sha256": "3a876c20b56eefbfbb3a2783ecb934c3e125dce92b55716046ccce589ef2d2cd",
+      "size": 31175
+    },
+    {
+      "archive_path": "raw/pair-01-max-safe/stderr.log",
+      "sha256": "dd2e820b6250e17450e56f6832e5a29020e26407a5cc1c886393238b1d27b538",
+      "size": 13072
+    },
+    {
+      "archive_path": "raw/pair-01-max-safe/stdout-events.json",
+      "sha256": "293b2ea54577bd52ec7f70375bb2dd7b6953a9c5a6ff1ff3a90f9493e1ab2f56",
+      "size": 71
+    },
+    {
+      "archive_path": "raw/pair-01-max-safe/stdout.bin",
+      "sha256": "fc917a03def5738751ea1a384661b037ecc21f62df64507abeb64b0cad25a44a",
+      "size": 635
+    },
+    {
+      "archive_path": "raw/pair-02-8g/endpoint-trace.tsv",
+      "sha256": "7c379ab7b0254efd5a7836af5df0e2ab2fabcd9b39f1eae272c92866535cbb88",
+      "size": 135201498
+    },
+    {
+      "archive_path": "raw/pair-02-8g/normalized-route.tsv",
+      "sha256": "a995951e6f8086a985792f9443280670582a292d580bbd2309a2c570f9f82410",
+      "size": 9149241
+    },
+    {
+      "archive_path": "raw/pair-02-8g/perf-stat.csv",
+      "sha256": "a63165122c2dd505ba63aef6b4f2d201ceba10fba782cfe717a39e8a876bad27",
+      "size": 512
+    },
+    {
+      "archive_path": "raw/pair-02-8g/resource-samples.json",
+      "sha256": "57a6cfd0503f748a882ecb086764a7b6d0bea9fa403ff5ec00033c84f2d00282",
+      "size": 4215175
+    },
+    {
+      "archive_path": "raw/pair-02-8g/route-trace.txt",
+      "sha256": "8b9767b30b9134f1a98f76f8abc102bfbfc9e5bfd6b88fc09ba6aea0a2d29791",
+      "size": 4761690
+    },
+    {
+      "archive_path": "raw/pair-02-8g/run.json",
+      "sha256": "94637edf7d5689bf192e49b86d47d31638acebb2f7e940041d3b54769164450c",
+      "size": 115502
+    },
+    {
+      "archive_path": "raw/pair-02-8g/stderr-events.json",
+      "sha256": "71a8c5beafb83935a7e78fd9d15c80e620f09101b75a07e7f7211483d3ab0090",
+      "size": 30997
+    },
+    {
+      "archive_path": "raw/pair-02-8g/stderr.log",
+      "sha256": "1c6b167378ded09a96f3ce21535a816226b80970836f62d393aeee72bdd16c22",
+      "size": 12864
+    },
+    {
+      "archive_path": "raw/pair-02-8g/stdout-events.json",
+      "sha256": "e7d0e1271f6df8653433e3c3ab963d5fb8676411598e05d251c26bf2f1a4c49c",
+      "size": 71
+    },
+    {
+      "archive_path": "raw/pair-02-8g/stdout.bin",
+      "sha256": "fc917a03def5738751ea1a384661b037ecc21f62df64507abeb64b0cad25a44a",
+      "size": 635
+    },
+    {
+      "archive_path": "raw/pair-02-max-safe/endpoint-trace.tsv",
+      "sha256": "ff4bac24b6e37ea33477fb108599ceff82d884b0680538c49bf5b91d27c7b224",
+      "size": 104784813
+    },
+    {
+      "archive_path": "raw/pair-02-max-safe/normalized-route.tsv",
+      "sha256": "a995951e6f8086a985792f9443280670582a292d580bbd2309a2c570f9f82410",
+      "size": 9149241
+    },
+    {
+      "archive_path": "raw/pair-02-max-safe/perf-stat.csv",
+      "sha256": "35fdcc99db87dfe91dca6949dc73862492ab1b13339da5b44d9777e0cfc8e928",
+      "size": 503
+    },
+    {
+      "archive_path": "raw/pair-02-max-safe/resource-samples.json",
+      "sha256": "c0cc3d289b2a6f6eb55a7d67bc4b8bbc863f501079e4f42b1f3bba50fe56ddf2",
+      "size": 2451437
+    },
+    {
+      "archive_path": "raw/pair-02-max-safe/route-trace.txt",
+      "sha256": "8b9767b30b9134f1a98f76f8abc102bfbfc9e5bfd6b88fc09ba6aea0a2d29791",
+      "size": 4761690
+    },
+    {
+      "archive_path": "raw/pair-02-max-safe/run.json",
+      "sha256": "4a313f407a36438a778ee4810f9b9e4d2230dd03a98b7362c7d26ffd7cf93c1a",
+      "size": 115473
+    },
+    {
+      "archive_path": "raw/pair-02-max-safe/stderr-events.json",
+      "sha256": "7a725f7c036a5af712ce6c3c546275a892619ac5d938a167376786ad764521f7",
+      "size": 31178
+    },
+    {
+      "archive_path": "raw/pair-02-max-safe/stderr.log",
+      "sha256": "5f0a86d074ab32e522071b9d2eb44d611275a58a7721c95075be2cba77c0100e",
+      "size": 13072
+    },
+    {
+      "archive_path": "raw/pair-02-max-safe/stdout-events.json",
+      "sha256": "2f73337994802c943fbb1bd4170c0e10b91960ce8708448703cfe1051278d174",
+      "size": 71
+    },
+    {
+      "archive_path": "raw/pair-02-max-safe/stdout.bin",
+      "sha256": "fc917a03def5738751ea1a384661b037ecc21f62df64507abeb64b0cad25a44a",
+      "size": 635
+    },
+    {
+      "archive_path": "raw/pair-03-8g/endpoint-trace.tsv",
+      "sha256": "c393001257c95e88a39c346336bca29b6c4016f342fb484bcf4acd48884cad07",
+      "size": 135907426
+    },
+    {
+      "archive_path": "raw/pair-03-8g/normalized-route.tsv",
+      "sha256": "a995951e6f8086a985792f9443280670582a292d580bbd2309a2c570f9f82410",
+      "size": 9149241
+    },
+    {
+      "archive_path": "raw/pair-03-8g/perf-stat.csv",
+      "sha256": "0178926c9464b2274d686673d4ae3c9a86b7ac5f353d6dc6b3c3b14db58228a4",
+      "size": 512
+    },
+    {
+      "archive_path": "raw/pair-03-8g/resource-samples.json",
+      "sha256": "f5b127608100def5cb0392cdb21ccc22fedf8ed1350653ae88924b0fce307ef8",
+      "size": 4216541
+    },
+    {
+      "archive_path": "raw/pair-03-8g/route-trace.txt",
+      "sha256": "8b9767b30b9134f1a98f76f8abc102bfbfc9e5bfd6b88fc09ba6aea0a2d29791",
+      "size": 4761690
+    },
+    {
+      "archive_path": "raw/pair-03-8g/run.json",
+      "sha256": "efb837558456b6cc129224ff6af0de90d6cef18f61112e51a6aa71623f852a7e",
+      "size": 115491
+    },
+    {
+      "archive_path": "raw/pair-03-8g/stderr-events.json",
+      "sha256": "bf10db19249d11c8e1ded9532bf45678187cda9a2362418c033192819ad65ddf",
+      "size": 30995
+    },
+    {
+      "archive_path": "raw/pair-03-8g/stderr.log",
+      "sha256": "5ac727bfdf34b88c460a832abf61cc6a5fc001b1fd1d3f73c95113d87c0a3430",
+      "size": 12864
+    },
+    {
+      "archive_path": "raw/pair-03-8g/stdout-events.json",
+      "sha256": "a1e28b8d3a20f6228943200774936fb5321a568cde35de6e29379efa245db29e",
+      "size": 71
+    },
+    {
+      "archive_path": "raw/pair-03-8g/stdout.bin",
+      "sha256": "fc917a03def5738751ea1a384661b037ecc21f62df64507abeb64b0cad25a44a",
+      "size": 635
+    },
+    {
+      "archive_path": "raw/pair-03-max-safe/endpoint-trace.tsv",
+      "sha256": "67293af5940dad2e1678b4ea6cb5aaf5e4f499294ce8755ef61051b7a04eab0a",
+      "size": 104676719
+    },
+    {
+      "archive_path": "raw/pair-03-max-safe/normalized-route.tsv",
+      "sha256": "a995951e6f8086a985792f9443280670582a292d580bbd2309a2c570f9f82410",
+      "size": 9149241
+    },
+    {
+      "archive_path": "raw/pair-03-max-safe/perf-stat.csv",
+      "sha256": "b7c664b3cddaeb8af2f3862c6889576af47a1b130338f843a04ebc20a8c7c6bf",
+      "size": 503
+    },
+    {
+      "archive_path": "raw/pair-03-max-safe/resource-samples.json",
+      "sha256": "1acf8d1ded6b43677c7dd59961cdacc2fc2fa8d39f9a7104389173f463ef05b0",
+      "size": 2460126
+    },
+    {
+      "archive_path": "raw/pair-03-max-safe/route-trace.txt",
+      "sha256": "8b9767b30b9134f1a98f76f8abc102bfbfc9e5bfd6b88fc09ba6aea0a2d29791",
+      "size": 4761690
+    },
+    {
+      "archive_path": "raw/pair-03-max-safe/run.json",
+      "sha256": "d94feef712a61e5d0f129ccf261314ea52e52090a712f05ae8428ac2d1f628cd",
+      "size": 115470
+    },
+    {
+      "archive_path": "raw/pair-03-max-safe/stderr-events.json",
+      "sha256": "7c6689bcce04e66be4ca15c32c5d742b80de7e9b1997e30fb6d78b17e5cbd0b4",
+      "size": 31176
+    },
+    {
+      "archive_path": "raw/pair-03-max-safe/stderr.log",
+      "sha256": "eaefb15f226303ec96a4c03bd496b98efd3abac2d06795a9f460c3f2d3f0de11",
+      "size": 13072
+    },
+    {
+      "archive_path": "raw/pair-03-max-safe/stdout-events.json",
+      "sha256": "11f15aa86101edf1a83684b3648b3cbf5ee53309bf944d27596bfede1a52e1cb",
+      "size": 71
+    },
+    {
+      "archive_path": "raw/pair-03-max-safe/stdout.bin",
+      "sha256": "fc917a03def5738751ea1a384661b037ecc21f62df64507abeb64b0cad25a44a",
+      "size": 635
+    },
+    {
+      "archive_path": "compact/colibri-endpoint-campaign.json",
+      "sha256": "d7076a6399a5715e0641e6417b3982f1cc6211298d1a871863c8360cf5822962",
+      "size": 35334
+    }
+  ],
+  "schema_version": "phase12-nvme-experiment-raw-index-v1",
+  "status": "PASS"
+}

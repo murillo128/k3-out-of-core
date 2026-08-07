@@ -1,0 +1,1098 @@
+{
+  "correctness_and_resources": {
+    "all_buffered_full_expert_fallbacks_zero": true,
+    "all_routes_equal": true,
+    "all_runs_passed": true,
+    "all_swap_and_cgroup_events_zero": true,
+    "all_token_sequences_equal": true
+  },
+  "disposition": "accepted",
+  "failures": [],
+  "identity": {
+    "binary": {
+      "path": "/mnt/nvme0/k3-phase12-nvme-external/colibri-endpoint-telemetry/c/kimi_k3",
+      "sha256": "6ad61db213a0f8f1fa0f80d76e14e6b17e4aecc2ca1f1ff9bd5170de272e103b",
+      "size": 176920
+    },
+    "colibri_commit": "b085b48888a88d9a1c00b151a9979774b72cdbfd",
+    "global_replay": {
+      "path": "results/2026-08-06/sergio-test/phase12-nvme/cache-locality.json",
+      "sha256": "879527a882cca5fb4233a1f09e595599223538684bcd5f0bd314b693de86d0d9",
+      "size": 415683
+    },
+    "model_revision": "9f62e4e9fffbd0a83ddd60e1c209d828994b3569",
+    "normalized_route_sha256": "a995951e6f8086a985792f9443280670582a292d580bbd2309a2c570f9f82410",
+    "token_ids_sha256": "311ab0e8bf579fdda19cdba8b10fd1bf84815c4818b9dfb59dc0326eb2da209d"
+  },
+  "interpretation": {
+    "causal_hypothesis_for_trace": "The gain tracks higher native cache hits and lower exposed expert-load wait. Perfetto must verify the non-overlapping critical-path attribution and quantify trace perturbation.",
+    "observed": "MAX_SAFE materially increases full-model CPU decode throughput and reduces native/physical expert I/O relative to 8 GiB; the paired 95% interval excludes zero.",
+    "optimization_disposition": "No implementation optimization is selected from the untraced campaign. MAX_SAFE is an explicit evidence configuration, not a new default; the adjacent traced run is the next evidence-driven action."
+  },
+  "max_safe_aggregate": {
+    "accepted_rss_ceiling_bytes": 161639786086,
+    "maximum_observed_rss_bytes": 160790798336,
+    "maximum_swap_bytes": 0,
+    "mean_decode_forward_latency_seconds": 2.102625604721354,
+    "mean_decode_tokens_per_second": 0.47557230493220565,
+    "mean_physical_nvme0_read_bytes": 2794840380245.3335,
+    "minimum_rss_headroom_bytes": 848987750
+  },
+  "max_safe_vs_96g_anchor": {
+    "96g_decode_tokens_per_second": 0.44614848379226213,
+    "96g_maximum_rss_bytes": 141287206912,
+    "max_safe_mean_latency_change_fraction": -0.06190066309859554,
+    "max_safe_mean_physical_read_bytes_change_fraction": -0.10009613630732506,
+    "max_safe_mean_throughput_gain_fraction": 0.06595073660195161
+  },
+  "method": {
+    "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+    "fresh_interleaved_pairs": 3,
+    "minimum_complete_decode_forwards_per_run": 256,
+    "paired_interval": "two-sided Student-t 95% interval over three predeclared pairs (df=2)",
+    "runtime_ceiling_seconds": 7200
+  },
+  "native_vs_global_lru": {
+    "8g": {
+      "global_lru_replay": {
+        "hit_fraction": 0.0,
+        "hits": 0,
+        "misses": 376832,
+        "nominal_capacity_gib": 8,
+        "required_nvme_bytes": 6612370587648,
+        "usable_capacity_bytes": 8580612096
+      },
+      "native_colibri": {
+        "hit_fraction": 0.0463155970477044,
+        "streamed_bytes": 6591120850944,
+        "usable_capacity_bytes": 8071741440
+      }
+    },
+    "96g": {
+      "global_lru_replay": {
+        "hit_fraction": 0.586563773777174,
+        "hits": 221036,
+        "misses": 155796,
+        "nominal_capacity_gib": 96,
+        "required_nvme_bytes": 2733793542144,
+        "usable_capacity_bytes": 103072628736
+      },
+      "native_colibri": {
+        "hit_fraction": 0.5668366919461844,
+        "streamed_bytes": 2993686069248,
+        "usable_capacity_bytes": 101703942144
+      }
+    },
+    "claim_boundary": "The replay is one global LRU over (layer, expert) keys. The endpoint uses the actual Colibr\u00ec per-layer cache with a fixed whole-slot allocation. Capacity and policy differ, so the comparison is diagnostic rather than an equality requirement.",
+    "interpretation": "At the small anchor, per-layer reservation preserves limited local reuse while the similarly sized global LRU churns. Near 96 GiB the native and global hit fractions are close but not identical, consistent with their different allocation policies and usable capacities."
+  },
+  "next_action": "capture and analyze the adjacent MAX_SAFE full-stack Perfetto run",
+  "paired_max_safe_vs_8g": {
+    "exposed_expert_load_wait_change_fraction": {
+      "confidence": 0.95,
+      "degrees_of_freedom": 2,
+      "lower": -0.6256448738541773,
+      "mean": -0.6178189307990891,
+      "method": "two-sided paired Student-t interval",
+      "upper": -0.6099929877440009,
+      "values": [
+        -0.6209677419354839,
+        -0.6178220382824625,
+        -0.6146670121793211
+      ]
+    },
+    "mean_decode_latency_change_fraction": {
+      "confidence": 0.95,
+      "degrees_of_freedom": 2,
+      "lower": -0.4800795567314851,
+      "mean": -0.4779269486802935,
+      "method": "two-sided paired Student-t interval",
+      "upper": -0.4757743406291019,
+      "values": [
+        -0.4786207741117311,
+        -0.47820441454974205,
+        -0.47695565737940726
+      ]
+    },
+    "native_streamed_bytes_change_fraction": {
+      "confidence": 0.95,
+      "degrees_of_freedom": 2,
+      "lower": -0.5929540680632872,
+      "mean": -0.5929540680632872,
+      "method": "two-sided paired Student-t interval",
+      "upper": -0.5929540680632872,
+      "values": [
+        -0.5929540680632872,
+        -0.5929540680632872,
+        -0.5929540680632872
+      ]
+    },
+    "p95_decode_latency_change_fraction": {
+      "confidence": 0.95,
+      "degrees_of_freedom": 2,
+      "lower": -0.42605834380488367,
+      "mean": -0.4208381085644606,
+      "method": "two-sided paired Student-t interval",
+      "upper": -0.4156178733240375,
+      "values": [
+        -0.41868207142986935,
+        -0.4228802979362274,
+        -0.420951956327285
+      ]
+    },
+    "physical_nvme0_read_bytes_change_fraction": {
+      "confidence": 0.95,
+      "degrees_of_freedom": 2,
+      "lower": -0.5831075665425662,
+      "mean": -0.583107524817903,
+      "method": "two-sided paired Student-t interval",
+      "upper": -0.5831074830932397,
+      "values": [
+        -0.5831075068944434,
+        -0.5831075401969922,
+        -0.5831075273622734
+      ]
+    },
+    "throughput_gain_fraction": {
+      "confidence": 0.95,
+      "degrees_of_freedom": 2,
+      "lower": 0.9070899204224774,
+      "mean": 0.9153508974515683,
+      "method": "two-sided paired Student-t interval",
+      "upper": 0.9236118744806592,
+      "values": [
+        0.9180115006492302,
+        0.9164184661206254,
+        0.9116227255848495
+      ]
+    }
+  },
+  "runs": {
+    "anchor-96g": {
+      "capacity": {
+        "accepted_process_rss_ceiling_bytes": 161639786086,
+        "environment_budget_decimal_gb": 101.70394624,
+        "expert_bytes": 17547264,
+        "label": "96GiB",
+        "projected_process_rss_bytes": 140745842688,
+        "requested_bytes": 103079215104,
+        "requested_gib": 96.0,
+        "routed_layers": 92,
+        "slots_per_layer": 63,
+        "usable_cache_bytes": 101703942144,
+        "usable_cache_gib": 94.71917724609375
+      },
+      "component_seconds": {
+        "attention": 95.0,
+        "exposed_expert_load_wait": 330.7,
+        "head": 3.0,
+        "moe": 527.5
+      },
+      "decode_forward_latency_seconds": {
+        "count": 256,
+        "max": 3.228422102,
+        "mean": 2.2413677550039064,
+        "p50": 2.245392526,
+        "p95": 2.54308391,
+        "p99": 2.751088021
+      },
+      "decode_seconds": 573.8,
+      "decode_tokens_per_second_exact": 0.44614848379226213,
+      "first_32_decode_forward_latency_seconds": {
+        "count": 32,
+        "max": 3.228422102,
+        "mean": 2.06837156765625,
+        "p50": 1.986701284,
+        "p95": 2.771736892,
+        "p99": 3.228422102
+      },
+      "generated_tokens": 256,
+      "native_cache": {
+        "admissions": 170383,
+        "buffered_full_expert_fallbacks": 0,
+        "direct_bytes": 2994384044032,
+        "direct_expert_reads": 170607,
+        "evictions": 164587,
+        "final_occupancy_slots": 5796,
+        "hit_fraction": 0.5668366919461844,
+        "hits": 223256,
+        "misses": 170607,
+        "streamed_bytes": 2993686069248,
+        "tail_bytes": 210808
+      },
+      "normalized_route_sha256": "a995951e6f8086a985792f9443280670582a292d580bbd2309a2c570f9f82410",
+      "physical_read_bytes": {
+        "nvme0n1": 3105709946368,
+        "nvme1n1": 0
+      },
+      "process_start_to_first_output_seconds": 853.8598548349983,
+      "raw_run": {
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/colibri-endpoint/campaign/anchor-96g/run.json",
+        "sha256": "8cedf18c5739d3c52fc44ec60c2512718fbb54dd3e2ba3ef7e206db99265d847",
+        "size": 115479
+      },
+      "remaining_decode_forward_latency_seconds": {
+        "count": 224,
+        "max": 2.715957038,
+        "mean": 2.2660814960535713,
+        "p50": 2.267181155,
+        "p95": 2.540826689,
+        "p99": 2.687035812
+      },
+      "resources": {
+        "average_cpu_cores": 11.092147512514863,
+        "cgroup_event_delta": {
+          "high": 0,
+          "low": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_group_kill": 0,
+          "oom_kill": 0
+        },
+        "maximum_rss_bytes": 141287206912,
+        "maximum_swap_bytes": 0,
+        "maximum_threads": 20,
+        "minimum_mem_available_bytes": 57866338304,
+        "perf_stat": {
+          "branch-misses:u": {
+            "status": "available",
+            "value": 3984545548
+          },
+          "branches:u": {
+            "status": "available",
+            "value": 3325960089552
+          },
+          "cache-misses:u": {
+            "status": "available",
+            "value": 4875900142
+          },
+          "context-switches:u": {
+            "status": "available",
+            "value": 0
+          },
+          "cpu-migrations:u": {
+            "status": "available",
+            "value": 0
+          },
+          "cycles:u": {
+            "status": "available",
+            "value": 34005741669386
+          },
+          "instructions:u": {
+            "status": "available",
+            "value": 44371106755982
+          },
+          "major-faults:u": {
+            "status": "available",
+            "value": 2
+          },
+          "minor-faults:u": {
+            "status": "available",
+            "value": 755485
+          }
+        },
+        "proc_read_bytes": 3102235004928,
+        "rapl": {
+          "reason": "/sys/class/powercap exposes no energy_uj counter",
+          "status": "unavailable"
+        }
+      },
+      "run_id": "anchor-96g",
+      "token_ids_sha256": "311ab0e8bf579fdda19cdba8b10fd1bf84815c4818b9dfb59dc0326eb2da209d"
+    },
+    "pair-01-8g": {
+      "capacity": {
+        "accepted_process_rss_ceiling_bytes": 161639786086,
+        "environment_budget_decimal_gb": 8.071745536,
+        "expert_bytes": 17547264,
+        "label": "8GiB",
+        "projected_process_rss_bytes": 47113641984,
+        "requested_bytes": 8589934592,
+        "requested_gib": 8.0,
+        "routed_layers": 92,
+        "slots_per_layer": 5,
+        "usable_cache_bytes": 8071741440,
+        "usable_cache_gib": 7.51739501953125
+      },
+      "component_seconds": {
+        "attention": 93.7,
+        "exposed_expert_load_wait": 781.2,
+        "head": 3.0,
+        "moe": 987.8
+      },
+      "decode_forward_latency_seconds": {
+        "count": 256,
+        "max": 4.190465905,
+        "mean": 4.03903416359375,
+        "p50": 4.040188445,
+        "p95": 4.143538841,
+        "p99": 4.155054325
+      },
+      "decode_seconds": 1034.0,
+      "decode_tokens_per_second_exact": 0.24758220502901354,
+      "first_32_decode_forward_latency_seconds": {
+        "count": 32,
+        "max": 4.109197113,
+        "mean": 3.9795147264375,
+        "p50": 3.975260434,
+        "p95": 4.048211094,
+        "p99": 4.109197113
+      },
+      "generated_tokens": 256,
+      "native_cache": {
+        "admissions": 119314,
+        "buffered_full_expert_fallbacks": 0,
+        "direct_bytes": 6592657809408,
+        "direct_expert_reads": 375621,
+        "evictions": 118854,
+        "final_occupancy_slots": 460,
+        "hit_fraction": 0.0463155970477044,
+        "hits": 18242,
+        "misses": 375621,
+        "streamed_bytes": 6591120850944,
+        "tail_bytes": 343808
+      },
+      "normalized_route_sha256": "a995951e6f8086a985792f9443280670582a292d580bbd2309a2c570f9f82410",
+      "physical_read_bytes": {
+        "nvme0n1": 6703983711744,
+        "nvme1n1": 0
+      },
+      "process_start_to_first_output_seconds": 1311.911740067997,
+      "raw_run": {
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/colibri-endpoint/campaign/pair-01-8g/run.json",
+        "sha256": "5232be01b1562b98eb970667e508ea14281afe15c41035318e4d8e0b9d6d1119",
+        "size": 115493
+      },
+      "remaining_decode_forward_latency_seconds": {
+        "count": 224,
+        "max": 4.190465905,
+        "mean": 4.047536940330358,
+        "p50": 4.052355884,
+        "p95": 4.143590019,
+        "p99": 4.155054325
+      },
+      "resources": {
+        "average_cpu_cores": 12.28345342993016,
+        "cgroup_event_delta": {
+          "high": 0,
+          "low": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_group_kill": 0,
+          "oom_kill": 0
+        },
+        "maximum_rss_bytes": 47603982336,
+        "maximum_swap_bytes": 0,
+        "maximum_threads": 20,
+        "minimum_mem_available_bytes": 151654309888,
+        "perf_stat": {
+          "branch-misses:u": {
+            "status": "available",
+            "value": 4070189520
+          },
+          "branches:u": {
+            "status": "available",
+            "value": 3853154258496
+          },
+          "cache-misses:u": {
+            "status": "available",
+            "value": 4959095916
+          },
+          "context-switches:u": {
+            "status": "available",
+            "value": 0
+          },
+          "cpu-migrations:u": {
+            "status": "available",
+            "value": 0
+          },
+          "cycles:u": {
+            "status": "available",
+            "value": 57893325812397
+          },
+          "instructions:u": {
+            "status": "available",
+            "value": 46217113393409
+          },
+          "major-faults:u": {
+            "status": "available",
+            "value": 2
+          },
+          "minor-faults:u": {
+            "status": "available",
+            "value": 750352
+          }
+        },
+        "proc_read_bytes": 6703983935488,
+        "rapl": {
+          "reason": "/sys/class/powercap exposes no energy_uj counter",
+          "status": "unavailable"
+        }
+      },
+      "run_id": "pair-01-8g",
+      "token_ids_sha256": "311ab0e8bf579fdda19cdba8b10fd1bf84815c4818b9dfb59dc0326eb2da209d"
+    },
+    "pair-01-max-safe": {
+      "capacity": {
+        "accepted_process_rss_ceiling_bytes": 161639786086,
+        "environment_budget_decimal_gb": 121.076125696,
+        "expert_bytes": 17547264,
+        "label": "MAX_SAFE",
+        "projected_process_rss_bytes": 160118022144,
+        "requested_bytes": 121076201816,
+        "requested_gib": 112.761,
+        "routed_layers": 92,
+        "slots_per_layer": 75,
+        "usable_cache_bytes": 121076121600,
+        "usable_cache_gib": 112.76092529296875
+      },
+      "component_seconds": {
+        "attention": 95.6,
+        "exposed_expert_load_wait": 296.1,
+        "head": 3.1,
+        "moe": 492.4
+      },
+      "decode_forward_latency_seconds": {
+        "count": 256,
+        "max": 2.998200859,
+        "mean": 2.1058685055507813,
+        "p50": 2.100721093,
+        "p95": 2.408713416,
+        "p99": 2.63553324
+      },
+      "decode_seconds": 539.1,
+      "decode_tokens_per_second_exact": 0.47486551660174364,
+      "first_32_decode_forward_latency_seconds": {
+        "count": 32,
+        "max": 2.998200859,
+        "mean": 1.95727272034375,
+        "p50": 1.85260338,
+        "p95": 2.63553324,
+        "p99": 2.998200859
+      },
+      "generated_tokens": 256,
+      "native_cache": {
+        "admissions": 152895,
+        "buffered_full_expert_fallbacks": 0,
+        "direct_bytes": 2683514425344,
+        "direct_expert_reads": 152895,
+        "evictions": 145995,
+        "final_occupancy_slots": 6900,
+        "hit_fraction": 0.6118066434267753,
+        "hits": 240968,
+        "misses": 152895,
+        "streamed_bytes": 2682888929280,
+        "tail_bytes": 193784
+      },
+      "normalized_route_sha256": "a995951e6f8086a985792f9443280670582a292d580bbd2309a2c570f9f82410",
+      "physical_read_bytes": {
+        "nvme0n1": 2794840483328,
+        "nvme1n1": 0
+      },
+      "process_start_to_first_output_seconds": 819.3259006529988,
+      "raw_run": {
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/colibri-endpoint/campaign/pair-01-max-safe/run.json",
+        "sha256": "df426f934370d8f1c034f99965a5dc1d206b36504a26bda4de3aa49591003f09",
+        "size": 115481
+      },
+      "remaining_decode_forward_latency_seconds": {
+        "count": 224,
+        "max": 2.64566624,
+        "mean": 2.1270964748660712,
+        "p50": 2.125879517,
+        "p95": 2.381859929,
+        "p99": 2.501794582
+      },
+      "resources": {
+        "average_cpu_cores": 11.00626501495504,
+        "cgroup_event_delta": {
+          "high": 0,
+          "low": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_group_kill": 0,
+          "oom_kill": 0
+        },
+        "maximum_rss_bytes": 160672837632,
+        "maximum_swap_bytes": 0,
+        "maximum_threads": 20,
+        "minimum_mem_available_bytes": 38422274048,
+        "perf_stat": {
+          "branch-misses:u": {
+            "status": "available",
+            "value": 3979063474
+          },
+          "branches:u": {
+            "status": "available",
+            "value": 3289459981617
+          },
+          "cache-misses:u": {
+            "status": "available",
+            "value": 4445937221
+          },
+          "context-switches:u": {
+            "status": "available",
+            "value": 0
+          },
+          "cpu-migrations:u": {
+            "status": "available",
+            "value": 0
+          },
+          "cycles:u": {
+            "status": "available",
+            "value": 32354529719178
+          },
+          "instructions:u": {
+            "status": "available",
+            "value": 44243300964085
+          },
+          "major-faults:u": {
+            "status": "available",
+            "value": 2
+          },
+          "minor-faults:u": {
+            "status": "available",
+            "value": 726340
+          }
+        },
+        "proc_read_bytes": 2788486963200,
+        "rapl": {
+          "reason": "/sys/class/powercap exposes no energy_uj counter",
+          "status": "unavailable"
+        }
+      },
+      "run_id": "pair-01-max-safe",
+      "token_ids_sha256": "311ab0e8bf579fdda19cdba8b10fd1bf84815c4818b9dfb59dc0326eb2da209d"
+    },
+    "pair-02-8g": {
+      "capacity": {
+        "accepted_process_rss_ceiling_bytes": 161639786086,
+        "environment_budget_decimal_gb": 8.071745536,
+        "expert_bytes": 17547264,
+        "label": "8GiB",
+        "projected_process_rss_bytes": 47113641984,
+        "requested_bytes": 8589934592,
+        "requested_gib": 8.0,
+        "routed_layers": 92,
+        "slots_per_layer": 5,
+        "usable_cache_bytes": 8071741440,
+        "usable_cache_gib": 7.51739501953125
+      },
+      "component_seconds": {
+        "attention": 93.8,
+        "exposed_expert_load_wait": 773.2,
+        "head": 3.0,
+        "moe": 983.1
+      },
+      "decode_forward_latency_seconds": {
+        "count": 256,
+        "max": 4.199773706,
+        "mean": 4.021487185015625,
+        "p50": 4.025731343,
+        "p95": 4.124454186,
+        "p99": 4.157824342
+      },
+      "decode_seconds": 1029.5,
+      "decode_tokens_per_second_exact": 0.24866440019426905,
+      "first_32_decode_forward_latency_seconds": {
+        "count": 32,
+        "max": 4.110533886,
+        "mean": 3.9631820653125,
+        "p50": 3.958223935,
+        "p95": 4.061644085,
+        "p99": 4.110533886
+      },
+      "generated_tokens": 256,
+      "native_cache": {
+        "admissions": 119314,
+        "buffered_full_expert_fallbacks": 0,
+        "direct_bytes": 6592657809408,
+        "direct_expert_reads": 375621,
+        "evictions": 118854,
+        "final_occupancy_slots": 460,
+        "hit_fraction": 0.0463155970477044,
+        "hits": 18242,
+        "misses": 375621,
+        "streamed_bytes": 6591120850944,
+        "tail_bytes": 343808
+      },
+      "normalized_route_sha256": "a995951e6f8086a985792f9443280670582a292d580bbd2309a2c570f9f82410",
+      "physical_read_bytes": {
+        "nvme0n1": 6703983834624,
+        "nvme1n1": 0
+      },
+      "process_start_to_first_output_seconds": 1307.424305030996,
+      "raw_run": {
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/colibri-endpoint/campaign/pair-02-8g/run.json",
+        "sha256": "94637edf7d5689bf192e49b86d47d31638acebb2f7e940041d3b54769164450c",
+        "size": 115502
+      },
+      "remaining_decode_forward_latency_seconds": {
+        "count": 224,
+        "max": 4.199773706,
+        "mean": 4.029816487830357,
+        "p50": 4.040226011,
+        "p95": 4.12499678,
+        "p99": 4.157824342
+      },
+      "resources": {
+        "average_cpu_cores": 12.450646224585183,
+        "cgroup_event_delta": {
+          "high": 0,
+          "low": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_group_kill": 0,
+          "oom_kill": 0
+        },
+        "maximum_rss_bytes": 47724904448,
+        "maximum_swap_bytes": 0,
+        "maximum_threads": 20,
+        "minimum_mem_available_bytes": 151564009472,
+        "perf_stat": {
+          "branch-misses:u": {
+            "status": "available",
+            "value": 4078305322
+          },
+          "branches:u": {
+            "status": "available",
+            "value": 3865136321346
+          },
+          "cache-misses:u": {
+            "status": "available",
+            "value": 5164153177
+          },
+          "context-switches:u": {
+            "status": "available",
+            "value": 0
+          },
+          "cpu-migrations:u": {
+            "status": "available",
+            "value": 0
+          },
+          "cycles:u": {
+            "status": "available",
+            "value": 58436540037220
+          },
+          "instructions:u": {
+            "status": "available",
+            "value": 46259124826650
+          },
+          "major-faults:u": {
+            "status": "available",
+            "value": 2
+          },
+          "minor-faults:u": {
+            "status": "available",
+            "value": 691021
+          }
+        },
+        "proc_read_bytes": 6699560980480,
+        "rapl": {
+          "reason": "/sys/class/powercap exposes no energy_uj counter",
+          "status": "unavailable"
+        }
+      },
+      "run_id": "pair-02-8g",
+      "token_ids_sha256": "311ab0e8bf579fdda19cdba8b10fd1bf84815c4818b9dfb59dc0326eb2da209d"
+    },
+    "pair-02-max-safe": {
+      "capacity": {
+        "accepted_process_rss_ceiling_bytes": 161639786086,
+        "environment_budget_decimal_gb": 121.076125696,
+        "expert_bytes": 17547264,
+        "label": "MAX_SAFE",
+        "projected_process_rss_bytes": 160118022144,
+        "requested_bytes": 121076201816,
+        "requested_gib": 112.761,
+        "routed_layers": 92,
+        "slots_per_layer": 75,
+        "usable_cache_bytes": 121076121600,
+        "usable_cache_gib": 112.76092529296875
+      },
+      "component_seconds": {
+        "attention": 94.8,
+        "exposed_expert_load_wait": 295.5,
+        "head": 3.1,
+        "moe": 491.0
+      },
+      "decode_forward_latency_seconds": {
+        "count": 256,
+        "max": 3.053639456,
+        "mean": 2.0983942600859375,
+        "p50": 2.095482524,
+        "p95": 2.380303771,
+        "p99": 2.643564233
+      },
+      "decode_seconds": 537.2,
+      "decode_tokens_per_second_exact": 0.47654504839910644,
+      "first_32_decode_forward_latency_seconds": {
+        "count": 32,
+        "max": 3.053639456,
+        "mean": 1.948816889125,
+        "p50": 1.855765086,
+        "p95": 2.656147236,
+        "p99": 3.053639456
+      },
+      "generated_tokens": 256,
+      "native_cache": {
+        "admissions": 152895,
+        "buffered_full_expert_fallbacks": 0,
+        "direct_bytes": 2683514425344,
+        "direct_expert_reads": 152895,
+        "evictions": 145995,
+        "final_occupancy_slots": 6900,
+        "hit_fraction": 0.6118066434267753,
+        "hits": 240968,
+        "misses": 152895,
+        "streamed_bytes": 2682888929280,
+        "tail_bytes": 193784
+      },
+      "normalized_route_sha256": "a995951e6f8086a985792f9443280670582a292d580bbd2309a2c570f9f82410",
+      "physical_read_bytes": {
+        "nvme0n1": 2794840311296,
+        "nvme1n1": 0
+      },
+      "process_start_to_first_output_seconds": 817.1987503619966,
+      "raw_run": {
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/colibri-endpoint/campaign/pair-02-max-safe/run.json",
+        "sha256": "4a313f407a36438a778ee4810f9b9e4d2230dd03a98b7362c7d26ffd7cf93c1a",
+        "size": 115473
+      },
+      "remaining_decode_forward_latency_seconds": {
+        "count": 224,
+        "max": 2.613643441,
+        "mean": 2.1197624559375,
+        "p50": 2.118248824,
+        "p95": 2.365943818,
+        "p99": 2.499125513
+      },
+      "resources": {
+        "average_cpu_cores": 11.00395789121865,
+        "cgroup_event_delta": {
+          "high": 0,
+          "low": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_group_kill": 0,
+          "oom_kill": 0
+        },
+        "maximum_rss_bytes": 160669990912,
+        "maximum_swap_bytes": 0,
+        "maximum_threads": 20,
+        "minimum_mem_available_bytes": 38397366272,
+        "perf_stat": {
+          "branch-misses:u": {
+            "status": "available",
+            "value": 3987451557
+          },
+          "branches:u": {
+            "status": "available",
+            "value": 3287786610914
+          },
+          "cache-misses:u": {
+            "status": "available",
+            "value": 4471266644
+          },
+          "context-switches:u": {
+            "status": "available",
+            "value": 0
+          },
+          "cpu-migrations:u": {
+            "status": "available",
+            "value": 0
+          },
+          "cycles:u": {
+            "status": "available",
+            "value": 32284122420680
+          },
+          "instructions:u": {
+            "status": "available",
+            "value": 44237445957749
+          },
+          "major-faults:u": {
+            "status": "available",
+            "value": 2
+          },
+          "minor-faults:u": {
+            "status": "available",
+            "value": 707145
+          }
+        },
+        "proc_read_bytes": 2792506204160,
+        "rapl": {
+          "reason": "/sys/class/powercap exposes no energy_uj counter",
+          "status": "unavailable"
+        }
+      },
+      "run_id": "pair-02-max-safe",
+      "token_ids_sha256": "311ab0e8bf579fdda19cdba8b10fd1bf84815c4818b9dfb59dc0326eb2da209d"
+    },
+    "pair-03-8g": {
+      "capacity": {
+        "accepted_process_rss_ceiling_bytes": 161639786086,
+        "environment_budget_decimal_gb": 8.071745536,
+        "expert_bytes": 17547264,
+        "label": "8GiB",
+        "projected_process_rss_bytes": 47113641984,
+        "requested_bytes": 8589934592,
+        "requested_gib": 8.0,
+        "routed_layers": 92,
+        "slots_per_layer": 5,
+        "usable_cache_bytes": 8071741440,
+        "usable_cache_gib": 7.51739501953125
+      },
+      "component_seconds": {
+        "attention": 94.3,
+        "exposed_expert_load_wait": 771.8,
+        "head": 3.0,
+        "moe": 982.9
+      },
+      "decode_forward_latency_seconds": {
+        "count": 256,
+        "max": 4.261477744,
+        "mean": 4.021865599363282,
+        "p50": 4.030562113,
+        "p95": 4.133461365,
+        "p99": 4.164927152
+      },
+      "decode_seconds": 1029.6,
+      "decode_tokens_per_second_exact": 0.24864024864024867,
+      "first_32_decode_forward_latency_seconds": {
+        "count": 32,
+        "max": 4.079316992,
+        "mean": 3.95961799078125,
+        "p50": 3.951202259,
+        "p95": 4.074081042,
+        "p99": 4.079316992
+      },
+      "generated_tokens": 256,
+      "native_cache": {
+        "admissions": 119314,
+        "buffered_full_expert_fallbacks": 0,
+        "direct_bytes": 6592657809408,
+        "direct_expert_reads": 375621,
+        "evictions": 118854,
+        "final_occupancy_slots": 460,
+        "hit_fraction": 0.0463155970477044,
+        "hits": 18242,
+        "misses": 375621,
+        "streamed_bytes": 6591120850944,
+        "tail_bytes": 343808
+      },
+      "normalized_route_sha256": "a995951e6f8086a985792f9443280670582a292d580bbd2309a2c570f9f82410",
+      "physical_read_bytes": {
+        "nvme0n1": 6703983711744,
+        "nvme1n1": 0
+      },
+      "process_start_to_first_output_seconds": 1307.760941141998,
+      "raw_run": {
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/colibri-endpoint/campaign/pair-03-8g/run.json",
+        "sha256": "efb837558456b6cc129224ff6af0de90d6cef18f61112e51a6aa71623f852a7e",
+        "size": 115491
+      },
+      "remaining_decode_forward_latency_seconds": {
+        "count": 224,
+        "max": 4.261477744,
+        "mean": 4.030758114875,
+        "p50": 4.039194991,
+        "p95": 4.13378892,
+        "p99": 4.164927152
+      },
+      "resources": {
+        "average_cpu_cores": 12.657822749975507,
+        "cgroup_event_delta": {
+          "high": 0,
+          "low": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_group_kill": 0,
+          "oom_kill": 0
+        },
+        "maximum_rss_bytes": 47606829056,
+        "maximum_swap_bytes": 0,
+        "maximum_threads": 20,
+        "minimum_mem_available_bytes": 151669092352,
+        "perf_stat": {
+          "branch-misses:u": {
+            "status": "available",
+            "value": 4095997912
+          },
+          "branches:u": {
+            "status": "available",
+            "value": 3886406733453
+          },
+          "cache-misses:u": {
+            "status": "available",
+            "value": 5077772540
+          },
+          "context-switches:u": {
+            "status": "available",
+            "value": 0
+          },
+          "cpu-migrations:u": {
+            "status": "available",
+            "value": 0
+          },
+          "cycles:u": {
+            "status": "available",
+            "value": 59435095506030
+          },
+          "instructions:u": {
+            "status": "available",
+            "value": 46333588564881
+          },
+          "major-faults:u": {
+            "status": "available",
+            "value": 2
+          },
+          "minor-faults:u": {
+            "status": "available",
+            "value": 697548
+          }
+        },
+        "proc_read_bytes": 6698753638400,
+        "rapl": {
+          "reason": "/sys/class/powercap exposes no energy_uj counter",
+          "status": "unavailable"
+        }
+      },
+      "run_id": "pair-03-8g",
+      "token_ids_sha256": "311ab0e8bf579fdda19cdba8b10fd1bf84815c4818b9dfb59dc0326eb2da209d"
+    },
+    "pair-03-max-safe": {
+      "capacity": {
+        "accepted_process_rss_ceiling_bytes": 161639786086,
+        "environment_budget_decimal_gb": 121.076125696,
+        "expert_bytes": 17547264,
+        "label": "MAX_SAFE",
+        "projected_process_rss_bytes": 160118022144,
+        "requested_bytes": 121076201816,
+        "requested_gib": 112.761,
+        "routed_layers": 92,
+        "slots_per_layer": 75,
+        "usable_cache_bytes": 121076121600,
+        "usable_cache_gib": 112.76092529296875
+      },
+      "component_seconds": {
+        "attention": 95.1,
+        "exposed_expert_load_wait": 297.4,
+        "head": 3.0,
+        "moe": 492.5
+      },
+      "decode_forward_latency_seconds": {
+        "count": 256,
+        "max": 3.03169803,
+        "mean": 2.103614048527344,
+        "p50": 2.099369992,
+        "p95": 2.393472717,
+        "p99": 2.620230706
+      },
+      "decode_seconds": 538.6,
+      "decode_tokens_per_second_exact": 0.4753063497957668,
+      "first_32_decode_forward_latency_seconds": {
+        "count": 32,
+        "max": 3.03169803,
+        "mean": 1.952929118125,
+        "p50": 1.860302996,
+        "p95": 2.644896419,
+        "p99": 3.03169803
+      },
+      "generated_tokens": 256,
+      "native_cache": {
+        "admissions": 152895,
+        "buffered_full_expert_fallbacks": 0,
+        "direct_bytes": 2683514425344,
+        "direct_expert_reads": 152895,
+        "evictions": 145995,
+        "final_occupancy_slots": 6900,
+        "hit_fraction": 0.6118066434267753,
+        "hits": 240968,
+        "misses": 152895,
+        "streamed_bytes": 2682888929280,
+        "tail_bytes": 193784
+      },
+      "normalized_route_sha256": "a995951e6f8086a985792f9443280670582a292d580bbd2309a2c570f9f82410",
+      "physical_read_bytes": {
+        "nvme0n1": 2794840346112,
+        "nvme1n1": 0
+      },
+      "process_start_to_first_output_seconds": 818.8381089350005,
+      "raw_run": {
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/colibri-endpoint/campaign/pair-03-max-safe/run.json",
+        "sha256": "d94feef712a61e5d0f129ccf261314ea52e52090a712f05ae8428ac2d1f628cd",
+        "size": 115470
+      },
+      "remaining_decode_forward_latency_seconds": {
+        "count": 224,
+        "max": 2.620230706,
+        "mean": 2.12514046715625,
+        "p50": 2.1197165,
+        "p95": 2.388368511,
+        "p99": 2.479905915
+      },
+      "resources": {
+        "average_cpu_cores": 10.983675212590665,
+        "cgroup_event_delta": {
+          "high": 0,
+          "low": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_group_kill": 0,
+          "oom_kill": 0
+        },
+        "maximum_rss_bytes": 160790798336,
+        "maximum_swap_bytes": 0,
+        "maximum_threads": 20,
+        "minimum_mem_available_bytes": 38328832000,
+        "perf_stat": {
+          "branch-misses:u": {
+            "status": "available",
+            "value": 3981025339
+          },
+          "branches:u": {
+            "status": "available",
+            "value": 3287980508864
+          },
+          "cache-misses:u": {
+            "status": "available",
+            "value": 4772208014
+          },
+          "context-switches:u": {
+            "status": "available",
+            "value": 0
+          },
+          "cpu-migrations:u": {
+            "status": "available",
+            "value": 0
+          },
+          "cycles:u": {
+            "status": "available",
+            "value": 32281014571041
+          },
+          "instructions:u": {
+            "status": "available",
+            "value": 44238121322215
+          },
+          "major-faults:u": {
+            "status": "available",
+            "value": 2
+          },
+          "minor-faults:u": {
+            "status": "available",
+            "value": 699623
+          }
+        },
+        "proc_read_bytes": 2790382510080,
+        "rapl": {
+          "reason": "/sys/class/powercap exposes no energy_uj counter",
+          "status": "unavailable"
+        }
+      },
+      "run_id": "pair-03-max-safe",
+      "token_ids_sha256": "311ab0e8bf579fdda19cdba8b10fd1bf84815c4818b9dfb59dc0326eb2da209d"
+    }
+  },
+  "schema_version": "phase12-nvme-colibri-endpoint-campaign-v1",
+  "status": "PASS"
+}
