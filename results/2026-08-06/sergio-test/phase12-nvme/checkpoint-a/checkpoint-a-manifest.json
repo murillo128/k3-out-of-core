@@ -1,0 +1,250 @@
+{
+  "checkpoint": "A",
+  "corpus": {
+    "aggregate_useful_sha256": "a8de945bf7560e1b2e3d0e80feffc34af5a712e7b9c80dba5345f00d077c8141",
+    "clean_generation_evidence": [
+      {
+        "path": "results/2026-08-06/sergio-test/phase12-nvme/checkpoint-a/generation-1.json",
+        "sha256": "6cdf47c7e591880489e72945501bc8ff8c9412ac3b50527fe32922903e23e62d",
+        "size": 5150
+      },
+      {
+        "path": "results/2026-08-06/sergio-test/phase12-nvme/checkpoint-a/generation-2.json",
+        "sha256": "e156e3c09b10f332c117338afdaae6727fb7c1f220a31595e5b6e711dd44ef9f",
+        "size": 5159
+      }
+    ],
+    "comparison_evidence": {
+      "path": "results/2026-08-06/sergio-test/phase12-nvme/checkpoint-a/clean-generation-comparison.json",
+      "sha256": "b95998510d97ca87b65c45fdc02597b1e85a329dd740cea7e0e5424b33633061",
+      "size": 4056
+    },
+    "layout_a_definition_sha256": "8caa3ea8101629c8ec4f6063bfd476239a9cc0b4e708aeab3cc9ca0e78b613a9",
+    "layout_a_entries_sha256": "25a84945a69f77d66fcbf11f28ec5e84b9cdc25cdf7791742318d0687b09e176",
+    "layout_a_extent_proof": {
+      "complete": true,
+      "extent_count": 1472,
+      "extent_length_distribution": {
+        "count": 1472,
+        "histogram": {
+          "17547264": 1472
+        },
+        "maximum": 17547264,
+        "minimum": 17547264
+      },
+      "method": "SEEK_DATA_SEEK_HOLE",
+      "st_blocks_512": 25829597184,
+      "st_size": 1446456066048,
+      "supported": true
+    },
+    "layout_b_definition_sha256": "c76892e08bf6b873f1fb933daf5d47f0a3a49fae55b9d31d2a2874a55a7f8bda",
+    "layout_b_extent_proof": {
+      "complete": true,
+      "extent_count": 1,
+      "extent_length_distribution": {
+        "count": 1,
+        "histogram": {
+          "25829761024": 1
+        },
+        "maximum": 25829761024,
+        "minimum": 25829761024
+      },
+      "method": "SEEK_DATA_SEEK_HOLE",
+      "st_blocks_512": 25829769216,
+      "st_size": 25829765120,
+      "supported": true
+    },
+    "layout_b_index_sha256": "d6e275039a59b0af5024508002a2842bf382547636b0f840640bf6baf6fa792d",
+    "record_count": 1472,
+    "retained_physical_generation": "/mnt/nvme0/k3-phase12-nvme-generation-2",
+    "route_sha256": "260b81ad71bc0c6b8ffcd31ac7b60e139a363152009021d41d5c8b69ac8cd919",
+    "swap_used_bytes_during_generation": 0,
+    "verified_useful_bytes_per_layout": 25829572608
+  },
+  "final_capable": false,
+  "focused_validation": {
+    "binary": {
+      "path": "/usr/local/src/k3-out-of-core/build/phase12-nvme/phase12_nvme_bench",
+      "sha256": "b68b8b2823a737b695526fb48e22f48588e467fbd9e05cee4fc78a2ee1b6b2ba"
+    },
+    "commands_passed": 5,
+    "path": "results/2026-08-06/sergio-test/phase12-nvme/checkpoint-a/validation.json",
+    "sha256": "c0e8976bd0a3c0c778199069bf443704a1debb1c0b4d53f94dca2c3df33dad8f",
+    "size": 2384
+  },
+  "gates": {
+    "exact_corpus_and_physical_backing": "PASS",
+    "failure_lifetime_and_resource_behavior": "PASS",
+    "fair_api_order_qd_cache_matrix": "PASS",
+    "layout_byte_equivalence": "PASS",
+    "runtime_or_default_change_selected": false
+  },
+  "harness_qualification": {
+    "all_lifetime_deltas_zero": true,
+    "all_requested_qd_supported": true,
+    "all_short_reads_zero": true,
+    "all_swap_zero": true,
+    "apis": [
+      "buffered-io-uring",
+      "direct-io-uring",
+      "buffered-pread",
+      "direct-pread",
+      "mmap-buffered"
+    ],
+    "cache_states": [
+      "OS_COLD_VERIFIED",
+      "OS_WARM"
+    ],
+    "case_count": 108,
+    "checksum_sink_sha256": "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d",
+    "evidence": {
+      "path": "results/2026-08-06/sergio-test/phase12-nvme/checkpoint-a/harness-qualification.json",
+      "sha256": "8ecc4a69e2f12758bc44ee37798ab5fb856a0d81a14d1a6910f0c247ce485d12",
+      "size": 246488
+    },
+    "harness_identity": {
+      "binary": {
+        "path": "/usr/local/src/k3-out-of-core/build/phase12-nvme/phase12_nvme_bench",
+        "sha256": "b68b8b2823a737b695526fb48e22f48588e467fbd9e05cee4fc78a2ee1b6b2ba"
+      },
+      "sources": {
+        "scripts/phase12_nvme/phase12_nvme_bench.cpp": "72feb430c0d05f642efcd725da32a9c25f872aeece0ce0acced211697af4a057",
+        "scripts/phase12_nvme/plan.py": "20a22587aa52e4ef828378017d732c6e3c4e108e3738949f121a5a51272ef8e4",
+        "scripts/phase12_nvme/qualify_harness.py": "bca7d4415015d7e0c81d8c1e9368355ed105ca62e76b4fa5f29a7c14bf44b6da"
+      }
+    },
+    "layouts": [
+      "A",
+      "B"
+    ],
+    "maximum_buffer_bytes": 1123024896,
+    "orders": [
+      "LOGICAL_SELECTED",
+      "PHYSICAL_OFFSET",
+      "LOCALITY_WINDOW_8"
+    ],
+    "queue_depths": [
+      1,
+      2,
+      4,
+      8,
+      16,
+      32
+    ],
+    "raw_attempt": "qualification-attempt-6"
+  },
+  "host": {
+    "capability_probes": {
+      "buffered_native_io_uring": {
+        "drop_ios": 0,
+        "error": 0,
+        "io_bytes": 67108864,
+        "short_ios": 0
+      },
+      "buffered_positional_pread": {
+        "drop_ios": 0,
+        "error": 0,
+        "io_bytes": 67108864,
+        "short_ios": 0
+      },
+      "direct_native_io_uring": {
+        "drop_ios": 0,
+        "error": 0,
+        "io_bytes": 67108864,
+        "short_ios": 0
+      },
+      "direct_positional_pread": {
+        "drop_ios": 0,
+        "error": 0,
+        "io_bytes": 67108864,
+        "short_ios": 0
+      }
+    },
+    "contract_deviation": {
+      "impact": "same-host two-independent-NVMe campaign is valid; nominal shape/OS/RAM portability remains a handoff limitation",
+      "nominal": "VM.DenseIO.E4.Flex, 16 OCPU, 256 GB, Ubuntu 24.04",
+      "observed": "VM.DenseIO.E5.Flex, 16.0 OCPU, 192.0 GB, Oracle Linux 9.8",
+      "status": "RECORDED_LIMITATION"
+    },
+    "evidence": {
+      "path": "results/2026-08-06/sergio-test/phase12-nvme/checkpoint-a/host-preflight.json",
+      "sha256": "b05881f354b45caf0d767a3e666309fe5f52b4c16f816669e639a6b4872b558b",
+      "size": 40962
+    },
+    "filesystems": [
+      {
+        "avail": 6631345590272,
+        "fstype": "xfs",
+        "options": "rw,noatime,seclabel,attr2,inode64,logbufs=8,logbsize=32k,sunit=8,swidth=8,noquota",
+        "size": 6799193276416,
+        "source": "/dev/nvme0n1",
+        "target": "/mnt/nvme0",
+        "use%": "2%"
+      },
+      {
+        "avail": 6683033395200,
+        "fstype": "xfs",
+        "options": "rw,noatime,seclabel,attr2,inode64,logbufs=8,logbsize=32k,sunit=8,swidth=8,noquota",
+        "size": 6799193276416,
+        "source": "/dev/nvme1n1",
+        "target": "/mnt/nvme1",
+        "use%": "2%"
+      }
+    ],
+    "oci_instance": {
+      "memory_in_gbs": 192.0,
+      "networking_bandwidth_in_gbps": 16.0,
+      "ocpus": 16.0,
+      "shape": "VM.DenseIO.E5.Flex",
+      "status": "AVAILABLE"
+    }
+  },
+  "issue": 58,
+  "limitations": [
+    "Observed VM.DenseIO.E5.Flex, Oracle Linux 9.8, and 192 GB RAM differ from the nominal E4/Ubuntu/256 GB two-drive profile.",
+    "Clean generation 1 was deleted after complete verification and compact capture; it is deterministically reproducible from the recorded identities.",
+    "The raw archive includes metadata and measured cells, not the 51.7 GB physical payload stores; clean generation 2 remains on local NVMe.",
+    "Checkpoint A qualifies the harness only and selects no performance winner or runtime/default change."
+  ],
+  "negative_harness_attempts": [
+    {
+      "path": "results/2026-08-06/sergio-test/phase12-nvme/checkpoint-a/harness-qualification-attempt-1-rejected.json",
+      "sha256": "e4ff319998def2ca39625ddac6f8ce6e50881f1f71006310fcbf73237c1320d4",
+      "size": 7477
+    },
+    {
+      "path": "results/2026-08-06/sergio-test/phase12-nvme/checkpoint-a/harness-qualification-attempt-2-rejected.json",
+      "sha256": "fba3368eebb9f2b3bf1c47602471168f4173a84eab0149ed3d3df81c7bf2e2d7",
+      "size": 9487
+    },
+    {
+      "path": "results/2026-08-06/sergio-test/phase12-nvme/checkpoint-a/harness-qualification-attempt-3-rejected.json",
+      "sha256": "82666619f94110cebb0ff26c102b138b92bfe48a03aab8f05406c2b69e72770f",
+      "size": 6775
+    },
+    {
+      "path": "results/2026-08-06/sergio-test/phase12-nvme/checkpoint-a/harness-qualification-attempt-4-rejected.json",
+      "sha256": "aaad22e978a5d65ffcaa4fc8d1f3319b2ca16b19b57924618a34b1b236370815",
+      "size": 26087
+    }
+  ],
+  "raw_evidence": {
+    "archive": {
+      "format": "deterministic POSIX tar; uid/gid/mtime normalized",
+      "path": "/mnt/nvme0/k3-phase12-nvme-evidence/checkpoint-a-raw.tar",
+      "sha256": "c48be9eb8d0d48d7c2688b2e610ad7a6798b6cc4a0f4ddf5cd577e388a7555f1",
+      "size": 28712960
+    },
+    "file_count": 458,
+    "path": "results/2026-08-06/sergio-test/phase12-nvme/checkpoint-a/raw-evidence-index.json",
+    "sha256": "34b56b1eafe3bdea31b51b148f1475701f1ee80695693dec0d2e5a3a466ca98e",
+    "size": 99596
+  },
+  "revisions": {
+    "controlling_base": "63fdfdd49112e4324eb1206d0b6b31bd547669a6",
+    "implementation": "c647f9c18dcf7e1094e4983ae0a0b06abbf11496",
+    "nested_llama_cpp": "71b4b0251fb314cb955fe5f43b6a1e382fc2b65c"
+  },
+  "schema_version": "phase12-nvme-checkpoint-a-v1",
+  "status": "PASS"
+}
