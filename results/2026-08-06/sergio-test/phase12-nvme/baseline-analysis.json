@@ -1,0 +1,437 @@
+{
+  "fio": {
+    "path": "results/2026-08-06/sergio-test/phase12-nvme/fio-characterization.json",
+    "sha256": "390e198e9b189023c2feb1ea77edf401112f1e1ff01f66cc3d39a69d02c3587d",
+    "size": 31900
+  },
+  "first_optimization_hypothesis": {
+    "baseline_cell": {
+      "api": "buffered-io-uring",
+      "block_devices": [
+        {
+          "io_ticks_ms": 6046,
+          "read_bytes": 25792626688,
+          "read_operations": 392551,
+          "read_ticks_ms": 135186,
+          "stat_path": "/sys/dev/block/259:1/stat",
+          "weighted_ticks_ms": 135186
+        }
+      ],
+      "buffer_bytes": 561512448,
+      "cache_state": "OS_COLD_VERIFIED",
+      "case": "layout-a__logical_selected__buffered-io-uring__qd-16__os_cold_verified",
+      "checksum_sink_sha256": "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d",
+      "latency_ms": {
+        "max": 6055.753771,
+        "p50": 6055.753771,
+        "p95": 6055.753771,
+        "p99": 6055.753771
+      },
+      "layout": "A",
+      "lifetime_resources": {
+        "fd_delta": 0,
+        "thread_delta": 0
+      },
+      "maximum_active_operations": 16,
+      "operation_elapsed_ms": {
+        "max": 150.011414,
+        "p50": 61.940798,
+        "p95": 92.292244,
+        "p99": 105.041085
+      },
+      "order": "LOGICAL_SELECTED",
+      "page_cache_pre_read": {
+        "fadvise_failures": 0,
+        "pages": 6306048,
+        "resident_fraction": 0.00143,
+        "resident_pages": 9020,
+        "sampled": true
+      },
+      "plan_sha256": "375902af5391889e1cbb245d41e2545b7fc3770d4b4a60a59ea13d698d569522",
+      "requested_qd": 16,
+      "rusage": {
+        "involuntary_context_switches": 107,
+        "major_faults": 0,
+        "max_rss_kib": 557364,
+        "minor_faults": 16694,
+        "system_seconds": 5.515308,
+        "user_seconds": 14.632045,
+        "voluntary_context_switches": 6230
+      },
+      "swap_used_bytes": 0,
+      "useful_gbps": 4.265294
+    },
+    "candidate": "LOCALITY_WINDOW_8_FOR_BUFFERED_IO_URING_QD16",
+    "candidate_cell": {
+      "api": "buffered-io-uring",
+      "block_devices": [
+        {
+          "io_ticks_ms": 5355,
+          "read_bytes": 25792626688,
+          "read_operations": 392551,
+          "read_ticks_ms": 145482,
+          "stat_path": "/sys/dev/block/259:1/stat",
+          "weighted_ticks_ms": 145482
+        }
+      ],
+      "buffer_bytes": 561512448,
+      "cache_state": "OS_COLD_VERIFIED",
+      "case": "layout-a__locality_window_8__buffered-io-uring__qd-16__os_cold_verified",
+      "checksum_sink_sha256": "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d",
+      "latency_ms": {
+        "max": 5368.254552,
+        "p50": 5368.254552,
+        "p95": 5368.254552,
+        "p99": 5368.254552
+      },
+      "layout": "A",
+      "lifetime_resources": {
+        "fd_delta": 0,
+        "thread_delta": 0
+      },
+      "maximum_active_operations": 16,
+      "operation_elapsed_ms": {
+        "max": 95.679263,
+        "p50": 55.574278,
+        "p95": 74.748027,
+        "p99": 95.597889
+      },
+      "order": "LOCALITY_WINDOW_8",
+      "page_cache_pre_read": {
+        "fadvise_failures": 0,
+        "pages": 6306048,
+        "resident_fraction": 0.00143,
+        "resident_pages": 9020,
+        "sampled": true
+      },
+      "plan_sha256": "c5cba4af014624aeccd361b8970b21f169dba9a1b0a1b0c7ede5415386b45e70",
+      "requested_qd": 16,
+      "rusage": {
+        "involuntary_context_switches": 129,
+        "major_faults": 0,
+        "max_rss_kib": 557208,
+        "minor_faults": 16698,
+        "system_seconds": 4.863454,
+        "user_seconds": 14.532307,
+        "voluntary_context_switches": 6240
+      },
+      "swap_used_bytes": 0,
+      "useful_gbps": 4.81154
+    },
+    "causal_basis": "single-pass matrix showed a cold throughput increase without a warm regression; direct and pread rows act as falsifiers for a general storage-layout effect",
+    "falsifier": "paired improvement below 5%, >2% regression, or any correctness/resource failure",
+    "observed_cold_p95_delta": -0.11352826501835644,
+    "observed_cold_throughput_delta": 0.12806760800076145,
+    "observed_warm_throughput_delta": 0.0017693556001117106,
+    "promising_gate": "mean paired throughput or p95 improvement >=5%, other metric regression <=2%, all correctness/resource gates clean",
+    "screen": "three interleaved fresh-process cold baseline/candidate pairs"
+  },
+  "frozen_baseline": {
+    "cold": {
+      "api": "direct-pread",
+      "block_devices": [
+        {
+          "io_ticks_ms": 3526,
+          "read_bytes": 25829572608,
+          "read_operations": 198481,
+          "read_ticks_ms": 8651097,
+          "stat_path": "/sys/dev/block/259:1/stat",
+          "weighted_ticks_ms": 8651097
+        }
+      ],
+      "buffer_bytes": 561512448,
+      "cache_state": "OS_COLD_VERIFIED",
+      "case": "layout-a__logical_selected__direct-pread__qd-32__os_cold_verified",
+      "checksum_sink_sha256": "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d",
+      "latency_ms": {
+        "max": 3540.375635,
+        "p50": 3540.375635,
+        "p95": 3540.375635,
+        "p99": 3540.375635
+      },
+      "layout": "A",
+      "lifetime_resources": {
+        "fd_delta": 0,
+        "thread_delta": 0
+      },
+      "maximum_active_operations": 32,
+      "operation_elapsed_ms": {
+        "max": 134.641593,
+        "p50": 81.176161,
+        "p95": 120.489886,
+        "p99": 127.814932
+      },
+      "order": "LOGICAL_SELECTED",
+      "page_cache_pre_read": {
+        "fadvise_failures": 0,
+        "pages": 0,
+        "resident_fraction": 0.0,
+        "resident_pages": 0,
+        "sampled": false
+      },
+      "plan_sha256": "375902af5391889e1cbb245d41e2545b7fc3770d4b4a60a59ea13d698d569522",
+      "requested_qd": 32,
+      "rusage": {
+        "involuntary_context_switches": 53,
+        "major_faults": 0,
+        "max_rss_kib": 553288,
+        "minor_faults": 6493,
+        "system_seconds": 0.385396,
+        "user_seconds": 14.426641,
+        "voluntary_context_switches": 2736
+      },
+      "swap_used_bytes": 0,
+      "useful_gbps": 7.295715
+    },
+    "fraction_of_fio_peak": 0.9925500084458204,
+    "name": "SINGLE_NVME_LAYOUT_A_LOGICAL_DIRECT_PREAD_QD32",
+    "reason": "highest-throughput runtime-eligible Layout A cold cell under default logical order; Layout B remains evidence-only",
+    "warm_direct_comparator": {
+      "api": "direct-pread",
+      "block_devices": [
+        {
+          "io_ticks_ms": 3513,
+          "read_bytes": 25829572608,
+          "read_operations": 198481,
+          "read_ticks_ms": 7986952,
+          "stat_path": "/sys/dev/block/259:1/stat",
+          "weighted_ticks_ms": 7986952
+        }
+      ],
+      "buffer_bytes": 561512448,
+      "cache_state": "OS_WARM",
+      "case": "layout-a__logical_selected__direct-pread__qd-32__os_warm",
+      "checksum_sink_sha256": "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d",
+      "latency_ms": {
+        "max": 3526.990019,
+        "p50": 3526.990019,
+        "p95": 3526.990019,
+        "p99": 3526.990019
+      },
+      "layout": "A",
+      "lifetime_resources": {
+        "fd_delta": 0,
+        "thread_delta": 0
+      },
+      "maximum_active_operations": 32,
+      "operation_elapsed_ms": {
+        "max": 123.272553,
+        "p50": 68.822793,
+        "p95": 98.790995,
+        "p99": 102.077902
+      },
+      "order": "LOGICAL_SELECTED",
+      "page_cache_pre_read": {
+        "fadvise_failures": 0,
+        "pages": 0,
+        "resident_fraction": 0.0,
+        "resident_pages": 0,
+        "sampled": false
+      },
+      "plan_sha256": "375902af5391889e1cbb245d41e2545b7fc3770d4b4a60a59ea13d698d569522",
+      "requested_qd": 32,
+      "rusage": {
+        "involuntary_context_switches": 95,
+        "major_faults": 0,
+        "max_rss_kib": 552056,
+        "minor_faults": 6491,
+        "system_seconds": 0.491245,
+        "user_seconds": 14.429985,
+        "voluntary_context_switches": 3798
+      },
+      "swap_used_bytes": 0,
+      "useful_gbps": 7.323404
+    }
+  },
+  "layout_comparison": {
+    "disposition": "no broad Layout B advantage; comparator remains evidence-only",
+    "maximum_absolute_relative_throughput_delta": 0.14463403962747678,
+    "median_absolute_relative_throughput_delta": 0.003798821712049094
+  },
+  "matrix": {
+    "path": "results/2026-08-06/sergio-test/phase12-nvme/baseline-matrix.json",
+    "sha256": "f9acc9ad7ef99f9fa4f717d4db57df18b7d11bbab5475c8b85bf620438fd21bc",
+    "size": 1055015
+  },
+  "matrix_conclusion": {
+    "direct_single_nvme_is_hardware_bound": true,
+    "mmap_is_comparator_only": true,
+    "no_runtime_or_default_change_selected": true
+  },
+  "observed_extrema": {
+    "highest_cold": {
+      "api": "direct-pread",
+      "block_devices": [
+        {
+          "io_ticks_ms": 3503,
+          "read_bytes": 25829572608,
+          "read_operations": 198450,
+          "read_ticks_ms": 8479319,
+          "stat_path": "/sys/dev/block/259:1/stat",
+          "weighted_ticks_ms": 8479387
+        }
+      ],
+      "buffer_bytes": 561512448,
+      "cache_state": "OS_COLD_VERIFIED",
+      "case": "layout-b__logical_selected__direct-pread__qd-32__os_cold_verified",
+      "checksum_sink_sha256": "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d",
+      "latency_ms": {
+        "max": 3520.016921,
+        "p50": 3520.016921,
+        "p95": 3520.016921,
+        "p99": 3520.016921
+      },
+      "layout": "B",
+      "lifetime_resources": {
+        "fd_delta": 0,
+        "thread_delta": 0
+      },
+      "maximum_active_operations": 32,
+      "operation_elapsed_ms": {
+        "max": 126.534433,
+        "p50": 82.383734,
+        "p95": 89.560067,
+        "p99": 97.382637
+      },
+      "order": "LOGICAL_SELECTED",
+      "page_cache_pre_read": {
+        "fadvise_failures": 0,
+        "pages": 0,
+        "resident_fraction": 0.0,
+        "resident_pages": 0,
+        "sampled": false
+      },
+      "plan_sha256": "340fe5928266eb7e081027ff1b201cffe14313a868fbbfcd86646ac35eaea7cb",
+      "requested_qd": 32,
+      "rusage": {
+        "involuntary_context_switches": 75,
+        "major_faults": 0,
+        "max_rss_kib": 553212,
+        "minor_faults": 6487,
+        "system_seconds": 0.425688,
+        "user_seconds": 14.383284,
+        "voluntary_context_switches": 2211
+      },
+      "swap_used_bytes": 0,
+      "useful_gbps": 7.337911
+    },
+    "highest_warm": {
+      "api": "buffered-pread",
+      "block_devices": [
+        {
+          "io_ticks_ms": 0,
+          "read_bytes": 0,
+          "read_operations": 0,
+          "read_ticks_ms": 0,
+          "stat_path": "/sys/dev/block/259:1/stat",
+          "weighted_ticks_ms": 0
+        }
+      ],
+      "buffer_bytes": 561512448,
+      "cache_state": "OS_WARM",
+      "case": "layout-a__locality_window_8__buffered-pread__qd-32__os_warm",
+      "checksum_sink_sha256": "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d",
+      "latency_ms": {
+        "max": 797.224147,
+        "p50": 797.224147,
+        "p95": 797.224147,
+        "p99": 797.224147
+      },
+      "layout": "A",
+      "lifetime_resources": {
+        "fd_delta": 0,
+        "thread_delta": 0
+      },
+      "maximum_active_operations": 32,
+      "operation_elapsed_ms": {
+        "max": 27.79737,
+        "p50": 17.165327,
+        "p95": 20.142691,
+        "p99": 24.985808
+      },
+      "order": "LOCALITY_WINDOW_8",
+      "page_cache_pre_read": {
+        "fadvise_failures": 0,
+        "pages": 6306048,
+        "resident_fraction": 1.0,
+        "resident_pages": 6306048,
+        "sampled": true
+      },
+      "plan_sha256": "c5cba4af014624aeccd361b8970b21f169dba9a1b0a1b0c7ede5415386b45e70",
+      "requested_qd": 32,
+      "rusage": {
+        "involuntary_context_switches": 131,
+        "major_faults": 0,
+        "max_rss_kib": 551536,
+        "minor_faults": 6493,
+        "system_seconds": 8.922838,
+        "user_seconds": 15.768149,
+        "voluntary_context_switches": 1604
+      },
+      "swap_used_bytes": 0,
+      "useful_gbps": 32.399386
+    }
+  },
+  "resource_efficient_comparator": {
+    "cell": {
+      "api": "direct-io-uring",
+      "block_devices": [
+        {
+          "io_ticks_ms": 3615,
+          "read_bytes": 25829572608,
+          "read_operations": 200279,
+          "read_ticks_ms": 753778,
+          "stat_path": "/sys/dev/block/259:1/stat",
+          "weighted_ticks_ms": 753777
+        }
+      ],
+      "buffer_bytes": 140378112,
+      "cache_state": "OS_COLD_VERIFIED",
+      "case": "layout-a__logical_selected__direct-io-uring__qd-4__os_cold_verified",
+      "checksum_sink_sha256": "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d",
+      "latency_ms": {
+        "max": 3639.113218,
+        "p50": 3639.113218,
+        "p95": 3639.113218,
+        "p99": 3639.113218
+      },
+      "layout": "A",
+      "lifetime_resources": {
+        "fd_delta": 0,
+        "thread_delta": 0
+      },
+      "maximum_active_operations": 4,
+      "operation_elapsed_ms": {
+        "max": 22.311269,
+        "p50": 6.039147,
+        "p95": 10.009651,
+        "p99": 10.919933
+      },
+      "order": "LOGICAL_SELECTED",
+      "page_cache_pre_read": {
+        "fadvise_failures": 0,
+        "pages": 0,
+        "resident_fraction": 0.0,
+        "resident_pages": 0,
+        "sampled": false
+      },
+      "plan_sha256": "375902af5391889e1cbb245d41e2545b7fc3770d4b4a60a59ea13d698d569522",
+      "requested_qd": 4,
+      "rusage": {
+        "involuntary_context_switches": 37,
+        "major_faults": 0,
+        "max_rss_kib": 145756,
+        "minor_faults": 4246,
+        "system_seconds": 0.437291,
+        "user_seconds": 14.289237,
+        "voluntary_context_switches": 1831
+      },
+      "swap_used_bytes": 0,
+      "useful_gbps": 7.097766
+    },
+    "reason": "direct io_uring reaches the device ceiling at QD4 with fewer buffers and within 5% of the frozen baseline",
+    "throughput_delta_from_frozen_baseline": -0.027132227615799143
+  },
+  "schema_version": "phase12-nvme-baseline-analysis-v1",
+  "status": "PASS"
+}

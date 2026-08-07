@@ -1,0 +1,111 @@
+{
+  "application": {
+    "incomplete_storage_operations": 0,
+    "provider_requests": 1,
+    "resource_counters": 2,
+    "storage_operations": 1472,
+    "trace_starts": 1,
+    "trace_stops": 1
+  },
+  "block_device": {
+    "completed_bytes": 21143662592,
+    "completes": 162489,
+    "errors": 0,
+    "issued_bytes": 20828602368,
+    "issues": 160068
+  },
+  "capture": {
+    "path": "/mnt/nvme0/k3-phase12-nvme-evidence/winner-trace-attempt-1/capture.json",
+    "sha256": "df5b579933bbb92506875d35593f448523d2dd9c4d5a7069b757647b97340eb2",
+    "size": 8052
+  },
+  "correctness": {
+    "checksum_sink_sha256": "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d",
+    "useful_bytes": 25829572608
+  },
+  "critical_path_attribution": {
+    "accounted_ns": 6373621284,
+    "block_device_service_union_ns": 2859602699,
+    "checksum_copy_union_ns": 3513528519,
+    "pread_syscall_union_ns": 0,
+    "request_wall_ns": 3514018585,
+    "scheduler_or_unattributed_union_ns": 490066,
+    "storage_operation_union_ns": 3513528519,
+    "syscall_non_block_union_ns": 0
+  },
+  "disposition": "rejected",
+  "failures": [
+    "pread64 trace boundary loss",
+    "pread64 byte coverage mismatch",
+    "NVMe block trace byte/error mismatch"
+  ],
+  "loss_counters": {
+    "count": 0
+  },
+  "next_action": "exclude this trace and repeat only after correcting the identified capture-integrity cause",
+  "page_fault_events": 9,
+  "request": {
+    "count": 1,
+    "end_ts": 34005618731549,
+    "start_ts": 34002104712964,
+    "wall_ns": 3514018585
+  },
+  "schema_version": "phase12-nvme-winner-trace-analysis-v1",
+  "status": "FAIL",
+  "syscalls": {
+    "futex_enters": 7,
+    "pread_enters": 1187,
+    "pread_exits": 1219,
+    "requested_bytes": 20828602368,
+    "returned_bytes": 21390114816
+  },
+  "thread_state_totals": [
+    {
+      "duration_ns": 77926968248,
+      "intervals": 1187,
+      "state": "D"
+    },
+    {
+      "duration_ns": 12184964926,
+      "intervals": 1311,
+      "state": "Running"
+    },
+    {
+      "duration_ns": 1856158566,
+      "intervals": 67,
+      "state": "S"
+    },
+    {
+      "duration_ns": 23727015,
+      "intervals": 1311,
+      "state": "R"
+    },
+    {
+      "duration_ns": 0,
+      "intervals": 32,
+      "state": "X"
+    }
+  ],
+  "trace": {
+    "path": "/mnt/nvme0/k3-phase12-nvme-evidence/winner-trace-attempt-1/winner.perfetto-trace",
+    "sha256": "7ca2d3a9a9bb97a1db79631a29cf93034253ba83d48836dd07d7a4e3d846cf84",
+    "size": 22979233
+  },
+  "trace_processor": {
+    "path": "/mnt/nvme0/k3-phase12-nvme-tools/perfetto-v50.1/linux-amd64/trace_processor_shell",
+    "sha256": "4b86aaf94d2ba9f517ddee817aaae7c12089d6ce078924e708d38f9cf0c0b517",
+    "size": 11313840
+  },
+  "trace_throughput_perturbation": 0.006869025252085326,
+  "traced_cell": {
+    "path": "/mnt/nvme0/k3-phase12-nvme-evidence/winner-trace-attempt-1/traced-cell.json",
+    "sha256": "caf0d692e288347374e006da0965d976b217c156ed8dd396a23326fc34d049c3",
+    "size": 2350
+  },
+  "unexplained_residual_fraction": 0.00013946027550676714,
+  "untraced_cell": {
+    "path": "/mnt/nvme0/k3-phase12-nvme-evidence/winner-trace-attempt-1/untraced-cell.json",
+    "sha256": "f6154dfe3b9957760030fa59c624be28ea759678fd9cd31b1cb712d2ca74633e",
+    "size": 2346
+  }
+}

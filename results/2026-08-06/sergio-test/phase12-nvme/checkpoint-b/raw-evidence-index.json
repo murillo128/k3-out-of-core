@@ -1,0 +1,192 @@
+{
+  "aggregate_index_and_archive_sha256": "a439461e6cb2cbbfb26f240c47b145ef84bcf2a8d8214729e2c6977c445862db",
+  "index_count": 12,
+  "indexes": [
+    {
+      "archive": {
+        "format": "deterministic POSIX tar; uid/gid/mtime normalized",
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/checkpoint-a-raw.tar",
+        "sha256": "c48be9eb8d0d48d7c2688b2e610ad7a6798b6cc4a0f4ddf5cd577e388a7555f1",
+        "size": 28712960
+      },
+      "file_count": 458,
+      "index": {
+        "path": "results/2026-08-06/sergio-test/phase12-nvme/checkpoint-a/raw-evidence-index.json",
+        "sha256": "34b56b1eafe3bdea31b51b148f1475701f1ee80695693dec0d2e5a3a466ca98e",
+        "size": 99596
+      }
+    },
+    {
+      "archive": {
+        "format": "deterministic POSIX tar; uid/gid/mtime normalized",
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/baseline-raw.tar",
+        "sha256": "83b4decbacaec2f28c24d7bf11843c038a844a7f84d30347d5031c4e571ab600",
+        "size": 3758080
+      },
+      "file_count": 322,
+      "index": {
+        "path": "results/2026-08-06/sergio-test/phase12-nvme/baseline-raw-index.json",
+        "sha256": "ed29850b986de307da66322f923cb3a53cd903f524a01909c0337e11ff9af72e",
+        "size": 70539
+      }
+    },
+    {
+      "archive": {
+        "format": "deterministic POSIX tar; uid/gid/mtime normalized",
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/candidate-01-screen-raw.tar",
+        "sha256": "f209fe3f18a5bc911b85b30791c3bf67d9011cec477986b5d4d38b421c58d126",
+        "size": 542720
+      },
+      "file_count": 9,
+      "index": {
+        "path": "results/2026-08-06/sergio-test/phase12-nvme/candidate-01-screen-raw-index.json",
+        "sha256": "ee228ce4c1d2f378b8ac10b8bc3bb94e94ab07ab395b85fe0d5188ccb98d1748",
+        "size": 2051
+      }
+    },
+    {
+      "archive": {
+        "format": "deterministic POSIX tar; uid/gid/mtime normalized",
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/candidate-02-screen-raw.tar",
+        "sha256": "199f390afb0b94fe302118cecd6961ed0f7e194054637d9300137055c202f726",
+        "size": 532480
+      },
+      "file_count": 9,
+      "index": {
+        "path": "results/2026-08-06/sergio-test/phase12-nvme/candidate-02-screen-raw-index.json",
+        "sha256": "920eafcdb9d78b9ea2db2e20d17d5fe14a239751cdbd745cebe9c2c84b6f89ec",
+        "size": 2048
+      }
+    },
+    {
+      "archive": {
+        "format": "deterministic POSIX tar; uid/gid/mtime normalized",
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/winner-trace-attempt-1-raw.tar",
+        "sha256": "4efe2ab1c15f13a70b65a66ecc0e49f30c8e8e8233b2795d2fa65eb1a8c6fa29",
+        "size": 23255040
+      },
+      "file_count": 11,
+      "index": {
+        "path": "results/2026-08-06/sergio-test/phase12-nvme/winner-trace-attempt-1-raw-index.json",
+        "sha256": "80304ec47ed3b9d89c07128dd6ca93df0789064b3a2f7971dd6f0e6a54ebf3aa",
+        "size": 2248
+      }
+    },
+    {
+      "archive": {
+        "format": "deterministic POSIX tar; uid/gid/mtime normalized",
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/winner-trace-attempt-2-raw.tar",
+        "sha256": "f9f21df08a34ac8f0238378f9441068d6b56cc51408175cdf826b3739b1a9229",
+        "size": 29327360
+      },
+      "file_count": 11,
+      "index": {
+        "path": "results/2026-08-06/sergio-test/phase12-nvme/winner-trace-attempt-2-raw-index.json",
+        "sha256": "fef32b1f3b3bd0151a631cd72b4561da7fc66d1b9799720a7b281af5405a7087",
+        "size": 2234
+      }
+    },
+    {
+      "archive": {
+        "format": "deterministic POSIX tar; uid/gid/mtime normalized",
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/dual-comparison-raw.tar",
+        "sha256": "995c77394f78f2f9926b57bf2bfaf33914e5fa935fcc1bb13c4ad0f24c0279f3",
+        "size": 624640
+      },
+      "file_count": 14,
+      "index": {
+        "path": "results/2026-08-06/sergio-test/phase12-nvme/dual-comparison-raw-index.json",
+        "sha256": "b93f1259ca30307eab379a8e41f0bc344c88e077d09590e6fd4fdc6e7bc0ef32",
+        "size": 3002
+      }
+    },
+    {
+      "archive": {
+        "format": "deterministic POSIX tar; uid/gid/mtime normalized",
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/archives/colibri-reference.tar",
+        "sha256": "e9538a2c9e7d23948872c713811d290046d4e7003b6f8a9db013cdbea163f445",
+        "size": 358400
+      },
+      "file_count": 5,
+      "index": {
+        "path": "results/2026-08-06/sergio-test/phase12-nvme/colibri-reference-raw-index.json",
+        "sha256": "2d44ac13e53f8296cb802ee8a77373aa8b62dd23fd61874181373eb0e3247534",
+        "size": 1241
+      }
+    },
+    {
+      "archive": {
+        "format": "deterministic POSIX tar; uid/gid/mtime normalized",
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/archives/cache-locality.tar",
+        "sha256": "4e40513a2a0138b5f0f8a3ff9df473bc463645a71a9bb1d035eda3a8bbfd3c08",
+        "size": 14817280
+      },
+      "file_count": 8,
+      "index": {
+        "path": "results/2026-08-06/sergio-test/phase12-nvme/cache-locality-raw-index.json",
+        "sha256": "ccffd343ca80ed485230e7a06bf381a9f4db0d8bd9c4a25af262ac8be2457b1c",
+        "size": 1824
+      }
+    },
+    {
+      "archive": {
+        "format": "deterministic POSIX tar; uid/gid/mtime normalized",
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/archives/colibri-endpoint-campaign.tar",
+        "sha256": "3acf1e2871ea14f08196c6e8bedfb14a8765fef248dada72c5c1c099eace3fdc",
+        "size": 945612800
+      },
+      "file_count": 71,
+      "index": {
+        "path": "results/2026-08-06/sergio-test/phase12-nvme/colibri-endpoint-campaign-raw-index.json",
+        "sha256": "5fe6a745e397c6ce765f6ce629307e94c9ab40840fd4c28a10fef06aeeff5ec7",
+        "size": 12952
+      }
+    },
+    {
+      "archive": {
+        "format": "deterministic POSIX tar; uid/gid/mtime normalized",
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/archives/colibri-endpoint-perfetto-attempt-1.tar",
+        "sha256": "cd3dbc7ac3f929ee58eba0d1d29e62c867beba187aa132e22da1308b313b809f",
+        "size": 639528960
+      },
+      "file_count": 13,
+      "index": {
+        "path": "results/2026-08-06/sergio-test/phase12-nvme/colibri-endpoint-perfetto-attempt-1-raw-index.json",
+        "sha256": "dbfc1af0bd64aebfce028c41dd7344ed861272fa87c3464ee31dceba7c376230",
+        "size": 2602
+      }
+    },
+    {
+      "archive": {
+        "format": "deterministic POSIX tar; uid/gid/mtime normalized",
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/archives/colibri-endpoint-perfetto.tar",
+        "sha256": "00e9cc136ad5a37117bf3138ae769cd69e762c50389abc386386eaee604d1bf4",
+        "size": 1438545920
+      },
+      "file_count": 17,
+      "index": {
+        "path": "results/2026-08-06/sergio-test/phase12-nvme/colibri-endpoint-perfetto-raw-index.json",
+        "sha256": "eeef36a90c965d21c625fc424db8f3c525c9165943b9c5a0a07aee2bfecb9435",
+        "size": 3252
+      }
+    }
+  ],
+  "retained_external_inputs": [
+    {
+      "aggregate_useful_sha256": "a8de945bf7560e1b2e3d0e80feffc34af5a712e7b9c80dba5345f00d077c8141",
+      "description": "verified physical synthetic corpus generation 2",
+      "path": "/mnt/nvme0/k3-phase12-nvme-generation-2",
+      "route_sha256": "260b81ad71bc0c6b8ffcd31ac7b60e139a363152009021d41d5c8b69ac8cd919"
+    },
+    {
+      "description": "publisher-verified Kimi-K3 text snapshot",
+      "path": "/mnt/nvme0/k3-phase12-nvme-external/kimi-k3-snapshot",
+      "publisher_manifest_sha256": "7ce8392b09069b3561a1bc5dc5cd76577325425921e28ccfff7d82faff0e9c25",
+      "repository": "moonshotai/Kimi-K3",
+      "revision": "9f62e4e9fffbd0a83ddd60e1c209d828994b3569",
+      "verified_bytes": 1560104246710
+    }
+  ],
+  "schema_version": "phase12-nvme-final-raw-index-v2",
+  "status": "PASS"
+}

@@ -1,0 +1,39 @@
+{
+  "archive": {
+    "format": "deterministic POSIX tar; uid/gid/mtime normalized",
+    "path": "/mnt/nvme0/k3-phase12-nvme-evidence/archives/colibri-reference.tar",
+    "sha256": "e9538a2c9e7d23948872c713811d290046d4e7003b6f8a9db013cdbea163f445",
+    "size": 358400
+  },
+  "experiment": "colibri-reference",
+  "file_count": 5,
+  "files": [
+    {
+      "archive_path": "raw/resource-samples.json",
+      "sha256": "cdd31475ddf7b6d477086ed95671742c831fbcc000ff6f1946888e354b89b4b3",
+      "size": 335806
+    },
+    {
+      "archive_path": "raw/stderr-events.json",
+      "sha256": "5dd232855cf5d57000bde0f175eaf987fadd3290a622ef160cbada1db6f2956d",
+      "size": 3339
+    },
+    {
+      "archive_path": "raw/stderr.log",
+      "sha256": "40910b36713ab4738ae79dd26f8286bd847c9ad36905574a2bc89f078c0c23ef",
+      "size": 1431
+    },
+    {
+      "archive_path": "raw/stdout.bin",
+      "sha256": "7d4191956ce151966ca961e3c6f55450d6e6d76a502d6d6b042164a48f4ad751",
+      "size": 28
+    },
+    {
+      "archive_path": "compact/colibri-reference.json",
+      "sha256": "97550af2da4c9bdf42c45b64d3d13aa07ceb7ee0165f6fc121831d8b24671e46",
+      "size": 4415
+    }
+  ],
+  "schema_version": "phase12-nvme-experiment-raw-index-v1",
+  "status": "PASS"
+}

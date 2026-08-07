@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/phase12p/phase12p-generation-v1.schema.json",
+  "title": "Phase 12P deterministic generation identity",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "scale", "route_sha256", "layout_a_definition_sha256", "layout_b_definition_sha256", "aggregate_useful_sha256", "record_count", "layout_a_manifest_sha256", "layout_b_manifest_sha256"],
+  "properties": {
+    "schema_version": {"const": "phase12p-generation-v1"},
+    "scale": {"type": "object", "required": ["layers", "experts", "selected", "projection_bytes", "tokens"]},
+    "route_sha256": {"$ref": "#/$defs/hash"},
+    "layout_a_definition_sha256": {"$ref": "#/$defs/hash"},
+    "layout_b_definition_sha256": {"$ref": "#/$defs/hash"},
+    "aggregate_useful_sha256": {"$ref": "#/$defs/hash"},
+    "record_count": {"type": "integer", "minimum": 1},
+    "layout_a_manifest_sha256": {"$ref": "#/$defs/hash"},
+    "layout_b_manifest_sha256": {"$ref": "#/$defs/hash"}
+  },
+  "$defs": {"hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+}

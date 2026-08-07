@@ -1,0 +1,84 @@
+{
+  "archive": {
+    "format": "deterministic POSIX tar; uid/gid/mtime normalized",
+    "path": "/mnt/nvme0/k3-phase12-nvme-evidence/dual-comparison-raw.tar",
+    "sha256": "995c77394f78f2f9926b57bf2bfaf33914e5fa935fcc1bb13c4ad0f24c0279f3",
+    "size": 624640
+  },
+  "experiment": "same-host-single-versus-dual-independent-nvme",
+  "file_count": 14,
+  "files": [
+    {
+      "archive_path": "raw/comparison/pair-1__sequence-1__single.json",
+      "sha256": "6eec41a2732b06c1cf36d7c409c8bf1b465b26891eac4d176e3a225b54166c24",
+      "size": 4713
+    },
+    {
+      "archive_path": "raw/comparison/pair-1__sequence-2__dual.json",
+      "sha256": "a7a844bc2ad46626a7c13c8a61129aafe877dbd7810c9aa584544ebde01736c7",
+      "size": 5759
+    },
+    {
+      "archive_path": "raw/comparison/pair-2__sequence-1__dual.json",
+      "sha256": "e6666e9c907a5a4816cef4aa3600e0bd810d0ec75c2b0b9d99a9d865568196dc",
+      "size": 5907
+    },
+    {
+      "archive_path": "raw/comparison/pair-2__sequence-2__single.json",
+      "sha256": "25cd99f5b9462601586d5266e4e77777b769bc26271e7d2256fe556a81ed6404",
+      "size": 4719
+    },
+    {
+      "archive_path": "raw/comparison/pair-3__sequence-1__single.json",
+      "sha256": "700fde73bbab8f96f842c69b4bf6d341d9ea9564fc45b0d68dd4bd8b9c654fa6",
+      "size": 4728
+    },
+    {
+      "archive_path": "raw/comparison/pair-3__sequence-2__dual.json",
+      "sha256": "b91375c6e72a90eb7d34fd5ec6bd11ce468993c8f8ebf0d297d1a155776aaadf",
+      "size": 5828
+    },
+    {
+      "archive_path": "raw/comparison/pair-4__sequence-1__dual.json",
+      "sha256": "420127c9b97b94786572d710844cc5dce4697afdf3dc94617560f6656b94df43",
+      "size": 5814
+    },
+    {
+      "archive_path": "raw/comparison/pair-4__sequence-2__single.json",
+      "sha256": "1c657bf5b415fbf6090549bf1f9054988d7fd20ff9c2e4a732c688612163fa49",
+      "size": 4724
+    },
+    {
+      "archive_path": "raw/comparison/pair-5__sequence-1__single.json",
+      "sha256": "1edcda4955be2a8ed63b5fcfd97b96c4fa63539e3205e0acd8b4f0f09a756945",
+      "size": 4710
+    },
+    {
+      "archive_path": "raw/comparison/pair-5__sequence-2__dual.json",
+      "sha256": "98addba268fd179305617cc204fc8de5308805d7ce95657dd688e1716fe46ede",
+      "size": 5875
+    },
+    {
+      "archive_path": "raw/plans/dual-namespace.tsv",
+      "sha256": "a70e18c763d55c22b4add5b2ea553a733ead33c69e26753942fac3421fd6d28b",
+      "size": 215656
+    },
+    {
+      "archive_path": "raw/plans/single-namespace.tsv",
+      "sha256": "375902af5391889e1cbb245d41e2545b7fc3770d4b4a60a59ea13d698d569522",
+      "size": 240680
+    },
+    {
+      "archive_path": "compact/dual-corpus.json",
+      "sha256": "b54b202957ffab6815662235f13ab6fa1b6c7b3b1b63f0cfcb271963d044ec30",
+      "size": 31759
+    },
+    {
+      "archive_path": "compact/dual-comparison.json",
+      "sha256": "13f85cff2833c07fbbb86a796744eded4efa6c6a759b8d2346739ae979e564d3",
+      "size": 69737
+    }
+  ],
+  "schema_version": "phase12-nvme-experiment-raw-index-v1",
+  "status": "PASS"
+}

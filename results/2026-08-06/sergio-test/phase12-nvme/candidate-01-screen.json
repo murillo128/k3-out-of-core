@@ -1,0 +1,855 @@
+{
+  "baseline_analysis": {
+    "path": "results/2026-08-06/sergio-test/phase12-nvme/baseline-analysis.json",
+    "sha256": "316cc1be0d4acdf16ff6d68652d92eb9c594798370a3e35907f0bc63582e1b11"
+  },
+  "binary": {
+    "path": "/usr/local/src/k3-out-of-core/build/phase12-nvme/phase12_nvme_bench",
+    "sha256": "b68b8b2823a737b695526fb48e22f48588e467fbd9e05cee4fc78a2ee1b6b2ba"
+  },
+  "candidate": "LOCALITY_WINDOW_8_FOR_BUFFERED_IO_URING_QD16",
+  "causal_change": "submission order only: LOGICAL_SELECTED to LOCALITY_WINDOW_8",
+  "disposition": "rejected",
+  "failures": [],
+  "fixed_configuration": {
+    "api": "buffered-io-uring",
+    "cache_state": "OS_COLD_VERIFIED",
+    "iterations_per_process": 1,
+    "layout": "A",
+    "request_class": "COLD_SPREAD",
+    "requested_qd": 16,
+    "route_token": 0
+  },
+  "gate": {
+    "correctness_and_resources_clean": true,
+    "improvement_threshold": 0.05,
+    "other_metric_regression_limit": -0.02
+  },
+  "next_action": "do not confirm; select the next independent causal hypothesis or stop under the campaign rule",
+  "pair_count": 3,
+  "paired_metrics": {
+    "p95_relative_improvement": {
+      "mean": 0.013319697018905896,
+      "median": -0.026532337036913045,
+      "paired_95_percent_interval": [
+        -0.15832925745579948,
+        0.18496865149361127
+      ],
+      "values": [
+        -0.026609318350884648,
+        0.09310074644451538,
+        -0.026532337036913045
+      ]
+    },
+    "throughput_relative_improvement": {
+      "mean": 0.01696398134207333,
+      "median": -0.025846701767100466,
+      "paired_95_percent_interval": [
+        -0.16740734776132526,
+        0.20133531044547193
+      ],
+      "values": [
+        -0.02591964502545807,
+        0.10265829081877853,
+        -0.025846701767100466
+      ]
+    }
+  },
+  "pairs": [
+    {
+      "baseline": {
+        "api": "buffered-io-uring",
+        "block_devices": [
+          {
+            "io_ticks_ms": 5305,
+            "read_bytes": 25792626688,
+            "read_operations": 392551,
+            "read_ticks_ms": 148645,
+            "stat_path": "/sys/dev/block/259:1/stat",
+            "weighted_ticks_ms": 148645
+          }
+        ],
+        "buffer_bytes": 561512448,
+        "buffer_count": 32,
+        "cache_state": "OS_COLD_VERIFIED",
+        "candidate_label": "baseline",
+        "checksum_sink_sha256": "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d",
+        "checksum_worker_count": 16,
+        "command": [
+          "/usr/local/src/k3-out-of-core/build/phase12-nvme/phase12_nvme_bench",
+          "--plan",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/candidate-01-screen/plans/baseline.tsv",
+          "--api",
+          "buffered-io-uring",
+          "--cache-state",
+          "OS_COLD_VERIFIED",
+          "--qd",
+          "16",
+          "--iterations",
+          "1",
+          "--output",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/candidate-01-screen/pair-1__sequence-1__baseline.json"
+        ],
+        "completed_operations": 1472,
+        "direct_io": {
+          "buffered_fallback_allowed": false,
+          "opened_with_o_direct": false,
+          "requested": false
+        },
+        "effective_qd_basis": "maximum observed in-flight operations equals requested QD",
+        "effective_qd_histogram_ns": {
+          "0": 7963,
+          "1": 1194066,
+          "10": 1980711,
+          "11": 34793469,
+          "12": 40078814,
+          "13": 84666863,
+          "14": 117703797,
+          "15": 194964400,
+          "16": 4805103443,
+          "2": 7321779,
+          "3": 1574009,
+          "4": 1192093,
+          "5": 799953,
+          "6": 10142188,
+          "7": 1053158,
+          "8": 199839,
+          "9": 3183132
+        },
+        "effective_qd_status": "SUPPORTED",
+        "fraction_active_at_least_two": 0.999775,
+        "io_uring": {
+          "cq_entries": 32,
+          "features": 131071,
+          "setup_flags": 65536,
+          "sq_entries": 16
+        },
+        "iterations": 1,
+        "latency_ms": {
+          "max": 5315.886192,
+          "p50": 5315.886192,
+          "p95": 5315.886192,
+          "p99": 5315.886192
+        },
+        "layout": "A",
+        "lifetime_resources": {
+          "fd_delta": 0,
+          "thread_delta": 0
+        },
+        "maximum_active_operations": 16,
+        "maximum_inflight_bytes": 280756224,
+        "operation_count_per_iteration": 1472,
+        "operation_elapsed_ms": {
+          "max": 145.745004,
+          "p50": 54.843053,
+          "p95": 71.752379,
+          "p99": 97.987821
+        },
+        "order": "LOGICAL_SELECTED",
+        "page_cache_pre_read": {
+          "fadvise_failures": 0,
+          "pages": 6306048,
+          "resident_fraction": 0.00143,
+          "resident_pages": 9020,
+          "sampled": true
+        },
+        "pair": 1,
+        "plan_sha256": "375902af5391889e1cbb245d41e2545b7fc3770d4b4a60a59ea13d698d569522",
+        "process_memory": {
+          "vm_hwm_kib": 557172,
+          "vm_rss_kib": 9920
+        },
+        "requested_qd": 16,
+        "retries": 0,
+        "rusage": {
+          "involuntary_context_switches": 94,
+          "major_faults": 0,
+          "max_rss_kib": 557172,
+          "minor_faults": 16696,
+          "system_seconds": 4.779432,
+          "user_seconds": 14.556641,
+          "voluntary_context_switches": 6569
+        },
+        "schema_version": "phase12-nvme-cell-v1",
+        "sequence": 1,
+        "short_reads": 0,
+        "status": "PASS",
+        "submitted_bytes": 25829572608,
+        "swap_used_bytes": 0,
+        "token_equivalent_latency_ms": [
+          5315.886192
+        ],
+        "useful_bytes": 25829572608,
+        "useful_gbps": 4.85894,
+        "worker_count": 0
+      },
+      "candidate": {
+        "api": "buffered-io-uring",
+        "block_devices": [
+          {
+            "io_ticks_ms": 5444,
+            "read_bytes": 25792626688,
+            "read_operations": 392551,
+            "read_ticks_ms": 144427,
+            "stat_path": "/sys/dev/block/259:1/stat",
+            "weighted_ticks_ms": 144428
+          }
+        ],
+        "buffer_bytes": 561512448,
+        "buffer_count": 32,
+        "cache_state": "OS_COLD_VERIFIED",
+        "candidate_label": "candidate",
+        "checksum_sink_sha256": "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d",
+        "checksum_worker_count": 16,
+        "command": [
+          "/usr/local/src/k3-out-of-core/build/phase12-nvme/phase12_nvme_bench",
+          "--plan",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/candidate-01-screen/plans/candidate.tsv",
+          "--api",
+          "buffered-io-uring",
+          "--cache-state",
+          "OS_COLD_VERIFIED",
+          "--qd",
+          "16",
+          "--iterations",
+          "1",
+          "--output",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/candidate-01-screen/pair-1__sequence-2__candidate.json"
+        ],
+        "completed_operations": 1472,
+        "direct_io": {
+          "buffered_fallback_allowed": false,
+          "opened_with_o_direct": false,
+          "requested": false
+        },
+        "effective_qd_basis": "maximum observed in-flight operations equals requested QD",
+        "effective_qd_histogram_ns": {
+          "0": 39089,
+          "1": 665688,
+          "10": 32746972,
+          "11": 38839021,
+          "12": 29674634,
+          "13": 67127671,
+          "14": 94600926,
+          "15": 222517667,
+          "16": 4947437588,
+          "2": 2510071,
+          "3": 1224372,
+          "4": 2937814,
+          "5": 492632,
+          "6": 230296,
+          "7": 673770,
+          "8": 568568,
+          "9": 4600374
+        },
+        "effective_qd_status": "SUPPORTED",
+        "fraction_active_at_least_two": 0.999878,
+        "io_uring": {
+          "cq_entries": 32,
+          "features": 131071,
+          "setup_flags": 65536,
+          "sq_entries": 16
+        },
+        "iterations": 1,
+        "latency_ms": {
+          "max": 5457.3383,
+          "p50": 5457.3383,
+          "p95": 5457.3383,
+          "p99": 5457.3383
+        },
+        "layout": "A",
+        "lifetime_resources": {
+          "fd_delta": 0,
+          "thread_delta": 0
+        },
+        "maximum_active_operations": 16,
+        "maximum_inflight_bytes": 280756224,
+        "operation_count_per_iteration": 1472,
+        "operation_elapsed_ms": {
+          "max": 101.342733,
+          "p50": 55.857696,
+          "p95": 80.959493,
+          "p99": 97.044448
+        },
+        "order": "LOCALITY_WINDOW_8",
+        "page_cache_pre_read": {
+          "fadvise_failures": 0,
+          "pages": 6306048,
+          "resident_fraction": 0.00143,
+          "resident_pages": 9020,
+          "sampled": true
+        },
+        "pair": 1,
+        "plan_sha256": "c5cba4af014624aeccd361b8970b21f169dba9a1b0a1b0c7ede5415386b45e70",
+        "process_memory": {
+          "vm_hwm_kib": 556996,
+          "vm_rss_kib": 9912
+        },
+        "requested_qd": 16,
+        "retries": 0,
+        "rusage": {
+          "involuntary_context_switches": 119,
+          "major_faults": 0,
+          "max_rss_kib": 556996,
+          "minor_faults": 16692,
+          "system_seconds": 4.910791,
+          "user_seconds": 14.621488,
+          "voluntary_context_switches": 6386
+        },
+        "schema_version": "phase12-nvme-cell-v1",
+        "sequence": 2,
+        "short_reads": 0,
+        "status": "PASS",
+        "submitted_bytes": 25829572608,
+        "swap_used_bytes": 0,
+        "token_equivalent_latency_ms": [
+          5457.3383
+        ],
+        "useful_bytes": 25829572608,
+        "useful_gbps": 4.732998,
+        "worker_count": 0
+      },
+      "execution_order": [
+        "baseline",
+        "candidate"
+      ],
+      "p95_relative_improvement": -0.026609318350884648,
+      "pair": 1,
+      "throughput_relative_improvement": -0.02591964502545807
+    },
+    {
+      "baseline": {
+        "api": "buffered-io-uring",
+        "block_devices": [
+          {
+            "io_ticks_ms": 6045,
+            "read_bytes": 25792626688,
+            "read_operations": 392551,
+            "read_ticks_ms": 135573,
+            "stat_path": "/sys/dev/block/259:1/stat",
+            "weighted_ticks_ms": 135572
+          }
+        ],
+        "buffer_bytes": 561512448,
+        "buffer_count": 32,
+        "cache_state": "OS_COLD_VERIFIED",
+        "candidate_label": "baseline",
+        "checksum_sink_sha256": "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d",
+        "checksum_worker_count": 16,
+        "command": [
+          "/usr/local/src/k3-out-of-core/build/phase12-nvme/phase12_nvme_bench",
+          "--plan",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/candidate-01-screen/plans/baseline.tsv",
+          "--api",
+          "buffered-io-uring",
+          "--cache-state",
+          "OS_COLD_VERIFIED",
+          "--qd",
+          "16",
+          "--iterations",
+          "1",
+          "--output",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/candidate-01-screen/pair-2__sequence-2__baseline.json"
+        ],
+        "completed_operations": 1472,
+        "direct_io": {
+          "buffered_fallback_allowed": false,
+          "opened_with_o_direct": false,
+          "requested": false
+        },
+        "effective_qd_basis": "maximum observed in-flight operations equals requested QD",
+        "effective_qd_histogram_ns": {
+          "0": 11809,
+          "1": 1686010,
+          "10": 17497483,
+          "11": 23864010,
+          "12": 26178651,
+          "13": 27648669,
+          "14": 34099265,
+          "15": 82776796,
+          "16": 5788957181,
+          "2": 324386,
+          "3": 658074,
+          "4": 519176,
+          "5": 802787,
+          "6": 1323767,
+          "7": 4900852,
+          "8": 8831127,
+          "9": 25342515
+        },
+        "effective_qd_status": "SUPPORTED",
+        "fraction_active_at_least_two": 0.999721,
+        "io_uring": {
+          "cq_entries": 32,
+          "features": 131071,
+          "setup_flags": 65536,
+          "sq_entries": 16
+        },
+        "iterations": 1,
+        "latency_ms": {
+          "max": 6055.323212,
+          "p50": 6055.323212,
+          "p95": 6055.323212,
+          "p99": 6055.323212
+        },
+        "layout": "A",
+        "lifetime_resources": {
+          "fd_delta": 0,
+          "thread_delta": 0
+        },
+        "maximum_active_operations": 16,
+        "maximum_inflight_bytes": 280756224,
+        "operation_count_per_iteration": 1472,
+        "operation_elapsed_ms": {
+          "max": 142.632854,
+          "p50": 61.958937,
+          "p95": 91.879417,
+          "p99": 105.496567
+        },
+        "order": "LOGICAL_SELECTED",
+        "page_cache_pre_read": {
+          "fadvise_failures": 0,
+          "pages": 6306048,
+          "resident_fraction": 0.00143,
+          "resident_pages": 9020,
+          "sampled": true
+        },
+        "pair": 2,
+        "plan_sha256": "375902af5391889e1cbb245d41e2545b7fc3770d4b4a60a59ea13d698d569522",
+        "process_memory": {
+          "vm_hwm_kib": 557108,
+          "vm_rss_kib": 9912
+        },
+        "requested_qd": 16,
+        "retries": 0,
+        "rusage": {
+          "involuntary_context_switches": 109,
+          "major_faults": 0,
+          "max_rss_kib": 557108,
+          "minor_faults": 16697,
+          "system_seconds": 5.513774,
+          "user_seconds": 14.641,
+          "voluntary_context_switches": 6096
+        },
+        "schema_version": "phase12-nvme-cell-v1",
+        "sequence": 2,
+        "short_reads": 0,
+        "status": "PASS",
+        "submitted_bytes": 25829572608,
+        "swap_used_bytes": 0,
+        "token_equivalent_latency_ms": [
+          6055.323212
+        ],
+        "useful_bytes": 25829572608,
+        "useful_gbps": 4.265598,
+        "worker_count": 0
+      },
+      "candidate": {
+        "api": "buffered-io-uring",
+        "block_devices": [
+          {
+            "io_ticks_ms": 5479,
+            "read_bytes": 25792626688,
+            "read_operations": 392551,
+            "read_ticks_ms": 143944,
+            "stat_path": "/sys/dev/block/259:1/stat",
+            "weighted_ticks_ms": 143944
+          }
+        ],
+        "buffer_bytes": 561512448,
+        "buffer_count": 32,
+        "cache_state": "OS_COLD_VERIFIED",
+        "candidate_label": "candidate",
+        "checksum_sink_sha256": "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d",
+        "checksum_worker_count": 16,
+        "command": [
+          "/usr/local/src/k3-out-of-core/build/phase12-nvme/phase12_nvme_bench",
+          "--plan",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/candidate-01-screen/plans/candidate.tsv",
+          "--api",
+          "buffered-io-uring",
+          "--cache-state",
+          "OS_COLD_VERIFIED",
+          "--qd",
+          "16",
+          "--iterations",
+          "1",
+          "--output",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/candidate-01-screen/pair-2__sequence-1__candidate.json"
+        ],
+        "completed_operations": 1472,
+        "direct_io": {
+          "buffered_fallback_allowed": false,
+          "opened_with_o_direct": false,
+          "requested": false
+        },
+        "effective_qd_basis": "maximum observed in-flight operations equals requested QD",
+        "effective_qd_histogram_ns": {
+          "0": 7641,
+          "1": 1270453,
+          "10": 9207587,
+          "11": 43214966,
+          "12": 53191925,
+          "13": 69518120,
+          "14": 60157327,
+          "15": 164942256,
+          "16": 5061744174,
+          "2": 1743908,
+          "3": 5183970,
+          "4": 814977,
+          "5": 57769,
+          "6": 485170,
+          "7": 834103,
+          "8": 3769405,
+          "9": 5517354
+        },
+        "effective_qd_status": "SUPPORTED",
+        "fraction_active_at_least_two": 0.999768,
+        "io_uring": {
+          "cq_entries": 32,
+          "features": 131071,
+          "setup_flags": 65536,
+          "sq_entries": 16
+        },
+        "iterations": 1,
+        "latency_ms": {
+          "max": 5491.568101,
+          "p50": 5491.568101,
+          "p95": 5491.568101,
+          "p99": 5491.568101
+        },
+        "layout": "A",
+        "lifetime_resources": {
+          "fd_delta": 0,
+          "thread_delta": 0
+        },
+        "maximum_active_operations": 16,
+        "maximum_inflight_bytes": 280756224,
+        "operation_count_per_iteration": 1472,
+        "operation_elapsed_ms": {
+          "max": 146.521243,
+          "p50": 56.057521,
+          "p95": 82.220893,
+          "p99": 98.208489
+        },
+        "order": "LOCALITY_WINDOW_8",
+        "page_cache_pre_read": {
+          "fadvise_failures": 0,
+          "pages": 6306048,
+          "resident_fraction": 0.00143,
+          "resident_pages": 9020,
+          "sampled": true
+        },
+        "pair": 2,
+        "plan_sha256": "c5cba4af014624aeccd361b8970b21f169dba9a1b0a1b0c7ede5415386b45e70",
+        "process_memory": {
+          "vm_hwm_kib": 556956,
+          "vm_rss_kib": 9908
+        },
+        "requested_qd": 16,
+        "retries": 0,
+        "rusage": {
+          "involuntary_context_switches": 131,
+          "major_faults": 0,
+          "max_rss_kib": 556956,
+          "minor_faults": 16694,
+          "system_seconds": 4.949543,
+          "user_seconds": 14.557417,
+          "voluntary_context_switches": 6301
+        },
+        "schema_version": "phase12-nvme-cell-v1",
+        "sequence": 1,
+        "short_reads": 0,
+        "status": "PASS",
+        "submitted_bytes": 25829572608,
+        "swap_used_bytes": 0,
+        "token_equivalent_latency_ms": [
+          5491.568101
+        ],
+        "useful_bytes": 25829572608,
+        "useful_gbps": 4.703497,
+        "worker_count": 0
+      },
+      "execution_order": [
+        "candidate",
+        "baseline"
+      ],
+      "p95_relative_improvement": 0.09310074644451538,
+      "pair": 2,
+      "throughput_relative_improvement": 0.10265829081877853
+    },
+    {
+      "baseline": {
+        "api": "buffered-io-uring",
+        "block_devices": [
+          {
+            "io_ticks_ms": 5304,
+            "read_bytes": 25792626688,
+            "read_operations": 392551,
+            "read_ticks_ms": 147514,
+            "stat_path": "/sys/dev/block/259:1/stat",
+            "weighted_ticks_ms": 147514
+          }
+        ],
+        "buffer_bytes": 561512448,
+        "buffer_count": 32,
+        "cache_state": "OS_COLD_VERIFIED",
+        "candidate_label": "baseline",
+        "checksum_sink_sha256": "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d",
+        "checksum_worker_count": 16,
+        "command": [
+          "/usr/local/src/k3-out-of-core/build/phase12-nvme/phase12_nvme_bench",
+          "--plan",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/candidate-01-screen/plans/baseline.tsv",
+          "--api",
+          "buffered-io-uring",
+          "--cache-state",
+          "OS_COLD_VERIFIED",
+          "--qd",
+          "16",
+          "--iterations",
+          "1",
+          "--output",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/candidate-01-screen/pair-3__sequence-1__baseline.json"
+        ],
+        "completed_operations": 1472,
+        "direct_io": {
+          "buffered_fallback_allowed": false,
+          "opened_with_o_direct": false,
+          "requested": false
+        },
+        "effective_qd_basis": "maximum observed in-flight operations equals requested QD",
+        "effective_qd_histogram_ns": {
+          "0": 8414,
+          "1": 352217,
+          "10": 9825300,
+          "11": 13173442,
+          "12": 36835689,
+          "13": 86371088,
+          "14": 153049478,
+          "15": 182223488,
+          "16": 4800150457,
+          "2": 706351,
+          "3": 45830,
+          "4": 384237,
+          "5": 1831512,
+          "6": 2029793,
+          "7": 1568452,
+          "8": 11686704,
+          "9": 4830488
+        },
+        "effective_qd_status": "SUPPORTED",
+        "fraction_active_at_least_two": 0.999934,
+        "io_uring": {
+          "cq_entries": 32,
+          "features": 131071,
+          "setup_flags": 65536,
+          "sq_entries": 16
+        },
+        "iterations": 1,
+        "latency_ms": {
+          "max": 5314.979785,
+          "p50": 5314.979785,
+          "p95": 5314.979785,
+          "p99": 5314.979785
+        },
+        "layout": "A",
+        "lifetime_resources": {
+          "fd_delta": 0,
+          "thread_delta": 0
+        },
+        "maximum_active_operations": 16,
+        "maximum_inflight_bytes": 280756224,
+        "operation_count_per_iteration": 1472,
+        "operation_elapsed_ms": {
+          "max": 103.782966,
+          "p50": 53.891879,
+          "p95": 72.90325,
+          "p99": 96.69323
+        },
+        "order": "LOGICAL_SELECTED",
+        "page_cache_pre_read": {
+          "fadvise_failures": 0,
+          "pages": 6306048,
+          "resident_fraction": 0.00143,
+          "resident_pages": 9020,
+          "sampled": true
+        },
+        "pair": 3,
+        "plan_sha256": "375902af5391889e1cbb245d41e2545b7fc3770d4b4a60a59ea13d698d569522",
+        "process_memory": {
+          "vm_hwm_kib": 556824,
+          "vm_rss_kib": 9940
+        },
+        "requested_qd": 16,
+        "retries": 0,
+        "rusage": {
+          "involuntary_context_switches": 117,
+          "major_faults": 0,
+          "max_rss_kib": 556824,
+          "minor_faults": 16707,
+          "system_seconds": 4.807426,
+          "user_seconds": 14.502543,
+          "voluntary_context_switches": 6257
+        },
+        "schema_version": "phase12-nvme-cell-v1",
+        "sequence": 1,
+        "short_reads": 0,
+        "status": "PASS",
+        "submitted_bytes": 25829572608,
+        "swap_used_bytes": 0,
+        "token_equivalent_latency_ms": [
+          5314.979785
+        ],
+        "useful_bytes": 25829572608,
+        "useful_gbps": 4.859769,
+        "worker_count": 0
+      },
+      "candidate": {
+        "api": "buffered-io-uring",
+        "block_devices": [
+          {
+            "io_ticks_ms": 5443,
+            "read_bytes": 25792626688,
+            "read_operations": 392551,
+            "read_ticks_ms": 144408,
+            "stat_path": "/sys/dev/block/259:1/stat",
+            "weighted_ticks_ms": 144409
+          }
+        ],
+        "buffer_bytes": 561512448,
+        "buffer_count": 32,
+        "cache_state": "OS_COLD_VERIFIED",
+        "candidate_label": "candidate",
+        "checksum_sink_sha256": "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d",
+        "checksum_worker_count": 16,
+        "command": [
+          "/usr/local/src/k3-out-of-core/build/phase12-nvme/phase12_nvme_bench",
+          "--plan",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/candidate-01-screen/plans/candidate.tsv",
+          "--api",
+          "buffered-io-uring",
+          "--cache-state",
+          "OS_COLD_VERIFIED",
+          "--qd",
+          "16",
+          "--iterations",
+          "1",
+          "--output",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/candidate-01-screen/pair-3__sequence-2__candidate.json"
+        ],
+        "completed_operations": 1472,
+        "direct_io": {
+          "buffered_fallback_allowed": false,
+          "opened_with_o_direct": false,
+          "requested": false
+        },
+        "effective_qd_basis": "maximum observed in-flight operations equals requested QD",
+        "effective_qd_histogram_ns": {
+          "0": 11298,
+          "1": 258576,
+          "10": 11020434,
+          "11": 20557772,
+          "12": 76002225,
+          "13": 56333680,
+          "14": 85857927,
+          "15": 178341881,
+          "16": 5000262556,
+          "2": 9031293,
+          "3": 180676,
+          "4": 213168,
+          "5": 533527,
+          "6": 1179635,
+          "7": 187234,
+          "8": 783103,
+          "9": 5345194
+        },
+        "effective_qd_status": "SUPPORTED",
+        "fraction_active_at_least_two": 0.999953,
+        "io_uring": {
+          "cq_entries": 32,
+          "features": 131071,
+          "setup_flags": 65536,
+          "sq_entries": 16
+        },
+        "iterations": 1,
+        "latency_ms": {
+          "max": 5455.99862,
+          "p50": 5455.99862,
+          "p95": 5455.99862,
+          "p99": 5455.99862
+        },
+        "layout": "A",
+        "lifetime_resources": {
+          "fd_delta": 0,
+          "thread_delta": 0
+        },
+        "maximum_active_operations": 16,
+        "maximum_inflight_bytes": 280756224,
+        "operation_count_per_iteration": 1472,
+        "operation_elapsed_ms": {
+          "max": 182.076912,
+          "p50": 55.482852,
+          "p95": 77.811087,
+          "p99": 96.476799
+        },
+        "order": "LOCALITY_WINDOW_8",
+        "page_cache_pre_read": {
+          "fadvise_failures": 0,
+          "pages": 6306048,
+          "resident_fraction": 0.00143,
+          "resident_pages": 9020,
+          "sampled": true
+        },
+        "pair": 3,
+        "plan_sha256": "c5cba4af014624aeccd361b8970b21f169dba9a1b0a1b0c7ede5415386b45e70",
+        "process_memory": {
+          "vm_hwm_kib": 557180,
+          "vm_rss_kib": 9944
+        },
+        "requested_qd": 16,
+        "retries": 0,
+        "rusage": {
+          "involuntary_context_switches": 127,
+          "major_faults": 0,
+          "max_rss_kib": 557180,
+          "minor_faults": 16698,
+          "system_seconds": 4.925964,
+          "user_seconds": 14.516811,
+          "voluntary_context_switches": 5979
+        },
+        "schema_version": "phase12-nvme-cell-v1",
+        "sequence": 2,
+        "short_reads": 0,
+        "status": "PASS",
+        "submitted_bytes": 25829572608,
+        "swap_used_bytes": 0,
+        "token_equivalent_latency_ms": [
+          5455.99862
+        ],
+        "useful_bytes": 25829572608,
+        "useful_gbps": 4.73416,
+        "worker_count": 0
+      },
+      "execution_order": [
+        "baseline",
+        "candidate"
+      ],
+      "p95_relative_improvement": -0.026532337036913045,
+      "pair": 3,
+      "throughput_relative_improvement": -0.025846701767100466
+    }
+  ],
+  "plans": {
+    "baseline": {
+      "path": "/mnt/nvme0/k3-phase12-nvme-evidence/candidate-01-screen/plans/baseline.tsv",
+      "sha256": "375902af5391889e1cbb245d41e2545b7fc3770d4b4a60a59ea13d698d569522"
+    },
+    "candidate": {
+      "path": "/mnt/nvme0/k3-phase12-nvme-evidence/candidate-01-screen/plans/candidate.tsv",
+      "sha256": "c5cba4af014624aeccd361b8970b21f169dba9a1b0a1b0c7ede5415386b45e70"
+    }
+  },
+  "schema_version": "phase12-nvme-candidate-screen-v1",
+  "status": "PASS"
+}

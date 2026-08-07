@@ -1,0 +1,2268 @@
+{
+  "binary": {
+    "path": "/usr/local/src/k3-out-of-core/build/phase12-nvme/phase12_nvme_bench",
+    "sha256": "0d641c091315b8aa83b9cb4ebfc28b37c758a385a69eb23e646a9864010f453e"
+  },
+  "comparison": "same-host SINGLE_NAMESPACE versus DUAL_NAMESPACE",
+  "disposition": "accepted",
+  "dual_corpus": {
+    "path": "results/2026-08-06/sergio-test/phase12-nvme/dual-corpus.json",
+    "sha256": "b54b202957ffab6815662235f13ab6fa1b6c7b3b1b63f0cfcb271963d044ec30"
+  },
+  "dual_per_drive_summary": [
+    {
+      "application_average_active_median": 13.566702,
+      "application_maximum_active_median": 21,
+      "block_stat_path": "/sys/dev/block/259:0/stat",
+      "mean_device_queue_depth_median": 755.017514,
+      "mean_read_service_ms_median": 13.474843,
+      "operation_p95_ms_median": 44.083344,
+      "read_bytes_per_run": [
+        12914786304
+      ],
+      "read_operations_median": 99176
+    },
+    {
+      "application_average_active_median": 18.184852,
+      "application_maximum_active_median": 25,
+      "block_stat_path": "/sys/dev/block/259:1/stat",
+      "mean_device_queue_depth_median": 1043.409863,
+      "mean_read_service_ms_median": 19.200432,
+      "operation_p95_ms_median": 56.493477,
+      "read_bytes_per_run": [
+        12914786304
+      ],
+      "read_operations_median": 99176
+    }
+  ],
+  "failures": [],
+  "fixed_configuration": {
+    "api": "direct-pread",
+    "cache_state": "OS_COLD_VERIFIED",
+    "layout": "A",
+    "order": "LOGICAL_SELECTED",
+    "request_class": "COLD_SPREAD",
+    "requested_qd": 32,
+    "route_token": 0
+  },
+  "interpretation": "dual independent namespaces preserve correctness and expose measured same-host scaling",
+  "mapping": "layer % 2 selects namespace 0/1",
+  "pair_count": 5,
+  "paired_metrics": {
+    "p95_relative_improvement": {
+      "mean": 0.4762772561984446,
+      "median": 0.4759546555777867,
+      "paired_95_percent_interval": [
+        0.47036790368543774,
+        0.4821866087114514
+      ],
+      "values": [
+        0.478545851737032,
+        0.4759546555777867,
+        0.48309244796903617,
+        0.47242256022064777,
+        0.4713707654877203
+      ]
+    },
+    "throughput_relative_improvement": {
+      "mean": 0.9095338423488647,
+      "median": 0.9082317868526857,
+      "paired_95_percent_interval": [
+        0.8879169827460364,
+        0.931150701951693
+      ],
+      "values": [
+        0.917714085912031,
+        0.9082317868526857,
+        0.9345818142963638,
+        0.8954564271035328,
+        0.8916850975797104
+      ]
+    }
+  },
+  "pairs": [
+    {
+      "dual": {
+        "api": "direct-pread",
+        "block_devices": [
+          {
+            "io_ticks_ms": 1770,
+            "mean_queue_depth_during_io": 755.017514,
+            "mean_read_service_ms": 13.474843,
+            "read_bytes": 12914786304,
+            "read_operations": 99176,
+            "read_ticks_ms": 1336381,
+            "stat_path": "/sys/dev/block/259:0/stat",
+            "weighted_ticks_ms": 1336381
+          },
+          {
+            "io_ticks_ms": 1825,
+            "mean_queue_depth_during_io": 1043.409863,
+            "mean_read_service_ms": 19.200432,
+            "read_bytes": 12914786304,
+            "read_operations": 99176,
+            "read_ticks_ms": 1904222,
+            "stat_path": "/sys/dev/block/259:1/stat",
+            "weighted_ticks_ms": 1904223
+          }
+        ],
+        "buffer_bytes": 561512448,
+        "buffer_count": 32,
+        "cache_state": "OS_COLD_VERIFIED",
+        "checksum_sink_sha256": "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d",
+        "checksum_worker_count": 0,
+        "command": [
+          "/usr/local/src/k3-out-of-core/build/phase12-nvme/phase12_nvme_bench",
+          "--plan",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/dual-namespace/plans/dual-namespace.tsv",
+          "--api",
+          "direct-pread",
+          "--cache-state",
+          "OS_COLD_VERIFIED",
+          "--qd",
+          "32",
+          "--iterations",
+          "1",
+          "--output",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/dual-namespace/comparison/pair-1__sequence-2__dual.json"
+        ],
+        "completed_operations": 1472,
+        "direct_io": {
+          "buffered_fallback_allowed": false,
+          "opened_with_o_direct": true,
+          "requested": true
+        },
+        "effective_qd_basis": "maximum observed in-flight operations equals requested QD",
+        "effective_qd_histogram_ns": {
+          "1": 282181,
+          "10": 4660179,
+          "11": 5306418,
+          "12": 282712,
+          "13": 448636,
+          "14": 3521317,
+          "15": 1310785,
+          "16": 1972517,
+          "17": 635451,
+          "18": 3399872,
+          "19": 2537791,
+          "2": 51631,
+          "20": 645476,
+          "21": 3076348,
+          "22": 1736957,
+          "23": 3872914,
+          "24": 3409937,
+          "25": 3580016,
+          "26": 5376383,
+          "27": 2727743,
+          "28": 2990125,
+          "29": 2878083,
+          "3": 507334,
+          "30": 2363374,
+          "31": 6249031,
+          "32": 1777395084,
+          "4": 242142,
+          "5": 208458,
+          "6": 61014,
+          "7": 509709,
+          "8": 3512774,
+          "9": 357065
+        },
+        "effective_qd_status": "SUPPORTED",
+        "fraction_active_at_least_two": 0.999847,
+        "io_uring": {
+          "cq_entries": 0,
+          "features": 0,
+          "setup_flags": 0,
+          "sq_entries": 0
+        },
+        "iterations": 1,
+        "latency_ms": {
+          "max": 1846.84997,
+          "p50": 1846.84997,
+          "p95": 1846.84997,
+          "p99": 1846.84997
+        },
+        "lifetime_resources": {
+          "fd_delta": 0,
+          "thread_delta": 0
+        },
+        "maximum_active_operations": 32,
+        "maximum_inflight_bytes": 561512448,
+        "namespace_mode": "DUAL_NAMESPACE",
+        "operation_count_per_iteration": 1472,
+        "operation_elapsed_ms": {
+          "max": 67.200345,
+          "p50": 40.698356,
+          "p95": 51.758504,
+          "p99": 60.048636
+        },
+        "page_cache_pre_read": {
+          "fadvise_failures": 0,
+          "pages": 0,
+          "resident_fraction": 0.0,
+          "resident_pages": 0,
+          "sampled": false
+        },
+        "pair": 1,
+        "per_source_activity": [
+          {
+            "active_depth_histogram_ns": {
+              "1": 624414,
+              "10": 598576,
+              "11": 6218933,
+              "12": 12154934,
+              "13": 16077641,
+              "14": 14110878,
+              "15": 52484232,
+              "16": 380565094,
+              "17": 251293599,
+              "18": 278505092,
+              "19": 243182466,
+              "2": 50428,
+              "20": 202408088,
+              "21": 254798125,
+              "22": 94296135,
+              "23": 20070212,
+              "3": 434224,
+              "4": 216551,
+              "5": 420323,
+              "6": 2363165,
+              "7": 2205864,
+              "8": 3390756,
+              "9": 1037928
+            },
+            "active_wall_ns": 1837507658,
+            "average_active_operations": 18.184852,
+            "block_stat_path": "/sys/dev/block/259:1/stat",
+            "maximum_active_operations": 23,
+            "operation_elapsed_ms": {
+              "max": 67.200345,
+              "p50": 45.293164,
+              "p95": 56.493477,
+              "p99": 61.444671
+            },
+            "operation_intervals": 736,
+            "path": "/mnt/nvme0/k3-phase12-nvme-dual/projection-spans.bin",
+            "source": 0
+          },
+          {
+            "active_depth_histogram_ns": {
+              "1": 468776,
+              "10": 99007464,
+              "11": 258500884,
+              "12": 215510066,
+              "13": 252226558,
+              "14": 279821254,
+              "15": 262442838,
+              "16": 375233556,
+              "17": 47311363,
+              "18": 4473622,
+              "19": 7733067,
+              "2": 1066243,
+              "20": 2327753,
+              "3": 420582,
+              "4": 551534,
+              "5": 667941,
+              "6": 1085571,
+              "7": 1293399,
+              "8": 1271766,
+              "9": 20816500
+            },
+            "active_wall_ns": 1832230737,
+            "average_active_operations": 13.566702,
+            "block_stat_path": "/sys/dev/block/259:0/stat",
+            "maximum_active_operations": 20,
+            "operation_elapsed_ms": {
+              "max": 49.626293,
+              "p50": 37.565734,
+              "p95": 43.878461,
+              "p99": 47.62415
+            },
+            "operation_intervals": 736,
+            "path": "/mnt/nvme1/k3-phase12-nvme-dual/projection-spans.bin",
+            "source": 1
+          }
+        ],
+        "plan_sha256": "a70e18c763d55c22b4add5b2ea553a733ead33c69e26753942fac3421fd6d28b",
+        "process_memory": {
+          "vm_hwm_kib": 553644,
+          "vm_rss_kib": 82008
+        },
+        "requested_qd": 32,
+        "retries": 0,
+        "rusage": {
+          "involuntary_context_switches": 71,
+          "major_faults": 0,
+          "max_rss_kib": 553644,
+          "minor_faults": 6485,
+          "system_seconds": 0.438777,
+          "user_seconds": 14.528669,
+          "voluntary_context_switches": 2475
+        },
+        "schema_version": "phase12-nvme-cell-v1",
+        "sequence": 2,
+        "short_reads": 0,
+        "status": "PASS",
+        "submitted_bytes": 25829572608,
+        "swap_used_bytes": 0,
+        "token_equivalent_latency_ms": [
+          1846.84997
+        ],
+        "useful_bytes": 25829572608,
+        "useful_gbps": 13.985745,
+        "worker_count": 32
+      },
+      "execution_order": [
+        "single",
+        "dual"
+      ],
+      "p95_relative_improvement": 0.478545851737032,
+      "pair": 1,
+      "single": {
+        "api": "direct-pread",
+        "block_devices": [
+          {
+            "io_ticks_ms": 3527,
+            "mean_queue_depth_during_io": 2324.780834,
+            "mean_read_service_ms": 41.311269,
+            "read_bytes": 25829572608,
+            "read_operations": 198481,
+            "read_ticks_ms": 8199502,
+            "stat_path": "/sys/dev/block/259:1/stat",
+            "weighted_ticks_ms": 8199502
+          }
+        ],
+        "buffer_bytes": 561512448,
+        "buffer_count": 32,
+        "cache_state": "OS_COLD_VERIFIED",
+        "checksum_sink_sha256": "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d",
+        "checksum_worker_count": 0,
+        "command": [
+          "/usr/local/src/k3-out-of-core/build/phase12-nvme/phase12_nvme_bench",
+          "--plan",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/dual-namespace/plans/single-namespace.tsv",
+          "--api",
+          "direct-pread",
+          "--cache-state",
+          "OS_COLD_VERIFIED",
+          "--qd",
+          "32",
+          "--iterations",
+          "1",
+          "--output",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/dual-namespace/comparison/pair-1__sequence-1__single.json"
+        ],
+        "completed_operations": 1472,
+        "direct_io": {
+          "buffered_fallback_allowed": false,
+          "opened_with_o_direct": true,
+          "requested": true
+        },
+        "effective_qd_basis": "maximum observed in-flight operations equals requested QD",
+        "effective_qd_histogram_ns": {
+          "1": 810750,
+          "10": 2094143,
+          "11": 695824,
+          "12": 888699,
+          "13": 1364679,
+          "14": 8035120,
+          "15": 683915,
+          "16": 389888,
+          "17": 5118440,
+          "18": 2581188,
+          "19": 2868968,
+          "2": 502299,
+          "20": 1617836,
+          "21": 816899,
+          "22": 1873236,
+          "23": 2772590,
+          "24": 6364455,
+          "25": 3047943,
+          "26": 2659790,
+          "27": 3130668,
+          "28": 727883,
+          "29": 1466774,
+          "3": 3209288,
+          "30": 3378188,
+          "31": 2410372,
+          "32": 3476461538,
+          "4": 1188199,
+          "5": 385590,
+          "6": 1441894,
+          "7": 874448,
+          "8": 939668,
+          "9": 180537
+        },
+        "effective_qd_status": "SUPPORTED",
+        "fraction_active_at_least_two": 0.999771,
+        "io_uring": {
+          "cq_entries": 0,
+          "features": 0,
+          "setup_flags": 0,
+          "sq_entries": 0
+        },
+        "iterations": 1,
+        "latency_ms": {
+          "max": 3541.730325,
+          "p50": 3541.730325,
+          "p95": 3541.730325,
+          "p99": 3541.730325
+        },
+        "lifetime_resources": {
+          "fd_delta": 0,
+          "thread_delta": 0
+        },
+        "maximum_active_operations": 32,
+        "maximum_inflight_bytes": 561512448,
+        "namespace_mode": "SINGLE_NAMESPACE",
+        "operation_count_per_iteration": 1472,
+        "operation_elapsed_ms": {
+          "max": 142.742241,
+          "p50": 67.939136,
+          "p95": 98.232315,
+          "p99": 137.696953
+        },
+        "page_cache_pre_read": {
+          "fadvise_failures": 0,
+          "pages": 0,
+          "resident_fraction": 0.0,
+          "resident_pages": 0,
+          "sampled": false
+        },
+        "pair": 1,
+        "per_source_activity": [
+          {
+            "active_depth_histogram_ns": {
+              "1": 810750,
+              "10": 2094143,
+              "11": 695824,
+              "12": 888699,
+              "13": 1364679,
+              "14": 8035120,
+              "15": 683915,
+              "16": 389888,
+              "17": 5118440,
+              "18": 2581188,
+              "19": 2868968,
+              "2": 502299,
+              "20": 1617836,
+              "21": 816899,
+              "22": 1873236,
+              "23": 2772590,
+              "24": 6364455,
+              "25": 3047943,
+              "26": 2659790,
+              "27": 3130668,
+              "28": 727883,
+              "29": 1466774,
+              "3": 3209288,
+              "30": 3378188,
+              "31": 2410372,
+              "32": 3476461538,
+              "4": 1188199,
+              "5": 385590,
+              "6": 1441894,
+              "7": 874448,
+              "8": 939668,
+              "9": 180537
+            },
+            "active_wall_ns": 3540981709,
+            "average_active_operations": 31.753592,
+            "block_stat_path": "/sys/dev/block/259:1/stat",
+            "maximum_active_operations": 32,
+            "operation_elapsed_ms": {
+              "max": 142.742241,
+              "p50": 67.939136,
+              "p95": 98.232315,
+              "p99": 137.696953
+            },
+            "operation_intervals": 1472,
+            "path": "/mnt/nvme0/k3-phase12-nvme-generation-2/layout-a/projection-spans.bin",
+            "source": 0
+          }
+        ],
+        "plan_sha256": "375902af5391889e1cbb245d41e2545b7fc3770d4b4a60a59ea13d698d569522",
+        "process_memory": {
+          "vm_hwm_kib": 552584,
+          "vm_rss_kib": 116104
+        },
+        "requested_qd": 32,
+        "retries": 0,
+        "rusage": {
+          "involuntary_context_switches": 71,
+          "major_faults": 0,
+          "max_rss_kib": 552584,
+          "minor_faults": 6493,
+          "system_seconds": 0.500037,
+          "user_seconds": 14.379606,
+          "voluntary_context_switches": 2967
+        },
+        "schema_version": "phase12-nvme-cell-v1",
+        "sequence": 1,
+        "short_reads": 0,
+        "status": "PASS",
+        "submitted_bytes": 25829572608,
+        "swap_used_bytes": 0,
+        "token_equivalent_latency_ms": [
+          3541.730325
+        ],
+        "useful_bytes": 25829572608,
+        "useful_gbps": 7.292925,
+        "worker_count": 32
+      },
+      "throughput_relative_improvement": 0.917714085912031
+    },
+    {
+      "dual": {
+        "api": "direct-pread",
+        "block_devices": [
+          {
+            "io_ticks_ms": 1795,
+            "mean_queue_depth_during_io": 815.695822,
+            "mean_read_service_ms": 14.76339,
+            "read_bytes": 12914786304,
+            "read_operations": 99176,
+            "read_ticks_ms": 1464174,
+            "stat_path": "/sys/dev/block/259:0/stat",
+            "weighted_ticks_ms": 1464174
+          },
+          {
+            "io_ticks_ms": 1805,
+            "mean_queue_depth_during_io": 995.87313,
+            "mean_read_service_ms": 18.124869,
+            "read_bytes": 12914786304,
+            "read_operations": 99176,
+            "read_ticks_ms": 1797552,
+            "stat_path": "/sys/dev/block/259:1/stat",
+            "weighted_ticks_ms": 1797551
+          }
+        ],
+        "buffer_bytes": 561512448,
+        "buffer_count": 32,
+        "cache_state": "OS_COLD_VERIFIED",
+        "checksum_sink_sha256": "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d",
+        "checksum_worker_count": 0,
+        "command": [
+          "/usr/local/src/k3-out-of-core/build/phase12-nvme/phase12_nvme_bench",
+          "--plan",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/dual-namespace/plans/dual-namespace.tsv",
+          "--api",
+          "direct-pread",
+          "--cache-state",
+          "OS_COLD_VERIFIED",
+          "--qd",
+          "32",
+          "--iterations",
+          "1",
+          "--output",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/dual-namespace/comparison/pair-2__sequence-1__dual.json"
+        ],
+        "completed_operations": 1472,
+        "direct_io": {
+          "buffered_fallback_allowed": false,
+          "opened_with_o_direct": true,
+          "requested": true
+        },
+        "effective_qd_basis": "maximum observed in-flight operations equals requested QD",
+        "effective_qd_histogram_ns": {
+          "1": 704609,
+          "10": 957745,
+          "11": 1503099,
+          "12": 407413,
+          "13": 7049363,
+          "14": 2110759,
+          "15": 6255539,
+          "16": 10499662,
+          "17": 2428173,
+          "18": 2029655,
+          "19": 982092,
+          "2": 564864,
+          "20": 1899828,
+          "21": 784478,
+          "22": 663787,
+          "23": 912726,
+          "24": 857871,
+          "25": 1026471,
+          "26": 1283174,
+          "27": 3977092,
+          "28": 4933897,
+          "29": 1403689,
+          "3": 325287,
+          "30": 5360419,
+          "31": 1842091,
+          "32": 1788102341,
+          "4": 630865,
+          "5": 1755005,
+          "6": 254790,
+          "7": 327460,
+          "8": 813605,
+          "9": 1309103
+        },
+        "effective_qd_status": "SUPPORTED",
+        "fraction_active_at_least_two": 0.99962,
+        "io_uring": {
+          "cq_entries": 0,
+          "features": 0,
+          "setup_flags": 0,
+          "sq_entries": 0
+        },
+        "iterations": 1,
+        "latency_ms": {
+          "max": 1854.618684,
+          "p50": 1854.618684,
+          "p95": 1854.618684,
+          "p99": 1854.618684
+        },
+        "lifetime_resources": {
+          "fd_delta": 0,
+          "thread_delta": 0
+        },
+        "maximum_active_operations": 32,
+        "maximum_inflight_bytes": 561512448,
+        "namespace_mode": "DUAL_NAMESPACE",
+        "operation_count_per_iteration": 1472,
+        "operation_elapsed_ms": {
+          "max": 72.92997,
+          "p50": 41.205172,
+          "p95": 52.874051,
+          "p99": 59.884414
+        },
+        "page_cache_pre_read": {
+          "fadvise_failures": 0,
+          "pages": 0,
+          "resident_fraction": 0.0,
+          "resident_pages": 0,
+          "sampled": false
+        },
+        "pair": 2,
+        "per_source_activity": [
+          {
+            "active_depth_histogram_ns": {
+              "1": 291055,
+              "10": 11022441,
+              "11": 39971473,
+              "12": 29806426,
+              "13": 90222544,
+              "14": 99518436,
+              "15": 56412063,
+              "16": 398475730,
+              "17": 225828673,
+              "18": 233350667,
+              "19": 194437814,
+              "2": 518093,
+              "20": 143889708,
+              "21": 185658872,
+              "22": 78241861,
+              "23": 16394839,
+              "24": 6668742,
+              "3": 500285,
+              "4": 275571,
+              "5": 310496,
+              "6": 117459,
+              "7": 2804489,
+              "8": 3319980,
+              "9": 9272373
+            },
+            "active_wall_ns": 1827310090,
+            "average_active_operations": 17.293268,
+            "block_stat_path": "/sys/dev/block/259:1/stat",
+            "maximum_active_operations": 24,
+            "operation_elapsed_ms": {
+              "max": 65.926226,
+              "p50": 44.083985,
+              "p95": 52.861401,
+              "p99": 62.082647
+            },
+            "operation_intervals": 736,
+            "path": "/mnt/nvme0/k3-phase12-nvme-dual/projection-spans.bin",
+            "source": 0
+          },
+          {
+            "active_depth_histogram_ns": {
+              "1": 2633207,
+              "10": 79915682,
+              "11": 187004164,
+              "12": 145067544,
+              "13": 201574888,
+              "14": 234561383,
+              "15": 230005185,
+              "16": 400582477,
+              "17": 58024763,
+              "18": 96085276,
+              "19": 91842233,
+              "2": 2291707,
+              "20": 30246585,
+              "21": 29355877,
+              "22": 8931846,
+              "23": 8764044,
+              "24": 2715934,
+              "25": 2705950,
+              "3": 712148,
+              "4": 2060563,
+              "5": 1795577,
+              "6": 656544,
+              "7": 826524,
+              "8": 8025887,
+              "9": 18349327
+            },
+            "active_wall_ns": 1844735315,
+            "average_active_operations": 14.549329,
+            "block_stat_path": "/sys/dev/block/259:0/stat",
+            "maximum_active_operations": 25,
+            "operation_elapsed_ms": {
+              "max": 72.92997,
+              "p50": 38.244292,
+              "p95": 52.946502,
+              "p99": 56.029137
+            },
+            "operation_intervals": 736,
+            "path": "/mnt/nvme1/k3-phase12-nvme-dual/projection-spans.bin",
+            "source": 1
+          }
+        ],
+        "plan_sha256": "a70e18c763d55c22b4add5b2ea553a733ead33c69e26753942fac3421fd6d28b",
+        "process_memory": {
+          "vm_hwm_kib": 552656,
+          "vm_rss_kib": 133072
+        },
+        "requested_qd": 32,
+        "retries": 0,
+        "rusage": {
+          "involuntary_context_switches": 58,
+          "major_faults": 0,
+          "max_rss_kib": 552656,
+          "minor_faults": 6488,
+          "system_seconds": 0.464438,
+          "user_seconds": 14.504468,
+          "voluntary_context_switches": 3420
+        },
+        "schema_version": "phase12-nvme-cell-v1",
+        "sequence": 1,
+        "short_reads": 0,
+        "status": "PASS",
+        "submitted_bytes": 25829572608,
+        "swap_used_bytes": 0,
+        "token_equivalent_latency_ms": [
+          1854.618684
+        ],
+        "useful_bytes": 25829572608,
+        "useful_gbps": 13.927161,
+        "worker_count": 32
+      },
+      "execution_order": [
+        "dual",
+        "single"
+      ],
+      "p95_relative_improvement": 0.4759546555777867,
+      "pair": 2,
+      "single": {
+        "api": "direct-pread",
+        "block_devices": [
+          {
+            "io_ticks_ms": 3525,
+            "mean_queue_depth_during_io": 2348.283972,
+            "mean_read_service_ms": 41.704355,
+            "read_bytes": 25829572608,
+            "read_operations": 198481,
+            "read_ticks_ms": 8277522,
+            "stat_path": "/sys/dev/block/259:1/stat",
+            "weighted_ticks_ms": 8277701
+          }
+        ],
+        "buffer_bytes": 561512448,
+        "buffer_count": 32,
+        "cache_state": "OS_COLD_VERIFIED",
+        "checksum_sink_sha256": "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d",
+        "checksum_worker_count": 0,
+        "command": [
+          "/usr/local/src/k3-out-of-core/build/phase12-nvme/phase12_nvme_bench",
+          "--plan",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/dual-namespace/plans/single-namespace.tsv",
+          "--api",
+          "direct-pread",
+          "--cache-state",
+          "OS_COLD_VERIFIED",
+          "--qd",
+          "32",
+          "--iterations",
+          "1",
+          "--output",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/dual-namespace/comparison/pair-2__sequence-2__single.json"
+        ],
+        "completed_operations": 1472,
+        "direct_io": {
+          "buffered_fallback_allowed": false,
+          "opened_with_o_direct": true,
+          "requested": true
+        },
+        "effective_qd_basis": "maximum observed in-flight operations equals requested QD",
+        "effective_qd_histogram_ns": {
+          "1": 1596632,
+          "10": 824010,
+          "11": 4457939,
+          "12": 328263,
+          "13": 1948741,
+          "14": 3106742,
+          "15": 2627319,
+          "16": 4211812,
+          "17": 1855579,
+          "18": 702194,
+          "19": 2030266,
+          "2": 1348554,
+          "20": 745430,
+          "21": 787334,
+          "22": 3349475,
+          "23": 1151692,
+          "24": 9923458,
+          "25": 4203731,
+          "26": 3283633,
+          "27": 13331342,
+          "28": 2250703,
+          "29": 1852014,
+          "3": 573497,
+          "30": 2829698,
+          "31": 1792885,
+          "32": 3460391949,
+          "4": 138651,
+          "5": 594801,
+          "6": 3012909,
+          "7": 767283,
+          "8": 2365218,
+          "9": 18799
+        },
+        "effective_qd_status": "SUPPORTED",
+        "fraction_active_at_least_two": 0.999549,
+        "io_uring": {
+          "cq_entries": 0,
+          "features": 0,
+          "setup_flags": 0,
+          "sq_entries": 0
+        },
+        "iterations": 1,
+        "latency_ms": {
+          "max": 3539.042382,
+          "p50": 3539.042382,
+          "p95": 3539.042382,
+          "p99": 3539.042382
+        },
+        "lifetime_resources": {
+          "fd_delta": 0,
+          "thread_delta": 0
+        },
+        "maximum_active_operations": 32,
+        "maximum_inflight_bytes": 561512448,
+        "namespace_mode": "SINGLE_NAMESPACE",
+        "operation_count_per_iteration": 1472,
+        "operation_elapsed_ms": {
+          "max": 183.250305,
+          "p50": 66.279527,
+          "p95": 131.115975,
+          "p99": 168.551581
+        },
+        "page_cache_pre_read": {
+          "fadvise_failures": 0,
+          "pages": 0,
+          "resident_fraction": 0.0,
+          "resident_pages": 0,
+          "sampled": false
+        },
+        "pair": 2,
+        "per_source_activity": [
+          {
+            "active_depth_histogram_ns": {
+              "1": 1596632,
+              "10": 824010,
+              "11": 4457939,
+              "12": 328263,
+              "13": 1948741,
+              "14": 3106742,
+              "15": 2627319,
+              "16": 4211812,
+              "17": 1855579,
+              "18": 702194,
+              "19": 2030266,
+              "2": 1348554,
+              "20": 745430,
+              "21": 787334,
+              "22": 3349475,
+              "23": 1151692,
+              "24": 9923458,
+              "25": 4203731,
+              "26": 3283633,
+              "27": 13331342,
+              "28": 2250703,
+              "29": 1852014,
+              "3": 573497,
+              "30": 2829698,
+              "31": 1792885,
+              "32": 3460391949,
+              "4": 138651,
+              "5": 594801,
+              "6": 3012909,
+              "7": 767283,
+              "8": 2365218,
+              "9": 18799
+            },
+            "active_wall_ns": 3538402553,
+            "average_active_operations": 31.732292,
+            "block_stat_path": "/sys/dev/block/259:1/stat",
+            "maximum_active_operations": 32,
+            "operation_elapsed_ms": {
+              "max": 183.250305,
+              "p50": 66.279527,
+              "p95": 131.115975,
+              "p99": 168.551581
+            },
+            "operation_intervals": 1472,
+            "path": "/mnt/nvme0/k3-phase12-nvme-generation-2/layout-a/projection-spans.bin",
+            "source": 0
+          }
+        ],
+        "plan_sha256": "375902af5391889e1cbb245d41e2545b7fc3770d4b4a60a59ea13d698d569522",
+        "process_memory": {
+          "vm_hwm_kib": 552916,
+          "vm_rss_kib": 133096
+        },
+        "requested_qd": 32,
+        "retries": 0,
+        "rusage": {
+          "involuntary_context_switches": 64,
+          "major_faults": 0,
+          "max_rss_kib": 552916,
+          "minor_faults": 6495,
+          "system_seconds": 0.405155,
+          "user_seconds": 14.446961,
+          "voluntary_context_switches": 3400
+        },
+        "schema_version": "phase12-nvme-cell-v1",
+        "sequence": 2,
+        "short_reads": 0,
+        "status": "PASS",
+        "submitted_bytes": 25829572608,
+        "swap_used_bytes": 0,
+        "token_equivalent_latency_ms": [
+          3539.042382
+        ],
+        "useful_bytes": 25829572608,
+        "useful_gbps": 7.298464,
+        "worker_count": 32
+      },
+      "throughput_relative_improvement": 0.9082317868526857
+    },
+    {
+      "dual": {
+        "api": "direct-pread",
+        "block_devices": [
+          {
+            "io_ticks_ms": 1773,
+            "mean_queue_depth_during_io": 741.936266,
+            "mean_read_service_ms": 13.263824,
+            "read_bytes": 12914786304,
+            "read_operations": 99176,
+            "read_ticks_ms": 1315453,
+            "stat_path": "/sys/dev/block/259:0/stat",
+            "weighted_ticks_ms": 1315453
+          },
+          {
+            "io_ticks_ms": 1802,
+            "mean_queue_depth_during_io": 1070.204218,
+            "mean_read_service_ms": 19.445309,
+            "read_bytes": 12914786304,
+            "read_operations": 99176,
+            "read_ticks_ms": 1928508,
+            "stat_path": "/sys/dev/block/259:1/stat",
+            "weighted_ticks_ms": 1928508
+          }
+        ],
+        "buffer_bytes": 561512448,
+        "buffer_count": 32,
+        "cache_state": "OS_COLD_VERIFIED",
+        "checksum_sink_sha256": "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d",
+        "checksum_worker_count": 0,
+        "command": [
+          "/usr/local/src/k3-out-of-core/build/phase12-nvme/phase12_nvme_bench",
+          "--plan",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/dual-namespace/plans/dual-namespace.tsv",
+          "--api",
+          "direct-pread",
+          "--cache-state",
+          "OS_COLD_VERIFIED",
+          "--qd",
+          "32",
+          "--iterations",
+          "1",
+          "--output",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/dual-namespace/comparison/pair-3__sequence-2__dual.json"
+        ],
+        "completed_operations": 1472,
+        "direct_io": {
+          "buffered_fallback_allowed": false,
+          "opened_with_o_direct": true,
+          "requested": true
+        },
+        "effective_qd_basis": "maximum observed in-flight operations equals requested QD",
+        "effective_qd_histogram_ns": {
+          "1": 378900,
+          "10": 9988750,
+          "11": 1548108,
+          "12": 374052,
+          "13": 410408,
+          "14": 1197732,
+          "15": 4392779,
+          "16": 5991165,
+          "17": 406132,
+          "18": 3577602,
+          "19": 3935951,
+          "2": 314020,
+          "20": 2946727,
+          "21": 769737,
+          "22": 625558,
+          "23": 1440283,
+          "24": 4797488,
+          "25": 2288180,
+          "26": 481198,
+          "27": 1435755,
+          "28": 716967,
+          "29": 1431139,
+          "3": 36165,
+          "30": 1648892,
+          "31": 2832624,
+          "32": 1775582903,
+          "4": 224664,
+          "5": 323896,
+          "6": 590884,
+          "7": 248360,
+          "8": 3852912,
+          "9": 555721
+        },
+        "effective_qd_status": "SUPPORTED",
+        "fraction_active_at_least_two": 0.999794,
+        "io_uring": {
+          "cq_entries": 0,
+          "features": 0,
+          "setup_flags": 0,
+          "sq_entries": 0
+        },
+        "iterations": 1,
+        "latency_ms": {
+          "max": 1836.046153,
+          "p50": 1836.046153,
+          "p95": 1836.046153,
+          "p99": 1836.046153
+        },
+        "lifetime_resources": {
+          "fd_delta": 0,
+          "thread_delta": 0
+        },
+        "maximum_active_operations": 32,
+        "maximum_inflight_bytes": 561512448,
+        "namespace_mode": "DUAL_NAMESPACE",
+        "operation_count_per_iteration": 1472,
+        "operation_elapsed_ms": {
+          "max": 76.914505,
+          "p50": 40.480543,
+          "p95": 51.719915,
+          "p99": 63.263583
+        },
+        "page_cache_pre_read": {
+          "fadvise_failures": 0,
+          "pages": 0,
+          "resident_fraction": 0.0,
+          "resident_pages": 0,
+          "sampled": false
+        },
+        "pair": 3,
+        "per_source_activity": [
+          {
+            "active_depth_histogram_ns": {
+              "1": 374343,
+              "10": 137320,
+              "11": 933478,
+              "12": 7970392,
+              "13": 7608317,
+              "14": 22039874,
+              "15": 25966433,
+              "16": 367693720,
+              "17": 331440857,
+              "18": 287010369,
+              "19": 199337896,
+              "2": 223711,
+              "20": 189611984,
+              "21": 211144626,
+              "22": 137793370,
+              "23": 15687763,
+              "24": 3809176,
+              "25": 468928,
+              "3": 259989,
+              "4": 430127,
+              "5": 2708103,
+              "6": 412371,
+              "7": 327641,
+              "8": 3826213,
+              "9": 1329343
+            },
+            "active_wall_ns": 1818546344,
+            "average_active_operations": 18.235085,
+            "block_stat_path": "/sys/dev/block/259:1/stat",
+            "maximum_active_operations": 25,
+            "operation_elapsed_ms": {
+              "max": 76.914505,
+              "p50": 44.582628,
+              "p95": 56.568613,
+              "p99": 64.989283
+            },
+            "operation_intervals": 736,
+            "path": "/mnt/nvme0/k3-phase12-nvme-dual/projection-spans.bin",
+            "source": 0
+          },
+          {
+            "active_depth_histogram_ns": {
+              "1": 370978,
+              "10": 148504192,
+              "11": 222134678,
+              "12": 194440331,
+              "13": 200466753,
+              "14": 287785824,
+              "15": 333966716,
+              "16": 357743112,
+              "17": 16216169,
+              "18": 17336316,
+              "19": 5713519,
+              "2": 3742014,
+              "20": 4987429,
+              "21": 530752,
+              "3": 327119,
+              "4": 1644276,
+              "5": 815057,
+              "6": 734604,
+              "7": 1972067,
+              "8": 8596078,
+              "9": 17104415
+            },
+            "active_wall_ns": 1825132399,
+            "average_active_operations": 13.53209,
+            "block_stat_path": "/sys/dev/block/259:0/stat",
+            "maximum_active_operations": 21,
+            "operation_elapsed_ms": {
+              "max": 47.84009,
+              "p50": 37.787343,
+              "p95": 42.219382,
+              "p99": 45.906282
+            },
+            "operation_intervals": 736,
+            "path": "/mnt/nvme1/k3-phase12-nvme-dual/projection-spans.bin",
+            "source": 1
+          }
+        ],
+        "plan_sha256": "a70e18c763d55c22b4add5b2ea553a733ead33c69e26753942fac3421fd6d28b",
+        "process_memory": {
+          "vm_hwm_kib": 553672,
+          "vm_rss_kib": 133100
+        },
+        "requested_qd": 32,
+        "retries": 0,
+        "rusage": {
+          "involuntary_context_switches": 58,
+          "major_faults": 0,
+          "max_rss_kib": 553672,
+          "minor_faults": 6489,
+          "system_seconds": 0.44813,
+          "user_seconds": 14.516668,
+          "voluntary_context_switches": 3412
+        },
+        "schema_version": "phase12-nvme-cell-v1",
+        "sequence": 2,
+        "short_reads": 0,
+        "status": "PASS",
+        "submitted_bytes": 25829572608,
+        "swap_used_bytes": 0,
+        "token_equivalent_latency_ms": [
+          1836.046153
+        ],
+        "useful_bytes": 25829572608,
+        "useful_gbps": 14.068041,
+        "worker_count": 32
+      },
+      "execution_order": [
+        "single",
+        "dual"
+      ],
+      "p95_relative_improvement": 0.48309244796903617,
+      "pair": 3,
+      "single": {
+        "api": "direct-pread",
+        "block_devices": [
+          {
+            "io_ticks_ms": 3538,
+            "mean_queue_depth_during_io": 2548.257773,
+            "mean_read_service_ms": 45.423673,
+            "read_bytes": 25829572608,
+            "read_operations": 198481,
+            "read_ticks_ms": 9015736,
+            "stat_path": "/sys/dev/block/259:1/stat",
+            "weighted_ticks_ms": 9015736
+          }
+        ],
+        "buffer_bytes": 561512448,
+        "buffer_count": 32,
+        "cache_state": "OS_COLD_VERIFIED",
+        "checksum_sink_sha256": "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d",
+        "checksum_worker_count": 0,
+        "command": [
+          "/usr/local/src/k3-out-of-core/build/phase12-nvme/phase12_nvme_bench",
+          "--plan",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/dual-namespace/plans/single-namespace.tsv",
+          "--api",
+          "direct-pread",
+          "--cache-state",
+          "OS_COLD_VERIFIED",
+          "--qd",
+          "32",
+          "--iterations",
+          "1",
+          "--output",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/dual-namespace/comparison/pair-3__sequence-1__single.json"
+        ],
+        "completed_operations": 1472,
+        "direct_io": {
+          "buffered_fallback_allowed": false,
+          "opened_with_o_direct": true,
+          "requested": true
+        },
+        "effective_qd_basis": "maximum observed in-flight operations equals requested QD",
+        "effective_qd_histogram_ns": {
+          "1": 1735404,
+          "10": 1964305,
+          "11": 2451810,
+          "12": 784040,
+          "13": 3780513,
+          "14": 6603110,
+          "15": 3111291,
+          "16": 3600347,
+          "17": 1520385,
+          "18": 2515528,
+          "19": 2698958,
+          "2": 499034,
+          "20": 2963164,
+          "21": 4377986,
+          "22": 1669374,
+          "23": 3980539,
+          "24": 2978696,
+          "25": 6001642,
+          "26": 2037115,
+          "27": 1201959,
+          "28": 1316073,
+          "29": 1901850,
+          "3": 2167185,
+          "30": 2473832,
+          "31": 2247930,
+          "32": 3473915088,
+          "4": 2627860,
+          "5": 3699479,
+          "6": 625776,
+          "7": 1152594,
+          "8": 2281169,
+          "9": 387783
+        },
+        "effective_qd_status": "SUPPORTED",
+        "fraction_active_at_least_two": 0.999511,
+        "io_uring": {
+          "cq_entries": 0,
+          "features": 0,
+          "setup_flags": 0,
+          "sq_entries": 0
+        },
+        "iterations": 1,
+        "latency_ms": {
+          "max": 3551.981676,
+          "p50": 3551.981676,
+          "p95": 3551.981676,
+          "p99": 3551.981676
+        },
+        "lifetime_resources": {
+          "fd_delta": 0,
+          "thread_delta": 0
+        },
+        "maximum_active_operations": 32,
+        "maximum_inflight_bytes": 561512448,
+        "namespace_mode": "SINGLE_NAMESPACE",
+        "operation_count_per_iteration": 1472,
+        "operation_elapsed_ms": {
+          "max": 157.777039,
+          "p50": 72.458919,
+          "p95": 118.29897,
+          "p99": 151.225548
+        },
+        "page_cache_pre_read": {
+          "fadvise_failures": 0,
+          "pages": 0,
+          "resident_fraction": 0.0,
+          "resident_pages": 0,
+          "sampled": false
+        },
+        "pair": 3,
+        "per_source_activity": [
+          {
+            "active_depth_histogram_ns": {
+              "1": 1735404,
+              "10": 1964305,
+              "11": 2451810,
+              "12": 784040,
+              "13": 3780513,
+              "14": 6603110,
+              "15": 3111291,
+              "16": 3600347,
+              "17": 1520385,
+              "18": 2515528,
+              "19": 2698958,
+              "2": 499034,
+              "20": 2963164,
+              "21": 4377986,
+              "22": 1669374,
+              "23": 3980539,
+              "24": 2978696,
+              "25": 6001642,
+              "26": 2037115,
+              "27": 1201959,
+              "28": 1316073,
+              "29": 1901850,
+              "3": 2167185,
+              "30": 2473832,
+              "31": 2247930,
+              "32": 3473915088,
+              "4": 2627860,
+              "5": 3699479,
+              "6": 625776,
+              "7": 1152594,
+              "8": 2281169,
+              "9": 387783
+            },
+            "active_wall_ns": 3551271819,
+            "average_active_operations": 31.674206,
+            "block_stat_path": "/sys/dev/block/259:1/stat",
+            "maximum_active_operations": 32,
+            "operation_elapsed_ms": {
+              "max": 157.777039,
+              "p50": 72.458919,
+              "p95": 118.29897,
+              "p99": 151.225548
+            },
+            "operation_intervals": 1472,
+            "path": "/mnt/nvme0/k3-phase12-nvme-generation-2/layout-a/projection-spans.bin",
+            "source": 0
+          }
+        ],
+        "plan_sha256": "375902af5391889e1cbb245d41e2545b7fc3770d4b4a60a59ea13d698d569522",
+        "process_memory": {
+          "vm_hwm_kib": 553480,
+          "vm_rss_kib": 82072
+        },
+        "requested_qd": 32,
+        "retries": 0,
+        "rusage": {
+          "involuntary_context_switches": 75,
+          "major_faults": 0,
+          "max_rss_kib": 553480,
+          "minor_faults": 6491,
+          "system_seconds": 0.441699,
+          "user_seconds": 14.349616,
+          "voluntary_context_switches": 2405
+        },
+        "schema_version": "phase12-nvme-cell-v1",
+        "sequence": 1,
+        "short_reads": 0,
+        "status": "PASS",
+        "submitted_bytes": 25829572608,
+        "swap_used_bytes": 0,
+        "token_equivalent_latency_ms": [
+          3551.981676
+        ],
+        "useful_bytes": 25829572608,
+        "useful_gbps": 7.271877,
+        "worker_count": 32
+      },
+      "throughput_relative_improvement": 0.9345818142963638
+    },
+    {
+      "dual": {
+        "api": "direct-pread",
+        "block_devices": [
+          {
+            "io_ticks_ms": 1768,
+            "mean_queue_depth_during_io": 749.712104,
+            "mean_read_service_ms": 13.365038,
+            "read_bytes": 12914786304,
+            "read_operations": 99176,
+            "read_ticks_ms": 1325491,
+            "stat_path": "/sys/dev/block/259:0/stat",
+            "weighted_ticks_ms": 1325491
+          },
+          {
+            "io_ticks_ms": 1837,
+            "mean_queue_depth_during_io": 1070.715297,
+            "mean_read_service_ms": 19.832459,
+            "read_bytes": 12914786304,
+            "read_operations": 99176,
+            "read_ticks_ms": 1966904,
+            "stat_path": "/sys/dev/block/259:1/stat",
+            "weighted_ticks_ms": 1966904
+          }
+        ],
+        "buffer_bytes": 561512448,
+        "buffer_count": 32,
+        "cache_state": "OS_COLD_VERIFIED",
+        "checksum_sink_sha256": "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d",
+        "checksum_worker_count": 0,
+        "command": [
+          "/usr/local/src/k3-out-of-core/build/phase12-nvme/phase12_nvme_bench",
+          "--plan",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/dual-namespace/plans/dual-namespace.tsv",
+          "--api",
+          "direct-pread",
+          "--cache-state",
+          "OS_COLD_VERIFIED",
+          "--qd",
+          "32",
+          "--iterations",
+          "1",
+          "--output",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/dual-namespace/comparison/pair-4__sequence-1__dual.json"
+        ],
+        "completed_operations": 1472,
+        "direct_io": {
+          "buffered_fallback_allowed": false,
+          "opened_with_o_direct": true,
+          "requested": true
+        },
+        "effective_qd_basis": "maximum observed in-flight operations equals requested QD",
+        "effective_qd_histogram_ns": {
+          "1": 367752,
+          "10": 2811100,
+          "11": 208380,
+          "12": 51967,
+          "13": 413673,
+          "14": 526636,
+          "15": 1751941,
+          "16": 3009422,
+          "17": 1364819,
+          "18": 2432461,
+          "19": 2591673,
+          "2": 269132,
+          "20": 3619878,
+          "21": 4399080,
+          "22": 3629581,
+          "23": 1507066,
+          "24": 1693670,
+          "25": 4119902,
+          "26": 2547508,
+          "27": 3594468,
+          "28": 1274340,
+          "29": 834376,
+          "3": 215649,
+          "30": 7054792,
+          "31": 1945229,
+          "32": 1802171622,
+          "4": 366191,
+          "5": 193005,
+          "6": 2417448,
+          "7": 1570744,
+          "8": 1175888,
+          "9": 1580908
+        },
+        "effective_qd_status": "SUPPORTED",
+        "fraction_active_at_least_two": 0.999802,
+        "io_uring": {
+          "cq_entries": 0,
+          "features": 0,
+          "setup_flags": 0,
+          "sq_entries": 0
+        },
+        "iterations": 1,
+        "latency_ms": {
+          "max": 1862.367686,
+          "p50": 1862.367686,
+          "p95": 1862.367686,
+          "p99": 1862.367686
+        },
+        "lifetime_resources": {
+          "fd_delta": 0,
+          "thread_delta": 0
+        },
+        "maximum_active_operations": 32,
+        "maximum_inflight_bytes": 561512448,
+        "namespace_mode": "DUAL_NAMESPACE",
+        "operation_count_per_iteration": 1472,
+        "operation_elapsed_ms": {
+          "max": 76.826119,
+          "p50": 41.746369,
+          "p95": 53.660003,
+          "p99": 60.309264
+        },
+        "page_cache_pre_read": {
+          "fadvise_failures": 0,
+          "pages": 0,
+          "resident_fraction": 0.0,
+          "resident_pages": 0,
+          "sampled": false
+        },
+        "pair": 4,
+        "per_source_activity": [
+          {
+            "active_depth_histogram_ns": {
+              "1": 397958,
+              "10": 4185393,
+              "11": 2589070,
+              "12": 9039657,
+              "13": 4273166,
+              "14": 17058077,
+              "15": 39319816,
+              "16": 337701184,
+              "17": 260040545,
+              "18": 252932988,
+              "19": 310632138,
+              "2": 393172,
+              "20": 219567987,
+              "21": 243220379,
+              "22": 119412970,
+              "23": 22222200,
+              "24": 2409946,
+              "25": 130430,
+              "26": 905485,
+              "3": 544503,
+              "4": 308242,
+              "5": 621961,
+              "6": 23276,
+              "7": 678479,
+              "8": 397266,
+              "9": 2987240
+            },
+            "active_wall_ns": 1851993528,
+            "average_active_operations": 18.415627,
+            "block_stat_path": "/sys/dev/block/259:1/stat",
+            "maximum_active_operations": 26,
+            "operation_elapsed_ms": {
+              "max": 76.826119,
+              "p50": 46.209135,
+              "p95": 57.971228,
+              "p99": 63.518854
+            },
+            "operation_intervals": 736,
+            "path": "/mnt/nvme0/k3-phase12-nvme-dual/projection-spans.bin",
+            "source": 0
+          },
+          {
+            "active_depth_histogram_ns": {
+              "1": 1526215,
+              "10": 122549991,
+              "11": 257676998,
+              "12": 221633109,
+              "13": 313517388,
+              "14": 255714930,
+              "15": 261662378,
+              "16": 332403346,
+              "17": 34125971,
+              "18": 10151961,
+              "19": 3629750,
+              "2": 1856980,
+              "3": 2356313,
+              "4": 966340,
+              "5": 437669,
+              "6": 4382343,
+              "7": 1855640,
+              "8": 4076135,
+              "9": 25411580
+            },
+            "active_wall_ns": 1855935037,
+            "average_active_operations": 13.346087,
+            "block_stat_path": "/sys/dev/block/259:0/stat",
+            "maximum_active_operations": 19,
+            "operation_elapsed_ms": {
+              "max": 47.322719,
+              "p50": 37.803258,
+              "p95": 44.083344,
+              "p99": 46.653134
+            },
+            "operation_intervals": 736,
+            "path": "/mnt/nvme1/k3-phase12-nvme-dual/projection-spans.bin",
+            "source": 1
+          }
+        ],
+        "plan_sha256": "a70e18c763d55c22b4add5b2ea553a733ead33c69e26753942fac3421fd6d28b",
+        "process_memory": {
+          "vm_hwm_kib": 553580,
+          "vm_rss_kib": 150060
+        },
+        "requested_qd": 32,
+        "retries": 0,
+        "rusage": {
+          "involuntary_context_switches": 67,
+          "major_faults": 0,
+          "max_rss_kib": 553580,
+          "minor_faults": 6485,
+          "system_seconds": 0.431184,
+          "user_seconds": 14.591241,
+          "voluntary_context_switches": 3431
+        },
+        "schema_version": "phase12-nvme-cell-v1",
+        "sequence": 1,
+        "short_reads": 0,
+        "status": "PASS",
+        "submitted_bytes": 25829572608,
+        "swap_used_bytes": 0,
+        "token_equivalent_latency_ms": [
+          1862.367686
+        ],
+        "useful_bytes": 25829572608,
+        "useful_gbps": 13.869212,
+        "worker_count": 32
+      },
+      "execution_order": [
+        "dual",
+        "single"
+      ],
+      "p95_relative_improvement": 0.47242256022064777,
+      "pair": 4,
+      "single": {
+        "api": "direct-pread",
+        "block_devices": [
+          {
+            "io_ticks_ms": 3516,
+            "mean_queue_depth_during_io": 2469.477531,
+            "mean_read_service_ms": 43.745663,
+            "read_bytes": 25829572608,
+            "read_operations": 198481,
+            "read_ticks_ms": 8682683,
+            "stat_path": "/sys/dev/block/259:1/stat",
+            "weighted_ticks_ms": 8682683
+          }
+        ],
+        "buffer_bytes": 561512448,
+        "buffer_count": 32,
+        "cache_state": "OS_COLD_VERIFIED",
+        "checksum_sink_sha256": "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d",
+        "checksum_worker_count": 0,
+        "command": [
+          "/usr/local/src/k3-out-of-core/build/phase12-nvme/phase12_nvme_bench",
+          "--plan",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/dual-namespace/plans/single-namespace.tsv",
+          "--api",
+          "direct-pread",
+          "--cache-state",
+          "OS_COLD_VERIFIED",
+          "--qd",
+          "32",
+          "--iterations",
+          "1",
+          "--output",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/dual-namespace/comparison/pair-4__sequence-2__single.json"
+        ],
+        "completed_operations": 1472,
+        "direct_io": {
+          "buffered_fallback_allowed": false,
+          "opened_with_o_direct": true,
+          "requested": true
+        },
+        "effective_qd_basis": "maximum observed in-flight operations equals requested QD",
+        "effective_qd_histogram_ns": {
+          "1": 1673950,
+          "10": 3632589,
+          "11": 1615710,
+          "12": 1859185,
+          "13": 6100040,
+          "14": 4714223,
+          "15": 2854195,
+          "16": 902029,
+          "17": 2562170,
+          "18": 878433,
+          "19": 2557723,
+          "2": 1266278,
+          "20": 1236051,
+          "21": 3181488,
+          "22": 1787282,
+          "23": 886598,
+          "24": 8705165,
+          "25": 6398958,
+          "26": 851032,
+          "27": 4261930,
+          "28": 3341722,
+          "29": 1895790,
+          "3": 3986787,
+          "30": 8713048,
+          "31": 3370395,
+          "32": 3441880736,
+          "4": 166986,
+          "5": 427865,
+          "6": 401104,
+          "7": 2154906,
+          "8": 2664476,
+          "9": 2518110
+        },
+        "effective_qd_status": "SUPPORTED",
+        "fraction_active_at_least_two": 0.999526,
+        "io_uring": {
+          "cq_entries": 0,
+          "features": 0,
+          "setup_flags": 0,
+          "sq_entries": 0
+        },
+        "iterations": 1,
+        "latency_ms": {
+          "max": 3530.036627,
+          "p50": 3530.036627,
+          "p95": 3530.036627,
+          "p99": 3530.036627
+        },
+        "lifetime_resources": {
+          "fd_delta": 0,
+          "thread_delta": 0
+        },
+        "maximum_active_operations": 32,
+        "maximum_inflight_bytes": 561512448,
+        "namespace_mode": "SINGLE_NAMESPACE",
+        "operation_count_per_iteration": 1472,
+        "operation_elapsed_ms": {
+          "max": 179.972131,
+          "p50": 61.536462,
+          "p95": 157.382445,
+          "p99": 169.000559
+        },
+        "page_cache_pre_read": {
+          "fadvise_failures": 0,
+          "pages": 0,
+          "resident_fraction": 0.0,
+          "resident_pages": 0,
+          "sampled": false
+        },
+        "pair": 4,
+        "per_source_activity": [
+          {
+            "active_depth_histogram_ns": {
+              "1": 1673950,
+              "10": 3632589,
+              "11": 1615710,
+              "12": 1859185,
+              "13": 6100040,
+              "14": 4714223,
+              "15": 2854195,
+              "16": 902029,
+              "17": 2562170,
+              "18": 878433,
+              "19": 2557723,
+              "2": 1266278,
+              "20": 1236051,
+              "21": 3181488,
+              "22": 1787282,
+              "23": 886598,
+              "24": 8705165,
+              "25": 6398958,
+              "26": 851032,
+              "27": 4261930,
+              "28": 3341722,
+              "29": 1895790,
+              "3": 3986787,
+              "30": 8713048,
+              "31": 3370395,
+              "32": 3441880736,
+              "4": 166986,
+              "5": 427865,
+              "6": 401104,
+              "7": 2154906,
+              "8": 2664476,
+              "9": 2518110
+            },
+            "active_wall_ns": 3529446954,
+            "average_active_operations": 31.670488,
+            "block_stat_path": "/sys/dev/block/259:1/stat",
+            "maximum_active_operations": 32,
+            "operation_elapsed_ms": {
+              "max": 179.972131,
+              "p50": 61.536462,
+              "p95": 157.382445,
+              "p99": 169.000559
+            },
+            "operation_intervals": 1472,
+            "path": "/mnt/nvme0/k3-phase12-nvme-generation-2/layout-a/projection-spans.bin",
+            "source": 0
+          }
+        ],
+        "plan_sha256": "375902af5391889e1cbb245d41e2545b7fc3770d4b4a60a59ea13d698d569522",
+        "process_memory": {
+          "vm_hwm_kib": 553064,
+          "vm_rss_kib": 99060
+        },
+        "requested_qd": 32,
+        "retries": 0,
+        "rusage": {
+          "involuntary_context_switches": 72,
+          "major_faults": 0,
+          "max_rss_kib": 553064,
+          "minor_faults": 6495,
+          "system_seconds": 0.419456,
+          "user_seconds": 14.357993,
+          "voluntary_context_switches": 2741
+        },
+        "schema_version": "phase12-nvme-cell-v1",
+        "sequence": 2,
+        "short_reads": 0,
+        "status": "PASS",
+        "submitted_bytes": 25829572608,
+        "swap_used_bytes": 0,
+        "token_equivalent_latency_ms": [
+          3530.036627
+        ],
+        "useful_bytes": 25829572608,
+        "useful_gbps": 7.317083,
+        "worker_count": 32
+      },
+      "throughput_relative_improvement": 0.8954564271035328
+    },
+    {
+      "dual": {
+        "api": "direct-pread",
+        "block_devices": [
+          {
+            "io_ticks_ms": 1794,
+            "mean_queue_depth_during_io": 786.66388,
+            "mean_read_service_ms": 14.230005,
+            "read_bytes": 12914786304,
+            "read_operations": 99176,
+            "read_ticks_ms": 1411275,
+            "stat_path": "/sys/dev/block/259:0/stat",
+            "weighted_ticks_ms": 1411275
+          },
+          {
+            "io_ticks_ms": 1830,
+            "mean_queue_depth_during_io": 979.321311,
+            "mean_read_service_ms": 18.070491,
+            "read_bytes": 12914786304,
+            "read_operations": 99176,
+            "read_ticks_ms": 1792159,
+            "stat_path": "/sys/dev/block/259:1/stat",
+            "weighted_ticks_ms": 1792158
+          }
+        ],
+        "buffer_bytes": 561512448,
+        "buffer_count": 32,
+        "cache_state": "OS_COLD_VERIFIED",
+        "checksum_sink_sha256": "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d",
+        "checksum_worker_count": 0,
+        "command": [
+          "/usr/local/src/k3-out-of-core/build/phase12-nvme/phase12_nvme_bench",
+          "--plan",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/dual-namespace/plans/dual-namespace.tsv",
+          "--api",
+          "direct-pread",
+          "--cache-state",
+          "OS_COLD_VERIFIED",
+          "--qd",
+          "32",
+          "--iterations",
+          "1",
+          "--output",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/dual-namespace/comparison/pair-5__sequence-2__dual.json"
+        ],
+        "completed_operations": 1472,
+        "direct_io": {
+          "buffered_fallback_allowed": false,
+          "opened_with_o_direct": true,
+          "requested": true
+        },
+        "effective_qd_basis": "maximum observed in-flight operations equals requested QD",
+        "effective_qd_histogram_ns": {
+          "1": 112201,
+          "10": 35986,
+          "11": 483439,
+          "12": 49015,
+          "13": 136689,
+          "14": 323854,
+          "15": 4714803,
+          "16": 7719709,
+          "17": 2979958,
+          "18": 2601049,
+          "19": 1723015,
+          "2": 597103,
+          "20": 2172224,
+          "21": 466033,
+          "22": 4712438,
+          "23": 1194408,
+          "24": 4029734,
+          "25": 1335622,
+          "26": 1297165,
+          "27": 963644,
+          "28": 832623,
+          "29": 1939538,
+          "3": 213197,
+          "30": 2691597,
+          "31": 1488103,
+          "32": 1798870169,
+          "4": 349844,
+          "5": 236261,
+          "6": 263283,
+          "7": 2756449,
+          "8": 2501474,
+          "9": 10066359
+        },
+        "effective_qd_status": "SUPPORTED",
+        "fraction_active_at_least_two": 0.99994,
+        "io_uring": {
+          "cq_entries": 0,
+          "features": 0,
+          "setup_flags": 0,
+          "sq_entries": 0
+        },
+        "iterations": 1,
+        "latency_ms": {
+          "max": 1860.592161,
+          "p50": 1860.592161,
+          "p95": 1860.592161,
+          "p99": 1860.592161
+        },
+        "lifetime_resources": {
+          "fd_delta": 0,
+          "thread_delta": 0
+        },
+        "maximum_active_operations": 32,
+        "maximum_inflight_bytes": 561512448,
+        "namespace_mode": "DUAL_NAMESPACE",
+        "operation_count_per_iteration": 1472,
+        "operation_elapsed_ms": {
+          "max": 74.255238,
+          "p50": 41.202467,
+          "p95": 50.65711,
+          "p99": 57.476671
+        },
+        "page_cache_pre_read": {
+          "fadvise_failures": 0,
+          "pages": 0,
+          "resident_fraction": 0.0,
+          "resident_pages": 0,
+          "sampled": false
+        },
+        "pair": 5,
+        "per_source_activity": [
+          {
+            "active_depth_histogram_ns": {
+              "1": 104219,
+              "10": 745602,
+              "11": 3816958,
+              "12": 12001116,
+              "13": 22737675,
+              "14": 57442315,
+              "15": 61734426,
+              "16": 580229786,
+              "17": 255708704,
+              "18": 284571835,
+              "19": 209634923,
+              "2": 709445,
+              "20": 146306920,
+              "21": 127440437,
+              "22": 55025908,
+              "23": 6046710,
+              "24": 199175,
+              "25": 3910202,
+              "26": 2258765,
+              "3": 215269,
+              "4": 209840,
+              "5": 99512,
+              "6": 158333,
+              "7": 4057638,
+              "8": 4351906,
+              "9": 4400621
+            },
+            "active_wall_ns": 1844118240,
+            "average_active_operations": 17.447857,
+            "block_stat_path": "/sys/dev/block/259:1/stat",
+            "maximum_active_operations": 26,
+            "operation_elapsed_ms": {
+              "max": 74.255238,
+              "p50": 43.936108,
+              "p95": 53.681526,
+              "p99": 58.402939
+            },
+            "operation_intervals": 736,
+            "path": "/mnt/nvme0/k3-phase12-nvme-dual/projection-spans.bin",
+            "source": 0
+          },
+          {
+            "active_depth_histogram_ns": {
+              "1": 196120,
+              "10": 56332815,
+              "11": 128403620,
+              "12": 148068005,
+              "13": 216943462,
+              "14": 284977983,
+              "15": 259957157,
+              "16": 572312947,
+              "17": 51566982,
+              "18": 51531387,
+              "19": 21191507,
+              "2": 2130629,
+              "20": 11728281,
+              "21": 1881408,
+              "22": 152633,
+              "3": 1403638,
+              "4": 2108295,
+              "5": 338538,
+              "6": 2847495,
+              "7": 6897281,
+              "8": 3115445,
+              "9": 25486066
+            },
+            "active_wall_ns": 1849571694,
+            "average_active_operations": 14.296088,
+            "block_stat_path": "/sys/dev/block/259:0/stat",
+            "maximum_active_operations": 22,
+            "operation_elapsed_ms": {
+              "max": 48.832319,
+              "p50": 38.667289,
+              "p95": 45.065326,
+              "p99": 47.488943
+            },
+            "operation_intervals": 736,
+            "path": "/mnt/nvme1/k3-phase12-nvme-dual/projection-spans.bin",
+            "source": 1
+          }
+        ],
+        "plan_sha256": "a70e18c763d55c22b4add5b2ea553a733ead33c69e26753942fac3421fd6d28b",
+        "process_memory": {
+          "vm_hwm_kib": 552960,
+          "vm_rss_kib": 99060
+        },
+        "requested_qd": 32,
+        "retries": 0,
+        "rusage": {
+          "involuntary_context_switches": 57,
+          "major_faults": 0,
+          "max_rss_kib": 552960,
+          "minor_faults": 6486,
+          "system_seconds": 0.43868,
+          "user_seconds": 14.578891,
+          "voluntary_context_switches": 2766
+        },
+        "schema_version": "phase12-nvme-cell-v1",
+        "sequence": 2,
+        "short_reads": 0,
+        "status": "PASS",
+        "submitted_bytes": 25829572608,
+        "swap_used_bytes": 0,
+        "token_equivalent_latency_ms": [
+          1860.592161
+        ],
+        "useful_bytes": 25829572608,
+        "useful_gbps": 13.882447,
+        "worker_count": 32
+      },
+      "execution_order": [
+        "single",
+        "dual"
+      ],
+      "p95_relative_improvement": 0.4713707654877203,
+      "pair": 5,
+      "single": {
+        "api": "direct-pread",
+        "block_devices": [
+          {
+            "io_ticks_ms": 3506,
+            "mean_queue_depth_during_io": 2322.811466,
+            "mean_read_service_ms": 41.030507,
+            "read_bytes": 25829572608,
+            "read_operations": 198481,
+            "read_ticks_ms": 8143776,
+            "stat_path": "/sys/dev/block/259:1/stat",
+            "weighted_ticks_ms": 8143777
+          }
+        ],
+        "buffer_bytes": 561512448,
+        "buffer_count": 32,
+        "cache_state": "OS_COLD_VERIFIED",
+        "checksum_sink_sha256": "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d",
+        "checksum_worker_count": 0,
+        "command": [
+          "/usr/local/src/k3-out-of-core/build/phase12-nvme/phase12_nvme_bench",
+          "--plan",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/dual-namespace/plans/single-namespace.tsv",
+          "--api",
+          "direct-pread",
+          "--cache-state",
+          "OS_COLD_VERIFIED",
+          "--qd",
+          "32",
+          "--iterations",
+          "1",
+          "--output",
+          "/mnt/nvme0/k3-phase12-nvme-evidence/dual-namespace/comparison/pair-5__sequence-1__single.json"
+        ],
+        "completed_operations": 1472,
+        "direct_io": {
+          "buffered_fallback_allowed": false,
+          "opened_with_o_direct": true,
+          "requested": true
+        },
+        "effective_qd_basis": "maximum observed in-flight operations equals requested QD",
+        "effective_qd_histogram_ns": {
+          "1": 1230753,
+          "10": 304426,
+          "11": 40532,
+          "12": 1470509,
+          "13": 233457,
+          "14": 718229,
+          "15": 1279706,
+          "16": 242483,
+          "17": 517741,
+          "18": 749918,
+          "19": 3146853,
+          "2": 905766,
+          "20": 4247519,
+          "21": 4946446,
+          "22": 4348480,
+          "23": 2646889,
+          "24": 3208990,
+          "25": 14851199,
+          "26": 4371164,
+          "27": 4784430,
+          "28": 1176299,
+          "29": 8452078,
+          "3": 214718,
+          "30": 1868751,
+          "31": 5083574,
+          "32": 3438791040,
+          "4": 1425309,
+          "5": 898676,
+          "6": 3847535,
+          "7": 1959738,
+          "8": 535810,
+          "9": 574158
+        },
+        "effective_qd_status": "SUPPORTED",
+        "fraction_active_at_least_two": 0.99965,
+        "io_uring": {
+          "cq_entries": 0,
+          "features": 0,
+          "setup_flags": 0,
+          "sq_entries": 0
+        },
+        "iterations": 1,
+        "latency_ms": {
+          "max": 3519.654305,
+          "p50": 3519.654305,
+          "p95": 3519.654305,
+          "p99": 3519.654305
+        },
+        "lifetime_resources": {
+          "fd_delta": 0,
+          "thread_delta": 0
+        },
+        "maximum_active_operations": 32,
+        "maximum_inflight_bytes": 561512448,
+        "namespace_mode": "SINGLE_NAMESPACE",
+        "operation_count_per_iteration": 1472,
+        "operation_elapsed_ms": {
+          "max": 137.925333,
+          "p50": 68.509908,
+          "p95": 96.472423,
+          "p99": 134.636382
+        },
+        "page_cache_pre_read": {
+          "fadvise_failures": 0,
+          "pages": 0,
+          "resident_fraction": 0.0,
+          "resident_pages": 0,
+          "sampled": false
+        },
+        "pair": 5,
+        "per_source_activity": [
+          {
+            "active_depth_histogram_ns": {
+              "1": 1230753,
+              "10": 304426,
+              "11": 40532,
+              "12": 1470509,
+              "13": 233457,
+              "14": 718229,
+              "15": 1279706,
+              "16": 242483,
+              "17": 517741,
+              "18": 749918,
+              "19": 3146853,
+              "2": 905766,
+              "20": 4247519,
+              "21": 4946446,
+              "22": 4348480,
+              "23": 2646889,
+              "24": 3208990,
+              "25": 14851199,
+              "26": 4371164,
+              "27": 4784430,
+              "28": 1176299,
+              "29": 8452078,
+              "3": 214718,
+              "30": 1868751,
+              "31": 5083574,
+              "32": 3438791040,
+              "4": 1425309,
+              "5": 898676,
+              "6": 3847535,
+              "7": 1959738,
+              "8": 535810,
+              "9": 574158
+            },
+            "active_wall_ns": 3519073176,
+            "average_active_operations": 31.760931,
+            "block_stat_path": "/sys/dev/block/259:1/stat",
+            "maximum_active_operations": 32,
+            "operation_elapsed_ms": {
+              "max": 137.925333,
+              "p50": 68.509908,
+              "p95": 96.472423,
+              "p99": 134.636382
+            },
+            "operation_intervals": 1472,
+            "path": "/mnt/nvme0/k3-phase12-nvme-generation-2/layout-a/projection-spans.bin",
+            "source": 0
+          }
+        ],
+        "plan_sha256": "375902af5391889e1cbb245d41e2545b7fc3770d4b4a60a59ea13d698d569522",
+        "process_memory": {
+          "vm_hwm_kib": 552940,
+          "vm_rss_kib": 99096
+        },
+        "requested_qd": 32,
+        "retries": 0,
+        "rusage": {
+          "involuntary_context_switches": 93,
+          "major_faults": 0,
+          "max_rss_kib": 552940,
+          "minor_faults": 6496,
+          "system_seconds": 0.43505,
+          "user_seconds": 14.481844,
+          "voluntary_context_switches": 4060
+        },
+        "schema_version": "phase12-nvme-cell-v1",
+        "sequence": 1,
+        "short_reads": 0,
+        "status": "PASS",
+        "submitted_bytes": 25829572608,
+        "swap_used_bytes": 0,
+        "token_equivalent_latency_ms": [
+          3519.654305
+        ],
+        "useful_bytes": 25829572608,
+        "useful_gbps": 7.338667,
+        "worker_count": 32
+      },
+      "throughput_relative_improvement": 0.8916850975797104
+    }
+  ],
+  "plans": {
+    "dual": {
+      "path": "/mnt/nvme0/k3-phase12-nvme-evidence/dual-namespace/plans/dual-namespace.tsv",
+      "sha256": "a70e18c763d55c22b4add5b2ea553a733ead33c69e26753942fac3421fd6d28b"
+    },
+    "single": {
+      "path": "/mnt/nvme0/k3-phase12-nvme-evidence/dual-namespace/plans/single-namespace.tsv",
+      "sha256": "375902af5391889e1cbb245d41e2545b7fc3770d4b4a60a59ea13d698d569522"
+    }
+  },
+  "schema_version": "phase12-nvme-dual-comparison-v1",
+  "status": "PASS"
+}

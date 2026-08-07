@@ -1,0 +1,193 @@
+{
+  "completed_cases": 30,
+  "correctness": {
+    "all_passed": true,
+    "all_short_reads_zero": true,
+    "checksum_sinks": [
+      "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d"
+    ]
+  },
+  "disposition": "rejected",
+  "finding": "io_uring completions were checksummed serially on the ring thread while pread cells checksummed in parallel workers, so QD>1 API throughput was not a fair transport comparison.",
+  "next": "parallelize completion checksumming behind bounded slot ownership, preserving canonical reduction order, then restart qualification from an empty raw-attempt directory.",
+  "observed_buffered_io_uring": [
+    {
+      "api": "buffered-io-uring",
+      "cache_state": "OS_COLD_VERIFIED",
+      "checksum_sink_sha256": "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d",
+      "effective_qd_status": "SUPPORTED",
+      "requested_qd": 1,
+      "short_reads": 0,
+      "useful_gbps": 1.035559
+    },
+    {
+      "api": "buffered-io-uring",
+      "cache_state": "OS_WARM",
+      "checksum_sink_sha256": "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d",
+      "effective_qd_status": "SUPPORTED",
+      "requested_qd": 1,
+      "short_reads": 0,
+      "useful_gbps": 1.627473
+    },
+    {
+      "api": "buffered-io-uring",
+      "cache_state": "OS_COLD_VERIFIED",
+      "checksum_sink_sha256": "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d",
+      "effective_qd_status": "SUPPORTED",
+      "requested_qd": 2,
+      "short_reads": 0,
+      "useful_gbps": 0.828195
+    },
+    {
+      "api": "buffered-io-uring",
+      "cache_state": "OS_WARM",
+      "checksum_sink_sha256": "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d",
+      "effective_qd_status": "SUPPORTED",
+      "requested_qd": 2,
+      "short_reads": 0,
+      "useful_gbps": 1.612375
+    },
+    {
+      "api": "buffered-io-uring",
+      "cache_state": "OS_COLD_VERIFIED",
+      "checksum_sink_sha256": "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d",
+      "effective_qd_status": "SUPPORTED",
+      "requested_qd": 4,
+      "short_reads": 0,
+      "useful_gbps": 1.082085
+    },
+    {
+      "api": "buffered-io-uring",
+      "cache_state": "OS_WARM",
+      "checksum_sink_sha256": "205a762e95ada0c9d731c7d47ef41adda5a4ef9fbd8ea650eb91a74b9207956d",
+      "effective_qd_status": "SUPPORTED",
+      "requested_qd": 4,
+      "short_reads": 0,
+      "useful_gbps": 1.597611
+    }
+  ],
+  "raw_files": [
+    {
+      "path": "layout-a__buffered-io-uring__qd-1__os_cold_verified.json",
+      "sha256": "c021b1f50af1e4d1a0d23909c744ad11ea39aff66ed295b23e22f90544cefddb"
+    },
+    {
+      "path": "layout-a__buffered-io-uring__qd-1__os_warm.json",
+      "sha256": "b1542649f49bb406bd853e376a97c756d422631ac894fa38f88176a35687b394"
+    },
+    {
+      "path": "layout-a__buffered-io-uring__qd-2__os_cold_verified.json",
+      "sha256": "4742231e0f1a014a2a18f666e007cc5340ee285edff70e24f79b6a1b9752eb50"
+    },
+    {
+      "path": "layout-a__buffered-io-uring__qd-2__os_warm.json",
+      "sha256": "c5b2cba2dc352a7742c67343f4e76037054b9a1124f8d656e39ed46d7872e685"
+    },
+    {
+      "path": "layout-a__buffered-io-uring__qd-4__os_cold_verified.json",
+      "sha256": "0cbe4b7d483846ec4fe0642aad0ee1519b95ac8643417943ad39c478077ea83d"
+    },
+    {
+      "path": "layout-a__buffered-io-uring__qd-4__os_warm.json",
+      "sha256": "99fffa0619e38ed4282b2aaf9b8cc6485c6de76b31f32c5e5638959d8c001e2b"
+    },
+    {
+      "path": "layout-a__buffered-pread__qd-16__os_cold_verified.json",
+      "sha256": "92cb6eddbe647d9d03cb6915850b5ef744ca537b661e50255950a3a3e395b530"
+    },
+    {
+      "path": "layout-a__buffered-pread__qd-16__os_warm.json",
+      "sha256": "3531872b078d9cf020c2f9f640e099620676cd720037e6c0370a5487bc2df5bc"
+    },
+    {
+      "path": "layout-a__buffered-pread__qd-1__os_cold_verified.json",
+      "sha256": "fb7f8bf6a91dbb0863345dd6205343c50ef6dc515e8907fa9a787167149de79e"
+    },
+    {
+      "path": "layout-a__buffered-pread__qd-1__os_warm.json",
+      "sha256": "91ecfae3e2114140382a31d590a8daafc1162713faaeccacd36aa6f33aa855cc"
+    },
+    {
+      "path": "layout-a__buffered-pread__qd-2__os_cold_verified.json",
+      "sha256": "a4d69eee41e50815c3806b31e9bbb13f686946a6c8cde586d308287ae55fdfdb"
+    },
+    {
+      "path": "layout-a__buffered-pread__qd-2__os_warm.json",
+      "sha256": "f02a7d24500d6b777b38e6b1a748c438d6fb6a7314b78a7ab2ea4f06827687a4"
+    },
+    {
+      "path": "layout-a__buffered-pread__qd-32__os_cold_verified.json",
+      "sha256": "71ae79a39a24523a0b5ae4c410b3166a3cc74c9b1fb22d26bf7ae46d1204c88c"
+    },
+    {
+      "path": "layout-a__buffered-pread__qd-32__os_warm.json",
+      "sha256": "ceb5692e8da721151e7bdc3cd32b131f6a46fb157841427586b7c54455f0a5d8"
+    },
+    {
+      "path": "layout-a__buffered-pread__qd-4__os_cold_verified.json",
+      "sha256": "8b2718dbec6858138131651ae8b8379d8c1759fa4f71b5478f9142ce8acb035d"
+    },
+    {
+      "path": "layout-a__buffered-pread__qd-4__os_warm.json",
+      "sha256": "fcdd39132940aa06921a4623417858e02bdb7414411231bb6f022eff06893e65"
+    },
+    {
+      "path": "layout-a__buffered-pread__qd-8__os_cold_verified.json",
+      "sha256": "3f7d7beeb098034ef13818a7889d778d2957446d8b89ab0d6403e7e9f302ab1e"
+    },
+    {
+      "path": "layout-a__buffered-pread__qd-8__os_warm.json",
+      "sha256": "64075af667da1ae5c35581c163a3e117caece8acaff25cd574d034885fd0c41a"
+    },
+    {
+      "path": "layout-a__direct-pread__qd-16__os_cold_verified.json",
+      "sha256": "0867933f301b8497d5c6cc852149c04e893e59f3e461de51efb7b18075eeee7f"
+    },
+    {
+      "path": "layout-a__direct-pread__qd-16__os_warm.json",
+      "sha256": "dc120154623267b94f4bf57bbb1a987da502687f1282d192066b58dde574cab7"
+    },
+    {
+      "path": "layout-a__direct-pread__qd-1__os_cold_verified.json",
+      "sha256": "b59a2db3a932ff87d394fa495e17f820f9925c70e47aab99aee7a0960406d2a6"
+    },
+    {
+      "path": "layout-a__direct-pread__qd-1__os_warm.json",
+      "sha256": "b99e1bc04e9a332f7eebf018d6301f24be73dd6ee9a2a95b239e79e1079bdf99"
+    },
+    {
+      "path": "layout-a__direct-pread__qd-2__os_cold_verified.json",
+      "sha256": "d214e327bbc9769fd18f10c205b162a069e091f9d9e0f3ec2ae62c5f4f216377"
+    },
+    {
+      "path": "layout-a__direct-pread__qd-2__os_warm.json",
+      "sha256": "346aebb41283a45636950134cd96312ea68046fac64f6a1f6b29a9b922242ce9"
+    },
+    {
+      "path": "layout-a__direct-pread__qd-32__os_cold_verified.json",
+      "sha256": "88770b3c7bf3cdcaa98640cbb8b3e6ae61bc854cc3695b6faf2ef4ae31bdf66b"
+    },
+    {
+      "path": "layout-a__direct-pread__qd-32__os_warm.json",
+      "sha256": "2281619f3718644d706e80d9101317ec01ec30a4ade4b2948f25ab8503bda942"
+    },
+    {
+      "path": "layout-a__direct-pread__qd-4__os_cold_verified.json",
+      "sha256": "a3ce752b7b4f85f2575d74c3105cba66a4ad4f551a0dc407877382d1735c3526"
+    },
+    {
+      "path": "layout-a__direct-pread__qd-4__os_warm.json",
+      "sha256": "523e9f67431572762d64b482686279f2779035cf54d4cbf3c8bb0ba61c7d6f83"
+    },
+    {
+      "path": "layout-a__direct-pread__qd-8__os_cold_verified.json",
+      "sha256": "7473ecc4ab74610dfa999618978b550c6c6c1040956c90cfe2d77c45f4236aa1"
+    },
+    {
+      "path": "layout-a__direct-pread__qd-8__os_warm.json",
+      "sha256": "e77c226b58e178df4e368e54f0bae3cea98579bf4206f343c377b4fc7f40843c"
+    }
+  ],
+  "schema_version": "phase12-nvme-harness-qualification-failure-v1",
+  "status": "REJECTED_HARNESS_ATTEMPT"
+}

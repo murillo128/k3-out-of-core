@@ -1,0 +1,161 @@
+{
+  "adjacent_untraced_run": {
+    "path": "/mnt/nvme0/k3-phase12-nvme-evidence/colibri-endpoint/campaign/pair-03-max-safe/run.json",
+    "sha256": "d94feef712a61e5d0f129ccf261314ea52e52090a712f05ae8428ac2d1f628cd",
+    "size": 115470
+  },
+  "application_trace": {
+    "all_k3_slices": 717884,
+    "incomplete_slices": 0,
+    "scope_counts": {
+      "attention": 23808,
+      "cache_lookup": 23552,
+      "cache_management": 44910,
+      "dense_trunk": 71936,
+      "expert_compute": 376832,
+      "forward": 256,
+      "head": 256,
+      "moe_nonexpert": 47104,
+      "nvme_wait": 72693,
+      "router": 23552
+    }
+  },
+  "capture": {
+    "path": "/mnt/nvme0/k3-phase12-nvme-evidence/colibri-endpoint/trace-max-safe-02/capture.json",
+    "sha256": "224bb80c2853023fac1f68989bddef07d8294f863a9acb69c2f73bed063bc42c",
+    "size": 5986
+  },
+  "critical_path_attribution": {
+    "accounted_ns": 549392565790,
+    "categories": {
+      "attention": {
+        "duration_ns": 91117288855,
+        "fraction": 0.16585096801224045
+      },
+      "cache_lookup": {
+        "duration_ns": 145362635,
+        "fraction": 0.00026458791773233326
+      },
+      "cache_management": {
+        "duration_ns": 726449620,
+        "fraction": 0.0013222778487280776
+      },
+      "dense_trunk": {
+        "duration_ns": 6734480727,
+        "fraction": 0.012258048518214187
+      },
+      "expert_compute": {
+        "duration_ns": 128037824521,
+        "fraction": 0.23305343481830298
+      },
+      "head": {
+        "duration_ns": 3075009043,
+        "fraction": 0.005597107122442193
+      },
+      "moe_nonexpert": {
+        "duration_ns": 41091842380,
+        "fraction": 0.07479504627244439
+      },
+      "nvme_wait": {
+        "duration_ns": 264754780005,
+        "fraction": 0.4819045551231575
+      },
+      "router": {
+        "duration_ns": 9988836721,
+        "fraction": 0.01818160154139788
+      },
+      "scheduler_or_uninstrumented_residual": {
+        "duration_ns": 3720691283,
+        "fraction": 0.006772372825339974
+      }
+    },
+    "decode_forward_wall_ns": 549392565790,
+    "non_overlapping": true
+  },
+  "disposition": "accepted",
+  "failures": [],
+  "identity": {
+    "complete_decode_forwards": 256,
+    "model_pid": 204474,
+    "normalized_route_sha256": "a995951e6f8086a985792f9443280670582a292d580bbd2309a2c570f9f82410",
+    "token_ids_sha256": "311ab0e8bf579fdda19cdba8b10fd1bf84815c4818b9dfb59dc0326eb2da209d"
+  },
+  "kernel_coverage": {
+    "claim_boundary": "block_rq_issue proves physical dispatch count/bytes; completion/service duration was intentionally omitted after bounded trace-volume qualification",
+    "nvme0_block_dispatch_coverage_fraction": 1.0004902607723327,
+    "nvme0_block_issue_bytes_all": 2796476962816,
+    "nvme0_block_issue_bytes_decode": 2385779929088,
+    "nvme0_block_issue_events_all": 22323096,
+    "nvme0_block_issue_events_decode": 18334857,
+    "nvme0_run_stat_read_bytes": 2795106631680,
+    "pread64_enter_decode": 136293,
+    "pread64_exit_decode": 136293,
+    "pread64_requested_bytes_decode": 2384601121520,
+    "pread64_returned_bytes_decode": 2384601121520,
+    "sched_switch_decode": 6219337,
+    "sched_waking_decode": 3115032,
+    "thread_state_duration_ns": {
+      "D": 1105645697065,
+      "R": 15444808631,
+      "R+": 2942422,
+      "Running": 8087384619971,
+      "S": 1780328541471
+    }
+  },
+  "loss_counters": {
+    "sum": 0
+  },
+  "next_action": "freeze the bounded endpoint attribution and refresh the Phase 12 #44 handoff",
+  "qualified_smoke_trace": {
+    "path": "/mnt/nvme0/k3-phase12-nvme-evidence/colibri-endpoint/trace-max-safe-smoke-03/trace.pftrace",
+    "sha256": "3c94a92d0f9de7547d72880bb6906e43aa3eaadab7132bc820ff17db2a179bed",
+    "size": 254723299
+  },
+  "ranked_optimization_targets": [
+    {
+      "duration_ns": 264754780005,
+      "fraction": 0.4819045551231575,
+      "target": "nvme_wait"
+    },
+    {
+      "duration_ns": 128037824521,
+      "fraction": 0.23305343481830298,
+      "target": "expert_compute"
+    },
+    {
+      "duration_ns": 91117288855,
+      "fraction": 0.16585096801224045,
+      "target": "attention"
+    }
+  ],
+  "resource_correctness": {
+    "accepted_rss_ceiling_bytes": 161639786086,
+    "buffered_full_expert_fallbacks": 0,
+    "maximum_rss_bytes": 160670564352,
+    "maximum_swap_bytes": 0
+  },
+  "schema_version": "phase12-nvme-colibri-endpoint-perfetto-v1",
+  "status": "PASS",
+  "trace": {
+    "path": "/mnt/nvme0/k3-phase12-nvme-evidence/colibri-endpoint/trace-max-safe-02/trace.pftrace",
+    "sha256": "c8630e19e0323f1e5cb5ae03359ac31d9aa4ce7c7dd115d4b1d60c7afbe2873d",
+    "size": 1317544019
+  },
+  "trace_perturbation": {
+    "decode_throughput_fraction": -0.019657808518383724,
+    "mean_forward_latency_fraction": 0.020179858578917687,
+    "p95_forward_latency_fraction": 0.03133799205951027,
+    "traced_decode_tokens_per_second": 0.46596286858390973,
+    "untraced_decode_tokens_per_second": 0.4753063497957668
+  },
+  "trace_processor": {
+    "path": "/mnt/nvme0/k3-phase12-nvme-tools/perfetto-v50.1/linux-amd64/trace_processor_shell",
+    "sha256": "4b86aaf94d2ba9f517ddee817aaae7c12089d6ce078924e708d38f9cf0c0b517",
+    "size": 11313840
+  },
+  "traced_run": {
+    "path": "/mnt/nvme0/k3-phase12-nvme-evidence/colibri-endpoint/trace-max-safe-02/run/run.json",
+    "sha256": "1ced857490d4525649e423975434cf95e6a641bf0457cc6d965d0cacbb8d689a",
+    "size": 114189
+  }
+}

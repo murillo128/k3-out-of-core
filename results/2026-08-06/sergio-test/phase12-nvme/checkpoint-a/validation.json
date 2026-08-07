@@ -1,0 +1,76 @@
+{
+  "binary": {
+    "path": "/usr/local/src/k3-out-of-core/build/phase12-nvme/phase12_nvme_bench",
+    "sha256": "b68b8b2823a737b695526fb48e22f48588e467fbd9e05cee4fc78a2ee1b6b2ba"
+  },
+  "commands": [
+    {
+      "command": [
+        "cmake",
+        "-S",
+        "scripts/phase12_nvme",
+        "-B",
+        "/usr/local/src/k3-out-of-core/build/phase12-nvme",
+        "-DCMAKE_BUILD_TYPE=Release"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "-- Configuring done (0.1s)\n-- Generating done (0.0s)\n-- Build files have been written to: /usr/local/src/k3-out-of-core/build/phase12-nvme\n"
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "/usr/local/src/k3-out-of-core/build/phase12-nvme",
+        "--parallel",
+        "16"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "[100%] Built target phase12_nvme_bench\n"
+    },
+    {
+      "command": [
+        "ctest",
+        "--test-dir",
+        "/usr/local/src/k3-out-of-core/build/phase12-nvme",
+        "--output-on-failure"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "Internal ctest changing into directory: /usr/local/src/k3-out-of-core/build/phase12-nvme\nTest project /usr/local/src/k3-out-of-core/build/phase12-nvme\n    Start 1: phase12_nvme_bench_help\n1/2 Test #1: phase12_nvme_bench_help ..........   Passed    0.00 sec\n    Start 2: phase12_nvme_native_fixture\n2/2 Test #2: phase12_nvme_native_fixture ......   Passed    0.70 sec\n\n100% tests passed, 0 tests failed out of 2\n\nTotal Test time (real) =   0.70 sec\n"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/phase12p",
+        "-p",
+        "test_*.py"
+      ],
+      "returncode": 0,
+      "stderr": "...........\n----------------------------------------------------------------------\nRan 11 tests in 4.939s\n\nOK\n",
+      "stdout": ""
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/phase12_nvme",
+        "-p",
+        "test_*.py"
+      ],
+      "returncode": 0,
+      "stderr": "...\n----------------------------------------------------------------------\nRan 3 tests in 1.275s\n\nOK\n",
+      "stdout": ""
+    }
+  ],
+  "schema_version": "phase12-nvme-validation-v1",
+  "status": "PASS"
+}
