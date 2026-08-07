@@ -11,8 +11,8 @@ Live phase status, active ownership, ordering changes, and links to controlling 
 - [Phases 0–3: foundation, reproducible K3 baseline, observability, and provider abstraction](docs/plan/00-foundation.md)
 - [Phases 4–6: persistent hot cache, cold cache, and GGUF-backed storage](docs/plan/04-cache-and-storage.md)
 - [Phases 7–10: asynchronous runtime, miss execution, cache policy, and prefetch](docs/plan/07-async-runtime.md)
-- [Phases 11–15: UMA, full-size scaling, end-to-end observability, concurrency, multi-GPU, and hardening](docs/plan/11-scaling-and-hardening.md)
-- [Phase 12–13 Colibrì comparison addendum](docs/plan/12-colibri-comparison.md) establishes mandatory storage-layout, I/O-submission, full-size K3, trace-identity, and single-request chunked-prefill comparisons without changing phase order.
+- [Phases 11–15: UMA, full-size scaling, multi-GPU, end-to-end observability, concurrency, and hardening](docs/plan/11-scaling-and-hardening.md)
+- [Phase 12–14 Colibrì comparison addendum](docs/plan/12-colibri-comparison.md) establishes mandatory storage-layout, I/O-submission, full-size K3, trace-identity, and single-request chunked-prefill comparisons without changing the accepted technical boundaries.
 - [Cross-model portability follow-up](docs/plan/12-heterogeneous-layout-classes.md) defines bounded heterogeneous expert layout classes and the conditions for resuming full-model DeepSeek-V4 validation without changing K3 Phase 12 gates or runtime defaults.
 
 ## Research references
@@ -22,9 +22,13 @@ Live phase status, active ownership, ordering changes, and links to controlling 
 
 ## Execution rule
 
-Work proceeds strictly in phase order unless a phase explicitly contains independent subwork. A later phase may be researched in parallel, but no dependent implementation may be accepted until the earlier phase exit gate and evidence are committed.
+Work proceeds strictly in dependency order unless a phase explicitly contains independent subwork. A later phase may be researched in parallel, but no dependent implementation may be accepted until its prerequisites and evidence are committed.
 
-The remaining sequence deliberately validates physical full-size viability before service and topology complexity: Phase 11 establishes coherent UMA transport, Phase 12 establishes full-size single-request/single-device behavior and makes the storage-format decision, Phase 12.5 establishes end-to-end tracing and benchmark readiness before the authoritative cross-hardware campaign, Phase 13 adds multi-request and batching, Phase 14 adds multi-GPU placement, and Phase 15 hardens the accepted architecture. Phase 12 does not claim concurrent-service or multi-GPU performance; Phase 12.5 does not change runtime policy or correctness semantics; those remain independent later gates.
+The remaining sequence deliberately validates physical full-size viability before topology and service complexity: Phase 11 establishes coherent UMA transport; Phase 12 establishes full-size single-request/single-device behavior and makes the storage-format decision; **Phase 13 adds multi-GPU and topology-aware placement**; **Phase 13.5 is the end-to-end tracing and hardware-benchmark-readiness work that was executed early under the historical name Phase 12.5 through #54/#55**; Phase 14 adds multi-request, batching, and CUDA-graph service behavior; and Phase 15 hardens the accepted architecture.
+
+The Phase 13.5 tracing schema is therefore already an accepted prerequisite input to Phase 13 despite its renumbered roadmap slot. Renumbering does not require re-execution, does not alter historical issue/PR/manifests, and does not move the causal prerequisite after multi-GPU in actual execution history.
+
+Phase 12 does not claim concurrent-service or multi-GPU performance. Phase 13 is single-request multi-GPU topology work, not batching. Phase 14 adds concurrency only after the single-request multi-GPU ownership and byte-movement model is established.
 
 Phase 10 mechanisms may be retained for explicit experimentation, but no static-seeding or predictive-prefetch profile may be recommended or enabled by default without satisfying the Phase 10 gate. The null/default behavior remains the accepted demand-only cache and miss-policy baseline.
 
