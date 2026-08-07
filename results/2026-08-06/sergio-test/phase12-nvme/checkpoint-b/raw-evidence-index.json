@@ -1,6 +1,6 @@
 {
-  "aggregate_index_and_archive_sha256": "d0bc946d95e6d54097fd8cff6a2adb66e3937ebca29152c439151d11aa8fcbda",
-  "index_count": 9,
+  "aggregate_index_and_archive_sha256": "a439461e6cb2cbbfb26f240c47b145ef84bcf2a8d8214729e2c6977c445862db",
+  "index_count": 12,
   "indexes": [
     {
       "archive": {
@@ -126,6 +126,48 @@
         "path": "results/2026-08-06/sergio-test/phase12-nvme/cache-locality-raw-index.json",
         "sha256": "ccffd343ca80ed485230e7a06bf381a9f4db0d8bd9c4a25af262ac8be2457b1c",
         "size": 1824
+      }
+    },
+    {
+      "archive": {
+        "format": "deterministic POSIX tar; uid/gid/mtime normalized",
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/archives/colibri-endpoint-campaign.tar",
+        "sha256": "3acf1e2871ea14f08196c6e8bedfb14a8765fef248dada72c5c1c099eace3fdc",
+        "size": 945612800
+      },
+      "file_count": 71,
+      "index": {
+        "path": "results/2026-08-06/sergio-test/phase12-nvme/colibri-endpoint-campaign-raw-index.json",
+        "sha256": "5fe6a745e397c6ce765f6ce629307e94c9ab40840fd4c28a10fef06aeeff5ec7",
+        "size": 12952
+      }
+    },
+    {
+      "archive": {
+        "format": "deterministic POSIX tar; uid/gid/mtime normalized",
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/archives/colibri-endpoint-perfetto-attempt-1.tar",
+        "sha256": "cd3dbc7ac3f929ee58eba0d1d29e62c867beba187aa132e22da1308b313b809f",
+        "size": 639528960
+      },
+      "file_count": 13,
+      "index": {
+        "path": "results/2026-08-06/sergio-test/phase12-nvme/colibri-endpoint-perfetto-attempt-1-raw-index.json",
+        "sha256": "dbfc1af0bd64aebfce028c41dd7344ed861272fa87c3464ee31dceba7c376230",
+        "size": 2602
+      }
+    },
+    {
+      "archive": {
+        "format": "deterministic POSIX tar; uid/gid/mtime normalized",
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/archives/colibri-endpoint-perfetto.tar",
+        "sha256": "00e9cc136ad5a37117bf3138ae769cd69e762c50389abc386386eaee604d1bf4",
+        "size": 1438545920
+      },
+      "file_count": 17,
+      "index": {
+        "path": "results/2026-08-06/sergio-test/phase12-nvme/colibri-endpoint-perfetto-raw-index.json",
+        "sha256": "eeef36a90c965d21c625fc424db8f3c525c9165943b9c5a0a07aee2bfecb9435",
+        "size": 3252
       }
     }
   ],

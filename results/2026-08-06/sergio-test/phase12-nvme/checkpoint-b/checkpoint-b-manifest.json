@@ -1696,7 +1696,8 @@
     "default-off accepted-Perfetto-SDK trace target and analysis",
     "dual-namespace preparation/comparison tooling",
     "Colibr\u00ec preflight/snapshot/reference capture tooling",
-    "real-route capture and bounded global-LRU/ALWAYS cache-locality replay tooling"
+    "real-route capture and bounded global-LRU/ALWAYS cache-locality replay tooling",
+    "default-off real Kimi-K3 endpoint counters, fixed-capacity campaign, and full-stack Perfetto attribution tooling"
   ],
   "external_full_model_reference": {
     "accepted_evidence": {
@@ -1900,6 +1901,10 @@
     "phase12_importable_handoff": "PASS",
     "phase9_phase10_default_change": false,
     "project_cuda_or_h2d_claim": false,
+    "real_kimi_endpoint_default_change": false,
+    "real_kimi_endpoint_perfetto": "PASS",
+    "real_kimi_endpoint_trace_loss": false,
+    "real_kimi_max_cache_campaign": "PASS",
     "real_route_cache_locality": "PASS",
     "runtime_reuse_delta_selected": false,
     "same_machine_colibri_full_model": "PASS",
@@ -2426,9 +2431,11 @@
     "Both causal optimization candidates were non-promising in three-pair screens; no new layout, runtime path, policy, default, or model format is selected.",
     "Dual-NVMe scaling is same-host CPU/storage-only evidence and does not establish multi-drive project GPU overlap or a production placement default.",
     "Colibr\u00ec is a separate CPU full-model runtime with int4/int8 trunk quantization and native MXFP4 experts; its actual TPS is not directly comparable to project synthetic token-equivalent throughput.",
-    "The accepted Colibr\u00ec observation contains eight decode-forward samples and cannot drive a storage-format gate requiring at least 100 samples/five processes.",
+    "The earlier Colibr\u00ec reference contains eight decode-forward samples and remains comparator-only; the later endpoint campaign supplies three fresh 256-forward MAX_SAFE/8 GiB pairs but still does not select a project storage format or default.",
     "The real-route cache-locality curve contains one fixed prompt with 256 complete decode forwards; it is sufficient for this bounded study but remains workload-specific and requires end-to-end confirmation for Phase 12 capacity selection.",
     "Cache-locality projections cover only the NVMe miss-byte service component; they do not assume linear end-to-end scaling and include no H2D, CUDA, GPU-compute, overlap, or project-TPS claim.",
+    "The real Kimi-K3 MAX_SAFE endpoint is a separate CPU runtime. Its Perfetto trace proves block dispatch bytes but intentionally omits block completion/service duration after bounded trace-volume qualification.",
+    "The endpoint critical path ranks NVMe wait, expert CPU compute, and attention CPU compute. MAX_SAFE is already the greatest legal whole-slot cache on this host; the compute targets are outside this storage-only delta.",
     "The secondary native-MXFP4 comparator was not executed because its published full-generation path remained unverified for an authoritative TPS claim.",
     "Large raw evidence archives and the verified 1.56 TB checkpoint remain external and checksum-addressed; the retained physical synthetic corpus is reproducible but not committed to Git.",
     "No final GGUF/repack/custom-format disposition is made; that decision remains gated on the required NVMe plus discrete-CUDA Phase 12 confirmation."
@@ -2531,31 +2538,351 @@
     "stop_rule_reached": true
   },
   "phase12_import_contract": {
+    "import_real_kimi_endpoint_critical_path": true,
+    "import_real_kimi_max_cache_envelope": true,
     "import_real_route_cache_locality_curve": true,
     "must_add": [
       "project H2D and GPU execution correctness",
       "project storage/H2D/compute overlap",
       "project actual full-model inference and numerical/quality gates when capable",
       "final storage-format quantitative disposition",
-      "explicit RAM/VRAM capacity selection from the real-route curve and actual end-to-end validation"
+      "explicit RAM/VRAM capacity selection from the real-route curve and actual end-to-end validation",
+      "confirmation that any selected project cache capacity remains below the measured RSS ceiling with zero swap"
     ],
     "must_preserve": [
       "exact K3 source/topology/payload/seed/route identities",
       "top-16 selection, routing weights, arithmetic, and deterministic reduction order",
       "Phase 9 global LRU/ALWAYS defaults with explicit capacities",
       "Phase 10 null config/profile, no selected profiles, and speculative prefetch off",
-      "accepted default-off Perfetto instrumentation surface"
+      "accepted default-off Perfetto instrumentation surface",
+      "the distinction between native per-layer Colibr\u00ec cache evidence and the project global-LRU replay"
     ],
     "required_host": "one Linux host containing real NVMe and a discrete CUDA GPU",
     "rerun_frozen_shortlist": true,
     "rerun_mandatory_baseline": true
   },
   "raw_evidence": {
-    "aggregate_index_and_archive_sha256": "d0bc946d95e6d54097fd8cff6a2adb66e3937ebca29152c439151d11aa8fcbda",
-    "index_count": 9,
+    "aggregate_index_and_archive_sha256": "a439461e6cb2cbbfb26f240c47b145ef84bcf2a8d8214729e2c6977c445862db",
+    "index_count": 12,
     "path": "results/2026-08-06/sergio-test/phase12-nvme/checkpoint-b/raw-evidence-index.json",
-    "sha256": "154a9a7b924f2d41398137b71937402bf784a73746be19be7c6d1ad4165553b2",
-    "size": 5990
+    "sha256": "e53936840987711e2ff1902ea23b75edfb789f847d933e23a142cb55b2e22023",
+    "size": 7747
+  },
+  "real_kimi_max_cache_endpoint": {
+    "accepted_perfetto_evidence": {
+      "path": "results/2026-08-06/sergio-test/phase12-nvme/colibri-endpoint-perfetto.json",
+      "sha256": "635256f47a40f064f5fb4fdf0d4c8c375fc2daa5d26adb87701b973544895b46",
+      "size": 5400
+    },
+    "campaign": {
+      "correctness_and_resources": {
+        "all_buffered_full_expert_fallbacks_zero": true,
+        "all_routes_equal": true,
+        "all_runs_passed": true,
+        "all_swap_and_cgroup_events_zero": true,
+        "all_token_sequences_equal": true
+      },
+      "disposition": "accepted",
+      "max_safe_aggregate": {
+        "accepted_rss_ceiling_bytes": 161639786086,
+        "maximum_observed_rss_bytes": 160790798336,
+        "maximum_swap_bytes": 0,
+        "mean_decode_forward_latency_seconds": 2.102625604721354,
+        "mean_decode_tokens_per_second": 0.47557230493220565,
+        "mean_physical_nvme0_read_bytes": 2794840380245.3335,
+        "minimum_rss_headroom_bytes": 848987750
+      },
+      "max_safe_vs_96g_anchor": {
+        "96g_decode_tokens_per_second": 0.44614848379226213,
+        "96g_maximum_rss_bytes": 141287206912,
+        "max_safe_mean_latency_change_fraction": -0.06190066309859554,
+        "max_safe_mean_physical_read_bytes_change_fraction": -0.10009613630732506,
+        "max_safe_mean_throughput_gain_fraction": 0.06595073660195161
+      },
+      "method": {
+        "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+        "fresh_interleaved_pairs": 3,
+        "minimum_complete_decode_forwards_per_run": 256,
+        "paired_interval": "two-sided Student-t 95% interval over three predeclared pairs (df=2)",
+        "runtime_ceiling_seconds": 7200
+      },
+      "native_vs_global_lru": {
+        "8g": {
+          "global_lru_replay": {
+            "hit_fraction": 0.0,
+            "hits": 0,
+            "misses": 376832,
+            "nominal_capacity_gib": 8,
+            "required_nvme_bytes": 6612370587648,
+            "usable_capacity_bytes": 8580612096
+          },
+          "native_colibri": {
+            "hit_fraction": 0.0463155970477044,
+            "streamed_bytes": 6591120850944,
+            "usable_capacity_bytes": 8071741440
+          }
+        },
+        "96g": {
+          "global_lru_replay": {
+            "hit_fraction": 0.586563773777174,
+            "hits": 221036,
+            "misses": 155796,
+            "nominal_capacity_gib": 96,
+            "required_nvme_bytes": 2733793542144,
+            "usable_capacity_bytes": 103072628736
+          },
+          "native_colibri": {
+            "hit_fraction": 0.5668366919461844,
+            "streamed_bytes": 2993686069248,
+            "usable_capacity_bytes": 101703942144
+          }
+        },
+        "claim_boundary": "The replay is one global LRU over (layer, expert) keys. The endpoint uses the actual Colibr\u00ec per-layer cache with a fixed whole-slot allocation. Capacity and policy differ, so the comparison is diagnostic rather than an equality requirement.",
+        "interpretation": "At the small anchor, per-layer reservation preserves limited local reuse while the similarly sized global LRU churns. Near 96 GiB the native and global hit fractions are close but not identical, consistent with their different allocation policies and usable capacities."
+      },
+      "paired_max_safe_vs_8g": {
+        "exposed_expert_load_wait_change_fraction": {
+          "confidence": 0.95,
+          "degrees_of_freedom": 2,
+          "lower": -0.6256448738541773,
+          "mean": -0.6178189307990891,
+          "method": "two-sided paired Student-t interval",
+          "upper": -0.6099929877440009,
+          "values": [
+            -0.6209677419354839,
+            -0.6178220382824625,
+            -0.6146670121793211
+          ]
+        },
+        "mean_decode_latency_change_fraction": {
+          "confidence": 0.95,
+          "degrees_of_freedom": 2,
+          "lower": -0.4800795567314851,
+          "mean": -0.4779269486802935,
+          "method": "two-sided paired Student-t interval",
+          "upper": -0.4757743406291019,
+          "values": [
+            -0.4786207741117311,
+            -0.47820441454974205,
+            -0.47695565737940726
+          ]
+        },
+        "native_streamed_bytes_change_fraction": {
+          "confidence": 0.95,
+          "degrees_of_freedom": 2,
+          "lower": -0.5929540680632872,
+          "mean": -0.5929540680632872,
+          "method": "two-sided paired Student-t interval",
+          "upper": -0.5929540680632872,
+          "values": [
+            -0.5929540680632872,
+            -0.5929540680632872,
+            -0.5929540680632872
+          ]
+        },
+        "p95_decode_latency_change_fraction": {
+          "confidence": 0.95,
+          "degrees_of_freedom": 2,
+          "lower": -0.42605834380488367,
+          "mean": -0.4208381085644606,
+          "method": "two-sided paired Student-t interval",
+          "upper": -0.4156178733240375,
+          "values": [
+            -0.41868207142986935,
+            -0.4228802979362274,
+            -0.420951956327285
+          ]
+        },
+        "physical_nvme0_read_bytes_change_fraction": {
+          "confidence": 0.95,
+          "degrees_of_freedom": 2,
+          "lower": -0.5831075665425662,
+          "mean": -0.583107524817903,
+          "method": "two-sided paired Student-t interval",
+          "upper": -0.5831074830932397,
+          "values": [
+            -0.5831075068944434,
+            -0.5831075401969922,
+            -0.5831075273622734
+          ]
+        },
+        "throughput_gain_fraction": {
+          "confidence": 0.95,
+          "degrees_of_freedom": 2,
+          "lower": 0.9070899204224774,
+          "mean": 0.9153508974515683,
+          "method": "two-sided paired Student-t interval",
+          "upper": 0.9236118744806592,
+          "values": [
+            0.9180115006492302,
+            0.9164184661206254,
+            0.9116227255848495
+          ]
+        }
+      }
+    },
+    "campaign_evidence": {
+      "path": "results/2026-08-06/sergio-test/phase12-nvme/colibri-endpoint-campaign.json",
+      "sha256": "d7076a6399a5715e0641e6417b3982f1cc6211298d1a871863c8360cf5822962",
+      "size": 35334
+    },
+    "engine_commit": "b085b48888a88d9a1c00b151a9979774b72cdbfd",
+    "max_safe_capacity": {
+      "label": "MAX_SAFE",
+      "projected_process_rss_bytes": 160118022144,
+      "requested_bytes": 121076121600,
+      "requested_gib": 112.76092529296875,
+      "slots_per_layer": 75,
+      "usable_cache_bytes": 121076121600,
+      "usable_cache_gib": 112.76092529296875
+    },
+    "model_revision": "9f62e4e9fffbd0a83ddd60e1c209d828994b3569",
+    "normalized_route_sha256": "a995951e6f8086a985792f9443280670582a292d580bbd2309a2c570f9f82410",
+    "perfetto": {
+      "application_trace": {
+        "all_k3_slices": 717884,
+        "incomplete_slices": 0,
+        "scope_counts": {
+          "attention": 23808,
+          "cache_lookup": 23552,
+          "cache_management": 44910,
+          "dense_trunk": 71936,
+          "expert_compute": 376832,
+          "forward": 256,
+          "head": 256,
+          "moe_nonexpert": 47104,
+          "nvme_wait": 72693,
+          "router": 23552
+        }
+      },
+      "critical_path_attribution": {
+        "accounted_ns": 549392565790,
+        "categories": {
+          "attention": {
+            "duration_ns": 91117288855,
+            "fraction": 0.16585096801224045
+          },
+          "cache_lookup": {
+            "duration_ns": 145362635,
+            "fraction": 0.00026458791773233326
+          },
+          "cache_management": {
+            "duration_ns": 726449620,
+            "fraction": 0.0013222778487280776
+          },
+          "dense_trunk": {
+            "duration_ns": 6734480727,
+            "fraction": 0.012258048518214187
+          },
+          "expert_compute": {
+            "duration_ns": 128037824521,
+            "fraction": 0.23305343481830298
+          },
+          "head": {
+            "duration_ns": 3075009043,
+            "fraction": 0.005597107122442193
+          },
+          "moe_nonexpert": {
+            "duration_ns": 41091842380,
+            "fraction": 0.07479504627244439
+          },
+          "nvme_wait": {
+            "duration_ns": 264754780005,
+            "fraction": 0.4819045551231575
+          },
+          "router": {
+            "duration_ns": 9988836721,
+            "fraction": 0.01818160154139788
+          },
+          "scheduler_or_uninstrumented_residual": {
+            "duration_ns": 3720691283,
+            "fraction": 0.006772372825339974
+          }
+        },
+        "decode_forward_wall_ns": 549392565790,
+        "non_overlapping": true
+      },
+      "disposition": "accepted",
+      "kernel_coverage": {
+        "claim_boundary": "block_rq_issue proves physical dispatch count/bytes; completion/service duration was intentionally omitted after bounded trace-volume qualification",
+        "nvme0_block_dispatch_coverage_fraction": 1.0004902607723327,
+        "nvme0_block_issue_bytes_all": 2796476962816,
+        "nvme0_block_issue_bytes_decode": 2385779929088,
+        "nvme0_block_issue_events_all": 22323096,
+        "nvme0_block_issue_events_decode": 18334857,
+        "nvme0_run_stat_read_bytes": 2795106631680,
+        "pread64_enter_decode": 136293,
+        "pread64_exit_decode": 136293,
+        "pread64_requested_bytes_decode": 2384601121520,
+        "pread64_returned_bytes_decode": 2384601121520,
+        "sched_switch_decode": 6219337,
+        "sched_waking_decode": 3115032,
+        "thread_state_duration_ns": {
+          "D": 1105645697065,
+          "R": 15444808631,
+          "R+": 2942422,
+          "Running": 8087384619971,
+          "S": 1780328541471
+        }
+      },
+      "loss_counters": {
+        "sum": 0
+      },
+      "ranked_optimization_targets": [
+        {
+          "duration_ns": 264754780005,
+          "fraction": 0.4819045551231575,
+          "target": "nvme_wait"
+        },
+        {
+          "duration_ns": 128037824521,
+          "fraction": 0.23305343481830298,
+          "target": "expert_compute"
+        },
+        {
+          "duration_ns": 91117288855,
+          "fraction": 0.16585096801224045,
+          "target": "attention"
+        }
+      ],
+      "resource_correctness": {
+        "accepted_rss_ceiling_bytes": 161639786086,
+        "buffered_full_expert_fallbacks": 0,
+        "maximum_rss_bytes": 160670564352,
+        "maximum_swap_bytes": 0
+      },
+      "trace": {
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/colibri-endpoint/trace-max-safe-02/trace.pftrace",
+        "sha256": "c8630e19e0323f1e5cb5ae03359ac31d9aa4ce7c7dd115d4b1d60c7afbe2873d",
+        "size": 1317544019
+      },
+      "trace_perturbation": {
+        "decode_throughput_fraction": -0.019657808518383724,
+        "mean_forward_latency_fraction": 0.020179858578917687,
+        "p95_forward_latency_fraction": 0.03133799205951027,
+        "traced_decode_tokens_per_second": 0.46596286858390973,
+        "untraced_decode_tokens_per_second": 0.4753063497957668
+      },
+      "trace_processor": {
+        "path": "/mnt/nvme0/k3-phase12-nvme-tools/perfetto-v50.1/linux-amd64/trace_processor_shell",
+        "sha256": "4b86aaf94d2ba9f517ddee817aaae7c12089d6ce078924e708d38f9cf0c0b517",
+        "size": 11313840
+      }
+    },
+    "preflight_evidence": {
+      "path": "results/2026-08-06/sergio-test/phase12-nvme/colibri-endpoint-preflight.json",
+      "sha256": "d29e065712122ec74a79126bc554e848260926c5c2b8dd9304ad14c014abb438",
+      "size": 4158
+    },
+    "rejected_trace_attempt": {
+      "disposition": "rejected",
+      "path": "results/2026-08-06/sergio-test/phase12-nvme/colibri-endpoint-perfetto-attempt-1.json",
+      "sha256": "a4ca0d4b7f2f0e6f4609e3df8dc9dd57bc580597b27c1253eaa4890ee4d71ba3",
+      "size": 2315,
+      "stop_reason": "fail-closed manual stop after projected trace size exceeded the fixed 2 GiB bound"
+    },
+    "selection_boundary": "MAX_SAFE is an explicit evidence configuration, not a default; no runtime, policy, storage format, or arithmetic change is selected",
+    "token_ids_sha256": "311ab0e8bf579fdda19cdba8b10fd1bf84815c4818b9dfb59dc0326eb2da209d"
   },
   "real_route_cache_locality": {
     "bounded_resources": {
@@ -3704,7 +4031,7 @@
       }
     }
   },
-  "schema_version": "phase12-nvme-checkpoint-b-v2",
+  "schema_version": "phase12-nvme-checkpoint-b-v3",
   "secondary_external_comparator": {
     "claim": "no secondary TPS or shortlist evidence",
     "status": "NOT_EXECUTED",
@@ -3717,17 +4044,18 @@
     "dual_nvme": "five interleaved same-host pairs; Student-t paired 95% interval",
     "optimization_candidates": "three interleaved fresh-process cold pairs; predeclared 5% promising gate with correctness/resource falsifiers",
     "percentiles": "nearest-rank for harness/tail metrics unless an evidence document explicitly states a paired interval calculation",
+    "real_kimi_max_cache_endpoint": "fresh 8 GiB/MAX_SAFE interleaved pairs (three pairs, 256 decode forwards/run) plus a separate 96 GiB anchor; two-sided paired Student-t 95% intervals; adjacent full-stack Perfetto trace with exact route/token identity and quantified perturbation",
     "real_route_cache_locality": "one fixed 30-token prefill plus 256 complete decode forwards; exact stack-distance and bounded global-LRU/ALWAYS replay at 0/8/16/32/64/96 GiB; storage-only miss-byte projection through accepted single/dual service envelopes"
   },
   "status": "PASS",
   "technical_revisions": {
     "controlling_base": "63fdfdd49112e4324eb1206d0b6b31bd547669a6",
-    "evidence_revision": "0d9f4b7b5dcd7c9b4c5498152c4c423574eb98f3",
+    "evidence_revision": "7b6971a5dd53e779871c77f47a7f5bf3c9a92a10",
     "nested_changed": false,
     "nested_llama_cpp": "71b4b0251fb314cb955fe5f43b6a1e382fc2b65c"
   },
   "technical_scope": {
-    "result": "full-scale CPU/NVMe storage discovery, real-route cache-locality evidence, and frozen Phase 12 rerun handoff",
+    "result": "full-scale CPU/NVMe storage discovery, real-route cache-locality evidence, real Kimi-K3 MAX_SAFE endpoint attribution, and frozen Phase 12 rerun handoff",
     "runtime_or_default_change": "NONE",
     "storage_format_disposition": "DEFERRED_TO_PHASE_12_NVME_PLUS_DISCRETE_CUDA_CONFIRMATION",
     "synthetic_claim_boundary": "storage-only token-equivalent service; not project model inference, quality, TTFT, or actual project tokens/second"
@@ -3740,8 +4068,8 @@
     },
     "final": {
       "path": "results/2026-08-06/sergio-test/phase12-nvme/checkpoint-b/final-validation.json",
-      "sha256": "b6aeb3a46500cbd8bea35395128c0fc463a87cf9c3182c13cd4825bf601965b5",
-      "size": 2436
+      "sha256": "e29e86a6ef01b049e1ed798ab9513fd246e7a5014ea03096f869ce4babbf4db2",
+      "size": 2469
     },
     "final_binary": {
       "path": "/usr/local/src/k3-out-of-core/build/phase12-nvme/phase12_nvme_bench",

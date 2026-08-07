@@ -134,6 +134,10 @@ def main() -> int:
         "colibri_reference": evidence / "colibri-reference.json",
         "real_routing_capture": evidence / "real-routing-capture.json",
         "cache_locality": evidence / "cache-locality.json",
+        "colibri_endpoint_preflight": evidence / "colibri-endpoint-preflight.json",
+        "colibri_endpoint_campaign": evidence / "colibri-endpoint-campaign.json",
+        "colibri_endpoint_trace_attempt_1": evidence / "colibri-endpoint-perfetto-attempt-1.json",
+        "colibri_endpoint_perfetto": evidence / "colibri-endpoint-perfetto.json",
         "final_corpus": evidence / "final-corpus-verification.json",
         "final_validation": evidence / "checkpoint-b/final-validation.json",
     }
@@ -143,6 +147,7 @@ def main() -> int:
         "baseline_analysis", "candidate_1", "candidate_2", "trace_attempt_2",
         "dual_corpus", "dual_comparison", "colibri_preflight", "colibri_snapshot",
         "colibri_reference", "real_routing_capture", "cache_locality", "final_corpus",
+        "colibri_endpoint_preflight", "colibri_endpoint_campaign", "colibri_endpoint_perfetto",
         "final_validation",
     )
     if any(documents[name]["status"] != "PASS" for name in pass_names):
@@ -151,6 +156,8 @@ def main() -> int:
         raise ValueError("invalid first trace disposition")
     if documents["colibri_attempt_1"]["disposition"] != "rejected":
         raise ValueError("invalid first Colibrì disposition")
+    if documents["colibri_endpoint_trace_attempt_1"]["disposition"] != "rejected":
+        raise ValueError("invalid first endpoint trace disposition")
     if [documents["candidate_1"]["disposition"], documents["candidate_2"]["disposition"]] != ["rejected", "rejected"]:
         raise ValueError("optimization stop-rule inputs changed")
 
@@ -231,6 +238,43 @@ def main() -> int:
     if cache_locality["interpretation"]["claim_boundary"].find("project TPS claim") < 0:
         raise ValueError("cache-locality claim boundary changed")
 
+    endpoint_preflight = documents["colibri_endpoint_preflight"]
+    endpoint_campaign = documents["colibri_endpoint_campaign"]
+    endpoint_trace = documents["colibri_endpoint_perfetto"]
+    if endpoint_preflight["disposition"] != "accepted":
+        raise ValueError("endpoint preflight is not acceptable")
+    max_safe = next(row for row in endpoint_preflight["capacities"] if row["label"] == "MAX_SAFE")
+    if max_safe["slots_per_layer"] != 75 or max_safe["usable_cache_bytes"] != 121_076_121_600:
+        raise ValueError("endpoint MAX_SAFE capacity changed")
+    if endpoint_campaign["disposition"] != "accepted" or endpoint_campaign["failures"]:
+        raise ValueError("endpoint campaign is not acceptable")
+    if endpoint_campaign["method"]["fresh_interleaved_pairs"] != 3:
+        raise ValueError("endpoint paired campaign count changed")
+    if endpoint_campaign["method"]["minimum_complete_decode_forwards_per_run"] != 256:
+        raise ValueError("endpoint decision sample count changed")
+    endpoint_identity = endpoint_campaign["identity"]
+    if endpoint_identity["normalized_route_sha256"] != routing_capture["raw_artifacts"]["normalized-route.tsv"]["sha256"]:
+        raise ValueError("endpoint route differs from the accepted real route")
+    if not all(endpoint_campaign["correctness_and_resources"].values()):
+        raise ValueError("endpoint campaign correctness/resource gate failed")
+    if endpoint_trace["disposition"] != "accepted" or endpoint_trace["failures"]:
+        raise ValueError("endpoint Perfetto attribution is not acceptable")
+    if endpoint_trace["identity"]["complete_decode_forwards"] != 256:
+        raise ValueError("endpoint Perfetto sample count changed")
+    if endpoint_trace["identity"]["normalized_route_sha256"] != endpoint_identity["normalized_route_sha256"]:
+        raise ValueError("endpoint Perfetto route changed")
+    if endpoint_trace["loss_counters"]["sum"] != 0:
+        raise ValueError("endpoint Perfetto loss counters changed")
+    endpoint_critical = endpoint_trace["critical_path_attribution"]
+    if not endpoint_critical["non_overlapping"]:
+        raise ValueError("endpoint Perfetto attribution overlaps")
+    if endpoint_critical["accounted_ns"] != endpoint_critical["decode_forward_wall_ns"]:
+        raise ValueError("endpoint Perfetto attribution does not close")
+    if endpoint_trace["resource_correctness"]["maximum_swap_bytes"] != 0:
+        raise ValueError("endpoint trace used swap")
+    if endpoint_trace["resource_correctness"]["buffered_full_expert_fallbacks"] != 0:
+        raise ValueError("endpoint trace used buffered fallback")
+
     raw_index_paths = [
         evidence / "checkpoint-a/raw-evidence-index.json",
         evidence / "baseline-raw-index.json",
@@ -241,6 +285,9 @@ def main() -> int:
         evidence / "dual-comparison-raw-index.json",
         evidence / "colibri-reference-raw-index.json",
         evidence / "cache-locality-raw-index.json",
+        evidence / "colibri-endpoint-campaign-raw-index.json",
+        evidence / "colibri-endpoint-perfetto-attempt-1-raw-index.json",
+        evidence / "colibri-endpoint-perfetto-raw-index.json",
     ]
     raw_indexes: list[dict[str, object]] = []
     aggregate = hashlib.sha256()
@@ -295,7 +342,7 @@ def main() -> int:
     request_wall = int(trace["critical_path_attribution"]["request_wall_ns"])
     critical = trace["critical_path_attribution"]
     document = {
-        "schema_version": "phase12-nvme-checkpoint-b-v2",
+        "schema_version": "phase12-nvme-checkpoint-b-v3",
         "status": "PASS",
         "checkpoint": "B",
         "final_capable": True,
@@ -307,8 +354,8 @@ def main() -> int:
         },
         "technical_scope": {
             "result": (
-                "full-scale CPU/NVMe storage discovery, real-route cache-locality evidence, and frozen Phase 12 "
-                "rerun handoff"
+                "full-scale CPU/NVMe storage discovery, real-route cache-locality evidence, real Kimi-K3 "
+                "MAX_SAFE endpoint attribution, and frozen Phase 12 rerun handoff"
             ),
             "runtime_or_default_change": "NONE",
             "storage_format_disposition": "DEFERRED_TO_PHASE_12_NVME_PLUS_DISCRETE_CUDA_CONFIRMATION",
@@ -472,6 +519,45 @@ def main() -> int:
             "interpretation": cache_locality["interpretation"],
             "disposition": cache_locality["disposition"],
         },
+        "real_kimi_max_cache_endpoint": {
+            "preflight_evidence": identity(paths["colibri_endpoint_preflight"]),
+            "campaign_evidence": identity(paths["colibri_endpoint_campaign"]),
+            "rejected_trace_attempt": identity(paths["colibri_endpoint_trace_attempt_1"]) | {
+                "disposition": documents["colibri_endpoint_trace_attempt_1"]["disposition"],
+                "stop_reason": documents["colibri_endpoint_trace_attempt_1"]["capture"]["stop_reason"],
+            },
+            "accepted_perfetto_evidence": identity(paths["colibri_endpoint_perfetto"]),
+            "engine_commit": endpoint_identity["colibri_commit"],
+            "model_revision": endpoint_identity["model_revision"],
+            "token_ids_sha256": endpoint_identity["token_ids_sha256"],
+            "normalized_route_sha256": endpoint_identity["normalized_route_sha256"],
+            "max_safe_capacity": max_safe,
+            "campaign": {
+                "method": endpoint_campaign["method"],
+                "max_safe_aggregate": endpoint_campaign["max_safe_aggregate"],
+                "paired_max_safe_vs_8g": endpoint_campaign["paired_max_safe_vs_8g"],
+                "max_safe_vs_96g_anchor": endpoint_campaign["max_safe_vs_96g_anchor"],
+                "native_vs_global_lru": endpoint_campaign["native_vs_global_lru"],
+                "correctness_and_resources": endpoint_campaign["correctness_and_resources"],
+                "disposition": endpoint_campaign["disposition"],
+            },
+            "perfetto": {
+                "trace": endpoint_trace["trace"],
+                "trace_processor": endpoint_trace["trace_processor"],
+                "application_trace": endpoint_trace["application_trace"],
+                "loss_counters": endpoint_trace["loss_counters"],
+                "kernel_coverage": endpoint_trace["kernel_coverage"],
+                "critical_path_attribution": endpoint_critical,
+                "trace_perturbation": endpoint_trace["trace_perturbation"],
+                "ranked_optimization_targets": endpoint_trace["ranked_optimization_targets"],
+                "resource_correctness": endpoint_trace["resource_correctness"],
+                "disposition": endpoint_trace["disposition"],
+            },
+            "selection_boundary": (
+                "MAX_SAFE is an explicit evidence configuration, not a default; no runtime, policy, storage "
+                "format, or arithmetic change is selected"
+            ),
+        },
         "secondary_external_comparator": {
             "status": "NOT_EXECUTED",
             "validation_status": "published full generation remains unverified for the identified native-MXFP4 comparator",
@@ -485,11 +571,14 @@ def main() -> int:
             "dual-namespace preparation/comparison tooling",
             "Colibrì preflight/snapshot/reference capture tooling",
             "real-route capture and bounded global-LRU/ALWAYS cache-locality replay tooling",
+            "default-off real Kimi-K3 endpoint counters, fixed-capacity campaign, and full-stack Perfetto attribution tooling",
         ],
         "phase12_import_contract": {
             "rerun_mandatory_baseline": True,
             "rerun_frozen_shortlist": True,
             "import_real_route_cache_locality_curve": True,
+            "import_real_kimi_max_cache_envelope": True,
+            "import_real_kimi_endpoint_critical_path": True,
             "required_host": "one Linux host containing real NVMe and a discrete CUDA GPU",
             "must_add": [
                 "project H2D and GPU execution correctness",
@@ -497,6 +586,7 @@ def main() -> int:
                 "project actual full-model inference and numerical/quality gates when capable",
                 "final storage-format quantitative disposition",
                 "explicit RAM/VRAM capacity selection from the real-route curve and actual end-to-end validation",
+                "confirmation that any selected project cache capacity remains below the measured RSS ceiling with zero swap",
             ],
             "must_preserve": [
                 "exact K3 source/topology/payload/seed/route identities",
@@ -504,6 +594,7 @@ def main() -> int:
                 "Phase 9 global LRU/ALWAYS defaults with explicit capacities",
                 "Phase 10 null config/profile, no selected profiles, and speculative prefetch off",
                 "accepted default-off Perfetto instrumentation surface",
+                "the distinction between native per-layer Colibrì cache evidence and the project global-LRU replay",
             ],
         },
         "validation": {
@@ -526,6 +617,11 @@ def main() -> int:
                 "global-LRU/ALWAYS replay at 0/8/16/32/64/96 GiB; storage-only miss-byte projection through "
                 "accepted single/dual service envelopes"
             ),
+            "real_kimi_max_cache_endpoint": (
+                "fresh 8 GiB/MAX_SAFE interleaved pairs (three pairs, 256 decode forwards/run) plus a separate "
+                "96 GiB anchor; two-sided paired Student-t 95% intervals; adjacent full-stack Perfetto trace "
+                "with exact route/token identity and quantified perturbation"
+            ),
             "percentiles": "nearest-rank for harness/tail metrics unless an evidence document explicitly states a paired interval calculation",
         },
         "gates": {
@@ -537,6 +633,10 @@ def main() -> int:
             "dual_nvme_controlled": "PASS",
             "same_machine_colibri_full_model": "PASS",
             "real_route_cache_locality": "PASS",
+            "real_kimi_max_cache_campaign": "PASS",
+            "real_kimi_endpoint_perfetto": "PASS",
+            "real_kimi_endpoint_trace_loss": False,
+            "real_kimi_endpoint_default_change": False,
             "cache_policy_or_default_change": False,
             "final_corpus_physical_and_checksum_verification": "PASS",
             "phase12_importable_handoff": "PASS",
@@ -551,9 +651,11 @@ def main() -> int:
             "Both causal optimization candidates were non-promising in three-pair screens; no new layout, runtime path, policy, default, or model format is selected.",
             "Dual-NVMe scaling is same-host CPU/storage-only evidence and does not establish multi-drive project GPU overlap or a production placement default.",
             "Colibrì is a separate CPU full-model runtime with int4/int8 trunk quantization and native MXFP4 experts; its actual TPS is not directly comparable to project synthetic token-equivalent throughput.",
-            "The accepted Colibrì observation contains eight decode-forward samples and cannot drive a storage-format gate requiring at least 100 samples/five processes.",
+            "The earlier Colibrì reference contains eight decode-forward samples and remains comparator-only; the later endpoint campaign supplies three fresh 256-forward MAX_SAFE/8 GiB pairs but still does not select a project storage format or default.",
             "The real-route cache-locality curve contains one fixed prompt with 256 complete decode forwards; it is sufficient for this bounded study but remains workload-specific and requires end-to-end confirmation for Phase 12 capacity selection.",
             "Cache-locality projections cover only the NVMe miss-byte service component; they do not assume linear end-to-end scaling and include no H2D, CUDA, GPU-compute, overlap, or project-TPS claim.",
+            "The real Kimi-K3 MAX_SAFE endpoint is a separate CPU runtime. Its Perfetto trace proves block dispatch bytes but intentionally omits block completion/service duration after bounded trace-volume qualification.",
+            "The endpoint critical path ranks NVMe wait, expert CPU compute, and attention CPU compute. MAX_SAFE is already the greatest legal whole-slot cache on this host; the compute targets are outside this storage-only delta.",
             "The secondary native-MXFP4 comparator was not executed because its published full-generation path remained unverified for an authoritative TPS claim.",
             "Large raw evidence archives and the verified 1.56 TB checkpoint remain external and checksum-addressed; the retained physical synthetic corpus is reproducible but not committed to Git.",
             "No final GGUF/repack/custom-format disposition is made; that decision remains gated on the required NVMe plus discrete-CUDA Phase 12 confirmation.",
