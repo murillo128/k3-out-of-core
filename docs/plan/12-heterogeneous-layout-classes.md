@@ -74,8 +74,8 @@ The implementation issue must include at least two risk checkpoints.
 
 - This track may be researched independently, but implementation that touches provider, hot/cold cache, transfer-ring, or scheduler ownership must not run concurrently with another active change to the same seams without an explicit integration plan.
 - It does not satisfy or weaken Phase 12 K3 gates and does not make the K3 storage-format decision.
-- Phase 12.5 still begins only after the Phase 12 mechanism, layout decision, and full-size dry-run are accepted.
-- Multi-request, batching, multi-GPU, automatic policy changes, expert dropping, repacking to evade the class problem, and model-specific parallel runtimes remain out of scope.
+- The accepted Phase 12.5 DeepSeek/NVMe tracing subsets are diagnostic inputs only; they do not satisfy the remaining Phase 13.5 multi-device/cross-hardware observability gate.
+- Phase 13 multi-GPU, Phase 14 multi-request/batching, automatic policy changes, expert dropping, repacking to evade the class problem, and model-specific parallel runtimes remain out of scope for this portability track.
 
 ## Exit gate
 
