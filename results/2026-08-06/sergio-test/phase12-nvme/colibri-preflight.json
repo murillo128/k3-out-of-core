@@ -1,0 +1,81 @@
+{
+  "colibri": {
+    "binary": {
+      "path": "/mnt/nvme0/k3-phase12-nvme-external/colibri/c/kimi_k3",
+      "sha256": "11c4c5277919759763a2f2c712879bb617e067a25b7f92a9f855a1adcb65f915",
+      "size": 172296
+    },
+    "commit": "b085b48888a88d9a1c00b151a9979774b72cdbfd",
+    "license": "Apache-2.0",
+    "license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "repository": "https://github.com/JustVugg/colibri.git",
+    "version": "v1.4.0 reviewed commit"
+  },
+  "declared_ceilings": {
+    "disk_requirement_factor": 1.05,
+    "download_seconds": 14400,
+    "full_reference_run_seconds": 7200,
+    "memory_bytes": 161639786086
+  },
+  "disposition": "accepted",
+  "gates": {
+    "disk_capacity": true,
+    "download_time": true,
+    "memory_capacity": true,
+    "model_public_ungated": true,
+    "native_build": true,
+    "sample_checksum": true,
+    "source_clean": true,
+    "source_revision": true,
+    "tokenizer_equivalence": true
+  },
+  "host_capacity": {
+    "disk_free_bytes": 6615781998592,
+    "disk_required_bytes": 1638109459045,
+    "disk_total_bytes": 6799193276416,
+    "memory_available_bytes": 198926950400,
+    "memory_total_bytes": 202049732608,
+    "planned_colibri_memory_bytes": 68719476736,
+    "target_filesystem": 66305
+  },
+  "interpretation": "declared network, disk, RAM, runtime, source, access, build, and tokenizer gates permit the full-model reference",
+  "model": {
+    "file_count": 118,
+    "gated": false,
+    "metadata_bytes": 62892942,
+    "private": false,
+    "repository": "moonshotai/Kimi-K3",
+    "revision": "9f62e4e9fffbd0a83ddd60e1c209d828994b3569",
+    "source_expert_format": "native MXFP4; no expert re-encode",
+    "text_shard_bytes": 1560041353768,
+    "text_shard_count": 94,
+    "text_snapshot_bytes": 1560104246710,
+    "vision_shard_count_excluded": 2
+  },
+  "next_action": "download the pinned text-only snapshot and run the direct-source Colibr\u00ec reference with K3_TOPP=0",
+  "sample_transfer": {
+    "bytes": 2341216112,
+    "bytes_per_second": 224900683.1892411,
+    "conservative_full_download_seconds": 13873.717274547016,
+    "conservative_slowdown_factor": 2.0,
+    "estimated_full_download_seconds": 6936.858637273508,
+    "file": "model-00001-of-000096.safetensors",
+    "seconds": 10.41,
+    "sha256": "975584c00f85a95fce8ae0f840af8cef69c2ef4db00d34cab3e2cbdfc60f6e51"
+  },
+  "schema_version": "phase12-nvme-colibri-preflight-v1",
+  "scope": "same-machine Colibr\u00ec Kimi-K3 text-only full-model reference",
+  "status": "PASS",
+  "validation": {
+    "native_build_command": [
+      "make",
+      "-C",
+      "c",
+      "kimi_k3",
+      "-j16"
+    ],
+    "native_build_status": "PASS",
+    "tokenizer_test_fact": "tok.h matches tiktoken on all upstream Kimi cases",
+    "tokenizer_test_status": "PASS"
+  }
+}
