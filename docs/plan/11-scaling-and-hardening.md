@@ -1,4 +1,4 @@
-# UMA, full-size scaling, end-to-end observability, concurrency, multi-GPU, and hardening
+# UMA, full-size scaling, multi-GPU, end-to-end observability, concurrency, and hardening
 
 The pinned WASTE implementation and measurements recorded in `docs/PRIOR_ART.md` are an external full-K3 feasibility and performance baseline. They are `OBSERVED` on a 64 GB Apple M5 Pro CPU/UMA system with a custom 3-bit expert format and internal NVMe; they are not directly transferable to GGUF/MXFP4, discrete CUDA, or DGX Spark.
 
@@ -59,7 +59,7 @@ The pinned WASTE implementation and measurements recorded in `docs/PRIOR_ART.md`
 ### Objectives
 
 - Prove that the design scales physically before claiming full K3 viability.
-- Establish the single-request, single-device full-size baseline before adding multi-request or multi-GPU complexity.
+- Establish the single-request, single-device full-size baseline before adding multi-GPU or multi-request complexity.
 - Compare against the pinned WASTE full-K3 result without conflating format, quantization, or hardware effects.
 
 ### Tasks
@@ -70,7 +70,7 @@ The pinned WASTE implementation and measurements recorded in `docs/PRIOR_ART.md`
 - [ ] Validate queue depth, cold/hot budgets, and transfer overlap.
 - [ ] Run controlled traces with realistic top-k and layer counts.
 - [ ] Cross-check full-K3 layer count, selected-expert count, exact working-set bytes, resident-trunk budget, and expected reads/token against the pinned WASTE metadata, explaining representation differences.
-- [ ] Sweep storage and cache regimes that bracket WASTE's observed one-token working-set floor and memory-oversubscription cliff.
+- [ ] Sweep storage and cache regimes that bracket WASTE's observed one-token-working-set floor and memory-oversubscription cliff.
 
 #### 12.2 GGUF layout evaluation
 
@@ -112,24 +112,60 @@ Only if GGUF is proven inadequate:
 - Any new storage format is justified quantitatively.
 - A realistic throughput/tail-latency envelope is documented.
 - Full-size claims include an apples-to-apples WASTE comparison where possible, or a precise explanation of the remaining non-equivalent dimensions.
-- Results are explicitly scoped as single-request and single-device; service concurrency and multi-GPU scaling remain later gates.
+- Results are explicitly scoped as single-request and single-device; multi-GPU topology and service concurrency remain later gates.
 
 ---
 
-## Phase 12.5 — End-to-end tracing and hardware-benchmark readiness
+## Phase 13 — Multi-GPU and topology-aware placement
 
-Phase 12.5 begins after the Phase 12 mechanism, storage-layout, and full-size dry-run work is accepted. Functional platform bring-up and bounded characterization in Phases 11–12 may use real hardware, but no authoritative cross-hardware performance campaign should begin until this phase can attribute end-to-end token latency without relying on subsystem-local counters alone.
+### Objectives
+
+- Extend the provider to multiple GPUs without redesigning core policy or storage.
+- Measure topology-aware scaling relative to the Phase 12 single-device full-size baseline using the already accepted end-to-end tracing/event schema.
+- Establish multi-device ownership and byte movement before adding multi-request/batching complexity.
+
+### Prerequisite note
+
+The tracing and benchmark-readiness work now numbered **Phase 13.5** was executed early under the historical name **Phase 12.5** through issue #54 / PR #55. Its event vocabulary and metric schema are therefore already accepted inputs to Phase 13. Renumbering does not require a rerun and does not rewrite historical artifacts.
+
+### Tasks
+
+- [ ] Define per-device slot directories and ownership.
+- [ ] Support expert partitioning and/or replicated hot sets.
+- [ ] Model PCIe/NVLink/peer-access topology.
+- [ ] Decide whether cold cache is shared or NUMA-local.
+- [ ] Route H2D through the correct NUMA node.
+- [ ] Reserve per-device workspaces before cache allocation.
+- [ ] Handle device failure/trim independently.
+- [ ] Validate deterministic outputs across shard strategies.
+- [ ] Report normalized bytes per expert and per token across NVMe, host memory, H2D, and peer links so topology gains can be compared with the one-copy UMA and WASTE CPU/UMA baselines.
+- [ ] Keep the initial acceptance single-request so topology/placement effects are not confounded with cross-request coalescing or batching.
+
+### Exit gate
+
+- Correctness across supported sharding modes.
+- Topology-aware metrics show where bytes moved.
+- Incremental scaling is reported against the Phase 12 single-device baseline and decomposed through the accepted tracing/event schema.
+- No multi-request semantics are required for Phase 13 acceptance.
+
+---
+
+## Phase 13.5 — End-to-end tracing and hardware-benchmark readiness
+
+**Historical execution identity:** this work was completed early as **Phase 12.5** through issue #54 / PR #55. Existing commits, issue/PR titles, result directories, manifests, release identities, and evidence retain `Phase 12.5`; this roadmap renumber is an alias for future sequencing and does not re-execute or relabel immutable evidence.
+
+The work establishes causal attribution of end-to-end token latency before authoritative hardware comparisons. Its early completion is an intentional satisfied prerequisite for Phase 13 multi-GPU work.
 
 ### Objectives
 
 - Make the complete single-request token path causally observable from `llama_decode` through graph construction, routing, expert readiness, backend execution, synchronization, sampling, and token delivery.
 - Correlate application decisions with Linux scheduling, `io_uring`, block-device activity, CUDA transfers/compute, and UMA residency behavior where applicable.
-- Establish a reusable benchmark schema before expensive discrete-GPU, DGX Spark, and cloud measurements.
+- Establish a reusable benchmark schema for discrete-GPU, DGX Spark, cloud, and multi-GPU measurements.
 - Preserve the existing bounded deterministic trace and replay formats as correctness and policy evidence; Perfetto is an optional diagnostic timeline, not their replacement.
 
 ### Tasks
 
-#### 12.5.1 Optional direct instrumentation
+#### 13.5.1 Optional direct instrumentation
 
 - [ ] Add compile-time optional Perfetto TrackEvent support with no Perfetto dependency, initialization, runtime branch, or argument evaluation in ordinary builds.
 - [ ] Put semantic tracepoints directly at the state transition or subsystem boundary that owns the event; do not add a generic trace sink, virtual interface, event bus, intermediate queue, or dynamically typed attribute container.
@@ -140,7 +176,7 @@ Phase 12.5 begins after the Phase 12 mechanism, storage-layout, and full-size dr
 - [ ] Instrument only the minimum stable `llama.cpp`/GGML/GGML-backend boundaries needed for E2E attribution: decode/token begin and end, graph build, graph submission, backend queue or synchronization, router completion, routed-MoE execution, remaining graph compute, sampling, and user-visible token delivery where the frontend exposes it.
 - [ ] Do not trace every helper, tensor, allocator operation, lock, or kernel launch merely because it is available. Instrument state changes and cross-subsystem handoffs, not function entry/exit indiscriminately.
 
-#### 12.5.2 Identity, tracks, and causal correlation
+#### 13.5.2 Identity, tracks, and causal correlation
 
 - [ ] Define collision-free identities for request, token, graph epoch, layer, expert or expert set, transport epoch, request slot/generation, operation index, cache slot/generation, backend, device, CUDA stream, and `io_uring user_data` where applicable.
 - [ ] Use slices for owned operation lifetimes, flows for work handed between threads/subsystems, counters for queue depths and bounded resources, and instant events for hits, misses, promotions, cancellations, evictions, errors, and circuit transitions.
@@ -149,7 +185,7 @@ Phase 12.5 begins after the Phase 12 mechanism, storage-layout, and full-size dr
 - [ ] Correlate H2D, CUDA stream readiness, graph compute, and synchronization at the application boundary. Use Nsight Systems as the CUDA-internal reference where detailed API, memcpy, kernel, or stream analysis is needed; do not claim that Perfetto alone replaces CUDA-specific profiling.
 - [ ] Support the equivalent logical tracks on coherent UMA even when promotion is residency preparation rather than a physical H2D copy.
 
-#### 12.5.3 Derived analysis and benchmark schema
+#### 13.5.3 Derived analysis and benchmark schema
 
 - [ ] Commit reproducible Perfetto capture configurations and Trace Processor SQL or equivalent analysis scripts for the accepted Linux environments.
 - [ ] Derive at minimum: scheduler queue time, storage queue time, `io_uring` service time, completion-to-worker-wakeup, wakeup-to-host-ready, host-ready-to-device-ready, demand-blocked time, prefetch lead time, exposed versus hidden disk/H2D time, graph/backend synchronization, useful GPU compute, router/MoE compute, residual compute, and unattributed time.
@@ -172,7 +208,7 @@ end-to-end token latency
 - [ ] Record queue depth, in-flight reads/transfers, hot/cold occupancy, useful/wasted prefetch bytes, dropped trace events, and trace-buffer saturation alongside the timeline.
 - [ ] Bind every benchmark trace to exact project and nested revisions, build options, Perfetto version, capture configuration, kernel/driver/CUDA versions, hardware/storage identity, runtime configuration, workload, and trace checksum.
 
-#### 12.5.4 Correctness, overhead, and benchmark-readiness validation
+#### 13.5.4 Correctness, overhead, and benchmark-readiness validation
 
 - [ ] Verify exact output parity and lifecycle behavior with instrumentation compiled out, compiled in but inactive, and actively captured.
 - [ ] Compare tracing-disabled and tracing-enabled-but-inactive performance to detect compile-time or callsite overhead. Separately measure active-capture overhead and never report active diagnostic captures as ordinary production throughput.
@@ -189,16 +225,16 @@ end-to-end token latency
 - The standard analysis reports exposed storage/H2D/UMA stalls separately from overlapped service and reports any material residual or unattributed interval explicitly.
 - Instrumentation is structurally absent when disabled, exact outputs remain unchanged, and inactive/active overhead plus dropped-event behavior are measured and documented.
 - Trace configurations and analysis scripts are reproducible and bound to exact revisions and environment metadata.
-- No authoritative cross-hardware performance comparison is accepted until this gate is satisfied; later Phases 13–15 must reuse or deliberately version this event and metric schema rather than invent incompatible measurements.
+- Later Phases 13–15 reuse or deliberately version this event and metric schema rather than invent incompatible measurements.
 
 ---
 
-## Phase 13 — Multi-request, batching, and CUDA graphs
+## Phase 14 — Multi-request, batching, and CUDA graphs
 
 ### Objectives
 
-- Make the design safe beyond a single sequential request.
-- Measure concurrency and batching gains relative to the Phase 12 full-size single-request baseline using the Phase 12.5 event and metric schema.
+- Make the design safe beyond a single sequential request after the single-request multi-GPU ownership model is established.
+- Measure concurrency and batching gains relative to the Phase 12 single-request baseline and the Phase 13 topology baseline using the accepted tracing/event schema.
 
 ### Tasks
 
@@ -214,41 +250,15 @@ end-to-end token latency
 - [ ] Keep dynamic provider preparation outside graph capture while mapping updates remain in place.
 - [ ] Measure batch diversity impact on cache hit rate.
 - [ ] Add stress tests with concurrent model contexts and requests.
+- [ ] Verify concurrency semantics across the selected single- and multi-GPU configurations without changing Phase 13 placement policy implicitly.
 
 ### Exit gate
 
 - No data race, stale slot, starvation, or cross-request corruption.
 - CUDA graph behavior is correct where enabled.
 - Multi-request metrics are exposed.
-- Reported batching gains decompose storage deduplication, transfer avoidance, compute utilization, and scheduler effects.
-- Incremental results are compared with the Phase 12 single-request baseline and decomposed through the Phase 12.5 schema rather than replacing it.
-
----
-
-## Phase 14 — Multi-GPU and topology-aware placement
-
-### Objectives
-
-- Extend the provider without redesigning core policy and storage.
-- Measure topology-aware scaling relative to the Phase 12 single-device full-size baseline using the Phase 12.5 event and metric schema.
-
-### Tasks
-
-- [ ] Define per-device slot directories and ownership.
-- [ ] Support expert partitioning and/or replicated hot sets.
-- [ ] Model PCIe/NVLink/peer-access topology.
-- [ ] Decide whether cold cache is shared or NUMA-local.
-- [ ] Route H2D through the correct NUMA node.
-- [ ] Reserve per-device workspaces before cache allocation.
-- [ ] Handle device failure/trim independently.
-- [ ] Validate deterministic outputs across shard strategies.
-- [ ] Report normalized bytes per expert and per token across NVMe, host memory, H2D, and peer links so topology gains can be compared with the one-copy UMA and WASTE CPU/UMA baselines.
-
-### Exit gate
-
-- Correctness across supported sharding modes.
-- Topology-aware metrics show where bytes moved.
-- Incremental scaling is reported against the Phase 12 single-device baseline and decomposed through the Phase 12.5 schema.
+- Reported batching gains decompose storage deduplication, transfer avoidance, compute utilization, scheduler effects, and any interaction with Phase 13 placement.
+- Incremental results are compared with the accepted single-request baselines and decomposed through the Phase 13.5 tracing schema rather than replacing it.
 
 ---
 
@@ -264,7 +274,7 @@ end-to-end token latency
 - [ ] Run ASan/UBSan/TSan where applicable.
 - [ ] Add long-running load/unload and warm-cache stress tests.
 - [ ] Expose stable CLI/config and structured metrics.
-- [ ] Preserve or explicitly version the Phase 12.5 E2E event and metric schema for production diagnostics while keeping active high-volume tracing opt-in.
+- [ ] Preserve or explicitly version the Phase 13.5 E2E event and metric schema for production diagnostics while keeping active high-volume tracing opt-in.
 - [ ] Distinguish logical cache hits, physically resident hits, faulted/degraded hits, and true storage misses in stable telemetry.
 - [ ] Add safe autofit that reserves CUDA/runtime/KV/workspace budgets.
 - [ ] Make safe autofit reason in whole token-working-set increments where useful and retain explicit OS headroom rather than filling nominal RAM.
