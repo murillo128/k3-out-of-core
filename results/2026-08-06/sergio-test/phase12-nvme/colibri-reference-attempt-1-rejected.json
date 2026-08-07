@@ -1,0 +1,43 @@
+{
+  "schema_version": "phase12-nvme-colibri-reference-rejected-v1",
+  "status": "FAIL",
+  "disposition": "rejected",
+  "attempt": 1,
+  "scope": "same-machine Colibrì Kimi-K3 direct-source full-model reference",
+  "colibri_commit": "b085b48888a88d9a1c00b151a9979774b72cdbfd",
+  "model_revision": "9f62e4e9fffbd0a83ddd60e1c209d828994b3569",
+  "configuration": {
+    "cache_state": "OS_COLD_REQUESTED via sync plus drop_caches",
+    "direct_io": "K3_DIRECT=1",
+    "expert_cache_gib": 8,
+    "generated_tokens_requested": 8,
+    "prompt": "Say OK",
+    "top_k": 16,
+    "top_p_pruning": "K3_TOPP=0"
+  },
+  "observed_process_facts_not_accepted_as_reference": {
+    "layers_loaded": 93,
+    "init_seconds": 230.8,
+    "init_rss_gb": 35.7,
+    "prompt_tokens": 3,
+    "prefill_seconds": 11.2,
+    "prefill_tokens_per_second": 0.27,
+    "generated_tokens_reported": 8,
+    "decode_seconds_reported": 27.9,
+    "decode_tokens_per_second_reported": 0.29,
+    "expert_cache_hit_percent_reported": 5.7,
+    "expert_cache_hits_reported": 819,
+    "expert_cache_accesses_reported": 14323,
+    "expert_streamed_gb_decimal_reported": 237.0,
+    "final_rss_gb_reported": 42.4,
+    "stdout_observed": " to the dress\n\nSay OK to the",
+    "terminal_marker": "[K3] context full"
+  },
+  "failures": [
+    "the resource monitor encountered PermissionError while reading /proc/<pid>/io during process exit and aborted before writing checksum-addressed raw artifacts or a summary",
+    "the implicit K3_MAXT=prompt+ngen boundary sampled token 8 and emitted [K3] context full before executing token 8's full forward pass, so the reported 8-token decode rate covers only seven post-prefill forwards",
+    "expert cache hit plus miss counters reflect prefill working-set deduplication and cannot be asserted as the raw top-k selection count"
+  ],
+  "interpretation": "the engine demonstrated full-model execution, but the evidence capture and decode denominator are not valid for the required external reference",
+  "next_action": "fix the process-exit monitor race, set K3_MAXT=8192 so all eight measured decode forwards execute, retain K3_TOPP=0, and repeat from a documented cold cache state"
+}
