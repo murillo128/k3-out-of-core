@@ -1,6 +1,6 @@
-# Phase 12–13 Colibrì comparison addendum
+# Phase 12–14 Colibrì comparison addendum
 
-This addendum is normative for the Colibrì-derived comparison work in Phases 12, 12.5, and 13. It does not change phase order, authorize Colibrì code import, reopen Phase 9, or expand the approved Phase 10 controlling issue.
+This addendum is normative for the Colibrì-derived comparison work in Phases 12, 13.5, and 14. Phase 13.5 is the roadmap name for the tracing work executed early under the historical name Phase 12.5 through #54/#55. This addendum does not authorize Colibrì code import, reopen Phase 9, or expand the approved Phase 10 controlling issue.
 
 The external prior-art record is [`../COLIBRI_K3_PRIOR_ART.md`](../COLIBRI_K3_PRIOR_ART.md).
 
@@ -105,7 +105,7 @@ When the test host exposes multiple independent NVMe controllers:
 - [ ] distinguish aggregate storage bandwidth from cache or prefetch effects;
 - [ ] verify clean degradation or failure behavior when one drive becomes unavailable.
 
-This is storage-topology work, not multi-GPU Phase 14 work.
+This is storage-topology work, not multi-GPU Phase 13 work.
 
 ### 12.C6 Full-size policy consistency
 
@@ -116,9 +116,11 @@ Colibrì uses a per-layer LRU while Phase 9 retained exact global LRU/ALWAYS as 
 - [ ] If full-size evidence materially reverses the Phase 9 decision, return to design authority with the trace, online measurements, physical-residency evidence, and proposed bounded policy change.
 - [ ] Do not silently switch defaults in Phase 12.
 
-## Phase 12.5 additions — trace identity
+## Phase 13.5 additions — trace identity
 
-The Phase 12.5 event and manifest schema must be able to attribute Colibrì-relevant storage effects without becoming format-specific.
+**Historical identity:** these requirements were implemented and accepted early as Phase 12.5 in #54/#55. Existing evidence retains that name; no rerun or artifact rename is implied.
+
+The Phase 13.5 event and manifest schema must be able to attribute Colibrì-relevant storage effects without becoming format-specific.
 
 - [ ] Include backing artifact, shard/file identity, requested span, aligned span, and physical file offset in storage events where available.
 - [ ] Include logical demand ordinal and actual submission ordinal so offset reordering can be reconstructed.
@@ -126,18 +128,18 @@ The Phase 12.5 event and manifest schema must be able to attribute Colibrì-rele
 - [ ] Correlate read completion with the exact logical expert bundle and canonical consumption order.
 - [ ] Distinguish ordinary parallel reads from `io_uring` submissions in the environment and event metadata.
 
-## Phase 13 additions — single-request chunked prefill
+## Phase 14 additions — single-request chunked prefill and multi-request batching
 
 Before attributing gains to multi-request batching, establish a single-request chunked-prefill baseline inspired by Colibrì.
 
-### 13.C1 Correctness
+### 14.C1 Correctness
 
 - [ ] Compare token-at-a-time prefill with bounded layer-major chunks, including chunk size 1 and at least one larger size such as 32 where memory permits.
 - [ ] Preserve sequential KDA/MLA/recurrent state updates and canonical expert accumulation.
 - [ ] Require exact generated-token identity and the approved logits/hidden-state equivalence for the tested runtime.
 - [ ] Treat any numerically different fused or reordered path as a separate decision rather than calling it batching.
 
-### 13.C2 Decomposition
+### 14.C2 Decomposition
 
 For each chunk size record:
 
@@ -151,7 +153,7 @@ For each chunk size record:
 
 Compare the resulting deduplication with Colibrì's externally reported K3 result, but do not adopt its approximately 2.7x figure as a universal gate.
 
-### 13.C3 Composition with multi-request batching
+### 14.C3 Composition with multi-request batching
 
 - [ ] Establish chunked single-request prefill first.
 - [ ] Add cross-request expert union/coalescing as a separate dimension.
@@ -162,4 +164,4 @@ Compare the resulting deduplication with Colibrì's externally reported K3 resul
 
 Phase 12 cannot close its storage decision without explaining the measured position of original safetensors, repacked safetensors, GGUF, WASTE, and Colibrì where the required artifacts and hardware are available. A missing comparison must be documented with the exact blocking dimension rather than silently omitted.
 
-Phase 13 cannot claim batching or prefill-deduplication gains without a token-at-a-time and single-request chunked baseline.
+Phase 14 cannot claim batching or prefill-deduplication gains without a token-at-a-time and single-request chunked baseline.
