@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the first issue #58 causal candidate as interleaved cold pairs."""
+"""Run one issue #58 causal storage candidate as interleaved cold pairs."""
 from __future__ import annotations
 
 import argparse
@@ -36,21 +36,29 @@ def paired_summary(values: list[float]) -> dict[str, object]:
     }
 
 
-def validate_case(case: dict[str, object], label: str) -> list[str]:
+def validate_case(
+    case: dict[str, object], label: str, *, api: str, qd: int, cache_state: str,
+) -> list[str]:
     failures: list[str] = []
     if case["status"] != "PASS" or int(case["short_reads"]) != 0:
         failures.append(f"{label}: correctness failure")
     if int(case["useful_bytes"]) != USEFUL_BYTES or int(case["iterations"]) != 1:
         failures.append(f"{label}: byte/iteration mismatch")
-    if case["effective_qd_status"] != "SUPPORTED" or int(case["maximum_active_operations"]) != 16:
+    if case["effective_qd_status"] != "SUPPORTED" or int(case["maximum_active_operations"]) != qd:
         failures.append(f"{label}: effective QD failure")
-    if int(case["checksum_worker_count"]) != 16 or int(case["buffer_bytes"]) != 32 * BUNDLE_BYTES:
-        failures.append(f"{label}: bounded-resource failure")
-    ring = case["io_uring"]
-    if int(ring["sq_entries"]) < 16 or int(ring["cq_entries"]) < 16:
-        failures.append(f"{label}: SQ/CQ depth failure")
+    if "io-uring" in api:
+        if int(case["checksum_worker_count"]) != qd or int(case["buffer_bytes"]) != 2 * qd * BUNDLE_BYTES:
+            failures.append(f"{label}: bounded-resource failure")
+        ring = case["io_uring"]
+        if int(ring["sq_entries"]) < qd or int(ring["cq_entries"]) < qd:
+            failures.append(f"{label}: SQ/CQ depth failure")
+    elif "pread" in api:
+        if int(case["worker_count"]) != qd or int(case["buffer_bytes"]) != qd * BUNDLE_BYTES:
+            failures.append(f"{label}: bounded-resource failure")
     cache = case["page_cache_pre_read"]
-    if not cache["sampled"] or int(cache["fadvise_failures"]) or float(cache["resident_fraction"]) > 0.01:
+    if cache_state == "OS_COLD_VERIFIED" and "direct" not in api and (
+        not cache["sampled"] or int(cache["fadvise_failures"]) or float(cache["resident_fraction"]) > 0.01
+    ):
         failures.append(f"{label}: cold residency failure")
     if int(case["swap_used_bytes"]) or case["lifetime_resources"] != {"fd_delta": 0, "thread_delta": 0}:
         failures.append(f"{label}: swap/lifetime failure")
@@ -66,16 +74,29 @@ def main() -> int:
     parser.add_argument("--baseline-analysis", type=Path, required=True)
     parser.add_argument("--raw-output", type=Path, required=True)
     parser.add_argument("--summary-output", type=Path, required=True)
+    parser.add_argument("--candidate-name", default="LOCALITY_WINDOW_8_FOR_BUFFERED_IO_URING_QD16")
+    parser.add_argument("--causal-change", default="submission order only: LOGICAL_SELECTED to LOCALITY_WINDOW_8")
+    parser.add_argument("--baseline-layout", choices=("A", "B"), default="A")
+    parser.add_argument("--candidate-layout", choices=("A", "B"), default="A")
+    parser.add_argument("--baseline-order", choices=("LOGICAL_SELECTED", "PHYSICAL_OFFSET", "LOCALITY_WINDOW_8"), default="LOGICAL_SELECTED")
+    parser.add_argument("--candidate-order", choices=("LOGICAL_SELECTED", "PHYSICAL_OFFSET", "LOCALITY_WINDOW_8"), default="LOCALITY_WINDOW_8")
+    parser.add_argument("--api", choices=("buffered-pread", "direct-pread", "buffered-io-uring", "direct-io-uring"), default="buffered-io-uring")
+    parser.add_argument("--qd", type=int, choices=(1, 2, 4, 8, 16, 32), default=16)
+    parser.add_argument("--cache-state", choices=("OS_COLD_VERIFIED", "OS_WARM"), default="OS_COLD_VERIFIED")
     args = parser.parse_args()
     binary = args.binary.resolve()
     corpus = args.corpus.resolve()
     raw = args.raw_output.resolve()
     raw.mkdir(parents=True, exist_ok=True)
     plans: dict[str, Path] = {}
-    for label, order in (("baseline", "LOGICAL_SELECTED"), ("candidate", "LOCALITY_WINDOW_8")):
+    configurations = {
+        "baseline": (args.baseline_layout, args.baseline_order),
+        "candidate": (args.candidate_layout, args.candidate_order),
+    }
+    for label, (layout, order) in configurations.items():
         path = raw / "plans" / f"{label}.tsv"
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_bytes(encode_plan(build_plan(corpus, "A", "COLD_SPREAD", 0, order)))
+        path.write_bytes(encode_plan(build_plan(corpus, layout, "COLD_SPREAD", 0, order)))
         plans[label] = path
 
     pairs: list[dict[str, object]] = []
@@ -85,18 +106,22 @@ def main() -> int:
         for sequence, label in enumerate(execution_order, 1):
             output = raw / f"pair-{pair_number}__sequence-{sequence}__{label}.json"
             result = run_case(
-                binary, plans[label], output, api="buffered-io-uring", qd=16,
-                cache_state="OS_COLD_VERIFIED",
+                binary, plans[label], output, api=args.api, qd=args.qd,
+                cache_state=args.cache_state,
             )
+            layout, order = configurations[label]
             result.update({
                 "candidate_label": label,
-                "layout": "A",
-                "order": "LOGICAL_SELECTED" if label == "baseline" else "LOCALITY_WINDOW_8",
+                "layout": layout,
+                "order": order,
                 "pair": pair_number,
                 "sequence": sequence,
             })
             output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
-            failures.extend(validate_case(result, f"pair-{pair_number}/{label}"))
+            failures.extend(validate_case(
+                result, f"pair-{pair_number}/{label}", api=args.api, qd=args.qd,
+                cache_state=args.cache_state,
+            ))
             results[label] = result
         baseline = results["baseline"]
         candidate = results["candidate"]
@@ -126,14 +151,16 @@ def main() -> int:
     document = {
         "schema_version": "phase12-nvme-candidate-screen-v1",
         "status": "PASS" if not failures else "FAIL",
-        "candidate": "LOCALITY_WINDOW_8_FOR_BUFFERED_IO_URING_QD16",
+        "candidate": args.candidate_name,
         "disposition": "promising" if promising else ("invalid" if failures else "rejected"),
-        "causal_change": "submission order only: LOGICAL_SELECTED to LOCALITY_WINDOW_8",
+        "causal_change": args.causal_change,
         "fixed_configuration": {
-            "layout": "A", "api": "buffered-io-uring", "requested_qd": 16,
-            "cache_state": "OS_COLD_VERIFIED", "request_class": "COLD_SPREAD", "route_token": 0,
+            "api": args.api, "requested_qd": args.qd, "cache_state": args.cache_state,
+            "request_class": "COLD_SPREAD", "route_token": 0,
             "iterations_per_process": 1,
         },
+        "baseline_configuration": {"layout": args.baseline_layout, "order": args.baseline_order},
+        "candidate_configuration": {"layout": args.candidate_layout, "order": args.candidate_order},
         "baseline_analysis": {
             "path": str(args.baseline_analysis),
             "sha256": sha256_file(args.baseline_analysis),

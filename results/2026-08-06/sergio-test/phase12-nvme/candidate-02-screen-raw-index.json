@@ -1,0 +1,59 @@
+{
+  "archive": {
+    "format": "deterministic POSIX tar; uid/gid/mtime normalized",
+    "path": "/mnt/nvme0/k3-phase12-nvme-evidence/candidate-02-screen-raw.tar",
+    "sha256": "199f390afb0b94fe302118cecd6961ed0f7e194054637d9300137055c202f726",
+    "size": 532480
+  },
+  "experiment": "candidate-02-packed-layout-b-buffered-io-uring-qd8-screen",
+  "file_count": 9,
+  "files": [
+    {
+      "archive_path": "raw/pair-1__sequence-1__baseline.json",
+      "sha256": "1a85b92c454c95c431056c24a8040d33683e5781bc469453d9f1a6071b2f0874",
+      "size": 2973
+    },
+    {
+      "archive_path": "raw/pair-1__sequence-2__candidate.json",
+      "sha256": "ac06cec8f25f26d0f1021366813c93678e02db9ab8198342b563db01b277e6a3",
+      "size": 2979
+    },
+    {
+      "archive_path": "raw/pair-2__sequence-1__candidate.json",
+      "sha256": "4e4664445f3c29ee93a71d9b98cde5d282aa9efa6b5f76fbe8f351e7c61b5ba8",
+      "size": 2978
+    },
+    {
+      "archive_path": "raw/pair-2__sequence-2__baseline.json",
+      "sha256": "afb19c840709a9d5b6f4322ae79b2c51e807b56169ddff6ec808b7a80c85bc9e",
+      "size": 2973
+    },
+    {
+      "archive_path": "raw/pair-3__sequence-1__baseline.json",
+      "sha256": "8880f552843c09ff4c2d4e613e59bb15d281258c5db9b5e71a56777dcc8c5802",
+      "size": 2973
+    },
+    {
+      "archive_path": "raw/pair-3__sequence-2__candidate.json",
+      "sha256": "c057c1fe3c38f392c24c6721e510c47f59cc0fb7b912481704e2b12eb080f562",
+      "size": 2976
+    },
+    {
+      "archive_path": "raw/plans/baseline.tsv",
+      "sha256": "375902af5391889e1cbb245d41e2545b7fc3770d4b4a60a59ea13d698d569522",
+      "size": 240680
+    },
+    {
+      "archive_path": "raw/plans/candidate.tsv",
+      "sha256": "340fe5928266eb7e081027ff1b201cffe14313a868fbbfcd86646ac35eaea7cb",
+      "size": 241183
+    },
+    {
+      "archive_path": "compact/candidate-02-screen.json",
+      "sha256": "0b06a40c005aa49476c086b267bb16220115a927c9b88a509ae1f8e0c7c6c6f1",
+      "size": 25286
+    }
+  ],
+  "schema_version": "phase12-nvme-experiment-raw-index-v1",
+  "status": "PASS"
+}
