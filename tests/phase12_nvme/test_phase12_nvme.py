@@ -14,6 +14,7 @@ sys.path.insert(0, str(ROOT / "scripts/phase9"))
 
 from analyze_cache_locality import Event, replay_capacity, reuse_statistics  # noqa: E402
 from analyze_colibri_endpoint_campaign import mean_ci_95  # noqa: E402
+from analyze_colibri_endpoint_trace import build_attribution  # noqa: E402
 from cache_policy_simulator import replay as phase9_replay  # noqa: E402
 from common import Scale  # noqa: E402
 from capture_real_routing import normalize_route  # noqa: E402
@@ -201,6 +202,15 @@ class Phase12NvmePlanTests(unittest.TestCase):
         self.assertGreater(interval["upper"], interval["mean"])
         with self.assertRaisesRegex(ValueError, "exactly three"):
             mean_ci_95([0.90, 0.91])
+
+    def test_colibri_endpoint_attribution_is_non_overlapping_and_closes_wall_time(self) -> None:
+        categories, attributed, residual = build_attribution(
+            {"nvme_wait": 60, "expert_compute": 20, "attention": 10}, 100,
+        )
+        self.assertEqual(attributed, 90)
+        self.assertEqual(residual, 10)
+        self.assertEqual(sum(item["duration_ns"] for item in categories.values()), 100)
+        self.assertEqual(categories["nvme_wait"]["fraction"], 0.6)
 
 
 if __name__ == "__main__":

@@ -278,6 +278,7 @@ def main() -> int:
     parser.add_argument("--timeout-seconds", type=int, default=MAX_RUNTIME_SECONDS)
     parser.add_argument("--drop-caches", action="store_true")
     parser.add_argument("--trace-marker-bridge", action="store_true")
+    parser.add_argument("--disable-perf-stat", action="store_true")
     args = parser.parse_args()
 
     if not 1 <= args.slots_per_layer <= 896:
@@ -347,23 +348,14 @@ def main() -> int:
         "K3_ENDPOINT_TRACE": str(endpoint_path),
     })
 
-    marker_read = marker_write = -1
-    marker_process: subprocess.Popen[Any] | None = None
-    marker_log_stream = None
+    marker_write = -1
     if args.trace_marker_bridge:
-        marker_read, marker_write = os.pipe()
-        marker_log_stream = marker_log.open("xb")
-        marker_process = subprocess.Popen(
-            ["sudo", "-n", "tee", "/sys/kernel/tracing/trace_marker"],
-            stdin=marker_read, stdout=subprocess.DEVNULL, stderr=marker_log_stream,
-            pass_fds=(marker_read,),
-        )
-        os.close(marker_read)
-        marker_read = -1
+        marker_write = os.open("/sys/kernel/tracing/trace_marker", os.O_WRONLY)
         env["K3_ENDPOINT_MARKER_FD"] = str(marker_write)
 
     command = [str(binary), str(model), args.prompt, "--ngen", str(args.ngen)]
     perf_command = ["perf", "stat", "-x,", "-o", str(perf_path), "-e", PERF_EVENTS, "--", *command]
+    execution_command = command if args.disable_perf_stat else perf_command
     before_block = {str(path): block_stat(path) for path in args.block_stat}
     before_usage = resource.getrusage(resource.RUSAGE_CHILDREN)
     started = time.monotonic()
@@ -375,7 +367,7 @@ def main() -> int:
 
     with stdout_path.open("xb") as stdout_file, stderr_path.open("xb") as stderr_file:
         process = subprocess.Popen(
-            perf_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env,
+            execution_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env,
             pass_fds=((marker_write,) if marker_write >= 0 else ()), start_new_session=True,
         )
         assert process.stdout is not None and process.stderr is not None
@@ -428,12 +420,6 @@ def main() -> int:
 
     if marker_write >= 0:
         os.close(marker_write); marker_write = -1
-    if marker_process is not None:
-        marker_returncode = marker_process.wait(timeout=30)
-        assert marker_log_stream is not None
-        marker_log_stream.flush(); os.fsync(marker_log_stream.fileno()); marker_log_stream.close()
-    else:
-        marker_returncode = None
 
     elapsed = time.monotonic() - started
     after_usage = resource.getrusage(resource.RUSAGE_CHILDREN)
@@ -446,8 +432,6 @@ def main() -> int:
     failures: list[str] = []
     if returncode != 0 or timed_out:
         failures.append("process failed or reached the accepted runtime ceiling")
-    if marker_returncode not in (None, 0):
-        failures.append("trace-marker bridge failed")
     stderr_text = stderr_path.read_text(errors="replace")
     init = re.search(r"\[K3\] init done in ([0-9.]+)s \| ([0-9]+) layers \| expert cache ([0-9]+)/layer .* \| RSS ([0-9.]+) GB", stderr_text)
     decode = re.search(r"\[K3\] decode ([0-9]+) tokens in ([0-9.]+)s \(([0-9.]+) tok/s\) \| expert hit ([0-9.]+)% \(([0-9]+)/([0-9]+)\) \| ([0-9.]+) GB streamed", stderr_text)
@@ -549,8 +533,11 @@ def main() -> int:
                      "usable_cache_bytes": usable_cache_bytes, "usable_cache_gib": usable_cache_bytes / (1 << 30),
                      "environment_budget_decimal_gb": budget_decimal_gb,
                      "projected_process_rss_bytes": projected_rss, "accepted_process_rss_ceiling_bytes": MAX_RSS_BYTES},
-        "command": perf_command, "environment": run_env, "cache_state": "OS_COLD_REQUESTED_AND_DROPPED" if args.drop_caches else "UNCHANGED",
-        "trace_marker_bridge": args.trace_marker_bridge, "runtime_ceiling_seconds": args.timeout_seconds,
+        "command": execution_command, "environment": run_env, "cache_state": "OS_COLD_REQUESTED_AND_DROPPED" if args.drop_caches else "UNCHANGED",
+        "trace_marker_bridge": args.trace_marker_bridge,
+        "trace_marker_transport": "direct_tracefs_fd" if args.trace_marker_bridge else "disabled",
+        "perf_stat_enabled": not args.disable_perf_stat,
+        "runtime_ceiling_seconds": args.timeout_seconds,
         "returncode": returncode, "timed_out": timed_out, "runtime": runtime,
         "routing": {**route, "normalized_route": artifacts.get("normalized-route.tsv")},
         "token_ids_sha256": token_digest,
