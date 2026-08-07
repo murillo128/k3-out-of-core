@@ -10,8 +10,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts/phase12p"))
 sys.path.insert(0, str(ROOT / "scripts/phase12_nvme"))
+sys.path.insert(0, str(ROOT / "scripts/phase9"))
 
+from analyze_cache_locality import Event, replay_capacity, reuse_statistics  # noqa: E402
+from cache_policy_simulator import replay as phase9_replay  # noqa: E402
 from common import Scale  # noqa: E402
+from capture_real_routing import normalize_route  # noqa: E402
 from corpus import generate  # noqa: E402
 from plan import build_plan, encode_plan  # noqa: E402
 
@@ -64,6 +68,91 @@ class Phase12NvmePlanTests(unittest.TestCase):
                 stream.write(bytes((byte[0] ^ 1,)))
             with self.assertRaisesRegex(ValueError, "Layout B index checksum mismatch"):
                 build_plan(corpus, "B", "COLD_SPREAD", 0, "LOGICAL_SELECTED")
+
+    def test_colibri_route_normalization_recovers_complete_decode_forwards(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="phase12-nvme-route-") as temporary:
+            raw = Path(temporary) / "route.txt"
+            normalized = Path(temporary) / "normalized.tsv"
+            lines = []
+            # One two-row prefill cycle followed by two one-row decode cycles.
+            for rows in (2, 1, 1):
+                for layer in range(1, 93):
+                    for row in range(rows):
+                        experts = [f"{(layer * 17 + row * 29 + rank) % 896}:0.0625" for rank in range(16)]
+                        # The pinned Kimi engine currently leaves the legacy call field at zero;
+                        # cycle recovery intentionally relies on verified layer resets instead.
+                        lines.append(" ".join(["0", str(row), str(layer), *experts]))
+            raw.write_text("\n".join(lines) + "\n")
+            result = normalize_route(raw, normalized, request_id=7, prompt_tokens=2, chunk=32)
+            self.assertEqual(result["prefill_cycles"], 1)
+            self.assertEqual(result["complete_decode_forwards"], 2)
+            self.assertEqual(result["normalized_demands"], 4 * 92 * 16)
+            records = normalized.read_text().splitlines()
+            self.assertEqual(records[1].split("\t")[:4], ["7", "PREFILL", "0", "1"])
+            self.assertEqual(records[17].split("\t")[:4], ["7", "PREFILL", "0", "2"])
+            self.assertEqual(records[1 + 92 * 16].split("\t")[:4], ["7", "PREFILL", "1", "1"])
+
+    def test_global_lru_replay_matches_phase9_canonical_semantics(self) -> None:
+        expert_sequence = [1, 2, 1, 3, 2]
+        events = [Event(0, "DECODE", token, 0, 0, expert) for token, expert in enumerate(expert_sequence)]
+        result = replay_capacity(
+            events, slots=2, cold_decode_tokens=1, expected_requests_per_decode_token=1,
+        )
+        self.assertEqual(result["windows"]["decode"]["hits"], 1)
+        self.assertEqual(result["windows"]["decode"]["misses"], 4)
+        self.assertEqual(result["admissions"], 4)
+        self.assertEqual(result["evictions"], 2)
+
+        config = {
+            "schema_version": "cache-policy-config-v1",
+            "policy": "LRU",
+            "scope": "GLOBAL",
+            "slru_protected_ratio_bps": 0,
+            "admission": "ALWAYS",
+            "admission_window_events": 0,
+            "lfu_aging_interval_events": 0,
+        }
+        phase9_input = {
+            "schema_version": "cache-policy-replay-input-v1",
+            "topology": {
+                "routed_layers": [0],
+                "experts_per_layer": 4,
+                "physical_slot_footprint_bytes": 128,
+            },
+            "hot": {"slots": 1, "config": config},
+            "cold": {"slots": 2, "config": config},
+            "requests": [{
+                "request_ordinal": 1,
+                "checkpoints": [
+                    {
+                        "checkpoint_ordinal": index + 1,
+                        "ubatch_ordinal": 0,
+                        "phase": "DECODE",
+                        "demands": [{
+                            "layer": 0,
+                            "expert": expert,
+                            "occurrence_count": 1,
+                            "logical_payload_bytes": 128,
+                            "hot_admission": "MANDATORY_CURRENT_OUTPUT",
+                        }],
+                    }
+                    for index, expert in enumerate(expert_sequence)
+                ],
+                "outcome": "SUCCESS",
+            }],
+        }
+        canonical = phase9_replay(phase9_input, capture_events=False)
+        self.assertEqual(canonical["summary"]["backing_store_hits"], result["windows"]["decode"]["misses"])
+
+    def test_reuse_distance_predicts_lru_capacity_hits(self) -> None:
+        events = [
+            Event(0, "DECODE", token, 0, 0, expert)
+            for token, expert in enumerate([1, 2, 1, 3, 2])
+        ]
+        reuse = reuse_statistics(events, {0: 0, 1: 1, 2: 2})
+        self.assertEqual(reuse["decode"]["first_references"], 3)
+        self.assertEqual(reuse["decode"]["reuses"], 2)
+        self.assertEqual(reuse["decode"]["theoretical_lru_hits_by_capacity_gib"], {"0": 0, "1": 0, "2": 1})
 
 
 if __name__ == "__main__":

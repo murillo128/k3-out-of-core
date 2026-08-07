@@ -1,0 +1,54 @@
+{
+  "archive": {
+    "format": "deterministic POSIX tar; uid/gid/mtime normalized",
+    "path": "/mnt/nvme0/k3-phase12-nvme-evidence/archives/cache-locality.tar",
+    "sha256": "4e40513a2a0138b5f0f8a3ff9df473bc463645a71a9bb1d035eda3a8bbfd3c08",
+    "size": 14817280
+  },
+  "experiment": "real-route-cache-locality",
+  "file_count": 8,
+  "files": [
+    {
+      "archive_path": "raw/request-00/normalized-route.tsv",
+      "sha256": "a995951e6f8086a985792f9443280670582a292d580bbd2309a2c570f9f82410",
+      "size": 9149241
+    },
+    {
+      "archive_path": "raw/request-00/resource-samples.json",
+      "sha256": "57b7195ea9a69f3505d4b1dba05955c0da77a44b923b90f66b99b6b5912fd9b6",
+      "size": 426279
+    },
+    {
+      "archive_path": "raw/request-00/route-trace.txt",
+      "sha256": "8b9767b30b9134f1a98f76f8abc102bfbfc9e5bfd6b88fc09ba6aea0a2d29791",
+      "size": 4761690
+    },
+    {
+      "archive_path": "raw/request-00/stderr-events.json",
+      "sha256": "2f302d958c61065d1f973371dc6d08dcaec37646c2777e8ac2efc2f57a15c15d",
+      "size": 31009
+    },
+    {
+      "archive_path": "raw/request-00/stderr.log",
+      "sha256": "7fdfa0500fdd66d765e766da198a24a87d94f48ddb7fc91065accd64c35baa89",
+      "size": 12855
+    },
+    {
+      "archive_path": "raw/request-00/stdout.bin",
+      "sha256": "fc917a03def5738751ea1a384661b037ecc21f62df64507abeb64b0cad25a44a",
+      "size": 635
+    },
+    {
+      "archive_path": "compact/real-routing-capture.json",
+      "sha256": "ecb119974d6eae7a02d9318cb038196bd86257550a81fd5791d3f3af573b4bb3",
+      "size": 6501
+    },
+    {
+      "archive_path": "compact/cache-locality.json",
+      "sha256": "879527a882cca5fb4233a1f09e595599223538684bcd5f0bd314b693de86d0d9",
+      "size": 415683
+    }
+  ],
+  "schema_version": "phase12-nvme-experiment-raw-index-v1",
+  "status": "PASS"
+}
