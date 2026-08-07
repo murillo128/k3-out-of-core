@@ -1,0 +1,1110 @@
+{
+  "cases": [
+    {
+      "bw_bytes": 2361452972,
+      "command": [
+        "fio",
+        "--name=phase12_nvme_device_ceiling",
+        "--filename=/mnt/nvme0/k3-phase12-nvme-generation-2/layout-b/contiguous-experts.bin",
+        "--readonly",
+        "--offset=4096",
+        "--size=25829572608",
+        "--rw=read",
+        "--bs=1m",
+        "--ioengine=io_uring",
+        "--direct=1",
+        "--iodepth=1",
+        "--numjobs=1",
+        "--group_reporting=1",
+        "--randrepeat=1",
+        "--randseed=2608",
+        "--random_generator=tausworthe64",
+        "--output-format=json",
+        "--output=/mnt/nvme0/k3-phase12-nvme-evidence/fio-characterization/large-sequential__qd-1.json"
+      ],
+      "completion_latency_ns": {
+        "N": 24633,
+        "max": 49826086,
+        "mean": 353275.24455,
+        "min": 153975,
+        "percentile": {
+          "1.000000": 234496,
+          "10.000000": 272384,
+          "20.000000": 296960,
+          "30.000000": 313344,
+          "40.000000": 325632,
+          "5.000000": 254976,
+          "50.000000": 337920,
+          "60.000000": 354304,
+          "70.000000": 374784,
+          "80.000000": 399360,
+          "90.000000": 436224,
+          "95.000000": 473088,
+          "99.000000": 528384,
+          "99.500000": 552960,
+          "99.900000": 643072,
+          "99.950000": 733184,
+          "99.990000": 1433600
+        },
+        "stddev": 436911.202865
+      },
+      "cpu": {
+        "context_switches": 24887,
+        "system_percent": 20.371217,
+        "user_percent": 0.146292
+      },
+      "disk_util": [
+        {
+          "in_queue": 37966,
+          "name": "nvme0n1",
+          "read_ios": 220740,
+          "read_merges": 0,
+          "read_ticks": 37965,
+          "util": 80.025468,
+          "write_ios": 0,
+          "write_merges": 0,
+          "write_ticks": 0
+        }
+      ],
+      "io_bytes": 25829572608,
+      "iops": 2252.057049,
+      "latency_ns": {
+        "N": 24633,
+        "max": 49867810,
+        "mean": 395725.680348,
+        "min": 195429,
+        "stddev": 436915.529779
+      },
+      "raw": {
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/fio-characterization/large-sequential__qd-1.json",
+        "sha256": "078fa6492981a391560afb016c4418b6c0c1a0ecf6551df132e3993ac8d834b8",
+        "size": 6858
+      },
+      "requested_qd": 1,
+      "runtime_ms": 10938,
+      "submission_latency_ns": {
+        "N": 24633,
+        "max": 550943,
+        "mean": 42450.435798,
+        "min": 40492,
+        "stddev": 4197.664491
+      },
+      "workload": "large-sequential"
+    },
+    {
+      "bw_bytes": 3628258548,
+      "command": [
+        "fio",
+        "--name=phase12_nvme_device_ceiling",
+        "--filename=/mnt/nvme0/k3-phase12-nvme-generation-2/layout-b/contiguous-experts.bin",
+        "--readonly",
+        "--offset=4096",
+        "--size=25829572608",
+        "--rw=read",
+        "--bs=1m",
+        "--ioengine=io_uring",
+        "--direct=1",
+        "--iodepth=2",
+        "--numjobs=1",
+        "--group_reporting=1",
+        "--randrepeat=1",
+        "--randseed=2608",
+        "--random_generator=tausworthe64",
+        "--output-format=json",
+        "--output=/mnt/nvme0/k3-phase12-nvme-evidence/fio-characterization/large-sequential__qd-2.json"
+      ],
+      "completion_latency_ns": {
+        "N": 24633,
+        "max": 1125452,
+        "mean": 533725.924654,
+        "min": 254409,
+        "percentile": {
+          "1.000000": 317440,
+          "10.000000": 477184,
+          "20.000000": 497664,
+          "30.000000": 505856,
+          "40.000000": 514048,
+          "5.000000": 403456,
+          "50.000000": 522240,
+          "60.000000": 544768,
+          "70.000000": 561152,
+          "80.000000": 585728,
+          "90.000000": 610304,
+          "95.000000": 643072,
+          "99.000000": 708608,
+          "99.500000": 741376,
+          "99.900000": 831488,
+          "99.950000": 864256,
+          "99.990000": 946176
+        },
+        "stddev": 69341.965348
+      },
+      "cpu": {
+        "context_switches": 23418,
+        "system_percent": 14.793481,
+        "user_percent": 0.435516
+      },
+      "disk_util": [
+        {
+          "in_queue": 86205,
+          "name": "nvme0n1",
+          "read_ios": 214892,
+          "read_merges": 0,
+          "read_ticks": 86206,
+          "util": 98.256146,
+          "write_ios": 1,
+          "write_merges": 0,
+          "write_ticks": 0
+        }
+      ],
+      "io_bytes": 25829572608,
+      "iops": 3460.176991,
+      "latency_ns": {
+        "N": 24633,
+        "max": 1169308,
+        "mean": 577619.218244,
+        "min": 300730,
+        "stddev": 69258.86367
+      },
+      "raw": {
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/fio-characterization/large-sequential__qd-2.json",
+        "sha256": "9aad6d52e45376fc18c825fd36259738683126d7991edf69a2b7e7e5ef4c8f29",
+        "size": 6848
+      },
+      "requested_qd": 2,
+      "runtime_ms": 7119,
+      "submission_latency_ns": {
+        "N": 24633,
+        "max": 555610,
+        "mean": 43893.29359,
+        "min": 39921,
+        "stddev": 5910.046691
+      },
+      "workload": "large-sequential"
+    },
+    {
+      "bw_bytes": 5869023541,
+      "command": [
+        "fio",
+        "--name=phase12_nvme_device_ceiling",
+        "--filename=/mnt/nvme0/k3-phase12-nvme-generation-2/layout-b/contiguous-experts.bin",
+        "--readonly",
+        "--offset=4096",
+        "--size=25829572608",
+        "--rw=read",
+        "--bs=1m",
+        "--ioengine=io_uring",
+        "--direct=1",
+        "--iodepth=4",
+        "--numjobs=1",
+        "--group_reporting=1",
+        "--randrepeat=1",
+        "--randseed=2608",
+        "--random_generator=tausworthe64",
+        "--output-format=json",
+        "--output=/mnt/nvme0/k3-phase12-nvme-evidence/fio-characterization/large-sequential__qd-4.json"
+      ],
+      "completion_latency_ns": {
+        "N": 24633,
+        "max": 1839945,
+        "mean": 684717.10693,
+        "min": 292969,
+        "percentile": {
+          "1.000000": 419840,
+          "10.000000": 561152,
+          "20.000000": 602112,
+          "30.000000": 634880,
+          "40.000000": 651264,
+          "5.000000": 522240,
+          "50.000000": 675840,
+          "60.000000": 700416,
+          "70.000000": 724992,
+          "80.000000": 765952,
+          "90.000000": 823296,
+          "95.000000": 872448,
+          "99.000000": 995328,
+          "99.500000": 1056768,
+          "99.900000": 1171456,
+          "99.950000": 1236992,
+          "99.990000": 1417216
+        },
+        "stddev": 109157.843055
+      },
+      "cpu": {
+        "context_switches": 20737,
+        "system_percent": 15.568182,
+        "user_percent": 0.659091
+      },
+      "disk_util": [
+        {
+          "in_queue": 114770,
+          "name": "nvme0n1",
+          "read_ios": 221510,
+          "read_merges": 0,
+          "read_ticks": 114770,
+          "util": 97.798532,
+          "write_ios": 6,
+          "write_merges": 4,
+          "write_ticks": 0
+        }
+      ],
+      "io_bytes": 25829572608,
+      "iops": 5597.137014,
+      "latency_ns": {
+        "N": 24633,
+        "max": 1867105,
+        "mean": 714286.477408,
+        "min": 314801,
+        "stddev": 109109.894321
+      },
+      "raw": {
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/fio-characterization/large-sequential__qd-4.json",
+        "sha256": "24a8420a354124747be0334ce297cac173e8f1f06470297df2a0218f16f9603b",
+        "size": 6854
+      },
+      "requested_qd": 4,
+      "runtime_ms": 4401,
+      "submission_latency_ns": {
+        "N": 24633,
+        "max": 559285,
+        "mean": 29569.370479,
+        "min": 9985,
+        "stddev": 13387.082265
+      },
+      "workload": "large-sequential"
+    },
+    {
+      "bw_bytes": 7275935945,
+      "command": [
+        "fio",
+        "--name=phase12_nvme_device_ceiling",
+        "--filename=/mnt/nvme0/k3-phase12-nvme-generation-2/layout-b/contiguous-experts.bin",
+        "--readonly",
+        "--offset=4096",
+        "--size=25829572608",
+        "--rw=read",
+        "--bs=1m",
+        "--ioengine=io_uring",
+        "--direct=1",
+        "--iodepth=8",
+        "--numjobs=1",
+        "--group_reporting=1",
+        "--randrepeat=1",
+        "--randseed=2608",
+        "--random_generator=tausworthe64",
+        "--output-format=json",
+        "--output=/mnt/nvme0/k3-phase12-nvme-evidence/fio-characterization/large-sequential__qd-8.json"
+      ],
+      "completion_latency_ns": {
+        "N": 24633,
+        "max": 2515188,
+        "mean": 1130281.775667,
+        "min": 355594,
+        "percentile": {
+          "1.000000": 684032,
+          "10.000000": 872448,
+          "20.000000": 954368,
+          "30.000000": 1011712,
+          "40.000000": 1073152,
+          "5.000000": 806912,
+          "50.000000": 1122304,
+          "60.000000": 1171456,
+          "70.000000": 1220608,
+          "80.000000": 1286144,
+          "90.000000": 1400832,
+          "95.000000": 1499136,
+          "99.000000": 1728512,
+          "99.500000": 1810432,
+          "99.900000": 1990656,
+          "99.950000": 2056192,
+          "99.990000": 2342912
+        },
+        "stddev": 213609.582649
+      },
+      "cpu": {
+        "context_switches": 19031,
+        "system_percent": 14.313891,
+        "user_percent": 0.507185
+      },
+      "disk_util": [
+        {
+          "in_queue": 176477,
+          "name": "nvme0n1",
+          "read_ios": 212320,
+          "read_merges": 0,
+          "read_ticks": 176476,
+          "util": 97.169002,
+          "write_ios": 1,
+          "write_merges": 1,
+          "write_ticks": 0
+        }
+      ],
+      "io_bytes": 25829572608,
+      "iops": 6938.873239,
+      "latency_ns": {
+        "N": 24633,
+        "max": 2526064,
+        "mean": 1152327.22137,
+        "min": 371979,
+        "stddev": 213276.075905
+      },
+      "raw": {
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/fio-characterization/large-sequential__qd-8.json",
+        "sha256": "f194af2a7049e941dbe435f2e4fa29d2e0f9a3c69b583619805bb44eec3d0914",
+        "size": 6865
+      },
+      "requested_qd": 8,
+      "runtime_ms": 3550,
+      "submission_latency_ns": {
+        "N": 24633,
+        "max": 489829,
+        "mean": 22045.445703,
+        "min": 10185,
+        "stddev": 13380.043907
+      },
+      "workload": "large-sequential"
+    },
+    {
+      "bw_bytes": 7350475984,
+      "command": [
+        "fio",
+        "--name=phase12_nvme_device_ceiling",
+        "--filename=/mnt/nvme0/k3-phase12-nvme-generation-2/layout-b/contiguous-experts.bin",
+        "--readonly",
+        "--offset=4096",
+        "--size=25829572608",
+        "--rw=read",
+        "--bs=1m",
+        "--ioengine=io_uring",
+        "--direct=1",
+        "--iodepth=16",
+        "--numjobs=1",
+        "--group_reporting=1",
+        "--randrepeat=1",
+        "--randseed=2608",
+        "--random_generator=tausworthe64",
+        "--output-format=json",
+        "--output=/mnt/nvme0/k3-phase12-nvme-evidence/fio-characterization/large-sequential__qd-16.json"
+      ],
+      "completion_latency_ns": {
+        "N": 24633,
+        "max": 4368122,
+        "mean": 2263707.503552,
+        "min": 1058770,
+        "percentile": {
+          "1.000000": 1581056,
+          "10.000000": 1892352,
+          "20.000000": 2023424,
+          "30.000000": 2113536,
+          "40.000000": 2179072,
+          "5.000000": 1777664,
+          "50.000000": 2244608,
+          "60.000000": 2310144,
+          "70.000000": 2408448,
+          "80.000000": 2506752,
+          "90.000000": 2637824,
+          "95.000000": 2768896,
+          "99.000000": 3063808,
+          "99.500000": 3194880,
+          "99.900000": 3489792,
+          "99.950000": 3588096,
+          "99.990000": 3981312
+        },
+        "stddev": 299169.425247
+      },
+      "cpu": {
+        "context_switches": 21099,
+        "system_percent": 11.642471,
+        "user_percent": 0.711642
+      },
+      "disk_util": [
+        {
+          "in_queue": 334558,
+          "name": "nvme0n1",
+          "read_ios": 214217,
+          "read_merges": 0,
+          "read_ticks": 334558,
+          "util": 97.140406,
+          "write_ios": 0,
+          "write_merges": 0,
+          "write_ticks": 0
+        }
+      ],
+      "io_bytes": 25829572608,
+      "iops": 7009.960159,
+      "latency_ns": {
+        "N": 24633,
+        "max": 4381342,
+        "mean": 2281367.462469,
+        "min": 1072300,
+        "stddev": 298818.845446
+      },
+      "raw": {
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/fio-characterization/large-sequential__qd-16.json",
+        "sha256": "8f1c992b40891a3e75363e973745be60ab2a50743beb827b8c97e1f94a24029b",
+        "size": 6875
+      },
+      "requested_qd": 16,
+      "runtime_ms": 3514,
+      "submission_latency_ns": {
+        "N": 24633,
+        "max": 514517,
+        "mean": 17659.958917,
+        "min": 10245,
+        "stddev": 11065.289463
+      },
+      "workload": "large-sequential"
+    },
+    {
+      "bw_bytes": 7282089824,
+      "command": [
+        "fio",
+        "--name=phase12_nvme_device_ceiling",
+        "--filename=/mnt/nvme0/k3-phase12-nvme-generation-2/layout-b/contiguous-experts.bin",
+        "--readonly",
+        "--offset=4096",
+        "--size=25829572608",
+        "--rw=read",
+        "--bs=1m",
+        "--ioengine=io_uring",
+        "--direct=1",
+        "--iodepth=32",
+        "--numjobs=1",
+        "--group_reporting=1",
+        "--randrepeat=1",
+        "--randseed=2608",
+        "--random_generator=tausworthe64",
+        "--output-format=json",
+        "--output=/mnt/nvme0/k3-phase12-nvme-evidence/fio-characterization/large-sequential__qd-32.json"
+      ],
+      "completion_latency_ns": {
+        "N": 24633,
+        "max": 9119570,
+        "mean": 4589644.059473,
+        "min": 2009854,
+        "percentile": {
+          "1.000000": 3653632,
+          "10.000000": 4079616,
+          "20.000000": 4292608,
+          "30.000000": 4358144,
+          "40.000000": 4489216,
+          "5.000000": 3948544,
+          "50.000000": 4554752,
+          "60.000000": 4685824,
+          "70.000000": 4816896,
+          "80.000000": 4947968,
+          "90.000000": 5079040,
+          "95.000000": 5275648,
+          "99.000000": 5537792,
+          "99.500000": 5734400,
+          "99.900000": 6193152,
+          "99.950000": 6848512,
+          "99.990000": 8716288
+        },
+        "stddev": 412332.443942
+      },
+      "cpu": {
+        "context_switches": 21151,
+        "system_percent": 10.152284,
+        "user_percent": 0.761421
+      },
+      "disk_util": [
+        {
+          "in_queue": 633998,
+          "name": "nvme0n1",
+          "read_ios": 212517,
+          "read_merges": 0,
+          "read_ticks": 633998,
+          "util": 97.169002,
+          "write_ios": 1,
+          "write_merges": 1,
+          "write_ticks": 0
+        }
+      ],
+      "io_bytes": 25829572608,
+      "iops": 6944.742036,
+      "latency_ns": {
+        "N": 24633,
+        "max": 9136425,
+        "mean": 4605274.044006,
+        "min": 2065099,
+        "stddev": 411747.255062
+      },
+      "raw": {
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/fio-characterization/large-sequential__qd-32.json",
+        "sha256": "2e2191d45f84938096f7d8fd5ae063d452aa862b3538e867be035735cebc80fe",
+        "size": 6873
+      },
+      "requested_qd": 32,
+      "runtime_ms": 3547,
+      "submission_latency_ns": {
+        "N": 24633,
+        "max": 534627,
+        "mean": 15629.984533,
+        "min": 10476,
+        "stddev": 9109.585189
+      },
+      "workload": "large-sequential"
+    },
+    {
+      "bw_bytes": 6502913546,
+      "command": [
+        "fio",
+        "--name=phase12_nvme_device_ceiling",
+        "--filename=/mnt/nvme0/k3-phase12-nvme-generation-2/layout-b/contiguous-experts.bin",
+        "--readonly",
+        "--offset=4096",
+        "--size=25829572608",
+        "--rw=randread",
+        "--bs=17547264",
+        "--ioengine=io_uring",
+        "--direct=1",
+        "--iodepth=1",
+        "--numjobs=1",
+        "--group_reporting=1",
+        "--randrepeat=1",
+        "--randseed=2608",
+        "--random_generator=tausworthe64",
+        "--output-format=json",
+        "--output=/mnt/nvme0/k3-phase12-nvme-evidence/fio-characterization/expert-offset-distributed__qd-1.json"
+      ],
+      "completion_latency_ns": {
+        "N": 1472,
+        "max": 4870611,
+        "mean": 2520462.192935,
+        "min": 2343184,
+        "percentile": {
+          "1.000000": 2375680,
+          "10.000000": 2408448,
+          "20.000000": 2441216,
+          "30.000000": 2473984,
+          "40.000000": 2473984,
+          "5.000000": 2408448,
+          "50.000000": 2506752,
+          "60.000000": 2539520,
+          "70.000000": 2539520,
+          "80.000000": 2572288,
+          "90.000000": 2637824,
+          "95.000000": 2670592,
+          "99.000000": 2768896,
+          "99.500000": 2834432,
+          "99.900000": 2998272,
+          "99.950000": 4882432,
+          "99.990000": 4882432
+        },
+        "stddev": 103848.323733
+      },
+      "cpu": {
+        "context_switches": 1472,
+        "system_percent": 6.522287,
+        "user_percent": 0.151095
+      },
+      "disk_util": [
+        {
+          "in_queue": 323719,
+          "name": "nvme0n1",
+          "read_ios": 194679,
+          "read_merges": 0,
+          "read_ticks": 323718,
+          "util": 95.971979,
+          "write_ios": 0,
+          "write_merges": 0,
+          "write_ticks": 0
+        }
+      ],
+      "io_bytes": 25829572608,
+      "iops": 370.594159,
+      "latency_ns": {
+        "N": 1472,
+        "max": 5057938,
+        "mean": 2697398.411685,
+        "min": 2533434,
+        "stddev": 111248.755335
+      },
+      "raw": {
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/fio-characterization/expert-offset-distributed__qd-1.json",
+        "sha256": "fa7bbd148edebb783b769c0e013adadd8ac07eee29df97235ae1ef02a8bda4b5",
+        "size": 6873
+      },
+      "requested_qd": 1,
+      "runtime_ms": 3972,
+      "submission_latency_ns": {
+        "N": 1472,
+        "max": 1715154,
+        "mean": 176936.21875,
+        "min": 167256,
+        "stddev": 40542.047178
+      },
+      "workload": "expert-offset-distributed"
+    },
+    {
+      "bw_bytes": 7275935945,
+      "command": [
+        "fio",
+        "--name=phase12_nvme_device_ceiling",
+        "--filename=/mnt/nvme0/k3-phase12-nvme-generation-2/layout-b/contiguous-experts.bin",
+        "--readonly",
+        "--offset=4096",
+        "--size=25829572608",
+        "--rw=randread",
+        "--bs=17547264",
+        "--ioengine=io_uring",
+        "--direct=1",
+        "--iodepth=2",
+        "--numjobs=1",
+        "--group_reporting=1",
+        "--randrepeat=1",
+        "--randseed=2608",
+        "--random_generator=tausworthe64",
+        "--output-format=json",
+        "--output=/mnt/nvme0/k3-phase12-nvme-evidence/fio-characterization/expert-offset-distributed__qd-2.json"
+      ],
+      "completion_latency_ns": {
+        "N": 1472,
+        "max": 6418608,
+        "mean": 4588291.128397,
+        "min": 2982682,
+        "percentile": {
+          "1.000000": 3653632,
+          "10.000000": 4014080,
+          "20.000000": 4227072,
+          "30.000000": 4358144,
+          "40.000000": 4489216,
+          "5.000000": 3883008,
+          "50.000000": 4554752,
+          "60.000000": 4685824,
+          "70.000000": 4816896,
+          "80.000000": 4947968,
+          "90.000000": 5144576,
+          "95.000000": 5341184,
+          "99.000000": 5799936,
+          "99.500000": 5996544,
+          "99.900000": 6258688,
+          "99.950000": 6389760,
+          "99.990000": 6389760
+        },
+        "stddev": 442994.49477
+      },
+      "cpu": {
+        "context_switches": 1473,
+        "system_percent": 9.016624,
+        "user_percent": 0.112708
+      },
+      "disk_util": [
+        {
+          "in_queue": 527940,
+          "name": "nvme0n1",
+          "read_ios": 190530,
+          "read_merges": 0,
+          "read_ticks": 527940,
+          "util": 97.11181,
+          "write_ios": 1,
+          "write_merges": 1,
+          "write_ticks": 1
+        }
+      ],
+      "io_bytes": 25829572608,
+      "iops": 414.647887,
+      "latency_ns": {
+        "N": 1472,
+        "max": 6604742,
+        "mean": 4819359.663723,
+        "min": 3237293,
+        "stddev": 437731.891932
+      },
+      "raw": {
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/fio-characterization/expert-offset-distributed__qd-2.json",
+        "sha256": "0fe7426ceb637976a5ca437f8640f4f889654aa2e1326a19f0a255e3e98d2a33",
+        "size": 6874
+      },
+      "requested_qd": 2,
+      "runtime_ms": 3550,
+      "submission_latency_ns": {
+        "N": 1472,
+        "max": 1856640,
+        "mean": 231068.535326,
+        "min": 162899,
+        "stddev": 70995.150202
+      },
+      "workload": "expert-offset-distributed"
+    },
+    {
+      "bw_bytes": 7090192865,
+      "command": [
+        "fio",
+        "--name=phase12_nvme_device_ceiling",
+        "--filename=/mnt/nvme0/k3-phase12-nvme-generation-2/layout-b/contiguous-experts.bin",
+        "--readonly",
+        "--offset=4096",
+        "--size=25829572608",
+        "--rw=randread",
+        "--bs=17547264",
+        "--ioengine=io_uring",
+        "--direct=1",
+        "--iodepth=4",
+        "--numjobs=1",
+        "--group_reporting=1",
+        "--randrepeat=1",
+        "--randseed=2608",
+        "--random_generator=tausworthe64",
+        "--output-format=json",
+        "--output=/mnt/nvme0/k3-phase12-nvme-evidence/fio-characterization/expert-offset-distributed__qd-4.json"
+      ],
+      "completion_latency_ns": {
+        "N": 1472,
+        "max": 14426577,
+        "mean": 9704474.961957,
+        "min": 3839352,
+        "percentile": {
+          "1.000000": 8224768,
+          "10.000000": 8847360,
+          "20.000000": 9240576,
+          "30.000000": 9371648,
+          "40.000000": 9633792,
+          "5.000000": 8716288,
+          "50.000000": 9633792,
+          "60.000000": 9895936,
+          "70.000000": 10027008,
+          "80.000000": 10289152,
+          "90.000000": 10551296,
+          "95.000000": 10813440,
+          "99.000000": 11206656,
+          "99.500000": 11468800,
+          "99.900000": 11862016,
+          "99.950000": 14483456,
+          "99.990000": 14483456
+        },
+        "stddev": 690540.877455
+      },
+      "cpu": {
+        "context_switches": 1469,
+        "system_percent": 6.891818,
+        "user_percent": 0.164745
+      },
+      "disk_util": [
+        {
+          "in_queue": 1010798,
+          "name": "nvme0n1",
+          "read_ios": 185462,
+          "read_merges": 0,
+          "read_ticks": 1010798,
+          "util": 97.140406,
+          "write_ios": 0,
+          "write_merges": 0,
+          "write_ticks": 0
+        }
+      ],
+      "io_bytes": 25829572608,
+      "iops": 404.062586,
+      "latency_ns": {
+        "N": 1472,
+        "max": 14583468,
+        "mean": 9886294.795516,
+        "min": 5266776,
+        "stddev": 667477.826149
+      },
+      "raw": {
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/fio-characterization/expert-offset-distributed__qd-4.json",
+        "sha256": "65946c6c05f88b3b16dd693f467acf7a7000e8731d3ba1cb954da05bb4902e28",
+        "size": 6887
+      },
+      "requested_qd": 4,
+      "runtime_ms": 3643,
+      "submission_latency_ns": {
+        "N": 1472,
+        "max": 1684446,
+        "mean": 181819.83356,
+        "min": 147195,
+        "stddev": 73443.216843
+      },
+      "workload": "expert-offset-distributed"
+    },
+    {
+      "bw_bytes": 7145109988,
+      "command": [
+        "fio",
+        "--name=phase12_nvme_device_ceiling",
+        "--filename=/mnt/nvme0/k3-phase12-nvme-generation-2/layout-b/contiguous-experts.bin",
+        "--readonly",
+        "--offset=4096",
+        "--size=25829572608",
+        "--rw=randread",
+        "--bs=17547264",
+        "--ioengine=io_uring",
+        "--direct=1",
+        "--iodepth=8",
+        "--numjobs=1",
+        "--group_reporting=1",
+        "--randrepeat=1",
+        "--randseed=2608",
+        "--random_generator=tausworthe64",
+        "--output-format=json",
+        "--output=/mnt/nvme0/k3-phase12-nvme-evidence/fio-characterization/expert-offset-distributed__qd-8.json"
+      ],
+      "completion_latency_ns": {
+        "N": 1472,
+        "max": 34183007,
+        "mean": 19364569.435462,
+        "min": 6360780,
+        "percentile": {
+          "1.000000": 15138816,
+          "10.000000": 18219008,
+          "20.000000": 18743296,
+          "30.000000": 19005440,
+          "40.000000": 19267584,
+          "5.000000": 17956864,
+          "50.000000": 19529728,
+          "60.000000": 19529728,
+          "70.000000": 19791872,
+          "80.000000": 20054016,
+          "90.000000": 20316160,
+          "95.000000": 20840448,
+          "99.000000": 21364736,
+          "99.500000": 23461888,
+          "99.900000": 31064064,
+          "99.950000": 34340864,
+          "99.990000": 34340864
+        },
+        "stddev": 1428656.3522
+      },
+      "cpu": {
+        "context_switches": 1704,
+        "system_percent": 8.05202,
+        "user_percent": 0.110681
+      },
+      "disk_util": [
+        {
+          "in_queue": 2744746,
+          "name": "nvme0n1",
+          "read_ios": 187299,
+          "read_merges": 159,
+          "read_ticks": 2744746,
+          "util": 97.11181,
+          "write_ios": 1,
+          "write_merges": 1,
+          "write_ticks": 0
+        }
+      ],
+      "io_bytes": 25829572608,
+      "iops": 407.192254,
+      "latency_ns": {
+        "N": 1472,
+        "max": 34359537,
+        "mean": 19598297.847147,
+        "min": 7843388,
+        "stddev": 1367237.946601
+      },
+      "raw": {
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/fio-characterization/expert-offset-distributed__qd-8.json",
+        "sha256": "d040bdd834e8cbc16dc7c37729e3bf2f011404e9494f990e7cff64e6a0f5bc10",
+        "size": 6902
+      },
+      "requested_qd": 8,
+      "runtime_ms": 3615,
+      "submission_latency_ns": {
+        "N": 1472,
+        "max": 2269191,
+        "mean": 233728.411685,
+        "min": 154316,
+        "stddev": 162108.746137
+      },
+      "workload": "expert-offset-distributed"
+    },
+    {
+      "bw_bytes": 7123434254,
+      "command": [
+        "fio",
+        "--name=phase12_nvme_device_ceiling",
+        "--filename=/mnt/nvme0/k3-phase12-nvme-generation-2/layout-b/contiguous-experts.bin",
+        "--readonly",
+        "--offset=4096",
+        "--size=25829572608",
+        "--rw=randread",
+        "--bs=17547264",
+        "--ioengine=io_uring",
+        "--direct=1",
+        "--iodepth=16",
+        "--numjobs=1",
+        "--group_reporting=1",
+        "--randrepeat=1",
+        "--randseed=2608",
+        "--random_generator=tausworthe64",
+        "--output-format=json",
+        "--output=/mnt/nvme0/k3-phase12-nvme-evidence/fio-characterization/expert-offset-distributed__qd-16.json"
+      ],
+      "completion_latency_ns": {
+        "N": 1472,
+        "max": 55815057,
+        "mean": 36817400.665761,
+        "min": 21414496,
+        "percentile": {
+          "1.000000": 23724032,
+          "10.000000": 35389440,
+          "20.000000": 35913728,
+          "30.000000": 36438016,
+          "40.000000": 36962304,
+          "5.000000": 34865152,
+          "50.000000": 36962304,
+          "60.000000": 37486592,
+          "70.000000": 37486592,
+          "80.000000": 38010880,
+          "90.000000": 38535168,
+          "95.000000": 39059456,
+          "99.000000": 49020928,
+          "99.500000": 51118080,
+          "99.900000": 54263808,
+          "99.950000": 55836672,
+          "99.990000": 55836672
+        },
+        "stddev": 3196225.053271
+      },
+      "cpu": {
+        "context_switches": 21426,
+        "system_percent": 10.924138,
+        "user_percent": 0.027586
+      },
+      "disk_util": [
+        {
+          "in_queue": 3494351,
+          "name": "nvme0n1",
+          "read_ios": 186408,
+          "read_merges": 78,
+          "read_ticks": 3494350,
+          "util": 97.11181,
+          "write_ios": 6,
+          "write_merges": 3,
+          "write_ticks": 2
+        }
+      ],
+      "io_bytes": 25829572608,
+      "iops": 405.956977,
+      "latency_ns": {
+        "N": 1472,
+        "max": 58267288,
+        "mean": 39260394.003397,
+        "min": 23084040,
+        "stddev": 3295290.129798
+      },
+      "raw": {
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/fio-characterization/expert-offset-distributed__qd-16.json",
+        "sha256": "ae649847b18eda2df08e923696a1ebdec5fcbee3f725f3dc38f6a70f4e5de220",
+        "size": 6906
+      },
+      "requested_qd": 16,
+      "runtime_ms": 3626,
+      "submission_latency_ns": {
+        "N": 1472,
+        "max": 5686559,
+        "mean": 2442993.337636,
+        "min": 172714,
+        "stddev": 478576.710123
+      },
+      "workload": "expert-offset-distributed"
+    },
+    {
+      "bw_bytes": 7135241051,
+      "command": [
+        "fio",
+        "--name=phase12_nvme_device_ceiling",
+        "--filename=/mnt/nvme0/k3-phase12-nvme-generation-2/layout-b/contiguous-experts.bin",
+        "--readonly",
+        "--offset=4096",
+        "--size=25829572608",
+        "--rw=randread",
+        "--bs=17547264",
+        "--ioengine=io_uring",
+        "--direct=1",
+        "--iodepth=32",
+        "--numjobs=1",
+        "--group_reporting=1",
+        "--randrepeat=1",
+        "--randseed=2608",
+        "--random_generator=tausworthe64",
+        "--output-format=json",
+        "--output=/mnt/nvme0/k3-phase12-nvme-evidence/fio-characterization/expert-offset-distributed__qd-32.json"
+      ],
+      "completion_latency_ns": {
+        "N": 1472,
+        "max": 94634967,
+        "mean": 75675746.966712,
+        "min": 21564145,
+        "percentile": {
+          "1.000000": 55312384,
+          "10.000000": 72876032,
+          "20.000000": 72876032,
+          "30.000000": 74973184,
+          "40.000000": 76021760,
+          "5.000000": 68681728,
+          "50.000000": 76021760,
+          "60.000000": 77070336,
+          "70.000000": 77070336,
+          "80.000000": 78118912,
+          "90.000000": 79167488,
+          "95.000000": 81264640,
+          "99.000000": 90701824,
+          "99.500000": 92798976,
+          "99.900000": 94896128,
+          "99.950000": 94896128,
+          "99.990000": 94896128
+        },
+        "stddev": 5638376.624075
+      },
+      "cpu": {
+        "context_switches": 21125,
+        "system_percent": 11.273833,
+        "user_percent": 0.027632
+      },
+      "disk_util": [
+        {
+          "in_queue": 3512692,
+          "name": "nvme0n1",
+          "read_ios": 186496,
+          "read_merges": 0,
+          "read_ticks": 3512692,
+          "util": 97.140406,
+          "write_ios": 1,
+          "write_merges": 1,
+          "write_ticks": 0
+        }
+      ],
+      "io_bytes": 25829572608,
+      "iops": 406.629834,
+      "latency_ns": {
+        "N": 1472,
+        "max": 96977731,
+        "mean": 78118775.121603,
+        "min": 24020823,
+        "stddev": 5727645.104226
+      },
+      "raw": {
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/fio-characterization/expert-offset-distributed__qd-32.json",
+        "sha256": "3d32c8434334e5902e4df30178f095159a03fe7a9bc8da5c3c3a374e5cd52acf",
+        "size": 6906
+      },
+      "requested_qd": 32,
+      "runtime_ms": 3620,
+      "submission_latency_ns": {
+        "N": 1472,
+        "max": 8730304,
+        "mean": 2443028.154891,
+        "min": 170361,
+        "stddev": 647949.962076
+      },
+      "workload": "expert-offset-distributed"
+    }
+  ],
+  "engine": "native io_uring with O_DIRECT; no buffered fallback",
+  "fio_version": "fio-3.35",
+  "queue_depths": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32
+  ],
+  "schema_version": "phase12-nvme-fio-characterization-v1",
+  "source": "/mnt/nvme0/k3-phase12-nvme-generation-2/layout-b/contiguous-experts.bin",
+  "source_logical_size": 25829765120,
+  "status": "PASS"
+}
