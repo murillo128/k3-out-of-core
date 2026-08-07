@@ -11,7 +11,7 @@ Live phase status, active ownership, ordering changes, and links to controlling 
 - [Phases 0–3: foundation, reproducible K3 baseline, observability, and provider abstraction](docs/plan/00-foundation.md)
 - [Phases 4–6: persistent hot cache, cold cache, and GGUF-backed storage](docs/plan/04-cache-and-storage.md)
 - [Phases 7–10: asynchronous runtime, miss execution, cache policy, and prefetch](docs/plan/07-async-runtime.md)
-- [Phases 11–15: UMA, full-size scaling, multi-GPU, end-to-end observability, concurrency, and hardening](docs/plan/11-scaling-and-hardening.md)
+- [Phases 11–15: UMA, full-size scaling, diagnostic tracing, multi-GPU, benchmark readiness, concurrency, and hardening](docs/plan/11-scaling-and-hardening.md)
 - [Phase 12–14 Colibrì comparison addendum](docs/plan/12-colibri-comparison.md) establishes mandatory storage-layout, I/O-submission, full-size K3, trace-identity, and single-request chunked-prefill comparisons without changing the accepted technical boundaries.
 - [Cross-model portability follow-up](docs/plan/12-heterogeneous-layout-classes.md) defines bounded heterogeneous expert layout classes and the conditions for resuming full-model DeepSeek-V4 validation without changing K3 Phase 12 gates or runtime defaults.
 
@@ -24,11 +24,21 @@ Live phase status, active ownership, ordering changes, and links to controlling 
 
 Work proceeds strictly in dependency order unless a phase explicitly contains independent subwork. A later phase may be researched in parallel, but no dependent implementation may be accepted until its prerequisites and evidence are committed.
 
-The remaining sequence deliberately validates physical full-size viability before topology and service complexity: Phase 11 establishes coherent UMA transport; Phase 12 establishes full-size single-request/single-device behavior and makes the storage-format decision; **Phase 13 adds multi-GPU and topology-aware placement**; **Phase 13.5 is the end-to-end tracing and hardware-benchmark-readiness work that was executed early under the historical name Phase 12.5 through #54/#55**; Phase 14 adds multi-request, batching, and CUDA-graph service behavior; and Phase 15 hardens the accepted architecture.
+The remaining sequence is:
 
-The Phase 13.5 tracing schema is therefore already an accepted prerequisite input to Phase 13 despite its renumbered roadmap slot. Renumbering does not require re-execution, does not alter historical issue/PR/manifests, and does not move the causal prerequisite after multi-GPU in actual execution history.
+1. Phase 11 — coherent UMA transport;
+2. Phase 12 — full-size single-request/single-device validation and final storage decision;
+3. Phase 12.5 — bounded diagnostic tracing subsets for DeepSeek and physical-NVMe/K3 paths;
+4. **Phase 13 — multi-GPU and topology-aware placement**;
+5. **Phase 13.5 — the remaining end-to-end observability and hardware-benchmark-readiness delta, extended across the accepted single- and multi-GPU paths**;
+6. **Phase 14 — multi-request, batching, and CUDA graphs**;
+7. Phase 15 — hardening and final acceptance.
 
-Phase 12 does not claim concurrent-service or multi-GPU performance. Phase 13 is single-request multi-GPU topology work, not batching. Phase 14 adds concurrency only after the single-request multi-GPU ownership and byte-movement model is established.
+Phase 12.5 is intentionally narrower than the original broad tracing concept. The accepted #54/#55 DeepSeek work and the accepted NVMe/K3 tracing in #58 establish reusable default-off instrumentation, event identities, causal-attribution methods, and bounded trace evidence. They do **not** by themselves complete the later multi-device/cross-hardware benchmark-readiness gate.
+
+Phase 13 can proceed after Phase 12 because its initial acceptance is same-host, single-request topology/ownership work and can reuse the accepted Phase 12.5 tracing subset. Phase 13.5 then closes the remaining observability gap for the selected Phase 12 single-GPU and Phase 13 multi-GPU paths before authoritative cross-hardware benchmarking or service-concurrency claims.
+
+Phase 12 does not claim concurrent-service or multi-GPU performance. Phase 13 does not require multi-request semantics. Phase 14 adds concurrency only after the multi-GPU ownership and byte-movement model is established.
 
 Phase 10 mechanisms may be retained for explicit experimentation, but no static-seeding or predictive-prefetch profile may be recommended or enabled by default without satisfying the Phase 10 gate. The null/default behavior remains the accepted demand-only cache and miss-policy baseline.
 
