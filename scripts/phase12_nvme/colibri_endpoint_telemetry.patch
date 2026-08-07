@@ -1,0 +1,162 @@
+diff --git a/c/kimi_k3.c b/c/kimi_k3.c
+index 9049baf..ff04f54 100644
+--- a/c/kimi_k3.c
++++ b/c/kimi_k3.c
+@@ -76,0 +77 @@
++#include <sys/syscall.h>
+@@ -166,0 +168,59 @@ static double now_s(void){ struct timespec t; clock_gettime(CLOCK_MONOTONIC,&t);
++/* Evidence-only endpoint telemetry.  It is inert unless K3_ENDPOINT_TRACE is
++ * set; K3_ENDPOINT_MARKER_FD optionally mirrors nested scopes to an inherited
++ * trace_marker pipe for Perfetto ftrace/print capture.  This instrumentation
++ * observes timing/counters only and never changes routing, cache admission,
++ * arithmetic, or production defaults. */
++typedef struct {
++    FILE *fp;
++    int marker_fd;
++    const char *phase;
++    int forward;
++    uint64_t admissions, evictions;
++    _Atomic uint64_t direct_experts, fallback_experts, direct_bytes, tail_bytes;
++} K3EndpointTelemetry;
++static K3EndpointTelemetry g_ep = { .marker_fd = -1, .phase = "inactive", .forward = -1 };
++static uint64_t ep_ns(void){ struct timespec t; clock_gettime(CLOCK_MONOTONIC,&t); return (uint64_t)t.tv_sec*1000000000ULL+(uint64_t)t.tv_nsec; }
++static long ep_tid(void){ return syscall(SYS_gettid); }
++static void ep_init(void){
++    const char *path=getenv("K3_ENDPOINT_TRACE");
++    if(path&&*path){
++        g_ep.fp=fopen(path,"w");
++        if(!g_ep.fp){ perror(path); exit(1); }
++        setvbuf(g_ep.fp,NULL,_IOFBF,1<<20);
++        fprintf(g_ep.fp,"ts_ns\ttid\tevent\tname\tphase\tforward\tlayer\tv0\tv1\tv2\tv3\tv4\tv5\tv6\tv7\tv8\tv9\n");
++    }
++    const char *fd=getenv("K3_ENDPOINT_MARKER_FD");
++    if(fd&&*fd) g_ep.marker_fd=atoi(fd);
++}
++static void ep_context(const char *phase,int forward){ g_ep.phase=phase; g_ep.forward=forward; }
++static void ep_write(const char *event,const char *name,int layer,
++                     uint64_t v0,uint64_t v1,uint64_t v2,uint64_t v3,uint64_t v4,
++                     uint64_t v5,uint64_t v6,uint64_t v7,uint64_t v8,uint64_t v9){
++    if(!g_ep.fp) return;
++    fprintf(g_ep.fp,"%llu\t%ld\t%s\t%s\t%s\t%d\t%d\t%llu\t%llu\t%llu\t%llu\t%llu\t%llu\t%llu\t%llu\t%llu\t%llu\n",
++            (unsigned long long)ep_ns(),ep_tid(),event,name,g_ep.phase,g_ep.forward,layer,
++            (unsigned long long)v0,(unsigned long long)v1,(unsigned long long)v2,
++            (unsigned long long)v3,(unsigned long long)v4,(unsigned long long)v5,
++            (unsigned long long)v6,(unsigned long long)v7,(unsigned long long)v8,
++            (unsigned long long)v9);
++}
++static void ep_scope(const char *event,const char *name,int layer){
++    ep_write(event,name,layer,0,0,0,0,0,0,0,0,0,0);
++    if(g_ep.marker_fd>=0){
++        if(event[0]=='B') dprintf(g_ep.marker_fd,"B|%d|k3.%s:%s:%d:%d\n",getpid(),name,g_ep.phase,g_ep.forward,layer);
++        else if(event[0]=='E') dprintf(g_ep.marker_fd,"E|%d\n",getpid());
++    }
++}
++static int ep_occupancy(Model *m){ int n=0; if(m->ecache) for(int i=0;i<m->c.n_layers;i++) n+=m->ecache[i].n; return n; }
++static void ep_stats(Model *m,const char *name,int layer,uint64_t h0,uint64_t m0,uint64_t b0,
++                     uint64_t a0,uint64_t e0){
++    ep_write("S",name,layer,m->hits-h0,m->miss-m0,m->ebytes-b0,(uint64_t)ep_occupancy(m),
++             g_ep.admissions-a0,g_ep.evictions-e0,atomic_load(&g_ep.direct_experts),
++             atomic_load(&g_ep.fallback_experts),atomic_load(&g_ep.direct_bytes),atomic_load(&g_ep.tail_bytes));
++}
++static void ep_token(int ordinal,int token){
++    ep_write("T","token",-1,(uint64_t)ordinal,(uint64_t)(uint32_t)token,0,0,0,0,0,0,0,0);
++}
++static void ep_finish(Model *m){
++    if(g_ep.fp){ ep_stats(m,"run",-1,0,0,0,0,0); fflush(g_ep.fp); fsync(fileno(g_ep.fp)); fclose(g_ep.fp); g_ep.fp=NULL; }
++}
+@@ -835,0 +896,3 @@ static void expert_read(Model *m, int li, int eid, Slot *s){
++            atomic_fetch_add(&g_ep.direct_experts,1);
++            atomic_fetch_add(&g_ep.direct_bytes,(uint64_t)(dlen>0?dlen:0));
++            atomic_fetch_add(&g_ep.tail_bytes,(uint64_t)(dlen<want?want-dlen:0));
+@@ -838,0 +902 @@ static void expert_read(Model *m, int li, int eid, Slot *s){
++            atomic_fetch_add(&g_ep.fallback_experts,1);
+@@ -841,0 +906 @@ static void expert_read(Model *m, int li, int eid, Slot *s){
++        atomic_fetch_add(&g_ep.fallback_experts,1);
+@@ -992,0 +1058 @@ static void experts_apply_union(Model *m, int li, int nu, const int *uids,
++        ep_scope("B","cache_lookup",li);
+@@ -996,0 +1063 @@ static void experts_apply_union(Model *m, int li, int nu, const int *uids,
++        ep_scope("E","cache_lookup",li);
+@@ -997,0 +1065 @@ static void experts_apply_union(Model *m, int li, int nu, const int *uids,
++            ep_scope("B","cache_management",li);
+@@ -1010,0 +1079 @@ static void experts_apply_union(Model *m, int li, int nu, const int *uids,
++            ep_scope("E","cache_management",li);
+@@ -1014,0 +1084 @@ static void experts_apply_union(Model *m, int li, int nu, const int *uids,
++                ep_scope("B","nvme_wait",li);
+@@ -1018,0 +1089 @@ static void experts_apply_union(Model *m, int li, int nu, const int *uids,
++                ep_scope("E","nvme_wait",li);
+@@ -1023,0 +1095 @@ static void experts_apply_union(Model *m, int li, int nu, const int *uids,
++            ep_scope("B","expert_compute",li);
+@@ -1028,0 +1101 @@ static void experts_apply_union(Model *m, int li, int nu, const int *uids,
++            ep_scope("E","expert_compute",li);
+@@ -1032,0 +1106 @@ static void experts_apply_union(Model *m, int li, int nu, const int *uids,
++        if(promo) ep_scope("B","cache_management",li);
+@@ -1036 +1110,2 @@ static void experts_apply_union(Model *m, int li, int nu, const int *uids,
+-            else { int lru=0; for(int i=1;i<lc->n;i++) if(lc->s[i].used<lc->s[lru].used) lru=i; dst=&lc->s[lru]; }
++            else { int lru=0; for(int i=1;i<lc->n;i++) if(lc->s[i].used<lc->s[lru].used) lru=i; dst=&lc->s[lru]; g_ep.evictions++; }
++            g_ep.admissions++;
+@@ -1039,0 +1115 @@ static void experts_apply_union(Model *m, int li, int nu, const int *uids,
++        if(promo) ep_scope("E","cache_management",li);
+@@ -1045,0 +1122,2 @@ static void moe_forward(Model *m, Layer *l, int li, const float *x, int C, float
++    uint64_t h0=m->hits,miss0=m->miss,b0=m->ebytes,a0=g_ep.admissions,e0=g_ep.evictions;
++    ep_scope("B","router",li);
+@@ -1084,0 +1163,2 @@ static void moe_forward(Model *m, Layer *l, int li, const float *x, int C, float
++    ep_scope("E","router",li);
++    ep_scope("B","moe_nonexpert",li);
+@@ -1088,0 +1169 @@ static void moe_forward(Model *m, Layer *l, int li, const float *x, int C, float
++    ep_scope("E","moe_nonexpert",li);
+@@ -1151,0 +1233 @@ static void moe_forward(Model *m, Layer *l, int li, const float *x, int C, float
++    ep_scope("B","moe_nonexpert",li);
+@@ -1163,0 +1246,2 @@ static void moe_forward(Model *m, Layer *l, int li, const float *x, int C, float
++    ep_scope("E","moe_nonexpert",li);
++    ep_stats(m,"layer",li,h0,miss0,b0,a0,e0);
+@@ -1184,0 +1269,2 @@ static float *step_chunk(Model *m, const int *ids, int pos0, int C){
++    uint64_t h0=m->hits,miss0=m->miss,b0=m->ebytes,a0=g_ep.admissions,e0=g_ep.evictions;
++    ep_scope("B","forward",-1);
+@@ -1193,0 +1280 @@ static float *step_chunk(Model *m, const int *ids, int pos0, int C){
++        ep_scope("B","dense_trunk",-1);
+@@ -1200,0 +1288 @@ static float *step_chunk(Model *m, const int *ids, int pos0, int C){
++        ep_scope("E","dense_trunk",-1);
+@@ -1204,0 +1293 @@ static float *step_chunk(Model *m, const int *ids, int pos0, int C){
++        ep_scope("B","dense_trunk",i);
+@@ -1211,0 +1301 @@ static float *step_chunk(Model *m, const int *ids, int pos0, int C){
++        ep_scope("E","dense_trunk",i);
+@@ -1214,0 +1305 @@ static float *step_chunk(Model *m, const int *ids, int pos0, int C){
++        ep_scope("B","attention",i);
+@@ -1216,0 +1308 @@ static float *step_chunk(Model *m, const int *ids, int pos0, int C){
++        ep_scope("E","attention",i);
+@@ -1217,0 +1310 @@ static float *step_chunk(Model *m, const int *ids, int pos0, int C){
++        ep_scope("B","dense_trunk",i);
+@@ -1224,0 +1318 @@ static float *step_chunk(Model *m, const int *ids, int pos0, int C){
++        ep_scope("E","dense_trunk",i);
+@@ -1227 +1321 @@ static float *step_chunk(Model *m, const int *ids, int pos0, int C){
+-        else          dense_forward(m,l,nrm,C,mlp);
++        else { ep_scope("B","dense_trunk",i); dense_forward(m,l,nrm,C,mlp); ep_scope("E","dense_trunk",i); }
+@@ -1228,0 +1323 @@ static float *step_chunk(Model *m, const int *ids, int pos0, int C){
++        ep_scope("B","dense_trunk",i);
+@@ -1234,0 +1330 @@ static float *step_chunk(Model *m, const int *ids, int pos0, int C){
++        ep_scope("E","dense_trunk",i);
+@@ -1238,0 +1335 @@ static float *step_chunk(Model *m, const int *ids, int pos0, int C){
++        ep_scope("B","head",-1);
+@@ -1250,0 +1348 @@ static float *step_chunk(Model *m, const int *ids, int pos0, int C){
++        ep_scope("E","head",-1);
+@@ -1253,0 +1352,2 @@ static float *step_chunk(Model *m, const int *ids, int pos0, int C){
++    ep_scope("E","forward",-1);
++    ep_stats(m,"forward",-1,h0,miss0,b0,a0,e0);
+@@ -1568,0 +1669 @@ int main(int argc, char **argv){
++    ep_init();
+@@ -1602,0 +1704 @@ int main(int argc, char **argv){
++    ep_context("init",-1); ep_scope("B","model_init",-1);
+@@ -1603,0 +1706 @@ int main(int argc, char **argv){
++    ep_scope("E","model_init",-1);
+@@ -1672,0 +1776 @@ int main(int argc, char **argv){
++    int prefill_forward=0;
+@@ -1675,0 +1780 @@ int main(int argc, char **argv){
++        ep_context("prefill",prefill_forward++);
+@@ -1693,0 +1799 @@ int main(int argc, char **argv){
++        ep_context("sampling",ntok); ep_scope("B","sampling",-1);
+@@ -1694,0 +1801 @@ int main(int argc, char **argv){
++        ep_scope("E","sampling",-1); ep_token(ntok,t);
+@@ -1717,0 +1825 @@ int main(int argc, char **argv){
++        ep_context("decode",ntok-1);
+@@ -1732,0 +1841 @@ int main(int argc, char **argv){
++    ep_context("complete",ntok); ep_finish(&m);

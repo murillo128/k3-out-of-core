@@ -18,6 +18,13 @@ from common import Scale  # noqa: E402
 from capture_real_routing import normalize_route  # noqa: E402
 from corpus import generate  # noqa: E402
 from plan import build_plan, encode_plan  # noqa: E402
+from run_colibri_endpoint import (  # noqa: E402
+    EXPERT_BYTES,
+    ROUTED_LAYERS,
+    derive_max_safe_slots,
+    parse_endpoint,
+    slots_for_capacity_bytes,
+)
 
 
 FIXTURE = Scale(layers=2, experts=32, selected=16, projection_bytes=4096, tokens=4)
@@ -153,6 +160,37 @@ class Phase12NvmePlanTests(unittest.TestCase):
         self.assertEqual(reuse["decode"]["first_references"], 3)
         self.assertEqual(reuse["decode"]["reuses"], 2)
         self.assertEqual(reuse["decode"]["theoretical_lru_hits_by_capacity_gib"], {"0": 0, "1": 0, "2": 1})
+
+    def test_colibri_endpoint_capacity_rounds_to_whole_per_layer_slots(self) -> None:
+        per_slot = ROUTED_LAYERS * EXPERT_BYTES
+        self.assertEqual(slots_for_capacity_bytes(8 * (1 << 30)), 5)
+        self.assertEqual(slots_for_capacity_bytes(96 * (1 << 30)), 63)
+        ceiling = 161_639_786_086
+        non_cache = 39_041_900_544
+        self.assertEqual(derive_max_safe_slots(ceiling, non_cache), 75)
+        self.assertLessEqual(non_cache + 75 * per_slot, ceiling)
+        self.assertGreater(non_cache + 76 * per_slot, ceiling)
+
+    def test_colibri_endpoint_parser_preserves_nested_scopes_and_exact_counters(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="phase12-nvme-endpoint-") as temporary:
+            trace = Path(temporary) / "endpoint.tsv"
+            trace.write_text(
+                "ts_ns\ttid\tevent\tname\tphase\tforward\tlayer\tv0\tv1\tv2\tv3\tv4\tv5\tv6\tv7\tv8\tv9\n"
+                "1\t7\tB\tforward\tdecode\t0\t-1\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n"
+                "2\t7\tB\trouter\tdecode\t0\t1\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n"
+                "3\t7\tE\trouter\tdecode\t0\t1\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n"
+                "4\t7\tS\tlayer\tdecode\t0\t1\t2\t14\t245661696\t5\t5\t0\t14\t0\t1\t2\n"
+                "5\t7\tE\tforward\tdecode\t0\t-1\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n"
+                "6\t7\tS\tforward\tdecode\t0\t-1\t2\t14\t245661696\t5\t5\t0\t14\t0\t1\t2\n"
+                "7\t7\tT\ttoken\tsampling\t0\t-1\t0\t42\t0\t0\t0\t0\t0\t0\t0\t0\n"
+                "8\t7\tS\trun\tcomplete\t1\t-1\t2\t14\t245661696\t5\t5\t0\t14\t0\t1\t2\n"
+            )
+            parsed = parse_endpoint(trace)
+            self.assertEqual(parsed["tokens"], [42])
+            self.assertEqual(len(parsed["decode_forwards"]), 1)
+            self.assertEqual(parsed["decode_forwards"][0]["duration_seconds"], 4e-9)
+            self.assertEqual(parsed["layer_stats"][0]["v1"], 14)
+            self.assertEqual(parsed["run_stats"]["v7"], 0)
 
 
 if __name__ == "__main__":
