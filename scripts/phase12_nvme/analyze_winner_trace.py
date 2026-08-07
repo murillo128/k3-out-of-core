@@ -200,11 +200,13 @@ WHERE p.pid = {workload_pid} AND r.name IN ('page_fault_user', 'page_fault_kerne
     if losses["count"]:
         failures.append("Perfetto/ftrace loss counters are nonzero")
     request_wall = request["wall_ns"]
+    storage_io_union = min(storage_union, max(block_union, syscall_union))
+    block_critical_union = min(block_union, storage_io_union)
     attribution = {
         "request_wall_ns": request_wall,
-        "block_device_service_union_ns": block_union,
-        "syscall_non_block_union_ns": max(0, syscall_union - block_union),
-        "checksum_copy_union_ns": max(0, storage_union - syscall_union),
+        "block_device_service_union_ns": block_critical_union,
+        "syscall_non_block_union_ns": max(0, storage_io_union - block_critical_union),
+        "checksum_copy_union_ns": max(0, storage_union - storage_io_union),
         "scheduler_or_unattributed_union_ns": max(0, request_wall - storage_union),
         "storage_operation_union_ns": storage_union,
         "pread_syscall_union_ns": syscall_union,

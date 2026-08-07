@@ -55,6 +55,9 @@ bool phase12_nvme_trace_initialize() {
     perfetto::Tracing::Initialize(args);
     perfetto::TrackEvent::Register();
     wait_for_track_event(true, std::chrono::seconds(10));
+    // TrackEvent activation can precede traced_probes/ftrace readiness. Keep this
+    // outside the measured request so all configured sources share its boundary.
+    std::this_thread::sleep_for(std::chrono::seconds(1));
     initialized = true;
     LLM_EXPERT_TRACE_INSTANT("k3.lifecycle", "trace_session_start",
         "capture_mode", uint64_t(1), "producer_shmem_kib", uint64_t(32768));

@@ -1,0 +1,69 @@
+{
+  "archive": {
+    "format": "deterministic POSIX tar; uid/gid/mtime normalized",
+    "path": "/mnt/nvme0/k3-phase12-nvme-evidence/winner-trace-attempt-2-raw.tar",
+    "sha256": "f9f21df08a34ac8f0238378f9441068d6b56cc51408175cdf826b3739b1a9229",
+    "size": 29327360
+  },
+  "experiment": "winner-perfetto-attempt-2-accepted",
+  "file_count": 11,
+  "files": [
+    {
+      "archive_path": "raw/capture.json",
+      "sha256": "86b5fee99ab01d4d05db3dfb458adb8200abeda0790cba60ad54ccf994eed3d3",
+      "size": 8052
+    },
+    {
+      "archive_path": "raw/case.json",
+      "sha256": "4311700571deeb4a4746d0ea56baa6ac2b9308cbaabf0bf3fae56aa03a5c1a84",
+      "size": 816
+    },
+    {
+      "archive_path": "raw/command.json",
+      "sha256": "61f750a50b3ae254a9ad60402136d647679633661bb53f6b7535107b8d00e057",
+      "size": 451
+    },
+    {
+      "archive_path": "raw/perfetto.log",
+      "sha256": "dd06f4f766901a6db4f7c8f254fcb65f79b3627bfaac8a24c82c487ba3d40f20",
+      "size": 240
+    },
+    {
+      "archive_path": "raw/traced-cell.json",
+      "sha256": "ffbaa7ef022adfff6df11580a3c21f2475594db8db7f41b65f707a28325ea2b5",
+      "size": 2348
+    },
+    {
+      "archive_path": "raw/untraced-cell.json",
+      "sha256": "d9a237e8f966722a1b66e747e6994f4bef4bcdacaabc77b196e8fea232e022bd",
+      "size": 2348
+    },
+    {
+      "archive_path": "raw/winner-plan.tsv",
+      "sha256": "375902af5391889e1cbb245d41e2545b7fc3770d4b4a60a59ea13d698d569522",
+      "size": 240680
+    },
+    {
+      "archive_path": "raw/winner.perfetto-trace",
+      "sha256": "9cc1c96a7ddd483249884450c6f72410e2c906045c00f24e1465bf7cf88bc1c8",
+      "size": 29054705
+    },
+    {
+      "archive_path": "raw/workload.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "archive_path": "raw/workload.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "archive_path": "compact/winner-trace-attempt-2-analysis.json",
+      "sha256": "d8495ded785b14eda42bf09d8e4e0772c1e6a1013dbcb4ffced5800e6a71afd6",
+      "size": 3112
+    }
+  ],
+  "schema_version": "phase12-nvme-experiment-raw-index-v1",
+  "status": "PASS"
+}
