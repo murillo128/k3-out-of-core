@@ -103,6 +103,7 @@ struct Residency {
 struct RunResult {
     std::vector<double> iteration_ms;
     std::vector<Interval> intervals;
+    std::vector<std::size_t> interval_sources;
     Counters counters;
     std::array<unsigned char, 32> sink{};
     unsigned max_active = 0;
@@ -609,6 +610,7 @@ RunResult run_pread(
         for (std::size_t ordinal = 0; ordinal < digests.size(); ++ordinal) add_sink_record(sink.get(), ordinal, digests[ordinal]);
         final_sink = digest_finish(std::move(sink));
         result.intervals.insert(result.intervals.end(), intervals.begin(), intervals.end());
+        result.interval_sources.insert(result.interval_sources.end(), op_sources.begin(), op_sources.end());
         result.max_active = std::max(result.max_active, max_active.load());
         result.iteration_ms.push_back(std::chrono::duration<double, std::milli>(Clock::now() - iteration_start).count());
     }
@@ -755,6 +757,7 @@ RunResult run_io_uring(
             for (std::size_t ordinal = 0; ordinal < digests.size(); ++ordinal) add_sink_record(sink.get(), ordinal, digests[ordinal]);
             result.sink = digest_finish(std::move(sink));
             result.intervals.insert(result.intervals.end(), intervals.begin(), intervals.end());
+            result.interval_sources.insert(result.interval_sources.end(), op_sources.begin(), op_sources.end());
             result.iteration_ms.push_back(std::chrono::duration<double, std::milli>(Clock::now() - iteration_start).count());
         }
     } catch (...) {
@@ -794,6 +797,7 @@ RunResult run_mmap(
                 const auto end = now_ns();
                 if (observed != operation.expected) throw std::runtime_error("bundle checksum mismatch");
                 result.intervals.push_back({start, end});
+                result.interval_sources.push_back(source_index);
                 digests[operation.ordinal] = observed;
                 result.counters.bytes += operation.length;
                 ++result.counters.operations;
@@ -874,6 +878,7 @@ std::uint64_t read_meminfo_kib(const std::string & field) {
 void write_result(
     const Options & options,
     const std::vector<Operation> & operations,
+    const std::vector<Source> & sources,
     const RunResult & run,
     const Residency & residency,
     const std::map<std::string, BlockStat> & before,
@@ -963,11 +968,64 @@ void write_result(
         const auto prior = before.at(item.first);
         if (!first) output << ',';
         first = false;
+        const auto read_operations = item.second.read_ios - prior.read_ios;
+        const auto read_ticks_ms = item.second.read_ticks_ms - prior.read_ticks_ms;
+        const auto io_ticks_ms = item.second.io_ticks_ms - prior.io_ticks_ms;
+        const auto weighted_ticks_ms = item.second.weighted_ticks_ms - prior.weighted_ticks_ms;
         output << "{\"stat_path\":\"" << json_escape(item.first) << "\",\"read_operations\":" << item.second.read_ios - prior.read_ios
                << ",\"read_bytes\":" << (item.second.read_sectors - prior.read_sectors) * 512
-               << ",\"read_ticks_ms\":" << item.second.read_ticks_ms - prior.read_ticks_ms
-               << ",\"io_ticks_ms\":" << item.second.io_ticks_ms - prior.io_ticks_ms
-               << ",\"weighted_ticks_ms\":" << item.second.weighted_ticks_ms - prior.weighted_ticks_ms << '}';
+               << ",\"read_ticks_ms\":" << read_ticks_ms
+               << ",\"io_ticks_ms\":" << io_ticks_ms
+               << ",\"weighted_ticks_ms\":" << weighted_ticks_ms
+               << ",\"mean_read_service_ms\":" << (read_operations ? static_cast<double>(read_ticks_ms) / read_operations : 0.0)
+               << ",\"mean_queue_depth_during_io\":" << (io_ticks_ms ? static_cast<double>(weighted_ticks_ms) / io_ticks_ms : 0.0) << '}';
+    }
+    output << "],\n";
+    output << "  \"per_source_activity\": [";
+    for (std::size_t source_index = 0; source_index < sources.size(); ++source_index) {
+        std::vector<Interval> source_intervals;
+        for (std::size_t interval_index = 0; interval_index < run.intervals.size(); ++interval_index) {
+            if (run.interval_sources.at(interval_index) == source_index) {
+                source_intervals.push_back(run.intervals[interval_index]);
+            }
+        }
+        const auto source_histogram = effective_qd_histogram(source_intervals);
+        std::int64_t source_active_ns = 0;
+        std::int64_t source_depth_ns = 0;
+        unsigned source_maximum_active = 0;
+        std::vector<double> source_operation_ms;
+        source_operation_ms.reserve(source_intervals.size());
+        for (const auto & item : source_histogram) {
+            if (item.first > 0) {
+                source_active_ns += item.second;
+                source_depth_ns += static_cast<std::int64_t>(item.first) * item.second;
+                source_maximum_active = std::max(source_maximum_active, item.first);
+            }
+        }
+        for (const auto & interval : source_intervals) {
+            source_operation_ms.push_back((interval.end_ns - interval.start_ns) / 1e6);
+        }
+        if (source_index) output << ',';
+        output << "{\"source\":" << source_index
+               << ",\"path\":\"" << json_escape(sources[source_index].path)
+               << "\",\"block_stat_path\":\"" << json_escape(sources[source_index].block_stat_path)
+               << "\",\"operation_intervals\":" << source_intervals.size()
+               << ",\"maximum_active_operations\":" << source_maximum_active
+               << ",\"active_wall_ns\":" << source_active_ns
+               << ",\"average_active_operations\":"
+               << (source_active_ns ? static_cast<double>(source_depth_ns) / source_active_ns : 0.0)
+               << ",\"operation_elapsed_ms\":{\"p50\":" << percentile(source_operation_ms, 0.50)
+               << ",\"p95\":" << percentile(source_operation_ms, 0.95)
+               << ",\"p99\":" << percentile(source_operation_ms, 0.99)
+               << ",\"max\":" << (source_operation_ms.empty() ? 0.0 : *std::max_element(source_operation_ms.begin(), source_operation_ms.end()))
+               << "},\"active_depth_histogram_ns\":{";
+        bool first_depth = true;
+        for (const auto & item : source_histogram) {
+            if (!first_depth) output << ',';
+            first_depth = false;
+            output << '\"' << item.first << "\":" << item.second;
+        }
+        output << "}}";
     }
     output << "],\n";
     output << "  \"effective_qd_histogram_ns\": {";
@@ -1028,7 +1086,7 @@ int main(int argc, char ** argv) {
         rusage usage_after{};
         getrusage(RUSAGE_SELF, &usage_after);
         const auto after = snapshot_block_stats(sources);
-        write_result(options, operations, run, residency, before, after, usage_before, usage_after);
+        write_result(options, operations, sources, run, residency, before, after, usage_before, usage_after);
         close_sources(sources);
         if (trace_active) phase12_nvme_trace_finish();
         return 0;
