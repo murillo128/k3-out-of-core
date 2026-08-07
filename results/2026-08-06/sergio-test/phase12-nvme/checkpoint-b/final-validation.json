@@ -38,7 +38,7 @@
       ],
       "returncode": 0,
       "stderr": "",
-      "stdout": "Internal ctest changing into directory: /usr/local/src/k3-out-of-core/build/phase12-nvme\nTest project /usr/local/src/k3-out-of-core/build/phase12-nvme\n    Start 1: phase12_nvme_bench_help\n1/2 Test #1: phase12_nvme_bench_help ..........   Passed    0.00 sec\n    Start 2: phase12_nvme_native_fixture\n2/2 Test #2: phase12_nvme_native_fixture ......   Passed    0.67 sec\n\n100% tests passed, 0 tests failed out of 2\n\nTotal Test time (real) =   0.67 sec\n"
+      "stdout": "Internal ctest changing into directory: /usr/local/src/k3-out-of-core/build/phase12-nvme\nTest project /usr/local/src/k3-out-of-core/build/phase12-nvme\n    Start 1: phase12_nvme_bench_help\n1/2 Test #1: phase12_nvme_bench_help ..........   Passed    0.00 sec\n    Start 2: phase12_nvme_native_fixture\n2/2 Test #2: phase12_nvme_native_fixture ......   Passed    0.68 sec\n\n100% tests passed, 0 tests failed out of 2\n\nTotal Test time (real) =   0.69 sec\n"
     },
     {
       "command": [
@@ -52,7 +52,7 @@
         "test_*.py"
       ],
       "returncode": 0,
-      "stderr": "...........\n----------------------------------------------------------------------\nRan 11 tests in 4.716s\n\nOK\n",
+      "stderr": "...........\n----------------------------------------------------------------------\nRan 11 tests in 4.664s\n\nOK\n",
       "stdout": ""
     },
     {
@@ -67,7 +67,7 @@
         "test_*.py"
       ],
       "returncode": 0,
-      "stderr": "...\n----------------------------------------------------------------------\nRan 3 tests in 1.155s\n\nOK\n",
+      "stderr": "......\n----------------------------------------------------------------------\nRan 6 tests in 1.231s\n\nOK\n",
       "stdout": ""
     }
   ],

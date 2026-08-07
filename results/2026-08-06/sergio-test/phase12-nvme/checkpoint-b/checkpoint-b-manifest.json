@@ -1695,7 +1695,8 @@
     "fair positional-read/io_uring/mmap matrix harness and telemetry",
     "default-off accepted-Perfetto-SDK trace target and analysis",
     "dual-namespace preparation/comparison tooling",
-    "Colibr\u00ec preflight/snapshot/reference capture tooling"
+    "Colibr\u00ec preflight/snapshot/reference capture tooling",
+    "real-route capture and bounded global-LRU/ALWAYS cache-locality replay tooling"
   ],
   "external_full_model_reference": {
     "accepted_evidence": {
@@ -1890,6 +1891,7 @@
   ],
   "gates": {
     "baseline_and_negative_candidates_inspectable": "PASS",
+    "cache_policy_or_default_change": false,
     "dual_nvme_controlled": "PASS",
     "final_corpus_physical_and_checksum_verification": "PASS",
     "final_storage_format_decision_made": false,
@@ -1898,6 +1900,7 @@
     "phase12_importable_handoff": "PASS",
     "phase9_phase10_default_change": false,
     "project_cuda_or_h2d_claim": false,
+    "real_route_cache_locality": "PASS",
     "runtime_reuse_delta_selected": false,
     "same_machine_colibri_full_model": "PASS",
     "winner_trace_complete_and_attributed": "PASS"
@@ -2424,6 +2427,8 @@
     "Dual-NVMe scaling is same-host CPU/storage-only evidence and does not establish multi-drive project GPU overlap or a production placement default.",
     "Colibr\u00ec is a separate CPU full-model runtime with int4/int8 trunk quantization and native MXFP4 experts; its actual TPS is not directly comparable to project synthetic token-equivalent throughput.",
     "The accepted Colibr\u00ec observation contains eight decode-forward samples and cannot drive a storage-format gate requiring at least 100 samples/five processes.",
+    "The real-route cache-locality curve contains one fixed prompt with 256 complete decode forwards; it is sufficient for this bounded study but remains workload-specific and requires end-to-end confirmation for Phase 12 capacity selection.",
+    "Cache-locality projections cover only the NVMe miss-byte service component; they do not assume linear end-to-end scaling and include no H2D, CUDA, GPU-compute, overlap, or project-TPS claim.",
     "The secondary native-MXFP4 comparator was not executed because its published full-generation path remained unverified for an authoritative TPS claim.",
     "Large raw evidence archives and the verified 1.56 TB checkpoint remain external and checksum-addressed; the retained physical synthetic corpus is reproducible but not committed to Git.",
     "No final GGUF/repack/custom-format disposition is made; that decision remains gated on the required NVMe plus discrete-CUDA Phase 12 confirmation."
@@ -2526,11 +2531,13 @@
     "stop_rule_reached": true
   },
   "phase12_import_contract": {
+    "import_real_route_cache_locality_curve": true,
     "must_add": [
       "project H2D and GPU execution correctness",
       "project storage/H2D/compute overlap",
       "project actual full-model inference and numerical/quality gates when capable",
-      "final storage-format quantitative disposition"
+      "final storage-format quantitative disposition",
+      "explicit RAM/VRAM capacity selection from the real-route curve and actual end-to-end validation"
     ],
     "must_preserve": [
       "exact K3 source/topology/payload/seed/route identities",
@@ -2544,13 +2551,1160 @@
     "rerun_mandatory_baseline": true
   },
   "raw_evidence": {
-    "aggregate_index_and_archive_sha256": "1ffeedbd646c3b44a4f2b00fcde6f7aa42e1533b9b78e9b1586d99402344205a",
-    "index_count": 8,
+    "aggregate_index_and_archive_sha256": "d0bc946d95e6d54097fd8cff6a2adb66e3937ebca29152c439151d11aa8fcbda",
+    "index_count": 9,
     "path": "results/2026-08-06/sergio-test/phase12-nvme/checkpoint-b/raw-evidence-index.json",
-    "sha256": "17566b66d5c08deb8291596ca9b169b92627eef97fa92b28220b316ef067f18f",
-    "size": 5436
+    "sha256": "154a9a7b924f2d41398137b71937402bf784a73746be19be7c6d1ad4165553b2",
+    "size": 5990
   },
-  "schema_version": "phase12-nvme-checkpoint-b-v1",
+  "real_route_cache_locality": {
+    "bounded_resources": {
+      "algorithm": "O(events log unique_keys) exact reuse distance plus six O(events) bounded LRU replays",
+      "event_count": 420992,
+      "max_rss_bytes": 155357184,
+      "maximum_simulated_slots": 5874,
+      "payload_bytes_allocated": 0,
+      "wall_seconds": 10.894471200997941
+    },
+    "capacity_curve": [
+      {
+        "capacity_gib": 0,
+        "replay": {
+          "admissions": 0,
+          "decode_misses_per_token": {
+            "count": 256,
+            "max": 1472,
+            "mean": 1472,
+            "p50": 1472.0,
+            "p90": 1472.0,
+            "p95": 1472.0,
+            "p99": 1472.0
+          },
+          "decode_required_nvme_bytes_per_token": {
+            "count": 256,
+            "max": 25829572608,
+            "mean": 25829572608,
+            "p50": 25829572608.0,
+            "p90": 25829572608.0,
+            "p95": 25829572608.0,
+            "p99": 25829572608.0
+          },
+          "deterministic_replay_digest": "119642077d5296c880819542dc61f9591e26f7e32f0667824a50d1fbb8ecf135",
+          "evictions": 0,
+          "final_lru_state_sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "final_occupancy_bytes": 0,
+          "final_occupancy_slots": 0,
+          "windows": {
+            "all": {
+              "expert_requests": 420992,
+              "hit_ratio_by_expert_requests": 0.0,
+              "hit_ratio_by_useful_bytes": 0.0,
+              "hits": 0,
+              "misses": 420992,
+              "nvme_bytes_avoided": 0,
+              "required_nvme_bytes": 7387257765888,
+              "useful_expert_bytes": 7387257765888
+            },
+            "decode": {
+              "expert_requests": 376832,
+              "hit_ratio_by_expert_requests": 0.0,
+              "hit_ratio_by_useful_bytes": 0.0,
+              "hits": 0,
+              "misses": 376832,
+              "nvme_bytes_avoided": 0,
+              "required_nvme_bytes": 6612370587648,
+              "useful_expert_bytes": 6612370587648
+            },
+            "decode_cold_start": {
+              "expert_requests": 47104,
+              "hit_ratio_by_expert_requests": 0.0,
+              "hit_ratio_by_useful_bytes": 0.0,
+              "hits": 0,
+              "misses": 47104,
+              "nvme_bytes_avoided": 0,
+              "required_nvme_bytes": 826546323456,
+              "useful_expert_bytes": 826546323456
+            },
+            "decode_steady_state": {
+              "expert_requests": 329728,
+              "hit_ratio_by_expert_requests": 0.0,
+              "hit_ratio_by_useful_bytes": 0.0,
+              "hits": 0,
+              "misses": 329728,
+              "nvme_bytes_avoided": 0,
+              "required_nvme_bytes": 5785824264192,
+              "useful_expert_bytes": 5785824264192
+            },
+            "prefill": {
+              "expert_requests": 44160,
+              "hit_ratio_by_expert_requests": 0.0,
+              "hit_ratio_by_useful_bytes": 0.0,
+              "hits": 0,
+              "misses": 44160,
+              "nvme_bytes_avoided": 0,
+              "required_nvme_bytes": 774887178240,
+              "useful_expert_bytes": 774887178240
+            }
+          }
+        },
+        "storage_only_projection": {
+          "claim_boundary": "miss-byte service component only; not actual Colibr\u00ec TPS, projected project end-to-end TPS, H2D, CUDA, GPU compute, or overlap",
+          "dual_nvme": {
+            "mean_storage_seconds_range_from_observed_throughput": [
+              1.8360461565330952,
+              1.8623677111576347
+            ],
+            "observed_throughput_gbps_range": [
+              13.869212,
+              14.068041
+            ],
+            "projected_storage_seconds_per_decode_token": {
+              "count": 256,
+              "max": 1.8520441217986319,
+              "mean": 1.8520441217986319,
+              "p50": 1.8520441217986319,
+              "p90": 1.8520441217986319,
+              "p95": 1.8520441217986319,
+              "p99": 1.8520441217986319
+            },
+            "service_throughput_gbps": 13.9465212
+          },
+          "single_nvme": {
+            "mean_storage_seconds_range_from_observed_throughput": [
+              3.5196545378063893,
+              3.551981504637661
+            ],
+            "observed_throughput_gbps_range": [
+              7.271877,
+              7.338667
+            ],
+            "projected_storage_seconds_per_decode_token": {
+              "count": 256,
+              "max": 3.540375769612711,
+              "mean": 3.540375769612711,
+              "p50": 3.540375769612711,
+              "p90": 3.540375769612711,
+              "p95": 3.540375769612711,
+              "p99": 3.540375769612711
+            },
+            "service_throughput_gbps": 7.295715
+          }
+        },
+        "support": {
+          "declared_safe_memory_ceiling_bytes": 161639786086,
+          "projected_process_rss_bytes": 39041900544,
+          "requested_capacity_bytes": 0,
+          "slots": 0,
+          "status": "SUPPORTED",
+          "usable_capacity_bytes": 0
+        }
+      },
+      {
+        "capacity_gib": 8,
+        "replay": {
+          "admissions": 420992,
+          "decode_misses_per_token": {
+            "count": 256,
+            "max": 1472,
+            "mean": 1472,
+            "p50": 1472.0,
+            "p90": 1472.0,
+            "p95": 1472.0,
+            "p99": 1472.0
+          },
+          "decode_required_nvme_bytes_per_token": {
+            "count": 256,
+            "max": 25829572608,
+            "mean": 25829572608,
+            "p50": 25829572608.0,
+            "p90": 25829572608.0,
+            "p95": 25829572608.0,
+            "p99": 25829572608.0
+          },
+          "deterministic_replay_digest": "4a9af71b9bf1db8133905e2387d058021693db1b188e01e685cda4435e37a3bc",
+          "evictions": 420503,
+          "final_lru_state_sha256": "f2a446c3fccf47b7a8bd27706ff778d7c1cc5fc07c418d6f182321ade1c22d11",
+          "final_occupancy_bytes": 8580612096,
+          "final_occupancy_slots": 489,
+          "windows": {
+            "all": {
+              "expert_requests": 420992,
+              "hit_ratio_by_expert_requests": 0.0,
+              "hit_ratio_by_useful_bytes": 0.0,
+              "hits": 0,
+              "misses": 420992,
+              "nvme_bytes_avoided": 0,
+              "required_nvme_bytes": 7387257765888,
+              "useful_expert_bytes": 7387257765888
+            },
+            "decode": {
+              "expert_requests": 376832,
+              "hit_ratio_by_expert_requests": 0.0,
+              "hit_ratio_by_useful_bytes": 0.0,
+              "hits": 0,
+              "misses": 376832,
+              "nvme_bytes_avoided": 0,
+              "required_nvme_bytes": 6612370587648,
+              "useful_expert_bytes": 6612370587648
+            },
+            "decode_cold_start": {
+              "expert_requests": 47104,
+              "hit_ratio_by_expert_requests": 0.0,
+              "hit_ratio_by_useful_bytes": 0.0,
+              "hits": 0,
+              "misses": 47104,
+              "nvme_bytes_avoided": 0,
+              "required_nvme_bytes": 826546323456,
+              "useful_expert_bytes": 826546323456
+            },
+            "decode_steady_state": {
+              "expert_requests": 329728,
+              "hit_ratio_by_expert_requests": 0.0,
+              "hit_ratio_by_useful_bytes": 0.0,
+              "hits": 0,
+              "misses": 329728,
+              "nvme_bytes_avoided": 0,
+              "required_nvme_bytes": 5785824264192,
+              "useful_expert_bytes": 5785824264192
+            },
+            "prefill": {
+              "expert_requests": 44160,
+              "hit_ratio_by_expert_requests": 0.0,
+              "hit_ratio_by_useful_bytes": 0.0,
+              "hits": 0,
+              "misses": 44160,
+              "nvme_bytes_avoided": 0,
+              "required_nvme_bytes": 774887178240,
+              "useful_expert_bytes": 774887178240
+            }
+          }
+        },
+        "storage_only_projection": {
+          "claim_boundary": "miss-byte service component only; not actual Colibr\u00ec TPS, projected project end-to-end TPS, H2D, CUDA, GPU compute, or overlap",
+          "dual_nvme": {
+            "mean_storage_seconds_range_from_observed_throughput": [
+              1.8360461565330952,
+              1.8623677111576347
+            ],
+            "observed_throughput_gbps_range": [
+              13.869212,
+              14.068041
+            ],
+            "projected_storage_seconds_per_decode_token": {
+              "count": 256,
+              "max": 1.8520441217986319,
+              "mean": 1.8520441217986319,
+              "p50": 1.8520441217986319,
+              "p90": 1.8520441217986319,
+              "p95": 1.8520441217986319,
+              "p99": 1.8520441217986319
+            },
+            "service_throughput_gbps": 13.9465212
+          },
+          "single_nvme": {
+            "mean_storage_seconds_range_from_observed_throughput": [
+              3.5196545378063893,
+              3.551981504637661
+            ],
+            "observed_throughput_gbps_range": [
+              7.271877,
+              7.338667
+            ],
+            "projected_storage_seconds_per_decode_token": {
+              "count": 256,
+              "max": 3.540375769612711,
+              "mean": 3.540375769612711,
+              "p50": 3.540375769612711,
+              "p90": 3.540375769612711,
+              "p95": 3.540375769612711,
+              "p99": 3.540375769612711
+            },
+            "service_throughput_gbps": 7.295715
+          }
+        },
+        "support": {
+          "declared_safe_memory_ceiling_bytes": 161639786086,
+          "projected_process_rss_bytes": 47622512640,
+          "requested_capacity_bytes": 8589934592,
+          "slots": 489,
+          "status": "SUPPORTED",
+          "usable_capacity_bytes": 8580612096
+        }
+      },
+      {
+        "capacity_gib": 16,
+        "replay": {
+          "admissions": 420992,
+          "decode_misses_per_token": {
+            "count": 256,
+            "max": 1472,
+            "mean": 1472,
+            "p50": 1472.0,
+            "p90": 1472.0,
+            "p95": 1472.0,
+            "p99": 1472.0
+          },
+          "decode_required_nvme_bytes_per_token": {
+            "count": 256,
+            "max": 25829572608,
+            "mean": 25829572608,
+            "p50": 25829572608.0,
+            "p90": 25829572608.0,
+            "p95": 25829572608.0,
+            "p99": 25829572608.0
+          },
+          "deterministic_replay_digest": "bbcd973d427f92b708352e8b2dd450a89b52ecdecae49e36c2a4befe643a15a0",
+          "evictions": 420013,
+          "final_lru_state_sha256": "6e42c46c23e1d7a5c56dc6a8218f208c699f7a3c97e8e764dcc0b0cfc259177d",
+          "final_occupancy_bytes": 17178771456,
+          "final_occupancy_slots": 979,
+          "windows": {
+            "all": {
+              "expert_requests": 420992,
+              "hit_ratio_by_expert_requests": 0.0,
+              "hit_ratio_by_useful_bytes": 0.0,
+              "hits": 0,
+              "misses": 420992,
+              "nvme_bytes_avoided": 0,
+              "required_nvme_bytes": 7387257765888,
+              "useful_expert_bytes": 7387257765888
+            },
+            "decode": {
+              "expert_requests": 376832,
+              "hit_ratio_by_expert_requests": 0.0,
+              "hit_ratio_by_useful_bytes": 0.0,
+              "hits": 0,
+              "misses": 376832,
+              "nvme_bytes_avoided": 0,
+              "required_nvme_bytes": 6612370587648,
+              "useful_expert_bytes": 6612370587648
+            },
+            "decode_cold_start": {
+              "expert_requests": 47104,
+              "hit_ratio_by_expert_requests": 0.0,
+              "hit_ratio_by_useful_bytes": 0.0,
+              "hits": 0,
+              "misses": 47104,
+              "nvme_bytes_avoided": 0,
+              "required_nvme_bytes": 826546323456,
+              "useful_expert_bytes": 826546323456
+            },
+            "decode_steady_state": {
+              "expert_requests": 329728,
+              "hit_ratio_by_expert_requests": 0.0,
+              "hit_ratio_by_useful_bytes": 0.0,
+              "hits": 0,
+              "misses": 329728,
+              "nvme_bytes_avoided": 0,
+              "required_nvme_bytes": 5785824264192,
+              "useful_expert_bytes": 5785824264192
+            },
+            "prefill": {
+              "expert_requests": 44160,
+              "hit_ratio_by_expert_requests": 0.0,
+              "hit_ratio_by_useful_bytes": 0.0,
+              "hits": 0,
+              "misses": 44160,
+              "nvme_bytes_avoided": 0,
+              "required_nvme_bytes": 774887178240,
+              "useful_expert_bytes": 774887178240
+            }
+          }
+        },
+        "storage_only_projection": {
+          "claim_boundary": "miss-byte service component only; not actual Colibr\u00ec TPS, projected project end-to-end TPS, H2D, CUDA, GPU compute, or overlap",
+          "dual_nvme": {
+            "mean_storage_seconds_range_from_observed_throughput": [
+              1.8360461565330952,
+              1.8623677111576347
+            ],
+            "observed_throughput_gbps_range": [
+              13.869212,
+              14.068041
+            ],
+            "projected_storage_seconds_per_decode_token": {
+              "count": 256,
+              "max": 1.8520441217986319,
+              "mean": 1.8520441217986319,
+              "p50": 1.8520441217986319,
+              "p90": 1.8520441217986319,
+              "p95": 1.8520441217986319,
+              "p99": 1.8520441217986319
+            },
+            "service_throughput_gbps": 13.9465212
+          },
+          "single_nvme": {
+            "mean_storage_seconds_range_from_observed_throughput": [
+              3.5196545378063893,
+              3.551981504637661
+            ],
+            "observed_throughput_gbps_range": [
+              7.271877,
+              7.338667
+            ],
+            "projected_storage_seconds_per_decode_token": {
+              "count": 256,
+              "max": 3.540375769612711,
+              "mean": 3.540375769612711,
+              "p50": 3.540375769612711,
+              "p90": 3.540375769612711,
+              "p95": 3.540375769612711,
+              "p99": 3.540375769612711
+            },
+            "service_throughput_gbps": 7.295715
+          }
+        },
+        "support": {
+          "declared_safe_memory_ceiling_bytes": 161639786086,
+          "projected_process_rss_bytes": 56220672000,
+          "requested_capacity_bytes": 17179869184,
+          "slots": 979,
+          "status": "SUPPORTED",
+          "usable_capacity_bytes": 17178771456
+        }
+      },
+      {
+        "capacity_gib": 32,
+        "replay": {
+          "admissions": 342096,
+          "decode_misses_per_token": {
+            "count": 256,
+            "max": 1368,
+            "mean": 1214.9453125,
+            "p50": 1232.0,
+            "p90": 1328.0,
+            "p95": 1336.0,
+            "p99": 1362.0
+          },
+          "decode_required_nvme_bytes_per_token": {
+            "count": 256,
+            "max": 24004657152,
+            "mean": 21318966144,
+            "p50": 21618229248.0,
+            "p90": 23302766592.0,
+            "p95": 23443144704.0,
+            "p99": 23899373568.0
+          },
+          "deterministic_replay_digest": "4c1b1b168935fcfdf355ed5129a97c61b3e1388ebb98dd7cd36f48b25f698d6c",
+          "evictions": 340138,
+          "final_lru_state_sha256": "7fc812a2b7486286c180e73e59b77a9eab1bdb4d09ece59e85bca3214ef9eb8c",
+          "final_occupancy_bytes": 34357542912,
+          "final_occupancy_slots": 1958,
+          "windows": {
+            "all": {
+              "expert_requests": 420992,
+              "hit_ratio_by_expert_requests": 0.1874049863180298,
+              "hit_ratio_by_useful_bytes": 0.1874049863180298,
+              "hits": 78896,
+              "misses": 342096,
+              "nvme_bytes_avoided": 1384408940544,
+              "required_nvme_bytes": 6002848825344,
+              "useful_expert_bytes": 7387257765888
+            },
+            "decode": {
+              "expert_requests": 376832,
+              "hit_ratio_by_expert_requests": 0.17462954313858695,
+              "hit_ratio_by_useful_bytes": 0.17462954313858695,
+              "hits": 65806,
+              "misses": 311026,
+              "nvme_bytes_avoided": 1154715254784,
+              "required_nvme_bytes": 5457655332864,
+              "useful_expert_bytes": 6612370587648
+            },
+            "decode_cold_start": {
+              "expert_requests": 47104,
+              "hit_ratio_by_expert_requests": 0.23874830163043478,
+              "hit_ratio_by_useful_bytes": 0.23874830163043478,
+              "hits": 11246,
+              "misses": 35858,
+              "nvme_bytes_avoided": 197336530944,
+              "required_nvme_bytes": 629209792512,
+              "useful_expert_bytes": 826546323456
+            },
+            "decode_steady_state": {
+              "expert_requests": 329728,
+              "hit_ratio_by_expert_requests": 0.1654697204968944,
+              "hit_ratio_by_useful_bytes": 0.1654697204968944,
+              "hits": 54560,
+              "misses": 275168,
+              "nvme_bytes_avoided": 957378723840,
+              "required_nvme_bytes": 4828445540352,
+              "useful_expert_bytes": 5785824264192
+            },
+            "prefill": {
+              "expert_requests": 44160,
+              "hit_ratio_by_expert_requests": 0.2964221014492754,
+              "hit_ratio_by_useful_bytes": 0.2964221014492754,
+              "hits": 13090,
+              "misses": 31070,
+              "nvme_bytes_avoided": 229693685760,
+              "required_nvme_bytes": 545193492480,
+              "useful_expert_bytes": 774887178240
+            }
+          }
+        },
+        "storage_only_projection": {
+          "claim_boundary": "miss-byte service component only; not actual Colibr\u00ec TPS, projected project end-to-end TPS, H2D, CUDA, GPU compute, or overlap",
+          "dual_nvme": {
+            "mean_storage_seconds_range_from_observed_throughput": [
+              1.5154182550363622,
+              1.537143288602121
+            ],
+            "observed_throughput_gbps_range": [
+              13.869212,
+              14.068041
+            ],
+            "projected_storage_seconds_per_decode_token": {
+              "count": 256,
+              "max": 1.7211931784106849,
+              "mean": 1.528622502936431,
+              "p50": 1.5500804062879854,
+              "p90": 1.670865892492244,
+              "p95": 1.6809313496759322,
+              "p99": 1.7136440855229187
+            },
+            "service_throughput_gbps": 13.9465212
+          },
+          "single_nvme": {
+            "mean_storage_seconds_range_from_observed_throughput": [
+              2.905018873863605,
+              2.9317005972460755
+            ],
+            "observed_throughput_gbps_range": [
+              7.271877,
+              7.338667
+            ],
+            "projected_storage_seconds_per_decode_token": {
+              "count": 256,
+              "max": 3.2902405250205087,
+              "mean": 2.9221215664263203,
+              "p50": 2.9631405897845515,
+              "p90": 3.1940346617158153,
+              "p95": 3.2132758343767542,
+              "p99": 3.2758096455248045
+            },
+            "service_throughput_gbps": 7.295715
+          }
+        },
+        "support": {
+          "declared_safe_memory_ceiling_bytes": 161639786086,
+          "projected_process_rss_bytes": 73399443456,
+          "requested_capacity_bytes": 34359738368,
+          "slots": 1958,
+          "status": "SUPPORTED",
+          "usable_capacity_bytes": 34357542912
+        }
+      },
+      {
+        "capacity_gib": 64,
+        "replay": {
+          "admissions": 283223,
+          "decode_misses_per_token": {
+            "count": 256,
+            "max": 1235,
+            "mean": 1011.578125,
+            "p50": 1004.0,
+            "p90": 1174.0,
+            "p95": 1190.0,
+            "p99": 1217.0
+          },
+          "decode_required_nvme_bytes_per_token": {
+            "count": 256,
+            "max": 21670871040,
+            "mean": 17750428416,
+            "p50": 17617453056.0,
+            "p90": 20600487936.0,
+            "p95": 20881244160.0,
+            "p99": 21355020288.0
+          },
+          "deterministic_replay_digest": "035235137ea7c2cbb043ced03cdbc91ac1fa95a01070a18e18fe0b1506f5fd79",
+          "evictions": 279307,
+          "final_lru_state_sha256": "4a1834da608bc40280662e7ae45dfe7c77a4c761b7123c2211570f12c55cfba5",
+          "final_occupancy_bytes": 68715085824,
+          "final_occupancy_slots": 3916,
+          "windows": {
+            "all": {
+              "expert_requests": 420992,
+              "hit_ratio_by_expert_requests": 0.3272484987838249,
+              "hit_ratio_by_useful_bytes": 0.3272484987838249,
+              "hits": 137769,
+              "misses": 283223,
+              "nvme_bytes_avoided": 2417469014016,
+              "required_nvme_bytes": 4969788751872,
+              "useful_expert_bytes": 7387257765888
+            },
+            "decode": {
+              "expert_requests": 376832,
+              "hit_ratio_by_expert_requests": 0.31278659986413043,
+              "hit_ratio_by_useful_bytes": 0.31278659986413043,
+              "hits": 117868,
+              "misses": 258964,
+              "nvme_bytes_avoided": 2068260913152,
+              "required_nvme_bytes": 4544109674496,
+              "useful_expert_bytes": 6612370587648
+            },
+            "decode_cold_start": {
+              "expert_requests": 47104,
+              "hit_ratio_by_expert_requests": 0.422554347826087,
+              "hit_ratio_by_useful_bytes": 0.422554347826087,
+              "hits": 19904,
+              "misses": 27200,
+              "nvme_bytes_avoided": 349260742656,
+              "required_nvme_bytes": 477285580800,
+              "useful_expert_bytes": 826546323456
+            },
+            "decode_steady_state": {
+              "expert_requests": 329728,
+              "hit_ratio_by_expert_requests": 0.29710549301242234,
+              "hit_ratio_by_useful_bytes": 0.29710549301242234,
+              "hits": 97964,
+              "misses": 231764,
+              "nvme_bytes_avoided": 1719000170496,
+              "required_nvme_bytes": 4066824093696,
+              "useful_expert_bytes": 5785824264192
+            },
+            "prefill": {
+              "expert_requests": 44160,
+              "hit_ratio_by_expert_requests": 0.4506567028985507,
+              "hit_ratio_by_useful_bytes": 0.4506567028985507,
+              "hits": 19901,
+              "misses": 24259,
+              "nvme_bytes_avoided": 349208100864,
+              "required_nvme_bytes": 425679077376,
+              "useful_expert_bytes": 774887178240
+            }
+          }
+        },
+        "storage_only_projection": {
+          "claim_boundary": "miss-byte service component only; not actual Colibr\u00ec TPS, projected project end-to-end TPS, H2D, CUDA, GPU compute, or overlap",
+          "dual_nvme": {
+            "mean_storage_seconds_range_from_observed_throughput": [
+              1.2617555220375034,
+              1.2798440470878951
+            ],
+            "observed_throughput_gbps_range": [
+              13.869212,
+              14.068041
+            ],
+            "projected_storage_seconds_per_decode_token": {
+              "count": 256,
+              "max": 1.5538549527318684,
+              "mean": 1.2727495381428884,
+              "p50": 1.263214876552871,
+              "p90": 1.4771058417062457,
+              "p95": 1.4972367560736222,
+              "p99": 1.5312076740685698
+            },
+            "service_throughput_gbps": 13.9465212
+          },
+          "single_nvme": {
+            "mean_storage_seconds_range_from_observed_throughput": [
+              2.418753762229571,
+              2.440969287021769
+            ],
+            "observed_throughput_gbps_range": [
+              7.271877,
+              7.338667
+            ],
+            "projected_storage_seconds_per_decode_token": {
+              "count": 256,
+              "max": 2.9703560295324034,
+              "mean": 2.4329936703941972,
+              "p50": 2.4147671689478,
+              "p90": 2.8236420879927464,
+              "p95": 2.862124433314624,
+              "p99": 2.9270633910452917
+            },
+            "service_throughput_gbps": 7.295715
+          }
+        },
+        "support": {
+          "declared_safe_memory_ceiling_bytes": 161639786086,
+          "projected_process_rss_bytes": 107756986368,
+          "requested_capacity_bytes": 68719476736,
+          "slots": 3916,
+          "status": "SUPPORTED",
+          "usable_capacity_bytes": 68715085824
+        }
+      },
+      {
+        "capacity_gib": 96,
+        "replay": {
+          "admissions": 175661,
+          "decode_misses_per_token": {
+            "count": 256,
+            "max": 845,
+            "mean": 608.578125,
+            "p50": 611.0,
+            "p90": 729.0,
+            "p95": 756.0,
+            "p99": 821.0
+          },
+          "decode_required_nvme_bytes_per_token": {
+            "count": 256,
+            "max": 14827438080,
+            "mean": 10678881024,
+            "p50": 10721378304.0,
+            "p90": 12791955456.0,
+            "p95": 13265731584.0,
+            "p99": 14406303744.0
+          },
+          "deterministic_replay_digest": "f626978865e0edf34b338152b26d3f162b70fe3e1961aeec868b0a7115b434d6",
+          "evictions": 169787,
+          "final_lru_state_sha256": "f0b37538cb958e16cc23e901f2105f81df7470622309fc37810e3679c5483a89",
+          "final_occupancy_bytes": 103072628736,
+          "final_occupancy_slots": 5874,
+          "windows": {
+            "all": {
+              "expert_requests": 420992,
+              "hit_ratio_by_expert_requests": 0.5827450402858012,
+              "hit_ratio_by_useful_bytes": 0.5827450402858012,
+              "hits": 245331,
+              "misses": 175661,
+              "nvme_bytes_avoided": 4304887824384,
+              "required_nvme_bytes": 3082369941504,
+              "useful_expert_bytes": 7387257765888
+            },
+            "decode": {
+              "expert_requests": 376832,
+              "hit_ratio_by_expert_requests": 0.586563773777174,
+              "hit_ratio_by_useful_bytes": 0.586563773777174,
+              "hits": 221036,
+              "misses": 155796,
+              "nvme_bytes_avoided": 3878577045504,
+              "required_nvme_bytes": 2733793542144,
+              "useful_expert_bytes": 6612370587648
+            },
+            "decode_cold_start": {
+              "expert_requests": 47104,
+              "hit_ratio_by_expert_requests": 0.6741890285326086,
+              "hit_ratio_by_useful_bytes": 0.6741890285326086,
+              "hits": 31757,
+              "misses": 15347,
+              "nvme_bytes_avoided": 557248462848,
+              "required_nvme_bytes": 269297860608,
+              "useful_expert_bytes": 826546323456
+            },
+            "decode_steady_state": {
+              "expert_requests": 329728,
+              "hit_ratio_by_expert_requests": 0.5740458802406833,
+              "hit_ratio_by_useful_bytes": 0.5740458802406833,
+              "hits": 189279,
+              "misses": 140449,
+              "nvme_bytes_avoided": 3321328582656,
+              "required_nvme_bytes": 2464495681536,
+              "useful_expert_bytes": 5785824264192
+            },
+            "prefill": {
+              "expert_requests": 44160,
+              "hit_ratio_by_expert_requests": 0.5501585144927537,
+              "hit_ratio_by_useful_bytes": 0.5501585144927537,
+              "hits": 24295,
+              "misses": 19865,
+              "nvme_bytes_avoided": 426310778880,
+              "required_nvme_bytes": 348576399360,
+              "useful_expert_bytes": 774887178240
+            }
+          }
+        },
+        "storage_only_projection": {
+          "claim_boundary": "miss-byte service component only; not actual Colibr\u00ec TPS, projected project end-to-end TPS, H2D, CUDA, GPU compute, or overlap",
+          "dual_nvme": {
+            "mean_storage_seconds_range_from_observed_throughput": [
+              0.7590879941279671,
+              0.7699702783402547
+            ],
+            "observed_throughput_gbps_range": [
+              13.869212,
+              14.068041
+            ],
+            "projected_storage_seconds_per_decode_token": {
+              "count": 256,
+              "max": 1.0631639150270678,
+              "mean": 0.7657021325145944,
+              "p50": 0.7687492924041875,
+              "p90": 0.9172147858635887,
+              "p95": 0.9511857038585364,
+              "p99": 1.0329675434760033
+            },
+            "service_throughput_gbps": 13.9465212
+          },
+          "single_nvme": {
+            "mean_storage_seconds_range_from_observed_throughput": [
+              1.4551526897187186,
+              1.4685178288906702
+            ],
+            "observed_throughput_gbps_range": [
+              7.271877,
+              7.338667
+            ],
+            "projected_storage_seconds_per_decode_token": {
+              "count": 256,
+              "max": 2.0323488623116446,
+              "mean": 1.4637195975994128,
+              "p50": 1.4695445619791891,
+              "p90": 1.7533518587280341,
+              "p95": 1.8182908164587022,
+              "p99": 1.9746253443288286
+            },
+            "service_throughput_gbps": 7.295715
+          }
+        },
+        "support": {
+          "declared_safe_memory_ceiling_bytes": 161639786086,
+          "projected_process_rss_bytes": 142114529280,
+          "requested_capacity_bytes": 103079215104,
+          "slots": 5874,
+          "status": "SUPPORTED",
+          "usable_capacity_bytes": 103072628736
+        }
+      }
+    ],
+    "capture": {
+      "complete_decode_token_forwards": 256,
+      "expert_requests": 420992,
+      "ordering": "request, phase (prefill then decode), token, layer, rank, expert_id",
+      "request_count": 1,
+      "route_captures": [
+        {
+          "binary": {
+            "path": "/mnt/nvme0/k3-phase12-nvme-external/colibri/c/kimi_k3",
+            "sha256": "11c4c5277919759763a2f2c712879bb617e067a25b7f92a9f855a1adcb65f915",
+            "size": 172296
+          },
+          "colibri_commit": "b085b48888a88d9a1c00b151a9979774b72cdbfd",
+          "environment": {
+            "COLI_TEMP": "0",
+            "K3_BITS": "4",
+            "K3_CHUNK": "32",
+            "K3_DIRECT": "1",
+            "K3_EXPERT_GB": "8",
+            "K3_HEAD_BITS": "8",
+            "K3_IDOT": "1",
+            "K3_LOAD_THREADS": "4",
+            "K3_MAXT": "8192",
+            "K3_MLA_BITS": "8",
+            "K3_PIPE": "1",
+            "K3_THINK": "0",
+            "K3_TOPP": "0",
+            "ROUTE_TRACE": "/mnt/nvme0/k3-phase12-nvme-evidence/cache-locality/request-00/route-trace.txt"
+          },
+          "model_revision": "9f62e4e9fffbd0a83ddd60e1c209d828994b3569",
+          "prompt": "Continue this numbered sequence through item 400 without commentary or stopping: 1 cache, 2 cache, 3 cache, 4 cache,",
+          "prompt_utf8_sha256": "42df13bc56752cc2ee521883700cb30b946e3043869685af5f1fbc1c28af76a5",
+          "request_id": 0,
+          "route": {
+            "path": "/mnt/nvme0/k3-phase12-nvme-evidence/cache-locality/request-00/normalized-route.tsv",
+            "sha256": "a995951e6f8086a985792f9443280670582a292d580bbd2309a2c570f9f82410",
+            "size": 9149241
+          },
+          "routing_trace": {
+            "complete_decode_forwards": 256,
+            "cycles": 257,
+            "normalization": "verified ascending 92-layer cycles; prefill batch rows come from prompt token count and K3_CHUNK; rows are normalized to request/token/layer/rank order; remaining one-row cycles are complete decode-token forwards",
+            "normalized_demands": 420992,
+            "prefill_cycles": 1,
+            "raw_call_values": [
+              0
+            ],
+            "routed_layers": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55,
+              56,
+              57,
+              58,
+              59,
+              60,
+              61,
+              62,
+              63,
+              64,
+              65,
+              66,
+              67,
+              68,
+              69,
+              70,
+              71,
+              72,
+              73,
+              74,
+              75,
+              76,
+              77,
+              78,
+              79,
+              80,
+              81,
+              82,
+              83,
+              84,
+              85,
+              86,
+              87,
+              88,
+              89,
+              90,
+              91,
+              92
+            ],
+            "top_k": 16
+          },
+          "runtime": {
+            "actual_decode_tokens_per_second": 0.25,
+            "colibri_expert_accesses": 393863,
+            "colibri_expert_hit_percent": 3.7,
+            "colibri_expert_hits": 14587,
+            "colibri_expert_streamed_gb_decimal": 6655.3,
+            "decode_seconds": 1044.0,
+            "expert_cache_slots_per_layer": 4,
+            "generated_tokens": 256,
+            "init_reported_rss_gb": 35.7,
+            "init_seconds": 230.9,
+            "model_layers": 93,
+            "prefill_seconds": 55.4,
+            "prompt_tokens": 30,
+            "requested_decode_tokens": 256,
+            "temperature": 0.0
+          },
+          "summary": {
+            "path": "results/2026-08-06/sergio-test/phase12-nvme/real-routing-capture.json",
+            "sha256": "ecb119974d6eae7a02d9318cb038196bd86257550a81fd5791d3f3af573b4bb3",
+            "size": 6501
+          }
+        }
+      ],
+      "useful_expert_bytes": 7387257765888
+    },
+    "capture_evidence": {
+      "path": "results/2026-08-06/sergio-test/phase12-nvme/real-routing-capture.json",
+      "sha256": "ecb119974d6eae7a02d9318cb038196bd86257550a81fd5791d3f3af573b4bb3",
+      "size": 6501
+    },
+    "deterministic_replay_digest": "7dbe70b5a1b77111997ec1bec90f8442d46cd6eb3a4eee6d6c48502af611ee01",
+    "disposition": "accepted_evidence_only",
+    "interpretation": {
+      "claim_boundary": "the curve measures real-route NVMe avoidance only; it selects no new policy, default, automatic capacity, storage format, linear end-to-end scaling, or project TPS claim",
+      "equal_bundle_sizes": "count-hit and useful-byte/NVMe-avoidance ratios coincide numerically because every captured K3 expert bundle is exactly 17,547,264 useful bytes; both are recorded independently",
+      "one_decode_forward_working_set": {
+        "conclusion": "8 and 16 GiB hold fewer than one complete decode forward, so global LRU churns every entry before its next eligible reuse and records zero hits",
+        "expert_bundles": 1472,
+        "useful_bytes": 25829572608
+      },
+      "reuse_distance": {
+        "conclusion": "32 GiB captures only the shortest real-route reuse tail; 64 GiB remains below the median stack distance; 96 GiB exceeds it, producing the observed nonlinear capacity curve",
+        "decode_median_distinct_experts": 4862.0,
+        "decode_median_equivalent_useful_bytes": 85314797568
+      }
+    },
+    "nvme_avoidance_thresholds": {
+      "at_least_10_percent_nvme_bytes_avoided": {
+        "observed_fraction": 0.17462954313858695,
+        "reached": true,
+        "smallest_capacity_gib": 32
+      },
+      "at_least_20_percent_nvme_bytes_avoided": {
+        "observed_fraction": 0.31278659986413043,
+        "reached": true,
+        "smallest_capacity_gib": 64
+      },
+      "at_least_30_percent_nvme_bytes_avoided": {
+        "observed_fraction": 0.31278659986413043,
+        "reached": true,
+        "smallest_capacity_gib": 64
+      }
+    },
+    "policy": {
+      "admission": "ALWAYS",
+      "capacity_unit": "binary GiB converted to floor(capacity_bytes / exact useful expert bundle bytes)",
+      "cold_start_window": "empty-cache prefill is reported separately; decode-cold is the first 32 complete decode-token forwards after that real prefill",
+      "default_or_policy_change": false,
+      "initial_state": "empty",
+      "policy": "LRU",
+      "request_boundary": "cache persists across captured requests in request-id order",
+      "scope": "GLOBAL",
+      "steady_state_window": "remaining 224 complete decode-token forwards"
+    },
+    "ram_support_method": {
+      "accepted_colibri_cache_slots": 368,
+      "accepted_colibri_cache_usable_bytes": 6457393152,
+      "accepted_colibri_max_rss_bytes": 45499293696,
+      "declared_safe_memory_ceiling_bytes": 161639786086,
+      "host_memory": {
+        "MemAvailable": 199027175424,
+        "MemTotal": 202049732608,
+        "SwapFree": 6666842112,
+        "SwapTotal": 6666842112
+      },
+      "inferred_non_cache_rss_bytes": 39041900544,
+      "method": "accepted max RSS minus the exact configured expert-slot footprint, plus each replay capacity"
+    },
+    "replay_evidence": {
+      "path": "results/2026-08-06/sergio-test/phase12-nvme/cache-locality.json",
+      "sha256": "879527a882cca5fb4233a1f09e595599223538684bcd5f0bd314b693de86d0d9",
+      "size": 415683
+    },
+    "reuse": {
+      "all_references": 420992,
+      "decode": {
+        "first_references": 23317,
+        "reuses": 353515,
+        "stack_distance_distinct_experts": {
+          "count": 353515,
+          "max": 39910,
+          "mean": 6852.614186102429,
+          "p50": 4862.0,
+          "p90": 15278.0,
+          "p95": 19514.0,
+          "p99": 27607.0
+        },
+        "theoretical_lru_hits_by_capacity_gib": {
+          "0": 0,
+          "16": 0,
+          "32": 65806,
+          "64": 117868,
+          "8": 0,
+          "96": 221036
+        }
+      },
+      "definition": "exact LRU stack distance is the number of distinct (layer,expert) keys referenced since the prior reference; a request hits a C-slot cache iff distance < C",
+      "first_references": 40348,
+      "reuse_interval_expert_requests": {
+        "count": 380644,
+        "max": 419530,
+        "mean": 17857.583545254885,
+        "p50": 5888.0,
+        "p90": 45628.0,
+        "p95": 76545.0,
+        "p99": 188417.0
+      },
+      "reuse_interval_forwards": {
+        "count": 380644,
+        "max": 285,
+        "mean": 12.131519214804385,
+        "p50": 4.0,
+        "p90": 31.0,
+        "p95": 52.0,
+        "p99": 128.0
+      },
+      "reuse_interval_forwards_log2_histogram": {
+        "1-1": 78896,
+        "128-255": 3759,
+        "16-31": 36028,
+        "2-3": 65039,
+        "256-511": 151,
+        "32-63": 22612,
+        "4-7": 112116,
+        "64-127": 10861,
+        "8-15": 51182
+      },
+      "reuses": 380644,
+      "stack_distance_distinct_experts": {
+        "count": 380644,
+        "max": 39910,
+        "mean": 6582.748418469751,
+        "p50": 4821.0,
+        "p90": 14775.0,
+        "p95": 18985.0,
+        "p99": 27305.0
+      },
+      "stack_distance_log2_histogram": {
+        "1024-2047": 78896,
+        "16384-32767": 29030,
+        "2048-4095": 65975,
+        "32768-65535": 784,
+        "4096-8191": 140672,
+        "8192-16383": 65287
+      }
+    },
+    "service_envelopes": {
+      "dual_nvme": {
+        "central_gbps": 13.9465212,
+        "observed_values_gbps": [
+          13.985745,
+          13.927161,
+          14.068041,
+          13.869212,
+          13.882447
+        ],
+        "source": {
+          "path": "results/2026-08-06/sergio-test/phase12-nvme/dual-comparison.json",
+          "sha256": "13f85cff2833c07fbbb86a796744eded4efa6c6a759b8d2346739ae979e564d3",
+          "size": 69737
+        }
+      },
+      "single_nvme": {
+        "central_gbps": 7.295715,
+        "observed_values_gbps": [
+          7.295715,
+          7.292925,
+          7.298464,
+          7.271877,
+          7.317083,
+          7.338667
+        ],
+        "source": {
+          "path": "results/2026-08-06/sergio-test/phase12-nvme/baseline-analysis.json",
+          "sha256": "316cc1be0d4acdf16ff6d68652d92eb9c594798370a3e35907f0bc63582e1b11",
+          "size": 14060
+        }
+      }
+    }
+  },
+  "schema_version": "phase12-nvme-checkpoint-b-v2",
   "secondary_external_comparator": {
     "claim": "no secondary TPS or shortlist evidence",
     "status": "NOT_EXECUTED",
@@ -2562,17 +3716,18 @@
     "colibri": "eight complete externally timestamped decode-forward intervals; bounded same-machine observation, not a format gate",
     "dual_nvme": "five interleaved same-host pairs; Student-t paired 95% interval",
     "optimization_candidates": "three interleaved fresh-process cold pairs; predeclared 5% promising gate with correctness/resource falsifiers",
-    "percentiles": "nearest-rank for harness/tail metrics unless an evidence document explicitly states a paired interval calculation"
+    "percentiles": "nearest-rank for harness/tail metrics unless an evidence document explicitly states a paired interval calculation",
+    "real_route_cache_locality": "one fixed 30-token prefill plus 256 complete decode forwards; exact stack-distance and bounded global-LRU/ALWAYS replay at 0/8/16/32/64/96 GiB; storage-only miss-byte projection through accepted single/dual service envelopes"
   },
   "status": "PASS",
   "technical_revisions": {
     "controlling_base": "63fdfdd49112e4324eb1206d0b6b31bd547669a6",
-    "evidence_revision": "7a39a04fca022b64a859465ab21c926e0692a917",
+    "evidence_revision": "0d9f4b7b5dcd7c9b4c5498152c4c423574eb98f3",
     "nested_changed": false,
     "nested_llama_cpp": "71b4b0251fb314cb955fe5f43b6a1e382fc2b65c"
   },
   "technical_scope": {
-    "result": "full-scale CPU/NVMe storage discovery and frozen Phase 12 rerun handoff",
+    "result": "full-scale CPU/NVMe storage discovery, real-route cache-locality evidence, and frozen Phase 12 rerun handoff",
     "runtime_or_default_change": "NONE",
     "storage_format_disposition": "DEFERRED_TO_PHASE_12_NVME_PLUS_DISCRETE_CUDA_CONFIRMATION",
     "synthetic_claim_boundary": "storage-only token-equivalent service; not project model inference, quality, TTFT, or actual project tokens/second"
@@ -2585,8 +3740,8 @@
     },
     "final": {
       "path": "results/2026-08-06/sergio-test/phase12-nvme/checkpoint-b/final-validation.json",
-      "sha256": "0beb3d6cc9b7863a5ebdd8bab120fbda356b37ff27628a9cb080b6b1bf2270ca",
-      "size": 2433
+      "sha256": "b6aeb3a46500cbd8bea35395128c0fc463a87cf9c3182c13cd4825bf601965b5",
+      "size": 2436
     },
     "final_binary": {
       "path": "/usr/local/src/k3-out-of-core/build/phase12-nvme/phase12_nvme_bench",

@@ -1,6 +1,6 @@
 {
-  "aggregate_index_and_archive_sha256": "1ffeedbd646c3b44a4f2b00fcde6f7aa42e1533b9b78e9b1586d99402344205a",
-  "index_count": 8,
+  "aggregate_index_and_archive_sha256": "d0bc946d95e6d54097fd8cff6a2adb66e3937ebca29152c439151d11aa8fcbda",
+  "index_count": 9,
   "indexes": [
     {
       "archive": {
@@ -113,6 +113,20 @@
         "sha256": "2d44ac13e53f8296cb802ee8a77373aa8b62dd23fd61874181373eb0e3247534",
         "size": 1241
       }
+    },
+    {
+      "archive": {
+        "format": "deterministic POSIX tar; uid/gid/mtime normalized",
+        "path": "/mnt/nvme0/k3-phase12-nvme-evidence/archives/cache-locality.tar",
+        "sha256": "4e40513a2a0138b5f0f8a3ff9df473bc463645a71a9bb1d035eda3a8bbfd3c08",
+        "size": 14817280
+      },
+      "file_count": 8,
+      "index": {
+        "path": "results/2026-08-06/sergio-test/phase12-nvme/cache-locality-raw-index.json",
+        "sha256": "ccffd343ca80ed485230e7a06bf381a9f4db0d8bd9c4a25af262ac8be2457b1c",
+        "size": 1824
+      }
     }
   ],
   "retained_external_inputs": [
@@ -131,6 +145,6 @@
       "verified_bytes": 1560104246710
     }
   ],
-  "schema_version": "phase12-nvme-final-raw-index-v1",
+  "schema_version": "phase12-nvme-final-raw-index-v2",
   "status": "PASS"
 }

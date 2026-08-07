@@ -54,6 +54,48 @@ def compact_cell(cell: dict[str, object]) -> dict[str, object]:
     }
 
 
+def compact_distribution(value: dict[str, object]) -> dict[str, object]:
+    return {key: item for key, item in value.items() if key != "values"}
+
+
+def compact_cache_capacity(row: dict[str, object]) -> dict[str, object]:
+    result = {
+        "capacity_gib": row["capacity_gib"],
+        "support": row["support"],
+    }
+    if row["support"]["status"] != "SUPPORTED":
+        return result
+    replay = row["replay"]
+    result["replay"] = {
+        "windows": replay["windows"],
+        "admissions": replay["admissions"],
+        "evictions": replay["evictions"],
+        "final_occupancy_slots": replay["final_occupancy_slots"],
+        "final_occupancy_bytes": replay["final_occupancy_bytes"],
+        "decode_misses_per_token": compact_distribution(replay["decode_misses_per_token"]),
+        "decode_required_nvme_bytes_per_token": compact_distribution(
+            replay["decode_required_nvme_bytes_per_token"]
+        ),
+        "final_lru_state_sha256": replay["final_lru_state_sha256"],
+        "deterministic_replay_digest": replay["deterministic_replay_digest"],
+    }
+    projection = row["storage_only_projection"]
+    result["storage_only_projection"] = {
+        name: {
+            "service_throughput_gbps": item["service_throughput_gbps"],
+            "observed_throughput_gbps_range": item["observed_throughput_gbps_range"],
+            "projected_storage_seconds_per_decode_token": compact_distribution(
+                item["projected_storage_seconds_per_decode_token"]
+            ),
+            "mean_storage_seconds_range_from_observed_throughput": (
+                item["mean_storage_seconds_range_from_observed_throughput"]
+            ),
+        }
+        for name, item in projection.items() if name in ("single_nvme", "dual_nvme")
+    } | {"claim_boundary": projection["claim_boundary"]}
+    return result
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--evidence-revision", required=True)
@@ -90,6 +132,8 @@ def main() -> int:
         "colibri_snapshot": evidence / "colibri-snapshot-verification.json",
         "colibri_attempt_1": evidence / "colibri-reference-attempt-1-rejected.json",
         "colibri_reference": evidence / "colibri-reference.json",
+        "real_routing_capture": evidence / "real-routing-capture.json",
+        "cache_locality": evidence / "cache-locality.json",
         "final_corpus": evidence / "final-corpus-verification.json",
         "final_validation": evidence / "checkpoint-b/final-validation.json",
     }
@@ -98,7 +142,8 @@ def main() -> int:
         "checkpoint_a", "host", "checkpoint_a_validation", "fio", "baseline_matrix",
         "baseline_analysis", "candidate_1", "candidate_2", "trace_attempt_2",
         "dual_corpus", "dual_comparison", "colibri_preflight", "colibri_snapshot",
-        "colibri_reference", "final_corpus", "final_validation",
+        "colibri_reference", "real_routing_capture", "cache_locality", "final_corpus",
+        "final_validation",
     )
     if any(documents[name]["status"] != "PASS" for name in pass_names):
         raise ValueError("a required final input did not pass")
@@ -144,6 +189,47 @@ def main() -> int:
         raise ValueError("Colibrì reference is not acceptable")
     if colibri["metrics"]["configured_experts_per_token"] != 16:
         raise ValueError("Colibrì top-k mismatch")
+    routing_capture = documents["real_routing_capture"]
+    if routing_capture["disposition"] != "accepted" or routing_capture["failures"]:
+        raise ValueError("real-routing capture is not acceptable")
+    if routing_capture["colibri_commit"] != colibri["colibri_commit"]:
+        raise ValueError("real-routing Colibrì revision changed")
+    if routing_capture["model_revision"] != colibri["model_revision"]:
+        raise ValueError("real-routing model revision changed")
+    if routing_capture["environment"]["K3_TOPP"] != "0":
+        raise ValueError("real-routing capture pruned exact top-16 routing")
+    if routing_capture["routing_trace"]["complete_decode_forwards"] < 256:
+        raise ValueError("real-routing capture is below the amended sample target")
+    if routing_capture["routing_trace"]["top_k"] != 16:
+        raise ValueError("real-routing capture top-k changed")
+    if len(routing_capture["routing_trace"]["routed_layers"]) != 92:
+        raise ValueError("real-routing capture routed-layer count changed")
+    cache_locality = documents["cache_locality"]
+    if cache_locality["disposition"] != "accepted_evidence_only":
+        raise ValueError("cache-locality replay is not acceptable")
+    if cache_locality["policy"] != {
+        "admission": "ALWAYS",
+        "capacity_unit": "binary GiB converted to floor(capacity_bytes / exact useful expert bundle bytes)",
+        "cold_start_window": (
+            "empty-cache prefill is reported separately; decode-cold is the first 32 complete decode-token "
+            "forwards after that real prefill"
+        ),
+        "default_or_policy_change": False,
+        "initial_state": "empty",
+        "policy": "LRU",
+        "request_boundary": "cache persists across captured requests in request-id order",
+        "scope": "GLOBAL",
+        "steady_state_window": "remaining 224 complete decode-token forwards",
+    }:
+        raise ValueError("cache-locality replay policy semantics changed")
+    if [row["capacity_gib"] for row in cache_locality["capacity_curve"]] != [0, 8, 16, 32, 64, 96]:
+        raise ValueError("cache-locality capacity sweep changed")
+    if any(row["support"]["status"] != "SUPPORTED" for row in cache_locality["capacity_curve"]):
+        raise ValueError("an amended cache capacity is unsupported")
+    if cache_locality["routing_corpus"]["complete_decode_token_forwards"] < 256:
+        raise ValueError("cache-locality replay sample count changed")
+    if cache_locality["interpretation"]["claim_boundary"].find("project TPS claim") < 0:
+        raise ValueError("cache-locality claim boundary changed")
 
     raw_index_paths = [
         evidence / "checkpoint-a/raw-evidence-index.json",
@@ -154,6 +240,7 @@ def main() -> int:
         evidence / "winner-trace-attempt-2-raw-index.json",
         evidence / "dual-comparison-raw-index.json",
         evidence / "colibri-reference-raw-index.json",
+        evidence / "cache-locality-raw-index.json",
     ]
     raw_indexes: list[dict[str, object]] = []
     aggregate = hashlib.sha256()
@@ -177,7 +264,7 @@ def main() -> int:
              f"{item['archive']['path']}\0{item['archive']['size']}\0{item['archive']['sha256']}\n").encode()
         )
     raw_document = {
-        "schema_version": "phase12-nvme-final-raw-index-v1",
+        "schema_version": "phase12-nvme-final-raw-index-v2",
         "status": "PASS",
         "index_count": len(raw_indexes),
         "indexes": raw_indexes,
@@ -208,7 +295,7 @@ def main() -> int:
     request_wall = int(trace["critical_path_attribution"]["request_wall_ns"])
     critical = trace["critical_path_attribution"]
     document = {
-        "schema_version": "phase12-nvme-checkpoint-b-v1",
+        "schema_version": "phase12-nvme-checkpoint-b-v2",
         "status": "PASS",
         "checkpoint": "B",
         "final_capable": True,
@@ -219,7 +306,10 @@ def main() -> int:
             "nested_changed": False,
         },
         "technical_scope": {
-            "result": "full-scale CPU/NVMe storage discovery and frozen Phase 12 rerun handoff",
+            "result": (
+                "full-scale CPU/NVMe storage discovery, real-route cache-locality evidence, and frozen Phase 12 "
+                "rerun handoff"
+            ),
             "runtime_or_default_change": "NONE",
             "storage_format_disposition": "DEFERRED_TO_PHASE_12_NVME_PLUS_DISCRETE_CUDA_CONFIRMATION",
             "synthetic_claim_boundary": "storage-only token-equivalent service; not project model inference, quality, TTFT, or actual project tokens/second",
@@ -358,6 +448,30 @@ def main() -> int:
             "comparison_boundary": colibri["comparison_boundary"],
             "disposition": colibri["disposition"],
         },
+        "real_route_cache_locality": {
+            "capture_evidence": identity(paths["real_routing_capture"]),
+            "replay_evidence": identity(paths["cache_locality"]),
+            "capture": {
+                "request_count": cache_locality["routing_corpus"]["request_count"],
+                "complete_decode_token_forwards": (
+                    cache_locality["routing_corpus"]["complete_decode_token_forwards"]
+                ),
+                "expert_requests": cache_locality["routing_corpus"]["expert_requests"],
+                "useful_expert_bytes": cache_locality["routing_corpus"]["useful_expert_bytes"],
+                "ordering": cache_locality["routing_corpus"]["ordering"],
+                "route_captures": cache_locality["routing_corpus"]["captures"],
+            },
+            "policy": cache_locality["policy"],
+            "ram_support_method": cache_locality["ram_support_method"],
+            "capacity_curve": [compact_cache_capacity(row) for row in cache_locality["capacity_curve"]],
+            "reuse": cache_locality["reuse"],
+            "nvme_avoidance_thresholds": cache_locality["nvme_avoidance_thresholds"],
+            "service_envelopes": cache_locality["service_envelopes"],
+            "deterministic_replay_digest": cache_locality["deterministic_replay_digest"],
+            "bounded_resources": cache_locality["bounded_resources"],
+            "interpretation": cache_locality["interpretation"],
+            "disposition": cache_locality["disposition"],
+        },
         "secondary_external_comparator": {
             "status": "NOT_EXECUTED",
             "validation_status": "published full generation remains unverified for the identified native-MXFP4 comparator",
@@ -370,16 +484,19 @@ def main() -> int:
             "default-off accepted-Perfetto-SDK trace target and analysis",
             "dual-namespace preparation/comparison tooling",
             "Colibrì preflight/snapshot/reference capture tooling",
+            "real-route capture and bounded global-LRU/ALWAYS cache-locality replay tooling",
         ],
         "phase12_import_contract": {
             "rerun_mandatory_baseline": True,
             "rerun_frozen_shortlist": True,
+            "import_real_route_cache_locality_curve": True,
             "required_host": "one Linux host containing real NVMe and a discrete CUDA GPU",
             "must_add": [
                 "project H2D and GPU execution correctness",
                 "project storage/H2D/compute overlap",
                 "project actual full-model inference and numerical/quality gates when capable",
                 "final storage-format quantitative disposition",
+                "explicit RAM/VRAM capacity selection from the real-route curve and actual end-to-end validation",
             ],
             "must_preserve": [
                 "exact K3 source/topology/payload/seed/route identities",
@@ -404,6 +521,11 @@ def main() -> int:
             "optimization_candidates": "three interleaved fresh-process cold pairs; predeclared 5% promising gate with correctness/resource falsifiers",
             "dual_nvme": "five interleaved same-host pairs; Student-t paired 95% interval",
             "colibri": "eight complete externally timestamped decode-forward intervals; bounded same-machine observation, not a format gate",
+            "real_route_cache_locality": (
+                "one fixed 30-token prefill plus 256 complete decode forwards; exact stack-distance and bounded "
+                "global-LRU/ALWAYS replay at 0/8/16/32/64/96 GiB; storage-only miss-byte projection through "
+                "accepted single/dual service envelopes"
+            ),
             "percentiles": "nearest-rank for harness/tail metrics unless an evidence document explicitly states a paired interval calculation",
         },
         "gates": {
@@ -414,6 +536,8 @@ def main() -> int:
             "runtime_reuse_delta_selected": False,
             "dual_nvme_controlled": "PASS",
             "same_machine_colibri_full_model": "PASS",
+            "real_route_cache_locality": "PASS",
+            "cache_policy_or_default_change": False,
             "final_corpus_physical_and_checksum_verification": "PASS",
             "phase12_importable_handoff": "PASS",
             "phase9_phase10_default_change": False,
@@ -428,6 +552,8 @@ def main() -> int:
             "Dual-NVMe scaling is same-host CPU/storage-only evidence and does not establish multi-drive project GPU overlap or a production placement default.",
             "Colibrì is a separate CPU full-model runtime with int4/int8 trunk quantization and native MXFP4 experts; its actual TPS is not directly comparable to project synthetic token-equivalent throughput.",
             "The accepted Colibrì observation contains eight decode-forward samples and cannot drive a storage-format gate requiring at least 100 samples/five processes.",
+            "The real-route cache-locality curve contains one fixed prompt with 256 complete decode forwards; it is sufficient for this bounded study but remains workload-specific and requires end-to-end confirmation for Phase 12 capacity selection.",
+            "Cache-locality projections cover only the NVMe miss-byte service component; they do not assume linear end-to-end scaling and include no H2D, CUDA, GPU-compute, overlap, or project-TPS claim.",
             "The secondary native-MXFP4 comparator was not executed because its published full-generation path remained unverified for an authoritative TPS claim.",
             "Large raw evidence archives and the verified 1.56 TB checkpoint remain external and checksum-addressed; the retained physical synthetic corpus is reproducible but not committed to Git.",
             "No final GGUF/repack/custom-format disposition is made; that decision remains gated on the required NVMe plus discrete-CUDA Phase 12 confirmation.",
