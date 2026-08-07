@@ -1,6 +1,8 @@
 #include <liburing.h>
 #include <openssl/evp.h>
 
+#include "phase12_nvme_trace.h"
+
 #include <algorithm>
 #include <array>
 #include <atomic>
@@ -564,9 +566,21 @@ RunResult run_pread(
                         const unsigned current = active.fetch_add(1) + 1;
                         unsigned observed = max_active.load();
                         while (current > observed && !max_active.compare_exchange_weak(observed, current)) {}
+                        [[maybe_unused]] const std::uint64_t trace_id = llm_perfetto_trace_id(
+                            llm_perfetto_trace_domain::storage,
+                            static_cast<std::uint64_t>(iteration) * operations.size() + index + 1);
+                        LLM_EXPERT_TRACE_ASYNC_BEGIN("k3.storage", "storage_operation", trace_id,
+                            "request_id", uint64_t(1),
+                            "operation_index", uint64_t(operations[index].ordinal),
+                            "source", uint64_t(operations[index].source),
+                            "offset", uint64_t(operations[index].offset),
+                            "bytes", uint64_t(operations[index].length),
+                            "direct", uint64_t(options.api == "direct-pread"));
                         intervals[index].start_ns = now_ns();
                         const auto observed_digest = read_one_pread(sources[op_sources[index]].fd, operations[index], buffer.get(), local);
                         intervals[index].end_ns = now_ns();
+                        LLM_EXPERT_TRACE_ASYNC_END("k3.storage", trace_id,
+                            "native_result", int64_t(0), "bytes", uint64_t(operations[index].length));
                         active.fetch_sub(1);
                         if (observed_digest != operations[index].expected) throw std::runtime_error("bundle checksum mismatch");
                         digests[operations[index].ordinal] = observed_digest;
@@ -980,6 +994,7 @@ int count_directory_entries(const char * path) {
 int main(int argc, char ** argv) {
     try {
         const Options options = parse_options(argc, argv);
+        const bool trace_active = phase12_nvme_trace_initialize();
         const auto operations = load_plan(options.plan);
         const bool direct = options.api == "direct-pread" || options.api == "direct-io-uring";
         auto sources = open_sources(operations, direct);
@@ -993,9 +1008,21 @@ int main(int argc, char ** argv) {
         rusage usage_before{};
         getrusage(RUSAGE_SELF, &usage_before);
         RunResult run;
+        [[maybe_unused]] const std::uint64_t request_trace_id = llm_perfetto_trace_id(llm_perfetto_trace_domain::request, 1);
+        [[maybe_unused]] const std::uint64_t provider_trace_id = llm_perfetto_trace_id(llm_perfetto_trace_domain::flight, 1);
+        LLM_EXPERT_TRACE_ASYNC_BEGIN("k3.request", "request", request_trace_id,
+            "request_id", uint64_t(1), "token_index", uint64_t(0), "token_count", uint64_t(options.iterations));
+        LLM_EXPERT_TRACE_ASYNC_BEGIN("k3.provider", "provider_request", provider_trace_id,
+            "request_id", uint64_t(1), "selected_count", uint64_t(operations.size()));
+        LLM_EXPERT_TRACE_COUNTER("k3.resource", "storage_requested_qd", request_trace_id, options.qd);
         if (options.api == "buffered-pread" || options.api == "direct-pread") run = run_pread(options, operations, sources, op_sources);
         else if (options.api == "buffered-io-uring" || options.api == "direct-io-uring") run = run_io_uring(options, operations, sources, op_sources);
         else run = run_mmap(options, operations, sources, op_sources);
+        LLM_EXPERT_TRACE_COUNTER("k3.resource", "storage_max_active", request_trace_id, run.max_active);
+        LLM_EXPERT_TRACE_ASYNC_END("k3.provider", provider_trace_id,
+            "terminal_state", uint64_t(1), "completed_operations", uint64_t(run.counters.operations));
+        LLM_EXPERT_TRACE_ASYNC_END("k3.request", request_trace_id,
+            "terminal_state", uint64_t(1), "useful_bytes", uint64_t(run.counters.bytes));
         run.fd_delta = count_directory_entries("/proc/self/fd") - fds_before;
         run.thread_delta = count_directory_entries("/proc/self/task") - threads_before;
         rusage usage_after{};
@@ -1003,6 +1030,7 @@ int main(int argc, char ** argv) {
         const auto after = snapshot_block_stats(sources);
         write_result(options, operations, run, residency, before, after, usage_before, usage_after);
         close_sources(sources);
+        if (trace_active) phase12_nvme_trace_finish();
         return 0;
     } catch (const Cancelled & error) {
         std::cerr << "phase12_nvme_bench: " << error.what() << '\n';
