@@ -1,0 +1,133 @@
+{
+  "binary": {
+    "path": "/mnt/nvme0/k3-phase12-nvme-external/colibri/c/kimi_k3",
+    "sha256": "11c4c5277919759763a2f2c712879bb617e067a25b7f92a9f855a1adcb65f915",
+    "size": 172296
+  },
+  "block_device": {
+    "io_ticks_ms": 91320,
+    "read_bytes": 372189962240,
+    "read_operations": 3690386,
+    "read_sectors": 726933520,
+    "read_ticks_ms": 11367890,
+    "stat_path": "/sys/devices/pci0000:00/0000:00:0a.0/nvme/nvme0/nvme0n1/stat",
+    "weighted_ticks_ms": 11367890
+  },
+  "cache_state": "OS_COLD_REQUESTED via sync plus drop_caches before process start",
+  "colibri_commit": "b085b48888a88d9a1c00b151a9979774b72cdbfd",
+  "command": [
+    "/mnt/nvme0/k3-phase12-nvme-external/colibri/c/kimi_k3",
+    "/mnt/nvme0/k3-phase12-nvme-external/kimi-k3-snapshot",
+    "Say OK",
+    "--ngen",
+    "8"
+  ],
+  "comparison_boundary": "actual Colibr\u00ec token inference; do not compare raw TPS directly to synthetic storage-only throughput",
+  "disposition": "accepted",
+  "environment": {
+    "COLI_TEMP": "0",
+    "K3_BITS": "4",
+    "K3_CHUNK": "32",
+    "K3_DIRECT": "1",
+    "K3_EXPERT_GB": "8",
+    "K3_HEAD_BITS": "8",
+    "K3_IDOT": "1",
+    "K3_LOAD_THREADS": "4",
+    "K3_MAXT": "8192",
+    "K3_MLA_BITS": "8",
+    "K3_PIPE": "1",
+    "K3_THINK": "0",
+    "K3_TOPP": "0"
+  },
+  "failures": [],
+  "interpretation": "the pinned full model completed a top-16 direct-source reference run",
+  "metrics": {
+    "component_seconds": {
+      "attention": 3.7,
+      "expert_load": 30.8,
+      "head": 0.1,
+      "moe": 38.9
+    },
+    "configured_experts_per_token": 16,
+    "decode_seconds": 31.7,
+    "decode_token_latency_seconds": {
+      "mean": 3.959672569749273,
+      "p50": 3.969276260002516,
+      "p95": 4.107798002005438,
+      "p99": 4.107798002005438,
+      "values": [
+        4.037952973994834,
+        3.7515911369991954,
+        3.969276260002516,
+        3.990500856998551,
+        4.107798002005438,
+        4.059243431998766,
+        3.862070635994314,
+        3.8989472600005683
+      ]
+    },
+    "decode_tokens_per_second": 0.25,
+    "expert_cache_accesses": 15795,
+    "expert_cache_slots_per_layer": 4,
+    "expert_hit_percent": 5.9,
+    "expert_hits": 932,
+    "expert_streamed_gb_decimal": 260.8,
+    "final_reported_rss_gb": 42.4,
+    "generated_tokens": 8,
+    "init_reported_rss_gb": 35.7,
+    "init_seconds": 230.9,
+    "layers": 93,
+    "model_ready_to_first_output_seconds": 11.316008683999826,
+    "prefill_seconds": 11.3,
+    "prefill_tokens_per_second": 0.27,
+    "process_start_to_first_output_seconds": 243.04981667700486,
+    "prompt_tokens": 3
+  },
+  "model_format": "publisher source checkpoint; routed experts native MXFP4",
+  "model_revision": "9f62e4e9fffbd0a83ddd60e1c209d828994b3569",
+  "process_resources": {
+    "average_cpu_cores": 3.001905983210894,
+    "involuntary_context_switches": 1858,
+    "max_rss_bytes": 45499293696,
+    "maximum_threads": 20,
+    "proc_io_maxima": {
+      "io_rchar": 371158319369,
+      "io_read_bytes": 371296669696,
+      "io_wchar": 1253,
+      "io_write_bytes": 0
+    },
+    "system_cpu_seconds": 33.778304,
+    "user_cpu_seconds": 791.937691,
+    "voluntary_context_switches": 1101336,
+    "wall_seconds": 275.0639092690035
+  },
+  "raw_artifacts": {
+    "resource-samples.json": {
+      "path": "/mnt/nvme0/k3-phase12-nvme-evidence/colibri-reference/resource-samples.json",
+      "sha256": "cdd31475ddf7b6d477086ed95671742c831fbcc000ff6f1946888e354b89b4b3",
+      "size": 335806
+    },
+    "stderr-events.json": {
+      "path": "/mnt/nvme0/k3-phase12-nvme-evidence/colibri-reference/stderr-events.json",
+      "sha256": "5dd232855cf5d57000bde0f175eaf987fadd3290a622ef160cbada1db6f2956d",
+      "size": 3339
+    },
+    "stderr.log": {
+      "path": "/mnt/nvme0/k3-phase12-nvme-evidence/colibri-reference/stderr.log",
+      "sha256": "40910b36713ab4738ae79dd26f8286bd847c9ad36905574a2bc89f078c0c23ef",
+      "size": 1431
+    },
+    "stdout.bin": {
+      "path": "/mnt/nvme0/k3-phase12-nvme-evidence/colibri-reference/stdout.bin",
+      "sha256": "7d4191956ce151966ca961e3c6f55450d6e6d76a502d6d6b042164a48f4ad751",
+      "size": 28
+    }
+  },
+  "returncode": 0,
+  "runtime_ceiling_seconds": 7200,
+  "schema_version": "phase12-nvme-colibri-reference-v1",
+  "scope": "same-machine Colibr\u00ec Kimi-K3 direct-source full-model reference",
+  "status": "PASS",
+  "stdout_utf8": " to the dress\n\nSay OK to the",
+  "timed_out": false
+}
