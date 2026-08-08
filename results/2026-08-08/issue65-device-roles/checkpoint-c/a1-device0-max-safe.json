@@ -1,0 +1,193 @@
+{
+  "schema_version": "issue65-max-safe-capacity-v2",
+  "status": "pass",
+  "abort_reason": null,
+  "revisions": {
+    "project": "c2fd16f38fb867e36fb9014c07f114e3f526dc72",
+    "nested": "da6b149597397005cf84cf83f873b25e5ae4de0f"
+  },
+  "artifact": {
+    "identity_manifest": "results/2026-08-08/issue65-device-roles/checkpoint-a/manifest.json",
+    "identity_manifest_sha256": "7f8a1f7422e9c7420d4e6195b01c726ea2f9c9f12bd52ac3bf762ce92c71823c",
+    "model_repository": "unsloth/DeepSeek-V4-Flash-GGUF",
+    "model_revision": "85ce4196ab6e82852e25dfec2b7e2beaae56f5f1",
+    "variant": "UD-Q2_K_XL",
+    "total_bytes": 96832507552,
+    "files": [
+      {
+        "name": "DeepSeek-V4-Flash-UD-Q2_K_XL-00001-of-00003.gguf",
+        "size": 5256864,
+        "sha256": "5475dce5d7189b4304d490bf559d438c967bbc924ce5384ba8e9ecc0385cb003"
+      },
+      {
+        "name": "DeepSeek-V4-Flash-UD-Q2_K_XL-00002-of-00003.gguf",
+        "size": 49437013568,
+        "sha256": "3faf8797868960141239b69bdd8105b0459fbc0f1927652889ae936a967fc4ca"
+      },
+      {
+        "name": "DeepSeek-V4-Flash-UD-Q2_K_XL-00003-of-00003.gguf",
+        "size": 47390237120,
+        "sha256": "4083f1f78e2730006acf78a458ac6b190faf1f515c30cce479a6f8d5066dda80"
+      }
+    ],
+    "runtime_model_path": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00001-of-00003.gguf"
+  },
+  "runtime": {
+    "nvidia_driver_version": "580.173.02",
+    "cuda_driver_api_version": "13.0",
+    "cuda_runtime_version": "12.8",
+    "cuda_toolkit_version": "12.8",
+    "cuda_graphs": "DISABLED",
+    "expert_runtime_mode": "PRODUCTION_PERFORMANCE"
+  },
+  "configuration": {
+    "provider_mode": "COLD_CACHE",
+    "hot_policy": "LRU",
+    "cold_policy": "LRU",
+    "policy_scope": "GLOBAL",
+    "admission": "ALWAYS",
+    "miss_policy": "PROMOTE_AND_GPU",
+    "cold_cache_bytes": 17179869184,
+    "transfer_ring_bytes": 67173120,
+    "queue_depth": 256,
+    "peer_transport": "HOST_STAGED",
+    "peer_staging_bytes": 67108864,
+    "fixture_transport": "POSITIONAL",
+    "integrity": "NONE",
+    "background_promotion": false,
+    "trace_capacity": 0,
+    "observe_routes": false,
+    "config_source": "EXPLICIT",
+    "role_config": "EXPLICIT",
+    "n_ctx": 4096,
+    "n_batch": 128,
+    "n_ubatch": 128,
+    "generated_tokens": 24,
+    "selection": "ARGMAX",
+    "sample_period_seconds": 0.25
+  },
+  "topology": {
+    "resident_cuda_ordinal": 0,
+    "expert_role_template": "0:{candidate},1:268",
+    "target_cuda_ordinal": 0,
+    "target_uuid": "GPU-1e8ea2b1-f247-777c-1d66-d2669411dc79",
+    "target_pci_bdf": "00000000:00:08.0",
+    "peer_transport": "HOST_STAGED",
+    "peer_staging_bytes": 67108864
+  },
+  "bounds": {
+    "slot_stride_bytes": 11835264,
+    "reserve_bytes": 1073741824,
+    "already_safe_lower_slots": 268,
+    "deterministic_upper_slots": 2086,
+    "searched_upper_slots": 2086,
+    "max_probes": 32
+  },
+  "probe_order": [
+    {
+      "candidate_slots": 268,
+      "outcome": "pass",
+      "reason": "all_candidate_gates_passed"
+    },
+    {
+      "candidate_slots": 2086,
+      "outcome": "reject",
+      "reason": "allocation_or_memory_budget"
+    },
+    {
+      "candidate_slots": 1177,
+      "outcome": "pass",
+      "reason": "all_candidate_gates_passed"
+    },
+    {
+      "candidate_slots": 1631,
+      "outcome": "reject",
+      "reason": "allocation_or_memory_budget"
+    },
+    {
+      "candidate_slots": 1404,
+      "outcome": "reject",
+      "reason": "allocation_or_memory_budget"
+    },
+    {
+      "candidate_slots": 1290,
+      "outcome": "pass",
+      "reason": "all_candidate_gates_passed"
+    },
+    {
+      "candidate_slots": 1347,
+      "outcome": "reject",
+      "reason": "allocation_or_memory_budget"
+    },
+    {
+      "candidate_slots": 1318,
+      "outcome": "reject",
+      "reason": "allocation_or_memory_budget"
+    },
+    {
+      "candidate_slots": 1304,
+      "outcome": "pass",
+      "reason": "all_candidate_gates_passed"
+    },
+    {
+      "candidate_slots": 1311,
+      "outcome": "reject",
+      "reason": "allocation_or_memory_budget"
+    },
+    {
+      "candidate_slots": 1307,
+      "outcome": "reject",
+      "reason": "allocation_or_memory_budget"
+    },
+    {
+      "candidate_slots": 1305,
+      "outcome": "pass",
+      "reason": "all_candidate_gates_passed"
+    },
+    {
+      "candidate_slots": 1306,
+      "outcome": "reject",
+      "reason": "allocation_or_memory_budget"
+    }
+  ],
+  "selected_max_safe_slots": 1305,
+  "selected_device_ledgers": [
+    {
+      "cuda_ordinal": 0,
+      "uuid": "GPU-1e8ea2b1-f247-777c-1d66-d2669411dc79",
+      "pci_bdf": "00000000:00:08.0",
+      "total_vram_bytes": 25769803776,
+      "ordinary_resident_model_bytes": 6688237158,
+      "requested_expert_hot_slots": 1305,
+      "effective_expert_hot_slots": 1305,
+      "expert_hot_cache_bytes": 15445019520,
+      "expert_h2d_ring_bytes": 65273856,
+      "peer_device_bytes": 0,
+      "pinned_host_staging_bytes_total": 67108864,
+      "graph_working_reserved_bytes": 76682363,
+      "graph_working_peak_bytes": 76682363,
+      "configured_safety_reserve_bytes": 1073741824,
+      "minimum_observed_free_bytes": 2524971008,
+      "maximum_observed_used_bytes": 22771924992
+    },
+    {
+      "cuda_ordinal": 1,
+      "uuid": "GPU-c616d50f-3ee0-0507-8dfc-1698546b6b5c",
+      "pci_bdf": "00000000:00:0a.0",
+      "total_vram_bytes": 25769803776,
+      "ordinary_resident_model_bytes": 0,
+      "requested_expert_hot_slots": 268,
+      "effective_expert_hot_slots": 268,
+      "expert_hot_cache_bytes": 3171850752,
+      "expert_h2d_ring_bytes": 65273856,
+      "peer_device_bytes": 0,
+      "pinned_host_staging_bytes_total": 67108864,
+      "graph_working_reserved_bytes": 20974561,
+      "graph_working_peak_bytes": 20974561,
+      "configured_safety_reserve_bytes": 1073741824,
+      "minimum_observed_free_bytes": 21787312128,
+      "maximum_observed_used_bytes": 3509583872
+    }
+  ],
+  "raw_directory": "/dev/shm/issue65-checkpoint-c-a1-device0-max-safe"
+}
