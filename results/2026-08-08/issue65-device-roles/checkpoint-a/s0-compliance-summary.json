@@ -1,0 +1,66 @@
+{
+  "schema_version": "issue65-checkpoint-a-compliance-v1",
+  "status": "pass",
+  "identity_equal": true,
+  "identity_sha256": "60658621b12340bc02d1fbb614142e4a17c5dd52eb529bfd4b0b2eb1a1255889",
+  "generated_tokens_per_process": 24,
+  "logits_digests_per_process": 24,
+  "route_records_per_process": 1032,
+  "role_path_structure_equal": true,
+  "role_path_structure_sha256": "3ae7c152e80fab4f09fa0d26740ea07e499445605cbc12edc980fb8f137d344a",
+  "role_path_structure": {
+    "execution_id_read_bytes": 40248,
+    "execution_id_write_bytes": 40248,
+    "graph_binding_count": 43,
+    "graph_node_count": 8877,
+    "graph_operation_hash": 15753641887850642593,
+    "graphs_reused": 22,
+    "peer_edge_count": 0,
+    "provider_bind_calls": 731,
+    "remap_dynamic_allocations": 0,
+    "synchronization_checkpoints": 1032
+  },
+  "same_physical_role": true,
+  "exact_provider_capacity": true,
+  "clean_lifecycle": true,
+  "legacy_resolved_role": {
+    "expert_device_count": 1,
+    "experts": [
+      {
+        "cuda_ordinal": 0,
+        "device_id": 0,
+        "hot_slots": 268,
+        "pci_bdf": "00000000:00:08.0",
+        "uuid": "GPU-1e8ea2b1-f247-777c-1d66-d2669411dc79"
+      }
+    ],
+    "explicit": false,
+    "resident": {
+      "cuda_ordinal": 0,
+      "pci_bdf": "00000000:00:08.0",
+      "uuid": "GPU-1e8ea2b1-f247-777c-1d66-d2669411dc79"
+    },
+    "shape": "LOCAL_SINGLE",
+    "total_hot_slots": 268
+  },
+  "explicit_resolved_role": {
+    "expert_device_count": 1,
+    "experts": [
+      {
+        "cuda_ordinal": 0,
+        "device_id": 0,
+        "hot_slots": 268,
+        "pci_bdf": "00000000:00:08.0",
+        "uuid": "GPU-1e8ea2b1-f247-777c-1d66-d2669411dc79"
+      }
+    ],
+    "explicit": true,
+    "resident": {
+      "cuda_ordinal": 0,
+      "pci_bdf": "00000000:00:08.0",
+      "uuid": "GPU-1e8ea2b1-f247-777c-1d66-d2669411dc79"
+    },
+    "shape": "LOCAL_SINGLE",
+    "total_hot_slots": 268
+  }
+}
