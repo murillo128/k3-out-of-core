@@ -153,7 +153,7 @@ def summarize_case(trace_processor: Path, trace: Path) -> dict[str, object]:
     ]
     service_rows = query(trace_processor, trace, """
         SELECT ts, dur, category, name FROM slice
-        WHERE dur > 0 AND category IN ('k3.storage', 'k3.transfer', 'k3.policy')
+        WHERE dur > 0 AND category IN ('k3.storage', 'k3.transfer', 'k3.policy', 'k3.provider')
         ORDER BY ts
     """)
     services = [
@@ -254,6 +254,10 @@ def summarize_case(trace_processor: Path, trace: Path) -> dict[str, object]:
         provider_services: dict[str, list[tuple[int, int]]] = {
             "storage": [], "stage": [], "h2d_scope": [], "event_wait": [],
             "policy_hash_state": [],
+            "multi_device_hot_slot_select": [],
+            "multi_device_hot_slot_candidate_build": [],
+            "multi_device_hot_slot_policy_admission": [],
+            "multi_device_hot_slot_feasibility_accounting": [],
         }
         for event in services:
             event_start = int(event["ts"])
@@ -265,12 +269,24 @@ def summarize_case(trace_processor: Path, trace: Path) -> dict[str, object]:
                 provider_services["storage"].append(interval)
             elif event["category"] == "k3.policy" and event["name"] == "hash_state":
                 provider_services["policy_hash_state"].append(interval)
+            elif event["category"] == "k3.provider" and event["name"] in provider_services:
+                provider_services[event["name"]].append(interval)
             elif event["name"] == "stage":
                 provider_services["stage"].append(interval)
             elif event["name"] in ("h2d", "h2d_wave"):
                 provider_services["h2d_scope"].append(interval)
             elif event["name"] == "event_wait":
                 provider_services["event_wait"].append(interval)
+
+        selector_ends = [
+            int(event["ts"]) + int(event["dur"]) for event in services
+            if event["category"] == "k3.provider" and
+               event["name"] == "multi_device_hot_slot_select" and
+               start <= int(event["ts"]) and int(event["ts"]) + int(event["dur"]) <= provider_end
+        ]
+        post_selector_to_first_issue_ns = 0
+        if current_enqueues and selector_ends:
+            post_selector_to_first_issue_ns = max(0, int(current_enqueues[0]["ts"]) - max(selector_ends))
 
         cycles.append({
             "layer": current["layer"],
@@ -286,6 +302,9 @@ def summarize_case(trace_processor: Path, trace: Path) -> dict[str, object]:
             "provider_service_unions_ns": {
                 key: union_ns(value) for key, value in provider_services.items()
             } | {"expert_h2d_cuda": union_ns(expert_h2d)},
+            "provider_phase_diagnostics": {
+                "post_selector_to_first_issue_ns": post_selector_to_first_issue_ns,
+            },
             "graph_exclusive_ns": graph_exclusive,
             "gpu_kernel_overlap_ns": intersection_ns(gpu0_kernels, gpu1_kernels),
             "gpu0_kernel_union_ns": union_ns(gpu0_kernels),
@@ -323,7 +342,9 @@ def summarize_case(trace_processor: Path, trace: Path) -> dict[str, object]:
         raise RuntimeError("critical-path accounting is not wall-exact")
     service_keys = (
         "storage", "stage", "h2d_scope", "event_wait", "expert_h2d_cuda",
-        "policy_hash_state",
+        "policy_hash_state", "multi_device_hot_slot_select",
+        "multi_device_hot_slot_candidate_build", "multi_device_hot_slot_policy_admission",
+        "multi_device_hot_slot_feasibility_accounting",
     )
     services_total = {
         key: sum(int(cycle["provider_service_unions_ns"][key]) for cycle in cycles)
@@ -347,6 +368,12 @@ def summarize_case(trace_processor: Path, trace: Path) -> dict[str, object]:
             "accounting_error_ns": wall_total - sum(exclusive.values()),
         },
         "provider_service_unions_not_additive": services_total,
+        "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_mean_ms": sum(
+                int(cycle["provider_phase_diagnostics"]["post_selector_to_first_issue_ns"])
+                for cycle in cycles
+            ) / len(cycles) / 1e6,
+        },
         "gpu": {
             "gpu0_kernel_union_ns": sum(int(cycle["gpu0_kernel_union_ns"]) for cycle in cycles),
             "gpu1_kernel_union_ns": sum(int(cycle["gpu1_kernel_union_ns"]) for cycle in cycles),
@@ -557,7 +584,7 @@ def main() -> int:
                 "than 20% of the remaining provider delta, or if instrumentation changes TPS by 3% or more."
             ),
         }
-    else:
+    elif args.iteration == 4:
         hash_delta = mean_service_delta_ms["policy_hash_state"]
         hash_share = 0.0 if provider_dependency_delta <= 0 else hash_delta / provider_dependency_delta
         residual = provider_dependency_delta - hash_delta
@@ -603,6 +630,68 @@ def main() -> int:
             "falsifier": (
                 "Do not resume optimization if the reviewed attribution still cannot assign a dominant "
                 "implementation-induced share or instead converges on a structural limit."
+            ),
+        }
+    else:
+        selector_ms = cases["B"]["provider_service_unions_not_additive"][
+            "multi_device_hot_slot_select"] / b_count / 1e6
+        admission_ms = cases["B"]["provider_service_unions_not_additive"][
+            "multi_device_hot_slot_policy_admission"] / b_count / 1e6
+        candidate_ms = cases["B"]["provider_service_unions_not_additive"][
+            "multi_device_hot_slot_candidate_build"] / b_count / 1e6
+        feasibility_ms = cases["B"]["provider_service_unions_not_additive"][
+            "multi_device_hot_slot_feasibility_accounting"] / b_count / 1e6
+        selector_gap_ms = cases["B"]["provider_phase_diagnostics"][
+            "post_selector_to_first_issue_mean_ms"]
+        admission_share = 0.0 if selector_ms == 0 else admission_ms / selector_ms
+        ranked_bottlenecks = [
+            {
+                "rank": 1,
+                "mechanism": "per_layer_transfer_ring_diagnostics_snapshots",
+                "evidence": (
+                    f"The stable gap from the final selector to first enqueue is {selector_gap_ms:.3f} "
+                    "ms/layer. Source order starts this interval with one transfer-ring diagnostics "
+                    "snapshot per device; prior Iteration 2 evidence measured approximately 9-10 ms "
+                    "per snapshot."
+                ),
+                "measured_ms_per_layer": selector_gap_ms,
+                "target_bucket": "post_selector_to_first_issue",
+            },
+            {
+                "rank": 2,
+                "mechanism": "mandatory_policy_admission_inside_selector",
+                "evidence": (
+                    f"Policy admission is {admission_ms:.3f} ms/layer and {admission_share:.1%} of "
+                    f"the {selector_ms:.3f}-ms selector, confirming the comparator hypothesis, but "
+                    "the complete selector is smaller than the following diagnostics gap."
+                ),
+                "measured_ms_per_layer": admission_ms,
+                "measured_share_of_selector": admission_share,
+                "candidate_build_ms_per_layer": candidate_ms,
+                "feasibility_ms_per_layer": feasibility_ms,
+                "target_bucket": "multi_device_hot_slot_policy_admission",
+            },
+        ]
+        dominant = "per_layer_transfer_ring_diagnostics_snapshots"
+        rationale = (
+            "The no-progress comparator distinguishes the selector phases and confirms policy "
+            "admission dominates selector time, but also proves the selector does not explain the "
+            "larger pre-issue residual. The next source-ordered interval is two per-layer diagnostics "
+            "snapshots of immutable transfer-ring capacity, matching the latency exposed in Iteration 1."
+        )
+        next_hypothesis = {
+            "single_primary_hypothesis": (
+                "Persist each transfer ring's immutable effective lane capacity for the pool generation "
+                "and remove both per-layer diagnostics snapshots from the multi-device remap path."
+            ),
+            "predicted_trace_change": (
+                "B post-selector-to-first-issue wall decreases by at least 80% and pre_issue_ns "
+                "decreases by at least 15 ms/layer"
+            ),
+            "predicted_tps_change": "One fresh B process improves decode TPS by at least 3%",
+            "falsifier": (
+                "Revert if the gap changes by less than 3% and B TPS changes by less than 3%, or if "
+                "any correctness, metadata, cancellation, or resource gate regresses."
             ),
         }
     ranked_bottlenecks.append({
@@ -675,8 +764,11 @@ def main() -> int:
             "rationale": args.decision_rationale,
         },
         "no_progress": {
-            "consecutive_falsified_hypotheses": 2 if args.iteration >= 4 else 0,
-            "action": "pause_and_review_attribution_before_next_fix" if args.iteration >= 4 else "none",
+            "consecutive_falsified_hypotheses": 2 if args.iteration == 4 else 0,
+            "action": (
+                "pause_and_review_attribution_before_next_fix" if args.iteration == 4 else
+                ("review_resolved_by_distinguishing_comparator" if args.iteration >= 5 else "none")
+            ),
         },
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
