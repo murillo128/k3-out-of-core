@@ -1,0 +1,159 @@
+{
+  "schema_version": "issue65-checkpoint-b-manifest-v1",
+  "issue": "murillo128/k3-out-of-core#65",
+  "checkpoint": "B",
+  "status": "pass",
+  "execution_profile": "STANDARD",
+  "revisions": {
+    "project_base": "cf2118e3f505727189a56f9a9b81e23ebf0aa02c",
+    "project_checkpoint_a": "c3064ce0fad9fa8df2cdfcffc31adab157c82d84",
+    "project_branch": "codex/issue65-device-roles",
+    "nested_base": "2c8afc4e1747bbd9a6ee93ca79ff645613a8ec07",
+    "nested_checkpoint_a": "73bfdbed3aa1c785b23a9abc9608052928e4b2cc",
+    "nested_head": "8c507d456c61589ed934b3bf8efd8ae348eeea10",
+    "nested_tree": "8614e1d8884324bf203b63a13955278e9515a369",
+    "nested_pull_request": "https://github.com/murillo128/llama.cpp/pull/2"
+  },
+  "artifact": {
+    "identity_source": "results/2026-08-08/issue65-device-roles/checkpoint-a/manifest.json",
+    "identity_source_sha256": "7f8a1f7422e9c7420d4e6195b01c726ea2f9c9f12bd52ac3bf762ce92c71823c",
+    "repository": "unsloth/DeepSeek-V4-Flash-GGUF",
+    "revision": "85ce4196ab6e82852e25dfec2b7e2beaae56f5f1",
+    "variant": "UD-Q2_K_XL",
+    "files_and_hashes_unchanged": true
+  },
+  "environment": {
+    "identity_source": "results/2026-08-08/issue65-device-roles/checkpoint-a/manifest.json",
+    "cuda_driver": "580.173.02",
+    "cuda_toolkit": "12.8",
+    "build_type": "Release",
+    "cuda_graphs_disabled": true,
+    "backing_store": "PROVIDER_COLD_OS_TMPFS_RESIDENT",
+    "resident": {
+      "cuda_ordinal": 0,
+      "pci_bdf": "00000000:00:08.0",
+      "uuid": "GPU-1e8ea2b1-f247-777c-1d66-d2669411dc79",
+      "memory_mib": 24576
+    },
+    "remote_expert": {
+      "cuda_ordinal": 1,
+      "pci_bdf": "00000000:00:0a.0",
+      "uuid": "GPU-c616d50f-3ee0-0507-8dfc-1698546b6b5c",
+      "memory_mib": 24576
+    },
+    "p2p_capability": "unavailable in both required directions",
+    "qualified_transport": "HOST_STAGED"
+  },
+  "workload": {
+    "n_ctx": 4096,
+    "n_batch": 128,
+    "n_ubatch": 128,
+    "generated_tokens_per_successful_process": 24,
+    "post_prefill_decode_tokens_per_successful_process": 23,
+    "selection": "argmax",
+    "hot_policy": "GLOBAL_LRU_ALWAYS",
+    "miss_policy": "PROMOTE_AND_GPU",
+    "cold_cache_bytes": 17179869184,
+    "ring_bytes": 67173120,
+    "peer_staging_bytes": 67108864,
+    "io_queue_depth": 256,
+    "fixture_transport": "POSITIONAL"
+  },
+  "validation": {
+    "s1_compatibility": {
+      "status": "pass",
+      "mode_c_exact": true,
+      "legacy_explicit_structure_equal": true,
+      "exact_device_capacities": [268, 268],
+      "fresh_process_pairs": 5,
+      "interleaving": "LEGACY_THEN_EXPLICIT_PER_PAIR",
+      "explicit_over_legacy_geometric_mean_throughput": 1.0002231482773412,
+      "paired_bootstrap_95_percent_interval": [0.9947465227388057, 1.0064455079154775],
+      "minimum_ratio": 0.99,
+      "performance_gate": "pass"
+    },
+    "d1_remote_single": {
+      "status": "pass",
+      "mode_c_exact": true,
+      "exact_device_capacities": [536],
+      "fixed_remote_bindings": 645,
+      "device_binding_vector_elements": 0,
+      "peer_edge_count": 2,
+      "completion_delay_us": 1000,
+      "completion_delay_enqueues": 1032,
+      "completion_delay_completions": 1032,
+      "clean_lifecycle": true
+    },
+    "d1_fail_closed": {
+      "status": "pass",
+      "real_h2d_bytes_before_failure": 8060928,
+      "injected_waves": 1,
+      "participants": 1,
+      "drained_waves": 1,
+      "terminal_failed_requests": 80,
+      "tokens_published": 0,
+      "clean_lifecycle": true,
+      "raw_sha256": "cd94d372ff6c9082e6d478f5b4298eff30bee668b580d1a02f2665b195d945de"
+    },
+    "p2p_rejection": {
+      "status": "pass",
+      "exit_code": 6,
+      "output_published": false,
+      "reason": "required directed P2P capabilities unavailable",
+      "log_sha256": "dd7b67343f480be31985cf86785bec6597c5b7b420d9c478a6969b3752c4a590"
+    },
+    "unequal_capacity_and_topology": {
+      "scheduler_exact_2_plus_6": "pass",
+      "cuda_provider_exact_2_plus_6": "pass",
+      "cuda_provider_second_pool_failure_atomic": "pass",
+      "four_node_star_directed_edges": 6,
+      "expert_to_expert_edges": 0
+    },
+    "max_safe_workflow_unit_integration": {
+      "status": "pass",
+      "safe_selected": 731,
+      "oom_rejected": true,
+      "correctness_failure_aborted": true,
+      "headroom_clamp_aborted": true
+    },
+    "native_tests": {
+      "command": "cmake --build build-cuda --target test-expert-weight-provider test-expert-miss-policy test-expert-cache-policy test-expert-prefetch test-expert-uma test-expert-peer-staging test-hot-expert-cache test-cold-expert-cache test-expert-transfer-ring test-expert-storage test-expert-async-io test-expert-scheduler -j2 && ctest --test-dir build-cuda --output-on-failure -R '^(test-expert-weight-provider|test-expert-miss-policy|test-expert-cache-policy|test-expert-prefetch|test-expert-uma|test-expert-peer-staging|test-hot-expert-cache|test-cold-expert-cache|test-expert-transfer-ring|test-expert-storage|test-expert-async-io|test-expert-scheduler)$'",
+      "result": "pass",
+      "tests": 12
+    },
+    "known_host_exclusion": {
+      "test": "test-expert-uma-provider",
+      "result": "unsupported: UMA arena initialization failed",
+      "prior_evidence": "results/2026-08-05/host-79466/phase12-5-perfetto/checkpoint-a.json",
+      "scope": "pre-existing on this non-coherent-UMA host and unrelated to issue 65"
+    }
+  },
+  "commands": {
+    "compliance": "scripts/issue65/run_matrix.py --probe PROBE --model MODEL --output-dir RAW --cells S1_LEGACY,S1_EXPLICIT,D1,D1_DELAYED --pairs 1 --runtime-mode COMPLIANCE",
+    "performance": "scripts/issue65/run_matrix.py --probe PROBE --model MODEL --output-dir RAW --cells S1_LEGACY,S1_EXPLICIT --pairs 5 --runtime-mode PRODUCTION_PERFORMANCE",
+    "analysis": "scripts/issue65/analyze_checkpoint_b.py --compliance-dir RAW_C --performance-dir RAW_P --accepted-mode-c ACCEPTED --d1-failure FAILURE --output results/2026-08-08/issue65-device-roles/checkpoint-b/analysis.json --pairs 5",
+    "max_safe_unit": "scripts/issue65/test_discover_max_safe.py"
+  },
+  "evidence": {
+    "analysis": {
+      "path": "results/2026-08-08/issue65-device-roles/checkpoint-b/analysis.json",
+      "sha256": "01b47ec605a1db9a1f6f08e35b412edcd8a6b08e0dc3cbfe6fc68c33bc0bfde7"
+    },
+    "probe_binary_sha256": "403434fcbf0e8a88daf522316174bf362a02b471e33e699dc55ac80763b72e07",
+    "d1_resource_ledger_sha256": "302a484da57fc2a1bac53e35bbb2240933f00b424d3d81fc974fe76e56029bc1",
+    "raw_campaign_locations": [
+      "/dev/shm/issue65-checkpoint-b-final-compliance",
+      "/dev/shm/issue65-checkpoint-b-final-performance",
+      "/dev/shm/issue65-b-final-d1-failure.json",
+      "/dev/shm/issue65-b-final-d1-p2p.log"
+    ],
+    "raw_campaign_committed": false,
+    "summary_policy": "Commit compact deterministic summaries, commands, resource high-water marks, and identity digests rather than raw logs or model-scale traces."
+  },
+  "limits": [
+    "Checkpoint B qualifies S1 compatibility, D1 correctness and fail-closed behavior, exact unequal per-device capacity, star transport edges, and the bounded MAX_SAFE workflow.",
+    "D2, A1 MAX_SAFE discovery, the final S0/S1/D1/D2/A1 performance matrix, and the required trace pair remain for Checkpoint C.",
+    "HOST_STAGED is the only qualified transport on this host; P2P is rejected rather than downgraded.",
+    "CUDA graphs are disabled to preserve the accepted Phase-13 comparison configuration."
+  ]
+}
