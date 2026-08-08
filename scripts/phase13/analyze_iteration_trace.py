@@ -458,7 +458,7 @@ def main() -> int:
                 "correctness/resource gate regresses."
             ),
         }
-    else:
+    elif args.iteration == 2:
         ranked_bottlenecks = [
             {
                 "rank": 1,
@@ -504,6 +504,46 @@ def main() -> int:
             "falsifier": (
                 "Revert if pre_issue_ns changes by less than 3% and B TPS changes by less than 3%, or "
                 "if any metadata, correctness, cancellation, or resource gate regresses."
+            ),
+        }
+    else:
+        ranked_bottlenecks = [
+            {
+                "rank": 1,
+                "mechanism": "provider_untraced_cache_policy_state_work",
+                "evidence": (
+                    "The owner-range experiment did not reduce B pre-issue wall, which instead "
+                    "increased relative to the previous selected trace. Source sequencing shows "
+                    "that every cache-policy event calls hash_state(), which walks every model key, "
+                    "policy slot and domain; B has 536 hot-policy slots while A has 268. This work "
+                    "is currently inside the unclassified provider pre/post buckets."
+                ),
+                "measured_extra_ms_per_layer_vs_A": provider_dependency_delta,
+                "target_bucket": "pre_issue_ns+post_issue_ns",
+            },
+        ]
+        dominant = "provider_untraced_cache_policy_state_work"
+        rationale = (
+            "Iteration 3 falsified repeated directory validation as the causal mechanism: the code "
+            "removed those scans, yet B TPS was unchanged and the targeted pre-issue bucket worsened. "
+            "The remaining regression is still provider-host work rather than CUDA service. The next "
+            "source-ordered candidate is full cache-policy state rehashing on every event, but its "
+            "causal share is not yet directly measured and no structural limit is established."
+        )
+        next_hypothesis = {
+            "single_primary_hypothesis": (
+                "Expose each cache-policy hash_state call as a trace scope, without changing policy "
+                "semantics, to test whether full state-digest rehashing explains the remaining "
+                "multi-device provider wall."
+            ),
+            "predicted_trace_change": (
+                "Measured B policy hash-state time explains at least 20% of the remaining B-minus-A "
+                "pre-plus-post provider delta"
+            ),
+            "predicted_tps_change": "Instrumentation-only quick-screen TPS remains within 3% of Iteration 2",
+            "falsifier": (
+                "Abandon state-digest optimization if measured extra hash-state time explains less "
+                "than 20% of the remaining provider delta, or if instrumentation changes TPS by 3% or more."
             ),
         }
     ranked_bottlenecks.append({
@@ -558,6 +598,11 @@ def main() -> int:
                 "B_issue_span_delta_percent": (
                     (b_buckets["issue_span_ns"] / b_count) /
                     (previous["cases"]["B"]["critical_path"]["buckets_ns"]["issue_span_ns"] /
+                     int(previous["cases"]["B"]["complete_routed_layer_cycles"])) - 1.0
+                ) * 100.0,
+                "B_pre_issue_delta_percent": (
+                    (b_buckets["pre_issue_ns"] / b_count) /
+                    (previous["cases"]["B"]["critical_path"]["buckets_ns"]["pre_issue_ns"] /
                      int(previous["cases"]["B"]["complete_routed_layer_cycles"])) - 1.0
                 ) * 100.0,
                 "B_post_issue_delta_percent": (
