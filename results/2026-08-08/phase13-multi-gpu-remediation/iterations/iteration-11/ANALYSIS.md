@@ -1,6 +1,6 @@
 # Phase 13 iteration 11 — bounded positional-read concurrency retained
 
-Candidate: parent `560eef0b245b9eb93e37a203764011496487a02c`, nested `6f7f87822006d842cbf4c78cff8106a2e5d3c9ad`.
+Candidate: parent `560eef0e71f60cb4697863bf1430c53a6fe5543d`, nested `6f7f87822b7bfdbf5d271d367a5e3d1b730ef6ca`.
 
 `OBSERVED`: the forced-positional transport now derives a bounded worker count from the expert-device count only for buffered positional reads. A uses one worker and B/B′ use two. Direct-I/O and `io_uring` retain the single-submitter path; storage layout, caches, routing, policies, H2D transport and canonical merge order are unchanged. Diagnostics expose the effective worker count. A deterministic native test proves that two deferred requests enter the read override concurrently, then complete and drain; it passed five repeated runs.
 
@@ -13,4 +13,3 @@ The fresh exact Mode-P trace pair is valid: A SHA-256 `790a74a9e9f8ece55d38996a2
 The remaining B-minus-A wall is `0.878 ms/layer`. B provider is now `1.013 ms/layer` faster than A, but B graph wall remains `1.891 ms/layer` slower with zero simultaneous device-kernel overlap. Staging itself remains about `6.261 ms/layer` and changed only `-0.69%`; source shows the already-independent per-device transfer rings are staged serially after all reads finish.
 
 Iteration 12 will stage already-reserved bundles concurrently across the two device rings, while preserving order within each ring and canonical graph merge order. Prediction: B stage service -25%, provider wall -8%, B Mode-P TPS +3%, A within 3%; revert on any performance, exactness, transfer-generation, cancellation, lifecycle or resource-bound failure. The 1.60x stop condition is not met and no structural stop or final campaign is authorized.
-

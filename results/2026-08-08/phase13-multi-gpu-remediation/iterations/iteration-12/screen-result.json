@@ -1,0 +1,78 @@
+{
+  "schema_version": "phase13-iteration-screen-v1",
+  "status": "pass",
+  "iteration": 12,
+  "revisions": {
+    "project_base": "c04e5dac6b4883380cda048a322f165cd6132517",
+    "nested_base": "6f7f87822b7bfdbf5d271d367a5e3d1b730ef6ca",
+    "nested_candidate": "3a5e68af7e3c593cb83c87e6d5270ee6b4ebd008",
+    "nested_revert": "d9fbc8bb1b8b2c395463febfe7f2f7616276ffe9"
+  },
+  "build": {
+    "parallel_jobs": 76,
+    "result": "pass"
+  },
+  "focused_tests": {
+    "passed": 4,
+    "failed": 0,
+    "targets": [
+      "test-expert-weight-provider",
+      "test-expert-peer-staging",
+      "test-hot-expert-cache",
+      "test-expert-async-io"
+    ]
+  },
+  "mode_c_B": {
+    "status": "pass",
+    "decode_tps_diagnostic_only": 0.39618121273549656,
+    "identity_sha256": "60658621b12340bc02d1fbb614142e4a17c5dd52eb529bfd4b0b2eb1a1255889",
+    "logits_fnv64_exact": true,
+    "route_records": 1032,
+    "raw_gzip": {
+      "sha256": "0b278f3953b2153119742f068a9f7c72696590582f06fe1dd74476f82efef9c3",
+      "size_bytes": 3110626
+    },
+    "summary": {
+      "sha256": "4065bf2d88c581ed1afb98be269050d9bb2bbda17b8fb52e899bdefe66eeb919",
+      "size_bytes": 8169
+    }
+  },
+  "mode_p_B": {
+    "status": "pass",
+    "candidate_decode_tps": 1.168476357125595,
+    "iteration_11_tier1_reference_decode_tps": 1.4096460115322527,
+    "change_from_tier1_reference_fraction": -0.171085260011137,
+    "iteration_11_tier2_reference_decode_tps": 1.367420388784965,
+    "change_from_tier2_reference_fraction": -0.14548856612862393,
+    "generated_output_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+    "raw_gzip": {
+      "sha256": "f258e3c09df017cd6879fc24ef76da58ab480bc928a66ef095ca046e6d811397",
+      "size_bytes": 5275
+    },
+    "summary": {
+      "sha256": "6fa8e607bec04ccf452833dd2667f63d5a346d07578a0d0a89416a9bc0986dd8",
+      "size_bytes": 8180
+    }
+  },
+  "iteration_result": {
+    "decision": "revert",
+    "rationale": "Exactness passed, but per-layer asynchronous task construction reduced B throughput by 17.11% versus the comparable retained Tier-1 reference."
+  },
+  "no_progress": {
+    "consecutive_falsified_hypotheses": 1,
+    "action": "continue_with_persistent_cross_device_stage_worker"
+  },
+  "root_cause_conclusion": {
+    "status": "OBSERVED",
+    "dominant": "ephemeral_stage_task_overhead",
+    "implementation_induced": true,
+    "structural_limit_proven": false,
+    "rationale": "Cross-ring copies remained exact, but creating and joining tasks per layer overwhelms their potential overlap. A persistent bounded worker is the next distinct implementation test."
+  },
+  "next_hypothesis": {
+    "single_primary_hypothesis": "Use one persistent provider-owned auxiliary worker for device-1 staging while the request thread stages device 0, retaining serial order within each ring and canonical finalization.",
+    "predicted_tps_change": "B Mode-P decode TPS +3% or better versus retained Iteration 11; A within 3%",
+    "predicted_trace_change": "B stage service -20% or better and B provider wall -5% or better",
+    "falsifier": "Revert if the Iteration-12 regression is not removed, B TPS improves less than 3% over Iteration 11, stage/provider targets miss, or any exactness, generation, cancellation, lifecycle, or bounded-resource gate regresses."
+  }
+}
