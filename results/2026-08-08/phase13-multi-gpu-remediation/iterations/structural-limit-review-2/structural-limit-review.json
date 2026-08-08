@@ -1,0 +1,111 @@
+{
+  "schema_version": "phase13-structural-limit-review-v1",
+  "review": "STRUCTURAL_LIMIT_REVIEW_2",
+  "status": "BLOCKED",
+  "blocked_on": "DESIGN_AUTHORITY_DISPOSITION",
+  "controlling_amendments": [5225799754, 5226296660],
+  "measured_target": {
+    "parent": "bf4f44bb9b55f670a7e50734f47edc5fc8da4f52",
+    "nested": "b7eb32d854ae7d6766a2f5317b50a14fff4ef3f4"
+  },
+  "fixture": "DeepSeek-V4-Flash-UD-Q2_K_XL@85ce4196ab6e82852e25dfec2b7e2beaae56f5f1",
+  "selected_performance": {
+    "source_iteration": 7,
+    "validation_tier": 2,
+    "pairs": 1,
+    "A_decode_tps": 0.3795370832400236,
+    "B_decode_tps": 0.37745430017191073,
+    "speedup": 0.9945123068071963,
+    "exact_identity": true
+  },
+  "critical_path": {
+    "A_mean_layer_wall_ms": 68.22032928571429,
+    "B_mean_layer_wall_ms": 68.86575607142858,
+    "A_mean_provider_wall_ms": 66.43011492857143,
+    "B_mean_provider_wall_ms": 66.41156842857143,
+    "B_mean_graph_wall_ms": 2.4541876428571427,
+    "B_minus_A_pre_issue_ms": -9.033872357142855,
+    "B_minus_A_issue_ms": 0.051506857142857146,
+    "B_minus_A_post_issue_ms": 8.963819,
+    "B_minus_A_provider_ms": -0.018546499999999355,
+    "B_simultaneous_gpu_kernel_overlap_ns": 0
+  },
+  "bound": {
+    "target_speedup": 1.6,
+    "required_B_mean_layer_wall_ms": 42.63770580357143,
+    "required_B_reduction_ms_per_layer": 26.22805026785715,
+    "required_B_reduction_fraction": 0.3808576535579313,
+    "zero_B_graph_speedup_upper_bound": 1.0272356292727562,
+    "zero_B_graph_shortfall_ms_per_layer": 23.773862625,
+    "status": "OBSERVED"
+  },
+  "iteration_ledger": [
+    {
+      "iteration": 0,
+      "kind": "TRACE_BASELINE",
+      "hypothesis": "serial current-layer demand issue dominates B",
+      "decision": "analysis_only",
+      "result": "issue span selected as first implementation-induced target"
+    },
+    {
+      "iteration": 1,
+      "kind": "PRODUCTION",
+      "hypothesis": "issue all storage reads before waiting",
+      "decision": "retain",
+      "result": "issue span -99.78%; B wall moved to provider dependency gaps; speedup 0.491552x"
+    },
+    {
+      "iteration": 2,
+      "kind": "PRODUCTION",
+      "hypothesis": "snapshot lane capacity once per device/layer",
+      "decision": "retain",
+      "result": "B layer wall -35.48%; post-issue -50.76%; speedup 0.637820x"
+    },
+    {
+      "iteration": 3,
+      "kind": "PRODUCTION",
+      "hypothesis": "owner-range selector avoids dominant global scan",
+      "decision": "revert",
+      "result": "B TPS +0.02%; pre-issue +11.81%; falsified"
+    },
+    {
+      "iteration": 4,
+      "kind": "INSTRUMENTATION",
+      "hypothesis": "policy state hashing explains at least 20% of residual",
+      "decision": "revert",
+      "result": "hash increment explained 2.31%; second falsification triggered no-progress review"
+    },
+    {
+      "iteration": 5,
+      "kind": "INSTRUMENTATION",
+      "hypothesis": "selector subscopes distinguish the residual",
+      "decision": "retain",
+      "result": "policy admission was 97.07% of selector; stable 18.139-ms post-selector gap isolated"
+    },
+    {
+      "iteration": 6,
+      "kind": "PRODUCTION",
+      "hypothesis": "cache immutable lane capacity per pool generation",
+      "decision": "retain",
+      "result": "gap -99.94%; B pre-issue -34.89%; selected speedup 0.766328x"
+    },
+    {
+      "iteration": 7,
+      "kind": "PRODUCTION",
+      "hypothesis": "cache immutable event capability per pool generation",
+      "decision": "retain",
+      "result": "B pre-issue -51.14%; adjacent selected speedup 0.994512x"
+    },
+    {
+      "iteration": 8,
+      "kind": "INSTRUMENTATION",
+      "hypothesis": "transport epoch snapshots explain at least 50% of post-issue residual",
+      "decision": "retain_trace_only",
+      "result": "0.011253 ms/layer and 0.126% share; falsified; wall-exact structural bound established"
+    }
+  ],
+  "design_authority_request": {
+    "accept": "Authorize final five-pair matrix, immutable evidence refresh, and independent final review at the accepted exact target.",
+    "reject": "Identify a revised in-scope mechanism capable of removing at least 26.228 ms/layer specifically from B."
+  }
+}

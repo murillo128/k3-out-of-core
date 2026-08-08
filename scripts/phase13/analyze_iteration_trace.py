@@ -428,7 +428,8 @@ def main() -> int:
     issue_is_dominant = issue_delta >= provider_dependency_delta
     previous = json.loads(args.previous_analysis.read_text()) if args.previous_analysis else None
     quick = json.loads(args.quick_summary.read_text()) if args.quick_summary else None
-    if issue_is_dominant:
+    structural_limit = None
+    if args.iteration == 0:
         ranked_bottlenecks = [
             {
                 "rank": 1,
@@ -749,7 +750,7 @@ def main() -> int:
                 "any correctness, metadata, cancellation, or resource gate regresses."
             ),
         }
-    else:
+    elif args.iteration == 7:
         ranked_bottlenecks = [
             {
                 "rank": 1,
@@ -800,13 +801,107 @@ def main() -> int:
                 "delta; rerank the remaining post-issue source intervals instead."
             ),
         }
-    ranked_bottlenecks.append({
-        "rank": len(ranked_bottlenecks) + 1,
-        "mechanism": "serialized_remote_branch_graph",
-        "evidence": "The B window contains no simultaneous GPU0/GPU1 kernel interval.",
-        "measured_overlap_ns": cases["B"]["gpu"]["simultaneous_gpu0_gpu1_kernel_overlap_ns"],
-        "target_bucket": "graph_dependency_or_host_gap",
-    })
+    else:
+        epoch_ms = cases["B"]["provider_service_unions_not_additive"][
+            "multi_device_transport_epoch_snapshot"] / b_count / 1e6
+        post_delta_ms = mean_bucket_delta_ms["post_issue_ns"]
+        epoch_share = 0.0 if post_delta_ms <= 0 else epoch_ms / post_delta_ms
+        a_provider_ms = float(cases["A"]["provider_wall"]["mean_ms"])
+        b_provider_ms = float(cases["B"]["provider_wall"]["mean_ms"])
+        b_graph_ms = float(cases["B"]["graph_wall"]["mean_ms"])
+        target_b_layer_ms = a_wall / 1.6
+        zero_graph_bound = a_wall / b_provider_ms
+        structural_limit = {
+            "status": "OBSERVED",
+            "target_speedup": 1.6,
+            "A_mean_layer_wall_ms": a_wall,
+            "B_mean_layer_wall_ms": b_wall,
+            "B_required_mean_layer_wall_ms": target_b_layer_ms,
+            "B_required_reduction_ms_per_layer": b_wall - target_b_layer_ms,
+            "B_required_reduction_fraction": (b_wall - target_b_layer_ms) / b_wall,
+            "A_mean_provider_wall_ms": a_provider_ms,
+            "B_mean_provider_wall_ms": b_provider_ms,
+            "B_mean_graph_wall_ms": b_graph_ms,
+            "provider_delta_ms_B_minus_A": b_provider_ms - a_provider_ms,
+            "provider_work_placement_delta_ms": (
+                mean_bucket_delta_ms["pre_issue_ns"] + mean_bucket_delta_ms["issue_span_ns"] +
+                mean_bucket_delta_ms["post_issue_ns"]
+            ),
+            "zero_B_graph_speedup_upper_bound": zero_graph_bound,
+            "zero_B_graph_shortfall_ms_per_layer": b_provider_ms - target_b_layer_ms,
+            "rationale": (
+                "The apparent post-issue regression is a placement shift: B pre-issue savings and post-issue "
+                "cost cancel to provider parity. All material remaining B-over-A wall is graph-side, but even "
+                "the impossible bound of zero B graph time reaches only the reported upper-bound speedup."
+            ),
+        }
+        ranked_bottlenecks = [
+            {
+                "rank": 1,
+                "mechanism": "common_cold_miss_provider_path",
+                "evidence": (
+                    f"A and B provider wall are {a_provider_ms:.3f} and {b_provider_ms:.3f} ms/layer; "
+                    f"their delta is only {b_provider_ms - a_provider_ms:.3f} ms. B pre-issue savings "
+                    "cancel its post-issue placement cost, so the apparent post-issue residual is not "
+                    "removable duplicate work."
+                ),
+                "A_provider_ms_per_layer": a_provider_ms,
+                "B_provider_ms_per_layer": b_provider_ms,
+                "target_B_layer_ms": target_b_layer_ms,
+                "target_bucket": "provider_common_path",
+            },
+            {
+                "rank": 2,
+                "mechanism": "serialized_remote_branch_graph",
+                "evidence": (
+                    f"B graph wall is {b_graph_ms:.3f} ms/layer with zero simultaneous GPU0/GPU1 kernel "
+                    f"overlap. Setting the entire B graph wall to zero would yield only {zero_graph_bound:.3f}x, "
+                    "far below 1.60x."
+                ),
+                "measured_overlap_ns": cases["B"]["gpu"][
+                    "simultaneous_gpu0_gpu1_kernel_overlap_ns"],
+                "zero_graph_speedup_upper_bound": zero_graph_bound,
+                "target_bucket": "graph_wall",
+            },
+            {
+                "rank": 3,
+                "mechanism": "async_transport_epoch_snapshot",
+                "evidence": (
+                    f"Direct scopes measure {epoch_ms:.6f} ms/layer, only {epoch_share:.2%} of the "
+                    "B-minus-A post-issue delta, falsifying the 50% comparator threshold."
+                ),
+                "measured_ms_per_layer": epoch_ms,
+                "measured_share_of_post_issue_delta": epoch_share,
+                "target_bucket": "multi_device_transport_epoch_snapshot",
+            },
+        ]
+        dominant = "common_cold_miss_provider_path"
+        rationale = (
+            "Iteration 8 falsifies async-transport epoch snapshots as an optimization target. The exact "
+            "critical-path decomposition now shows provider parity: B moves mandatory victim, staging and "
+            "publication work from before issue to after issue, while the pre/issue/post deltas cancel. The "
+            "remaining wall is graph-side and too small to bridge the target even if removed completely."
+        )
+        next_hypothesis = {
+            "single_primary_hypothesis": (
+                "No further production fix is selected. Return the complete iteration ledger and quantified "
+                "zero-graph upper bound to design authority for the structural-limit stop decision."
+            ),
+            "predicted_trace_change": "none; structural-limit return",
+            "predicted_tps_change": "none; await design-authority acceptance or revised scope",
+            "falsifier": (
+                "Resume implementation only if design authority identifies an in-scope mechanism that can "
+                f"remove at least {b_wall - target_b_layer_ms:.3f} ms/layer specifically from B."
+            ),
+        }
+    if not any(item["mechanism"] == "serialized_remote_branch_graph" for item in ranked_bottlenecks):
+        ranked_bottlenecks.append({
+            "rank": len(ranked_bottlenecks) + 1,
+            "mechanism": "serialized_remote_branch_graph",
+            "evidence": "The B window contains no simultaneous GPU0/GPU1 kernel interval.",
+            "measured_overlap_ns": cases["B"]["gpu"]["simultaneous_gpu0_gpu1_kernel_overlap_ns"],
+            "target_bucket": "graph_dependency_or_host_gap",
+        })
     output = {
         "schema_version": "phase13-iteration-trace-analysis-v1",
         "status": "pass",
@@ -831,10 +926,11 @@ def main() -> int:
         "root_cause_conclusion": {
             "status": "OBSERVED",
             "dominant": dominant,
-            "implementation_induced": True,
-            "structural_limit_proven": False,
+            "implementation_induced": args.iteration < 8,
+            "structural_limit_proven": structural_limit is not None,
             "rationale": rationale,
         },
+        "structural_limit": structural_limit,
         "next_hypothesis": next_hypothesis,
         "iteration_result": {
             "code_change_identity": args.code_change,
@@ -868,10 +964,12 @@ def main() -> int:
             "rationale": args.decision_rationale,
         },
         "no_progress": {
-            "consecutive_falsified_hypotheses": 2 if args.iteration == 4 else 0,
+            "consecutive_falsified_hypotheses": 2 if args.iteration == 4 else (
+                1 if args.iteration >= 8 else 0),
             "action": (
                 "pause_and_review_attribution_before_next_fix" if args.iteration == 4 else
-                ("review_resolved_by_distinguishing_comparator" if args.iteration == 5 else "none")
+                ("review_resolved_by_distinguishing_comparator" if args.iteration == 5 else
+                 ("return_quantified_structural_limit_to_design_authority" if args.iteration >= 8 else "none"))
             ),
         },
     }
