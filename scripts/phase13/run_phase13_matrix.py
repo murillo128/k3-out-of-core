@@ -29,6 +29,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--cells", default="A,B")
     parser.add_argument("--b-hot-slots", type=int, default=268)
     parser.add_argument("--sample-period", type=float, default=0.5)
+    parser.add_argument(
+        "--expert-runtime-mode", choices=("COMPLIANCE", "PRODUCTION_PERFORMANCE"),
+        required=True)
     return parser.parse_args()
 
 
@@ -91,15 +94,17 @@ def command_for(args: argparse.Namespace, cell: str, output: Path) -> list[str]:
         raise ValueError(f"unknown cell {cell}")
     command = [
         str(args.probe), "--model", str(args.model), "--output", str(output),
-        "--mode", "cold", "--prompt", PROMPT,
+        "--mode", "cold", "--expert-runtime-mode", args.expert_runtime_mode, "--prompt", PROMPT,
         "--hot-policy", "LRU", "--cold-policy", "LRU", "--scope", "GLOBAL",
         "--admission", "ALWAYS", "--miss-policy", "PROMOTE_AND_GPU",
         "--hot-slots", str(hot_slots), "--cold-bytes", "17179869184",
         "--ring-bytes", "67173120", "--expert-devices", str(devices),
         "--peer-transport", "HOST_STAGED", "--peer-staging-bytes", str(staging),
-        "--queue-depth", "256", "--trace-capacity", "65536",
+        "--queue-depth", "256", "--trace-capacity",
+        "65536" if args.expert_runtime_mode == "COMPLIANCE" else "0",
         "--n-ctx", "4096", "--n-batch", "128", "--n-ubatch", "128",
-        "--max-generate", "24", "--background", "0", "--observe-routes", "1",
+        "--max-generate", "24", "--background", "0", "--observe-routes",
+        "1" if args.expert_runtime_mode == "COMPLIANCE" else "0",
         "--transport", "POSITIONAL", "--config-source", "EXPLICIT", "--integrity", "NONE",
     ]
     return command
@@ -153,6 +158,7 @@ def run_one(args: argparse.Namespace, cell: str, pair: int) -> None:
         "elapsed_seconds": ended - started,
         "fresh_process_cache_state": "PROVIDER_COLD_OS_TMPFS_RESIDENT",
         "fixture_transport": "POSITIONAL",
+        "expert_runtime_mode": args.expert_runtime_mode,
         "model_backing_path": str(args.model),
         "command": command,
         "environment": {key: environment[key] for key in ("GGML_CUDA_GRAPH_OPT", "GGML_CUDA_DISABLE_GRAPHS")},

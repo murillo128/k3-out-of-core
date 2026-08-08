@@ -22,6 +22,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--transport-profile", choices=("async_final", "corrected_blocking_screen"),
         default="async_final")
+    parser.add_argument(
+        "--expert-runtime-mode", choices=("COMPLIANCE", "PRODUCTION_PERFORMANCE"),
+        required=True)
     return parser.parse_args()
 
 
@@ -45,13 +48,21 @@ def percentile(values: list[float], quantile: float) -> float:
     return ordered[lower] + (position - lower)*(ordered[upper] - ordered[lower])
 
 
-def identity(run: dict) -> dict:
+def compliance_identity(run: dict) -> dict:
     return {
         "prompt_ids": run["prompt_ids"],
         "generated_ids": run["generated_ids"],
         "generated_text": run["generated_text"],
         "logits_fnv64": run["logits_fnv64"],
         "routes": run["routes"],
+    }
+
+
+def performance_identity(run: dict) -> dict:
+    return {
+        "prompt_ids": run["prompt_ids"],
+        "generated_ids": run["generated_ids"],
+        "generated_text": run["generated_text"],
     }
 
 
@@ -259,6 +270,32 @@ def validate_corrected_transport(stem: str, run: dict, transport_profile: str) -
         raise SystemExit(f"{stem}: non-terminal provider lifecycle")
 
 
+def validate_runtime_mode(stem: str, run: dict, expected: str) -> None:
+    if run.get("expert_runtime_mode") != expected:
+        raise SystemExit(f"{stem}: expert runtime mode mismatch")
+    hot = run["hot"]
+    cold = run["cold"]
+    asynchronous = run["async_io"]["diagnostics"]
+    if expected == "COMPLIANCE":
+        if not hot["config"].get("state_attestation_enabled") or \
+                not cold["config"].get("state_attestation_enabled"):
+            raise SystemExit(f"{stem}: compliance state attestation is disabled")
+        if hot["diagnostics"]["state_digest"] == 0 or cold["diagnostics"]["state_digest"] == 0 or \
+                not hot["events"] or not cold["events"] or not run["routes"]:
+            raise SystemExit(f"{stem}: incomplete compliance evidence")
+        if asynchronous["trace_capacity"] == 0:
+            raise SystemExit(f"{stem}: compliance I/O trace is disabled")
+    else:
+        if hot["config"].get("state_attestation_enabled") or \
+                cold["config"].get("state_attestation_enabled"):
+            raise SystemExit(f"{stem}: performance state attestation is enabled")
+        if hot["diagnostics"]["state_digest"] != 0 or cold["diagnostics"]["state_digest"] != 0 or \
+                hot["events"] or cold["events"] or run["routes"]:
+            raise SystemExit(f"{stem}: compliance-only evidence leaked into performance mode")
+        if asynchronous["trace_capacity"] != 0 or run["transfer"]["trace_capacity"] != 0:
+            raise SystemExit(f"{stem}: internal evidence traces leaked into performance mode")
+
+
 def paired_interval(a_runs: list[dict], b_runs: list[dict]) -> tuple[list[float], list[float]]:
     ratios = [sum(a["latency_us"][1:])/sum(b["latency_us"][1:]) for a, b in zip(a_runs, b_runs)]
     rng = random.Random(61)
@@ -279,19 +316,23 @@ def main() -> None:
     summaries: dict[str, list[dict]] = {cell: [] for cell in cells}
     baseline_identity = None
     digests: list[str] = []
+    logits_digests: list[str] = []
     for pair in range(1, args.pairs + 1):
         for cell in cells:
             stem = f"{cell}-{pair:02d}"
             run = load_gzip(args.input_dir / "raw" / f"{stem}.json.gz")
             if run.get("status") != "pass" or len(run.get("generated_ids", [])) != 24:
                 raise SystemExit(f"{stem}: incomplete evidence")
+            validate_runtime_mode(stem, run, args.expert_runtime_mode)
             validate_corrected_transport(stem, run, args.transport_profile)
-            current_identity = identity(run)
+            current_identity = compliance_identity(run) if args.expert_runtime_mode == "COMPLIANCE" \
+                else performance_identity(run)
             if baseline_identity is None:
                 baseline_identity = current_identity
             if current_identity != baseline_identity:
                 raise SystemExit(f"{stem}: exact output identity mismatch")
             digests.append(identity_sha(current_identity))
+            logits_digests.append(identity_sha({"logits_fnv64": run["logits_fnv64"]}))
             resources = resource_summary(args.input_dir / "raw" / f"{stem}-resources.json")
             runs[cell].append(run)
             summaries[cell].append(summarize_run(run, resources))
@@ -303,11 +344,15 @@ def main() -> None:
         "fixture_transport": "POSITIONAL",
         "cache_state": "PROVIDER_COLD_OS_TMPFS_RESIDENT",
         "transport_profile": args.transport_profile,
+        "expert_runtime_mode": args.expert_runtime_mode,
         "identity": {
+            "criterion": "FULL_COMPLIANCE" if args.expert_runtime_mode == "COMPLIANCE" else
+                "PRODUCTION_GENERATED_OUTPUT",
             "exact_across_all_processes": len(set(digests)) == 1,
             "sha256": digests[0],
+            "logits_fnv64_exact_across_all_processes": len(set(logits_digests)) == 1,
             "processes": len(digests),
-            "route_records_per_process": len(baseline_identity["routes"]),
+            "route_records_per_process": len(baseline_identity.get("routes", [])),
             "generated_tokens_per_process": len(baseline_identity["generated_ids"]),
         },
         "cells": pooled_cells,

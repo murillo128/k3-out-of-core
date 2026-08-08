@@ -1,9 +1,11 @@
 {
   "schema_version": "phase13-structural-limit-review-v1",
   "review": "STRUCTURAL_LIMIT_REVIEW_2",
-  "status": "BLOCKED",
-  "blocked_on": "DESIGN_AUTHORITY_DISPOSITION",
-  "controlling_amendments": [5225799754, 5226296660],
+  "status": "REJECTED",
+  "blocked_on": null,
+  "rejected_by_amendment": 5226377041,
+  "rejection_reason": "The provider wall and zero-graph denominator include compliance-only full cache-policy state hashing and cannot establish a production structural limit.",
+  "controlling_amendments": [5225799754, 5226296660, 5226377041],
   "measured_target": {
     "parent": "bf4f44bb9b55f670a7e50734f47edc5fc8da4f52",
     "nested": "b7eb32d854ae7d6766a2f5317b50a14fff4ef3f4"
@@ -37,7 +39,7 @@
     "required_B_reduction_fraction": 0.3808576535579313,
     "zero_B_graph_speedup_upper_bound": 1.0272356292727562,
     "zero_B_graph_shortfall_ms_per_layer": 23.773862625,
-    "status": "OBSERVED"
+    "status": "REJECTED"
   },
   "iteration_ledger": [
     {
@@ -101,11 +103,11 @@
       "kind": "INSTRUMENTATION",
       "hypothesis": "transport epoch snapshots explain at least 50% of post-issue residual",
       "decision": "retain_trace_only",
-      "result": "0.011253 ms/layer and 0.126% share; falsified; wall-exact structural bound established"
+      "result": "0.011253 ms/layer and 0.126% share; comparator falsified; compliance-contaminated structural bound rejected"
     }
   ],
-  "design_authority_request": {
-    "accept": "Authorize final five-pair matrix, immutable evidence refresh, and independent final review at the accepted exact target.",
-    "reject": "Identify a revised in-scope mechanism capable of removing at least 26.228 ms/layer specifically from B."
+  "superseded_next_action": {
+    "status": "REJECTED",
+    "action": "Implement and validate explicit Mode C/P separation, then rebuild causal attribution from Mode-P evidence."
   }
 }

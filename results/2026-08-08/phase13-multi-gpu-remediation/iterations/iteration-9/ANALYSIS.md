@@ -1,0 +1,13 @@
+# Phase 13 iteration 9 — explicit compliance/performance separation
+
+Candidate base: parent `0ed86c2f1f2fb175f8a67917961831f5c91f71f8`, nested `67ab784bdb93aa9e43a9a48a14eb7ebc8bcd1b98`.
+
+`OBSERVED`: Mode C remains the safe default and preserves full policy state hashing, transcript records, retained per-event digests, internal I/O/ring traces and explicit route observation used by correctness evidence. Mode P is explicit and fail-closed: it rejects a nonzero internal trace capacity, disables policy state/transcript attestation, allocates no internal I/O/ring trace records, disables evidence-only policy test seams and is asserted by the Phase-13 harness. Bounds, generation, ownership, memory-safety, scheduler, cancellation and lifecycle checks remain active.
+
+The representative Mode-C A/B qualification passes exact IDs/text/routes/logit digests across both cells with 1,032 route records/process and zero transcript drops or live terminal work. Diagnostic Mode-C TPS is A 0.378010 and B 0.376263; these values are not production denominators.
+
+The matched-observation C-A/P-A equivalence gate is bit-exact for prompt IDs, generated IDs/text and all 24 logit digests. Policy decisions and safety counters also match exactly: hot events/hits/admissions/victims are 55,791/2,157/5,920/5,652 and cold events/hits/victims are 54,957/3,882/2,616. Mode P alone removes 110,748 retained transcript records, both state digests and about 16.78 MiB of transcript administration. This proves that the C/P switch does not alter inference semantics when the observation configuration is held constant.
+
+`OBSERVED`: the first Mode-P screen materially changes absolute performance. A is 1.382049 tok/s, B is 1.172384 tok/s, speedup 0.848294x; B is about 3.12x faster than the adjacent Mode-C diagnostic. Generated IDs/text are exact across A/B/B′. Full logit digests are deliberately recorded as non-identical in the unobserved P matrix: the bounded diagnostic proves this is caused by removing the route observer, not by the C/P state-attestation switch. Full A/B routes/logits remain qualified in Mode C, while P measures the real unobserved production graph.
+
+The capacity trigger fires on a +5.311-point B hot-hit-rate delta. The required B′ comparator is 1.054970 tok/s and 0.763337x versus A; equalizing total hot slots therefore worsens rather than explains the B overhead. Because absolute performance changed materially, the next authorized action is a fresh bounded Mode-P A/B Perfetto window and a new wall-exact production roofline. No five-pair final campaign or final review is authorized yet.

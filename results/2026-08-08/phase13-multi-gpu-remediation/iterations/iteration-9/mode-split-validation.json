@@ -1,0 +1,50 @@
+{
+  "schema_version": "phase13-mode-split-validation-v1",
+  "status": "pass",
+  "candidate": {
+    "project_base": "0ed86c2f1f2fb175f8a67917961831f5c91f71f8",
+    "nested": "67ab784bdb93aa9e43a9a48a14eb7ebc8bcd1b98"
+  },
+  "build": {"parallel_jobs": 76, "result": "pass"},
+  "focused_tests": {
+    "applicable_passed": 11,
+    "mode_dependent_policy_test": "pass",
+    "unrelated_preexisting_uma_provider": "UMA arena initialization failed"
+  },
+  "mode_c": {
+    "status": "pass",
+    "cells": ["A", "B"],
+    "exact_full_identity": true,
+    "route_records_per_process": 1032,
+    "identity_sha256": "60658621b12340bc02d1fbb614142e4a17c5dd52eb529bfd4b0b2eb1a1255889",
+    "A_decode_tps_diagnostic_only": 0.3780104547173223,
+    "B_decode_tps_diagnostic_only": 0.3762626002778683,
+    "summary": {"sha256": "41a7b646485f1d1f86713710ead9695771c90240443db728a716db7463059559", "size_bytes": 14575}
+  },
+  "matched_observation_equivalence": {
+    "cell": "A",
+    "observe_routes": false,
+    "prompt_ids_exact": true,
+    "generated_ids_exact": true,
+    "generated_text_exact": true,
+    "logits_fnv64_exact": true,
+    "policy_decisions_and_safety_counters_exact": true,
+    "mode_c_raw": {"sha256": "762b12c1b7c207537bbac02adf623b02356d303b7a2e0d67b9205da5efee5cb1", "size_bytes": 81487979},
+    "mode_p_raw_gzip": {"sha256": "b30a8b6a2042246586a24d3541097f9f2b78fd521f808538c53d5b2d40172d3d", "size_bytes": 4742}
+  },
+  "mode_p": {
+    "status": "pass",
+    "cells": ["A", "B", "Bprime"],
+    "generated_output_identity_exact": true,
+    "logits_fnv64_exact_across_unobserved_cells": false,
+    "logit_note": "Full observed A/B routes/logits are qualified in Mode C; matched observation settings prove C/P bit-exact. The unobserved production graph is intentionally different and the divergence is recorded, not hidden.",
+    "A_decode_tps": 1.382049247341989,
+    "B_decode_tps": 1.1723843340907956,
+    "speedup": 0.8482941807938978,
+    "Bprime_decode_tps": 1.0549696040322956,
+    "Bprime_speedup": 0.763337200943638,
+    "summary": {"sha256": "e4c09d311018d111b4b5e37a42f9edb7122cf4d05f33b904c67650f985ecf1d9", "size_bytes": 22795}
+  },
+  "decision": "retain",
+  "next_action": "recapture bounded Mode-P A/B trace and rebuild the production roofline"
+}

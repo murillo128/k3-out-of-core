@@ -49,7 +49,9 @@ def main() -> int:
     selection = random.Random(args.seed)
     request_ordinal = selection.randrange(8, 17)
     routed_layer = selection.randrange(43)
-    matrix_args = SimpleNamespace(probe=args.probe, model=args.model, b_hot_slots=268)
+    matrix_args = SimpleNamespace(
+        probe=args.probe, model=args.model, b_hot_slots=268,
+        expert_runtime_mode="PRODUCTION_PERFORMANCE")
     cases: dict[str, dict[str, object]] = {}
     for cell in ("A", "B"):
         case_dir = args.output_dir / cell
@@ -115,6 +117,7 @@ def main() -> int:
         },
         "order": ["A", "B"],
         "graphs_disabled": True,
+        "expert_runtime_mode": "PRODUCTION_PERFORMANCE",
         "exact_identity": exact_identity,
         "identity_sha256": cases["A"]["identity_sha256"],
         "cases": cases,

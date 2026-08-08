@@ -812,7 +812,11 @@ def main() -> int:
         target_b_layer_ms = a_wall / 1.6
         zero_graph_bound = a_wall / b_provider_ms
         structural_limit = {
-            "status": "OBSERVED",
+            "status": "REJECTED",
+            "rejection_reason": (
+                "The trace was captured in compliance mode and its common provider wall includes full "
+                "cache-policy state hashing. It cannot establish a production structural bound."
+            ),
             "target_speedup": 1.6,
             "A_mean_layer_wall_ms": a_wall,
             "B_mean_layer_wall_ms": b_wall,
@@ -829,34 +833,29 @@ def main() -> int:
             ),
             "zero_B_graph_speedup_upper_bound": zero_graph_bound,
             "zero_B_graph_shortfall_ms_per_layer": b_provider_ms - target_b_layer_ms,
-            "rationale": (
-                "The apparent post-issue regression is a placement shift: B pre-issue savings and post-issue "
-                "cost cancel to provider parity. All material remaining B-over-A wall is graph-side, but even "
-                "the impossible bound of zero B graph time reaches only the reported upper-bound speedup."
-            ),
+            "rationale": "Historical compliance-contaminated arithmetic retained for audit only.",
         }
         ranked_bottlenecks = [
             {
                 "rank": 1,
-                "mechanism": "common_cold_miss_provider_path",
+                "mechanism": "compliance_contaminated_common_provider_path",
                 "evidence": (
                     f"A and B provider wall are {a_provider_ms:.3f} and {b_provider_ms:.3f} ms/layer; "
-                    f"their delta is only {b_provider_ms - a_provider_ms:.3f} ms. B pre-issue savings "
-                    "cancel its post-issue placement cost, so the apparent post-issue residual is not "
-                    "removable duplicate work."
+                    f"their delta is only {b_provider_ms - a_provider_ms:.3f} ms, but both include the "
+                    "full cache-policy state hash. The common wall must be remeasured in performance mode."
                 ),
                 "A_provider_ms_per_layer": a_provider_ms,
                 "B_provider_ms_per_layer": b_provider_ms,
                 "target_B_layer_ms": target_b_layer_ms,
-                "target_bucket": "provider_common_path",
+                "target_bucket": "compliance_only_policy_attestation",
             },
             {
                 "rank": 2,
                 "mechanism": "serialized_remote_branch_graph",
                 "evidence": (
                     f"B graph wall is {b_graph_ms:.3f} ms/layer with zero simultaneous GPU0/GPU1 kernel "
-                    f"overlap. Setting the entire B graph wall to zero would yield only {zero_graph_bound:.3f}x, "
-                    "far below 1.60x."
+                    "overlap, but the computed zero-graph bound is REJECTED because its denominator contains "
+                    "compliance-only provider work."
                 ),
                 "measured_overlap_ns": cases["B"]["gpu"][
                     "simultaneous_gpu0_gpu1_kernel_overlap_ns"],
@@ -875,23 +874,23 @@ def main() -> int:
                 "target_bucket": "multi_device_transport_epoch_snapshot",
             },
         ]
-        dominant = "common_cold_miss_provider_path"
+        dominant = "compliance_contaminated_common_provider_path"
         rationale = (
             "Iteration 8 falsifies async-transport epoch snapshots as an optimization target. The exact "
-            "critical-path decomposition now shows provider parity: B moves mandatory victim, staging and "
-            "publication work from before issue to after issue, while the pre/issue/post deltas cancel. The "
-            "remaining wall is graph-side and too small to bridge the target even if removed completely."
+            "Mode-C decomposition remains useful for relative attribution, but the shared provider wall is "
+            "dominated by compliance-only state hashing. The former structural-limit conclusion is REJECTED "
+            "until the same workload is captured in explicit production-performance mode."
         )
         next_hypothesis = {
             "single_primary_hypothesis": (
-                "No further production fix is selected. Return the complete iteration ledger and quantified "
-                "zero-graph upper bound to design authority for the structural-limit stop decision."
+                "Audit administrative hot-path work, implement the smallest explicit Mode C/Mode P switch, "
+                "then rerun representative Mode C correctness and a minimum Mode P A/B pair."
             ),
-            "predicted_trace_change": "none; structural-limit return",
-            "predicted_tps_change": "none; await design-authority acceptance or revised scope",
+            "predicted_trace_change": "Mode P removes full policy hash/transcript and internal evidence traces",
+            "predicted_tps_change": "large absolute gain in both cells; scaling must be remeasured",
             "falsifier": (
-                "Resume implementation only if design authority identifies an in-scope mechanism that can "
-                f"remove at least {b_wall - target_b_layer_ms:.3f} ms/layer specifically from B."
+                "Reject the switch if Mode C loses exact attestation or Mode P changes outputs, policy "
+                "decisions, safety counters, or terminal lifecycle."
             ),
         }
     if not any(item["mechanism"] == "serialized_remote_branch_graph" for item in ranked_bottlenecks):
@@ -927,7 +926,8 @@ def main() -> int:
             "status": "OBSERVED",
             "dominant": dominant,
             "implementation_induced": args.iteration < 8,
-            "structural_limit_proven": structural_limit is not None,
+            "structural_limit_proven": structural_limit is not None and
+                structural_limit.get("status") == "OBSERVED",
             "rationale": rationale,
         },
         "structural_limit": structural_limit,
@@ -969,7 +969,7 @@ def main() -> int:
             "action": (
                 "pause_and_review_attribution_before_next_fix" if args.iteration == 4 else
                 ("review_resolved_by_distinguishing_comparator" if args.iteration == 5 else
-                 ("return_quantified_structural_limit_to_design_authority" if args.iteration >= 8 else "none"))
+                 ("continue_with_mode_c_p_separation" if args.iteration >= 8 else "none"))
             ),
         },
     }
