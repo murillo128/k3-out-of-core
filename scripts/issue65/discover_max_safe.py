@@ -4,6 +4,8 @@
 from __future__ import annotations
 
 import argparse
+import ctypes
+import ctypes.util
 from dataclasses import dataclass
 import hashlib
 import json
@@ -11,6 +13,7 @@ import math
 import os
 from pathlib import Path
 import re
+import shutil
 import subprocess
 import time
 from typing import Callable
@@ -48,6 +51,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--model-repository", required=True)
     parser.add_argument("--model-revision", required=True)
     parser.add_argument("--model-variant", required=True)
+    parser.add_argument("--artifact-identity-manifest", type=Path, required=True)
     parser.add_argument("--resident-device", type=int, required=True)
     parser.add_argument("--target-device", type=int, required=True)
     parser.add_argument(
@@ -71,6 +75,57 @@ def sha256_file(path: Path) -> str:
         for chunk in iter(lambda: stream.read(8 * MIB), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def artifact_identity(args: argparse.Namespace) -> dict[str, object]:
+    source = json.loads(args.artifact_identity_manifest.read_text())
+    artifact = source.get("artifact", {})
+    files = artifact.get("files", [])
+    if (artifact.get("repository") != args.model_repository or
+            artifact.get("revision") != args.model_revision or
+            artifact.get("variant") != args.model_variant or not files or
+            any(not item.get("name") or not isinstance(item.get("size"), int) or
+                not re.fullmatch(r"[0-9a-f]{64}", str(item.get("sha256", ""))) for item in files) or
+            args.model.name not in {item["name"] for item in files}):
+        raise RuntimeError("artifact identity manifest does not match the requested model")
+    return {
+        "identity_manifest": str(args.artifact_identity_manifest),
+        "identity_manifest_sha256": sha256_file(args.artifact_identity_manifest),
+        "model_repository": artifact["repository"],
+        "model_revision": artifact["revision"],
+        "variant": artifact["variant"],
+        "total_bytes": artifact.get("total_bytes"),
+        "files": files,
+        "runtime_model_path": str(args.model),
+    }
+
+
+def _cuda_version(value: int) -> str:
+    return f"{value // 1000}.{(value % 1000) // 10}"
+
+
+def cuda_runtime_inventory() -> dict[str, str]:
+    driver = subprocess.check_output(
+        ["nvidia-smi", "--query-gpu=driver_version", "--format=csv,noheader"],
+        text=True, timeout=5).splitlines()[0].strip()
+    library = ctypes.util.find_library("cudart") or "libcudart.so.12"
+    cudart = ctypes.CDLL(library)
+    runtime_value = ctypes.c_int()
+    driver_api_value = ctypes.c_int()
+    if (cudart.cudaRuntimeGetVersion(ctypes.byref(runtime_value)) != 0 or
+            cudart.cudaDriverGetVersion(ctypes.byref(driver_api_value)) != 0):
+        raise RuntimeError("CUDA runtime/driver API version query failed")
+    nvcc = shutil.which("nvcc") or "/usr/local/cuda/bin/nvcc"
+    nvcc_output = subprocess.check_output([nvcc, "--version"], text=True, timeout=5)
+    toolkit_match = re.search(r"release\s+([0-9]+(?:\.[0-9]+)?)", nvcc_output)
+    if not toolkit_match:
+        raise RuntimeError("CUDA toolkit version is unavailable")
+    return {
+        "nvidia_driver_version": driver,
+        "cuda_driver_api_version": _cuda_version(driver_api_value.value),
+        "cuda_runtime_version": _cuda_version(runtime_value.value),
+        "cuda_toolkit_version": toolkit_match.group(1),
+    }
 
 
 def gpu_inventory() -> list[dict[str, object]]:
@@ -253,6 +308,111 @@ def device_ledgers(
     return result
 
 
+def validate_capacity_manifest(manifest: dict[str, object]) -> None:
+    required_top = {
+        "schema_version", "status", "revisions", "artifact", "runtime", "configuration",
+        "topology", "bounds", "probe_order", "selected_max_safe_slots",
+        "selected_device_ledgers", "raw_directory",
+    }
+    required_runtime = {
+        "nvidia_driver_version", "cuda_driver_api_version", "cuda_runtime_version",
+        "cuda_toolkit_version", "cuda_graphs", "expert_runtime_mode",
+    }
+    required_configuration = {
+        "provider_mode", "hot_policy", "cold_policy", "policy_scope", "admission",
+        "miss_policy", "cold_cache_bytes", "transfer_ring_bytes", "queue_depth",
+        "peer_transport", "peer_staging_bytes", "fixture_transport", "integrity",
+        "background_promotion", "trace_capacity", "observe_routes", "n_ctx",
+        "n_batch", "n_ubatch", "generated_tokens", "sample_period_seconds",
+    }
+    artifact = manifest.get("artifact", {})
+    if (not required_top.issubset(manifest) or
+            not required_runtime.issubset(manifest.get("runtime", {})) or
+            not required_configuration.issubset(manifest.get("configuration", {})) or
+            not isinstance(artifact, dict) or not artifact.get("identity_manifest_sha256") or
+            not artifact.get("files")):
+        raise RuntimeError("MAX_SAFE manifest is missing reproducibility fields")
+    if manifest.get("status") == "pass" and (
+            not isinstance(manifest.get("selected_max_safe_slots"), int) or
+            not manifest.get("selected_device_ledgers")):
+        raise RuntimeError("passing MAX_SAFE manifest lacks selected capacity/device ledgers")
+
+
+def build_capacity_manifest(
+        args: argparse.Namespace, *, status: str, abort_reason: str | None,
+        inventory: list[dict[str, object]], artifact: dict[str, object],
+        cuda_runtime: dict[str, str], deterministic_upper: int, upper: int,
+        ordered: list[tuple[int, ProbeDecision]], selected: int | None,
+        selected_evidence: dict | None, selected_samples: list[dict[str, object]],
+        selected_log: str) -> dict[str, object]:
+    manifest: dict[str, object] = {
+        "schema_version": "issue65-max-safe-capacity-v2",
+        "status": status,
+        "abort_reason": abort_reason,
+        "revisions": {"project": args.project_revision, "nested": args.nested_revision},
+        "artifact": artifact,
+        "runtime": {
+            **cuda_runtime,
+            "cuda_graphs": "DISABLED",
+            "expert_runtime_mode": "PRODUCTION_PERFORMANCE",
+        },
+        "configuration": {
+            "provider_mode": "COLD_CACHE",
+            "hot_policy": "LRU",
+            "cold_policy": "LRU",
+            "policy_scope": "GLOBAL",
+            "admission": "ALWAYS",
+            "miss_policy": "PROMOTE_AND_GPU",
+            "cold_cache_bytes": 17_179_869_184,
+            "transfer_ring_bytes": 67_173_120,
+            "queue_depth": 256,
+            "peer_transport": "HOST_STAGED",
+            "peer_staging_bytes": args.peer_staging_bytes,
+            "fixture_transport": "POSITIONAL",
+            "integrity": "NONE",
+            "background_promotion": False,
+            "trace_capacity": 0,
+            "observe_routes": False,
+            "config_source": "EXPLICIT",
+            "role_config": "EXPLICIT",
+            "n_ctx": 4096,
+            "n_batch": 128,
+            "n_ubatch": 128,
+            "generated_tokens": 24,
+            "selection": "ARGMAX",
+            "sample_period_seconds": args.sample_period,
+        },
+        "topology": {
+            "resident_cuda_ordinal": args.resident_device,
+            "expert_role_template": args.role_template,
+            "target_cuda_ordinal": args.target_device,
+            "target_uuid": args.target_uuid,
+            "target_pci_bdf": normalize_bdf(args.target_bdf),
+            "peer_transport": "HOST_STAGED",
+            "peer_staging_bytes": args.peer_staging_bytes,
+        },
+        "bounds": {
+            "slot_stride_bytes": args.slot_stride,
+            "reserve_bytes": args.reserve_bytes,
+            "already_safe_lower_slots": args.lower_bound,
+            "deterministic_upper_slots": deterministic_upper,
+            "searched_upper_slots": upper,
+            "max_probes": args.max_probes,
+        },
+        "probe_order": [
+            {"candidate_slots": candidate, "outcome": decision.outcome, "reason": decision.reason}
+            for candidate, decision in ordered
+        ],
+        "selected_max_safe_slots": selected,
+        "selected_device_ledgers": device_ledgers(
+            inventory, selected_evidence, selected_samples, selected_log,
+            args.reserve_bytes, args.peer_staging_bytes) if selected_evidence else [],
+        "raw_directory": str(args.raw_dir),
+    }
+    validate_capacity_manifest(manifest)
+    return manifest
+
+
 def main() -> None:
     args = parse_args()
     if (args.role_template.count("{candidate}") != 1 or args.reserve_bytes <= 0 or
@@ -260,6 +420,10 @@ def main() -> None:
         raise SystemExit("invalid discovery configuration")
     if not args.probe.is_file() or not args.model.is_file():
         raise SystemExit("probe or model is missing")
+    if not args.artifact_identity_manifest.is_file():
+        raise SystemExit("artifact identity manifest is missing")
+    artifact = artifact_identity(args)
+    cuda_runtime = cuda_runtime_inventory()
     args.raw_dir.mkdir(parents=True, exist_ok=True)
     inventory = gpu_inventory()
     targets = [item for item in inventory if int(item["cuda_ordinal"]) == args.target_device]
@@ -326,53 +490,12 @@ def main() -> None:
     selected_evidence = selected_record.get("evidence") if selected_record else None
     selected_log = selected_record.get("log_text", "") if selected_record else ""
     selected_samples = selected_record.get("samples", []) if selected_record else []
-    driver = subprocess.check_output(
-        ["nvidia-smi", "--query-gpu=driver_version", "--format=csv,noheader"], text=True).splitlines()[0].strip()
-    manifest = {
-        "schema_version": "issue65-max-safe-capacity-v1",
-        "status": status,
-        "abort_reason": abort_reason,
-        "revisions": {"project": args.project_revision, "nested": args.nested_revision},
-        "artifact": {
-            "model_repository": args.model_repository,
-            "model_revision": args.model_revision,
-            "variant": args.model_variant,
-            "path": str(args.model),
-            "sha256": sha256_file(args.model),
-        },
-        "runtime": {
-            "driver_version": driver,
-            "cuda_graphs": "DISABLED",
-            "expert_runtime_mode": "PRODUCTION_PERFORMANCE",
-            "context": 4096, "batch": 128, "ubatch": 128,
-            "generated_tokens": 24, "transport": "POSITIONAL",
-        },
-        "topology": {
-            "resident_cuda_ordinal": args.resident_device,
-            "expert_role_template": args.role_template,
-            "target_cuda_ordinal": args.target_device,
-            "target_uuid": args.target_uuid,
-            "target_pci_bdf": normalize_bdf(args.target_bdf),
-            "peer_transport": "HOST_STAGED",
-        },
-        "bounds": {
-            "slot_stride_bytes": args.slot_stride,
-            "reserve_bytes": args.reserve_bytes,
-            "already_safe_lower_slots": args.lower_bound,
-            "deterministic_upper_slots": deterministic_upper,
-            "searched_upper_slots": upper,
-            "max_probes": args.max_probes,
-        },
-        "probe_order": [
-            {"candidate_slots": candidate, "outcome": decision.outcome, "reason": decision.reason}
-            for candidate, decision in ordered
-        ],
-        "selected_max_safe_slots": selected,
-        "selected_device_ledgers": device_ledgers(
-            inventory, selected_evidence, selected_samples, selected_log,
-            args.reserve_bytes, args.peer_staging_bytes) if selected_evidence else [],
-        "raw_directory": str(args.raw_dir),
-    }
+    manifest = build_capacity_manifest(
+        args, status=status, abort_reason=abort_reason, inventory=inventory,
+        artifact=artifact, cuda_runtime=cuda_runtime, deterministic_upper=deterministic_upper,
+        upper=upper, ordered=ordered, selected=selected,
+        selected_evidence=selected_evidence, selected_samples=selected_samples,
+        selected_log=selected_log)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(manifest, indent=2) + "\n")
     if status != "pass":

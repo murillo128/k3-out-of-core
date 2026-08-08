@@ -73,6 +73,57 @@ def exact_devices(run: dict, slots: list[int]) -> bool:
     )
 
 
+def validate_transport_endpoint_mapping(run: dict) -> None:
+    roles = run.get("expert_roles", {})
+    resident = roles.get("resident", {})
+    experts = roles.get("experts", [])
+    resident_expert_id = next((
+        expert.get("device_id") for expert in experts
+        if expert.get("uuid") == resident.get("uuid") and
+        expert.get("pci_bdf") == resident.get("pci_bdf")
+    ), -1)
+    endpoints = [{
+        "transport_endpoint_id": 0,
+        "expert_device_id": resident_expert_id,
+        "cuda_ordinal": resident.get("cuda_ordinal"),
+        "pci_bdf": resident.get("pci_bdf"),
+        "uuid": resident.get("uuid"),
+        "role": "RESIDENT_AND_EXPERT" if resident_expert_id != -1 else "RESIDENT",
+    }]
+    for expert in experts:
+        if (expert.get("uuid"), expert.get("pci_bdf")) == (
+                resident.get("uuid"), resident.get("pci_bdf")):
+            continue
+        endpoints.append({
+            "transport_endpoint_id": len(endpoints),
+            "expert_device_id": expert.get("device_id"),
+            "cuda_ordinal": expert.get("cuda_ordinal"),
+            "pci_bdf": expert.get("pci_bdf"),
+            "uuid": expert.get("uuid"),
+            "role": "EXPERT",
+        })
+
+    peers = run.get("multi_gpu", {}).get("peer_diagnostics", [])
+    expected_edges = {(0, endpoint) for endpoint in range(1, len(endpoints))} | {
+        (endpoint, 0) for endpoint in range(1, len(endpoints))}
+    observed_edges: set[tuple[int, int]] = set()
+    for edge in peers:
+        source_id = edge.get("source_transport_endpoint_id")
+        destination_id = edge.get("transport_endpoint_id")
+        if (not edge.get("endpoint_mapping_valid") or not isinstance(source_id, int) or
+                not isinstance(destination_id, int) or source_id >= len(endpoints) or
+                destination_id >= len(endpoints)):
+            raise SystemExit("transport endpoint mapping is invalid")
+        source, destination = endpoints[source_id], endpoints[destination_id]
+        for prefix, expected in (("source_", source), ("", destination)):
+            for key in ("expert_device_id", "cuda_ordinal", "pci_bdf", "uuid", "role"):
+                if edge.get(prefix + key) != expected[key]:
+                    raise SystemExit(f"transport endpoint {prefix}{key} attribution mismatch")
+        observed_edges.add((source_id, destination_id))
+    if observed_edges != expected_edges or len(peers) != len(expected_edges):
+        raise SystemExit("transport endpoint edge set is not the resident star")
+
+
 def resource_summary(path: Path) -> dict:
     record = json.loads(path.read_text())
     per_device: dict[str, dict[str, object]] = {}
@@ -122,6 +173,7 @@ def validate_remote(run: dict, accepted_identity: dict, delayed: bool) -> None:
         raise SystemExit("D1 Mode-C identity mismatch")
     if run.get("expert_roles", {}).get("shape") != "REMOTE_SINGLE" or not exact_devices(run, [536]):
         raise SystemExit("D1 role/capacity mismatch")
+    validate_transport_endpoint_mapping(run)
     structure = run.get("role_path_structure", {})
     if (structure.get("remote_single_bindings", 0) == 0 or
             structure.get("multi_device_bindings") != 0 or
@@ -159,6 +211,7 @@ def main() -> None:
                 run.get("expert_roles", {}).get("shape") != "STRIPED_MULTI" or
                 not exact_devices(run, [268, 268]) or not clean_lifecycle(run)):
             raise SystemExit(f"{cell}: S1 Mode-C qualification failed")
+        validate_transport_endpoint_mapping(run)
     if compliance["S1_LEGACY"]["role_path_structure"] != compliance["S1_EXPLICIT"]["role_path_structure"]:
         raise SystemExit("S1 explicit graph differs from the accepted legacy mechanism")
     validate_remote(compliance["D1"], accepted_identity, False)
