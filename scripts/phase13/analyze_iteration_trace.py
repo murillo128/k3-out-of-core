@@ -258,6 +258,7 @@ def summarize_case(trace_processor: Path, trace: Path) -> dict[str, object]:
             "multi_device_hot_slot_candidate_build": [],
             "multi_device_hot_slot_policy_admission": [],
             "multi_device_hot_slot_feasibility_accounting": [],
+            "multi_device_transport_epoch_snapshot": [],
         }
         for event in services:
             event_start = int(event["ts"])
@@ -344,7 +345,7 @@ def summarize_case(trace_processor: Path, trace: Path) -> dict[str, object]:
         "storage", "stage", "h2d_scope", "event_wait", "expert_h2d_cuda",
         "policy_hash_state", "multi_device_hot_slot_select",
         "multi_device_hot_slot_candidate_build", "multi_device_hot_slot_policy_admission",
-        "multi_device_hot_slot_feasibility_accounting",
+        "multi_device_hot_slot_feasibility_accounting", "multi_device_transport_epoch_snapshot",
     )
     services_total = {
         key: sum(int(cycle["provider_service_unions_ns"][key]) for cycle in cycles)
