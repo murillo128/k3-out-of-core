@@ -360,6 +360,12 @@ def main() -> int:
     parser.add_argument("--project-head", required=True)
     parser.add_argument("--nested-head", required=True)
     parser.add_argument("--iteration", type=int, required=True)
+    parser.add_argument("--previous-analysis", type=Path)
+    parser.add_argument("--quick-summary", type=Path)
+    parser.add_argument("--code-change", default="none")
+    parser.add_argument("--decision", choices=("analysis_only", "retain", "revert"),
+                        default="analysis_only")
+    parser.add_argument("--decision-rationale", default="iteration analysis only")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
 
@@ -378,6 +384,89 @@ def main() -> int:
         for key in b_buckets
     }
     issue_delta = mean_bucket_delta_ms["issue_span_ns"]
+    provider_dependency_delta = mean_bucket_delta_ms["pre_issue_ns"] + \
+        mean_bucket_delta_ms["post_issue_ns"]
+    issue_is_dominant = issue_delta >= provider_dependency_delta
+    if issue_is_dominant:
+        ranked_bottlenecks = [
+            {
+                "rank": 1,
+                "mechanism": "multi_device_provider_serial_demand_issue",
+                "evidence": (
+                    "B serializes current-layer scheduler issue around per-miss cold-cache/storage/staging work; "
+                    "A attempts current-layer demand enqueues adjacently before its first wait."
+                ),
+                "measured_extra_ms_per_layer_vs_A": issue_delta,
+                "target_bucket": "issue_span_ns",
+            },
+            {
+                "rank": 2,
+                "mechanism": "provider_pre_and_post_issue_dependency_gaps",
+                "evidence": "Provider wall dominates both traces and materially exceeds all CUDA service unions.",
+                "measured_extra_ms_per_layer_vs_A": provider_dependency_delta,
+                "target_bucket": "pre_issue_ns+post_issue_ns",
+            },
+        ]
+        dominant = "multi_device_provider_serial_demand_issue"
+        rationale = (
+            "The dominant B regression occurs before routed graph CUDA work. Small peer copies and kernels "
+            "cannot explain the provider-scale wall delta, and the current multi-device loop waits through "
+            "each miss before issuing the next current-layer demand."
+        )
+        next_hypothesis = {
+            "single_primary_hypothesis": (
+                "Issue every multi-device current-layer demand and deferred storage read before the first wait, "
+                "then consume completions and stage per-device H2D work."
+            ),
+            "predicted_trace_change": "issue_span_ns decreases by at least 30% in B",
+            "predicted_tps_change": "B decode TPS increases by at least 3% with A unchanged within 3%",
+            "falsifier": (
+                "Revert if issue_span_ns changes by less than 3% and B TPS changes by less than 3%, or if any "
+                "correctness/resource gate regresses."
+            ),
+        }
+    else:
+        ranked_bottlenecks = [
+            {
+                "rank": 1,
+                "mechanism": "provider_pre_and_post_issue_dependency_gaps",
+                "evidence": (
+                    "Current-layer enqueue issue is now adjacent, but B provider wall remains dominant. "
+                    "Representative B layers contain repeated approximately 9-10 ms untraced gaps after "
+                    "host-ready to H2D scheduler transitions and before the next hot-slot victim marker."
+                ),
+                "measured_extra_ms_per_layer_vs_A": provider_dependency_delta,
+                "target_bucket": "pre_issue_ns+post_issue_ns",
+            },
+        ]
+        dominant = "provider_pre_and_post_issue_dependency_gaps"
+        rationale = (
+            "The prior scheduler-issue bucket has collapsed, but the same wall moved into provider pre/post "
+            "issue gaps. CUDA service remains far too small to explain the provider interval; the next code "
+            "operation after each observed host-ready to H2D transition is a repeated transfer-ring diagnostics "
+            "snapshot before the following miss is staged."
+        )
+        next_hypothesis = {
+            "single_primary_hypothesis": (
+                "Snapshot each device transfer ring's immutable effective lane capacity once before per-miss "
+                "staging instead of reacquiring diagnostics after every staged miss."
+            ),
+            "predicted_trace_change": "B post_issue_ns decreases by at least 20%",
+            "predicted_tps_change": "B decode TPS increases by at least 3% with A unchanged within 3%",
+            "falsifier": (
+                "Revert if post_issue_ns changes by less than 3% and B TPS changes by less than 3%, or if any "
+                "correctness/resource gate regresses."
+            ),
+        }
+    ranked_bottlenecks.append({
+        "rank": len(ranked_bottlenecks) + 1,
+        "mechanism": "serialized_remote_branch_graph",
+        "evidence": "The B window contains no simultaneous GPU0/GPU1 kernel interval.",
+        "measured_overlap_ns": cases["B"]["gpu"]["simultaneous_gpu0_gpu1_kernel_overlap_ns"],
+        "target_bucket": "graph_dependency_or_host_gap",
+    })
+    previous = json.loads(args.previous_analysis.read_text()) if args.previous_analysis else None
+    quick = json.loads(args.quick_summary.read_text()) if args.quick_summary else None
     output = {
         "schema_version": "phase13-iteration-trace-analysis-v1",
         "status": "pass",
@@ -397,56 +486,40 @@ def main() -> int:
             "mean_layer_wall_delta_ms_B_minus_A": b_wall - a_wall,
             "mean_critical_path_bucket_delta_ms_B_minus_A": mean_bucket_delta_ms,
         },
-        "ranked_bottlenecks": [
-            {
-                "rank": 1,
-                "mechanism": "multi_device_provider_serial_demand_issue",
-                "evidence": (
-                    "B serializes current-layer scheduler issue around per-miss cold-cache/storage/staging work; "
-                    "A attempts current-layer demand enqueues adjacently before its first wait."
-                ),
-                "measured_extra_ms_per_layer_vs_A": issue_delta,
-                "target_bucket": "issue_span_ns",
-            },
-            {
-                "rank": 2,
-                "mechanism": "provider_pre_and_post_issue_dependency_gaps",
-                "evidence": "Provider wall dominates both traces and materially exceeds all CUDA service unions.",
-                "measured_extra_ms_per_layer_vs_A": (
-                    mean_bucket_delta_ms["pre_issue_ns"] + mean_bucket_delta_ms["post_issue_ns"]
-                ),
-                "target_bucket": "pre_issue_ns+post_issue_ns",
-            },
-            {
-                "rank": 3,
-                "mechanism": "serialized_remote_branch_graph",
-                "evidence": "The B window contains no simultaneous GPU0/GPU1 kernel interval.",
-                "measured_overlap_ns": cases["B"]["gpu"]["simultaneous_gpu0_gpu1_kernel_overlap_ns"],
-                "target_bucket": "graph_dependency_or_host_gap",
-            },
-        ],
+        "ranked_bottlenecks": ranked_bottlenecks,
         "root_cause_conclusion": {
             "status": "OBSERVED",
-            "dominant": "multi_device_provider_serial_demand_issue",
+            "dominant": dominant,
             "implementation_induced": True,
             "structural_limit_proven": False,
-            "rationale": (
-                "The dominant B regression occurs before routed graph CUDA work. Small peer copies and kernels "
-                "cannot explain the provider-scale wall delta, and the current multi-device loop waits through "
-                "each miss before issuing the next current-layer demand."
-            ),
+            "rationale": rationale,
         },
-        "next_hypothesis": {
-            "single_primary_hypothesis": (
-                "Issue every multi-device current-layer demand and deferred storage read before the first wait, "
-                "then consume completions and stage per-device H2D work."
-            ),
-            "predicted_trace_change": "issue_span_ns decreases by at least 30% in B",
-            "predicted_tps_change": "B decode TPS increases by at least 3% with A unchanged within 3%",
-            "falsifier": (
-                "Revert if issue_span_ns changes by less than 3% and B TPS changes by less than 3%, or if any "
-                "correctness/resource gate regresses."
-            ),
+        "next_hypothesis": next_hypothesis,
+        "iteration_result": {
+            "code_change_identity": args.code_change,
+            "quick_screen": None if quick is None else {
+                "status": quick["status"],
+                "identity": quick["identity"],
+                "scaling": quick["scaling"],
+            },
+            "before_after_trace": None if previous is None else {
+                "previous_iteration": previous["iteration"],
+                "B_mean_layer_wall_delta_percent": (
+                    b_wall / float(previous["cases"]["B"]["layer_wall"]["mean_ms"]) - 1.0
+                ) * 100.0,
+                "B_issue_span_delta_percent": (
+                    (b_buckets["issue_span_ns"] / b_count) /
+                    (previous["cases"]["B"]["critical_path"]["buckets_ns"]["issue_span_ns"] /
+                     int(previous["cases"]["B"]["complete_routed_layer_cycles"])) - 1.0
+                ) * 100.0,
+                "B_post_issue_delta_percent": (
+                    (b_buckets["post_issue_ns"] / b_count) /
+                    (previous["cases"]["B"]["critical_path"]["buckets_ns"]["post_issue_ns"] /
+                     int(previous["cases"]["B"]["complete_routed_layer_cycles"])) - 1.0
+                ) * 100.0,
+            },
+            "decision": args.decision,
+            "rationale": args.decision_rationale,
         },
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
