@@ -1,0 +1,87 @@
+{
+  "schema_version": "phase13-iteration-screen-v1",
+  "status": "pass",
+  "iteration": 13,
+  "revisions": {
+    "project_base": "9bd3e814065e6a5dbad0fe4b945dc19f34817279",
+    "nested_base": "d9fbc8bb1b8b2c395463febfe7f2f7616276ffe9",
+    "nested_candidate": "5c1334756e3d9a3167f09e4a3ff2203aea925d1f",
+    "nested_revert": "2c8afc4e1747bbd9a6ee93ca79ff645613a8ec07",
+    "retained_source_tree": "7114b54d67540e580d15271dc230b02f585b16c7"
+  },
+  "build": {
+    "parallel_jobs": 76,
+    "phase13_targets": "pass",
+    "whole_tree_attempt": {
+      "result": "unrelated_preexisting_failure",
+      "target": "phase11-uma-probe",
+      "reason": "Host headers do not expose STATX_DIOALIGN or statx DIO alignment fields."
+    }
+  },
+  "focused_tests": {
+    "passed": 4,
+    "failed": 0,
+    "targets": [
+      "test-expert-weight-provider",
+      "test-expert-peer-staging",
+      "test-hot-expert-cache",
+      "test-expert-async-io"
+    ]
+  },
+  "mode_c_B": {
+    "status": "pass",
+    "decode_tps_diagnostic_only": 0.4016085224541333,
+    "identity_sha256": "60658621b12340bc02d1fbb614142e4a17c5dd52eb529bfd4b0b2eb1a1255889",
+    "logits_fnv64_exact": true,
+    "route_records": 1032,
+    "raw_gzip": {
+      "sha256": "a71dbe723de15b9d4de9911715aee393a60cba950da62ebe8ae0ecb0bde114f7",
+      "size_bytes": 3111262
+    },
+    "summary": {
+      "sha256": "5f560b26dd67aa1b4df1a6957a2fbac7891987dc10ccfb512b052e7f3ec039ed",
+      "size_bytes": 8167
+    }
+  },
+  "mode_p_B": {
+    "status": "pass",
+    "candidate_decode_tps": 1.4145156240323253,
+    "iteration_11_tier1_reference_decode_tps": 1.4096460115322527,
+    "change_from_reference_fraction": 0.003454493156604288,
+    "generated_output_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+    "raw_gzip": {
+      "sha256": "340809dba66fe24f99313ec3f43f10fc843814d94a732d1644ff97959c54764e",
+      "size_bytes": 5270
+    },
+    "summary": {
+      "sha256": "57a464bd9020011e8f8749a60801daf856dbe33584417bbf34a581c9fceba05c",
+      "size_bytes": 8181
+    }
+  },
+  "iteration_result": {
+    "decision": "revert",
+    "rationale": "Exactness and lifecycle passed, but persistent cross-ring staging improves B only 0.345%, below the declared 3% retention threshold."
+  },
+  "no_progress": {
+    "consecutive_falsified_stage_hypotheses": 2,
+    "action": "freeze_iteration_11_and_run_revised_closeout"
+  },
+  "closeout_authority": {
+    "issue_comment_id": 5226796421,
+    "preferred_parity_floor": 0.95,
+    "retained_iteration_11_adjacent_speedup": 0.9773215112111825,
+    "gate_satisfied": true,
+    "bprime_required": false
+  },
+  "root_cause_conclusion": {
+    "status": "OBSERVED",
+    "dominant": "symmetric_resident_graph_serialization",
+    "implementation_induced": false,
+    "structural_limit_proven": false,
+    "rationale": "The retained B provider is faster than A. The inactive-ID bounded correction and two cross-ring staging implementations are not throughput-causal at 3%; generalized resident/expert device roles are out of scope in issue 63."
+  },
+  "next_action": {
+    "single_primary_action": "Freeze the retained Iteration-11 source tree and run the revised final Mode-C qualification plus five-pair Mode-P A/B closeout.",
+    "final_review_authorized_after_evidence_refresh": true
+  }
+}
