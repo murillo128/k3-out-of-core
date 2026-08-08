@@ -1,0 +1,157 @@
+{
+  "schema_version": "issue65-checkpoint-a-manifest-v1",
+  "issue": "murillo128/k3-out-of-core#65",
+  "checkpoint": "A",
+  "status": "pass",
+  "execution_profile": "STANDARD",
+  "revisions": {
+    "project_base": "cf2118e3f505727189a56f9a9b81e23ebf0aa02c",
+    "project_branch": "codex/issue65-device-roles",
+    "nested_base": "2c8afc4e1747bbd9a6ee93ca79ff645613a8ec07",
+    "nested_head": "73bfdbed3aa1c785b23a9abc9608052928e4b2cc",
+    "nested_tree": "3d98be3242a1d9d457453f93475127cdf7b075ee",
+    "nested_pull_request": "https://github.com/murillo128/llama.cpp/pull/2"
+  },
+  "artifact": {
+    "repository": "unsloth/DeepSeek-V4-Flash-GGUF",
+    "revision": "85ce4196ab6e82852e25dfec2b7e2beaae56f5f1",
+    "variant": "UD-Q2_K_XL",
+    "total_bytes": 96832507552,
+    "files": [
+      {
+        "name": "DeepSeek-V4-Flash-UD-Q2_K_XL-00001-of-00003.gguf",
+        "size": 5256864,
+        "sha256": "5475dce5d7189b4304d490bf559d438c967bbc924ce5384ba8e9ecc0385cb003"
+      },
+      {
+        "name": "DeepSeek-V4-Flash-UD-Q2_K_XL-00002-of-00003.gguf",
+        "size": 49437013568,
+        "sha256": "3faf8797868960141239b69bdd8105b0459fbc0f1927652889ae936a967fc4ca"
+      },
+      {
+        "name": "DeepSeek-V4-Flash-UD-Q2_K_XL-00003-of-00003.gguf",
+        "size": 47390237120,
+        "sha256": "4083f1f78e2730006acf78a458ac6b190faf1f515c30cce479a6f8d5066dda80"
+      }
+    ]
+  },
+  "environment": {
+    "host": "ubuntu",
+    "kernel": "6.8.0-59-generic",
+    "cpu_count": 76,
+    "memory_total_kib": 311440732,
+    "swap_total_kib": 0,
+    "cuda_driver": "580.173.02",
+    "cuda_toolkit": "12.8",
+    "build_type": "Release",
+    "cuda_graphs_disabled": true,
+    "backing_store": {
+      "mountpoint": "/dev/shm",
+      "filesystem": "tmpfs",
+      "cache_state": "PROVIDER_COLD_OS_TMPFS_RESIDENT"
+    },
+    "gpus": [
+      {
+        "cuda_ordinal": 0,
+        "name": "NVIDIA GeForce RTX 3090",
+        "memory_mib": 24576,
+        "pci_bdf": "00000000:00:08.0",
+        "uuid": "GPU-1e8ea2b1-f247-777c-1d66-d2669411dc79"
+      },
+      {
+        "cuda_ordinal": 1,
+        "name": "NVIDIA GeForce RTX 3090",
+        "memory_mib": 24576,
+        "pci_bdf": "00000000:00:0a.0",
+        "uuid": "GPU-c616d50f-3ee0-0507-8dfc-1698546b6b5c"
+      }
+    ]
+  },
+  "workload": {
+    "prompt": "<｜begin▁of▁sentence｜><｜User｜>Explain why a careful measurement should distinguish observed facts from assumptions.<｜Assistant｜><think>",
+    "n_ctx": 4096,
+    "n_batch": 128,
+    "n_ubatch": 128,
+    "generated_tokens_per_process": 24,
+    "post_prefill_decode_tokens_per_process": 23,
+    "selection": "argmax",
+    "hot_policy": "GLOBAL_LRU_ALWAYS",
+    "miss_policy": "PROMOTE_AND_GPU",
+    "hot_slots": 268,
+    "cold_cache_bytes": 17179869184,
+    "ring_bytes": 67173120,
+    "peer_staging_bytes": 0,
+    "io_queue_depth": 256,
+    "fixture_transport": "POSITIONAL"
+  },
+  "validation": {
+    "mode_c": {
+      "status": "pass",
+      "legacy_vs_explicit_identity_exact": true,
+      "accepted_phase13_identity_sha256": "60658621b12340bc02d1fbb614142e4a17c5dd52eb529bfd4b0b2eb1a1255889",
+      "generated_tokens_per_process": 24,
+      "logits_digests_per_process": 24,
+      "route_records_per_process": 1032,
+      "role_path_structure_equal": true,
+      "exact_provider_capacity": true,
+      "clean_lifecycle": true
+    },
+    "mode_p": {
+      "status": "pass",
+      "fresh_process_pairs": 5,
+      "interleaving": "LEGACY_THEN_EXPLICIT_PER_PAIR",
+      "generated_identity_exact_across_processes": true,
+      "explicit_over_legacy_geometric_mean_throughput": 0.9970119248197231,
+      "paired_bootstrap_95_percent_interval": [
+        0.9829357603324359,
+        1.0086655474532837
+      ],
+      "minimum_ratio": 0.99,
+      "interval_establishes_regression_over_one_percent": false,
+      "role_path_structure_equal": true
+    },
+    "native_tests": [
+      {
+        "command": "cmake --build build-cuda --target test-expert-weight-provider phase9-cache-policy-probe -j2 && ctest --test-dir build-cuda --output-on-failure -R '^test-expert-weight-provider$'",
+        "result": "pass",
+        "tests": 1
+      },
+      {
+        "command": "ctest --test-dir build-cuda --output-on-failure -R '^test-expert-(weight-provider|miss-policy|cache-policy|prefetch|uma|peer-staging)$'",
+        "result": "pass",
+        "tests": 6
+      }
+    ],
+    "known_host_exclusion": {
+      "test": "test-expert-uma-provider",
+      "result": "unsupported: UMA arena initialization failed",
+      "prior_evidence": "results/2026-08-05/host-79466/phase12-5-perfetto/checkpoint-a.json",
+      "scope": "pre-existing on this non-coherent-UMA host and unrelated to Checkpoint A"
+    }
+  },
+  "commands": {
+    "mode_p_run": "scripts/issue65/run_checkpoint_a.py --probe llama.cpp/build-cuda/bin/phase9-cache-policy-probe --model MODEL --output-dir RAW --pairs 5 --runtime-mode PRODUCTION_PERFORMANCE",
+    "mode_p_analysis": "scripts/issue65/analyze_checkpoint_a.py --input-dir RAW --output results/2026-08-08/issue65-device-roles/checkpoint-a/s0-performance-summary.json --pairs 5",
+    "mode_c_analysis": "scripts/issue65/analyze_checkpoint_a_compliance.py --legacy LEGACY_JSON --explicit EXPLICIT_JSON --output results/2026-08-08/issue65-device-roles/checkpoint-a/s0-compliance-summary.json"
+  },
+  "evidence": {
+    "compliance_summary": {
+      "path": "results/2026-08-08/issue65-device-roles/checkpoint-a/s0-compliance-summary.json",
+      "sha256": "4ce3fb50809cacd6a0a404fa54c44043d06f31fa9af22c28511568b8b9c743d6"
+    },
+    "performance_summary": {
+      "path": "results/2026-08-08/issue65-device-roles/checkpoint-a/s0-performance-summary.json",
+      "sha256": "3fcef92911305fb08f981295b0537c91beadd84e0337491764a226985c518ef9"
+    },
+    "probe_binary_sha256": "8b7d3c063de880eb3e1a17abd32e85f30fd081186daddd40db7f6c59b6e6cd53",
+    "raw_campaign_location": "/dev/shm/issue65-checkpoint-a",
+    "raw_campaign_committed": false,
+    "summary_policy": "Commit compact deterministic summaries, commands, resource high-water marks, and identity digests rather than raw logs or model-scale traces."
+  },
+  "limits": [
+    "Checkpoint A qualifies LOCAL_SINGLE role resolution and compatibility only.",
+    "REMOTE_SINGLE, STRIPED_MULTI, MAX_SAFE, D1, D2, A1, and transport-edge qualification remain for later checkpoints.",
+    "CUDA graphs are disabled to preserve the accepted Phase-13 comparison configuration.",
+    "The paired 95 percent interval overlaps the 0.99 threshold; it does not establish a regression greater than one percent."
+  ]
+}
