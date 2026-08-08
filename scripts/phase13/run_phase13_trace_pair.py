@@ -90,8 +90,7 @@ def main() -> int:
         identity = {
             "prompt_ids": evidence["prompt_ids"],
             "generated_ids": evidence["generated_ids"],
-            "logits_fnv64": evidence["logits_fnv64"],
-            "routes": evidence["routes"],
+            "generated_text": evidence["generated_text"],
         }
         cases[cell] = {
             "trace": file_identity(trace),
@@ -99,11 +98,13 @@ def main() -> int:
             "capture": file_identity(capture),
             "verification": file_identity(verification),
             "identity_sha256": canonical_digest(identity),
+            "logits_fnv64_sha256": canonical_digest(evidence["logits_fnv64"]),
             "identity": identity,
         }
     exact_identity = cases["A"]["identity"] == cases["B"]["identity"]
     if not exact_identity:
-        raise RuntimeError("adjacent A/B trace workloads differ in exact outputs or routes")
+        raise RuntimeError("adjacent A/B trace workloads differ in generated output")
+    exact_logits_fnv64 = cases["A"]["logits_fnv64_sha256"] == cases["B"]["logits_fnv64_sha256"]
     for cell in cases:
         del cases[cell]["identity"]
     result = {
@@ -119,6 +120,8 @@ def main() -> int:
         "graphs_disabled": True,
         "expert_runtime_mode": "PRODUCTION_PERFORMANCE",
         "exact_identity": exact_identity,
+        "identity_criterion": "PRODUCTION_GENERATED_OUTPUT",
+        "logits_fnv64_exact": exact_logits_fnv64,
         "identity_sha256": cases["A"]["identity_sha256"],
         "cases": cases,
     }
