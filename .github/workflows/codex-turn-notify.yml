@@ -1,0 +1,125 @@
+name: Codex turn notification
+
+on:
+  repository_dispatch:
+    types: [codex-turn-complete]
+  workflow_dispatch:
+    inputs:
+      issue:
+        description: Controlling issue number
+        required: true
+        type: string
+      outcome:
+        description: Turn outcome
+        required: true
+        type: choice
+        options:
+          - complete
+          - needs-input
+          - blocked
+          - checkpoint
+          - progress
+      summary:
+        description: Short notification summary
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send ntfy Web Push notification
+        shell: bash
+        env:
+          CODEX_NTFY_TOPIC: ${{ secrets.CODEX_NTFY_TOPIC }}
+          DISPATCH_ISSUE: ${{ github.event.client_payload.issue }}
+          DISPATCH_OUTCOME: ${{ github.event.client_payload.outcome }}
+          DISPATCH_SUMMARY: ${{ github.event.client_payload.summary }}
+          MANUAL_ISSUE: ${{ inputs.issue }}
+          MANUAL_OUTCOME: ${{ inputs.outcome }}
+          MANUAL_SUMMARY: ${{ inputs.summary }}
+        run: |
+          set -euo pipefail
+
+          if [[ -z "${CODEX_NTFY_TOPIC}" ]]; then
+            echo "::notice::CODEX_NTFY_TOPIC is not configured; skipping push delivery."
+            exit 0
+          fi
+
+          # The topic is a capability secret. Keep it constrained to one ntfy.sh
+          # path segment and never print it.
+          if [[ ! "${CODEX_NTFY_TOPIC}" =~ ^[A-Za-z0-9_-]{24,}$ ]]; then
+            echo "::error::CODEX_NTFY_TOPIC must be at least 24 characters and contain only A-Z, a-z, 0-9, '_' or '-'."
+            exit 1
+          fi
+
+          if [[ "${GITHUB_EVENT_NAME}" == "repository_dispatch" ]]; then
+            issue="${DISPATCH_ISSUE}"
+            outcome="${DISPATCH_OUTCOME}"
+            summary="${DISPATCH_SUMMARY}"
+          else
+            issue="${MANUAL_ISSUE}"
+            outcome="${MANUAL_OUTCOME}"
+            summary="${MANUAL_SUMMARY}"
+          fi
+
+          if [[ ! "${issue}" =~ ^[1-9][0-9]*$ ]]; then
+            echo "::error::Invalid controlling issue number."
+            exit 1
+          fi
+
+          case "${outcome}" in
+            complete|needs-input|blocked|checkpoint|progress) ;;
+            *)
+              echo "::error::Invalid notification outcome."
+              exit 1
+              ;;
+          esac
+
+          summary="${summary//$'\r'/ }"
+          summary="${summary//$'\n'/ }"
+          summary="${summary:0:320}"
+          if [[ -z "${summary//[[:space:]]/}" ]]; then
+            echo "::error::Notification summary is empty."
+            exit 1
+          fi
+
+          priority="default"
+          tags="robot"
+          case "${outcome}" in
+            needs-input)
+              priority="high"
+              tags="robot,question"
+              ;;
+            blocked)
+              priority="high"
+              tags="robot,warning"
+              ;;
+            complete)
+              tags="robot,white_check_mark"
+              ;;
+            checkpoint)
+              tags="robot,triangular_flag_on_post"
+              ;;
+            progress)
+              priority="low"
+              ;;
+          esac
+
+          title="Codex #${issue}: ${outcome}"
+          click_url="https://github.com/${GITHUB_REPOSITORY}/issues/${issue}"
+
+          curl \
+            --fail-with-body \
+            --silent \
+            --show-error \
+            --request POST \
+            --header "Title: ${title}" \
+            --header "Priority: ${priority}" \
+            --header "Tags: ${tags}" \
+            --header "Click: ${click_url}" \
+            --data-binary "${summary}" \
+            "https://ntfy.sh/${CODEX_NTFY_TOPIC}"
