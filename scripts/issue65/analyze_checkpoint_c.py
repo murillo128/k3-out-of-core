@@ -35,8 +35,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--compliance-dir", type=Path, required=True)
     parser.add_argument("--performance-dir", type=Path, required=True)
     parser.add_argument("--d2-manifest", type=Path, required=True)
+    parser.add_argument("--d2-raw-dir", type=Path, required=True)
     parser.add_argument("--a1-device0-manifest", type=Path, required=True)
+    parser.add_argument("--a1-device0-raw-dir", type=Path, required=True)
     parser.add_argument("--a1-device1-manifest", type=Path, required=True)
+    parser.add_argument("--a1-device1-raw-dir", type=Path, required=True)
     parser.add_argument("--a1-combined-rejection-log", type=Path, required=True)
     parser.add_argument("--a1-combined-rejection-exit-code", type=int, required=True)
     parser.add_argument("--a1-combined-rejection-output", type=Path, required=True)
@@ -72,6 +75,72 @@ def file_identity(path: Path) -> dict[str, object]:
     return {"path": str(path), "size": path.stat().st_size, "sha256": checksum.hexdigest()}
 
 
+def validate_capacity_raw(manifest: dict, raw_dir: Path) -> dict[str, object]:
+    recorded_directory = Path(str(manifest.get("raw_directory", "")))
+    if recorded_directory.name != raw_dir.name or not raw_dir.is_dir():
+        raise SystemExit("MAX_SAFE raw directory identity mismatch")
+    target_uuid = manifest["topology"]["target_uuid"]
+    expected_names: set[str] = set()
+    artifacts: list[dict[str, object]] = []
+    for probe in manifest["probe_order"]:
+        candidate = probe["candidate_slots"]
+        stem = f"candidate-{candidate:05d}"
+        log_path = raw_dir / f"{stem}.log"
+        output_path = raw_dir / f"{stem}.json"
+        expected_names.add(log_path.name)
+        if not log_path.is_file():
+            raise SystemExit(f"{stem}: MAX_SAFE log is missing")
+        log_text = log_path.read_text(errors="replace")
+        expects_output = (
+            probe["outcome"] == "pass" or
+            probe["reason"] == "safety_reserve_not_preserved"
+        )
+        if expects_output:
+            expected_names.add(output_path.name)
+            if not output_path.is_file():
+                raise SystemExit(f"{stem}: MAX_SAFE output is missing")
+            evidence = load(output_path)
+            command = evidence.get("command", [])
+            try:
+                recorded_output = Path(command[command.index("--output") + 1])
+            except (ValueError, IndexError, TypeError):
+                recorded_output = Path()
+            if (evidence.get("status") != "pass" or len(evidence.get("generated_ids", [])) != 24 or
+                    exact_target_device(evidence, target_uuid, candidate) is None or
+                    not clean_lifecycle(evidence) or
+                    recorded_output.name != output_path.name or
+                    recorded_output.parent.name != raw_dir.name):
+                raise SystemExit(f"{stem}: MAX_SAFE output does not match its exact probe")
+            if "PHASE9_POLICY_PROBE status=pass" not in log_text:
+                raise SystemExit(f"{stem}: passing MAX_SAFE log lacks completion attestation")
+        elif output_path.exists():
+            raise SystemExit(f"{stem}: rejecting MAX_SAFE probe retained an output JSON")
+        if (probe["reason"] == "allocation_or_memory_budget" and
+                not any(pattern in log_text.lower() for pattern in (
+                    "out of memory", "failed to allocate", "allocation failed",
+                    "provider error 6", "shared cold cache (provider error 8)"))):
+            raise SystemExit(f"{stem}: memory rejection is not supported by its log")
+        artifacts.append(file_identity(log_path))
+        if expects_output:
+            artifacts.append(file_identity(output_path))
+    actual_names = {
+        path.name for path in raw_dir.iterdir()
+        if path.is_file() and path.name.startswith("candidate-")
+    }
+    if actual_names != expected_names:
+        raise SystemExit("MAX_SAFE raw directory contains missing or extra candidate artifacts")
+    compact = [
+        {"name": Path(item["path"]).name, "size": item["size"], "sha256": item["sha256"]}
+        for item in sorted(artifacts, key=lambda item: str(item["path"]))
+    ]
+    return {
+        "source_directory": str(raw_dir),
+        "archive_directory": raw_dir.name,
+        "files": compact,
+        "directory_sha256": digest(compact),
+    }
+
+
 def percentile(values: list[float], quantile: float) -> float:
     ordered = sorted(values)
     position = quantile * (len(ordered) - 1)
@@ -101,6 +170,20 @@ def exact_devices(run: dict, slots: list[int]) -> bool:
         device.get("hot_effective_slots") == capacity
         for index, (device, capacity) in enumerate(zip(devices, slots))
     )
+
+
+def exact_target_device(run: dict, target_uuid: str, candidate: int) -> dict | None:
+    matches = [
+        device for device in run.get("multi_gpu", {}).get("devices", [])
+        if device.get("uuid") == target_uuid
+    ]
+    if len(matches) != 1:
+        return None
+    device = matches[0]
+    if (device.get("hot_requested_slots"), device.get("hot_effective_slots")) != (
+            candidate, candidate):
+        return None
+    return device
 
 
 def validate_transport_endpoint_mapping(run: dict) -> None:
@@ -485,6 +568,11 @@ def main() -> None:
         if (manifest.get("status") != "pass" or manifest.get("selected_max_safe_slots") != selected or
                 manifest.get("schema_version") != "issue65-max-safe-capacity-v2"):
             raise SystemExit("MAX_SAFE manifest mismatch")
+    capacity_raw = {
+        "d2": validate_capacity_raw(d2_manifest, args.d2_raw_dir),
+        "a1_device0": validate_capacity_raw(a1_device0, args.a1_device0_raw_dir),
+        "a1_device1": validate_capacity_raw(a1_device1, args.a1_device1_raw_dir),
+    }
     combined_log = args.a1_combined_rejection_log.read_text(errors="replace")
     if (args.a1_combined_rejection_exit_code != 6 or args.a1_combined_rejection_output.exists() or
             "shared cold cache (provider error 8)" not in combined_log):
@@ -623,6 +711,7 @@ def main() -> None:
                 "hold the resident expert cache at the accepted 268-slot baseline and maximize the "
                 "non-resident expert GPU after the combined independent maxima fail the shared cold budget"),
             "manifests": manifest_identities,
+            "raw_campaigns": capacity_raw,
         },
         "performance": {
             "fresh_processes_per_cell": args.pairs,

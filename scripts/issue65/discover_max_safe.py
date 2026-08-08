@@ -170,6 +170,22 @@ def sample_gpus() -> list[dict[str, object]]:
         return []
 
 
+def prepare_raw_directory(path: Path) -> None:
+    """Create one campaign directory and reject any pre-existing contents."""
+    if path.exists():
+        if not path.is_dir():
+            raise RuntimeError("raw campaign path is not a directory")
+        if any(path.iterdir()):
+            raise RuntimeError("raw campaign directory must be new or empty")
+        return
+    path.mkdir(parents=True)
+
+
+def require_fresh_candidate_paths(output: Path, log: Path) -> None:
+    if output.exists() or log.exists():
+        raise RuntimeError("candidate output or log already exists")
+
+
 def build_command(args: argparse.Namespace, candidate: int, output: Path) -> list[str]:
     roles = args.role_template.format(candidate=candidate)
     return [
@@ -429,7 +445,10 @@ def main() -> None:
         raise SystemExit("artifact identity manifest is missing")
     artifact = artifact_identity(args)
     cuda_runtime = cuda_runtime_inventory()
-    args.raw_dir.mkdir(parents=True, exist_ok=True)
+    try:
+        prepare_raw_directory(args.raw_dir)
+    except RuntimeError as error:
+        raise SystemExit(str(error)) from error
     inventory = gpu_inventory()
     targets = [item for item in inventory if int(item["cuda_ordinal"]) == args.target_device]
     if len(targets) != 1:
@@ -448,12 +467,13 @@ def main() -> None:
         stem = f"candidate-{candidate:05d}"
         output = args.raw_dir / f"{stem}.json"
         log = args.raw_dir / f"{stem}.log"
+        require_fresh_candidate_paths(output, log)
         command = build_command(args, candidate, output)
         environment = os.environ.copy()
         environment.update({"GGML_CUDA_GRAPH_OPT": "0", "GGML_CUDA_DISABLE_GRAPHS": "1"})
         started = time.monotonic()
         samples: list[dict[str, object]] = []
-        with log.open("wb") as stream:
+        with log.open("xb") as stream:
             process = subprocess.Popen(command, stdout=stream, stderr=subprocess.STDOUT, env=environment)
             while process.poll() is None:
                 samples.append({"elapsed_seconds": time.monotonic() - started, "gpus": sample_gpus()})

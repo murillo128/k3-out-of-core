@@ -2,7 +2,7 @@
   "schema_version": "issue65-a1-final-capacity-v1",
   "status": "pass",
   "revisions": {
-    "project_evidence_base": "c2fd16f38fb867e36fb9014c07f114e3f526dc72",
+    "project_evidence_base": "b241da00bf9762be33b475e2eb686c4da2fb0454",
     "nested": "da6b149597397005cf84cf83f873b25e5ae4de0f",
     "nested_tree": "4bf3be4e9b865f5e6e70db7c7a7160ab70b1be63"
   },
@@ -36,8 +36,13 @@
       "selected_max_safe_slots": 1305,
       "manifest": {
         "path": "results/2026-08-08/issue65-device-roles/checkpoint-c/a1-device0-max-safe.json",
-        "size": 6010,
-        "sha256": "0d5e34325c753fab1390e119f5d6063bc423bfd05f965c39f5dce8c7dc99edc7"
+        "size": 6013,
+        "sha256": "ead7e1f9a943dafd422e93d38e71a8a5708a74cff9053da0fef72e3d0dc08936"
+      },
+      "raw_campaign": {
+        "archive_directory": "issue65-checkpoint-c-r2-a1-device0-max-safe",
+        "files": 18,
+        "directory_sha256": "c4081d57a2506594991e162177593c6c844e9026f24d5116790ba1d7acb46b3b"
       }
     },
     "device1": {
@@ -45,8 +50,13 @@
       "selected_max_safe_slots": 1305,
       "manifest": {
         "path": "results/2026-08-08/issue65-device-roles/checkpoint-c/a1-device1-max-safe.json",
-        "size": 6011,
-        "sha256": "db1bcb7c4443c66dad1fe59c7e85ff824adfb7960148a25be909d065e6790898"
+        "size": 6014,
+        "sha256": "f98b04737d3b546e43826cec10df9475e7e620278d2a6d6c3df813478647f6a5"
+      },
+      "raw_campaign": {
+        "archive_directory": "issue65-checkpoint-c-r2-a1-device1-max-safe",
+        "files": 18,
+        "directory_sha256": "4edc7160c15e24efe3263823f4b4011cba8ba38407c8aafe6c858b57e96fdfa0"
       }
     }
   },

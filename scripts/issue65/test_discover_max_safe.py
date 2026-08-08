@@ -6,6 +6,7 @@ from __future__ import annotations
 import importlib.util
 from pathlib import Path
 import sys
+import tempfile
 from types import SimpleNamespace
 
 
@@ -31,6 +32,25 @@ def fake_evidence(slots: int) -> dict:
 
 
 def main() -> None:
+    with tempfile.TemporaryDirectory(prefix="issue65-max-safe-") as temporary:
+        raw = Path(temporary) / "raw"
+        MODULE.prepare_raw_directory(raw)
+        assert raw.is_dir() and not any(raw.iterdir())
+        output = raw / "candidate-00268.json"
+        log = raw / "candidate-00268.log"
+        MODULE.require_fresh_candidate_paths(output, log)
+        output.write_text("stale")
+        try:
+            MODULE.require_fresh_candidate_paths(output, log)
+            raise AssertionError("stale candidate output was accepted")
+        except RuntimeError:
+            pass
+        try:
+            MODULE.prepare_raw_directory(raw)
+            raise AssertionError("non-empty raw campaign was accepted")
+        except RuntimeError:
+            pass
+
     selected, records = MODULE.bounded_binary_search(
         268, 1000, 16,
         lambda candidate: MODULE.ProbeDecision(
@@ -116,7 +136,7 @@ def main() -> None:
         pass
 
     print("ISSUE65_MAX_SAFE_WORKFLOW status=pass selected=731 oom=reject correctness=abort "
-          "clamp=abort manifest_schema=pass")
+          "clamp=abort manifest_schema=pass fresh_output=pass")
 
 
 if __name__ == "__main__":
