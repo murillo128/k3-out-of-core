@@ -46,5 +46,14 @@
     "summary": {"sha256": "e4c09d311018d111b4b5e37a42f9edb7122cf4d05f33b904c67650f985ecf1d9", "size_bytes": 22795}
   },
   "decision": "retain",
-  "next_action": "recapture bounded Mode-P A/B trace and rebuild the production roofline"
+  "mode_p_trace": {
+    "status": "valid",
+    "A": {"sha256": "844afa5229dff09f574503099121d8cb4c600ac208256836863779456b5b42e2", "size_bytes": 3897923, "complete_cycles": 58},
+    "B": {"sha256": "295af50147e7aac9ce3cb69d84c56d0cc7d9e01968150dc13909e45be1c0754d", "size_bytes": 3467806, "complete_cycles": 49},
+    "A_layer_wall_ms": 16.976191396551723,
+    "B_layer_wall_ms": 20.057494040816326,
+    "B_minus_A_cuda_synchronization_ms": 1.3940740137227303,
+    "B_simultaneous_gpu_kernel_overlap_ns": 0
+  },
+  "next_action": "Iteration 10 device-side inactive-ID preparation for MUL_MAT_ID"
 }

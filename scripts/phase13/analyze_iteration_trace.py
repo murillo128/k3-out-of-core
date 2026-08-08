@@ -177,6 +177,19 @@ def summarize_case(trace_processor: Path, trace: Path) -> dict[str, object]:
          "sync_type": integer(row["sync_type"])}
         for row in cuda_rows
     ]
+    synchronization_groups: dict[tuple[int | None, int | None, int | None], dict[str, int | None]] = {}
+    for event in cuda:
+        if event["name"] != "synchronization" or not (
+                window_start <= int(event["ts"]) < window_end):
+            continue
+        key = (event["sync_type"], event["context_id"], event["stream_id"])
+        group = synchronization_groups.setdefault(key, {
+            "sync_type": event["sync_type"], "context_id": event["context_id"],
+            "stream_id": event["stream_id"], "records": 0, "total_ns": 0, "max_ns": 0,
+        })
+        group["records"] = int(group["records"] or 0) + 1
+        group["total_ns"] = int(group["total_ns"] or 0) + int(event["dur"])
+        group["max_ns"] = max(int(group["max_ns"] or 0), int(event["dur"]))
 
     cycles: list[dict[str, object]] = []
     for current, following in zip(layers, layers[1:]):
@@ -381,6 +394,8 @@ def summarize_case(trace_processor: Path, trace: Path) -> dict[str, object]:
             "simultaneous_gpu0_gpu1_kernel_overlap_ns": sum(
                 int(cycle["gpu_kernel_overlap_ns"]) for cycle in cycles
             ),
+            "synchronization_groups": sorted(
+                synchronization_groups.values(), key=lambda item: int(item["total_ns"] or 0), reverse=True),
         },
         "cycles": cycles,
     }
@@ -400,6 +415,9 @@ def main() -> int:
     parser.add_argument("--decision", choices=("analysis_only", "retain", "revert"),
                         default="analysis_only")
     parser.add_argument("--decision-rationale", default="iteration analysis only")
+    parser.add_argument(
+        "--expert-runtime-mode", choices=("COMPLIANCE", "PRODUCTION_PERFORMANCE"),
+        default="COMPLIANCE")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
 
@@ -801,6 +819,73 @@ def main() -> int:
                 "delta; rerank the remaining post-issue source intervals instead."
             ),
         }
+    elif args.expert_runtime_mode == "PRODUCTION_PERFORMANCE":
+        graph_delta_ms = float(cases["B"]["graph_wall"]["mean_ms"]) - \
+            float(cases["A"]["graph_wall"]["mean_ms"])
+        sync_delta_ms = mean_bucket_delta_ms["cuda_synchronization"]
+        total_delta_ms = b_wall - a_wall
+        ranked_bottlenecks = [
+            {
+                "rank": 1,
+                "mechanism": "serialized_inactive_id_host_roundtrip",
+                "evidence": (
+                    f"B graph wall exceeds A by {graph_delta_ms:.3f} ms/layer and CUDA synchronization "
+                    f"accounts for {sync_delta_ms:.3f} ms/layer ({sync_delta_ms/total_delta_ms:.2%} of the "
+                    "complete B-minus-A wall). CUPTI records dominant event/stream synchronizations while "
+                    "source inspection identifies the allow-inactive MUL_MAT_ID D2H ID read plus stream "
+                    "synchronize before each device branch fast path."
+                ),
+                "B_minus_A_graph_wall_ms_per_layer": graph_delta_ms,
+                "B_minus_A_cuda_synchronization_ms_per_layer": sync_delta_ms,
+                "B_simultaneous_gpu_kernel_overlap_ns": cases["B"]["gpu"][
+                    "simultaneous_gpu0_gpu1_kernel_overlap_ns"],
+                "B_synchronization_groups": cases["B"]["gpu"]["synchronization_groups"],
+                "target_bucket": "cuda_synchronization",
+            },
+            {
+                "rank": 2,
+                "mechanism": "serialized_remote_branch_graph",
+                "evidence": (
+                    f"B graph wall is {float(cases['B']['graph_wall']['mean_ms']):.3f} ms/layer versus "
+                    f"A {float(cases['A']['graph_wall']['mean_ms']):.3f} ms/layer, with zero simultaneous "
+                    "GPU0/GPU1 kernel overlap."
+                ),
+                "target_bucket": "graph_wall",
+            },
+            {
+                "rank": 3,
+                "mechanism": "remaining_provider_runtime",
+                "evidence": (
+                    f"Mode-P provider walls are A {float(cases['A']['provider_wall']['mean_ms']):.3f} and "
+                    f"B {float(cases['B']['provider_wall']['mean_ms']):.3f} ms/layer; the B-minus-A provider "
+                    f"delta is only {float(cases['B']['provider_wall']['mean_ms']) - float(cases['A']['provider_wall']['mean_ms']):.3f} ms."
+                ),
+                "target_bucket": "provider_runtime",
+            },
+        ]
+        structural_limit = None
+        dominant = "serialized_inactive_id_host_roundtrip"
+        rationale = (
+            "The fresh Mode-P trace removes the compliance-contaminated wall and exposes an in-scope "
+            "implementation cost: multi-device inactive-lane MUL_MAT_ID performs a synchronous device-to-host "
+            "ID round trip before launching each branch fast path. CUDA synchronization is the largest direct "
+            "B-over-A bucket and the two GPUs have zero kernel overlap, so a structural stop is premature."
+        )
+        next_hypothesis = {
+            "single_primary_hypothesis": (
+                "Replace the allow-inactive MUL_MAT_ID host ID read/synchronize with a device-side bounded "
+                "inactive-ID remap and zeroing path, preserving active-lane arithmetic and canonical merge order."
+            ),
+            "predicted_trace_change": (
+                "B CUDA synchronization wall -50% or better, B graph wall -25% or better, and nonzero "
+                "simultaneous GPU0/GPU1 kernel overlap"
+            ),
+            "predicted_tps_change": "B Mode-P decode TPS +3% or better; A within 3%",
+            "falsifier": (
+                "Revert if B TPS improves less than 3%, the targeted synchronization/graph buckets improve "
+                "less than their thresholds, or any Mode-C exactness/lifecycle gate regresses."
+            ),
+        }
     else:
         epoch_ms = cases["B"]["provider_service_unions_not_additive"][
             "multi_device_transport_epoch_snapshot"] / b_count / 1e6
@@ -907,6 +992,7 @@ def main() -> int:
         "iteration": args.iteration,
         "revisions": {"project_head": args.project_head, "nested_head": args.nested_head},
         "model_fixture": "DeepSeek-V4-Flash-UD-Q2_K_XL@85ce4196ab6e82852e25dfec2b7e2beaae56f5f1",
+        "expert_runtime_mode": args.expert_runtime_mode,
         "trace_profile": {
             "selection_seed": 61,
             "request_ordinal": 15,
@@ -925,7 +1011,8 @@ def main() -> int:
         "root_cause_conclusion": {
             "status": "OBSERVED",
             "dominant": dominant,
-            "implementation_induced": args.iteration < 8,
+            "implementation_induced": args.iteration < 8 or
+                args.expert_runtime_mode == "PRODUCTION_PERFORMANCE",
             "structural_limit_proven": structural_limit is not None and
                 structural_limit.get("status") == "OBSERVED",
             "rationale": rationale,
@@ -969,7 +1056,9 @@ def main() -> int:
             "action": (
                 "pause_and_review_attribution_before_next_fix" if args.iteration == 4 else
                 ("review_resolved_by_distinguishing_comparator" if args.iteration == 5 else
-                 ("continue_with_mode_c_p_separation" if args.iteration >= 8 else "none"))
+                 ("implement_measured_inactive_id_sync_fix" if
+                  args.expert_runtime_mode == "PRODUCTION_PERFORMANCE" else
+                  ("continue_with_mode_c_p_separation" if args.iteration >= 8 else "none")))
             ),
         },
     }

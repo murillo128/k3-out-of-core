@@ -86,9 +86,10 @@
     },
     {
       "operation": "execution-ID tensor get/set round trips and canonical branch reconstruction",
-      "classification": "RUNTIME_REQUIRED",
-      "control": "always enabled",
-      "reason": "preserves original expert IDs and canonical top-k accumulation order"
+      "classification": "OPTIMIZABLE_RUNTIME",
+      "control": "logical remap and canonical reconstruction remain required; synchronous CUDA D2H ID preparation is selected for Iteration 10",
+      "reason": "Mode-P trace attributes 1.394 ms/layer of B-over-A wall to CUDA synchronization and shows zero cross-GPU kernel overlap; source identifies allow-inactive MUL_MAT_ID host ID reads",
+      "required_semantics": "preserve original expert IDs, inactive-lane zeroing and canonical top-k accumulation order"
     },
     {
       "operation": "mutex release/reacquire around callbacks and I/O/event waits",
