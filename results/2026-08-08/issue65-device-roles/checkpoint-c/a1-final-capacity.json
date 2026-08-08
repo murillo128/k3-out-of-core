@@ -1,0 +1,146 @@
+{
+  "schema_version": "issue65-a1-final-capacity-v1",
+  "status": "pass",
+  "revisions": {
+    "project_evidence_base": "b241da00bf9762be33b475e2eb686c4da2fb0454",
+    "nested": "da6b149597397005cf84cf83f873b25e5ae4de0f",
+    "nested_tree": "4bf3be4e9b865f5e6e70db7c7a7160ab70b1be63"
+  },
+  "artifact": {
+    "model_repository": "unsloth/DeepSeek-V4-Flash-GGUF",
+    "model_revision": "85ce4196ab6e82852e25dfec2b7e2beaae56f5f1",
+    "variant": "UD-Q2_K_XL",
+    "total_bytes": 96832507552,
+    "identity_manifest": "results/2026-08-08/issue65-device-roles/checkpoint-a/manifest.json",
+    "identity_manifest_sha256": "7f8a1f7422e9c7420d4e6195b01c726ea2f9c9f12bd52ac3bf762ce92c71823c"
+  },
+  "runtime": {
+    "nvidia_driver_version": "580.173.02",
+    "cuda_driver_api_version": "13.0",
+    "cuda_runtime_version": "12.8",
+    "cuda_toolkit_version": "12.8",
+    "cuda_graphs": "DISABLED",
+    "peer_transport": "HOST_STAGED"
+  },
+  "bounds": {
+    "slot_stride_bytes": 11835264,
+    "reserve_bytes_per_device": 1073741824,
+    "cold_cache_bytes": 17179869184,
+    "cold_effective_slots": 1579,
+    "reserved_demand_slots": 6,
+    "already_safe_baseline_slots": 268
+  },
+  "independent_discoveries": {
+    "device0": {
+      "other_device_slots": 268,
+      "selected_max_safe_slots": 1305,
+      "manifest": {
+        "path": "results/2026-08-08/issue65-device-roles/checkpoint-c/a1-device0-max-safe.json",
+        "size": 6013,
+        "sha256": "ead7e1f9a943dafd422e93d38e71a8a5708a74cff9053da0fef72e3d0dc08936"
+      },
+      "raw_campaign": {
+        "archive_directory": "issue65-checkpoint-c-r2-a1-device0-max-safe",
+        "files": 18,
+        "directory_sha256": "c4081d57a2506594991e162177593c6c844e9026f24d5116790ba1d7acb46b3b"
+      }
+    },
+    "device1": {
+      "other_device_slots": 268,
+      "selected_max_safe_slots": 1305,
+      "manifest": {
+        "path": "results/2026-08-08/issue65-device-roles/checkpoint-c/a1-device1-max-safe.json",
+        "size": 6014,
+        "sha256": "f98b04737d3b546e43826cec10df9475e7e620278d2a6d6c3df813478647f6a5"
+      },
+      "raw_campaign": {
+        "archive_directory": "issue65-checkpoint-c-r2-a1-device1-max-safe",
+        "files": 18,
+        "directory_sha256": "4edc7160c15e24efe3263823f4b4011cba8ba38407c8aafe6c858b57e96fdfa0"
+      }
+    }
+  },
+  "combined_independent_maxima": {
+    "requested_slots": [1305, 1305],
+    "outcome": "reject",
+    "exit_code": 6,
+    "output_published": false,
+    "reason": "aggregate hot slots plus one six-slot demand width exceed the shared cold-cache provider budget",
+    "provider_error": 8,
+    "log": {
+      "archive_path": "issue65-c-a1-combined-rejected.log",
+      "size": 224512,
+      "sha256": "56b1d5695c4393261a2ae447fa5db8ba8887d9b737a08fa8196d0b5ba3f3d9d9"
+    }
+  },
+  "reduction": {
+    "rule": "hold the resident expert cache at the accepted 268-slot baseline and maximize the non-resident expert GPU through the independent fresh-process workflow",
+    "negotiated_at_runtime": false,
+    "final_exact_slots": [268, 1305],
+    "aggregate_hot_slots": 1573,
+    "aggregate_hot_cache_bytes": 18616870272
+  },
+  "final_verification": {
+    "fresh_process": true,
+    "exact_requested_and_effective_slots": true,
+    "mode_c": {
+      "raw_archive_path": "issue65-checkpoint-c-compliance/raw/A1-01.json.gz",
+      "status": "pass",
+      "generated_tokens": 24,
+      "logits_digests": 24,
+      "route_records": 1032,
+      "accepted_identity_sha256": "60658621b12340bc02d1fbb614142e4a17c5dd52eb529bfd4b0b2eb1a1255889",
+      "clean_lifecycle": true
+    },
+    "mode_p": {
+      "raw_archive_path": "issue65-checkpoint-c-performance/raw/A1-01.json.gz",
+      "status": "pass",
+      "generated_tokens": 24,
+      "clean_lifecycle": true
+    },
+    "ownership": {
+      "rule": "original_expert_id modulo 2",
+      "logical_experts_per_owner": [128, 128],
+      "selected_lanes_per_owner": [4908, 5154],
+      "directory_owner_only_violations": 0
+    },
+    "device_ledgers": [
+      {
+        "cuda_ordinal": 0,
+        "uuid": "GPU-1e8ea2b1-f247-777c-1d66-d2669411dc79",
+        "pci_bdf": "00000000:00:08.0",
+        "total_vram_bytes": 25769803776,
+        "ordinary_resident_model_bytes": 6688237158,
+        "requested_expert_hot_slots": 268,
+        "effective_expert_hot_slots": 268,
+        "expert_hot_cache_bytes": 3171850752,
+        "expert_h2d_ring_bytes": 65273856,
+        "peer_device_bytes": 0,
+        "pinned_host_staging_bytes_total": 67108864,
+        "graph_working_reserved_bytes": 76682363,
+        "graph_working_peak_bytes": 76682363,
+        "configured_safety_reserve_bytes": 1073741824,
+        "minimum_observed_free_bytes": 14797504512,
+        "maximum_observed_used_bytes": 10499391488
+      },
+      {
+        "cuda_ordinal": 1,
+        "uuid": "GPU-c616d50f-3ee0-0507-8dfc-1698546b6b5c",
+        "pci_bdf": "00000000:00:0a.0",
+        "total_vram_bytes": 25769803776,
+        "ordinary_resident_model_bytes": 0,
+        "requested_expert_hot_slots": 1305,
+        "effective_expert_hot_slots": 1305,
+        "expert_hot_cache_bytes": 15445019520,
+        "expert_h2d_ring_bytes": 65273856,
+        "peer_device_bytes": 0,
+        "pinned_host_staging_bytes_total": 67108864,
+        "graph_working_reserved_bytes": 20974561,
+        "graph_working_peak_bytes": 20974561,
+        "configured_safety_reserve_bytes": 1073741824,
+        "minimum_observed_free_bytes": 9514778624,
+        "maximum_observed_used_bytes": 15782117376
+      }
+    ]
+  }
+}

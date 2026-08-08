@@ -1,0 +1,315 @@
+{
+  "schema_version": "issue65-checkpoint-c-final-manifest-v2",
+  "status": "pass",
+  "issue": 65,
+  "checkpoint": "C_FINAL_CAPABLE",
+  "execution_profile": "STANDARD",
+  "revisions": {
+    "project_base": "cf2118e3f505727189a56f9a9b81e23ebf0aa02c",
+    "project_checkpoint_b": "7436c217d2ea07e62f04585735347b2638aa72a2",
+    "project_evidence_base": "b241da00bf9762be33b475e2eb686c4da2fb0454",
+    "project_branch": "codex/issue65-device-roles",
+    "nested_base": "2c8afc4e1747bbd9a6ee93ca79ff645613a8ec07",
+    "nested_checkpoint_b": "ea2c62411cf28c6161c4e8dfa2100f193d6e211e",
+    "nested_head": "da6b149597397005cf84cf83f873b25e5ae4de0f",
+    "nested_tree": "4bf3be4e9b865f5e6e70db7c7a7160ab70b1be63",
+    "nested_pull_request": "https://github.com/murillo128/llama.cpp/pull/2"
+  },
+  "artifact": {
+    "model_repository": "unsloth/DeepSeek-V4-Flash-GGUF",
+    "model_revision": "85ce4196ab6e82852e25dfec2b7e2beaae56f5f1",
+    "variant": "UD-Q2_K_XL",
+    "total_bytes": 96832507552,
+    "files": [
+      {
+        "name": "DeepSeek-V4-Flash-UD-Q2_K_XL-00001-of-00003.gguf",
+        "size": 5256864,
+        "sha256": "5475dce5d7189b4304d490bf559d438c967bbc924ce5384ba8e9ecc0385cb003"
+      },
+      {
+        "name": "DeepSeek-V4-Flash-UD-Q2_K_XL-00002-of-00003.gguf",
+        "size": 49437013568,
+        "sha256": "3faf8797868960141239b69bdd8105b0459fbc0f1927652889ae936a967fc4ca"
+      },
+      {
+        "name": "DeepSeek-V4-Flash-UD-Q2_K_XL-00003-of-00003.gguf",
+        "size": 47390237120,
+        "sha256": "4083f1f78e2730006acf78a458ac6b190faf1f515c30cce479a6f8d5066dda80"
+      }
+    ],
+    "identity_manifest": "results/2026-08-08/issue65-device-roles/checkpoint-a/manifest.json",
+    "identity_manifest_sha256": "7f8a1f7422e9c7420d4e6195b01c726ea2f9c9f12bd52ac3bf762ce92c71823c"
+  },
+  "environment": {
+    "host": "79466",
+    "gpus": [
+      {
+        "cuda_ordinal": 0,
+        "name": "NVIDIA GeForce RTX 3090",
+        "total_vram_bytes": 25769803776,
+        "uuid": "GPU-1e8ea2b1-f247-777c-1d66-d2669411dc79",
+        "pci_bdf": "00000000:00:08.0"
+      },
+      {
+        "cuda_ordinal": 1,
+        "name": "NVIDIA GeForce RTX 3090",
+        "total_vram_bytes": 25769803776,
+        "uuid": "GPU-c616d50f-3ee0-0507-8dfc-1698546b6b5c",
+        "pci_bdf": "00000000:00:0a.0"
+      }
+    ],
+    "nvidia_driver_version": "580.173.02",
+    "cuda_driver_api_version": "13.0",
+    "cuda_runtime_version": "12.8",
+    "cuda_toolkit_version": "12.8",
+    "p2p_capability": "unavailable in both required directions"
+  },
+  "workload": {
+    "n_ctx": 4096,
+    "n_batch": 128,
+    "n_ubatch": 128,
+    "generated_tokens_per_successful_process": 24,
+    "post_prefill_decode_tokens_per_successful_process": 23,
+    "seed": 1,
+    "selection": "ARGMAX",
+    "temperature": 0,
+    "provider_mode": "COLD_CACHE",
+    "hot_policy": "LRU",
+    "cold_policy": "LRU",
+    "policy_scope": "GLOBAL",
+    "admission": "ALWAYS",
+    "miss_policy": "PROMOTE_AND_GPU",
+    "cold_cache_bytes": 17179869184,
+    "transfer_ring_requested_bytes": 67173120,
+    "transfer_ring_actual_bytes": 65273856,
+    "peer_transport": "HOST_STAGED",
+    "peer_staging_bytes": 67108864,
+    "io_queue_depth": 256,
+    "fixture_transport": "POSITIONAL",
+    "cuda_graphs": "DISABLED"
+  },
+  "capacity": {
+    "slot_stride_bytes": 11835264,
+    "reserve_bytes_per_device": 1073741824,
+    "cold_effective_slots": 1579,
+    "reserved_demand_slots": 6,
+    "d2_slots": 1573,
+    "a1_independent_maxima": [1305, 1305],
+    "a1_independent_maxima_combination_rejected": true,
+    "a1_final_slots": [268, 1305],
+    "a1_aggregate_hot_slots": 1573,
+    "production_runtime_auto_sizing": false,
+    "manifests": {
+      "d2": {
+        "path": "results/2026-08-08/issue65-device-roles/checkpoint-c/d2-max-safe.json",
+        "size": 5964,
+        "sha256": "84107baa401cceef85f5b1cee0adb0c15bd787bbf6b993f4e4e49a217ed75d56"
+      },
+      "a1_device0": {
+        "path": "results/2026-08-08/issue65-device-roles/checkpoint-c/a1-device0-max-safe.json",
+        "size": 6013,
+        "sha256": "ead7e1f9a943dafd422e93d38e71a8a5708a74cff9053da0fef72e3d0dc08936"
+      },
+      "a1_device1": {
+        "path": "results/2026-08-08/issue65-device-roles/checkpoint-c/a1-device1-max-safe.json",
+        "size": 6014,
+        "sha256": "f98b04737d3b546e43826cec10df9475e7e620278d2a6d6c3df813478647f6a5"
+      },
+      "a1_final": {
+        "path": "results/2026-08-08/issue65-device-roles/checkpoint-c/a1-final-capacity.json",
+        "size": 5501,
+        "sha256": "081cf988ab8d77df8171c48786fc54dff4bad6b1bb325423937912528212714f"
+      }
+    },
+    "raw_campaigns": {
+      "d2": {
+        "archive_directory": "issue65-checkpoint-c-r2-d2-max-safe",
+        "files": 23,
+        "directory_sha256": "7f04a11e6427e2295154c224eca6a76c7ca46d689e07dd922e118bc106e78387"
+      },
+      "a1_device0": {
+        "archive_directory": "issue65-checkpoint-c-r2-a1-device0-max-safe",
+        "files": 18,
+        "directory_sha256": "c4081d57a2506594991e162177593c6c844e9026f24d5116790ba1d7acb46b3b"
+      },
+      "a1_device1": {
+        "archive_directory": "issue65-checkpoint-c-r2-a1-device1-max-safe",
+        "files": 18,
+        "directory_sha256": "4edc7160c15e24efe3263823f4b4011cba8ba38407c8aafe6c858b57e96fdfa0"
+      }
+    }
+  },
+  "validation": {
+    "mode_c": {
+      "status": "pass",
+      "cells": [
+        "S0_LEGACY",
+        "S0_EXPLICIT",
+        "S1_LEGACY",
+        "S1_EXPLICIT",
+        "D1",
+        "D1_DELAYED",
+        "D2",
+        "A1"
+      ],
+      "accepted_identity_sha256": "60658621b12340bc02d1fbb614142e4a17c5dd52eb529bfd4b0b2eb1a1255889",
+      "generated_tokens_per_cell": 24,
+      "logits_digests_per_cell": 24,
+      "route_records_per_cell": 1032,
+      "exact_identity_all_cells": true,
+      "clean_lifecycle_all_cells": true,
+      "s0_legacy_explicit_structure_equal": true,
+      "s1_legacy_explicit_structure_equal": true,
+      "d1_delayed_enqueues": 1032,
+      "d1_delayed_completions": 1032
+    },
+    "mode_p": {
+      "status": "pass",
+      "fresh_processes_per_cell": 5,
+      "interleaving": [
+        "S0_LEGACY",
+        "S0_EXPLICIT",
+        "S1_LEGACY",
+        "S1_EXPLICIT",
+        "D1",
+        "D2",
+        "A1"
+      ],
+      "decode_tps": {
+        "S0_LEGACY": 1.378370077383494,
+        "S0_EXPLICIT": 1.4043488874986243,
+        "S1_LEGACY": 1.3937851652754691,
+        "S1_EXPLICIT": 1.380687123799527,
+        "D1": 1.350370690258183,
+        "D2": 1.1285788732665005,
+        "A1": 1.4682313859635725
+      },
+      "s0_explicit_over_legacy": {
+        "geometric_mean_ratio": 1.018850562134934,
+        "paired_bootstrap_95_percent_interval": [1.003571791470753, 1.0317133928706088],
+        "minimum_ratio": 0.99,
+        "gate": "pass"
+      },
+      "s1_explicit_over_legacy": {
+        "geometric_mean_ratio": 0.9905344279331826,
+        "paired_bootstrap_95_percent_interval": [0.9815390172419177, 0.998750217585129],
+        "minimum_ratio": 0.99,
+        "gate": "pass"
+      },
+      "ranked_explicit_topologies_fastest_first": ["A1", "S1_EXPLICIT", "D1", "D2"]
+    },
+    "a1_ownership": {
+      "status": "pass",
+      "ownership_rule": "original_expert_id modulo 2",
+      "logical_experts_per_owner": [128, 128],
+      "selected_lanes_per_owner": [4908, 5154],
+      "directory_owner_only_violations": 0
+    },
+    "d1_trace": {
+      "status": "pass",
+      "pair": ["S1_EXPLICIT", "D1"],
+      "trace_window_ms": 1000,
+      "complete_transport_sequences": 51,
+      "dominant_exclusive_bucket": "post_issue_ns",
+      "dominant_exclusive_fraction": 0.7948551265293746,
+      "peer_activation_result_copy_fraction": 0.001217300981029865,
+      "mean_outbound_d2h_service_ns": 1957.6470588235295,
+      "mean_outbound_h2d_service_ns": 1959.6078431372548,
+      "mean_return_d2h_service_ns": 9026.607843137255,
+      "mean_return_h2d_service_ns": 9925.058823529413,
+      "mean_outbound_completion_to_remote_first_kernel_ns": 53903.450980392154,
+      "mean_remote_useful_kernel_union_ns": 122612.76470588235,
+      "mean_return_completion_to_resident_merge_ns": 17395.549019607843,
+      "mean_resident_merge_kernel_union_ns": 431966.50980392157,
+      "copy_service_times_are_non_additive": true,
+      "cupti_errors_drops_or_loss": 0
+    },
+    "failure_qualification": {
+      "in_flight_device_failure": {
+        "status": "pass",
+        "real_h2d_bytes_before_failure": 8060928,
+        "injected_waves": 1,
+        "participants": 1,
+        "drained_waves": 1,
+        "terminal_failed_requests": 80,
+        "terminal_releases": 80,
+        "tokens_published": 0,
+        "clean_lifecycle": true,
+        "raw_sha256": "18fcc85bcfb1f297ed5e9f0ee105c99fa7c5e0ba85c321ff7d5f0ef10f6fb3fb"
+      },
+      "p2p_rejection": {
+        "status": "pass",
+        "exit_code": 6,
+        "output_published": false,
+        "reason": "required directed P2P capabilities unavailable",
+        "log_sha256": "dd7b67343f480be31985cf86785bec6597c5b7b420d9c478a6969b3752c4a590"
+      },
+      "native_lifetime_and_atomicity_coverage": {
+        "completion_order_perturbation": "pass",
+        "cancellation_with_remote_work_in_flight": "pass",
+        "stale_device_slot_generation": "pass",
+        "partial_initialization_teardown": "pass",
+        "second_pool_allocation_failure_atomic": "pass"
+      }
+    },
+    "native_tests": {
+      "result": "pass",
+      "tests": 12,
+      "nested_revision": "da6b149597397005cf84cf83f873b25e5ae4de0f",
+      "includes_cold_provider_demand_width_boundary": true
+    },
+    "capacity_evidence_integrity": {
+      "status": "pass",
+      "new_or_empty_raw_directory_required": true,
+      "pre_existing_candidate_output_rejected": true,
+      "manifest_probe_order_matches_exact_raw_artifact_set": true,
+      "passing_probe_output_matches_candidate_uuid_and_exact_slots": true,
+      "allocation_rejection_has_log_and_no_output_json": true,
+      "selected_capacities_unchanged_after_clean_reproduction": true
+    }
+  },
+  "interpretation": {
+    "fastest_mode_p_topology": "A1",
+    "largest_safe_expert_hot_capacity": {
+      "aggregate_slots": 1573,
+      "topologies": ["D2", "A1"]
+    },
+    "best_capacity_performance_tradeoff": "A1",
+    "dedicated_dominant_critical_path_cost": "post-issue dependency, remote compute, and resident continuation rather than raw activation/result copy service",
+    "transport_topology_scope": "2x RTX 3090 with HOST_STAGED transport; P2P unavailable on this host",
+    "automatic_topology_selection_added": false,
+    "legacy_default_changed": false
+  },
+  "evidence": {
+    "analysis": {
+      "path": "results/2026-08-08/issue65-device-roles/checkpoint-c/analysis.json",
+      "size": 74756,
+      "sha256": "d99aaac20f4ceed8dc7f2b806d16e4ba2419516603e4d3cce82f1ca9538026e8"
+    },
+    "raw_release": {
+      "tag": "issue65-checkpoint-c-final-v2",
+      "asset": "issue65-checkpoint-c-final-evidence-v2.tar.gz",
+      "bytes": 27301214,
+      "sha256": "456880e70017ee6576657344b40697fa2c1225b7c6488134b75f806fb8a4d190",
+      "url": "https://github.com/murillo128/k3-out-of-core/releases/download/issue65-checkpoint-c-final-v2/issue65-checkpoint-c-final-evidence-v2.tar.gz"
+    },
+    "probe_binary_sha256": "25a0f2004a628f31ff892941cb4154580143c5e7470468fe536e9e93506d828c",
+    "scripts": {
+      "analyze_checkpoint_c_sha256": "8f0f0dbf62aaa4e2e7dc7b40d44a1f95c7ca44a2ea0747184cc483a84dd452d9",
+      "run_trace_pair_sha256": "39667f24c2939b10fc99f790409240b51745ae2f604149e320317ea59361123a",
+      "discover_max_safe_sha256": "1eeb7a6f98ffa921b72f213a7deb3ed2cf2a7597fb5546f5c7020404ad1fe073",
+      "test_discover_max_safe_sha256": "ec622edfaecf27f3e7198fce7953ae0fd8a11a93433e816c8bd2fd13566313b9"
+    }
+  },
+  "commands": {
+    "native_tests": "cmake --build build-cuda --target test-expert-weight-provider test-expert-miss-policy test-expert-cache-policy test-expert-prefetch test-expert-uma test-expert-peer-staging test-hot-expert-cache test-cold-expert-cache test-expert-transfer-ring test-expert-storage test-expert-async-io test-expert-scheduler -j2 && ctest --test-dir build-cuda --output-on-failure -R '^(test-expert-weight-provider|test-expert-miss-policy|test-expert-cache-policy|test-expert-prefetch|test-expert-uma|test-expert-peer-staging|test-hot-expert-cache|test-cold-expert-cache|test-expert-transfer-ring|test-expert-storage|test-expert-async-io|test-expert-scheduler)$'",
+    "analysis": "python3 scripts/issue65/analyze_checkpoint_c.py --compliance-dir /dev/shm/issue65-checkpoint-c-compliance --performance-dir /dev/shm/issue65-checkpoint-c-performance --d2-manifest results/2026-08-08/issue65-device-roles/checkpoint-c/d2-max-safe.json --d2-raw-dir /dev/shm/issue65-checkpoint-c-r2-d2-max-safe --a1-device0-manifest results/2026-08-08/issue65-device-roles/checkpoint-c/a1-device0-max-safe.json --a1-device0-raw-dir /dev/shm/issue65-checkpoint-c-r2-a1-device0-max-safe --a1-device1-manifest results/2026-08-08/issue65-device-roles/checkpoint-c/a1-device1-max-safe.json --a1-device1-raw-dir /dev/shm/issue65-checkpoint-c-r2-a1-device1-max-safe --a1-combined-rejection-log /dev/shm/issue65-c-a1-combined-rejected.log --a1-combined-rejection-exit-code 6 --a1-combined-rejection-output /dev/shm/issue65-c-a1-combined-rejected.json --failure-output /dev/shm/issue65-c-final-d1-failure.json --failure-log /dev/shm/issue65-c-final-d1-failure.log --p2p-rejection-log /dev/shm/issue65-c-final-d1-p2p.log --p2p-rejection-exit-code 6 --p2p-rejection-output /dev/shm/issue65-c-final-d1-p2p.json --trace-dir /dev/shm/issue65-checkpoint-c-s1-d1-trace --output results/2026-08-08/issue65-device-roles/checkpoint-c/analysis.json --pairs 5",
+    "raw_archive": "tar --sort=name --mtime='2026-08-08 00:00:00 UTC' --owner=0 --group=0 --numeric-owner -C /dev/shm -czf /dev/shm/issue65-checkpoint-c-final-evidence-v2.tar.gz issue65-checkpoint-c-r2-d2-max-safe issue65-checkpoint-c-r2-a1-device0-max-safe issue65-checkpoint-c-r2-a1-device1-max-safe issue65-checkpoint-c-compliance issue65-checkpoint-c-performance issue65-checkpoint-c-s1-d1-trace issue65-c-a1-combined-rejected.log issue65-c-final-d1-failure.json issue65-c-final-d1-failure.log issue65-c-final-d1-p2p.log"
+  },
+  "limits": [
+    "The recommendation is evidence for this 2x RTX 3090 HOST_STAGED host and is not an automatic runtime default.",
+    "Bidirectional P2P was unavailable, so no P2P performance comparator was run.",
+    "The bounded Mode-P trace pair preserves exact generated identity but reports non-identical logits digests; the final Mode-C matrix is exact for every cell.",
+    "The known test-expert-uma-provider coherent-UMA exclusion on this host is pre-existing and outside issue 65."
+  ]
+}
