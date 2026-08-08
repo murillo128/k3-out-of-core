@@ -1,0 +1,12 @@
+buffers {
+  size_kb: 131072
+  fill_policy: DISCARD
+}
+data_sources {
+  config {
+    name: "track_event"
+    target_buffer: 0
+    track_event_config { enabled_categories: "k3.*" }
+  }
+}
+data_source_stop_timeout_ms: 30000

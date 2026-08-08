@@ -19,6 +19,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--pairs", type=int, default=5)
     parser.add_argument("--cells", default="A,B")
+    parser.add_argument(
+        "--transport-profile", choices=("async_final", "corrected_blocking_screen"),
+        default="async_final")
     return parser.parse_args()
 
 
@@ -109,6 +112,10 @@ def summarize_run(run: dict, resources: dict) -> dict:
     first = [item["ring_first_h2d_enqueue_us"] for item in devices if item["ring_first_h2d_enqueue_us"]]
     last = [item["ring_last_h2d_complete_us"] for item in devices if item["ring_last_h2d_complete_us"]]
     overlap_us = max(0, min(last) - max(first)) if len(first) == len(devices) and len(last) == len(devices) else 0
+    decode_wall_ns = sum(decode)*1_000
+    join_decode_ns = run["multi_gpu"].get("provider_h2d_join_decode_time_ns", 0)
+    feasibility_decode_ns = run["multi_gpu"].get("physical_feasibility_scan_decode_time_ns", 0)
+    peer = run["multi_gpu"]["peer_diagnostics"]
     return {
         "status": run["status"],
         "generated_tokens": len(run["generated_ids"]),
@@ -130,9 +137,24 @@ def summarize_run(run: dict, resources: dict) -> dict:
                 "read_bytes", "read_operations", "read_requests", "io_errors", "short_reads",
                 "cancelled_reads", "integrity_mismatches")
         },
-        "peer_host_staged_bytes": sum(item["host_staged_bytes"] for item in run["multi_gpu"]["peer_diagnostics"]),
-        "peer_bytes": sum(item["peer_bytes"] for item in run["multi_gpu"]["peer_diagnostics"]),
+        "peer_host_staged_bytes": sum(item["host_staged_bytes"] for item in peer),
+        "peer_bytes": sum(item["peer_bytes"] for item in peer),
+        "peer_host_staging_enqueues": sum(item["host_staging_enqueues"] for item in peer),
+        "peer_host_staging_completions": sum(item["host_staging_completions"] for item in peer),
+        "peer_host_staging_reuse_waits": sum(item["host_staging_reuse_waits"] for item in peer),
+        "peer_cross_device_event_waits": sum(item["cross_device_event_waits"] for item in peer),
+        "peer_host_blocking_us": sum(item["host_staged_blocking_us"] for item in peer),
+        "peer_unexpected_host_synchronizations": sum(
+            item["unexpected_host_synchronizations"] for item in peer),
         "physical_feasibility_skips": run["multi_gpu"]["physical_feasibility_skips"],
+        "physical_feasibility_scan_decode_calls": run["multi_gpu"].get(
+            "physical_feasibility_scan_decode_calls", 0),
+        "physical_feasibility_scan_decode_time_ns": feasibility_decode_ns,
+        "physical_feasibility_scan_decode_fraction": (
+            feasibility_decode_ns/decode_wall_ns if decode_wall_ns else 0.0),
+        "provider_h2d_join_decode_waves": run["multi_gpu"].get("provider_h2d_join_decode_waves", 0),
+        "provider_h2d_join_decode_time_ns": join_decode_ns,
+        "provider_h2d_join_decode_fraction": join_decode_ns/decode_wall_ns if decode_wall_ns else 0.0,
         "device_h2d_overlap_us": overlap_us,
         "device_diagnostics": devices,
         "lifecycle": run["lifecycle"],
@@ -147,6 +169,12 @@ def pooled(cell_runs: list[dict]) -> dict:
     misses = sum(device["hot_misses"] for device in devices)
     h2d = sum(device["h2d_bytes"] for device in devices)
     generated = sum(len(run["generated_ids"]) for run in cell_runs)
+    decode_wall_ns = sum(decode)*1_000
+    join_decode_ns = sum(run["multi_gpu"].get("provider_h2d_join_decode_time_ns", 0)
+                         for run in cell_runs)
+    feasibility_decode_ns = sum(
+        run["multi_gpu"].get("physical_feasibility_scan_decode_time_ns", 0)
+        for run in cell_runs)
     return {
         "processes": len(cell_runs),
         "decode_tokens": len(decode),
@@ -165,7 +193,62 @@ def pooled(cell_runs: list[dict]) -> dict:
         "hot_hit_rate": hits/(hits + misses),
         "h2d_bytes": h2d,
         "h2d_bytes_per_generated_token": h2d/generated,
+        "provider_h2d_join_decode_time_ns": join_decode_ns,
+        "provider_h2d_join_decode_fraction": join_decode_ns/decode_wall_ns if decode_wall_ns else 0.0,
+        "physical_feasibility_scan_decode_time_ns": feasibility_decode_ns,
+        "physical_feasibility_scan_decode_fraction": (
+            feasibility_decode_ns/decode_wall_ns if decode_wall_ns else 0.0),
     }
+
+
+def validate_corrected_transport(stem: str, run: dict, transport_profile: str) -> None:
+    multi = run["multi_gpu"]
+    device_count = multi["device_count"]
+    if device_count <= 1:
+        return
+    peer = multi["peer_diagnostics"]
+    if len(peer) != device_count*(device_count - 1):
+        raise SystemExit(f"{stem}: directed peer-edge count mismatch")
+    if multi["directory_owner_only_violations"] != 0:
+        raise SystemExit(f"{stem}: owner-only directory violation")
+    if transport_profile == "async_final":
+        if multi.get("provider_h2d_join_decode_waves", 0) != 0 or \
+                multi.get("provider_h2d_join_decode_time_ns", 0) != 0:
+            raise SystemExit(f"{stem}: blocking all-device H2D join remained in decode")
+        if multi.get("provider_h2d_async_decode_waves", 0) == 0 or \
+                multi.get("provider_h2d_async_branch_waits", 0) == 0:
+            raise SystemExit(f"{stem}: device-local decode H2D dependencies were not exercised")
+    elif multi.get("provider_h2d_join_decode_waves", 0) == 0 or \
+            multi.get("provider_h2d_join_decode_time_ns", 0) == 0:
+        raise SystemExit(f"{stem}: causal screen did not exercise the measured decode join")
+    for device in multi["devices"]:
+        if device["ring_live_events"] != 0:
+            raise SystemExit(f"{stem}: live transfer-ring events remained at closeout")
+        if transport_profile == "async_final" and (
+                device["ring_h2d_event_records"] != device["ring_h2d_event_waits"] or
+                device["ring_h2d_event_waits"] != device["ring_h2d_event_synchronizations"]):
+            raise SystemExit(f"{stem}: H2D event record/wait/completion accounting mismatch")
+    for edge in peer:
+        if edge["host_staging_slots"] != 2 or edge["host_staging_peak_in_flight"] > 2:
+            raise SystemExit(f"{stem}: fixed two-slot staging invariant failed")
+        if edge["host_staged_copies"] == 0 or edge["host_staged_bytes"] == 0:
+            raise SystemExit(f"{stem}: directed staging edge was not exercised")
+        if edge["host_staging_enqueues"] != edge["host_staged_copies"] or \
+                edge["host_staging_completions"] != edge["host_staging_enqueues"]:
+            raise SystemExit(f"{stem}: staging enqueue/completion accounting mismatch")
+        if edge["cross_device_event_waits"] < edge["host_staged_copies"]:
+            raise SystemExit(f"{stem}: cross-device event dependency accounting mismatch")
+        if edge["host_staged_blocking_us"] != 0 or edge["unexpected_host_synchronizations"] != 0:
+            raise SystemExit(f"{stem}: steady-state host synchronization observed")
+        if edge.get("branch_delay_enqueues_for_testing", 0) != 0 or \
+                edge.get("branch_delay_completions_for_testing", 0) != 0:
+            raise SystemExit(f"{stem}: evidence-only branch delay leaked into campaign")
+    lifecycle = run["lifecycle"]
+    if any(lifecycle[key] != 0 for key in (
+            "active_background_flights", "current_hot_pins", "cold_current_transfer_refs",
+            "cold_current_request_refs",
+            "cold_current_cpu_execution_refs")):
+        raise SystemExit(f"{stem}: non-terminal provider lifecycle")
 
 
 def paired_interval(a_runs: list[dict], b_runs: list[dict]) -> tuple[list[float], list[float]]:
@@ -194,6 +277,7 @@ def main() -> None:
             run = load_gzip(args.input_dir / "raw" / f"{stem}.json.gz")
             if run.get("status") != "pass" or len(run.get("generated_ids", [])) != 24:
                 raise SystemExit(f"{stem}: incomplete evidence")
+            validate_corrected_transport(stem, run, args.transport_profile)
             current_identity = identity(run)
             if baseline_identity is None:
                 baseline_identity = current_identity
@@ -210,6 +294,7 @@ def main() -> None:
         "status": "pass",
         "fixture_transport": "POSITIONAL",
         "cache_state": "PROVIDER_COLD_OS_TMPFS_RESIDENT",
+        "transport_profile": args.transport_profile,
         "identity": {
             "exact_across_all_processes": len(set(digests)) == 1,
             "sha256": digests[0],
@@ -246,6 +331,20 @@ def main() -> None:
             "trigger_hot_hit_rate": abs(hit_delta) > 0.05,
             "trigger_h2d_bytes_per_token": abs(h2d_change) > 0.10,
             "required": abs(hit_delta) > 0.05 or abs(h2d_change) > 0.10,
+        }
+        join_fraction = pooled_cells["B"]["provider_h2d_join_decode_fraction"]
+        scan_fraction = pooled_cells["B"]["physical_feasibility_scan_decode_fraction"]
+        result["causal_optimization_thresholds"] = {
+            "provider_h2d_join": {
+                "observed_decode_wall_fraction": join_fraction,
+                "predeclared_threshold_fraction": 0.05,
+                "optimization_required": join_fraction >= 0.05,
+            },
+            "lru_physical_feasibility_scan": {
+                "observed_decode_wall_fraction": scan_fraction,
+                "predeclared_threshold_fraction": 0.03,
+                "optimization_required": scan_fraction >= 0.03,
+            },
         }
     if "A" in runs and "Bprime" in runs:
         ratios, interval = paired_interval(runs["A"], runs["Bprime"])
