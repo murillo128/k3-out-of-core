@@ -15,8 +15,8 @@ sys.path.insert(0, str(ROOT))
 
 from scripts.phase12_5.common import file_identity, write_json
 
-RAW_TAG = "phase13-issue61-remediation-v2"
-RAW_ASSET = "phase13-issue61-remediation-raw.tar.zst"
+RAW_TAG = "phase13-issue61-remediation-v3"
+RAW_ASSET = "phase13-issue61-remediation-v3-raw.tar.zst"
 RAW_URL = f"https://github.com/murillo128/k3-out-of-core/releases/tag/{RAW_TAG}"
 
 
@@ -29,6 +29,10 @@ def load(path: Path) -> dict:
 
 def git(*arguments: str, cwd: Path = ROOT) -> str:
     return subprocess.check_output(["git", *arguments], cwd=cwd, text=True).strip()
+
+
+def with_published_path(identity: dict, path: Path) -> dict:
+    return {**identity, "path": str(path)}
 
 
 def compact_device(device: dict) -> dict:
@@ -49,6 +53,10 @@ def compact_peer(peer: dict) -> dict:
         "host_staging_slots", "host_staging_peak_in_flight", "host_staging_reuse_waits",
         "cross_device_event_waits", "host_staged_blocking_us", "host_staging_enqueues",
         "host_staging_completions", "unexpected_host_synchronizations",
+        "stale_staging_completions", "staging_cancellation_requests",
+        "staging_cancellations_during_d2h", "staging_cancellations_during_h2d",
+        "staging_cancellation_drains", "staging_rejected_enqueues",
+        "host_staging_live_slots",
         "branch_delay_enqueues_for_testing", "branch_delay_completions_for_testing",
         "branch_delay_requested_us_for_testing",
     )
@@ -62,10 +70,12 @@ def main() -> int:
     parser.add_argument("--trace-pair-dir", type=Path, required=True)
     parser.add_argument("--delay-evidence", type=Path, required=True)
     parser.add_argument("--failure-evidence", type=Path, required=True)
+    parser.add_argument("--staging-evidence", type=Path, required=True)
     parser.add_argument("--pre-remediation-manifest", type=Path, required=True)
     parser.add_argument("--pre-remediation-summary", type=Path, required=True)
     parser.add_argument("--raw-asset", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument("--published-output-dir", type=Path)
     args = parser.parse_args()
     if args.output_dir.exists():
         raise FileExistsError(args.output_dir)
@@ -75,6 +85,7 @@ def main() -> int:
     trace_pair = load(args.trace_pair_dir / "trace-pair.json")
     delay = load(args.delay_evidence)
     failure = load(args.failure_evidence)
+    staging = load(args.staging_evidence)
     old_manifest = load(args.pre_remediation_manifest)
     old_summary = load(args.pre_remediation_summary)
     with gzip.open(args.final_summary.parent / "raw/A-01.json.gz", "rt") as source:
@@ -83,7 +94,8 @@ def main() -> int:
         raise RuntimeError("causal or final matrix did not pass")
     if trace_pair.get("status") != "valid" or not trace_pair.get("exact_identity"):
         raise RuntimeError("adjacent trace pair is not valid and exact")
-    if delay.get("status") != "pass" or failure.get("status") != "pass":
+    if delay.get("status") != "pass" or failure.get("status") != "pass" or \
+            staging.get("status") != "pass":
         raise RuntimeError("correctness evidence did not pass")
     if final["identity"]["sha256"] != old_summary["identity"]["sha256"]:
         raise RuntimeError("corrected output identity differs from immutable pre-remediation evidence")
@@ -91,6 +103,11 @@ def main() -> int:
         raise RuntimeError("unexpected corrected scaling classification")
 
     output = args.output_dir
+    published_output = args.published_output_dir or output
+
+    def output_identity(path: Path) -> dict:
+        return with_published_path(file_identity(path), published_output / path.relative_to(output))
+
     checkpoint_a = output / "checkpoint-a"
     checkpoint_c = output / "checkpoint-c"
     trace_output = output / "trace"
@@ -182,6 +199,13 @@ def main() -> int:
         raise RuntimeError("in-flight failure did not aggregate and drain")
     write_json(correctness_output / "inflight-device-failure.json", failure_summary)
 
+    staging_summary = {
+        **staging,
+        "nested_revision": git("rev-parse", "HEAD", cwd=ROOT / "llama.cpp"),
+        "raw": file_identity(args.staging_evidence),
+    }
+    write_json(correctness_output / "staging-generation-cancellation.json", staging_summary)
+
     validation = {
         "schema_version": "phase13-remediation-validation-v1",
         "status": "pass",
@@ -221,7 +245,7 @@ def main() -> int:
             "result": final["status"],
         },
         "correctness": {
-            "focused_staging_test": "pass",
+            "focused_staging_generation_and_cancellation": "pass",
             "actual_device_completion_order": "pass",
             "inflight_one_device_failure": "pass",
         },
@@ -236,9 +260,12 @@ def main() -> int:
         trace_output / "trace-pair-summary.json",
         correctness_output / "device-completion-order.json",
         correctness_output / "inflight-device-failure.json",
+        correctness_output / "staging-generation-cancellation.json",
         checkpoint_c / "phase13-validation.json",
         Path("scripts/phase13/analyze_phase13_matrix.py"),
         Path("scripts/phase13/capture_decode_window.py"),
+        Path("scripts/phase13/finalize_phase13_remediation.py"),
+        Path("scripts/phase13/run_phase13_matrix.py"),
         Path("scripts/phase13/run_phase13_trace_pair.py"),
         Path("scripts/phase13/verify_decode_window.py"),
         Path("scripts/phase13/configs/decode-window-128m.pbtxt"),
@@ -288,13 +315,16 @@ def main() -> int:
             "integrity": "zero errors, drops, exhaustion, data loss, or external correlations",
         },
         "correctness": {
-            "completion_order": file_identity(correctness_output / "device-completion-order.json"),
-            "inflight_device_failure": file_identity(correctness_output / "inflight-device-failure.json"),
+            "completion_order": output_identity(correctness_output / "device-completion-order.json"),
+            "inflight_device_failure": output_identity(correctness_output / "inflight-device-failure.json"),
+            "staging_generation_cancellation": output_identity(
+                correctness_output / "staging-generation-cancellation.json"),
         },
-        "validation": file_identity(checkpoint_c / "phase13-validation.json"),
+        "validation": output_identity(checkpoint_c / "phase13-validation.json"),
         "raw_release": {"tag": RAW_TAG, "url": RAW_URL, "asset": RAW_ASSET,
             "archive": file_identity(args.raw_asset)},
-        "artifacts": [file_identity(path) for path in artifact_paths],
+        "artifacts": [output_identity(path) if path.is_relative_to(output) else file_identity(path)
+            for path in artifact_paths],
         "independent_review": "pending exact published target",
     }
     write_json(checkpoint_c / "phase13-manifest.json", manifest)
@@ -310,7 +340,7 @@ Disposition: `SUPPORTED_MULTI_GPU`. Correctness, lifecycle, the filtered trace g
 - Decode H2D global join: removed; final measured fraction `0`.
 - LRU feasibility scan: `{final['causal_optimization_thresholds']['lru_physical_feasibility_scan']['observed_decode_wall_fraction']:.6%}` of B decode wall, below the 3% index threshold.
 - Windowed trace: seed {trace_pair['selection']['seed']}, request {trace_pair['selection']['request_ordinal']}, layer {trace_pair['selection']['routed_layer']}, {trace_pair['selection']['window_ms']} ms; A/B traces are {trace_cases['A']['trace']['size']} and {trace_cases['B']['trace']['size']} bytes.
-- Focused validation: 12/12 CTests; actual device-delay and in-flight one-device failure gates pass.
+- Focused validation: 12/12 CTests; stale staging generation, D2H/H2D cancellation, actual device-delay and in-flight one-device failure gates pass.
 
 The corrected result is slower than the historical synchronized baseline. The manifest preserves both results rather than relabeling the old number.
 """

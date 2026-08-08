@@ -240,6 +240,14 @@ def validate_corrected_transport(stem: str, run: dict, transport_profile: str) -
             raise SystemExit(f"{stem}: cross-device event dependency accounting mismatch")
         if edge["host_staged_blocking_us"] != 0 or edge["unexpected_host_synchronizations"] != 0:
             raise SystemExit(f"{stem}: steady-state host synchronization observed")
+        if edge.get("stale_staging_completions", 0) != 0 or \
+                edge.get("staging_cancellation_requests", 0) != 0 or \
+                edge.get("staging_cancellations_during_d2h", 0) != 0 or \
+                edge.get("staging_cancellations_during_h2d", 0) != 0 or \
+                edge.get("staging_cancellation_drains", 0) != 0 or \
+                edge.get("staging_rejected_enqueues", 0) != 0 or \
+                edge.get("host_staging_live_slots", 0) != 0:
+            raise SystemExit(f"{stem}: peer staging did not close cleanly")
         if edge.get("branch_delay_enqueues_for_testing", 0) != 0 or \
                 edge.get("branch_delay_completions_for_testing", 0) != 0:
             raise SystemExit(f"{stem}: evidence-only branch delay leaked into campaign")
