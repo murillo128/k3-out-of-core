@@ -1,0 +1,97 @@
+{
+  "schema_version": "phase13-trace-blocker-v1",
+  "status": "blocked",
+  "classification": "BLOCKED_PERFETTO_CUPTI",
+  "hard_gate": "No qualifying adjacent A/B Perfetto/CUPTI trace pair could be captured on this host.",
+  "host": {
+    "gpu_count": 2,
+    "gpu_model": "NVIDIA GeForce RTX 3090",
+    "driver_version": "580.95.05",
+    "cuda_toolkit": "12.8",
+    "perfetto": "v50.1"
+  },
+  "failure_signature": {
+    "signal": "SIGSEGV",
+    "fault_address": "0x10",
+    "toolkit_12_8_instruction_offset": "0x133807",
+    "nsight_12_8_instruction_offset": "0x113207",
+    "activity_kind_at_fault": 39,
+    "activity_kind_name": "CUPTI_ACTIVITY_KIND_EXTERNAL_CORRELATION",
+    "workload_error": "workload trace-stop handshake was incomplete"
+  },
+  "cupti_variants": [
+    {
+      "name": "CUDA toolkit 12.8.90",
+      "library": "/usr/local/cuda-12.8/targets/x86_64-linux/lib/libcupti.so.2025.1.1",
+      "sha256": "fccdc5fcc7c32f8cf4b3ed9b17f7f187a185a6fa0a5bcc06e3434cbd1687c808",
+      "result": "SIGSEGV at external-correlation record materialization"
+    },
+    {
+      "name": "Nsight Systems 2024.6.2 CUPTI 12.8",
+      "library": "/opt/nvidia/nsight-systems/2024.6.2/target-linux-x64/libcupti.so.12.8",
+      "sha256": "677ebf7cab123da2ddf38426c748437e4ac38ebfb3f7e2fae134692b68261bc9",
+      "result": "same SIGSEGV at the equivalent instruction"
+    },
+    {
+      "name": "CUDA CUPTI 12.9.79",
+      "library": "/usr/local/cuda-12.9/targets/x86_64-linux/lib/libcupti.so.2025.2.1",
+      "sha256": "2fdab19dc3fccdd4b2f5eba137aabefc68e685f6497bb38eea649866c5672a2a",
+      "result": "same external-correlation failure"
+    }
+  ],
+  "bounded_diagnostics": [
+    {
+      "configuration": "accepted 256 MiB total, 1 MiB activity buffers, CUDA graphs disabled",
+      "result": "repeated SIGSEGV before the first inference graph"
+    },
+    {
+      "configuration": "128 MiB retained plus 128 MiB activity reserve, 64 KiB buffers, runtime API only, activation after context initialization",
+      "result": "all 24 tokens completed; fail-closed closeout reported CUPTI retained-record bound exhausted"
+    },
+    {
+      "configuration": "224 MiB retained plus 32 MiB activity reserve, 16 KiB buffers, runtime API only, activation after context initialization",
+      "result": "external-correlation SIGSEGV; the simultaneous active-buffer and retained-record demand cannot fit the accepted 256 MiB trace bound"
+    },
+    {
+      "configuration": "CUDA graphs enabled under GDB",
+      "result": "workload completed but is non-qualifying because issue #61 explicitly excludes CUDA graphs and GDB changes scheduling"
+    }
+  ],
+  "nonqualifying_artifacts": [
+    {
+      "case": "toolkit-12.8-initial",
+      "trace_sha256": "c36b6bf4db12323b6f6d49140379f3da6bf36d9b5c7723e15b114b1e7725a8e1",
+      "trace_size": 439845925,
+      "reason": "process crashed; no lifecycle closeout"
+    },
+    {
+      "case": "nsight-cupti-12.8",
+      "trace_sha256": "a2f05aae7f6e501ac44f33635619c39a4e15e706dca1c01a9135ec76387bdece",
+      "trace_size": 440214847,
+      "reason": "process crashed; no lifecycle closeout"
+    },
+    {
+      "case": "toolkit-cupti-12.9",
+      "trace_sha256": "2277590b155c1ecc10e32c4a90fe256b974de7eb106a6cda8d45c3466f435711",
+      "trace_size": 462854651,
+      "reason": "process crashed; no lifecycle closeout"
+    },
+    {
+      "case": "24-token-retained-bound",
+      "trace_sha256": "46a9d32731ddd67dd4f6790729e0706041ee1e8c995b807ff63e9a620eec8c23",
+      "trace_size": 524212852,
+      "workload_summary_sha256": "32506d4247ed00d4cfa83189656f04570129fcb1a2fc8bc73e6d5a41c90e1436",
+      "reason": "complete workload but fail-closed CUPTI retained-record bound exhaustion"
+    }
+  ],
+  "controls": {
+    "gpu_resets_between_reproductions": true,
+    "no_competing_compute_process_observed": true,
+    "graphs_disabled_in_qualifying_attempts": true,
+    "all_trace_experiments_reverted_from_final_source": true,
+    "mandatory_A_B_campaign_unaffected": true,
+    "mandatory_A_B_campaign_identity_sha256": "60658621b12340bc02d1fbb614142e4a17c5dd52eb529bfd4b0b2eb1a1255889"
+  },
+  "reference": "https://docs.nvidia.com/cupti/release-notes/release-notes.html",
+  "next_action": "A qualifying trace requires a separately approved streaming redesign or a CUPTI/driver environment that can retain and drain the Phase 13 external-correlation volume within the accepted bound."
+}

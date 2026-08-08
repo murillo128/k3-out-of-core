@@ -1,0 +1,5516 @@
+{
+  "cases": {
+    "A": {
+      "complete_routed_layer_cycles": 58,
+      "critical_path": {
+        "accounting_error_ns": 0,
+        "buckets_fraction": {
+          "cuda_synchronization": 0.0013288734946922444,
+          "dependency_or_host_gap": 0.06925162046921621,
+          "gpu0_kernel": 0.032716321053513776,
+          "gpu1_kernel": 0,
+          "issue_span_ns": 0.0046280061862436625,
+          "no_miss_provider_ns": 0,
+          "other_cuda": 0.0006798507400020065,
+          "peer_activation_result_copy": 5.248420911160497e-05,
+          "post_issue_ns": 0.7919990337131612,
+          "pre_issue_ns": 0.09934381013405932
+        },
+        "buckets_ns": {
+          "cuda_synchronization": 1310942,
+          "dependency_or_host_gap": 68317156,
+          "gpu0_kernel": 32274855,
+          "gpu1_kernel": 0,
+          "issue_span_ns": 4565557,
+          "no_miss_provider_ns": 0,
+          "other_cuda": 670677,
+          "peer_activation_result_copy": 51776,
+          "post_issue_ns": 781311992,
+          "pre_issue_ns": 98003289
+        },
+        "wall_ns": 986506244
+      },
+      "cycles": [
+        {
+          "demand_enqueues": 5,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 638183,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 28560,
+            "dependency_or_host_gap": 2946959,
+            "gpu0_kernel": 638183,
+            "gpu1_kernel": 0,
+            "other_cuda": 19328,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 3633030,
+          "layer": 11,
+          "provider_critical_path": {
+            "issue_span_ns": 329310,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 17621500,
+            "pre_issue_ns": 2155258
+          },
+          "provider_ns": 20106068,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 3812408,
+            "expert_h2d_cuda": 3283220,
+            "h2d_scope": 4700128,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 8623423,
+            "storage": 4153549
+          },
+          "start_offset_ns": 428841,
+          "wall_ns": 23739098
+        },
+        {
+          "demand_enqueues": 6,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 463940,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 25762,
+            "dependency_or_host_gap": 1378003,
+            "gpu0_kernel": 463940,
+            "gpu1_kernel": 0,
+            "other_cuda": 4288,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 1871993,
+          "layer": 12,
+          "provider_critical_path": {
+            "issue_span_ns": 158227,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 17676974,
+            "pre_issue_ns": 2680134
+          },
+          "provider_ns": 20515335,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 4370047,
+            "expert_h2d_cuda": 3924792,
+            "h2d_scope": 4328932,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 10869190,
+            "storage": 0
+          },
+          "start_offset_ns": 24167939,
+          "wall_ns": 22387328
+        },
+        {
+          "demand_enqueues": 5,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 637280,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 24574,
+            "dependency_or_host_gap": 2401204,
+            "gpu0_kernel": 637280,
+            "gpu1_kernel": 0,
+            "other_cuda": 19360,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 3082418,
+          "layer": 13,
+          "provider_critical_path": {
+            "issue_span_ns": 169549,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 18907768,
+            "pre_issue_ns": 2562598
+          },
+          "provider_ns": 21639915,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 3764989,
+            "expert_h2d_cuda": 3346389,
+            "h2d_scope": 3683425,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 8366471,
+            "storage": 7045765
+          },
+          "start_offset_ns": 46555267,
+          "wall_ns": 24722333
+        },
+        {
+          "demand_enqueues": 6,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 463107,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 41690,
+            "dependency_or_host_gap": 1026321,
+            "gpu0_kernel": 463107,
+            "gpu1_kernel": 0,
+            "other_cuda": 4128,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 1535246,
+          "layer": 14,
+          "provider_critical_path": {
+            "issue_span_ns": 127990,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 18546440,
+            "pre_issue_ns": 2457346
+          },
+          "provider_ns": 21131776,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 4507905,
+            "expert_h2d_cuda": 3985369,
+            "h2d_scope": 4338342,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 9852956,
+            "storage": 3524359
+          },
+          "start_offset_ns": 71277600,
+          "wall_ns": 22667022
+        },
+        {
+          "demand_enqueues": 6,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 637476,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 24056,
+            "dependency_or_host_gap": 2076421,
+            "gpu0_kernel": 637476,
+            "gpu1_kernel": 0,
+            "other_cuda": 19264,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 2757217,
+          "layer": 15,
+          "provider_critical_path": {
+            "issue_span_ns": 183135,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 18067959,
+            "pre_issue_ns": 2320992
+          },
+          "provider_ns": 20572086,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 4443192,
+            "expert_h2d_cuda": 3989657,
+            "h2d_scope": 4334350,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 9508884,
+            "storage": 3444133
+          },
+          "start_offset_ns": 93944622,
+          "wall_ns": 23329303
+        },
+        {
+          "demand_enqueues": 6,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 464163,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 20633,
+            "dependency_or_host_gap": 854005,
+            "gpu0_kernel": 464163,
+            "gpu1_kernel": 0,
+            "other_cuda": 4128,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 1342929,
+          "layer": 16,
+          "provider_critical_path": {
+            "issue_span_ns": 107773,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 17249883,
+            "pre_issue_ns": 2067551
+          },
+          "provider_ns": 19425207,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 4601449,
+            "expert_h2d_cuda": 4009208,
+            "h2d_scope": 4337208,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 9047535,
+            "storage": 3617478
+          },
+          "start_offset_ns": 117273925,
+          "wall_ns": 20768136
+        },
+        {
+          "demand_enqueues": 6,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 635522,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 21357,
+            "dependency_or_host_gap": 1808388,
+            "gpu0_kernel": 635522,
+            "gpu1_kernel": 0,
+            "other_cuda": 19328,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 2484595,
+          "layer": 17,
+          "provider_critical_path": {
+            "issue_span_ns": 113848,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 17218936,
+            "pre_issue_ns": 1880853
+          },
+          "provider_ns": 19213637,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 4626199,
+            "expert_h2d_cuda": 4021528,
+            "h2d_scope": 4329911,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 9034807,
+            "storage": 3389747
+          },
+          "start_offset_ns": 138042061,
+          "wall_ns": 21698232
+        },
+        {
+          "demand_enqueues": 5,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 464806,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 20256,
+            "dependency_or_host_gap": 718910,
+            "gpu0_kernel": 464806,
+            "gpu1_kernel": 0,
+            "other_cuda": 4064,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 1208036,
+          "layer": 18,
+          "provider_critical_path": {
+            "issue_span_ns": 113245,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 15523724,
+            "pre_issue_ns": 1695931
+          },
+          "provider_ns": 17332900,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 3793803,
+            "expert_h2d_cuda": 3348052,
+            "h2d_scope": 3582559,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 7030437,
+            "storage": 6769830
+          },
+          "start_offset_ns": 159740293,
+          "wall_ns": 18540936
+        },
+        {
+          "demand_enqueues": 6,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 636870,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 20343,
+            "dependency_or_host_gap": 1570889,
+            "gpu0_kernel": 636870,
+            "gpu1_kernel": 0,
+            "other_cuda": 19040,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 2247142,
+          "layer": 19,
+          "provider_critical_path": {
+            "issue_span_ns": 92073,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 18950954,
+            "pre_issue_ns": 1947448
+          },
+          "provider_ns": 20990475,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 4551993,
+            "expert_h2d_cuda": 3995992,
+            "h2d_scope": 4303731,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 8409783,
+            "storage": 10219959
+          },
+          "start_offset_ns": 178281229,
+          "wall_ns": 23237617
+        },
+        {
+          "demand_enqueues": 5,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 463842,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 18148,
+            "dependency_or_host_gap": 631230,
+            "gpu0_kernel": 463842,
+            "gpu1_kernel": 0,
+            "other_cuda": 4256,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 1117476,
+          "layer": 20,
+          "provider_critical_path": {
+            "issue_span_ns": 123515,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 14769858,
+            "pre_issue_ns": 1746415
+          },
+          "provider_ns": 16639788,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 3808508,
+            "expert_h2d_cuda": 3340052,
+            "h2d_scope": 3587884,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 6808627,
+            "storage": 7349312
+          },
+          "start_offset_ns": 201518846,
+          "wall_ns": 17757264
+        },
+        {
+          "demand_enqueues": 4,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 636802,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 18880,
+            "dependency_or_host_gap": 1472502,
+            "gpu0_kernel": 636802,
+            "gpu1_kernel": 0,
+            "other_cuda": 19375,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 2147559,
+          "layer": 21,
+          "provider_critical_path": {
+            "issue_span_ns": 66419,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 12506550,
+            "pre_issue_ns": 1688158
+          },
+          "provider_ns": 14261127,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 3036089,
+            "expert_h2d_cuda": 2652816,
+            "h2d_scope": 2843804,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 5271808,
+            "storage": 6923392
+          },
+          "start_offset_ns": 219276110,
+          "wall_ns": 16408686
+        },
+        {
+          "demand_enqueues": 5,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 463746,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 18802,
+            "dependency_or_host_gap": 597232,
+            "gpu0_kernel": 463746,
+            "gpu1_kernel": 0,
+            "other_cuda": 3798,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 1083578,
+          "layer": 22,
+          "provider_critical_path": {
+            "issue_span_ns": 129014,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 17921478,
+            "pre_issue_ns": 1579654
+          },
+          "provider_ns": 19630146,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 3858647,
+            "expert_h2d_cuda": 3328822,
+            "h2d_scope": 3563061,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 6684577,
+            "storage": 11102026
+          },
+          "start_offset_ns": 235684796,
+          "wall_ns": 20713724
+        },
+        {
+          "demand_enqueues": 4,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 635778,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 18895,
+            "dependency_or_host_gap": 1453463,
+            "gpu0_kernel": 635778,
+            "gpu1_kernel": 0,
+            "other_cuda": 19332,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 2127468,
+          "layer": 23,
+          "provider_critical_path": {
+            "issue_span_ns": 66069,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 17853285,
+            "pre_issue_ns": 1595566
+          },
+          "provider_ns": 19514920,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 3029642,
+            "expert_h2d_cuda": 2652592,
+            "h2d_scope": 2859292,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 5343813,
+            "storage": 11030067
+          },
+          "start_offset_ns": 256398520,
+          "wall_ns": 21642388
+        },
+        {
+          "demand_enqueues": 4,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 464194,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 18213,
+            "dependency_or_host_gap": 589992,
+            "gpu0_kernel": 464194,
+            "gpu1_kernel": 0,
+            "other_cuda": 4000,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 1076399,
+          "layer": 24,
+          "provider_critical_path": {
+            "issue_span_ns": 58744,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 17174720,
+            "pre_issue_ns": 1700500
+          },
+          "provider_ns": 18933964,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 3074989,
+            "expert_h2d_cuda": 2673232,
+            "h2d_scope": 2863283,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 5368778,
+            "storage": 10328121
+          },
+          "start_offset_ns": 278040908,
+          "wall_ns": 20010363
+        },
+        {
+          "demand_enqueues": 2,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 637988,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 31777,
+            "dependency_or_host_gap": 1419120,
+            "gpu0_kernel": 637988,
+            "gpu1_kernel": 0,
+            "other_cuda": 19392,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 2108277,
+          "layer": 25,
+          "provider_critical_path": {
+            "issue_span_ns": 45319,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 7848519,
+            "pre_issue_ns": 1515073
+          },
+          "provider_ns": 9408911,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 1582931,
+            "expert_h2d_cuda": 1331528,
+            "h2d_scope": 1422141,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 2660418,
+            "storage": 3652082
+          },
+          "start_offset_ns": 298051271,
+          "wall_ns": 11517188
+        },
+        {
+          "demand_enqueues": 2,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 469795,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 35024,
+            "dependency_or_host_gap": 568877,
+            "gpu0_kernel": 469795,
+            "gpu1_kernel": 0,
+            "other_cuda": 3872,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 1077568,
+          "layer": 26,
+          "provider_critical_path": {
+            "issue_span_ns": 50979,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 8956183,
+            "pre_issue_ns": 1589812
+          },
+          "provider_ns": 10596974,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 1949322,
+            "expert_h2d_cuda": 1768971,
+            "h2d_scope": 1863332,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 3792667,
+            "storage": 3974040
+          },
+          "start_offset_ns": 309568459,
+          "wall_ns": 11674542
+        },
+        {
+          "demand_enqueues": 4,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 636580,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 19967,
+            "dependency_or_host_gap": 1443137,
+            "gpu0_kernel": 636580,
+            "gpu1_kernel": 0,
+            "other_cuda": 19236,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 2118920,
+          "layer": 27,
+          "provider_critical_path": {
+            "issue_span_ns": 71637,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 12206502,
+            "pre_issue_ns": 1547478
+          },
+          "provider_ns": 13825617,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 3043591,
+            "expert_h2d_cuda": 2668112,
+            "h2d_scope": 2887381,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 5398561,
+            "storage": 5355407
+          },
+          "start_offset_ns": 321243001,
+          "wall_ns": 15944537
+        },
+        {
+          "demand_enqueues": 2,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 463715,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 16988,
+            "dependency_or_host_gap": 595016,
+            "gpu0_kernel": 463715,
+            "gpu1_kernel": 0,
+            "other_cuda": 3942,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 1079661,
+          "layer": 28,
+          "provider_critical_path": {
+            "issue_span_ns": 47301,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 7791895,
+            "pre_issue_ns": 1591596
+          },
+          "provider_ns": 9430792,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 1531410,
+            "expert_h2d_cuda": 1334760,
+            "h2d_scope": 1425864,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 2644947,
+            "storage": 3571477
+          },
+          "start_offset_ns": 337187538,
+          "wall_ns": 10510453
+        },
+        {
+          "demand_enqueues": 2,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 636356,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 17421,
+            "dependency_or_host_gap": 1329456,
+            "gpu0_kernel": 636356,
+            "gpu1_kernel": 0,
+            "other_cuda": 19035,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 2002268,
+          "layer": 29,
+          "provider_critical_path": {
+            "issue_span_ns": 43545,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 8182264,
+            "pre_issue_ns": 1456101
+          },
+          "provider_ns": 9681910,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 1546840,
+            "expert_h2d_cuda": 1332872,
+            "h2d_scope": 1426190,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 2741389,
+            "storage": 3894051
+          },
+          "start_offset_ns": 347697991,
+          "wall_ns": 11684178
+        },
+        {
+          "demand_enqueues": 4,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 464195,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 19080,
+            "dependency_or_host_gap": 600546,
+            "gpu0_kernel": 464195,
+            "gpu1_kernel": 0,
+            "other_cuda": 4051,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 1087872,
+          "layer": 30,
+          "provider_critical_path": {
+            "issue_span_ns": 108975,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 12627300,
+            "pre_issue_ns": 1519086
+          },
+          "provider_ns": 14255361,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 3064563,
+            "expert_h2d_cuda": 2650256,
+            "h2d_scope": 2851889,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 5391167,
+            "storage": 7250246
+          },
+          "start_offset_ns": 359382169,
+          "wall_ns": 15343233
+        },
+        {
+          "demand_enqueues": 3,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 637475,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 19811,
+            "dependency_or_host_gap": 1356887,
+            "gpu0_kernel": 637475,
+            "gpu1_kernel": 0,
+            "other_cuda": 19069,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 2033242,
+          "layer": 31,
+          "provider_critical_path": {
+            "issue_span_ns": 55963,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 12572358,
+            "pre_issue_ns": 1504058
+          },
+          "provider_ns": 14132379,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 2288561,
+            "expert_h2d_cuda": 1995597,
+            "h2d_scope": 2129803,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 3991613,
+            "storage": 7140141
+          },
+          "start_offset_ns": 374725402,
+          "wall_ns": 16165621
+        },
+        {
+          "demand_enqueues": 3,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 463458,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 18638,
+            "dependency_or_host_gap": 581798,
+            "gpu0_kernel": 463458,
+            "gpu1_kernel": 0,
+            "other_cuda": 4007,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 1067901,
+          "layer": 32,
+          "provider_critical_path": {
+            "issue_span_ns": 46541,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 8590123,
+            "pre_issue_ns": 1816521
+          },
+          "provider_ns": 10453185,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 2313068,
+            "expert_h2d_cuda": 2011948,
+            "h2d_scope": 2189192,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 4052304,
+            "storage": 3447920
+          },
+          "start_offset_ns": 390891023,
+          "wall_ns": 11521086
+        },
+        {
+          "demand_enqueues": 3,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 636997,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 18709,
+            "dependency_or_host_gap": 1365943,
+            "gpu0_kernel": 636997,
+            "gpu1_kernel": 0,
+            "other_cuda": 19197,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 2040846,
+          "layer": 33,
+          "provider_critical_path": {
+            "issue_span_ns": 57945,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 17366703,
+            "pre_issue_ns": 1488494
+          },
+          "provider_ns": 18913142,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 2284915,
+            "expert_h2d_cuda": 1999020,
+            "h2d_scope": 2134982,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 3962732,
+            "storage": 10596938
+          },
+          "start_offset_ns": 402412109,
+          "wall_ns": 20953988
+        },
+        {
+          "demand_enqueues": 3,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 463617,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 18610,
+            "dependency_or_host_gap": 574869,
+            "gpu0_kernel": 463617,
+            "gpu1_kernel": 0,
+            "other_cuda": 3621,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 1060717,
+          "layer": 34,
+          "provider_critical_path": {
+            "issue_span_ns": 55960,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 8912085,
+            "pre_issue_ns": 1481895
+          },
+          "provider_ns": 10449940,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 2315492,
+            "expert_h2d_cuda": 1997677,
+            "h2d_scope": 2155510,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 4072897,
+            "storage": 3425733
+          },
+          "start_offset_ns": 423366097,
+          "wall_ns": 11510657
+        },
+        {
+          "demand_enqueues": 6,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 636869,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 21152,
+            "dependency_or_host_gap": 1454786,
+            "gpu0_kernel": 636869,
+            "gpu1_kernel": 0,
+            "other_cuda": 19392,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 2132199,
+          "layer": 35,
+          "provider_critical_path": {
+            "issue_span_ns": 89933,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 16732333,
+            "pre_issue_ns": 1772411
+          },
+          "provider_ns": 18594677,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 4564189,
+            "expert_h2d_cuda": 4019513,
+            "h2d_scope": 4283136,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 8176541,
+            "storage": 7142924
+          },
+          "start_offset_ns": 434876754,
+          "wall_ns": 20726876
+        },
+        {
+          "demand_enqueues": 3,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 463555,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 18061,
+            "dependency_or_host_gap": 593728,
+            "gpu0_kernel": 463555,
+            "gpu1_kernel": 0,
+            "other_cuda": 3849,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 1079193,
+          "layer": 36,
+          "provider_critical_path": {
+            "issue_span_ns": 57158,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 8687080,
+            "pre_issue_ns": 1647514
+          },
+          "provider_ns": 10391752,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 2334356,
+            "expert_h2d_cuda": 1999500,
+            "h2d_scope": 2135554,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 4137137,
+            "storage": 3447996
+          },
+          "start_offset_ns": 455603630,
+          "wall_ns": 11470945
+        },
+        {
+          "demand_enqueues": 4,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 636933,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 18510,
+            "dependency_or_host_gap": 1400449,
+            "gpu0_kernel": 636933,
+            "gpu1_kernel": 0,
+            "other_cuda": 19059,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 2074951,
+          "layer": 37,
+          "provider_critical_path": {
+            "issue_span_ns": 97004,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 11136715,
+            "pre_issue_ns": 1543234
+          },
+          "provider_ns": 12776953,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 3053737,
+            "expert_h2d_cuda": 2662192,
+            "h2d_scope": 2862737,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 5597187,
+            "storage": 3465800
+          },
+          "start_offset_ns": 467074575,
+          "wall_ns": 14851904
+        },
+        {
+          "demand_enqueues": 2,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 463267,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 20916,
+            "dependency_or_host_gap": 760243,
+            "gpu0_kernel": 463267,
+            "gpu1_kernel": 0,
+            "other_cuda": 3779,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 1248205,
+          "layer": 38,
+          "provider_critical_path": {
+            "issue_span_ns": 44154,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 7756504,
+            "pre_issue_ns": 1578320
+          },
+          "provider_ns": 9378978,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 1535077,
+            "expert_h2d_cuda": 1318760,
+            "h2d_scope": 1413659,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 2677221,
+            "storage": 3404317
+          },
+          "start_offset_ns": 481926479,
+          "wall_ns": 10627183
+        },
+        {
+          "demand_enqueues": 4,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 636804,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 18986,
+            "dependency_or_host_gap": 1374638,
+            "gpu0_kernel": 636804,
+            "gpu1_kernel": 0,
+            "other_cuda": 19392,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 2049820,
+          "layer": 39,
+          "provider_critical_path": {
+            "issue_span_ns": 99101,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 17419196,
+            "pre_issue_ns": 1682798
+          },
+          "provider_ns": 19201095,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 3042875,
+            "expert_h2d_cuda": 2651505,
+            "h2d_scope": 2854673,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 5330880,
+            "storage": 10754187
+          },
+          "start_offset_ns": 492553662,
+          "wall_ns": 21250915
+        },
+        {
+          "demand_enqueues": 3,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 463523,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 17311,
+            "dependency_or_host_gap": 556894,
+            "gpu0_kernel": 463523,
+            "gpu1_kernel": 0,
+            "other_cuda": 3720,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 1041448,
+          "layer": 40,
+          "provider_critical_path": {
+            "issue_span_ns": 88806,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 8844512,
+            "pre_issue_ns": 1745937
+          },
+          "provider_ns": 10679255,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 2280927,
+            "expert_h2d_cuda": 1995756,
+            "h2d_scope": 2128651,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 4158861,
+            "storage": 3705040
+          },
+          "start_offset_ns": 513804577,
+          "wall_ns": 11720703
+        },
+        {
+          "demand_enqueues": 3,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 635716,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 18339,
+            "dependency_or_host_gap": 1360712,
+            "gpu0_kernel": 635716,
+            "gpu1_kernel": 0,
+            "other_cuda": 19324,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 2034091,
+          "layer": 41,
+          "provider_critical_path": {
+            "issue_span_ns": 54934,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 12319207,
+            "pre_issue_ns": 1677184
+          },
+          "provider_ns": 14051325,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 2274488,
+            "expert_h2d_cuda": 1998348,
+            "h2d_scope": 2148947,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 4005787,
+            "storage": 6852268
+          },
+          "start_offset_ns": 525525280,
+          "wall_ns": 16085416
+        },
+        {
+          "demand_enqueues": 3,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 817861,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 58073,
+            "dependency_or_host_gap": 3361792,
+            "gpu0_kernel": 817861,
+            "gpu1_kernel": 0,
+            "other_cuda": 3799,
+            "peer_activation_result_copy": 44000
+          },
+          "graph_ns": 4285525,
+          "layer": 42,
+          "provider_critical_path": {
+            "issue_span_ns": 105811,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 9634450,
+            "pre_issue_ns": 1478853
+          },
+          "provider_ns": 11219114,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 2630741,
+            "expert_h2d_cuda": 2299183,
+            "h2d_scope": 2444188,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 4751401,
+            "storage": 3935889
+          },
+          "start_offset_ns": 541610696,
+          "wall_ns": 15504639
+        },
+        {
+          "demand_enqueues": 5,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 450274,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 18209,
+            "dependency_or_host_gap": 638894,
+            "gpu0_kernel": 450274,
+            "gpu1_kernel": 0,
+            "other_cuda": 3989,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 1111366,
+          "layer": 0,
+          "provider_critical_path": {
+            "issue_span_ns": 69184,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 26116195,
+            "pre_issue_ns": 1570307
+          },
+          "provider_ns": 27755686,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 3820328,
+            "expert_h2d_cuda": 3331572,
+            "h2d_scope": 3556848,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 6558965,
+            "storage": 16981322
+          },
+          "start_offset_ns": 557115335,
+          "wall_ns": 28867052
+        },
+        {
+          "demand_enqueues": 6,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 645125,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 83460,
+            "dependency_or_host_gap": 1605082,
+            "gpu0_kernel": 645125,
+            "gpu1_kernel": 0,
+            "other_cuda": 19510,
+            "peer_activation_result_copy": 7776
+          },
+          "graph_ns": 2360953,
+          "layer": 1,
+          "provider_critical_path": {
+            "issue_span_ns": 85401,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 18390675,
+            "pre_issue_ns": 1894538
+          },
+          "provider_ns": 20370614,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 4590346,
+            "expert_h2d_cuda": 4009656,
+            "h2d_scope": 4287624,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 8201035,
+            "storage": 10304159
+          },
+          "start_offset_ns": 585982387,
+          "wall_ns": 22731567
+        },
+        {
+          "demand_enqueues": 6,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 464388,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 31983,
+            "dependency_or_host_gap": 693679,
+            "gpu0_kernel": 464388,
+            "gpu1_kernel": 0,
+            "other_cuda": 3677,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 1193727,
+          "layer": 2,
+          "provider_critical_path": {
+            "issue_span_ns": 119440,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 21202008,
+            "pre_issue_ns": 1613988
+          },
+          "provider_ns": 22935436,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 4722714,
+            "expert_h2d_cuda": 3989272,
+            "h2d_scope": 4267165,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 7949927,
+            "storage": 13444590
+          },
+          "start_offset_ns": 608713954,
+          "wall_ns": 24129163
+        },
+        {
+          "demand_enqueues": 2,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 636450,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 18261,
+            "dependency_or_host_gap": 1421746,
+            "gpu0_kernel": 636450,
+            "gpu1_kernel": 0,
+            "other_cuda": 18990,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 2095447,
+          "layer": 3,
+          "provider_critical_path": {
+            "issue_span_ns": 48334,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 7794625,
+            "pre_issue_ns": 1489297
+          },
+          "provider_ns": 9332256,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 1477454,
+            "expert_h2d_cuda": 1308552,
+            "h2d_scope": 1455920,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 2657924,
+            "storage": 3624897
+          },
+          "start_offset_ns": 632843117,
+          "wall_ns": 11427703
+        },
+        {
+          "demand_enqueues": 1,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 463234,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 17786,
+            "dependency_or_host_gap": 588312,
+            "gpu0_kernel": 463234,
+            "gpu1_kernel": 0,
+            "other_cuda": 3860,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 1073192,
+          "layer": 4,
+          "provider_critical_path": {
+            "issue_span_ns": 31322,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 7824822,
+            "pre_issue_ns": 1522686
+          },
+          "provider_ns": 9378830,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 768551,
+            "expert_h2d_cuda": 665828,
+            "h2d_scope": 714712,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 1358242,
+            "storage": 3436634
+          },
+          "start_offset_ns": 644270820,
+          "wall_ns": 10452022
+        },
+        {
+          "demand_enqueues": 3,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 636099,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 20711,
+            "dependency_or_host_gap": 2432954,
+            "gpu0_kernel": 636099,
+            "gpu1_kernel": 0,
+            "other_cuda": 18667,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 3108431,
+          "layer": 5,
+          "provider_critical_path": {
+            "issue_span_ns": 63905,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 12170171,
+            "pre_issue_ns": 1521403
+          },
+          "provider_ns": 13755479,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 2228443,
+            "expert_h2d_cuda": 1972332,
+            "h2d_scope": 2108753,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 3924490,
+            "storage": 6980884
+          },
+          "start_offset_ns": 654722842,
+          "wall_ns": 16863910
+        },
+        {
+          "demand_enqueues": 1,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 464482,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 17728,
+            "dependency_or_host_gap": 566055,
+            "gpu0_kernel": 464482,
+            "gpu1_kernel": 0,
+            "other_cuda": 3694,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 1051959,
+          "layer": 6,
+          "provider_critical_path": {
+            "issue_span_ns": 42695,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 7791205,
+            "pre_issue_ns": 1486135
+          },
+          "provider_ns": 9320035,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 766204,
+            "expert_h2d_cuda": 667012,
+            "h2d_scope": 715415,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 1288677,
+            "storage": 3536539
+          },
+          "start_offset_ns": 671586752,
+          "wall_ns": 10371994
+        },
+        {
+          "demand_enqueues": 5,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 637606,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 21237,
+            "dependency_or_host_gap": 1466015,
+            "gpu0_kernel": 637606,
+            "gpu1_kernel": 0,
+            "other_cuda": 19392,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 2144250,
+          "layer": 7,
+          "provider_critical_path": {
+            "issue_span_ns": 71986,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 21626793,
+            "pre_issue_ns": 1705618
+          },
+          "provider_ns": 23404397,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 3827969,
+            "expert_h2d_cuda": 3342036,
+            "h2d_scope": 3567273,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 6568540,
+            "storage": 13699800
+          },
+          "start_offset_ns": 681958746,
+          "wall_ns": 25548647
+        },
+        {
+          "demand_enqueues": 3,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 463620,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 19189,
+            "dependency_or_host_gap": 614348,
+            "gpu0_kernel": 463620,
+            "gpu1_kernel": 0,
+            "other_cuda": 3581,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 1100738,
+          "layer": 8,
+          "provider_critical_path": {
+            "issue_span_ns": 49473,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 12692449,
+            "pre_issue_ns": 1684368
+          },
+          "provider_ns": 14426290,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 2291361,
+            "expert_h2d_cuda": 2012397,
+            "h2d_scope": 2166847,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 3947971,
+            "storage": 7241478
+          },
+          "start_offset_ns": 707507393,
+          "wall_ns": 15527028
+        },
+        {
+          "demand_enqueues": 3,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 638213,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 19789,
+            "dependency_or_host_gap": 1506821,
+            "gpu0_kernel": 638213,
+            "gpu1_kernel": 0,
+            "other_cuda": 19022,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 2183845,
+          "layer": 9,
+          "provider_critical_path": {
+            "issue_span_ns": 50588,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 17472105,
+            "pre_issue_ns": 1536306
+          },
+          "provider_ns": 19058999,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 2307231,
+            "expert_h2d_cuda": 1999276,
+            "h2d_scope": 2155191,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 4010027,
+            "storage": 10744241
+          },
+          "start_offset_ns": 723034421,
+          "wall_ns": 21242844
+        },
+        {
+          "demand_enqueues": 5,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 464225,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 19956,
+            "dependency_or_host_gap": 680679,
+            "gpu0_kernel": 464225,
+            "gpu1_kernel": 0,
+            "other_cuda": 4096,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 1168956,
+          "layer": 10,
+          "provider_critical_path": {
+            "issue_span_ns": 75689,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 17620075,
+            "pre_issue_ns": 1611674
+          },
+          "provider_ns": 19307438,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 3822497,
+            "expert_h2d_cuda": 3331956,
+            "h2d_scope": 3559063,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 6741139,
+            "storage": 10736235
+          },
+          "start_offset_ns": 744277265,
+          "wall_ns": 20476394
+        },
+        {
+          "demand_enqueues": 1,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 635588,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 18822,
+            "dependency_or_host_gap": 1403519,
+            "gpu0_kernel": 635588,
+            "gpu1_kernel": 0,
+            "other_cuda": 18955,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 2076884,
+          "layer": 11,
+          "provider_critical_path": {
+            "issue_span_ns": 25672,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 2917281,
+            "pre_issue_ns": 1503461
+          },
+          "provider_ns": 4446414,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 772104,
+            "expert_h2d_cuda": 654884,
+            "h2d_scope": 700915,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 1397671,
+            "storage": 0
+          },
+          "start_offset_ns": 764753659,
+          "wall_ns": 6523298
+        },
+        {
+          "demand_enqueues": 1,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 464420,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 17856,
+            "dependency_or_host_gap": 602867,
+            "gpu0_kernel": 464420,
+            "gpu1_kernel": 0,
+            "other_cuda": 4224,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 1089367,
+          "layer": 12,
+          "provider_critical_path": {
+            "issue_span_ns": 23935,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 7602277,
+            "pre_issue_ns": 1574903
+          },
+          "provider_ns": 9201115,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 768140,
+            "expert_h2d_cuda": 666501,
+            "h2d_scope": 715281,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 1269691,
+            "storage": 3444815
+          },
+          "start_offset_ns": 771276957,
+          "wall_ns": 10290482
+        },
+        {
+          "demand_enqueues": 1,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 636068,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 19502,
+            "dependency_or_host_gap": 1442285,
+            "gpu0_kernel": 636068,
+            "gpu1_kernel": 0,
+            "other_cuda": 19089,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 2116944,
+          "layer": 13,
+          "provider_critical_path": {
+            "issue_span_ns": 23683,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 7874523,
+            "pre_issue_ns": 1442018
+          },
+          "provider_ns": 9340224,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 767235,
+            "expert_h2d_cuda": 666820,
+            "h2d_scope": 717121,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 1381334,
+            "storage": 3424415
+          },
+          "start_offset_ns": 781567439,
+          "wall_ns": 11457168
+        },
+        {
+          "demand_enqueues": 2,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 463330,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 18721,
+            "dependency_or_host_gap": 616180,
+            "gpu0_kernel": 463330,
+            "gpu1_kernel": 0,
+            "other_cuda": 4071,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 1102302,
+          "layer": 14,
+          "provider_critical_path": {
+            "issue_span_ns": 40572,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 7696863,
+            "pre_issue_ns": 1462245
+          },
+          "provider_ns": 9199680,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 1573300,
+            "expert_h2d_cuda": 1333225,
+            "h2d_scope": 1427951,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 2738693,
+            "storage": 3446882
+          },
+          "start_offset_ns": 793024607,
+          "wall_ns": 10301982
+        },
+        {
+          "demand_enqueues": 2,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 637634,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 18260,
+            "dependency_or_host_gap": 1324446,
+            "gpu0_kernel": 637634,
+            "gpu1_kernel": 0,
+            "other_cuda": 18953,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 1999293,
+          "layer": 15,
+          "provider_critical_path": {
+            "issue_span_ns": 71535,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 8024400,
+            "pre_issue_ns": 1479106
+          },
+          "provider_ns": 9575041,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 1568209,
+            "expert_h2d_cuda": 1351112,
+            "h2d_scope": 1444494,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 2767222,
+            "storage": 3602711
+          },
+          "start_offset_ns": 803326589,
+          "wall_ns": 11574334
+        },
+        {
+          "demand_enqueues": 1,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 463395,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 18117,
+            "dependency_or_host_gap": 576000,
+            "gpu0_kernel": 463395,
+            "gpu1_kernel": 0,
+            "other_cuda": 4060,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 1061572,
+          "layer": 16,
+          "provider_critical_path": {
+            "issue_span_ns": 22838,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 2810325,
+            "pre_issue_ns": 1591259
+          },
+          "provider_ns": 4424422,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 819899,
+            "expert_h2d_cuda": 653636,
+            "h2d_scope": 708944,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 1343962,
+            "storage": 0
+          },
+          "start_offset_ns": 814900923,
+          "wall_ns": 5485994
+        },
+        {
+          "demand_enqueues": 3,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 636611,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 18038,
+            "dependency_or_host_gap": 1463058,
+            "gpu0_kernel": 636611,
+            "gpu1_kernel": 0,
+            "other_cuda": 19040,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 2136747,
+          "layer": 17,
+          "provider_critical_path": {
+            "issue_span_ns": 48975,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 17031730,
+            "pre_issue_ns": 1628947
+          },
+          "provider_ns": 18709652,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 2364827,
+            "expert_h2d_cuda": 1995980,
+            "h2d_scope": 2134253,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 4074146,
+            "storage": 10045997
+          },
+          "start_offset_ns": 820386917,
+          "wall_ns": 20846399
+        },
+        {
+          "demand_enqueues": 2,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 463523,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 18670,
+            "dependency_or_host_gap": 649177,
+            "gpu0_kernel": 463523,
+            "gpu1_kernel": 0,
+            "other_cuda": 3747,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 1135117,
+          "layer": 18,
+          "provider_critical_path": {
+            "issue_span_ns": 37194,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 8249426,
+            "pre_issue_ns": 1486829
+          },
+          "provider_ns": 9773449,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 1555570,
+            "expert_h2d_cuda": 1331241,
+            "h2d_scope": 1436076,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 2764019,
+            "storage": 3758745
+          },
+          "start_offset_ns": 841233316,
+          "wall_ns": 10908566
+        },
+        {
+          "demand_enqueues": 5,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 636612,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 31390,
+            "dependency_or_host_gap": 1637032,
+            "gpu0_kernel": 636612,
+            "gpu1_kernel": 0,
+            "other_cuda": 19360,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 2324394,
+          "layer": 19,
+          "provider_critical_path": {
+            "issue_span_ns": 74503,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 26722651,
+            "pre_issue_ns": 1595808
+          },
+          "provider_ns": 28392962,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 3794780,
+            "expert_h2d_cuda": 3328788,
+            "h2d_scope": 3565875,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 6710790,
+            "storage": 17434009
+          },
+          "start_offset_ns": 852141882,
+          "wall_ns": 30717356
+        },
+        {
+          "demand_enqueues": 5,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 464036,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 20544,
+            "dependency_or_host_gap": 740535,
+            "gpu0_kernel": 464036,
+            "gpu1_kernel": 0,
+            "other_cuda": 4192,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 1229307,
+          "layer": 20,
+          "provider_critical_path": {
+            "issue_span_ns": 78131,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 17776278,
+            "pre_issue_ns": 1686506
+          },
+          "provider_ns": 19540915,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 3879802,
+            "expert_h2d_cuda": 3326165,
+            "h2d_scope": 3627174,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 6985346,
+            "storage": 10389612
+          },
+          "start_offset_ns": 882859238,
+          "wall_ns": 20770222
+        },
+        {
+          "demand_enqueues": 5,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 636453,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 18725,
+            "dependency_or_host_gap": 1460665,
+            "gpu0_kernel": 636453,
+            "gpu1_kernel": 0,
+            "other_cuda": 19390,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 2135233,
+          "layer": 21,
+          "provider_critical_path": {
+            "issue_span_ns": 76028,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 17683913,
+            "pre_issue_ns": 1890811
+          },
+          "provider_ns": 19650752,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 3826138,
+            "expert_h2d_cuda": 3331476,
+            "h2d_scope": 3575189,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 6753251,
+            "storage": 10621225
+          },
+          "start_offset_ns": 903629460,
+          "wall_ns": 21785985
+        },
+        {
+          "demand_enqueues": 2,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 463717,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 18503,
+            "dependency_or_host_gap": 593481,
+            "gpu0_kernel": 463717,
+            "gpu1_kernel": 0,
+            "other_cuda": 3654,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 1079355,
+          "layer": 22,
+          "provider_critical_path": {
+            "issue_span_ns": 38656,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 7944078,
+            "pre_issue_ns": 1528781
+          },
+          "provider_ns": 9511515,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 1543307,
+            "expert_h2d_cuda": 1332008,
+            "h2d_scope": 1424757,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 2774510,
+            "storage": 3686962
+          },
+          "start_offset_ns": 925415445,
+          "wall_ns": 10590870
+        },
+        {
+          "demand_enqueues": 5,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 636548,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 19410,
+            "dependency_or_host_gap": 1372684,
+            "gpu0_kernel": 636548,
+            "gpu1_kernel": 0,
+            "other_cuda": 19424,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 2048066,
+          "layer": 23,
+          "provider_critical_path": {
+            "issue_span_ns": 75665,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 14588955,
+            "pre_issue_ns": 1752061
+          },
+          "provider_ns": 16416681,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 3827337,
+            "expert_h2d_cuda": 3340725,
+            "h2d_scope": 3596073,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 6829752,
+            "storage": 7662233
+          },
+          "start_offset_ns": 936006315,
+          "wall_ns": 18464747
+        },
+        {
+          "demand_enqueues": 3,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 463779,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 18648,
+            "dependency_or_host_gap": 580221,
+            "gpu0_kernel": 463779,
+            "gpu1_kernel": 0,
+            "other_cuda": 3685,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 1066333,
+          "layer": 24,
+          "provider_critical_path": {
+            "issue_span_ns": 49115,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 8766008,
+            "pre_issue_ns": 1518958
+          },
+          "provider_ns": 10334081,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 2309108,
+            "expert_h2d_cuda": 1999148,
+            "h2d_scope": 2134621,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 4014399,
+            "storage": 3423364
+          },
+          "start_offset_ns": 954471062,
+          "wall_ns": 11400414
+        },
+        {
+          "demand_enqueues": 4,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 639012,
+          "gpu1_kernel_union_ns": 0,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 19885,
+            "dependency_or_host_gap": 1416011,
+            "gpu0_kernel": 639012,
+            "gpu1_kernel": 0,
+            "other_cuda": 18930,
+            "peer_activation_result_copy": 0
+          },
+          "graph_ns": 2093838,
+          "layer": 25,
+          "provider_critical_path": {
+            "issue_span_ns": 111061,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 17348203,
+            "pre_issue_ns": 1510507
+          },
+          "provider_ns": 18969771,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 3077859,
+            "expert_h2d_cuda": 2687567,
+            "h2d_scope": 2872203,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 5195526,
+            "storage": 10685570
+          },
+          "start_offset_ns": 965871476,
+          "wall_ns": 21063609
+        }
+      ],
+      "gpu": {
+        "gpu0_kernel_union_ns": 32274855,
+        "gpu1_kernel_union_ns": 0,
+        "simultaneous_gpu0_gpu1_kernel_overlap_ns": 0,
+        "synchronization_groups": [
+          {
+            "context_id": 1,
+            "max_ns": 838361,
+            "records": 213,
+            "stream_id": 4294967295,
+            "sync_type": 1,
+            "total_ns": 125738676
+          },
+          {
+            "context_id": 1,
+            "max_ns": 309148,
+            "records": 201,
+            "stream_id": 23,
+            "sync_type": 3,
+            "total_ns": 1139974
+          },
+          {
+            "context_id": 1,
+            "max_ns": 20560,
+            "records": 140,
+            "stream_id": 22,
+            "sync_type": 3,
+            "total_ns": 480993
+          },
+          {
+            "context_id": 1,
+            "max_ns": 26812,
+            "records": 213,
+            "stream_id": 23,
+            "sync_type": 2,
+            "total_ns": 471652
+          }
+        ]
+      },
+      "graph_wall": {
+        "max_ms": 4.285525,
+        "mean_ms": 1.7694035517241384,
+        "p50_ms": 1.999293,
+        "p95_ms": 3.082418
+      },
+      "layer_wall": {
+        "max_ms": 30.717356,
+        "mean_ms": 17.008728344827578,
+        "p50_ms": 16.408686,
+        "p95_ms": 24.722333
+      },
+      "provider_phase_diagnostics": {
+        "post_selector_to_first_issue_mean_ms": 0
+      },
+      "provider_service_unions_not_additive": {
+        "event_wait": 161987656,
+        "expert_h2d_cuda": 141216384,
+        "h2d_scope": 153049477,
+        "multi_device_hot_slot_candidate_build": 0,
+        "multi_device_hot_slot_feasibility_accounting": 0,
+        "multi_device_hot_slot_policy_admission": 0,
+        "multi_device_hot_slot_select": 0,
+        "multi_device_transport_epoch_snapshot": 0,
+        "policy_hash_state": 0,
+        "stage": 297972048,
+        "storage": 376271513
+      },
+      "provider_wall": {
+        "max_ms": 28.392962,
+        "mean_ms": 15.239324793103455,
+        "p50_ms": 14.261127,
+        "p95_ms": 22.935436
+      },
+      "trace": {
+        "path": "/dev/shm/phase13-iteration-11-mode-p-trace/A/trace.pftrace",
+        "sha256": "790a74a9e9f8ece55d38996a21fdb1b90e80a2b8d5c03adf18af142690e7f6db",
+        "size": 3915036
+      },
+      "window": {
+        "duration_ns": 1000875084,
+        "logical_end_ns": 67006400746705,
+        "logical_start_ns": 67005399871621
+      }
+    },
+    "B": {
+      "complete_routed_layer_cycles": 55,
+      "critical_path": {
+        "accounting_error_ns": 0,
+        "buckets_fraction": {
+          "cuda_synchronization": 0.08205145305112084,
+          "dependency_or_host_gap": 0.08056966745964683,
+          "gpu0_kernel": 0.032112123633889295,
+          "gpu1_kernel": 0.006806728233990959,
+          "issue_span_ns": 0.005924667210474408,
+          "no_miss_provider_ns": 4.089139724877743e-05,
+          "other_cuda": 0.0017052916178004745,
+          "peer_activation_result_copy": 0.0014049409099284884,
+          "post_issue_ns": 0.7765141540680223,
+          "pre_issue_ns": 0.012870082417877703
+        },
+        "buckets_ns": {
+          "cuda_synchronization": 80720300,
+          "dependency_or_host_gap": 79262554,
+          "gpu0_kernel": 31591156,
+          "gpu1_kernel": 6696300,
+          "issue_span_ns": 5828549,
+          "no_miss_provider_ns": 40228,
+          "other_cuda": 1677626,
+          "peer_activation_result_copy": 1382148,
+          "post_issue_ns": 763916459,
+          "pre_issue_ns": 12661286
+        },
+        "wall_ns": 983776606
+      },
+      "cycles": [
+        {
+          "demand_enqueues": 4,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 658470,
+          "gpu1_kernel_union_ns": 122657,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 1140007,
+            "dependency_or_host_gap": 1820691,
+            "gpu0_kernel": 658470,
+            "gpu1_kernel": 122657,
+            "other_cuda": 27773,
+            "peer_activation_result_copy": 24064
+          },
+          "graph_ns": 3793662,
+          "layer": 11,
+          "provider_critical_path": {
+            "issue_span_ns": 120491,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 15078598,
+            "pre_issue_ns": 331642
+          },
+          "provider_ns": 15530731,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 8889
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 68518,
+            "expert_h2d_cuda": 727152,
+            "h2d_scope": 1335026,
+            "multi_device_hot_slot_candidate_build": 97024,
+            "multi_device_hot_slot_feasibility_accounting": 17617,
+            "multi_device_hot_slot_policy_admission": 118315,
+            "multi_device_hot_slot_select": 268279,
+            "multi_device_transport_epoch_snapshot": 5773,
+            "policy_hash_state": 0,
+            "stage": 7847813,
+            "storage": 4252570
+          },
+          "start_offset_ns": 456183,
+          "wall_ns": 19324393
+        },
+        {
+          "demand_enqueues": 6,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 483906,
+          "gpu1_kernel_union_ns": 121921,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 2353250,
+            "dependency_or_host_gap": 1236380,
+            "gpu0_kernel": 483906,
+            "gpu1_kernel": 121921,
+            "other_cuda": 14657,
+            "peer_activation_result_copy": 23424
+          },
+          "graph_ns": 4233538,
+          "layer": 12,
+          "provider_critical_path": {
+            "issue_span_ns": 147819,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 12284773,
+            "pre_issue_ns": 341825
+          },
+          "provider_ns": 12774417,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 8553
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 68791,
+            "expert_h2d_cuda": 710084,
+            "h2d_scope": 568681,
+            "multi_device_hot_slot_candidate_build": 127640,
+            "multi_device_hot_slot_feasibility_accounting": 23557,
+            "multi_device_hot_slot_policy_admission": 149505,
+            "multi_device_hot_slot_select": 314339,
+            "multi_device_transport_epoch_snapshot": 5494,
+            "policy_hash_state": 0,
+            "stage": 11280651,
+            "storage": 0
+          },
+          "start_offset_ns": 19780576,
+          "wall_ns": 17007955
+        },
+        {
+          "demand_enqueues": 5,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 657701,
+          "gpu1_kernel_union_ns": 121793,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 1661812,
+            "dependency_or_host_gap": 1730510,
+            "gpu0_kernel": 657701,
+            "gpu1_kernel": 121793,
+            "other_cuda": 54688,
+            "peer_activation_result_copy": 23904
+          },
+          "graph_ns": 4250408,
+          "layer": 13,
+          "provider_critical_path": {
+            "issue_span_ns": 129232,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 17615736,
+            "pre_issue_ns": 299446
+          },
+          "provider_ns": 18044414,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 8460
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 70199,
+            "expert_h2d_cuda": 549690,
+            "h2d_scope": 471915,
+            "multi_device_hot_slot_candidate_build": 110394,
+            "multi_device_hot_slot_feasibility_accounting": 19997,
+            "multi_device_hot_slot_policy_admission": 123062,
+            "multi_device_hot_slot_select": 266050,
+            "multi_device_transport_epoch_snapshot": 59080,
+            "policy_hash_state": 0,
+            "stage": 9943609,
+            "storage": 4151370
+          },
+          "start_offset_ns": 36788531,
+          "wall_ns": 22294822
+        },
+        {
+          "demand_enqueues": 6,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 484867,
+          "gpu1_kernel_union_ns": 121729,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 2846852,
+            "dependency_or_host_gap": 923916,
+            "gpu0_kernel": 484867,
+            "gpu1_kernel": 121729,
+            "other_cuda": 48317,
+            "peer_activation_result_copy": 24001
+          },
+          "graph_ns": 4449682,
+          "layer": 14,
+          "provider_critical_path": {
+            "issue_span_ns": 203166,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 16573399,
+            "pre_issue_ns": 338721
+          },
+          "provider_ns": 17115286,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 9613
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 75721,
+            "expert_h2d_cuda": 717060,
+            "h2d_scope": 525943,
+            "multi_device_hot_slot_candidate_build": 127713,
+            "multi_device_hot_slot_feasibility_accounting": 23381,
+            "multi_device_hot_slot_policy_admission": 145370,
+            "multi_device_hot_slot_select": 309954,
+            "multi_device_transport_epoch_snapshot": 7784,
+            "policy_hash_state": 0,
+            "stage": 10710926,
+            "storage": 3507536
+          },
+          "start_offset_ns": 59083353,
+          "wall_ns": 21564968
+        },
+        {
+          "demand_enqueues": 6,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 658242,
+          "gpu1_kernel_union_ns": 121473,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 2357975,
+            "dependency_or_host_gap": 2035321,
+            "gpu0_kernel": 658242,
+            "gpu1_kernel": 121473,
+            "other_cuda": 30642,
+            "peer_activation_result_copy": 23296
+          },
+          "graph_ns": 5226949,
+          "layer": 15,
+          "provider_critical_path": {
+            "issue_span_ns": 192303,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 17450024,
+            "pre_issue_ns": 352341
+          },
+          "provider_ns": 17994668,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 9800
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 93581,
+            "expert_h2d_cuda": 713924,
+            "h2d_scope": 523349,
+            "multi_device_hot_slot_candidate_build": 128733,
+            "multi_device_hot_slot_feasibility_accounting": 24238,
+            "multi_device_hot_slot_policy_admission": 155165,
+            "multi_device_hot_slot_select": 322893,
+            "multi_device_transport_epoch_snapshot": 7938,
+            "policy_hash_state": 0,
+            "stage": 11678170,
+            "storage": 3529285
+          },
+          "start_offset_ns": 80648321,
+          "wall_ns": 23221617
+        },
+        {
+          "demand_enqueues": 6,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 483840,
+          "gpu1_kernel_union_ns": 121600,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 2285851,
+            "dependency_or_host_gap": 957737,
+            "gpu0_kernel": 483840,
+            "gpu1_kernel": 121600,
+            "other_cuda": 37939,
+            "peer_activation_result_copy": 24160
+          },
+          "graph_ns": 3911127,
+          "layer": 16,
+          "provider_critical_path": {
+            "issue_span_ns": 152584,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 17848514,
+            "pre_issue_ns": 380839
+          },
+          "provider_ns": 18381937,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 10178
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 81177,
+            "expert_h2d_cuda": 538276,
+            "h2d_scope": 518386,
+            "multi_device_hot_slot_candidate_build": 132137,
+            "multi_device_hot_slot_feasibility_accounting": 24134,
+            "multi_device_hot_slot_policy_admission": 142286,
+            "multi_device_hot_slot_select": 351173,
+            "multi_device_transport_epoch_snapshot": 6531,
+            "policy_hash_state": 0,
+            "stage": 11922498,
+            "storage": 3611021
+          },
+          "start_offset_ns": 103869938,
+          "wall_ns": 22293064
+        },
+        {
+          "demand_enqueues": 6,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 657060,
+          "gpu1_kernel_union_ns": 122144,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 2223842,
+            "dependency_or_host_gap": 1739805,
+            "gpu0_kernel": 657060,
+            "gpu1_kernel": 122144,
+            "other_cuda": 53912,
+            "peer_activation_result_copy": 23552
+          },
+          "graph_ns": 4820315,
+          "layer": 17,
+          "provider_critical_path": {
+            "issue_span_ns": 143101,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 17363631,
+            "pre_issue_ns": 409957
+          },
+          "provider_ns": 17916689,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 10028
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 78523,
+            "expert_h2d_cuda": 708900,
+            "h2d_scope": 622561,
+            "multi_device_hot_slot_candidate_build": 129766,
+            "multi_device_hot_slot_feasibility_accounting": 24512,
+            "multi_device_hot_slot_policy_admission": 167453,
+            "multi_device_hot_slot_select": 336883,
+            "multi_device_transport_epoch_snapshot": 6690,
+            "policy_hash_state": 0,
+            "stage": 11469432,
+            "storage": 3456881
+          },
+          "start_offset_ns": 126163002,
+          "wall_ns": 22737004
+        },
+        {
+          "demand_enqueues": 5,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 485026,
+          "gpu1_kernel_union_ns": 121793,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 2373605,
+            "dependency_or_host_gap": 1179931,
+            "gpu0_kernel": 485026,
+            "gpu1_kernel": 121793,
+            "other_cuda": 14783,
+            "peer_activation_result_copy": 26272
+          },
+          "graph_ns": 4201410,
+          "layer": 18,
+          "provider_critical_path": {
+            "issue_span_ns": 128539,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 15893929,
+            "pre_issue_ns": 294409
+          },
+          "provider_ns": 16316877,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 8445
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 66321,
+            "expert_h2d_cuda": 562131,
+            "h2d_scope": 444482,
+            "multi_device_hot_slot_candidate_build": 109444,
+            "multi_device_hot_slot_feasibility_accounting": 19977,
+            "multi_device_hot_slot_policy_admission": 118832,
+            "multi_device_hot_slot_select": 260162,
+            "multi_device_transport_epoch_snapshot": 6746,
+            "policy_hash_state": 0,
+            "stage": 8760350,
+            "storage": 3817319
+          },
+          "start_offset_ns": 148900006,
+          "wall_ns": 20518287
+        },
+        {
+          "demand_enqueues": 5,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 657540,
+          "gpu1_kernel_union_ns": 121729,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 1656411,
+            "dependency_or_host_gap": 1697995,
+            "gpu0_kernel": 657540,
+            "gpu1_kernel": 121729,
+            "other_cuda": 51888,
+            "peer_activation_result_copy": 23712
+          },
+          "graph_ns": 4209275,
+          "layer": 19,
+          "provider_critical_path": {
+            "issue_span_ns": 148247,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 21366840,
+            "pre_issue_ns": 320055
+          },
+          "provider_ns": 21835142,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 7317
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 69048,
+            "expert_h2d_cuda": 710052,
+            "h2d_scope": 520869,
+            "multi_device_hot_slot_candidate_build": 126886,
+            "multi_device_hot_slot_feasibility_accounting": 20309,
+            "multi_device_hot_slot_policy_admission": 127369,
+            "multi_device_hot_slot_select": 287141,
+            "multi_device_transport_epoch_snapshot": 7504,
+            "policy_hash_state": 0,
+            "stage": 9699994,
+            "storage": 7029426
+          },
+          "start_offset_ns": 169418293,
+          "wall_ns": 26044417
+        },
+        {
+          "demand_enqueues": 5,
+          "enqueue_target_devices": [
+            1
+          ],
+          "gpu0_kernel_union_ns": 484004,
+          "gpu1_kernel_union_ns": 123009,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 2773797,
+            "dependency_or_host_gap": 855781,
+            "gpu0_kernel": 484004,
+            "gpu1_kernel": 123009,
+            "other_cuda": 21998,
+            "peer_activation_result_copy": 23712
+          },
+          "graph_ns": 4282301,
+          "layer": 20,
+          "provider_critical_path": {
+            "issue_span_ns": 121804,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 16074354,
+            "pre_issue_ns": 326907
+          },
+          "provider_ns": 16523065,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 8327
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 49337,
+            "expert_h2d_cuda": 655717,
+            "h2d_scope": 544610,
+            "multi_device_hot_slot_candidate_build": 108939,
+            "multi_device_hot_slot_feasibility_accounting": 20952,
+            "multi_device_hot_slot_policy_admission": 134822,
+            "multi_device_hot_slot_select": 277128,
+            "multi_device_transport_epoch_snapshot": 6492,
+            "policy_hash_state": 0,
+            "stage": 8583368,
+            "storage": 4059245
+          },
+          "start_offset_ns": 195462710,
+          "wall_ns": 20805366
+        },
+        {
+          "demand_enqueues": 4,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 656132,
+          "gpu1_kernel_union_ns": 122497,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 1595479,
+            "dependency_or_host_gap": 1679829,
+            "gpu0_kernel": 656132,
+            "gpu1_kernel": 122497,
+            "other_cuda": 60540,
+            "peer_activation_result_copy": 23360
+          },
+          "graph_ns": 4137837,
+          "layer": 21,
+          "provider_critical_path": {
+            "issue_span_ns": 111993,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 14593851,
+            "pre_issue_ns": 266511
+          },
+          "provider_ns": 14972355,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 6476
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 66350,
+            "expert_h2d_cuda": 486011,
+            "h2d_scope": 404135,
+            "multi_device_hot_slot_candidate_build": 103288,
+            "multi_device_hot_slot_feasibility_accounting": 17087,
+            "multi_device_hot_slot_policy_admission": 100602,
+            "multi_device_hot_slot_select": 231772,
+            "multi_device_transport_epoch_snapshot": 5852,
+            "policy_hash_state": 0,
+            "stage": 7714487,
+            "storage": 3636045
+          },
+          "start_offset_ns": 216268076,
+          "wall_ns": 19110192
+        },
+        {
+          "demand_enqueues": 4,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 483745,
+          "gpu1_kernel_union_ns": 121986,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 1655041,
+            "dependency_or_host_gap": 883143,
+            "gpu0_kernel": 483745,
+            "gpu1_kernel": 121986,
+            "other_cuda": 46561,
+            "peer_activation_result_copy": 24064
+          },
+          "graph_ns": 3214540,
+          "layer": 22,
+          "provider_critical_path": {
+            "issue_span_ns": 106887,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 18613909,
+            "pre_issue_ns": 260365
+          },
+          "provider_ns": 18981161,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 6610
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 64172,
+            "expert_h2d_cuda": 487060,
+            "h2d_scope": 340000,
+            "multi_device_hot_slot_candidate_build": 105003,
+            "multi_device_hot_slot_feasibility_accounting": 16844,
+            "multi_device_hot_slot_policy_admission": 95998,
+            "multi_device_hot_slot_select": 227971,
+            "multi_device_transport_epoch_snapshot": 6365,
+            "policy_hash_state": 0,
+            "stage": 6926999,
+            "storage": 7443001
+          },
+          "start_offset_ns": 235378268,
+          "wall_ns": 22195701
+        },
+        {
+          "demand_enqueues": 4,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 656484,
+          "gpu1_kernel_union_ns": 121664,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 1775451,
+            "dependency_or_host_gap": 1955103,
+            "gpu0_kernel": 656484,
+            "gpu1_kernel": 121664,
+            "other_cuda": 30336,
+            "peer_activation_result_copy": 23648
+          },
+          "graph_ns": 4562686,
+          "layer": 23,
+          "provider_critical_path": {
+            "issue_span_ns": 99938,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 19542010,
+            "pre_issue_ns": 262249
+          },
+          "provider_ns": 19904197,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 5985
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 60036,
+            "expert_h2d_cuda": 426243,
+            "h2d_scope": 363844,
+            "multi_device_hot_slot_candidate_build": 101259,
+            "multi_device_hot_slot_feasibility_accounting": 16544,
+            "multi_device_hot_slot_policy_admission": 101180,
+            "multi_device_hot_slot_select": 229514,
+            "multi_device_transport_epoch_snapshot": 7171,
+            "policy_hash_state": 0,
+            "stage": 7641278,
+            "storage": 7439238
+          },
+          "start_offset_ns": 257573969,
+          "wall_ns": 24466883
+        },
+        {
+          "demand_enqueues": 4,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 483396,
+          "gpu1_kernel_union_ns": 122305,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 1642987,
+            "dependency_or_host_gap": 837803,
+            "gpu0_kernel": 483396,
+            "gpu1_kernel": 122305,
+            "other_cuda": 45379,
+            "peer_activation_result_copy": 23936
+          },
+          "graph_ns": 3155806,
+          "layer": 24,
+          "provider_critical_path": {
+            "issue_span_ns": 102073,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 18670700,
+            "pre_issue_ns": 286448
+          },
+          "provider_ns": 19059221,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 6250
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 60644,
+            "expert_h2d_cuda": 491527,
+            "h2d_scope": 372801,
+            "multi_device_hot_slot_candidate_build": 123588,
+            "multi_device_hot_slot_feasibility_accounting": 17050,
+            "multi_device_hot_slot_policy_admission": 103655,
+            "multi_device_hot_slot_select": 254820,
+            "multi_device_transport_epoch_snapshot": 6085,
+            "policy_hash_state": 0,
+            "stage": 7270743,
+            "storage": 7004486
+          },
+          "start_offset_ns": 282040852,
+          "wall_ns": 22215027
+        },
+        {
+          "demand_enqueues": 2,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 658245,
+          "gpu1_kernel_union_ns": 122274,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 610888,
+            "dependency_or_host_gap": 1771424,
+            "gpu0_kernel": 658245,
+            "gpu1_kernel": 122274,
+            "other_cuda": 29600,
+            "peer_activation_result_copy": 24256
+          },
+          "graph_ns": 3216687,
+          "layer": 25,
+          "provider_critical_path": {
+            "issue_span_ns": 124435,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 8686041,
+            "pre_issue_ns": 144345
+          },
+          "provider_ns": 8954821,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 5089
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 47637,
+            "expert_h2d_cuda": 256596,
+            "h2d_scope": 201890,
+            "multi_device_hot_slot_candidate_build": 45890,
+            "multi_device_hot_slot_feasibility_accounting": 8553,
+            "multi_device_hot_slot_policy_admission": 48856,
+            "multi_device_hot_slot_select": 108937,
+            "multi_device_transport_epoch_snapshot": 3966,
+            "policy_hash_state": 0,
+            "stage": 3225641,
+            "storage": 3697584
+          },
+          "start_offset_ns": 304255879,
+          "wall_ns": 12171508
+        },
+        {
+          "demand_enqueues": 2,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 488034,
+          "gpu1_kernel_union_ns": 120672,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 845640,
+            "dependency_or_host_gap": 1009227,
+            "gpu0_kernel": 488034,
+            "gpu1_kernel": 120672,
+            "other_cuda": 14208,
+            "peer_activation_result_copy": 23520
+          },
+          "graph_ns": 2501301,
+          "layer": 26,
+          "provider_critical_path": {
+            "issue_span_ns": 107153,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 10474365,
+            "pre_issue_ns": 153984
+          },
+          "provider_ns": 10735502,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 2708
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 47367,
+            "expert_h2d_cuda": 320515,
+            "h2d_scope": 207762,
+            "multi_device_hot_slot_candidate_build": 42204,
+            "multi_device_hot_slot_feasibility_accounting": 9328,
+            "multi_device_hot_slot_policy_admission": 66125,
+            "multi_device_hot_slot_select": 124184,
+            "multi_device_transport_epoch_snapshot": 3062,
+            "policy_hash_state": 0,
+            "stage": 4250104,
+            "storage": 4573294
+          },
+          "start_offset_ns": 316427387,
+          "wall_ns": 13236803
+        },
+        {
+          "demand_enqueues": 4,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 656548,
+          "gpu1_kernel_union_ns": 121600,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 1225212,
+            "dependency_or_host_gap": 1827688,
+            "gpu0_kernel": 656548,
+            "gpu1_kernel": 121600,
+            "other_cuda": 29143,
+            "peer_activation_result_copy": 25600
+          },
+          "graph_ns": 3885791,
+          "layer": 27,
+          "provider_critical_path": {
+            "issue_span_ns": 108528,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 13623964,
+            "pre_issue_ns": 296024
+          },
+          "provider_ns": 14028516,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 6503
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 57371,
+            "expert_h2d_cuda": 504822,
+            "h2d_scope": 345111,
+            "multi_device_hot_slot_candidate_build": 84927,
+            "multi_device_hot_slot_feasibility_accounting": 17788,
+            "multi_device_hot_slot_policy_admission": 114057,
+            "multi_device_hot_slot_select": 265441,
+            "multi_device_transport_epoch_snapshot": 5713,
+            "policy_hash_state": 0,
+            "stage": 6876864,
+            "storage": 3664349
+          },
+          "start_offset_ns": 329664190,
+          "wall_ns": 17914307
+        },
+        {
+          "demand_enqueues": 1,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 483907,
+          "gpu1_kernel_union_ns": 121921,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 561333,
+            "dependency_or_host_gap": 978594,
+            "gpu0_kernel": 483907,
+            "gpu1_kernel": 121921,
+            "other_cuda": 14913,
+            "peer_activation_result_copy": 24128
+          },
+          "graph_ns": 2184796,
+          "layer": 28,
+          "provider_critical_path": {
+            "issue_span_ns": 43229,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 1835385,
+            "pre_issue_ns": 92331
+          },
+          "provider_ns": 1970945,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 2445
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 27074,
+            "expert_h2d_cuda": 207553,
+            "h2d_scope": 173091,
+            "multi_device_hot_slot_candidate_build": 25483,
+            "multi_device_hot_slot_feasibility_accounting": 4433,
+            "multi_device_hot_slot_policy_admission": 24733,
+            "multi_device_hot_slot_select": 58245,
+            "multi_device_transport_epoch_snapshot": 1106,
+            "policy_hash_state": 0,
+            "stage": 1598031,
+            "storage": 0
+          },
+          "start_offset_ns": 347578497,
+          "wall_ns": 4155741
+        },
+        {
+          "demand_enqueues": 2,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 656966,
+          "gpu1_kernel_union_ns": 121728,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 1201806,
+            "dependency_or_host_gap": 1742072,
+            "gpu0_kernel": 656966,
+            "gpu1_kernel": 121728,
+            "other_cuda": 29883,
+            "peer_activation_result_copy": 23520
+          },
+          "graph_ns": 3775975,
+          "layer": 29,
+          "provider_critical_path": {
+            "issue_span_ns": 66518,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 8473577,
+            "pre_issue_ns": 149110
+          },
+          "provider_ns": 8689205,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 3352
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 31183,
+            "expert_h2d_cuda": 206913,
+            "h2d_scope": 208570,
+            "multi_device_hot_slot_candidate_build": 56091,
+            "multi_device_hot_slot_feasibility_accounting": 8128,
+            "multi_device_hot_slot_policy_admission": 49151,
+            "multi_device_hot_slot_select": 119302,
+            "multi_device_transport_epoch_snapshot": 4010,
+            "policy_hash_state": 0,
+            "stage": 2876172,
+            "storage": 3890934
+          },
+          "start_offset_ns": 351734238,
+          "wall_ns": 12465180
+        },
+        {
+          "demand_enqueues": 4,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 483427,
+          "gpu1_kernel_union_ns": 122209,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 1635595,
+            "dependency_or_host_gap": 858878,
+            "gpu0_kernel": 483427,
+            "gpu1_kernel": 122209,
+            "other_cuda": 61435,
+            "peer_activation_result_copy": 25057
+          },
+          "graph_ns": 3186601,
+          "layer": 30,
+          "provider_critical_path": {
+            "issue_span_ns": 128619,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 14694843,
+            "pre_issue_ns": 233672
+          },
+          "provider_ns": 15057134,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 4853
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 65551,
+            "expert_h2d_cuda": 492477,
+            "h2d_scope": 352448,
+            "multi_device_hot_slot_candidate_build": 81305,
+            "multi_device_hot_slot_feasibility_accounting": 16313,
+            "multi_device_hot_slot_policy_admission": 99152,
+            "multi_device_hot_slot_select": 205974,
+            "multi_device_transport_epoch_snapshot": 5873,
+            "policy_hash_state": 0,
+            "stage": 7667354,
+            "storage": 3898542
+          },
+          "start_offset_ns": 364199418,
+          "wall_ns": 18243735
+        },
+        {
+          "demand_enqueues": 3,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 656680,
+          "gpu1_kernel_union_ns": 121793,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 1848423,
+            "dependency_or_host_gap": 1874145,
+            "gpu0_kernel": 656680,
+            "gpu1_kernel": 121793,
+            "other_cuda": 29857,
+            "peer_activation_result_copy": 25152
+          },
+          "graph_ns": 4556050,
+          "layer": 31,
+          "provider_critical_path": {
+            "issue_span_ns": 121610,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 12295034,
+            "pre_issue_ns": 256694
+          },
+          "provider_ns": 12673338,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 4862
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 33110,
+            "expert_h2d_cuda": 206913,
+            "h2d_scope": 271780,
+            "multi_device_hot_slot_candidate_build": 129556,
+            "multi_device_hot_slot_feasibility_accounting": 12762,
+            "multi_device_hot_slot_policy_admission": 73986,
+            "multi_device_hot_slot_select": 225012,
+            "multi_device_transport_epoch_snapshot": 5542,
+            "policy_hash_state": 0,
+            "stage": 5390600,
+            "storage": 3902836
+          },
+          "start_offset_ns": 382443153,
+          "wall_ns": 17229388
+        },
+        {
+          "demand_enqueues": 2,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 483489,
+          "gpu1_kernel_union_ns": 122113,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 595041,
+            "dependency_or_host_gap": 981225,
+            "gpu0_kernel": 483489,
+            "gpu1_kernel": 122113,
+            "other_cuda": 14304,
+            "peer_activation_result_copy": 25824
+          },
+          "graph_ns": 2221996,
+          "layer": 32,
+          "provider_critical_path": {
+            "issue_span_ns": 56924,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 8615834,
+            "pre_issue_ns": 155231
+          },
+          "provider_ns": 8827989,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 2743
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 50565,
+            "expert_h2d_cuda": 251004,
+            "h2d_scope": 238019,
+            "multi_device_hot_slot_candidate_build": 55642,
+            "multi_device_hot_slot_feasibility_accounting": 8757,
+            "multi_device_hot_slot_policy_admission": 53376,
+            "multi_device_hot_slot_select": 123689,
+            "multi_device_transport_epoch_snapshot": 2996,
+            "policy_hash_state": 0,
+            "stage": 3522413,
+            "storage": 3400719
+          },
+          "start_offset_ns": 399672541,
+          "wall_ns": 11049985
+        },
+        {
+          "demand_enqueues": 4,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 657253,
+          "gpu1_kernel_union_ns": 122176,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 1177007,
+            "dependency_or_host_gap": 1859296,
+            "gpu0_kernel": 657253,
+            "gpu1_kernel": 122176,
+            "other_cuda": 29568,
+            "peer_activation_result_copy": 23584
+          },
+          "graph_ns": 3868884,
+          "layer": 33,
+          "provider_critical_path": {
+            "issue_span_ns": 110877,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 17909043,
+            "pre_issue_ns": 246222
+          },
+          "provider_ns": 18266142,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 4583
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 60274,
+            "expert_h2d_cuda": 498356,
+            "h2d_scope": 393238,
+            "multi_device_hot_slot_candidate_build": 95748,
+            "multi_device_hot_slot_feasibility_accounting": 16189,
+            "multi_device_hot_slot_policy_admission": 96429,
+            "multi_device_hot_slot_select": 218040,
+            "multi_device_transport_epoch_snapshot": 18673,
+            "policy_hash_state": 0,
+            "stage": 6630607,
+            "storage": 6931617
+          },
+          "start_offset_ns": 410722526,
+          "wall_ns": 22135026
+        },
+        {
+          "demand_enqueues": 2,
+          "enqueue_target_devices": [
+            1
+          ],
+          "gpu0_kernel_union_ns": 484547,
+          "gpu1_kernel_union_ns": 122049,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 991423,
+            "dependency_or_host_gap": 785869,
+            "gpu0_kernel": 484547,
+            "gpu1_kernel": 122049,
+            "other_cuda": 8784,
+            "peer_activation_result_copy": 23392
+          },
+          "graph_ns": 2416064,
+          "layer": 34,
+          "provider_critical_path": {
+            "issue_span_ns": 65576,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 8503545,
+            "pre_issue_ns": 138583
+          },
+          "provider_ns": 8707704,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 3346
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 77431,
+            "expert_h2d_cuda": 394371,
+            "h2d_scope": 268992,
+            "multi_device_hot_slot_candidate_build": 43310,
+            "multi_device_hot_slot_feasibility_accounting": 8775,
+            "multi_device_hot_slot_policy_admission": 48769,
+            "multi_device_hot_slot_select": 106718,
+            "multi_device_transport_epoch_snapshot": 2981,
+            "policy_hash_state": 0,
+            "stage": 3270898,
+            "storage": 3510247
+          },
+          "start_offset_ns": 432857552,
+          "wall_ns": 11123768
+        },
+        {
+          "demand_enqueues": 5,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 657797,
+          "gpu1_kernel_union_ns": 121985,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 1740391,
+            "dependency_or_host_gap": 1962664,
+            "gpu0_kernel": 657797,
+            "gpu1_kernel": 121985,
+            "other_cuda": 29931,
+            "peer_activation_result_copy": 25920
+          },
+          "graph_ns": 4538688,
+          "layer": 35,
+          "provider_critical_path": {
+            "issue_span_ns": 128146,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 15808294,
+            "pre_issue_ns": 285232
+          },
+          "provider_ns": 16221672,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 5572
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 67685,
+            "expert_h2d_cuda": 537367,
+            "h2d_scope": 457389,
+            "multi_device_hot_slot_candidate_build": 101485,
+            "multi_device_hot_slot_feasibility_accounting": 19626,
+            "multi_device_hot_slot_policy_admission": 126433,
+            "multi_device_hot_slot_select": 258798,
+            "multi_device_transport_epoch_snapshot": 40941,
+            "policy_hash_state": 0,
+            "stage": 8680351,
+            "storage": 3868242
+          },
+          "start_offset_ns": 443981320,
+          "wall_ns": 20760360
+        },
+        {
+          "demand_enqueues": 3,
+          "enqueue_target_devices": [
+            1
+          ],
+          "gpu0_kernel_union_ns": 483138,
+          "gpu1_kernel_union_ns": 121794,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 1677278,
+            "dependency_or_host_gap": 806780,
+            "gpu0_kernel": 483138,
+            "gpu1_kernel": 121794,
+            "other_cuda": 8449,
+            "peer_activation_result_copy": 24224
+          },
+          "graph_ns": 3121663,
+          "layer": 36,
+          "provider_critical_path": {
+            "issue_span_ns": 88313,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 11248983,
+            "pre_issue_ns": 210445
+          },
+          "provider_ns": 11547741,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 5534
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 38057,
+            "expert_h2d_cuda": 395107,
+            "h2d_scope": 252828,
+            "multi_device_hot_slot_candidate_build": 68815,
+            "multi_device_hot_slot_feasibility_accounting": 12610,
+            "multi_device_hot_slot_policy_admission": 72209,
+            "multi_device_hot_slot_select": 161772,
+            "multi_device_transport_epoch_snapshot": 48490,
+            "policy_hash_state": 0,
+            "stage": 5848862,
+            "storage": 3537103
+          },
+          "start_offset_ns": 464741680,
+          "wall_ns": 14669404
+        },
+        {
+          "demand_enqueues": 4,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 655875,
+          "gpu1_kernel_union_ns": 121953,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 1584187,
+            "dependency_or_host_gap": 1620914,
+            "gpu0_kernel": 655875,
+            "gpu1_kernel": 121953,
+            "other_cuda": 75673,
+            "peer_activation_result_copy": 24224
+          },
+          "graph_ns": 4082826,
+          "layer": 37,
+          "provider_critical_path": {
+            "issue_span_ns": 125652,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 12248338,
+            "pre_issue_ns": 255032
+          },
+          "provider_ns": 12629022,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 4932
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 62713,
+            "expert_h2d_cuda": 500409,
+            "h2d_scope": 414802,
+            "multi_device_hot_slot_candidate_build": 82471,
+            "multi_device_hot_slot_feasibility_accounting": 16980,
+            "multi_device_hot_slot_policy_admission": 116715,
+            "multi_device_hot_slot_select": 225920,
+            "multi_device_transport_epoch_snapshot": 5332,
+            "policy_hash_state": 0,
+            "stage": 6649243,
+            "storage": 3525676
+          },
+          "start_offset_ns": 479411084,
+          "wall_ns": 16711848
+        },
+        {
+          "demand_enqueues": 1,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 483616,
+          "gpu1_kernel_union_ns": 121825,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 625022,
+            "dependency_or_host_gap": 998852,
+            "gpu0_kernel": 483616,
+            "gpu1_kernel": 121825,
+            "other_cuda": 26390,
+            "peer_activation_result_copy": 25536
+          },
+          "graph_ns": 2281241,
+          "layer": 38,
+          "provider_critical_path": {
+            "issue_span_ns": 42845,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 6423312,
+            "pre_issue_ns": 94527
+          },
+          "provider_ns": 6560684,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 3354
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 26646,
+            "expert_h2d_cuda": 207426,
+            "h2d_scope": 116895,
+            "multi_device_hot_slot_candidate_build": 26576,
+            "multi_device_hot_slot_feasibility_accounting": 4420,
+            "multi_device_hot_slot_policy_admission": 25477,
+            "multi_device_hot_slot_select": 60288,
+            "multi_device_transport_epoch_snapshot": 2281,
+            "policy_hash_state": 0,
+            "stage": 1357046,
+            "storage": 3464818
+          },
+          "start_offset_ns": 496122932,
+          "wall_ns": 8841925
+        },
+        {
+          "demand_enqueues": 4,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 656290,
+          "gpu1_kernel_union_ns": 121666,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 1640324,
+            "dependency_or_host_gap": 1665892,
+            "gpu0_kernel": 656290,
+            "gpu1_kernel": 121666,
+            "other_cuda": 56351,
+            "peer_activation_result_copy": 24352
+          },
+          "graph_ns": 4164875,
+          "layer": 39,
+          "provider_critical_path": {
+            "issue_span_ns": 143833,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 18542438,
+            "pre_issue_ns": 241823
+          },
+          "provider_ns": 18928094,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 4874
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 76457,
+            "expert_h2d_cuda": 503612,
+            "h2d_scope": 376742,
+            "multi_device_hot_slot_candidate_build": 81385,
+            "multi_device_hot_slot_feasibility_accounting": 16400,
+            "multi_device_hot_slot_policy_admission": 106940,
+            "multi_device_hot_slot_select": 214168,
+            "multi_device_transport_epoch_snapshot": 6041,
+            "policy_hash_state": 0,
+            "stage": 7156738,
+            "storage": 7050282
+          },
+          "start_offset_ns": 504964857,
+          "wall_ns": 23092969
+        },
+        {
+          "demand_enqueues": 3,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 484198,
+          "gpu1_kernel_union_ns": 121568,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 1857725,
+            "dependency_or_host_gap": 1067442,
+            "gpu0_kernel": 484198,
+            "gpu1_kernel": 121568,
+            "other_cuda": 14432,
+            "peer_activation_result_copy": 25696
+          },
+          "graph_ns": 3571061,
+          "layer": 40,
+          "provider_critical_path": {
+            "issue_span_ns": 78986,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 10912353,
+            "pre_issue_ns": 192720
+          },
+          "provider_ns": 11184059,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 5256
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 35256,
+            "expert_h2d_cuda": 207105,
+            "h2d_scope": 219776,
+            "multi_device_hot_slot_candidate_build": 65955,
+            "multi_device_hot_slot_feasibility_accounting": 12079,
+            "multi_device_hot_slot_policy_admission": 75923,
+            "multi_device_hot_slot_select": 161588,
+            "multi_device_transport_epoch_snapshot": 4016,
+            "policy_hash_state": 0,
+            "stage": 5375250,
+            "storage": 3688880
+          },
+          "start_offset_ns": 528057826,
+          "wall_ns": 14755120
+        },
+        {
+          "demand_enqueues": 3,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 656995,
+          "gpu1_kernel_union_ns": 121282,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 1206155,
+            "dependency_or_host_gap": 2897225,
+            "gpu0_kernel": 656995,
+            "gpu1_kernel": 121282,
+            "other_cuda": 29600,
+            "peer_activation_result_copy": 25792
+          },
+          "graph_ns": 4937049,
+          "layer": 41,
+          "provider_critical_path": {
+            "issue_span_ns": 79926,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 12023654,
+            "pre_issue_ns": 227151
+          },
+          "provider_ns": 12330731,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 3488
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 53566,
+            "expert_h2d_cuda": 281501,
+            "h2d_scope": 265038,
+            "multi_device_hot_slot_candidate_build": 62637,
+            "multi_device_hot_slot_feasibility_accounting": 12447,
+            "multi_device_hot_slot_policy_admission": 76033,
+            "multi_device_hot_slot_select": 158838,
+            "multi_device_transport_epoch_snapshot": 4704,
+            "policy_hash_state": 0,
+            "stage": 5425367,
+            "storage": 3627715
+          },
+          "start_offset_ns": 542812946,
+          "wall_ns": 17267780
+        },
+        {
+          "demand_enqueues": 2,
+          "enqueue_target_devices": [
+            1
+          ],
+          "gpu0_kernel_union_ns": 798404,
+          "gpu1_kernel_union_ns": 114720,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 1345076,
+            "dependency_or_host_gap": 4009271,
+            "gpu0_kernel": 798404,
+            "gpu1_kernel": 114720,
+            "other_cuda": 10884,
+            "peer_activation_result_copy": 67616
+          },
+          "graph_ns": 6345971,
+          "layer": 42,
+          "provider_critical_path": {
+            "issue_span_ns": 186869,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 10011506,
+            "pre_issue_ns": 141680
+          },
+          "provider_ns": 10340055,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 5042
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 34880,
+            "expert_h2d_cuda": 197537,
+            "h2d_scope": 200724,
+            "multi_device_hot_slot_candidate_build": 44524,
+            "multi_device_hot_slot_feasibility_accounting": 8959,
+            "multi_device_hot_slot_policy_admission": 48375,
+            "multi_device_hot_slot_select": 107539,
+            "multi_device_transport_epoch_snapshot": 3160,
+            "policy_hash_state": 0,
+            "stage": 4183414,
+            "storage": 4029603
+          },
+          "start_offset_ns": 560080726,
+          "wall_ns": 16686026
+        },
+        {
+          "demand_enqueues": 5,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 450370,
+          "gpu1_kernel_union_ns": 121857,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 1718259,
+            "dependency_or_host_gap": 1118634,
+            "gpu0_kernel": 450370,
+            "gpu1_kernel": 121857,
+            "other_cuda": 14787,
+            "peer_activation_result_copy": 23456
+          },
+          "graph_ns": 3447363,
+          "layer": 0,
+          "provider_critical_path": {
+            "issue_span_ns": 162699,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 26868045,
+            "pre_issue_ns": 285430
+          },
+          "provider_ns": 27316174,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 6228
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 70747,
+            "expert_h2d_cuda": 553716,
+            "h2d_scope": 480736,
+            "multi_device_hot_slot_candidate_build": 102351,
+            "multi_device_hot_slot_feasibility_accounting": 19771,
+            "multi_device_hot_slot_policy_admission": 117959,
+            "multi_device_hot_slot_select": 251028,
+            "multi_device_transport_epoch_snapshot": 9792,
+            "policy_hash_state": 0,
+            "stage": 9302099,
+            "storage": 10633710
+          },
+          "start_offset_ns": 576766752,
+          "wall_ns": 30763537
+        },
+        {
+          "demand_enqueues": 6,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 647364,
+          "gpu1_kernel_union_ns": 121857,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 3117273,
+            "dependency_or_host_gap": 2148336,
+            "gpu0_kernel": 647364,
+            "gpu1_kernel": 121857,
+            "other_cuda": 36096,
+            "peer_activation_result_copy": 31392
+          },
+          "graph_ns": 6102318,
+          "layer": 1,
+          "provider_critical_path": {
+            "issue_span_ns": 141398,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 23179729,
+            "pre_issue_ns": 361069
+          },
+          "provider_ns": 23682196,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 8415
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 70744,
+            "expert_h2d_cuda": 589266,
+            "h2d_scope": 466803,
+            "multi_device_hot_slot_candidate_build": 129727,
+            "multi_device_hot_slot_feasibility_accounting": 23341,
+            "multi_device_hot_slot_policy_admission": 150716,
+            "multi_device_hot_slot_select": 318667,
+            "multi_device_transport_epoch_snapshot": 49366,
+            "policy_hash_state": 0,
+            "stage": 11534044,
+            "storage": 7094099
+          },
+          "start_offset_ns": 607530289,
+          "wall_ns": 29784514
+        },
+        {
+          "demand_enqueues": 5,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 504450,
+          "gpu1_kernel_union_ns": 121824,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 1676589,
+            "dependency_or_host_gap": 919780,
+            "gpu0_kernel": 504450,
+            "gpu1_kernel": 121824,
+            "other_cuda": 41343,
+            "peer_activation_result_copy": 23681
+          },
+          "graph_ns": 3287667,
+          "layer": 2,
+          "provider_critical_path": {
+            "issue_span_ns": 124615,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 22194632,
+            "pre_issue_ns": 319067
+          },
+          "provider_ns": 22638314,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 7895
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 82662,
+            "expert_h2d_cuda": 518833,
+            "h2d_scope": 435508,
+            "multi_device_hot_slot_candidate_build": 110069,
+            "multi_device_hot_slot_feasibility_accounting": 21680,
+            "multi_device_hot_slot_policy_admission": 140613,
+            "multi_device_hot_slot_select": 285087,
+            "multi_device_transport_epoch_snapshot": 8963,
+            "policy_hash_state": 0,
+            "stage": 9300214,
+            "storage": 7083549
+          },
+          "start_offset_ns": 637314803,
+          "wall_ns": 25925981
+        },
+        {
+          "demand_enqueues": 2,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 656482,
+          "gpu1_kernel_union_ns": 121634,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 1224096,
+            "dependency_or_host_gap": 1815174,
+            "gpu0_kernel": 656482,
+            "gpu1_kernel": 121634,
+            "other_cuda": 29806,
+            "peer_activation_result_copy": 26208
+          },
+          "graph_ns": 3873400,
+          "layer": 3,
+          "provider_critical_path": {
+            "issue_span_ns": 80011,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 8996216,
+            "pre_issue_ns": 199055
+          },
+          "provider_ns": 9275282,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 4790
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 33222,
+            "expert_h2d_cuda": 207489,
+            "h2d_scope": 187456,
+            "multi_device_hot_slot_candidate_build": 97785,
+            "multi_device_hot_slot_feasibility_accounting": 8549,
+            "multi_device_hot_slot_policy_admission": 49510,
+            "multi_device_hot_slot_select": 162678,
+            "multi_device_transport_epoch_snapshot": 4145,
+            "policy_hash_state": 0,
+            "stage": 3673594,
+            "storage": 3595562
+          },
+          "start_offset_ns": 663240784,
+          "wall_ns": 13148682
+        },
+        {
+          "demand_enqueues": 1,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 483779,
+          "gpu1_kernel_union_ns": 122273,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 617804,
+            "dependency_or_host_gap": 1010787,
+            "gpu0_kernel": 483779,
+            "gpu1_kernel": 122273,
+            "other_cuda": 17189,
+            "peer_activation_result_copy": 23072
+          },
+          "graph_ns": 2274904,
+          "layer": 4,
+          "provider_critical_path": {
+            "issue_span_ns": 93254,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 6361181,
+            "pre_issue_ns": 88356
+          },
+          "provider_ns": 6542791,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 2029
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 26498,
+            "expert_h2d_cuda": 206433,
+            "h2d_scope": 121435,
+            "multi_device_hot_slot_candidate_build": 22185,
+            "multi_device_hot_slot_feasibility_accounting": 4451,
+            "multi_device_hot_slot_policy_admission": 25038,
+            "multi_device_hot_slot_select": 55141,
+            "multi_device_transport_epoch_snapshot": 2200,
+            "policy_hash_state": 0,
+            "stage": 1359724,
+            "storage": 3402090
+          },
+          "start_offset_ns": 676389466,
+          "wall_ns": 8817695
+        },
+        {
+          "demand_enqueues": 3,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 656834,
+          "gpu1_kernel_union_ns": 121697,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 1851407,
+            "dependency_or_host_gap": 1845236,
+            "gpu0_kernel": 656834,
+            "gpu1_kernel": 121697,
+            "other_cuda": 29186,
+            "peer_activation_result_copy": 24992
+          },
+          "graph_ns": 4529352,
+          "layer": 5,
+          "provider_critical_path": {
+            "issue_span_ns": 78628,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 11347260,
+            "pre_issue_ns": 180892
+          },
+          "provider_ns": 11606780,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 4177
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 34398,
+            "expert_h2d_cuda": 207458,
+            "h2d_scope": 230950,
+            "multi_device_hot_slot_candidate_build": 61248,
+            "multi_device_hot_slot_feasibility_accounting": 11878,
+            "multi_device_hot_slot_policy_admission": 71780,
+            "multi_device_hot_slot_select": 151994,
+            "multi_device_transport_epoch_snapshot": 4837,
+            "policy_hash_state": 0,
+            "stage": 4758328,
+            "storage": 3625798
+          },
+          "start_offset_ns": 685207161,
+          "wall_ns": 16136132
+        },
+        {
+          "demand_enqueues": 1,
+          "enqueue_target_devices": [
+            1
+          ],
+          "gpu0_kernel_union_ns": 484325,
+          "gpu1_kernel_union_ns": 121953,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 442434,
+            "dependency_or_host_gap": 763134,
+            "gpu0_kernel": 484325,
+            "gpu1_kernel": 121953,
+            "other_cuda": 27397,
+            "peer_activation_result_copy": 23232
+          },
+          "graph_ns": 1862475,
+          "layer": 6,
+          "provider_critical_path": {
+            "issue_span_ns": 54535,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 7235245,
+            "pre_issue_ns": 130699
+          },
+          "provider_ns": 7420479,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 2534
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 30399,
+            "expert_h2d_cuda": 197154,
+            "h2d_scope": 131852,
+            "multi_device_hot_slot_candidate_build": 21692,
+            "multi_device_hot_slot_feasibility_accounting": 4917,
+            "multi_device_hot_slot_policy_admission": 24836,
+            "multi_device_hot_slot_select": 54981,
+            "multi_device_transport_epoch_snapshot": 3054,
+            "policy_hash_state": 0,
+            "stage": 2027784,
+            "storage": 3545337
+          },
+          "start_offset_ns": 701343293,
+          "wall_ns": 9282954
+        },
+        {
+          "demand_enqueues": 5,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 657891,
+          "gpu1_kernel_union_ns": 121952,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 1778909,
+            "dependency_or_host_gap": 1940463,
+            "gpu0_kernel": 657891,
+            "gpu1_kernel": 121952,
+            "other_cuda": 30496,
+            "peer_activation_result_copy": 23680
+          },
+          "graph_ns": 4553391,
+          "layer": 7,
+          "provider_critical_path": {
+            "issue_span_ns": 171442,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 21512155,
+            "pre_issue_ns": 299216
+          },
+          "provider_ns": 21982813,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 5837
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 87677,
+            "expert_h2d_cuda": 531649,
+            "h2d_scope": 427179,
+            "multi_device_hot_slot_candidate_build": 116223,
+            "multi_device_hot_slot_feasibility_accounting": 20540,
+            "multi_device_hot_slot_policy_admission": 122954,
+            "multi_device_hot_slot_select": 271946,
+            "multi_device_transport_epoch_snapshot": 7960,
+            "policy_hash_state": 0,
+            "stage": 8768007,
+            "storage": 7088766
+          },
+          "start_offset_ns": 710626247,
+          "wall_ns": 26536204
+        },
+        {
+          "demand_enqueues": 3,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 483427,
+          "gpu1_kernel_union_ns": 121696,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 1202779,
+            "dependency_or_host_gap": 1089154,
+            "gpu0_kernel": 483427,
+            "gpu1_kernel": 121696,
+            "other_cuda": 15200,
+            "peer_activation_result_copy": 23392
+          },
+          "graph_ns": 2935648,
+          "layer": 8,
+          "provider_critical_path": {
+            "issue_span_ns": 103932,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 12483740,
+            "pre_issue_ns": 248688
+          },
+          "provider_ns": 12836360,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 5324
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 52890,
+            "expert_h2d_cuda": 274130,
+            "h2d_scope": 278323,
+            "multi_device_hot_slot_candidate_build": 67920,
+            "multi_device_hot_slot_feasibility_accounting": 12289,
+            "multi_device_hot_slot_policy_admission": 76543,
+            "multi_device_hot_slot_select": 164437,
+            "multi_device_transport_epoch_snapshot": 4651,
+            "policy_hash_state": 0,
+            "stage": 5658316,
+            "storage": 3795306
+          },
+          "start_offset_ns": 737162451,
+          "wall_ns": 15772008
+        },
+        {
+          "demand_enqueues": 3,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 657316,
+          "gpu1_kernel_union_ns": 121857,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 982571,
+            "dependency_or_host_gap": 1623218,
+            "gpu0_kernel": 657316,
+            "gpu1_kernel": 121857,
+            "other_cuda": 61763,
+            "peer_activation_result_copy": 24256
+          },
+          "graph_ns": 3470981,
+          "layer": 9,
+          "provider_critical_path": {
+            "issue_span_ns": 77618,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 16297063,
+            "pre_issue_ns": 188590
+          },
+          "provider_ns": 16563271,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 3174
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 56726,
+            "expert_h2d_cuda": 468809,
+            "h2d_scope": 335004,
+            "multi_device_hot_slot_candidate_build": 62461,
+            "multi_device_hot_slot_feasibility_accounting": 12320,
+            "multi_device_hot_slot_policy_admission": 75982,
+            "multi_device_hot_slot_select": 158355,
+            "multi_device_transport_epoch_snapshot": 5458,
+            "policy_hash_state": 0,
+            "stage": 4762712,
+            "storage": 7239443
+          },
+          "start_offset_ns": 752934459,
+          "wall_ns": 20034252
+        },
+        {
+          "demand_enqueues": 5,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 484515,
+          "gpu1_kernel_union_ns": 121920,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 2169081,
+            "dependency_or_host_gap": 874028,
+            "gpu0_kernel": 484515,
+            "gpu1_kernel": 121920,
+            "other_cuda": 47106,
+            "peer_activation_result_copy": 23424
+          },
+          "graph_ns": 3720074,
+          "layer": 10,
+          "provider_critical_path": {
+            "issue_span_ns": 121246,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 20194769,
+            "pre_issue_ns": 296953
+          },
+          "provider_ns": 20612968,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 5723
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 139921,
+            "expert_h2d_cuda": 479780,
+            "h2d_scope": 493856,
+            "multi_device_hot_slot_candidate_build": 102890,
+            "multi_device_hot_slot_feasibility_accounting": 20322,
+            "multi_device_hot_slot_policy_admission": 134315,
+            "multi_device_hot_slot_select": 268827,
+            "multi_device_transport_epoch_snapshot": 8245,
+            "policy_hash_state": 0,
+            "stage": 8517985,
+            "storage": 7165671
+          },
+          "start_offset_ns": 772968711,
+          "wall_ns": 24333042
+        },
+        {
+          "demand_enqueues": 1,
+          "enqueue_target_devices": [
+            1
+          ],
+          "gpu0_kernel_union_ns": 658339,
+          "gpu1_kernel_union_ns": 122112,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 461734,
+            "dependency_or_host_gap": 1548109,
+            "gpu0_kernel": 658339,
+            "gpu1_kernel": 122112,
+            "other_cuda": 24320,
+            "peer_activation_result_copy": 23456
+          },
+          "graph_ns": 2838070,
+          "layer": 11,
+          "provider_critical_path": {
+            "issue_span_ns": 34641,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 6846360,
+            "pre_issue_ns": 99692
+          },
+          "provider_ns": 6980693,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 3243
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 27834,
+            "expert_h2d_cuda": 197314,
+            "h2d_scope": 128712,
+            "multi_device_hot_slot_candidate_build": 25467,
+            "multi_device_hot_slot_feasibility_accounting": 5229,
+            "multi_device_hot_slot_policy_admission": 29156,
+            "multi_device_hot_slot_select": 63774,
+            "multi_device_transport_epoch_snapshot": 2213,
+            "policy_hash_state": 0,
+            "stage": 1816831,
+            "storage": 3440692
+          },
+          "start_offset_ns": 797301753,
+          "wall_ns": 9818763
+        },
+        {
+          "demand_enqueues": 1,
+          "enqueue_target_devices": [
+            1
+          ],
+          "gpu0_kernel_union_ns": 483458,
+          "gpu1_kernel_union_ns": 121665,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 473374,
+            "dependency_or_host_gap": 769151,
+            "gpu0_kernel": 483458,
+            "gpu1_kernel": 121665,
+            "other_cuda": 8672,
+            "peer_activation_result_copy": 22656
+          },
+          "graph_ns": 1878976,
+          "layer": 12,
+          "provider_critical_path": {
+            "issue_span_ns": 37050,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 6356171,
+            "pre_issue_ns": 129377
+          },
+          "provider_ns": 6522598,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 2750
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 26884,
+            "expert_h2d_cuda": 197185,
+            "h2d_scope": 131651,
+            "multi_device_hot_slot_candidate_build": 21527,
+            "multi_device_hot_slot_feasibility_accounting": 5231,
+            "multi_device_hot_slot_policy_admission": 28823,
+            "multi_device_hot_slot_select": 58982,
+            "multi_device_transport_epoch_snapshot": 2988,
+            "policy_hash_state": 0,
+            "stage": 1374260,
+            "storage": 3370217
+          },
+          "start_offset_ns": 807120516,
+          "wall_ns": 8401574
+        },
+        {
+          "demand_enqueues": 1,
+          "enqueue_target_devices": [
+            1
+          ],
+          "gpu0_kernel_union_ns": 657157,
+          "gpu1_kernel_union_ns": 121825,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 482397,
+            "dependency_or_host_gap": 1505907,
+            "gpu0_kernel": 657157,
+            "gpu1_kernel": 121825,
+            "other_cuda": 23936,
+            "peer_activation_result_copy": 22752
+          },
+          "graph_ns": 2813974,
+          "layer": 13,
+          "provider_critical_path": {
+            "issue_span_ns": 34952,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 6387280,
+            "pre_issue_ns": 88723
+          },
+          "provider_ns": 6510955,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 2446
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 27407,
+            "expert_h2d_cuda": 197217,
+            "h2d_scope": 134735,
+            "multi_device_hot_slot_candidate_build": 21467,
+            "multi_device_hot_slot_feasibility_accounting": 4784,
+            "multi_device_hot_slot_policy_admission": 28627,
+            "multi_device_hot_slot_select": 58056,
+            "multi_device_transport_epoch_snapshot": 2367,
+            "policy_hash_state": 0,
+            "stage": 1326672,
+            "storage": 3430510
+          },
+          "start_offset_ns": 815522090,
+          "wall_ns": 9324929
+        },
+        {
+          "demand_enqueues": 2,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 484037,
+          "gpu1_kernel_union_ns": 121345,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 1252741,
+            "dependency_or_host_gap": 1008297,
+            "gpu0_kernel": 484037,
+            "gpu1_kernel": 121345,
+            "other_cuda": 15136,
+            "peer_activation_result_copy": 23680
+          },
+          "graph_ns": 2905236,
+          "layer": 14,
+          "provider_critical_path": {
+            "issue_span_ns": 56955,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 9107282,
+            "pre_issue_ns": 133511
+          },
+          "provider_ns": 9297748,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 3159
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 31551,
+            "expert_h2d_cuda": 207522,
+            "h2d_scope": 160266,
+            "multi_device_hot_slot_candidate_build": 41523,
+            "multi_device_hot_slot_feasibility_accounting": 8199,
+            "multi_device_hot_slot_policy_admission": 48537,
+            "multi_device_hot_slot_select": 103520,
+            "multi_device_transport_epoch_snapshot": 3995,
+            "policy_hash_state": 0,
+            "stage": 4007780,
+            "storage": 3438937
+          },
+          "start_offset_ns": 824847019,
+          "wall_ns": 12202984
+        },
+        {
+          "demand_enqueues": 3,
+          "enqueue_target_devices": [
+            0
+          ],
+          "gpu0_kernel_union_ns": 657989,
+          "gpu1_kernel_union_ns": 121409,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 1863116,
+            "dependency_or_host_gap": 1782203,
+            "gpu0_kernel": 657989,
+            "gpu1_kernel": 121409,
+            "other_cuda": 29436,
+            "peer_activation_result_copy": 25856
+          },
+          "graph_ns": 4480009,
+          "layer": 15,
+          "provider_critical_path": {
+            "issue_span_ns": 78983,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 11379269,
+            "pre_issue_ns": 182081
+          },
+          "provider_ns": 11640333,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 3828
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 34086,
+            "expert_h2d_cuda": 207329,
+            "h2d_scope": 228457,
+            "multi_device_hot_slot_candidate_build": 61809,
+            "multi_device_hot_slot_feasibility_accounting": 11925,
+            "multi_device_hot_slot_policy_admission": 71767,
+            "multi_device_hot_slot_select": 152752,
+            "multi_device_transport_epoch_snapshot": 4830,
+            "policy_hash_state": 0,
+            "stage": 4678885,
+            "storage": 3767317
+          },
+          "start_offset_ns": 837050003,
+          "wall_ns": 16120342
+        },
+        {
+          "demand_enqueues": 0,
+          "enqueue_target_devices": [],
+          "gpu0_kernel_union_ns": 483970,
+          "gpu1_kernel_union_ns": 121889,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 60232,
+            "dependency_or_host_gap": 886352,
+            "gpu0_kernel": 483970,
+            "gpu1_kernel": 121889,
+            "other_cuda": 13965,
+            "peer_activation_result_copy": 25152
+          },
+          "graph_ns": 1591560,
+          "layer": 16,
+          "provider_critical_path": {
+            "issue_span_ns": 0,
+            "no_miss_provider_ns": 40228,
+            "post_issue_ns": 0,
+            "pre_issue_ns": 0
+          },
+          "provider_ns": 40228,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 0
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 0,
+            "expert_h2d_cuda": 0,
+            "h2d_scope": 0,
+            "multi_device_hot_slot_candidate_build": 0,
+            "multi_device_hot_slot_feasibility_accounting": 0,
+            "multi_device_hot_slot_policy_admission": 0,
+            "multi_device_hot_slot_select": 0,
+            "multi_device_transport_epoch_snapshot": 0,
+            "policy_hash_state": 0,
+            "stage": 0,
+            "storage": 0
+          },
+          "start_offset_ns": 853170345,
+          "wall_ns": 1631788
+        },
+        {
+          "demand_enqueues": 3,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 656704,
+          "gpu1_kernel_union_ns": 122081,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 1226791,
+            "dependency_or_host_gap": 1783893,
+            "gpu0_kernel": 656704,
+            "gpu1_kernel": 122081,
+            "other_cuda": 29728,
+            "peer_activation_result_copy": 24416
+          },
+          "graph_ns": 3843613,
+          "layer": 17,
+          "provider_critical_path": {
+            "issue_span_ns": 81009,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 16064849,
+            "pre_issue_ns": 224095
+          },
+          "provider_ns": 16369953,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 3369
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 55407,
+            "expert_h2d_cuda": 275575,
+            "h2d_scope": 261193,
+            "multi_device_hot_slot_candidate_build": 62051,
+            "multi_device_hot_slot_feasibility_accounting": 12672,
+            "multi_device_hot_slot_policy_admission": 72117,
+            "multi_device_hot_slot_select": 154691,
+            "multi_device_transport_epoch_snapshot": 5735,
+            "policy_hash_state": 0,
+            "stage": 5040674,
+            "storage": 6827444
+          },
+          "start_offset_ns": 854802133,
+          "wall_ns": 20213566
+        },
+        {
+          "demand_enqueues": 2,
+          "enqueue_target_devices": [
+            1
+          ],
+          "gpu0_kernel_union_ns": 483491,
+          "gpu1_kernel_union_ns": 122080,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 1066372,
+            "dependency_or_host_gap": 784597,
+            "gpu0_kernel": 483491,
+            "gpu1_kernel": 122080,
+            "other_cuda": 8384,
+            "peer_activation_result_copy": 22848
+          },
+          "graph_ns": 2487772,
+          "layer": 18,
+          "provider_critical_path": {
+            "issue_span_ns": 58835,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 9043692,
+            "pre_issue_ns": 136754
+          },
+          "provider_ns": 9239281,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 3497
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 33930,
+            "expert_h2d_cuda": 197345,
+            "h2d_scope": 194162,
+            "multi_device_hot_slot_candidate_build": 43483,
+            "multi_device_hot_slot_feasibility_accounting": 8766,
+            "multi_device_hot_slot_policy_admission": 48580,
+            "multi_device_hot_slot_select": 106199,
+            "multi_device_transport_epoch_snapshot": 3186,
+            "policy_hash_state": 0,
+            "stage": 3376604,
+            "storage": 3873121
+          },
+          "start_offset_ns": 875015699,
+          "wall_ns": 11727053
+        },
+        {
+          "demand_enqueues": 5,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 657861,
+          "gpu1_kernel_union_ns": 121473,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 1746315,
+            "dependency_or_host_gap": 1913974,
+            "gpu0_kernel": 657861,
+            "gpu1_kernel": 121473,
+            "other_cuda": 30112,
+            "peer_activation_result_copy": 24096
+          },
+          "graph_ns": 4493831,
+          "layer": 19,
+          "provider_critical_path": {
+            "issue_span_ns": 165421,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 26035232,
+            "pre_issue_ns": 294146
+          },
+          "provider_ns": 26494799,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 5966
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 68277,
+            "expert_h2d_cuda": 532519,
+            "h2d_scope": 442189,
+            "multi_device_hot_slot_candidate_build": 115639,
+            "multi_device_hot_slot_feasibility_accounting": 19944,
+            "multi_device_hot_slot_policy_admission": 119356,
+            "multi_device_hot_slot_select": 266068,
+            "multi_device_transport_epoch_snapshot": 9421,
+            "policy_hash_state": 0,
+            "stage": 8539158,
+            "storage": 10641026
+          },
+          "start_offset_ns": 886742752,
+          "wall_ns": 30988630
+        },
+        {
+          "demand_enqueues": 5,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 483490,
+          "gpu1_kernel_union_ns": 122368,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 2236994,
+            "dependency_or_host_gap": 914161,
+            "gpu0_kernel": 483490,
+            "gpu1_kernel": 122368,
+            "other_cuda": 47006,
+            "peer_activation_result_copy": 24545
+          },
+          "graph_ns": 3828564,
+          "layer": 20,
+          "provider_critical_path": {
+            "issue_span_ns": 121086,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 22547384,
+            "pre_issue_ns": 307578
+          },
+          "provider_ns": 22976048,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 7775
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 69528,
+            "expert_h2d_cuda": 497285,
+            "h2d_scope": 445268,
+            "multi_device_hot_slot_candidate_build": 120232,
+            "multi_device_hot_slot_feasibility_accounting": 20773,
+            "multi_device_hot_slot_policy_admission": 122973,
+            "multi_device_hot_slot_select": 275945,
+            "multi_device_transport_epoch_snapshot": 8347,
+            "policy_hash_state": 0,
+            "stage": 9633257,
+            "storage": 7148492
+          },
+          "start_offset_ns": 917731382,
+          "wall_ns": 26804612
+        },
+        {
+          "demand_enqueues": 5,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 656962,
+          "gpu1_kernel_union_ns": 121984,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 1746973,
+            "dependency_or_host_gap": 1977770,
+            "gpu0_kernel": 656962,
+            "gpu1_kernel": 121984,
+            "other_cuda": 29792,
+            "peer_activation_result_copy": 23840
+          },
+          "graph_ns": 4557321,
+          "layer": 21,
+          "provider_critical_path": {
+            "issue_span_ns": 121784,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 22832650,
+            "pre_issue_ns": 313879
+          },
+          "provider_ns": 23268313,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 8204
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 68218,
+            "expert_h2d_cuda": 569219,
+            "h2d_scope": 452680,
+            "multi_device_hot_slot_candidate_build": 107112,
+            "multi_device_hot_slot_feasibility_accounting": 21309,
+            "multi_device_hot_slot_policy_admission": 138424,
+            "multi_device_hot_slot_select": 279534,
+            "multi_device_transport_epoch_snapshot": 8933,
+            "policy_hash_state": 0,
+            "stage": 9589576,
+            "storage": 7380507
+          },
+          "start_offset_ns": 944535994,
+          "wall_ns": 27825634
+        },
+        {
+          "demand_enqueues": 2,
+          "enqueue_target_devices": [
+            0,
+            1
+          ],
+          "gpu0_kernel_union_ns": 485123,
+          "gpu1_kernel_union_ns": 121921,
+          "gpu_kernel_overlap_ns": 0,
+          "graph_exclusive_ns": {
+            "cuda_synchronization": 611173,
+            "dependency_or_host_gap": 988793,
+            "gpu0_kernel": 485123,
+            "gpu1_kernel": 121921,
+            "other_cuda": 13952,
+            "peer_activation_result_copy": 25568
+          },
+          "graph_ns": 2246530,
+          "layer": 22,
+          "provider_critical_path": {
+            "issue_span_ns": 112239,
+            "no_miss_provider_ns": 0,
+            "post_issue_ns": 9345478,
+            "pre_issue_ns": 166914
+          },
+          "provider_ns": 9624631,
+          "provider_phase_diagnostics": {
+            "post_selector_to_first_issue_ns": 4686
+          },
+          "provider_service_unions_ns": {
+            "event_wait": 48077,
+            "expert_h2d_cuda": 260689,
+            "h2d_scope": 209947,
+            "multi_device_hot_slot_candidate_build": 47588,
+            "multi_device_hot_slot_feasibility_accounting": 10007,
+            "multi_device_hot_slot_policy_admission": 66423,
+            "multi_device_hot_slot_select": 130566,
+            "multi_device_transport_epoch_snapshot": 3939,
+            "policy_hash_state": 0,
+            "stage": 3859172,
+            "storage": 3697799
+          },
+          "start_offset_ns": 972361628,
+          "wall_ns": 11871161
+        }
+      ],
+      "gpu": {
+        "gpu0_kernel_union_ns": 31591156,
+        "gpu1_kernel_union_ns": 6696300,
+        "simultaneous_gpu0_gpu1_kernel_overlap_ns": 0,
+        "synchronization_groups": [
+          {
+            "context_id": 2,
+            "max_ns": 831582,
+            "records": 153,
+            "stream_id": 4294967295,
+            "sync_type": 1,
+            "total_ns": 58123619
+          },
+          {
+            "context_id": 1,
+            "max_ns": 812517,
+            "records": 147,
+            "stream_id": 4294967295,
+            "sync_type": 1,
+            "total_ns": 51825848
+          },
+          {
+            "context_id": 1,
+            "max_ns": 2973368,
+            "records": 302,
+            "stream_id": 24,
+            "sync_type": 3,
+            "total_ns": 51133363
+          },
+          {
+            "context_id": 1,
+            "max_ns": 2416913,
+            "records": 57,
+            "stream_id": 25,
+            "sync_type": 3,
+            "total_ns": 21242504
+          },
+          {
+            "context_id": 2,
+            "max_ns": 23655,
+            "records": 220,
+            "stream_id": 25,
+            "sync_type": 3,
+            "total_ns": 521679
+          },
+          {
+            "context_id": 1,
+            "max_ns": 18578,
+            "records": 147,
+            "stream_id": 24,
+            "sync_type": 2,
+            "total_ns": 444448
+          },
+          {
+            "context_id": 1,
+            "max_ns": 11057,
+            "records": 134,
+            "stream_id": 22,
+            "sync_type": 3,
+            "total_ns": 418500
+          },
+          {
+            "context_id": 2,
+            "max_ns": 18855,
+            "records": 55,
+            "stream_id": 25,
+            "sync_type": 2,
+            "total_ns": 256313
+          },
+          {
+            "context_id": 2,
+            "max_ns": 3314,
+            "records": 55,
+            "stream_id": 23,
+            "sync_type": 3,
+            "total_ns": 156715
+          },
+          {
+            "context_id": 2,
+            "max_ns": 3097,
+            "records": 55,
+            "stream_id": 24,
+            "sync_type": 3,
+            "total_ns": 138713
+          },
+          {
+            "context_id": 1,
+            "max_ns": 4434,
+            "records": 98,
+            "stream_id": 25,
+            "sync_type": 2,
+            "total_ns": 103126
+          }
+        ]
+      },
+      "graph_wall": {
+        "max_ms": 6.345971,
+        "mean_ms": 3.6605469818181806,
+        "p50_ms": 3.828564,
+        "p95_ms": 4.937049
+      },
+      "layer_wall": {
+        "max_ms": 30.98863,
+        "mean_ms": 17.886847381818182,
+        "p50_ms": 17.914307,
+        "p95_ms": 27.825634
+      },
+      "provider_phase_diagnostics": {
+        "post_selector_to_first_issue_mean_ms": 0.005427563636363637
+      },
+      "provider_service_unions_not_additive": {
+        "event_wait": 3042324,
+        "expert_h2d_cuda": 22227327,
+        "h2d_scope": 18900059,
+        "multi_device_hot_slot_candidate_build": 4388267,
+        "multi_device_hot_slot_feasibility_accounting": 789643,
+        "multi_device_hot_slot_policy_admission": 4871382,
+        "multi_device_hot_slot_select": 10635760,
+        "multi_device_transport_epoch_snapshot": 479017,
+        "policy_hash_state": 0,
+        "stage": 344340949,
+        "storage": 254485257
+      },
+      "provider_wall": {
+        "max_ms": 27.316174,
+        "mean_ms": 14.226300399999998,
+        "p50_ms": 14.028516,
+        "p95_ms": 23.268313
+      },
+      "trace": {
+        "path": "/dev/shm/phase13-iteration-11-mode-p-trace/B/trace.pftrace",
+        "sha256": "ef655e1b15c11ab7e5b75330dc4fbe93ccb2958377feddf6c938ecdb07d056a0",
+        "size": 3980057
+      },
+      "window": {
+        "duration_ns": 1000868121,
+        "logical_end_ns": 67060799382793,
+        "logical_start_ns": 67059798514672
+      }
+    }
+  },
+  "comparison": {
+    "mean_critical_path_bucket_delta_ms_B_minus_A": {
+      "cuda_synchronization": 1.445039369905956,
+      "dependency_or_host_gap": 0.26325534545454543,
+      "gpu0_kernel": 0.017921637304075144,
+      "gpu1_kernel": 0.12175090909090909,
+      "issue_span_ns": 0.027257118181818182,
+      "no_miss_provider_ns": 0.0007314181818181818,
+      "other_cuda": 0.018938894357366773,
+      "peer_activation_result_copy": 0.02423727398119122,
+      "post_issue_ns": 0.41849374984325927,
+      "pre_issue_ns": -1.4595066793103446
+    },
+    "mean_layer_wall_delta_ms_B_minus_A": 0.8781190369906042,
+    "mean_provider_service_delta_ms_B_minus_A": {
+      "event_wait": -2.737575638871473,
+      "expert_h2d_cuda": -2.030632023197492,
+      "h2d_scope": -2.29514664984326,
+      "multi_device_hot_slot_candidate_build": 0.07978667272727273,
+      "multi_device_hot_slot_feasibility_accounting": 0.014357145454545455,
+      "multi_device_hot_slot_policy_admission": 0.08857058181818182,
+      "multi_device_hot_slot_select": 0.19337745454545455,
+      "multi_device_transport_epoch_snapshot": 0.008709399999999999,
+      "policy_hash_state": 0,
+      "stage": 1.1232954238244517,
+      "storage": -1.8604352065830732
+    },
+    "observed_layer_rate_ratio_B_over_A": 0.9509069978489779
+  },
+  "expert_runtime_mode": "PRODUCTION_PERFORMANCE",
+  "iteration": 11,
+  "iteration_result": {
+    "before_after_trace": {
+      "B_issue_span_delta_percent": -3.176137979280591,
+      "B_mean_layer_wall_delta_percent": -10.822122916157683,
+      "B_post_issue_delta_percent": -10.235087151821599,
+      "B_pre_issue_delta_percent": -1.6973268425997001,
+      "previous_iteration": 9
+    },
+    "code_change_identity": "6f7f87822b7bfdbf5d271d367a5e3d1b730ef6ca",
+    "decision": "retain",
+    "quick_screen": {
+      "identity": {
+        "criterion": "PRODUCTION_GENERATED_OUTPUT",
+        "exact_across_all_processes": true,
+        "generated_tokens_per_process": 24,
+        "logits_fnv64_exact_across_all_processes": false,
+        "processes": 2,
+        "route_records_per_process": 0,
+        "sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b"
+      },
+      "scaling": {
+        "bootstrap_resamples": 100000,
+        "classification": "SCALING_NEGATIVE",
+        "dual_gpu_tps": 1.367420388784965,
+        "efficiency": 0.48866075560559125,
+        "paired_bootstrap_95_percent_interval": [
+          0.9773215112111825,
+          0.9773215112111825
+        ],
+        "paired_process_speedups": [
+          0.9773215112111825
+        ],
+        "single_gpu_tps": 1.399151019494432,
+        "speedup": 0.9773215112111825
+      },
+      "status": "pass"
+    },
+    "rationale": "Retain: bounded positional-read concurrency preserves Mode-C exactness and lifecycle, improves Tier-1 B by over 20%, and the adjacent Tier-2 pair keeps A within 3% while improving B over 16%."
+  },
+  "model_fixture": "DeepSeek-V4-Flash-UD-Q2_K_XL@85ce4196ab6e82852e25dfec2b7e2beaae56f5f1",
+  "next_hypothesis": {
+    "single_primary_hypothesis": "Stage already-reserved cold bundles concurrently across the two independent per-device transfer rings, preserving per-device lane order and canonical graph merge order.",
+    "predicted_tps_change": "B Mode-P decode TPS +3% or better; A within 3%",
+    "predicted_trace_change": "B stage service -25% or better and B provider wall -8% or better",
+    "falsifier": "Revert if B TPS improves less than 3%, stage/provider targets miss, or any Mode-C exactness, transfer generation, cancellation, lifecycle, or bounded-resource gate regresses."
+  },
+  "no_progress": {
+    "consecutive_falsified_hypotheses": 0,
+    "action": "continue_with_cross_device_stage_overlap"
+  },
+  "ranked_bottlenecks": [
+    {
+      "B_minus_A_cuda_synchronization_ms_per_layer": 1.445039369905956,
+      "B_minus_A_graph_wall_ms_per_layer": 1.8911434300940422,
+      "B_simultaneous_gpu_kernel_overlap_ns": 0,
+      "B_synchronization_groups": [
+        {
+          "context_id": 2,
+          "max_ns": 831582,
+          "records": 153,
+          "stream_id": 4294967295,
+          "sync_type": 1,
+          "total_ns": 58123619
+        },
+        {
+          "context_id": 1,
+          "max_ns": 812517,
+          "records": 147,
+          "stream_id": 4294967295,
+          "sync_type": 1,
+          "total_ns": 51825848
+        },
+        {
+          "context_id": 1,
+          "max_ns": 2973368,
+          "records": 302,
+          "stream_id": 24,
+          "sync_type": 3,
+          "total_ns": 51133363
+        },
+        {
+          "context_id": 1,
+          "max_ns": 2416913,
+          "records": 57,
+          "stream_id": 25,
+          "sync_type": 3,
+          "total_ns": 21242504
+        },
+        {
+          "context_id": 2,
+          "max_ns": 23655,
+          "records": 220,
+          "stream_id": 25,
+          "sync_type": 3,
+          "total_ns": 521679
+        },
+        {
+          "context_id": 1,
+          "max_ns": 18578,
+          "records": 147,
+          "stream_id": 24,
+          "sync_type": 2,
+          "total_ns": 444448
+        },
+        {
+          "context_id": 1,
+          "max_ns": 11057,
+          "records": 134,
+          "stream_id": 22,
+          "sync_type": 3,
+          "total_ns": 418500
+        },
+        {
+          "context_id": 2,
+          "max_ns": 18855,
+          "records": 55,
+          "stream_id": 25,
+          "sync_type": 2,
+          "total_ns": 256313
+        },
+        {
+          "context_id": 2,
+          "max_ns": 3314,
+          "records": 55,
+          "stream_id": 23,
+          "sync_type": 3,
+          "total_ns": 156715
+        },
+        {
+          "context_id": 2,
+          "max_ns": 3097,
+          "records": 55,
+          "stream_id": 24,
+          "sync_type": 3,
+          "total_ns": 138713
+        },
+        {
+          "context_id": 1,
+          "max_ns": 4434,
+          "records": 98,
+          "stream_id": 25,
+          "sync_type": 2,
+          "total_ns": 103126
+        }
+      ],
+      "evidence": "B graph wall exceeds A by 1.891 ms/layer and CUDA synchronization accounts for 1.445 ms/layer (164.56% of the complete B-minus-A wall). CUPTI records dominant event/stream synchronizations while source inspection identifies the allow-inactive MUL_MAT_ID D2H ID read plus stream synchronize before each device branch fast path.",
+      "mechanism": "serialized_inactive_id_host_roundtrip",
+      "rank": 1,
+      "target_bucket": "cuda_synchronization"
+    },
+    {
+      "evidence": "B graph wall is 3.661 ms/layer versus A 1.769 ms/layer, with zero simultaneous GPU0/GPU1 kernel overlap.",
+      "mechanism": "serialized_remote_branch_graph",
+      "rank": 2,
+      "target_bucket": "graph_wall"
+    },
+    {
+      "evidence": "Mode-P provider walls are A 15.239 and B 14.226 ms/layer; the B-minus-A provider delta is only -1.013 ms.",
+      "mechanism": "remaining_provider_runtime",
+      "rank": 3,
+      "target_bucket": "provider_runtime"
+    }
+  ],
+  "revisions": {
+    "nested_head": "6f7f87822b7bfdbf5d271d367a5e3d1b730ef6ca",
+    "project_head": "560eef0e71f60cb4697863bf1430c53a6fe5543d"
+  },
+  "root_cause_conclusion": {
+    "status": "OBSERVED",
+    "dominant": "serialized_storage_confirmed_remaining_stage_and_graph_serialization",
+    "implementation_induced": true,
+    "structural_limit_proven": false,
+    "rationale": "Iteration 11 confirms forced-positional single-worker serialization: B storage service falls 25.67%, provider wall 10.06%, and retained B throughput improves materially. B provider is now 1.013 ms/layer faster than A, while graph wall remains 1.891 ms/layer slower and per-device staging remains serialized at about 6.261 ms/layer. No structural stop is established."
+  },
+  "schema_version": "phase13-iteration-trace-analysis-v1",
+  "status": "pass",
+  "structural_limit": null,
+  "trace_profile": {
+    "query_identity": {
+      "path": "/root/k3-out-of-core/scripts/phase13/analyze_iteration_trace.py",
+      "sha256": "95213d12983b520e2db2d149d39301d4eacf4508d0fabfd0a7e8fb0fc12767b0",
+      "size": 55214
+    },
+    "request_ordinal": 15,
+    "requested_window_ms": 1000,
+    "routed_layer": 11,
+    "selection_seed": 61
+  }
+}

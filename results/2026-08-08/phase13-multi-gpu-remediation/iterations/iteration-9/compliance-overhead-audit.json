@@ -1,0 +1,120 @@
+{
+  "schema_version": "phase13-compliance-overhead-audit-v1",
+  "status": "OBSERVED",
+  "controlling_amendment": 5226377041,
+  "candidate": {
+    "project_base": "0ed86c2f1f2fb175f8a67917961831f5c91f71f8",
+    "nested": "67ab784bdb93aa9e43a9a48a14eb7ebc8bcd1b98"
+  },
+  "safe_default": "COMPLIANCE",
+  "production_mode": "PRODUCTION_PERFORMANCE",
+  "items": [
+    {
+      "operation": "cache_policy::hash_state and steady-state callers",
+      "classification": "COMPLIANCE_ONLY",
+      "control": "llama_expert_runtime_mode plus config.state_attestation",
+      "mode_c": "full hash after every policy event and ubatch/test update",
+      "mode_p": "state_digest remains zero and hash_state is not called",
+      "evidence": "Iteration 4 measured 50.9/51.9 ms per A/B routed layer"
+    },
+    {
+      "operation": "policy event transcript construction and retained per-event state digests",
+      "classification": "COMPLIANCE_ONLY",
+      "control": "config.state_attestation",
+      "mode_c": "bounded transcript allocated and populated",
+      "mode_p": "no transcript allocation or records; logical event/sequence counters remain",
+      "evidence": "matched A records 55791 hot plus 54957 cold events in C and zero retained records in P"
+    },
+    {
+      "operation": "policy ordinal/frequency fault-injection seams",
+      "classification": "COMPLIANCE_ONLY",
+      "control": "config.state_attestation",
+      "mode_p": "set_ordinals_for_testing and set_resident_frequency_for_testing reject use"
+    },
+    {
+      "operation": "asynchronous storage and transfer-ring interval records",
+      "classification": "OBSERVABILITY_ONLY",
+      "control": "Mode P forces trace_capacity=0 and rejects an explicit nonzero request",
+      "mode_c": "bounded requested trace capacity",
+      "mode_p": "zero capacity, records and drops"
+    },
+    {
+      "operation": "route observer tensor outputs and host callback capture",
+      "classification": "OBSERVABILITY_ONLY",
+      "control": "Phase-13 Mode-P harness passes --observe-routes 0",
+      "mode_c": "enabled for exact route/logit qualification",
+      "mode_p": "disabled for production performance",
+      "evidence": "A diagnostic measured about 1.3% TPS cost; matched settings prove C/P bit-exact"
+    },
+    {
+      "operation": "Perfetto TrackEvents and CUPTI activity",
+      "classification": "OBSERVABILITY_ONLY",
+      "control": "default-off runtime activation; only the bounded selected decode window enables it",
+      "mode_p": "off for matrix; allowed only for the contract-required causal trace"
+    },
+    {
+      "operation": "development expert payload checksums",
+      "classification": "COMPLIANCE_ONLY",
+      "control": "explicit integrity mode",
+      "mode_p": "NONE",
+      "evidence": "production selection inherited from issue 56"
+    },
+    {
+      "operation": "candidate construction, duplicate rejection and physical-feasibility checks",
+      "classification": "RUNTIME_REQUIRED",
+      "control": "always enabled",
+      "reason": "prevents duplicate/mismatched candidates and illegal device-local admission",
+      "evidence": "Iteration 5 measured candidate construction/coherence and feasibility below 1% of the historical wall"
+    },
+    {
+      "operation": "directory/slot generation, ownership, bounds and metadata validation",
+      "classification": "RUNTIME_REQUIRED",
+      "control": "always enabled",
+      "reason": "removal could publish stale/wrong-device storage or permit UAF"
+    },
+    {
+      "operation": "immutable ring lane/event capability diagnostics snapshots",
+      "classification": "OPTIMIZABLE_RUNTIME",
+      "control": "semantics retained; immutable values cached per pool generation",
+      "evidence": "Iterations 2, 6 and 7 removed repeated lock-bearing snapshots; Iteration 8 remaining epoch scopes measured 0.011253 ms/layer"
+    },
+    {
+      "operation": "scratch vectors, fills, stable sorts and candidate arrays per routed layer",
+      "classification": "OPTIMIZABLE_RUNTIME",
+      "control": "retained pending Mode-P trace attribution",
+      "reason": "canonical ordering and bounded admission semantics remain required"
+    },
+    {
+      "operation": "execution-ID tensor get/set round trips and canonical branch reconstruction",
+      "classification": "OPTIMIZABLE_RUNTIME",
+      "control": "logical remap and canonical reconstruction remain required; synchronous CUDA D2H ID preparation is selected for Iteration 10",
+      "reason": "Mode-P trace attributes 1.394 ms/layer of B-over-A wall to CUDA synchronization and shows zero cross-GPU kernel overlap; source identifies allow-inactive MUL_MAT_ID host ID reads",
+      "required_semantics": "preserve original expert IDs, inactive-lane zeroing and canonical top-k accumulation order"
+    },
+    {
+      "operation": "mutex release/reacquire around callbacks and I/O/event waits",
+      "classification": "RUNTIME_REQUIRED",
+      "control": "always enabled with asynchronous waits",
+      "reason": "protects cache/scheduler lifetime without holding locks across external waits"
+    },
+    {
+      "operation": "scheduler validation, capacity and lifecycle bookkeeping loops",
+      "classification": "RUNTIME_REQUIRED",
+      "control": "always enabled",
+      "reason": "enforces bounded per-device work, cancellation and terminal drain"
+    },
+    {
+      "operation": "cold-cache shadow-hit acquire/release",
+      "classification": "RUNTIME_REQUIRED",
+      "control": "always enabled pending contrary trace evidence",
+      "reason": "participates in cold-slot lifetime and recency; cannot be removed as evidence-only"
+    },
+    {
+      "operation": "scalar safety/resource counters and closeout snapshot formatting",
+      "classification": "RUNTIME_REQUIRED",
+      "control": "increments retained; formatting and vector materialization occur only after inference",
+      "reason": "counters reconcile bounded resources and fail-closed closeout; no hot-path formatting remains"
+    }
+  ],
+  "next_gate": "Fresh bounded Mode-P A/B Perfetto capture and production critical-path audit"
+}

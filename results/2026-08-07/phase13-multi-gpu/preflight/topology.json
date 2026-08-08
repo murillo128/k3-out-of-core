@@ -1,0 +1,93 @@
+{
+  "schema": "phase13-topology-v1",
+  "status": "pass",
+  "host": {
+    "nodename": "ubuntu",
+    "kernel": "6.8.0-59-generic",
+    "online_numa_nodes": "0"
+  },
+  "cuda": {
+    "driver_version": 13000,
+    "runtime_version": 12080
+  },
+  "device_order": "ascending_pci_domain_bus_device_function",
+  "gpus": [
+    {
+      "device_id": 0,
+      "cuda_ordinal": 0,
+      "uuid": "GPU-1e8ea2b1-f247-777c-1d66-d2669411dc79",
+      "pci_bdf": "0000:00:08.0",
+      "name": "NVIDIA GeForce RTX 3090",
+      "numa_node": -1,
+      "pci_path": "/sys/devices/pci0000:00/0000:00:08.0",
+      "current_link_speed": "8.0 GT/s PCIe",
+      "current_link_width": "16",
+      "max_link_speed": "16.0 GT/s PCIe",
+      "max_link_width": "16",
+      "h2d_gbps": 12.422174741591647,
+      "d2h_gbps": 13.094810891359792
+    },
+    {
+      "device_id": 1,
+      "cuda_ordinal": 1,
+      "uuid": "GPU-c616d50f-3ee0-0507-8dfc-1698546b6b5c",
+      "pci_bdf": "0000:00:0a.0",
+      "name": "NVIDIA GeForce RTX 3090",
+      "numa_node": -1,
+      "pci_path": "/sys/devices/pci0000:00/0000:00:0a.0",
+      "current_link_speed": "8.0 GT/s PCIe",
+      "current_link_width": "16",
+      "max_link_speed": "16.0 GT/s PCIe",
+      "max_link_width": "16",
+      "h2d_gbps": 12.438301279462879,
+      "d2h_gbps": 13.089079626654916
+    }
+  ],
+  "directed_peer_matrix": [
+    [
+      {
+        "capable": true,
+        "enable_result": 0
+      },
+      {
+        "capable": false,
+        "enable_result": 0
+      }
+    ],
+    [
+      {
+        "capable": false,
+        "enable_result": 0
+      },
+      {
+        "capable": true,
+        "enable_result": 0
+      }
+    ]
+  ],
+  "peer_bandwidth": [],
+  "host_staged_bandwidth": [
+    {
+      "source_device_id": 0,
+      "destination_device_id": 1,
+      "gbps": 6.366275377827017
+    },
+    {
+      "source_device_id": 1,
+      "destination_device_id": 0,
+      "gbps": 6.354137857323779
+    }
+  ],
+  "transfer_bytes": 67108864,
+  "transfer_repetitions": 8,
+  "backing_store": {
+    "path": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00001-of-00003.gguf",
+    "mountpoint": "/dev/shm",
+    "filesystem": "tmpfs",
+    "source": "tmpfs",
+    "stat_device_major": 0,
+    "stat_device_minor": 28,
+    "capacity_bytes": 159457652736,
+    "available_bytes": 62625103872
+  }
+}

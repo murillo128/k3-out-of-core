@@ -1,0 +1,644 @@
+{
+  "schema": "dsv4-source-span-proof-v1",
+  "model_path": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00001-of-00003.gguf",
+  "samples": [
+    {
+      "layer": 0,
+      "expert": 0,
+      "bundle_bytes": 8060928,
+      "split_indices": [
+        1
+      ],
+      "crosses_source_files": false,
+      "operation_count": 3,
+      "sync_matches_source": true,
+      "async_matches_source": true,
+      "sync_matches_async": true,
+      "source_digest_fnv1a64": 14362315482237717617,
+      "spans": [
+        {
+          "split_index": 1,
+          "source_file_identity": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00002-of-00003.gguf",
+          "file_offset": 2235031104,
+          "byte_count": 2424832,
+          "projection": "up",
+          "sidecar": "weight",
+          "destination_offset": 0
+        },
+        {
+          "split_index": 1,
+          "source_file_identity": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00002-of-00003.gguf",
+          "file_offset": 1603290688,
+          "byte_count": 2424832,
+          "projection": "gate",
+          "sidecar": "weight",
+          "destination_offset": 2424832
+        },
+        {
+          "split_index": 1,
+          "source_file_identity": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00002-of-00003.gguf",
+          "file_offset": 774325824,
+          "byte_count": 3211264,
+          "projection": "down",
+          "sidecar": "weight",
+          "destination_offset": 4849664
+        }
+      ]
+    },
+    {
+      "layer": 0,
+      "expert": 128,
+      "bundle_bytes": 8060928,
+      "split_indices": [
+        1
+      ],
+      "crosses_source_files": false,
+      "operation_count": 3,
+      "sync_matches_source": true,
+      "async_matches_source": true,
+      "sync_matches_async": true,
+      "source_digest_fnv1a64": 15496229400568198642,
+      "spans": [
+        {
+          "split_index": 1,
+          "source_file_identity": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00002-of-00003.gguf",
+          "file_offset": 2545409600,
+          "byte_count": 2424832,
+          "projection": "up",
+          "sidecar": "weight",
+          "destination_offset": 0
+        },
+        {
+          "split_index": 1,
+          "source_file_identity": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00002-of-00003.gguf",
+          "file_offset": 1913669184,
+          "byte_count": 2424832,
+          "projection": "gate",
+          "sidecar": "weight",
+          "destination_offset": 2424832
+        },
+        {
+          "split_index": 1,
+          "source_file_identity": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00002-of-00003.gguf",
+          "file_offset": 1185367616,
+          "byte_count": 3211264,
+          "projection": "down",
+          "sidecar": "weight",
+          "destination_offset": 4849664
+        }
+      ]
+    },
+    {
+      "layer": 0,
+      "expert": 255,
+      "bundle_bytes": 8060928,
+      "split_indices": [
+        1
+      ],
+      "crosses_source_files": false,
+      "operation_count": 3,
+      "sync_matches_source": true,
+      "async_matches_source": true,
+      "sync_matches_async": true,
+      "source_digest_fnv1a64": 11555130796603727054,
+      "spans": [
+        {
+          "split_index": 1,
+          "source_file_identity": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00002-of-00003.gguf",
+          "file_offset": 2853363264,
+          "byte_count": 2424832,
+          "projection": "up",
+          "sidecar": "weight",
+          "destination_offset": 0
+        },
+        {
+          "split_index": 1,
+          "source_file_identity": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00002-of-00003.gguf",
+          "file_offset": 2221622848,
+          "byte_count": 2424832,
+          "projection": "gate",
+          "sidecar": "weight",
+          "destination_offset": 2424832
+        },
+        {
+          "split_index": 1,
+          "source_file_identity": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00002-of-00003.gguf",
+          "file_offset": 1593198144,
+          "byte_count": 3211264,
+          "projection": "down",
+          "sidecar": "weight",
+          "destination_offset": 4849664
+        }
+      ]
+    },
+    {
+      "layer": 21,
+      "expert": 0,
+      "bundle_bytes": 8060928,
+      "split_indices": [
+        1
+      ],
+      "crosses_source_files": false,
+      "operation_count": 3,
+      "sync_matches_source": true,
+      "async_matches_source": true,
+      "sync_matches_async": true,
+      "source_digest_fnv1a64": 17207818806784011155,
+      "spans": [
+        {
+          "split_index": 1,
+          "source_file_identity": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00002-of-00003.gguf",
+          "file_offset": 48686321728,
+          "byte_count": 2424832,
+          "projection": "up",
+          "sidecar": "weight",
+          "destination_offset": 0
+        },
+        {
+          "split_index": 1,
+          "source_file_identity": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00002-of-00003.gguf",
+          "file_offset": 48057684032,
+          "byte_count": 2424832,
+          "projection": "gate",
+          "sidecar": "weight",
+          "destination_offset": 2424832
+        },
+        {
+          "split_index": 1,
+          "source_file_identity": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00002-of-00003.gguf",
+          "file_offset": 47228719168,
+          "byte_count": 3211264,
+          "projection": "down",
+          "sidecar": "weight",
+          "destination_offset": 4849664
+        }
+      ]
+    },
+    {
+      "layer": 21,
+      "expert": 128,
+      "bundle_bytes": 8060928,
+      "split_indices": [
+        1
+      ],
+      "crosses_source_files": false,
+      "operation_count": 3,
+      "sync_matches_source": true,
+      "async_matches_source": true,
+      "sync_matches_async": true,
+      "source_digest_fnv1a64": 2806325320625097647,
+      "spans": [
+        {
+          "split_index": 1,
+          "source_file_identity": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00002-of-00003.gguf",
+          "file_offset": 48996700224,
+          "byte_count": 2424832,
+          "projection": "up",
+          "sidecar": "weight",
+          "destination_offset": 0
+        },
+        {
+          "split_index": 1,
+          "source_file_identity": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00002-of-00003.gguf",
+          "file_offset": 48368062528,
+          "byte_count": 2424832,
+          "projection": "gate",
+          "sidecar": "weight",
+          "destination_offset": 2424832
+        },
+        {
+          "split_index": 1,
+          "source_file_identity": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00002-of-00003.gguf",
+          "file_offset": 47639760960,
+          "byte_count": 3211264,
+          "projection": "down",
+          "sidecar": "weight",
+          "destination_offset": 4849664
+        }
+      ]
+    },
+    {
+      "layer": 21,
+      "expert": 255,
+      "bundle_bytes": 8060928,
+      "split_indices": [
+        1
+      ],
+      "crosses_source_files": false,
+      "operation_count": 3,
+      "sync_matches_source": true,
+      "async_matches_source": true,
+      "sync_matches_async": true,
+      "source_digest_fnv1a64": 9084108159181653608,
+      "spans": [
+        {
+          "split_index": 1,
+          "source_file_identity": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00002-of-00003.gguf",
+          "file_offset": 49304653888,
+          "byte_count": 2424832,
+          "projection": "up",
+          "sidecar": "weight",
+          "destination_offset": 0
+        },
+        {
+          "split_index": 1,
+          "source_file_identity": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00002-of-00003.gguf",
+          "file_offset": 48676016192,
+          "byte_count": 2424832,
+          "projection": "gate",
+          "sidecar": "weight",
+          "destination_offset": 2424832
+        },
+        {
+          "split_index": 1,
+          "source_file_identity": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00002-of-00003.gguf",
+          "file_offset": 48047591488,
+          "byte_count": 3211264,
+          "projection": "down",
+          "sidecar": "weight",
+          "destination_offset": 4849664
+        }
+      ]
+    },
+    {
+      "layer": 42,
+      "expert": 0,
+      "bundle_bytes": 9306112,
+      "split_indices": [
+        2
+      ],
+      "crosses_source_files": false,
+      "operation_count": 3,
+      "sync_matches_source": true,
+      "async_matches_source": true,
+      "sync_matches_async": true,
+      "source_digest_fnv1a64": 16629852019993295293,
+      "spans": [
+        {
+          "split_index": 2,
+          "source_file_identity": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00003-of-00003.gguf",
+          "file_offset": 46748372672,
+          "byte_count": 2424832,
+          "projection": "up",
+          "sidecar": "weight",
+          "destination_offset": 0
+        },
+        {
+          "split_index": 2,
+          "source_file_identity": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00003-of-00003.gguf",
+          "file_offset": 46119734976,
+          "byte_count": 2424832,
+          "projection": "gate",
+          "sidecar": "weight",
+          "destination_offset": 2424832
+        },
+        {
+          "split_index": 2,
+          "source_file_identity": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00003-of-00003.gguf",
+          "file_offset": 44972003008,
+          "byte_count": 4456448,
+          "projection": "down",
+          "sidecar": "weight",
+          "destination_offset": 4849664
+        }
+      ]
+    },
+    {
+      "layer": 42,
+      "expert": 128,
+      "bundle_bytes": 9306112,
+      "split_indices": [
+        2
+      ],
+      "crosses_source_files": false,
+      "operation_count": 3,
+      "sync_matches_source": true,
+      "async_matches_source": true,
+      "sync_matches_async": true,
+      "source_digest_fnv1a64": 5579977748589348892,
+      "spans": [
+        {
+          "split_index": 2,
+          "source_file_identity": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00003-of-00003.gguf",
+          "file_offset": 47058751168,
+          "byte_count": 2424832,
+          "projection": "up",
+          "sidecar": "weight",
+          "destination_offset": 0
+        },
+        {
+          "split_index": 2,
+          "source_file_identity": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00003-of-00003.gguf",
+          "file_offset": 46430113472,
+          "byte_count": 2424832,
+          "projection": "gate",
+          "sidecar": "weight",
+          "destination_offset": 2424832
+        },
+        {
+          "split_index": 2,
+          "source_file_identity": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00003-of-00003.gguf",
+          "file_offset": 45542428352,
+          "byte_count": 4456448,
+          "projection": "down",
+          "sidecar": "weight",
+          "destination_offset": 4849664
+        }
+      ]
+    },
+    {
+      "layer": 42,
+      "expert": 255,
+      "bundle_bytes": 9306112,
+      "split_indices": [
+        2
+      ],
+      "crosses_source_files": false,
+      "operation_count": 3,
+      "sync_matches_source": true,
+      "async_matches_source": true,
+      "sync_matches_async": true,
+      "source_digest_fnv1a64": 15423669823819130247,
+      "spans": [
+        {
+          "split_index": 2,
+          "source_file_identity": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00003-of-00003.gguf",
+          "file_offset": 47366704832,
+          "byte_count": 2424832,
+          "projection": "up",
+          "sidecar": "weight",
+          "destination_offset": 0
+        },
+        {
+          "split_index": 2,
+          "source_file_identity": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00003-of-00003.gguf",
+          "file_offset": 46738067136,
+          "byte_count": 2424832,
+          "projection": "gate",
+          "sidecar": "weight",
+          "destination_offset": 2424832
+        },
+        {
+          "split_index": 2,
+          "source_file_identity": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00003-of-00003.gguf",
+          "file_offset": 46108397248,
+          "byte_count": 4456448,
+          "projection": "down",
+          "sidecar": "weight",
+          "destination_offset": 4849664
+        }
+      ]
+    },
+    {
+      "layer": 26,
+      "expert": 0,
+      "bundle_bytes": 10878976,
+      "split_indices": [
+        2
+      ],
+      "crosses_source_files": false,
+      "operation_count": 3,
+      "sync_matches_source": true,
+      "async_matches_source": true,
+      "sync_matches_async": true,
+      "source_digest_fnv1a64": 11762158181953231782,
+      "spans": [
+        {
+          "split_index": 2,
+          "source_file_identity": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00003-of-00003.gguf",
+          "file_offset": 10830585536,
+          "byte_count": 3211264,
+          "projection": "up",
+          "sidecar": "weight",
+          "destination_offset": 0
+        },
+        {
+          "split_index": 2,
+          "source_file_identity": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00003-of-00003.gguf",
+          "file_offset": 9999507136,
+          "byte_count": 3211264,
+          "projection": "gate",
+          "sidecar": "weight",
+          "destination_offset": 3211264
+        },
+        {
+          "split_index": 2,
+          "source_file_identity": "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00003-of-00003.gguf",
+          "file_offset": 8849743552,
+          "byte_count": 4456448,
+          "projection": "down",
+          "sidecar": "weight",
+          "destination_offset": 6422528
+        }
+      ]
+    }
+  ],
+  "kernel_comparison": {
+    "status": "pass",
+    "representative_layers": [
+      0,
+      26,
+      42
+    ],
+    "universal_hot_stride": 11835264,
+    "hot_role_offsets": [
+      0,
+      3211264,
+      6422528
+    ],
+    "hot_role_extents": [
+      3211264,
+      3211264,
+      4456448
+    ],
+    "comparison_count": 9,
+    "comparisons": [
+      {
+        "layer": 0,
+        "projection": "up",
+        "ggml_type": "iq2_xs",
+        "source_bytes": 2424832,
+        "input_elements": 4096,
+        "output_elements": 2048,
+        "compact_expert_id": 0,
+        "universal_slot_id": 1,
+        "routing_weight_f32": 0.25,
+        "finite": true,
+        "compact_output_fnv1a64": 9726780673841703468,
+        "universal_output_fnv1a64": 9726780673841703468,
+        "bit_exact": true,
+        "max_abs_error": 0.0,
+        "max_scaled_abs_error": 0.0,
+        "padding_guard_intact": true
+      },
+      {
+        "layer": 0,
+        "projection": "gate",
+        "ggml_type": "iq2_xs",
+        "source_bytes": 2424832,
+        "input_elements": 4096,
+        "output_elements": 2048,
+        "compact_expert_id": 0,
+        "universal_slot_id": 1,
+        "routing_weight_f32": 0.25,
+        "finite": true,
+        "compact_output_fnv1a64": 8994100248688688955,
+        "universal_output_fnv1a64": 8994100248688688955,
+        "bit_exact": true,
+        "max_abs_error": 0.0,
+        "max_scaled_abs_error": 0.0,
+        "padding_guard_intact": true
+      },
+      {
+        "layer": 0,
+        "projection": "down",
+        "ggml_type": "iq3_xxs",
+        "source_bytes": 3211264,
+        "input_elements": 2048,
+        "output_elements": 4096,
+        "compact_expert_id": 0,
+        "universal_slot_id": 1,
+        "routing_weight_f32": 0.25,
+        "finite": true,
+        "compact_output_fnv1a64": 1200926149994943521,
+        "universal_output_fnv1a64": 1200926149994943521,
+        "bit_exact": true,
+        "max_abs_error": 0.0,
+        "max_scaled_abs_error": 0.0,
+        "padding_guard_intact": true
+      },
+      {
+        "layer": 26,
+        "projection": "up",
+        "ggml_type": "iq3_xxs",
+        "source_bytes": 3211264,
+        "input_elements": 4096,
+        "output_elements": 2048,
+        "compact_expert_id": 0,
+        "universal_slot_id": 1,
+        "routing_weight_f32": 0.25,
+        "finite": true,
+        "compact_output_fnv1a64": 6153437223642979107,
+        "universal_output_fnv1a64": 6153437223642979107,
+        "bit_exact": true,
+        "max_abs_error": 0.0,
+        "max_scaled_abs_error": 0.0,
+        "padding_guard_intact": true
+      },
+      {
+        "layer": 26,
+        "projection": "gate",
+        "ggml_type": "iq3_xxs",
+        "source_bytes": 3211264,
+        "input_elements": 4096,
+        "output_elements": 2048,
+        "compact_expert_id": 0,
+        "universal_slot_id": 1,
+        "routing_weight_f32": 0.25,
+        "finite": true,
+        "compact_output_fnv1a64": 914082870185620365,
+        "universal_output_fnv1a64": 914082870185620365,
+        "bit_exact": true,
+        "max_abs_error": 0.0,
+        "max_scaled_abs_error": 0.0,
+        "padding_guard_intact": true
+      },
+      {
+        "layer": 26,
+        "projection": "down",
+        "ggml_type": "mxfp4",
+        "source_bytes": 4456448,
+        "input_elements": 2048,
+        "output_elements": 4096,
+        "compact_expert_id": 0,
+        "universal_slot_id": 1,
+        "routing_weight_f32": 0.25,
+        "finite": true,
+        "compact_output_fnv1a64": 5173171951452608718,
+        "universal_output_fnv1a64": 5173171951452608718,
+        "bit_exact": true,
+        "max_abs_error": 0.0,
+        "max_scaled_abs_error": 0.0,
+        "padding_guard_intact": true
+      },
+      {
+        "layer": 42,
+        "projection": "up",
+        "ggml_type": "iq2_xs",
+        "source_bytes": 2424832,
+        "input_elements": 4096,
+        "output_elements": 2048,
+        "compact_expert_id": 0,
+        "universal_slot_id": 1,
+        "routing_weight_f32": 0.25,
+        "finite": true,
+        "compact_output_fnv1a64": 8315588858234151740,
+        "universal_output_fnv1a64": 8315588858234151740,
+        "bit_exact": true,
+        "max_abs_error": 0.0,
+        "max_scaled_abs_error": 0.0,
+        "padding_guard_intact": true
+      },
+      {
+        "layer": 42,
+        "projection": "gate",
+        "ggml_type": "iq2_xs",
+        "source_bytes": 2424832,
+        "input_elements": 4096,
+        "output_elements": 2048,
+        "compact_expert_id": 0,
+        "universal_slot_id": 1,
+        "routing_weight_f32": 0.25,
+        "finite": true,
+        "compact_output_fnv1a64": 11904198807888123807,
+        "universal_output_fnv1a64": 11904198807888123807,
+        "bit_exact": true,
+        "max_abs_error": 0.0,
+        "max_scaled_abs_error": 0.0,
+        "padding_guard_intact": true
+      },
+      {
+        "layer": 42,
+        "projection": "down",
+        "ggml_type": "mxfp4",
+        "source_bytes": 4456448,
+        "input_elements": 2048,
+        "output_elements": 4096,
+        "compact_expert_id": 0,
+        "universal_slot_id": 1,
+        "routing_weight_f32": 0.25,
+        "finite": true,
+        "compact_output_fnv1a64": 1477075060209568560,
+        "universal_output_fnv1a64": 1477075060209568560,
+        "bit_exact": true,
+        "max_abs_error": 0.0,
+        "max_scaled_abs_error": 0.0,
+        "padding_guard_intact": true
+      }
+    ]
+  },
+  "summary": {
+    "sample_count": 10,
+    "cross_split_sample_present": false,
+    "cross_split_requirement": "not_applicable_no_bundle_crosses_source_files",
+    "source_file_count": 3,
+    "all_source_sync_async_equal": true,
+    "sample_bytes_per_path": 87162880,
+    "storage_read_requests": 10,
+    "storage_read_bytes": 87162880,
+    "storage_short_reads": 0,
+    "storage_io_errors": 0,
+    "async_io_uring_enabled": true,
+    "async_fallback_reason_mask": 0,
+    "async_read_requests_submitted": 10,
+    "async_read_requests_completed": 10,
+    "async_read_operations_completed": 30,
+    "async_read_bytes_completed": 87162880,
+    "async_active_operations": 0,
+    "async_active_read_requests": 0,
+    "async_shutdown": true,
+    "layout_class_count": 3,
+    "cuda_kernel_comparisons": 9,
+    "all_cuda_kernel_comparisons_pass": true
+  }
+}

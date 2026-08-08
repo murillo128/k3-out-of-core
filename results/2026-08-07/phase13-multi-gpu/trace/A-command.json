@@ -1,0 +1,20 @@
+{
+  "command": [
+    "/root/k3-out-of-core/llama.cpp/build-cuda/bin/phase9-cache-policy-probe",
+    "--model", "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00001-of-00003.gguf",
+    "--output", "/dev/shm/phase13-traces/A/workload.json",
+    "--mode", "cold",
+    "--prompt", "<｜begin▁of▁sentence｜><｜User｜>Explain why a careful measurement should distinguish observed facts from assumptions.<｜Assistant｜><think>",
+    "--hot-policy", "LRU", "--cold-policy", "LRU", "--scope", "GLOBAL", "--admission", "ALWAYS",
+    "--miss-policy", "PROMOTE_AND_GPU", "--hot-slots", "268", "--cold-bytes", "17179869184",
+    "--ring-bytes", "67173120", "--expert-devices", "1", "--peer-transport", "HOST_STAGED",
+    "--peer-staging-bytes", "0", "--queue-depth", "256", "--trace-capacity", "65536",
+    "--n-ctx", "4096", "--n-batch", "128", "--n-ubatch", "128", "--max-generate", "24",
+    "--background", "0", "--observe-routes", "1", "--transport", "POSITIONAL",
+    "--config-source", "EXPLICIT", "--integrity", "NONE"
+  ],
+  "environment": {
+    "GGML_CUDA_GRAPH_OPT": "0",
+    "GGML_CUDA_DISABLE_GRAPHS": "1"
+  }
+}

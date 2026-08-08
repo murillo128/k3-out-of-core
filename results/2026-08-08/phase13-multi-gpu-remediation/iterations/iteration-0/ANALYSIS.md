@@ -1,0 +1,11 @@
+# Phase 13 iteration 0 — frozen trace attribution
+
+`OBSERVED`: the accepted adjacent 1000-ms A/B traces reproduce the throughput ordering in routed-layer wall time. Fourteen complete A layer cycles average 68.711 ms (p50 68.234 ms, p95 72.231 ms); six complete B cycles average 147.618 ms (p50 147.510 ms, p95 154.270 ms). Their layer-rate ratio is 0.465464×. The exact window boundaries, traces, per-layer rows and wall-exact attribution are in `trace-causal-analysis.json`.
+
+The dominant difference is before graph CUDA execution. A spends 0.093 ms/layer between its first and last current-layer demand enqueue; B spends 72.432 ms/layer. The B-minus-A delta is 72.340 ms/layer, accounting for 91.67% of the total 78.907-ms layer-wall delta. In the representative first captured layer, A attempts five demand enqueues in 0.172 ms; B issues four enqueues over 51.107 ms while cold lookup, storage and staging work occurs between them.
+
+The CUDA evidence rejects peer bandwidth as the present dominant cause. Across the accepted B cycles, application H2D scopes have a non-additive union of 38.834 ms total and expert-H2D CUDA activity has a union of 15.583 ms total. Routed graph execution averages only 2.561 ms/layer. Small activation/result copies occupy 0.023 ms/layer more than A, and B has zero simultaneous GPU0/GPU1 kernel time in the sampled cycles. The serialized remote graph branch is real, but it is currently secondary to provider issue serialization.
+
+`OBSERVED`: the multi-device provider loop couples each scheduler enqueue to that miss's cold-cache lookup/storage load and staging before it attempts the next current-layer demand. The established single-device path instead attempts all current-layer enqueues before the first scheduler or storage wait. This is an implementation-induced bottleneck, not a proven structural/topology ceiling.
+
+Iteration 1 therefore has one primary hypothesis: issue every multi-device current-layer demand and deferred storage read before the first wait, then consume completions and stage the per-device H2D waves. The prediction is at least a 30% reduction in B's `issue_span_ns` and at least a 3% B-TPS improvement, with A within 3%. The change must be reverted if both targeted trace and TPS deltas are below 3%, or if any correctness/resource gate regresses.

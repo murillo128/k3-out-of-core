@@ -1,0 +1,104 @@
+{
+  "schema_version": "phase13-iteration-validation-v1",
+  "status": "pass",
+  "iteration": 11,
+  "revisions": {
+    "project_head": "560eef0e71f60cb4697863bf1430c53a6fe5543d",
+    "nested_head": "6f7f87822b7bfdbf5d271d367a5e3d1b730ef6ca"
+  },
+  "build": {
+    "parallel_jobs": 76,
+    "result": "pass"
+  },
+  "focused_ctest": {
+    "passed": 12,
+    "failed": 0,
+    "result": "pass",
+    "bounded_positional_parallelism_repeated_runs": 5
+  },
+  "mode_c_B": {
+    "status": "pass",
+    "worker_count": 2,
+    "decode_tps_diagnostic_only": 0.39299977858734214,
+    "identity_sha256": "60658621b12340bc02d1fbb614142e4a17c5dd52eb529bfd4b0b2eb1a1255889",
+    "logits_fnv64_exact": true,
+    "route_records": 1032,
+    "raw_gzip": {
+      "sha256": "c242b75ef112452e5f314331569e635435902ad4e5c8dbcf673ab3a6f5dd3432",
+      "size_bytes": 3110512
+    },
+    "summary": {
+      "sha256": "4e5ba975acf56ec57a14d2521083927b6fd177d591ac2387b849b2e780f1780a",
+      "size_bytes": 8168
+    }
+  },
+  "mode_p": {
+    "tier1_B": {
+      "decode_tps": 1.4096460115322527,
+      "change_from_iteration_9_fraction": 0.20237533933397156,
+      "raw_gzip": {
+        "sha256": "b80b622d8b10d86b6d4b2720847779be6b9f9c3ade5b85b7c3859ee4ff6089a2",
+        "size_bytes": 5284
+      },
+      "summary": {
+        "sha256": "82ddc02a8757c069fb69834164f67b1371a1ea5389c86911bfeccf9e270cb091",
+        "size_bytes": 8180
+      }
+    },
+    "tier2": {
+      "A_decode_tps": 1.399151019494432,
+      "B_decode_tps": 1.367420388784965,
+      "speedup": 0.9773215112111825,
+      "A_change_from_iteration_9_fraction": 0.012374213281714841,
+      "B_change_from_iteration_9_fraction": 0.16635846200164672,
+      "generated_output_identity_exact": true,
+      "identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+      "summary": {
+        "sha256": "fe2a68b28fa964730ac854ef8326d45b357ac2ad657d230a6e609f84bdbff839",
+        "size_bytes": 14676
+      }
+    },
+    "Bprime": {
+      "decode_tps": 1.2324700559343138,
+      "speedup_vs_tier2_A": 0.8808699266642805,
+      "change_from_iteration_9_fraction": 0.16825172139896494,
+      "summary": {
+        "sha256": "e4810fb6fb4799589d40917d3b05116ea968ea6a90353b8e2d8dfdcb36d946e5",
+        "size_bytes": 8187
+      }
+    }
+  },
+  "trace": {
+    "status": "valid",
+    "expert_runtime_mode": "PRODUCTION_PERFORMANCE",
+    "selection": {
+      "seed": 61,
+      "request_ordinal": 15,
+      "routed_layer": 11,
+      "window_ms": 1000
+    },
+    "A": {
+      "sha256": "790a74a9e9f8ece55d38996a21fdb1b90e80a2b8d5c03adf18af142690e7f6db",
+      "size_bytes": 3915036,
+      "complete_cycles": 58,
+      "layer_wall_ms": 17.008728344827578,
+      "provider_wall_ms": 15.239324793103455
+    },
+    "B": {
+      "sha256": "ef655e1b15c11ab7e5b75330dc4fbe93ccb2958377feddf6c938ecdb07d056a0",
+      "size_bytes": 3980057,
+      "complete_cycles": 55,
+      "layer_wall_ms": 17.886847381818182,
+      "provider_wall_ms": 14.226300399999998
+    },
+    "targeted_change": {
+      "B_storage_service_fraction": -0.25669846881069824,
+      "B_provider_wall_fraction": -0.10060224395410733,
+      "B_layer_wall_fraction": -0.10822122916157683,
+      "B_stage_service_fraction": -0.006869285213912835
+    }
+  },
+  "decision": "retain",
+  "structural_limit_proven": false,
+  "next_action": "Iteration 12 cross-device stage overlap"
+}

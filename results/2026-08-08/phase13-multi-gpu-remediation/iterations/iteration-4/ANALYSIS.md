@@ -1,0 +1,13 @@
+# Phase 13 iteration 4 — policy state-hash attribution
+
+Instrumentation candidate: parent `cbf583f202c30f1501cdc5a7447dacf56eaf4dfb`, nested `d761fde93fa208c50ad180223476d4a17b2c12f7`. Reverted by parent `14285418e998b3418dd95cfd4d7dc3ba445f1dd9` and nested `85ec861073c6b0b5450a4b8b21c9455e3aab53b5` without rewriting published history.
+
+`OBSERVED`: full cache-policy state hashing is expensive but does not explain the scaling regression. Exact `hash_state()` scopes occupy 50.901 ms per complete A layer and 51.850 ms per complete B layer after unioning overlapping scopes. The B-minus-A causal increment is therefore 0.949 ms/layer, only 2.306% of the 41.159-ms provider pre-plus-post delta and far below the predeclared 20% threshold. The remaining directly unattributed provider residual is 40.210 ms/layer.
+
+The instrumentation itself changed no policy semantics, outputs or resources, but it was not free enough to retain without diagnostic value. The two-pair spot screen preserved exact output identity and measured A at 0.378686 tok/s, B at 0.235852 tok/s and A→B at 0.622817×. Relative to the retained Iteration 2 candidate, A moved -0.13%, B moved -2.48% and speedup moved -2.35%, all inside but close to the 3% perturbation boundary. The trace-only commit is reverted after measurement.
+
+The fresh A and B traces are valid and have SHA-256 values `9525738c368b7c2e6ed97ae3df1932b36e89fc9fa6acb936f0a94ee109c0884b` and `c106026b05f10dd1756d3ce75951aa20721dbb0e3e926b3a6f45ff7379c2a36f`. Their requested windows contain 14 and 8 complete routed-layer cycles. Critical-path accounting remains wall-exact and sampled GPU0/GPU1 simultaneous kernel overlap remains zero.
+
+Compilation used `-j76`; all 12 focused expert CTests passed. The design-authority adaptive-validation amendment `5226296660` arrived after this screen completed and is authoritative for later iterations: instrumentation uses only the minimum trace cells, B-only runtime changes start with one B process/trace, and full matrices are reserved for a stop condition.
+
+This is the second consecutive falsified hypothesis after Iteration 3. The mandatory no-progress guard is active: no production fix follows directly. The attribution model must first be reviewed. The review target is the 40.210-ms/layer residual inside provider pre/post wall; the smallest distinguishing comparator is B-only trace subscopes around device-constrained candidate construction, policy admission and feasibility accounting. Optimization resumes only if that review assigns a dominant implementation-induced mechanism; otherwise the evidence must be developed as a structural-limit return to design authority.
