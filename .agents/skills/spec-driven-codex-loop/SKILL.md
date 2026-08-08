@@ -166,3 +166,24 @@ Include only what the next actor cannot derive cheaply:
 - one immediate next action.
 
 Do not repeat current workflow state in prose; the label is authoritative. Include exact heads only when needed to disambiguate a target or preserve recovery.
+
+## Turn completion notification
+
+Immediately before a user-visible executor turn returns control, make exactly one best-effort notification attempt from the repository root:
+
+```bash
+./scripts/codex-turn-notify.sh \
+  --issue <controlling-issue-number> \
+  --outcome <complete|needs-input|blocked|checkpoint|progress> \
+  --summary "<one short result/next-action sentence>" || true
+```
+
+Choose the narrowest accurate outcome:
+
+- `complete`: the controlling issue reached its accepted terminal outcome;
+- `needs-input`: safe continuation requires user or design-authority input;
+- `blocked`: a genuine external blocker prevents safe continuation;
+- `checkpoint`: a material checkpoint is ready for external attention and this user-visible turn is ending;
+- `progress`: the turn ends with a bounded handoff that is none of the above.
+
+Do not notify for commits, tests, waits, delegated independent-review calls, or intermediate progress while the same user-visible turn continues. Notification is out-of-band and non-authoritative: missing `gh`, missing authentication, dispatch failure, downstream delivery failure, or a helper error must not change technical results, workflow labels, comments, review decisions, or return timing. Do not retry within the same turn and do not create notification-only GitHub metadata.
