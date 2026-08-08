@@ -203,6 +203,30 @@ Phase 7 resolves O-003 for the initial Linux implementation. `COLD_CACHE + MMAP`
 
 Issue #24 evidence records 218 direct sources on the validated split F16 fixture, 117 direct operations, 30670848 useful bytes within 30730752 aligned bytes, and 21 explicit buffered fallback operations with exact disabled/cold outputs. Buffered mode remains the default because direct mode is filesystem- and alignment-dependent and the tiny fixture does not establish a universal performance advantage. This decision does not authorize automatic direct-I/O selection, GDS, a storage-to-hot bypass, or a new expert format.
 
+### D-020 — Resolve resident and expert device roles once at model initialization
+
+**Status:** ACCEPTED
+
+Multi-GPU out-of-core execution is described by two logical sets of physical CUDA devices: `ResidentPool` for the ordinary persistent model/primary graph and `ExpertPool` for routed-expert hot residency, transfers, and execution. In v1, `ResidentPool` contains exactly one primary device; `ExpertPool` contains one or more devices and may overlap the resident device or be disjoint.
+
+The immutable role plan is resolved before model placement and selects exactly one implementation shape:
+
+- local single-device: resident and sole expert device are identical, using the accepted one-device implementation without steady-state pool dispatch, role lookups, branch vectors, peer transport, extra execution-ID tensors, allocations, or synchronization;
+- remote single-expert-device: the sole expert device differs from the resident device, using one remote expert branch and explicit activation/result transport back to the resident graph;
+- striped multi-expert-device: two or more expert devices, reusing the accepted Phase-13 owner-striped provider and graph machinery, with canonical merge on the resident device.
+
+CUDA UUID is the durable physical identity. Normalized PCI BDF is recorded for topology and determines canonical `ExpertPool` order, with UUID as the deterministic tie-breaker; CUDA ordinal is only a process-local resolution detail. Expert ownership remains `ExpertPool[original_expert_id % ExpertPool.size()]` and does not depend on capacity. Adaptive placement, migration, replication, weighted ownership, and failover are not part of v1.
+
+Expert hot capacity is an exact whole-expert slot count for each physical expert device. Allocation either satisfies every requested count or fails closed; runtime auto-sizing or silent capacity reduction is forbidden. `MAX_SAFE` is a separate bounded evidence workflow that probes exact configurations and emits a versioned capacity manifest for a later production run; it is not a production allocation mode.
+
+Ordinary router, attention, dense, shared-expert/shared-projection, primary-graph, and persistent-state tensors remain ordinary resident placement. Only routed expert bundles remain owned by `ExpertWeightProvider`. Inter-device movement remains explicit `HOST_STAGED` or `P2P` transport on the required resident-to-expert and expert-to-resident directed edges; unavailable requested transport, device failure, generation mismatch, or teardown with live work fails closed and never silently falls back to resident expert execution.
+
+Legacy one-device configuration continues to resolve to the exact local single-device path. The Phase-13 symmetric configuration maps to resident DeviceId 0 plus the existing uniformly sized expert-device list. No multi-GPU topology becomes an automatic production default until explicit topology/capacity evidence supports that policy.
+
+Rationale: the resident GPU and an expert-only GPU have materially different VRAM pressure. Separating roles lets several devices contribute bounded usable expert-cache capacity without pretending that VRAM is physically unified, while preserving the accepted provider/cache/scheduler architecture and isolating the one-GPU hot path from multi-device administration.
+
+Consequences: topology and capacity are explicit configuration; every run emits a per-device memory/transport ledger; disjoint and asymmetric-overlap configurations are supported without rewriting the Phase-13 mechanism; dedicated versus striped performance is selected empirically rather than assumed; and multi-resident ordinary-model partitioning remains future work.
+
 ## Rejected shortcuts
 
 ### R-001 — Rely exclusively on `mmap` and OS page replacement
@@ -291,9 +315,9 @@ Candidates include system allocations visible to CUDA, managed allocations, or e
 
 ### O-007 — Multi-GPU ownership and sharding
 
-**Status:** OPEN
+**Status:** ACCEPTED
 
-Need a directory model for per-device hot slots, host-cache sharing, expert ownership, and peer access. Single-GPU correctness comes first, but interfaces must not preclude multiple devices.
+Resolved by D-020. V1 uses one initialization-resolved resident primary, an overlapping or disjoint expert-device set, canonical BDF/UUID ordering, modulo ownership over original logical expert IDs, exact per-device whole-expert capacities, explicit peer transport, and fail-closed lifecycle. Topology performance and any future weighted/adaptive ownership remain evidence questions, not unresolved v1 architecture.
 
 ### O-008 — Multi-request policy
 
