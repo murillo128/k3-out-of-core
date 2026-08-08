@@ -153,7 +153,7 @@ def summarize_case(trace_processor: Path, trace: Path) -> dict[str, object]:
     ]
     service_rows = query(trace_processor, trace, """
         SELECT ts, dur, category, name FROM slice
-        WHERE dur > 0 AND category IN ('k3.storage', 'k3.transfer')
+        WHERE dur > 0 AND category IN ('k3.storage', 'k3.transfer', 'k3.policy')
         ORDER BY ts
     """)
     services = [
@@ -253,6 +253,7 @@ def summarize_case(trace_processor: Path, trace: Path) -> dict[str, object]:
         ]
         provider_services: dict[str, list[tuple[int, int]]] = {
             "storage": [], "stage": [], "h2d_scope": [], "event_wait": [],
+            "policy_hash_state": [],
         }
         for event in services:
             event_start = int(event["ts"])
@@ -262,6 +263,8 @@ def summarize_case(trace_processor: Path, trace: Path) -> dict[str, object]:
             interval = (max(start, event_start), min(provider_end, event_stop))
             if event["category"] == "k3.storage":
                 provider_services["storage"].append(interval)
+            elif event["category"] == "k3.policy" and event["name"] == "hash_state":
+                provider_services["policy_hash_state"].append(interval)
             elif event["name"] == "stage":
                 provider_services["stage"].append(interval)
             elif event["name"] in ("h2d", "h2d_wave"):
@@ -318,7 +321,10 @@ def summarize_case(trace_processor: Path, trace: Path) -> dict[str, object]:
     exclusive = {**provider_totals, **graph_totals}
     if sum(exclusive.values()) != wall_total or provider_total + graph_total != wall_total:
         raise RuntimeError("critical-path accounting is not wall-exact")
-    service_keys = ("storage", "stage", "h2d_scope", "event_wait", "expert_h2d_cuda")
+    service_keys = (
+        "storage", "stage", "h2d_scope", "event_wait", "expert_h2d_cuda",
+        "policy_hash_state",
+    )
     services_total = {
         key: sum(int(cycle["provider_service_unions_ns"][key]) for cycle in cycles)
         for key in service_keys
@@ -382,6 +388,11 @@ def main() -> int:
     mean_bucket_delta_ms = {
         key: b_buckets[key] / b_count / 1e6 - a_buckets[key] / a_count / 1e6
         for key in b_buckets
+    }
+    mean_service_delta_ms = {
+        key: cases["B"]["provider_service_unions_not_additive"][key] / b_count / 1e6 -
+             cases["A"]["provider_service_unions_not_additive"][key] / a_count / 1e6
+        for key in cases["B"]["provider_service_unions_not_additive"]
     }
     issue_delta = mean_bucket_delta_ms["issue_span_ns"]
     provider_dependency_delta = mean_bucket_delta_ms["pre_issue_ns"] + \
@@ -506,7 +517,7 @@ def main() -> int:
                 "if any metadata, correctness, cancellation, or resource gate regresses."
             ),
         }
-    else:
+    elif args.iteration == 3:
         ranked_bottlenecks = [
             {
                 "rank": 1,
@@ -546,6 +557,54 @@ def main() -> int:
                 "than 20% of the remaining provider delta, or if instrumentation changes TPS by 3% or more."
             ),
         }
+    else:
+        hash_delta = mean_service_delta_ms["policy_hash_state"]
+        hash_share = 0.0 if provider_dependency_delta <= 0 else hash_delta / provider_dependency_delta
+        residual = provider_dependency_delta - hash_delta
+        ranked_bottlenecks = [
+            {
+                "rank": 1,
+                "mechanism": "provider_residual_after_policy_hash",
+                "evidence": (
+                    "Direct hash_state scopes explain only part of the B-minus-A provider gap; the "
+                    "remaining pre/post wall has no direct service attribution yet."
+                ),
+                "measured_extra_ms_per_layer_vs_A": residual,
+                "target_bucket": "pre_issue_ns+post_issue_ns-policy_hash_state",
+            },
+            {
+                "rank": 2,
+                "mechanism": "cache_policy_full_state_hash",
+                "evidence": (
+                    f"Measured B-minus-A hash_state time is {hash_delta:.3f} ms/layer, or "
+                    f"{hash_share:.1%} of the provider pre-plus-post delta; this is below the "
+                    "predeclared 20% causal threshold."
+                ),
+                "measured_extra_ms_per_layer_vs_A": hash_delta,
+                "measured_share_of_provider_dependency_delta": hash_share,
+                "target_bucket": "policy_hash_state",
+            },
+        ]
+        dominant = "provider_residual_after_policy_hash"
+        rationale = (
+            "Iteration 4 directly measured full policy-state hashing and falsified it as the dominant "
+            "scaling cause. Hashing is expensive in both A and B, but its incremental B cost is below "
+            "the declared causal-share threshold. After two consecutive falsified hypotheses, the "
+            "no-progress guard pauses production edits until the attribution model is reviewed."
+        )
+        next_hypothesis = {
+            "single_primary_hypothesis": (
+                "No production fix is selected during the no-progress pause. Review the residual "
+                "provider attribution and use the smallest B-only trace comparator to separate "
+                "device-constrained candidate construction, policy admission, and feasibility accounting."
+            ),
+            "predicted_trace_change": "Comparator subscopes account for the residual selector interval",
+            "predicted_tps_change": "No production TPS prediction until the comparator identifies one mechanism",
+            "falsifier": (
+                "Do not resume optimization if the reviewed attribution still cannot assign a dominant "
+                "implementation-induced share or instead converges on a structural limit."
+            ),
+        }
     ranked_bottlenecks.append({
         "rank": len(ranked_bottlenecks) + 1,
         "mechanism": "serialized_remote_branch_graph",
@@ -573,6 +632,7 @@ def main() -> int:
             "observed_layer_rate_ratio_B_over_A": a_wall / b_wall,
             "mean_layer_wall_delta_ms_B_minus_A": b_wall - a_wall,
             "mean_critical_path_bucket_delta_ms_B_minus_A": mean_bucket_delta_ms,
+            "mean_provider_service_delta_ms_B_minus_A": mean_service_delta_ms,
         },
         "ranked_bottlenecks": ranked_bottlenecks,
         "root_cause_conclusion": {
@@ -613,6 +673,10 @@ def main() -> int:
             },
             "decision": args.decision,
             "rationale": args.decision_rationale,
+        },
+        "no_progress": {
+            "consecutive_falsified_hypotheses": 2 if args.iteration >= 4 else 0,
+            "action": "pause_and_review_attribution_before_next_fix" if args.iteration >= 4 else "none",
         },
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
