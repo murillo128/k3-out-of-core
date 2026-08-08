@@ -24,9 +24,14 @@ PROMPT = (
     "observed facts from assumptions.<｜Assistant｜><think>"
 )
 MIB = 1024 * 1024
-OOM_PATTERNS = (
+MEMORY_REJECTION_PATTERNS = (
     "out of memory", "cuda error: out of memory", "failed to allocate",
     "allocation failed", "ggml_status_alloc_failed",
+    # Provider error 6 is allocation_failed. The cold-cache error below is the
+    # deterministic byte-budget rejection when minimum_slots exceeds the slots
+    # representable by the configured cold cache.
+    "provider error 6",
+    "expert cache initialization failed at shared cold cache (provider error 8)",
 )
 LIFECYCLE_ZERO_KEYS = (
     "active_background_flights", "current_hot_pins", "cold_current_transfer_refs",
@@ -206,8 +211,8 @@ def classify_candidate(
         reserve_bytes: int) -> ProbeDecision:
     lower_log = log_text.lower()
     if returncode != 0:
-        if any(pattern in lower_log for pattern in OOM_PATTERNS):
-            return ProbeDecision("reject", "allocation_or_oom")
+        if any(pattern in lower_log for pattern in MEMORY_REJECTION_PATTERNS):
+            return ProbeDecision("reject", "allocation_or_memory_budget")
         return ProbeDecision("abort", f"non_memory_process_failure_{returncode}")
     if evidence is None or evidence.get("status") != "pass" or len(evidence.get("generated_ids", [])) != 24:
         return ProbeDecision("abort", "incomplete_or_failed_workload")

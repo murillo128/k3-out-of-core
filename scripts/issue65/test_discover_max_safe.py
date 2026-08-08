@@ -50,7 +50,11 @@ def main() -> None:
     assert low_headroom == MODULE.ProbeDecision("reject", "safety_reserve_not_preserved")
     oom = MODULE.classify_candidate(
         3, None, "CUDA error: out of memory", [], "GPU-target", 900, 1)
-    assert oom == MODULE.ProbeDecision("reject", "allocation_or_oom")
+    assert oom == MODULE.ProbeDecision("reject", "allocation_or_memory_budget")
+    cold_budget = MODULE.classify_candidate(
+        6, None, "expert cache initialization failed at shared cold cache (provider error 8)",
+        [], "GPU-target", 900, 1)
+    assert cold_budget == MODULE.ProbeDecision("reject", "allocation_or_memory_budget")
     correctness = MODULE.classify_candidate(
         9, None, "decode correctness failed", [], "GPU-target", 900, 1)
     assert correctness.outcome == "abort"
@@ -89,7 +93,7 @@ def main() -> None:
         },
         deterministic_upper=1000, upper=1000,
         ordered=[(268, MODULE.ProbeDecision("pass", "safe")),
-                 (1000, MODULE.ProbeDecision("reject", "allocation_or_oom")),
+                 (1000, MODULE.ProbeDecision("reject", "allocation_or_memory_budget")),
                  (731, MODULE.ProbeDecision("pass", "safe"))],
         selected=731, selected_evidence=selected_evidence,
         selected_samples=[{"gpus": [{
