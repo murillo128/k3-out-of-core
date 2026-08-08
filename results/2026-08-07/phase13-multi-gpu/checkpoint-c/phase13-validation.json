@@ -1,0 +1,99 @@
+{
+  "schema_version": "phase13-validation-v1",
+  "status": "mechanism_pass_trace_blocked",
+  "issue": "https://github.com/murillo128/k3-out-of-core/issues/61",
+  "execution_profile": "STANDARD",
+  "revisions": {
+    "project_base": "0e1b900c78f09d96597970782c067d19aafd6f00",
+    "nested_base": "71b4b0251fb314cb955fe5f43b6a1e382fc2b65c",
+    "nested_head": "bf877f8bde80850b64403096ce043940d2f7f567"
+  },
+  "build": {
+    "command": [
+      "cmake", "--build", "build-cuda", "--parallel", "76", "--target",
+      "llama", "phase9-cache-policy-probe", "phase13-topology-probe",
+      "dsv4-artifact-inventory", "dsv4-source-span-probe",
+      "test-expert-weight-provider", "test-expert-miss-policy",
+      "test-expert-cache-policy", "test-expert-prefetch",
+      "test-hot-expert-cache", "test-cold-expert-cache",
+      "test-expert-transfer-ring", "test-expert-storage",
+      "test-expert-async-io", "test-expert-scheduler", "test-perfetto-trace"
+    ],
+    "parallel_jobs": 76,
+    "result": "pass",
+    "nested_commit_reported_by_build": "bf877f8bd",
+    "note": "NCCL was not installed; the accepted HOST_STAGED implementation does not require it."
+  },
+  "focused_ctest": {
+    "command": [
+      "ctest", "--test-dir", "build-cuda", "--output-on-failure", "-R",
+      "^(test-expert-weight-provider|test-expert-miss-policy|test-expert-cache-policy|test-expert-prefetch|test-hot-expert-cache|test-cold-expert-cache|test-expert-transfer-ring|test-expert-storage|test-expert-async-io|test-expert-scheduler|test-perfetto-trace)$"
+    ],
+    "passed": 11,
+    "failed": 0,
+    "result": "pass"
+  },
+  "compute_sanitizer": {
+    "tool": "/usr/local/cuda-12.8/bin/compute-sanitizer",
+    "tool_arguments": ["--tool", "memcheck", "--leak-check", "full", "--error-exitcode", "1"],
+    "workload_delta": {
+      "cell": "B",
+      "max_generate": 1,
+      "expert_devices": 2,
+      "peer_transport": "HOST_STAGED",
+      "graphs_disabled": true
+    },
+    "exit_code": 0,
+    "workload_status": "pass",
+    "generated_ids": [2581],
+    "generated_text": "We",
+    "route_records": 43,
+    "directory_owner_only_violations": 0,
+    "live_work_after_closeout": 0,
+    "leak_summary_bytes": 0,
+    "error_summary": 0,
+    "captured_workload_sha256": "42e1b3a5c111950229a5d7bd57904ece69e1029ae0908d02475e17ed21a0531f"
+  },
+  "fail_closed_missing_device": {
+    "workload_delta": {
+      "expert_devices": 3,
+      "visible_cuda_devices": 2
+    },
+    "message": "requested 3 CUDA devices, found 2",
+    "exit_code": 2,
+    "result": "pass"
+  },
+  "preflight": {
+    "topology": "pass",
+    "artifact_inventory": "pass",
+    "source_span": "pass",
+    "source_span_cuda_kernel_comparisons": "9/9 bit-exact",
+    "layout_classes": 3,
+    "source_crossing_violations": 0
+  },
+  "campaign_integrity": {
+    "fresh_processes": 16,
+    "mandatory_pairs": 5,
+    "capacity_matched_pairs": 3,
+    "gzip_files_checked": 32,
+    "gzip_integrity": "pass",
+    "analysis_reproduction": "byte_identical",
+    "output_identity_exact": true,
+    "output_identity_sha256": "60658621b12340bc02d1fbb614142e4a17c5dd52eb529bfd4b0b2eb1a1255889"
+  },
+  "trace_gate": {
+    "result": "blocked",
+    "classification": "BLOCKED_PERFETTO_CUPTI",
+    "evidence": "../trace/blocked-trace.json"
+  },
+  "independent_final_review": {
+    "run": false,
+    "reason": "Issue #61 requires the selected adjacent A/B trace and final manifest to be frozen before the single final-capable review; the trace hard gate is blocked."
+  },
+  "excluded_host_checks": [
+    {
+      "check": "unrelated full-target UMA probe build",
+      "reason": "The host libc headers do not expose STATX_DIOALIGN; Phase 13 focused CUDA targets build and pass."
+    }
+  ]
+}

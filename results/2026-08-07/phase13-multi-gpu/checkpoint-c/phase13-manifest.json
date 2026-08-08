@@ -1,0 +1,345 @@
+{
+  "schema_version": "phase13-manifest-v1",
+  "self_identity": "phase13-manifest.json excludes its own hash and immutable URL to remain non-circular",
+  "issue": "https://github.com/murillo128/k3-out-of-core/issues/61",
+  "execution_profile": "STANDARD",
+  "status": "blocked",
+  "disposition": {
+    "overall": "BLOCKED_PERFETTO_CUPTI",
+    "mechanism": "MECHANISM_VALIDATED",
+    "scaling": "SCALING_NEGATIVE",
+    "support_claim": "not_granted_without_qualifying_trace",
+    "default_enabled": false,
+    "performance_magnitude_is_descriptive": true
+  },
+  "revisions": {
+    "project_base": "0e1b900c78f09d96597970782c067d19aafd6f00",
+    "project_branch": "codex/phase13-multi-gpu",
+    "nested_base": "71b4b0251fb314cb955fe5f43b6a1e382fc2b65c",
+    "nested_head": "bf877f8bde80850b64403096ce043940d2f7f567",
+    "nested_tree": "c2630bfd92e85ef1f9d43fc798df8e7b34ae4c66"
+  },
+  "imported_evidence": [
+    {
+      "issue": 52,
+      "path": "results/2026-08-05/host-79466/heterogeneous-layout/manifest.json",
+      "sha256": "9dc0cab80ad751fc26ae6ea7488b3dfacb2631b3f82b92623dcf7393c79291dc",
+      "size": 19630
+    },
+    {
+      "issue": 53,
+      "path": "results/2026-08-05/host-79466/dsv4-24gb-validation-resume/manifest.json",
+      "sha256": "b7b7e5f9f37fd5f2116fa48f9aff8cd18b69c0912fbecfc51a1ec3a47d768333",
+      "size": 10921
+    },
+    {
+      "issue": 55,
+      "path": "results/2026-08-05/host-79466/phase12-5-perfetto/checkpoint-c/trace-index.json",
+      "sha256": "9fddb41b778acb53314c641701b65c0ab2fae57d4a8e9830e9e3e011c509d369",
+      "size": 22912
+    },
+    {
+      "issue": 57,
+      "path": "results/2026-08-06/host-79466/issue56-integrity-remediation/evidence-index.json",
+      "sha256": "23402c8b2ef145daba909b37be84f43a79e821191fef2aaa96ff5bb3c1b83f9b",
+      "size": 16346
+    },
+    {
+      "issue": 58,
+      "path": "results/2026-08-06/sergio-test/phase12-nvme/checkpoint-b/checkpoint-b-manifest.json",
+      "sha256": "fc5bbc994730f38d034efc120039d2991ef0a2f350d9d5c3fbc02e220252c235",
+      "size": 146349
+    }
+  ],
+  "artifact": {
+    "repository": "unsloth/DeepSeek-V4-Flash-GGUF",
+    "revision": "85ce4196ab6e82852e25dfec2b7e2beaae56f5f1",
+    "variant": "UD-Q2_K_XL",
+    "amendment": "https://github.com/murillo128/k3-out-of-core/issues/61#issuecomment-5222278191",
+    "total_bytes": 96832507552,
+    "files": [
+      {
+        "name": "DeepSeek-V4-Flash-UD-Q2_K_XL-00001-of-00003.gguf",
+        "size": 5256864,
+        "sha256": "5475dce5d7189b4304d490bf559d438c967bbc924ce5384ba8e9ecc0385cb003"
+      },
+      {
+        "name": "DeepSeek-V4-Flash-UD-Q2_K_XL-00002-of-00003.gguf",
+        "size": 49437013568,
+        "sha256": "3faf8797868960141239b69bdd8105b0459fbc0f1927652889ae936a967fc4ca"
+      },
+      {
+        "name": "DeepSeek-V4-Flash-UD-Q2_K_XL-00003-of-00003.gguf",
+        "size": 47390237120,
+        "sha256": "4083f1f78e2730006acf78a458ac6b190faf1f515c30cce479a6f8d5066dda80"
+      }
+    ],
+    "bounded_refresh": {
+      "routed_layers": 43,
+      "experts_per_layer": 256,
+      "selected_top_k": 6,
+      "routed_tensor_count": 129,
+      "layout_class_count": 3,
+      "maximum_bundle_bytes": 10878976,
+      "source_crossing_violations": 0,
+      "representative_cuda_kernel_comparisons": 9,
+      "all_representative_comparisons_bit_exact": true
+    }
+  },
+  "environment": {
+    "host": "ubuntu",
+    "kernel": "6.8.0-59-generic",
+    "cpu_count": 76,
+    "memory_total_kib": 311440732,
+    "swap_total_bytes": 0,
+    "cuda_driver": "580.95.05",
+    "cuda_toolkit": "12.8",
+    "gpus": [
+      {
+        "device_id": 0,
+        "cuda_ordinal": 0,
+        "name": "NVIDIA GeForce RTX 3090",
+        "memory_mib": 24576,
+        "uuid": "GPU-1e8ea2b1-f247-777c-1d66-d2669411dc79",
+        "pci_bdf": "0000:00:08.0"
+      },
+      {
+        "device_id": 1,
+        "cuda_ordinal": 1,
+        "name": "NVIDIA GeForce RTX 3090",
+        "memory_mib": 24576,
+        "uuid": "GPU-c616d50f-3ee0-0507-8dfc-1698546b6b5c",
+        "pci_bdf": "0000:00:0a.0"
+      }
+    ],
+    "device_order": "ascending_pci_domain_bus_device_function",
+    "online_numa_nodes": [0],
+    "gpu_sysfs_numa_node": [-1, -1],
+    "numa_interpretation": "The host exposes only node 0, so allocation locality is unambiguous despite per-device sysfs reporting -1; no cross-NUMA claim is made.",
+    "p2p_available_both_directions": false,
+    "p2p_comparator": "BLOCKED_P2P",
+    "host_staged_bandwidth_gbps": {
+      "device_0_to_1": 6.366275377827017,
+      "device_1_to_0": 6.354137857323779
+    },
+    "backing_store": {
+      "mountpoint": "/dev/shm",
+      "filesystem": "tmpfs",
+      "source": "tmpfs",
+      "nvme_required": false
+    }
+  },
+  "architecture_delta": {
+    "owner": "original_expert_id % device_count",
+    "placement": "owner_only_striped",
+    "directory": "one global ExpertKey directory with immutable owner and device-qualified residency cells",
+    "cold_cache": "one physical shared host cache",
+    "hot_cache": "one global LRU/ALWAYS logical policy with device-local pools and physical-feasibility masking",
+    "scheduler": "one logical scheduler with device-qualified flights and per-device bounds",
+    "transport": "explicit HOST_STAGED or fail-closed P2P; expert weights always move host-to-owner GPU",
+    "execution": "per-device routed branches merge on primary DeviceId 0 in canonical top-k order",
+    "generation_identity": "ExpertKey, DeviceId, physical slot, slot generation, pool generation",
+    "replication_or_migration": false,
+    "routing_or_arithmetic_change": false,
+    "cuda_graphs": false
+  },
+  "workload": {
+    "fixture_transport": "POSITIONAL",
+    "fixture_transport_marker": "FIXTURE_TRANSPORT_HELD_CONSTANT",
+    "prompt": "<｜begin▁of▁sentence｜><｜User｜>Explain why a careful measurement should distinguish observed facts from assumptions.<｜Assistant｜><think>",
+    "n_ctx": 4096,
+    "n_batch": 128,
+    "n_ubatch": 128,
+    "seed": 1,
+    "temperature": 0,
+    "selection": "argmax",
+    "generated_tokens_per_process": 24,
+    "post_warmup_decode_tokens_per_process": 23,
+    "cache_policy": "GLOBAL_LRU_ALWAYS",
+    "miss_policy": "PROMOTE_AND_GPU",
+    "integrity": "NONE",
+    "cold_cache_bytes_requested": 17179869184,
+    "ring_bytes_requested_per_device": 67173120,
+    "ring_effective_lanes_for_q2": 6,
+    "peer_staging_bytes": 67108864,
+    "io_queue_depth": 256,
+    "io_trace_capacity": 65536,
+    "cache_state": "PROVIDER_COLD_OS_TMPFS_RESIDENT"
+  },
+  "campaign": {
+    "raw_file_count": 48,
+    "raw_bytes": 51484434,
+    "raw_tree_sha256": "90fe6a253e7008bc1a4843315e6e8a35703fff0aa7deb0448ff19b2afbcafc2d",
+    "raw_tree_digest_method": "SHA-256 of the sorted relative-path sha256sum listing for checkpoint-b/raw and checkpoint-bprime/raw",
+    "raw_archive": {
+      "tag": "phase13-issue61-evidence-v1",
+      "url": "https://github.com/murillo128/k3-out-of-core/releases/tag/phase13-issue61-evidence-v1",
+      "asset": "phase13-issue61-raw.tar.zst",
+      "size": 39524237,
+      "sha256": "0462759ba6c50688cf196a875426cbf66841a7b15e18d3565145851e2b8b922c",
+      "uncompressed_tar_bytes": 51517440,
+      "compression": "zstd-19",
+      "integrity_test": "pass"
+    },
+    "fresh_processes": 16,
+    "exact_output_identity": {
+      "status": "pass",
+      "sha256": "60658621b12340bc02d1fbb614142e4a17c5dd52eb529bfd4b0b2eb1a1255889",
+      "route_records_per_process": 1032
+    },
+    "mandatory_A_B": {
+      "pairs": 5,
+      "A": {
+        "devices": 1,
+        "hot_slots_per_device": 268,
+        "decode_tps": 0.376838232463012,
+        "ttft_p50_us": 28387948,
+        "token_latency_p50_us": 2646402,
+        "token_latency_p95_us": 2953307,
+        "token_latency_p99_us": 3338570,
+        "token_latency_max_us": 3349037,
+        "hot_hit_rate": 0.263340349139532,
+        "h2d_bytes_per_generated_token": 2019909632,
+        "host_staged_bytes": 0,
+        "storage_read_bytes": 171669258240,
+        "storage_operations": 63255,
+        "peak_rss_kib": 17983980,
+        "gpu_vram_high_water_mib": [10017, 265]
+      },
+      "B": {
+        "devices": 2,
+        "hot_slots_per_device": 268,
+        "decode_tps": 0.24952158304737346,
+        "ttft_p50_us": 35732599,
+        "token_latency_p50_us": 3997168,
+        "token_latency_p95_us": 5157109,
+        "token_latency_p99_us": 5743884,
+        "token_latency_max_us": 6012810,
+        "hot_hit_rate": 0.32016837934876813,
+        "h2d_bytes_per_generated_token": 1864234325.3333333,
+        "host_staged_bytes": 961658880,
+        "peer_bytes": 0,
+        "physical_feasibility_skips": 215970,
+        "storage_read_bytes": 171669258240,
+        "storage_operations": 63255,
+        "peak_rss_kib": 18034332,
+        "gpu_vram_high_water_mib": [10017, 3347]
+      },
+      "speedup": 0.6621450838905123,
+      "efficiency": 0.33107254194525615,
+      "paired_process_speedups": [
+        0.6561789622381913,
+        0.658373910966867,
+        0.6714127961151228,
+        0.6621680937501406,
+        0.6627220916474676
+      ],
+      "paired_bootstrap_95_percent_interval": [0.6579348688656126, 0.6670396904581763],
+      "classification": "SCALING_NEGATIVE",
+      "hot_hit_rate_delta_percentage_points": 5.68280302092361,
+      "expert_h2d_bytes_per_token_relative_change": -0.07707043137000436,
+      "capacity_matched_comparator_triggered": true
+    },
+    "capacity_matched_A_Bprime": {
+      "pairs": 3,
+      "hot_slots_per_device_Bprime": 134,
+      "single_gpu_tps": 0.37582164824851916,
+      "capacity_matched_dual_gpu_tps": 0.19282528632333337,
+      "speedup": 0.5130765809313464,
+      "efficiency": 0.2565382904656732,
+      "paired_process_speedups": [0.5099045651606154, 0.5141187015707338, 0.5152173750692833],
+      "paired_bootstrap_95_percent_interval": [0.5099045651606154, 0.5152173750692833],
+      "host_staged_bytes_Bprime": 576995328,
+      "physical_feasibility_skips_Bprime": 167985
+    },
+    "causal_conclusion": "Two-GPU host-staged activation/result traffic, synchronization and device-local feasibility overhead dominate the small routed subsets. The capacity-matched comparator is still slower, so doubled aggregate hot capacity does not explain the negative scaling.",
+    "error_counters": {
+      "io_errors": 0,
+      "short_reads": 0,
+      "stale_completions": 0,
+      "terminal_failures": 0,
+      "cleanup_failures": 0,
+      "live_work_after_closeout": 0
+    }
+  },
+  "trace": {
+    "selected_cells": ["A", "B"],
+    "status": "blocked",
+    "classification": "BLOCKED_PERFETTO_CUPTI",
+    "failure": "SIGSEGV at CUPTI_ACTIVITY_KIND_EXTERNAL_CORRELATION materialization or fail-closed retained-record bound exhaustion within the accepted 256 MiB trace bound",
+    "source_experiments_reverted": true,
+    "raw_nonqualifying_traces_retained": false,
+    "next_action": "Use a CUPTI/driver environment that can drain the external-correlation volume within the accepted bound, or approve a separate streaming trace redesign."
+  },
+  "validation": {
+    "focused_build_parallel_jobs": 76,
+    "focused_ctest": "11/11 pass",
+    "compute_sanitizer_error_summary": 0,
+    "compute_sanitizer_leaked_bytes": 0,
+    "missing_device_fail_closed_exit_code": 2,
+    "campaign_analysis_reproduction": "byte_identical",
+    "gzip_integrity": "32/32 pass",
+    "independent_final_review": "not_run_trace_prerequisite_blocked"
+  },
+  "evidence": [
+    {
+      "path": "results/2026-08-07/phase13-multi-gpu/preflight/topology.json",
+      "sha256": "b2c661b2273e0b40aa1b0309ec8e30e785b6321213b47bdb92c13cb887a59d01",
+      "size": 2338
+    },
+    {
+      "path": "results/2026-08-07/phase13-multi-gpu/preflight/artifact-inventory.json",
+      "sha256": "bf6d4fcc60b4d80625d4e04eff5064591edd30fc6cacd84012997d1f60e4b5ea",
+      "size": 1176653
+    },
+    {
+      "path": "results/2026-08-07/phase13-multi-gpu/preflight/source-span.json",
+      "sha256": "e3b496dd65cbfae48a4cc49cc57cad7403a02a830eb6da4b497c3699bc9cef5d",
+      "size": 21149
+    },
+    {
+      "path": "results/2026-08-07/phase13-multi-gpu/checkpoint-b/matrix-summary.json",
+      "sha256": "551690d8046c00a0c456dce393ccf792bf0b2f303e1ec1416647385d5d65d07d",
+      "size": 51151
+    },
+    {
+      "path": "results/2026-08-07/phase13-multi-gpu/checkpoint-bprime/matrix-summary.json",
+      "sha256": "e8103a83d9cb62d02dcbaef6fcc60e2c2806540c9972f170cab267040c4cd027",
+      "size": 31389
+    },
+    {
+      "path": "results/2026-08-07/phase13-multi-gpu/trace/blocked-trace.json",
+      "sha256": "d92ca222d8f81872f6530823390972ceb04070e6830b3ed48dd68fc2bce0c40c",
+      "size": 4406
+    },
+    {
+      "path": "results/2026-08-07/phase13-multi-gpu/checkpoint-c/phase13-validation.json",
+      "sha256": "1ca2e06d4b4e40532e3590a5991cb3a65520fd94c2c11e2db1cb6ba534c3e652",
+      "size": 3711
+    },
+    {
+      "path": "results/2026-08-07/phase13-multi-gpu/SUMMARY.md",
+      "sha256": "939bb24e4d368ad9122c0720a12b2851a5d1faf2201580665808387d86759849",
+      "size": 2137
+    },
+    {
+      "path": "scripts/phase13/run_phase13_matrix.py",
+      "sha256": "d51da99099f2c9afa394220153ca2ee5252a459b2bed9a9fda117ad2b96a8645",
+      "size": 7183
+    },
+    {
+      "path": "scripts/phase13/analyze_phase13_matrix.py",
+      "sha256": "11c920801a0774a596da350f9b25488d5a2d6bd1be828d8a6db5cc6b3946ed67",
+      "size": 12155
+    }
+  ],
+  "limits": [
+    "single request only",
+    "validated only on the characterized 2 x RTX 3090 host",
+    "HOST_STAGED is the only exercised peer transport because directed P2P is unavailable",
+    "no replication, migration, adaptive placement, batching, fairness or CUDA graphs",
+    "negative scaling is descriptive and is not a support/default claim",
+    "no NVMe, direct-I/O, io_uring or physical-storage qualification claim",
+    "no final independent review because the qualifying trace prerequisite is blocked"
+  ]
+}
