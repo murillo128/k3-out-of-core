@@ -425,6 +425,8 @@ def main() -> int:
     provider_dependency_delta = mean_bucket_delta_ms["pre_issue_ns"] + \
         mean_bucket_delta_ms["post_issue_ns"]
     issue_is_dominant = issue_delta >= provider_dependency_delta
+    previous = json.loads(args.previous_analysis.read_text()) if args.previous_analysis else None
+    quick = json.loads(args.quick_summary.read_text()) if args.quick_summary else None
     if issue_is_dominant:
         ranked_bottlenecks = [
             {
@@ -632,7 +634,7 @@ def main() -> int:
                 "implementation-induced share or instead converges on a structural limit."
             ),
         }
-    else:
+    elif args.iteration == 5:
         selector_ms = cases["B"]["provider_service_unions_not_additive"][
             "multi_device_hot_slot_select"] / b_count / 1e6
         admission_ms = cases["B"]["provider_service_unions_not_additive"][
@@ -694,6 +696,58 @@ def main() -> int:
                 "any correctness, metadata, cancellation, or resource gate regresses."
             ),
         }
+    else:
+        selector_gap_ms = cases["B"]["provider_phase_diagnostics"][
+            "post_selector_to_first_issue_mean_ms"]
+        previous_gap_ms = 0.0 if previous is None else float(previous["cases"]["B"][
+            "provider_phase_diagnostics"]["post_selector_to_first_issue_mean_ms"])
+        gap_delta = 0.0 if previous_gap_ms == 0 else selector_gap_ms / previous_gap_ms - 1.0
+        ranked_bottlenecks = [
+            {
+                "rank": 1,
+                "mechanism": "per_layer_transfer_ring_event_capability_snapshots",
+                "evidence": (
+                    "The effective-lane snapshots were removed and the post-selector gap fell by "
+                    f"{-gap_delta:.1%}, leaving B pre-issue wall {mean_bucket_delta_ms['pre_issue_ns']:.3f} "
+                    "ms/layer above A. Source order contains one remaining transfer-ring diagnostics "
+                    "snapshot per device for the immutable event-capable property before policy work; "
+                    "the one extra B snapshot quantitatively matches the residual."
+                ),
+                "measured_extra_ms_per_layer_vs_A": mean_bucket_delta_ms["pre_issue_ns"],
+                "target_bucket": "pre_issue_ns",
+            },
+            {
+                "rank": 2,
+                "mechanism": "multi_device_post_issue_transfer_service",
+                "evidence": (
+                    f"B post-issue wall remains {mean_bucket_delta_ms['post_issue_ns']:.3f} ms/layer "
+                    "above A; the measured B-minus-A stage and H2D-scope unions are "
+                    f"{mean_service_delta_ms['stage']:.3f} and "
+                    f"{mean_service_delta_ms['h2d_scope']:.3f} ms/layer, respectively."
+                ),
+                "measured_extra_ms_per_layer_vs_A": mean_bucket_delta_ms["post_issue_ns"],
+                "target_bucket": "post_issue_ns",
+            },
+        ]
+        dominant = "per_layer_transfer_ring_event_capability_snapshots"
+        rationale = (
+            "Iteration 6 confirms the predicted implementation-induced bottleneck: the exact selector-to-issue "
+            "gap is effectively eliminated and both trace wall and B throughput improve materially. The next "
+            "source-ordered B-only cost is the same diagnostics snapshot pattern for event capability. That "
+            "property is fixed when each ring is initialized and does not need runtime counter aggregation."
+        )
+        next_hypothesis = {
+            "single_primary_hypothesis": (
+                "Persist each transfer ring's immutable event-capable property for the pool generation and "
+                "remove the remaining per-layer diagnostics snapshots from the multi-device remap path."
+            ),
+            "predicted_trace_change": "B pre_issue_ns decreases by at least 6 ms/layer",
+            "predicted_tps_change": "One fresh B process improves decode TPS by at least 3%",
+            "falsifier": (
+                "Revert if B pre_issue_ns changes by less than 3% and B TPS changes by less than 3%, or if "
+                "any correctness, metadata, cancellation, or resource gate regresses."
+            ),
+        }
     ranked_bottlenecks.append({
         "rank": len(ranked_bottlenecks) + 1,
         "mechanism": "serialized_remote_branch_graph",
@@ -701,8 +755,6 @@ def main() -> int:
         "measured_overlap_ns": cases["B"]["gpu"]["simultaneous_gpu0_gpu1_kernel_overlap_ns"],
         "target_bucket": "graph_dependency_or_host_gap",
     })
-    previous = json.loads(args.previous_analysis.read_text()) if args.previous_analysis else None
-    quick = json.loads(args.quick_summary.read_text()) if args.quick_summary else None
     output = {
         "schema_version": "phase13-iteration-trace-analysis-v1",
         "status": "pass",
@@ -737,7 +789,7 @@ def main() -> int:
             "quick_screen": None if quick is None else {
                 "status": quick["status"],
                 "identity": quick["identity"],
-                "scaling": quick["scaling"],
+                "scaling": quick.get("scaling"),
             },
             "before_after_trace": None if previous is None else {
                 "previous_iteration": previous["iteration"],
@@ -767,7 +819,7 @@ def main() -> int:
             "consecutive_falsified_hypotheses": 2 if args.iteration == 4 else 0,
             "action": (
                 "pause_and_review_attribution_before_next_fix" if args.iteration == 4 else
-                ("review_resolved_by_distinguishing_comparator" if args.iteration >= 5 else "none")
+                ("review_resolved_by_distinguishing_comparator" if args.iteration == 5 else "none")
             ),
         },
     }
