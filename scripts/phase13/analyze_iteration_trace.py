@@ -696,7 +696,7 @@ def main() -> int:
                 "any correctness, metadata, cancellation, or resource gate regresses."
             ),
         }
-    else:
+    elif args.iteration == 6:
         selector_gap_ms = cases["B"]["provider_phase_diagnostics"][
             "post_selector_to_first_issue_mean_ms"]
         previous_gap_ms = 0.0 if previous is None else float(previous["cases"]["B"][
@@ -746,6 +746,57 @@ def main() -> int:
             "falsifier": (
                 "Revert if B pre_issue_ns changes by less than 3% and B TPS changes by less than 3%, or if "
                 "any correctness, metadata, cancellation, or resource gate regresses."
+            ),
+        }
+    else:
+        ranked_bottlenecks = [
+            {
+                "rank": 1,
+                "mechanism": "multi_device_post_issue_residual",
+                "evidence": (
+                    "After event-capability caching, B pre-issue wall is "
+                    f"{-mean_bucket_delta_ms['pre_issue_ns']:.3f} ms/layer faster than A, while B "
+                    f"post-issue wall remains {mean_bucket_delta_ms['post_issue_ns']:.3f} ms/layer "
+                    "slower. The multi-device path reads async-transport diagnostics twice per miss "
+                    "after all current-layer enqueues, including once directly inside staging."
+                ),
+                "measured_extra_ms_per_layer_vs_A": mean_bucket_delta_ms["post_issue_ns"],
+                "target_bucket": "post_issue_ns",
+            },
+            {
+                "rank": 2,
+                "mechanism": "multi_device_stage_and_h2d_service",
+                "evidence": (
+                    "Measured B-minus-A stage and H2D-scope unions are "
+                    f"{mean_service_delta_ms['stage']:.3f} and "
+                    f"{mean_service_delta_ms['h2d_scope']:.3f} ms/layer, but they are nested service "
+                    "unions and do not yet explain the complete wall residual."
+                ),
+                "measured_stage_delta_ms_per_layer": mean_service_delta_ms["stage"],
+                "measured_h2d_scope_delta_ms_per_layer": mean_service_delta_ms["h2d_scope"],
+                "target_bucket": "post_issue_ns",
+            },
+        ]
+        dominant = "multi_device_post_issue_residual"
+        rationale = (
+            "Iteration 7 confirms that the remaining ring diagnostics snapshot was implementation-induced: "
+            "B pre-issue wall falls by more than half and the adjacent pair reaches near parity. The entire "
+            "material provider regression is now after current-layer issue. Source order identifies repeated "
+            "async-transport diagnostics snapshots as the next unmeasured lock-bearing dependency, so the "
+            "adaptive contract requires a trace comparator before changing its lifetime semantics."
+        )
+        next_hypothesis = {
+            "single_primary_hypothesis": (
+                "Trace the two multi-device async-transport epoch diagnostics snapshots per miss to test "
+                "whether their lock-bearing wall explains at least half of the B-minus-A post-issue residual."
+            ),
+            "predicted_trace_change": (
+                "Measured B epoch-snapshot time explains at least 50% of the 9.384-ms/layer post-issue delta"
+            ),
+            "predicted_tps_change": "Tier 0 instrumentation only; no performance matrix",
+            "falsifier": (
+                "Do not cache the epoch if the measured snapshots explain less than 50% of the post-issue "
+                "delta; rerank the remaining post-issue source intervals instead."
             ),
         }
     ranked_bottlenecks.append({
