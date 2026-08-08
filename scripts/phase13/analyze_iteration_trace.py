@@ -425,7 +425,7 @@ def main() -> int:
                 "correctness/resource gate regresses."
             ),
         }
-    else:
+    elif args.iteration == 1:
         ranked_bottlenecks = [
             {
                 "rank": 1,
@@ -456,6 +456,54 @@ def main() -> int:
             "falsifier": (
                 "Revert if post_issue_ns changes by less than 3% and B TPS changes by less than 3%, or if any "
                 "correctness/resource gate regresses."
+            ),
+        }
+    else:
+        ranked_bottlenecks = [
+            {
+                "rank": 1,
+                "mechanism": "multi_device_repeated_global_hot_slot_scan",
+                "evidence": (
+                    "After lane-capacity caching, B pre-issue wall exceeds A by "
+                    f"{mean_bucket_delta_ms['pre_issue_ns']:.3f} ms/layer and is the largest "
+                    "remaining wall delta. In a representative B layer, the interval from the "
+                    "last request-pin release to the first adjacent enqueue is approximately "
+                    "21.4 ms. The per-device selector walks and validates the complete 536-slot "
+                    "global directory for every miss before filtering the 268 owner slots."
+                ),
+                "measured_extra_ms_per_layer_vs_A": mean_bucket_delta_ms["pre_issue_ns"],
+                "target_bucket": "pre_issue_ns",
+            },
+            {
+                "rank": 2,
+                "mechanism": "provider_post_issue_dependency_gaps",
+                "evidence": (
+                    "The prior lane-capacity change reduced B post-issue wall by more than 50%, "
+                    "but the remaining post-issue bucket still exceeds A."
+                ),
+                "measured_extra_ms_per_layer_vs_A": mean_bucket_delta_ms["post_issue_ns"],
+                "target_bucket": "post_issue_ns",
+            },
+        ]
+        dominant = "multi_device_repeated_global_hot_slot_scan"
+        rationale = (
+            "The previous hypothesis is confirmed: B layer wall fell materially with A stable and "
+            "post-issue wall halved. The reranked trace now places most of the remaining regression "
+            "before current-layer issue. Source order and representative markers attribute the "
+            "largest untraced interval to repeated global directory/policy coherence scans in the "
+            "device-constrained victim selector; slot ownership is immutable for the pool generation."
+        )
+        next_hypothesis = {
+            "single_primary_hypothesis": (
+                "Validate global hot-directory/policy coherence once per multi-device checkpoint, "
+                "then enumerate only the immutable owner-device slot range for each miss instead of "
+                "rescanning all global slots."
+            ),
+            "predicted_trace_change": "B pre_issue_ns decreases by at least 20%",
+            "predicted_tps_change": "B decode TPS increases by at least 3% with A unchanged within 3%",
+            "falsifier": (
+                "Revert if pre_issue_ns changes by less than 3% and B TPS changes by less than 3%, or "
+                "if any metadata, correctness, cancellation, or resource gate regresses."
             ),
         }
     ranked_bottlenecks.append({

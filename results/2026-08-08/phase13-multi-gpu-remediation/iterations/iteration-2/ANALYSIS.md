@@ -1,0 +1,11 @@
+# Phase 13 iteration 2 — cached lane-capacity comparator
+
+Candidate: parent `6e3e8a181ff87ab7d40e3631a9463d47c794a028`, nested `65832ceda9a2775383e09b6f0b44cd9531fad0af`.
+
+`OBSERVED`: the single requested change worked on its exact trace bucket. Caching each transfer ring's immutable effective lane capacity reduced B `post_issue_ns` by 50.764% relative to Iteration 1 and reduced B routed-layer wall by 35.477%. The two-pair screen preserved the exact output identity across four fresh processes and measured A at 0.379197 tok/s, B at 0.241859 tok/s and A→B at 0.637820× (paired bootstrap 95% interval 0.637497–0.638145). This is a 29.6% B-TPS improvement over Iteration 1 with A stable within 0.2%. Focused validation passed, with no stale/error/cancellation/resource residue in the normal hardware runs.
+
+The candidate is retained. It exceeds both predicted effects, preserves correctness and resets the no-progress sequence. The fresh traces are valid and wall-exact: A has 14 and B has 9 complete routed-layer cycles in the requested 1000-ms window. Their SHA-256 values are `ff620e6c19f81bbeaa956ce06546301198ad8880e25dc0d8af914494f795293e` and `15340a08799fbe20d9d2aae3fa7cecb980a03e72b170395890b9131f0774daa1` respectively.
+
+The reranked critical path is still implementation-induced, not a structural limit. B now exceeds A by 34.682 ms/layer: 24.166 ms is in `pre_issue_ns`, 9.682 ms in `post_issue_ns`, and all remaining graph/CUDA buckets together are secondary. In a representative B layer, the interval after the last request-pin release and before the first adjacent enqueue is approximately 21.4 ms. Source order identifies the work there as per-miss device-constrained victim selection: every miss walks and validates the complete 536-slot global directory before filtering the immutable 268 slots owned by its target device.
+
+Iteration 3 has one primary hypothesis: validate global directory/policy coherence once per multi-device checkpoint and enumerate only the immutable owner-device slot range for each miss. The prediction is at least a 20% reduction in B `pre_issue_ns` and at least a 3% B-TPS improvement, with A within 3%. It will be reverted if both targeted trace and TPS changes are below 3%, or if any metadata, correctness, cancellation or resource gate regresses.
