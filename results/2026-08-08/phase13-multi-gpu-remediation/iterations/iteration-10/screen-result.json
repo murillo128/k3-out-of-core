@@ -1,0 +1,82 @@
+{
+  "schema_version": "phase13-iteration-screen-v1",
+  "status": "pass",
+  "iteration": 10,
+  "revisions": {
+    "project_base": "030c1a2225a6fa5f866507df36a37a7b82b8e99c",
+    "nested_base": "67ab784bdb93aa9e43a9a48a14eb7ebc8bcd1b98",
+    "nested_candidate": "ba98600576d97109a3130af126ff9780d1812b71",
+    "nested_revert": "50071d8f8b4cf06e291a704956516834c851519b"
+  },
+  "build": {
+    "parallel_jobs": 76,
+    "result": "pass"
+  },
+  "focused_ctest": {
+    "passed": 12,
+    "failed": 0,
+    "result": "pass"
+  },
+  "target_activation": {
+    "source_type": "iq2_xs",
+    "ne2": 16,
+    "ne12": 16,
+    "ne02": 268,
+    "mmvq_max": 8,
+    "mmq_eligible": true,
+    "mmf_eligible": false,
+    "result": "active"
+  },
+  "mode_c_B": {
+    "status": "pass",
+    "decode_tps_diagnostic_only": 0.3788749663686694,
+    "identity_sha256": "60658621b12340bc02d1fbb614142e4a17c5dd52eb529bfd4b0b2eb1a1255889",
+    "logits_fnv64_exact": true,
+    "route_records": 1032,
+    "raw_gzip": {
+      "sha256": "4e33fa281e0dd8065375ac10681cb26e809c0c5379e9f3a782b0aa2c232fe02e",
+      "size_bytes": 3116971
+    },
+    "summary": {
+      "sha256": "425806198b40a29122da9f79504c85a90dd7062eec4bd4a3a46af2381afbfb4f",
+      "size_bytes": 8168
+    }
+  },
+  "mode_p_B": {
+    "status": "pass",
+    "reference_decode_tps": 1.1723843340907956,
+    "candidate_decode_tps": 1.1742664510645389,
+    "candidate_change_fraction": 0.0016053754037943513,
+    "retention_threshold_fraction": 0.03,
+    "generated_output_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+    "raw_gzip": {
+      "sha256": "3be4ce2bbfc8ce243f7da5b5a9a94a77f3a4527e92a970709314ae722c056fa7",
+      "size_bytes": 5275
+    },
+    "summary": {
+      "sha256": "9f81d4aca8b56e5c1efda7d6518bd96ac28d539caa52171c893f99bf8cfea914",
+      "size_bytes": 8183
+    }
+  },
+  "iteration_result": {
+    "decision": "revert",
+    "rationale": "The active candidate preserved exactness but improved B Mode-P decode throughput by only 0.1605%, below the declared 3% Tier-1 retention threshold."
+  },
+  "no_progress": {
+    "consecutive_falsified_hypotheses": 1,
+    "action": "continue_with_bounded_positional_read_concurrency"
+  },
+  "root_cause_conclusion": {
+    "status": "OBSERVED",
+    "dominant": "serialized_positional_storage_and_staging",
+    "implementation_induced": true,
+    "structural_limit_proven": false,
+    "rationale": "The measured inactive-ID synchronization is not throughput-dominant. The Mode-P trace and source now select the single forced-positional read worker as the next bounded mechanism."
+  },
+  "next_hypothesis": {
+    "single_primary_hypothesis": "Use a bounded positional-read worker count derived from expert-device count so independent B demand reads can overlap without changing storage, cache, transport, routing, or merge semantics.",
+    "predicted_tps_change": "B Mode-P decode TPS +3% or better; A unchanged by construction",
+    "predicted_trace_change": "B storage service -25% or better and B provider wall -10% or better",
+    "falsifier": "Revert if B TPS improves less than 3%, storage/provider targets miss, or any Mode-C exactness, cancellation, generation, lifecycle, or bounded-resource gate regresses."
+  }
+}
