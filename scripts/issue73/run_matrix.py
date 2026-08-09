@@ -70,12 +70,20 @@ def process_status(pid: int) -> dict[str, int]:
     try:
         for line in Path(f"/proc/{pid}/status").read_text().splitlines():
             key, _, value = line.partition(":")
-            if key in {"VmRSS", "VmHWM", "VmPin", "Threads"}:
+            if key in {
+                    "VmRSS", "VmHWM", "VmPin", "Threads",
+                    "voluntary_ctxt_switches", "nonvoluntary_ctxt_switches"}:
                 result[key] = int(value.strip().split()[0])
+        stat = Path(f"/proc/{pid}/stat").read_text()
+        fields = stat[stat.rfind(")") + 2:].split()
+        result.update({
+            "minor_faults": int(fields[7]), "major_faults": int(fields[9]),
+            "user_ticks": int(fields[11]), "system_ticks": int(fields[12]),
+        })
         for line in Path(f"/proc/{pid}/io").read_text().splitlines():
             key, value = line.split(":", 1)
             result[f"io_{key}"] = int(value)
-    except FileNotFoundError:
+    except (FileNotFoundError, IndexError, ValueError):
         pass
     return result
 
