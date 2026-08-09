@@ -7,6 +7,7 @@ import argparse
 import json
 import math
 from pathlib import Path
+import re
 import statistics
 
 from analyze_checkpoint_a import load_gzip_json, profile_summary, trace_summary
@@ -304,6 +305,22 @@ def profile_policy_summary(profiles: dict[str, object]) -> dict[str, object]:
     }
 
 
+def ctest_summary(path: Path) -> dict[str, object]:
+    text = path.read_text()
+    names = re.findall(r"Test #\d+: ([^ ]+).*?Passed", text)
+    totals = re.search(r"(\d+) tests failed out of (\d+)", text)
+    failed = int(totals.group(1)) if totals else None
+    total = int(totals.group(2)) if totals else None
+    return {
+        "log": file_identity(path),
+        "tests": names,
+        "tests_passed": len(names),
+        "tests_failed": failed,
+        "tests_total": total,
+        "gate": len(names) == 12 and failed == 0 and total == 12,
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--mode-c-dir", type=Path, required=True)
@@ -318,6 +335,10 @@ def main() -> None:
     parser.add_argument("--project-head", required=True)
     parser.add_argument("--nested-head", required=True)
     parser.add_argument("--baseline-nested-head", required=True)
+    parser.add_argument("--raw-release", required=True)
+    parser.add_argument("--raw-asset", required=True)
+    parser.add_argument("--raw-size", type=int, required=True)
+    parser.add_argument("--raw-sha256", required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
 
@@ -330,6 +351,7 @@ def main() -> None:
     provider_ratio = provider_final / BASELINE_PROVIDER_P50_MS
     provider_gate = provider_ratio <= 0.80
     profile_policy = profile_policy_summary(profiles)
+    validation = ctest_summary(args.ctest_log)
     errors: list[str] = []
     if not mode_c["required_cells_present"] or not mode_c["exact_across_topologies"]:
         errors.append("Mode-C S0/S1/D1/A1 is incomplete or not exact")
@@ -352,6 +374,8 @@ def main() -> None:
         errors.append("full-cold S0 zero-storage gate failed")
     if not provider_gate:
         errors.append("matched S0 provider p50 did not improve by at least 20 percent")
+    if not validation["gate"]:
+        errors.append("focused native CTest suite did not pass 12 of 12")
 
     result = {
         "schema_version": "issue69-checkpoint-c-manifest-v1",
@@ -382,7 +406,18 @@ def main() -> None:
             "required_maximum_ratio": 0.80,
             "gate": provider_gate,
         },
-        "validation": {"focused_ctest_log": file_identity(args.ctest_log)},
+        "validation": {"focused_ctest": validation},
+        "raw_evidence": {
+            "release": args.raw_release,
+            "asset": args.raw_asset,
+            "size": args.raw_size,
+            "sha256": args.raw_sha256,
+        },
+        "review": {
+            "status": "pending",
+            "required_target": "the exact published parent and nested heads containing this manifest",
+            "serves_as_final_review": True,
+        },
         "errors": errors,
     }
     write_json(args.output, result)
