@@ -11,7 +11,7 @@ import time
 
 from common import (DEFAULT_COLD_BYTES, cmake_build_identity, file_identity,
                     probe_command, validate_workload, write_json)
-from run_matrix import gpu_sample, meminfo
+from run_matrix import block_delta, block_status, drop_page_cache, gpu_sample, meminfo
 
 
 PERF_EVENTS = (
@@ -72,6 +72,9 @@ def run_one(args: argparse.Namespace, cell: str) -> None:
     environment.update({"GGML_CUDA_GRAPH_OPT": "0", "GGML_CUDA_DISABLE_GRAPHS": "1"})
     samples: list[dict[str, object]] = []
     observed_probe_pids: set[int] = set()
+    if args.drop_page_cache:
+        drop_page_cache()
+    block_before = {str(path): block_status(path) for path in args.block_stat}
     started = time.monotonic()
     print(f"start profile {cell}", flush=True)
     with stdout.open("wb") as out, stderr.open("wb") as err:
@@ -89,6 +92,7 @@ def run_one(args: argparse.Namespace, cell: str) -> None:
             time.sleep(args.sample_period)
         returncode = process.wait()
     elapsed = time.monotonic() - started
+    block_after = {str(path): block_status(path) for path in args.block_stat}
     if returncode != 0:
         raise RuntimeError(f"perf profile {cell} failed with exit code {returncode}")
     if len(observed_probe_pids) != 1:
@@ -109,6 +113,11 @@ def run_one(args: argparse.Namespace, cell: str) -> None:
         "perf_data": file_identity(perf_data), "perf_stat": file_identity(perf_stat),
         "workload": file_identity(workload),
         "worker_count": evidence["async_io"]["diagnostics"]["worker_count"],
+        "cache_state": "OS_COLD_REQUESTED_AND_DROPPED" if args.drop_page_cache else "UNCHANGED",
+        "block_devices": {
+            "before": block_before, "after": block_after,
+            "delta": {path: block_delta(block_before[path], block_after[path]) for path in block_before},
+        },
         "resource_samples": samples,
     })
     print(f"complete profile {cell}: {elapsed:.1f}s, {perf_data.stat().st_size} bytes", flush=True)
@@ -128,11 +137,16 @@ def main() -> None:
     parser.add_argument("--stack-bytes", type=int, default=8192)
     parser.add_argument("--max-data-bytes", type=int, default=512 * 1024**2)
     parser.add_argument("--sample-period", type=float, default=0.5)
+    parser.add_argument("--drop-page-cache", action="store_true")
+    parser.add_argument("--block-stat", type=Path, action="append", default=[])
     args = parser.parse_args()
     if args.output_dir.exists():
         raise FileExistsError(args.output_dir)
     if not args.probe.is_file() or not args.model.is_file() or not args.perf.is_file():
         raise SystemExit("probe, model, or perf is missing")
+    for path in args.block_stat:
+        if not path.is_file():
+            raise SystemExit(f"block stat path is missing: {path}")
     if args.delay_ms < 0 or args.frequency < 1 or args.stack_bytes < 1024 or args.sample_period <= 0:
         raise SystemExit("invalid profile bounds")
     args.output_dir.mkdir(parents=True)
