@@ -3,9 +3,11 @@
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
+import tempfile
 
-from common import DEFAULT_PEER_STAGING_BYTES, PROMPT, probe_command
+from common import DEFAULT_PEER_STAGING_BYTES, PROMPT, probe_command, validate_workload
 from run_matrix import block_delta
 
 
@@ -40,7 +42,33 @@ def main() -> None:
     )
     assert delta["read_bytes"] == 1536
 
-    print("ISSUE73_COMMON status=pass local_staging=0 remote_staging=bounded max_generate=256")
+    workload = {
+        "status": "pass", "generated_ids": [1], "logits_fnv64": [2], "latency_us": [3],
+        "transport_requested": "DIRECT_IO", "io_access_effective": "NORMAL",
+        "storage": {
+            "sealed": True, "poisoned": False, "source_file_count": 33,
+            "direct_source_count": 33,
+        },
+        "lifecycle": {}, "transfer": {}, "mechanism": {},
+        "multi_gpu": {
+            "directory_owner_only_violations": 0,
+            "devices": [{"scheduler": {}}], "peer_diagnostics": [{}],
+        },
+    }
+    with tempfile.TemporaryDirectory() as directory:
+        path = Path(directory) / "workload.json"
+        path.write_text(json.dumps(workload))
+        assert validate_workload(path, 1)["generated_ids"] == [1]
+        workload["storage"]["short_reads"] = 1
+        path.write_text(json.dumps(workload))
+        try:
+            validate_workload(path, 1)
+            raise AssertionError("short read accepted")
+        except RuntimeError as error:
+            assert "storage terminal" in str(error)
+
+    print("ISSUE73_COMMON status=pass local_staging=0 remote_staging=bounded "
+          "max_generate=256 fail_closed=pass")
 
 
 if __name__ == "__main__":

@@ -93,18 +93,59 @@ def write_json(path: Path, value: object) -> None:
 
 def validate_workload(path: Path, generated_tokens: int) -> dict[str, object]:
     value = json.loads(path.read_text())
-    if value.get("status") != "pass" or len(value.get("generated_ids", [])) != generated_tokens:
+    generated_ids = value.get("generated_ids", [])
+    if (value.get("status") != "pass" or len(generated_ids) != generated_tokens or
+            len(value.get("logits_fnv64", [])) != generated_tokens or
+            len(value.get("latency_us", [])) != generated_tokens):
         raise RuntimeError(f"incomplete full-K3 workload: {path}")
+
+    storage = value.get("storage", {})
+    if (not storage.get("sealed", False) or storage.get("poisoned", True) or
+            storage.get("source_file_count", 0) <= 0 or
+            any(storage.get(key, 0) for key in (
+                "cancelled_reads", "short_reads", "io_errors", "integrity_mismatches",
+                "direct_unsupported_source_count", "first_direct_error", "first_native_error"))):
+        raise RuntimeError(f"invalid full-K3 storage terminal state: {path}")
+    transport = value.get("transport_requested")
+    if transport in {"DIRECT_IO", "DIRECT_IO_POSITIONAL"}:
+        if storage.get("direct_source_count") != storage.get("source_file_count"):
+            raise RuntimeError(f"hidden direct-I/O fallback: {path}")
+
     lifecycle = value.get("lifecycle", {})
-    active = (
-        lifecycle.get("active_background_flights", 0),
-        lifecycle.get("cold_current_transfer_refs", 0),
-        lifecycle.get("cold_current_request_refs", 0),
-        lifecycle.get("cold_current_cpu_execution_refs", 0),
-        lifecycle.get("current_hot_pins", 0),
-    )
-    if any(active):
+    if any(lifecycle.get(key, 0) for key in (
+            "active_background_flights", "cold_current_hot_refs",
+            "cold_current_transfer_refs", "cold_current_request_refs",
+            "cold_current_cpu_execution_refs", "current_hot_pins", "hot_failed_cleanups",
+            "cold_failed_cleanups", "hot_transcript_dropped", "cold_transcript_dropped")):
         raise RuntimeError(f"non-terminal full-K3 workload: {path}")
+
+    transfer = value.get("transfer", {})
+    if any(transfer.get(key, 0) for key in (
+            "live_h2d_events", "live_compute_events", "trace_records_dropped", "failed_cleanup")):
+        raise RuntimeError(f"non-terminal full-K3 transfer state: {path}")
+    mechanism = value.get("mechanism", {})
+    if mechanism.get("active_background_flights", 0) or mechanism.get("async_cold_fill_active", 0):
+        raise RuntimeError(f"non-terminal full-K3 background state: {path}")
+
+    multi_gpu = value.get("multi_gpu", {})
+    for device in multi_gpu.get("devices", []):
+        scheduler = device.get("scheduler", {})
+        if (any(scheduler.get(key, 0) for key in (
+                "active_requests", "queued_requests", "inflight_requests",
+                "reserved_storage_bytes", "reserved_h2d_bytes", "stale_completions")) or
+                scheduler.get("terminal_releases", 0) !=
+                scheduler.get("terminal_complete", 0) + scheduler.get("terminal_failed", 0) +
+                scheduler.get("terminal_cancelled", 0)):
+            raise RuntimeError(f"non-terminal full-K3 scheduler state: {path}")
+    if multi_gpu.get("directory_owner_only_violations", 0):
+        raise RuntimeError(f"full-K3 directory ownership violation: {path}")
+    for peer in multi_gpu.get("peer_diagnostics", []):
+        if any(peer.get(key, 0) for key in (
+                "unexpected_host_synchronizations", "stale_staging_completions",
+                "staging_cancellation_requests", "staging_cancellations_during_d2h",
+                "staging_cancellations_during_h2d", "staging_cancellation_drains",
+                "staging_rejected_enqueues", "host_staging_live_slots")):
+            raise RuntimeError(f"non-terminal full-K3 peer state: {path}")
     return value
 
 
