@@ -83,13 +83,29 @@ The loader will expose exact file spans for each expert projection. Do not creat
 
 A future packed expert format remains possible but is not part of the initial implementation contract.
 
-### D-007 — Cold cache is initially inclusive on discrete GPUs
+### D-007 — Hot and cold tiers are independent and reclaimable on discrete GPUs
 
 **Status:** ACCEPTED
 
-A hot expert normally retains a host copy. Hot eviction therefore does not require GPU-to-host writeback. Cold entries backing pinned/in-flight transfers cannot be evicted.
+GGUF/storage remains the authoritative immutable backing store. A valid published
+hot expert does not require a live cold-cache reference after device readiness,
+and hot eviction never performs GPU-to-host writeback. If no cold copy remains,
+a later demand reloads the expert from storage.
 
-This can be revisited if host-memory pressure dominates.
+Cold residency is retained and reclaimed independently according to cold policy.
+A cold entry is evictable once no transfer, request, or CPU-execution reference
+needs it; hot residency alone does not pin it. A real cold hit can still promote
+through the bounded transfer ring and remain cold-resident.
+
+For a `PROMOTE_AND_GPU` hot miss plus cold miss, the accepted demand path may read
+directly from storage into a bounded pinned transfer lane, stream H2D as reads
+complete, and publish the hot generation only after device readiness, without a
+durable cold admission or cold-to-ring staging copy. Failure, cancellation, and
+teardown remain generation-checked and fail closed.
+
+Issue #69 final-capable evidence supersedes the initial strictly inclusive rule:
+independent tiers increase useful hierarchy residency, avoid mandatory duplicate
+residency, and preserve the durable no-writeback principle.
 
 ### D-008 — Do not pin the entire cold cache by default
 

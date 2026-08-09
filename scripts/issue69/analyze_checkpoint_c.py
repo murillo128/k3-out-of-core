@@ -68,8 +68,11 @@ def summarize_workload(path: Path) -> dict[str, object]:
         "direct_storage_completions": direct_completions,
         "h2d_bytes": h2d_bytes,
         "stage_bytes": stage_bytes,
-        "cold_admissions": int(workload["cold"]["diagnostics"]["mandatory_admissions"]) +
-            int(workload["cold"]["diagnostics"]["optional_admission_accepts"]),
+        "cold_admissions": int(workload["mechanism"]["cold_admissions"]),
+        "remap_dynamic_allocations": int(
+            workload["role_path_structure"]["remap_dynamic_allocations"]
+        ),
+        "capacities": workload["capacities"],
         "hierarchy_residency": workload["hierarchy_residency"],
         "cold_prewarm": workload["cold_prewarm"],
         "terminal_state": terminal,
@@ -173,6 +176,31 @@ def mode_c_summary(directory: Path) -> dict[str, object]:
     result = {cell: next(iter(runs.values())) for cell, runs in cells.items()}
     required = {"S0", "S1", "D1", "A1"}
     identities = {result[cell]["numerical_identity_sha256"] for cell in required}
+    structural = {
+        "all_workers_two": all(result[cell]["worker_count"] == 2 for cell in required),
+        "all_hot_without_cold": all(
+            result[cell]["hierarchy_residency"]["hot_without_cold_keys"] > 0
+            for cell in required
+        ),
+        "all_direct_without_cold_admission": all(
+            result[cell]["cold_admissions"] == 0 and
+            result[cell]["direct_storage_bytes"] == result[cell]["storage_read_bytes"]
+            for cell in required
+        ),
+        "all_direct_bytes_equal_h2d": all(
+            result[cell]["direct_storage_bytes"] == result[cell]["h2d_bytes"]
+            for cell in required
+        ),
+        "all_direct_reservations_complete": all(
+            result[cell]["direct_storage_reservations"] ==
+            result[cell]["direct_storage_completions"]
+            for cell in required
+        ),
+        "all_stage_bytes_zero": all(result[cell]["stage_bytes"] == 0 for cell in required),
+        "all_remap_dynamic_allocations_zero": all(
+            result[cell]["remap_dynamic_allocations"] == 0 for cell in required
+        ),
+    }
     return {
         "capture": file_identity(directory / "matrix.json"),
         "cells": result,
@@ -180,6 +208,7 @@ def mode_c_summary(directory: Path) -> dict[str, object]:
         "exact_across_topologies": len(identities) == 1,
         "all_workers_two": all(result[cell]["worker_count"] == 2 for cell in required),
         "all_terminal_state_zero": all(result[cell]["terminal_state_zero"] for cell in required),
+        "structural_gates": structural,
     }
 
 
@@ -194,15 +223,39 @@ def capacity_summary(root: Path, paired: dict[str, object]) -> dict[str, object]
             cell: list(runs.values()) for cell, runs in raw_runs(root / name).items()
         }
         controls[name]["capture"] = file_identity(root / name / "matrix.json")
+    required_cells = all(
+        cell in controls[name] and len(controls[name][cell]) >= 1
+        for name in ("16_gib", "32_gib", "64_gib", "full")
+        for cell in ("S0", "A1")
+    )
+    all_terminal_state_zero = all(
+        run["terminal_state_zero"]
+        for name in ("16_gib", "32_gib", "64_gib", "full")
+        for cell in ("S0", "A1")
+        for run in controls[name][cell]
+    ) if required_cells else False
     full_s0 = controls["full"]["S0"][0]
+    resource_path = next((root / "full" / "raw").glob("S0-*-resources.json"))
+    resources = json.loads(resource_path.read_text())
+    minimum_mem_available_kib = min(
+        int(sample["host"]["MemAvailable"]) for sample in resources["samples"]
+    )
+    swap_total_kib = max(int(sample["host"]["SwapTotal"]) for sample in resources["samples"])
     zero_storage = (
         full_s0["cold_prewarm"]["completed"] and
         full_s0["cold_prewarm"]["measured_read_requests"] == 0 and
         full_s0["cold_prewarm"]["measured_read_bytes"] == 0 and
-        full_s0["storage_read_requests"] == 0 and
-        full_s0["storage_read_bytes"] == 0
+        swap_total_kib == 0
     )
-    return {"controls": controls, "s0_full_cold_zero_storage_gate": zero_storage}
+    return {
+        "controls": controls,
+        "required_cells_present": required_cells,
+        "all_terminal_state_zero": all_terminal_state_zero,
+        "s0_full_resources": file_identity(resource_path),
+        "s0_full_minimum_mem_available_kib": minimum_mem_available_kib,
+        "s0_full_swap_total_kib": swap_total_kib,
+        "s0_full_cold_zero_storage_gate": zero_storage,
+    }
 
 
 def profile_policy_summary(profiles: dict[str, object]) -> dict[str, object]:
@@ -212,12 +265,42 @@ def profile_policy_summary(profiles: dict[str, object]) -> dict[str, object]:
         buckets["cold_cache_policy_victim"]["fraction"] +
         buckets["hot_cache_policy_victim"]["fraction"]
     )
+    folded_path = Path(profiles["S0"]["process"]["folded"]["path"])
+    function_samples: dict[str, int] = {}
+    total_samples = 0
+    for line in folded_path.read_text().splitlines():
+        stack, _, count_text = line.rpartition(" ")
+        count = int(count_text)
+        total_samples += count
+        for frame in set(stack.split(";")):
+            lowered = frame.lower()
+            if ("cache_policy::" in lowered or
+                    "cold_expert_cache::" in lowered or
+                    "hot_expert_cache::" in lowered):
+                if any(excluded in lowered for excluded in ("surrender", "destroy", "~")):
+                    continue
+                function_samples[frame] = function_samples.get(frame, 0) + count
+    functions = [
+        {"function": name, "samples": samples,
+         "process_on_cpu_fraction": samples / total_samples if total_samples else 0.0}
+        for name, samples in sorted(function_samples.items(), key=lambda item: item[1], reverse=True)
+    ]
+    maximum_function_fraction = max(
+        (item["process_on_cpu_fraction"] for item in functions), default=0.0
+    )
     return {
         "s0_process_policy_bucket_fraction": policy_fraction,
+        "bucket_note": "the broad bucket includes any matching stack and is not the decision metric",
+        "pure_provider_bookkeeping_functions": functions,
+        "maximum_pure_provider_bookkeeping_function_fraction": maximum_function_fraction,
         "five_percent_threshold": 0.05,
-        "policy_bucket_at_or_above_threshold": policy_fraction >= 0.05,
+        "function_at_or_above_threshold": maximum_function_fraction >= 0.05,
         "top_inclusive_functions": process["top_inclusive_functions"],
-        "decision": "OBSERVED after the structural change; optimization is conditional, not a completion gate",
+        "decision": (
+            "OPEN for a bounded exact-semantics optimization"
+            if maximum_function_fraction >= 0.05 else
+            "OBSERVED below threshold; leave policy unchanged"
+        ),
     }
 
 
@@ -252,6 +335,8 @@ def main() -> None:
         errors.append("Mode-C S0/S1/D1/A1 is incomplete or not exact")
     if not mode_c["all_workers_two"] or not mode_c["all_terminal_state_zero"]:
         errors.append("Mode-C worker or terminal-state gate failed")
+    if not all(mode_c["structural_gates"].values()):
+        errors.append("one or more Mode-C structural gates failed")
     for cell in ("S0", "S1", "A1"):
         if not paired["cells"][cell]["gate"]:
             errors.append(f"{cell} paired throughput gate failed")
@@ -261,7 +346,9 @@ def main() -> None:
             errors.append(f"{cell} paired terminal state is not zero")
     if not paired["a1_storage_bytes_not_greater_than_s1"]:
         errors.append("A1 issued more backing bytes than S1")
-    if not capacity["s0_full_cold_zero_storage_gate"]:
+    if (not capacity["required_cells_present"] or
+            not capacity["all_terminal_state_zero"] or
+            not capacity["s0_full_cold_zero_storage_gate"]):
         errors.append("full-cold S0 zero-storage gate failed")
     if not provider_gate:
         errors.append("matched S0 provider p50 did not improve by at least 20 percent")
