@@ -1,0 +1,35 @@
+{
+  "accepted_identity_manifest": {
+    "path": "results/2026-08-08/issue65-device-roles/checkpoint-a/manifest.json",
+    "sha256": "7f8a1f7422e9c7420d4e6195b01c726ea2f9c9f12bd52ac3bf762ce92c71823c"
+  },
+  "command": [
+    "sha256sum",
+    "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00001-of-00003.gguf",
+    "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00002-of-00003.gguf",
+    "/dev/shm/k3-models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00003-of-00003.gguf"
+  ],
+  "files": [
+    {
+      "name": "DeepSeek-V4-Flash-UD-Q2_K_XL-00001-of-00003.gguf",
+      "sha256": "5475dce5d7189b4304d490bf559d438c967bbc924ce5384ba8e9ecc0385cb003",
+      "size": 5256864
+    },
+    {
+      "name": "DeepSeek-V4-Flash-UD-Q2_K_XL-00002-of-00003.gguf",
+      "sha256": "3faf8797868960141239b69bdd8105b0459fbc0f1927652889ae936a967fc4ca",
+      "size": 49437013568
+    },
+    {
+      "name": "DeepSeek-V4-Flash-UD-Q2_K_XL-00003-of-00003.gguf",
+      "sha256": "4083f1f78e2730006acf78a458ac6b190faf1f515c30cce479a6f8d5066dda80",
+      "size": 47390237120
+    }
+  ],
+  "model_revision": "85ce4196ab6e82852e25dfec2b7e2beaae56f5f1",
+  "repository": "unsloth/DeepSeek-V4-Flash-GGUF",
+  "schema_version": "issue69-model-verification-v1",
+  "status": "pass",
+  "total_bytes": 96832507552,
+  "variant": "UD-Q2_K_XL"
+}

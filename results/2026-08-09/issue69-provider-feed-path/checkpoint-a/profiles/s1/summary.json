@@ -1,0 +1,1008 @@
+{
+  "artifacts": {
+    "main": {
+      "attribution": {
+        "buckets": {
+          "cold_cache_policy_victim": {
+            "fraction": 0.19219066937119675,
+            "samples": 758
+          },
+          "file_read_page_cache": {
+            "fraction": 0.0005070993914807302,
+            "samples": 2
+          },
+          "futex_scheduler_wait": {
+            "fraction": 0.004056795131845842,
+            "samples": 16
+          },
+          "hot_cache_policy_victim": {
+            "fraction": 0.0,
+            "samples": 0
+          },
+          "other": {
+            "fraction": 0.7766227180527383,
+            "samples": 3063
+          },
+          "other_provider_cpu": {
+            "fraction": 0.0,
+            "samples": 0
+          },
+          "scheduler_async_bookkeeping": {
+            "fraction": 0.015466531440162272,
+            "samples": 61
+          },
+          "transfer_ring_stage_memcpy": {
+            "fraction": 0.011156186612576065,
+            "samples": 44
+          }
+        },
+        "samples": 3944,
+        "top_inclusive_functions": [
+          {
+            "fraction": 1.0,
+            "function": "phase9-cache-po-667455/667455",
+            "samples": 3944
+          },
+          {
+            "fraction": 0.9297667342799188,
+            "function": "[unknown]",
+            "samples": 3667
+          },
+          {
+            "fraction": 0.6239858012170385,
+            "function": "ggml_backend_sched_graph_compute_async",
+            "samples": 2461
+          },
+          {
+            "fraction": 0.6217038539553753,
+            "function": "llama_context::graph_compute",
+            "samples": 2452
+          },
+          {
+            "fraction": 0.6199290060851927,
+            "function": "[libc.so.6]",
+            "samples": 2445
+          },
+          {
+            "fraction": 0.617393509127789,
+            "function": "llama_context::process_ubatch",
+            "samples": 2435
+          },
+          {
+            "fraction": 0.5342292089249493,
+            "function": "llama_context::expert_eval_callback",
+            "samples": 2107
+          },
+          {
+            "fraction": 0.20157200811359027,
+            "function": "asm_exc_page_fault",
+            "samples": 795
+          },
+          {
+            "fraction": 0.1604969574036511,
+            "function": "llm_expert_cache_policy::select",
+            "samples": 633
+          },
+          {
+            "fraction": 0.1599898580121704,
+            "function": "llm_cold_expert_cache::reserve_or_join_demand",
+            "samples": 631
+          },
+          {
+            "fraction": 0.15872210953346855,
+            "function": "llm_cold_expert_cache::impl::select_slot",
+            "samples": 626
+          },
+          {
+            "fraction": 0.14832657200811358,
+            "function": "exc_page_fault",
+            "samples": 585
+          },
+          {
+            "fraction": 0.1440162271805274,
+            "function": "do_user_addr_fault",
+            "samples": 568
+          },
+          {
+            "fraction": 0.1323529411764706,
+            "function": "handle_mm_fault",
+            "samples": 522
+          },
+          {
+            "fraction": 0.12829614604462475,
+            "function": "__handle_mm_fault",
+            "samples": 506
+          },
+          {
+            "fraction": 0.1242393509127789,
+            "function": "handle_pte_fault",
+            "samples": 490
+          },
+          {
+            "fraction": 0.11891480730223124,
+            "function": "do_anonymous_page",
+            "samples": 469
+          },
+          {
+            "fraction": 0.08519269776876268,
+            "function": "[libcudart.so.12.8.90]",
+            "samples": 336
+          },
+          {
+            "fraction": 0.08417849898580122,
+            "function": "[libcuda.so.580.173.02]",
+            "samples": 332
+          },
+          {
+            "fraction": 0.06440162271805273,
+            "function": "alloc_anon_folio",
+            "samples": 254
+          },
+          {
+            "fraction": 0.0631338742393509,
+            "function": "vma_alloc_folio",
+            "samples": 249
+          },
+          {
+            "fraction": 0.06262677484787019,
+            "function": "alloc_pages_mpol",
+            "samples": 247
+          },
+          {
+            "fraction": 0.061866125760649086,
+            "function": "__alloc_pages",
+            "samples": 244
+          },
+          {
+            "fraction": 0.058823529411764705,
+            "function": "get_page_from_freelist",
+            "samples": 232
+          },
+          {
+            "fraction": 0.055780933062880324,
+            "function": "do_syscall_64",
+            "samples": 220
+          },
+          {
+            "fraction": 0.05552738336713996,
+            "function": "entry_SYSCALL_64_after_hwframe",
+            "samples": 219
+          },
+          {
+            "fraction": 0.05476673427991886,
+            "function": "x64_sys_call",
+            "samples": 216
+          },
+          {
+            "fraction": 0.04893509127789047,
+            "function": "ggml_backend_cuda_graph_compute",
+            "samples": 193
+          },
+          {
+            "fraction": 0.0436105476673428,
+            "function": "clear_page_erms",
+            "samples": 172
+          },
+          {
+            "fraction": 0.04132860040567951,
+            "function": "unmap_region",
+            "samples": 163
+          }
+        ],
+        "top_leaf_functions": [
+          {
+            "fraction": 0.36637931034482757,
+            "function": "[libc.so.6]",
+            "samples": 1445
+          },
+          {
+            "fraction": 0.15694726166328601,
+            "function": "llm_expert_cache_policy::select",
+            "samples": 619
+          },
+          {
+            "fraction": 0.06237322515212982,
+            "function": "[libcuda.so.580.173.02]",
+            "samples": 246
+          },
+          {
+            "fraction": 0.052484787018255576,
+            "function": "asm_exc_page_fault",
+            "samples": 207
+          },
+          {
+            "fraction": 0.042849898580121705,
+            "function": "clear_page_erms",
+            "samples": 169
+          },
+          {
+            "fraction": 0.03169371196754564,
+            "function": "__irqentry_text_end",
+            "samples": 125
+          },
+          {
+            "fraction": 0.016734279918864097,
+            "function": "llm_cold_expert_cache::diagnostics",
+            "samples": 66
+          },
+          {
+            "fraction": 0.012677484787018255,
+            "function": "try_charge_memcg",
+            "samples": 50
+          },
+          {
+            "fraction": 0.007606490872210953,
+            "function": "__free_one_page",
+            "samples": 30
+          },
+          {
+            "fraction": 0.007099391480730223,
+            "function": "[[vdso]]",
+            "samples": 28
+          },
+          {
+            "fraction": 0.007099391480730223,
+            "function": "llm_expert_scheduler::take_next",
+            "samples": 28
+          },
+          {
+            "fraction": 0.006845841784989858,
+            "function": "perf_adjust_freq_unthr_context",
+            "samples": 27
+          },
+          {
+            "fraction": 0.006338742393509128,
+            "function": "zap_pte_range",
+            "samples": 25
+          },
+          {
+            "fraction": 0.006085192697768763,
+            "function": "std::_Hashtable<unsigned long, unsigned long, std::allocator<unsigned long>, std::__detail::_Identity, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_rehash",
+            "samples": 24
+          },
+          {
+            "fraction": 0.005578093306288032,
+            "function": "error_entry",
+            "samples": 22
+          },
+          {
+            "fraction": 0.005324543610547667,
+            "function": "rmqueue_bulk",
+            "samples": 21
+          },
+          {
+            "fraction": 0.005324543610547667,
+            "function": "llama_context::expert_eval_callback",
+            "samples": 21
+          },
+          {
+            "fraction": 0.005324543610547667,
+            "function": "lru_gen_del_folio.constprop.0",
+            "samples": 21
+          },
+          {
+            "fraction": 0.005070993914807302,
+            "function": "mas_walk",
+            "samples": 20
+          },
+          {
+            "fraction": 0.005070993914807302,
+            "function": "__mod_memcg_lruvec_state",
+            "samples": 20
+          }
+        ]
+      },
+      "folded": {
+        "path": "results/2026-08-09/issue69-provider-feed-path/checkpoint-a/profiles-10ms/s1/main.folded",
+        "sha256": "f7a595a3c91e93f384368765e0385f9f045238ad3abf3c716fb0deb1215e57c3",
+        "size": 197793
+      },
+      "svg": {
+        "path": "results/2026-08-09/issue69-provider-feed-path/checkpoint-a/profiles-10ms/s1/main.svg",
+        "sha256": "46ff1c73d4826db9cc09d5b53c093e2b1434a678cc87169f03865d85123c2e79",
+        "size": 481108
+      }
+    },
+    "process": {
+      "attribution": {
+        "buckets": {
+          "cold_cache_policy_victim": {
+            "fraction": 0.07416755654790796,
+            "samples": 764
+          },
+          "file_read_page_cache": {
+            "fraction": 0.17076012037666247,
+            "samples": 1759
+          },
+          "futex_scheduler_wait": {
+            "fraction": 0.10901854188913698,
+            "samples": 1123
+          },
+          "hot_cache_policy_victim": {
+            "fraction": 0.0004853897679836909,
+            "samples": 5
+          },
+          "other": {
+            "fraction": 0.6196485778079798,
+            "samples": 6383
+          },
+          "other_provider_cpu": {
+            "fraction": 0.0,
+            "samples": 0
+          },
+          "scheduler_async_bookkeeping": {
+            "fraction": 0.0073779244733521016,
+            "samples": 76
+          },
+          "transfer_ring_stage_memcpy": {
+            "fraction": 0.01854188913697699,
+            "samples": 191
+          }
+        },
+        "samples": 10301,
+        "top_inclusive_functions": [
+          {
+            "fraction": 0.64702456072226,
+            "function": "[libc.so.6]",
+            "samples": 6665
+          },
+          {
+            "fraction": 0.528006989612659,
+            "function": "[unknown]",
+            "samples": 5439
+          },
+          {
+            "fraction": 0.3828754489855354,
+            "function": "phase9-cache-po-667455/667455",
+            "samples": 3944
+          },
+          {
+            "fraction": 0.314047179885448,
+            "function": "entry_SYSCALL_64_after_hwframe",
+            "samples": 3235
+          },
+          {
+            "fraction": 0.3136588680710611,
+            "function": "do_syscall_64",
+            "samples": 3231
+          },
+          {
+            "fraction": 0.2987088632171634,
+            "function": "x64_sys_call",
+            "samples": 3077
+          },
+          {
+            "fraction": 0.23890884380157265,
+            "function": "ggml_backend_sched_graph_compute_async",
+            "samples": 2461
+          },
+          {
+            "fraction": 0.23803514221920202,
+            "function": "llama_context::graph_compute",
+            "samples": 2452
+          },
+          {
+            "fraction": 0.23638481700805747,
+            "function": "llama_context::process_ubatch",
+            "samples": 2435
+          },
+          {
+            "fraction": 0.20561110571789146,
+            "function": "[libstdc++.so.6.0.30]",
+            "samples": 2118
+          },
+          {
+            "fraction": 0.20454324822832734,
+            "function": "llama_context::expert_eval_callback",
+            "samples": 2107
+          },
+          {
+            "fraction": 0.17260460149500048,
+            "function": "[libgomp.so.1.0.0]",
+            "samples": 1778
+          },
+          {
+            "fraction": 0.17202213377342004,
+            "function": "llm_expert_async_transport::impl::worker_main",
+            "samples": 1772
+          },
+          {
+            "fraction": 0.17056596446946898,
+            "function": "__libc_pread",
+            "samples": 1757
+          },
+          {
+            "fraction": 0.1700805747014853,
+            "function": "vfs_read",
+            "samples": 1752
+          },
+          {
+            "fraction": 0.1700805747014853,
+            "function": "__x64_sys_pread64",
+            "samples": 1752
+          },
+          {
+            "fraction": 0.16697408018638968,
+            "function": "shmem_file_read_iter",
+            "samples": 1720
+          },
+          {
+            "fraction": 0.1411513445296573,
+            "function": "finish_task_switch.isra.0",
+            "samples": 1454
+          },
+          {
+            "fraction": 0.12901660033006504,
+            "function": "copy_page_to_iter",
+            "samples": 1329
+          },
+          {
+            "fraction": 0.12425978060382487,
+            "function": "rep_movs_alternative",
+            "samples": 1280
+          },
+          {
+            "fraction": 0.11105717891466847,
+            "function": "native_write_msr",
+            "samples": 1144
+          },
+          {
+            "fraction": 0.10746529463158917,
+            "function": "x86_pmu_enable",
+            "samples": 1107
+          },
+          {
+            "fraction": 0.10668867100281526,
+            "function": "intel_pmu_enable_all",
+            "samples": 1099
+          },
+          {
+            "fraction": 0.10232016309096205,
+            "function": "__x64_sys_futex",
+            "samples": 1054
+          },
+          {
+            "fraction": 0.10193185127657509,
+            "function": "__perf_event_task_sched_in",
+            "samples": 1050
+          },
+          {
+            "fraction": 0.10183477332297836,
+            "function": "do_futex",
+            "samples": 1049
+          },
+          {
+            "fraction": 0.10134938355499466,
+            "function": "perf_ctx_enable",
+            "samples": 1044
+          },
+          {
+            "fraction": 0.09067080865935347,
+            "function": "futex_wait",
+            "samples": 934
+          },
+          {
+            "fraction": 0.08979710707698282,
+            "function": "__futex_wait",
+            "samples": 925
+          },
+          {
+            "fraction": 0.08921463935540239,
+            "function": "schedule",
+            "samples": 919
+          }
+        ],
+        "top_leaf_functions": [
+          {
+            "fraction": 0.16872148335113096,
+            "function": "[libgomp.so.1.0.0]",
+            "samples": 1738
+          },
+          {
+            "fraction": 0.1461993981166877,
+            "function": "[libc.so.6]",
+            "samples": 1506
+          },
+          {
+            "fraction": 0.12173575381030968,
+            "function": "rep_movs_alternative",
+            "samples": 1254
+          },
+          {
+            "fraction": 0.11105717891466847,
+            "function": "native_write_msr",
+            "samples": 1144
+          },
+          {
+            "fraction": 0.060091253276380936,
+            "function": "llm_expert_cache_policy::select",
+            "samples": 619
+          },
+          {
+            "fraction": 0.05785846034365596,
+            "function": "[libcuda.so.580.173.02]",
+            "samples": 596
+          },
+          {
+            "fraction": 0.020580526162508495,
+            "function": "shmem_file_read_iter",
+            "samples": 212
+          },
+          {
+            "fraction": 0.020095136394524805,
+            "function": "asm_exc_page_fault",
+            "samples": 207
+          },
+          {
+            "fraction": 0.01650325211144549,
+            "function": "clear_page_erms",
+            "samples": 170
+          },
+          {
+            "fraction": 0.01446461508591399,
+            "function": "perf_adjust_freq_unthr_context",
+            "samples": 149
+          },
+          {
+            "fraction": 0.012620133967575964,
+            "function": "__irqentry_text_end",
+            "samples": 130
+          },
+          {
+            "fraction": 0.006795456751771673,
+            "function": "[[vdso]]",
+            "samples": 70
+          },
+          {
+            "fraction": 0.00640714493738472,
+            "function": "llm_cold_expert_cache::diagnostics",
+            "samples": 66
+          },
+          {
+            "fraction": 0.0050480535870303855,
+            "function": "osDevReadReg032",
+            "samples": 52
+          },
+          {
+            "fraction": 0.004853897679836909,
+            "function": "try_charge_memcg",
+            "samples": 50
+          },
+          {
+            "fraction": 0.004756819726240171,
+            "function": "filemap_get_entry",
+            "samples": 49
+          },
+          {
+            "fraction": 0.00427142995825648,
+            "function": "entry_SYSRETQ_unsafe_stack",
+            "samples": 44
+          },
+          {
+            "fraction": 0.003980196097466265,
+            "function": "shmem_get_folio_gfp",
+            "samples": 41
+          },
+          {
+            "fraction": 0.003786040190272789,
+            "function": "_copy_to_iter",
+            "samples": 39
+          },
+          {
+            "fraction": 0.0034948063294825745,
+            "function": "pthread_mutex_lock",
+            "samples": 36
+          }
+        ]
+      },
+      "folded": {
+        "path": "results/2026-08-09/issue69-provider-feed-path/checkpoint-a/profiles-10ms/s1/process.folded",
+        "sha256": "937b68e9d97e1fcb72b98a6742aad22c644b09bb6f2ceadbc88e6ef3ba109d22",
+        "size": 796597
+      },
+      "svg": {
+        "path": "results/2026-08-09/issue69-provider-feed-path/checkpoint-a/profiles-10ms/s1/process.svg",
+        "sha256": "bc25b14067ed80fd9d00ee71a18616e5ffeb2cac5d97ebb81baf6b4edaf1271d",
+        "size": 3942961
+      }
+    },
+    "storage": {
+      "attribution": {
+        "buckets": {
+          "cold_cache_policy_victim": {
+            "fraction": 0.0,
+            "samples": 0
+          },
+          "file_read_page_cache": {
+            "fraction": 0.9915349887133182,
+            "samples": 1757
+          },
+          "futex_scheduler_wait": {
+            "fraction": 0.0,
+            "samples": 0
+          },
+          "hot_cache_policy_victim": {
+            "fraction": 0.0,
+            "samples": 0
+          },
+          "other": {
+            "fraction": 0.0,
+            "samples": 0
+          },
+          "other_provider_cpu": {
+            "fraction": 0.0,
+            "samples": 0
+          },
+          "scheduler_async_bookkeeping": {
+            "fraction": 0.008465011286681716,
+            "samples": 15
+          },
+          "transfer_ring_stage_memcpy": {
+            "fraction": 0.0,
+            "samples": 0
+          }
+        },
+        "samples": 1772,
+        "top_inclusive_functions": [
+          {
+            "fraction": 1.0,
+            "function": "[libstdc++.so.6.0.30]",
+            "samples": 1772
+          },
+          {
+            "fraction": 1.0,
+            "function": "llm_expert_async_transport::impl::worker_main",
+            "samples": 1772
+          },
+          {
+            "fraction": 0.9915349887133182,
+            "function": "__libc_pread",
+            "samples": 1757
+          },
+          {
+            "fraction": 0.9909706546275395,
+            "function": "[unknown]",
+            "samples": 1756
+          },
+          {
+            "fraction": 0.989841986455982,
+            "function": "do_syscall_64",
+            "samples": 1754
+          },
+          {
+            "fraction": 0.989841986455982,
+            "function": "entry_SYSCALL_64_after_hwframe",
+            "samples": 1754
+          },
+          {
+            "fraction": 0.9887133182844243,
+            "function": "x64_sys_call",
+            "samples": 1752
+          },
+          {
+            "fraction": 0.9887133182844243,
+            "function": "vfs_read",
+            "samples": 1752
+          },
+          {
+            "fraction": 0.9887133182844243,
+            "function": "__x64_sys_pread64",
+            "samples": 1752
+          },
+          {
+            "fraction": 0.9706546275395034,
+            "function": "shmem_file_read_iter",
+            "samples": 1720
+          },
+          {
+            "fraction": 0.75,
+            "function": "copy_page_to_iter",
+            "samples": 1329
+          },
+          {
+            "fraction": 0.7217832957110609,
+            "function": "rep_movs_alternative",
+            "samples": 1279
+          },
+          {
+            "fraction": 0.5090293453724605,
+            "function": "phase9-cache-po-667455/667481",
+            "samples": 902
+          },
+          {
+            "fraction": 0.4909706546275395,
+            "function": "phase9-cache-po-667455/667480",
+            "samples": 870
+          },
+          {
+            "fraction": 0.08860045146726862,
+            "function": "shmem_get_folio_gfp",
+            "samples": 157
+          },
+          {
+            "fraction": 0.060948081264108354,
+            "function": "filemap_get_entry",
+            "samples": 108
+          },
+          {
+            "fraction": 0.028216704288939052,
+            "function": "xas_load",
+            "samples": 50
+          },
+          {
+            "fraction": 0.022573363431151242,
+            "function": "_copy_to_iter",
+            "samples": 40
+          },
+          {
+            "fraction": 0.02144469525959368,
+            "function": "__sysvec_apic_timer_interrupt",
+            "samples": 38
+          },
+          {
+            "fraction": 0.02144469525959368,
+            "function": "sysvec_apic_timer_interrupt",
+            "samples": 38
+          },
+          {
+            "fraction": 0.02144469525959368,
+            "function": "asm_sysvec_apic_timer_interrupt",
+            "samples": 38
+          },
+          {
+            "fraction": 0.019751693002257337,
+            "function": "hrtimer_interrupt",
+            "samples": 35
+          },
+          {
+            "fraction": 0.019187358916478554,
+            "function": "xas_descend",
+            "samples": 34
+          },
+          {
+            "fraction": 0.01805869074492099,
+            "function": "__hrtimer_run_queues",
+            "samples": 32
+          },
+          {
+            "fraction": 0.01805869074492099,
+            "function": "tick_nohz_highres_handler",
+            "samples": 32
+          },
+          {
+            "fraction": 0.01580135440180587,
+            "function": "tick_sched_handle",
+            "samples": 28
+          },
+          {
+            "fraction": 0.01580135440180587,
+            "function": "update_process_times",
+            "samples": 28
+          },
+          {
+            "fraction": 0.015237020316027089,
+            "function": "scheduler_tick",
+            "samples": 27
+          },
+          {
+            "fraction": 0.013544018058690745,
+            "function": "folio_unlock",
+            "samples": 24
+          },
+          {
+            "fraction": 0.011851015801354402,
+            "function": "perf_event_task_tick",
+            "samples": 21
+          }
+        ],
+        "top_leaf_functions": [
+          {
+            "fraction": 0.7071106094808126,
+            "function": "rep_movs_alternative",
+            "samples": 1253
+          },
+          {
+            "fraction": 0.11963882618510158,
+            "function": "shmem_file_read_iter",
+            "samples": 212
+          },
+          {
+            "fraction": 0.027652370203160272,
+            "function": "filemap_get_entry",
+            "samples": 49
+          },
+          {
+            "fraction": 0.022573363431151242,
+            "function": "shmem_get_folio_gfp",
+            "samples": 40
+          },
+          {
+            "fraction": 0.02200902934537246,
+            "function": "_copy_to_iter",
+            "samples": 39
+          },
+          {
+            "fraction": 0.018623024830699775,
+            "function": "xas_descend",
+            "samples": 33
+          },
+          {
+            "fraction": 0.013544018058690745,
+            "function": "folio_unlock",
+            "samples": 24
+          },
+          {
+            "fraction": 0.010158013544018058,
+            "function": "perf_adjust_freq_unthr_context",
+            "samples": 18
+          },
+          {
+            "fraction": 0.007900677200902935,
+            "function": "xas_load",
+            "samples": 14
+          },
+          {
+            "fraction": 0.007336343115124154,
+            "function": "llm_expert_async_transport::impl::worker_main",
+            "samples": 13
+          },
+          {
+            "fraction": 0.0056433408577878106,
+            "function": "copy_page_to_iter",
+            "samples": 10
+          },
+          {
+            "fraction": 0.0056433408577878106,
+            "function": "folio_mark_accessed",
+            "samples": 10
+          },
+          {
+            "fraction": 0.0056433408577878106,
+            "function": "xas_start",
+            "samples": 10
+          },
+          {
+            "fraction": 0.003386004514672686,
+            "function": "page_copy_sane",
+            "samples": 6
+          },
+          {
+            "fraction": 0.002257336343115124,
+            "function": "__cond_resched",
+            "samples": 4
+          },
+          {
+            "fraction": 0.002257336343115124,
+            "function": "__rcu_read_lock",
+            "samples": 4
+          },
+          {
+            "fraction": 0.001693002257336343,
+            "function": "native_write_msr",
+            "samples": 3
+          },
+          {
+            "fraction": 0.001693002257336343,
+            "function": "__rcu_read_unlock",
+            "samples": 3
+          },
+          {
+            "fraction": 0.001128668171557562,
+            "function": "native_apic_msr_eoi",
+            "samples": 2
+          },
+          {
+            "fraction": 0.001128668171557562,
+            "function": "pvclock_gtod_notify",
+            "samples": 2
+          }
+        ]
+      },
+      "folded": {
+        "path": "results/2026-08-09/issue69-provider-feed-path/checkpoint-a/profiles-10ms/s1/storage.folded",
+        "sha256": "d6622b108e2aa5306013be4c0438c792a18da30d883cb8e33bfbb58253f749f1",
+        "size": 25896
+      },
+      "svg": {
+        "path": "results/2026-08-09/issue69-provider-feed-path/checkpoint-a/profiles-10ms/s1/storage.svg",
+        "sha256": "0ea1c1d4f89dec9ce91b2d3b1a8c891b5412930f957801457ecdb8d74166a207",
+        "size": 61675
+      }
+    }
+  },
+  "build": {
+    "cmake_cache": {
+      "path": "/root/k3-out-of-core/llama.cpp/build-cuda/CMakeCache.txt",
+      "sha256": "a6eebb35f752c1233d7f56ec1ac536463e9e332a8611b99f6e5e3e6aecc44cf0",
+      "size": 48022
+    },
+    "options": {
+      "CMAKE_BUILD_TYPE": "Release",
+      "CMAKE_CXX_COMPILER": "/usr/bin/c++",
+      "CMAKE_CXX_FLAGS_RELEASE": "-O3 -DNDEBUG",
+      "GGML_CUDA": "ON",
+      "GGML_CUDA_GRAPHS": "ON",
+      "LLAMA_PERFETTO": "ON"
+    },
+    "probe": {
+      "path": "llama.cpp/build-cuda/bin/phase9-cache-policy-probe",
+      "sha256": "1fbc3177ceffc2e5d72d7b1aa468ececd1ca51608bcea62277186f6a9f5895d6",
+      "size": 316664
+    }
+  },
+  "capture": {
+    "path": "/dev/shm/issue69-checkpoint-a-profiles-v5/S1/capture.json",
+    "sha256": "28ea6810c600e5a3a903a9ff03c4e87e384a011938169da91079d3f55ffbad8a",
+    "size": 212387
+  },
+  "cell": "S1",
+  "flamegraph_revision": "41fee1f99f9276008b7cd112fca19dc3ea84ac32",
+  "perf_data": {
+    "path": "/dev/shm/issue69-checkpoint-a-profiles-v5/S1/perf.data",
+    "sha256": "e00007bd684b54be430f834be4e176b078dc76699d542eff9789d39b2aec977a",
+    "size": 88074510
+  },
+  "perf_stat": {
+    "cache-misses": {
+      "event_runtime": 85964652960,
+      "percent_running": 100.0,
+      "unit": "",
+      "value": 971664621.0
+    },
+    "cache-references": {
+      "event_runtime": 85964845913,
+      "percent_running": 100.0,
+      "unit": "",
+      "value": 3721966282.0
+    },
+    "context-switches": {
+      "event_runtime": 85964439187,
+      "percent_running": 100.0,
+      "unit": "",
+      "value": 46976.0
+    },
+    "cpu-migrations": {
+      "event_runtime": 85964102207,
+      "percent_running": 100.0,
+      "unit": "",
+      "value": 59.0
+    },
+    "cycles": {
+      "event_runtime": 85965312697,
+      "percent_running": 100.0,
+      "unit": "",
+      "value": 114667289969.0
+    },
+    "instructions": {
+      "event_runtime": 85965127105,
+      "percent_running": 100.0,
+      "unit": "",
+      "value": 82971749489.0
+    },
+    "page-faults": {
+      "event_runtime": 85963905966,
+      "percent_running": 100.0,
+      "unit": "",
+      "value": 2743736.0
+    },
+    "task-clock": {
+      "event_runtime": 85965531625,
+      "percent_running": 100.0,
+      "unit": "msec",
+      "value": 85965.531625
+    }
+  },
+  "schema_version": "issue69-perf-attribution-v1",
+  "selection": {
+    "main_tid": 667455,
+    "process_pid": 667455,
+    "storage_worker_reliable": true,
+    "storage_worker_rule": "sample stack contains worker_main or pread"
+  },
+  "status": "pass",
+  "workload": {
+    "path": "/dev/shm/issue69-checkpoint-a-profiles-v5/S1/workload.json",
+    "sha256": "4e4aef409fde375cf128d03ecb2596961f4cd4e55de00c08159ad045fcd25946",
+    "size": 30741
+  }
+}

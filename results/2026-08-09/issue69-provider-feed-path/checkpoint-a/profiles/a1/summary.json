@@ -1,0 +1,1008 @@
+{
+  "artifacts": {
+    "main": {
+      "attribution": {
+        "buckets": {
+          "cold_cache_policy_victim": {
+            "fraction": 0.4844400882136731,
+            "samples": 1977
+          },
+          "file_read_page_cache": {
+            "fraction": 0.00098015192354815,
+            "samples": 4
+          },
+          "futex_scheduler_wait": {
+            "fraction": 0.0007351139426611125,
+            "samples": 3
+          },
+          "hot_cache_policy_victim": {
+            "fraction": 0.0,
+            "samples": 0
+          },
+          "other": {
+            "fraction": 0.1555991178632688,
+            "samples": 635
+          },
+          "other_provider_cpu": {
+            "fraction": 0.00098015192354815,
+            "samples": 4
+          },
+          "scheduler_async_bookkeeping": {
+            "fraction": 0.06983582455280568,
+            "samples": 285
+          },
+          "transfer_ring_stage_memcpy": {
+            "fraction": 0.287429551580495,
+            "samples": 1173
+          }
+        },
+        "samples": 4081,
+        "top_inclusive_functions": [
+          {
+            "fraction": 1.0,
+            "function": "phase9-cache-po-668195/668195",
+            "samples": 4081
+          },
+          {
+            "fraction": 0.9855427591276648,
+            "function": "[unknown]",
+            "samples": 4022
+          },
+          {
+            "fraction": 0.6402842440578289,
+            "function": "ggml_backend_sched_graph_compute_async",
+            "samples": 2613
+          },
+          {
+            "fraction": 0.6375888262680716,
+            "function": "llama_context::graph_compute",
+            "samples": 2602
+          },
+          {
+            "fraction": 0.6351384464592011,
+            "function": "llama_context::process_ubatch",
+            "samples": 2592
+          },
+          {
+            "fraction": 0.5670178877726048,
+            "function": "llama_context::expert_eval_callback",
+            "samples": 2314
+          },
+          {
+            "fraction": 0.5518255329576084,
+            "function": "[libc.so.6]",
+            "samples": 2252
+          },
+          {
+            "fraction": 0.27566772849791715,
+            "function": "llm_expert_transfer_ring::stage",
+            "samples": 1125
+          },
+          {
+            "fraction": 0.24160744915461896,
+            "function": "llm_cold_expert_cache::initialize",
+            "samples": 986
+          },
+          {
+            "fraction": 0.19529527076696887,
+            "function": "llm_expert_cache_policy::select",
+            "samples": 797
+          },
+          {
+            "fraction": 0.19210977701543738,
+            "function": "asm_exc_page_fault",
+            "samples": 784
+          },
+          {
+            "fraction": 0.16123499142367068,
+            "function": "llm_cold_expert_cache::reserve_or_join_demand",
+            "samples": 658
+          },
+          {
+            "fraction": 0.16049987748100955,
+            "function": "llm_cold_expert_cache::impl::select_slot",
+            "samples": 655
+          },
+          {
+            "fraction": 0.1457975986277873,
+            "function": "exc_page_fault",
+            "samples": 595
+          },
+          {
+            "fraction": 0.14212202891448175,
+            "function": "do_user_addr_fault",
+            "samples": 580
+          },
+          {
+            "fraction": 0.13158539573633912,
+            "function": "handle_mm_fault",
+            "samples": 537
+          },
+          {
+            "fraction": 0.12766478804214654,
+            "function": "__handle_mm_fault",
+            "samples": 521
+          },
+          {
+            "fraction": 0.12251899044351874,
+            "function": "handle_pte_fault",
+            "samples": 500
+          },
+          {
+            "fraction": 0.11810830678755208,
+            "function": "do_anonymous_page",
+            "samples": 482
+          },
+          {
+            "fraction": 0.08478314138691498,
+            "function": "main",
+            "samples": 346
+          },
+          {
+            "fraction": 0.07032590051457976,
+            "function": "[libcudart.so.12.8.90]",
+            "samples": 287
+          },
+          {
+            "fraction": 0.06910071061014457,
+            "function": "alloc_anon_folio",
+            "samples": 282
+          },
+          {
+            "fraction": 0.06787552070570939,
+            "function": "vma_alloc_folio",
+            "samples": 277
+          },
+          {
+            "fraction": 0.06763048272482235,
+            "function": "[libcuda.so.580.173.02]",
+            "samples": 276
+          },
+          {
+            "fraction": 0.06689536878216124,
+            "function": "alloc_pages_mpol",
+            "samples": 273
+          },
+          {
+            "fraction": 0.06518010291595197,
+            "function": "__alloc_pages",
+            "samples": 266
+          },
+          {
+            "fraction": 0.06248468512619456,
+            "function": "get_page_from_freelist",
+            "samples": 255
+          },
+          {
+            "fraction": 0.060769419259985295,
+            "function": "do_syscall_64",
+            "samples": 248
+          },
+          {
+            "fraction": 0.060769419259985295,
+            "function": "entry_SYSCALL_64_after_hwframe",
+            "samples": 248
+          },
+          {
+            "fraction": 0.05929919137466307,
+            "function": "x64_sys_call",
+            "samples": 242
+          }
+        ],
+        "top_leaf_functions": [
+          {
+            "fraction": 0.2967409948542024,
+            "function": "[libc.so.6]",
+            "samples": 1211
+          },
+          {
+            "fraction": 0.19186473903455037,
+            "function": "llm_expert_cache_policy::select",
+            "samples": 783
+          },
+          {
+            "fraction": 0.0529282038716001,
+            "function": "[libcuda.so.580.173.02]",
+            "samples": 216
+          },
+          {
+            "fraction": 0.04655721636853712,
+            "function": "asm_exc_page_fault",
+            "samples": 190
+          },
+          {
+            "fraction": 0.046067140406763046,
+            "function": "clear_page_erms",
+            "samples": 188
+          },
+          {
+            "fraction": 0.03504043126684636,
+            "function": "llm_expert_scheduler::take_next",
+            "samples": 143
+          },
+          {
+            "fraction": 0.030384709629992648,
+            "function": "__irqentry_text_end",
+            "samples": 124
+          },
+          {
+            "fraction": 0.0137221269296741,
+            "function": "llm_cold_expert_cache::diagnostics",
+            "samples": 56
+          },
+          {
+            "fraction": 0.013477088948787063,
+            "function": "try_charge_memcg",
+            "samples": 55
+          },
+          {
+            "fraction": 0.011516785101690762,
+            "function": "llama_context::expert_eval_callback",
+            "samples": 47
+          },
+          {
+            "fraction": 0.011271747120803725,
+            "function": "llm_expert_scheduler::transition",
+            "samples": 46
+          },
+          {
+            "fraction": 0.0098015192354815,
+            "function": "error_entry",
+            "samples": 40
+          },
+          {
+            "fraction": 0.0078412153883852,
+            "function": "__free_one_page",
+            "samples": 32
+          },
+          {
+            "fraction": 0.007106101445724087,
+            "function": "llm_expert_scheduler::enqueue",
+            "samples": 29
+          },
+          {
+            "fraction": 0.00686106346483705,
+            "function": "perf_adjust_freq_unthr_context",
+            "samples": 28
+          },
+          {
+            "fraction": 0.00686106346483705,
+            "function": "rmqueue_bulk",
+            "samples": 28
+          },
+          {
+            "fraction": 0.00686106346483705,
+            "function": "zap_pte_range",
+            "samples": 28
+          },
+          {
+            "fraction": 0.006370987503062975,
+            "function": "native_write_msr",
+            "samples": 26
+          },
+          {
+            "fraction": 0.0058809115412889,
+            "function": "[libgomp.so.1.0.0]",
+            "samples": 24
+          },
+          {
+            "fraction": 0.005390835579514825,
+            "function": "[[vdso]]",
+            "samples": 22
+          }
+        ]
+      },
+      "folded": {
+        "path": "results/2026-08-09/issue69-provider-feed-path/checkpoint-a/profiles-10ms/a1/main.folded",
+        "sha256": "0b601c87a91062167833fa1a471163f83577f349bba895381f5760e744296ae1",
+        "size": 239371
+      },
+      "svg": {
+        "path": "results/2026-08-09/issue69-provider-feed-path/checkpoint-a/profiles-10ms/a1/main.svg",
+        "sha256": "f82f66cbd234674f11de0b3bff703b0892a22be1d5c7cf5eaefeadc9d3cad360",
+        "size": 575249
+      }
+    },
+    "process": {
+      "attribution": {
+        "buckets": {
+          "cold_cache_policy_victim": {
+            "fraction": 0.1876410835214447,
+            "samples": 1995
+          },
+          "file_read_page_cache": {
+            "fraction": 0.19177953348382243,
+            "samples": 2039
+          },
+          "futex_scheduler_wait": {
+            "fraction": 0.05596313017306245,
+            "samples": 595
+          },
+          "hot_cache_policy_victim": {
+            "fraction": 0.07270504138449962,
+            "samples": 773
+          },
+          "other": {
+            "fraction": 0.3247742663656885,
+            "samples": 3453
+          },
+          "other_provider_cpu": {
+            "fraction": 0.0003762227238525207,
+            "samples": 4
+          },
+          "scheduler_async_bookkeeping": {
+            "fraction": 0.034330323551542516,
+            "samples": 365
+          },
+          "transfer_ring_stage_memcpy": {
+            "fraction": 0.13243039879608728,
+            "samples": 1408
+          }
+        },
+        "samples": 10632,
+        "top_inclusive_functions": [
+          {
+            "fraction": 0.8136756960120392,
+            "function": "[libc.so.6]",
+            "samples": 8651
+          },
+          {
+            "fraction": 0.3838412340105342,
+            "function": "phase9-cache-po-668195/668195",
+            "samples": 4081
+          },
+          {
+            "fraction": 0.37895033860045146,
+            "function": "[unknown]",
+            "samples": 4029
+          },
+          {
+            "fraction": 0.36521820917983444,
+            "function": "[libstdc++.so.6.0.30]",
+            "samples": 3883
+          },
+          {
+            "fraction": 0.33276899924755454,
+            "function": "entry_SYSCALL_64_after_hwframe",
+            "samples": 3538
+          },
+          {
+            "fraction": 0.3325808878856283,
+            "function": "do_syscall_64",
+            "samples": 3536
+          },
+          {
+            "fraction": 0.31931903686982693,
+            "function": "x64_sys_call",
+            "samples": 3395
+          },
+          {
+            "fraction": 0.24576749435665915,
+            "function": "ggml_backend_sched_graph_compute_async",
+            "samples": 2613
+          },
+          {
+            "fraction": 0.2447328818660647,
+            "function": "llama_context::graph_compute",
+            "samples": 2602
+          },
+          {
+            "fraction": 0.24379232505643342,
+            "function": "llama_context::process_ubatch",
+            "samples": 2592
+          },
+          {
+            "fraction": 0.21764484574868323,
+            "function": "llama_context::expert_eval_callback",
+            "samples": 2314
+          },
+          {
+            "fraction": 0.19873965387509407,
+            "function": "llm_expert_async_transport::impl::worker_main",
+            "samples": 2113
+          },
+          {
+            "fraction": 0.19121519939804363,
+            "function": "__libc_pread",
+            "samples": 2033
+          },
+          {
+            "fraction": 0.19074492099322798,
+            "function": "vfs_read",
+            "samples": 2028
+          },
+          {
+            "fraction": 0.19074492099322798,
+            "function": "__x64_sys_pread64",
+            "samples": 2028
+          },
+          {
+            "fraction": 0.1882994732881866,
+            "function": "shmem_file_read_iter",
+            "samples": 2002
+          },
+          {
+            "fraction": 0.1639390519187359,
+            "function": "[libgomp.so.1.0.0]",
+            "samples": 1743
+          },
+          {
+            "fraction": 0.14023702031602708,
+            "function": "copy_page_to_iter",
+            "samples": 1491
+          },
+          {
+            "fraction": 0.1355342362678706,
+            "function": "rep_movs_alternative",
+            "samples": 1441
+          },
+          {
+            "fraction": 0.1262227238525207,
+            "function": "finish_task_switch.isra.0",
+            "samples": 1342
+          },
+          {
+            "fraction": 0.10985703536493605,
+            "function": "native_write_msr",
+            "samples": 1168
+          },
+          {
+            "fraction": 0.10600075244544771,
+            "function": "x86_pmu_enable",
+            "samples": 1127
+          },
+          {
+            "fraction": 0.10581264108352144,
+            "function": "llm_expert_transfer_ring::stage",
+            "samples": 1125
+          },
+          {
+            "fraction": 0.10553047404063205,
+            "function": "intel_pmu_enable_all",
+            "samples": 1122
+          },
+          {
+            "fraction": 0.10270880361173815,
+            "function": "__x64_sys_futex",
+            "samples": 1092
+          },
+          {
+            "fraction": 0.1019563581640331,
+            "function": "do_futex",
+            "samples": 1084
+          },
+          {
+            "fraction": 0.10016930022573363,
+            "function": "phase9-cache-po-668195/668216",
+            "samples": 1065
+          },
+          {
+            "fraction": 0.09922874341610233,
+            "function": "__perf_event_task_sched_in",
+            "samples": 1055
+          },
+          {
+            "fraction": 0.09875846501128668,
+            "function": "perf_ctx_enable",
+            "samples": 1050
+          },
+          {
+            "fraction": 0.09857035364936043,
+            "function": "phase9-cache-po-668195/668217",
+            "samples": 1048
+          }
+        ],
+        "top_leaf_functions": [
+          {
+            "fraction": 0.1577313769751693,
+            "function": "[libgomp.so.1.0.0]",
+            "samples": 1677
+          },
+          {
+            "fraction": 0.13224228743416103,
+            "function": "rep_movs_alternative",
+            "samples": 1406
+          },
+          {
+            "fraction": 0.11832204665161776,
+            "function": "[libc.so.6]",
+            "samples": 1258
+          },
+          {
+            "fraction": 0.10985703536493605,
+            "function": "native_write_msr",
+            "samples": 1168
+          },
+          {
+            "fraction": 0.07364559819413093,
+            "function": "llm_expert_cache_policy::select",
+            "samples": 783
+          },
+          {
+            "fraction": 0.05154251316779534,
+            "function": "[libcuda.so.580.173.02]",
+            "samples": 548
+          },
+          {
+            "fraction": 0.0277464258841234,
+            "function": "shmem_file_read_iter",
+            "samples": 295
+          },
+          {
+            "fraction": 0.017870579382994734,
+            "function": "asm_exc_page_fault",
+            "samples": 190
+          },
+          {
+            "fraction": 0.017776523702031602,
+            "function": "clear_page_erms",
+            "samples": 189
+          },
+          {
+            "fraction": 0.013449962377727614,
+            "function": "llm_expert_scheduler::take_next",
+            "samples": 143
+          },
+          {
+            "fraction": 0.013073739653875094,
+            "function": "__irqentry_text_end",
+            "samples": 139
+          },
+          {
+            "fraction": 0.011380737396538752,
+            "function": "perf_adjust_freq_unthr_context",
+            "samples": 121
+          },
+          {
+            "fraction": 0.006489841986455982,
+            "function": "filemap_get_entry",
+            "samples": 69
+          },
+          {
+            "fraction": 0.005267118133935289,
+            "function": "[[vdso]]",
+            "samples": 56
+          },
+          {
+            "fraction": 0.005267118133935289,
+            "function": "llm_cold_expert_cache::diagnostics",
+            "samples": 56
+          },
+          {
+            "fraction": 0.00517306245297216,
+            "function": "try_charge_memcg",
+            "samples": 55
+          },
+          {
+            "fraction": 0.004702784048156509,
+            "function": "shmem_get_folio_gfp",
+            "samples": 50
+          },
+          {
+            "fraction": 0.0046087283671933784,
+            "function": "pthread_mutex_unlock",
+            "samples": 49
+          },
+          {
+            "fraction": 0.004420617005267118,
+            "function": "llama_context::expert_eval_callback",
+            "samples": 47
+          },
+          {
+            "fraction": 0.004326561324303988,
+            "function": "llm_expert_scheduler::transition",
+            "samples": 46
+          }
+        ]
+      },
+      "folded": {
+        "path": "results/2026-08-09/issue69-provider-feed-path/checkpoint-a/profiles-10ms/a1/process.folded",
+        "sha256": "da05dd5f4dcfe205b6d5d8f12d8b3e17e3d007cb5686c7d8a20e1f3c292a8c0b",
+        "size": 1215865
+      },
+      "svg": {
+        "path": "results/2026-08-09/issue69-provider-feed-path/checkpoint-a/profiles-10ms/a1/process.svg",
+        "sha256": "815bd4f605218573b225b108c3a954c42d8a19cf498d511b071d8fb9b2dc2ef4",
+        "size": 4838669
+      }
+    },
+    "storage": {
+      "attribution": {
+        "buckets": {
+          "cold_cache_policy_victim": {
+            "fraction": 0.0,
+            "samples": 0
+          },
+          "file_read_page_cache": {
+            "fraction": 0.9621391386654047,
+            "samples": 2033
+          },
+          "futex_scheduler_wait": {
+            "fraction": 0.0,
+            "samples": 0
+          },
+          "hot_cache_policy_victim": {
+            "fraction": 0.0,
+            "samples": 0
+          },
+          "other": {
+            "fraction": 0.0,
+            "samples": 0
+          },
+          "other_provider_cpu": {
+            "fraction": 0.0,
+            "samples": 0
+          },
+          "scheduler_async_bookkeeping": {
+            "fraction": 0.03786086133459536,
+            "samples": 80
+          },
+          "transfer_ring_stage_memcpy": {
+            "fraction": 0.0,
+            "samples": 0
+          }
+        },
+        "samples": 2113,
+        "top_inclusive_functions": [
+          {
+            "fraction": 1.0,
+            "function": "[libc.so.6]",
+            "samples": 2113
+          },
+          {
+            "fraction": 1.0,
+            "function": "[libstdc++.so.6.0.30]",
+            "samples": 2113
+          },
+          {
+            "fraction": 1.0,
+            "function": "llm_expert_async_transport::impl::worker_main",
+            "samples": 2113
+          },
+          {
+            "fraction": 0.9659252247988642,
+            "function": "do_syscall_64",
+            "samples": 2041
+          },
+          {
+            "fraction": 0.9659252247988642,
+            "function": "entry_SYSCALL_64_after_hwframe",
+            "samples": 2041
+          },
+          {
+            "fraction": 0.9645054424988169,
+            "function": "x64_sys_call",
+            "samples": 2038
+          },
+          {
+            "fraction": 0.9621391386654047,
+            "function": "__libc_pread",
+            "samples": 2033
+          },
+          {
+            "fraction": 0.9597728348319924,
+            "function": "vfs_read",
+            "samples": 2028
+          },
+          {
+            "fraction": 0.9597728348319924,
+            "function": "__x64_sys_pread64",
+            "samples": 2028
+          },
+          {
+            "fraction": 0.9474680548982489,
+            "function": "shmem_file_read_iter",
+            "samples": 2002
+          },
+          {
+            "fraction": 0.705631803123521,
+            "function": "copy_page_to_iter",
+            "samples": 1491
+          },
+          {
+            "fraction": 0.6819687647893989,
+            "function": "rep_movs_alternative",
+            "samples": 1441
+          },
+          {
+            "fraction": 0.5040227165168008,
+            "function": "phase9-cache-po-668195/668216",
+            "samples": 1065
+          },
+          {
+            "fraction": 0.49597728348319925,
+            "function": "phase9-cache-po-668195/668217",
+            "samples": 1048
+          },
+          {
+            "fraction": 0.09465215333648841,
+            "function": "shmem_get_folio_gfp",
+            "samples": 200
+          },
+          {
+            "fraction": 0.06956933270231898,
+            "function": "filemap_get_entry",
+            "samples": 147
+          },
+          {
+            "fraction": 0.03076194983435873,
+            "function": "xas_load",
+            "samples": 65
+          },
+          {
+            "fraction": 0.023663038334122102,
+            "function": "asm_sysvec_apic_timer_interrupt",
+            "samples": 50
+          },
+          {
+            "fraction": 0.02318977756743966,
+            "function": "__sysvec_apic_timer_interrupt",
+            "samples": 49
+          },
+          {
+            "fraction": 0.02318977756743966,
+            "function": "hrtimer_interrupt",
+            "samples": 49
+          },
+          {
+            "fraction": 0.02318977756743966,
+            "function": "sysvec_apic_timer_interrupt",
+            "samples": 49
+          },
+          {
+            "fraction": 0.02129673450070989,
+            "function": "xas_descend",
+            "samples": 45
+          },
+          {
+            "fraction": 0.02082347373402745,
+            "function": "__hrtimer_run_queues",
+            "samples": 44
+          },
+          {
+            "fraction": 0.02082347373402745,
+            "function": "tick_nohz_highres_handler",
+            "samples": 44
+          },
+          {
+            "fraction": 0.020350212967345006,
+            "function": "tick_sched_handle",
+            "samples": 43
+          },
+          {
+            "fraction": 0.019876952200662566,
+            "function": "update_process_times",
+            "samples": 42
+          },
+          {
+            "fraction": 0.019403691433980123,
+            "function": "scheduler_tick",
+            "samples": 41
+          },
+          {
+            "fraction": 0.018457169900615238,
+            "function": "_copy_to_iter",
+            "samples": 39
+          },
+          {
+            "fraction": 0.015144344533838144,
+            "function": "perf_event_task_tick",
+            "samples": 32
+          },
+          {
+            "fraction": 0.014671083767155703,
+            "function": "perf_adjust_freq_unthr_context",
+            "samples": 31
+          }
+        ],
+        "top_leaf_functions": [
+          {
+            "fraction": 0.6654046379555135,
+            "function": "rep_movs_alternative",
+            "samples": 1406
+          },
+          {
+            "fraction": 0.1396119261713204,
+            "function": "shmem_file_read_iter",
+            "samples": 295
+          },
+          {
+            "fraction": 0.0326549929010885,
+            "function": "filemap_get_entry",
+            "samples": 69
+          },
+          {
+            "fraction": 0.02318977756743966,
+            "function": "shmem_get_folio_gfp",
+            "samples": 49
+          },
+          {
+            "fraction": 0.02129673450070989,
+            "function": "xas_descend",
+            "samples": 45
+          },
+          {
+            "fraction": 0.019403691433980123,
+            "function": "llm_expert_async_transport::impl::worker_main",
+            "samples": 41
+          },
+          {
+            "fraction": 0.018457169900615238,
+            "function": "_copy_to_iter",
+            "samples": 39
+          },
+          {
+            "fraction": 0.010884997633696167,
+            "function": "xas_load",
+            "samples": 23
+          },
+          {
+            "fraction": 0.010411736867013724,
+            "function": "perf_adjust_freq_unthr_context",
+            "samples": 22
+          },
+          {
+            "fraction": 0.007572172266919072,
+            "function": "folio_unlock",
+            "samples": 16
+          },
+          {
+            "fraction": 0.005205868433506862,
+            "function": "pthread_mutex_lock",
+            "samples": 11
+          },
+          {
+            "fraction": 0.00473260766682442,
+            "function": "pthread_mutex_unlock",
+            "samples": 10
+          },
+          {
+            "fraction": 0.004259346900141978,
+            "function": "xas_start",
+            "samples": 9
+          },
+          {
+            "fraction": 0.003786086133459536,
+            "function": "copy_page_to_iter",
+            "samples": 8
+          },
+          {
+            "fraction": 0.003786086133459536,
+            "function": "native_write_msr",
+            "samples": 8
+          },
+          {
+            "fraction": 0.002839564600094652,
+            "function": "folio_mark_accessed",
+            "samples": 6
+          },
+          {
+            "fraction": 0.00236630383341221,
+            "function": "__cond_resched",
+            "samples": 5
+          },
+          {
+            "fraction": 0.00236630383341221,
+            "function": "page_copy_sane",
+            "samples": 5
+          },
+          {
+            "fraction": 0.001419782300047326,
+            "function": "__raw_spin_lock_irqsave",
+            "samples": 3
+          },
+          {
+            "fraction": 0.001419782300047326,
+            "function": "entry_SYSRETQ_unsafe_stack",
+            "samples": 3
+          }
+        ]
+      },
+      "folded": {
+        "path": "results/2026-08-09/issue69-provider-feed-path/checkpoint-a/profiles-10ms/a1/storage.folded",
+        "sha256": "927a737e3f2ceeac5d37d9eb4d99dcd2e75a64b3dff2a2dea71462e6198a0545",
+        "size": 34827
+      },
+      "svg": {
+        "path": "results/2026-08-09/issue69-provider-feed-path/checkpoint-a/profiles-10ms/a1/storage.svg",
+        "sha256": "a2e77261f5b4080846f9cd01317ba8c9786ee9b385752a2bbc02bb5bb8460092",
+        "size": 76002
+      }
+    }
+  },
+  "build": {
+    "cmake_cache": {
+      "path": "/root/k3-out-of-core/llama.cpp/build-cuda/CMakeCache.txt",
+      "sha256": "a6eebb35f752c1233d7f56ec1ac536463e9e332a8611b99f6e5e3e6aecc44cf0",
+      "size": 48022
+    },
+    "options": {
+      "CMAKE_BUILD_TYPE": "Release",
+      "CMAKE_CXX_COMPILER": "/usr/bin/c++",
+      "CMAKE_CXX_FLAGS_RELEASE": "-O3 -DNDEBUG",
+      "GGML_CUDA": "ON",
+      "GGML_CUDA_GRAPHS": "ON",
+      "LLAMA_PERFETTO": "ON"
+    },
+    "probe": {
+      "path": "llama.cpp/build-cuda/bin/phase9-cache-policy-probe",
+      "sha256": "1fbc3177ceffc2e5d72d7b1aa468ececd1ca51608bcea62277186f6a9f5895d6",
+      "size": 316664
+    }
+  },
+  "capture": {
+    "path": "/dev/shm/issue69-checkpoint-a-profiles-v5/A1/capture.json",
+    "sha256": "d160b35041bf57ea8753a5aa70448a465c553e71ca8ac2fdd5c2daa9d2cd07d6",
+    "size": 221506
+  },
+  "cell": "A1",
+  "flamegraph_revision": "41fee1f99f9276008b7cd112fca19dc3ea84ac32",
+  "perf_data": {
+    "path": "/dev/shm/issue69-checkpoint-a-profiles-v5/A1/perf.data",
+    "sha256": "2c47c2e62bc91bf4ce52781d44367110042225bb25380f62723a5deed0acd2d9",
+    "size": 90886422
+  },
+  "perf_stat": {
+    "cache-misses": {
+      "event_runtime": 88709548995,
+      "percent_running": 100.0,
+      "unit": "",
+      "value": 902182065.0
+    },
+    "cache-references": {
+      "event_runtime": 88709804424,
+      "percent_running": 100.0,
+      "unit": "",
+      "value": 4468034807.0
+    },
+    "context-switches": {
+      "event_runtime": 88709415083,
+      "percent_running": 100.0,
+      "unit": "",
+      "value": 46429.0
+    },
+    "cpu-migrations": {
+      "event_runtime": 88709208321,
+      "percent_running": 100.0,
+      "unit": "",
+      "value": 96.0
+    },
+    "cycles": {
+      "event_runtime": 88710093582,
+      "percent_running": 100.0,
+      "unit": "",
+      "value": 113772990793.0
+    },
+    "instructions": {
+      "event_runtime": 88709942052,
+      "percent_running": 100.0,
+      "unit": "",
+      "value": 92952284925.0
+    },
+    "page-faults": {
+      "event_runtime": 88709044479,
+      "percent_running": 100.0,
+      "unit": "",
+      "value": 2734550.0
+    },
+    "task-clock": {
+      "event_runtime": 88710348086,
+      "percent_running": 100.0,
+      "unit": "msec",
+      "value": 88710.348086
+    }
+  },
+  "schema_version": "issue69-perf-attribution-v1",
+  "selection": {
+    "main_tid": 668195,
+    "process_pid": 668195,
+    "storage_worker_reliable": true,
+    "storage_worker_rule": "sample stack contains worker_main or pread"
+  },
+  "status": "pass",
+  "workload": {
+    "path": "/dev/shm/issue69-checkpoint-a-profiles-v5/A1/workload.json",
+    "sha256": "5261483a26b585760b7ca2534b60e13ec3d74eba8809381663fcc98d5c0c3f73",
+    "size": 30758
+  }
+}

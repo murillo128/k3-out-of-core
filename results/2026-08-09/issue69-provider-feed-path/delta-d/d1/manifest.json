@@ -1,0 +1,2671 @@
+{
+  "a1_vs_s1_physical_decode_ratio": 0.9605198352347958,
+  "build": {
+    "cmake_cache": {
+      "path": "/root/k3-out-of-core/llama.cpp/build-cuda/CMakeCache.txt",
+      "sha256": "fd814d1db587712c208409f0deec3526381552615b64f7e4996224343f3193b1",
+      "size": 48116
+    },
+    "options": {
+      "CMAKE_BUILD_TYPE": "Release",
+      "CMAKE_CXX_COMPILER": "/usr/bin/c++",
+      "CMAKE_CXX_FLAGS_RELEASE": "-O3 -DNDEBUG",
+      "GGML_CUDA": "ON",
+      "GGML_CUDA_GRAPHS": "ON",
+      "LLAMA_PERFETTO": "ON"
+    },
+    "probe": {
+      "path": "llama.cpp/build-cuda/bin/phase9-cache-policy-probe",
+      "sha256": "c5d5b6a67b7f6fb20d74d6503dbb1cc6659e5e21ce9360d8ead0b38ffe724652",
+      "size": 324856
+    }
+  },
+  "checkpoint": "D1_UNCHANGED_RUNTIME_PHYSICAL_SSD",
+  "compliance": {
+    "A1": {
+      "all_terminal_state_zero": true,
+      "exact_generated_identity": true,
+      "exact_numerical_identity": true,
+      "geometric_mean_decode_tps": 0.5753361401398768,
+      "mean_block_physical_read_bytes": 40591192064.0,
+      "mean_process_physical_read_bytes": 40497823744.0,
+      "runs": [
+        {
+          "resources": {
+            "block_device_delta": {
+              "io_ticks_ms": 15075,
+              "read_bytes": 40591192064,
+              "read_operations": 57092,
+              "read_sectors": 79279672,
+              "read_ticks_ms": 42269,
+              "weighted_ticks_ms": 42678
+            },
+            "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+            "elapsed_seconds": 97.50776399300958,
+            "file": {
+              "path": "/dev/shm/issue69-delta-d/d1/compliance-workers-4/raw/A1-01-resources.json",
+              "sha256": "f8f0040f433caae98834de557333f543c8fccad996e1e277304e6c7e864d336a",
+              "size": 314407
+            },
+            "process_io_maxima": {
+              "io_rchar": 36277898930,
+              "io_read_bytes": 40497823744,
+              "io_wchar": 44277025,
+              "io_write_bytes": 0
+            }
+          },
+          "workload": {
+            "cold_admissions": 0,
+            "cold_hits": 0,
+            "cold_misses": 4453,
+            "decode_tps": 0.5753361401398768,
+            "file": {
+              "path": "/dev/shm/issue69-delta-d/d1/compliance-workers-4/raw/A1-01.json.gz",
+              "sha256": "45b5e00e7ffce47916c71ecb3a30c91cd5ffe2cfa1f37d778978e6e8c78b6bb0",
+              "size": 1812999
+            },
+            "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+            "h2d_bytes": 36272472064,
+            "h2d_time_us": 198307,
+            "hierarchy_residency": {
+              "cold_keys": 0,
+              "distinct_keys": 1573,
+              "duplicate_keys": 0,
+              "hot_keys": 1573,
+              "hot_without_cold_keys": 1573
+            },
+            "hot_hits": 3624,
+            "hot_misses": 4453,
+            "numerical_identity_sha256": "f181aeb06b65f6e1f8545d4c39c8d9c5a1d51bb1871f6c9ba5e2a060012346ff",
+            "stage_bytes": 0,
+            "storage_h2d_overlap": {
+              "disk_h2d_overlap_bytes": 17022713856,
+              "disk_h2d_overlap_flights": 3902,
+              "disk_h2d_overlap_pairs": 6744,
+              "disk_h2d_overlap_read_bytes": 14549581824,
+              "disk_h2d_overlap_us": 1424792
+            },
+            "storage_read_bytes": 36272472064,
+            "storage_read_requests": 4453,
+            "terminal_state": {
+              "active_background_flights": 0,
+              "async_active_reads": 0,
+              "cold_cpu_execution_refs": 0,
+              "cold_request_refs": 0,
+              "cold_transfer_refs": 0,
+              "hot_pins": 0,
+              "ring_live_events": 0,
+              "scheduler_active_requests": 0
+            },
+            "terminal_state_zero": true,
+            "worker_count": 4
+          }
+        }
+      ]
+    },
+    "S0": {
+      "all_terminal_state_zero": true,
+      "exact_generated_identity": true,
+      "exact_numerical_identity": true,
+      "geometric_mean_decode_tps": 0.5736038625386775,
+      "mean_block_physical_read_bytes": 40577658880.0,
+      "mean_process_physical_read_bytes": 40482852864.0,
+      "runs": [
+        {
+          "resources": {
+            "block_device_delta": {
+              "io_ticks_ms": 14863,
+              "read_bytes": 40577658880,
+              "read_operations": 57782,
+              "read_sectors": 79253240,
+              "read_ticks_ms": 40128,
+              "weighted_ticks_ms": 40708
+            },
+            "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+            "elapsed_seconds": 98.14688711801136,
+            "file": {
+              "path": "/dev/shm/issue69-delta-d/d1/compliance-workers-4/raw/S0-01-resources.json",
+              "sha256": "fcb89dd53ffcd6780838c43c4fb7e124e5df88e8f3029a5e9fa4092197aa1252",
+              "size": 291205
+            },
+            "process_io_maxima": {
+              "io_rchar": 48558270141,
+              "io_read_bytes": 40482852864,
+              "io_wchar": 52871754,
+              "io_write_bytes": 0
+            }
+          },
+          "workload": {
+            "cold_admissions": 0,
+            "cold_hits": 0,
+            "cold_misses": 5950,
+            "decode_tps": 0.5736038625386775,
+            "file": {
+              "path": "/dev/shm/issue69-delta-d/d1/compliance-workers-4/raw/S0-01.json.gz",
+              "sha256": "3ae14ee132066f74bb2e057aafc693655f20085f52e90cb9447519e2961003e6",
+              "size": 2144263
+            },
+            "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+            "h2d_bytes": 48477831168,
+            "h2d_time_us": 163962,
+            "hierarchy_residency": {
+              "cold_keys": 0,
+              "distinct_keys": 268,
+              "duplicate_keys": 0,
+              "hot_keys": 268,
+              "hot_without_cold_keys": 268
+            },
+            "hot_hits": 2127,
+            "hot_misses": 5950,
+            "numerical_identity_sha256": "f181aeb06b65f6e1f8545d4c39c8d9c5a1d51bb1871f6c9ba5e2a060012346ff",
+            "stage_bytes": 0,
+            "storage_h2d_overlap": {
+              "disk_h2d_overlap_bytes": 38854328320,
+              "disk_h2d_overlap_flights": 5870,
+              "disk_h2d_overlap_pairs": 15455,
+              "disk_h2d_overlap_read_bytes": 24349442048,
+              "disk_h2d_overlap_us": 3161151
+            },
+            "storage_read_bytes": 48477831168,
+            "storage_read_requests": 5950,
+            "terminal_state": {
+              "active_background_flights": 0,
+              "async_active_reads": 0,
+              "cold_cpu_execution_refs": 0,
+              "cold_request_refs": 0,
+              "cold_transfer_refs": 0,
+              "hot_pins": 0,
+              "ring_live_events": 0,
+              "scheduler_active_requests": 0
+            },
+            "terminal_state_zero": true,
+            "worker_count": 4
+          }
+        }
+      ]
+    },
+    "S1": {
+      "all_terminal_state_zero": true,
+      "exact_generated_identity": true,
+      "exact_numerical_identity": true,
+      "geometric_mean_decode_tps": 0.6274838813031847,
+      "mean_block_physical_read_bytes": 40594681856.0,
+      "mean_process_physical_read_bytes": 40511336448.0,
+      "runs": [
+        {
+          "resources": {
+            "block_device_delta": {
+              "io_ticks_ms": 14932,
+              "read_bytes": 40594681856,
+              "read_operations": 57056,
+              "read_sectors": 79286488,
+              "read_ticks_ms": 39622,
+              "weighted_ticks_ms": 40217
+            },
+            "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+            "elapsed_seconds": 90.26195486000506,
+            "file": {
+              "path": "/dev/shm/issue69-delta-d/d1/compliance-workers-4/raw/S1-01-resources.json",
+              "sha256": "e3911b29a50c919e45bc4ad6021386e1218117fd37f54ad393db78410e565e10",
+              "size": 288838
+            },
+            "process_io_maxima": {
+              "io_rchar": 44822062753,
+              "io_read_bytes": 40511336448,
+              "io_wchar": 50316834,
+              "io_write_bytes": 0
+            }
+          },
+          "workload": {
+            "cold_admissions": 0,
+            "cold_hits": 0,
+            "cold_misses": 5491,
+            "decode_tps": 0.6274838813031847,
+            "file": {
+              "path": "/dev/shm/issue69-delta-d/d1/compliance-workers-4/raw/S1-01.json.gz",
+              "sha256": "2427ab270828f877fd2967ba653a17217304f66a58ea039edc6e9d80f9c2f633",
+              "size": 2050242
+            },
+            "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+            "h2d_bytes": 44741623808,
+            "h2d_time_us": 206784,
+            "hierarchy_residency": {
+              "cold_keys": 0,
+              "distinct_keys": 536,
+              "duplicate_keys": 0,
+              "hot_keys": 536,
+              "hot_without_cold_keys": 536
+            },
+            "hot_hits": 2586,
+            "hot_misses": 5491,
+            "numerical_identity_sha256": "f181aeb06b65f6e1f8545d4c39c8d9c5a1d51bb1871f6c9ba5e2a060012346ff",
+            "stage_bytes": 0,
+            "storage_h2d_overlap": {
+              "disk_h2d_overlap_bytes": 17965907968,
+              "disk_h2d_overlap_flights": 4298,
+              "disk_h2d_overlap_pairs": 7523,
+              "disk_h2d_overlap_read_bytes": 15822684160,
+              "disk_h2d_overlap_us": 1512269
+            },
+            "storage_read_bytes": 44741623808,
+            "storage_read_requests": 5491,
+            "terminal_state": {
+              "active_background_flights": 0,
+              "async_active_reads": 0,
+              "cold_cpu_execution_refs": 0,
+              "cold_request_refs": 0,
+              "cold_transfer_refs": 0,
+              "hot_pins": 0,
+              "ring_live_events": 0,
+              "scheduler_active_requests": 0
+            },
+            "terminal_state_zero": true,
+            "worker_count": 4
+          }
+        }
+      ]
+    }
+  },
+  "confirmation": {
+    "A1": {
+      "all_terminal_state_zero": true,
+      "exact_generated_identity": true,
+      "exact_numerical_identity": true,
+      "geometric_mean_decode_tps": 1.6118918304756176,
+      "mean_block_physical_read_bytes": 40585206442.666664,
+      "mean_process_physical_read_bytes": 40494482773.333336,
+      "runs": [
+        {
+          "resources": {
+            "block_device_delta": {
+              "io_ticks_ms": 13784,
+              "read_bytes": 40563695616,
+              "read_operations": 56680,
+              "read_sectors": 79225968,
+              "read_ticks_ms": 37425,
+              "weighted_ticks_ms": 37804
+            },
+            "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+            "elapsed_seconds": 55.37279261399817,
+            "file": {
+              "path": "/dev/shm/issue69-delta-d/d1/confirm-workers-4/raw/A1-01-resources.json",
+              "sha256": "cfe77b1cf289c6f646090354dc5c8b1539b54b3984d107b92b755f3a2783f6fe",
+              "size": 180141
+            },
+            "process_io_maxima": {
+              "io_rchar": 36277898984,
+              "io_read_bytes": 40473145344,
+              "io_wchar": 258112,
+              "io_write_bytes": 0
+            }
+          },
+          "workload": {
+            "cold_admissions": 0,
+            "cold_hits": 0,
+            "cold_misses": 4453,
+            "decode_tps": 1.5697945323237417,
+            "file": {
+              "path": "/dev/shm/issue69-delta-d/d1/confirm-workers-4/raw/A1-01.json.gz",
+              "sha256": "e3e383eaf89b4c2637b2450ddce5bbf057ab3b04a94e946af3960a4df0c285ed",
+              "size": 5909
+            },
+            "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+            "h2d_bytes": 36272472064,
+            "h2d_time_us": 211894,
+            "hierarchy_residency": {
+              "cold_keys": 0,
+              "distinct_keys": 1573,
+              "duplicate_keys": 0,
+              "hot_keys": 1573,
+              "hot_without_cold_keys": 1573
+            },
+            "hot_hits": 3624,
+            "hot_misses": 4453,
+            "numerical_identity_sha256": "f181aeb06b65f6e1f8545d4c39c8d9c5a1d51bb1871f6c9ba5e2a060012346ff",
+            "stage_bytes": 0,
+            "storage_h2d_overlap": {
+              "disk_h2d_overlap_bytes": 0,
+              "disk_h2d_overlap_flights": 0,
+              "disk_h2d_overlap_pairs": 0,
+              "disk_h2d_overlap_read_bytes": 0,
+              "disk_h2d_overlap_us": 0
+            },
+            "storage_read_bytes": 36272472064,
+            "storage_read_requests": 4453,
+            "terminal_state": {
+              "active_background_flights": 0,
+              "async_active_reads": 0,
+              "cold_cpu_execution_refs": 0,
+              "cold_request_refs": 0,
+              "cold_transfer_refs": 0,
+              "hot_pins": 0,
+              "ring_live_events": 0,
+              "scheduler_active_requests": 0
+            },
+            "terminal_state_zero": true,
+            "worker_count": 4
+          }
+        },
+        {
+          "resources": {
+            "block_device_delta": {
+              "io_ticks_ms": 14103,
+              "read_bytes": 40592633856,
+              "read_operations": 56911,
+              "read_sectors": 79282488,
+              "read_ticks_ms": 38021,
+              "weighted_ticks_ms": 38206
+            },
+            "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+            "elapsed_seconds": 58.05269852900528,
+            "file": {
+              "path": "/dev/shm/issue69-delta-d/d1/confirm-workers-4/raw/A1-02-resources.json",
+              "sha256": "efacb7e90b1be4a1010996468b3467fe3f874b0d3897c816b7ece3e1c60a0bd2",
+              "size": 179602
+            },
+            "process_io_maxima": {
+              "io_rchar": 36277899082,
+              "io_read_bytes": 40500011008,
+              "io_wchar": 258110,
+              "io_write_bytes": 0
+            }
+          },
+          "workload": {
+            "cold_admissions": 0,
+            "cold_hits": 0,
+            "cold_misses": 4453,
+            "decode_tps": 1.5723600433779954,
+            "file": {
+              "path": "/dev/shm/issue69-delta-d/d1/confirm-workers-4/raw/A1-02.json.gz",
+              "sha256": "0acda31d8d05ac40468f9072f227bec4800707adb8e4c7d141d5f0fcaf7948e7",
+              "size": 5905
+            },
+            "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+            "h2d_bytes": 36272472064,
+            "h2d_time_us": 213692,
+            "hierarchy_residency": {
+              "cold_keys": 0,
+              "distinct_keys": 1573,
+              "duplicate_keys": 0,
+              "hot_keys": 1573,
+              "hot_without_cold_keys": 1573
+            },
+            "hot_hits": 3624,
+            "hot_misses": 4453,
+            "numerical_identity_sha256": "f181aeb06b65f6e1f8545d4c39c8d9c5a1d51bb1871f6c9ba5e2a060012346ff",
+            "stage_bytes": 0,
+            "storage_h2d_overlap": {
+              "disk_h2d_overlap_bytes": 0,
+              "disk_h2d_overlap_flights": 0,
+              "disk_h2d_overlap_pairs": 0,
+              "disk_h2d_overlap_read_bytes": 0,
+              "disk_h2d_overlap_us": 0
+            },
+            "storage_read_bytes": 36272472064,
+            "storage_read_requests": 4453,
+            "terminal_state": {
+              "active_background_flights": 0,
+              "async_active_reads": 0,
+              "cold_cpu_execution_refs": 0,
+              "cold_request_refs": 0,
+              "cold_transfer_refs": 0,
+              "hot_pins": 0,
+              "ring_live_events": 0,
+              "scheduler_active_requests": 0
+            },
+            "terminal_state_zero": true,
+            "worker_count": 4
+          }
+        },
+        {
+          "resources": {
+            "block_device_delta": {
+              "io_ticks_ms": 13591,
+              "read_bytes": 40599289856,
+              "read_operations": 56771,
+              "read_sectors": 79295488,
+              "read_ticks_ms": 37961,
+              "weighted_ticks_ms": 38254
+            },
+            "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+            "elapsed_seconds": 54.10051483300049,
+            "file": {
+              "path": "/dev/shm/issue69-delta-d/d1/confirm-workers-4/raw/A1-03-resources.json",
+              "sha256": "e59c79d6f0a2e60b3f99302a2fb9feb209b60aa8abbfcb050d23d70f4ee8e693",
+              "size": 175871
+            },
+            "process_io_maxima": {
+              "io_rchar": 36277898984,
+              "io_read_bytes": 40510291968,
+              "io_wchar": 258112,
+              "io_write_bytes": 0
+            }
+          },
+          "workload": {
+            "cold_admissions": 0,
+            "cold_hits": 0,
+            "cold_misses": 4453,
+            "decode_tps": 1.6967305183246157,
+            "file": {
+              "path": "/dev/shm/issue69-delta-d/d1/confirm-workers-4/raw/A1-03.json.gz",
+              "sha256": "2c7265b09b0475cef2709691cfb7c9f5b55dcf1f6954ec29efb6b4f3199674fe",
+              "size": 5910
+            },
+            "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+            "h2d_bytes": 36272472064,
+            "h2d_time_us": 198263,
+            "hierarchy_residency": {
+              "cold_keys": 0,
+              "distinct_keys": 1573,
+              "duplicate_keys": 0,
+              "hot_keys": 1573,
+              "hot_without_cold_keys": 1573
+            },
+            "hot_hits": 3624,
+            "hot_misses": 4453,
+            "numerical_identity_sha256": "f181aeb06b65f6e1f8545d4c39c8d9c5a1d51bb1871f6c9ba5e2a060012346ff",
+            "stage_bytes": 0,
+            "storage_h2d_overlap": {
+              "disk_h2d_overlap_bytes": 0,
+              "disk_h2d_overlap_flights": 0,
+              "disk_h2d_overlap_pairs": 0,
+              "disk_h2d_overlap_read_bytes": 0,
+              "disk_h2d_overlap_us": 0
+            },
+            "storage_read_bytes": 36272472064,
+            "storage_read_requests": 4453,
+            "terminal_state": {
+              "active_background_flights": 0,
+              "async_active_reads": 0,
+              "cold_cpu_execution_refs": 0,
+              "cold_request_refs": 0,
+              "cold_transfer_refs": 0,
+              "hot_pins": 0,
+              "ring_live_events": 0,
+              "scheduler_active_requests": 0
+            },
+            "terminal_state_zero": true,
+            "worker_count": 4
+          }
+        }
+      ]
+    },
+    "S0": {
+      "all_terminal_state_zero": true,
+      "exact_generated_identity": true,
+      "exact_numerical_identity": true,
+      "geometric_mean_decode_tps": 1.434519464961446,
+      "mean_block_physical_read_bytes": 40401237333.333336,
+      "mean_process_physical_read_bytes": 40312556202.666664,
+      "runs": [
+        {
+          "resources": {
+            "block_device_delta": {
+              "io_ticks_ms": 13395,
+              "read_bytes": 40395972608,
+              "read_operations": 56921,
+              "read_sectors": 78898384,
+              "read_ticks_ms": 37617,
+              "weighted_ticks_ms": 37814
+            },
+            "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+            "elapsed_seconds": 56.20844496900099,
+            "file": {
+              "path": "/dev/shm/issue69-delta-d/d1/confirm-workers-4/raw/S0-01-resources.json",
+              "sha256": "3b77a1278c3a9f94a572e353bd619093b2ec2466c65538c89aed1dfcaf05f21a",
+              "size": 166614
+            },
+            "process_io_maxima": {
+              "io_rchar": 48230485616,
+              "io_read_bytes": 40314732544,
+              "io_wchar": 252569,
+              "io_write_bytes": 0
+            }
+          },
+          "workload": {
+            "cold_admissions": 0,
+            "cold_hits": 0,
+            "cold_misses": 5920,
+            "decode_tps": 1.448544426983536,
+            "file": {
+              "path": "/dev/shm/issue69-delta-d/d1/confirm-workers-4/raw/S0-01.json.gz",
+              "sha256": "b78b706fbba1a9c62a52e65311e1fa78d92f6e64a7a89664417f400ba135f9a6",
+              "size": 5194
+            },
+            "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+            "h2d_bytes": 48225058816,
+            "h2d_time_us": 205796,
+            "hierarchy_residency": {
+              "cold_keys": 0,
+              "distinct_keys": 268,
+              "duplicate_keys": 0,
+              "hot_keys": 268,
+              "hot_without_cold_keys": 268
+            },
+            "hot_hits": 2157,
+            "hot_misses": 5920,
+            "numerical_identity_sha256": "73629b9ce1004b1dcc1939ae55b92208af951b317503a6f110cffa05982eb42f",
+            "stage_bytes": 0,
+            "storage_h2d_overlap": {
+              "disk_h2d_overlap_bytes": 0,
+              "disk_h2d_overlap_flights": 0,
+              "disk_h2d_overlap_pairs": 0,
+              "disk_h2d_overlap_read_bytes": 0,
+              "disk_h2d_overlap_us": 0
+            },
+            "storage_read_bytes": 48225058816,
+            "storage_read_requests": 5920,
+            "terminal_state": {
+              "active_background_flights": 0,
+              "async_active_reads": 0,
+              "cold_cpu_execution_refs": 0,
+              "cold_request_refs": 0,
+              "cold_transfer_refs": 0,
+              "hot_pins": 0,
+              "ring_live_events": 0,
+              "scheduler_active_requests": 0
+            },
+            "terminal_state_zero": true,
+            "worker_count": 4
+          }
+        },
+        {
+          "resources": {
+            "block_device_delta": {
+              "io_ticks_ms": 13624,
+              "read_bytes": 40404889600,
+              "read_operations": 57388,
+              "read_sectors": 78915800,
+              "read_ticks_ms": 37643,
+              "weighted_ticks_ms": 38117
+            },
+            "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+            "elapsed_seconds": 55.8662081270013,
+            "file": {
+              "path": "/dev/shm/issue69-delta-d/d1/confirm-workers-4/raw/S0-02-resources.json",
+              "sha256": "4fe0afe093c98f0183f0ddbcfe68a8deef89baad7259c790688c7eea4c5d1730",
+              "size": 168110
+            },
+            "process_io_maxima": {
+              "io_rchar": 48230485665,
+              "io_read_bytes": 40310161408,
+              "io_wchar": 252569,
+              "io_write_bytes": 0
+            }
+          },
+          "workload": {
+            "cold_admissions": 0,
+            "cold_hits": 0,
+            "cold_misses": 5920,
+            "decode_tps": 1.4304466463924694,
+            "file": {
+              "path": "/dev/shm/issue69-delta-d/d1/confirm-workers-4/raw/S0-02.json.gz",
+              "sha256": "5312c7d79a1a02f0340f7d1bc857999cec0069389f21ab50a6dcc64f993991cb",
+              "size": 5203
+            },
+            "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+            "h2d_bytes": 48225058816,
+            "h2d_time_us": 205787,
+            "hierarchy_residency": {
+              "cold_keys": 0,
+              "distinct_keys": 268,
+              "duplicate_keys": 0,
+              "hot_keys": 268,
+              "hot_without_cold_keys": 268
+            },
+            "hot_hits": 2157,
+            "hot_misses": 5920,
+            "numerical_identity_sha256": "73629b9ce1004b1dcc1939ae55b92208af951b317503a6f110cffa05982eb42f",
+            "stage_bytes": 0,
+            "storage_h2d_overlap": {
+              "disk_h2d_overlap_bytes": 0,
+              "disk_h2d_overlap_flights": 0,
+              "disk_h2d_overlap_pairs": 0,
+              "disk_h2d_overlap_read_bytes": 0,
+              "disk_h2d_overlap_us": 0
+            },
+            "storage_read_bytes": 48225058816,
+            "storage_read_requests": 5920,
+            "terminal_state": {
+              "active_background_flights": 0,
+              "async_active_reads": 0,
+              "cold_cpu_execution_refs": 0,
+              "cold_request_refs": 0,
+              "cold_transfer_refs": 0,
+              "hot_pins": 0,
+              "ring_live_events": 0,
+              "scheduler_active_requests": 0
+            },
+            "terminal_state_zero": true,
+            "worker_count": 4
+          }
+        },
+        {
+          "resources": {
+            "block_device_delta": {
+              "io_ticks_ms": 13632,
+              "read_bytes": 40402849792,
+              "read_operations": 57183,
+              "read_sectors": 78911816,
+              "read_ticks_ms": 37876,
+              "weighted_ticks_ms": 38225
+            },
+            "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+            "elapsed_seconds": 55.410372251004446,
+            "file": {
+              "path": "/dev/shm/issue69-delta-d/d1/confirm-workers-4/raw/S0-03-resources.json",
+              "sha256": "546ee87bf4542cb46d966ee8578dfafd3eccca68a336f486b316d4a5929f024f",
+              "size": 167080
+            },
+            "process_io_maxima": {
+              "io_rchar": 48230485665,
+              "io_read_bytes": 40312774656,
+              "io_wchar": 252569,
+              "io_write_bytes": 0
+            }
+          },
+          "workload": {
+            "cold_admissions": 0,
+            "cold_hits": 0,
+            "cold_misses": 5920,
+            "decode_tps": 1.4246751632228654,
+            "file": {
+              "path": "/dev/shm/issue69-delta-d/d1/confirm-workers-4/raw/S0-03.json.gz",
+              "sha256": "fd459b3e5ea7255fa24cc9efb0b222e85c7dffb26b337e33879eb414e293afa4",
+              "size": 5204
+            },
+            "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+            "h2d_bytes": 48225058816,
+            "h2d_time_us": 203090,
+            "hierarchy_residency": {
+              "cold_keys": 0,
+              "distinct_keys": 268,
+              "duplicate_keys": 0,
+              "hot_keys": 268,
+              "hot_without_cold_keys": 268
+            },
+            "hot_hits": 2157,
+            "hot_misses": 5920,
+            "numerical_identity_sha256": "73629b9ce1004b1dcc1939ae55b92208af951b317503a6f110cffa05982eb42f",
+            "stage_bytes": 0,
+            "storage_h2d_overlap": {
+              "disk_h2d_overlap_bytes": 0,
+              "disk_h2d_overlap_flights": 0,
+              "disk_h2d_overlap_pairs": 0,
+              "disk_h2d_overlap_read_bytes": 0,
+              "disk_h2d_overlap_us": 0
+            },
+            "storage_read_bytes": 48225058816,
+            "storage_read_requests": 5920,
+            "terminal_state": {
+              "active_background_flights": 0,
+              "async_active_reads": 0,
+              "cold_cpu_execution_refs": 0,
+              "cold_request_refs": 0,
+              "cold_transfer_refs": 0,
+              "hot_pins": 0,
+              "ring_live_events": 0,
+              "scheduler_active_requests": 0
+            },
+            "terminal_state_zero": true,
+            "worker_count": 4
+          }
+        }
+      ]
+    },
+    "S1": {
+      "all_terminal_state_zero": true,
+      "exact_generated_identity": true,
+      "exact_numerical_identity": true,
+      "geometric_mean_decode_tps": 1.6781452827380667,
+      "mean_block_physical_read_bytes": 40563270997.333336,
+      "mean_process_physical_read_bytes": 40500647253.333336,
+      "runs": [
+        {
+          "resources": {
+            "block_device_delta": {
+              "io_ticks_ms": 14094,
+              "read_bytes": 40512503808,
+              "read_operations": 56615,
+              "read_sectors": 79125984,
+              "read_ticks_ms": 39192,
+              "weighted_ticks_ms": 39401
+            },
+            "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+            "elapsed_seconds": 53.51479961400037,
+            "file": {
+              "path": "/dev/shm/issue69-delta-d/d1/confirm-workers-4/raw/S1-01-resources.json",
+              "sha256": "e1c384e870e19deaca19a2c9df9fc8eadfc0585d2381f3e1c53d8b879c6cda69",
+              "size": 171041
+            },
+            "process_io_maxima": {
+              "io_rchar": 44747050678,
+              "io_read_bytes": 40502263808,
+              "io_wchar": 258094,
+              "io_write_bytes": 0
+            }
+          },
+          "workload": {
+            "cold_admissions": 0,
+            "cold_hits": 0,
+            "cold_misses": 5491,
+            "decode_tps": 1.696416901976901,
+            "file": {
+              "path": "/dev/shm/issue69-delta-d/d1/confirm-workers-4/raw/S1-01.json.gz",
+              "sha256": "9540ad13d19380eaefe4e87e952ce55ee492dd9d5588d6d1a0e8b126ad3676a9",
+              "size": 5870
+            },
+            "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+            "h2d_bytes": 44741623808,
+            "h2d_time_us": 240836,
+            "hierarchy_residency": {
+              "cold_keys": 0,
+              "distinct_keys": 536,
+              "duplicate_keys": 0,
+              "hot_keys": 536,
+              "hot_without_cold_keys": 536
+            },
+            "hot_hits": 2586,
+            "hot_misses": 5491,
+            "numerical_identity_sha256": "f181aeb06b65f6e1f8545d4c39c8d9c5a1d51bb1871f6c9ba5e2a060012346ff",
+            "stage_bytes": 0,
+            "storage_h2d_overlap": {
+              "disk_h2d_overlap_bytes": 0,
+              "disk_h2d_overlap_flights": 0,
+              "disk_h2d_overlap_pairs": 0,
+              "disk_h2d_overlap_read_bytes": 0,
+              "disk_h2d_overlap_us": 0
+            },
+            "storage_read_bytes": 44741623808,
+            "storage_read_requests": 5491,
+            "terminal_state": {
+              "active_background_flights": 0,
+              "async_active_reads": 0,
+              "cold_cpu_execution_refs": 0,
+              "cold_request_refs": 0,
+              "cold_transfer_refs": 0,
+              "hot_pins": 0,
+              "ring_live_events": 0,
+              "scheduler_active_requests": 0
+            },
+            "terminal_state_zero": true,
+            "worker_count": 4
+          }
+        },
+        {
+          "resources": {
+            "block_device_delta": {
+              "io_ticks_ms": 13852,
+              "read_bytes": 40591556608,
+              "read_operations": 56752,
+              "read_sectors": 79280384,
+              "read_ticks_ms": 38066,
+              "weighted_ticks_ms": 38474
+            },
+            "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+            "elapsed_seconds": 57.8046140140068,
+            "file": {
+              "path": "/dev/shm/issue69-delta-d/d1/confirm-workers-4/raw/S1-02-resources.json",
+              "sha256": "f157d6add47ee3582083eef248ddf76b4df0ecc758d74174485b9a50fa4333fc",
+              "size": 168571
+            },
+            "process_io_maxima": {
+              "io_rchar": 44822062905,
+              "io_read_bytes": 40501985280,
+              "io_wchar": 258094,
+              "io_write_bytes": 0
+            }
+          },
+          "workload": {
+            "cold_admissions": 0,
+            "cold_hits": 0,
+            "cold_misses": 5491,
+            "decode_tps": 1.6697575330566619,
+            "file": {
+              "path": "/dev/shm/issue69-delta-d/d1/confirm-workers-4/raw/S1-02.json.gz",
+              "sha256": "9a0e9da1ab47fb9cacc69a87d09264fa6655d198a2385785992ed322f810c1e6",
+              "size": 5861
+            },
+            "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+            "h2d_bytes": 44741623808,
+            "h2d_time_us": 258367,
+            "hierarchy_residency": {
+              "cold_keys": 0,
+              "distinct_keys": 536,
+              "duplicate_keys": 0,
+              "hot_keys": 536,
+              "hot_without_cold_keys": 536
+            },
+            "hot_hits": 2586,
+            "hot_misses": 5491,
+            "numerical_identity_sha256": "f181aeb06b65f6e1f8545d4c39c8d9c5a1d51bb1871f6c9ba5e2a060012346ff",
+            "stage_bytes": 0,
+            "storage_h2d_overlap": {
+              "disk_h2d_overlap_bytes": 0,
+              "disk_h2d_overlap_flights": 0,
+              "disk_h2d_overlap_pairs": 0,
+              "disk_h2d_overlap_read_bytes": 0,
+              "disk_h2d_overlap_us": 0
+            },
+            "storage_read_bytes": 44741623808,
+            "storage_read_requests": 5491,
+            "terminal_state": {
+              "active_background_flights": 0,
+              "async_active_reads": 0,
+              "cold_cpu_execution_refs": 0,
+              "cold_request_refs": 0,
+              "cold_transfer_refs": 0,
+              "hot_pins": 0,
+              "ring_live_events": 0,
+              "scheduler_active_requests": 0
+            },
+            "terminal_state_zero": true,
+            "worker_count": 4
+          }
+        },
+        {
+          "resources": {
+            "block_device_delta": {
+              "io_ticks_ms": 13958,
+              "read_bytes": 40585752576,
+              "read_operations": 56666,
+              "read_sectors": 79269048,
+              "read_ticks_ms": 37650,
+              "weighted_ticks_ms": 37918
+            },
+            "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+            "elapsed_seconds": 55.81501725601265,
+            "file": {
+              "path": "/dev/shm/issue69-delta-d/d1/confirm-workers-4/raw/S1-03-resources.json",
+              "sha256": "1ed98e006c8d1565903d0ad0a74abbbef64a3bed4ca472c34f2fc3a4b7efa911",
+              "size": 167894
+            },
+            "process_io_maxima": {
+              "io_rchar": 44747050776,
+              "io_read_bytes": 40497692672,
+              "io_wchar": 258094,
+              "io_write_bytes": 0
+            }
+          },
+          "workload": {
+            "cold_admissions": 0,
+            "cold_hits": 0,
+            "cold_misses": 5491,
+            "decode_tps": 1.66840955015036,
+            "file": {
+              "path": "/dev/shm/issue69-delta-d/d1/confirm-workers-4/raw/S1-03.json.gz",
+              "sha256": "bd0d6e9944275959775e96b2c498835a9087ad3eb0d8059054b674f0fddf1bf6",
+              "size": 5859
+            },
+            "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+            "h2d_bytes": 44741623808,
+            "h2d_time_us": 242227,
+            "hierarchy_residency": {
+              "cold_keys": 0,
+              "distinct_keys": 536,
+              "duplicate_keys": 0,
+              "hot_keys": 536,
+              "hot_without_cold_keys": 536
+            },
+            "hot_hits": 2586,
+            "hot_misses": 5491,
+            "numerical_identity_sha256": "f181aeb06b65f6e1f8545d4c39c8d9c5a1d51bb1871f6c9ba5e2a060012346ff",
+            "stage_bytes": 0,
+            "storage_h2d_overlap": {
+              "disk_h2d_overlap_bytes": 0,
+              "disk_h2d_overlap_flights": 0,
+              "disk_h2d_overlap_pairs": 0,
+              "disk_h2d_overlap_read_bytes": 0,
+              "disk_h2d_overlap_us": 0
+            },
+            "storage_read_bytes": 44741623808,
+            "storage_read_requests": 5491,
+            "terminal_state": {
+              "active_background_flights": 0,
+              "async_active_reads": 0,
+              "cold_cpu_execution_refs": 0,
+              "cold_request_refs": 0,
+              "cold_transfer_refs": 0,
+              "hot_pins": 0,
+              "ring_live_events": 0,
+              "scheduler_active_requests": 0
+            },
+            "terminal_state_zero": true,
+            "worker_count": 4
+          }
+        }
+      ]
+    }
+  },
+  "d1_conclusion": {
+    "a1_logical_byte_advantage_translates_to_throughput_advantage": false,
+    "next": "publish D1 before entering the D2 cold-cache usefulness decision",
+    "physical_storage_is_material": true,
+    "selected_worker_count": 4
+  },
+  "errors": [],
+  "fixture": {
+    "accepted_model_verification": {
+      "path": "results/2026-08-09/issue69-provider-feed-path/checkpoint-a/model-verification.json",
+      "sha256": "1cbcdaa7e1422b22a990192650ba57cc7bccc1187c43b8d4c47eb95eed9397b2",
+      "size": 1410
+    },
+    "backing_store": {
+      "block_device": "/dev/vda1",
+      "cache_rule": "sync then Linux drop_caches=3 before every authoritative process",
+      "filesystem": "ext4",
+      "model_first_shard": "/root/models/deepseek-v4-flash-ud-q2-k-xl/UD-Q2_K_XL/DeepSeek-V4-Flash-UD-Q2_K_XL-00001-of-00003.gguf",
+      "mount_target": "/",
+      "transport": "POSITIONAL pread"
+    },
+    "cold_bytes": 17179869184,
+    "generated_tokens": 24,
+    "graphs": "disabled",
+    "model_revision": "85ce4196ab6e82852e25dfec2b7e2beaae56f5f1",
+    "prefetch": "off",
+    "variant": "UD-Q2_K_XL"
+  },
+  "identity": {
+    "exact_generated_identity_across_physical_captures": true,
+    "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b"
+  },
+  "physical_vs_tmpfs_decode_ratio": {
+    "A1": 0.6727213313759267,
+    "S0": 0.7676182609905008,
+    "S1": 0.7025470736082957
+  },
+  "raw_evidence": {
+    "asset": "issue69-delta-d1-physical-ssd-v1.tar.zst",
+    "release": "https://github.com/murillo128/k3-out-of-core/releases/tag/issue69-delta-d1-physical-ssd-v1",
+    "sha256": "8ec3a16697c811b1a323e7f41725e5c7d8348754a130c44149a928cb67974be4",
+    "size": 7460644
+  },
+  "revisions": {
+    "nested_head": "968e138cab375cbca4406b82b756671eb103ea3e",
+    "project_head": "8e4c0796f28f70c9db749d36118c0c19f4bceac0"
+  },
+  "schema_version": "issue69-delta-d-physical-ssd-v1",
+  "status": "pass",
+  "tmpfs_reference": {
+    "accepted_nested_head": "968e138cab375cbca4406b82b756671eb103ea3e",
+    "accepted_parent_head": "d69245fc95afb63e446f9cd59c39b74d913d8565",
+    "decode_tps": {
+      "A1": 2.3960765852017682,
+      "S0": 1.8687927813369176,
+      "S1": 2.3886588468998657
+    },
+    "manifest": {
+      "path": "results/2026-08-09/issue69-provider-feed-path/checkpoint-c/manifest.json",
+      "sha256": "4b807054cbc234f54344c03e1388266d6f2637001e5436a32df7e355cceacccd",
+      "size": 269994
+    },
+    "provider_p50_ms": {
+      "A1": 8.149048,
+      "S0": 12.526748000000001
+    }
+  },
+  "traces": {
+    "capture": {
+      "path": "/dev/shm/issue69-delta-d/d1/traces-workers-4/trace-matrix.json",
+      "sha256": "082d1ebe7b6ae4ea202880148f0f727493a583e6eb1b220b44e34f662f3259bd",
+      "size": 4787
+    },
+    "cells": {
+      "A1": {
+        "block_device_delta": {
+          "io_ticks_ms": 13822,
+          "read_bytes": 40585265152,
+          "read_operations": 56922,
+          "read_sectors": 79268096,
+          "read_ticks_ms": 37867,
+          "weighted_ticks_ms": 38194
+        },
+        "capture": {
+          "path": "/dev/shm/issue69-delta-d/d1/traces-workers-4/A1/capture.json",
+          "sha256": "2ca241219ebf088d0487ff426303fab8a9f226bafc8a34d8853137befefaa6c4",
+          "size": 3840
+        },
+        "complete_routed_layer_cycles": 62,
+        "critical_path": {
+          "accounting_error_ns": 0,
+          "buckets_fraction": {
+            "cuda_synchronization": 0.027061562767609147,
+            "dependency_or_host_gap": 0.18654857213969236,
+            "gpu0_kernel": 0.035709527784424676,
+            "gpu1_kernel": 0.007590155557661819,
+            "issue_span_ns": 0.019429627333796183,
+            "no_miss_provider_ns": 0.000319979720694749,
+            "other_cuda": 0.0013930876637620693,
+            "peer_activation_result_copy": 0.0015131750338439006,
+            "post_issue_ns": 0.6479617223450074,
+            "pre_issue_ns": 0.0724725896535077
+          },
+          "buckets_ns": {
+            "cuda_synchronization": 26926270,
+            "dependency_or_host_gap": 185615933,
+            "gpu0_kernel": 35531000,
+            "gpu1_kernel": 7552209,
+            "issue_span_ns": 19332490,
+            "no_miss_provider_ns": 318380,
+            "other_cuda": 1386123,
+            "peer_activation_result_copy": 1505610,
+            "post_issue_ns": 644722274,
+            "pre_issue_ns": 72110267
+          },
+          "wall_ns": 995000556
+        },
+        "exposed_storage_without_h2d_or_kernel_ns": 528948379,
+        "gpu": {
+          "gpu0_idle_without_kernel_ns": 965319879,
+          "gpu0_useful_kernel_ns": 35661016,
+          "gpu1_idle_without_kernel_ns": 993306990,
+          "gpu1_useful_kernel_ns": 7673905
+        },
+        "h2d_union_ns": 104911220,
+        "provider_p50_ms": 13.517122,
+        "provider_p95_ms": 18.448811,
+        "provider_service_unions_not_additive": {
+          "event_wait": 5806596,
+          "expert_h2d_cuda": 80287881,
+          "h2d_scope": 80620971,
+          "multi_device_hot_slot_candidate_build": 16444793,
+          "multi_device_hot_slot_feasibility_accounting": 3974691,
+          "multi_device_hot_slot_policy_admission": 48446746,
+          "multi_device_hot_slot_select": 69843664,
+          "multi_device_transport_epoch_snapshot": 4643495,
+          "policy_hash_state": 0,
+          "stage": 0,
+          "storage": 572663773
+        },
+        "provider_wall_ms": {
+          "max_ms": 20.65783,
+          "mean_ms": 11.878764693548389,
+          "p50_ms": 13.517122,
+          "p95_ms": 18.448811
+        },
+        "storage_gpu_kernel_overlap_ns": 0,
+        "storage_h2d_overlap_ns": 45074327,
+        "storage_union_ns": 574022706,
+        "trace": {
+          "path": "/dev/shm/issue69-delta-d/d1/traces-workers-4/A1/trace.pftrace",
+          "sha256": "57d127e18505c592c8790e31b8508ed6338bbb04e229402e8be2b502b1bc8879",
+          "size": 3936280
+        },
+        "verification": {
+          "path": "/dev/shm/issue69-delta-d/d1/traces-workers-4/A1/verification.json",
+          "sha256": "67339d32625a6990e58d16558a20cd9a08abfcf1e2bca6264e98454a0468a0e1",
+          "size": 1820
+        },
+        "window_ns": 1000980895,
+        "workload": {
+          "cold_admissions": 0,
+          "cold_hits": 0,
+          "cold_misses": 4453,
+          "decode_tps": 1.4801694935651561,
+          "file": {
+            "path": "/dev/shm/issue69-delta-d/d1/traces-workers-4/A1/workload.json",
+            "sha256": "95b0920fedef348e981e918f3627455f2f5b396daad4994c309d866700a79caf",
+            "size": 31398
+          },
+          "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+          "h2d_bytes": 36272472064,
+          "h2d_time_us": 254875,
+          "hierarchy_residency": {
+            "cold_keys": 0,
+            "distinct_keys": 1573,
+            "duplicate_keys": 0,
+            "hot_keys": 1573,
+            "hot_without_cold_keys": 1573
+          },
+          "hot_hits": 3624,
+          "hot_misses": 4453,
+          "numerical_identity_sha256": "f181aeb06b65f6e1f8545d4c39c8d9c5a1d51bb1871f6c9ba5e2a060012346ff",
+          "stage_bytes": 0,
+          "storage_h2d_overlap": {
+            "disk_h2d_overlap_bytes": 0,
+            "disk_h2d_overlap_flights": 0,
+            "disk_h2d_overlap_pairs": 0,
+            "disk_h2d_overlap_read_bytes": 0,
+            "disk_h2d_overlap_us": 0
+          },
+          "storage_read_bytes": 36272472064,
+          "storage_read_requests": 4453,
+          "terminal_state": {
+            "active_background_flights": 0,
+            "async_active_reads": 0,
+            "cold_cpu_execution_refs": 0,
+            "cold_request_refs": 0,
+            "cold_transfer_refs": 0,
+            "hot_pins": 0,
+            "ring_live_events": 0,
+            "scheduler_active_requests": 0
+          },
+          "terminal_state_zero": true,
+          "worker_count": 4
+        }
+      },
+      "S0": {
+        "block_device_delta": {
+          "io_ticks_ms": 15085,
+          "read_bytes": 40472735744,
+          "read_operations": 57738,
+          "read_sectors": 79048312,
+          "read_ticks_ms": 41718,
+          "weighted_ticks_ms": 42454
+        },
+        "capture": {
+          "path": "/dev/shm/issue69-delta-d/d1/traces-workers-4/S0/capture.json",
+          "sha256": "e390740c39f724d078a937917b7573930eebaeeaea823b13b9a4bd80a76c0dd1",
+          "size": 3824
+        },
+        "complete_routed_layer_cycles": 57,
+        "critical_path": {
+          "accounting_error_ns": 0,
+          "buckets_fraction": {
+            "cuda_synchronization": 0.0032512896587758504,
+            "dependency_or_host_gap": 0.121934249625723,
+            "gpu0_kernel": 0.031957799091955216,
+            "gpu1_kernel": 0.0,
+            "issue_span_ns": 0.00798791212846646,
+            "no_miss_provider_ns": 0.0,
+            "other_cuda": 0.0006720271220930603,
+            "peer_activation_result_copy": 5.368658216079245e-05,
+            "post_issue_ns": 0.6852592646176435,
+            "pre_issue_ns": 0.1488837711731821
+          },
+          "buckets_ns": {
+            "cuda_synchronization": 3220853,
+            "dependency_or_host_gap": 120792773,
+            "gpu0_kernel": 31658629,
+            "gpu1_kernel": 0,
+            "issue_span_ns": 7913134,
+            "no_miss_provider_ns": 0,
+            "other_cuda": 665736,
+            "peer_activation_result_copy": 53184,
+            "post_issue_ns": 678844271,
+            "pre_issue_ns": 147490009
+          },
+          "wall_ns": 990638589
+        },
+        "exposed_storage_without_h2d_or_kernel_ns": 460227456,
+        "gpu": {
+          "gpu0_idle_without_kernel_ns": 969235769,
+          "gpu0_useful_kernel_ns": 31658629,
+          "gpu1_idle_without_kernel_ns": 1000894398,
+          "gpu1_useful_kernel_ns": 0
+        },
+        "h2d_union_ns": 178871354,
+        "provider_p50_ms": 16.639431,
+        "provider_p95_ms": 20.086757,
+        "provider_service_unions_not_additive": {
+          "event_wait": 179479995,
+          "expert_h2d_cuda": 161302249,
+          "h2d_scope": 177312360,
+          "multi_device_hot_slot_candidate_build": 0,
+          "multi_device_hot_slot_feasibility_accounting": 0,
+          "multi_device_hot_slot_policy_admission": 0,
+          "multi_device_hot_slot_select": 0,
+          "multi_device_transport_epoch_snapshot": 0,
+          "policy_hash_state": 0,
+          "stage": 0,
+          "storage": 572580312
+        },
+        "provider_wall_ms": {
+          "max_ms": 21.379932,
+          "mean_ms": 14.63591954385965,
+          "p50_ms": 16.639431,
+          "p95_ms": 20.086757
+        },
+        "storage_gpu_kernel_overlap_ns": 0,
+        "storage_h2d_overlap_ns": 117618585,
+        "storage_union_ns": 577846041,
+        "trace": {
+          "path": "/dev/shm/issue69-delta-d/d1/traces-workers-4/S0/trace.pftrace",
+          "sha256": "354c7d20fa9d2ce8070a3bc07dd52b7a2cc82aa90ca545ade0b5c063ae0bd9b8",
+          "size": 4147358
+        },
+        "verification": {
+          "path": "/dev/shm/issue69-delta-d/d1/traces-workers-4/S0/verification.json",
+          "sha256": "de6b9b0d2578d29429abd6300eca01e832d4a66523155c1d23888f38263d6b67",
+          "size": 1816
+        },
+        "window_ns": 1000894398,
+        "workload": {
+          "cold_admissions": 0,
+          "cold_hits": 0,
+          "cold_misses": 5920,
+          "decode_tps": 1.3895800707151256,
+          "file": {
+            "path": "/dev/shm/issue69-delta-d/d1/traces-workers-4/S0/workload.json",
+            "sha256": "c24d7c4d87a2eb9e39f3f534cd851de33cba9c665ceb84bb06d9e81337c22480",
+            "size": 26229
+          },
+          "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+          "h2d_bytes": 48225058816,
+          "h2d_time_us": 255848,
+          "hierarchy_residency": {
+            "cold_keys": 0,
+            "distinct_keys": 268,
+            "duplicate_keys": 0,
+            "hot_keys": 268,
+            "hot_without_cold_keys": 268
+          },
+          "hot_hits": 2157,
+          "hot_misses": 5920,
+          "numerical_identity_sha256": "73629b9ce1004b1dcc1939ae55b92208af951b317503a6f110cffa05982eb42f",
+          "stage_bytes": 0,
+          "storage_h2d_overlap": {
+            "disk_h2d_overlap_bytes": 0,
+            "disk_h2d_overlap_flights": 0,
+            "disk_h2d_overlap_pairs": 0,
+            "disk_h2d_overlap_read_bytes": 0,
+            "disk_h2d_overlap_us": 0
+          },
+          "storage_read_bytes": 48225058816,
+          "storage_read_requests": 5920,
+          "terminal_state": {
+            "active_background_flights": 0,
+            "async_active_reads": 0,
+            "cold_cpu_execution_refs": 0,
+            "cold_request_refs": 0,
+            "cold_transfer_refs": 0,
+            "hot_pins": 0,
+            "ring_live_events": 0,
+            "scheduler_active_requests": 0
+          },
+          "terminal_state_zero": true,
+          "worker_count": 4
+        }
+      }
+    },
+    "existing_trace_summary": {
+      "build": {
+        "cmake_cache": {
+          "path": "/root/k3-out-of-core/llama.cpp/build-cuda/CMakeCache.txt",
+          "sha256": "fd814d1db587712c208409f0deec3526381552615b64f7e4996224343f3193b1",
+          "size": 48116
+        },
+        "options": {
+          "CMAKE_BUILD_TYPE": "Release",
+          "CMAKE_CXX_COMPILER": "/usr/bin/c++",
+          "CMAKE_CXX_FLAGS_RELEASE": "-O3 -DNDEBUG",
+          "GGML_CUDA": "ON",
+          "GGML_CUDA_GRAPHS": "ON",
+          "LLAMA_PERFETTO": "ON"
+        },
+        "probe": {
+          "path": "llama.cpp/build-cuda/bin/phase9-cache-policy-probe",
+          "sha256": "c5d5b6a67b7f6fb20d74d6503dbb1cc6659e5e21ce9360d8ead0b38ffe724652",
+          "size": 324856
+        }
+      },
+      "capture": {
+        "path": "/dev/shm/issue69-delta-d/d1/traces-workers-4/trace-matrix.json",
+        "sha256": "082d1ebe7b6ae4ea202880148f0f727493a583e6eb1b220b44e34f662f3259bd",
+        "size": 4787
+      },
+      "cells": {
+        "A1": {
+          "complete_routed_layer_cycles": 62,
+          "critical_path": {
+            "accounting_error_ns": 0,
+            "buckets_fraction": {
+              "cuda_synchronization": 0.027061562767609147,
+              "dependency_or_host_gap": 0.18654857213969236,
+              "gpu0_kernel": 0.035709527784424676,
+              "gpu1_kernel": 0.007590155557661819,
+              "issue_span_ns": 0.019429627333796183,
+              "no_miss_provider_ns": 0.000319979720694749,
+              "other_cuda": 0.0013930876637620693,
+              "peer_activation_result_copy": 0.0015131750338439006,
+              "post_issue_ns": 0.6479617223450074,
+              "pre_issue_ns": 0.0724725896535077
+            },
+            "buckets_ns": {
+              "cuda_synchronization": 26926270,
+              "dependency_or_host_gap": 185615933,
+              "gpu0_kernel": 35531000,
+              "gpu1_kernel": 7552209,
+              "issue_span_ns": 19332490,
+              "no_miss_provider_ns": 318380,
+              "other_cuda": 1386123,
+              "peer_activation_result_copy": 1505610,
+              "post_issue_ns": 644722274,
+              "pre_issue_ns": 72110267
+            },
+            "wall_ns": 995000556
+          },
+          "phase_barrier": {
+            "barrier_layers": 5,
+            "examples": [
+              {
+                "all_reads_complete_before_next_h2d": false,
+                "first_h2d_after_read_ns": 122870161968755,
+                "first_read_complete_ns": 122870161538374,
+                "last_read_complete_ns": 122870162692182,
+                "layer": 6,
+                "read_requests": 2
+              },
+              {
+                "all_reads_complete_before_next_h2d": false,
+                "first_h2d_after_read_ns": 122870174785690,
+                "first_read_complete_ns": 122870174602258,
+                "last_read_complete_ns": 122870185056491,
+                "layer": 7,
+                "read_requests": 3
+              },
+              {
+                "all_reads_complete_before_next_h2d": false,
+                "first_h2d_after_read_ns": 122870211649203,
+                "first_read_complete_ns": 122870211357746,
+                "last_read_complete_ns": 122870212268854,
+                "layer": 10,
+                "read_requests": 3
+              },
+              {
+                "all_reads_complete_before_next_h2d": false,
+                "first_h2d_after_read_ns": 122870223128574,
+                "first_read_complete_ns": 122870222930118,
+                "last_read_complete_ns": 122870232339671,
+                "layer": 11,
+                "read_requests": 4
+              },
+              {
+                "all_reads_complete_before_next_h2d": false,
+                "first_h2d_after_read_ns": 122870244538011,
+                "first_read_complete_ns": 122870244264862,
+                "last_read_complete_ns": 122870254317165,
+                "layer": 12,
+                "read_requests": 3
+              },
+              {
+                "all_reads_complete_before_next_h2d": false,
+                "first_h2d_after_read_ns": 122870263862228,
+                "first_read_complete_ns": 122870263685254,
+                "last_read_complete_ns": 122870272240232,
+                "layer": 13,
+                "read_requests": 4
+              },
+              {
+                "all_reads_complete_before_next_h2d": false,
+                "first_h2d_after_read_ns": 122870285527113,
+                "first_read_complete_ns": 122870285250326,
+                "last_read_complete_ns": 122870295122498,
+                "layer": 15,
+                "read_requests": 3
+              },
+              {
+                "all_reads_complete_before_next_h2d": false,
+                "first_h2d_after_read_ns": 122870323752726,
+                "first_read_complete_ns": 122870323461415,
+                "last_read_complete_ns": 122870334178985,
+                "layer": 17,
+                "read_requests": 3
+              },
+              {
+                "all_reads_complete_before_next_h2d": false,
+                "first_h2d_after_read_ns": 122870347124892,
+                "first_read_complete_ns": 122870346785934,
+                "last_read_complete_ns": 122870357288395,
+                "layer": 18,
+                "read_requests": 3
+              },
+              {
+                "all_reads_complete_before_next_h2d": false,
+                "first_h2d_after_read_ns": 122870377150909,
+                "first_read_complete_ns": 122870376776505,
+                "last_read_complete_ns": 122870377566486,
+                "layer": 19,
+                "read_requests": 2
+              },
+              {
+                "all_reads_complete_before_next_h2d": false,
+                "first_h2d_after_read_ns": 122870398764922,
+                "first_read_complete_ns": 122870398480539,
+                "last_read_complete_ns": 122870398899177,
+                "layer": 20,
+                "read_requests": 2
+              },
+              {
+                "all_reads_complete_before_next_h2d": false,
+                "first_h2d_after_read_ns": 122870410037697,
+                "first_read_complete_ns": 122870409626584,
+                "last_read_complete_ns": 122870419409687,
+                "layer": 21,
+                "read_requests": 3
+              }
+            ],
+            "miss_rich_layers": 136
+          },
+          "provider_p50_ms": 13.695173,
+          "provider_wall_ms": {
+            "max_ms": 20.65783,
+            "mean_ms": 11.878764693548389,
+            "p50_ms": 13.517122,
+            "p95_ms": 18.448811
+          },
+          "slice_durations": {
+            "h2d": {
+              "count": 459,
+              "p50_ms": 0.719058,
+              "p95_ms": 1.314003,
+              "sum_ms": 375.727786
+            },
+            "storage_read": {
+              "count": 459,
+              "p50_ms": 3.981913,
+              "p95_ms": 15.080744,
+              "sum_ms": 3426.1625
+            },
+            "transfer_stage": {
+              "count": 0,
+              "p50_ms": null,
+              "p95_ms": null,
+              "sum_ms": 0.0
+            }
+          },
+          "trace": {
+            "path": "/dev/shm/issue69-delta-d/d1/traces-workers-4/A1/trace.pftrace",
+            "sha256": "57d127e18505c592c8790e31b8508ed6338bbb04e229402e8be2b502b1bc8879",
+            "size": 3936280
+          }
+        },
+        "S0": {
+          "complete_routed_layer_cycles": 57,
+          "critical_path": {
+            "accounting_error_ns": 0,
+            "buckets_fraction": {
+              "cuda_synchronization": 0.0032512896587758504,
+              "dependency_or_host_gap": 0.121934249625723,
+              "gpu0_kernel": 0.031957799091955216,
+              "gpu1_kernel": 0.0,
+              "issue_span_ns": 0.00798791212846646,
+              "no_miss_provider_ns": 0.0,
+              "other_cuda": 0.0006720271220930603,
+              "peer_activation_result_copy": 5.368658216079245e-05,
+              "post_issue_ns": 0.6852592646176435,
+              "pre_issue_ns": 0.1488837711731821
+            },
+            "buckets_ns": {
+              "cuda_synchronization": 3220853,
+              "dependency_or_host_gap": 120792773,
+              "gpu0_kernel": 31658629,
+              "gpu1_kernel": 0,
+              "issue_span_ns": 7913134,
+              "no_miss_provider_ns": 0,
+              "other_cuda": 665736,
+              "peer_activation_result_copy": 53184,
+              "post_issue_ns": 678844271,
+              "pre_issue_ns": 147490009
+            },
+            "wall_ns": 990638589
+          },
+          "phase_barrier": {
+            "barrier_layers": 0,
+            "examples": [
+              {
+                "all_reads_complete_before_next_h2d": false,
+                "first_h2d_after_read_ns": 122797207060837,
+                "first_read_complete_ns": 122797206921536,
+                "last_read_complete_ns": 122797218072373,
+                "layer": 6,
+                "read_requests": 4
+              },
+              {
+                "all_reads_complete_before_next_h2d": false,
+                "first_h2d_after_read_ns": 122797226907959,
+                "first_read_complete_ns": 122797226811797,
+                "last_read_complete_ns": 122797238692183,
+                "layer": 7,
+                "read_requests": 3
+              },
+              {
+                "all_reads_complete_before_next_h2d": false,
+                "first_h2d_after_read_ns": 122797250065578,
+                "first_read_complete_ns": 122797249913879,
+                "last_read_complete_ns": 122797250493603,
+                "layer": 8,
+                "read_requests": 4
+              },
+              {
+                "all_reads_complete_before_next_h2d": false,
+                "first_h2d_after_read_ns": 122797261067500,
+                "first_read_complete_ns": 122797260942165,
+                "last_read_complete_ns": 122797261104904,
+                "layer": 9,
+                "read_requests": 2
+              },
+              {
+                "all_reads_complete_before_next_h2d": false,
+                "first_h2d_after_read_ns": 122797272217153,
+                "first_read_complete_ns": 122797271982718,
+                "last_read_complete_ns": 122797273295630,
+                "layer": 10,
+                "read_requests": 4
+              },
+              {
+                "all_reads_complete_before_next_h2d": false,
+                "first_h2d_after_read_ns": 122797283885102,
+                "first_read_complete_ns": 122797283593081,
+                "last_read_complete_ns": 122797294046926,
+                "layer": 11,
+                "read_requests": 5
+              },
+              {
+                "all_reads_complete_before_next_h2d": false,
+                "first_h2d_after_read_ns": 122797305337328,
+                "first_read_complete_ns": 122797305210068,
+                "last_read_complete_ns": 122797314014607,
+                "layer": 12,
+                "read_requests": 3
+              },
+              {
+                "all_reads_complete_before_next_h2d": false,
+                "first_h2d_after_read_ns": 122797323369127,
+                "first_read_complete_ns": 122797323275829,
+                "last_read_complete_ns": 122797331225190,
+                "layer": 13,
+                "read_requests": 5
+              },
+              {
+                "all_reads_complete_before_next_h2d": false,
+                "first_h2d_after_read_ns": 122797349938637,
+                "first_read_complete_ns": 122797349831884,
+                "last_read_complete_ns": 122797359946566,
+                "layer": 15,
+                "read_requests": 5
+              },
+              {
+                "all_reads_complete_before_next_h2d": false,
+                "first_h2d_after_read_ns": 122797370808252,
+                "first_read_complete_ns": 122797370701892,
+                "last_read_complete_ns": 122797378752677,
+                "layer": 16,
+                "read_requests": 3
+              },
+              {
+                "all_reads_complete_before_next_h2d": false,
+                "first_h2d_after_read_ns": 122797387475659,
+                "first_read_complete_ns": 122797387385838,
+                "last_read_complete_ns": 122797398111641,
+                "layer": 17,
+                "read_requests": 4
+              },
+              {
+                "all_reads_complete_before_next_h2d": false,
+                "first_h2d_after_read_ns": 122797409343526,
+                "first_read_complete_ns": 122797409249677,
+                "last_read_complete_ns": 122797420494984,
+                "layer": 18,
+                "read_requests": 4
+              }
+            ],
+            "miss_rich_layers": 174
+          },
+          "provider_p50_ms": 16.639431,
+          "provider_wall_ms": {
+            "max_ms": 21.379932,
+            "mean_ms": 14.63591954385965,
+            "p50_ms": 16.639431,
+            "p95_ms": 20.086757
+          },
+          "slice_durations": {
+            "h2d": {
+              "count": 735,
+              "p50_ms": 0.705125,
+              "p95_ms": 0.781324,
+              "sum_ms": 527.403579
+            },
+            "storage_read": {
+              "count": 735,
+              "p50_ms": 3.753303,
+              "p95_ms": 14.551696,
+              "sum_ms": 4384.591298
+            },
+            "transfer_stage": {
+              "count": 0,
+              "p50_ms": null,
+              "p95_ms": null,
+              "sum_ms": 0.0
+            }
+          },
+          "trace": {
+            "path": "/dev/shm/issue69-delta-d/d1/traces-workers-4/S0/trace.pftrace",
+            "sha256": "354c7d20fa9d2ce8070a3bc07dd52b7a2cc82aa90ca545ade0b5c063ae0bd9b8",
+            "size": 4147358
+          }
+        }
+      }
+    }
+  },
+  "worker_screen": {
+    "selection": {
+      "eight_vs_four_decode_ratios": {
+        "A1": 0.9800604318474206,
+        "S0": 1.0002004019108757,
+        "S1": 1.017223539594461
+      },
+      "four_vs_two_decode_ratios": {
+        "A1": 1.0892655798024307,
+        "S0": 1.1452002667968368,
+        "S1": 1.1375250937963561
+      },
+      "rationale": "four is the smallest screened count improving all topologies over two; eight is flat for S0 and regresses A1",
+      "selected_worker_count": 4
+    },
+    "workers": {
+      "1": {
+        "all_effective_workers_exact": true,
+        "capture": {
+          "path": "/dev/shm/issue69-delta-d/d1/screen/workers-1/matrix.json",
+          "sha256": "f10f644f629f13bf703fbb51f937129d53df91efc90e265844375b6ef0551f91",
+          "size": 1013
+        },
+        "cells": {
+          "A1": {
+            "all_terminal_state_zero": true,
+            "exact_generated_identity": true,
+            "exact_numerical_identity": true,
+            "geometric_mean_decode_tps": 1.1732161287020133,
+            "mean_block_physical_read_bytes": 42933846016.0,
+            "mean_process_physical_read_bytes": 42925838336.0,
+            "runs": [
+              {
+                "resources": {
+                  "block_device_delta": {
+                    "io_ticks_ms": 22246,
+                    "read_bytes": 42933846016,
+                    "read_operations": 59484,
+                    "read_sectors": 83855168,
+                    "read_ticks_ms": 31353,
+                    "weighted_ticks_ms": 31559
+                  },
+                  "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+                  "elapsed_seconds": 72.78183874599927,
+                  "file": {
+                    "path": "/dev/shm/issue69-delta-d/d1/screen/workers-1/raw/A1-01-resources.json",
+                    "sha256": "2090d96d864f1ffd1cce18d3cfb117fe92675555eda71ecf19e1194640b3ea6a",
+                    "size": 242687
+                  },
+                  "process_io_maxima": {
+                    "io_rchar": 36277898934,
+                    "io_read_bytes": 42925838336,
+                    "io_wchar": 258112,
+                    "io_write_bytes": 0
+                  }
+                },
+                "workload": {
+                  "cold_admissions": 0,
+                  "cold_hits": 0,
+                  "cold_misses": 4453,
+                  "decode_tps": 1.1732161287020133,
+                  "file": {
+                    "path": "/dev/shm/issue69-delta-d/d1/screen/workers-1/raw/A1-01.json.gz",
+                    "sha256": "50e636cc86c31fd2365ef686e13faca8a9fc6a7c1d1f30dd4991b298c33d17ea",
+                    "size": 5915
+                  },
+                  "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+                  "h2d_bytes": 36272472064,
+                  "h2d_time_us": 200152,
+                  "hierarchy_residency": {
+                    "cold_keys": 0,
+                    "distinct_keys": 1573,
+                    "duplicate_keys": 0,
+                    "hot_keys": 1573,
+                    "hot_without_cold_keys": 1573
+                  },
+                  "hot_hits": 3624,
+                  "hot_misses": 4453,
+                  "numerical_identity_sha256": "f181aeb06b65f6e1f8545d4c39c8d9c5a1d51bb1871f6c9ba5e2a060012346ff",
+                  "stage_bytes": 0,
+                  "storage_h2d_overlap": {
+                    "disk_h2d_overlap_bytes": 0,
+                    "disk_h2d_overlap_flights": 0,
+                    "disk_h2d_overlap_pairs": 0,
+                    "disk_h2d_overlap_read_bytes": 0,
+                    "disk_h2d_overlap_us": 0
+                  },
+                  "storage_read_bytes": 36272472064,
+                  "storage_read_requests": 4453,
+                  "terminal_state": {
+                    "active_background_flights": 0,
+                    "async_active_reads": 0,
+                    "cold_cpu_execution_refs": 0,
+                    "cold_request_refs": 0,
+                    "cold_transfer_refs": 0,
+                    "hot_pins": 0,
+                    "ring_live_events": 0,
+                    "scheduler_active_requests": 0
+                  },
+                  "terminal_state_zero": true,
+                  "worker_count": 1
+                }
+              }
+            ]
+          },
+          "S0": {
+            "all_terminal_state_zero": true,
+            "exact_generated_identity": true,
+            "exact_numerical_identity": true,
+            "geometric_mean_decode_tps": 0.9744397670394139,
+            "mean_block_physical_read_bytes": 42854281216.0,
+            "mean_process_physical_read_bytes": 42767036416.0,
+            "runs": [
+              {
+                "resources": {
+                  "block_device_delta": {
+                    "io_ticks_ms": 20997,
+                    "read_bytes": 42854281216,
+                    "read_operations": 59056,
+                    "read_sectors": 83699768,
+                    "read_ticks_ms": 31629,
+                    "weighted_ticks_ms": 32471
+                  },
+                  "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+                  "elapsed_seconds": 78.66626653399726,
+                  "file": {
+                    "path": "/dev/shm/issue69-delta-d/d1/screen/workers-1/raw/S0-01-resources.json",
+                    "sha256": "b21f403e8f98c165bd4d733e85ec5ae3a67a2a898ed85fd1c609622a67ad9896",
+                    "size": 232773
+                  },
+                  "process_io_maxima": {
+                    "io_rchar": 48305497744,
+                    "io_read_bytes": 42767036416,
+                    "io_wchar": 252582,
+                    "io_write_bytes": 0
+                  }
+                },
+                "workload": {
+                  "cold_admissions": 0,
+                  "cold_hits": 0,
+                  "cold_misses": 5920,
+                  "decode_tps": 0.9744397670394139,
+                  "file": {
+                    "path": "/dev/shm/issue69-delta-d/d1/screen/workers-1/raw/S0-01.json.gz",
+                    "sha256": "6aa40c1ad8fc1519e8df2839b01858d3becbe485cbb0ba8faddd8bd4cba26ea1",
+                    "size": 5212
+                  },
+                  "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+                  "h2d_bytes": 48225058816,
+                  "h2d_time_us": 207702,
+                  "hierarchy_residency": {
+                    "cold_keys": 0,
+                    "distinct_keys": 268,
+                    "duplicate_keys": 0,
+                    "hot_keys": 268,
+                    "hot_without_cold_keys": 268
+                  },
+                  "hot_hits": 2157,
+                  "hot_misses": 5920,
+                  "numerical_identity_sha256": "73629b9ce1004b1dcc1939ae55b92208af951b317503a6f110cffa05982eb42f",
+                  "stage_bytes": 0,
+                  "storage_h2d_overlap": {
+                    "disk_h2d_overlap_bytes": 0,
+                    "disk_h2d_overlap_flights": 0,
+                    "disk_h2d_overlap_pairs": 0,
+                    "disk_h2d_overlap_read_bytes": 0,
+                    "disk_h2d_overlap_us": 0
+                  },
+                  "storage_read_bytes": 48225058816,
+                  "storage_read_requests": 5920,
+                  "terminal_state": {
+                    "active_background_flights": 0,
+                    "async_active_reads": 0,
+                    "cold_cpu_execution_refs": 0,
+                    "cold_request_refs": 0,
+                    "cold_transfer_refs": 0,
+                    "hot_pins": 0,
+                    "ring_live_events": 0,
+                    "scheduler_active_requests": 0
+                  },
+                  "terminal_state_zero": true,
+                  "worker_count": 1
+                }
+              }
+            ]
+          },
+          "S1": {
+            "all_terminal_state_zero": true,
+            "exact_generated_identity": true,
+            "exact_numerical_identity": true,
+            "geometric_mean_decode_tps": 1.1948364777966134,
+            "mean_block_physical_read_bytes": 43020292096.0,
+            "mean_process_physical_read_bytes": 42925809664.0,
+            "runs": [
+              {
+                "resources": {
+                  "block_device_delta": {
+                    "io_ticks_ms": 20391,
+                    "read_bytes": 43020292096,
+                    "read_operations": 59674,
+                    "read_sectors": 84024008,
+                    "read_ticks_ms": 31711,
+                    "weighted_ticks_ms": 32339
+                  },
+                  "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+                  "elapsed_seconds": 75.07578827899124,
+                  "file": {
+                    "path": "/dev/shm/issue69-delta-d/d1/screen/workers-1/raw/S1-01-resources.json",
+                    "sha256": "3a1fa3f715e7cb110bb3dcb4097bfd840c3d85bbf5b4b6f9beb6293b9d17465f",
+                    "size": 228923
+                  },
+                  "process_io_maxima": {
+                    "io_rchar": 44822062855,
+                    "io_read_bytes": 42925809664,
+                    "io_wchar": 258096,
+                    "io_write_bytes": 0
+                  }
+                },
+                "workload": {
+                  "cold_admissions": 0,
+                  "cold_hits": 0,
+                  "cold_misses": 5491,
+                  "decode_tps": 1.1948364777966134,
+                  "file": {
+                    "path": "/dev/shm/issue69-delta-d/d1/screen/workers-1/raw/S1-01.json.gz",
+                    "sha256": "1a29c299d3c49226fff28e404928b92cd45affb1689daa6ab6cb44bc91754161",
+                    "size": 5866
+                  },
+                  "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+                  "h2d_bytes": 44741623808,
+                  "h2d_time_us": 247333,
+                  "hierarchy_residency": {
+                    "cold_keys": 0,
+                    "distinct_keys": 536,
+                    "duplicate_keys": 0,
+                    "hot_keys": 536,
+                    "hot_without_cold_keys": 536
+                  },
+                  "hot_hits": 2586,
+                  "hot_misses": 5491,
+                  "numerical_identity_sha256": "f181aeb06b65f6e1f8545d4c39c8d9c5a1d51bb1871f6c9ba5e2a060012346ff",
+                  "stage_bytes": 0,
+                  "storage_h2d_overlap": {
+                    "disk_h2d_overlap_bytes": 0,
+                    "disk_h2d_overlap_flights": 0,
+                    "disk_h2d_overlap_pairs": 0,
+                    "disk_h2d_overlap_read_bytes": 0,
+                    "disk_h2d_overlap_us": 0
+                  },
+                  "storage_read_bytes": 44741623808,
+                  "storage_read_requests": 5491,
+                  "terminal_state": {
+                    "active_background_flights": 0,
+                    "async_active_reads": 0,
+                    "cold_cpu_execution_refs": 0,
+                    "cold_request_refs": 0,
+                    "cold_transfer_refs": 0,
+                    "hot_pins": 0,
+                    "ring_live_events": 0,
+                    "scheduler_active_requests": 0
+                  },
+                  "terminal_state_zero": true,
+                  "worker_count": 1
+                }
+              }
+            ]
+          }
+        }
+      },
+      "2": {
+        "all_effective_workers_exact": true,
+        "capture": {
+          "path": "/dev/shm/issue69-delta-d/d1/screen/workers-2/matrix.json",
+          "sha256": "8afb0bd54ab0eccc297193b49577bccbe7571f35d55ca4de7355c4a4235f3544",
+          "size": 1013
+        },
+        "cells": {
+          "A1": {
+            "all_terminal_state_zero": true,
+            "exact_generated_identity": true,
+            "exact_numerical_identity": true,
+            "geometric_mean_decode_tps": 1.4273370036994093,
+            "mean_block_physical_read_bytes": 40974098432.0,
+            "mean_process_physical_read_bytes": 40964087808.0,
+            "runs": [
+              {
+                "resources": {
+                  "block_device_delta": {
+                    "io_ticks_ms": 17602,
+                    "read_bytes": 40974098432,
+                    "read_operations": 57282,
+                    "read_sectors": 80027536,
+                    "read_ticks_ms": 34212,
+                    "weighted_ticks_ms": 34322
+                  },
+                  "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+                  "elapsed_seconds": 65.13301883099484,
+                  "file": {
+                    "path": "/dev/shm/issue69-delta-d/d1/screen/workers-2/raw/A1-01-resources.json",
+                    "sha256": "e7848cc5ecf692ee8f8926d4bad0c7e2e6190360cea1f131d37d6244384f93e9",
+                    "size": 205057
+                  },
+                  "process_io_maxima": {
+                    "io_rchar": 36277898885,
+                    "io_read_bytes": 40964087808,
+                    "io_wchar": 258111,
+                    "io_write_bytes": 0
+                  }
+                },
+                "workload": {
+                  "cold_admissions": 0,
+                  "cold_hits": 0,
+                  "cold_misses": 4453,
+                  "decode_tps": 1.4273370036994093,
+                  "file": {
+                    "path": "/dev/shm/issue69-delta-d/d1/screen/workers-2/raw/A1-01.json.gz",
+                    "sha256": "834901bc86d1974f6e8643a50caeb16aae976759f102d4bc3b6a17ee292e04d1",
+                    "size": 5912
+                  },
+                  "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+                  "h2d_bytes": 36272472064,
+                  "h2d_time_us": 204342,
+                  "hierarchy_residency": {
+                    "cold_keys": 0,
+                    "distinct_keys": 1573,
+                    "duplicate_keys": 0,
+                    "hot_keys": 1573,
+                    "hot_without_cold_keys": 1573
+                  },
+                  "hot_hits": 3624,
+                  "hot_misses": 4453,
+                  "numerical_identity_sha256": "f181aeb06b65f6e1f8545d4c39c8d9c5a1d51bb1871f6c9ba5e2a060012346ff",
+                  "stage_bytes": 0,
+                  "storage_h2d_overlap": {
+                    "disk_h2d_overlap_bytes": 0,
+                    "disk_h2d_overlap_flights": 0,
+                    "disk_h2d_overlap_pairs": 0,
+                    "disk_h2d_overlap_read_bytes": 0,
+                    "disk_h2d_overlap_us": 0
+                  },
+                  "storage_read_bytes": 36272472064,
+                  "storage_read_requests": 4453,
+                  "terminal_state": {
+                    "active_background_flights": 0,
+                    "async_active_reads": 0,
+                    "cold_cpu_execution_refs": 0,
+                    "cold_request_refs": 0,
+                    "cold_transfer_refs": 0,
+                    "hot_pins": 0,
+                    "ring_live_events": 0,
+                    "scheduler_active_requests": 0
+                  },
+                  "terminal_state_zero": true,
+                  "worker_count": 2
+                }
+              }
+            ]
+          },
+          "S0": {
+            "all_terminal_state_zero": true,
+            "exact_generated_identity": true,
+            "exact_numerical_identity": true,
+            "geometric_mean_decode_tps": 1.2630352097972872,
+            "mean_block_physical_read_bytes": 40962576384.0,
+            "mean_process_physical_read_bytes": 40875401216.0,
+            "runs": [
+              {
+                "resources": {
+                  "block_device_delta": {
+                    "io_ticks_ms": 16070,
+                    "read_bytes": 40962576384,
+                    "read_operations": 58351,
+                    "read_sectors": 80005032,
+                    "read_ticks_ms": 32867,
+                    "weighted_ticks_ms": 33179
+                  },
+                  "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+                  "elapsed_seconds": 61.93707325900323,
+                  "file": {
+                    "path": "/dev/shm/issue69-delta-d/d1/screen/workers-2/raw/S0-01-resources.json",
+                    "sha256": "5b2ac582cdeae9ec14a7386abddeb2c17e863641a539c7e8928174a4523ddb98",
+                    "size": 185634
+                  },
+                  "process_io_maxima": {
+                    "io_rchar": 48230485713,
+                    "io_read_bytes": 40875401216,
+                    "io_wchar": 252569,
+                    "io_write_bytes": 0
+                  }
+                },
+                "workload": {
+                  "cold_admissions": 0,
+                  "cold_hits": 0,
+                  "cold_misses": 5920,
+                  "decode_tps": 1.2630352097972872,
+                  "file": {
+                    "path": "/dev/shm/issue69-delta-d/d1/screen/workers-2/raw/S0-01.json.gz",
+                    "sha256": "addc1fb12d0f981785131e9ece2183ed59ebc6c5d87f29a0de5c24812eeb59d5",
+                    "size": 5203
+                  },
+                  "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+                  "h2d_bytes": 48225058816,
+                  "h2d_time_us": 204221,
+                  "hierarchy_residency": {
+                    "cold_keys": 0,
+                    "distinct_keys": 268,
+                    "duplicate_keys": 0,
+                    "hot_keys": 268,
+                    "hot_without_cold_keys": 268
+                  },
+                  "hot_hits": 2157,
+                  "hot_misses": 5920,
+                  "numerical_identity_sha256": "73629b9ce1004b1dcc1939ae55b92208af951b317503a6f110cffa05982eb42f",
+                  "stage_bytes": 0,
+                  "storage_h2d_overlap": {
+                    "disk_h2d_overlap_bytes": 0,
+                    "disk_h2d_overlap_flights": 0,
+                    "disk_h2d_overlap_pairs": 0,
+                    "disk_h2d_overlap_read_bytes": 0,
+                    "disk_h2d_overlap_us": 0
+                  },
+                  "storage_read_bytes": 48225058816,
+                  "storage_read_requests": 5920,
+                  "terminal_state": {
+                    "active_background_flights": 0,
+                    "async_active_reads": 0,
+                    "cold_cpu_execution_refs": 0,
+                    "cold_request_refs": 0,
+                    "cold_transfer_refs": 0,
+                    "hot_pins": 0,
+                    "ring_live_events": 0,
+                    "scheduler_active_requests": 0
+                  },
+                  "terminal_state_zero": true,
+                  "worker_count": 2
+                }
+              }
+            ]
+          },
+          "S1": {
+            "all_terminal_state_zero": true,
+            "exact_generated_identity": true,
+            "exact_numerical_identity": true,
+            "geometric_mean_decode_tps": 1.4800506228793047,
+            "mean_block_physical_read_bytes": 41047461888.0,
+            "mean_process_physical_read_bytes": 41037234176.0,
+            "runs": [
+              {
+                "resources": {
+                  "block_device_delta": {
+                    "io_ticks_ms": 16158,
+                    "read_bytes": 41047461888,
+                    "read_operations": 57227,
+                    "read_sectors": 80170824,
+                    "read_ticks_ms": 32391,
+                    "weighted_ticks_ms": 33173
+                  },
+                  "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+                  "elapsed_seconds": 62.57771745900391,
+                  "file": {
+                    "path": "/dev/shm/issue69-delta-d/d1/screen/workers-2/raw/S1-01-resources.json",
+                    "sha256": "5129cf5b4c437e69a955a5a4dac1caaecf7c908f204381f2636b1969ee660412",
+                    "size": 188056
+                  },
+                  "process_io_maxima": {
+                    "io_rchar": 44822062806,
+                    "io_read_bytes": 41037234176,
+                    "io_wchar": 258095,
+                    "io_write_bytes": 0
+                  }
+                },
+                "workload": {
+                  "cold_admissions": 0,
+                  "cold_hits": 0,
+                  "cold_misses": 5491,
+                  "decode_tps": 1.4800506228793047,
+                  "file": {
+                    "path": "/dev/shm/issue69-delta-d/d1/screen/workers-2/raw/S1-01.json.gz",
+                    "sha256": "5a7f9b511910d115ccc064567bca6ffb456827ffe4329b6a970b496b79696e06",
+                    "size": 5862
+                  },
+                  "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+                  "h2d_bytes": 44741623808,
+                  "h2d_time_us": 248740,
+                  "hierarchy_residency": {
+                    "cold_keys": 0,
+                    "distinct_keys": 536,
+                    "duplicate_keys": 0,
+                    "hot_keys": 536,
+                    "hot_without_cold_keys": 536
+                  },
+                  "hot_hits": 2586,
+                  "hot_misses": 5491,
+                  "numerical_identity_sha256": "f181aeb06b65f6e1f8545d4c39c8d9c5a1d51bb1871f6c9ba5e2a060012346ff",
+                  "stage_bytes": 0,
+                  "storage_h2d_overlap": {
+                    "disk_h2d_overlap_bytes": 0,
+                    "disk_h2d_overlap_flights": 0,
+                    "disk_h2d_overlap_pairs": 0,
+                    "disk_h2d_overlap_read_bytes": 0,
+                    "disk_h2d_overlap_us": 0
+                  },
+                  "storage_read_bytes": 44741623808,
+                  "storage_read_requests": 5491,
+                  "terminal_state": {
+                    "active_background_flights": 0,
+                    "async_active_reads": 0,
+                    "cold_cpu_execution_refs": 0,
+                    "cold_request_refs": 0,
+                    "cold_transfer_refs": 0,
+                    "hot_pins": 0,
+                    "ring_live_events": 0,
+                    "scheduler_active_requests": 0
+                  },
+                  "terminal_state_zero": true,
+                  "worker_count": 2
+                }
+              }
+            ]
+          }
+        }
+      },
+      "4": {
+        "all_effective_workers_exact": true,
+        "capture": {
+          "path": "/dev/shm/issue69-delta-d/d1/screen/workers-4/matrix.json",
+          "sha256": "1366a4b557a0adde63f382b7195ada59f7b29df3d069ef71b916b0c6db559146",
+          "size": 1013
+        },
+        "cells": {
+          "A1": {
+            "all_terminal_state_zero": true,
+            "exact_generated_identity": true,
+            "exact_numerical_identity": true,
+            "geometric_mean_decode_tps": 1.5547490689081012,
+            "mean_block_physical_read_bytes": 40570531840.0,
+            "mean_process_physical_read_bytes": 40481558528.0,
+            "runs": [
+              {
+                "resources": {
+                  "block_device_delta": {
+                    "io_ticks_ms": 13949,
+                    "read_bytes": 40570531840,
+                    "read_operations": 56766,
+                    "read_sectors": 79239320,
+                    "read_ticks_ms": 37200,
+                    "weighted_ticks_ms": 37997
+                  },
+                  "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+                  "elapsed_seconds": 61.46475300099701,
+                  "file": {
+                    "path": "/dev/shm/issue69-delta-d/d1/screen/workers-4/raw/A1-01-resources.json",
+                    "sha256": "c66deb10aadb5b05bf2ca39a45d1fec0e668e68854489bdf074729800a0d75fe",
+                    "size": 182380
+                  },
+                  "process_io_maxima": {
+                    "io_rchar": 36352910965,
+                    "io_read_bytes": 40481558528,
+                    "io_wchar": 258108,
+                    "io_write_bytes": 0
+                  }
+                },
+                "workload": {
+                  "cold_admissions": 0,
+                  "cold_hits": 0,
+                  "cold_misses": 4453,
+                  "decode_tps": 1.5547490689081012,
+                  "file": {
+                    "path": "/dev/shm/issue69-delta-d/d1/screen/workers-4/raw/A1-01.json.gz",
+                    "sha256": "4392fa31e0f714dbdc8cc22ae9deec7bce6d6b4435093c0e73b540b06999595b",
+                    "size": 5906
+                  },
+                  "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+                  "h2d_bytes": 36272472064,
+                  "h2d_time_us": 217928,
+                  "hierarchy_residency": {
+                    "cold_keys": 0,
+                    "distinct_keys": 1573,
+                    "duplicate_keys": 0,
+                    "hot_keys": 1573,
+                    "hot_without_cold_keys": 1573
+                  },
+                  "hot_hits": 3624,
+                  "hot_misses": 4453,
+                  "numerical_identity_sha256": "f181aeb06b65f6e1f8545d4c39c8d9c5a1d51bb1871f6c9ba5e2a060012346ff",
+                  "stage_bytes": 0,
+                  "storage_h2d_overlap": {
+                    "disk_h2d_overlap_bytes": 0,
+                    "disk_h2d_overlap_flights": 0,
+                    "disk_h2d_overlap_pairs": 0,
+                    "disk_h2d_overlap_read_bytes": 0,
+                    "disk_h2d_overlap_us": 0
+                  },
+                  "storage_read_bytes": 36272472064,
+                  "storage_read_requests": 4453,
+                  "terminal_state": {
+                    "active_background_flights": 0,
+                    "async_active_reads": 0,
+                    "cold_cpu_execution_refs": 0,
+                    "cold_request_refs": 0,
+                    "cold_transfer_refs": 0,
+                    "hot_pins": 0,
+                    "ring_live_events": 0,
+                    "scheduler_active_requests": 0
+                  },
+                  "terminal_state_zero": true,
+                  "worker_count": 4
+                }
+              }
+            ]
+          },
+          "S0": {
+            "all_terminal_state_zero": true,
+            "exact_generated_identity": true,
+            "exact_numerical_identity": true,
+            "geometric_mean_decode_tps": 1.4464282592336521,
+            "mean_block_physical_read_bytes": 40346759168.0,
+            "mean_process_physical_read_bytes": 40340619264.0,
+            "runs": [
+              {
+                "resources": {
+                  "block_device_delta": {
+                    "io_ticks_ms": 13817,
+                    "read_bytes": 40346759168,
+                    "read_operations": 56924,
+                    "read_sectors": 78802264,
+                    "read_ticks_ms": 37106,
+                    "weighted_ticks_ms": 38015
+                  },
+                  "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+                  "elapsed_seconds": 59.195721330994274,
+                  "file": {
+                    "path": "/dev/shm/issue69-delta-d/d1/screen/workers-4/raw/S0-01-resources.json",
+                    "sha256": "faafe0cc9994c75f282789557c761c7ed0b4192074c6cc8f4f936c77747135ab",
+                    "size": 167278
+                  },
+                  "process_io_maxima": {
+                    "io_rchar": 48305497695,
+                    "io_read_bytes": 40340619264,
+                    "io_wchar": 252567,
+                    "io_write_bytes": 0
+                  }
+                },
+                "workload": {
+                  "cold_admissions": 0,
+                  "cold_hits": 0,
+                  "cold_misses": 5920,
+                  "decode_tps": 1.4464282592336521,
+                  "file": {
+                    "path": "/dev/shm/issue69-delta-d/d1/screen/workers-4/raw/S0-01.json.gz",
+                    "sha256": "09224a63410c2e9cd4bc1c5f8183f73b7cd106840cd2be67a459ac2d589e90fd",
+                    "size": 5202
+                  },
+                  "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+                  "h2d_bytes": 48225058816,
+                  "h2d_time_us": 201241,
+                  "hierarchy_residency": {
+                    "cold_keys": 0,
+                    "distinct_keys": 268,
+                    "duplicate_keys": 0,
+                    "hot_keys": 268,
+                    "hot_without_cold_keys": 268
+                  },
+                  "hot_hits": 2157,
+                  "hot_misses": 5920,
+                  "numerical_identity_sha256": "73629b9ce1004b1dcc1939ae55b92208af951b317503a6f110cffa05982eb42f",
+                  "stage_bytes": 0,
+                  "storage_h2d_overlap": {
+                    "disk_h2d_overlap_bytes": 0,
+                    "disk_h2d_overlap_flights": 0,
+                    "disk_h2d_overlap_pairs": 0,
+                    "disk_h2d_overlap_read_bytes": 0,
+                    "disk_h2d_overlap_us": 0
+                  },
+                  "storage_read_bytes": 48225058816,
+                  "storage_read_requests": 5920,
+                  "terminal_state": {
+                    "active_background_flights": 0,
+                    "async_active_reads": 0,
+                    "cold_cpu_execution_refs": 0,
+                    "cold_request_refs": 0,
+                    "cold_transfer_refs": 0,
+                    "hot_pins": 0,
+                    "ring_live_events": 0,
+                    "scheduler_active_requests": 0
+                  },
+                  "terminal_state_zero": true,
+                  "worker_count": 4
+                }
+              }
+            ]
+          },
+          "S1": {
+            "all_terminal_state_zero": true,
+            "exact_generated_identity": true,
+            "exact_numerical_identity": true,
+            "geometric_mean_decode_tps": 1.6835947236141362,
+            "mean_block_physical_read_bytes": 40504897536.0,
+            "mean_process_physical_read_bytes": 40494419968.0,
+            "runs": [
+              {
+                "resources": {
+                  "block_device_delta": {
+                    "io_ticks_ms": 13542,
+                    "read_bytes": 40504897536,
+                    "read_operations": 56849,
+                    "read_sectors": 79111128,
+                    "read_ticks_ms": 37541,
+                    "weighted_ticks_ms": 37842
+                  },
+                  "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+                  "elapsed_seconds": 51.928792449994944,
+                  "file": {
+                    "path": "/dev/shm/issue69-delta-d/d1/screen/workers-4/raw/S1-01-resources.json",
+                    "sha256": "44bd8c15a2915acbd9e163a89775455be9651c72f7ba91c1034e869725ef38c5",
+                    "size": 168323
+                  },
+                  "process_io_maxima": {
+                    "io_rchar": 44747050726,
+                    "io_read_bytes": 40494419968,
+                    "io_wchar": 258092,
+                    "io_write_bytes": 0
+                  }
+                },
+                "workload": {
+                  "cold_admissions": 0,
+                  "cold_hits": 0,
+                  "cold_misses": 5491,
+                  "decode_tps": 1.6835947236141362,
+                  "file": {
+                    "path": "/dev/shm/issue69-delta-d/d1/screen/workers-4/raw/S1-01.json.gz",
+                    "sha256": "7b08eafeb1f06a3a9ed0449810e0517b81c56fb1623a0dc16be37716e999fa88",
+                    "size": 5865
+                  },
+                  "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+                  "h2d_bytes": 44741623808,
+                  "h2d_time_us": 242097,
+                  "hierarchy_residency": {
+                    "cold_keys": 0,
+                    "distinct_keys": 536,
+                    "duplicate_keys": 0,
+                    "hot_keys": 536,
+                    "hot_without_cold_keys": 536
+                  },
+                  "hot_hits": 2586,
+                  "hot_misses": 5491,
+                  "numerical_identity_sha256": "f181aeb06b65f6e1f8545d4c39c8d9c5a1d51bb1871f6c9ba5e2a060012346ff",
+                  "stage_bytes": 0,
+                  "storage_h2d_overlap": {
+                    "disk_h2d_overlap_bytes": 0,
+                    "disk_h2d_overlap_flights": 0,
+                    "disk_h2d_overlap_pairs": 0,
+                    "disk_h2d_overlap_read_bytes": 0,
+                    "disk_h2d_overlap_us": 0
+                  },
+                  "storage_read_bytes": 44741623808,
+                  "storage_read_requests": 5491,
+                  "terminal_state": {
+                    "active_background_flights": 0,
+                    "async_active_reads": 0,
+                    "cold_cpu_execution_refs": 0,
+                    "cold_request_refs": 0,
+                    "cold_transfer_refs": 0,
+                    "hot_pins": 0,
+                    "ring_live_events": 0,
+                    "scheduler_active_requests": 0
+                  },
+                  "terminal_state_zero": true,
+                  "worker_count": 4
+                }
+              }
+            ]
+          }
+        }
+      },
+      "8": {
+        "all_effective_workers_exact": true,
+        "capture": {
+          "path": "/dev/shm/issue69-delta-d/d1/screen/workers-8/matrix.json",
+          "sha256": "928cdc12e230b956a3e187a05bcb7af8187b9bc961bfb84d06a472bd37738940",
+          "size": 1013
+        },
+        "cells": {
+          "A1": {
+            "all_terminal_state_zero": true,
+            "exact_generated_identity": true,
+            "exact_numerical_identity": true,
+            "geometric_mean_decode_tps": 1.5237480438884488,
+            "mean_block_physical_read_bytes": 40564547584.0,
+            "mean_process_physical_read_bytes": 40471678976.0,
+            "runs": [
+              {
+                "resources": {
+                  "block_device_delta": {
+                    "io_ticks_ms": 13267,
+                    "read_bytes": 40564547584,
+                    "read_operations": 57364,
+                    "read_sectors": 79227632,
+                    "read_ticks_ms": 47239,
+                    "weighted_ticks_ms": 47829
+                  },
+                  "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+                  "elapsed_seconds": 61.27511997098918,
+                  "file": {
+                    "path": "/dev/shm/issue69-delta-d/d1/screen/workers-8/raw/A1-01-resources.json",
+                    "sha256": "2746483854b5b2e2f4012b6af073cf124c9770b7c006a7d51790c1b88bea7fb8",
+                    "size": 178173
+                  },
+                  "process_io_maxima": {
+                    "io_rchar": 36277898983,
+                    "io_read_bytes": 40471678976,
+                    "io_wchar": 258108,
+                    "io_write_bytes": 0
+                  }
+                },
+                "workload": {
+                  "cold_admissions": 0,
+                  "cold_hits": 0,
+                  "cold_misses": 4453,
+                  "decode_tps": 1.5237480438884488,
+                  "file": {
+                    "path": "/dev/shm/issue69-delta-d/d1/screen/workers-8/raw/A1-01.json.gz",
+                    "sha256": "7fb2856d726792e97342c50ffce56437332610f3b61cf0260c31d8b254e8d571",
+                    "size": 5917
+                  },
+                  "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+                  "h2d_bytes": 36272472064,
+                  "h2d_time_us": 223105,
+                  "hierarchy_residency": {
+                    "cold_keys": 0,
+                    "distinct_keys": 1573,
+                    "duplicate_keys": 0,
+                    "hot_keys": 1573,
+                    "hot_without_cold_keys": 1573
+                  },
+                  "hot_hits": 3624,
+                  "hot_misses": 4453,
+                  "numerical_identity_sha256": "f181aeb06b65f6e1f8545d4c39c8d9c5a1d51bb1871f6c9ba5e2a060012346ff",
+                  "stage_bytes": 0,
+                  "storage_h2d_overlap": {
+                    "disk_h2d_overlap_bytes": 0,
+                    "disk_h2d_overlap_flights": 0,
+                    "disk_h2d_overlap_pairs": 0,
+                    "disk_h2d_overlap_read_bytes": 0,
+                    "disk_h2d_overlap_us": 0
+                  },
+                  "storage_read_bytes": 36272472064,
+                  "storage_read_requests": 4453,
+                  "terminal_state": {
+                    "active_background_flights": 0,
+                    "async_active_reads": 0,
+                    "cold_cpu_execution_refs": 0,
+                    "cold_request_refs": 0,
+                    "cold_transfer_refs": 0,
+                    "hot_pins": 0,
+                    "ring_live_events": 0,
+                    "scheduler_active_requests": 0
+                  },
+                  "terminal_state_zero": true,
+                  "worker_count": 8
+                }
+              }
+            ]
+          },
+          "S0": {
+            "all_terminal_state_zero": true,
+            "exact_generated_identity": true,
+            "exact_numerical_identity": true,
+            "geometric_mean_decode_tps": 1.4467181262207471,
+            "mean_block_physical_read_bytes": 40442953728.0,
+            "mean_process_physical_read_bytes": 40350863360.0,
+            "runs": [
+              {
+                "resources": {
+                  "block_device_delta": {
+                    "io_ticks_ms": 13535,
+                    "read_bytes": 40442953728,
+                    "read_operations": 57054,
+                    "read_sectors": 78990144,
+                    "read_ticks_ms": 43315,
+                    "weighted_ticks_ms": 43731
+                  },
+                  "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+                  "elapsed_seconds": 57.73245678600506,
+                  "file": {
+                    "path": "/dev/shm/issue69-delta-d/d1/screen/workers-8/raw/S0-01-resources.json",
+                    "sha256": "22f0369be10e11d0150f749404f9bec83d7d5f64bb51dbcb6056ac25a3c9c71b",
+                    "size": 164570
+                  },
+                  "process_io_maxima": {
+                    "io_rchar": 48305497808,
+                    "io_read_bytes": 40350863360,
+                    "io_wchar": 252563,
+                    "io_write_bytes": 0
+                  }
+                },
+                "workload": {
+                  "cold_admissions": 0,
+                  "cold_hits": 0,
+                  "cold_misses": 5920,
+                  "decode_tps": 1.4467181262207471,
+                  "file": {
+                    "path": "/dev/shm/issue69-delta-d/d1/screen/workers-8/raw/S0-01.json.gz",
+                    "sha256": "8968e3793b3b1a7bc621bba8557231d334c00612fc7b617c785a059c541ae1b7",
+                    "size": 5196
+                  },
+                  "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+                  "h2d_bytes": 48225058816,
+                  "h2d_time_us": 199201,
+                  "hierarchy_residency": {
+                    "cold_keys": 0,
+                    "distinct_keys": 268,
+                    "duplicate_keys": 0,
+                    "hot_keys": 268,
+                    "hot_without_cold_keys": 268
+                  },
+                  "hot_hits": 2157,
+                  "hot_misses": 5920,
+                  "numerical_identity_sha256": "73629b9ce1004b1dcc1939ae55b92208af951b317503a6f110cffa05982eb42f",
+                  "stage_bytes": 0,
+                  "storage_h2d_overlap": {
+                    "disk_h2d_overlap_bytes": 0,
+                    "disk_h2d_overlap_flights": 0,
+                    "disk_h2d_overlap_pairs": 0,
+                    "disk_h2d_overlap_read_bytes": 0,
+                    "disk_h2d_overlap_us": 0
+                  },
+                  "storage_read_bytes": 48225058816,
+                  "storage_read_requests": 5920,
+                  "terminal_state": {
+                    "active_background_flights": 0,
+                    "async_active_reads": 0,
+                    "cold_cpu_execution_refs": 0,
+                    "cold_request_refs": 0,
+                    "cold_transfer_refs": 0,
+                    "hot_pins": 0,
+                    "ring_live_events": 0,
+                    "scheduler_active_requests": 0
+                  },
+                  "terminal_state_zero": true,
+                  "worker_count": 8
+                }
+              }
+            ]
+          },
+          "S1": {
+            "all_terminal_state_zero": true,
+            "exact_generated_identity": true,
+            "exact_numerical_identity": true,
+            "geometric_mean_decode_tps": 1.7125921839973302,
+            "mean_block_physical_read_bytes": 40578134016.0,
+            "mean_process_physical_read_bytes": 40485625856.0,
+            "runs": [
+              {
+                "resources": {
+                  "block_device_delta": {
+                    "io_ticks_ms": 13209,
+                    "read_bytes": 40578134016,
+                    "read_operations": 56963,
+                    "read_sectors": 79254168,
+                    "read_ticks_ms": 55137,
+                    "weighted_ticks_ms": 57702
+                  },
+                  "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+                  "elapsed_seconds": 55.8019157719973,
+                  "file": {
+                    "path": "/dev/shm/issue69-delta-d/d1/screen/workers-8/raw/S1-01-resources.json",
+                    "sha256": "9df402fe6f56242ab1344ebe624c3849e0a3f24a33a71f65f63f24006a966049",
+                    "size": 161156
+                  },
+                  "process_io_maxima": {
+                    "io_rchar": 44822062806,
+                    "io_read_bytes": 40485625856,
+                    "io_wchar": 258095,
+                    "io_write_bytes": 0
+                  }
+                },
+                "workload": {
+                  "cold_admissions": 0,
+                  "cold_hits": 0,
+                  "cold_misses": 5491,
+                  "decode_tps": 1.7125921839973302,
+                  "file": {
+                    "path": "/dev/shm/issue69-delta-d/d1/screen/workers-8/raw/S1-01.json.gz",
+                    "sha256": "5c286a207a236c81432e7cfb7c715a61fce40ab532b882086170452f7353572b",
+                    "size": 5863
+                  },
+                  "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+                  "h2d_bytes": 44741623808,
+                  "h2d_time_us": 274730,
+                  "hierarchy_residency": {
+                    "cold_keys": 0,
+                    "distinct_keys": 536,
+                    "duplicate_keys": 0,
+                    "hot_keys": 536,
+                    "hot_without_cold_keys": 536
+                  },
+                  "hot_hits": 2586,
+                  "hot_misses": 5491,
+                  "numerical_identity_sha256": "f181aeb06b65f6e1f8545d4c39c8d9c5a1d51bb1871f6c9ba5e2a060012346ff",
+                  "stage_bytes": 0,
+                  "storage_h2d_overlap": {
+                    "disk_h2d_overlap_bytes": 0,
+                    "disk_h2d_overlap_flights": 0,
+                    "disk_h2d_overlap_pairs": 0,
+                    "disk_h2d_overlap_read_bytes": 0,
+                    "disk_h2d_overlap_us": 0
+                  },
+                  "storage_read_bytes": 44741623808,
+                  "storage_read_requests": 5491,
+                  "terminal_state": {
+                    "active_background_flights": 0,
+                    "async_active_reads": 0,
+                    "cold_cpu_execution_refs": 0,
+                    "cold_request_refs": 0,
+                    "cold_transfer_refs": 0,
+                    "hot_pins": 0,
+                    "ring_live_events": 0,
+                    "scheduler_active_requests": 0
+                  },
+                  "terminal_state_zero": true,
+                  "worker_count": 8
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

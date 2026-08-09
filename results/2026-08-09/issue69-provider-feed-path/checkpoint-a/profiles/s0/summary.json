@@ -1,0 +1,1008 @@
+{
+  "artifacts": {
+    "main": {
+      "attribution": {
+        "buckets": {
+          "cold_cache_policy_victim": {
+            "fraction": 0.2300053676865271,
+            "samples": 857
+          },
+          "file_read_page_cache": {
+            "fraction": 0.0005367686527106817,
+            "samples": 2
+          },
+          "futex_scheduler_wait": {
+            "fraction": 0.013955984970477724,
+            "samples": 52
+          },
+          "hot_cache_policy_victim": {
+            "fraction": 0.0,
+            "samples": 0
+          },
+          "other": {
+            "fraction": 0.7372517444981214,
+            "samples": 2747
+          },
+          "other_provider_cpu": {
+            "fraction": 0.0,
+            "samples": 0
+          },
+          "scheduler_async_bookkeeping": {
+            "fraction": 0.0077831454643048845,
+            "samples": 29
+          },
+          "transfer_ring_stage_memcpy": {
+            "fraction": 0.010466988727858293,
+            "samples": 39
+          }
+        },
+        "samples": 3726,
+        "top_inclusive_functions": [
+          {
+            "fraction": 1.0,
+            "function": "phase9-cache-po-667227/667227",
+            "samples": 3726
+          },
+          {
+            "fraction": 0.9170692431561996,
+            "function": "[unknown]",
+            "samples": 3417
+          },
+          {
+            "fraction": 0.5746108427267848,
+            "function": "[libc.so.6]",
+            "samples": 2141
+          },
+          {
+            "fraction": 0.5622651637144391,
+            "function": "ggml_backend_sched_graph_compute_async",
+            "samples": 2095
+          },
+          {
+            "fraction": 0.5595813204508857,
+            "function": "llama_context::graph_compute",
+            "samples": 2085
+          },
+          {
+            "fraction": 0.5587761674718197,
+            "function": "llama_context::process_ubatch",
+            "samples": 2082
+          },
+          {
+            "fraction": 0.5163714439076758,
+            "function": "llama_context::expert_eval_callback",
+            "samples": 1924
+          },
+          {
+            "fraction": 0.20933977455716588,
+            "function": "asm_exc_page_fault",
+            "samples": 780
+          },
+          {
+            "fraction": 0.1806226516371444,
+            "function": "llm_expert_cache_policy::select",
+            "samples": 673
+          },
+          {
+            "fraction": 0.17928073000536768,
+            "function": "llm_cold_expert_cache::reserve_or_join_demand",
+            "samples": 668
+          },
+          {
+            "fraction": 0.178743961352657,
+            "function": "llm_cold_expert_cache::impl::select_slot",
+            "samples": 666
+          },
+          {
+            "fraction": 0.16022544283413848,
+            "function": "exc_page_fault",
+            "samples": 597
+          },
+          {
+            "fraction": 0.15458937198067632,
+            "function": "do_user_addr_fault",
+            "samples": 576
+          },
+          {
+            "fraction": 0.14170692431561996,
+            "function": "handle_mm_fault",
+            "samples": 528
+          },
+          {
+            "fraction": 0.1392914653784219,
+            "function": "__handle_mm_fault",
+            "samples": 519
+          },
+          {
+            "fraction": 0.1347289318303811,
+            "function": "handle_pte_fault",
+            "samples": 502
+          },
+          {
+            "fraction": 0.1288244766505636,
+            "function": "do_anonymous_page",
+            "samples": 480
+          },
+          {
+            "fraction": 0.11164787976382179,
+            "function": "entry_SYSCALL_64_after_hwframe",
+            "samples": 416
+          },
+          {
+            "fraction": 0.11137949543746645,
+            "function": "do_syscall_64",
+            "samples": 415
+          },
+          {
+            "fraction": 0.11137949543746645,
+            "function": "x64_sys_call",
+            "samples": 415
+          },
+          {
+            "fraction": 0.09071390230810521,
+            "function": "[libcudart.so.12.8.90]",
+            "samples": 338
+          },
+          {
+            "fraction": 0.08776167471819646,
+            "function": "[libcuda.so.580.173.02]",
+            "samples": 327
+          },
+          {
+            "fraction": 0.07139023081052066,
+            "function": "alloc_anon_folio",
+            "samples": 266
+          },
+          {
+            "fraction": 0.07085346215780998,
+            "function": "vma_alloc_folio",
+            "samples": 264
+          },
+          {
+            "fraction": 0.0703166935050993,
+            "function": "alloc_pages_mpol",
+            "samples": 262
+          },
+          {
+            "fraction": 0.06870638754696726,
+            "function": "__alloc_pages",
+            "samples": 256
+          },
+          {
+            "fraction": 0.06548577563070317,
+            "function": "get_page_from_freelist",
+            "samples": 244
+          },
+          {
+            "fraction": 0.050724637681159424,
+            "function": "clear_page_erms",
+            "samples": 189
+          },
+          {
+            "fraction": 0.04938271604938271,
+            "function": "unmap_region",
+            "samples": 184
+          },
+          {
+            "fraction": 0.04938271604938271,
+            "function": "do_vmi_align_munmap",
+            "samples": 184
+          }
+        ],
+        "top_leaf_functions": [
+          {
+            "fraction": 0.3107890499194847,
+            "function": "[libc.so.6]",
+            "samples": 1158
+          },
+          {
+            "fraction": 0.17579173376274826,
+            "function": "llm_expert_cache_policy::select",
+            "samples": 655
+          },
+          {
+            "fraction": 0.05018786902844874,
+            "function": "clear_page_erms",
+            "samples": 187
+          },
+          {
+            "fraction": 0.048845947396672036,
+            "function": "asm_exc_page_fault",
+            "samples": 182
+          },
+          {
+            "fraction": 0.0322061191626409,
+            "function": "__irqentry_text_end",
+            "samples": 120
+          },
+          {
+            "fraction": 0.03166935050993022,
+            "function": "[libcuda.so.580.173.02]",
+            "samples": 118
+          },
+          {
+            "fraction": 0.021739130434782608,
+            "function": "llm_cold_expert_cache::validate_invariants",
+            "samples": 81
+          },
+          {
+            "fraction": 0.019592055823939882,
+            "function": "osDevReadReg032",
+            "samples": 73
+          },
+          {
+            "fraction": 0.015297906602254429,
+            "function": "llm_cold_expert_cache::diagnostics",
+            "samples": 57
+          },
+          {
+            "fraction": 0.01261406333870102,
+            "function": "try_charge_memcg",
+            "samples": 47
+          },
+          {
+            "fraction": 0.011003757380568975,
+            "function": "__free_one_page",
+            "samples": 41
+          },
+          {
+            "fraction": 0.00939345142243693,
+            "function": "zap_pte_range",
+            "samples": 35
+          },
+          {
+            "fraction": 0.008319914117015567,
+            "function": "error_entry",
+            "samples": 31
+          },
+          {
+            "fraction": 0.008051529790660225,
+            "function": "perf_adjust_freq_unthr_context",
+            "samples": 30
+          },
+          {
+            "fraction": 0.006977992485238862,
+            "function": "native_write_msr",
+            "samples": 26
+          },
+          {
+            "fraction": 0.0067096081588835215,
+            "function": "[libgomp.so.1.0.0]",
+            "samples": 25
+          },
+          {
+            "fraction": 0.00644122383252818,
+            "function": "__mod_memcg_lruvec_state",
+            "samples": 24
+          },
+          {
+            "fraction": 0.005636070853462158,
+            "function": "std::_Hashtable<unsigned long, unsigned long, std::allocator<unsigned long>, std::__detail::_Identity, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_rehash",
+            "samples": 21
+          },
+          {
+            "fraction": 0.005367686527106817,
+            "function": "__raw_callee_save___pv_queued_spin_unlock",
+            "samples": 20
+          },
+          {
+            "fraction": 0.005367686527106817,
+            "function": "rmqueue_bulk",
+            "samples": 20
+          }
+        ]
+      },
+      "folded": {
+        "path": "results/2026-08-09/issue69-provider-feed-path/checkpoint-a/profiles-10ms/s0/main.folded",
+        "sha256": "9b6ec0426731941259949858d51204edb1fb5c67085f2e383be222b1ed531fa2",
+        "size": 225743
+      },
+      "svg": {
+        "path": "results/2026-08-09/issue69-provider-feed-path/checkpoint-a/profiles-10ms/s0/main.svg",
+        "sha256": "325ea12a19dae9508c75c8be17ac5bf3481a4722fe499d07e51015657229443c",
+        "size": 464371
+      }
+    },
+    "process": {
+      "attribution": {
+        "buckets": {
+          "cold_cache_policy_victim": {
+            "fraction": 0.10212106768350811,
+            "samples": 857
+          },
+          "file_read_page_cache": {
+            "fraction": 0.19971401334604386,
+            "samples": 1676
+          },
+          "futex_scheduler_wait": {
+            "fraction": 0.056720686367969494,
+            "samples": 476
+          },
+          "hot_cache_policy_victim": {
+            "fraction": 0.0,
+            "samples": 0
+          },
+          "other": {
+            "fraction": 0.6322688274547188,
+            "samples": 5306
+          },
+          "other_provider_cpu": {
+            "fraction": 0.0,
+            "samples": 0
+          },
+          "scheduler_async_bookkeeping": {
+            "fraction": 0.004528122020972355,
+            "samples": 38
+          },
+          "transfer_ring_stage_memcpy": {
+            "fraction": 0.004647283126787417,
+            "samples": 39
+          }
+        },
+        "samples": 8392,
+        "top_inclusive_functions": [
+          {
+            "fraction": 0.5275262154432793,
+            "function": "[libc.so.6]",
+            "samples": 4427
+          },
+          {
+            "fraction": 0.4439942802669209,
+            "function": "phase9-cache-po-667227/667227",
+            "samples": 3726
+          },
+          {
+            "fraction": 0.4072926596758818,
+            "function": "[unknown]",
+            "samples": 3418
+          },
+          {
+            "fraction": 0.31315538608198284,
+            "function": "entry_SYSCALL_64_after_hwframe",
+            "samples": 2628
+          },
+          {
+            "fraction": 0.3123212583412774,
+            "function": "do_syscall_64",
+            "samples": 2621
+          },
+          {
+            "fraction": 0.29778360343183985,
+            "function": "x64_sys_call",
+            "samples": 2499
+          },
+          {
+            "fraction": 0.2642993326978074,
+            "function": "[libstdc++.so.6.0.30]",
+            "samples": 2218
+          },
+          {
+            "fraction": 0.24964251668255483,
+            "function": "ggml_backend_sched_graph_compute_async",
+            "samples": 2095
+          },
+          {
+            "fraction": 0.2484509056244042,
+            "function": "llama_context::graph_compute",
+            "samples": 2085
+          },
+          {
+            "fraction": 0.24809342230695902,
+            "function": "llama_context::process_ubatch",
+            "samples": 2082
+          },
+          {
+            "fraction": 0.22926596758817921,
+            "function": "llama_context::expert_eval_callback",
+            "samples": 1924
+          },
+          {
+            "fraction": 0.21508579599618685,
+            "function": "[libgomp.so.1.0.0]",
+            "samples": 1805
+          },
+          {
+            "fraction": 0.20352716873212584,
+            "function": "phase9-cache-po-667227/667249",
+            "samples": 1708
+          },
+          {
+            "fraction": 0.19935653002859866,
+            "function": "__libc_pread",
+            "samples": 1673
+          },
+          {
+            "fraction": 0.19864156339370828,
+            "function": "__x64_sys_pread64",
+            "samples": 1667
+          },
+          {
+            "fraction": 0.19852240228789322,
+            "function": "vfs_read",
+            "samples": 1666
+          },
+          {
+            "fraction": 0.19459008579599618,
+            "function": "shmem_file_read_iter",
+            "samples": 1633
+          },
+          {
+            "fraction": 0.14871306005719734,
+            "function": "copy_page_to_iter",
+            "samples": 1248
+          },
+          {
+            "fraction": 0.14358913250714966,
+            "function": "rep_movs_alternative",
+            "samples": 1205
+          },
+          {
+            "fraction": 0.10355100095328884,
+            "function": "[libcuda.so.580.173.02]",
+            "samples": 869
+          },
+          {
+            "fraction": 0.09973784556720687,
+            "function": "[libcudart.so.12.8.90]",
+            "samples": 837
+          },
+          {
+            "fraction": 0.09318398474737846,
+            "function": "asm_exc_page_fault",
+            "samples": 782
+          },
+          {
+            "fraction": 0.08102955195424213,
+            "function": "phase9-cache-po-667227/667303",
+            "samples": 680
+          },
+          {
+            "fraction": 0.0801954242135367,
+            "function": "llm_expert_cache_policy::select",
+            "samples": 673
+          },
+          {
+            "fraction": 0.07959961868446139,
+            "function": "llm_cold_expert_cache::reserve_or_join_demand",
+            "samples": 668
+          },
+          {
+            "fraction": 0.07936129647283127,
+            "function": "llm_cold_expert_cache::impl::select_slot",
+            "samples": 666
+          },
+          {
+            "fraction": 0.0717349857006673,
+            "function": "phase9-cache-po-667227/667304",
+            "samples": 602
+          },
+          {
+            "fraction": 0.07125834127740706,
+            "function": "exc_page_fault",
+            "samples": 598
+          },
+          {
+            "fraction": 0.07090085795996187,
+            "function": "phase9-cache-po-667227/667305",
+            "samples": 595
+          },
+          {
+            "fraction": 0.0701858913250715,
+            "function": "phase9-cache-po-667227/667300",
+            "samples": 589
+          }
+        ],
+        "top_leaf_functions": [
+          {
+            "fraction": 0.20817445185891326,
+            "function": "[libgomp.so.1.0.0]",
+            "samples": 1747
+          },
+          {
+            "fraction": 0.1400142993326978,
+            "function": "rep_movs_alternative",
+            "samples": 1175
+          },
+          {
+            "fraction": 0.13953765490943756,
+            "function": "[libc.so.6]",
+            "samples": 1171
+          },
+          {
+            "fraction": 0.07805052430886558,
+            "function": "llm_expert_cache_policy::select",
+            "samples": 655
+          },
+          {
+            "fraction": 0.0651811248808389,
+            "function": "[libcuda.so.580.173.02]",
+            "samples": 547
+          },
+          {
+            "fraction": 0.026215443279313633,
+            "function": "shmem_file_read_iter",
+            "samples": 220
+          },
+          {
+            "fraction": 0.022283126787416587,
+            "function": "clear_page_erms",
+            "samples": 187
+          },
+          {
+            "fraction": 0.02180648236415634,
+            "function": "asm_exc_page_fault",
+            "samples": 183
+          },
+          {
+            "fraction": 0.017397521448999045,
+            "function": "native_write_msr",
+            "samples": 146
+          },
+          {
+            "fraction": 0.01513346043851287,
+            "function": "osDevReadReg032",
+            "samples": 127
+          },
+          {
+            "fraction": 0.014418493803622498,
+            "function": "__irqentry_text_end",
+            "samples": 121
+          },
+          {
+            "fraction": 0.01275023832221163,
+            "function": "perf_adjust_freq_unthr_context",
+            "samples": 107
+          },
+          {
+            "fraction": 0.009652049571020019,
+            "function": "llm_cold_expert_cache::validate_invariants",
+            "samples": 81
+          },
+          {
+            "fraction": 0.006911344137273594,
+            "function": "[[vdso]]",
+            "samples": 58
+          },
+          {
+            "fraction": 0.006792183031458532,
+            "function": "llm_cold_expert_cache::diagnostics",
+            "samples": 57
+          },
+          {
+            "fraction": 0.006434699714013346,
+            "function": "filemap_get_entry",
+            "samples": 54
+          },
+          {
+            "fraction": 0.005600571973307912,
+            "function": "try_charge_memcg",
+            "samples": 47
+          },
+          {
+            "fraction": 0.005362249761677788,
+            "function": "entry_SYSRETQ_unsafe_stack",
+            "samples": 45
+          },
+          {
+            "fraction": 0.005123927550047664,
+            "function": "__free_one_page",
+            "samples": 43
+          },
+          {
+            "fraction": 0.004528122020972355,
+            "function": "shmem_get_folio_gfp",
+            "samples": 38
+          }
+        ]
+      },
+      "folded": {
+        "path": "results/2026-08-09/issue69-provider-feed-path/checkpoint-a/profiles-10ms/s0/process.folded",
+        "sha256": "d9bd1be1d51ca437246b4db5eb8ae573db7a5b8ec7a578afe39da587daab5007",
+        "size": 376321
+      },
+      "svg": {
+        "path": "results/2026-08-09/issue69-provider-feed-path/checkpoint-a/profiles-10ms/s0/process.svg",
+        "sha256": "d6248437cbf933c6ce519b0a291342a5edceddfe82f18ba2ed0adc850a973d5d",
+        "size": 823915
+      }
+    },
+    "storage": {
+      "attribution": {
+        "buckets": {
+          "cold_cache_policy_victim": {
+            "fraction": 0.0,
+            "samples": 0
+          },
+          "file_read_page_cache": {
+            "fraction": 0.9946492271105827,
+            "samples": 1673
+          },
+          "futex_scheduler_wait": {
+            "fraction": 0.0,
+            "samples": 0
+          },
+          "hot_cache_policy_victim": {
+            "fraction": 0.0,
+            "samples": 0
+          },
+          "other": {
+            "fraction": 0.0,
+            "samples": 0
+          },
+          "other_provider_cpu": {
+            "fraction": 0.0,
+            "samples": 0
+          },
+          "scheduler_async_bookkeeping": {
+            "fraction": 0.00535077288941736,
+            "samples": 9
+          },
+          "transfer_ring_stage_memcpy": {
+            "fraction": 0.0,
+            "samples": 0
+          }
+        },
+        "samples": 1682,
+        "top_inclusive_functions": [
+          {
+            "fraction": 1.0,
+            "function": "[libstdc++.so.6.0.30]",
+            "samples": 1682
+          },
+          {
+            "fraction": 1.0,
+            "function": "phase9-cache-po-667227/667249",
+            "samples": 1682
+          },
+          {
+            "fraction": 0.9946492271105827,
+            "function": "__libc_pread",
+            "samples": 1673
+          },
+          {
+            "fraction": 0.9916765755053508,
+            "function": "entry_SYSCALL_64_after_hwframe",
+            "samples": 1668
+          },
+          {
+            "fraction": 0.9916765755053508,
+            "function": "x64_sys_call",
+            "samples": 1668
+          },
+          {
+            "fraction": 0.9910820451843044,
+            "function": "do_syscall_64",
+            "samples": 1667
+          },
+          {
+            "fraction": 0.9910820451843044,
+            "function": "__x64_sys_pread64",
+            "samples": 1667
+          },
+          {
+            "fraction": 0.990487514863258,
+            "function": "vfs_read",
+            "samples": 1666
+          },
+          {
+            "fraction": 0.9708680142687277,
+            "function": "shmem_file_read_iter",
+            "samples": 1633
+          },
+          {
+            "fraction": 0.7419738406658739,
+            "function": "copy_page_to_iter",
+            "samples": 1248
+          },
+          {
+            "fraction": 0.7164090368608799,
+            "function": "rep_movs_alternative",
+            "samples": 1205
+          },
+          {
+            "fraction": 0.09631391200951249,
+            "function": "shmem_get_folio_gfp",
+            "samples": 162
+          },
+          {
+            "fraction": 0.06956004756242569,
+            "function": "filemap_get_entry",
+            "samples": 117
+          },
+          {
+            "fraction": 0.03507728894173603,
+            "function": "xas_load",
+            "samples": 59
+          },
+          {
+            "fraction": 0.023781212841854936,
+            "function": "asm_sysvec_apic_timer_interrupt",
+            "samples": 40
+          },
+          {
+            "fraction": 0.023781212841854936,
+            "function": "xas_descend",
+            "samples": 40
+          },
+          {
+            "fraction": 0.022592152199762187,
+            "function": "sysvec_apic_timer_interrupt",
+            "samples": 38
+          },
+          {
+            "fraction": 0.020808561236623068,
+            "function": "__sysvec_apic_timer_interrupt",
+            "samples": 35
+          },
+          {
+            "fraction": 0.020808561236623068,
+            "function": "hrtimer_interrupt",
+            "samples": 35
+          },
+          {
+            "fraction": 0.018430439952437573,
+            "function": "__hrtimer_run_queues",
+            "samples": 31
+          },
+          {
+            "fraction": 0.018430439952437573,
+            "function": "tick_nohz_highres_handler",
+            "samples": 31
+          },
+          {
+            "fraction": 0.016646848989298454,
+            "function": "tick_sched_handle",
+            "samples": 28
+          },
+          {
+            "fraction": 0.016646848989298454,
+            "function": "update_process_times",
+            "samples": 28
+          },
+          {
+            "fraction": 0.01605231866825208,
+            "function": "_copy_to_iter",
+            "samples": 27
+          },
+          {
+            "fraction": 0.015457788347205707,
+            "function": "scheduler_tick",
+            "samples": 26
+          },
+          {
+            "fraction": 0.013674197384066587,
+            "function": "folio_unlock",
+            "samples": 23
+          },
+          {
+            "fraction": 0.011890606420927468,
+            "function": "perf_event_task_tick",
+            "samples": 20
+          },
+          {
+            "fraction": 0.011296076099881093,
+            "function": "perf_adjust_freq_unthr_context",
+            "samples": 19
+          },
+          {
+            "fraction": 0.005945303210463734,
+            "function": "xas_start",
+            "samples": 10
+          },
+          {
+            "fraction": 0.00535077288941736,
+            "function": "llm_expert_async_transport::impl::worker_main",
+            "samples": 9
+          }
+        ],
+        "top_leaf_functions": [
+          {
+            "fraction": 0.6985731272294887,
+            "function": "rep_movs_alternative",
+            "samples": 1175
+          },
+          {
+            "fraction": 0.13079667063020214,
+            "function": "shmem_file_read_iter",
+            "samples": 220
+          },
+          {
+            "fraction": 0.03210463733650416,
+            "function": "filemap_get_entry",
+            "samples": 54
+          },
+          {
+            "fraction": 0.022592152199762187,
+            "function": "shmem_get_folio_gfp",
+            "samples": 38
+          },
+          {
+            "fraction": 0.022592152199762187,
+            "function": "xas_descend",
+            "samples": 38
+          },
+          {
+            "fraction": 0.01605231866825208,
+            "function": "_copy_to_iter",
+            "samples": 27
+          },
+          {
+            "fraction": 0.01248513674197384,
+            "function": "folio_unlock",
+            "samples": 21
+          },
+          {
+            "fraction": 0.0089179548156956,
+            "function": "xas_load",
+            "samples": 15
+          },
+          {
+            "fraction": 0.008323424494649227,
+            "function": "copy_page_to_iter",
+            "samples": 14
+          },
+          {
+            "fraction": 0.008323424494649227,
+            "function": "perf_adjust_freq_unthr_context",
+            "samples": 14
+          },
+          {
+            "fraction": 0.005945303210463734,
+            "function": "xas_start",
+            "samples": 10
+          },
+          {
+            "fraction": 0.00535077288941736,
+            "function": "llm_expert_async_transport::impl::worker_main",
+            "samples": 9
+          },
+          {
+            "fraction": 0.0023781212841854932,
+            "function": "__cond_resched",
+            "samples": 4
+          },
+          {
+            "fraction": 0.0017835909631391202,
+            "function": "pvclock_clocksource_read_nowd",
+            "samples": 3
+          },
+          {
+            "fraction": 0.0017835909631391202,
+            "function": "__rcu_read_lock",
+            "samples": 3
+          },
+          {
+            "fraction": 0.0011890606420927466,
+            "function": "asm_sysvec_apic_timer_interrupt",
+            "samples": 2
+          },
+          {
+            "fraction": 0.0011890606420927466,
+            "function": "folio_mark_accessed",
+            "samples": 2
+          },
+          {
+            "fraction": 0.0011890606420927466,
+            "function": "__update_load_avg_cfs_rq",
+            "samples": 2
+          },
+          {
+            "fraction": 0.0011890606420927466,
+            "function": "page_copy_sane",
+            "samples": 2
+          },
+          {
+            "fraction": 0.0011890606420927466,
+            "function": "x86_pmu_enable",
+            "samples": 2
+          }
+        ]
+      },
+      "folded": {
+        "path": "results/2026-08-09/issue69-provider-feed-path/checkpoint-a/profiles-10ms/s0/storage.folded",
+        "sha256": "d06616168b2287359ba82e1cde338f97d07d89f965d8c66e598e58861a5cfdfc",
+        "size": 16640
+      },
+      "svg": {
+        "path": "results/2026-08-09/issue69-provider-feed-path/checkpoint-a/profiles-10ms/s0/storage.svg",
+        "sha256": "a7b5e87e23e7b3307301fecfca02b97a14bca864e64ed7dc9ba0ba1a7c035c5f",
+        "size": 38289
+      }
+    }
+  },
+  "build": {
+    "cmake_cache": {
+      "path": "/root/k3-out-of-core/llama.cpp/build-cuda/CMakeCache.txt",
+      "sha256": "a6eebb35f752c1233d7f56ec1ac536463e9e332a8611b99f6e5e3e6aecc44cf0",
+      "size": 48022
+    },
+    "options": {
+      "CMAKE_BUILD_TYPE": "Release",
+      "CMAKE_CXX_COMPILER": "/usr/bin/c++",
+      "CMAKE_CXX_FLAGS_RELEASE": "-O3 -DNDEBUG",
+      "GGML_CUDA": "ON",
+      "GGML_CUDA_GRAPHS": "ON",
+      "LLAMA_PERFETTO": "ON"
+    },
+    "probe": {
+      "path": "llama.cpp/build-cuda/bin/phase9-cache-policy-probe",
+      "sha256": "1fbc3177ceffc2e5d72d7b1aa468ececd1ca51608bcea62277186f6a9f5895d6",
+      "size": 316664
+    }
+  },
+  "capture": {
+    "path": "/dev/shm/issue69-checkpoint-a-profiles-v5/S0/capture.json",
+    "sha256": "989c1fa2fbf0151d695d790dbd75d5c736576affb05482a1a7c3bdcc013765f2",
+    "size": 169206
+  },
+  "cell": "S0",
+  "flamegraph_revision": "41fee1f99f9276008b7cd112fca19dc3ea84ac32",
+  "perf_data": {
+    "path": "/dev/shm/issue69-checkpoint-a-profiles-v5/S0/perf.data",
+    "sha256": "89a243937dcbd7b7f71dd003e16e3acf9c1aaaa4682508e30f34803f01aa7331",
+    "size": 71702910
+  },
+  "perf_stat": {
+    "cache-misses": {
+      "event_runtime": 85784961890,
+      "percent_running": 100.0,
+      "unit": "",
+      "value": 1043899011.0
+    },
+    "cache-references": {
+      "event_runtime": 85785141771,
+      "percent_running": 100.0,
+      "unit": "",
+      "value": 3678445820.0
+    },
+    "context-switches": {
+      "event_runtime": 85784679266,
+      "percent_running": 100.0,
+      "unit": "",
+      "value": 71183.0
+    },
+    "cpu-migrations": {
+      "event_runtime": 85784523668,
+      "percent_running": 100.0,
+      "unit": "",
+      "value": 51.0
+    },
+    "cycles": {
+      "event_runtime": 85785541834,
+      "percent_running": 100.0,
+      "unit": "",
+      "value": 109271655309.0
+    },
+    "instructions": {
+      "event_runtime": 85785387044,
+      "percent_running": 100.0,
+      "unit": "",
+      "value": 82802618172.0
+    },
+    "page-faults": {
+      "event_runtime": 85784386491,
+      "percent_running": 100.0,
+      "unit": "",
+      "value": 2694427.0
+    },
+    "task-clock": {
+      "event_runtime": 85785861905,
+      "percent_running": 100.0,
+      "unit": "msec",
+      "value": 85785.861905
+    }
+  },
+  "schema_version": "issue69-perf-attribution-v1",
+  "selection": {
+    "main_tid": 667227,
+    "process_pid": 667227,
+    "storage_worker_reliable": true,
+    "storage_worker_rule": "sample stack contains worker_main or pread"
+  },
+  "status": "pass",
+  "workload": {
+    "path": "/dev/shm/issue69-checkpoint-a-profiles-v5/S0/workload.json",
+    "sha256": "9931531847d2765fcf3db76486f28475ffc629ae90f35c3bc7c5999d96653a0a",
+    "size": 25739
+  }
+}
