@@ -13,6 +13,7 @@ import sys
 
 from common import (DEFAULT_COLD_BYTES, ROOT, cmake_build_identity, file_identity,
                     probe_command, validate_workload, write_json)
+from run_matrix import block_delta, block_status, drop_page_cache
 
 
 def run(command: list[str]) -> None:
@@ -33,10 +34,15 @@ def main() -> None:
     parser.add_argument("--io-workers", type=int)
     parser.add_argument("--seed", type=int, default=69)
     parser.add_argument("--window-ms", type=int, choices=(1000, 500, 250), default=1000)
+    parser.add_argument("--drop-page-cache", action="store_true")
+    parser.add_argument("--block-stat", type=Path, action="append", default=[])
     args = parser.parse_args()
     if args.output_dir.exists():
         raise FileExistsError(args.output_dir)
     for path in (args.probe, args.model, args.perfetto, args.trace_processor):
+        if not path.is_file():
+            raise FileNotFoundError(path)
+    for path in args.block_stat:
         if not path.is_file():
             raise FileNotFoundError(path)
     args.output_dir.mkdir(parents=True)
@@ -61,6 +67,9 @@ def main() -> None:
         }
         command_spec = directory / "command.json"
         write_json(command_spec, {"command": command, "environment": environment})
+        if args.drop_page_cache:
+            drop_page_cache()
+        block_before = {str(path): block_status(path) for path in args.block_stat}
         trace = directory / "trace.pftrace"
         capture = directory / "capture.json"
         run([
@@ -79,9 +88,21 @@ def main() -> None:
             "--workload", str(workload), "--capture", str(capture),
             "--case", "A", "--output", str(verification),
         ])
+        block_after = {str(path): block_status(path) for path in args.block_stat}
         evidence = validate_workload(workload)
         cells[cell] = {
             "worker_count": evidence["async_io"]["diagnostics"]["worker_count"],
+            "cache_state": (
+                "OS_COLD_REQUESTED_AND_DROPPED" if args.drop_page_cache else "UNCHANGED"
+            ),
+            "block_devices": {
+                "before": block_before,
+                "after": block_after,
+                "delta": {
+                    path: block_delta(block_before[path], block_after[path])
+                    for path in block_before
+                },
+            },
             "trace": file_identity(trace), "workload": file_identity(workload),
             "capture": file_identity(capture), "verification": file_identity(verification),
         }
@@ -90,6 +111,8 @@ def main() -> None:
         "build": cmake_build_identity(args.probe),
         "selection": {"seed": args.seed, "request_ordinal": request_ordinal,
             "routed_layer": routed_layer, "window_ms": args.window_ms},
+        "drop_page_cache": args.drop_page_cache,
+        "block_stat": [str(path) for path in args.block_stat],
         "cells": cells,
     })
 
