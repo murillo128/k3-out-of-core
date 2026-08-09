@@ -1,11 +1,11 @@
 {
-  "schema_version": "issue69-checkpoint-b-v2",
+  "schema_version": "issue69-checkpoint-b-v3",
   "checkpoint": "B_FEED_PATH_MECHANISM",
   "status": "pass",
   "final_capable": false,
   "revisions": {
-    "project_mechanism_head": "046778ff9efd254ebda9c0e6bcefc554b1a75c43",
-    "nested_head": "3386c35ff043c2a375b6a83cd6e01db1673be778",
+    "project_mechanism_head": "1ff16b32ccf101b6ed1e3eb67fcee22e2ef616ab",
+    "nested_head": "968e138cab375cbca4406b82b756671eb103ea3e",
     "nested_base": "da6b149597397005cf84cf83f873b25e5ae4de0f"
   },
   "fixture": {
@@ -20,8 +20,8 @@
   },
   "build": {
     "probe_sha256": "f8688380669de9e40b48d33e7386354c1490f47a5f1ad782428b08dc07ae482e",
-    "libllama_sha256": "d8d1b9c8a7707bcf9f4598e58360561786288f52b7980e5dc230d13df1c8a367",
-    "libllama_size": 10210736,
+    "libllama_sha256": "4ef5375795b2df244cfd4f929a53d89bb811b68268d60fd4d3c3b4ad2b411d40",
+    "libllama_size": 10214976,
     "cmake_cache_sha256": "a6eebb35f752c1233d7f56ec1ac536463e9e332a8611b99f6e5e3e6aecc44cf0",
     "options": {
       "CMAKE_BUILD_TYPE": "Release",
@@ -87,14 +87,22 @@
     "streamed_storage_h2d": {
       "status": "OBSERVED",
       "trace_cell": "S0",
-      "different_flight_overlap_us": 3142198,
-      "overlap_pairs": 12948,
-      "overlap_events": 12948,
-      "overlap_flights": 5811,
-      "overlap_read_bytes": 27126988800,
-      "overlap_h2d_bytes": 39530594304,
+      "different_flight_overlap_us": 3142518,
+      "overlap_pairs": 13035,
+      "overlap_events": 13035,
+      "overlap_flights": 5855,
+      "overlap_read_bytes": 28139585536,
+      "overlap_h2d_bytes": 39605960704,
       "trace_records": 5950,
       "trace_records_dropped": 0
+    },
+    "mixed_cold_direct_coscheduling": {
+      "status": "OBSERVED",
+      "cold_h2d_while_direct_storage_incomplete": true,
+      "cold_lane_reserved_while_cold_ready": true,
+      "local_regression": "mixed cold-ready and direct-storage misses transfer the cold hit before the blocked read completes",
+      "multi_device_regression": "two-GPU same-owner mixed misses transfer the cold hit before the blocked read completes",
+      "deterministic_terminal_publication": true
     },
     "production_allocation_bound": {
       "status": "OBSERVED",
@@ -115,7 +123,7 @@
     },
     "cells": {
       "S0": {
-        "decode_tps": 1.8291048273496024,
+        "decode_tps": 1.8082363751747699,
         "numerical_identity_sha256": "73629b9ce1004b1dcc1939ae55b92208af951b317503a6f110cffa05982eb42f",
         "hot_misses": 5920,
         "storage_read_requests": 5920,
@@ -125,7 +133,7 @@
         "distinct_hierarchy_keys": 268
       },
       "S1": {
-        "decode_tps": 2.4563021183256266,
+        "decode_tps": 2.34954629239552,
         "numerical_identity_sha256": "f181aeb06b65f6e1f8545d4c39c8d9c5a1d51bb1871f6c9ba5e2a060012346ff",
         "hot_misses": 5491,
         "storage_read_requests": 5491,
@@ -135,7 +143,7 @@
         "distinct_hierarchy_keys": 536
       },
       "D1": {
-        "decode_tps": 1.9207963788812614,
+        "decode_tps": 1.9013094731669848,
         "numerical_identity_sha256": "db5f4c2f825202deaa186d133328b009f3caded4df21c827924aba98c3b14493",
         "hot_misses": 5479,
         "storage_read_requests": 5479,
@@ -145,7 +153,7 @@
         "distinct_hierarchy_keys": 536
       },
       "A1": {
-        "decode_tps": 2.349211757743564,
+        "decode_tps": 2.4376445231744746,
         "numerical_identity_sha256": "f181aeb06b65f6e1f8545d4c39c8d9c5a1d51bb1871f6c9ba5e2a060012346ff",
         "hot_misses": 4453,
         "storage_read_requests": 4453,
@@ -163,7 +171,7 @@
       "status": "pass",
       "tests_passed": 12,
       "tests_failed": 0,
-      "log_sha256": "6fb66747c1c3a11b5fc1d4f0b7202cb7438fef8c2d4c078b4a836068c418bb1a"
+      "log_sha256": "4d26f25e582d6bb8ffc6c72682b90b4b804242caddac479f24fde5b99387708a"
     },
     "covered_failures": [
       "direct storage read failure drains reads, scheduler requests, and lanes without cold admission",
@@ -171,6 +179,8 @@
       "post-H2D cancellation and retry retain exact flight/lane/hot generations",
       "predictive cancellation drains in-flight storage",
       "multi-device injected transfer failure drains participating waves",
+      "local mixed cold-ready/direct-storage demand transfers cold data while the direct read remains blocked",
+      "two-GPU same-owner mixed demand transfers cold data while the direct read remains blocked",
       "warm repeated runs preserve exact output and terminal lifetime state"
     ],
     "terminal_state_zero": {
@@ -185,23 +195,30 @@
     }
   },
   "raw_evidence": {
-    "release": "https://github.com/murillo128/k3-out-of-core/releases/tag/issue69-checkpoint-b-feed-path-v2",
-    "asset": "issue69-checkpoint-b-feed-path-v2.tar.zst",
-    "size": 2183392,
-    "sha256": "c278a043859cdf8602498b0d10b28889b65cdd9685556453cebfca556c2da380",
+    "release": "https://github.com/murillo128/k3-out-of-core/releases/tag/issue69-checkpoint-b-feed-path-v3",
+    "asset": "issue69-checkpoint-b-feed-path-v3.tar.zst",
+    "size": 2199273,
+    "sha256": "932573b43e506711ef7f7233401c32406a3a1c316a30f7b6605526663e545ea2",
     "mode_p_matrix_sha256": "ba3af60da755c1fbb70236ecfd8f704e2fe1681c56a918042416137fef1f5806",
     "compliance_matrix_sha256": "38998f70a0d777c12457af048b8d4306634b5a637edb487009c0ddcad79a0781",
-    "invalid_worker_log_sha256": "97d866e87fb4f9df2d2b302c81759a716284c77493aae9a26081efe077b1e85a"
+    "invalid_worker_log_sha256": "1f84cb3bb8e42110e398be2bb803f6ae6dab5c12efa051dacbfc58154ab06209"
   },
   "review": {
     "status": "pending",
     "required_target": "the exact published parent and nested heads containing this manifest",
     "prior_target": {
       "status": "fail",
+      "project_head": "ebee0d3eaa9b99b25b3f43e7c9c6f188fad01b9b",
+      "nested_head": "3386c35ff043c2a375b6a83cd6e01db1673be778",
+      "blocking_finding": "local and multi-device mixed cold-hit/direct-miss paths retained phase barriers that delayed cold-ready H2D until direct storage completed",
+      "resolution": "cold-ready work and direct completions now share the progress loop, one lane is preserved while cold work is pending, terminal publication remains deterministic, and local plus two-GPU gated regressions exercise the overlap"
+    },
+    "earlier_target": {
+      "status": "fail",
       "project_head": "4f15f0f6fd9f453e71bf7e9f2588925e9c57d1fc",
       "nested_head": "7eff1526ab964cfd71eba7aee48d731bf8586cb0",
       "blocking_finding": "default-zero worker selection did not preserve legacy rejection for non-positional multi-device configurations",
-      "resolution": "zero now resolves to the legacy expert-device count before unchanged transport validation; focused regression and exact evidence were rerun"
+      "resolution": "zero now resolves to the legacy expert-device count before unchanged transport validation"
     }
   },
   "open_items": [
