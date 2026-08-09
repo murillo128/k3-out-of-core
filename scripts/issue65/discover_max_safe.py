@@ -69,6 +69,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--lower-bound", type=int, default=268)
     parser.add_argument("--upper-bound", type=int)
     parser.add_argument("--peer-staging-bytes", type=int, default=67_108_864)
+    parser.add_argument("--n-gpu-layers", type=int)
     parser.add_argument("--sample-period", type=float, default=0.25)
     parser.add_argument("--max-probes", type=int, default=32)
     return parser.parse_args()
@@ -188,7 +189,7 @@ def require_fresh_candidate_paths(output: Path, log: Path) -> None:
 
 def build_command(args: argparse.Namespace, candidate: int, output: Path) -> list[str]:
     roles = args.role_template.format(candidate=candidate)
-    return [
+    command = [
         str(args.probe), "--model", str(args.model), "--output", str(output),
         "--mode", "cold", "--expert-runtime-mode", "PRODUCTION_PERFORMANCE",
         "--prompt", PROMPT, "--hot-policy", "LRU", "--cold-policy", "LRU",
@@ -202,6 +203,9 @@ def build_command(args: argparse.Namespace, candidate: int, output: Path) -> lis
         "--observe-routes", "0", "--transport", "POSITIONAL",
         "--config-source", "EXPLICIT", "--integrity", "NONE",
     ]
+    if args.n_gpu_layers is not None:
+        command.extend(("--n-gpu-layers", str(args.n_gpu_layers)))
+    return command
 
 
 def exact_target_device(evidence: dict, target_uuid: str, candidate: int) -> dict | None:
@@ -399,6 +403,7 @@ def build_capacity_manifest(
             "n_ctx": 4096,
             "n_batch": 128,
             "n_ubatch": 128,
+            "n_gpu_layers": args.n_gpu_layers,
             "generated_tokens": 24,
             "selection": "ARGMAX",
             "sample_period_seconds": args.sample_period,
@@ -437,7 +442,8 @@ def build_capacity_manifest(
 def main() -> None:
     args = parse_args()
     if (args.role_template.count("{candidate}") != 1 or args.reserve_bytes <= 0 or
-            args.slot_stride <= 0 or args.sample_period <= 0):
+            args.slot_stride <= 0 or args.sample_period <= 0 or
+            (args.n_gpu_layers is not None and args.n_gpu_layers < 0)):
         raise SystemExit("invalid discovery configuration")
     if not args.probe.is_file() or not args.model.is_file():
         raise SystemExit("probe or model is missing")
