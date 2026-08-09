@@ -247,6 +247,25 @@ def main() -> None:
     d1 = json.loads(args.d1_manifest.read_text())
     comparison = candidate_comparison(args.direct_screen_dir, args.candidate_screen_dir)
     trace_result = traces(args.trace_dir, args.trace_processor)
+    for cell in ("S0", "A1"):
+        critical_path = trace_result["cells"][cell]["critical_path"]
+        trace_result["cells"][cell]["remaining_unexplained_gap_ns"] = \
+            critical_path["buckets_ns"]["dependency_or_host_gap"]
+        verification = json.loads((args.trace_dir / cell / "verification.json").read_text())
+        trace_result["cells"][cell]["verification_result"] = {
+            "status": verification["status"],
+            "errors": verification["errors"],
+            "metrics": {
+                key: verification["metrics"][key]
+                for key in (
+                    "cupti_active_buffer_bytes_at_close", "cupti_dropped_records",
+                    "cupti_errors", "cupti_kernel_records", "cupti_memcpy_records",
+                    "cupti_sync_records", "cupti_unknown_timestamps",
+                    "cupti_unmatched_correlations", "invalid_cuda_interval_count",
+                    "trace_data_loss",
+                )
+            },
+        }
     profile_result = profiles(args.profile_raw_dir, args.profile_dir)
     value = {
         "schema_version": "issue69-delta-d-final-v1",
