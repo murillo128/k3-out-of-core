@@ -1,0 +1,1199 @@
+{
+  "archived_failure_classification": {
+    "finding": "the archived crashes disappeared after rebuilding the two affected executables against the candidate-modified shared library and public llama_model_params layout",
+    "result": "STALE_INCREMENTAL_TEST_EXECUTABLES",
+    "source_runtime_defect_reproduced": false,
+    "targeted_lifetime_check": {
+      "glibc_heap_check": true,
+      "log": {
+        "path": "/dev/shm/issue69-delta-d/d2d-correction/tests/targeted-lifetime-ctest.log",
+        "sha256": "e95644b5ec7fb6b585dcf0e36ff96a1c5e33de461f3548235af4fd0065d81d8f",
+        "size": 490
+      },
+      "tests_failed": 0,
+      "tests_passed": 2,
+      "tests_total": 2
+    }
+  },
+  "checkpoint": "DELTA_D2D_EXPERIMENTAL_STORAGE_CACHE_HARDENING",
+  "configuration_smoke": {
+    "buffered_positional_fadv_random": {
+      "async_cold_fill": {
+        "async_cold_fill_active": 0,
+        "async_cold_fill_attempts": 0,
+        "async_cold_fill_bytes": 0,
+        "async_cold_fill_completed": 0,
+        "async_cold_fill_configured": 0,
+        "async_cold_fill_dropped": 0,
+        "async_cold_fill_failed": 0,
+        "async_cold_fill_peak_active": 0,
+        "async_cold_fill_queued": 0,
+        "async_cold_fill_time_us": 0
+      },
+      "candidate_mechanism": {
+        "async_cold_fill_active": 0,
+        "async_cold_fill_attempts": 0,
+        "async_cold_fill_bytes": 0,
+        "async_cold_fill_completed": 0,
+        "async_cold_fill_configured": false,
+        "async_cold_fill_dropped": 0,
+        "async_cold_fill_failed": 0,
+        "async_cold_fill_peak_active": 0,
+        "async_cold_fill_queued": 0,
+        "async_cold_fill_time_us": 0
+      },
+      "cold_admissions": 0,
+      "cold_hits": 0,
+      "cold_misses": 5920,
+      "decode_tps": 1.4596093412713236,
+      "direct_io": {
+        "buffered_fallback_bytes": 0,
+        "buffered_fallback_operations": 0,
+        "direct_aligned_bytes": 0,
+        "direct_read_operations": 0,
+        "direct_scatter_bytes": 0,
+        "direct_source_count": 0,
+        "direct_staging_error": 0,
+        "direct_unsupported_source_count": 0,
+        "direct_useful_bytes": 0,
+        "storage_first_native_error": 0
+      },
+      "file": {
+        "path": "/dev/shm/issue69-delta-d/d2d/smoke/buffered-random/raw/S0-01.json.gz",
+        "sha256": "f1eb0131785e108bd2f554a7b0e1979a53055ac37ca3e047754cf0c3dfe598e5",
+        "size": 5310
+      },
+      "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+      "h2d_bytes": 48225058816,
+      "h2d_time_us": 210030,
+      "hierarchy_residency": {
+        "cold_keys": 0,
+        "distinct_keys": 268,
+        "duplicate_keys": 0,
+        "hot_keys": 268,
+        "hot_without_cold_keys": 268
+      },
+      "hot_hits": 2157,
+      "hot_misses": 5920,
+      "io_access_effective": "RANDOM",
+      "io_access_requested": "RANDOM",
+      "numerical_identity_sha256": "73629b9ce1004b1dcc1939ae55b92208af951b317503a6f110cffa05982eb42f",
+      "resources": {
+        "block_device_delta": {
+          "io_ticks_ms": 14332,
+          "read_bytes": 40365907968,
+          "read_operations": 57019,
+          "read_sectors": 78839664,
+          "read_ticks_ms": 39896,
+          "weighted_ticks_ms": 40110
+        },
+        "build": {
+          "cmake_cache": {
+            "path": "/root/k3-out-of-core/llama.cpp/build-cuda/CMakeCache.txt",
+            "sha256": "fd814d1db587712c208409f0deec3526381552615b64f7e4996224343f3193b1",
+            "size": 48116
+          },
+          "options": {
+            "CMAKE_BUILD_TYPE": "Release",
+            "CMAKE_CXX_COMPILER": "/usr/bin/c++",
+            "CMAKE_CXX_FLAGS_RELEASE": "-O3 -DNDEBUG",
+            "GGML_CUDA": "ON",
+            "GGML_CUDA_GRAPHS": "ON",
+            "LLAMA_PERFETTO": "ON"
+          },
+          "probe": {
+            "path": "/root/k3-out-of-core/llama.cpp/build-cuda/bin/phase9-cache-policy-probe",
+            "sha256": "bc35d92c759c61c964b0487e807e7057cb8a7043d4dcb0e399932d03a0a7a79e",
+            "size": 324856
+          }
+        },
+        "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+        "cgroup": {
+          "after": {
+            "memory_current": 40465604608,
+            "memory_events": {
+              "high": 0,
+              "low": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_group_kill": 0,
+              "oom_kill": 0
+            },
+            "memory_max": 68719476736,
+            "memory_peak": 58105663488,
+            "memory_stat": {
+              "active_file": 6969073664,
+              "anon": 8130560,
+              "file": 40354942976,
+              "file_dirty": 0,
+              "file_mapped": 61440,
+              "file_writeback": 0,
+              "inactive_file": 33385553920,
+              "shmem": 258048,
+              "swapcached": 0,
+              "workingset_refault_file": 0
+            },
+            "memory_swap_current": 0,
+            "memory_swap_max": 0,
+            "path": "/system.slice/issue69-d2d-smoke-buffered-random.service"
+          },
+          "before": {
+            "memory_current": 8056832,
+            "memory_events": {
+              "high": 0,
+              "low": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_group_kill": 0,
+              "oom_kill": 0
+            },
+            "memory_max": 68719476736,
+            "memory_peak": 9699328,
+            "memory_stat": {
+              "active_file": 0,
+              "anon": 7491584,
+              "file": 0,
+              "file_dirty": 0,
+              "file_mapped": 0,
+              "file_writeback": 0,
+              "inactive_file": 0,
+              "shmem": 0,
+              "swapcached": 0,
+              "workingset_refault_file": 0
+            },
+            "memory_swap_current": 0,
+            "memory_swap_max": 0,
+            "path": "/system.slice/issue69-d2d-smoke-buffered-random.service"
+          }
+        },
+        "elapsed_seconds": 56.0949625360081,
+        "file": {
+          "path": "/dev/shm/issue69-delta-d/d2d/smoke/buffered-random/raw/S0-01-resources.json",
+          "sha256": "5177175ce63f03a0ac35d9d66b10fe00b769b6505c8b30dec7b6002fd7b87ad0",
+          "size": 170554
+        },
+        "process_io_maxima": {
+          "io_rchar": 48230485807,
+          "io_read_bytes": 40353456128,
+          "io_wchar": 253092,
+          "io_write_bytes": 0
+        }
+      },
+      "stage_bytes": 0,
+      "storage_h2d_overlap": {
+        "disk_h2d_overlap_bytes": 0,
+        "disk_h2d_overlap_flights": 0,
+        "disk_h2d_overlap_pairs": 0,
+        "disk_h2d_overlap_read_bytes": 0,
+        "disk_h2d_overlap_us": 0
+      },
+      "storage_read_bytes": 48225058816,
+      "storage_read_requests": 5920,
+      "terminal_state": {
+        "active_background_flights": 0,
+        "async_active_reads": 0,
+        "cold_cpu_execution_refs": 0,
+        "cold_request_refs": 0,
+        "cold_transfer_refs": 0,
+        "hot_pins": 0,
+        "ring_live_events": 0,
+        "scheduler_active_requests": 0
+      },
+      "terminal_state_zero": true,
+      "transport_requested": "POSITIONAL",
+      "worker_count": 4
+    },
+    "buffered_positional_normal": {
+      "async_cold_fill": {
+        "async_cold_fill_active": 0,
+        "async_cold_fill_attempts": 0,
+        "async_cold_fill_bytes": 0,
+        "async_cold_fill_completed": 0,
+        "async_cold_fill_configured": 0,
+        "async_cold_fill_dropped": 0,
+        "async_cold_fill_failed": 0,
+        "async_cold_fill_peak_active": 0,
+        "async_cold_fill_queued": 0,
+        "async_cold_fill_time_us": 0
+      },
+      "candidate_mechanism": {
+        "async_cold_fill_active": 0,
+        "async_cold_fill_attempts": 0,
+        "async_cold_fill_bytes": 0,
+        "async_cold_fill_completed": 0,
+        "async_cold_fill_configured": false,
+        "async_cold_fill_dropped": 0,
+        "async_cold_fill_failed": 0,
+        "async_cold_fill_peak_active": 0,
+        "async_cold_fill_queued": 0,
+        "async_cold_fill_time_us": 0
+      },
+      "cold_admissions": 0,
+      "cold_hits": 0,
+      "cold_misses": 5920,
+      "decode_tps": 1.3875870205592735,
+      "direct_io": {
+        "buffered_fallback_bytes": 0,
+        "buffered_fallback_operations": 0,
+        "direct_aligned_bytes": 0,
+        "direct_read_operations": 0,
+        "direct_scatter_bytes": 0,
+        "direct_source_count": 0,
+        "direct_staging_error": 0,
+        "direct_unsupported_source_count": 0,
+        "direct_useful_bytes": 0,
+        "storage_first_native_error": 0
+      },
+      "file": {
+        "path": "/dev/shm/issue69-delta-d/d2d/smoke/buffered-normal/raw/S0-01.json.gz",
+        "sha256": "af4fc48d4f633b5ed9aaa21604ffb556d230add6932b627f98302cd63ab28387",
+        "size": 5302
+      },
+      "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+      "h2d_bytes": 48225058816,
+      "h2d_time_us": 207387,
+      "hierarchy_residency": {
+        "cold_keys": 0,
+        "distinct_keys": 268,
+        "duplicate_keys": 0,
+        "hot_keys": 268,
+        "hot_without_cold_keys": 268
+      },
+      "hot_hits": 2157,
+      "hot_misses": 5920,
+      "io_access_effective": "NORMAL",
+      "io_access_requested": "NORMAL",
+      "numerical_identity_sha256": "73629b9ce1004b1dcc1939ae55b92208af951b317503a6f110cffa05982eb42f",
+      "resources": {
+        "block_device_delta": {
+          "io_ticks_ms": 14813,
+          "read_bytes": 40481349632,
+          "read_operations": 57152,
+          "read_sectors": 79065136,
+          "read_ticks_ms": 44096,
+          "weighted_ticks_ms": 44508
+        },
+        "build": {
+          "cmake_cache": {
+            "path": "/root/k3-out-of-core/llama.cpp/build-cuda/CMakeCache.txt",
+            "sha256": "fd814d1db587712c208409f0deec3526381552615b64f7e4996224343f3193b1",
+            "size": 48116
+          },
+          "options": {
+            "CMAKE_BUILD_TYPE": "Release",
+            "CMAKE_CXX_COMPILER": "/usr/bin/c++",
+            "CMAKE_CXX_FLAGS_RELEASE": "-O3 -DNDEBUG",
+            "GGML_CUDA": "ON",
+            "GGML_CUDA_GRAPHS": "ON",
+            "LLAMA_PERFETTO": "ON"
+          },
+          "probe": {
+            "path": "/root/k3-out-of-core/llama.cpp/build-cuda/bin/phase9-cache-policy-probe",
+            "sha256": "bc35d92c759c61c964b0487e807e7057cb8a7043d4dcb0e399932d03a0a7a79e",
+            "size": 324856
+          }
+        },
+        "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+        "cgroup": {
+          "after": {
+            "memory_current": 40509505536,
+            "memory_events": {
+              "high": 0,
+              "low": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_group_kill": 0,
+              "oom_kill": 0
+            },
+            "memory_max": 68719476736,
+            "memory_peak": 58134159360,
+            "memory_stat": {
+              "active_file": 6976368640,
+              "anon": 8155136,
+              "file": 40398245888,
+              "file_dirty": 0,
+              "file_mapped": 61440,
+              "file_writeback": 0,
+              "inactive_file": 33421529088,
+              "shmem": 258048,
+              "swapcached": 0,
+              "workingset_refault_file": 0
+            },
+            "memory_swap_current": 0,
+            "memory_swap_max": 0,
+            "path": "/system.slice/issue69-d2d-smoke-buffered-normal.service"
+          },
+          "before": {
+            "memory_current": 8056832,
+            "memory_events": {
+              "high": 0,
+              "low": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_group_kill": 0,
+              "oom_kill": 0
+            },
+            "memory_max": 68719476736,
+            "memory_peak": 8187904,
+            "memory_stat": {
+              "active_file": 0,
+              "anon": 7491584,
+              "file": 0,
+              "file_dirty": 0,
+              "file_mapped": 0,
+              "file_writeback": 0,
+              "inactive_file": 0,
+              "shmem": 0,
+              "swapcached": 0,
+              "workingset_refault_file": 0
+            },
+            "memory_swap_current": 0,
+            "memory_swap_max": 0,
+            "path": "/system.slice/issue69-d2d-smoke-buffered-normal.service"
+          }
+        },
+        "elapsed_seconds": 59.487661461986136,
+        "file": {
+          "path": "/dev/shm/issue69-delta-d/d2d/smoke/buffered-normal/raw/S0-01-resources.json",
+          "sha256": "4486cc49a4807529e4a28a96fb46187ec01be13e44fa98c093b04a642b551660",
+          "size": 178036
+        },
+        "process_io_maxima": {
+          "io_rchar": 48305497819,
+          "io_read_bytes": 40389345280,
+          "io_wchar": 253059,
+          "io_write_bytes": 0
+        }
+      },
+      "stage_bytes": 0,
+      "storage_h2d_overlap": {
+        "disk_h2d_overlap_bytes": 0,
+        "disk_h2d_overlap_flights": 0,
+        "disk_h2d_overlap_pairs": 0,
+        "disk_h2d_overlap_read_bytes": 0,
+        "disk_h2d_overlap_us": 0
+      },
+      "storage_read_bytes": 48225058816,
+      "storage_read_requests": 5920,
+      "terminal_state": {
+        "active_background_flights": 0,
+        "async_active_reads": 0,
+        "cold_cpu_execution_refs": 0,
+        "cold_request_refs": 0,
+        "cold_transfer_refs": 0,
+        "hot_pins": 0,
+        "ring_live_events": 0,
+        "scheduler_active_requests": 0
+      },
+      "terminal_state_zero": true,
+      "transport_requested": "POSITIONAL",
+      "worker_count": 4
+    }
+  },
+  "direct_io_async_fill_regression_64_gib": {
+    "cells": {
+      "A1": {
+        "async_cold_fill": {
+          "async_cold_fill": {
+            "async_cold_fill_active": 0,
+            "async_cold_fill_attempts": 2743,
+            "async_cold_fill_bytes": 6542065664,
+            "async_cold_fill_completed": 802,
+            "async_cold_fill_configured": 1,
+            "async_cold_fill_dropped": 1941,
+            "async_cold_fill_failed": 0,
+            "async_cold_fill_peak_active": 1,
+            "async_cold_fill_queued": 802,
+            "async_cold_fill_time_us": 3973827
+          },
+          "candidate_mechanism": {
+            "async_cold_fill_active": 0,
+            "async_cold_fill_attempts": 2743,
+            "async_cold_fill_bytes": 6542065664,
+            "async_cold_fill_completed": 802,
+            "async_cold_fill_configured": true,
+            "async_cold_fill_dropped": 1941,
+            "async_cold_fill_failed": 0,
+            "async_cold_fill_peak_active": 1,
+            "async_cold_fill_queued": 802,
+            "async_cold_fill_time_us": 3973827
+          },
+          "cold_admissions": 1355,
+          "cold_hits": 375,
+          "cold_misses": 5433,
+          "decode_tps": 1.71161962751436,
+          "direct_io": {
+            "buffered_fallback_bytes": 0,
+            "buffered_fallback_operations": 0,
+            "direct_aligned_bytes": 33270964224,
+            "direct_read_operations": 12234,
+            "direct_scatter_bytes": 33220853760,
+            "direct_source_count": 3,
+            "direct_staging_error": 0,
+            "direct_unsupported_source_count": 0,
+            "direct_useful_bytes": 33220853760,
+            "storage_first_native_error": 0
+          },
+          "file": {
+            "path": "/dev/shm/issue69-delta-d/d2d-correction/regression/direct-fill-a1/raw/A1-01.json.gz",
+            "sha256": "3ef4329a937a47e25a9145b86433b7ef8134b295a6adc99a8411d0a4ea82e96d",
+            "size": 6186
+          },
+          "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+          "h2d_bytes": 36272472064,
+          "h2d_time_us": 226744,
+          "hierarchy_residency": {
+            "cold_keys": 1355,
+            "distinct_keys": 2170,
+            "duplicate_keys": 758,
+            "hot_keys": 1573,
+            "hot_without_cold_keys": 815
+          },
+          "hot_hits": 3624,
+          "hot_misses": 4453,
+          "io_access_effective": "NORMAL",
+          "io_access_requested": "NORMAL",
+          "numerical_identity_sha256": "f181aeb06b65f6e1f8545d4c39c8d9c5a1d51bb1871f6c9ba5e2a060012346ff",
+          "resources": {
+            "block_device_delta": {
+              "io_ticks_ms": 12863,
+              "read_bytes": 40339795968,
+              "read_operations": 58604,
+              "read_sectors": 78788664,
+              "read_ticks_ms": 123953,
+              "weighted_ticks_ms": 124324
+            },
+            "build": {
+              "cmake_cache": {
+                "path": "/root/k3-out-of-core/llama.cpp/build-cuda/CMakeCache.txt",
+                "sha256": "fd814d1db587712c208409f0deec3526381552615b64f7e4996224343f3193b1",
+                "size": 48116
+              },
+              "options": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_CXX_COMPILER": "/usr/bin/c++",
+                "CMAKE_CXX_FLAGS_RELEASE": "-O3 -DNDEBUG",
+                "GGML_CUDA": "ON",
+                "GGML_CUDA_GRAPHS": "ON",
+                "LLAMA_PERFETTO": "ON"
+              },
+              "probe": {
+                "path": "/root/k3-out-of-core/llama.cpp/build-cuda/bin/phase9-cache-policy-probe",
+                "sha256": "bc35d92c759c61c964b0487e807e7057cb8a7043d4dcb0e399932d03a0a7a79e",
+                "size": 324856
+              }
+            },
+            "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+            "cgroup": {
+              "after": {
+                "memory_current": 7014793216,
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_max": 68719476736,
+                "memory_peak": 24915759104,
+                "memory_stat": {
+                  "active_file": 6976319488,
+                  "anon": 8142848,
+                  "file": 6985445376,
+                  "file_dirty": 0,
+                  "file_mapped": 192512,
+                  "file_writeback": 0,
+                  "inactive_file": 8863744,
+                  "shmem": 262144,
+                  "swapcached": 0,
+                  "workingset_refault_file": 0
+                },
+                "memory_swap_current": 0,
+                "memory_swap_max": 0,
+                "path": "/system.slice/issue69-d2d-correction-a1-direct-fill.service"
+              },
+              "before": {
+                "memory_current": 7995392,
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_max": 68719476736,
+                "memory_peak": 9699328,
+                "memory_stat": {
+                  "active_file": 180224,
+                  "anon": 7507968,
+                  "file": 192512,
+                  "file_dirty": 0,
+                  "file_mapped": 126976,
+                  "file_writeback": 0,
+                  "inactive_file": 0,
+                  "shmem": 0,
+                  "swapcached": 0,
+                  "workingset_refault_file": 0
+                },
+                "memory_swap_current": 0,
+                "memory_swap_max": 0,
+                "path": "/system.slice/issue69-d2d-correction-a1-direct-fill.service"
+              }
+            },
+            "elapsed_seconds": 59.044932351011084,
+            "file": {
+              "path": "/dev/shm/issue69-delta-d/d2d-correction/regression/direct-fill-a1/raw/A1-01-resources.json",
+              "sha256": "d0342d7a86de90cd350a64636b0037dc38d2cdaa3d8d2436583c02071080f55d",
+              "size": 172411
+            },
+            "process_io_maxima": {
+              "io_rchar": 33351415631,
+              "io_read_bytes": 40247488512,
+              "io_wchar": 258852,
+              "io_write_bytes": 0
+            }
+          },
+          "stage_bytes": 3051618304,
+          "storage_h2d_overlap": {
+            "disk_h2d_overlap_bytes": 0,
+            "disk_h2d_overlap_flights": 0,
+            "disk_h2d_overlap_pairs": 0,
+            "disk_h2d_overlap_read_bytes": 0,
+            "disk_h2d_overlap_us": 0
+          },
+          "storage_read_bytes": 33220853760,
+          "storage_read_requests": 4078,
+          "terminal_state": {
+            "active_background_flights": 0,
+            "async_active_reads": 0,
+            "cold_cpu_execution_refs": 0,
+            "cold_request_refs": 0,
+            "cold_transfer_refs": 0,
+            "hot_pins": 0,
+            "ring_live_events": 0,
+            "scheduler_active_requests": 0
+          },
+          "terminal_state_zero": true,
+          "transport_requested": "DIRECT_IO_POSITIONAL",
+          "worker_count": 8
+        },
+        "async_fill_vs_direct_decode_ratio": 1.0590659840529144,
+        "block_read_reduction_fraction": 0.07045457913235542,
+        "both_terminal_state_zero": true,
+        "both_whole_cgroup_bounded_without_swap_or_oom": true,
+        "direct": {
+          "async_cold_fill": {
+            "async_cold_fill_active": 0,
+            "async_cold_fill_attempts": 0,
+            "async_cold_fill_bytes": 0,
+            "async_cold_fill_completed": 0,
+            "async_cold_fill_configured": 0,
+            "async_cold_fill_dropped": 0,
+            "async_cold_fill_failed": 0,
+            "async_cold_fill_peak_active": 0,
+            "async_cold_fill_queued": 0,
+            "async_cold_fill_time_us": 0
+          },
+          "candidate_mechanism": {
+            "async_cold_fill_active": 0,
+            "async_cold_fill_attempts": 0,
+            "async_cold_fill_bytes": 0,
+            "async_cold_fill_completed": 0,
+            "async_cold_fill_configured": false,
+            "async_cold_fill_dropped": 0,
+            "async_cold_fill_failed": 0,
+            "async_cold_fill_peak_active": 0,
+            "async_cold_fill_queued": 0,
+            "async_cold_fill_time_us": 0
+          },
+          "cold_admissions": 0,
+          "cold_hits": 0,
+          "cold_misses": 4453,
+          "decode_tps": 1.6161595720072168,
+          "direct_io": {
+            "buffered_fallback_bytes": 0,
+            "buffered_fallback_operations": 0,
+            "direct_aligned_bytes": 36327190528,
+            "direct_read_operations": 13359,
+            "direct_scatter_bytes": 36272472064,
+            "direct_source_count": 3,
+            "direct_staging_error": 0,
+            "direct_unsupported_source_count": 0,
+            "direct_useful_bytes": 36272472064,
+            "storage_first_native_error": 0
+          },
+          "file": {
+            "path": "/dev/shm/issue69-delta-d/d2d-correction/regression/direct-a1/raw/A1-01.json.gz",
+            "sha256": "b91d3ff34803d5f65b3dbe93d887be4bf258f99ccd1f5d8c79fad189549d9b3c",
+            "size": 6036
+          },
+          "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+          "h2d_bytes": 36272472064,
+          "h2d_time_us": 218092,
+          "hierarchy_residency": {
+            "cold_keys": 0,
+            "distinct_keys": 1573,
+            "duplicate_keys": 0,
+            "hot_keys": 1573,
+            "hot_without_cold_keys": 1573
+          },
+          "hot_hits": 3624,
+          "hot_misses": 4453,
+          "io_access_effective": "NORMAL",
+          "io_access_requested": "NORMAL",
+          "numerical_identity_sha256": "f181aeb06b65f6e1f8545d4c39c8d9c5a1d51bb1871f6c9ba5e2a060012346ff",
+          "resources": {
+            "block_device_delta": {
+              "io_ticks_ms": 13495,
+              "read_bytes": 43397337088,
+              "read_operations": 64175,
+              "read_sectors": 84760424,
+              "read_ticks_ms": 142026,
+              "weighted_ticks_ms": 142392
+            },
+            "build": {
+              "cmake_cache": {
+                "path": "/root/k3-out-of-core/llama.cpp/build-cuda/CMakeCache.txt",
+                "sha256": "fd814d1db587712c208409f0deec3526381552615b64f7e4996224343f3193b1",
+                "size": 48116
+              },
+              "options": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_CXX_COMPILER": "/usr/bin/c++",
+                "CMAKE_CXX_FLAGS_RELEASE": "-O3 -DNDEBUG",
+                "GGML_CUDA": "ON",
+                "GGML_CUDA_GRAPHS": "ON",
+                "LLAMA_PERFETTO": "ON"
+              },
+              "probe": {
+                "path": "/root/k3-out-of-core/llama.cpp/build-cuda/bin/phase9-cache-policy-probe",
+                "sha256": "bc35d92c759c61c964b0487e807e7057cb8a7043d4dcb0e399932d03a0a7a79e",
+                "size": 324856
+              }
+            },
+            "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+            "cgroup": {
+              "after": {
+                "memory_current": 7016484864,
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_max": 68719476736,
+                "memory_peak": 24846319616,
+                "memory_stat": {
+                  "active_file": 6976151552,
+                  "anon": 8122368,
+                  "file": 6985310208,
+                  "file_dirty": 0,
+                  "file_mapped": 61440,
+                  "file_writeback": 0,
+                  "inactive_file": 8863744,
+                  "shmem": 262144,
+                  "swapcached": 0,
+                  "workingset_refault_file": 0
+                },
+                "memory_swap_current": 0,
+                "memory_swap_max": 0,
+                "path": "/system.slice/issue69-d2d-correction-a1-direct.service"
+              },
+              "before": {
+                "memory_current": 8056832,
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_max": 68719476736,
+                "memory_peak": 9682944,
+                "memory_stat": {
+                  "active_file": 118784,
+                  "anon": 7491584,
+                  "file": 131072,
+                  "file_dirty": 0,
+                  "file_mapped": 61440,
+                  "file_writeback": 0,
+                  "inactive_file": 0,
+                  "shmem": 0,
+                  "swapcached": 0,
+                  "workingset_refault_file": 0
+                },
+                "memory_swap_current": 0,
+                "memory_swap_max": 0,
+                "path": "/system.slice/issue69-d2d-correction-a1-direct.service"
+              }
+            },
+            "elapsed_seconds": 55.40713346999837,
+            "file": {
+              "path": "/dev/shm/issue69-delta-d/d2d-correction/regression/direct-a1/raw/A1-01-resources.json",
+              "sha256": "b590480fac518d223f9be26b15db9d44d2dd67ca3936113e18ca8d7935df432c",
+              "size": 168633
+            },
+            "process_io_maxima": {
+              "io_rchar": 36332629781,
+              "io_read_bytes": 43303714816,
+              "io_wchar": 258683,
+              "io_write_bytes": 0
+            }
+          },
+          "stage_bytes": 0,
+          "storage_h2d_overlap": {
+            "disk_h2d_overlap_bytes": 0,
+            "disk_h2d_overlap_flights": 0,
+            "disk_h2d_overlap_pairs": 0,
+            "disk_h2d_overlap_read_bytes": 0,
+            "disk_h2d_overlap_us": 0
+          },
+          "storage_read_bytes": 36272472064,
+          "storage_read_requests": 4453,
+          "terminal_state": {
+            "active_background_flights": 0,
+            "async_active_reads": 0,
+            "cold_cpu_execution_refs": 0,
+            "cold_request_refs": 0,
+            "cold_transfer_refs": 0,
+            "hot_pins": 0,
+            "ring_live_events": 0,
+            "scheduler_active_requests": 0
+          },
+          "terminal_state_zero": true,
+          "transport_requested": "DIRECT_IO_POSITIONAL",
+          "worker_count": 8
+        },
+        "exact_generated_identity": true,
+        "exact_numerical_identity": true,
+        "logical_read_byte_reduction_fraction": 0.08413041985712066,
+        "logical_read_request_reduction_fraction": 0.08421289018639122,
+        "process_physical_read_reduction_fraction": 0.07057653868694824
+      },
+      "S0": {
+        "async_cold_fill": {
+          "async_cold_fill": {
+            "async_cold_fill_active": 0,
+            "async_cold_fill_attempts": 5313,
+            "async_cold_fill_bytes": 8327725056,
+            "async_cold_fill_completed": 1021,
+            "async_cold_fill_configured": 1,
+            "async_cold_fill_dropped": 4292,
+            "async_cold_fill_failed": 0,
+            "async_cold_fill_peak_active": 1,
+            "async_cold_fill_queued": 1021,
+            "async_cold_fill_time_us": 5120508
+          },
+          "candidate_mechanism": {
+            "async_cold_fill_active": 0,
+            "async_cold_fill_attempts": 5313,
+            "async_cold_fill_bytes": 8327725056,
+            "async_cold_fill_completed": 1021,
+            "async_cold_fill_configured": true,
+            "async_cold_fill_dropped": 4292,
+            "async_cold_fill_failed": 0,
+            "async_cold_fill_peak_active": 1,
+            "async_cold_fill_queued": 1021,
+            "async_cold_fill_time_us": 5120508
+          },
+          "cold_admissions": 1021,
+          "cold_hits": 604,
+          "cold_misses": 6337,
+          "decode_tps": 1.3320594212016486,
+          "direct_io": {
+            "buffered_fallback_bytes": 0,
+            "buffered_fallback_operations": 0,
+            "direct_aligned_bytes": 43373412352,
+            "direct_read_operations": 15948,
+            "direct_scatter_bytes": 43308089344,
+            "direct_source_count": 3,
+            "direct_staging_error": 0,
+            "direct_unsupported_source_count": 0,
+            "direct_useful_bytes": 43308089344,
+            "storage_first_native_error": 0
+          },
+          "file": {
+            "path": "/dev/shm/issue69-delta-d/d2d-correction/regression/direct-fill-s0/raw/S0-01.json.gz",
+            "sha256": "927c1e9b85440eaa75f40d8c6047da46fb50ba6b63c5355e32923e4e5a8f37ff",
+            "size": 5469
+          },
+          "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+          "h2d_bytes": 48225058816,
+          "h2d_time_us": 228794,
+          "hierarchy_residency": {
+            "cold_keys": 1021,
+            "distinct_keys": 1125,
+            "duplicate_keys": 164,
+            "hot_keys": 268,
+            "hot_without_cold_keys": 104
+          },
+          "hot_hits": 2157,
+          "hot_misses": 5920,
+          "io_access_effective": "NORMAL",
+          "io_access_requested": "NORMAL",
+          "numerical_identity_sha256": "73629b9ce1004b1dcc1939ae55b92208af951b317503a6f110cffa05982eb42f",
+          "resources": {
+            "block_device_delta": {
+              "io_ticks_ms": 14834,
+              "read_bytes": 50359730176,
+              "read_operations": 92515,
+              "read_sectors": 98358848,
+              "read_ticks_ms": 202387,
+              "weighted_ticks_ms": 202617
+            },
+            "build": {
+              "cmake_cache": {
+                "path": "/root/k3-out-of-core/llama.cpp/build-cuda/CMakeCache.txt",
+                "sha256": "fd814d1db587712c208409f0deec3526381552615b64f7e4996224343f3193b1",
+                "size": 48116
+              },
+              "options": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_CXX_COMPILER": "/usr/bin/c++",
+                "CMAKE_CXX_FLAGS_RELEASE": "-O3 -DNDEBUG",
+                "GGML_CUDA": "ON",
+                "GGML_CUDA_GRAPHS": "ON",
+                "LLAMA_PERFETTO": "ON"
+              },
+              "probe": {
+                "path": "/root/k3-out-of-core/llama.cpp/build-cuda/bin/phase9-cache-policy-probe",
+                "sha256": "bc35d92c759c61c964b0487e807e7057cb8a7043d4dcb0e399932d03a0a7a79e",
+                "size": 324856
+              }
+            },
+            "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+            "cgroup": {
+              "after": {
+                "memory_current": 7007764480,
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_max": 68719476736,
+                "memory_peak": 24767676416,
+                "memory_stat": {
+                  "active_file": 6968995840,
+                  "anon": 8114176,
+                  "file": 6977679360,
+                  "file_dirty": 0,
+                  "file_mapped": 122880,
+                  "file_writeback": 0,
+                  "inactive_file": 8388608,
+                  "shmem": 258048,
+                  "swapcached": 0,
+                  "workingset_refault_file": 0
+                },
+                "memory_swap_current": 0,
+                "memory_swap_max": 0,
+                "path": "/system.slice/issue69-d2d-correction-s0-direct-fill.service"
+              },
+              "before": {
+                "memory_current": 7995392,
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_max": 68719476736,
+                "memory_peak": 9564160,
+                "memory_stat": {
+                  "active_file": 0,
+                  "anon": 7499776,
+                  "file": 0,
+                  "file_dirty": 0,
+                  "file_mapped": 0,
+                  "file_writeback": 0,
+                  "inactive_file": 0,
+                  "shmem": 0,
+                  "swapcached": 0,
+                  "workingset_refault_file": 0
+                },
+                "memory_swap_current": 0,
+                "memory_swap_max": 0,
+                "path": "/system.slice/issue69-d2d-correction-s0-direct-fill.service"
+              }
+            },
+            "elapsed_seconds": 53.20393201999832,
+            "file": {
+              "path": "/dev/shm/issue69-delta-d/d2d-correction/regression/direct-fill-s0/raw/S0-01-resources.json",
+              "sha256": "c7f9db544aa878b17b82ae7cca90a4167a1c5a70b1fcac2c73aea824dd96c9aa",
+              "size": 167445
+            },
+            "process_io_maxima": {
+              "io_rchar": 43378851574,
+              "io_read_bytes": 50349522944,
+              "io_wchar": 253308,
+              "io_write_bytes": 0
+            }
+          },
+          "stage_bytes": 4916969472,
+          "storage_h2d_overlap": {
+            "disk_h2d_overlap_bytes": 0,
+            "disk_h2d_overlap_flights": 0,
+            "disk_h2d_overlap_pairs": 0,
+            "disk_h2d_overlap_read_bytes": 0,
+            "disk_h2d_overlap_us": 0
+          },
+          "storage_read_bytes": 43308089344,
+          "storage_read_requests": 5316,
+          "terminal_state": {
+            "active_background_flights": 0,
+            "async_active_reads": 0,
+            "cold_cpu_execution_refs": 0,
+            "cold_request_refs": 0,
+            "cold_transfer_refs": 0,
+            "hot_pins": 0,
+            "ring_live_events": 0,
+            "scheduler_active_requests": 0
+          },
+          "terminal_state_zero": true,
+          "transport_requested": "DIRECT_IO_POSITIONAL",
+          "worker_count": 8
+        },
+        "async_fill_vs_direct_decode_ratio": 1.0283959740067716,
+        "block_read_reduction_fraction": 0.09042528793795857,
+        "both_terminal_state_zero": true,
+        "both_whole_cgroup_bounded_without_swap_or_oom": true,
+        "direct": {
+          "async_cold_fill": {
+            "async_cold_fill_active": 0,
+            "async_cold_fill_attempts": 0,
+            "async_cold_fill_bytes": 0,
+            "async_cold_fill_completed": 0,
+            "async_cold_fill_configured": 0,
+            "async_cold_fill_dropped": 0,
+            "async_cold_fill_failed": 0,
+            "async_cold_fill_peak_active": 0,
+            "async_cold_fill_queued": 0,
+            "async_cold_fill_time_us": 0
+          },
+          "candidate_mechanism": {
+            "async_cold_fill_active": 0,
+            "async_cold_fill_attempts": 0,
+            "async_cold_fill_bytes": 0,
+            "async_cold_fill_completed": 0,
+            "async_cold_fill_configured": false,
+            "async_cold_fill_dropped": 0,
+            "async_cold_fill_failed": 0,
+            "async_cold_fill_peak_active": 0,
+            "async_cold_fill_queued": 0,
+            "async_cold_fill_time_us": 0
+          },
+          "cold_admissions": 0,
+          "cold_hits": 0,
+          "cold_misses": 5920,
+          "decode_tps": 1.2952787203276988,
+          "direct_io": {
+            "buffered_fallback_bytes": 0,
+            "buffered_fallback_operations": 0,
+            "direct_aligned_bytes": 48297803776,
+            "direct_read_operations": 17760,
+            "direct_scatter_bytes": 48225058816,
+            "direct_source_count": 3,
+            "direct_staging_error": 0,
+            "direct_unsupported_source_count": 0,
+            "direct_useful_bytes": 48225058816,
+            "storage_first_native_error": 0
+          },
+          "file": {
+            "path": "/dev/shm/issue69-delta-d/d2d-correction/regression/direct-s0/raw/S0-01.json.gz",
+            "sha256": "e3a827af1273fa4dcd649c0acb4a71c81d9e872f7f4a1a638444da372a797b29",
+            "size": 5332
+          },
+          "generated_identity_sha256": "782383806379a7b5efcb36545a48bc2d82aa988b808d598a59b811302084f23b",
+          "h2d_bytes": 48225058816,
+          "h2d_time_us": 207172,
+          "hierarchy_residency": {
+            "cold_keys": 0,
+            "distinct_keys": 268,
+            "duplicate_keys": 0,
+            "hot_keys": 268,
+            "hot_without_cold_keys": 268
+          },
+          "hot_hits": 2157,
+          "hot_misses": 5920,
+          "io_access_effective": "NORMAL",
+          "io_access_requested": "NORMAL",
+          "numerical_identity_sha256": "73629b9ce1004b1dcc1939ae55b92208af951b317503a6f110cffa05982eb42f",
+          "resources": {
+            "block_device_delta": {
+              "io_ticks_ms": 16020,
+              "read_bytes": 55366238208,
+              "read_operations": 96517,
+              "read_sectors": 108137184,
+              "read_ticks_ms": 227839,
+              "weighted_ticks_ms": 228292
+            },
+            "build": {
+              "cmake_cache": {
+                "path": "/root/k3-out-of-core/llama.cpp/build-cuda/CMakeCache.txt",
+                "sha256": "fd814d1db587712c208409f0deec3526381552615b64f7e4996224343f3193b1",
+                "size": 48116
+              },
+              "options": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_CXX_COMPILER": "/usr/bin/c++",
+                "CMAKE_CXX_FLAGS_RELEASE": "-O3 -DNDEBUG",
+                "GGML_CUDA": "ON",
+                "GGML_CUDA_GRAPHS": "ON",
+                "LLAMA_PERFETTO": "ON"
+              },
+              "probe": {
+                "path": "/root/k3-out-of-core/llama.cpp/build-cuda/bin/phase9-cache-policy-probe",
+                "sha256": "bc35d92c759c61c964b0487e807e7057cb8a7043d4dcb0e399932d03a0a7a79e",
+                "size": 324856
+              }
+            },
+            "cache_state": "OS_COLD_REQUESTED_AND_DROPPED",
+            "cgroup": {
+              "after": {
+                "memory_current": 7013945344,
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_max": 68719476736,
+                "memory_peak": 24690405376,
+                "memory_stat": {
+                  "active_file": 6975905792,
+                  "anon": 8130560,
+                  "file": 6984740864,
+                  "file_dirty": 0,
+                  "file_mapped": 0,
+                  "file_writeback": 0,
+                  "inactive_file": 8577024,
+                  "shmem": 258048,
+                  "swapcached": 0,
+                  "workingset_refault_file": 0
+                },
+                "memory_swap_current": 0,
+                "memory_swap_max": 0,
+                "path": "/system.slice/issue69-d2d-correction-s0-direct.service"
+              },
+              "before": {
+                "memory_current": 7913472,
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_max": 68719476736,
+                "memory_peak": 8175616,
+                "memory_stat": {
+                  "active_file": 0,
+                  "anon": 7487488,
+                  "file": 0,
+                  "file_dirty": 0,
+                  "file_mapped": 0,
+                  "file_writeback": 0,
+                  "inactive_file": 0,
+                  "shmem": 0,
+                  "swapcached": 0,
+                  "workingset_refault_file": 0
+                },
+                "memory_swap_current": 0,
+                "memory_swap_max": 0,
+                "path": "/system.slice/issue69-d2d-correction-s0-direct.service"
+              }
+            },
+            "elapsed_seconds": 59.76283581700409,
+            "file": {
+              "path": "/dev/shm/issue69-delta-d/d2d-correction/regression/direct-s0/raw/S0-01-resources.json",
+              "sha256": "b34f769b5a398dd89312412867d2334126b4a2424a52e355ebcc19daee792636",
+              "size": 169782
+            },
+            "process_io_maxima": {
+              "io_rchar": 48378255058,
+              "io_read_bytes": 55274123264,
+              "io_wchar": 253140,
+              "io_write_bytes": 0
+            }
+          },
+          "stage_bytes": 0,
+          "storage_h2d_overlap": {
+            "disk_h2d_overlap_bytes": 0,
+            "disk_h2d_overlap_flights": 0,
+            "disk_h2d_overlap_pairs": 0,
+            "disk_h2d_overlap_read_bytes": 0,
+            "disk_h2d_overlap_us": 0
+          },
+          "storage_read_bytes": 48225058816,
+          "storage_read_requests": 5920,
+          "terminal_state": {
+            "active_background_flights": 0,
+            "async_active_reads": 0,
+            "cold_cpu_execution_refs": 0,
+            "cold_request_refs": 0,
+            "cold_transfer_refs": 0,
+            "hot_pins": 0,
+            "ring_live_events": 0,
+            "scheduler_active_requests": 0
+          },
+          "terminal_state_zero": true,
+          "transport_requested": "DIRECT_IO_POSITIONAL",
+          "worker_count": 8
+        },
+        "exact_generated_identity": true,
+        "exact_numerical_identity": true,
+        "logical_read_byte_reduction_fraction": 0.10195880715792216,
+        "logical_read_request_reduction_fraction": 0.10202702702702704,
+        "process_physical_read_reduction_fraction": 0.08909413716937942
+      }
+    }
+  },
+  "errors": [],
+  "focused_native_suite": {
+    "gate": true,
+    "log": {
+      "path": "/dev/shm/issue69-delta-d/d2d-correction/tests/focused-ctest.log",
+      "sha256": "b1d397c22a8de4c9a9f5d88b810132c6a598ed16a7160e70f7ebec64cb031c61",
+      "size": 1607
+    },
+    "tests_failed": 0,
+    "tests_passed": 12,
+    "tests_total": 12
+  },
+  "raw_evidence": {
+    "asset": "issue69-delta-d2d-final-v2.tar.zst",
+    "release": "issue69-delta-d2d-experimental-modes-v2",
+    "sha256": "1f47cffe024653da15fde2eefccf0556e6b902f115e0fd24b6ff31517aac4d28",
+    "size": 175170
+  },
+  "revisions": {
+    "nested_head": "c23cf1a5270d6f08c30aa3324369fba6e8b94c53",
+    "project_head": "1c9812be76486339781880010a263b03eb6cda44"
+  },
+  "schema_version": "issue69-delta-d2d-final-v1",
+  "selection": {
+    "async_cold_fill": false,
+    "default_changed_from_d2c": false,
+    "experimental_modes_retained_default_off": [
+      "POSIX_FADV_RANDOM",
+      "POSITIONAL_O_DIRECT",
+      "ASYNC_COLD_FILL"
+    ],
+    "io_access": "NORMAL",
+    "runtime": "BUFFERED_POSITIONAL_DIRECT_PROMOTION",
+    "worker_count_for_decision_fixture": 4
+  },
+  "status": "pass"
+}
