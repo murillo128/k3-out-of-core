@@ -6,6 +6,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from common import DEFAULT_PEER_STAGING_BYTES, PROMPT, probe_command
+from run_matrix import block_delta
 
 
 def option(command: list[str], name: str) -> str:
@@ -30,6 +31,14 @@ def main() -> None:
     assert option(remote, "--peer-staging-bytes") == str(DEFAULT_PEER_STAGING_BYTES)
     assert option(remote, "--max-generate") == "256"
     assert option(remote, "--async-cold-fill") == "1"
+
+    delta = block_delta(
+        {"read_operations": 1, "read_sectors": 2, "read_ticks_ms": 3, "in_flight": 0,
+         "io_ticks_ms": 4, "weighted_ticks_ms": 5},
+        {"read_operations": 2, "read_sectors": 5, "read_ticks_ms": 7, "in_flight": 0,
+         "io_ticks_ms": 9, "weighted_ticks_ms": 11},
+    )
+    assert delta["read_bytes"] == 1536
 
     print("ISSUE73_COMMON status=pass local_staging=0 remote_staging=bounded max_generate=256")
 
