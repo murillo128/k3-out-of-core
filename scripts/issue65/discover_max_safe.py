@@ -70,9 +70,23 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--upper-bound", type=int)
     parser.add_argument("--peer-staging-bytes", type=int, default=67_108_864)
     parser.add_argument("--n-gpu-layers", type=int)
+    prompt = parser.add_mutually_exclusive_group()
+    prompt.add_argument("--prompt", default=PROMPT)
+    prompt.add_argument("--prompt-file", type=Path)
+    parser.add_argument("--cold-bytes", type=int, default=17_179_869_184)
+    parser.add_argument("--ring-bytes", type=int, default=67_173_120)
+    parser.add_argument("--queue-depth", type=int, default=256)
+    parser.add_argument("--io-workers", type=int)
+    parser.add_argument("--max-generate", type=int, default=24)
     parser.add_argument("--sample-period", type=float, default=0.25)
     parser.add_argument("--max-probes", type=int, default=32)
-    return parser.parse_args()
+    args = parser.parse_args()
+    if args.prompt_file is not None:
+        args.prompt = args.prompt_file.read_text().removesuffix("\n")
+        args.prompt_source = str(args.prompt_file)
+    else:
+        args.prompt_source = "COMMAND_LINE_OR_DEFAULT"
+    return args
 
 
 def sha256_file(path: Path) -> str:
@@ -192,19 +206,23 @@ def build_command(args: argparse.Namespace, candidate: int, output: Path) -> lis
     command = [
         str(args.probe), "--model", str(args.model), "--output", str(output),
         "--mode", "cold", "--expert-runtime-mode", "PRODUCTION_PERFORMANCE",
-        "--prompt", PROMPT, "--hot-policy", "LRU", "--cold-policy", "LRU",
+        "--prompt", args.prompt, "--hot-policy", "LRU", "--cold-policy", "LRU",
         "--scope", "GLOBAL", "--admission", "ALWAYS", "--miss-policy", "PROMOTE_AND_GPU",
-        "--hot-slots", "268", "--cold-bytes", "17179869184", "--ring-bytes", "67173120",
+        "--hot-slots", "268", "--cold-bytes", str(args.cold_bytes),
+        "--ring-bytes", str(args.ring_bytes),
         "--role-config", "EXPLICIT", "--resident-device", str(args.resident_device),
         "--expert-role-devices", roles, "--peer-transport", "HOST_STAGED",
-        "--peer-staging-bytes", str(args.peer_staging_bytes), "--queue-depth", "256",
+        "--peer-staging-bytes", str(args.peer_staging_bytes),
+        "--queue-depth", str(args.queue_depth),
         "--trace-capacity", "0", "--n-ctx", "4096", "--n-batch", "128",
-        "--n-ubatch", "128", "--max-generate", "24", "--background", "0",
+        "--n-ubatch", "128", "--max-generate", str(args.max_generate), "--background", "0",
         "--observe-routes", "0", "--transport", "POSITIONAL",
         "--config-source", "EXPLICIT", "--integrity", "NONE",
     ]
     if args.n_gpu_layers is not None:
         command.extend(("--n-gpu-layers", str(args.n_gpu_layers)))
+    if args.io_workers is not None:
+        command.extend(("--io-workers", str(args.io_workers)))
     return command
 
 
@@ -228,13 +246,15 @@ def classify_candidate(
         samples: list[dict[str, object]],
         target_uuid: str,
         candidate: int,
-        reserve_bytes: int) -> ProbeDecision:
+        reserve_bytes: int,
+        generated_tokens: int = 24) -> ProbeDecision:
     lower_log = log_text.lower()
     if returncode != 0:
         if any(pattern in lower_log for pattern in MEMORY_REJECTION_PATTERNS):
             return ProbeDecision("reject", "allocation_or_memory_budget")
         return ProbeDecision("abort", f"non_memory_process_failure_{returncode}")
-    if evidence is None or evidence.get("status") != "pass" or len(evidence.get("generated_ids", [])) != 24:
+    if (evidence is None or evidence.get("status") != "pass" or
+            len(evidence.get("generated_ids", [])) != generated_tokens):
         return ProbeDecision("abort", "incomplete_or_failed_workload")
     if exact_target_device(evidence, target_uuid, candidate) is None:
         return ProbeDecision("abort", "requested_capacity_not_honored_exactly")
@@ -346,6 +366,7 @@ def validate_capacity_manifest(manifest: dict[str, object]) -> None:
     required_configuration = {
         "provider_mode", "hot_policy", "cold_policy", "policy_scope", "admission",
         "miss_policy", "cold_cache_bytes", "transfer_ring_bytes", "queue_depth",
+        "io_worker_count", "prompt_source", "prompt_sha256",
         "peer_transport", "peer_staging_bytes", "fixture_transport", "integrity",
         "background_promotion", "trace_capacity", "observe_routes", "n_ctx",
         "n_batch", "n_ubatch", "generated_tokens", "sample_period_seconds",
@@ -388,9 +409,10 @@ def build_capacity_manifest(
             "policy_scope": "GLOBAL",
             "admission": "ALWAYS",
             "miss_policy": "PROMOTE_AND_GPU",
-            "cold_cache_bytes": 17_179_869_184,
-            "transfer_ring_bytes": 67_173_120,
-            "queue_depth": 256,
+            "cold_cache_bytes": args.cold_bytes,
+            "transfer_ring_bytes": args.ring_bytes,
+            "queue_depth": args.queue_depth,
+            "io_worker_count": args.io_workers,
             "peer_transport": "HOST_STAGED",
             "peer_staging_bytes": args.peer_staging_bytes,
             "fixture_transport": "POSITIONAL",
@@ -404,7 +426,9 @@ def build_capacity_manifest(
             "n_batch": 128,
             "n_ubatch": 128,
             "n_gpu_layers": args.n_gpu_layers,
-            "generated_tokens": 24,
+            "generated_tokens": args.max_generate,
+            "prompt_source": args.prompt_source,
+            "prompt_sha256": hashlib.sha256(args.prompt.encode()).hexdigest(),
             "selection": "ARGMAX",
             "sample_period_seconds": args.sample_period,
         },
@@ -442,7 +466,9 @@ def build_capacity_manifest(
 def main() -> None:
     args = parse_args()
     if (args.role_template.count("{candidate}") != 1 or args.reserve_bytes <= 0 or
-            args.slot_stride <= 0 or args.sample_period <= 0 or
+            args.slot_stride <= 0 or args.sample_period <= 0 or not args.prompt or
+            args.cold_bytes <= 0 or args.ring_bytes <= 0 or args.queue_depth <= 0 or
+            args.max_generate <= 0 or (args.io_workers is not None and args.io_workers <= 0) or
             (args.n_gpu_layers is not None and args.n_gpu_layers < 0)):
         raise SystemExit("invalid discovery configuration")
     if not args.probe.is_file() or not args.model.is_file():
@@ -488,7 +514,8 @@ def main() -> None:
         log_text = log.read_text(errors="replace")
         evidence = json.loads(output.read_text()) if output.is_file() else None
         decision = classify_candidate(
-            returncode, evidence, log_text, samples, args.target_uuid, candidate, args.reserve_bytes)
+            returncode, evidence, log_text, samples, args.target_uuid, candidate,
+            args.reserve_bytes, args.max_generate)
         probe_records[candidate] = {
             "candidate_slots": candidate,
             "outcome": decision.outcome,

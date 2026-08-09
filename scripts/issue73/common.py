@@ -16,15 +16,8 @@ EXPERT_BUNDLE_BYTES = 17_547_264
 DEFAULT_COLD_BYTES = 16 * 1024**3
 DEFAULT_RING_BYTES = 128 * 1024**2
 DEFAULT_PEER_STAGING_BYTES = 128 * 1024**2
-
-PROMPT = (
-    '<|open|>message role="system" type="thinking-effort"<|sep|>`thinking_effort` guides on how much '
-    'to think in your thinking channel (not including the response channel), supported values include '
-    '`low`, `medium`, `high`, and `max`.\nNow the system is invoked with `thinking_effort=max`.'
-    '<|close|>message<|sep|><|end_of_msg|><|open|>message role="user"<|sep|>Explain why a careful '
-    'measurement should distinguish observed facts from assumptions.<|close|>message<|sep|><|end_of_msg|>'
-    '<|open|>message role="assistant"<|sep|><|open|>think<|sep|>'
-)
+PROMPT_PATH = Path(__file__).with_name("prompt.txt")
+PROMPT = PROMPT_PATH.read_text().removesuffix("\n")
 
 
 def probe_command(

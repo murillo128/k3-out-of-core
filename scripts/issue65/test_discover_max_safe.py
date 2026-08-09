@@ -31,6 +31,10 @@ def fake_evidence(slots: int) -> dict:
     }
 
 
+def option(command: list[str], name: str) -> str:
+    return command[command.index(name) + 1]
+
+
 def main() -> None:
     with tempfile.TemporaryDirectory(prefix="issue65-max-safe-") as temporary:
         raw = Path(temporary) / "raw"
@@ -83,11 +87,26 @@ def main() -> None:
         0, clamped, "", samples, "GPU-target", 536, 1)
     assert clamp_decision == MODULE.ProbeDecision("abort", "requested_capacity_not_honored_exactly")
 
+    command = MODULE.build_command(SimpleNamespace(
+        probe=Path("probe"), model=Path("model"), role_template="0:{candidate}",
+        resident_device=0, prompt="K3 prompt", cold_bytes=32, ring_bytes=64,
+        peer_staging_bytes=128, queue_depth=8, max_generate=3, n_gpu_layers=4,
+        io_workers=2,
+    ), 17, Path("output"))
+    assert option(command, "--prompt") == "K3 prompt"
+    assert option(command, "--cold-bytes") == "32"
+    assert option(command, "--ring-bytes") == "64"
+    assert option(command, "--queue-depth") == "8"
+    assert option(command, "--max-generate") == "3"
+    assert option(command, "--io-workers") == "2"
+
     manifest_args = SimpleNamespace(
         project_revision="parent", nested_revision="nested", resident_device=0,
         role_template="1:{candidate}", target_device=1, target_uuid="GPU-target",
         target_bdf="00000000:00:0a.0", peer_staging_bytes=67_108_864,
-        n_gpu_layers=8,
+        n_gpu_layers=8, prompt="K3 prompt", prompt_source="prompt.txt",
+        cold_bytes=17_179_869_184, ring_bytes=67_173_120, queue_depth=256,
+        io_workers=4, max_generate=24,
         slot_stride=11_835_264, reserve_bytes=1_073_741_824, lower_bound=268,
         max_probes=32, sample_period=0.25, raw_dir=Path("/tmp/issue65-max-safe-test"),
     )
@@ -127,6 +146,9 @@ def main() -> None:
     assert manifest["configuration"]["queue_depth"] == 256
     assert manifest["configuration"]["peer_staging_bytes"] == 67_108_864
     assert manifest["configuration"]["n_gpu_layers"] == 8
+    assert manifest["configuration"]["io_worker_count"] == 4
+    assert manifest["configuration"]["prompt_source"] == "prompt.txt"
+    assert len(manifest["configuration"]["prompt_sha256"]) == 64
     assert manifest["artifact"]["files"][0]["sha256"] == "b" * 64
     incomplete = dict(manifest)
     incomplete["configuration"] = dict(manifest["configuration"])
