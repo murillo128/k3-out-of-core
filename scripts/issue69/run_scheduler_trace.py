@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Capture bounded Perfetto/CUPTI decode windows for issue 69 cells."""
+"""Capture bounded Perfetto scheduler evidence for issue 69 selected cells."""
 
 from __future__ import annotations
 
@@ -16,20 +16,18 @@ from common import (DEFAULT_COLD_BYTES, ROOT, cmake_build_identity, file_identit
 from run_matrix import block_delta, block_status, cgroup_status, drop_page_cache
 
 
-def run(command: list[str]) -> None:
-    completed = subprocess.run(command, cwd=ROOT, check=False)
-    if completed.returncode != 0:
-        raise RuntimeError(f"command failed ({completed.returncode}): {' '.join(command)}")
-
-
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--probe", type=Path, required=True)
     parser.add_argument("--model", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
-    parser.add_argument("--cells", default="S0,S1,A1")
+    parser.add_argument("--cells", default="S0,A1")
     parser.add_argument("--perfetto", type=Path, default=Path("/usr/local/bin/perfetto"))
-    parser.add_argument("--trace-processor", type=Path, default=Path("/usr/local/bin/trace_processor_shell"))
+    parser.add_argument("--trace-processor", type=Path,
+                        default=Path("/usr/local/bin/trace_processor_shell"))
+    parser.add_argument("--config", type=Path, default=(
+        ROOT / "scripts/issue69/configs/decode-window-scheduler-128m.pbtxt"
+    ))
     parser.add_argument("--cold-bytes", type=int, default=DEFAULT_COLD_BYTES)
     parser.add_argument("--io-workers", type=int)
     parser.add_argument("--async-cold-fill", action="store_true")
@@ -44,7 +42,7 @@ def main() -> None:
     args = parser.parse_args()
     if args.output_dir.exists():
         raise FileExistsError(args.output_dir)
-    for path in (args.probe, args.model, args.perfetto, args.trace_processor):
+    for path in (args.probe, args.model, args.perfetto, args.trace_processor, args.config):
         if not path.is_file():
             raise FileNotFoundError(path)
     for path in args.block_stat:
@@ -55,6 +53,7 @@ def main() -> None:
     request_ordinal = selection.randrange(8, 17)
     routed_layer = selection.randrange(43)
     cells: dict[str, object] = {}
+    capture_script = ROOT / "scripts/phase12_5/capture_perfetto.py"
     for cell in [item.strip() for item in args.cells.split(",") if item.strip()]:
         directory = args.output_dir / cell
         directory.mkdir()
@@ -76,26 +75,23 @@ def main() -> None:
         if args.drop_page_cache:
             drop_page_cache()
         block_before = {str(path): block_status(path) for path in args.block_stat}
-        trace = directory / "trace.pftrace"
-        capture = directory / "capture.json"
-        run([
-            sys.executable, str(ROOT / "scripts/phase13/capture_decode_window.py"),
-            "--perfetto", str(args.perfetto), "--trace-processor", str(args.trace_processor),
-            "--config", str(ROOT / "scripts/phase13/configs/decode-window-128m.pbtxt"),
-            "--command-json", str(command_spec), "--trace", str(trace),
-            "--workload-output", str(workload), "--stdout", str(directory / "stdout.log"),
-            "--stderr", str(directory / "stderr.log"), "--perfetto-log", str(directory / "perfetto.log"),
-            "--metadata", str(capture), "--case", "A",
-        ])
-        verification = directory / "verification.json"
-        run([
-            sys.executable, str(ROOT / "scripts/phase13/verify_decode_window.py"),
-            "--trace-processor", str(args.trace_processor), "--trace", str(trace),
-            "--workload", str(workload), "--capture", str(capture),
-            "--case", "A", "--output", str(verification),
-        ])
+        trace = directory / "scheduler.pftrace"
+        metadata = directory / "capture.json"
+        completed = subprocess.run([
+            sys.executable, str(capture_script),
+            "--perfetto", str(args.perfetto),
+            "--trace-processor", str(args.trace_processor),
+            "--config", str(args.config),
+            "--trace", str(trace),
+            "--command-json", str(command_spec),
+            "--metadata", str(metadata),
+            "--stdout", str(directory / "stdout.log"),
+            "--stderr", str(directory / "stderr.log"),
+            "--perfetto-log", str(directory / "perfetto.log"),
+        ], cwd=ROOT, check=False)
+        if completed.returncode != 0:
+            raise RuntimeError(f"scheduler trace {cell} failed with {completed.returncode}")
         block_after = {str(path): block_status(path) for path in args.block_stat}
-        cgroup = cgroup_status(os.getpid())
         evidence = validate_workload(workload)
         cells[cell] = {
             "worker_count": evidence["async_io"]["diagnostics"]["worker_count"],
@@ -103,22 +99,24 @@ def main() -> None:
                 "OS_COLD_REQUESTED_AND_DROPPED" if args.drop_page_cache else "UNCHANGED"
             ),
             "block_devices": {
-                "before": block_before,
-                "after": block_after,
+                "before": block_before, "after": block_after,
                 "delta": {
                     path: block_delta(block_before[path], block_after[path])
                     for path in block_before
                 },
             },
-            "cgroup": cgroup,
+            "cgroup": cgroup_status(os.getpid()),
             "trace": file_identity(trace), "workload": file_identity(workload),
-            "capture": file_identity(capture), "verification": file_identity(verification),
+            "capture": file_identity(metadata),
         }
-    write_json(args.output_dir / "trace-matrix.json", {
-        "schema_version": "issue69-trace-matrix-v1", "status": "valid",
+    write_json(args.output_dir / "scheduler-trace-matrix.json", {
+        "schema_version": "issue69-scheduler-trace-matrix-v1", "status": "valid",
         "build": cmake_build_identity(args.probe),
-        "selection": {"seed": args.seed, "request_ordinal": request_ordinal,
-            "routed_layer": routed_layer, "window_ms": args.window_ms},
+        "selection": {
+            "seed": args.seed, "request_ordinal": request_ordinal,
+            "routed_layer": routed_layer, "window_ms": args.window_ms,
+        },
+        "config": file_identity(args.config),
         "drop_page_cache": args.drop_page_cache,
         "async_cold_fill": args.async_cold_fill,
         "transport": args.transport, "io_access": args.io_access,

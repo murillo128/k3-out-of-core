@@ -19,11 +19,19 @@ import sys
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 from scripts.phase13.analyze_iteration_trace import (  # noqa: E402
-    intersection_ns, query, summarize_case, union_ns,
+    intersection_ns, percentile, query, summarize_case, union_ns,
 )
 
 
 BLOCK_STAT = "/sys/class/block/vda/stat"
+
+
+def selected_block_delta(deltas: dict[str, object]) -> dict[str, object]:
+    if BLOCK_STAT in deltas:
+        return deltas[BLOCK_STAT]
+    if len(deltas) == 1:
+        return next(iter(deltas.values()))
+    raise KeyError(f"cannot select vda block-stat delta from {sorted(deltas)}")
 
 
 def load_workload(path: Path) -> dict[str, object]:
@@ -66,6 +74,8 @@ def workload_summary(path: Path) -> dict[str, object]:
         "generated_identity_sha256": output_identity(workload, include_logits=False),
         "numerical_identity_sha256": output_identity(workload),
         "worker_count": int(workload["async_io"]["diagnostics"]["worker_count"]),
+        "transport_requested": workload.get("transport_requested"),
+        "io_access": workload.get("io_access"),
         "storage_read_requests": int(workload["storage"]["read_requests"]),
         "storage_read_bytes": int(workload["storage"]["read_bytes"]),
         "hot_hits": int(workload["mechanism"]["hot_hits"]),
@@ -85,6 +95,31 @@ def workload_summary(path: Path) -> dict[str, object]:
                 "disk_h2d_overlap_read_bytes",
             )
         },
+        "direct_io": {
+            key: int(workload["async_io"]["diagnostics"].get(key, 0))
+            for key in (
+                "direct_read_operations", "direct_aligned_bytes",
+                "direct_useful_bytes", "direct_scatter_bytes",
+                "buffered_fallback_operations", "buffered_fallback_bytes",
+                "direct_staging_error",
+            )
+        } | {
+            "storage_first_native_error": int(workload["storage"].get("first_native_error", 0)),
+            "direct_source_count": int(workload["storage"].get("direct_source_count", 0)),
+            "direct_unsupported_source_count": int(
+                workload["storage"].get("direct_unsupported_source_count", 0)
+            ),
+        },
+        "async_cold_fill": {
+            key: int(workload["mechanism"].get(key, 0))
+            for key in (
+                "async_cold_fill_configured", "async_cold_fill_attempts",
+                "async_cold_fill_queued", "async_cold_fill_dropped",
+                "async_cold_fill_completed", "async_cold_fill_failed",
+                "async_cold_fill_bytes", "async_cold_fill_time_us",
+                "async_cold_fill_active", "async_cold_fill_peak_active",
+            )
+        },
         "terminal_state": terminal,
         "terminal_state_zero": not any(terminal.values()),
     }
@@ -97,7 +132,8 @@ def resource_summary(path: Path) -> dict[str, object]:
         "elapsed_seconds": float(value["elapsed_seconds"]),
         "cache_state": value["cache_state"],
         "process_io_maxima": value["process_io_maxima"],
-        "block_device_delta": value["block_devices"]["delta"][BLOCK_STAT],
+        "block_device_delta": selected_block_delta(value["block_devices"]["delta"]),
+        "cgroup": value.get("cgroup"),
     }
 
 
@@ -124,6 +160,7 @@ def aggregate_cells(runs: dict[str, list[dict[str, object]]]) -> dict[str, objec
     for cell, cell_runs in runs.items():
         workloads = [run["workload"] for run in cell_runs]
         resources = [run["resources"] for run in cell_runs]
+        cgroups = [run["cgroup"] for run in resources if run.get("cgroup")]
         result[cell] = {
             "runs": cell_runs,
             "geometric_mean_decode_tps": geometric_mean(
@@ -142,6 +179,34 @@ def aggregate_cells(runs: dict[str, list[dict[str, object]]]) -> dict[str, objec
                 run["numerical_identity_sha256"] for run in workloads
             }) == 1,
             "all_terminal_state_zero": all(run["terminal_state_zero"] for run in workloads),
+            "whole_cgroup": {
+                "memory_max_bytes": sorted({
+                    int(run["after"]["memory_max"]) for run in cgroups
+                }),
+                "memory_swap_max_bytes": sorted({
+                    int(run["after"]["memory_swap_max"]) for run in cgroups
+                }),
+                "peak_memory_bytes": [
+                    int(run["after"]["memory_peak"]) for run in cgroups
+                ],
+                "terminal_file_bytes": [
+                    int(run["after"]["memory_stat"]["file"]) for run in cgroups
+                ],
+                "terminal_anon_bytes": [
+                    int(run["after"]["memory_stat"]["anon"]) for run in cgroups
+                ],
+                "terminal_swap_bytes": [
+                    int(run["after"]["memory_swap_current"]) for run in cgroups
+                ],
+                "memory_events": [run["after"]["memory_events"] for run in cgroups],
+                "bounded_without_swap_or_oom": bool(cgroups) and all(
+                    int(run["after"]["memory_swap_current"]) == 0 and
+                    int(run["after"]["memory_events"]["oom"]) == 0 and
+                    int(run["after"]["memory_events"]["oom_kill"]) == 0 and
+                    int(run["after"]["memory_events"]["oom_group_kill"]) == 0
+                    for run in cgroups
+                ),
+            },
         }
     return result
 
@@ -235,12 +300,15 @@ def trace_cell(trace_processor: Path, directory: Path, matrix_cell: dict[str, ob
         "capture": file_identity(directory / "capture.json"),
         "verification": file_identity(directory / "verification.json"),
         "workload": workload_summary(directory / "workload.json"),
-        "block_device_delta": matrix_cell["block_devices"]["delta"][BLOCK_STAT],
+        "block_device_delta": selected_block_delta(matrix_cell["block_devices"]["delta"]),
         "window_ns": duration,
         "complete_routed_layer_cycles": detailed["complete_routed_layer_cycles"],
         "provider_wall_ms": provider,
         "provider_p50_ms": provider["p50_ms"],
         "provider_p95_ms": provider["p95_ms"],
+        "provider_p99_ms": percentile(
+            [int(cycle["provider_ns"]) for cycle in detailed["cycles"]], 0.99
+        ) / 1_000_000.0,
         "critical_path": detailed["critical_path"],
         "provider_service_unions_not_additive": detailed["provider_service_unions_not_additive"],
         "storage_union_ns": union_ns(storage),

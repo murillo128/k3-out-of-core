@@ -15,6 +15,48 @@ import time
 from common import DEFAULT_COLD_BYTES, cmake_build_identity, probe_command, validate_workload, write_json
 
 
+CGROUP_ROOT = Path("/sys/fs/cgroup")
+
+
+def read_int_or_text(path: Path) -> int | str:
+    value = path.read_text().strip()
+    return int(value) if value.isdigit() else value
+
+
+def cgroup_status(pid: int) -> dict[str, object]:
+    try:
+        entry = next(
+            line for line in Path(f"/proc/{pid}/cgroup").read_text().splitlines()
+            if line.startswith("0::")
+        )
+        relative = entry.removeprefix("0::").lstrip("/")
+        directory = CGROUP_ROOT / relative
+        memory_stat = {
+            key: int(value)
+            for key, value in (line.split() for line in (directory / "memory.stat").read_text().splitlines())
+            if key in {
+                "anon", "file", "shmem", "file_mapped", "file_dirty", "file_writeback",
+                "swapcached", "inactive_file", "active_file", "workingset_refault_file",
+            }
+        }
+        memory_events = {
+            key: int(value)
+            for key, value in (line.split() for line in (directory / "memory.events").read_text().splitlines())
+        }
+        return {
+            "path": "/" + relative,
+            "memory_current": read_int_or_text(directory / "memory.current"),
+            "memory_peak": read_int_or_text(directory / "memory.peak"),
+            "memory_max": read_int_or_text(directory / "memory.max"),
+            "memory_swap_current": read_int_or_text(directory / "memory.swap.current"),
+            "memory_swap_max": read_int_or_text(directory / "memory.swap.max"),
+            "memory_stat": memory_stat,
+            "memory_events": memory_events,
+        }
+    except (FileNotFoundError, StopIteration, ValueError):
+        return {}
+
+
 def meminfo() -> dict[str, int]:
     wanted = {"MemAvailable", "MemFree", "Cached", "Mlocked", "SwapFree", "SwapTotal"}
     result: dict[str, int] = {}
@@ -114,7 +156,8 @@ def run_one(args: argparse.Namespace, cell: str, pair: int) -> None:
     log = raw / f"{stem}.log"
     command = probe_command(
         args.probe, args.model, workload, cell, args.cold_bytes, args.runtime_mode,
-        args.prewarm_cold_all, args.io_workers,
+        args.prewarm_cold_all, args.io_workers, args.async_cold_fill,
+        args.transport, args.io_access,
     )
     environment = os.environ.copy()
     environment.update({"GGML_CUDA_GRAPH_OPT": "0", "GGML_CUDA_DISABLE_GRAPHS": "1"})
@@ -125,6 +168,7 @@ def run_one(args: argparse.Namespace, cell: str, pair: int) -> None:
     block_before = {str(path): block_status(path) for path in block_paths}
     started_wall = time.time()
     started = time.monotonic()
+    cgroup_before = cgroup_status(os.getpid())
     samples: list[dict[str, object]] = []
     print(f"start {stem}", flush=True)
     with log.open("wb") as stream:
@@ -133,10 +177,12 @@ def run_one(args: argparse.Namespace, cell: str, pair: int) -> None:
             samples.append({
                 "elapsed_seconds": time.monotonic() - started,
                 "process": process_status(process.pid), "host": meminfo(), "gpus": gpu_sample(),
+                "cgroup": cgroup_status(process.pid),
             })
             time.sleep(args.sample_period)
         returncode = process.wait()
     elapsed = time.monotonic() - started
+    cgroup_after = cgroup_status(os.getpid())
     block_after = {str(path): block_status(path) for path in block_paths}
     block_deltas = {
         path: block_delta(block_before[path], block_after[path])
@@ -154,6 +200,9 @@ def run_one(args: argparse.Namespace, cell: str, pair: int) -> None:
         "build": cmake_build_identity(args.probe),
         "cold_bytes": args.cold_bytes, "prewarm_cold_all": args.prewarm_cold_all,
         "io_workers": args.io_workers,
+        "async_cold_fill": args.async_cold_fill,
+        "transport": args.transport, "io_access": args.io_access,
+        "cgroup": {"before": cgroup_before, "after": cgroup_after},
         "cache_state": "OS_COLD_REQUESTED_AND_DROPPED" if drop_requested else "UNCHANGED",
         "block_devices": {
             "before": block_before, "after": block_after, "delta": block_deltas,
@@ -182,6 +231,11 @@ def main() -> None:
         default="PRODUCTION_PERFORMANCE")
     parser.add_argument("--prewarm-cold-all", action="store_true")
     parser.add_argument("--io-workers", type=int)
+    parser.add_argument("--async-cold-fill", action="store_true")
+    parser.add_argument("--transport", choices=(
+        "POSITIONAL", "BUFFERED", "DIRECT_IO", "DIRECT_IO_POSITIONAL"),
+        default="POSITIONAL")
+    parser.add_argument("--io-access", choices=("NORMAL", "RANDOM"), default="NORMAL")
     parser.add_argument("--sample-period", type=float, default=0.5)
     parser.add_argument("--drop-page-cache", action="store_true")
     parser.add_argument("--block-stat", type=Path, action="append", default=[])
@@ -203,6 +257,8 @@ def main() -> None:
         "pairs": args.pairs, "start_pair": args.start_pair,
         "cold_bytes": args.cold_bytes, "runtime_mode": args.runtime_mode,
         "prewarm_cold_all": args.prewarm_cold_all, "io_workers": args.io_workers,
+        "async_cold_fill": args.async_cold_fill,
+        "transport": args.transport, "io_access": args.io_access,
         "drop_page_cache": args.drop_page_cache,
         "block_stat": [str(path) for path in args.block_stat],
         "build": cmake_build_identity(args.probe),

@@ -10,8 +10,8 @@ import json
 from pathlib import Path
 import re
 
-from analyze_delta_d import (BLOCK_STAT, aggregate_cells, file_identity, matrix_runs,
-                             traces, workload_summary)
+from analyze_delta_d import (aggregate_cells, file_identity, matrix_runs,
+                             selected_block_delta, traces, workload_summary)
 from common import write_json
 
 
@@ -33,8 +33,9 @@ def one_run(directory: Path, cell: str) -> dict[str, object]:
         "elapsed_seconds": resource["elapsed_seconds"],
         "cache_state": resource["cache_state"],
         "process_io_maxima": resource["process_io_maxima"],
-        "block_device_delta": resource["block_devices"]["delta"][BLOCK_STAT],
+        "block_device_delta": selected_block_delta(resource["block_devices"]["delta"]),
         "build": resource["build"],
+        "cgroup": resource.get("cgroup"),
     }
     summary["candidate_mechanism"] = {
         key: workload["mechanism"].get(key, 0)
@@ -174,7 +175,7 @@ def profiles(raw_dir: Path, rendered_dir: Path) -> dict[str, object]:
             "summary": file_identity(summary_path),
             "workload": workload_summary(raw_dir / cell / "workload.json"),
             "cache_state": capture["cache_state"],
-            "block_device_delta": capture["block_devices"]["delta"][BLOCK_STAT],
+            "block_device_delta": selected_block_delta(capture["block_devices"]["delta"]),
             "perf_data": capture["perf_data"],
             "perf_stat": summary["perf_stat"],
             "storage_worker_reliable": summary["selection"]["storage_worker_reliable"],

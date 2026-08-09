@@ -11,7 +11,8 @@ import time
 
 from common import (DEFAULT_COLD_BYTES, cmake_build_identity, file_identity,
                     probe_command, validate_workload, write_json)
-from run_matrix import block_delta, block_status, drop_page_cache, gpu_sample, meminfo
+from run_matrix import (block_delta, block_status, cgroup_status, drop_page_cache,
+                        gpu_sample, meminfo)
 
 
 PERF_EVENTS = (
@@ -56,7 +57,8 @@ def run_one(args: argparse.Namespace, cell: str) -> None:
     stderr = directory / "stderr.log"
     probe = probe_command(
         args.probe, args.model, workload, cell, args.cold_bytes,
-        "PRODUCTION_PERFORMANCE", False, args.io_workers,
+        "PRODUCTION_PERFORMANCE", False, args.io_workers, args.async_cold_fill,
+        args.transport, args.io_access,
     )
     stat = [
         str(args.perf), "stat", "--delay", str(args.delay_ms), "--json-output",
@@ -88,6 +90,7 @@ def run_one(args: argparse.Namespace, cell: str) -> None:
                     {"pid": pid, "threads": thread_snapshot(pid)} for pid in pids
                 ],
                 "host": meminfo(), "gpus": gpu_sample(),
+                "cgroup": cgroup_status(process.pid),
             })
             time.sleep(args.sample_period)
         returncode = process.wait()
@@ -106,6 +109,9 @@ def run_one(args: argparse.Namespace, cell: str) -> None:
         "delay_ms": args.delay_ms, "frequency_hz": args.frequency,
         "stack_bytes": args.stack_bytes, "max_data_bytes": args.max_data_bytes,
         "command": command, "probe_command": probe,
+        "transport": args.transport, "io_access": args.io_access,
+        "async_cold_fill": args.async_cold_fill,
+        "cgroup": cgroup_status(os.getpid()),
         "environment": {key: environment[key] for key in ("GGML_CUDA_GRAPH_OPT", "GGML_CUDA_DISABLE_GRAPHS")},
         "perf_version": subprocess.check_output([str(args.perf), "--version"], text=True).strip(),
         "kernel": subprocess.check_output(["uname", "-srvmo"], text=True).strip(),
@@ -132,6 +138,11 @@ def main() -> None:
     parser.add_argument("--perf", type=Path, default=Path("/usr/bin/perf"))
     parser.add_argument("--cold-bytes", type=int, default=DEFAULT_COLD_BYTES)
     parser.add_argument("--io-workers", type=int)
+    parser.add_argument("--async-cold-fill", action="store_true")
+    parser.add_argument("--transport", choices=(
+        "POSITIONAL", "BUFFERED", "DIRECT_IO", "DIRECT_IO_POSITIONAL"),
+        default="POSITIONAL")
+    parser.add_argument("--io-access", choices=("NORMAL", "RANDOM"), default="NORMAL")
     parser.add_argument("--delay-ms", type=int, default=25_000)
     parser.add_argument("--frequency", type=int, default=99)
     parser.add_argument("--stack-bytes", type=int, default=8192)

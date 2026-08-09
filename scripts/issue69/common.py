@@ -54,7 +54,14 @@ def probe_command(
     runtime_mode: str = "PRODUCTION_PERFORMANCE",
     prewarm_cold_all: bool = False,
     io_workers: int | None = None,
+    async_cold_fill: bool = False,
+    transport: str = "POSITIONAL",
+    io_access: str = "NORMAL",
 ) -> list[str]:
+    if transport not in {"POSITIONAL", "BUFFERED", "DIRECT_IO", "DIRECT_IO_POSITIONAL"}:
+        raise ValueError(f"unsupported transport: {transport}")
+    if io_access not in {"NORMAL", "RANDOM"}:
+        raise ValueError(f"unsupported I/O access policy: {io_access}")
     compliance = runtime_mode == "COMPLIANCE"
     command = [
         str(probe), "--model", str(model), "--output", str(output),
@@ -66,10 +73,14 @@ def probe_command(
         "--trace-capacity", "65536" if compliance else "0",
         "--n-ctx", "4096", "--n-batch", "128", "--n-ubatch", "128",
         "--max-generate", "24", "--background", "0",
-        "--observe-routes", "1" if compliance else "0", "--transport", "POSITIONAL",
+        "--observe-routes", "1" if compliance else "0", "--transport", transport,
         "--config-source", "EXPLICIT", "--integrity", "NONE",
         "--prewarm-cold-all", "1" if prewarm_cold_all else "0",
     ]
+    if async_cold_fill:
+        command.extend(("--async-cold-fill", "1"))
+    if io_access != "NORMAL":
+        command.extend(("--io-access", io_access))
     if io_workers is not None:
         command.extend(["--io-workers", str(io_workers)])
     return command + cell_arguments(cell)
