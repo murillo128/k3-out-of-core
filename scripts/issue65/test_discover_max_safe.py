@@ -87,6 +87,7 @@ def main() -> None:
         project_revision="parent", nested_revision="nested", resident_device=0,
         role_template="1:{candidate}", target_device=1, target_uuid="GPU-target",
         target_bdf="00000000:00:0a.0", peer_staging_bytes=67_108_864,
+        n_gpu_layers=8,
         slot_stride=11_835_264, reserve_bytes=1_073_741_824, lower_bound=268,
         max_probes=32, sample_period=0.25, raw_dir=Path("/tmp/issue65-max-safe-test"),
     )
@@ -125,6 +126,7 @@ def main() -> None:
     assert manifest["configuration"]["transfer_ring_bytes"] == 67_173_120
     assert manifest["configuration"]["queue_depth"] == 256
     assert manifest["configuration"]["peer_staging_bytes"] == 67_108_864
+    assert manifest["configuration"]["n_gpu_layers"] == 8
     assert manifest["artifact"]["files"][0]["sha256"] == "b" * 64
     incomplete = dict(manifest)
     incomplete["configuration"] = dict(manifest["configuration"])
