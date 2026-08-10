@@ -246,19 +246,25 @@ def main() -> None:
         key = matrix["case"]
         miss_policy = matrix.get("miss_policy", "PROMOTE_AND_GPU")
         measurement_tier = matrix.get("measurement_tier", "P0")
+        revisions = matrix.get("revisions")
+        artifact = matrix.get("artifact")
         if key not in case_inputs:
             case_inputs[key] = {
                 "source_matrices": [], "roles": matrix["roles"],
                 "n_gpu_layers": matrix["n_gpu_layers"],
+                "n_ubatch": matrix.get("n_ubatch"),
                 "miss_policy": miss_policy, "measurement_tier": measurement_tier,
+                "revisions": revisions, "artifact": artifact,
                 "commands": [],
                 "workloads": [], "summaries": [],
             }
         case = case_inputs[key]
         if (case["roles"] != matrix["roles"] or
                 case["n_gpu_layers"] != matrix["n_gpu_layers"] or
+                case["n_ubatch"] != matrix.get("n_ubatch") or
                 case["miss_policy"] != miss_policy or
-                case["measurement_tier"] != measurement_tier):
+                case["measurement_tier"] != measurement_tier or
+                case["revisions"] != revisions or case["artifact"] != artifact):
             raise SystemExit(f"inconsistent duplicate matrix case: {key}")
         case["source_matrices"].append(str(matrix_path))
         case["commands"].extend(commands)
@@ -268,8 +274,10 @@ def main() -> None:
         key: {
             "source_matrices": case["source_matrices"], "roles": case["roles"],
             "n_gpu_layers": case["n_gpu_layers"],
+            "n_ubatch": case["n_ubatch"],
             "miss_policy": case["miss_policy"],
             "measurement_tier": case["measurement_tier"],
+            "revisions": case["revisions"], "artifact": case["artifact"],
             "commands": case["commands"],
             "pooled": pooled(case["workloads"], case["summaries"]),
             "runs": case["summaries"],

@@ -88,7 +88,9 @@ def main() -> None:
             matrix_path.write_text(json.dumps({
                 "status": "complete", "case": "REPEAT", "roles": "0:1",
                 "n_gpu_layers": 1, "miss_policy": "CPU_FALLBACK",
-                "measurement_tier": "P0",
+                "measurement_tier": "P0", "n_ubatch": 4,
+                "revisions": {"project": "a", "nested": "b"},
+                "artifact": {"manifest_sha256": "c"},
                 "runs": [{"workload": str(workload_path), "resources": str(path)}],
             }))
             matrices.append(matrix_path)
@@ -102,6 +104,9 @@ def main() -> None:
         assert merged["cases"]["REPEAT"]["pooled"]["processes"] == 2
         assert merged["cases"]["REPEAT"]["miss_policy"] == "CPU_FALLBACK"
         assert merged["cases"]["REPEAT"]["measurement_tier"] == "P0"
+        assert merged["cases"]["REPEAT"]["n_ubatch"] == 4
+        assert merged["cases"]["REPEAT"]["revisions"]["nested"] == "b"
+        assert merged["cases"]["REPEAT"]["artifact"]["manifest_sha256"] == "c"
         assert merged["cases"]["REPEAT"]["source_matrices"] == [str(path) for path in matrices]
 
     print("ISSUE73_MATRIX_ANALYSIS_TEST status=pass pooled=pass resources=pass")
