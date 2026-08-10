@@ -1,0 +1,76 @@
+{
+  "schema_version": "issue73-topology-capacity-summary-v1",
+  "status": "pass",
+  "revisions": {
+    "project": "6d7795e252dba12780ff3346c98f51ad51c690a1",
+    "nested": "0907a2ef1590fcb07aa0fed54b31d28e742ffb9b"
+  },
+  "artifact_identity_manifest_sha256": "58b14d13a602944e1134fc753b2cc819a84a31290aee9c1479264a66dbb5efe2",
+  "configuration": {
+    "reserve_bytes": 1073741824,
+    "slot_stride_bytes": 17547264,
+    "cold_cache_bytes": 17179869184,
+    "ring_bytes": 134217728,
+    "peer_staging_bytes": 134217728,
+    "io_workers": 4,
+    "queue_depth": 64,
+    "n_gpu_layers": 8,
+    "n_ubatch": 4,
+    "generated_tokens": 24,
+    "transport": "POSITIONAL"
+  },
+  "devices": [
+    {
+      "cuda_ordinal": 0,
+      "uuid": "GPU-cc10d10a-cb7c-d71e-6f7e-b9ef0f8fc8fc",
+      "pci_bdf": "00000000:00:02.0",
+      "role": "RESIDENT_AND_EXPERT",
+      "max_safe_slots": 549,
+      "selected_hot_cache_bytes": 9633447936,
+      "minimum_observed_free_bytes": 1080033280,
+      "one_slot_over": 550,
+      "one_slot_over_outcome": "reject",
+      "one_slot_over_reason": "safety_reserve_not_preserved"
+    },
+    {
+      "cuda_ordinal": 1,
+      "uuid": "GPU-529036c0-fd7e-823f-c135-9492049eb30d",
+      "pci_bdf": "00000000:00:03.0",
+      "role": "EXPERT",
+      "max_safe_slots": 1125,
+      "selected_hot_cache_bytes": 19740672000,
+      "minimum_observed_free_bytes": 1075838976,
+      "one_slot_over": 1126,
+      "one_slot_over_outcome": "reject",
+      "one_slot_over_reason": "safety_reserve_not_preserved"
+    },
+    {
+      "cuda_ordinal": 2,
+      "uuid": "GPU-5fcbae4d-30b2-4593-8f40-40b386ef7bb4",
+      "pci_bdf": "00000000:00:04.0",
+      "role": "EXPERT",
+      "max_safe_slots": 1125,
+      "selected_hot_cache_bytes": 19740672000,
+      "minimum_observed_free_bytes": 1075838976,
+      "boundary_basis": "same physical-device anchor and repeated T3 boundary process as target GPU 1"
+    },
+    {
+      "cuda_ordinal": 3,
+      "uuid": "GPU-2c36994a-14ae-91de-d03d-85347fae78cd",
+      "pci_bdf": "00000000:00:05.0",
+      "role": "EXPERT",
+      "max_safe_slots": 1125,
+      "selected_hot_cache_bytes": 19740672000,
+      "minimum_observed_free_bytes": 1075838976,
+      "boundary_basis": "same physical-device anchor and repeated T3 boundary process as target GPU 1"
+    }
+  ],
+  "topologies": {
+    "T1": {"resident": [0], "experts": {"0": 549}},
+    "T2": {"resident": [0], "experts": {"0": 549, "1": 1125}},
+    "T2B": {"resident": [0], "experts": {"1": 1125}},
+    "T3": {"resident": [0], "experts": {"1": 1125, "2": 1125, "3": 1125}},
+    "T4": {"resident": [0], "experts": {"0": 549, "1": 1125, "2": 1125, "3": 1125}}
+  },
+  "selected_topology": "T4"
+}
