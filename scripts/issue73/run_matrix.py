@@ -179,6 +179,7 @@ def run_one(args: argparse.Namespace, ordinal: int) -> dict[str, object]:
     swap_after = swap_status()
     resources = {
         "schema_version": "issue73-run-resources-v1", "case": args.case, "run": ordinal,
+        "measurement_tier": args.measurement_tier,
         "returncode": returncode, "started_unix_seconds": started_wall, "elapsed_seconds": elapsed,
         "pid": process.pid, "command": command,
         "environment": {key: environment[key] for key in ("GGML_CUDA_GRAPH_OPT", "GGML_CUDA_DISABLE_GRAPHS")},
@@ -222,6 +223,7 @@ def main() -> None:
     parser.add_argument("--transport", choices=("POSITIONAL", "BUFFERED", "DIRECT_IO", "DIRECT_IO_POSITIONAL"), default="POSITIONAL")
     parser.add_argument("--runtime-mode", choices=("COMPLIANCE", "PRODUCTION_PERFORMANCE"), default="PRODUCTION_PERFORMANCE")
     parser.add_argument("--miss-policy", choices=("PROMOTE_AND_GPU", "CPU_FALLBACK"), default="PROMOTE_AND_GPU")
+    parser.add_argument("--measurement-tier", choices=("P0", "P1", "P-TRACE"), default="P0")
     parser.add_argument("--async-cold-fill", action="store_true")
     parser.add_argument("--observe-routes", action="store_true")
     parser.add_argument("--trace-capacity", type=int, default=0)
@@ -239,6 +241,7 @@ def main() -> None:
         "schema_version": "issue73-run-matrix-v1", "status": "complete",
         "case": args.case, "roles": args.roles, "n_gpu_layers": args.n_gpu_layers,
         "n_ubatch": args.n_ubatch, "miss_policy": args.miss_policy,
+        "measurement_tier": args.measurement_tier,
         "runs": results,
     })
 

@@ -87,7 +87,8 @@ def main() -> None:
             matrix_path = temporary / f"matrix-{run}.json"
             matrix_path.write_text(json.dumps({
                 "status": "complete", "case": "REPEAT", "roles": "0:1",
-                "n_gpu_layers": 1,
+                "n_gpu_layers": 1, "miss_policy": "CPU_FALLBACK",
+                "measurement_tier": "P0",
                 "runs": [{"workload": str(workload_path), "resources": str(path)}],
             }))
             matrices.append(matrix_path)
@@ -99,6 +100,8 @@ def main() -> None:
         ], check=True, capture_output=True, text=True)
         merged = json.loads(output.read_text())
         assert merged["cases"]["REPEAT"]["pooled"]["processes"] == 2
+        assert merged["cases"]["REPEAT"]["miss_policy"] == "CPU_FALLBACK"
+        assert merged["cases"]["REPEAT"]["measurement_tier"] == "P0"
         assert merged["cases"]["REPEAT"]["source_matrices"] == [str(path) for path in matrices]
 
     print("ISSUE73_MATRIX_ANALYSIS_TEST status=pass pooled=pass resources=pass")

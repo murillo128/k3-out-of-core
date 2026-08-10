@@ -244,14 +244,21 @@ def main() -> None:
             if workload.get("expert_runtime_mode") == "COMPLIANCE":
                 compliance_identities.append(digest(workload_identity(workload, True)))
         key = matrix["case"]
+        miss_policy = matrix.get("miss_policy", "PROMOTE_AND_GPU")
+        measurement_tier = matrix.get("measurement_tier", "P0")
         if key not in case_inputs:
             case_inputs[key] = {
                 "source_matrices": [], "roles": matrix["roles"],
-                "n_gpu_layers": matrix["n_gpu_layers"], "commands": [],
+                "n_gpu_layers": matrix["n_gpu_layers"],
+                "miss_policy": miss_policy, "measurement_tier": measurement_tier,
+                "commands": [],
                 "workloads": [], "summaries": [],
             }
         case = case_inputs[key]
-        if case["roles"] != matrix["roles"] or case["n_gpu_layers"] != matrix["n_gpu_layers"]:
+        if (case["roles"] != matrix["roles"] or
+                case["n_gpu_layers"] != matrix["n_gpu_layers"] or
+                case["miss_policy"] != miss_policy or
+                case["measurement_tier"] != measurement_tier):
             raise SystemExit(f"inconsistent duplicate matrix case: {key}")
         case["source_matrices"].append(str(matrix_path))
         case["commands"].extend(commands)
@@ -260,7 +267,10 @@ def main() -> None:
     cases = {
         key: {
             "source_matrices": case["source_matrices"], "roles": case["roles"],
-            "n_gpu_layers": case["n_gpu_layers"], "commands": case["commands"],
+            "n_gpu_layers": case["n_gpu_layers"],
+            "miss_policy": case["miss_policy"],
+            "measurement_tier": case["measurement_tier"],
+            "commands": case["commands"],
             "pooled": pooled(case["workloads"], case["summaries"]),
             "runs": case["summaries"],
         }
