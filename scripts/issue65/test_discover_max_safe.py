@@ -86,6 +86,18 @@ def main() -> None:
     clamp_decision = MODULE.classify_candidate(
         0, clamped, "", samples, "GPU-target", 536, 1)
     assert clamp_decision == MODULE.ProbeDecision("abort", "requested_capacity_not_honored_exactly")
+    local = fake_evidence(64)
+    local["multi_gpu"]["devices"][0].update({
+        "device_id": 0, "uuid": "", "pci_bdf": "", "cuda_ordinal": -1,
+    })
+    local["expert_roles"] = {"shape": "LOCAL_SINGLE", "experts": [{
+        "device_id": 0, "cuda_ordinal": 0, "uuid": "GPU-target",
+        "pci_bdf": "00000000:00:02.0", "hot_slots": 64,
+    }]}
+    local_device = MODULE.exact_target_device(local, "GPU-target", 64)
+    assert local_device is not None
+    assert local_device["cuda_ordinal"] == 0
+    assert local_device["pci_bdf"] == "00000000:00:02.0"
 
     command = MODULE.build_command(SimpleNamespace(
         probe=Path("probe"), model=Path("model"), role_template="0:{candidate}",

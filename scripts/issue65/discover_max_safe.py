@@ -227,9 +227,30 @@ def build_command(args: argparse.Namespace, candidate: int, output: Path) -> lis
     return command
 
 
+def normalized_expert_devices(evidence: dict) -> list[dict[str, object]]:
+    """Join physical role identity onto mechanism rows for local-single runs."""
+    roles = {
+        item.get("device_id"): item
+        for item in evidence.get("expert_roles", {}).get("experts", [])
+        if isinstance(item.get("device_id"), int)
+    }
+    result: list[dict[str, object]] = []
+    for source in evidence.get("multi_gpu", {}).get("devices", []):
+        device = dict(source)
+        role = roles.get(device.get("device_id"), {})
+        if not device.get("uuid"):
+            device["uuid"] = role.get("uuid", "")
+        if not device.get("pci_bdf"):
+            device["pci_bdf"] = role.get("pci_bdf", "")
+        if not isinstance(device.get("cuda_ordinal"), int) or device["cuda_ordinal"] < 0:
+            device["cuda_ordinal"] = role.get("cuda_ordinal", -1)
+        result.append(device)
+    return result
+
+
 def exact_target_device(evidence: dict, target_uuid: str, candidate: int) -> dict | None:
     matches = [
-        device for device in evidence.get("multi_gpu", {}).get("devices", [])
+        device for device in normalized_expert_devices(evidence)
         if device.get("uuid") == target_uuid
     ]
     if len(matches) != 1:
@@ -324,7 +345,7 @@ def device_ledgers(
         log_text: str, reserve_bytes: int, peer_staging_bytes: int) -> list[dict[str, object]]:
     model_bytes = parse_buffer_bytes(log_text, "model")
     graph_bytes = parse_buffer_bytes(log_text, "compute")
-    expert_by_uuid = {item.get("uuid"): item for item in evidence.get("multi_gpu", {}).get("devices", [])}
+    expert_by_uuid = {item.get("uuid"): item for item in normalized_expert_devices(evidence)}
     result: list[dict[str, object]] = []
     for base in inventory:
         uuid = str(base["uuid"])
