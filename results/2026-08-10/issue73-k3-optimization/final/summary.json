@@ -1,0 +1,194 @@
+{
+  "schema_version": "issue73-architecture-baseline-summary-v1",
+  "status": "PASS_PENDING_INDEPENDENT_REVIEW",
+  "classification": "K3_ARCH_BASELINE",
+  "historical_label": "K3_BEST",
+  "interpretation": "Best configuration found within the bounded Phase 13.5 architecture and scope; not a claim about ultimate Kimi K3 performance on this host.",
+  "scope_amendment": {
+    "comment_id": 5244964890,
+    "url": "https://github.com/murillo128/k3-out-of-core/issues/73#issuecomment-5244964890",
+    "effect": "Reduce closeout to reproducible baseline confirmation, reuse the accepted bounded trace, and defer external comparators."
+  },
+  "artifact": {
+    "repository": "moonshotai/Kimi-K3",
+    "revision": "9f62e4e9fffbd0a83ddd60e1c209d828994b3569",
+    "variant": "Kimi-K3-BF16-MXFP4",
+    "files": 33,
+    "bytes": 1561157859104,
+    "identity_manifest_sha256": "58b14d13a602944e1134fc753b2cc819a84a31290aee9c1479264a66dbb5efe2",
+    "config_sha256": "9710e121a58d03ac92c8d6da287a19541994319afbbe6d6202af001ffd379213",
+    "routed_layers": 92,
+    "experts_per_layer": 896,
+    "selected_experts": 16,
+    "expert_bundle_bytes": 17547264
+  },
+  "host": {
+    "provider_product": "Akamai/Linode GPU VM, RTX4000 Ada x4 Medium",
+    "gpu": "4 x NVIDIA RTX 4000 Ada Generation, 20 GiB each",
+    "storage_claim": "guest-visible ext4 on virtio-SCSI /dev/sda; physical media unspecified",
+    "swap_disabled_for_decision_runs": true
+  },
+  "execution_revisions": {
+    "project": "0f49c22fc41d12323fe21e8e8e3fab3df838ce01",
+    "nested_runtime": "763a425e3a59c6af14554218b9e9cf77804918c1"
+  },
+  "configuration": {
+    "resident_device": 0,
+    "expert_roles": "0:549,1:1125,2:1125,3:1125",
+    "n_gpu_layers": 8,
+    "n_ubatch": 4,
+    "hot_policy": "LRU",
+    "admission": "ALWAYS",
+    "miss_policy": "PROMOTE_AND_GPU",
+    "cold_requested_bytes": 17179869184,
+    "async_cold_fill": false,
+    "transport": "DIRECT_IO_POSITIONAL",
+    "io_workers": 4,
+    "queue_depth": 64,
+    "ring_requested_bytes_per_device": 134217728,
+    "peer_transport": "HOST_STAGED",
+    "peer_staging_bytes": 134217728,
+    "runtime_mode": "PRODUCTION_PERFORMANCE",
+    "measurement_tier": "P0",
+    "speculative_decoding": false,
+    "cuda_graphs": false,
+    "requests": 1
+  },
+  "optimization_ladder": [
+    {
+      "cell": "K3_INITIAL",
+      "decode_tps": 0.18921564991945686,
+      "processes": 2,
+      "generated_tokens_per_process": 24,
+      "note": "T1, 64 GPU0 hot slots, buffered positional storage"
+    },
+    {
+      "cell": "T4",
+      "decode_tps": 0.24457422710822452,
+      "processes": 1,
+      "generated_tokens_per_process": 24,
+      "note": "four-device expert topology, buffered positional storage"
+    },
+    {
+      "cell": "B0_T4_W4_QD64",
+      "decode_tps": 0.29413172551213035,
+      "processes": 1,
+      "generated_tokens_per_process": 24,
+      "note": "selected O_DIRECT positional storage path"
+    }
+  ],
+  "confirmation": {
+    "processes": 5,
+    "generated_tokens_per_process": 256,
+    "decode_tokens_total": 1275,
+    "generated_tokens_total": 1280,
+    "decode_tps_pooled": 0.28754986616482003,
+    "decode_tps_runs": [
+      0.2894897181766507,
+      0.2875657834076487,
+      0.2863435517369179,
+      0.2831699791796441,
+      0.2913147825427855
+    ],
+    "run_range_percent_of_pooled": 2.8324837955142304,
+    "improvement_over_k3_initial_percent": 51.969388518984005,
+    "ttft_us": {
+      "p50": 274039421,
+      "p95": 283869959
+    },
+    "decode_latency_us": {
+      "p50": 3460635,
+      "p95": 3980745,
+      "p99": 4254418,
+      "max": 4414791
+    },
+    "identity": {
+      "exact_output_and_all_logits_across_processes": true,
+      "output_sha256": "d8fdd04928412bbe64418568bc41625b3884a5392a60c2d2fdc38a6a1d06121d"
+    },
+    "traffic_per_generated_token_bytes": {
+      "logical_storage": 19895238720.0,
+      "h2d": 19895238720.0,
+      "host_staged_cross_device": 88207560.0,
+      "cuda_peer": 0.0,
+      "guest_block": 19896998757.6
+    },
+    "hot_cache": {
+      "hits": 967690,
+      "misses": 1451275,
+      "hit_rate": 0.40004299359436785
+    },
+    "resource_envelope": {
+      "process_hwm_max_kib": 111878096,
+      "cgroup_memory_peak_max_bytes": 203049209856,
+      "host_mem_available_min_kib": 194745476,
+      "gpu_memory_used_max_mib": [19016.0, 19020.0, 19020.0, 19020.0],
+      "gpu_memory_free_min_mib": [1030.0, 1026.0, 1026.0, 1026.0],
+      "gpu_utilization_mean_percent_across_runs": [8.398811757476603, 6.142089487443701, 6.084950122118235, 6.225668354450288]
+    },
+    "terminal_gates": {
+      "all_33_sources_direct": true,
+      "buffered_fallback_operations": 0,
+      "storage_short_reads": 0,
+      "storage_io_errors": 0,
+      "stale_completions": 0,
+      "terminal_scheduler_requests": 0,
+      "live_transfer_events": 0,
+      "active_background_flights": 0,
+      "swap_empty_all_processes": true,
+      "oom_kill_delta": 0
+    }
+  },
+  "accepted_causal_attribution": {
+    "trace_sha256": "5371e7fd1d61e720933ec814d79229d51bec2824f9a4e30fde99f6ef86ddb797",
+    "trace_bytes": 2008800,
+    "complete_routed_layer_intervals": 52,
+    "trace_data_loss": 0,
+    "classification": "VALID_ATTRIBUTION_ONLY",
+    "trace_perturbation_percent": 7.186871344769985,
+    "provider_fraction_of_routed_layer_wall": 0.632,
+    "provider_post_issue_fraction_of_routed_layer_wall": 0.5365544154425744,
+    "storage_service_union_fraction": 0.47421846901067977,
+    "h2d_scope_union_fraction": 0.14197994607094266,
+    "h2d_fraction_overlapped_with_storage": 0.8826624094556031,
+    "storage_queue_wait_ms": {
+      "mean": 7.026659829059829,
+      "p95": 18.461,
+      "max": 20.267
+    },
+    "operation_capacity": 128,
+    "peak_active_operations": 84
+  },
+  "important_negative_results": [
+    "H96 and HMAX managed-cold configurations displaced ordinary mapped weights, amplified major faults and guest reads, and collapsed TPS.",
+    "Native io_uring completed correctly but was materially slower than four-worker positional O_DIRECT on this guest storage path.",
+    "V1 ordinary-layer residency improved one short endpoint by 3.81% but changed every logit digest and was rejected.",
+    "V3 CPU expert execution reached only 0.022048 tok/s in its bounded diagnostic.",
+    "Eight positional workers reduced a component queue-wait counter but did not reproduce an end-to-end gain."
+  ],
+  "external_comparators": {
+    "status": "DEFERRED_BY_OWNER_AMENDMENT",
+    "repositories": [
+      "JustVugg/colibri",
+      "FareedKhan-dev/kimi-k3-in-c"
+    ],
+    "intended_contract": "Pin exact commit/license/build/model identity; one request; all top-16 experts; no dropping or speculative decoding; same prompt and token count where supported; record representation and resource differences.",
+    "reason": "The current result is an architecture baseline expected to be superseded; a later dedicated benchmark can compare architectures and representations cleanly."
+  },
+  "correctness_reuse": {
+    "checkpoint_a_mode_c_status": "PASS",
+    "checkpoint_a_mode_c_production_prefix_exact": true,
+    "final_revision_material_execution_change_after_exact_checks": false,
+    "additional_mode_c_run_required_under_amendment": false,
+    "reason": "The post-correctness retained runtime changes only bound default-off CUPTI capture memory; production output and all logits remain exact in the accepted trace and five frozen-revision P0 processes."
+  },
+  "evidence": {
+    "checkpoint_a_release_tag": "issue73-checkpoint-a-v1",
+    "checkpoint_a_archive_sha256": "f32ec0924e1d23bc36f681a089a87db751af12c74b5c7a85dc667d5fa58e3617",
+    "final_release_tag": "issue73-final-baseline-v1",
+    "final_archive_sha256": "7b2cf53b195f294e7f97e1f16e0389695c4dcd4fdd11d1485c2ec51cbc4ce981",
+    "final_archive_bytes": 3576505,
+    "final_archive_file_count": 201,
+    "final_raw_index": "results/2026-08-10/issue73-k3-optimization/final/raw-evidence-index.json"
+  }
+}
