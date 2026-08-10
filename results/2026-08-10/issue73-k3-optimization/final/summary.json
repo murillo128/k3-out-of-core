@@ -32,6 +32,7 @@
     "project": "0f49c22fc41d12323fe21e8e8e3fab3df838ce01",
     "nested_runtime": "763a425e3a59c6af14554218b9e9cf77804918c1"
   },
+  "delivered_nested_revision": "9ca6e0ff6a2ccba0ca401c41724763bfa45769a6",
   "configuration": {
     "resident_device": 0,
     "expert_roles": "0:549,1:1125,2:1125,3:1125",
@@ -181,6 +182,12 @@
     "final_revision_material_execution_change_after_exact_checks": false,
     "additional_mode_c_run_required_under_amendment": false,
     "reason": "The post-correctness retained runtime changes only bound default-off CUPTI capture memory; production output and all logits remain exact in the accepted trace and five frozen-revision P0 processes."
+  },
+  "bounded_validation": {
+    "python_issue73_tests": "PASS; 3/3",
+    "native_tests": "PASS; 4/4",
+    "hot_cache_overlap_repetitions": "PASS; 3/3 after replacing a fixed-yield polling budget with a five-second steady-clock deadline",
+    "test_only_delta_after_execution_revision": true
   },
   "evidence": {
     "checkpoint_a_release_tag": "issue73-checkpoint-a-v1",

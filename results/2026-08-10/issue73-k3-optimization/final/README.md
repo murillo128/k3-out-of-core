@@ -31,6 +31,9 @@ and CUDA graphs disabled.
 
 Exact execution revisions are parent `0f49c22fc41d12323fe21e8e8e3fab3df838ce01`
 and nested runtime `763a425e3a59c6af14554218b9e9cf77804918c1`.
+The delivered nested head is `9ca6e0ff6a2ccba0ca401c41724763bfa45769a6`;
+its only later delta replaces two fixed-yield overlap-test polling budgets with
+a bounded steady-clock deadline and does not alter the runtime under test.
 The model is the pinned 33-file, 1,561,157,859,104-byte
 `moonshotai/Kimi-K3@9f62e4e9fffbd0a83ddd60e1c209d828994b3569`
 artifact; its execution-identity manifest SHA-256 is
