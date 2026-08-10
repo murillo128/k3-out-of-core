@@ -1,0 +1,28 @@
+{
+  "schema_version": "issue73-ordinary-vram-raw-index-v1",
+  "status": "complete",
+  "files": [
+    {"path":"/var/lib/k3/issue73/runs/storage/b0-direct-positional-02/matrix.json","sha256":"a6398d1063c3ba136d797c3cf8b50c3071b5626dabfcb00aa255de1a26486bef","size":1363,"classification":"reused_v0"},
+    {"path":"/var/lib/k3/issue73/runs/storage/b0-direct-positional-02/raw/B0-01.json","sha256":"4aac22560571099997ebce7c0ba928b0c3b7c2fb06001b7de9782c530f6cd388","size":43356,"classification":"reused_v0"},
+    {"path":"/var/lib/k3/issue73/runs/storage/b0-direct-positional-02/raw/B0-01-resources.json","sha256":"51f2181a97b8ab51a9aa4c5e499edd3519557ee4a2673daf159be658d8f5a80b","size":1733086,"classification":"reused_v0"},
+    {"path":"/var/lib/k3/issue73/runs/vram/v1-layer16-capacity-01/raw/V1L16CAP-01.json","sha256":"a27233ce52f55c321f26002b0d96a7350fc966bbcfb2cb7bdc6ae38e274560e0","size":39899,"classification":"runtime_clean_wrapper_rejected_one_token_no_decode_interval"},
+    {"path":"/var/lib/k3/issue73/runs/vram/v1-layer16-capacity-01/raw/V1L16CAP-01-resources.json","sha256":"8b8ed07e44bdfd852b26ee27a9defc7e83ae62166fc7b545f20ae4918b9f2c82","size":3353808,"classification":"runtime_clean_wrapper_rejected_one_token_no_decode_interval"},
+    {"path":"/var/lib/k3/issue73/runs/vram/v1-layer16-capacity-01/raw/V1L16CAP-01.log","sha256":"805f5aa49eca2d59eb2e7cbb9db774955146b141e16e1998a61e234c0541d95c","size":214521,"classification":"runtime_clean_wrapper_rejected_one_token_no_decode_interval"},
+    {"path":"/var/lib/k3/issue73/runs/vram/v1-layer16-capacity-02/matrix.json","sha256":"2ca70c7e80092b356f00075fbb94bd28ce83a7b3b4776ceaf6bd1113b86887a4","size":1379,"classification":"v1_capacity_accepted"},
+    {"path":"/var/lib/k3/issue73/runs/vram/v1-layer16-capacity-02/raw/V1L16CAP-01.json","sha256":"062fbf21408243761f56d05a559891a5497cd763713cb9961e2263f1dd51b309","size":39977,"classification":"v1_capacity_accepted"},
+    {"path":"/var/lib/k3/issue73/runs/vram/v1-layer16-capacity-02/raw/V1L16CAP-01-resources.json","sha256":"5a05e48780b8ec68b5203750c3ad5f59ceaee26e6812290a28d559b040e90bfd","size":2953769,"classification":"v1_capacity_accepted"},
+    {"path":"/var/lib/k3/issue73/runs/vram/v1-layer16-capacity-02/raw/V1L16CAP-01.log","sha256":"5453382340f7939a4502e822d4c2934a9ce0db53afa1448f0d03d38378a8cf69","size":214521,"classification":"v1_capacity_accepted"},
+    {"path":"/var/lib/k3/issue73/runs/vram/v1-layer17-capacity-01/raw/V1L17CAP-01-resources.json","sha256":"633c27b7a3489ddba13236653a532b8a78a1e638392bb0639d59038a53276d38","size":42966,"classification":"v1_one_layer_over_rejected_cuda_oom"},
+    {"path":"/var/lib/k3/issue73/runs/vram/v1-layer17-capacity-01/raw/V1L17CAP-01.log","sha256":"f8c43e0db1883e57842676ff35ef44cb12311707b3e9570fadd210d96a710159","size":216069,"classification":"v1_one_layer_over_rejected_cuda_oom"},
+    {"path":"/var/lib/k3/issue73/runs/vram/v1-endpoint-01/matrix.json","sha256":"aa4775faf1d6fccea76ea4b99b89f92f0c8b9e738d18083f33bf80af2cfdca07","size":1327,"classification":"v1_rejected_logit_divergence"},
+    {"path":"/var/lib/k3/issue73/runs/vram/v1-endpoint-01/raw/V1-01.json","sha256":"4e2a1a7cc61cdc3d84696ab128a90363e5b784225370456320d42a8465292071","size":41169,"classification":"v1_rejected_logit_divergence"},
+    {"path":"/var/lib/k3/issue73/runs/vram/v1-endpoint-01/raw/V1-01-resources.json","sha256":"c9e7faec35eed579e6997a1078142044e06e03007869768354c91aaf239090be","size":1866639,"classification":"v1_rejected_logit_divergence"},
+    {"path":"/var/lib/k3/issue73/runs/vram/v1-endpoint-01/raw/V1-01.log","sha256":"59df9e3a25464e180e5157cd325c136687222e3b3c65341bd7af1b76436b997b","size":214507,"classification":"v1_rejected_logit_divergence"},
+    {"path":"/var/lib/k3/issue73/runs/vram/v3-short-diagnostic-01/raw/V3SHORT-01-resources.json","sha256":"8591a32aaaf4fbe23193bd4cbc2adeaf3bf68b374d94a15e9e870d5754ac954c","size":257798,"classification":"v3_one_layer_over_rejected_reserve_breach"},
+    {"path":"/var/lib/k3/issue73/runs/vram/v3-short-diagnostic-01/raw/V3SHORT-01.log","sha256":"9dca1c17175f7e93a41f96e00ac2133e7fa7d81065a98b938e7017d27660fa1f","size":213263,"classification":"v3_one_layer_over_rejected_reserve_breach"},
+    {"path":"/var/lib/k3/issue73/runs/vram/v3-short-diagnostic-02/matrix.json","sha256":"c5012ee7c42712de383bd7cac63e049048f661c347212152f42deadfdaabcbe1","size":1357,"classification":"v3_short_diagnostic"},
+    {"path":"/var/lib/k3/issue73/runs/vram/v3-short-diagnostic-02/raw/V3SHORT-01.json","sha256":"d47c2ce9fb1f1a9f09887132586ea8562aeb40bc8601271526965423a722cf87","size":25305,"classification":"v3_short_diagnostic"},
+    {"path":"/var/lib/k3/issue73/runs/vram/v3-short-diagnostic-02/raw/V3SHORT-01-resources.json","sha256":"72c995d537b717401d4d13762d6fa21d6c7496f5e50cb46bc9b364fa7b72db7b","size":3326554,"classification":"v3_short_diagnostic"},
+    {"path":"/var/lib/k3/issue73/runs/vram/v3-short-diagnostic-02/raw/V3SHORT-01.log","sha256":"4f18616e968d1086a4560ffa949f9c7db90a83f0220c26a1f9cf5702ff7497ba","size":213580,"classification":"v3_short_diagnostic"}
+  ]
+}
