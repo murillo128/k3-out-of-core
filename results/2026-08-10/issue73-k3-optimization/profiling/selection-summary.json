@@ -1,0 +1,165 @@
+{
+  "schema_version": "issue73-profiling-selection-v1",
+  "status": "pass",
+  "artifact_identity_manifest_sha256": "58b14d13a602944e1134fc753b2cc819a84a31290aee9c1479264a66dbb5efe2",
+  "configuration": {
+    "roles": "0:549,1:1125,2:1125,3:1125",
+    "resident_device": 0,
+    "n_gpu_layers": 8,
+    "n_ubatch": 4,
+    "generated_tokens": 24,
+    "cold_requested_bytes": 17179869184,
+    "async_cold_fill": false,
+    "ring_bytes": 134217728,
+    "peer_staging_bytes": 134217728,
+    "queue_depth": 64,
+    "transport": "DIRECT_IO_POSITIONAL",
+    "runtime_mode": "PRODUCTION_PERFORMANCE"
+  },
+  "p1_sandwich": {
+    "revisions": {
+      "project": "f175ef1ce0411677aef441efa26e58585fa5af67",
+      "nested": "4b72d328402c5bc0dc65b3e22c78e3cbba41cb4d"
+    },
+    "p0_before_decode_tps": 0.26813755269923,
+    "p1_decode_tps": 0.264938072453421,
+    "p0_after_decode_tps": 0.27476498962182766,
+    "pooled_p0_decode_tps": 0.27141081922234556,
+    "p1_vs_pooled_p0_percent": -2.3848521541884216,
+    "p0_spread_percent": 2.441483104596835,
+    "identity_exact": true,
+    "classification": "P1_NOT_DECISION_GRADE"
+  },
+  "trace_instrumentation": {
+    "accepted_total_cupti_bytes": 134217728,
+    "active_buffer_reserve_bytes": 67108864,
+    "retained_record_reserve_bytes": 67108864,
+    "activity_buffer_bytes": 262144,
+    "initial_failures": [
+      {
+        "window_ms": 1000,
+        "classification": "CUPTI_ACTIVITY_BUFFER_BOUND_EXHAUSTED"
+      },
+      {
+        "window_ms": 500,
+        "classification": "CUPTI_ACTIVITY_BUFFER_BOUND_EXHAUSTED"
+      },
+      {
+        "window_ms": 250,
+        "activity_buffer_bytes": 1048576,
+        "classification": "CUPTI_ACTIVITY_BUFFER_BOUND_EXHAUSTED"
+      }
+    ],
+    "capacity_fix_revisions": {
+      "project": "8235333bb7232a253ef9d145b9087578830d0914",
+      "nested": "763a425e3a59c6af14554218b9e9cf77804918c1"
+    },
+    "native_test_passed": true,
+    "system_capture_test_passed": true
+  },
+  "steady_decode_trace": {
+    "revisions": {
+      "project": "8235333bb7232a253ef9d145b9087578830d0914",
+      "nested": "763a425e3a59c6af14554218b9e9cf77804918c1"
+    },
+    "selection_seed": 73,
+    "prompt_tokens": 100,
+    "prefill_ubatches": 25,
+    "request_ordinal": 34,
+    "routed_layer": 15,
+    "window_requested_ms": 250,
+    "window_actual_ns": 250545113,
+    "trace_bytes": 2008800,
+    "trace_sha256": "5371e7fd1d61e720933ec814d79229d51bec2824f9a4e30fde99f6ef86ddb797",
+    "complete_routed_layer_intervals": 52,
+    "cuda_kernel_records": 239,
+    "cuda_memcpy_records": 418,
+    "cuda_synchronization_records": 406,
+    "cupti_peak_total_bytes": 68419504,
+    "cupti_errors": 0,
+    "cupti_dropped_records": 0,
+    "cupti_unknown_timestamps": 0,
+    "cupti_unmatched_correlations": 0,
+    "trace_data_loss": 0,
+    "trace_decode_tps": 0.29990293576287747,
+    "adjacent_p0_decode_tps": 0.2797944673636663,
+    "trace_perturbation_percent": 7.186871344769985,
+    "identity_exact": true,
+    "classification": "VALID_ATTRIBUTION_ONLY"
+  },
+  "critical_path": {
+    "complete_cycles": 4,
+    "accounted_wall_ns": 199117888,
+    "layer_mean_ms": 49.779472,
+    "provider_mean_ms": 31.47252275,
+    "graph_mean_ms": 18.30694925,
+    "provider_fraction": 0.632,
+    "post_issue_fraction": 0.5365544154425744,
+    "pre_issue_fraction": 0.07936210633170235,
+    "issue_span_fraction": 0.016322461194445775,
+    "storage_service_union_ns": 94425380,
+    "h2d_scope_union_ns": 28270747,
+    "expert_h2d_cuda_union_ns": 27178368,
+    "storage_request_count": 585,
+    "storage_queue_wait_ms": {
+      "mean": 7.026659829059829,
+      "p50": 6.991,
+      "p95": 18.461,
+      "p99": 19.541,
+      "max": 20.267
+    },
+    "storage_operation_service_wall_ms": {
+      "mean": 6.065364605128205,
+      "p50": 5.969377,
+      "p95": 7.265164,
+      "p99": 7.748112,
+      "max": 8.333512
+    },
+    "storage_h2d_overlap": {
+      "storage_union_ns": 119074955,
+      "h2d_union_ns": 34928031,
+      "intersection_ns": 30829660,
+      "h2d_fraction_overlapped": 0.8826624094556031
+    }
+  },
+  "w8_sandwich": {
+    "revisions": {
+      "project": "8235333bb7232a253ef9d145b9087578830d0914",
+      "nested": "763a425e3a59c6af14554218b9e9cf77804918c1"
+    },
+    "control_before_decode_tps": 0.2797944673636663,
+    "w8_decode_tps": 0.284285990519878,
+    "control_after_decode_tps": 0.3084539268605582,
+    "pooled_control_decode_tps": 0.29342605273405814,
+    "w8_vs_control_before_percent": 1.605293771007199,
+    "w8_vs_control_after_percent": -7.835185172275572,
+    "w8_vs_pooled_controls_percent": -3.114945700634175,
+    "control_spread_percent": 9.743999228315003,
+    "mean_queue_wait_us": {
+      "control_before": 23270.587485637687,
+      "w8": 17898.815176177708,
+      "control_after": 20097.277882037535
+    },
+    "identity_exact": true,
+    "classification": "REJECTED_COMPONENT_ONLY"
+  },
+  "terminal_invariants": {
+    "production_output_and_all_logits_exact": true,
+    "direct_source_count_equals_source_count": true,
+    "direct_buffered_fallback_zero": true,
+    "storage_errors_zero": true,
+    "cupti_errors_and_loss_zero_on_valid_trace": true,
+    "stale_completions_zero": true,
+    "lifecycle_terminal": true,
+    "swap_empty": true,
+    "oom_kills_zero": true
+  },
+  "selected": {
+    "classification": "ACCEPTED_K3_BEST_CANDIDATE",
+    "cell": "B0_T4_W4_QD64",
+    "workers": 4,
+    "queue_depth": 64,
+    "reason": "W8 does not reproduce an end-to-end gain; QD64 is not capacity-limited and H2D is already mostly overlapped with the dominant storage service",
+    "final_confirmation_required": true
+  }
+}
