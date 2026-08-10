@@ -32,7 +32,7 @@ def probe_command(
     cold_bytes: int = DEFAULT_COLD_BYTES,
     ring_bytes: int = DEFAULT_RING_BYTES,
     peer_staging_bytes: int = DEFAULT_PEER_STAGING_BYTES,
-    io_workers: int = 4,
+    io_workers: int | None = None,
     queue_depth: int = 64,
     async_cold_fill: bool = False,
     transport: str = "POSITIONAL",
@@ -47,6 +47,12 @@ def probe_command(
         raise ValueError("invalid full-K3 probe configuration")
     if transport not in {"POSITIONAL", "BUFFERED", "DIRECT_IO", "DIRECT_IO_POSITIONAL"}:
         raise ValueError(f"unsupported transport: {transport}")
+    positional_reads = transport in {"POSITIONAL", "DIRECT_IO_POSITIONAL"}
+    if io_workers is None:
+        io_workers = 4 if positional_reads else 0
+    if ((positional_reads and not 0 <= io_workers <= 8) or
+            (not positional_reads and io_workers != 0)):
+        raise ValueError(f"invalid I/O worker count for {transport}: {io_workers}")
     if miss_policy not in {"PROMOTE_AND_GPU", "CPU_FALLBACK"}:
         raise ValueError(f"unsupported miss policy: {miss_policy}")
     remote_roles = len(roles) > 1 or ordinals[0] != 0

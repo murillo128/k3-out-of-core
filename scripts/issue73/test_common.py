@@ -49,6 +49,20 @@ def main() -> None:
     assert option(remote, "--max-generate") == "256"
     assert option(remote, "--n-ubatch") == "2"
     assert option(remote, "--async-cold-fill") == "1"
+    assert option(remote, "--io-workers") == "0"
+
+    direct_positional = probe_command(
+        Path("probe"), Path("model"), Path("output"),
+        role_devices="0:64", n_gpu_layers=8, transport="DIRECT_IO_POSITIONAL")
+    assert option(direct_positional, "--io-workers") == "4"
+
+    try:
+        probe_command(
+            Path("probe"), Path("model"), Path("output"),
+            role_devices="0:64", n_gpu_layers=8, transport="DIRECT_IO", io_workers=4)
+        raise AssertionError("native transport accepted positional workers")
+    except ValueError as error:
+        assert "invalid I/O worker count" in str(error)
 
     delta = block_delta(
         {"read_operations": 1, "read_sectors": 2, "read_ticks_ms": 3, "in_flight": 0,

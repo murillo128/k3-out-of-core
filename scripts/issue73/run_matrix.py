@@ -260,7 +260,7 @@ def main() -> None:
     parser.add_argument("--cold-bytes", type=int, default=DEFAULT_COLD_BYTES)
     parser.add_argument("--ring-bytes", type=int, default=DEFAULT_RING_BYTES)
     parser.add_argument("--peer-staging-bytes", type=int, default=DEFAULT_PEER_STAGING_BYTES)
-    parser.add_argument("--io-workers", type=int, default=4)
+    parser.add_argument("--io-workers", type=int)
     parser.add_argument("--queue-depth", type=int, default=64)
     parser.add_argument("--transport", choices=("POSITIONAL", "BUFFERED", "DIRECT_IO", "DIRECT_IO_POSITIONAL"), default="POSITIONAL")
     parser.add_argument("--runtime-mode", choices=("COMPLIANCE", "PRODUCTION_PERFORMANCE"), default="PRODUCTION_PERFORMANCE")
