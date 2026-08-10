@@ -1,0 +1,58 @@
+{
+  "layers": [
+    {
+      "correction_bias_max": 0.028605474159121513,
+      "correction_bias_min": -0.08442370593547821,
+      "correction_bias_norm": 0.6087849033831664,
+      "cosine_similarity": 0.03564805170724893,
+      "experts": [
+        0,
+        1
+      ],
+      "layer": 1,
+      "router_vector_norms": [
+        4.308345034163664,
+        4.174433297657571
+      ]
+    },
+    {
+      "correction_bias_max": 0.07193157076835632,
+      "correction_bias_min": -0.2142721265554428,
+      "correction_bias_norm": 1.4001416394086938,
+      "cosine_similarity": 0.026000115534342526,
+      "experts": [
+        0,
+        1
+      ],
+      "layer": 46,
+      "router_vector_norms": [
+        2.8146705178821754,
+        3.1346513731584653
+      ]
+    },
+    {
+      "correction_bias_max": 0.07009705901145935,
+      "correction_bias_min": -0.5324862003326416,
+      "correction_bias_norm": 2.0438565550314385,
+      "cosine_similarity": 0.03865193446987171,
+      "experts": [
+        0,
+        1
+      ],
+      "layer": 92,
+      "router_vector_norms": [
+        3.9260941882672875,
+        3.6233825279534506
+      ]
+    }
+  ],
+  "operation": "bounded router-vector norms, cosine similarity, and correction-bias summary",
+  "payload_validation": {
+    "payload_bytes": 2363820032,
+    "tensor_count": 184
+  },
+  "schema_version": "kimi-k3-router-pack-smoke-v1",
+  "status": "PASS",
+  "storage_interpretation": "GGUF F32 bytes; each expert vector is contiguous along ne[0]",
+  "verification_scope": "local extracted payload before release upload"
+}

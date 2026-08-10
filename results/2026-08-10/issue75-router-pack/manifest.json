@@ -1,0 +1,466 @@
+{
+  "consumer": {
+    "external_commands": [
+      "tar",
+      "zstd"
+    ],
+    "requires_full_model": false,
+    "requires_gpu": false,
+    "verification_command": "python3 scripts/issue75/verify_router_pack.py --manifest manifest.json --inventory tensors.json --config extraction-config.json --assets-dir <download-dir> --work-dir <fresh-empty-dir> --smoke-output smoke-test.json"
+  },
+  "exclusions": [
+    "dynamic selected expert IDs or router traces",
+    "cache hit, admission, eviction, or capacity evidence",
+    "storage, H2D, peer-transfer, or runtime-performance evidence",
+    "runtime cost models or Perfetto traces"
+  ],
+  "extraction_tool": {
+    "files": [
+      {
+        "path": "scripts/issue75/extract_router_pack.py",
+        "sha256": "5d5b4c273f7259c5a3794b074d563d2d341b412bd5b4c8c3ae774facc11e2226"
+      },
+      {
+        "path": "scripts/issue75/verify_router_pack.py",
+        "sha256": "4c053f4578a7fbc6734de214b2ec225ded952613b842b3e7407110442ab8a56a"
+      },
+      {
+        "path": "scripts/issue75/router_pack.py",
+        "sha256": "8db6b79a8776d374245669d2ab39f31f7a05d017d0077129b521969a2b9bac4b"
+      },
+      {
+        "path": "scripts/issue75/extraction-config.json",
+        "sha256": "63af1c34677672fa70ff5ce01c9d2dab2a2201eebf199de1af527f4d4ed96920"
+      }
+    ],
+    "project_revision": "cdb16080cad0d78872fcd3af35bc0d088c8014be",
+    "version": "1"
+  },
+  "gguf_observation": {
+    "endianness": "little",
+    "metadata": {
+      "general.architecture": "kimi-k3",
+      "general.finetune": "9f62e4e9fffbd0a83ddd60e1c209d828994b3569",
+      "general.name": "moonshotai/Kimi-K3",
+      "kimi-k3.block_count": 93,
+      "kimi-k3.embedding_length": 7168,
+      "kimi-k3.expert_count": 896,
+      "kimi-k3.expert_gating_func": 2,
+      "kimi-k3.expert_latent_length": 3584,
+      "kimi-k3.expert_used_count": 16,
+      "kimi-k3.expert_weights_norm": true,
+      "kimi-k3.expert_weights_scale": 1.0,
+      "kimi-k3.leading_dense_block_count": 1,
+      "split.count": 33
+    },
+    "split_tensor_count": 2573
+  },
+  "inventory": {
+    "correction_tensor_count": 92,
+    "path": "tensors.json",
+    "payload_bytes": 2363820032,
+    "projection_tensor_count": 92,
+    "tensor_count": 184
+  },
+  "model": {
+    "architecture": "kimi-k3",
+    "repository": "moonshotai/Kimi-K3",
+    "revision": "9f62e4e9fffbd0a83ddd60e1c209d828994b3569",
+    "variant": "Kimi-K3-BF16-MXFP4"
+  },
+  "pack_id": "kimi-k3-router-pack-v1",
+  "payload_authority": "Exact native tensor byte ranges copied from the qualified GGUF splits.",
+  "release": {
+    "ordered_assets": [
+      {
+        "compressed_bytes": 151621020,
+        "content_description": "Exact native GGUF F32 router projection and selection-correction bytes sourced from GGUF split 00031-of-00033.",
+        "download_url": "https://github.com/murillo128/k3-out-of-core/releases/download/issue75-kimi-k3-router-pack-v1/kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+        "filename": "kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+        "order": 0,
+        "payload_bytes": 359711744,
+        "sha256": "361ec0e256d84a1c931196c08b6996e0e5315e0d2e48bf3041f26d69a5ef62e9",
+        "source_identity": {
+          "artifact_identity_manifest_sha256": "58b14d13a602944e1134fc753b2cc819a84a31290aee9c1479264a66dbb5efe2",
+          "repository": "moonshotai/Kimi-K3",
+          "revision": "9f62e4e9fffbd0a83ddd60e1c209d828994b3569",
+          "source_files": [
+            "kimi-k3-bf16-00031-of-00033.gguf"
+          ]
+        },
+        "tensor_count": 28,
+        "uncompressed_tar_bytes": 359731200
+      },
+      {
+        "compressed_bytes": 465815840,
+        "content_description": "Exact native GGUF F32 router projection and selection-correction bytes sourced from GGUF split 00032-of-00033.",
+        "download_url": "https://github.com/murillo128/k3-out-of-core/releases/download/issue75-kimi-k3-router-pack-v1/kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+        "filename": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+        "order": 1,
+        "payload_bytes": 1104828928,
+        "sha256": "f1d767de74060a905b9f63e839766852197841fdd1a249ac5e1a7f9e493a348a",
+        "source_identity": {
+          "artifact_identity_manifest_sha256": "58b14d13a602944e1134fc753b2cc819a84a31290aee9c1479264a66dbb5efe2",
+          "repository": "moonshotai/Kimi-K3",
+          "revision": "9f62e4e9fffbd0a83ddd60e1c209d828994b3569",
+          "source_files": [
+            "kimi-k3-bf16-00032-of-00033.gguf"
+          ]
+        },
+        "tensor_count": 86,
+        "uncompressed_tar_bytes": 1104875520
+      },
+      {
+        "compressed_bytes": 378519055,
+        "content_description": "Exact native GGUF F32 router projection and selection-correction bytes sourced from GGUF split 00033-of-00033.",
+        "download_url": "https://github.com/murillo128/k3-out-of-core/releases/download/issue75-kimi-k3-router-pack-v1/kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+        "filename": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+        "order": 2,
+        "payload_bytes": 899279360,
+        "sha256": "442a079d2e6e14a7ef5c9b6c2f53f7300860338cbf4fae7b0d53fa9f3b68ba3c",
+        "source_identity": {
+          "artifact_identity_manifest_sha256": "58b14d13a602944e1134fc753b2cc819a84a31290aee9c1479264a66dbb5efe2",
+          "repository": "moonshotai/Kimi-K3",
+          "revision": "9f62e4e9fffbd0a83ddd60e1c209d828994b3569",
+          "source_files": [
+            "kimi-k3-bf16-00033-of-00033.gguf"
+          ]
+        },
+        "tensor_count": 70,
+        "uncompressed_tar_bytes": 899317760
+      }
+    ],
+    "repository": "murillo128/k3-out-of-core",
+    "tag": "issue75-kimi-k3-router-pack-v1",
+    "url": "https://github.com/murillo128/k3-out-of-core/releases/tag/issue75-kimi-k3-router-pack-v1"
+  },
+  "router": {
+    "block_count": 93,
+    "correction_shape": [
+      896
+    ],
+    "expert_latent_dimension": 3584,
+    "experts_per_layer": 896,
+    "hidden_dimension": 7168,
+    "leading_dense_block_count": 1,
+    "projection_shape_ggml_ne_order": [
+      7168,
+      896
+    ],
+    "projection_storage_interpretation": "F32 little-endian; ne[0] is contiguous, so each of 896 expert router vectors contains 7168 contiguous coefficients.",
+    "routed_layer_count": 92,
+    "routed_layers": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92
+    ],
+    "router_output_dimension": 896,
+    "top_k": 16
+  },
+  "schema_version": "kimi-k3-router-pack-manifest-v1",
+  "semantics": {
+    "accepted_issue73_revisions": {
+      "nested_runtime": "9ca6e0ff6a2ccba0ca401c41724763bfa45769a6",
+      "project": "817c24686b6212fb4cd7a19f383f9498c02d28d1"
+    },
+    "correction_bias": "A learned 896-element F32 additive selection correction exists for every routed layer.",
+    "final_expert_weights": "Weights are gathered from the original unbiased sigmoid probabilities for the selected IDs, normalized by their sum with the runtime's F16-minimum clamp, and scaled by 1.0. The correction bias is not part of final expert weights.",
+    "router_activation": "Elementwise sigmoid of the 896 router logits.",
+    "router_projection": "Each routed layer multiplies the full-width 7168-element hidden state by ffn_gate_inp to produce 896 logits; routed experts consume the separate 3584-element latent projection.",
+    "selection_score": "The per-expert correction tensor exp_probs_b is added to the unbiased sigmoid probabilities only for top-16 membership selection.",
+    "sources": [
+      {
+        "nested_revision": "9ca6e0ff6a2ccba0ca401c41724763bfa45769a6",
+        "path": "src/models/kimi-k3.cpp",
+        "sha256": "9ba654c425dc9f79429c8d41cc4401a4e00bc208693a155e9e101fa09694851f",
+        "symbols": [
+          "llama_model_kimi_k3::load_arch_hparams",
+          "llama_model_kimi_k3::load_arch_tensors",
+          "llama_model_kimi_k3::graph::build_latent_moe"
+        ]
+      },
+      {
+        "nested_revision": "9ca6e0ff6a2ccba0ca401c41724763bfa45769a6",
+        "path": "src/llama-graph.cpp",
+        "sha256": "79ca69b30fedbab940ed2bf3ec811f3b9b142586cd521efc7e50936515bd0ecf",
+        "symbols": [
+          "llm_graph_context::build_moe_ffn"
+        ]
+      },
+      {
+        "nested_revision": "9ca6e0ff6a2ccba0ca401c41724763bfa45769a6",
+        "path": "src/llama-hparams.h",
+        "sha256": "4cb6583bd52ae3339ff2838a093169822789d1951fcabb651731cf7d74149169",
+        "symbols": [
+          "llama_expert_gating_func_type"
+        ]
+      }
+    ]
+  },
+  "source_artifact": {
+    "file_count": 33,
+    "files": [
+      {
+        "name": "kimi-k3-bf16-00001-of-00033.gguf",
+        "sha256": "7055d359fb8efb649faa2056b466f41a17379177bf2c66aaf9774a623bf1bc39",
+        "size": 47173955040
+      },
+      {
+        "name": "kimi-k3-bf16-00002-of-00033.gguf",
+        "sha256": "b4a3925be2715d9124bedde731fc44d4f156a9d8b95755e26e82f044a7d3210b",
+        "size": 47167046400
+      },
+      {
+        "name": "kimi-k3-bf16-00003-of-00033.gguf",
+        "sha256": "ed0a7abe764654aaccec773fabebe23d471af011b29d2aeb8358511d254dc990",
+        "size": 47167046400
+      },
+      {
+        "name": "kimi-k3-bf16-00004-of-00033.gguf",
+        "sha256": "99f1141fa7d8c9d0935b3fc156267a6111563078149f7f466c893f061a36ebc5",
+        "size": 47167046432
+      },
+      {
+        "name": "kimi-k3-bf16-00005-of-00033.gguf",
+        "sha256": "856f971fad40cdae4cd1a531a4996bdf049f83641791636cad270bd2c05a9546",
+        "size": 47167046432
+      },
+      {
+        "name": "kimi-k3-bf16-00006-of-00033.gguf",
+        "sha256": "8c393cc8aff73b3c2b762419942e07cb47f03cfcb44761653782eb945224f257",
+        "size": 47167046432
+      },
+      {
+        "name": "kimi-k3-bf16-00007-of-00033.gguf",
+        "sha256": "11d90482e7c051c1c68c6889c4643c56d9b119fd296f0eaaf0a62dfc116b5ab3",
+        "size": 47167046432
+      },
+      {
+        "name": "kimi-k3-bf16-00008-of-00033.gguf",
+        "sha256": "868ea6944c4be277d29b41d6c653fe2b58909b88a4a5a5db6b1d28f4b635adf4",
+        "size": 47167046432
+      },
+      {
+        "name": "kimi-k3-bf16-00009-of-00033.gguf",
+        "sha256": "caeaa0e6b020dab0da52a8ed5bf6abd8a3e6c5cfec32ab6d60155876fd075f42",
+        "size": 47167046432
+      },
+      {
+        "name": "kimi-k3-bf16-00010-of-00033.gguf",
+        "sha256": "7115c3529deff89242d4cc734e9d937c37f0e66fdc0dc33a685533ce6994d830",
+        "size": 47167046432
+      },
+      {
+        "name": "kimi-k3-bf16-00011-of-00033.gguf",
+        "sha256": "007e377bc75a1b1dce93c9b88e55879c94092802d896e5881bd4c2f05d23ffed",
+        "size": 47167046432
+      },
+      {
+        "name": "kimi-k3-bf16-00012-of-00033.gguf",
+        "sha256": "326329e37e51dc73dcaf1b34dddd3aaa57161a5988e53f6564e22b76f9dcf7aa",
+        "size": 47167046432
+      },
+      {
+        "name": "kimi-k3-bf16-00013-of-00033.gguf",
+        "sha256": "ada5f649af542a3646c08e97d16023b921d023b7b88b764996bf183d6ce392d4",
+        "size": 47167046432
+      },
+      {
+        "name": "kimi-k3-bf16-00014-of-00033.gguf",
+        "sha256": "4ae2bc6ba5c466545a4dfc2c43a24856440cc0663a508af9ddf8abd50c96ef44",
+        "size": 47167046432
+      },
+      {
+        "name": "kimi-k3-bf16-00015-of-00033.gguf",
+        "sha256": "c8c0a4862ffabcde404d29d68a28a6cdade3da12cfe0ba3ba88ec351f252668c",
+        "size": 47167046432
+      },
+      {
+        "name": "kimi-k3-bf16-00016-of-00033.gguf",
+        "sha256": "9bdac3761b7ebe2f453e5cd60112481d5a6ab7a56008ffec1abe9c8616455529",
+        "size": 47167046432
+      },
+      {
+        "name": "kimi-k3-bf16-00017-of-00033.gguf",
+        "sha256": "a2180d89af07558f33a71f331c1d080922aa3c73f8c28e1bd8cbcab7ed1889c7",
+        "size": 47167046432
+      },
+      {
+        "name": "kimi-k3-bf16-00018-of-00033.gguf",
+        "sha256": "7de1d6ffa0e7beb2452935d1dab240a7182b04ee9c3534611338e9de915197ba",
+        "size": 47167046432
+      },
+      {
+        "name": "kimi-k3-bf16-00019-of-00033.gguf",
+        "sha256": "527f181cb27e8cdd266be3732d1eb5aa1fd92802378d10ea41382e7ee1e0a7d4",
+        "size": 47167046432
+      },
+      {
+        "name": "kimi-k3-bf16-00020-of-00033.gguf",
+        "sha256": "0a18306196ef11f70e7fd462da4a7596a7791a88441bd5d2c5bfb2f31c576c09",
+        "size": 47167046432
+      },
+      {
+        "name": "kimi-k3-bf16-00021-of-00033.gguf",
+        "sha256": "df112d70a7617b63cb8b9d48ceae300f67382e42ff56f48915b0ef99b0e4235b",
+        "size": 47167046432
+      },
+      {
+        "name": "kimi-k3-bf16-00022-of-00033.gguf",
+        "sha256": "c6f270ccafed8d39c1b2035e411ef74a5e0e75fd666937f43b643fdfb12418d7",
+        "size": 47167046432
+      },
+      {
+        "name": "kimi-k3-bf16-00023-of-00033.gguf",
+        "sha256": "c28769d473232e1b2ea4dc489fb154f592e2cf627da326eb93fb9c1fdce650b6",
+        "size": 47167046432
+      },
+      {
+        "name": "kimi-k3-bf16-00024-of-00033.gguf",
+        "sha256": "3bb5f1133dbe2fcc4cb562c807ee068cf3f7ff66040fe43ad34296d08d483d64",
+        "size": 47167046432
+      },
+      {
+        "name": "kimi-k3-bf16-00025-of-00033.gguf",
+        "sha256": "64caf1d4f8919518be98df7e2ccfd0bd48ff3a3447790e264b41a8ac9e9fb41d",
+        "size": 47167046432
+      },
+      {
+        "name": "kimi-k3-bf16-00026-of-00033.gguf",
+        "sha256": "226bc1a3d24841c437bd20bc5aa8ade32ff4b19333c7c08220125a7cffdd8b20",
+        "size": 47167046432
+      },
+      {
+        "name": "kimi-k3-bf16-00027-of-00033.gguf",
+        "sha256": "087425e8e700a3f9241e86df5fec724f344bf90a4283b2efce9639689d430171",
+        "size": 47167046432
+      },
+      {
+        "name": "kimi-k3-bf16-00028-of-00033.gguf",
+        "sha256": "f0053915ccfa68a0581d63cc1cb55f70d12dee2f9f6438c5d410a0851c64b323",
+        "size": 47167046432
+      },
+      {
+        "name": "kimi-k3-bf16-00029-of-00033.gguf",
+        "sha256": "818ffff9bef77e948b8a0437a585d42880f07254335889bc20a8e3c2bc3cd0f0",
+        "size": 47167046432
+      },
+      {
+        "name": "kimi-k3-bf16-00030-of-00033.gguf",
+        "sha256": "1a345214bd222d5e5526343ec21ca22acf2f4bca539e96363a29ef408baba644",
+        "size": 47167046432
+      },
+      {
+        "name": "kimi-k3-bf16-00031-of-00033.gguf",
+        "sha256": "4a0726fb0111295fb7acefec8248896d4802212e381fc95cbf27e16c62f48183",
+        "size": 49915623552
+      },
+      {
+        "name": "kimi-k3-bf16-00032-of-00033.gguf",
+        "sha256": "62db8aa74ae25b4e180417eadc422f3eff90a5bf8057ac34e9bfe3c442b363a4",
+        "size": 49962373248
+      },
+      {
+        "name": "kimi-k3-bf16-00033-of-00033.gguf",
+        "sha256": "10a165a72e7c2385ed9bf6099755f2d866b9d5017452ad305e7a368048056109",
+        "size": 46261560800
+      }
+    ],
+    "identity_manifest_sha256": "58b14d13a602944e1134fc753b2cc819a84a31290aee9c1479264a66dbb5efe2",
+    "qualified_identity": {
+      "repository": "moonshotai/Kimi-K3",
+      "revision": "9f62e4e9fffbd0a83ddd60e1c209d828994b3569",
+      "variant": "Kimi-K3-BF16-MXFP4"
+    },
+    "total_bytes": 1561157859104
+  }
+}
