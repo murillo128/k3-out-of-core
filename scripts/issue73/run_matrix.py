@@ -147,7 +147,7 @@ def run_one(args: argparse.Namespace, ordinal: int) -> dict[str, object]:
     command = probe_command(
         args.probe, args.model, workload_path,
         role_devices=args.roles, n_gpu_layers=args.n_gpu_layers,
-        max_generate=args.max_generate, cold_bytes=args.cold_bytes,
+        n_ubatch=args.n_ubatch, max_generate=args.max_generate, cold_bytes=args.cold_bytes,
         ring_bytes=args.ring_bytes, peer_staging_bytes=args.peer_staging_bytes,
         io_workers=args.io_workers, queue_depth=args.queue_depth,
         async_cold_fill=args.async_cold_fill, transport=args.transport,
@@ -211,6 +211,7 @@ def main() -> None:
     parser.add_argument("--n-gpu-layers", type=int, required=True)
     parser.add_argument("--runs", type=int, default=1)
     parser.add_argument("--start-run", type=int, default=1)
+    parser.add_argument("--n-ubatch", type=int, default=4)
     parser.add_argument("--max-generate", type=int, default=24)
     parser.add_argument("--cold-bytes", type=int, default=DEFAULT_COLD_BYTES)
     parser.add_argument("--ring-bytes", type=int, default=DEFAULT_RING_BYTES)
@@ -226,7 +227,7 @@ def main() -> None:
     parser.add_argument("--drop-page-cache", action="store_true")
     parser.add_argument("--block-stat", type=Path, default=Path("/sys/block/sda/stat"))
     args = parser.parse_args()
-    if (args.runs < 1 or args.start_run < 1 or args.n_gpu_layers < 0 or
+    if (args.runs < 1 or args.start_run < 1 or args.n_gpu_layers < 0 or args.n_ubatch < 1 or
             args.max_generate < 1 or args.sample_period <= 0):
         raise SystemExit("invalid full-K3 run bounds")
     if not args.probe.is_file() or not args.model.is_file() or not args.block_stat.is_file():
@@ -235,6 +236,7 @@ def main() -> None:
     write_json(args.output_dir / "matrix.json", {
         "schema_version": "issue73-run-matrix-v1", "status": "complete",
         "case": args.case, "roles": args.roles, "n_gpu_layers": args.n_gpu_layers,
+        "n_ubatch": args.n_ubatch,
         "runs": results,
     })
 

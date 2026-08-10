@@ -27,6 +27,7 @@ def probe_command(
     *,
     role_devices: str,
     n_gpu_layers: int,
+    n_ubatch: int = 4,
     max_generate: int = 24,
     cold_bytes: int = DEFAULT_COLD_BYTES,
     ring_bytes: int = DEFAULT_RING_BYTES,
@@ -41,7 +42,7 @@ def probe_command(
 ) -> list[str]:
     roles = [item for item in role_devices.split(",") if item]
     ordinals = [int(item.split(":", 1)[0]) for item in roles]
-    if not roles or n_gpu_layers < 0 or max_generate <= 0:
+    if not roles or n_gpu_layers < 0 or n_ubatch <= 0 or max_generate <= 0:
         raise ValueError("invalid full-K3 probe configuration")
     if transport not in {"POSITIONAL", "BUFFERED", "DIRECT_IO", "DIRECT_IO_POSITIONAL"}:
         raise ValueError(f"unsupported transport: {transport}")
@@ -58,7 +59,7 @@ def probe_command(
         "--peer-staging-bytes", str(peer_staging_bytes if remote_roles else 0),
         "--queue-depth", str(queue_depth), "--io-workers", str(io_workers),
         "--trace-capacity", str(trace_capacity), "--n-ctx", "4096",
-        "--n-batch", "128", "--n-ubatch", "128", "--n-gpu-layers", str(n_gpu_layers),
+        "--n-batch", "128", "--n-ubatch", str(n_ubatch), "--n-gpu-layers", str(n_gpu_layers),
         "--max-generate", str(max_generate), "--background", "0",
         "--observe-routes", "1" if observe_routes else "0", "--transport", transport,
         "--io-access", "NORMAL", "--config-source", "EXPLICIT", "--integrity", "NONE",

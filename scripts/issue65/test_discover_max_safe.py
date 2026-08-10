@@ -91,13 +91,14 @@ def main() -> None:
         probe=Path("probe"), model=Path("model"), role_template="0:{candidate}",
         resident_device=0, prompt="K3 prompt", cold_bytes=32, ring_bytes=64,
         peer_staging_bytes=128, queue_depth=8, max_generate=3, n_gpu_layers=4,
-        io_workers=2,
+        io_workers=2, n_ubatch=4,
     ), 17, Path("output"))
     assert option(command, "--prompt") == "K3 prompt"
     assert option(command, "--cold-bytes") == "32"
     assert option(command, "--ring-bytes") == "64"
     assert option(command, "--queue-depth") == "8"
     assert option(command, "--max-generate") == "3"
+    assert option(command, "--n-ubatch") == "4"
     assert option(command, "--io-workers") == "2"
 
     manifest_args = SimpleNamespace(
@@ -106,7 +107,7 @@ def main() -> None:
         target_bdf="00000000:00:0a.0", peer_staging_bytes=67_108_864,
         n_gpu_layers=8, prompt="K3 prompt", prompt_source="prompt.txt",
         cold_bytes=17_179_869_184, ring_bytes=67_173_120, queue_depth=256,
-        io_workers=4, max_generate=24,
+        io_workers=4, n_ubatch=4, max_generate=24,
         slot_stride=11_835_264, reserve_bytes=1_073_741_824, lower_bound=268,
         max_probes=32, sample_period=0.25, raw_dir=Path("/tmp/issue65-max-safe-test"),
     )
