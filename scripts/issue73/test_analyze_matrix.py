@@ -107,6 +107,25 @@ def main() -> None:
         assert merged["cases"]["REPEAT"]["n_ubatch"] == 4
         assert merged["cases"]["REPEAT"]["revisions"]["nested"] == "b"
         assert merged["cases"]["REPEAT"]["artifact"]["manifest_sha256"] == "c"
+
+        mismatched_workload = dict(full_workload)
+        mismatched_workload["generated_text"] = "different"
+        mismatched_path = temporary / "mismatched-workload.json"
+        mismatched_path.write_text(json.dumps(mismatched_workload))
+        mismatched_matrix = temporary / "mismatched-matrix.json"
+        mismatched_matrix.write_text(json.dumps({
+            "status": "complete", "case": "MISMATCH", "roles": "0:1",
+            "n_gpu_layers": 1, "n_ubatch": 4,
+            "runs": [{"workload": str(mismatched_path), "resources": str(path)}],
+        }))
+        mismatch_output = temporary / "mismatch-summary.json"
+        mismatch = subprocess.run([
+            sys.executable, str(Path(__file__).with_name("analyze_matrix.py")),
+            "--matrix", str(matrices[0]), "--matrix", str(mismatched_matrix),
+            "--output", str(mismatch_output),
+        ], check=False, capture_output=True, text=True)
+        assert mismatch.returncode != 0
+        assert json.loads(mismatch_output.read_text())["status"] == "fail"
         assert merged["cases"]["REPEAT"]["source_matrices"] == [str(path) for path in matrices]
 
     print("ISSUE73_MATRIX_ANALYSIS_TEST status=pass pooled=pass resources=pass")

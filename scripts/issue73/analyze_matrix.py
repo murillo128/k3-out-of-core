@@ -284,10 +284,12 @@ def main() -> None:
         }
         for key, case in case_inputs.items()
     }
+    production_exact = len(set(identities)) == 1
     result = {
-        "schema_version": "issue73-matrix-summary-v1", "status": "pass",
+        "schema_version": "issue73-matrix-summary-v1",
+        "status": "pass" if production_exact else "fail",
         "identity": {
-            "production_output_exact_across_all_processes": len(set(identities)) == 1,
+            "production_output_exact_across_all_processes": production_exact,
             "production_output_sha256": identities[0], "processes": len(identities),
             "compliance_identity_exact": (
                 len(set(compliance_identities)) == 1 if compliance_identities else None),
@@ -295,7 +297,10 @@ def main() -> None:
         "cases": cases,
     }
     write_json(args.output, result)
-    print(f"ISSUE73_MATRIX_ANALYSIS status=pass cases={len(cases)} processes={len(identities)}")
+    print(f"ISSUE73_MATRIX_ANALYSIS status={result['status']} "
+          f"cases={len(cases)} processes={len(identities)}")
+    if not production_exact:
+        raise SystemExit("full-K3 production outputs differ across matrix cases")
 
 
 if __name__ == "__main__":
