@@ -1,0 +1,448 @@
+{
+  "complete_routed_layer_cycles": 4,
+  "critical_path": {
+    "accounting_error_ns": 0,
+    "buckets_fraction": {
+      "cuda_synchronization": 0.007608316938355634,
+      "dependency_or_host_gap": 0.3057488988633708,
+      "gpu0_kernel": 0.01382669346111184,
+      "gpu1_kernel": 0.01733934622689449,
+      "issue_span_ns": 0.016322461194445775,
+      "no_miss_provider_ns": 0.0,
+      "other_cuda": 0.02180906519056691,
+      "peer_activation_result_copy": 0.0014286963509777685,
+      "post_issue_ns": 0.5365544154425744,
+      "pre_issue_ns": 0.07936210633170235
+    },
+    "buckets_ns": {
+      "cuda_synchronization": 1514952,
+      "dependency_or_host_gap": 60880075,
+      "gpu0_kernel": 2753142,
+      "gpu1_kernel": 3452574,
+      "issue_span_ns": 3250094,
+      "no_miss_provider_ns": 0,
+      "other_cuda": 4342575,
+      "peer_activation_result_copy": 284479,
+      "post_issue_ns": 106837582,
+      "pre_issue_ns": 15802415
+    },
+    "wall_ns": 199117888
+  },
+  "cycles": [
+    {
+      "demand_enqueues": 15,
+      "enqueue_target_devices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "gpu0_kernel_union_ns": 879323,
+      "gpu1_kernel_union_ns": 862935,
+      "gpu_kernel_overlap_ns": 190775,
+      "graph_exclusive_ns": {
+        "cuda_synchronization": 358818,
+        "dependency_or_host_gap": 16413557,
+        "gpu0_kernel": 688548,
+        "gpu1_kernel": 862935,
+        "other_cuda": 1092953,
+        "peer_activation_result_copy": 72416
+      },
+      "graph_ns": 19489227,
+      "layer": 15,
+      "provider_critical_path": {
+        "issue_span_ns": 855578,
+        "no_miss_provider_ns": 0,
+        "post_issue_ns": 30126383,
+        "pre_issue_ns": 4462140
+      },
+      "provider_ns": 35444101,
+      "provider_phase_diagnostics": {
+        "post_selector_to_first_issue_ns": 9140
+      },
+      "provider_service_unions_ns": {
+        "event_wait": 317008,
+        "expert_h2d_cuda": 8822827,
+        "h2d_scope": 9433930,
+        "multi_device_hot_slot_candidate_build": 1167049,
+        "multi_device_hot_slot_feasibility_accounting": 218830,
+        "multi_device_hot_slot_policy_admission": 3016841,
+        "multi_device_hot_slot_select": 4424550,
+        "multi_device_transport_epoch_snapshot": 6960,
+        "policy_hash_state": 0,
+        "stage": 0,
+        "storage": 26464581
+      },
+      "start_offset_ns": 243499,
+      "wall_ns": 54933328
+    },
+    {
+      "demand_enqueues": 13,
+      "enqueue_target_devices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "gpu0_kernel_union_ns": 877883,
+      "gpu1_kernel_union_ns": 862967,
+      "gpu_kernel_overlap_ns": 190396,
+      "graph_exclusive_ns": {
+        "cuda_synchronization": 370874,
+        "dependency_or_host_gap": 16824270,
+        "gpu0_kernel": 687487,
+        "gpu1_kernel": 862967,
+        "other_cuda": 1083789,
+        "peer_activation_result_copy": 72608
+      },
+      "graph_ns": 19901995,
+      "layer": 16,
+      "provider_critical_path": {
+        "issue_span_ns": 804539,
+        "no_miss_provider_ns": 0,
+        "post_issue_ns": 26517981,
+        "pre_issue_ns": 3980971
+      },
+      "provider_ns": 31303491,
+      "provider_phase_diagnostics": {
+        "post_selector_to_first_issue_ns": 8170
+      },
+      "provider_service_unions_ns": {
+        "event_wait": 288599,
+        "expert_h2d_cuda": 5795117,
+        "h2d_scope": 5970907,
+        "multi_device_hot_slot_candidate_build": 1040958,
+        "multi_device_hot_slot_feasibility_accounting": 186939,
+        "multi_device_hot_slot_policy_admission": 2704184,
+        "multi_device_hot_slot_select": 3947581,
+        "multi_device_transport_epoch_snapshot": 60600,
+        "policy_hash_state": 0,
+        "stage": 0,
+        "storage": 23586128
+      },
+      "start_offset_ns": 55176827,
+      "wall_ns": 51205486
+    },
+    {
+      "demand_enqueues": 11,
+      "enqueue_target_devices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "gpu0_kernel_union_ns": 878171,
+      "gpu1_kernel_union_ns": 863160,
+      "gpu_kernel_overlap_ns": 190540,
+      "graph_exclusive_ns": {
+        "cuda_synchronization": 448090,
+        "dependency_or_host_gap": 16520201,
+        "gpu0_kernel": 687631,
+        "gpu1_kernel": 863160,
+        "other_cuda": 1082838,
+        "peer_activation_result_copy": 72256
+      },
+      "graph_ns": 19674176,
+      "layer": 17,
+      "provider_critical_path": {
+        "issue_span_ns": 715019,
+        "no_miss_provider_ns": 0,
+        "post_issue_ns": 22414860,
+        "pre_issue_ns": 3127463
+      },
+      "provider_ns": 26257342,
+      "provider_phase_diagnostics": {
+        "post_selector_to_first_issue_ns": 7680
+      },
+      "provider_service_unions_ns": {
+        "event_wait": 233708,
+        "expert_h2d_cuda": 5169408,
+        "h2d_scope": 5245848,
+        "multi_device_hot_slot_candidate_build": 845849,
+        "multi_device_hot_slot_feasibility_accounting": 165380,
+        "multi_device_hot_slot_policy_admission": 2067214,
+        "multi_device_hot_slot_select": 3091763,
+        "multi_device_transport_epoch_snapshot": 189370,
+        "policy_hash_state": 0,
+        "stage": 0,
+        "storage": 19901216
+      },
+      "start_offset_ns": 106382313,
+      "wall_ns": 45931518
+    },
+    {
+      "demand_enqueues": 14,
+      "enqueue_target_devices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "gpu0_kernel_union_ns": 876636,
+      "gpu1_kernel_union_ns": 863512,
+      "gpu_kernel_overlap_ns": 187160,
+      "graph_exclusive_ns": {
+        "cuda_synchronization": 337170,
+        "dependency_or_host_gap": 11122047,
+        "gpu0_kernel": 689476,
+        "gpu1_kernel": 863512,
+        "other_cuda": 1082995,
+        "peer_activation_result_copy": 67199
+      },
+      "graph_ns": 14162399,
+      "layer": 18,
+      "provider_critical_path": {
+        "issue_span_ns": 874958,
+        "no_miss_provider_ns": 0,
+        "post_issue_ns": 27778358,
+        "pre_issue_ns": 4231841
+      },
+      "provider_ns": 32885157,
+      "provider_phase_diagnostics": {
+        "post_selector_to_first_issue_ns": 8940
+      },
+      "provider_service_unions_ns": {
+        "event_wait": 269020,
+        "expert_h2d_cuda": 7391016,
+        "h2d_scope": 7620062,
+        "multi_device_hot_slot_candidate_build": 1115358,
+        "multi_device_hot_slot_feasibility_accounting": 203220,
+        "multi_device_hot_slot_policy_admission": 2859563,
+        "multi_device_hot_slot_select": 4194231,
+        "multi_device_transport_epoch_snapshot": 60749,
+        "policy_hash_state": 0,
+        "stage": 0,
+        "storage": 24473455
+      },
+      "start_offset_ns": 152313831,
+      "wall_ns": 47047556
+    }
+  ],
+  "gpu": {
+    "gpu0_kernel_union_ns": 3512013,
+    "gpu1_kernel_union_ns": 3452574,
+    "simultaneous_gpu0_gpu1_kernel_overlap_ns": 758871,
+    "synchronization_groups": [
+      {
+        "context_id": 1,
+        "max_ns": 735519,
+        "records": 34,
+        "stream_id": 4294967295,
+        "sync_type": 1,
+        "total_ns": 11990247
+      },
+      {
+        "context_id": 4,
+        "max_ns": 694498,
+        "records": 16,
+        "stream_id": 4294967295,
+        "sync_type": 1,
+        "total_ns": 10287025
+      },
+      {
+        "context_id": 2,
+        "max_ns": 715019,
+        "records": 16,
+        "stream_id": 4294967295,
+        "sync_type": 1,
+        "total_ns": 9871798
+      },
+      {
+        "context_id": 3,
+        "max_ns": 689589,
+        "records": 16,
+        "stream_id": 4294967295,
+        "sync_type": 1,
+        "total_ns": 9867097
+      },
+      {
+        "context_id": 1,
+        "max_ns": 308220,
+        "records": 70,
+        "stream_id": 47,
+        "sync_type": 3,
+        "total_ns": 1659505
+      },
+      {
+        "context_id": 1,
+        "max_ns": 7270,
+        "records": 37,
+        "stream_id": 46,
+        "sync_type": 3,
+        "total_ns": 155500
+      },
+      {
+        "context_id": 1,
+        "max_ns": 5160,
+        "records": 34,
+        "stream_id": 47,
+        "sync_type": 2,
+        "total_ns": 67850
+      },
+      {
+        "context_id": 3,
+        "max_ns": 4860,
+        "records": 10,
+        "stream_id": 56,
+        "sync_type": 3,
+        "total_ns": 38590
+      },
+      {
+        "context_id": 4,
+        "max_ns": 4870,
+        "records": 10,
+        "stream_id": 57,
+        "sync_type": 3,
+        "total_ns": 38330
+      },
+      {
+        "context_id": 2,
+        "max_ns": 4960,
+        "records": 10,
+        "stream_id": 55,
+        "sync_type": 3,
+        "total_ns": 38190
+      },
+      {
+        "context_id": 1,
+        "max_ns": 6410,
+        "records": 10,
+        "stream_id": 48,
+        "sync_type": 3,
+        "total_ns": 32160
+      },
+      {
+        "context_id": 1,
+        "max_ns": 5400,
+        "records": 10,
+        "stream_id": 49,
+        "sync_type": 3,
+        "total_ns": 26610
+      },
+      {
+        "context_id": 1,
+        "max_ns": 5010,
+        "records": 10,
+        "stream_id": 50,
+        "sync_type": 3,
+        "total_ns": 18870
+      },
+      {
+        "context_id": 1,
+        "max_ns": 4180,
+        "records": 16,
+        "stream_id": 48,
+        "sync_type": 2,
+        "total_ns": 16540
+      },
+      {
+        "context_id": 1,
+        "max_ns": 3760,
+        "records": 16,
+        "stream_id": 50,
+        "sync_type": 2,
+        "total_ns": 15930
+      },
+      {
+        "context_id": 1,
+        "max_ns": 3590,
+        "records": 16,
+        "stream_id": 49,
+        "sync_type": 2,
+        "total_ns": 14300
+      },
+      {
+        "context_id": 2,
+        "max_ns": 710,
+        "records": 20,
+        "stream_id": 48,
+        "sync_type": 3,
+        "total_ns": 9810
+      },
+      {
+        "context_id": 4,
+        "max_ns": 720,
+        "records": 20,
+        "stream_id": 50,
+        "sync_type": 3,
+        "total_ns": 9450
+      },
+      {
+        "context_id": 3,
+        "max_ns": 550,
+        "records": 20,
+        "stream_id": 49,
+        "sync_type": 3,
+        "total_ns": 9040
+      },
+      {
+        "context_id": 2,
+        "max_ns": 1020,
+        "records": 5,
+        "stream_id": 47,
+        "sync_type": 3,
+        "total_ns": 4410
+      },
+      {
+        "context_id": 3,
+        "max_ns": 860,
+        "records": 5,
+        "stream_id": 47,
+        "sync_type": 3,
+        "total_ns": 3790
+      },
+      {
+        "context_id": 4,
+        "max_ns": 880,
+        "records": 5,
+        "stream_id": 47,
+        "sync_type": 3,
+        "total_ns": 3650
+      }
+    ]
+  },
+  "graph_wall": {
+    "max_ms": 19.901995,
+    "mean_ms": 18.30694925,
+    "p50_ms": 19.489227,
+    "p95_ms": 19.674176
+  },
+  "layer_wall": {
+    "max_ms": 54.933328,
+    "mean_ms": 49.779472,
+    "p50_ms": 47.047556,
+    "p95_ms": 51.205486
+  },
+  "provider_phase_diagnostics": {
+    "post_selector_to_first_issue_mean_ms": 0.0084825
+  },
+  "provider_service_unions_not_additive": {
+    "event_wait": 1108335,
+    "expert_h2d_cuda": 27178368,
+    "h2d_scope": 28270747,
+    "multi_device_hot_slot_candidate_build": 4169214,
+    "multi_device_hot_slot_feasibility_accounting": 774369,
+    "multi_device_hot_slot_policy_admission": 10647802,
+    "multi_device_hot_slot_select": 15658125,
+    "multi_device_transport_epoch_snapshot": 317679,
+    "policy_hash_state": 0,
+    "stage": 0,
+    "storage": 94425380
+  },
+  "provider_wall": {
+    "max_ms": 35.444101,
+    "mean_ms": 31.472522750000003,
+    "p50_ms": 31.303491,
+    "p95_ms": 32.885157
+  },
+  "trace": {
+    "path": "/var/lib/k3/issue73/runs/profiling/ptrace-b0-05/trace.pftrace",
+    "sha256": "5371e7fd1d61e720933ec814d79229d51bec2824f9a4e30fde99f6ef86ddb797",
+    "size": 2008800
+  },
+  "window": {
+    "duration_ns": 250545113,
+    "logical_end_ns": 75445881580284,
+    "logical_start_ns": 75445631035171
+  }
+}

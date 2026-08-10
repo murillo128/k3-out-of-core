@@ -1,0 +1,196 @@
+{
+  "schema_version": "issue73-host-cache-selection-v1",
+  "status": "pass",
+  "artifact_identity_manifest_sha256": "58b14d13a602944e1134fc753b2cc819a84a31290aee9c1479264a66dbb5efe2",
+  "configuration": {
+    "roles": "0:549,1:1125,2:1125,3:1125",
+    "resident_device": 0,
+    "n_gpu_layers": 8,
+    "n_ubatch": 4,
+    "generated_tokens": 24,
+    "ring_bytes": 134217728,
+    "peer_staging_bytes": 134217728,
+    "queue_depth": 64,
+    "io_workers": 4,
+    "transport": "DIRECT_IO_POSITIONAL",
+    "measurement_tier": "P0"
+  },
+  "identity": {
+    "production_output_sha256": "3c3bb089e6c93ac39517f8dd148b49051f4bbfb390cb8891b28d10d07622b456",
+    "prompt_generated_text_exact": true,
+    "generated_ids_exact": true,
+    "all_24_logit_checksums_exact": true
+  },
+  "cells": {
+    "B0": {
+      "revisions": {
+        "project": "362d1a161c1cff793d040b8f5584c595bff2ccee",
+        "nested": "44be442ce1f0a16a2f9cbe3c69c2d7620988ba16"
+      },
+      "async_cold_fill": false,
+      "cold_requested_bytes": 17179869184,
+      "cold_actual_bytes": 17178771456,
+      "cold_slots": 979,
+      "decode_tps": 0.29413172551213035,
+      "ttft_us": 300214458,
+      "decode_latency_us": {
+        "p50": 3398577,
+        "p95": 3869869,
+        "p99": 4036160,
+        "max": 4036160
+      },
+      "cold_hits": 0,
+      "logical_storage_bytes": 1832636252160,
+      "logical_h2d_bytes": 1832636252160,
+      "guest_block_read_bytes": 1832796758528,
+      "process_rss_max_kib": 111869216,
+      "host_mem_available_min_kib": 194963660,
+      "major_faults": 0
+    },
+    "H64": {
+      "revisions": {
+        "project": "e81bd9efb80d6980c10379a76b49416294d6f3c6",
+        "nested": "4b72d328402c5bc0dc65b3e22c78e3cbba41cb4d"
+      },
+      "async_cold_fill": true,
+      "cold_requested_bytes": 68719476736,
+      "cold_actual_bytes": 68715085824,
+      "cold_slots": 3916,
+      "decode_tps": 0.2947545694679556,
+      "ttft_us": 309133000,
+      "decode_latency_us": {
+        "p50": 3361197,
+        "p95": 3930025,
+        "p99": 4143072,
+        "max": 4143072
+      },
+      "cold_hits": 13613,
+      "async_fill_completed": 7389,
+      "async_fill_bytes": 129656733696,
+      "logical_storage_bytes": 1593765347328,
+      "logical_h2d_bytes": 1832636252160,
+      "guest_block_read_bytes": 1593937339392,
+      "process_rss_max_kib": 178970592,
+      "host_mem_available_min_kib": 127917248,
+      "major_faults": 0
+    },
+    "H96": {
+      "revisions": {
+        "project": "e81bd9efb80d6980c10379a76b49416294d6f3c6",
+        "nested": "4b72d328402c5bc0dc65b3e22c78e3cbba41cb4d"
+      },
+      "async_cold_fill": true,
+      "cold_requested_bytes": 103079215104,
+      "cold_actual_bytes": 103072628736,
+      "cold_slots": 5874,
+      "decode_tps": 0.02464063234016315,
+      "ttft_us": 1043764544,
+      "decode_latency_us": {
+        "p50": 40223082,
+        "p95": 43096480,
+        "p99": 43756915,
+        "max": 43756915
+      },
+      "cold_hits": 17778,
+      "async_fill_completed": 4782,
+      "async_fill_bytes": 83911016448,
+      "logical_storage_bytes": 1520680992768,
+      "logical_h2d_bytes": 1832636252160,
+      "guest_block_read_bytes": 2975432115712,
+      "process_rss_max_kib": 194773512,
+      "host_mem_available_min_kib": 93121208,
+      "major_faults": 15779721
+    },
+    "HMAX7391": {
+      "revisions": {
+        "project": "e81bd9efb80d6980c10379a76b49416294d6f3c6",
+        "nested": "4b72d328402c5bc0dc65b3e22c78e3cbba41cb4d"
+      },
+      "async_cold_fill": true,
+      "cold_requested_bytes": 129691828224,
+      "cold_actual_bytes": 129691828224,
+      "cold_slots": 7391,
+      "decode_tps": 0.018838757618860454,
+      "ttft_us": 1106754697,
+      "decode_latency_us": {
+        "p50": 53074926,
+        "p95": 56047795,
+        "p99": 60866820,
+        "max": 60866820
+      },
+      "cold_hits": 17715,
+      "async_fill_completed": 4099,
+      "async_fill_bytes": 71926235136,
+      "logical_storage_bytes": 1521786470400,
+      "logical_h2d_bytes": 1832636252160,
+      "guest_block_read_bytes": 4301032423424,
+      "process_rss_max_kib": 194807688,
+      "host_mem_available_min_kib": 67113844,
+      "major_faults": 9746762
+    }
+  },
+  "ratios": {
+    "H64_over_B0_decode_tps": 1.002117568088722,
+    "H96_over_B0_decode_tps": 0.0837741399614743,
+    "HMAX7391_over_B0_decode_tps": 0.06404871010109217,
+    "H64_logical_storage_reduction": 0.13034278054385295,
+    "H96_logical_storage_reduction": 0.17022213711221756,
+    "HMAX7391_logical_storage_reduction": 0.16961891995404055,
+    "H96_guest_block_over_logical_storage": 1.9566445098363516,
+    "HMAX7391_guest_block_over_logical_storage": 2.8263048115373754
+  },
+  "max_safe": {
+    "declared_reserve_kib": 67108864,
+    "empirical_anchor": "H96",
+    "anchor_min_available_kib": 93121208,
+    "slot_stride_bytes": 17547264,
+    "slot_stride_kib": 17136,
+    "accepted_slots": 7391,
+    "accepted_bytes": 129691828224,
+    "measured_min_available_kib": 67113844,
+    "measured_margin_kib": 4980,
+    "one_slot_over_slots": 7392,
+    "one_slot_over_predicted_available_kib": 67096708,
+    "one_slot_over_reserve_shortfall_kib": 12156,
+    "one_slot_over_classification": "rejected_analytically_not_run"
+  },
+  "host_accounting_at_max_safe": {
+    "managed_cold_bytes": 129691828224,
+    "runtime_declared_ring_pinned_or_registered_bytes": 491323392,
+    "runtime_declared_peer_staging_bytes": 134217728,
+    "runtime_declared_total_pinned_or_registered_staging_bytes": 625541120,
+    "cgroup_anon_max_bytes": 131985121280,
+    "cgroup_file_max_bytes": 113757880320,
+    "cgroup_file_mapped_max_bytes": 113248272384,
+    "cgroup_memory_current_max_bytes": 202546905088,
+    "process_rss_max_kib": 194792616,
+    "process_hwm_max_kib": 194807688,
+    "host_cached_max_kib": 111120312,
+    "host_mlocked_max_kib": 0,
+    "process_vmpin_max_kib": 0,
+    "cgroup_swap_max_bytes": 0,
+    "cgroup_memory_high_delta": 0,
+    "cgroup_memory_max_delta": 0,
+    "cgroup_oom_delta": 0,
+    "cgroup_oom_kill_delta": 0,
+    "gpu_minimum_free_mib": [1030, 1026, 1026, 1026]
+  },
+  "terminal_invariants": {
+    "direct_source_count_equals_source_count": true,
+    "direct_buffered_fallback_zero": true,
+    "storage_errors_zero": true,
+    "stale_completions_zero": true,
+    "lifecycle_terminal": true,
+    "swap_empty": true,
+    "oom_kills_zero": true
+  },
+  "selected": {
+    "cell": "B0",
+    "transport": "DIRECT_IO_POSITIONAL",
+    "async_cold_fill": false,
+    "cold_requested_bytes": 17179869184,
+    "workers": 4,
+    "queue_depth": 64,
+    "reason": "large managed-cold budgets displace mapped ordinary weights; H64 is neutral within single-run noise and worsens TTFT"
+  }
+}

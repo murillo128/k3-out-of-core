@@ -69,9 +69,28 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--lower-bound", type=int, default=268)
     parser.add_argument("--upper-bound", type=int)
     parser.add_argument("--peer-staging-bytes", type=int, default=67_108_864)
+    parser.add_argument("--n-gpu-layers", type=int)
+    prompt = parser.add_mutually_exclusive_group()
+    prompt.add_argument("--prompt", default=PROMPT)
+    prompt.add_argument("--prompt-file", type=Path)
+    parser.add_argument("--cold-bytes", type=int, default=17_179_869_184)
+    parser.add_argument("--ring-bytes", type=int, default=67_173_120)
+    parser.add_argument("--queue-depth", type=int, default=256)
+    parser.add_argument("--io-workers", type=int)
+    parser.add_argument("--n-ubatch", type=int, default=128)
+    parser.add_argument("--max-generate", type=int, default=24)
     parser.add_argument("--sample-period", type=float, default=0.25)
+    parser.add_argument(
+        "--early-reject-reserve", action="store_true",
+        help="Terminate a candidate once an observed target sample irreversibly breaches the reserve gate.")
     parser.add_argument("--max-probes", type=int, default=32)
-    return parser.parse_args()
+    args = parser.parse_args()
+    if args.prompt_file is not None:
+        args.prompt = args.prompt_file.read_text().removesuffix("\n")
+        args.prompt_source = str(args.prompt_file)
+    else:
+        args.prompt_source = "COMMAND_LINE_OR_DEFAULT"
+    return args
 
 
 def sha256_file(path: Path) -> str:
@@ -170,6 +189,13 @@ def sample_gpus() -> list[dict[str, object]]:
         return []
 
 
+def target_reserve_breached(
+        sample: dict[str, object], target_uuid: str, reserve_bytes: int) -> bool:
+    return any(
+        gpu.get("uuid") == target_uuid and int(gpu.get("free_bytes", reserve_bytes)) < reserve_bytes
+        for gpu in sample.get("gpus", []))
+
+
 def prepare_raw_directory(path: Path) -> None:
     """Create one campaign directory and reject any pre-existing contents."""
     if path.exists():
@@ -188,25 +214,53 @@ def require_fresh_candidate_paths(output: Path, log: Path) -> None:
 
 def build_command(args: argparse.Namespace, candidate: int, output: Path) -> list[str]:
     roles = args.role_template.format(candidate=candidate)
-    return [
+    command = [
         str(args.probe), "--model", str(args.model), "--output", str(output),
         "--mode", "cold", "--expert-runtime-mode", "PRODUCTION_PERFORMANCE",
-        "--prompt", PROMPT, "--hot-policy", "LRU", "--cold-policy", "LRU",
+        "--prompt", args.prompt, "--hot-policy", "LRU", "--cold-policy", "LRU",
         "--scope", "GLOBAL", "--admission", "ALWAYS", "--miss-policy", "PROMOTE_AND_GPU",
-        "--hot-slots", "268", "--cold-bytes", "17179869184", "--ring-bytes", "67173120",
+        "--hot-slots", "268", "--cold-bytes", str(args.cold_bytes),
+        "--ring-bytes", str(args.ring_bytes),
         "--role-config", "EXPLICIT", "--resident-device", str(args.resident_device),
         "--expert-role-devices", roles, "--peer-transport", "HOST_STAGED",
-        "--peer-staging-bytes", str(args.peer_staging_bytes), "--queue-depth", "256",
+        "--peer-staging-bytes", str(args.peer_staging_bytes),
+        "--queue-depth", str(args.queue_depth),
         "--trace-capacity", "0", "--n-ctx", "4096", "--n-batch", "128",
-        "--n-ubatch", "128", "--max-generate", "24", "--background", "0",
+        "--n-ubatch", str(args.n_ubatch), "--max-generate", str(args.max_generate), "--background", "0",
         "--observe-routes", "0", "--transport", "POSITIONAL",
         "--config-source", "EXPLICIT", "--integrity", "NONE",
     ]
+    if args.n_gpu_layers is not None:
+        command.extend(("--n-gpu-layers", str(args.n_gpu_layers)))
+    if args.io_workers is not None:
+        command.extend(("--io-workers", str(args.io_workers)))
+    return command
+
+
+def normalized_expert_devices(evidence: dict) -> list[dict[str, object]]:
+    """Join physical role identity onto mechanism rows for local-single runs."""
+    roles = {
+        item.get("device_id"): item
+        for item in evidence.get("expert_roles", {}).get("experts", [])
+        if isinstance(item.get("device_id"), int)
+    }
+    result: list[dict[str, object]] = []
+    for source in evidence.get("multi_gpu", {}).get("devices", []):
+        device = dict(source)
+        role = roles.get(device.get("device_id"), {})
+        if not device.get("uuid"):
+            device["uuid"] = role.get("uuid", "")
+        if not device.get("pci_bdf"):
+            device["pci_bdf"] = role.get("pci_bdf", "")
+        if not isinstance(device.get("cuda_ordinal"), int) or device["cuda_ordinal"] < 0:
+            device["cuda_ordinal"] = role.get("cuda_ordinal", -1)
+        result.append(device)
+    return result
 
 
 def exact_target_device(evidence: dict, target_uuid: str, candidate: int) -> dict | None:
     matches = [
-        device for device in evidence.get("multi_gpu", {}).get("devices", [])
+        device for device in normalized_expert_devices(evidence)
         if device.get("uuid") == target_uuid
     ]
     if len(matches) != 1:
@@ -224,13 +278,15 @@ def classify_candidate(
         samples: list[dict[str, object]],
         target_uuid: str,
         candidate: int,
-        reserve_bytes: int) -> ProbeDecision:
+        reserve_bytes: int,
+        generated_tokens: int = 24) -> ProbeDecision:
     lower_log = log_text.lower()
     if returncode != 0:
         if any(pattern in lower_log for pattern in MEMORY_REJECTION_PATTERNS):
             return ProbeDecision("reject", "allocation_or_memory_budget")
         return ProbeDecision("abort", f"non_memory_process_failure_{returncode}")
-    if evidence is None or evidence.get("status") != "pass" or len(evidence.get("generated_ids", [])) != 24:
+    if (evidence is None or evidence.get("status") != "pass" or
+            len(evidence.get("generated_ids", [])) != generated_tokens):
         return ProbeDecision("abort", "incomplete_or_failed_workload")
     if exact_target_device(evidence, target_uuid, candidate) is None:
         return ProbeDecision("abort", "requested_capacity_not_honored_exactly")
@@ -299,7 +355,7 @@ def device_ledgers(
         log_text: str, reserve_bytes: int, peer_staging_bytes: int) -> list[dict[str, object]]:
     model_bytes = parse_buffer_bytes(log_text, "model")
     graph_bytes = parse_buffer_bytes(log_text, "compute")
-    expert_by_uuid = {item.get("uuid"): item for item in evidence.get("multi_gpu", {}).get("devices", [])}
+    expert_by_uuid = {item.get("uuid"): item for item in normalized_expert_devices(evidence)}
     result: list[dict[str, object]] = []
     for base in inventory:
         uuid = str(base["uuid"])
@@ -342,9 +398,11 @@ def validate_capacity_manifest(manifest: dict[str, object]) -> None:
     required_configuration = {
         "provider_mode", "hot_policy", "cold_policy", "policy_scope", "admission",
         "miss_policy", "cold_cache_bytes", "transfer_ring_bytes", "queue_depth",
+        "io_worker_count", "prompt_source", "prompt_sha256",
         "peer_transport", "peer_staging_bytes", "fixture_transport", "integrity",
         "background_promotion", "trace_capacity", "observe_routes", "n_ctx",
         "n_batch", "n_ubatch", "generated_tokens", "sample_period_seconds",
+        "early_reject_reserve",
     }
     artifact = manifest.get("artifact", {})
     if (not required_top.issubset(manifest) or
@@ -384,9 +442,10 @@ def build_capacity_manifest(
             "policy_scope": "GLOBAL",
             "admission": "ALWAYS",
             "miss_policy": "PROMOTE_AND_GPU",
-            "cold_cache_bytes": 17_179_869_184,
-            "transfer_ring_bytes": 67_173_120,
-            "queue_depth": 256,
+            "cold_cache_bytes": args.cold_bytes,
+            "transfer_ring_bytes": args.ring_bytes,
+            "queue_depth": args.queue_depth,
+            "io_worker_count": args.io_workers,
             "peer_transport": "HOST_STAGED",
             "peer_staging_bytes": args.peer_staging_bytes,
             "fixture_transport": "POSITIONAL",
@@ -398,10 +457,14 @@ def build_capacity_manifest(
             "role_config": "EXPLICIT",
             "n_ctx": 4096,
             "n_batch": 128,
-            "n_ubatch": 128,
-            "generated_tokens": 24,
+            "n_ubatch": args.n_ubatch,
+            "n_gpu_layers": args.n_gpu_layers,
+            "generated_tokens": args.max_generate,
+            "prompt_source": args.prompt_source,
+            "prompt_sha256": hashlib.sha256(args.prompt.encode()).hexdigest(),
             "selection": "ARGMAX",
             "sample_period_seconds": args.sample_period,
+            "early_reject_reserve": args.early_reject_reserve,
         },
         "topology": {
             "resident_cuda_ordinal": args.resident_device,
@@ -437,7 +500,11 @@ def build_capacity_manifest(
 def main() -> None:
     args = parse_args()
     if (args.role_template.count("{candidate}") != 1 or args.reserve_bytes <= 0 or
-            args.slot_stride <= 0 or args.sample_period <= 0):
+            args.slot_stride <= 0 or args.sample_period <= 0 or not args.prompt or
+            args.cold_bytes <= 0 or args.ring_bytes <= 0 or args.queue_depth <= 0 or
+            args.n_ubatch <= 0 or args.max_generate <= 0 or
+            (args.io_workers is not None and args.io_workers <= 0) or
+            (args.n_gpu_layers is not None and args.n_gpu_layers < 0)):
         raise SystemExit("invalid discovery configuration")
     if not args.probe.is_file() or not args.model.is_file():
         raise SystemExit("probe or model is missing")
@@ -473,21 +540,37 @@ def main() -> None:
         environment.update({"GGML_CUDA_GRAPH_OPT": "0", "GGML_CUDA_DISABLE_GRAPHS": "1"})
         started = time.monotonic()
         samples: list[dict[str, object]] = []
+        reserve_terminated = False
         with log.open("xb") as stream:
             process = subprocess.Popen(command, stdout=stream, stderr=subprocess.STDOUT, env=environment)
             while process.poll() is None:
-                samples.append({"elapsed_seconds": time.monotonic() - started, "gpus": sample_gpus()})
+                sample = {"elapsed_seconds": time.monotonic() - started, "gpus": sample_gpus()}
+                samples.append(sample)
+                if (args.early_reject_reserve and
+                        target_reserve_breached(sample, args.target_uuid, args.reserve_bytes)):
+                    reserve_terminated = True
+                    process.terminate()
+                    break
                 time.sleep(args.sample_period)
-            returncode = process.wait()
+            try:
+                returncode = process.wait(timeout=10 if reserve_terminated else None)
+            except subprocess.TimeoutExpired:
+                process.kill()
+                returncode = process.wait()
         log_text = log.read_text(errors="replace")
         evidence = json.loads(output.read_text()) if output.is_file() else None
-        decision = classify_candidate(
-            returncode, evidence, log_text, samples, args.target_uuid, candidate, args.reserve_bytes)
+        decision = (
+            ProbeDecision("reject", "safety_reserve_not_preserved")
+            if reserve_terminated else
+            classify_candidate(
+                returncode, evidence, log_text, samples, args.target_uuid, candidate,
+                args.reserve_bytes, args.max_generate))
         probe_records[candidate] = {
             "candidate_slots": candidate,
             "outcome": decision.outcome,
             "reason": decision.reason,
             "fresh_process": True,
+            "early_reserve_termination": reserve_terminated,
             "returncode": returncode,
             "elapsed_seconds": time.monotonic() - started,
             "command": command,

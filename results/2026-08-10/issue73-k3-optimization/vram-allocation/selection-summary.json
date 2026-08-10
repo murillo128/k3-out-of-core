@@ -1,0 +1,174 @@
+{
+  "schema_version": "issue73-ordinary-vram-stage1-v1",
+  "status": "complete",
+  "classification": "ORDINARY_RESIDENCY_NEGATIVE",
+  "artifact_identity_manifest_sha256": "58b14d13a602944e1134fc753b2cc819a84a31290aee9c1479264a66dbb5efe2",
+  "configuration": {
+    "resident_device": 0,
+    "remote_expert_slots": "1:1125,2:1125,3:1125",
+    "cold_cache_bytes": 17179869184,
+    "ring_bytes": 134217728,
+    "peer_staging_bytes": 134217728,
+    "io_workers": 4,
+    "queue_depth": 64,
+    "transport": "DIRECT_IO_POSITIONAL",
+    "n_ubatch": 4,
+    "device_reserve_bytes": 1073741824
+  },
+  "v1_capacity": {
+    "accepted_n_gpu_layers": 16,
+    "accepted_cuda0_model_buffer_mib": 18540.59,
+    "accepted_cuda0_model_buffer_bytes_rounded": 19441217700,
+    "accepted_minimum_free_mib": 1204,
+    "accepted_runtime_clean": true,
+    "accepted_repeat_runtime_clean": true,
+    "one_layer_over_n_gpu_layers": 17,
+    "one_layer_over_cuda0_model_buffer_mib": 19761.89,
+    "one_layer_over_cuda0_model_buffer_bytes_rounded": 20721843569,
+    "one_layer_over_minimum_free_mib": 2,
+    "one_layer_over_outcome": "rejected_cuda_oom",
+    "one_layer_over_returncode": -6
+  },
+  "v0": {
+    "revisions": {
+      "project": "362d1a161c1cff793d040b8f5584c595bff2ccee",
+      "nested": "44be442ce1f0a16a2f9cbe3c69c2d7620988ba16"
+    },
+    "roles": "0:549,1:1125,2:1125,3:1125",
+    "n_gpu_layers": 8,
+    "ordinary_resident_model_bytes": 10043030241,
+    "hot_slots": 3924,
+    "hot_pool_bytes": 68855463936,
+    "decode_tps": 0.29413172551213035,
+    "ttft_us": 300214458,
+    "decode_latency_us": {
+      "p50": 3398577,
+      "p95": 3869869,
+      "p99": 4036160,
+      "max": 4036160
+    },
+    "hot_hits": 37849,
+    "hot_misses": 104440,
+    "hot_hit_rate": 0.26600088552171985,
+    "logical_storage_bytes": 1832636252160,
+    "logical_h2d_bytes": 1832636252160,
+    "guest_block_read_bytes": 1832796758528,
+    "host_staged_peer_bytes": 7823886336,
+    "provider_h2d_join_time_ns": 72733333911,
+    "major_faults": 0,
+    "process_rss_max_kib": 111869216,
+    "gpu_minimum_free_mib": [1030, 1026, 1026, 1026],
+    "output_identity_with_logits": "ab4f8f1664805d515307e952b1f2bddeda2df4bfc0bb76b6cb55a890425041ef"
+  },
+  "v1": {
+    "revisions": {
+      "project": "a0b62bae0977efce86cea21ab24da56f60e1f5b5",
+      "nested": "4b72d328402c5bc0dc65b3e22c78e3cbba41cb4d"
+    },
+    "roles": "1:1125,2:1125,3:1125",
+    "n_gpu_layers": 16,
+    "ordinary_resident_model_buffer_mib": 18540.59,
+    "ordinary_resident_model_bytes_rounded": 19441217700,
+    "hot_slots": 3375,
+    "hot_pool_bytes": 59222016000,
+    "decode_tps": 0.30532735433343017,
+    "ttft_us": 331095864,
+    "decode_latency_us": {
+      "p50": 3273254,
+      "p95": 3730801,
+      "p99": 3981831,
+      "max": 3981831
+    },
+    "hot_hits": 16778,
+    "hot_misses": 125500,
+    "hot_hit_rate": 0.11792406415608879,
+    "logical_storage_bytes": 2202181632000,
+    "logical_h2d_bytes": 2202181632000,
+    "guest_block_read_bytes": 2202377615872,
+    "host_staged_peer_bytes": 7866206208,
+    "provider_h2d_join_time_ns": 88060632924,
+    "major_faults": 12,
+    "process_rss_max_kib": 111682144,
+    "gpu_minimum_free_mib": [1204, 1026, 1026, 1026],
+    "generated_ids_exact_with_v0": true,
+    "generated_text_exact_with_v0": true,
+    "logits_exact_with_v0": false,
+    "logit_digest_mismatch_count": 24,
+    "logit_digest_count": 24,
+    "output_identity_with_logits": "e561960b4d81c1c2fd4e64efed2099f614dace34e556afae08b9fe15d5231a81",
+    "classification": "rejected_performance_positive_correctness_negative"
+  },
+  "v1_ratios": {
+    "decode_tps_over_v0": 1.0380633160255204,
+    "decode_tps_gain": 0.03806331602552038,
+    "logical_storage_increase": 0.20164687859057828,
+    "hot_hit_rate_delta": -0.14807682136563105
+  },
+  "v2": {
+    "status": "skipped",
+    "reason": "V1 failed the unchanged exact-logit gate"
+  },
+  "v3_capacity": {
+    "accepted_n_gpu_layers": 15,
+    "accepted_cuda0_model_buffer_mib": 17319.29,
+    "accepted_cuda0_model_buffer_bytes_rounded": 18160591831,
+    "accepted_minimum_free_mib": 1362,
+    "one_layer_over_n_gpu_layers": 16,
+    "one_layer_over_minimum_free_mib": 138,
+    "one_layer_over_outcome": "rejected_safety_reserve_not_preserved",
+    "one_layer_over_returncode": -15,
+    "one_layer_over_termination": "agent_terminated_after_observed_reserve_breach"
+  },
+  "v3_short_diagnostic": {
+    "revisions": {
+      "project": "336c5e081081ad5d8f0b638b7c07aa9e6a058943",
+      "nested": "4b72d328402c5bc0dc65b3e22c78e3cbba41cb4d"
+    },
+    "prompt_file": "scripts/issue73/v3-short-prompt.txt",
+    "decision_driving": false,
+    "roles": "0:64",
+    "miss_policy": "CPU_FALLBACK",
+    "n_gpu_layers": 15,
+    "generated_tokens": 5,
+    "decode_intervals": 4,
+    "decode_tps": 0.022047572134585084,
+    "ttft_us": 531739314,
+    "decode_latency_us": {
+      "p50": 43868990,
+      "p95": 47954781,
+      "p99": 47954781,
+      "max": 47954781
+    },
+    "hot_admissions": 0,
+    "hot_hits": 0,
+    "logical_h2d_bytes": 0,
+    "logical_storage_bytes": 608556662784,
+    "guest_block_read_bytes": 1124741878272,
+    "major_faults": 116266,
+    "process_rss_max_kib": 128098516,
+    "gpu_minimum_free_mib": [1362, 19876, 19876, 19876],
+    "decode_tps_over_v0": 0.0749581572548719,
+    "decode_tps_over_v1": 0.07220961968087608,
+    "threshold_over_best": 0.5,
+    "threshold_passed": false,
+    "normal_prompt_graduation": false
+  },
+  "terminal_invariants": {
+    "accepted_cells_storage_errors_zero": true,
+    "accepted_cells_lifecycle_terminal": true,
+    "accepted_cells_swap_empty": true,
+    "accepted_cells_oom_kills_zero": true,
+    "v1_device_reserve_preserved": true,
+    "v3_device_reserve_preserved": true
+  },
+  "selected": {
+    "cell": "V0_B0_T4",
+    "roles": "0:549,1:1125,2:1125,3:1125",
+    "n_gpu_layers": 8,
+    "transport": "DIRECT_IO_POSITIONAL",
+    "async_cold_fill": false,
+    "reason": "V1 violates exact-logit identity and V3 is below the early-stop threshold"
+  },
+  "stage2_authorized": false,
+  "next": "resume original profiling and bounded optimization sequence"
+}

@@ -31,6 +31,10 @@ def fake_evidence(slots: int) -> dict:
     }
 
 
+def option(command: list[str], name: str) -> str:
+    return command[command.index(name) + 1]
+
+
 def main() -> None:
     with tempfile.TemporaryDirectory(prefix="issue65-max-safe-") as temporary:
         raw = Path(temporary) / "raw"
@@ -61,6 +65,10 @@ def main() -> None:
     assert len(records) <= 16
 
     samples = [{"gpus": [{"uuid": "GPU-target", "free_bytes": 2_000_000_000}]}]
+    assert not MODULE.target_reserve_breached(samples[0], "GPU-target", 1_073_741_824)
+    assert MODULE.target_reserve_breached(
+        {"gpus": [{"uuid": "GPU-target", "free_bytes": 1}]},
+        "GPU-target", 1_073_741_824)
     passed = MODULE.classify_candidate(
         0, fake_evidence(536), "", samples, "GPU-target", 536, 1_073_741_824)
     assert passed.outcome == "pass"
@@ -82,13 +90,43 @@ def main() -> None:
     clamp_decision = MODULE.classify_candidate(
         0, clamped, "", samples, "GPU-target", 536, 1)
     assert clamp_decision == MODULE.ProbeDecision("abort", "requested_capacity_not_honored_exactly")
+    local = fake_evidence(64)
+    local["multi_gpu"]["devices"][0].update({
+        "device_id": 0, "uuid": "", "pci_bdf": "", "cuda_ordinal": -1,
+    })
+    local["expert_roles"] = {"shape": "LOCAL_SINGLE", "experts": [{
+        "device_id": 0, "cuda_ordinal": 0, "uuid": "GPU-target",
+        "pci_bdf": "00000000:00:02.0", "hot_slots": 64,
+    }]}
+    local_device = MODULE.exact_target_device(local, "GPU-target", 64)
+    assert local_device is not None
+    assert local_device["cuda_ordinal"] == 0
+    assert local_device["pci_bdf"] == "00000000:00:02.0"
+
+    command = MODULE.build_command(SimpleNamespace(
+        probe=Path("probe"), model=Path("model"), role_template="0:{candidate}",
+        resident_device=0, prompt="K3 prompt", cold_bytes=32, ring_bytes=64,
+        peer_staging_bytes=128, queue_depth=8, max_generate=3, n_gpu_layers=4,
+        io_workers=2, n_ubatch=4,
+    ), 17, Path("output"))
+    assert option(command, "--prompt") == "K3 prompt"
+    assert option(command, "--cold-bytes") == "32"
+    assert option(command, "--ring-bytes") == "64"
+    assert option(command, "--queue-depth") == "8"
+    assert option(command, "--max-generate") == "3"
+    assert option(command, "--n-ubatch") == "4"
+    assert option(command, "--io-workers") == "2"
 
     manifest_args = SimpleNamespace(
         project_revision="parent", nested_revision="nested", resident_device=0,
         role_template="1:{candidate}", target_device=1, target_uuid="GPU-target",
         target_bdf="00000000:00:0a.0", peer_staging_bytes=67_108_864,
+        n_gpu_layers=8, prompt="K3 prompt", prompt_source="prompt.txt",
+        cold_bytes=17_179_869_184, ring_bytes=67_173_120, queue_depth=256,
+        io_workers=4, n_ubatch=4, max_generate=24,
         slot_stride=11_835_264, reserve_bytes=1_073_741_824, lower_bound=268,
-        max_probes=32, sample_period=0.25, raw_dir=Path("/tmp/issue65-max-safe-test"),
+        max_probes=32, sample_period=0.25, early_reject_reserve=True,
+        raw_dir=Path("/tmp/issue65-max-safe-test"),
     )
     inventory = [{
         "cuda_ordinal": 1, "uuid": "GPU-target", "pci_bdf": "00000000:00:0a.0",
@@ -125,6 +163,11 @@ def main() -> None:
     assert manifest["configuration"]["transfer_ring_bytes"] == 67_173_120
     assert manifest["configuration"]["queue_depth"] == 256
     assert manifest["configuration"]["peer_staging_bytes"] == 67_108_864
+    assert manifest["configuration"]["n_gpu_layers"] == 8
+    assert manifest["configuration"]["io_worker_count"] == 4
+    assert manifest["configuration"]["prompt_source"] == "prompt.txt"
+    assert manifest["configuration"]["early_reject_reserve"]
+    assert len(manifest["configuration"]["prompt_sha256"]) == 64
     assert manifest["artifact"]["files"][0]["sha256"] == "b" * 64
     incomplete = dict(manifest)
     incomplete["configuration"] = dict(manifest["configuration"])

@@ -1,0 +1,58 @@
+{
+  "schema_version": "issue73-final-baseline-raw-index-v1",
+  "status": "complete",
+  "archive": {
+    "format": "tar.zst",
+    "release_tag": "issue73-final-baseline-v1",
+    "release_url": "https://github.com/murillo128/k3-out-of-core/releases/download/issue73-final-baseline-v1/issue73-final-baseline-raw-v1.tar.zst",
+    "sha256": "7b2cf53b195f294e7f97e1f16e0389695c4dcd4fdd11d1485c2ec51cbc4ce981",
+    "size": 3576505,
+    "file_count": 201,
+    "data_file_count": 200
+  },
+  "member_manifest": {
+    "archive_path": "issue73-final-baseline-raw-v1/SHA256SUMS",
+    "sha256": "c2d75c94e81f69f2449caeac3798e40c73f15af7224966ecde89a03bd920fb5f",
+    "size": 23979,
+    "listed_files": 200,
+    "verification": "PASS on staging tree and a fresh archive extraction"
+  },
+  "contents": {
+    "identity_files": 3,
+    "campaign_files": 146,
+    "profiling_files": 34,
+    "final_confirmation_files": 17,
+    "campaign_groups": [
+      "topology",
+      "t1-matched-controls",
+      "t1-max-safe",
+      "t1-max-safe-v2",
+      "t1-max-safe-v3",
+      "storage",
+      "host-cache",
+      "vram"
+    ],
+    "profiling_groups": [
+      "p1-adjacent-p0-01",
+      "p1-adjacent-p1-01",
+      "p1-adjacent-p0-02",
+      "ptrace-b0-05",
+      "ptrace-adjacent-p0-05",
+      "w8-endpoint-01",
+      "w8-control-p0-02"
+    ]
+  },
+  "separate_checkpoint_a_archive": {
+    "release_tag": "issue73-checkpoint-a-v1",
+    "release_url": "https://github.com/murillo128/k3-out-of-core/releases/download/issue73-checkpoint-a-v1/issue73-checkpoint-a-raw-v1.tar.zst",
+    "sha256": "f32ec0924e1d23bc36f681a089a87db751af12c74b5c7a85dc667d5fa58e3617",
+    "purpose": "Preserves the large full-K3 Mode-C transcript, initial production processes, and bring-up identity evidence."
+  },
+  "retention": {
+    "live_model_artifact_retained": true,
+    "host_retained_for_issue": 77,
+    "failed_oversized_trace_attempts_included": false,
+    "failed_trace_metadata_retained_in_git": "results/2026-08-10/issue73-k3-optimization/profiling/raw-evidence-index.json",
+    "reason": "The accepted lossless bounded trace and all decision-driving raw evidence are preserved; failed oversized payloads add no reproduction value."
+  }
+}
