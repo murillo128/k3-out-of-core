@@ -1,4 +1,21 @@
 {
+  "asset_validation": [
+    {
+      "compressed_bytes": 151621020,
+      "filename": "kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+      "sha256": "361ec0e256d84a1c931196c08b6996e0e5315e0d2e48bf3041f26d69a5ef62e9"
+    },
+    {
+      "compressed_bytes": 465815840,
+      "filename": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "sha256": "f1d767de74060a905b9f63e839766852197841fdd1a249ac5e1a7f9e493a348a"
+    },
+    {
+      "compressed_bytes": 378519055,
+      "filename": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "sha256": "442a079d2e6e14a7ef5c9b6c2f53f7300860338cbf4fae7b0d53fa9f3b68ba3c"
+    }
+  ],
   "layers": [
     {
       "correction_bias_max": 0.028605474159121513,
@@ -52,7 +69,8 @@
     "tensor_count": 184
   },
   "schema_version": "kimi-k3-router-pack-smoke-v1",
+  "source_artifact_identity_manifest_sha256": "58b14d13a602944e1134fc753b2cc819a84a31290aee9c1479264a66dbb5efe2",
   "status": "PASS",
   "storage_interpretation": "GGUF F32 bytes; each expert vector is contiguous along ne[0]",
-  "verification_scope": "local extracted payload before release upload"
+  "verification_scope": "fresh extracted release assets; full source model unavailable"
 }
