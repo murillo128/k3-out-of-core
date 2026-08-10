@@ -154,6 +154,7 @@ def run_summary(workload: dict[str, object], resources: dict[str, object]) -> di
             "peak_rss_kib": workload["peak_rss_kib"],
         },
         "mechanism": mechanism,
+        "async_io": workload.get("async_io", {}),
         "storage": workload["storage"],
         "transfer": workload["transfer"],
         "capacities": workload["capacities"],

@@ -29,6 +29,7 @@ def main() -> None:
         "cgroup_memory_event_delta": {},
     }
     summary = run_summary(workload, resources)
+    assert summary["async_io"] == {}
     assert summary["decode_tps"] == 2 * 1_000_000 / 30
     assert summary["bytes_per_generated_token"] == {
         "logical_storage": 200, "h2d": 100, "peer": 0, "guest_block": 300}
