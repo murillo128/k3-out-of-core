@@ -1,0 +1,32 @@
+{
+  "schema_version": "issue73-storage-raw-index-v1",
+  "status": "complete",
+  "files": [
+    {"path":"/var/lib/k3/issue73/runs/topology/t4-endpoint-01/matrix.json","sha256":"c0f5887f8eafa3d1c9d085338853d8b7f679eaad873c81c9cf162029f1bf1246","size":1343},
+    {"path":"/var/lib/k3/issue73/runs/topology/t4-endpoint-01/raw/T4-01.json","sha256":"2ff0fc341636993d549ada5618d32fb1e11e6ab75309e061724bf9d5dd0d5cfe","size":43198},
+    {"path":"/var/lib/k3/issue73/runs/topology/t4-endpoint-01/raw/T4-01-resources.json","sha256":"01ec1ca67882b6588f5299ac8da10a38551b31df753deb0cd2bdd13859af60e4","size":2451751},
+    {"path":"/var/lib/k3/issue73/runs/storage/b0-direct-positional-02/matrix.json","sha256":"a6398d1063c3ba136d797c3cf8b50c3071b5626dabfcb00aa255de1a26486bef","size":1363},
+    {"path":"/var/lib/k3/issue73/runs/storage/b0-direct-positional-02/raw/B0-01.json","sha256":"4aac22560571099997ebce7c0ba928b0c3b7c2fb06001b7de9782c530f6cd388","size":43356},
+    {"path":"/var/lib/k3/issue73/runs/storage/b0-direct-positional-02/raw/B0-01-resources.json","sha256":"51f2181a97b8ab51a9aa4c5e499edd3519557ee4a2673daf159be658d8f5a80b","size":1733086},
+    {"path":"/var/lib/k3/issue73/runs/storage/b1-direct-positional-01/matrix.json","sha256":"a4a82a255a4e8b3d818066b9805f2c547fdc2685f99dce217fe1c91570959638","size":1367},
+    {"path":"/var/lib/k3/issue73/runs/storage/b1-direct-positional-01/raw/B1-01.json","sha256":"05ee36c97548ac1348e61bbba30e2096a5c883949685dfd529209f4532b73d1a","size":43499},
+    {"path":"/var/lib/k3/issue73/runs/storage/b1-direct-positional-01/raw/B1-01-resources.json","sha256":"5ff5cf17d4c926cf571e6d4aaad558a1254ef37232cc21eaca08416aaae0e687","size":1784704},
+    {"path":"/var/lib/k3/issue73/runs/storage/c0-direct-uring-03/matrix.json","sha256":"71426e01f4e51aec660c8dbab9f85d1d6ac3f8221c04cfc931d558e04385854a","size":1351},
+    {"path":"/var/lib/k3/issue73/runs/storage/c0-direct-uring-03/raw/C0-01.json","sha256":"5386b467f526c52efa54a2b0b5c720296a700aa3dc4eb58b06b5e7962ab9ae30","size":43344},
+    {"path":"/var/lib/k3/issue73/runs/storage/c0-direct-uring-03/raw/C0-01-resources.json","sha256":"9dca46a4ae0e0374600aef0b054263ed5dddb44898a8c5f3be6d750df0e77f5b","size":3128877},
+    {"path":"/var/lib/k3/issue73/runs/storage/c1-direct-uring-01/matrix.json","sha256":"a7e1886259839c59a95355b4a28e844275cbc9cdc33c02b6f5a7b9956140c5bd","size":1351},
+    {"path":"/var/lib/k3/issue73/runs/storage/c1-direct-uring-01/raw/C1-01.json","sha256":"dfca28d3edc520af5488fcb76b12994af425ed5af1ca34a50a2731107b5030a9","size":43426},
+    {"path":"/var/lib/k3/issue73/runs/storage/c1-direct-uring-01/raw/C1-01-resources.json","sha256":"ada49c67d1f14c4851028c68a9a92610cae9702821e7138f26ef6292e53849ea","size":3151468},
+    {"path":"/var/lib/k3/issue73/runs/storage/b0-direct-positional-w2-01/matrix.json","sha256":"02d3f24781312e6486dd715fc77dda84eeedfbcb8a2c28859f1a713d3f98a049","size":1386},
+    {"path":"/var/lib/k3/issue73/runs/storage/b0-direct-positional-w2-01/raw/B0W2-01.json","sha256":"08f7ea5bd3834cb13506ba18d9862e65c4df9579dfc8beb390b697fd4eadce87","size":43359},
+    {"path":"/var/lib/k3/issue73/runs/storage/b0-direct-positional-w2-01/raw/B0W2-01-resources.json","sha256":"5df175501ab2852b0fac9c8387a2ca1e232289b5c2c0bc2a32c2ede7f7f93621","size":2200946},
+    {"path":"/var/lib/k3/issue73/runs/storage/b0-direct-positional-01/raw/B0-01.log","sha256":"a87d6af4b00178237ac3213e4497e3ec35ccaa709b1ba1c7920b66b07bd061f8","size":214828,"classification":"rejected_pre_inference_direct_eof_diagnostic"},
+    {"path":"/var/lib/k3/issue73/runs/storage/b0-direct-positional-01/raw/B0-01-resources.json","sha256":"388f36e9ff3c121b7b2c5c59299d52593591e3448b82364e4fb0a6f18da60a33","size":27280,"classification":"rejected_pre_inference_direct_eof_diagnostic"},
+    {"path":"/var/lib/k3/issue73/runs/storage/c0-direct-uring-01/raw/C0-01.log","sha256":"b59a4e4473afe2f474bef7536d831d8df130124a83607386ab43581e144cc0b3","size":202598,"classification":"rejected_pre_inference_explicit_worker_diagnostic"},
+    {"path":"/var/lib/k3/issue73/runs/storage/c0-direct-uring-01/raw/C0-01-resources.json","sha256":"78c3f700e0d2078a6c2d26a98d8a5bb50269df61e93e7078ffc430d275228213","size":16662,"classification":"rejected_pre_inference_explicit_worker_diagnostic"},
+    {"path":"/var/lib/k3/issue73/runs/storage/c0-direct-uring-02/raw/C0-01.log","sha256":"145889e3317f14a7cf4d0bd5ba4249dcadcc8d616c0d778a46f11c325e5aa46d","size":202603,"classification":"rejected_pre_inference_scheduler_topology_diagnostic"},
+    {"path":"/var/lib/k3/issue73/runs/storage/c0-direct-uring-02/raw/C0-01-resources.json","sha256":"0f468abb85629497f5a719b1059c8dce9e04318118693b387b62d3445f58b83d","size":16636,"classification":"rejected_pre_inference_scheduler_topology_diagnostic"},
+    {"path":"/var/lib/k3/issue73/fixtures/direct-uring-multigpu-validation-02.json","sha256":"415124798a14d269cdae9bff221b7e24db2e5338b0c30df2e82bcd3f3bd1e681","size":31854,"classification":"retained_native_multigpu_regression"},
+    {"path":"/var/lib/k3/issue73/fixtures/direct-uring-multigpu-validation-02.log","sha256":"7c67f5e13fbf30f3d15358f739150e1778105e17f725f209ae0590f4251939aa","size":48194,"classification":"retained_native_multigpu_regression"}
+  ]
+}
