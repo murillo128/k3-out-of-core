@@ -5,11 +5,12 @@
 `OBSERVED`: the 92 Kimi K3 routed layers contain meaningful **within-layer**
 directional and correction-bias structure, but same-ID cluster memberships and
 expert rankings do not persist across layers. Aggregate geometry does recur as a
-coarse depth regime, most clearly in layers 24-37. The strongest result is that
-the learned selection-correction vectors are highly aligned with low-dimensional
-router geometry: the leading 8 centered router principal components explain a
-median 63.9% of correction-bias variance, and the leading 32 explain a median
-71.2% (versus dimensional null shares of 0.89% and 3.58%).
+distinct anisotropic/outlier depth regime, most clearly in layers 24-37, but not
+as broad expert families. The strongest result is that the learned
+selection-correction vectors are highly aligned with low-dimensional router
+geometry: the leading 8 centered router principal components explain a median
+63.9% of correction-bias variance, and the leading 32 explain a median 71.2%
+(versus dimensional null shares of 0.89% and 3.58%).
 
 This is enough to justify a targeted dynamic measurement of a few contrasting
 layers. It is **not** evidence for a cache policy, expert frequency, locality,
@@ -50,7 +51,8 @@ For each layer, the analysis performs:
 3. nearest-neighbor and thresholded similar-pair summaries;
 4. exact eigendecomposition of the centered cosine Gram matrix;
 5. average-linkage clustering on exact cosine distance and exact silhouette
-   scores for `k = 2, 4, 8, 16, 32`;
+   scores for `k = 2, 4, 8, 16, 32`, with standard zero scores for singleton
+   samples and explicit cluster-size/balance reporting;
 6. correction-bias distributions, robust outliers, and association with norm,
    centroid position, nearest-neighbor bias, pairwise bias proximity, and the
    leading router PCs;
@@ -75,7 +77,7 @@ the full model, inference, runtime traces, or conclusions from issue #77.
 | Nearest-neighbor cosine median | 0.1548 (L19) | 0.2312 | 0.3677 (L36) |
 | Strongest pair cosine | 0.3106 (L34) | 0.6012 | 0.8945 (L70) |
 | Centered spectral effective rank | 581.9 (L92) | 708.4 | 791.5 (L34) |
-| Best cluster silhouette | 0.0070 (L1) | 0.0175 | 0.1585 (L24) |
+| Best cluster silhouette | 0.0070 (L1) | 0.0174 | 0.1574 (L24) |
 | Correction-bias standard deviation | 0.0203 (L1) | 0.0470 | 0.0982 (L28) |
 | Bias variance in top 32 router PCs | 0.173 (L84) | 0.712 | 0.956 (L28) |
 
@@ -98,18 +100,26 @@ highest-similarity pairs, and robust outliers are in `per-layer.json` and
 - The strongest pair is layer 70 experts 44 and 791 at cosine 0.8945. Layer 12
   has the densest very-high-similarity pocket: 23 of the 83 pairs at or above
   0.7. These are localized near-redundant directions, not duplicate vectors.
-- Broad cluster separation is weak in most layers: median best silhouette is
-  0.0175. Only 12/92 layers reach 0.05 and only layers 24, 25, 28, 36, and 37
-  reach 0.10; all five prefer the coarse `k=2` partition. Layer 24 is strongest
-  at 0.1585, still well below a cleanly separated clustering.
+- Broad cluster separation is absent. Median best silhouette is 0.0174. The 12
+  layers above 0.05—including the five above 0.10—derive those scores from
+  outlier-vs-remainder partitions. The five highest `k=2` splits are 1/895
+  (L24), 1/895 (L36), 2/894 (L25), 3/893 (L28), and 1/895 (L37), not broad
+  two-way expert families.
+- For interpretation, a reported partition is considered reasonably balanced
+  when its smallest cluster is at least 25% of the equal-cluster size. The
+  strongest partition meeting that rule is only 0.0212 (layer 86, `k=2`, sizes
+  188/708). Twenty-nine layers' numerically best partitions contain a singleton,
+  and only 13 best partitions place at least 10% of experts in the smallest
+  group. High raw silhouette here is an outlier-separation statistic.
 - Norms contain real local outliers. The global range is 0.9904 (layer 12,
   expert 533) to 9.5875 (layer 48, expert 303), and 45 expert/layer entries cross
   the robust norm-outlier threshold.
 
-`HYPOTHESIS`: layers 24-37 occupy a distinct coarse geometric regime, while
-later layers more often contain isolated near-collinear pairs rather than clean
-global clusters. This could reflect different router organization by depth, but
-static weights cannot identify the hidden states that activate those directions.
+`HYPOTHESIS`: layers 24-37 occupy a distinct anisotropic/outlier geometric
+regime, while later layers more often contain isolated near-collinear pairs.
+This could reflect different router organization by depth, but it is not broad
+clustering, and static weights cannot identify the hidden states that activate
+those directions.
 
 ## Correction-bias structure
 
@@ -152,8 +162,8 @@ traffic cannot be resolved without `P(h)` and uncorrected/corrected score margin
 `OBSERVED`: the within-layer motifs do not map into stable expert-ID families.
 The ARI test below is intentionally identity-aligned: it does not rule out a
 similar geometric motif recurring under a different permutation of expert IDs.
-The aggregate statistics and plots do show a recurring coarse regime across
-layers 24-37, without establishing one-to-one expert correspondence.
+The aggregate statistics and plots do show a recurring anisotropic/outlier regime
+across layers 24-37, without broad partitions or one-to-one expert correspondence.
 
 - Mean all-pair adjusted Rand index for `k=16` partitions is 0.00036; the median
   is effectively zero. The largest pair is only 0.1746 (layers 27 and 38).
@@ -177,9 +187,9 @@ clusters, norms, or bias ranks.
 
 1. **Within-layer similarity:** mostly diffuse but anisotropic, with median
    nearest-neighbor cosine 0.231 and strong depth variation.
-2. **Clusters/redundancy:** localized near-collinear families exist, especially
-   layer 12, but there are no duplicate directions and clean global clusters are
-   absent. Layers 24-37 show the clearest coarse two-way structure.
+2. **Clusters/redundancy:** localized near-collinear groups exist, especially
+   layer 12, but there are no duplicate directions or broad global clusters.
+   Layers 24-37 show strong outlier separation, not coarse two-way families.
 3. **Variation across 92 layers:** substantial in norms, centroid strength,
    pairwise similarity, effective rank, and correction scale; exact ranges are
    tabulated above.
@@ -201,11 +211,11 @@ clusters, norms, or bias ranks.
 ## Recommended follow-up
 
 `SPECULATIVE`: in a separate approved issue, collect unchanged-runtime router
-logits/selected IDs for representative high-structure layers 24, 28, and 36,
-localized-pair layers 12 and 70, and controls 19, 34, and 84. Pre-register these
-tests:
+logits/selected IDs for representative high correction-alignment/outlier layers
+24, 28, and 36, localized-pair layers 12 and 70, and controls 19, 34, and 84.
+Pre-register these tests:
 
-- whether static clusters concentrate empirical selection mass;
+- whether high-leverage outlier cohorts concentrate empirical selection mass;
 - whether geometrically close pairs have correlated logits, co-selection, or
   substitution under real hidden states;
 - how often correction bias changes top-16 membership and at what score margins;

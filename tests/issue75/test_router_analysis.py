@@ -38,6 +38,17 @@ class StatisticalHelperTests(unittest.TestCase):
         score = silhouette_from_distances(distances, np.asarray([0, 0, 1, 1]))
         self.assertGreater(score, 0.85)
 
+    def test_silhouette_scores_singleton_sample_as_zero(self) -> None:
+        distances = np.asarray(
+            [
+                [0.0, 1.0, 1.0],
+                [1.0, 0.0, 0.1],
+                [1.0, 0.1, 0.0],
+            ]
+        )
+        score = silhouette_from_distances(distances, np.asarray([0, 1, 1]))
+        self.assertAlmostEqual(score, 0.6)
+
     def test_robust_zscore_is_zero_for_constant_input(self) -> None:
         np.testing.assert_array_equal(robust_zscores(np.ones(8)), np.zeros(8))
 
@@ -58,6 +69,7 @@ class LayerAnalysisTests(unittest.TestCase):
         self.assertEqual(summary["layer"], 1)
         self.assertEqual(summary["cosine_pairs_ge_0p9"], 30)
         self.assertGreater(summary["cluster_best_silhouette"], 0.4)
+        self.assertGreaterEqual(summary["cluster_best_smallest_size"], 6)
         self.assertGreater(summary["bias_neighbor_mean_spearman"], 0.9)
         self.assertLess(summary["bias_neighbor_difference_ratio"], 0.1)
         self.assertEqual(len(details["top_cosine_pairs"]), 10)

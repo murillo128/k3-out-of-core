@@ -1,6 +1,58 @@
 {
   "layers": [
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 877,
+          "requested_cluster_count": 2,
+          "silhouette": 0.005335493405399739,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.021205357142857144,
+          "smallest_cluster_size": 19,
+          "smallest_to_equal_size_ratio": 0.04241071428571429
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 826,
+          "requested_cluster_count": 4,
+          "silhouette": 0.0020592448647031186,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.021205357142857144,
+          "smallest_cluster_size": 19,
+          "smallest_to_equal_size_ratio": 0.08482142857142858
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 681,
+          "requested_cluster_count": 8,
+          "silhouette": 0.0015063058434160463,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.012276785714285714,
+          "smallest_cluster_size": 11,
+          "smallest_to_equal_size_ratio": 0.09821428571428571
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 515,
+          "requested_cluster_count": 16,
+          "silhouette": 0.002572916794509217,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.010044642857142858,
+          "smallest_cluster_size": 9,
+          "smallest_to_equal_size_ratio": 0.16071428571428573
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 282,
+          "requested_cluster_count": 32,
+          "silhouette": 0.006953940765615436,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.005580357142857143,
+          "smallest_cluster_size": 5,
+          "smallest_to_equal_size_ratio": 0.17857142857142858
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.028605474159121513,
@@ -166,6 +218,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 799,
+          "requested_cluster_count": 2,
+          "silhouette": 0.008463774178869024,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.10825892857142858,
+          "smallest_cluster_size": 97,
+          "smallest_to_equal_size_ratio": 0.21651785714285715
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 773,
+          "requested_cluster_count": 4,
+          "silhouette": 0.004964660230781531,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.029017857142857144,
+          "smallest_cluster_size": 26,
+          "smallest_to_equal_size_ratio": 0.11607142857142858
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 720,
+          "requested_cluster_count": 8,
+          "silhouette": 0.0011643294680071697,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.005580357142857143,
+          "smallest_cluster_size": 5,
+          "smallest_to_equal_size_ratio": 0.044642857142857144
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 605,
+          "requested_cluster_count": 16,
+          "silhouette": 0.0017648497161514534,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.005580357142857143,
+          "smallest_cluster_size": 5,
+          "smallest_to_equal_size_ratio": 0.08928571428571429
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 269,
+          "requested_cluster_count": 32,
+          "silhouette": 0.0062523012337036,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.10714285714285714
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.040483906865119934,
@@ -331,6 +435,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 895,
+          "requested_cluster_count": 2,
+          "silhouette": 0.03909099191653894,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.002232142857142857
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 891,
+          "requested_cluster_count": 4,
+          "silhouette": 0.016367640470118613,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 878,
+          "requested_cluster_count": 8,
+          "silhouette": 0.0064237129864374186,
+          "singleton_cluster_count": 3,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 792,
+          "requested_cluster_count": 16,
+          "silhouette": 0.006471800639454481,
+          "singleton_cluster_count": 3,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 672,
+          "requested_cluster_count": 32,
+          "silhouette": 0.0070432115346775095,
+          "singleton_cluster_count": 3,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.0601145438849926,
@@ -496,6 +652,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 894,
+          "requested_cluster_count": 2,
+          "silhouette": 0.02496357350491952,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 883,
+          "requested_cluster_count": 4,
+          "silhouette": 0.016275210382459025,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 870,
+          "requested_cluster_count": 8,
+          "silhouette": 0.009068559274973532,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 832,
+          "requested_cluster_count": 16,
+          "silhouette": 0.002457647251265586,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 661,
+          "requested_cluster_count": 32,
+          "silhouette": 0.004969768218728908,
+          "singleton_cluster_count": 3,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.061630818992853165,
@@ -661,6 +869,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 895,
+          "requested_cluster_count": 2,
+          "silhouette": 0.022775546430184018,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.002232142857142857
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 883,
+          "requested_cluster_count": 4,
+          "silhouette": 0.013723916472149841,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 858,
+          "requested_cluster_count": 8,
+          "silhouette": 0.006505756425933813,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 704,
+          "requested_cluster_count": 16,
+          "silhouette": 0.0048466873969887515,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 419,
+          "requested_cluster_count": 32,
+          "silhouette": 0.003823191906529828,
+          "singleton_cluster_count": 4,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.03704821690917015,
@@ -826,6 +1086,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 866,
+          "requested_cluster_count": 2,
+          "silhouette": 0.011741243097855712,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.033482142857142856,
+          "smallest_cluster_size": 30,
+          "smallest_to_equal_size_ratio": 0.06696428571428571
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 849,
+          "requested_cluster_count": 4,
+          "silhouette": 0.006061370388573483,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.005580357142857143,
+          "smallest_cluster_size": 5,
+          "smallest_to_equal_size_ratio": 0.022321428571428572
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 790,
+          "requested_cluster_count": 8,
+          "silhouette": 0.004127215403715054,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.005580357142857143,
+          "smallest_cluster_size": 5,
+          "smallest_to_equal_size_ratio": 0.044642857142857144
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 579,
+          "requested_cluster_count": 16,
+          "silhouette": 0.009450545396602462,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.005580357142857143,
+          "smallest_cluster_size": 5,
+          "smallest_to_equal_size_ratio": 0.08928571428571429
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 482,
+          "requested_cluster_count": 32,
+          "silhouette": 0.008461674158875119,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.02559353969991207,
@@ -991,6 +1303,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 877,
+          "requested_cluster_count": 2,
+          "silhouette": 0.011197142852014135,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.021205357142857144,
+          "smallest_cluster_size": 19,
+          "smallest_to_equal_size_ratio": 0.04241071428571429
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 727,
+          "requested_cluster_count": 4,
+          "silhouette": 0.006045041893924948,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 487,
+          "requested_cluster_count": 8,
+          "silhouette": 0.006785722738019226,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 319,
+          "requested_cluster_count": 16,
+          "silhouette": 0.005170506652627939,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 203,
+          "requested_cluster_count": 32,
+          "silhouette": 0.007659550771217572,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.035937968641519547,
@@ -1156,6 +1520,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 836,
+          "requested_cluster_count": 2,
+          "silhouette": 0.011026522848288898,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.06696428571428571,
+          "smallest_cluster_size": 60,
+          "smallest_to_equal_size_ratio": 0.13392857142857142
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 640,
+          "requested_cluster_count": 4,
+          "silhouette": 0.0041719411473356465,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.004464285714285714,
+          "smallest_cluster_size": 4,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 328,
+          "requested_cluster_count": 8,
+          "silhouette": 0.005726657473197886,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.004464285714285714,
+          "smallest_cluster_size": 4,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 256,
+          "requested_cluster_count": 16,
+          "silhouette": 0.0055242831152958905,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.004464285714285714,
+          "smallest_cluster_size": 4,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 139,
+          "requested_cluster_count": 32,
+          "silhouette": 0.008571040137820543,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.026641644537448883,
@@ -1321,6 +1737,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 888,
+          "requested_cluster_count": 2,
+          "silhouette": 0.009119078784458593,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.008928571428571428,
+          "smallest_cluster_size": 8,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 540,
+          "requested_cluster_count": 4,
+          "silhouette": 0.008960627065624335,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.008928571428571428,
+          "smallest_cluster_size": 8,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 302,
+          "requested_cluster_count": 8,
+          "silhouette": 0.011333308341404806,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.008928571428571428,
+          "smallest_cluster_size": 8,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 200,
+          "requested_cluster_count": 16,
+          "silhouette": 0.010109191737454481,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.004464285714285714,
+          "smallest_cluster_size": 4,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 180,
+          "requested_cluster_count": 32,
+          "silhouette": 0.009475247200951525,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.036441486328840256,
@@ -1486,6 +1954,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 721,
+          "requested_cluster_count": 2,
+          "silhouette": 0.012900826864475388,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.1953125,
+          "smallest_cluster_size": 175,
+          "smallest_to_equal_size_ratio": 0.390625
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 527,
+          "requested_cluster_count": 4,
+          "silhouette": 0.008151167376834252,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.013392857142857142
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 302,
+          "requested_cluster_count": 8,
+          "silhouette": 0.00642556192224604,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 190,
+          "requested_cluster_count": 16,
+          "silhouette": 0.009213317457549195,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 164,
+          "requested_cluster_count": 32,
+          "silhouette": 0.00955932516012835,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.03024175763130188,
@@ -1651,6 +2171,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 893,
+          "requested_cluster_count": 2,
+          "silhouette": 0.009127520575881818,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.006696428571428571
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 638,
+          "requested_cluster_count": 4,
+          "silhouette": 0.007447611539742653,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.013392857142857142
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 433,
+          "requested_cluster_count": 8,
+          "silhouette": 0.008088592841127397,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 143,
+          "requested_cluster_count": 16,
+          "silhouette": 0.013060538131453794,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 124,
+          "requested_cluster_count": 32,
+          "silhouette": 0.0132664809212699,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.0408894419670105,
@@ -1816,6 +2388,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 894,
+          "requested_cluster_count": 2,
+          "silhouette": 0.022194909065892783,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 511,
+          "requested_cluster_count": 4,
+          "silhouette": 0.008551031937577966,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 373,
+          "requested_cluster_count": 8,
+          "silhouette": 0.008125677980923044,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 269,
+          "requested_cluster_count": 16,
+          "silhouette": 0.006218229994807885,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 130,
+          "requested_cluster_count": 32,
+          "silhouette": 0.017026939187631922,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.07823675870895386,
@@ -1981,6 +2605,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 893,
+          "requested_cluster_count": 2,
+          "silhouette": 0.028654253128768462,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.006696428571428571
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 883,
+          "requested_cluster_count": 4,
+          "silhouette": 0.019127147924764307,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.013392857142857142
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 819,
+          "requested_cluster_count": 8,
+          "silhouette": 0.01789558482608059,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.026785714285714284
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 766,
+          "requested_cluster_count": 16,
+          "silhouette": 0.016108241761087726,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 634,
+          "requested_cluster_count": 32,
+          "silhouette": 0.018768823317584695,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.10878493636846542,
@@ -2146,6 +2822,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 895,
+          "requested_cluster_count": 2,
+          "silhouette": 0.02397829503342286,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.002232142857142857
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 852,
+          "requested_cluster_count": 4,
+          "silhouette": 0.011684884350867978,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 798,
+          "requested_cluster_count": 8,
+          "silhouette": 0.008399757746959516,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 706,
+          "requested_cluster_count": 16,
+          "silhouette": 0.008718024370799679,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 605,
+          "requested_cluster_count": 32,
+          "silhouette": 0.008119974766107565,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.08087419718503952,
@@ -2311,6 +3039,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 810,
+          "requested_cluster_count": 2,
+          "silhouette": 0.017783036422042528,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.09598214285714286,
+          "smallest_cluster_size": 86,
+          "smallest_to_equal_size_ratio": 0.19196428571428573
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 767,
+          "requested_cluster_count": 4,
+          "silhouette": 0.014244135599150177,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.006696428571428571,
+          "smallest_cluster_size": 6,
+          "smallest_to_equal_size_ratio": 0.026785714285714284
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 729,
+          "requested_cluster_count": 8,
+          "silhouette": 0.013288088366923884,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.006696428571428571,
+          "smallest_cluster_size": 6,
+          "smallest_to_equal_size_ratio": 0.05357142857142857
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 636,
+          "requested_cluster_count": 16,
+          "silhouette": 0.013308104733276803,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.05357142857142857
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 522,
+          "requested_cluster_count": 32,
+          "silhouette": 0.012026185158417786,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.09172427654266357,
@@ -2476,6 +3256,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 894,
+          "requested_cluster_count": 2,
+          "silhouette": 0.01578595973460229,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 878,
+          "requested_cluster_count": 4,
+          "silhouette": 0.009835622881843203,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 787,
+          "requested_cluster_count": 8,
+          "silhouette": 0.007527846768211059,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 671,
+          "requested_cluster_count": 16,
+          "silhouette": 0.009519610265212562,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 546,
+          "requested_cluster_count": 32,
+          "silhouette": 0.01009744245440772,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.06934677064418793,
@@ -2641,6 +3473,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 778,
+          "requested_cluster_count": 2,
+          "silhouette": 0.014211358737350977,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.13169642857142858,
+          "smallest_cluster_size": 118,
+          "smallest_to_equal_size_ratio": 0.26339285714285715
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 761,
+          "requested_cluster_count": 4,
+          "silhouette": 0.009401443431677186,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.013392857142857142
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 750,
+          "requested_cluster_count": 8,
+          "silhouette": 0.0028199057825618627,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.026785714285714284
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 637,
+          "requested_cluster_count": 16,
+          "silhouette": 0.004026743404540137,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.05357142857142857
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 494,
+          "requested_cluster_count": 32,
+          "silhouette": 0.008528592700054382,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.04914581775665283,
@@ -2806,6 +3690,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 891,
+          "requested_cluster_count": 2,
+          "silhouette": 0.010059007225409413,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.005580357142857143,
+          "smallest_cluster_size": 5,
+          "smallest_to_equal_size_ratio": 0.011160714285714286
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 791,
+          "requested_cluster_count": 4,
+          "silhouette": 0.0027703163256950192,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 653,
+          "requested_cluster_count": 8,
+          "silhouette": 0.001690583931319867,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 390,
+          "requested_cluster_count": 16,
+          "silhouette": 0.003919958117293261,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 162,
+          "requested_cluster_count": 32,
+          "silhouette": 0.009616376688432035,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.0303672906011343,
@@ -2971,6 +3907,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 752,
+          "requested_cluster_count": 2,
+          "silhouette": 0.010411952208106036,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.16071428571428573,
+          "smallest_cluster_size": 144,
+          "smallest_to_equal_size_ratio": 0.32142857142857145
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 674,
+          "requested_cluster_count": 4,
+          "silhouette": 0.005458724843498773,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.013392857142857142,
+          "smallest_cluster_size": 12,
+          "smallest_to_equal_size_ratio": 0.05357142857142857
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 397,
+          "requested_cluster_count": 8,
+          "silhouette": 0.004930933250707063,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.013392857142857142,
+          "smallest_cluster_size": 12,
+          "smallest_to_equal_size_ratio": 0.10714285714285714
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 205,
+          "requested_cluster_count": 16,
+          "silhouette": 0.006712819390431365,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0078125,
+          "smallest_cluster_size": 7,
+          "smallest_to_equal_size_ratio": 0.125
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 154,
+          "requested_cluster_count": 32,
+          "silhouette": 0.009162708666042765,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.10714285714285714
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.03010857105255127,
@@ -3136,6 +4124,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 734,
+          "requested_cluster_count": 2,
+          "silhouette": 0.013515643727039428,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.18080357142857142,
+          "smallest_cluster_size": 162,
+          "smallest_to_equal_size_ratio": 0.36160714285714285
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 734,
+          "requested_cluster_count": 4,
+          "silhouette": 0.010332880989618137,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.03794642857142857,
+          "smallest_cluster_size": 34,
+          "smallest_to_equal_size_ratio": 0.15178571428571427
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 666,
+          "requested_cluster_count": 8,
+          "silhouette": 0.004627455450648118,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.026785714285714284
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 533,
+          "requested_cluster_count": 16,
+          "silhouette": 0.0053566019220299115,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.05357142857142857
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 400,
+          "requested_cluster_count": 32,
+          "silhouette": 0.005471427902487456,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.03743748739361763,
@@ -3301,6 +4341,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 708,
+          "requested_cluster_count": 2,
+          "silhouette": 0.02103431732187989,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.20982142857142858,
+          "smallest_cluster_size": 188,
+          "smallest_to_equal_size_ratio": 0.41964285714285715
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 683,
+          "requested_cluster_count": 4,
+          "silhouette": 0.017437432476838117,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.018973214285714284,
+          "smallest_cluster_size": 17,
+          "smallest_to_equal_size_ratio": 0.07589285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 671,
+          "requested_cluster_count": 8,
+          "silhouette": 0.014640236042224804,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.013392857142857142,
+          "smallest_cluster_size": 12,
+          "smallest_to_equal_size_ratio": 0.10714285714285714
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 602,
+          "requested_cluster_count": 16,
+          "silhouette": 0.014366384769813124,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0078125,
+          "smallest_cluster_size": 7,
+          "smallest_to_equal_size_ratio": 0.125
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 495,
+          "requested_cluster_count": 32,
+          "silhouette": 0.017082462477427746,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.004464285714285714,
+          "smallest_cluster_size": 4,
+          "smallest_to_equal_size_ratio": 0.14285714285714285
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.04494649916887283,
@@ -3466,6 +4558,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 704,
+          "requested_cluster_count": 2,
+          "silhouette": 0.012746663052328527,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.21428571428571427,
+          "smallest_cluster_size": 192,
+          "smallest_to_equal_size_ratio": 0.42857142857142855
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 668,
+          "requested_cluster_count": 4,
+          "silhouette": 0.00979623814165836,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.04017857142857143,
+          "smallest_cluster_size": 36,
+          "smallest_to_equal_size_ratio": 0.16071428571428573
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 641,
+          "requested_cluster_count": 8,
+          "silhouette": 0.005440564335869531,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.008928571428571428,
+          "smallest_cluster_size": 8,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 581,
+          "requested_cluster_count": 16,
+          "silhouette": 0.005024473823337198,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.05357142857142857
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 413,
+          "requested_cluster_count": 32,
+          "silhouette": 0.008939965164830877,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.10714285714285714
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.03619179502129555,
@@ -3631,6 +4775,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 740,
+          "requested_cluster_count": 2,
+          "silhouette": 0.010717698016810825,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.17410714285714285,
+          "smallest_cluster_size": 156,
+          "smallest_to_equal_size_ratio": 0.3482142857142857
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 740,
+          "requested_cluster_count": 4,
+          "silhouette": 0.006626279359291587,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.018973214285714284,
+          "smallest_cluster_size": 17,
+          "smallest_to_equal_size_ratio": 0.07589285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 579,
+          "requested_cluster_count": 8,
+          "silhouette": 0.001855382380935877,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0078125,
+          "smallest_cluster_size": 7,
+          "smallest_to_equal_size_ratio": 0.0625
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 195,
+          "requested_cluster_count": 16,
+          "silhouette": 0.004979155994044234,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.004464285714285714,
+          "smallest_cluster_size": 4,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 176,
+          "requested_cluster_count": 32,
+          "silhouette": 0.008162965826518088,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.004464285714285714,
+          "smallest_cluster_size": 4,
+          "smallest_to_equal_size_ratio": 0.14285714285714285
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.025307917967438698,
@@ -3796,6 +4992,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 895,
+          "requested_cluster_count": 2,
+          "silhouette": 0.1573523717986964,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.002232142857142857
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 889,
+          "requested_cluster_count": 4,
+          "silhouette": 0.11452163939832136,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 874,
+          "requested_cluster_count": 8,
+          "silhouette": 0.10543501123997381,
+          "singleton_cluster_count": 3,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 855,
+          "requested_cluster_count": 16,
+          "silhouette": 0.09514307196573546,
+          "singleton_cluster_count": 4,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 820,
+          "requested_cluster_count": 32,
+          "silhouette": 0.08588308551232735,
+          "singleton_cluster_count": 8,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.064704529941082,
@@ -3961,6 +5209,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 894,
+          "requested_cluster_count": 2,
+          "silhouette": 0.13711381032496198,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 890,
+          "requested_cluster_count": 4,
+          "silhouette": 0.11491826583359835,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 884,
+          "requested_cluster_count": 8,
+          "silhouette": 0.09684057466874053,
+          "singleton_cluster_count": 4,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 855,
+          "requested_cluster_count": 16,
+          "silhouette": 0.08299487533502033,
+          "singleton_cluster_count": 6,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 782,
+          "requested_cluster_count": 32,
+          "silhouette": 0.07819088903943364,
+          "singleton_cluster_count": 11,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.1110316812992096,
@@ -4126,6 +5426,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 893,
+          "requested_cluster_count": 2,
+          "silhouette": 0.08493638484654416,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.006696428571428571
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 891,
+          "requested_cluster_count": 4,
+          "silhouette": 0.06214650678272804,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 874,
+          "requested_cluster_count": 8,
+          "silhouette": 0.05193624591728342,
+          "singleton_cluster_count": 3,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 856,
+          "requested_cluster_count": 16,
+          "silhouette": 0.03943267289305479,
+          "singleton_cluster_count": 6,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 814,
+          "requested_cluster_count": 32,
+          "silhouette": 0.032533931558777006,
+          "singleton_cluster_count": 10,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.14619573950767517,
@@ -4291,6 +5643,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 894,
+          "requested_cluster_count": 2,
+          "silhouette": 0.06561262805493537,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 891,
+          "requested_cluster_count": 4,
+          "silhouette": 0.05330292786971452,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 885,
+          "requested_cluster_count": 8,
+          "silhouette": 0.040764574314346706,
+          "singleton_cluster_count": 3,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 856,
+          "requested_cluster_count": 16,
+          "silhouette": 0.030993475252587527,
+          "singleton_cluster_count": 4,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 814,
+          "requested_cluster_count": 32,
+          "silhouette": 0.024088929547410074,
+          "singleton_cluster_count": 6,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.1310010403394699,
@@ -4456,6 +5860,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 893,
+          "requested_cluster_count": 2,
+          "silhouette": 0.13479963908382203,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.006696428571428571
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 891,
+          "requested_cluster_count": 4,
+          "silhouette": 0.1183280652702735,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 887,
+          "requested_cluster_count": 8,
+          "silhouette": 0.10358129326893316,
+          "singleton_cluster_count": 6,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 861,
+          "requested_cluster_count": 16,
+          "silhouette": 0.09084318016962294,
+          "singleton_cluster_count": 8,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 818,
+          "requested_cluster_count": 32,
+          "silhouette": 0.07891573628561337,
+          "singleton_cluster_count": 10,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.1324973851442337,
@@ -4621,6 +6077,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 893,
+          "requested_cluster_count": 2,
+          "silhouette": 0.059511158918271176,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.006696428571428571
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 890,
+          "requested_cluster_count": 4,
+          "silhouette": 0.047451210189169715,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 878,
+          "requested_cluster_count": 8,
+          "silhouette": 0.03910482308469968,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 847,
+          "requested_cluster_count": 16,
+          "silhouette": 0.03134590966005831,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 784,
+          "requested_cluster_count": 32,
+          "silhouette": 0.026582398581061463,
+          "singleton_cluster_count": 5,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.11486199498176575,
@@ -4786,6 +6294,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 895,
+          "requested_cluster_count": 2,
+          "silhouette": 0.09184028858576121,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.002232142857142857
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 892,
+          "requested_cluster_count": 4,
+          "silhouette": 0.054628565137016825,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 885,
+          "requested_cluster_count": 8,
+          "silhouette": 0.0431640245602272,
+          "singleton_cluster_count": 3,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 869,
+          "requested_cluster_count": 16,
+          "silhouette": 0.03276968987978555,
+          "singleton_cluster_count": 6,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 820,
+          "requested_cluster_count": 32,
+          "silhouette": 0.02673868481463732,
+          "singleton_cluster_count": 12,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.11213774979114532,
@@ -4951,6 +6511,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 895,
+          "requested_cluster_count": 2,
+          "silhouette": 0.03375091024942387,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.002232142857142857
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 887,
+          "requested_cluster_count": 4,
+          "silhouette": 0.020077270954686425,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 876,
+          "requested_cluster_count": 8,
+          "silhouette": 0.012559274019618474,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 848,
+          "requested_cluster_count": 16,
+          "silhouette": 0.005431314711522716,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 755,
+          "requested_cluster_count": 32,
+          "silhouette": 0.0028139879850750437,
+          "singleton_cluster_count": 4,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.08068963885307312,
@@ -5116,6 +6728,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 895,
+          "requested_cluster_count": 2,
+          "silhouette": 0.0861976407125831,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.002232142857142857
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 891,
+          "requested_cluster_count": 4,
+          "silhouette": 0.07103582476723366,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 885,
+          "requested_cluster_count": 8,
+          "silhouette": 0.05294939980850605,
+          "singleton_cluster_count": 4,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 872,
+          "requested_cluster_count": 16,
+          "silhouette": 0.04003587340304702,
+          "singleton_cluster_count": 9,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 840,
+          "requested_cluster_count": 32,
+          "silhouette": 0.03144035244118999,
+          "singleton_cluster_count": 12,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.11545148491859436,
@@ -5281,6 +6945,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 895,
+          "requested_cluster_count": 2,
+          "silhouette": 0.05166633494707111,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.002232142857142857
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 892,
+          "requested_cluster_count": 4,
+          "silhouette": 0.03383248207852292,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 884,
+          "requested_cluster_count": 8,
+          "silhouette": 0.020906380174559314,
+          "singleton_cluster_count": 4,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 859,
+          "requested_cluster_count": 16,
+          "silhouette": 0.013093994641702226,
+          "singleton_cluster_count": 5,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 812,
+          "requested_cluster_count": 32,
+          "silhouette": 0.006392341798480859,
+          "singleton_cluster_count": 9,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.09218441694974899,
@@ -5446,6 +7162,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 891,
+          "requested_cluster_count": 2,
+          "silhouette": 0.03577418914316679,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.005580357142857143,
+          "smallest_cluster_size": 5,
+          "smallest_to_equal_size_ratio": 0.011160714285714286
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 886,
+          "requested_cluster_count": 4,
+          "silhouette": 0.026168314732253988,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 875,
+          "requested_cluster_count": 8,
+          "silhouette": 0.01933566855181889,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 849,
+          "requested_cluster_count": 16,
+          "silhouette": 0.013660753033460078,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 790,
+          "requested_cluster_count": 32,
+          "silhouette": 0.008552798912595404,
+          "singleton_cluster_count": 4,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.08195826411247253,
@@ -5611,6 +7379,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 882,
+          "requested_cluster_count": 2,
+          "silhouette": 0.011130842055250171,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.015625,
+          "smallest_cluster_size": 14,
+          "smallest_to_equal_size_ratio": 0.03125
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 875,
+          "requested_cluster_count": 4,
+          "silhouette": 0.003424826369279123,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 783,
+          "requested_cluster_count": 8,
+          "silhouette": 0.001965440192681386,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 650,
+          "requested_cluster_count": 16,
+          "silhouette": 0.0026218411460872215,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 511,
+          "requested_cluster_count": 32,
+          "silhouette": 0.0038383392114185516,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.06909411400556564,
@@ -5776,6 +7596,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 895,
+          "requested_cluster_count": 2,
+          "silhouette": 0.1525375772498149,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.002232142857142857
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 891,
+          "requested_cluster_count": 4,
+          "silhouette": 0.13643596884738898,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 887,
+          "requested_cluster_count": 8,
+          "silhouette": 0.1262265711209649,
+          "singleton_cluster_count": 5,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 874,
+          "requested_cluster_count": 16,
+          "silhouette": 0.1138179278172695,
+          "singleton_cluster_count": 10,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 848,
+          "requested_cluster_count": 32,
+          "silhouette": 0.0980114889821688,
+          "singleton_cluster_count": 21,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.11079012602567673,
@@ -5941,6 +7813,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 895,
+          "requested_cluster_count": 2,
+          "silhouette": 0.12146859590833091,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.002232142857142857
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 892,
+          "requested_cluster_count": 4,
+          "silhouette": 0.10575677791836093,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 884,
+          "requested_cluster_count": 8,
+          "silhouette": 0.09569209272978275,
+          "singleton_cluster_count": 3,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 868,
+          "requested_cluster_count": 16,
+          "silhouette": 0.08439361225446118,
+          "singleton_cluster_count": 6,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 841,
+          "requested_cluster_count": 32,
+          "silhouette": 0.06960082720457043,
+          "singleton_cluster_count": 14,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.10734468698501587,
@@ -6106,6 +8030,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 894,
+          "requested_cluster_count": 2,
+          "silhouette": 0.05362734212812681,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 890,
+          "requested_cluster_count": 4,
+          "silhouette": 0.04246440933718205,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 871,
+          "requested_cluster_count": 8,
+          "silhouette": 0.034903564801212046,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 853,
+          "requested_cluster_count": 16,
+          "silhouette": 0.026574796493206217,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 789,
+          "requested_cluster_count": 32,
+          "silhouette": 0.020529129900345222,
+          "singleton_cluster_count": 5,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.09391745179891586,
@@ -6271,6 +8247,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 890,
+          "requested_cluster_count": 2,
+          "silhouette": 0.03636296233729012,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.006696428571428571,
+          "smallest_cluster_size": 6,
+          "smallest_to_equal_size_ratio": 0.013392857142857142
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 882,
+          "requested_cluster_count": 4,
+          "silhouette": 0.019297360022994554,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 875,
+          "requested_cluster_count": 8,
+          "silhouette": 0.005759018001405501,
+          "singleton_cluster_count": 3,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 793,
+          "requested_cluster_count": 16,
+          "silhouette": 0.0032892578127844507,
+          "singleton_cluster_count": 3,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 629,
+          "requested_cluster_count": 32,
+          "silhouette": 0.006833060039570405,
+          "singleton_cluster_count": 3,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.05204213410615921,
@@ -6436,6 +8464,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 895,
+          "requested_cluster_count": 2,
+          "silhouette": 0.033205071153676394,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.002232142857142857
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 880,
+          "requested_cluster_count": 4,
+          "silhouette": 0.021020477637646053,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 866,
+          "requested_cluster_count": 8,
+          "silhouette": 0.011291022159760038,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 812,
+          "requested_cluster_count": 16,
+          "silhouette": 0.0068875571322653045,
+          "singleton_cluster_count": 3,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 718,
+          "requested_cluster_count": 32,
+          "silhouette": 0.006893451661439426,
+          "singleton_cluster_count": 3,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.056715622544288635,
@@ -6601,6 +8681,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 891,
+          "requested_cluster_count": 2,
+          "silhouette": 0.020440510217895603,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.005580357142857143,
+          "smallest_cluster_size": 5,
+          "smallest_to_equal_size_ratio": 0.011160714285714286
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 881,
+          "requested_cluster_count": 4,
+          "silhouette": 0.009588310989148677,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.013392857142857142
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 841,
+          "requested_cluster_count": 8,
+          "silhouette": 0.004977847080880028,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 741,
+          "requested_cluster_count": 16,
+          "silhouette": 0.0029512207239192462,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 549,
+          "requested_cluster_count": 32,
+          "silhouette": 0.0047242075045249915,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.046215176582336426,
@@ -6766,6 +8898,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 895,
+          "requested_cluster_count": 2,
+          "silhouette": 0.02829407651358124,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.002232142857142857
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 885,
+          "requested_cluster_count": 4,
+          "silhouette": 0.016607432966535142,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 868,
+          "requested_cluster_count": 8,
+          "silhouette": 0.011638040715150306,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 798,
+          "requested_cluster_count": 16,
+          "silhouette": 0.009450449182277918,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 672,
+          "requested_cluster_count": 32,
+          "silhouette": 0.009521555081296021,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.05888276547193527,
@@ -6931,6 +9115,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 895,
+          "requested_cluster_count": 2,
+          "silhouette": 0.028400343860390326,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.002232142857142857
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 886,
+          "requested_cluster_count": 4,
+          "silhouette": 0.017202295339412255,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 863,
+          "requested_cluster_count": 8,
+          "silhouette": 0.01028684911197471,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 818,
+          "requested_cluster_count": 16,
+          "silhouette": 0.004807378332709298,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 619,
+          "requested_cluster_count": 32,
+          "silhouette": 0.004938823051612433,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.0516875758767128,
@@ -7096,6 +9332,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 895,
+          "requested_cluster_count": 2,
+          "silhouette": 0.014436748157383475,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.002232142857142857
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 866,
+          "requested_cluster_count": 4,
+          "silhouette": 0.006296833075290046,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 839,
+          "requested_cluster_count": 8,
+          "silhouette": 0.0019801720107925206,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 777,
+          "requested_cluster_count": 16,
+          "silhouette": -0.0006108794320970968,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 359,
+          "requested_cluster_count": 32,
+          "silhouette": 0.00729432148288567,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.053966160863637924,
@@ -7261,6 +9549,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 894,
+          "requested_cluster_count": 2,
+          "silhouette": 0.014985504528195668,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 871,
+          "requested_cluster_count": 4,
+          "silhouette": 0.005765339837747184,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 830,
+          "requested_cluster_count": 8,
+          "silhouette": 0.0011740926056132948,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 678,
+          "requested_cluster_count": 16,
+          "silhouette": 0.0021472617218245135,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 314,
+          "requested_cluster_count": 32,
+          "silhouette": 0.007753650864690649,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.0639132559299469,
@@ -7426,6 +9766,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 895,
+          "requested_cluster_count": 2,
+          "silhouette": 0.00923011128227452,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.002232142857142857
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 864,
+          "requested_cluster_count": 4,
+          "silhouette": 0.0027185337705306475,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 798,
+          "requested_cluster_count": 8,
+          "silhouette": 0.0009726653870023187,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 666,
+          "requested_cluster_count": 16,
+          "silhouette": 0.0007984513580069736,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 266,
+          "requested_cluster_count": 32,
+          "silhouette": 0.0075802278817170415,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.07193157076835632,
@@ -7591,6 +9983,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 866,
+          "requested_cluster_count": 2,
+          "silhouette": 0.006355509311623701,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.033482142857142856,
+          "smallest_cluster_size": 30,
+          "smallest_to_equal_size_ratio": 0.06696428571428571
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 494,
+          "requested_cluster_count": 4,
+          "silhouette": 0.007438532618954384,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.033482142857142856,
+          "smallest_cluster_size": 30,
+          "smallest_to_equal_size_ratio": 0.13392857142857142
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 477,
+          "requested_cluster_count": 8,
+          "silhouette": 0.007419351232348871,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.011160714285714286,
+          "smallest_cluster_size": 10,
+          "smallest_to_equal_size_ratio": 0.08928571428571429
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 208,
+          "requested_cluster_count": 16,
+          "silhouette": 0.008581420636156776,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 208,
+          "requested_cluster_count": 32,
+          "silhouette": 0.011669271121126801,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.07769478112459183,
@@ -7756,6 +10200,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 895,
+          "requested_cluster_count": 2,
+          "silhouette": 0.04685987031997209,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.002232142857142857
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 891,
+          "requested_cluster_count": 4,
+          "silhouette": 0.027150289891912482,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 873,
+          "requested_cluster_count": 8,
+          "silhouette": 0.015035479719330346,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 840,
+          "requested_cluster_count": 16,
+          "silhouette": 0.006219546505829406,
+          "singleton_cluster_count": 4,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 706,
+          "requested_cluster_count": 32,
+          "silhouette": 0.009776478289876152,
+          "singleton_cluster_count": 5,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.08512803167104721,
@@ -7921,6 +10417,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 862,
+          "requested_cluster_count": 2,
+          "silhouette": 0.009019210376369286,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.03794642857142857,
+          "smallest_cluster_size": 34,
+          "smallest_to_equal_size_ratio": 0.07589285714285714
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 818,
+          "requested_cluster_count": 4,
+          "silhouette": 0.004167836258726107,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.013392857142857142,
+          "smallest_cluster_size": 12,
+          "smallest_to_equal_size_ratio": 0.05357142857142857
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 679,
+          "requested_cluster_count": 8,
+          "silhouette": -3.559203724969387e-05,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.004464285714285714,
+          "smallest_cluster_size": 4,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 449,
+          "requested_cluster_count": 16,
+          "silhouette": 0.00312516707390603,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.05357142857142857
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 125,
+          "requested_cluster_count": 32,
+          "silhouette": 0.013021268777677978,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.0382164865732193,
@@ -8086,6 +10634,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 895,
+          "requested_cluster_count": 2,
+          "silhouette": 0.0356974811412488,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.002232142857142857
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 892,
+          "requested_cluster_count": 4,
+          "silhouette": 0.01984462503895869,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 858,
+          "requested_cluster_count": 8,
+          "silhouette": 0.014164667369345312,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 831,
+          "requested_cluster_count": 16,
+          "silhouette": 0.003812164068346613,
+          "singleton_cluster_count": 3,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 654,
+          "requested_cluster_count": 32,
+          "silhouette": 0.0057603072270019555,
+          "singleton_cluster_count": 3,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.08090981096029282,
@@ -8251,6 +10851,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 895,
+          "requested_cluster_count": 2,
+          "silhouette": 0.03756362738238713,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.002232142857142857
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 889,
+          "requested_cluster_count": 4,
+          "silhouette": 0.013818723559452295,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 870,
+          "requested_cluster_count": 8,
+          "silhouette": 0.004211437853580527,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 743,
+          "requested_cluster_count": 16,
+          "silhouette": 0.00014733470595125364,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 403,
+          "requested_cluster_count": 32,
+          "silhouette": 0.006501116279066456,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.06916981935501099,
@@ -8416,6 +11068,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 788,
+          "requested_cluster_count": 2,
+          "silhouette": 0.010120110461573175,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.12053571428571429,
+          "smallest_cluster_size": 108,
+          "smallest_to_equal_size_ratio": 0.24107142857142858
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 357,
+          "requested_cluster_count": 4,
+          "silhouette": 0.012331056921657238,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.12053571428571429,
+          "smallest_cluster_size": 108,
+          "smallest_to_equal_size_ratio": 0.48214285714285715
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 295,
+          "requested_cluster_count": 8,
+          "silhouette": 0.016151219759239045,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.056919642857142856,
+          "smallest_cluster_size": 51,
+          "smallest_to_equal_size_ratio": 0.45535714285714285
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 276,
+          "requested_cluster_count": 16,
+          "silhouette": 0.015083564879927985,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 189,
+          "requested_cluster_count": 32,
+          "silhouette": 0.020014130028360364,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.04604605957865715,
@@ -8581,6 +11285,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 861,
+          "requested_cluster_count": 2,
+          "silhouette": 0.010907600735591275,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0390625,
+          "smallest_cluster_size": 35,
+          "smallest_to_equal_size_ratio": 0.078125
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 362,
+          "requested_cluster_count": 4,
+          "silhouette": 0.010709600398955823,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0390625,
+          "smallest_cluster_size": 35,
+          "smallest_to_equal_size_ratio": 0.15625
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 246,
+          "requested_cluster_count": 8,
+          "silhouette": 0.01042962098987125,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.020089285714285716,
+          "smallest_cluster_size": 18,
+          "smallest_to_equal_size_ratio": 0.16071428571428573
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 189,
+          "requested_cluster_count": 16,
+          "silhouette": 0.014659120774814762,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.017857142857142856,
+          "smallest_cluster_size": 16,
+          "smallest_to_equal_size_ratio": 0.2857142857142857
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 157,
+          "requested_cluster_count": 32,
+          "silhouette": 0.017695756394967763,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.10714285714285714
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.046796880662441254,
@@ -8746,6 +11502,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 608,
+          "requested_cluster_count": 2,
+          "silhouette": 0.012853308226012076,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.32142857142857145,
+          "smallest_cluster_size": 288,
+          "smallest_to_equal_size_ratio": 0.6428571428571429
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 512,
+          "requested_cluster_count": 4,
+          "silhouette": 0.009838472173929918,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.014508928571428572,
+          "smallest_cluster_size": 13,
+          "smallest_to_equal_size_ratio": 0.05803571428571429
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 317,
+          "requested_cluster_count": 8,
+          "silhouette": 0.008296162327731772,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.008928571428571428,
+          "smallest_cluster_size": 8,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 162,
+          "requested_cluster_count": 16,
+          "silhouette": 0.013662504213914737,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0078125,
+          "smallest_cluster_size": 7,
+          "smallest_to_equal_size_ratio": 0.125
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 136,
+          "requested_cluster_count": 32,
+          "silhouette": 0.017227993112622846,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.10714285714285714
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.05689403787255287,
@@ -8911,6 +11719,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 840,
+          "requested_cluster_count": 2,
+          "silhouette": 0.013454598922561586,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0625,
+          "smallest_cluster_size": 56,
+          "smallest_to_equal_size_ratio": 0.125
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 588,
+          "requested_cluster_count": 4,
+          "silhouette": 0.013239750443579864,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.017857142857142856,
+          "smallest_cluster_size": 16,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 456,
+          "requested_cluster_count": 8,
+          "silhouette": 0.008388783078377426,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.008928571428571428,
+          "smallest_cluster_size": 8,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 298,
+          "requested_cluster_count": 16,
+          "silhouette": 0.009601660494517815,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 145,
+          "requested_cluster_count": 32,
+          "silhouette": 0.018083517662035604,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.07235341519117355,
@@ -9076,6 +11936,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 642,
+          "requested_cluster_count": 2,
+          "silhouette": 0.010931443206555183,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.28348214285714285,
+          "smallest_cluster_size": 254,
+          "smallest_to_equal_size_ratio": 0.5669642857142857
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 359,
+          "requested_cluster_count": 4,
+          "silhouette": 0.007710360848992521,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.008928571428571428,
+          "smallest_cluster_size": 8,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 187,
+          "requested_cluster_count": 8,
+          "silhouette": 0.009059835516675399,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.008928571428571428,
+          "smallest_cluster_size": 8,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 142,
+          "requested_cluster_count": 16,
+          "silhouette": 0.01400039884159182,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.008928571428571428,
+          "smallest_cluster_size": 8,
+          "smallest_to_equal_size_ratio": 0.14285714285714285
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 81,
+          "requested_cluster_count": 32,
+          "silhouette": 0.02094853762209351,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.10714285714285714
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.04658406972885132,
@@ -9241,6 +12153,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 646,
+          "requested_cluster_count": 2,
+          "silhouette": 0.012680302085622697,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.27901785714285715,
+          "smallest_cluster_size": 250,
+          "smallest_to_equal_size_ratio": 0.5580357142857143
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 407,
+          "requested_cluster_count": 4,
+          "silhouette": 0.01173818290641142,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.07589285714285714,
+          "smallest_cluster_size": 68,
+          "smallest_to_equal_size_ratio": 0.30357142857142855
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 240,
+          "requested_cluster_count": 8,
+          "silhouette": 0.010568131522143047,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0078125,
+          "smallest_cluster_size": 7,
+          "smallest_to_equal_size_ratio": 0.0625
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 167,
+          "requested_cluster_count": 16,
+          "silhouette": 0.010674037080978182,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.05357142857142857
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 125,
+          "requested_cluster_count": 32,
+          "silhouette": 0.0140230115445662,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.10714285714285714
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.05795566737651825,
@@ -9406,6 +12370,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 709,
+          "requested_cluster_count": 2,
+          "silhouette": 0.012340672806478626,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.20870535714285715,
+          "smallest_cluster_size": 187,
+          "smallest_to_equal_size_ratio": 0.4174107142857143
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 452,
+          "requested_cluster_count": 4,
+          "silhouette": 0.01263459217997578,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.08928571428571429,
+          "smallest_cluster_size": 80,
+          "smallest_to_equal_size_ratio": 0.35714285714285715
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 218,
+          "requested_cluster_count": 8,
+          "silhouette": 0.013135309698751901,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.036830357142857144,
+          "smallest_cluster_size": 33,
+          "smallest_to_equal_size_ratio": 0.29464285714285715
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 194,
+          "requested_cluster_count": 16,
+          "silhouette": 0.01237742111421185,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.004464285714285714,
+          "smallest_cluster_size": 4,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 143,
+          "requested_cluster_count": 32,
+          "silhouette": 0.012123476265393647,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.0632149800658226,
@@ -9571,6 +12587,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 610,
+          "requested_cluster_count": 2,
+          "silhouette": 0.012817350398727211,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.31919642857142855,
+          "smallest_cluster_size": 286,
+          "smallest_to_equal_size_ratio": 0.6383928571428571
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 396,
+          "requested_cluster_count": 4,
+          "silhouette": 0.010324610495628784,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.004464285714285714,
+          "smallest_cluster_size": 4,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 283,
+          "requested_cluster_count": 8,
+          "silhouette": 0.008522823716391485,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 275,
+          "requested_cluster_count": 16,
+          "silhouette": 0.008703598180836604,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 121,
+          "requested_cluster_count": 32,
+          "silhouette": 0.01756603573227467,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.059995654970407486,
@@ -9736,6 +12804,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 818,
+          "requested_cluster_count": 2,
+          "silhouette": 0.00902762868887419,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.08705357142857142,
+          "smallest_cluster_size": 78,
+          "smallest_to_equal_size_ratio": 0.17410714285714285
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 388,
+          "requested_cluster_count": 4,
+          "silhouette": 0.011045470276457997,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.08705357142857142,
+          "smallest_cluster_size": 78,
+          "smallest_to_equal_size_ratio": 0.3482142857142857
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 308,
+          "requested_cluster_count": 8,
+          "silhouette": 0.008268792074532526,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.004464285714285714,
+          "smallest_cluster_size": 4,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 218,
+          "requested_cluster_count": 16,
+          "silhouette": 0.00812197409477417,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.004464285714285714,
+          "smallest_cluster_size": 4,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 170,
+          "requested_cluster_count": 32,
+          "silhouette": 0.009861830100517846,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.051532138139009476,
@@ -9901,6 +13021,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 656,
+          "requested_cluster_count": 2,
+          "silhouette": 0.009664064845999529,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.26785714285714285,
+          "smallest_cluster_size": 240,
+          "smallest_to_equal_size_ratio": 0.5357142857142857
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 258,
+          "requested_cluster_count": 4,
+          "silhouette": 0.010912494860706614,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.19977678571428573,
+          "smallest_cluster_size": 179,
+          "smallest_to_equal_size_ratio": 0.7991071428571429
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 232,
+          "requested_cluster_count": 8,
+          "silhouette": 0.006036303588446998,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.008928571428571428,
+          "smallest_cluster_size": 8,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 158,
+          "requested_cluster_count": 16,
+          "silhouette": 0.010276721026279814,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.004464285714285714,
+          "smallest_cluster_size": 4,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 94,
+          "requested_cluster_count": 32,
+          "silhouette": 0.013847177111128975,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.10714285714285714
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.02760869264602661,
@@ -10066,6 +13238,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 510,
+          "requested_cluster_count": 2,
+          "silhouette": 0.008922836758129155,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.43080357142857145,
+          "smallest_cluster_size": 386,
+          "smallest_to_equal_size_ratio": 0.8616071428571429
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 348,
+          "requested_cluster_count": 4,
+          "silhouette": 0.009492681422058178,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.14397321428571427,
+          "smallest_cluster_size": 129,
+          "smallest_to_equal_size_ratio": 0.5758928571428571
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 188,
+          "requested_cluster_count": 8,
+          "silhouette": 0.010890726303834872,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.011160714285714286,
+          "smallest_cluster_size": 10,
+          "smallest_to_equal_size_ratio": 0.08928571428571429
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 188,
+          "requested_cluster_count": 16,
+          "silhouette": 0.013861365330080224,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.011160714285714286,
+          "smallest_cluster_size": 10,
+          "smallest_to_equal_size_ratio": 0.17857142857142858
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 109,
+          "requested_cluster_count": 32,
+          "silhouette": 0.017523476631693933,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.10714285714285714
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.032184381037950516,
@@ -10231,6 +13455,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 455,
+          "requested_cluster_count": 2,
+          "silhouette": 0.009483040321430236,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.4921875,
+          "smallest_cluster_size": 441,
+          "smallest_to_equal_size_ratio": 0.984375
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 311,
+          "requested_cluster_count": 4,
+          "silhouette": 0.011979794335575503,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.16071428571428573,
+          "smallest_cluster_size": 144,
+          "smallest_to_equal_size_ratio": 0.6428571428571429
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 247,
+          "requested_cluster_count": 8,
+          "silhouette": 0.013822768310690866,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.011160714285714286,
+          "smallest_cluster_size": 10,
+          "smallest_to_equal_size_ratio": 0.08928571428571429
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 184,
+          "requested_cluster_count": 16,
+          "silhouette": 0.014236056194506982,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0078125,
+          "smallest_cluster_size": 7,
+          "smallest_to_equal_size_ratio": 0.125
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 154,
+          "requested_cluster_count": 32,
+          "silhouette": 0.015574204755387736,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.10714285714285714
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.027749093249440193,
@@ -10396,6 +13672,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 529,
+          "requested_cluster_count": 2,
+          "silhouette": 0.012029589876461397,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.4095982142857143,
+          "smallest_cluster_size": 367,
+          "smallest_to_equal_size_ratio": 0.8191964285714286
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 367,
+          "requested_cluster_count": 4,
+          "silhouette": 0.012252842293816192,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.15178571428571427,
+          "smallest_cluster_size": 136,
+          "smallest_to_equal_size_ratio": 0.6071428571428571
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 255,
+          "requested_cluster_count": 8,
+          "silhouette": 0.013290859848745163,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.004464285714285714,
+          "smallest_cluster_size": 4,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 218,
+          "requested_cluster_count": 16,
+          "silhouette": 0.013909092003960304,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.004464285714285714,
+          "smallest_cluster_size": 4,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 112,
+          "requested_cluster_count": 32,
+          "silhouette": 0.016232613149951912,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.10714285714285714
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.027880704030394554,
@@ -10561,6 +13889,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 895,
+          "requested_cluster_count": 2,
+          "silhouette": 0.01020517809460479,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.002232142857142857
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 469,
+          "requested_cluster_count": 4,
+          "silhouette": 0.008728017667870066,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 459,
+          "requested_cluster_count": 8,
+          "silhouette": 0.0037325654229102634,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 246,
+          "requested_cluster_count": 16,
+          "silhouette": 0.008309738959549857,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 134,
+          "requested_cluster_count": 32,
+          "silhouette": 0.014773975191038891,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.03080064430832863,
@@ -10726,6 +14106,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 883,
+          "requested_cluster_count": 2,
+          "silhouette": 0.016123729234833913,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.014508928571428572,
+          "smallest_cluster_size": 13,
+          "smallest_to_equal_size_ratio": 0.029017857142857144
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 559,
+          "requested_cluster_count": 4,
+          "silhouette": 0.011762623674065902,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.014508928571428572,
+          "smallest_cluster_size": 13,
+          "smallest_to_equal_size_ratio": 0.05803571428571429
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 365,
+          "requested_cluster_count": 8,
+          "silhouette": 0.012506332498990283,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.005580357142857143,
+          "smallest_cluster_size": 5,
+          "smallest_to_equal_size_ratio": 0.044642857142857144
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 362,
+          "requested_cluster_count": 16,
+          "silhouette": 0.009150500675239386,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 151,
+          "requested_cluster_count": 32,
+          "silhouette": 0.012312027749863461,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.028395505622029305,
@@ -10891,6 +14323,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 886,
+          "requested_cluster_count": 2,
+          "silhouette": 0.009092105571160537,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.011160714285714286,
+          "smallest_cluster_size": 10,
+          "smallest_to_equal_size_ratio": 0.022321428571428572
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 488,
+          "requested_cluster_count": 4,
+          "silhouette": 0.01291424709984032,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.011160714285714286,
+          "smallest_cluster_size": 10,
+          "smallest_to_equal_size_ratio": 0.044642857142857144
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 402,
+          "requested_cluster_count": 8,
+          "silhouette": 0.011113995587923534,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0078125,
+          "smallest_cluster_size": 7,
+          "smallest_to_equal_size_ratio": 0.0625
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 233,
+          "requested_cluster_count": 16,
+          "silhouette": 0.01189435244772949,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.05357142857142857
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 159,
+          "requested_cluster_count": 32,
+          "silhouette": 0.015281457887444299,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.10714285714285714
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.05354222282767296,
@@ -11056,6 +14540,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 659,
+          "requested_cluster_count": 2,
+          "silhouette": 0.014780707407269377,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.26450892857142855,
+          "smallest_cluster_size": 237,
+          "smallest_to_equal_size_ratio": 0.5290178571428571
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 612,
+          "requested_cluster_count": 4,
+          "silhouette": 0.01165876787941203,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.052455357142857144,
+          "smallest_cluster_size": 47,
+          "smallest_to_equal_size_ratio": 0.20982142857142858
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 275,
+          "requested_cluster_count": 8,
+          "silhouette": 0.014635782304512889,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0078125,
+          "smallest_cluster_size": 7,
+          "smallest_to_equal_size_ratio": 0.0625
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 222,
+          "requested_cluster_count": 16,
+          "silhouette": 0.014143886340005045,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 116,
+          "requested_cluster_count": 32,
+          "silhouette": 0.019183598674196816,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.0591101348400116,
@@ -11221,6 +14757,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 894,
+          "requested_cluster_count": 2,
+          "silhouette": 0.02102673869910501,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 619,
+          "requested_cluster_count": 4,
+          "silhouette": 0.015804252625903688,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 570,
+          "requested_cluster_count": 8,
+          "silhouette": 0.0075432791468076745,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 497,
+          "requested_cluster_count": 16,
+          "silhouette": 0.006900666358514329,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 130,
+          "requested_cluster_count": 32,
+          "silhouette": 0.01629060577641786,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.041792601346969604,
@@ -11386,6 +14974,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 895,
+          "requested_cluster_count": 2,
+          "silhouette": 0.01668214673083387,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.002232142857142857
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 815,
+          "requested_cluster_count": 4,
+          "silhouette": 0.008349371812041618,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 524,
+          "requested_cluster_count": 8,
+          "silhouette": 0.0028761949109073317,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 329,
+          "requested_cluster_count": 16,
+          "silhouette": 0.00533142015001702,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 164,
+          "requested_cluster_count": 32,
+          "silhouette": 0.01267213005392329,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.04002876579761505,
@@ -11551,6 +15191,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 804,
+          "requested_cluster_count": 2,
+          "silhouette": 0.021353508116516966,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.10267857142857142,
+          "smallest_cluster_size": 92,
+          "smallest_to_equal_size_ratio": 0.20535714285714285
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 804,
+          "requested_cluster_count": 4,
+          "silhouette": 0.016886769794761735,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.021205357142857144,
+          "smallest_cluster_size": 19,
+          "smallest_to_equal_size_ratio": 0.08482142857142858
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 640,
+          "requested_cluster_count": 8,
+          "silhouette": 0.010795921659118062,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.005580357142857143,
+          "smallest_cluster_size": 5,
+          "smallest_to_equal_size_ratio": 0.044642857142857144
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 623,
+          "requested_cluster_count": 16,
+          "silhouette": 0.0034139538038575274,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 309,
+          "requested_cluster_count": 32,
+          "silhouette": 0.0046343744812460536,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.031127331778407097,
@@ -11716,6 +15408,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 449,
+          "requested_cluster_count": 2,
+          "silhouette": 0.010778312776283326,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.49888392857142855,
+          "smallest_cluster_size": 447,
+          "smallest_to_equal_size_ratio": 0.9977678571428571
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 447,
+          "requested_cluster_count": 4,
+          "silhouette": 0.008820537696249625,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.03125,
+          "smallest_cluster_size": 28,
+          "smallest_to_equal_size_ratio": 0.125
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 447,
+          "requested_cluster_count": 8,
+          "silhouette": 0.009722622331268135,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.016741071428571428,
+          "smallest_cluster_size": 15,
+          "smallest_to_equal_size_ratio": 0.13392857142857142
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 250,
+          "requested_cluster_count": 16,
+          "silhouette": 0.01306790857230863,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.011160714285714286,
+          "smallest_cluster_size": 10,
+          "smallest_to_equal_size_ratio": 0.17857142857142858
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 212,
+          "requested_cluster_count": 32,
+          "silhouette": 0.01360019015042285,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.004464285714285714,
+          "smallest_cluster_size": 4,
+          "smallest_to_equal_size_ratio": 0.14285714285714285
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.04884042963385582,
@@ -11881,6 +15625,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 535,
+          "requested_cluster_count": 2,
+          "silhouette": 0.013535235440468264,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.4029017857142857,
+          "smallest_cluster_size": 361,
+          "smallest_to_equal_size_ratio": 0.8058035714285714
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 419,
+          "requested_cluster_count": 4,
+          "silhouette": 0.010651989868813055,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.021205357142857144,
+          "smallest_cluster_size": 19,
+          "smallest_to_equal_size_ratio": 0.08482142857142858
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 307,
+          "requested_cluster_count": 8,
+          "silhouette": 0.01316495682563061,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.020089285714285716,
+          "smallest_cluster_size": 18,
+          "smallest_to_equal_size_ratio": 0.16071428571428573
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 238,
+          "requested_cluster_count": 16,
+          "silhouette": 0.013939228329569505,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.010044642857142858,
+          "smallest_cluster_size": 9,
+          "smallest_to_equal_size_ratio": 0.16071428571428573
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 159,
+          "requested_cluster_count": 32,
+          "silhouette": 0.017985213224904147,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.10714285714285714
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.04632986709475517,
@@ -12046,6 +15842,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 692,
+          "requested_cluster_count": 2,
+          "silhouette": 0.010102458747412715,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.22767857142857142,
+          "smallest_cluster_size": 204,
+          "smallest_to_equal_size_ratio": 0.45535714285714285
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 363,
+          "requested_cluster_count": 4,
+          "silhouette": 0.01085214468703041,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.07589285714285714,
+          "smallest_cluster_size": 68,
+          "smallest_to_equal_size_ratio": 0.30357142857142855
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 311,
+          "requested_cluster_count": 8,
+          "silhouette": 0.011751519140361348,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.013392857142857142,
+          "smallest_cluster_size": 12,
+          "smallest_to_equal_size_ratio": 0.10714285714285714
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 260,
+          "requested_cluster_count": 16,
+          "silhouette": 0.012596912590196265,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.013392857142857142,
+          "smallest_cluster_size": 12,
+          "smallest_to_equal_size_ratio": 0.21428571428571427
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 177,
+          "requested_cluster_count": 32,
+          "silhouette": 0.017190541322083752,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.10714285714285714
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.050148941576480865,
@@ -12211,6 +16059,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 890,
+          "requested_cluster_count": 2,
+          "silhouette": 0.01514614310374474,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.006696428571428571,
+          "smallest_cluster_size": 6,
+          "smallest_to_equal_size_ratio": 0.013392857142857142
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 716,
+          "requested_cluster_count": 4,
+          "silhouette": 0.006877889192223297,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.006696428571428571,
+          "smallest_cluster_size": 6,
+          "smallest_to_equal_size_ratio": 0.026785714285714284
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 377,
+          "requested_cluster_count": 8,
+          "silhouette": 0.01064111907231247,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.006696428571428571,
+          "smallest_cluster_size": 6,
+          "smallest_to_equal_size_ratio": 0.05357142857142857
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 335,
+          "requested_cluster_count": 16,
+          "silhouette": 0.011483216156912168,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.006696428571428571,
+          "smallest_cluster_size": 6,
+          "smallest_to_equal_size_ratio": 0.10714285714285714
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 247,
+          "requested_cluster_count": 32,
+          "silhouette": 0.011486540907945531,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.026598645374178886,
@@ -12376,6 +16276,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 645,
+          "requested_cluster_count": 2,
+          "silhouette": 0.008379872318629526,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.28013392857142855,
+          "smallest_cluster_size": 251,
+          "smallest_to_equal_size_ratio": 0.5602678571428571
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 591,
+          "requested_cluster_count": 4,
+          "silhouette": 0.007352565597862408,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.060267857142857144,
+          "smallest_cluster_size": 54,
+          "smallest_to_equal_size_ratio": 0.24107142857142858
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 226,
+          "requested_cluster_count": 8,
+          "silhouette": 0.007498761415227275,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 225,
+          "requested_cluster_count": 16,
+          "silhouette": 0.008440794322391842,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 115,
+          "requested_cluster_count": 32,
+          "silhouette": 0.015213095945514173,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.045783866196870804,
@@ -12541,6 +16493,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 757,
+          "requested_cluster_count": 2,
+          "silhouette": 0.008223974644688534,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.15513392857142858,
+          "smallest_cluster_size": 139,
+          "smallest_to_equal_size_ratio": 0.31026785714285715
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 422,
+          "requested_cluster_count": 4,
+          "silhouette": 0.011055460895004627,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.15513392857142858,
+          "smallest_cluster_size": 139,
+          "smallest_to_equal_size_ratio": 0.6205357142857143
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 248,
+          "requested_cluster_count": 8,
+          "silhouette": 0.011946824138272706,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.014508928571428572,
+          "smallest_cluster_size": 13,
+          "smallest_to_equal_size_ratio": 0.11607142857142858
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 196,
+          "requested_cluster_count": 16,
+          "silhouette": 0.015320212353030885,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0078125,
+          "smallest_cluster_size": 7,
+          "smallest_to_equal_size_ratio": 0.125
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 164,
+          "requested_cluster_count": 32,
+          "silhouette": 0.01835414891535077,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.005580357142857143,
+          "smallest_cluster_size": 5,
+          "smallest_to_equal_size_ratio": 0.17857142857142858
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.05703600496053696,
@@ -12706,6 +16710,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 600,
+          "requested_cluster_count": 2,
+          "silhouette": 0.008619130471361513,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.33035714285714285,
+          "smallest_cluster_size": 296,
+          "smallest_to_equal_size_ratio": 0.6607142857142857
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 409,
+          "requested_cluster_count": 4,
+          "silhouette": 0.011180766599417061,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.12276785714285714,
+          "smallest_cluster_size": 110,
+          "smallest_to_equal_size_ratio": 0.49107142857142855
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 223,
+          "requested_cluster_count": 8,
+          "silhouette": 0.010943088391573501,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.011160714285714286,
+          "smallest_cluster_size": 10,
+          "smallest_to_equal_size_ratio": 0.08928571428571429
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 212,
+          "requested_cluster_count": 16,
+          "silhouette": 0.012265093792042365,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.006696428571428571,
+          "smallest_cluster_size": 6,
+          "smallest_to_equal_size_ratio": 0.10714285714285714
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 125,
+          "requested_cluster_count": 32,
+          "silhouette": 0.018039712923213057,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.005580357142857143,
+          "smallest_cluster_size": 5,
+          "smallest_to_equal_size_ratio": 0.17857142857142858
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.04515479877591133,
@@ -12871,6 +16927,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 605,
+          "requested_cluster_count": 2,
+          "silhouette": 0.013683689632463128,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.3247767857142857,
+          "smallest_cluster_size": 291,
+          "smallest_to_equal_size_ratio": 0.6495535714285714
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 470,
+          "requested_cluster_count": 4,
+          "silhouette": 0.010891436003290404,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.010044642857142858,
+          "smallest_cluster_size": 9,
+          "smallest_to_equal_size_ratio": 0.04017857142857143
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 363,
+          "requested_cluster_count": 8,
+          "silhouette": 0.013799517788622827,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.010044642857142858,
+          "smallest_cluster_size": 9,
+          "smallest_to_equal_size_ratio": 0.08035714285714286
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 279,
+          "requested_cluster_count": 16,
+          "silhouette": 0.012056519767129879,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.005580357142857143,
+          "smallest_cluster_size": 5,
+          "smallest_to_equal_size_ratio": 0.08928571428571429
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 242,
+          "requested_cluster_count": 32,
+          "silhouette": 0.014677364660739918,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.03520957753062248,
@@ -13036,6 +17144,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 798,
+          "requested_cluster_count": 2,
+          "silhouette": 0.00939172033680477,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.109375,
+          "smallest_cluster_size": 98,
+          "smallest_to_equal_size_ratio": 0.21875
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 539,
+          "requested_cluster_count": 4,
+          "silhouette": 0.010625484527463909,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.008928571428571428,
+          "smallest_cluster_size": 8,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 251,
+          "requested_cluster_count": 8,
+          "silhouette": 0.014320597257704234,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.008928571428571428,
+          "smallest_cluster_size": 8,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 232,
+          "requested_cluster_count": 16,
+          "silhouette": 0.011206366924927389,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.004464285714285714,
+          "smallest_cluster_size": 4,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 188,
+          "requested_cluster_count": 32,
+          "silhouette": 0.01370834351025719,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.004464285714285714,
+          "smallest_cluster_size": 4,
+          "smallest_to_equal_size_ratio": 0.14285714285714285
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.06711375713348389,
@@ -13201,6 +17361,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 804,
+          "requested_cluster_count": 2,
+          "silhouette": 0.014192267743271132,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.10267857142857142,
+          "smallest_cluster_size": 92,
+          "smallest_to_equal_size_ratio": 0.20535714285714285
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 548,
+          "requested_cluster_count": 4,
+          "silhouette": 0.012640292451670374,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.013392857142857142
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 499,
+          "requested_cluster_count": 8,
+          "silhouette": 0.008129607381859718,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 321,
+          "requested_cluster_count": 16,
+          "silhouette": 0.011240302406261782,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 225,
+          "requested_cluster_count": 32,
+          "silhouette": 0.012563074738553195,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.09861050546169281,
@@ -13366,6 +17578,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 822,
+          "requested_cluster_count": 2,
+          "silhouette": 0.012255213985279293,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.08258928571428571,
+          "smallest_cluster_size": 74,
+          "smallest_to_equal_size_ratio": 0.16517857142857142
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 565,
+          "requested_cluster_count": 4,
+          "silhouette": 0.011416126952153802,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.03794642857142857,
+          "smallest_cluster_size": 34,
+          "smallest_to_equal_size_ratio": 0.15178571428571427
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 554,
+          "requested_cluster_count": 8,
+          "silhouette": 0.007967154748034925,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.008928571428571428,
+          "smallest_cluster_size": 8,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 242,
+          "requested_cluster_count": 16,
+          "silhouette": 0.01351853202571909,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.004464285714285714,
+          "smallest_cluster_size": 4,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 178,
+          "requested_cluster_count": 32,
+          "silhouette": 0.014943102807738895,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.10714285714285714
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.0871601402759552,
@@ -13531,6 +17795,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 888,
+          "requested_cluster_count": 2,
+          "silhouette": 0.008151041449525196,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.008928571428571428,
+          "smallest_cluster_size": 8,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 877,
+          "requested_cluster_count": 4,
+          "silhouette": 0.0008660847070455583,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.013392857142857142
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 487,
+          "requested_cluster_count": 8,
+          "silhouette": 0.003586885220301975,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.026785714285714284
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 330,
+          "requested_cluster_count": 16,
+          "silhouette": 0.005860732874077558,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 180,
+          "requested_cluster_count": 32,
+          "silhouette": 0.007889659149378921,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.11913859844207764,
@@ -13696,6 +18012,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 895,
+          "requested_cluster_count": 2,
+          "silhouette": 0.015449817035482354,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.002232142857142857
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 614,
+          "requested_cluster_count": 4,
+          "silhouette": 0.010047157636909467,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 433,
+          "requested_cluster_count": 8,
+          "silhouette": 0.011162400120384105,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 261,
+          "requested_cluster_count": 16,
+          "silhouette": 0.010270484665350698,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 224,
+          "requested_cluster_count": 32,
+          "silhouette": 0.010977609930314616,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.02480812929570675,
@@ -13861,6 +18229,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 895,
+          "requested_cluster_count": 2,
+          "silhouette": 0.012726316271768503,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.002232142857142857
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 588,
+          "requested_cluster_count": 4,
+          "silhouette": 0.011346110490624086,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 445,
+          "requested_cluster_count": 8,
+          "silhouette": 0.013014559513899867,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 340,
+          "requested_cluster_count": 16,
+          "silhouette": 0.012976896822026712,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 236,
+          "requested_cluster_count": 32,
+          "silhouette": 0.014812414715205174,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.028000012040138245,
@@ -14026,6 +18446,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 708,
+          "requested_cluster_count": 2,
+          "silhouette": 0.02120315252869871,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.20982142857142858,
+          "smallest_cluster_size": 188,
+          "smallest_to_equal_size_ratio": 0.41964285714285715
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 632,
+          "requested_cluster_count": 4,
+          "silhouette": 0.013133571457383473,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 632,
+          "requested_cluster_count": 8,
+          "silhouette": 0.01006995302409414,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 371,
+          "requested_cluster_count": 16,
+          "silhouette": 0.012600198007583338,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 303,
+          "requested_cluster_count": 32,
+          "silhouette": 0.010182524931035105,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.03298912197351456,
@@ -14191,6 +18663,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 687,
+          "requested_cluster_count": 2,
+          "silhouette": 0.014078428611466052,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.23325892857142858,
+          "smallest_cluster_size": 209,
+          "smallest_to_equal_size_ratio": 0.46651785714285715
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 680,
+          "requested_cluster_count": 4,
+          "silhouette": 0.008336639199496992,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0078125,
+          "smallest_cluster_size": 7,
+          "smallest_to_equal_size_ratio": 0.03125
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 630,
+          "requested_cluster_count": 8,
+          "silhouette": 0.004798447064425618,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0078125,
+          "smallest_cluster_size": 7,
+          "smallest_to_equal_size_ratio": 0.0625
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 260,
+          "requested_cluster_count": 16,
+          "silhouette": 0.011153616956561732,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.004464285714285714,
+          "smallest_cluster_size": 4,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 225,
+          "requested_cluster_count": 32,
+          "silhouette": 0.009105047293810205,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.07630151510238647,
@@ -14356,6 +18880,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 873,
+          "requested_cluster_count": 2,
+          "silhouette": 0.011626382320645093,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.025669642857142856,
+          "smallest_cluster_size": 23,
+          "smallest_to_equal_size_ratio": 0.05133928571428571
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 646,
+          "requested_cluster_count": 4,
+          "silhouette": 0.007627549837579378,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.008928571428571428,
+          "smallest_cluster_size": 8,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 402,
+          "requested_cluster_count": 8,
+          "silhouette": 0.012947815570096008,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 329,
+          "requested_cluster_count": 16,
+          "silhouette": 0.01217373199349046,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 250,
+          "requested_cluster_count": 32,
+          "silhouette": 0.01193925617951703,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.07938949018716812,
@@ -14521,6 +19097,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 484,
+          "requested_cluster_count": 2,
+          "silhouette": 0.01677338086288436,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.45982142857142855,
+          "smallest_cluster_size": 412,
+          "smallest_to_equal_size_ratio": 0.9196428571428571
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 484,
+          "requested_cluster_count": 4,
+          "silhouette": 0.013516911213043723,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0234375,
+          "smallest_cluster_size": 21,
+          "smallest_to_equal_size_ratio": 0.09375
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 419,
+          "requested_cluster_count": 8,
+          "silhouette": 0.009260796114402586,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.004464285714285714,
+          "smallest_cluster_size": 4,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 394,
+          "requested_cluster_count": 16,
+          "silhouette": 0.008297221816564232,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 202,
+          "requested_cluster_count": 32,
+          "silhouette": 0.011376784391599028,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.11243418604135513,
@@ -14686,6 +19314,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 895,
+          "requested_cluster_count": 2,
+          "silhouette": 0.02383178452234851,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.002232142857142857
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 784,
+          "requested_cluster_count": 4,
+          "silhouette": 0.00938752265354743,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.004464285714285714
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 484,
+          "requested_cluster_count": 8,
+          "silhouette": 0.00949844936798659,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.008928571428571428
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 263,
+          "requested_cluster_count": 16,
+          "silhouette": 0.011504716848739157,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 166,
+          "requested_cluster_count": 32,
+          "silhouette": 0.011592432448343477,
+          "singleton_cluster_count": 2,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.08353129774332047,
@@ -14851,6 +19531,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 891,
+          "requested_cluster_count": 2,
+          "silhouette": 0.025397282924939736,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.005580357142857143,
+          "smallest_cluster_size": 5,
+          "smallest_to_equal_size_ratio": 0.011160714285714286
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 656,
+          "requested_cluster_count": 4,
+          "silhouette": 0.01297477948783857,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.005580357142857143,
+          "smallest_cluster_size": 5,
+          "smallest_to_equal_size_ratio": 0.022321428571428572
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 562,
+          "requested_cluster_count": 8,
+          "silhouette": 0.011750112512598904,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 412,
+          "requested_cluster_count": 16,
+          "silhouette": 0.010790351870351819,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 338,
+          "requested_cluster_count": 32,
+          "silhouette": 0.013508210385927711,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.07142857142857142
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.09683384746313095,
@@ -15016,6 +19748,58 @@
       ]
     },
     {
+      "cluster_partitions": [
+        {
+          "actual_cluster_count": 2,
+          "largest_cluster_size": 893,
+          "requested_cluster_count": 2,
+          "silhouette": 0.04261468812502294,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.006696428571428571
+        },
+        {
+          "actual_cluster_count": 4,
+          "largest_cluster_size": 874,
+          "requested_cluster_count": 4,
+          "silhouette": 0.024431027574468238,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.0033482142857142855,
+          "smallest_cluster_size": 3,
+          "smallest_to_equal_size_ratio": 0.013392857142857142
+        },
+        {
+          "actual_cluster_count": 8,
+          "largest_cluster_size": 854,
+          "requested_cluster_count": 8,
+          "silhouette": 0.01137751963988182,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.017857142857142856
+        },
+        {
+          "actual_cluster_count": 16,
+          "largest_cluster_size": 713,
+          "requested_cluster_count": 16,
+          "silhouette": 0.0034464932482792332,
+          "singleton_cluster_count": 0,
+          "smallest_cluster_fraction": 0.002232142857142857,
+          "smallest_cluster_size": 2,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        },
+        {
+          "actual_cluster_count": 32,
+          "largest_cluster_size": 270,
+          "requested_cluster_count": 32,
+          "silhouette": 0.019230197559170176,
+          "singleton_cluster_count": 1,
+          "smallest_cluster_fraction": 0.0011160714285714285,
+          "smallest_cluster_size": 1,
+          "smallest_to_equal_size_ratio": 0.03571428571428571
+        }
+      ],
       "highest_correction_experts": [
         {
           "bias": 0.07009705901145935,

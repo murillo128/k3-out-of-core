@@ -1027,8 +1027,23 @@
     }
   },
   "cluster_tendency_summary": {
+    "balance_reporting_rule": "smallest cluster is at least 25% of equal cluster size; this filters partitions for interpretation without changing standard silhouette",
+    "highest_silhouette_meeting_balance_rule": {
+      "actual_cluster_count": 2,
+      "largest_cluster_size": 708,
+      "layer": 86,
+      "requested_cluster_count": 2,
+      "silhouette": 0.02120315252869871,
+      "singleton_cluster_count": 0,
+      "smallest_cluster_fraction": 0.20982142857142858,
+      "smallest_cluster_size": 188,
+      "smallest_to_equal_size_ratio": 0.41964285714285715
+    },
     "layers_with_best_silhouette_ge_0p05": 12,
-    "layers_with_best_silhouette_ge_0p10": 5
+    "layers_with_best_silhouette_ge_0p10": 5,
+    "layers_with_best_smallest_fraction_ge_0p10": 13,
+    "layers_with_singleton_in_best_partition": 29,
+    "partition_count_meeting_balance_rule": 41
   },
   "cross_layer_metric_ranges": {
     "bias_neighbor_difference_ratio": {
@@ -1084,13 +1099,13 @@
       "standard_deviation": 48.21707179954159
     },
     "cluster_best_silhouette": {
-      "cross_layer_cv": 1.0676187319279733,
-      "maximum": 0.15846844322726783,
+      "cross_layer_cv": 1.0763612287015911,
+      "maximum": 0.1573523717986964,
       "maximum_layer": 24,
-      "median": 0.0175447561819843,
+      "median": 0.01737573487215839,
       "minimum": 0.006953940765615436,
       "minimum_layer": 1,
-      "standard_deviation": 0.031586264360564484
+      "standard_deviation": 0.03145499064136411
     },
     "correction_bias_max": {
       "cross_layer_cv": 0.47319878437908236,

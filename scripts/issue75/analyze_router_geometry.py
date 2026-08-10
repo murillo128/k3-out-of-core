@@ -99,6 +99,7 @@ def silhouette_from_distances(distances: np.ndarray, labels: np.ndarray) -> floa
         return 0.0
     means = np.empty((labels.size, unique.size), dtype=np.float64)
     own = np.empty(labels.size, dtype=np.float64)
+    singleton_samples = np.zeros(labels.size, dtype=bool)
     for column, label in enumerate(unique):
         members = labels == label
         size = int(np.count_nonzero(members))
@@ -106,6 +107,7 @@ def silhouette_from_distances(distances: np.ndarray, labels: np.ndarray) -> floa
         means[:, column] = sums / size
         if size == 1:
             own[members] = 0.0
+            singleton_samples[members] = True
         else:
             own[members] = sums[members] / (size - 1)
     other = means.copy()
@@ -119,6 +121,7 @@ def silhouette_from_distances(distances: np.ndarray, labels: np.ndarray) -> floa
         out=np.zeros_like(denominator),
         where=denominator > 0.0,
     )
+    scores[singleton_samples] = 0.0
     return finite_float(np.mean(scores))
 
 
@@ -239,6 +242,7 @@ def analyze_layer(
     hierarchy = linkage(squareform(distances, checks=False), method="average")
     silhouettes: dict[int, float] = {}
     labels_by_count: dict[int, np.ndarray] = {}
+    partition_details: dict[int, dict[str, Any]] = {}
     for requested_count in cluster_counts:
         if not 2 <= requested_count < expert_count:
             continue
@@ -247,7 +251,21 @@ def analyze_layer(
         if actual_count < 2:
             continue
         labels_by_count[requested_count] = labels
-        silhouettes[requested_count] = silhouette_from_distances(distances, labels)
+        score = silhouette_from_distances(distances, labels)
+        silhouettes[requested_count] = score
+        sizes = np.sort(np.unique(labels, return_counts=True)[1])
+        partition_details[requested_count] = {
+            "requested_cluster_count": int(requested_count),
+            "actual_cluster_count": actual_count,
+            "silhouette": score,
+            "smallest_cluster_size": int(sizes[0]),
+            "largest_cluster_size": int(sizes[-1]),
+            "singleton_cluster_count": int(np.count_nonzero(sizes == 1)),
+            "smallest_cluster_fraction": finite_float(sizes[0] / expert_count),
+            "smallest_to_equal_size_ratio": finite_float(
+                sizes[0] / (expert_count / actual_count)
+            ),
+        }
     if not silhouettes:
         raise PackError(f"layer {layer} produced no valid cluster partitions")
     best_cluster_count = max(silhouettes, key=silhouettes.get)
@@ -293,8 +311,40 @@ def analyze_layer(
         summary[f"cosine_pairs_ge_{name}"] = int(np.count_nonzero(pairwise >= threshold))
     for count, score in silhouettes.items():
         summary[f"cluster_silhouette_k{count}"] = score
+        partition = partition_details[count]
+        summary[f"cluster_actual_count_k{count}"] = partition["actual_cluster_count"]
+        summary[f"cluster_smallest_size_k{count}"] = partition[
+            "smallest_cluster_size"
+        ]
+        summary[f"cluster_largest_size_k{count}"] = partition[
+            "largest_cluster_size"
+        ]
+        summary[f"cluster_singleton_count_k{count}"] = partition[
+            "singleton_cluster_count"
+        ]
+        summary[f"cluster_smallest_fraction_k{count}"] = partition[
+            "smallest_cluster_fraction"
+        ]
+        summary[f"cluster_smallest_to_equal_size_ratio_k{count}"] = partition[
+            "smallest_to_equal_size_ratio"
+        ]
     summary["cluster_best_k"] = int(best_cluster_count)
     summary["cluster_best_silhouette"] = silhouettes[best_cluster_count]
+    summary["cluster_best_smallest_size"] = partition_details[best_cluster_count][
+        "smallest_cluster_size"
+    ]
+    summary["cluster_best_largest_size"] = partition_details[best_cluster_count][
+        "largest_cluster_size"
+    ]
+    summary["cluster_best_singleton_count"] = partition_details[best_cluster_count][
+        "singleton_cluster_count"
+    ]
+    summary["cluster_best_smallest_fraction"] = partition_details[best_cluster_count][
+        "smallest_cluster_fraction"
+    ]
+    summary["cluster_best_smallest_to_equal_size_ratio"] = partition_details[
+        best_cluster_count
+    ]["smallest_to_equal_size_ratio"]
     summary.update(quantiles(bias, "correction_bias"))
     summary["correction_bias_l2"] = finite_float(np.linalg.norm(bias))
     summary["correction_bias_negative_count"] = int(np.count_nonzero(bias < 0.0))
@@ -347,6 +397,7 @@ def analyze_layer(
             for index in np.argsort(bias)[:5]
         ],
         "top_cosine_pairs": top_pairs,
+        "cluster_partitions": [partition_details[count] for count in silhouettes],
         "highest_spectral_leverage_experts": [
             {"expert": int(index), "top8_leverage": finite_float(leverage[index])}
             for index in np.argsort(leverage)[-5:][::-1]
@@ -720,6 +771,15 @@ def main() -> int:
         )
     }
     outlier_counts = Counter(item["metric"] for item in outliers)
+    balanced_partitions = [
+        {"layer": item["layer"], **partition}
+        for item in details
+        for partition in item["cluster_partitions"]
+        if partition["smallest_to_equal_size_ratio"] >= 0.25
+    ]
+    strongest_balanced_partition = max(
+        balanced_partitions, key=lambda item: item["silhouette"]
+    )
 
     summary_document = {
         "schema_version": "kimi-k3-static-router-analysis-v1",
@@ -821,6 +881,15 @@ def main() -> int:
             "layers_with_best_silhouette_ge_0p10": int(
                 sum(row["cluster_best_silhouette"] >= 0.10 for row in summaries)
             ),
+            "layers_with_singleton_in_best_partition": int(
+                sum(row["cluster_best_singleton_count"] > 0 for row in summaries)
+            ),
+            "layers_with_best_smallest_fraction_ge_0p10": int(
+                sum(row["cluster_best_smallest_fraction"] >= 0.10 for row in summaries)
+            ),
+            "balance_reporting_rule": "smallest cluster is at least 25% of equal cluster size; this filters partitions for interpretation without changing standard silhouette",
+            "partition_count_meeting_balance_rule": len(balanced_partitions),
+            "highest_silhouette_meeting_balance_rule": strongest_balanced_partition,
         },
         "bias_geometry_summary": {
             "layers_with_positive_pair_geometry_association": int(
