@@ -103,10 +103,17 @@ def main() -> None:
     if (role_ordinals(cpu["roles"]) != [0] or role_ordinals(gpu0["roles"]) != [0] or
             role_ordinals(gpu_max["roles"]) != [0] or
             len({case["n_gpu_layers"] for case in (cpu, gpu0, gpu_max)}) != 1 or
-            len({case["n_ubatch"] for case in (cpu, gpu0, gpu_max)}) != 1):
+            len({case["n_ubatch"] for case in (cpu, gpu0, gpu_max)}) != 1 or
+            any(case["measurement_tier"] != "P0" for case in (cpu, gpu0, gpu_max))):
         raise SystemExit("matched controls are not the same T1 workload shape")
     if gpu0["pooled"]["hot"]["hits"] != 0:
         raise SystemExit("GPU_HOT_0 reuse is not effectively disabled")
+    if (cpu["pooled"]["hot"]["hits"] != 0 or
+            cpu["pooled"]["bytes_per_generated_token"]["h2d"] != 0):
+        raise SystemExit("CPU_CONTROL performed unexpected hot-GPU execution")
+    if (gpu_max["runs"][0]["capacities"]["hot_effective_slots"] <=
+            gpu0["runs"][0]["capacities"]["hot_effective_slots"]):
+        raise SystemExit("GPU_HOT_MAX did not use the larger MAX_SAFE capacity")
 
     cells = {
         "CPU_CONTROL": cell_summary(cpu, "CPU_FALLBACK_HOST"),

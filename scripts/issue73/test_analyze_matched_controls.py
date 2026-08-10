@@ -10,11 +10,13 @@ import sys
 import tempfile
 
 
-def case(name: str, policy: str, tps: float, slots: int, hot_hits: int) -> dict[str, object]:
+def case(
+        name: str, policy: str, tps: float, slots: int, hot_hits: int,
+        h2d_bytes: int = 3) -> dict[str, object]:
     run = {
         "generated_tokens": 2,
         "capacities": {"hot_requested_slots": slots, "hot_effective_slots": slots},
-        "transfer": {"h2d_time_us": 20, "pageable_fallback": False},
+        "transfer": {"h2d_time_us": 20 if h2d_bytes else 0, "pageable_fallback": False},
         "async_io": {"diagnostics": {
             "read_queue_wait_us": 40, "buffered_fallback_operations": 0}},
         "storage": {"direct_unsupported_source_count": 0},
@@ -34,7 +36,7 @@ def case(name: str, policy: str, tps: float, slots: int, hot_hits: int) -> dict[
             "hot": {"hits": hot_hits, "misses": 2, "hit_rate": hot_hits / (hot_hits + 2)},
             "cold": {"hits": 0, "misses": 2, "hit_rate": 0},
             "bytes_per_generated_token": {
-                "h2d": 3, "logical_storage": 4, "guest_block": 5, "peer": 0},
+                "h2d": h2d_bytes, "logical_storage": 4, "guest_block": 5, "peer": 0},
             "swap_empty_all_processes": True, "oom_kill_delta": 0,
         },
         "runs": [run], "case": name,
@@ -46,7 +48,7 @@ def main() -> None:
         "status": "pass",
         "identity": {"production_output_exact_across_all_processes": True},
         "cases": {
-            "CPU_CONTROL": case("CPU_CONTROL", "CPU_FALLBACK", 1.0, 64, 0),
+            "CPU_CONTROL": case("CPU_CONTROL", "CPU_FALLBACK", 1.0, 64, 0, 0),
             "K3_INITIAL": case("K3_INITIAL", "PROMOTE_AND_GPU", 2.0, 64, 0),
             "GPU_HOT_MAX": case("GPU_HOT_MAX", "PROMOTE_AND_GPU", 3.0, 549, 1),
         },
