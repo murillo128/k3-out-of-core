@@ -1,0 +1,132 @@
+{
+  "build": {
+    "cmake_cache": {
+      "path": "llama.cpp/build-cuda/CMakeCache.txt",
+      "sha256": "cfe74529cb31c2fe9e54c89e010555b6bb0382a4ac51b038fadafe4f533a2932",
+      "size": 55757
+    },
+    "options": {
+      "CMAKE_BUILD_TYPE": "Release",
+      "GGML_CUDA": "ON",
+      "GGML_CUDA_GRAPHS": "OFF",
+      "LLAMA_PERFETTO": "ON"
+    },
+    "probe": {
+      "path": "llama.cpp/build-cuda/bin/phase9-cache-policy-probe",
+      "sha256": "85878d3d8b9eef370356ee72aa4211c1ed43995e062fedb43bfc79bd12fdf157",
+      "size": 394392
+    }
+  },
+  "checkpoint": "A_REAL_K3_BRINGUP_AND_BASELINE",
+  "compliance": {
+    "cold_transcript_records": 109958,
+    "generated_ids": [1008, 2742],
+    "hot_transcript_records": 879229,
+    "local_device_bindings": 92,
+    "logits_fnv64": [16015810340135572371, 5803714830408073365],
+    "production_prefix_exact": true,
+    "remap_checkpoints": 2392,
+    "route_records": 2392,
+    "routed_layers": 92,
+    "terminal_errors": 0,
+    "transcript_drops": 0,
+    "workload_sha256": "cd09d1e6a0b8e9afcdd928da87b70e1345e429f4237700426ac6de7a3d69ca01"
+  },
+  "configuration": {
+    "admission": "ALWAYS",
+    "async_cold_fill": false,
+    "cold_bytes": 17179869184,
+    "cold_policy": "LRU",
+    "expert_roles": "0:64",
+    "hot_policy": "LRU",
+    "hot_slots": 64,
+    "io_queue_depth": 64,
+    "io_workers": 4,
+    "max_generate": 24,
+    "miss_policy": "PROMOTE_AND_GPU",
+    "n_gpu_layers": 8,
+    "n_ubatch": 4,
+    "observation_tier": "P0",
+    "resident_device": 0,
+    "runtime_mode": "PRODUCTION_PERFORMANCE",
+    "storage": "buffered positional pread with normal Linux page cache/readahead",
+    "trace_capacity": 0
+  },
+  "host": {
+    "identity_manifest_sha256": "2261d6c1c131cef72edda87d68351d3b1b16de1b16fd61b9398cb5b6a10f27d6",
+    "provider_product": "Akamai/Linode GPU VM, RTX4000 Ada x4 Medium",
+    "storage_claim": "guest-visible ext4 on virtio-SCSI /dev/sda; physical media unspecified"
+  },
+  "model": {
+    "artifact_bytes": 1561157859104,
+    "artifact_files": 33,
+    "artifact_manifest_sha256": "a064ead429ce0c4a9b719400e9d9802d7356fac6c3743e4bb050964429224ce6",
+    "config_sha256": "9710e121a58d03ac92c8d6da287a19541994319afbbe6d6202af001ffd379213",
+    "expert_bundle_bytes": 17547264,
+    "experts_per_layer": 896,
+    "repository": "moonshotai/Kimi-K3",
+    "revision": "9f62e4e9fffbd0a83ddd60e1c209d828994b3569",
+    "routed_layers": 92,
+    "selected_experts": 16
+  },
+  "prompt": {
+    "path": "scripts/issue73/prompt.txt",
+    "sha256": "ac096de06625494114ff82b550ed809d4eb375477afe0affcea94d44a6c763b3",
+    "tokens": 100
+  },
+  "raw_evidence": {
+    "archive_sha256": "f32ec0924e1d23bc36f681a089a87db751af12c74b5c7a85dc667d5fa58e3617",
+    "archive_size": 38522303,
+    "file_count": 18,
+    "index": "results/2026-08-10/issue73-k3-optimization/checkpoint-a/raw-evidence-index.json",
+    "release_tag": "issue73-checkpoint-a-v1"
+  },
+  "results": {
+    "decode_latency_us": {
+      "max": 6117964,
+      "p50": 5229887,
+      "p95": 5958338,
+      "p99": 6117964
+    },
+    "decode_tps_pooled": 0.18921564991945686,
+    "decode_tps_runs": [0.190679858673063, 0.18777375678873567],
+    "guest_block_bytes_per_generated_token": 145775039402.66666,
+    "h2d_bytes_per_generated_token": 104032610304.0,
+    "hot_hits": 0,
+    "hot_misses": 284578,
+    "logical_storage_bytes_per_generated_token": 104032610304.0,
+    "output_exact_across_processes": true,
+    "output_sha256": "3c3bb089e6c93ac39517f8dd148b49051f4bbfb390cb8891b28d10d07622b456",
+    "peak_gpu0_memory_mib": 10900.0,
+    "peak_process_rss_kib": 111262172,
+    "processes": 2,
+    "summary": "results/2026-08-10/issue73-k3-optimization/checkpoint-a/k3-initial-summary.json",
+    "swap_empty_all_processes": true,
+    "ttft_us": [453768208, 457780886]
+  },
+  "revisions": {
+    "analysis_project": "ec8d0d13fc7127fa462d7901fb822a731ec32055",
+    "execution_project": "a59fc2fe3bf44cc7df4b3a967e7e1c073539d976",
+    "nested_runtime": "0907a2ef1590fcb07aa0fed54b31d28e742ffb9b"
+  },
+  "schema_version": "issue73-checkpoint-a-manifest-v1",
+  "status": "PASS_PENDING_INDEPENDENT_REVIEW",
+  "validation": [
+    {
+      "command": "ctest --test-dir llama.cpp/build-cuda --output-on-failure -R '^(test-expert-weight-provider|test-expert-miss-policy|test-hot-expert-cache)$'",
+      "result": "PASS; 3/3"
+    },
+    {
+      "command": "CUDA_VISIBLE_DEVICES=0 llama.cpp/build-cuda/bin/phase8-miss-execution-probe",
+      "result": "PASS; callback_cancelled=1; overlap_us=645"
+    },
+    {
+      "command": "CUDA_VISIBLE_DEVICES=0 llama.cpp/build-cuda/bin/test-hot-expert-cache /var/lib/k3/issue73/fixtures/Kimi-K3-0.40B-MXFP4.gguf",
+      "result": "PASS; repeated cached CUDA epochs and graph reuse"
+    },
+    {
+      "command": "python3 scripts/issue73/test_analyze_matrix.py",
+      "result": "PASS"
+    }
+  ]
+}

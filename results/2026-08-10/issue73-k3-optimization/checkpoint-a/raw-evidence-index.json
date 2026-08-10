@@ -1,0 +1,104 @@
+{
+  "archive": {
+    "format": "tar.zst",
+    "release_tag": "issue73-checkpoint-a-v1",
+    "release_url": "https://github.com/murillo128/k3-out-of-core/releases/download/issue73-checkpoint-a-v1/issue73-checkpoint-a-raw-v1.tar.zst",
+    "sha256": "f32ec0924e1d23bc36f681a089a87db751af12c74b5c7a85dc667d5fa58e3617",
+    "size": 38522303
+  },
+  "file_count": 18,
+  "files": [
+    {
+      "archive_path": "checkpoint-a-raw-v1/compliance/K3_COMPLIANCE-01-resources.json",
+      "sha256": "fcc45d6400f27966fc1fd2f5ef9f8589d30cf7621a83f70b7b17c6939ec4a881",
+      "size": 6412827
+    },
+    {
+      "archive_path": "checkpoint-a-raw-v1/compliance/K3_COMPLIANCE-01.json",
+      "sha256": "cd09d1e6a0b8e9afcdd928da87b70e1345e429f4237700426ac6de7a3d69ca01",
+      "size": 869139338
+    },
+    {
+      "archive_path": "checkpoint-a-raw-v1/compliance/K3_COMPLIANCE-01.log",
+      "sha256": "2f9f6f4b6993509c85f1140a5b7283e24dd43e09974277e7442617910def426e",
+      "size": 214225
+    },
+    {
+      "archive_path": "checkpoint-a-raw-v1/compliance/matrix.json",
+      "sha256": "a6bea86230749862cf3d67307455ada33f9192a54218c71c2bfa123e25d45717",
+      "size": 681
+    },
+    {
+      "archive_path": "checkpoint-a-raw-v1/identity/conversion.log",
+      "sha256": "e83039ed43de6bce36566f8ea0c8e4e1120178edb4e287bbdd2a5ed897382cde",
+      "size": 520456
+    },
+    {
+      "archive_path": "checkpoint-a-raw-v1/identity/host.json",
+      "sha256": "2261d6c1c131cef72edda87d68351d3b1b16de1b16fd61b9398cb5b6a10f27d6",
+      "size": 12823
+    },
+    {
+      "archive_path": "checkpoint-a-raw-v1/identity/model-manifest.json",
+      "sha256": "a064ead429ce0c4a9b719400e9d9802d7356fac6c3743e4bb050964429224ce6",
+      "size": 19041
+    },
+    {
+      "archive_path": "checkpoint-a-raw-v1/identity/topology.json",
+      "sha256": "b3cbd783322a5b8da9ce07092a2267b82824bd2a6530d6c122f670b135c3ab4f",
+      "size": 6455
+    },
+    {
+      "archive_path": "checkpoint-a-raw-v1/k3-initial/run-01/K3_INITIAL-01-resources.json",
+      "sha256": "4be2957ab9d13b6e515fd16ee385cd3a8a65304fae898343132032583ac18f52",
+      "size": 1430255
+    },
+    {
+      "archive_path": "checkpoint-a-raw-v1/k3-initial/run-01/K3_INITIAL-01.json",
+      "sha256": "008d92d6750b7c5bdc7c6fa4c4fea51ce487e7ff3d3887fd552f2a81a312a1b7",
+      "size": 27956
+    },
+    {
+      "archive_path": "checkpoint-a-raw-v1/k3-initial/run-01/K3_INITIAL-01.log",
+      "sha256": "334ccd4c22cbb7e8383547f79f411c3376414605c2b2963e182b8df0b87bbe8b",
+      "size": 213481
+    },
+    {
+      "archive_path": "checkpoint-a-raw-v1/k3-initial/run-01/matrix.json",
+      "sha256": "6733491822a37f87bbaab2f6398b76cb08cf177884b7b813a59c85f125ec10a8",
+      "size": 685
+    },
+    {
+      "archive_path": "checkpoint-a-raw-v1/k3-initial/run-02/K3_INITIAL-02-resources.json",
+      "sha256": "d37826bfa457c44c75428ac099c8c5168460c13099b6cba03a0da5a243f97162",
+      "size": 1443600
+    },
+    {
+      "archive_path": "checkpoint-a-raw-v1/k3-initial/run-02/K3_INITIAL-02.json",
+      "sha256": "ab6631ef7912c58d40c10f44bf9770724389234a71f043e3d5785ca46e85e660",
+      "size": 27956
+    },
+    {
+      "archive_path": "checkpoint-a-raw-v1/k3-initial/run-02/K3_INITIAL-02.log",
+      "sha256": "fa11f5e395d3c38177b3d22e723d0bfe0f7f6cb1813af4a0800aae9e11574738",
+      "size": 213481
+    },
+    {
+      "archive_path": "checkpoint-a-raw-v1/k3-initial/run-02/matrix.json",
+      "sha256": "95f5cf9467e4f73776dd1cce46c8254dd7d2d35651dbe7af584a14fdfde4fac3",
+      "size": 687
+    },
+    {
+      "archive_path": "checkpoint-a-raw-v1/validation/build-test-hot.log",
+      "sha256": "abecddd7b076bfc48174e3b88fe8f7ae34ad676d6c9e690432f89dcd4a631523",
+      "size": 67705
+    },
+    {
+      "archive_path": "checkpoint-a-raw-v1/validation/test-hot-expert-cache-model-final.log",
+      "sha256": "61f4f4e67b252ce6cc245f6e8f77ab662d73bccd71be3d2633f550c3f8c66931",
+      "size": 303347
+    }
+  ],
+  "schema_version": "issue73-checkpoint-a-raw-index-v1",
+  "status": "PASS"
+}
