@@ -8,7 +8,7 @@ from pathlib import Path
 import tempfile
 
 from common import DEFAULT_PEER_STAGING_BYTES, PROMPT, probe_command, validate_workload
-from run_matrix import block_delta, revision_state
+from run_matrix import artifact_identity, block_delta, revision_state
 
 
 def option(command: list[str], name: str) -> str:
@@ -60,6 +60,21 @@ def main() -> None:
     revisions = revision_state()
     assert len(revisions["project"]) == 40
     assert len(revisions["nested"]) == 40
+
+    with tempfile.TemporaryDirectory() as directory:
+        temporary = Path(directory)
+        model = temporary / "model.gguf"
+        model.write_bytes(b"model")
+        identity = temporary / "identity.json"
+        identity.write_text(json.dumps({"artifact": {
+            "repository": "moonshotai/Kimi-K3",
+            "revision": "9f62e4e9fffbd0a83ddd60e1c209d828994b3569",
+            "variant": "fixture", "total_bytes": 5,
+            "files": [{"name": "model.gguf"}],
+        }}))
+        captured_identity = artifact_identity(identity, model)
+        assert captured_identity["file_count"] == 1
+        assert len(captured_identity["manifest_sha256"]) == 64
 
     workload = {
         "status": "pass", "generated_ids": [1], "logits_fnv64": [2], "latency_us": [3],

@@ -14,10 +14,13 @@ from common import (
     DEFAULT_COLD_BYTES,
     DEFAULT_PEER_STAGING_BYTES,
     DEFAULT_RING_BYTES,
+    MODEL_REPOSITORY,
+    MODEL_REVISION,
     ROOT,
     decode_tps,
     output_identity,
     probe_command,
+    sha256,
     validate_workload,
     write_json,
 )
@@ -41,6 +44,22 @@ def revision_state() -> dict[str, str]:
     if project_status or nested_status:
         raise RuntimeError("full-K3 evidence requires clean project and nested worktrees")
     return result
+
+
+def artifact_identity(path: Path, model: Path) -> dict[str, object]:
+    source = json.loads(path.read_text())
+    artifact = source.get("artifact", {})
+    files = artifact.get("files", [])
+    if (artifact.get("repository") != MODEL_REPOSITORY or
+            artifact.get("revision") != MODEL_REVISION or
+            not files or model.name not in {item.get("name") for item in files}):
+        raise RuntimeError("artifact identity does not match the full-K3 model")
+    return {
+        "manifest": str(path), "manifest_sha256": sha256(path),
+        "repository": artifact["repository"], "revision": artifact["revision"],
+        "variant": artifact.get("variant"), "total_bytes": artifact.get("total_bytes"),
+        "file_count": len(files), "runtime_model_path": str(model),
+    }
 
 
 def read_int_or_text(path: Path) -> int | str:
@@ -201,6 +220,7 @@ def run_one(args: argparse.Namespace, ordinal: int) -> dict[str, object]:
         "schema_version": "issue73-run-resources-v1", "case": args.case, "run": ordinal,
         "measurement_tier": args.measurement_tier,
         "revisions": args.revisions,
+        "artifact": args.artifact,
         "returncode": returncode, "started_unix_seconds": started_wall, "elapsed_seconds": elapsed,
         "pid": process.pid, "command": command,
         "environment": {key: environment[key] for key in ("GGML_CUDA_GRAPH_OPT", "GGML_CUDA_DISABLE_GRAPHS")},
@@ -228,6 +248,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--probe", type=Path, required=True)
     parser.add_argument("--model", type=Path, required=True)
+    parser.add_argument("--artifact-identity-manifest", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--case", required=True)
     parser.add_argument("--roles", required=True)
@@ -255,9 +276,11 @@ def main() -> None:
     if (args.runs < 1 or args.start_run < 1 or args.n_gpu_layers < 0 or args.n_ubatch < 1 or
             args.max_generate < 1 or args.sample_period <= 0):
         raise SystemExit("invalid full-K3 run bounds")
-    if not args.probe.is_file() or not args.model.is_file() or not args.block_stat.is_file():
-        raise SystemExit("probe, model, or block-stat path is missing")
+    if (not args.probe.is_file() or not args.model.is_file() or
+            not args.artifact_identity_manifest.is_file() or not args.block_stat.is_file()):
+        raise SystemExit("probe, model, artifact identity, or block-stat path is missing")
     args.revisions = revision_state()
+    args.artifact = artifact_identity(args.artifact_identity_manifest, args.model)
     results = [run_one(args, run) for run in range(args.start_run, args.start_run + args.runs)]
     write_json(args.output_dir / "matrix.json", {
         "schema_version": "issue73-run-matrix-v1", "status": "complete",
@@ -265,6 +288,7 @@ def main() -> None:
         "n_ubatch": args.n_ubatch, "miss_policy": args.miss_policy,
         "measurement_tier": args.measurement_tier,
         "revisions": args.revisions,
+        "artifact": args.artifact,
         "runs": results,
     })
 
