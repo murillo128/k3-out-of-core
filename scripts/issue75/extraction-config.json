@@ -1,0 +1,77 @@
+{
+  "schema_version": "kimi-k3-router-pack-extraction-config-v1",
+  "pack_id": "kimi-k3-router-pack-v1",
+  "release": {
+    "repository": "murillo128/k3-out-of-core",
+    "tag": "issue75-kimi-k3-router-pack-v1",
+    "asset_prefix": "kimi-k3-router-tensors-native-source-split"
+  },
+  "source_artifact": {
+    "repository": "moonshotai/Kimi-K3",
+    "revision": "9f62e4e9fffbd0a83ddd60e1c209d828994b3569",
+    "variant": "Kimi-K3-BF16-MXFP4",
+    "identity_manifest_sha256": "58b14d13a602944e1134fc753b2cc819a84a31290aee9c1479264a66dbb5efe2",
+    "file_count": 33,
+    "total_bytes": 1561157859104
+  },
+  "router": {
+    "architecture": "kimi-k3",
+    "block_count": 93,
+    "leading_dense_block_count": 1,
+    "first_routed_layer": 1,
+    "routed_layer_count": 92,
+    "experts_per_layer": 896,
+    "selected_experts": 16,
+    "hidden_dimension": 7168,
+    "router_output_dimension": 896,
+    "expert_latent_dimension": 3584,
+    "projection_dtype": "F32",
+    "projection_element_bytes": 4,
+    "correction_dtype": "F32",
+    "correction_element_bytes": 4,
+    "gating_function_code": 2,
+    "gating_function": "sigmoid",
+    "expert_weights_norm": true,
+    "expert_weights_scale": 1.0
+  },
+  "accepted_issue73_revisions": {
+    "project": "817c24686b6212fb4cd7a19f383f9498c02d28d1",
+    "nested_runtime": "9ca6e0ff6a2ccba0ca401c41724763bfa45769a6"
+  },
+  "semantics_sources": [
+    {
+      "path": "src/models/kimi-k3.cpp",
+      "sha256": "9ba654c425dc9f79429c8d41cc4401a4e00bc208693a155e9e101fa09694851f",
+      "symbols": [
+        "llama_model_kimi_k3::load_arch_hparams",
+        "llama_model_kimi_k3::load_arch_tensors",
+        "llama_model_kimi_k3::graph::build_latent_moe"
+      ]
+    },
+    {
+      "path": "src/llama-graph.cpp",
+      "sha256": "79ca69b30fedbab940ed2bf3ec811f3b9b142586cd521efc7e50936515bd0ecf",
+      "symbols": [
+        "llm_graph_context::build_moe_ffn"
+      ]
+    },
+    {
+      "path": "src/llama-hparams.h",
+      "sha256": "4cb6583bd52ae3339ff2838a093169822789d1951fcabb651731cf7d74149169",
+      "symbols": [
+        "llama_expert_gating_func_type"
+      ]
+    }
+  ],
+  "smoke_test": {
+    "layers": [
+      1,
+      46,
+      92
+    ],
+    "experts": [
+      0,
+      1
+    ]
+  }
+}
