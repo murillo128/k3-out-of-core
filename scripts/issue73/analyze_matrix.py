@@ -221,7 +221,7 @@ def main() -> None:
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
 
-    cases: dict[str, object] = {}
+    case_inputs: dict[str, dict[str, object]] = {}
     identities: list[str] = []
     compliance_identities: list[str] = []
     for matrix_path in args.matrix:
@@ -244,13 +244,28 @@ def main() -> None:
             if workload.get("expert_runtime_mode") == "COMPLIANCE":
                 compliance_identities.append(digest(workload_identity(workload, True)))
         key = matrix["case"]
-        if key in cases:
-            raise SystemExit(f"duplicate matrix case: {key}")
-        cases[key] = {
-            "source_matrix": str(matrix_path), "roles": matrix["roles"],
-            "n_gpu_layers": matrix["n_gpu_layers"], "commands": commands,
-            "pooled": pooled(workloads, summaries), "runs": summaries,
+        if key not in case_inputs:
+            case_inputs[key] = {
+                "source_matrices": [], "roles": matrix["roles"],
+                "n_gpu_layers": matrix["n_gpu_layers"], "commands": [],
+                "workloads": [], "summaries": [],
+            }
+        case = case_inputs[key]
+        if case["roles"] != matrix["roles"] or case["n_gpu_layers"] != matrix["n_gpu_layers"]:
+            raise SystemExit(f"inconsistent duplicate matrix case: {key}")
+        case["source_matrices"].append(str(matrix_path))
+        case["commands"].extend(commands)
+        case["workloads"].extend(workloads)
+        case["summaries"].extend(summaries)
+    cases = {
+        key: {
+            "source_matrices": case["source_matrices"], "roles": case["roles"],
+            "n_gpu_layers": case["n_gpu_layers"], "commands": case["commands"],
+            "pooled": pooled(case["workloads"], case["summaries"]),
+            "runs": case["summaries"],
         }
+        for key, case in case_inputs.items()
+    }
     result = {
         "schema_version": "issue73-matrix-summary-v1", "status": "pass",
         "identity": {
