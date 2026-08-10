@@ -1,0 +1,4333 @@
+{
+  "pack_id": "kimi-k3-router-pack-v1",
+  "payload_bytes": 2363820032,
+  "schema_version": "kimi-k3-router-tensor-inventory-v1",
+  "source_artifact_identity_manifest_sha256": "58b14d13a602944e1134fc753b2cc819a84a31290aee9c1479264a66dbb5efe2",
+  "tensor_count": 184,
+  "tensors": [
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 1,
+      "payload_path": "tensors/blk.001.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "9cc4e5c5c2f167c7c9a5594791439391cf31a186b6773163a32cbce85e10bcfa",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00031-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 33811655680,
+        "offset": 33785965568
+      },
+      "source_split": {
+        "count": 33,
+        "index": 30,
+        "number": 31
+      },
+      "source_tensor_name": "blk.1.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 1,
+      "payload_path": "tensors/blk.001.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "853727cc546c18e82efe23f124519049f001feb3d429123876ba8ec5484e5a1d",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00031-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 33785965568,
+        "offset": 33785961984
+      },
+      "source_split": {
+        "count": 33,
+        "index": 30,
+        "number": 31
+      },
+      "source_tensor_name": "blk.1.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 2,
+      "payload_path": "tensors/blk.002.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "dcfadfd208aacffdd3d03a215e83072d257239b8bf4ddb8b1900855bd13fb82b",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00031-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 35092280704,
+        "offset": 35066590592
+      },
+      "source_split": {
+        "count": 33,
+        "index": 30,
+        "number": 31
+      },
+      "source_tensor_name": "blk.2.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 2,
+      "payload_path": "tensors/blk.002.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "2b5a6d43e1325124a175da27638ae66326d5e0ffe717c4eed7f3de083acf918e",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00031-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 35066590592,
+        "offset": 35066587008
+      },
+      "source_split": {
+        "count": 33,
+        "index": 30,
+        "number": 31
+      },
+      "source_tensor_name": "blk.2.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 3,
+      "payload_path": "tensors/blk.003.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "32d3ce02ec844ab1a5e89f9344323df25aa6864326f0fc7a3be2258a2fd2365a",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00031-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 36372905728,
+        "offset": 36347215616
+      },
+      "source_split": {
+        "count": 33,
+        "index": 30,
+        "number": 31
+      },
+      "source_tensor_name": "blk.3.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 3,
+      "payload_path": "tensors/blk.003.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "acea2a1ac7e470bb77b26d4c418559c71349d177997764ede616dbac351aecc1",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00031-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 36347215616,
+        "offset": 36347212032
+      },
+      "source_split": {
+        "count": 33,
+        "index": 30,
+        "number": 31
+      },
+      "source_tensor_name": "blk.3.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 4,
+      "payload_path": "tensors/blk.004.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "7e6fc120f66f39b4225cc9afbc6957cf477f555a5d4252cda877eba40e2c25b6",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00031-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 37230126336,
+        "offset": 37204436224
+      },
+      "source_split": {
+        "count": 33,
+        "index": 30,
+        "number": 31
+      },
+      "source_tensor_name": "blk.4.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 4,
+      "payload_path": "tensors/blk.004.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "e4db0976bc11147f2430d768216effc633ad71cab888e90d9d8e007f0ce8abea",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00031-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 37204436224,
+        "offset": 37204432640
+      },
+      "source_split": {
+        "count": 33,
+        "index": 30,
+        "number": 31
+      },
+      "source_tensor_name": "blk.4.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 5,
+      "payload_path": "tensors/blk.005.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "ea6735e1a417761d3b8d9e7e08d1ed1eb7d270ab99f510c6b52bc087e842c046",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00031-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 38510751360,
+        "offset": 38485061248
+      },
+      "source_split": {
+        "count": 33,
+        "index": 30,
+        "number": 31
+      },
+      "source_tensor_name": "blk.5.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 5,
+      "payload_path": "tensors/blk.005.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "a0c6540ac5fb991453883d09d57cc3c81e2a9bca7c5c983e760c574c2de2051a",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00031-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 38485061248,
+        "offset": 38485057664
+      },
+      "source_split": {
+        "count": 33,
+        "index": 30,
+        "number": 31
+      },
+      "source_tensor_name": "blk.5.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 6,
+      "payload_path": "tensors/blk.006.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "370ef20eb9cdbd76905d1f45db8be9a1d70a735964ed0b014ed84d02b5040b51",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00031-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 39791376384,
+        "offset": 39765686272
+      },
+      "source_split": {
+        "count": 33,
+        "index": 30,
+        "number": 31
+      },
+      "source_tensor_name": "blk.6.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 6,
+      "payload_path": "tensors/blk.006.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "9b4cda6c5cd1c91673aa9abe9cd2c680a99d45fc5209cdb308c302c252644429",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00031-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 39765686272,
+        "offset": 39765682688
+      },
+      "source_split": {
+        "count": 33,
+        "index": 30,
+        "number": 31
+      },
+      "source_tensor_name": "blk.6.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 7,
+      "payload_path": "tensors/blk.007.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "152b0785aa7b1b252cf5933250c8a9c5a2b548f254f02e09edf557e2ee6d3aa5",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00031-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 41072001408,
+        "offset": 41046311296
+      },
+      "source_split": {
+        "count": 33,
+        "index": 30,
+        "number": 31
+      },
+      "source_tensor_name": "blk.7.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 7,
+      "payload_path": "tensors/blk.007.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "15c5b1539de2aba909c8bdd6f8dc88f1e412cfe86b6734baadc4ba01fe45fe77",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00031-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 41046311296,
+        "offset": 41046307712
+      },
+      "source_split": {
+        "count": 33,
+        "index": 30,
+        "number": 31
+      },
+      "source_tensor_name": "blk.7.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 8,
+      "payload_path": "tensors/blk.008.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "0b1cf7cd093cdc9a6c26af2d5e470e6640025642389a04b3be01471d35c9adea",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00031-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 41929222016,
+        "offset": 41903531904
+      },
+      "source_split": {
+        "count": 33,
+        "index": 30,
+        "number": 31
+      },
+      "source_tensor_name": "blk.8.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 8,
+      "payload_path": "tensors/blk.008.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "284cbd1aaa477a232dfc35f45a4948c19b498fb255fb432a9d576228b5d281e3",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00031-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 41903531904,
+        "offset": 41903528320
+      },
+      "source_split": {
+        "count": 33,
+        "index": 30,
+        "number": 31
+      },
+      "source_tensor_name": "blk.8.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 9,
+      "payload_path": "tensors/blk.009.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "17dff2285dba5696ed87f05ee515883bdf4d4ffabfecfa95b32e82daf5db63de",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00031-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 43209847040,
+        "offset": 43184156928
+      },
+      "source_split": {
+        "count": 33,
+        "index": 30,
+        "number": 31
+      },
+      "source_tensor_name": "blk.9.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 9,
+      "payload_path": "tensors/blk.009.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "de5acb4aa88a1a2b26fab28f8ddabcc654123e64497f8cb01ee04e655351c437",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00031-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 43184156928,
+        "offset": 43184153344
+      },
+      "source_split": {
+        "count": 33,
+        "index": 30,
+        "number": 31
+      },
+      "source_tensor_name": "blk.9.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 10,
+      "payload_path": "tensors/blk.010.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "fcb947e67a84aee1f1ccc0cac1b3a766a2523ee33eb861ad6c79db194fe597e3",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00031-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 44490472064,
+        "offset": 44464781952
+      },
+      "source_split": {
+        "count": 33,
+        "index": 30,
+        "number": 31
+      },
+      "source_tensor_name": "blk.10.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 10,
+      "payload_path": "tensors/blk.010.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "7140401c2f851778cdcadc4b9f2b33e232c9fe86642ec609d7ec5fb940d9d81a",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00031-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 44464781952,
+        "offset": 44464778368
+      },
+      "source_split": {
+        "count": 33,
+        "index": 30,
+        "number": 31
+      },
+      "source_tensor_name": "blk.10.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 11,
+      "payload_path": "tensors/blk.011.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "0c9fa4bf28c0adac84cd06b5c3c15974722fb8260603ba80f7e23e15691309d3",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00031-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 45771097088,
+        "offset": 45745406976
+      },
+      "source_split": {
+        "count": 33,
+        "index": 30,
+        "number": 31
+      },
+      "source_tensor_name": "blk.11.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 11,
+      "payload_path": "tensors/blk.011.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "17680ff935829615600e550548a35bf71d52dc0077557fbf59e8d721fc6bc4e7",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00031-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 45745406976,
+        "offset": 45745403392
+      },
+      "source_split": {
+        "count": 33,
+        "index": 30,
+        "number": 31
+      },
+      "source_tensor_name": "blk.11.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 12,
+      "payload_path": "tensors/blk.012.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "11fe5a8b3d0574fbe1d9c42ab6d43b0f013868ee3edea32ef77ebbf500a25e88",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00031-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 46628317696,
+        "offset": 46602627584
+      },
+      "source_split": {
+        "count": 33,
+        "index": 30,
+        "number": 31
+      },
+      "source_tensor_name": "blk.12.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 12,
+      "payload_path": "tensors/blk.012.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "da41f0f21321a68a9f3598445c9c30de67bde628e3770eef2332008390d2741d",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00031-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 46602627584,
+        "offset": 46602624000
+      },
+      "source_split": {
+        "count": 33,
+        "index": 30,
+        "number": 31
+      },
+      "source_tensor_name": "blk.12.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 13,
+      "payload_path": "tensors/blk.013.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "7612208b3dabefdb5c2126c1ed14b3c5354c8d1a02a78b112c4b7faae5cf636e",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00031-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 47908942720,
+        "offset": 47883252608
+      },
+      "source_split": {
+        "count": 33,
+        "index": 30,
+        "number": 31
+      },
+      "source_tensor_name": "blk.13.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 13,
+      "payload_path": "tensors/blk.013.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "af3cc7019184c04a06519016762dc05f821d3786b1faa4dc668915e439c8013b",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00031-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 47883252608,
+        "offset": 47883249024
+      },
+      "source_split": {
+        "count": 33,
+        "index": 30,
+        "number": 31
+      },
+      "source_tensor_name": "blk.13.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 14,
+      "payload_path": "tensors/blk.014.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "489569711ddcb58e98aa24d4d38d67d9c359bf4465bc0997abce51e01d401986",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00031-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 49189567744,
+        "offset": 49163877632
+      },
+      "source_split": {
+        "count": 33,
+        "index": 30,
+        "number": 31
+      },
+      "source_tensor_name": "blk.14.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 14,
+      "payload_path": "tensors/blk.014.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "9264f9a7631851890b62256d4aaeec47e42131e3694534cb93b9daadbca6714a",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00031-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 49163877632,
+        "offset": 49163874048
+      },
+      "source_split": {
+        "count": 33,
+        "index": 30,
+        "number": 31
+      },
+      "source_tensor_name": "blk.14.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 15,
+      "payload_path": "tensors/blk.015.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "53d8aef501cf19cb9c4af4841732b7aefd9e864200ae0b02b2124c0049079b96",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 554635264,
+        "offset": 528945152
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.15.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 15,
+      "payload_path": "tensors/blk.015.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "b3cce5f5fe7bc8847fe58addda865a51e06f25cec43d34433127011559123338",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 528945152,
+        "offset": 528941568
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.15.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 16,
+      "payload_path": "tensors/blk.016.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "a366f79c68017a74ae0e1177428471fa666adf93d4cb44f805e66b1f1367cfbf",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 1411855872,
+        "offset": 1386165760
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.16.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 16,
+      "payload_path": "tensors/blk.016.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "bc5c162178429af339147bd4f6f73604bc4b2f22a761e59b33522344f3d6a444",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 1386165760,
+        "offset": 1386162176
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.16.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 17,
+      "payload_path": "tensors/blk.017.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "741721754b95bdd972d2ddbb2d0fee748156a381bf3ef516ae02f6b23d0f1a9e",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 2692480896,
+        "offset": 2666790784
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.17.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 17,
+      "payload_path": "tensors/blk.017.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "a1239b69458c01b498afa7f9eaf32ef865f395d165fe8a68cc7841e1d8490ba6",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 2666790784,
+        "offset": 2666787200
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.17.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 18,
+      "payload_path": "tensors/blk.018.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "5581838de525d275e551ece0fd83e6d0dc867857a5d35c0f1a7d2c69c36dad57",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 3973105920,
+        "offset": 3947415808
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.18.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 18,
+      "payload_path": "tensors/blk.018.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "695a33e6583ba77d97062c3a69e425523046dadba07f9d4c5bd3a05005b79f9b",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 3947415808,
+        "offset": 3947412224
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.18.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 19,
+      "payload_path": "tensors/blk.019.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "91a808bed40eb7afa968134f6619861b88bc622681ada763085d4680b78198f5",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 5253730944,
+        "offset": 5228040832
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.19.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 19,
+      "payload_path": "tensors/blk.019.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "c502bd19ea94bf4f3f49835196c00118d0dd169c505fe80b5977fb56ff8369d6",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 5228040832,
+        "offset": 5228037248
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.19.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 20,
+      "payload_path": "tensors/blk.020.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "d24cbd885d04a9334f5f22201fc2a68a8c7ad4a388a6de2142f5e50ce7fbae1b",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 6110951552,
+        "offset": 6085261440
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.20.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 20,
+      "payload_path": "tensors/blk.020.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "3d4c0d120e5712f6a4f8acf5153d05791ffd5ae93c1887630ddf69eb3bac92da",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 6085261440,
+        "offset": 6085257856
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.20.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 21,
+      "payload_path": "tensors/blk.021.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "277377c86fc4e0514e87578585be1362f3e092fdbada8a9197156dfc7673488b",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 7391576576,
+        "offset": 7365886464
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.21.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 21,
+      "payload_path": "tensors/blk.021.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "63bf638948a229c4f4a60ec84373b3ae16a19894c5697d78f451f9e68c6dd168",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 7365886464,
+        "offset": 7365882880
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.21.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 22,
+      "payload_path": "tensors/blk.022.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "745a2aaab7aa52c86cce57b467f6bcf1891aece15cf47b2cfbf144d18723a8df",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 8672201600,
+        "offset": 8646511488
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.22.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 22,
+      "payload_path": "tensors/blk.022.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "6fda27eec90fb1da4f5df45365164fd729f02a9ae8c983fe232d832722137579",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 8646511488,
+        "offset": 8646507904
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.22.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 23,
+      "payload_path": "tensors/blk.023.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "3cbedc1db751abcda043a0464a4ad3fc6ada1237f2c2562179cc067babb5df2e",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 9952826624,
+        "offset": 9927136512
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.23.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 23,
+      "payload_path": "tensors/blk.023.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "8625013aaf14144baa005ee7f2e0c94e776851fcf6c4dafdd8e65a8ba1c59e03",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 9927136512,
+        "offset": 9927132928
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.23.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 24,
+      "payload_path": "tensors/blk.024.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "9ce6c89be1b0368ca703b8a040bee9a1dfa67dfd0e5179048753ddb54adf87fa",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 10810047232,
+        "offset": 10784357120
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.24.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 24,
+      "payload_path": "tensors/blk.024.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "90708df16dbe0c773c5ffb5acd5b405c6b958ffda2ffdafe073a891e0fce37fb",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 10784357120,
+        "offset": 10784353536
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.24.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 25,
+      "payload_path": "tensors/blk.025.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "c7164051b6e0160611a3c3791ef6f1fd5ab34b69ad89eff1dab0e385584dbf07",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 12090672256,
+        "offset": 12064982144
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.25.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 25,
+      "payload_path": "tensors/blk.025.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "522b88f59f22437d7f2636e445d773218310400507a6ec022cb10bcc2fd843cc",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 12064982144,
+        "offset": 12064978560
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.25.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 26,
+      "payload_path": "tensors/blk.026.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "2a3426f457fcbe8e1fc186537124e7db6c0ea84c20dc6563c451e00727c4a6a8",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 13371297280,
+        "offset": 13345607168
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.26.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 26,
+      "payload_path": "tensors/blk.026.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "3b0e28aa854288ba799eac70ce4ac5770b6f2d8d0da31ea6a6934bb209acf7cb",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 13345607168,
+        "offset": 13345603584
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.26.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 27,
+      "payload_path": "tensors/blk.027.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "6d5416cec511ef6cc3a4adbe715be13fa3b57fa1c3f58f36009e309e55069956",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 14651922304,
+        "offset": 14626232192
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.27.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 27,
+      "payload_path": "tensors/blk.027.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "479a0fbd92d2020c95785851cf44e933bf9fbf1cdd0899e9cd5c630f1c2f7ee1",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 14626232192,
+        "offset": 14626228608
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.27.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 28,
+      "payload_path": "tensors/blk.028.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "ba358b475af9860bcbe1795c6a18ec57b77eb0c921becb444e138e276ff10029",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 15509142912,
+        "offset": 15483452800
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.28.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 28,
+      "payload_path": "tensors/blk.028.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "6d92a66cdf39b920625579bd908145a74c11aa15715129572f61b3f3f36df8a6",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 15483452800,
+        "offset": 15483449216
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.28.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 29,
+      "payload_path": "tensors/blk.029.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "ebd05914cf95765bf45578efdd42fd815ed97ea3a32d86de4f67cc4b96f47381",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 16789767936,
+        "offset": 16764077824
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.29.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 29,
+      "payload_path": "tensors/blk.029.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "9f4c0bad7726a0a6a14605ddf6f7ac233475f4b16653d9c18c597b4db50a4c56",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 16764077824,
+        "offset": 16764074240
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.29.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 30,
+      "payload_path": "tensors/blk.030.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "36910d4ee75b0a11f3d8eac61bd81aecb51095ef1f92a42433bfaac4c813fab4",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 18070392960,
+        "offset": 18044702848
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.30.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 30,
+      "payload_path": "tensors/blk.030.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "55f51e52f07e18192c9a84589d23ac5abeffa8ac9ef1c38ec0e3a4c015b2e477",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 18044702848,
+        "offset": 18044699264
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.30.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 31,
+      "payload_path": "tensors/blk.031.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "3ad21f989aeb4b5f9026cefa0046b01bc73cd33cb8bc7fb120eee618a8ed0a52",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 19351017984,
+        "offset": 19325327872
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.31.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 31,
+      "payload_path": "tensors/blk.031.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "1802c9ee469b0400aec64ba3c6ac71a3a2a05c35c5216dfcb783fe441da810b9",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 19325327872,
+        "offset": 19325324288
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.31.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 32,
+      "payload_path": "tensors/blk.032.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "0bb8459b8d109796e747f6a02168c58898976e8a74e4f32b338c05b15a4c1b1a",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 20208238592,
+        "offset": 20182548480
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.32.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 32,
+      "payload_path": "tensors/blk.032.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "e48dc1f6a63589f27ea00ae1cceee5db7f05d63b8da38c978155539d37eb7d0e",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 20182548480,
+        "offset": 20182544896
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.32.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 33,
+      "payload_path": "tensors/blk.033.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "6369edf88e194a93e39f58c9358b68df36322ad398321baa8b27614b1ef19e99",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 21488863616,
+        "offset": 21463173504
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.33.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 33,
+      "payload_path": "tensors/blk.033.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "fbdcbb5c43de425599179bdfce285d7f946a763f2f6669341db2220cdc0d75dd",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 21463173504,
+        "offset": 21463169920
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.33.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 34,
+      "payload_path": "tensors/blk.034.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "b0ee99a3369be0546e61e1b44340b08c9fcbe5a3d67a431b59f6c7671d960832",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 22769488640,
+        "offset": 22743798528
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.34.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 34,
+      "payload_path": "tensors/blk.034.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "d41f0a8d17117daec98b5f6195d2f34f71adde441fd8c8d845ad6fc8a00da402",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 22743798528,
+        "offset": 22743794944
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.34.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 35,
+      "payload_path": "tensors/blk.035.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "f9c5c4463ec0d73a821a81aa2cf520fe1dc7729d39934696c3be204df0511823",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 24050113664,
+        "offset": 24024423552
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.35.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 35,
+      "payload_path": "tensors/blk.035.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "f4f1a88507be61c5daac344937a797a7c427c351391b2e94cd5d5f29c7d811c9",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 24024423552,
+        "offset": 24024419968
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.35.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 36,
+      "payload_path": "tensors/blk.036.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "3617bf574b7c41e12eb052d3ac339acc7ed91def0a5c9b10ce2d03ef71cf51f5",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 24907334272,
+        "offset": 24881644160
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.36.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 36,
+      "payload_path": "tensors/blk.036.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "fa5dd93e828d988b9ae98b5ba39280f69d9cb0be64a5e06363e1fb2722cf515d",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 24881644160,
+        "offset": 24881640576
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.36.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 37,
+      "payload_path": "tensors/blk.037.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "9fba3a82aba6cd4f202ef3d222adddbe466e630f50df3ca9a3befc3356a0e776",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 26187959296,
+        "offset": 26162269184
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.37.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 37,
+      "payload_path": "tensors/blk.037.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "c898bf7b0d7b540d7df8a7f886f6628922d2291fdb9c64d69c09d91e89f40d42",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 26162269184,
+        "offset": 26162265600
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.37.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 38,
+      "payload_path": "tensors/blk.038.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "66381fc0c31a241cdf25e340de7a2ccc325a40c63c6686b34c00414a448c1807",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 27468584320,
+        "offset": 27442894208
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.38.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 38,
+      "payload_path": "tensors/blk.038.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "f8514083ac8ea751e1b01a445b40109666fed3fcc50c1a8f69735c94c16de3ff",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 27442894208,
+        "offset": 27442890624
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.38.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 39,
+      "payload_path": "tensors/blk.039.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "2dff20b1bc9666967535ecaee712dd434b154d8f29b8f40aab3842ff9d15e417",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 28749209344,
+        "offset": 28723519232
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.39.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 39,
+      "payload_path": "tensors/blk.039.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "003d62c4e0b44760fc5965d7ed4023d7db78dc3d792fc71a990a5847b734a883",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 28723519232,
+        "offset": 28723515648
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.39.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 40,
+      "payload_path": "tensors/blk.040.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "803fe970e0fc47ee3f7e95f58f0d1c9329c5c4303aac1ca104c09dfffed88acf",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 29606429952,
+        "offset": 29580739840
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.40.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 40,
+      "payload_path": "tensors/blk.040.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "13fdc22b3d4bfb872678e96948888b4665e064584cdb4534861af2be0dba462f",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 29580739840,
+        "offset": 29580736256
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.40.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 41,
+      "payload_path": "tensors/blk.041.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "afb9db35e739240a8d809ea30923d01de4921114ace6f0cee89e3c4464be8ce4",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 30887054976,
+        "offset": 30861364864
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.41.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 41,
+      "payload_path": "tensors/blk.041.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "42af495040b2bb36efd68fe35f015cceba5dec06cc7257667ebe7f26dc133a44",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 30861364864,
+        "offset": 30861361280
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.41.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 42,
+      "payload_path": "tensors/blk.042.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "3e529e557a5c3d7380a8eae1541471cb3b6adcaf4ad8fffab770f811dda7512f",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 32167680000,
+        "offset": 32141989888
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.42.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 42,
+      "payload_path": "tensors/blk.042.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "ad91b6fa6df5563cd8fa28fc111e33e20ab6b1535956be3fca1bb5b4879bbe5f",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 32141989888,
+        "offset": 32141986304
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.42.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 43,
+      "payload_path": "tensors/blk.043.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "172d7aa5a5ccf8d15f61731a8a2d21fe7cc00f6292d725f1908e813d6e963ec0",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 33448305024,
+        "offset": 33422614912
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.43.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 43,
+      "payload_path": "tensors/blk.043.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "ad6d99c44a18d2212b087e5a15378a07a5b55a9710cbfb9962c54f967e22c4c4",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 33422614912,
+        "offset": 33422611328
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.43.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 44,
+      "payload_path": "tensors/blk.044.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "8d5eaaa978084dff942084cf5edbf1c2e5683374dd7b4ff3fa7b0d3c0b8795be",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 34305525632,
+        "offset": 34279835520
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.44.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 44,
+      "payload_path": "tensors/blk.044.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "9f9926c88b51901764e4dd7d7e2897d1a3a9ed603d0138694dd59da9fe5ef81a",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 34279835520,
+        "offset": 34279831936
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.44.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 45,
+      "payload_path": "tensors/blk.045.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "84edb96b77b037fbd6ee49ad8ab3446b3a29d35d03bec99fd81aa18541c06e7e",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 35586150656,
+        "offset": 35560460544
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.45.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 45,
+      "payload_path": "tensors/blk.045.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "950dd21e4bcb159209a72e71d6812bc634cdcf32d1205cb1b7f00cf755a4243b",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 35560460544,
+        "offset": 35560456960
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.45.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 46,
+      "payload_path": "tensors/blk.046.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "c37776180777e6127847f43aac8a3b7678acc6585fa7fa7e0898143858e3e215",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 36866775680,
+        "offset": 36841085568
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.46.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 46,
+      "payload_path": "tensors/blk.046.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "dfdfb0136b2f2078bafae2eb652f14c48ae3d88f0842fbb6b01fe1cb85d7a3d1",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 36841085568,
+        "offset": 36841081984
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.46.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 47,
+      "payload_path": "tensors/blk.047.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "047fb5454b2d758a8cf30a7bfa3fa582a66a237d5db22fac1b7c116473b3f9fa",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 38147400704,
+        "offset": 38121710592
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.47.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 47,
+      "payload_path": "tensors/blk.047.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "a2248234b192d4f6683686d763c7d5d2640444d835dbc7a87bb382722622c13e",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 38121710592,
+        "offset": 38121707008
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.47.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 48,
+      "payload_path": "tensors/blk.048.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "2868c341d03cbf6c5759b83f85f807988fd364139c8d367cbbf77d2eec043aea",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 39004621312,
+        "offset": 38978931200
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.48.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 48,
+      "payload_path": "tensors/blk.048.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "1dd2866443a9ca7915c0bb913748ad9147d38042fdb00a75aa506e6215048a82",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 38978931200,
+        "offset": 38978927616
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.48.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 49,
+      "payload_path": "tensors/blk.049.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "f7ad4494d81c6f73fdd68c59649ac860a78fa25dcb5f69fa1d585c048ef3367e",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 40285246336,
+        "offset": 40259556224
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.49.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 49,
+      "payload_path": "tensors/blk.049.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "fa5d9239967a2d2271edd38e79ac1c323b22f2cf8841498f673ac1e613353246",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 40259556224,
+        "offset": 40259552640
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.49.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 50,
+      "payload_path": "tensors/blk.050.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "5da9ce83c11e50142dd2aa39bf467bdb870e1b9c1099e127fc2b58dab05eb91d",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 41565871360,
+        "offset": 41540181248
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.50.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 50,
+      "payload_path": "tensors/blk.050.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "e6f0ad5acbf19df50740a3cc2e93b1c58b43d2915597fe999d1b3491a8c1bfd7",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 41540181248,
+        "offset": 41540177664
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.50.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 51,
+      "payload_path": "tensors/blk.051.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "949f96d3355226afafb29059d4b247c692a2d51af390efa4aecc9b505f489bd0",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 42846496384,
+        "offset": 42820806272
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.51.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 51,
+      "payload_path": "tensors/blk.051.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "8fd46bf64770fd01c836bd436d0fa6499278622179b9aab778b270b6c70d88ca",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 42820806272,
+        "offset": 42820802688
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.51.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 52,
+      "payload_path": "tensors/blk.052.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "b22a3afcc395753300151242be6da0fde5d469eaea742a0e5f8b6d5e307aa80b",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 43703716992,
+        "offset": 43678026880
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.52.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 52,
+      "payload_path": "tensors/blk.052.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "ba2a82dcd62117d976cdd2a01d128fba7979af50a15a4b0b4ed1e05b048d3fcc",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 43678026880,
+        "offset": 43678023296
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.52.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 53,
+      "payload_path": "tensors/blk.053.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "62fab78a4ba1ac2361c94d522286d1093c032253de183fa0ca38118daa8a389d",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 44984342016,
+        "offset": 44958651904
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.53.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 53,
+      "payload_path": "tensors/blk.053.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "8a0e1096797ff8aee713c76a464eeb6406f4062d461cc4b9efacdc8c6b56519a",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 44958651904,
+        "offset": 44958648320
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.53.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 54,
+      "payload_path": "tensors/blk.054.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "7dcf6a028ac2e8cabefb1fcbcb142083875337889505ede1494d4e09a93f5d6e",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 46264967040,
+        "offset": 46239276928
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.54.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 54,
+      "payload_path": "tensors/blk.054.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "188483da10864e69e896245a102b8847e317b26a23c983cbd35b07306ce9cc0a",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 46239276928,
+        "offset": 46239273344
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.54.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 55,
+      "payload_path": "tensors/blk.055.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "43646eab1c275551d0756edb35950b66d57dbb4e4090e09fc799c571e552fda4",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 47545592064,
+        "offset": 47519901952
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.55.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 55,
+      "payload_path": "tensors/blk.055.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "4aa24e2e27cf8837d73352bc59b1040aa737fc7e2bf8cd0117006cb5338cbba5",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 47519901952,
+        "offset": 47519898368
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.55.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 56,
+      "payload_path": "tensors/blk.056.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "031003d790aba3c683b757577f4ad36077f1c4c8da5a20084c97b07845ae2f11",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 48402812672,
+        "offset": 48377122560
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.56.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 56,
+      "payload_path": "tensors/blk.056.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "5425470ee7fea32cf340065119edae8cc6314ba596b203f41f704eb9952788f0",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 48377122560,
+        "offset": 48377118976
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.56.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 57,
+      "payload_path": "tensors/blk.057.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "7ea2f6f9599ccf7d1628996c4b6f4bb0dde3bf8186ffaf97515cd15e07312de6",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 49683437696,
+        "offset": 49657747584
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.57.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 57,
+      "payload_path": "tensors/blk.057.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "b31f291db53a8c31efcdb5966ee647794f6349e23c9b4ac47ccfece7b1120d7f",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00032-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 49657747584,
+        "offset": 49657744000
+      },
+      "source_split": {
+        "count": 33,
+        "index": 31,
+        "number": 32
+      },
+      "source_tensor_name": "blk.57.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 58,
+      "payload_path": "tensors/blk.058.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "19b4692bff2ed6269f43bbae830403236276e4b9c1dcc48310bb5e66eca72d65",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 1001744992,
+        "offset": 976054880
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.58.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 58,
+      "payload_path": "tensors/blk.058.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "fb96316dd4fed5c52c0d0294a50bb2fafb6a24dbccd65244b0d7e30f78291c8d",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 976054880,
+        "offset": 976051296
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.58.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 59,
+      "payload_path": "tensors/blk.059.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "7f9b28489cd8ce9b9513c6e743d0cdadeb9c45ead99728f0f4591c83a8e7940a",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 2282370016,
+        "offset": 2256679904
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.59.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 59,
+      "payload_path": "tensors/blk.059.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "aaf17bc48538c1bfc63ee074d9e2fd10385734e36ddd88ec29b38effb89a09bf",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 2256679904,
+        "offset": 2256676320
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.59.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 60,
+      "payload_path": "tensors/blk.060.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "747df7a81d43384c0ec949b008428fb4a9052c56a30339d863ea0788fa7ac339",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 3139590624,
+        "offset": 3113900512
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.60.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 60,
+      "payload_path": "tensors/blk.060.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "d077f862441544f89b9241d8a41485d19fc6d87364c3d734451077673737b34f",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 3113900512,
+        "offset": 3113896928
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.60.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 61,
+      "payload_path": "tensors/blk.061.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "520e245559352183416f5b8a4c33d09a7f72e4072a6bd59b46e273b317328dd7",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 4420215648,
+        "offset": 4394525536
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.61.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 61,
+      "payload_path": "tensors/blk.061.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "ac953d5672eba2f04d7c55ca11bac4391991a9e672e6264fdad76e62faafd577",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 4394525536,
+        "offset": 4394521952
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.61.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 62,
+      "payload_path": "tensors/blk.062.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "29a0cae20e51ade0212ab6660f58d90ef558140f787dbb07c5b93e167151122b",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 5700840672,
+        "offset": 5675150560
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.62.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 62,
+      "payload_path": "tensors/blk.062.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "4c547a2e3089e0c08ce3003afad5ab1c672ccb246fba283a3a25aa445d679b1a",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 5675150560,
+        "offset": 5675146976
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.62.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 63,
+      "payload_path": "tensors/blk.063.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "22e1d6d505d11befb95131b7427c8e27849cf77a3fc3f00169de2d1bfca5ae21",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 6981465696,
+        "offset": 6955775584
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.63.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 63,
+      "payload_path": "tensors/blk.063.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "c485fee3898743e96bbfce78a9a26b5cdabf961b93c646f312b008795586e6f1",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 6955775584,
+        "offset": 6955772000
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.63.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 64,
+      "payload_path": "tensors/blk.064.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "36e815f90593e4edf56b268d4a615305a983e5ab13169d8c2081126d817efbdd",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 7838686304,
+        "offset": 7812996192
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.64.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 64,
+      "payload_path": "tensors/blk.064.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "464d1c8541e69b764540907963f48c1136b9d31c855ca878e54fadb8a3d8ade5",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 7812996192,
+        "offset": 7812992608
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.64.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 65,
+      "payload_path": "tensors/blk.065.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "a1c057a7c46de27c5918d4015a512d736b5e7fa4ef08bead7e1e05c5ccbeab0c",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 9119311328,
+        "offset": 9093621216
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.65.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 65,
+      "payload_path": "tensors/blk.065.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "0db41a0be5c328c88cd8a78d4d06958245cc97c68634dc04ab82663a57fdeca5",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 9093621216,
+        "offset": 9093617632
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.65.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 66,
+      "payload_path": "tensors/blk.066.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "0362e0a30bd98e1a8e7a58aac0e3a1fb6de86e0b4a2f3e44ea5e9250d250f791",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 10399936352,
+        "offset": 10374246240
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.66.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 66,
+      "payload_path": "tensors/blk.066.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "b7ee8eb86a4e4bc4feeebcee27867f0e53f51b4b75234356ff51080004f8d225",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 10374246240,
+        "offset": 10374242656
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.66.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 67,
+      "payload_path": "tensors/blk.067.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "acb2832f90fba3bba0e441d317f6978c56aaff77d002fcc83420ba1917c19506",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 11680561376,
+        "offset": 11654871264
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.67.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 67,
+      "payload_path": "tensors/blk.067.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "f1af60027a523da000f4be6be62785d05fac170e80adf93fdcfd4dc46d988e9e",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 11654871264,
+        "offset": 11654867680
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.67.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 68,
+      "payload_path": "tensors/blk.068.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "c08d1c52f668b7c1f2dec3b3c50ee60d8b1a235bdc854f0f5246c01b82acd5f1",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 12537781984,
+        "offset": 12512091872
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.68.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 68,
+      "payload_path": "tensors/blk.068.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "8d9dc430cc878ddd01c2cce3dc14bd9b91193dce746821bf98e64878bd6ce5fc",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 12512091872,
+        "offset": 12512088288
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.68.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 69,
+      "payload_path": "tensors/blk.069.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "95329c2c5f29597afa73c364d86f8801f2f7245131947cae359085b62726c38b",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 13818407008,
+        "offset": 13792716896
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.69.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 69,
+      "payload_path": "tensors/blk.069.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "15a7fcb1413f0b441e3b3d48d96f694e39ed309fff4e7386079ea5c6d1b3240b",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 13792716896,
+        "offset": 13792713312
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.69.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 70,
+      "payload_path": "tensors/blk.070.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "d50fefeb21ce6b5797a3da8d38b3ee292dbcad3d2802c476159d1b24873b14a8",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 15099032032,
+        "offset": 15073341920
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.70.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 70,
+      "payload_path": "tensors/blk.070.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "e37007f895dfb0bf62a8856f520b865e830fea9c50d314cf4bffce26b41362ee",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 15073341920,
+        "offset": 15073338336
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.70.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 71,
+      "payload_path": "tensors/blk.071.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "7117513540956911ccb9a1523c17c7f23cb03cf9d4b8a55d75a96eaceedc3d41",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 16379657056,
+        "offset": 16353966944
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.71.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 71,
+      "payload_path": "tensors/blk.071.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "80bbd12c2146daecab9c8e7240192fda2e905776522db4071bb306e7ada75dc4",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 16353966944,
+        "offset": 16353963360
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.71.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 72,
+      "payload_path": "tensors/blk.072.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "3264d7c8319d2cfcbf2d3267653a30dd886737d80f4d9e6eb0ff9a13d245fdec",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 17236877664,
+        "offset": 17211187552
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.72.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 72,
+      "payload_path": "tensors/blk.072.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "315dcbfa0da7347a0c4893268395e99aa35222a5dd3ce0f37af663d3b789093a",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 17211187552,
+        "offset": 17211183968
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.72.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 73,
+      "payload_path": "tensors/blk.073.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "d5e35fc063535d4f45d039d003aa82e5a8c9d25150b331245328e52bfa3e84d2",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 18517502688,
+        "offset": 18491812576
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.73.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 73,
+      "payload_path": "tensors/blk.073.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "b92b7b3f120318362640434712509ad7a07360adc8a318e383763d860a5a76ec",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 18491812576,
+        "offset": 18491808992
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.73.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 74,
+      "payload_path": "tensors/blk.074.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "0dee79f24e846b3a139b549c7a0b53488c7b46d98fbd65c5d9ae8f3903ba296f",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 19798127712,
+        "offset": 19772437600
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.74.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 74,
+      "payload_path": "tensors/blk.074.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "443fd8102dbe05190d9da927fff9490c4c8f1658417d571f449319fbe3bfb061",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 19772437600,
+        "offset": 19772434016
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.74.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 75,
+      "payload_path": "tensors/blk.075.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "7569ee61173d8360b608ed4a8be1eebadd44c51213d93c74aa0d707ffd4d2f03",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 21078752736,
+        "offset": 21053062624
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.75.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 75,
+      "payload_path": "tensors/blk.075.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "a256e834c1e30874268ba8aa56fbbdb649a2f209959d5631d9912e8acfbca98b",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 21053062624,
+        "offset": 21053059040
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.75.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 76,
+      "payload_path": "tensors/blk.076.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "108e037bd24372113a9d39cfbf25f7fd0ab378b8d25363c6c1e65b78abb0065d",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 21935973344,
+        "offset": 21910283232
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.76.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 76,
+      "payload_path": "tensors/blk.076.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "f6c9e6f7bb03cfe24624baeb30fb480107aaf91ed5a7867d1f932060ff3fe43c",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 21910283232,
+        "offset": 21910279648
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.76.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 77,
+      "payload_path": "tensors/blk.077.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "c10f62a43604150cf27d53a58eeb7079e400e4165caf00bd40289c06f1d2509d",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 23216598368,
+        "offset": 23190908256
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.77.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 77,
+      "payload_path": "tensors/blk.077.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "3dfa9d95d404a4e2f6f55bf9aa462b5fcaa570b3b55624e15314c7b7b3aeab5d",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 23190908256,
+        "offset": 23190904672
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.77.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 78,
+      "payload_path": "tensors/blk.078.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "13d7a36ffe64d48e24739c41e96ce017e608ee1cbba08ffe48fa5ba7607b28e6",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 24497223392,
+        "offset": 24471533280
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.78.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 78,
+      "payload_path": "tensors/blk.078.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "00314c329d99c8f83bad062f5314d038bbc2edd78f882a5454a889aaef92c519",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 24471533280,
+        "offset": 24471529696
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.78.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 79,
+      "payload_path": "tensors/blk.079.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "fff8c72342703c268ea59eeb2aa62fc40734776e7a3f322f8c0f358ddaa2619a",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 25777848416,
+        "offset": 25752158304
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.79.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 79,
+      "payload_path": "tensors/blk.079.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "4a37e594e8f8faa03ed45770e70276d42ea47ae70b6dd7a29961e96e3f9b719d",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 25752158304,
+        "offset": 25752154720
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.79.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 80,
+      "payload_path": "tensors/blk.080.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "ffd21371229891fe66b4af6266595779ba3dbd2732d2015485ce8c6c83ca6d97",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 26635069024,
+        "offset": 26609378912
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.80.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 80,
+      "payload_path": "tensors/blk.080.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "47da4199a8df90b43526e2661ae579860e7e3e721dbb1f4222ef0280ba7188b0",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 26609378912,
+        "offset": 26609375328
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.80.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 81,
+      "payload_path": "tensors/blk.081.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "17152937ce3e6bb07e633fb694227b68d12c6feaf058b73e64405db29b87adb1",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 27915694048,
+        "offset": 27890003936
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.81.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 81,
+      "payload_path": "tensors/blk.081.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "094ccebe0f52d6b7871721001124d674e932fd46d78b52bca8371b6a3877d661",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 27890003936,
+        "offset": 27890000352
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.81.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 82,
+      "payload_path": "tensors/blk.082.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "a307ca90069be8695615c97a9819bfa30bd3c9c4d00e4584807580b2b847d4f3",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 29196319072,
+        "offset": 29170628960
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.82.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 82,
+      "payload_path": "tensors/blk.082.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "e1975fbca749ed88403cae61f97dd55709f4bb9311db57f259469e75f16eaad9",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 29170628960,
+        "offset": 29170625376
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.82.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 83,
+      "payload_path": "tensors/blk.083.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "6435e68732f9ccbcd3569ec75e441dcf3e7e7476bf6e2fc5d2335ac5a1a6817c",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 30476944096,
+        "offset": 30451253984
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.83.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 83,
+      "payload_path": "tensors/blk.083.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "5a7fa43219d634e3310e99008abff42cbd37f4a40b579a0b6d7cbef3df9c9864",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 30451253984,
+        "offset": 30451250400
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.83.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 84,
+      "payload_path": "tensors/blk.084.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "a97f36a1dc4a971d8d016529c64ff5fcaeb9625f70e6b5538779ecbbd48b858c",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 31334164704,
+        "offset": 31308474592
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.84.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 84,
+      "payload_path": "tensors/blk.084.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "d4134af380dd97f6211f8b24129a13cee4ffd794deef05a117ddadad6660e5e5",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 31308474592,
+        "offset": 31308471008
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.84.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 85,
+      "payload_path": "tensors/blk.085.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "ba5fedb3af1ec9b00c0c4a8bce37a7cfb86abb7f331dec6e9b003e2f7f1b6d75",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 32614789728,
+        "offset": 32589099616
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.85.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 85,
+      "payload_path": "tensors/blk.085.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "4facb94586dd2c230622fbd76d62186604020b6a84762e8b2fbc832733324499",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 32589099616,
+        "offset": 32589096032
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.85.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 86,
+      "payload_path": "tensors/blk.086.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "c70e02afb4e07e7a66c6e77efb71b4c90542571fd7505fd9469e7f98c33a8a94",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 33895414752,
+        "offset": 33869724640
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.86.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 86,
+      "payload_path": "tensors/blk.086.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "c737fb4fe5f8150a27dedae7cd5403ac73820fbdba21f4e4243885e5c40c219b",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 33869724640,
+        "offset": 33869721056
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.86.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 87,
+      "payload_path": "tensors/blk.087.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "afb2903c9ca5640729bd0cbf6dfbfdf391e916665a6d1e9e8b855948867a8fe2",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 35176039776,
+        "offset": 35150349664
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.87.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 87,
+      "payload_path": "tensors/blk.087.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "6c93b795a408144b2fc6210a6945b72066a919c945f6f34da93dc42ecdab1f6a",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 35150349664,
+        "offset": 35150346080
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.87.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 88,
+      "payload_path": "tensors/blk.088.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "c9607df1e474bd42679f78c4da03a5f58c6b20eecfdd67f3c86368eee40f881d",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 36033260384,
+        "offset": 36007570272
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.88.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 88,
+      "payload_path": "tensors/blk.088.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "cbef167cbf96f5e06be502735142e7eef11e7ae01fb17255a5fd7f86a767424f",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 36007570272,
+        "offset": 36007566688
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.88.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 89,
+      "payload_path": "tensors/blk.089.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "e16c19a4e6220da9f23aea4dcc49655b30aa83bec5d489a7c5696fa2009fc424",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 37313885408,
+        "offset": 37288195296
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.89.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 89,
+      "payload_path": "tensors/blk.089.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "4863f94a4aa9127a67b6b91d50fe73c7c7ec15bb0e40fda5aef85b41fa704777",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 37288195296,
+        "offset": 37288191712
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.89.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 90,
+      "payload_path": "tensors/blk.090.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "a781bde0f782f6fe71a49ee5c95c409ea825c0a4d030423eaf57600fdf21f704",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 38594510432,
+        "offset": 38568820320
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.90.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 90,
+      "payload_path": "tensors/blk.090.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "ffff02c9bb5ec069d6fd39f6f3f2d5dda0cbfb973f880551161cb05352dc392e",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 38568820320,
+        "offset": 38568816736
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.90.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 91,
+      "payload_path": "tensors/blk.091.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "0727b317a6d4f68f15ec0144021ad20a7b2c029435868c1f2a48e4ff837392c6",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 39875135456,
+        "offset": 39849445344
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.91.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 91,
+      "payload_path": "tensors/blk.091.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "710b878b852f04029b0170c90051c165ea7c5602a45d59f10ed8f25619aae48c",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 39849445344,
+        "offset": 39849441760
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.91.exp_probs_b.bias"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 25690112,
+      "dtype": "F32",
+      "layer": 92,
+      "payload_path": "tensors/blk.092.ffn_gate_inp.weight.f32.bin",
+      "semantic_role": "router_projection_weight",
+      "sha256": "7662f8661dd2a8011a87fc1ddf790c03158564ed84ba6d5a42477bfa5685469e",
+      "shape": [
+        7168,
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 40732356064,
+        "offset": 40706665952
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.92.ffn_gate_inp.weight"
+    },
+    {
+      "asset": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "byte_length": 3584,
+      "dtype": "F32",
+      "layer": 92,
+      "payload_path": "tensors/blk.092.exp_probs_b.bias.f32.bin",
+      "semantic_role": "selection_correction_bias",
+      "sha256": "4ebb33e9321892c72d5e4806e05a284b35b58596a440473c2f331b6c93b3e82e",
+      "shape": [
+        896
+      ],
+      "source_file": "kimi-k3-bf16-00033-of-00033.gguf",
+      "source_range": {
+        "end_exclusive": 40706665952,
+        "offset": 40706662368
+      },
+      "source_split": {
+        "count": 33,
+        "index": 32,
+        "number": 33
+      },
+      "source_tensor_name": "blk.92.exp_probs_b.bias"
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "asset_validation": [
+    {
+      "compressed_bytes": 151621020,
+      "filename": "kimi-k3-router-tensors-native-source-split-00031-of-00033.tar.zst",
+      "sha256": "361ec0e256d84a1c931196c08b6996e0e5315e0d2e48bf3041f26d69a5ef62e9"
+    },
+    {
+      "compressed_bytes": 465815840,
+      "filename": "kimi-k3-router-tensors-native-source-split-00032-of-00033.tar.zst",
+      "sha256": "f1d767de74060a905b9f63e839766852197841fdd1a249ac5e1a7f9e493a348a"
+    },
+    {
+      "compressed_bytes": 378519055,
+      "filename": "kimi-k3-router-tensors-native-source-split-00033-of-00033.tar.zst",
+      "sha256": "442a079d2e6e14a7ef5c9b6c2f53f7300860338cbf4fae7b0d53fa9f3b68ba3c"
+    }
+  ],
+  "layers": [
+    {
+      "correction_bias_max": 0.028605474159121513,
+      "correction_bias_min": -0.08442370593547821,
+      "correction_bias_norm": 0.6087849033831664,
+      "cosine_similarity": 0.03564805170724893,
+      "experts": [
+        0,
+        1
+      ],
+      "layer": 1,
+      "router_vector_norms": [
+        4.308345034163664,
+        4.174433297657571
+      ]
+    },
+    {
+      "correction_bias_max": 0.07193157076835632,
+      "correction_bias_min": -0.2142721265554428,
+      "correction_bias_norm": 1.4001416394086938,
+      "cosine_similarity": 0.026000115534342526,
+      "experts": [
+        0,
+        1
+      ],
+      "layer": 46,
+      "router_vector_norms": [
+        2.8146705178821754,
+        3.1346513731584653
+      ]
+    },
+    {
+      "correction_bias_max": 0.07009705901145935,
+      "correction_bias_min": -0.5324862003326416,
+      "correction_bias_norm": 2.0438565550314385,
+      "cosine_similarity": 0.03865193446987171,
+      "experts": [
+        0,
+        1
+      ],
+      "layer": 92,
+      "router_vector_norms": [
+        3.9260941882672875,
+        3.6233825279534506
+      ]
+    }
+  ],
+  "operation": "bounded router-vector norms, cosine similarity, and correction-bias summary",
+  "payload_validation": {
+    "payload_bytes": 2363820032,
+    "tensor_count": 184
+  },
+  "schema_version": "kimi-k3-router-pack-smoke-v1",
+  "source_artifact_identity_manifest_sha256": "58b14d13a602944e1134fc753b2cc819a84a31290aee9c1479264a66dbb5efe2",
+  "status": "PASS",
+  "storage_interpretation": "GGUF F32 bytes; each expert vector is contiguous along ne[0]",
+  "verification_scope": "fresh extracted release assets; full source model unavailable"
+}
