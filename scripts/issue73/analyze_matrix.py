@@ -139,6 +139,12 @@ def run_summary(workload: dict[str, object], resources: dict[str, object]) -> di
     devices = workload["multi_gpu"]["devices"]
     peers = workload["multi_gpu"]["peer_diagnostics"]
     return {
+        "output": {
+            "prompt_ids": workload["prompt_ids"],
+            "generated_ids": workload["generated_ids"],
+            "generated_text": workload["generated_text"],
+            "logits_fnv64": workload["logits_fnv64"],
+        },
         "generated_tokens": generated,
         "ttft_us": latencies[0],
         "decode_tokens": len(decode),
@@ -220,6 +226,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--matrix", type=Path, action="append", required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--allow-output-divergence", action="store_true")
     args = parser.parse_args()
 
     case_inputs: dict[str, dict[str, object]] = {}
@@ -257,6 +264,7 @@ def main() -> None:
                 "miss_policy": miss_policy, "measurement_tier": measurement_tier,
                 "revisions": revisions, "artifact": artifact,
                 "commands": [],
+                "identities": [],
                 "workloads": [], "summaries": [],
             }
         case = case_inputs[key]
@@ -269,6 +277,8 @@ def main() -> None:
             raise SystemExit(f"inconsistent duplicate matrix case: {key}")
         case["source_matrices"].append(str(matrix_path))
         case["commands"].extend(commands)
+        case["identities"].extend(
+            digest(workload_identity(workload, False)) for workload in workloads)
         case["workloads"].extend(workloads)
         case["summaries"].extend(summaries)
     cases = {
@@ -280,6 +290,10 @@ def main() -> None:
             "measurement_tier": case["measurement_tier"],
             "revisions": case["revisions"], "artifact": case["artifact"],
             "commands": case["commands"],
+            "output_identity": {
+                "exact_within_case": len(set(case["identities"])) == 1,
+                "sha256": case["identities"][0],
+            },
             "pooled": pooled(case["workloads"], case["summaries"]),
             "runs": case["summaries"],
         }
@@ -288,9 +302,11 @@ def main() -> None:
     production_exact = len(set(identities)) == 1
     result = {
         "schema_version": "issue73-matrix-summary-v1",
-        "status": "pass" if production_exact else "fail",
+        "status": "pass" if production_exact or args.allow_output_divergence else "fail",
         "identity": {
             "production_output_exact_across_all_processes": production_exact,
+            "output_divergence_explicitly_accepted":
+                bool(args.allow_output_divergence and not production_exact),
             "production_output_sha256": identities[0], "processes": len(identities),
             "compliance_identity_exact": (
                 len(set(compliance_identities)) == 1 if compliance_identities else None),
@@ -300,7 +316,7 @@ def main() -> None:
     write_json(args.output, result)
     print(f"ISSUE73_MATRIX_ANALYSIS status={result['status']} "
           f"cases={len(cases)} processes={len(identities)}")
-    if not production_exact:
+    if not production_exact and not args.allow_output_divergence:
         raise SystemExit("full-K3 production outputs differ across matrix cases")
 
 

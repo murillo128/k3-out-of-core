@@ -14,6 +14,15 @@ def role_ordinals(roles: str) -> list[int]:
     return [int(item.split(":", 1)[0]) for item in roles.split(",") if item]
 
 
+def matching_prefix(lhs: list[object], rhs: list[object]) -> int:
+    count = 0
+    for left, right in zip(lhs, rhs):
+        if left != right:
+            break
+        count += 1
+    return count
+
+
 def aggregate_service_per_token(case: dict[str, object], path: tuple[str, ...]) -> float:
     total = 0
     generated = 0
@@ -89,9 +98,8 @@ def main() -> None:
     args = parser.parse_args()
 
     source = json.loads(args.summary.read_text())
-    if source.get("status") != "pass" or not source.get(
-            "identity", {}).get("production_output_exact_across_all_processes"):
-        raise SystemExit("matched controls require a passing exact-output matrix summary")
+    if source.get("status") != "pass":
+        raise SystemExit("matched controls require a passing matrix summary")
     cases = source["cases"]
     cpu = cases[args.cpu_case]
     gpu0 = cases[args.gpu_hot_0_case]
@@ -114,6 +122,17 @@ def main() -> None:
     if (gpu_max["runs"][0]["capacities"]["hot_effective_slots"] <=
             gpu0["runs"][0]["capacities"]["hot_effective_slots"]):
         raise SystemExit("GPU_HOT_MAX did not use the larger MAX_SAFE capacity")
+    if (not all(case["output_identity"]["exact_within_case"]
+                for case in (cpu, gpu0, gpu_max)) or
+            gpu0["output_identity"]["sha256"] != gpu_max["output_identity"]["sha256"]):
+        raise SystemExit("GPU controls are not exact or a control is internally nondeterministic")
+
+    cpu_output = cpu["runs"][0]["output"]
+    gpu_output = gpu0["runs"][0]["output"]
+    generated_prefix = matching_prefix(
+        cpu_output["generated_ids"], gpu_output["generated_ids"])
+    logits_prefix = matching_prefix(
+        cpu_output["logits_fnv64"], gpu_output["logits_fnv64"])
 
     cells = {
         "CPU_CONTROL": cell_summary(cpu, "CPU_FALLBACK_HOST"),
@@ -126,7 +145,17 @@ def main() -> None:
     result = {
         "schema_version": "issue73-matched-controls-v1", "status": "pass",
         "source_summary": str(args.summary),
-        "output_identity": source["identity"], "cells": cells,
+        "output_identity": {
+            "global": source["identity"],
+            "gpu_hot_0_and_max_exact": True,
+            "cpu_and_gpu_generated_token_matching_prefix": generated_prefix,
+            "cpu_and_gpu_first_divergent_generated_token_one_based":
+                generated_prefix + 1 if generated_prefix < len(gpu_output["generated_ids"]) else None,
+            "cpu_and_gpu_logit_digest_matching_prefix": logits_prefix,
+            "cpu_route_stream_after_divergence_is_not_matched":
+                generated_prefix < len(gpu_output["generated_ids"]),
+        },
+        "cells": cells,
         "ratios": {
             "gpu_hot_0_over_cpu_control": gpu0_tps / cpu_tps,
             "gpu_hot_max_over_gpu_hot_0": gpu_max_tps / gpu0_tps,

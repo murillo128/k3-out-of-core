@@ -14,7 +14,9 @@ from analyze_matrix import nearest_rank, pooled, resource_summary, run_summary
 
 def main() -> None:
     workload = {
-        "generated_ids": [1, 2, 3], "latency_us": [100, 10, 20],
+        "prompt_ids": [4], "generated_ids": [1, 2, 3],
+        "generated_text": "fixture", "logits_fnv64": [5, 6, 7],
+        "latency_us": [100, 10, 20],
         "cpu_user_time_us": 40, "cpu_system_time_us": 5, "peak_rss_kib": 10,
         "mechanism": {
             "hot_hits": 3, "hot_misses": 1, "cold_hits": 2, "cold_misses": 2,
@@ -127,6 +129,16 @@ def main() -> None:
         ], check=False, capture_output=True, text=True)
         assert mismatch.returncode != 0
         assert json.loads(mismatch_output.read_text())["status"] == "fail"
+        accepted = subprocess.run([
+            sys.executable, str(Path(__file__).with_name("analyze_matrix.py")),
+            "--matrix", str(matrices[0]), "--matrix", str(mismatched_matrix),
+            "--output", str(mismatch_output), "--allow-output-divergence",
+        ], check=False, capture_output=True, text=True)
+        assert accepted.returncode == 0
+        accepted_summary = json.loads(mismatch_output.read_text())
+        assert accepted_summary["status"] == "pass"
+        assert accepted_summary["identity"]["output_divergence_explicitly_accepted"]
+        assert accepted_summary["cases"]["REPEAT"]["output_identity"]["exact_within_case"]
         assert merged["cases"]["REPEAT"]["source_matrices"] == [str(path) for path in matrices]
 
     print("ISSUE73_MATRIX_ANALYSIS_TEST status=pass pooled=pass resources=pass")

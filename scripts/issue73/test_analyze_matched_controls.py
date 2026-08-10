@@ -14,6 +14,9 @@ def case(
         name: str, policy: str, tps: float, slots: int, hot_hits: int,
         h2d_bytes: int = 3) -> dict[str, object]:
     run = {
+        "output": {
+            "prompt_ids": [9], "generated_ids": [1, 2],
+            "generated_text": "fixture", "logits_fnv64": [3, 4]},
         "generated_tokens": 2,
         "capacities": {"hot_requested_slots": slots, "hot_effective_slots": slots},
         "transfer": {"h2d_time_us": 20 if h2d_bytes else 0, "pageable_fallback": False},
@@ -29,6 +32,7 @@ def case(
     return {
         "roles": f"0:{slots}", "n_gpu_layers": 8, "n_ubatch": 4,
         "miss_policy": policy, "measurement_tier": "P0",
+        "output_identity": {"exact_within_case": True, "sha256": name},
         "pooled": {
             "processes": 1, "decode_tps": tps,
             "ttft_us": {"p50": 1, "p95": 1},
@@ -46,13 +50,18 @@ def case(
 def main() -> None:
     source = {
         "status": "pass",
-        "identity": {"production_output_exact_across_all_processes": True},
+        "identity": {
+            "production_output_exact_across_all_processes": False,
+            "output_divergence_explicitly_accepted": True},
         "cases": {
             "CPU_CONTROL": case("CPU_CONTROL", "CPU_FALLBACK", 1.0, 64, 0, 0),
             "K3_INITIAL": case("K3_INITIAL", "PROMOTE_AND_GPU", 2.0, 64, 0),
             "GPU_HOT_MAX": case("GPU_HOT_MAX", "PROMOTE_AND_GPU", 3.0, 549, 1),
         },
     }
+    source["cases"]["GPU_HOT_MAX"]["output_identity"]["sha256"] = "K3_INITIAL"
+    source["cases"]["CPU_CONTROL"]["runs"][0]["output"]["generated_ids"] = [1, 8]
+    source["cases"]["CPU_CONTROL"]["runs"][0]["output"]["logits_fnv64"] = [7, 8]
     with tempfile.TemporaryDirectory() as directory:
         temporary = Path(directory)
         summary = temporary / "summary.json"
@@ -70,6 +79,8 @@ def main() -> None:
         }
         assert result["cells"]["GPU_HOT_MAX"]["h2d_service_us_per_generated_token"] == 10
         assert result["cells"]["CPU_CONTROL"]["storage_queue_wait_us_per_generated_token"] == 20
+        assert result["output_identity"]["cpu_and_gpu_generated_token_matching_prefix"] == 1
+        assert result["output_identity"]["cpu_and_gpu_first_divergent_generated_token_one_based"] == 2
     print("ISSUE73_MATCHED_CONTROLS_TEST status=pass ratios=pass resources=pass")
 
 
