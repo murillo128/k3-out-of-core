@@ -32,6 +32,12 @@ def main() -> None:
         role_devices="0:64", n_gpu_layers=8, miss_policy="CPU_FALLBACK")
     assert option(cpu, "--miss-policy") == "CPU_FALLBACK"
 
+    short_prompt = "Explain observed facts."
+    diagnostic = probe_command(
+        Path("probe"), Path("model"), Path("output"),
+        role_devices="0:64", n_gpu_layers=8, prompt=short_prompt)
+    assert option(diagnostic, "--prompt") == short_prompt
+
     try:
         probe_command(
             Path("probe"), Path("model"), Path("output"),

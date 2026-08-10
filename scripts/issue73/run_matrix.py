@@ -16,6 +16,7 @@ from common import (
     DEFAULT_RING_BYTES,
     MODEL_REPOSITORY,
     MODEL_REVISION,
+    PROMPT,
     ROOT,
     decode_tps,
     output_identity,
@@ -193,6 +194,7 @@ def run_one(args: argparse.Namespace, ordinal: int) -> dict[str, object]:
         runtime_mode=args.runtime_mode, miss_policy=args.miss_policy,
         observe_routes=args.observe_routes,
         trace_capacity=args.trace_capacity,
+        prompt=args.prompt,
     )
     environment = os.environ.copy()
     environment.update({"GGML_CUDA_GRAPH_OPT": "0", "GGML_CUDA_DISABLE_GRAPHS": "1"})
@@ -269,6 +271,7 @@ def main() -> None:
     parser.add_argument("--async-cold-fill", action="store_true")
     parser.add_argument("--observe-routes", action="store_true")
     parser.add_argument("--trace-capacity", type=int, default=0)
+    parser.add_argument("--prompt-file", type=Path)
     parser.add_argument("--sample-period", type=float, default=0.5)
     parser.add_argument("--drop-page-cache", action="store_true")
     parser.add_argument("--block-stat", type=Path, default=Path("/sys/block/sda/stat"))
@@ -279,6 +282,12 @@ def main() -> None:
     if (not args.probe.is_file() or not args.model.is_file() or
             not args.artifact_identity_manifest.is_file() or not args.block_stat.is_file()):
         raise SystemExit("probe, model, artifact identity, or block-stat path is missing")
+    if args.prompt_file is not None and not args.prompt_file.is_file():
+        raise SystemExit("prompt file is missing")
+    args.prompt = (
+        args.prompt_file.read_text().removesuffix("\n")
+        if args.prompt_file is not None else PROMPT
+    )
     args.revisions = revision_state()
     args.artifact = artifact_identity(args.artifact_identity_manifest, args.model)
     results = [run_one(args, run) for run in range(args.start_run, args.start_run + args.runs)]

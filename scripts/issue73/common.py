@@ -40,10 +40,11 @@ def probe_command(
     miss_policy: str = "PROMOTE_AND_GPU",
     observe_routes: bool = False,
     trace_capacity: int = 0,
+    prompt: str = PROMPT,
 ) -> list[str]:
     roles = [item for item in role_devices.split(",") if item]
     ordinals = [int(item.split(":", 1)[0]) for item in roles]
-    if not roles or n_gpu_layers < 0 or n_ubatch <= 0 or max_generate <= 0:
+    if not roles or n_gpu_layers < 0 or n_ubatch <= 0 or max_generate <= 0 or not prompt:
         raise ValueError("invalid full-K3 probe configuration")
     if transport not in {"POSITIONAL", "BUFFERED", "DIRECT_IO", "DIRECT_IO_POSITIONAL"}:
         raise ValueError(f"unsupported transport: {transport}")
@@ -59,7 +60,7 @@ def probe_command(
     command = [
         str(probe), "--model", str(model), "--output", str(output),
         "--mode", "cold", "--expert-runtime-mode", runtime_mode,
-        "--prompt", PROMPT, "--hot-policy", "LRU", "--cold-policy", "LRU",
+        "--prompt", prompt, "--hot-policy", "LRU", "--cold-policy", "LRU",
         "--scope", "GLOBAL", "--admission", "ALWAYS", "--miss-policy", miss_policy,
         "--hot-slots", str(sum(int(item.split(":", 1)[1]) for item in roles)),
         "--cold-bytes", str(cold_bytes), "--ring-bytes", str(ring_bytes),
