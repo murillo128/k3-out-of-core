@@ -65,6 +65,10 @@ def main() -> None:
     assert len(records) <= 16
 
     samples = [{"gpus": [{"uuid": "GPU-target", "free_bytes": 2_000_000_000}]}]
+    assert not MODULE.target_reserve_breached(samples[0], "GPU-target", 1_073_741_824)
+    assert MODULE.target_reserve_breached(
+        {"gpus": [{"uuid": "GPU-target", "free_bytes": 1}]},
+        "GPU-target", 1_073_741_824)
     passed = MODULE.classify_candidate(
         0, fake_evidence(536), "", samples, "GPU-target", 536, 1_073_741_824)
     assert passed.outcome == "pass"
@@ -121,7 +125,8 @@ def main() -> None:
         cold_bytes=17_179_869_184, ring_bytes=67_173_120, queue_depth=256,
         io_workers=4, n_ubatch=4, max_generate=24,
         slot_stride=11_835_264, reserve_bytes=1_073_741_824, lower_bound=268,
-        max_probes=32, sample_period=0.25, raw_dir=Path("/tmp/issue65-max-safe-test"),
+        max_probes=32, sample_period=0.25, early_reject_reserve=True,
+        raw_dir=Path("/tmp/issue65-max-safe-test"),
     )
     inventory = [{
         "cuda_ordinal": 1, "uuid": "GPU-target", "pci_bdf": "00000000:00:0a.0",
@@ -161,6 +166,7 @@ def main() -> None:
     assert manifest["configuration"]["n_gpu_layers"] == 8
     assert manifest["configuration"]["io_worker_count"] == 4
     assert manifest["configuration"]["prompt_source"] == "prompt.txt"
+    assert manifest["configuration"]["early_reject_reserve"]
     assert len(manifest["configuration"]["prompt_sha256"]) == 64
     assert manifest["artifact"]["files"][0]["sha256"] == "b" * 64
     incomplete = dict(manifest)

@@ -80,6 +80,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--n-ubatch", type=int, default=128)
     parser.add_argument("--max-generate", type=int, default=24)
     parser.add_argument("--sample-period", type=float, default=0.25)
+    parser.add_argument(
+        "--early-reject-reserve", action="store_true",
+        help="Terminate a candidate once an observed target sample irreversibly breaches the reserve gate.")
     parser.add_argument("--max-probes", type=int, default=32)
     args = parser.parse_args()
     if args.prompt_file is not None:
@@ -184,6 +187,13 @@ def sample_gpus() -> list[dict[str, object]]:
         return gpu_inventory()
     except (OSError, subprocess.SubprocessError, RuntimeError):
         return []
+
+
+def target_reserve_breached(
+        sample: dict[str, object], target_uuid: str, reserve_bytes: int) -> bool:
+    return any(
+        gpu.get("uuid") == target_uuid and int(gpu.get("free_bytes", reserve_bytes)) < reserve_bytes
+        for gpu in sample.get("gpus", []))
 
 
 def prepare_raw_directory(path: Path) -> None:
@@ -392,6 +402,7 @@ def validate_capacity_manifest(manifest: dict[str, object]) -> None:
         "peer_transport", "peer_staging_bytes", "fixture_transport", "integrity",
         "background_promotion", "trace_capacity", "observe_routes", "n_ctx",
         "n_batch", "n_ubatch", "generated_tokens", "sample_period_seconds",
+        "early_reject_reserve",
     }
     artifact = manifest.get("artifact", {})
     if (not required_top.issubset(manifest) or
@@ -453,6 +464,7 @@ def build_capacity_manifest(
             "prompt_sha256": hashlib.sha256(args.prompt.encode()).hexdigest(),
             "selection": "ARGMAX",
             "sample_period_seconds": args.sample_period,
+            "early_reject_reserve": args.early_reject_reserve,
         },
         "topology": {
             "resident_cuda_ordinal": args.resident_device,
@@ -528,22 +540,37 @@ def main() -> None:
         environment.update({"GGML_CUDA_GRAPH_OPT": "0", "GGML_CUDA_DISABLE_GRAPHS": "1"})
         started = time.monotonic()
         samples: list[dict[str, object]] = []
+        reserve_terminated = False
         with log.open("xb") as stream:
             process = subprocess.Popen(command, stdout=stream, stderr=subprocess.STDOUT, env=environment)
             while process.poll() is None:
-                samples.append({"elapsed_seconds": time.monotonic() - started, "gpus": sample_gpus()})
+                sample = {"elapsed_seconds": time.monotonic() - started, "gpus": sample_gpus()}
+                samples.append(sample)
+                if (args.early_reject_reserve and
+                        target_reserve_breached(sample, args.target_uuid, args.reserve_bytes)):
+                    reserve_terminated = True
+                    process.terminate()
+                    break
                 time.sleep(args.sample_period)
-            returncode = process.wait()
+            try:
+                returncode = process.wait(timeout=10 if reserve_terminated else None)
+            except subprocess.TimeoutExpired:
+                process.kill()
+                returncode = process.wait()
         log_text = log.read_text(errors="replace")
         evidence = json.loads(output.read_text()) if output.is_file() else None
-        decision = classify_candidate(
-            returncode, evidence, log_text, samples, args.target_uuid, candidate,
-            args.reserve_bytes, args.max_generate)
+        decision = (
+            ProbeDecision("reject", "safety_reserve_not_preserved")
+            if reserve_terminated else
+            classify_candidate(
+                returncode, evidence, log_text, samples, args.target_uuid, candidate,
+                args.reserve_bytes, args.max_generate))
         probe_records[candidate] = {
             "candidate_slots": candidate,
             "outcome": decision.outcome,
             "reason": decision.reason,
             "fresh_process": True,
+            "early_reserve_termination": reserve_terminated,
             "returncode": returncode,
             "elapsed_seconds": time.monotonic() - started,
             "command": command,
