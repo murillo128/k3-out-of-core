@@ -14,6 +14,7 @@ from common import (
     DEFAULT_COLD_BYTES,
     DEFAULT_PEER_STAGING_BYTES,
     DEFAULT_RING_BYTES,
+    ROOT,
     decode_tps,
     output_identity,
     probe_command,
@@ -23,6 +24,23 @@ from common import (
 
 
 CGROUP_ROOT = Path("/sys/fs/cgroup")
+
+
+def revision_state() -> dict[str, str]:
+    nested = ROOT / "llama.cpp"
+    result = {
+        "project": subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
+        "nested": subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], cwd=nested, text=True).strip(),
+    }
+    project_status = subprocess.check_output(
+        ["git", "status", "--porcelain"], cwd=ROOT, text=True)
+    nested_status = subprocess.check_output(
+        ["git", "status", "--porcelain"], cwd=nested, text=True)
+    if project_status or nested_status:
+        raise RuntimeError("full-K3 evidence requires clean project and nested worktrees")
+    return result
 
 
 def read_int_or_text(path: Path) -> int | str:
@@ -135,6 +153,8 @@ def drop_page_cache() -> None:
 
 
 def run_one(args: argparse.Namespace, ordinal: int) -> dict[str, object]:
+    if revision_state() != args.revisions:
+        raise RuntimeError("project or nested revision changed during the matrix")
     raw = args.output_dir / "raw"
     raw.mkdir(parents=True, exist_ok=True)
     stem = f"{args.case}-{ordinal:02d}"
@@ -180,6 +200,7 @@ def run_one(args: argparse.Namespace, ordinal: int) -> dict[str, object]:
     resources = {
         "schema_version": "issue73-run-resources-v1", "case": args.case, "run": ordinal,
         "measurement_tier": args.measurement_tier,
+        "revisions": args.revisions,
         "returncode": returncode, "started_unix_seconds": started_wall, "elapsed_seconds": elapsed,
         "pid": process.pid, "command": command,
         "environment": {key: environment[key] for key in ("GGML_CUDA_GRAPH_OPT", "GGML_CUDA_DISABLE_GRAPHS")},
@@ -236,12 +257,14 @@ def main() -> None:
         raise SystemExit("invalid full-K3 run bounds")
     if not args.probe.is_file() or not args.model.is_file() or not args.block_stat.is_file():
         raise SystemExit("probe, model, or block-stat path is missing")
+    args.revisions = revision_state()
     results = [run_one(args, run) for run in range(args.start_run, args.start_run + args.runs)]
     write_json(args.output_dir / "matrix.json", {
         "schema_version": "issue73-run-matrix-v1", "status": "complete",
         "case": args.case, "roles": args.roles, "n_gpu_layers": args.n_gpu_layers,
         "n_ubatch": args.n_ubatch, "miss_policy": args.miss_policy,
         "measurement_tier": args.measurement_tier,
+        "revisions": args.revisions,
         "runs": results,
     })
 

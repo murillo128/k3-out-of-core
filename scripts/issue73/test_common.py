@@ -8,7 +8,7 @@ from pathlib import Path
 import tempfile
 
 from common import DEFAULT_PEER_STAGING_BYTES, PROMPT, probe_command, validate_workload
-from run_matrix import block_delta
+from run_matrix import block_delta, revision_state
 
 
 def option(command: list[str], name: str) -> str:
@@ -57,6 +57,9 @@ def main() -> None:
          "io_ticks_ms": 9, "weighted_ticks_ms": 11},
     )
     assert delta["read_bytes"] == 1536
+    revisions = revision_state()
+    assert len(revisions["project"]) == 40
+    assert len(revisions["nested"]) == 40
 
     workload = {
         "status": "pass", "generated_ids": [1], "logits_fnv64": [2], "latency_us": [3],
