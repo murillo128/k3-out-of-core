@@ -30,9 +30,9 @@ def workload_identity(workload: dict[str, object], compliance: bool) -> dict[str
         "prompt_ids": workload["prompt_ids"],
         "generated_ids": workload["generated_ids"],
         "generated_text": workload["generated_text"],
+        "logits_fnv64": workload["logits_fnv64"],
     }
     if compliance:
-        result["logits_fnv64"] = workload["logits_fnv64"]
         result["routes"] = workload["routes"]
     return result
 

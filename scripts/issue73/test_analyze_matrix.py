@@ -129,6 +129,25 @@ def main() -> None:
         ], check=False, capture_output=True, text=True)
         assert mismatch.returncode != 0
         assert json.loads(mismatch_output.read_text())["status"] == "fail"
+
+        mismatched_logits = dict(full_workload)
+        mismatched_logits["logits_fnv64"] = [5, 6, 8]
+        mismatched_logits_path = temporary / "mismatched-logits-workload.json"
+        mismatched_logits_path.write_text(json.dumps(mismatched_logits))
+        mismatched_logits_matrix = temporary / "mismatched-logits-matrix.json"
+        mismatched_logits_matrix.write_text(json.dumps({
+            "status": "complete", "case": "MISMATCH_LOGITS", "roles": "0:1",
+            "n_gpu_layers": 1, "n_ubatch": 4,
+            "runs": [{"workload": str(mismatched_logits_path), "resources": str(path)}],
+        }))
+        logit_mismatch = subprocess.run([
+            sys.executable, str(Path(__file__).with_name("analyze_matrix.py")),
+            "--matrix", str(matrices[0]), "--matrix", str(mismatched_logits_matrix),
+            "--output", str(mismatch_output),
+        ], check=False, capture_output=True, text=True)
+        assert logit_mismatch.returncode != 0
+        assert json.loads(mismatch_output.read_text())["status"] == "fail"
+
         accepted = subprocess.run([
             sys.executable, str(Path(__file__).with_name("analyze_matrix.py")),
             "--matrix", str(matrices[0]), "--matrix", str(mismatched_matrix),
