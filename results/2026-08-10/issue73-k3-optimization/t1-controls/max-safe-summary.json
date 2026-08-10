@@ -1,0 +1,41 @@
+{
+  "artifact_identity_manifest_sha256": "58b14d13a602944e1134fc753b2cc819a84a31290aee9c1479264a66dbb5efe2",
+  "configuration": {
+    "cold_cache_bytes": 17179869184,
+    "early_reject_reserve": true,
+    "generated_tokens": 24,
+    "io_workers": 4,
+    "n_gpu_layers": 8,
+    "n_ubatch": 4,
+    "queue_depth": 64,
+    "reserve_bytes": 1073741824,
+    "ring_bytes": 134217728,
+    "transport": "POSITIONAL"
+  },
+  "model_revision": "9f62e4e9fffbd0a83ddd60e1c209d828994b3569",
+  "nested_revision": "0907a2ef1590fcb07aa0fed54b31d28e742ffb9b",
+  "probe_order": [
+    {"candidate_slots": 542, "outcome": "pass"},
+    {"candidate_slots": 595, "outcome": "reject"},
+    {"candidate_slots": 568, "outcome": "reject"},
+    {"candidate_slots": 555, "outcome": "reject"},
+    {"candidate_slots": 548, "outcome": "pass"},
+    {"candidate_slots": 551, "outcome": "reject"},
+    {"candidate_slots": 549, "outcome": "pass"},
+    {"candidate_slots": 550, "outcome": "reject"}
+  ],
+  "project_revision": "9d6845e27e628c983c5690ca724f21a270c090c7",
+  "schema_version": "issue73-t1-max-safe-summary-v1",
+  "selected": {
+    "cuda_ordinal": 0,
+    "effective_slots": 549,
+    "expert_hot_cache_bytes": 9633447936,
+    "maximum_observed_used_bytes": 19939721216,
+    "minimum_observed_free_bytes": 1080033280,
+    "pci_bdf": "00000000:00:02.0",
+    "requested_slots": 549,
+    "uuid": "GPU-cc10d10a-cb7c-d71e-6f7e-b9ef0f8fc8fc"
+  },
+  "status": "pass"
+}
+

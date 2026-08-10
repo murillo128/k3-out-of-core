@@ -1,0 +1,216 @@
+{
+  "attribution_boundary": {
+    "exposed_storage_h2d_and_compute_time": "DEFERRED_TO_MATCHED_P_TRACE",
+    "service_counters_are_not_exposed_stall": true
+  },
+  "cells": {
+    "CPU_CONTROL": {
+      "cold": {
+        "hit_rate": 0.0,
+        "hits": 0,
+        "misses": 142296
+      },
+      "decode_latency_us": {
+        "max": 50401730,
+        "p50": 47466220,
+        "p95": 49027200,
+        "p99": 50401730
+      },
+      "decode_tps": 0.021027681796619468,
+      "execution": "CPU_FALLBACK_HOST",
+      "fallback": {
+        "buffered_io_operations": 0,
+        "direct_unsupported_sources": 0,
+        "pageable_transfer": false
+      },
+      "gpus": [
+        {
+          "cuda_ordinal": 0,
+          "memory_free_min_mib": 9146.0,
+          "memory_used_max_mib": 10900.0
+        },
+        {
+          "cuda_ordinal": 1,
+          "memory_free_min_mib": 19876.0,
+          "memory_used_max_mib": 170.0
+        },
+        {
+          "cuda_ordinal": 2,
+          "memory_free_min_mib": 19876.0,
+          "memory_used_max_mib": 170.0
+        },
+        {
+          "cuda_ordinal": 3,
+          "memory_free_min_mib": 19876.0,
+          "memory_used_max_mib": 170.0
+        }
+      ],
+      "guest_block_bytes_per_generated_token": 202386215082.66666,
+      "h2d_bytes_per_generated_token": 0.0,
+      "h2d_service_us_per_generated_token": 0.0,
+      "hot": {
+        "hit_rate": 0.0,
+        "hits": 0,
+        "misses": 142296
+      },
+      "hot_effective_slots": 64,
+      "hot_requested_slots": 64,
+      "logical_storage_bytes_per_generated_token": 104037728256.0,
+      "oom_kill_delta": 0,
+      "process_rss_max_kib": 128288800,
+      "processes": 1,
+      "storage_queue_wait_us_per_generated_token": 0.0,
+      "swap_empty_all_processes": true,
+      "ttft_us": {
+        "p50": 2053943550,
+        "p95": 2053943550
+      }
+    },
+    "GPU_HOT_0": {
+      "cold": {
+        "hit_rate": 0.0,
+        "hits": 0,
+        "misses": 284578
+      },
+      "decode_latency_us": {
+        "max": 6117964,
+        "p50": 5229887,
+        "p95": 5958338,
+        "p99": 6117964
+      },
+      "decode_tps": 0.18921564991945686,
+      "execution": "PROMOTE_AND_GPU_NO_HOT_HITS",
+      "fallback": {
+        "buffered_io_operations": 0,
+        "direct_unsupported_sources": 0,
+        "pageable_transfer": false
+      },
+      "gpus": [
+        {
+          "cuda_ordinal": 0,
+          "memory_free_min_mib": 9146.0,
+          "memory_used_max_mib": 10900.0
+        },
+        {
+          "cuda_ordinal": 1,
+          "memory_free_min_mib": 19876.0,
+          "memory_used_max_mib": 170.0
+        },
+        {
+          "cuda_ordinal": 2,
+          "memory_free_min_mib": 19876.0,
+          "memory_used_max_mib": 170.0
+        },
+        {
+          "cuda_ordinal": 3,
+          "memory_free_min_mib": 19876.0,
+          "memory_used_max_mib": 170.0
+        }
+      ],
+      "guest_block_bytes_per_generated_token": 145775039402.66666,
+      "h2d_bytes_per_generated_token": 104032610304.0,
+      "h2d_service_us_per_generated_token": 57772.166666666664,
+      "hot": {
+        "hit_rate": 0.0,
+        "hits": 0,
+        "misses": 284578
+      },
+      "hot_effective_slots": 64,
+      "hot_requested_slots": 64,
+      "logical_storage_bytes_per_generated_token": 104032610304.0,
+      "oom_kill_delta": 0,
+      "process_rss_max_kib": 111262172,
+      "processes": 2,
+      "storage_queue_wait_us_per_generated_token": 48727646.354166664,
+      "swap_empty_all_processes": true,
+      "ttft_us": {
+        "p50": 453768208,
+        "p95": 457780886
+      }
+    },
+    "GPU_HOT_MAX": {
+      "cold": {
+        "hit_rate": 0.0,
+        "hits": 0,
+        "misses": 142289
+      },
+      "decode_latency_us": {
+        "max": 6267404,
+        "p50": 5308843,
+        "p95": 6060877,
+        "p99": 6267404
+      },
+      "decode_tps": 0.18599810472783407,
+      "execution": "PROMOTE_AND_GPU_MAX_SAFE_HOT",
+      "fallback": {
+        "buffered_io_operations": 0,
+        "direct_unsupported_sources": 0,
+        "pageable_transfer": false
+      },
+      "gpus": [
+        {
+          "cuda_ordinal": 0,
+          "memory_free_min_mib": 1030.0,
+          "memory_used_max_mib": 19016.0
+        },
+        {
+          "cuda_ordinal": 1,
+          "memory_free_min_mib": 19876.0,
+          "memory_used_max_mib": 170.0
+        },
+        {
+          "cuda_ordinal": 2,
+          "memory_free_min_mib": 19876.0,
+          "memory_used_max_mib": 170.0
+        },
+        {
+          "cuda_ordinal": 3,
+          "memory_free_min_mib": 19876.0,
+          "memory_used_max_mib": 170.0
+        }
+      ],
+      "guest_block_bytes_per_generated_token": 145879562069.33334,
+      "h2d_bytes_per_generated_token": 104032610304.0,
+      "h2d_service_us_per_generated_token": 58252.458333333336,
+      "hot": {
+        "hit_rate": 0.0,
+        "hits": 0,
+        "misses": 142289
+      },
+      "hot_effective_slots": 549,
+      "hot_requested_slots": 549,
+      "logical_storage_bytes_per_generated_token": 104032610304.0,
+      "oom_kill_delta": 0,
+      "process_rss_max_kib": 111252260,
+      "processes": 1,
+      "storage_queue_wait_us_per_generated_token": 49254897.916666664,
+      "swap_empty_all_processes": true,
+      "ttft_us": {
+        "p50": 473483733,
+        "p95": 473483733
+      }
+    }
+  },
+  "output_identity": {
+    "cpu_and_gpu_first_divergent_generated_token_one_based": 7,
+    "cpu_and_gpu_generated_token_matching_prefix": 6,
+    "cpu_and_gpu_logit_digest_matching_prefix": 0,
+    "cpu_route_stream_after_divergence_is_not_matched": true,
+    "global": {
+      "compliance_identity_exact": null,
+      "output_divergence_explicitly_accepted": true,
+      "processes": 4,
+      "production_output_exact_across_all_processes": false,
+      "production_output_sha256": "3c3bb089e6c93ac39517f8dd148b49051f4bbfb390cb8891b28d10d07622b456"
+    },
+    "gpu_hot_0_and_max_exact": true
+  },
+  "ratios": {
+    "gpu_hot_0_over_cpu_control": 8.998407515843057,
+    "gpu_hot_max_over_cpu_control": 8.845392779233334,
+    "gpu_hot_max_over_gpu_hot_0": 0.9829953537511702
+  },
+  "schema_version": "issue73-matched-controls-v1",
+  "source_summary": "results/2026-08-10/issue73-k3-optimization/t1-controls/matrix-summary.json",
+  "status": "pass"
+}

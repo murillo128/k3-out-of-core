@@ -1,0 +1,46 @@
+{
+  "files": [
+    {
+      "path": "/var/lib/k3/issue73/runs/t1-max-safe-v3/manifest.json",
+      "sha256": "a3856ccd17dc3a36fcb86af54a3964a2ae786f9428fc956e308fd165c8ec904d",
+      "size": 14860
+    },
+    {
+      "path": "/var/lib/k3/issue73/runs/t1-max-safe-v3/raw/candidate-00549.json",
+      "sha256": "e12072d57c011c36a5b3d3a552177e82ad144e9a6ab21f8efc7dff96ca836f21",
+      "size": 27862
+    },
+    {
+      "path": "/var/lib/k3/issue73/runs/t1-matched-controls/cpu-control-01/matrix.json",
+      "sha256": "7d15fe94d182ac7ef1e08afdaa300be7a5f65df0fbabf34c4b6b9b1199396bb3",
+      "size": 1398
+    },
+    {
+      "path": "/var/lib/k3/issue73/runs/t1-matched-controls/cpu-control-01/raw/CPU_CONTROL-01.json",
+      "sha256": "7862c35d8d22cdb2b748adbdf720077959f6a57042802f4b6895b15f5a0eeab4",
+      "size": 27786
+    },
+    {
+      "path": "/var/lib/k3/issue73/runs/t1-matched-controls/cpu-control-01/raw/CPU_CONTROL-01-resources.json",
+      "sha256": "7cbfbc43ce5dce679b02ca49a5650e2b7ee1dd2f66c4f877ac2d72d457d4d3f7",
+      "size": 14483387
+    },
+    {
+      "path": "/var/lib/k3/issue73/runs/t1-matched-controls/gpu-hot-max-01/matrix.json",
+      "sha256": "66004d442513a07b1b7621c6bccc2211ac8ded9c5664e9d7f848e68a148bfa91",
+      "size": 1399
+    },
+    {
+      "path": "/var/lib/k3/issue73/runs/t1-matched-controls/gpu-hot-max-01/raw/GPU_HOT_MAX-01.json",
+      "sha256": "134555d730b3c818b9c6301b36e19ec4d262bc1b2451853efde6d71c080f9aa4",
+      "size": 27983
+    },
+    {
+      "path": "/var/lib/k3/issue73/runs/t1-matched-controls/gpu-hot-max-01/raw/GPU_HOT_MAX-01-resources.json",
+      "sha256": "55539aac91c4cc5af686cc7211ca60464424ca6208acdcfad6906915e7442068",
+      "size": 2749040
+    }
+  ],
+  "schema_version": "issue73-t1-control-raw-index-v1",
+  "status": "complete"
+}
