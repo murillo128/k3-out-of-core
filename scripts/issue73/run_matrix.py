@@ -151,7 +151,8 @@ def run_one(args: argparse.Namespace, ordinal: int) -> dict[str, object]:
         ring_bytes=args.ring_bytes, peer_staging_bytes=args.peer_staging_bytes,
         io_workers=args.io_workers, queue_depth=args.queue_depth,
         async_cold_fill=args.async_cold_fill, transport=args.transport,
-        runtime_mode=args.runtime_mode, observe_routes=args.observe_routes,
+        runtime_mode=args.runtime_mode, miss_policy=args.miss_policy,
+        observe_routes=args.observe_routes,
         trace_capacity=args.trace_capacity,
     )
     environment = os.environ.copy()
@@ -220,6 +221,7 @@ def main() -> None:
     parser.add_argument("--queue-depth", type=int, default=64)
     parser.add_argument("--transport", choices=("POSITIONAL", "BUFFERED", "DIRECT_IO", "DIRECT_IO_POSITIONAL"), default="POSITIONAL")
     parser.add_argument("--runtime-mode", choices=("COMPLIANCE", "PRODUCTION_PERFORMANCE"), default="PRODUCTION_PERFORMANCE")
+    parser.add_argument("--miss-policy", choices=("PROMOTE_AND_GPU", "CPU_FALLBACK"), default="PROMOTE_AND_GPU")
     parser.add_argument("--async-cold-fill", action="store_true")
     parser.add_argument("--observe-routes", action="store_true")
     parser.add_argument("--trace-capacity", type=int, default=0)
@@ -236,7 +238,7 @@ def main() -> None:
     write_json(args.output_dir / "matrix.json", {
         "schema_version": "issue73-run-matrix-v1", "status": "complete",
         "case": args.case, "roles": args.roles, "n_gpu_layers": args.n_gpu_layers,
-        "n_ubatch": args.n_ubatch,
+        "n_ubatch": args.n_ubatch, "miss_policy": args.miss_policy,
         "runs": results,
     })
 

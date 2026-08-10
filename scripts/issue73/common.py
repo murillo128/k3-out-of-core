@@ -37,6 +37,7 @@ def probe_command(
     async_cold_fill: bool = False,
     transport: str = "POSITIONAL",
     runtime_mode: str = "PRODUCTION_PERFORMANCE",
+    miss_policy: str = "PROMOTE_AND_GPU",
     observe_routes: bool = False,
     trace_capacity: int = 0,
 ) -> list[str]:
@@ -46,12 +47,14 @@ def probe_command(
         raise ValueError("invalid full-K3 probe configuration")
     if transport not in {"POSITIONAL", "BUFFERED", "DIRECT_IO", "DIRECT_IO_POSITIONAL"}:
         raise ValueError(f"unsupported transport: {transport}")
+    if miss_policy not in {"PROMOTE_AND_GPU", "CPU_FALLBACK"}:
+        raise ValueError(f"unsupported miss policy: {miss_policy}")
     remote_roles = len(roles) > 1 or ordinals[0] != 0
     command = [
         str(probe), "--model", str(model), "--output", str(output),
         "--mode", "cold", "--expert-runtime-mode", runtime_mode,
         "--prompt", PROMPT, "--hot-policy", "LRU", "--cold-policy", "LRU",
-        "--scope", "GLOBAL", "--admission", "ALWAYS", "--miss-policy", "PROMOTE_AND_GPU",
+        "--scope", "GLOBAL", "--admission", "ALWAYS", "--miss-policy", miss_policy,
         "--hot-slots", str(sum(int(item.split(":", 1)[1]) for item in roles)),
         "--cold-bytes", str(cold_bytes), "--ring-bytes", str(ring_bytes),
         "--role-config", "EXPLICIT", "--resident-device", "0",

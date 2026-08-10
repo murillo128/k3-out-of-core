@@ -24,7 +24,21 @@ def main() -> None:
     assert option(local, "--n-ubatch") == "4"
     assert option(local, "--max-generate") == "24"
     assert option(local, "--transport") == "POSITIONAL"
+    assert option(local, "--miss-policy") == "PROMOTE_AND_GPU"
     assert option(local, "--prompt") == PROMPT
+
+    cpu = probe_command(
+        Path("probe"), Path("model"), Path("output"),
+        role_devices="0:64", n_gpu_layers=8, miss_policy="CPU_FALLBACK")
+    assert option(cpu, "--miss-policy") == "CPU_FALLBACK"
+
+    try:
+        probe_command(
+            Path("probe"), Path("model"), Path("output"),
+            role_devices="0:64", n_gpu_layers=8, miss_policy="SILENT_FALLBACK")
+        raise AssertionError("unsupported miss policy accepted")
+    except ValueError as error:
+        assert "unsupported miss policy" in str(error)
 
     remote = probe_command(
         Path("probe"), Path("model"), Path("output"),
