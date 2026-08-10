@@ -35,6 +35,11 @@ def field(reader: gguf.GGUFReader, name: str):
     return value.contents()
 
 
+def optional_field(reader: gguf.GGUFReader, name: str):
+    value = reader.get_field(name)
+    return None if value is None else value.contents()
+
+
 def inspect_split(path: Path) -> tuple[dict[str, object], dict[int, dict[str, int]]]:
     reader = gguf.GGUFReader(path, mode="r")
     experts: dict[int, dict[str, int]] = {}
@@ -55,11 +60,17 @@ def inspect_split(path: Path) -> tuple[dict[str, object], dict[int, dict[str, in
         "split_count": int(field(reader, "split.count")),
         "split_tensors_count": int(field(reader, "split.tensors.count")),
         "tensor_count": len(reader.tensors),
-        "architecture": field(reader, "general.architecture"),
-        "expert_count": int(field(reader, "kimi-k3.expert_count")),
-        "expert_used_count": int(field(reader, "kimi-k3.expert_used_count")),
         "tensor_types": types,
     }
+    architecture = optional_field(reader, "general.architecture")
+    expert_count = optional_field(reader, "kimi-k3.expert_count")
+    expert_used_count = optional_field(reader, "kimi-k3.expert_used_count")
+    if architecture is not None:
+        metadata["architecture"] = architecture
+    if expert_count is not None:
+        metadata["expert_count"] = int(expert_count)
+    if expert_used_count is not None:
+        metadata["expert_used_count"] = int(expert_used_count)
     del reader
     gc.collect()
     return metadata, experts
@@ -87,15 +98,23 @@ def main() -> None:
     layer_projections: dict[int, dict[str, int]] = {}
     for index, path in enumerate(files):
         metadata, experts = inspect_split(path)
-        if (metadata["split_no"] != index or metadata["split_count"] != 33 or
-                metadata["architecture"] != "kimi-k3" or metadata["expert_count"] != 896 or
-                metadata["expert_used_count"] != 16):
+        if metadata["split_no"] != index or metadata["split_count"] != 33:
             raise SystemExit(f"split metadata mismatch: {path}")
+        model_metadata = {
+            "architecture": "kimi-k3", "expert_count": 896, "expert_used_count": 16,
+        }
+        if index == 0 and any(metadata.get(key) != value for key, value in model_metadata.items()):
+            raise SystemExit(f"model metadata mismatch: {path}")
+        if index > 0 and any(
+                key in metadata and metadata[key] != value for key, value in model_metadata.items()):
+            raise SystemExit(f"repeated model metadata mismatch: {path}")
         split_metadata.append(metadata)
         for layer, projections in experts.items():
-            if layer in layer_projections:
-                raise SystemExit(f"expert layer duplicated across splits: {layer}")
-            layer_projections[layer] = projections
+            combined = layer_projections.setdefault(layer, {})
+            for projection, size in projections.items():
+                if projection in combined:
+                    raise SystemExit(f"expert projection duplicated across splits: {layer}/{projection}")
+                combined[projection] = size
 
     if set(layer_projections) != set(range(1, 93)):
         raise SystemExit("routed expert layers are not exactly 1..92")
