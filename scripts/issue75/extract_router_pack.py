@@ -227,12 +227,24 @@ def scan_tensors(
             raise PackError(
                 f"GGUF split index mismatch for {source['name']}: {split_index} != {expected_index}"
             )
-        metadata = validate_gguf_metadata(reader, config, split_count)
-        if metadata_reference is None:
-            metadata_reference = metadata
+        if int(field_value(reader, "split.count")) != split_count:
+            raise PackError(f"GGUF split count mismatch for {source['name']}")
+        if expected_index == 0:
+            metadata_reference = validate_gguf_metadata(reader, config, split_count)
             split_total_tensor_count = int(field_value(reader, "split.tensors.count"))
-        elif metadata != metadata_reference:
-            raise PackError(f"GGUF metadata differs across splits at {source['name']}")
+        elif any(
+            reader.get_field(key) is not None
+            for key in (
+                "general.architecture",
+                "general.name",
+                "general.finetune",
+                "kimi-k3.block_count",
+            )
+        ):
+            raise PackError(
+                f"unexpected partial model metadata occurs outside the authoritative first split: "
+                f"{source['name']}"
+            )
         if int(field_value(reader, "split.tensors.count")) != split_total_tensor_count:
             raise PackError("GGUF total tensor count differs across splits")
 
