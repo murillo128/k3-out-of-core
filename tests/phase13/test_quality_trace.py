@@ -101,6 +101,8 @@ class QualityTraceTests(unittest.TestCase):
             comparison, first = compare_routes(exact_path, changed_path)
             self.assertEqual(first, (1, 1))
             self.assertEqual(comparison["intentional_swaps"], 1)
+            self.assertEqual(comparison["intentional_changed_expert_slots"], 1)
+            self.assertEqual(comparison["intentional_changed_expert_slot_fraction"], 1.0)
             self.assertAlmostEqual(comparison["cumulative_regret"], 0.1)
             self.assertEqual(comparison["induced_exact_topk_divergent_decisions"], 0)
 

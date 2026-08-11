@@ -295,6 +295,8 @@ class OfflineReplayTests(unittest.TestCase):
             result = compare_route_streams(exact_path, changed_path, 16, 128)
         self.assertEqual(result["routing"]["common_generated_prefix_tokens"], 0)
         self.assertEqual(result["routing"]["intentional_decode_decisions"], 1)
+        self.assertEqual(result["routing"]["intentional_changed_expert_slots"], 1)
+        self.assertEqual(result["routing"]["intentional_changed_expert_slot_fraction"], 1/16)
         self.assertEqual(result["routing"]["decode_decisions_by_intentional_swaps"], {"1": 1})
         self.assertEqual(result["routing"]["maximum_intentional_swaps_per_decode_decision"], 1)
         self.assertEqual(result["decode_comparison"]["backing_loads_avoided"], 1)

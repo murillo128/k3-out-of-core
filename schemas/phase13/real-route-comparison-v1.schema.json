@@ -37,7 +37,19 @@
     "exact_capture": {"$ref": "#/definitions/fileIdentity"},
     "changed_capture": {"$ref": "#/definitions/fileIdentity"},
     "changed_policy": {"type": "object"},
-    "routing": {"type": "object"},
+    "routing": {
+      "type": "object",
+      "required": [
+        "intentional_changed_expert_slots",
+        "intentional_changed_expert_slot_fraction"
+      ],
+      "properties": {
+        "intentional_changed_expert_slots": {"type": "integer", "minimum": 0},
+        "intentional_changed_expert_slot_fraction": {
+          "type": "number", "minimum": 0.0, "maximum": 1.0
+        }
+      }
+    },
     "exact_locality": {"$ref": "#/definitions/locality"},
     "changed_locality": {"$ref": "#/definitions/locality"},
     "decode_comparison": {

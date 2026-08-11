@@ -34,7 +34,24 @@
     },
     "internal_records": {"type": "array", "items": {"type": "object"}},
     "predictive_records": {"type": "array", "items": {"type": "object"}},
-    "routing": {"type": ["object", "null"]},
+    "routing": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "intentional_changed_expert_slots",
+            "intentional_changed_expert_slot_fraction"
+          ],
+          "properties": {
+            "intentional_changed_expert_slots": {"type": "integer", "minimum": 0},
+            "intentional_changed_expert_slot_fraction": {
+              "type": "number", "minimum": 0.0, "maximum": 1.0
+            }
+          }
+        },
+        {"type": "null"}
+      ]
+    },
     "local_moe_at_first_intentional_swap": {"type": ["object", "null"]}
   },
   "definitions": {

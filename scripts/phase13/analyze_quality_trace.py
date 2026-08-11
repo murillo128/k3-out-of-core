@@ -217,6 +217,8 @@ def compare_routes(exact_path: Path, changed_path: Path) -> tuple[dict[str, obje
         if route["phase"] == "DECODE" and route["ubatch_ordinal"] not in decode_ubatches:
             decode_ubatches[route["ubatch_ordinal"]] = len(decode_ubatches) + 1
     decisions = 0
+    decode_decisions = 0
+    decode_expert_slots = 0
     intentional_decisions = 0
     intentional_swaps = 0
     induced_decisions = 0
@@ -231,6 +233,9 @@ def compare_routes(exact_path: Path, changed_path: Path) -> tuple[dict[str, obje
         candidate_count = changed_route["n_candidates"]
         for token in range(changed_route["n_tokens"]):
             decisions += 1
+            if changed_route["phase"] == "DECODE":
+                decode_decisions += 1
+                decode_expert_slots += top_k
             exact_selected = exact_route["selected_experts"][token*top_k:(token + 1)*top_k]
             changed_selected = changed_route["selected_experts"][token*top_k:(token + 1)*top_k]
             exact_intrinsic = exact_route["candidate_experts"][token*candidate_count:token*candidate_count + top_k]
@@ -265,9 +270,13 @@ def compare_routes(exact_path: Path, changed_path: Path) -> tuple[dict[str, obje
                     cumulative_regret += regret
     return ({
         "decisions": decisions,
+        "decode_decisions": decode_decisions,
         "intentional_changed_decisions": intentional_decisions,
         "intentional_changed_fraction": intentional_decisions/decisions,
         "intentional_swaps": intentional_swaps,
+        "intentional_changed_expert_slots": intentional_swaps,
+        "intentional_changed_expert_slot_fraction":
+            intentional_swaps/decode_expert_slots if decode_expert_slots else 0.0,
         "mean_regret_per_swap": cumulative_regret/intentional_swaps if intentional_swaps else 0.0,
         "cumulative_regret": cumulative_regret,
         "induced_exact_topk_divergent_decisions": induced_decisions,
