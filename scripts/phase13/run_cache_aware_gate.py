@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Any
 
 from cache_aware_replay import (
+    DEFAULT_MAX_SWAPS,
     ReplayError,
     canonical_json,
     csv_numbers,
@@ -158,7 +159,7 @@ def main() -> int:
     parser.add_argument("--capacities-gib", default="20,32,40,60,64,80,96")
     parser.add_argument("--hot-capacity-gib", type=float, default=0.0)
     parser.add_argument("--candidate-counts", default="16,24,32")
-    parser.add_argument("--max-swaps", default="0,1,2,4")
+    parser.add_argument("--max-swaps", default=DEFAULT_MAX_SWAPS)
     parser.add_argument("--material-reduction", type=float, default=0.05)
     args = parser.parse_args()
 

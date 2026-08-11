@@ -24,7 +24,7 @@ request, ubatch, phase, layer and position identity
 
 The observer must use the existing publication synchronization, perform no work when disabled, and prove that exact top-16 is the top-M prefix.
 
-Replay exact prefill to establish cache state, then evaluate changed decisions on decode. Simulate deterministic LRU tiers at bounded 20/32/40/60/64/80/96 GiB total capacities using the accepted 17,547,264-byte expert bundle. Sweep candidate counts 16/24/32, maximum swaps 0/1/2/4, and only the observed top-k-boundary gap quantiles (minimum, p10, p25, p50, p75, p90, maximum plus the zero control).
+Replay exact prefill to establish cache state, then evaluate changed decisions on decode. Simulate deterministic LRU tiers at bounded 20/32/40/60/64/80/96 GiB total capacities using the accepted 17,547,264-byte expert bundle. Sweep candidate counts 16/24/32, maximum swaps 0/1/2/4/8/16, and only the observed top-k-boundary gap quantiles (minimum, p10, p25, p50, p75, p90, maximum plus the zero control). Report realized swaps, changed decisions, changed individual top-16 slots, loads/bytes avoided, distinct demand, and mean/cumulative regret for every bound. A top-32 `max_swaps=16` point is the minimum complete replacement envelope; expand observation to at most top-64 only if material substitutions reach the retained top-32 boundary.
 
 The decision-driving input is
 `corpus/phase13/issue73-decision-v1.json`: the accepted #73 `CPU_CONTROL`
@@ -77,6 +77,7 @@ On complete Kimi K3:
 
 - compare fresh-process exact-disabled routes, weights, logits and generated tokens with the accepted exact baseline;
 - use the offline frontier only to choose a bounded runtime knee and at most a few materially distinct points;
+- retain exact, conservative, knee, useful aggressive, and mandatory `max_swaps=16` stress/upper-bound runtime points; the high-swap point is diagnostic and need not satisfy the knee quality bar;
 - capture the real generated route stream for every retained exact and changed point;
 - replay each real stream at the fixed capacity anchors;
 - report hit/miss ratio, distinct loads per token, backing bytes per token, service/wait where measured, changes, swaps and regret;
@@ -89,7 +90,9 @@ meaningful depth/token boundary, and teacher-forced predictive divergence on a
 fixed versioned corpus. The teacher-forced exact route supplies the common
 reference token sequence; report probability/logit divergence, top-1 agreement,
 top-k overlap where useful, and reference-token NLL delta. Correlate these with
-intentional regret/swaps and subsequent induced route divergence. A small
+intentional regret/swaps and subsequent induced route divergence. Compare the
+knee and high-swap stress evidence to distinguish locality saturation from a
+gradual or sharp quality break. A small
 heterogeneous deterministic generation set is only a sanity check, not a
 substitute for teacher forcing or a claim of task-level equivalence.
 

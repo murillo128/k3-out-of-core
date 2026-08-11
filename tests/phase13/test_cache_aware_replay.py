@@ -15,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts" / "phase13"))
 
 from cache_aware_replay import (  # noqa: E402
+    DEFAULT_MAX_SWAPS,
     GIB,
     ReplayError,
     replay_point,
@@ -138,6 +139,18 @@ class CacheAwarePolicyTests(unittest.TestCase):
         for rank, expert in enumerate(baseline):
             if rank not in changed:
                 self.assertEqual(final[rank], expert)
+
+    def test_maximum_swap_bound_can_replace_all_sixteen_slots(self):
+        baseline = list(range(16))
+        candidates = baseline + list(range(16, 32))
+        scores = [1.0 - rank*0.001 for rank in range(32)]
+        tiers = ["BACKING"]*16 + ["HOT"]*16
+        final, swaps = select_cache_aware(
+            baseline, candidates, scores, tiers, 32, 16, 0.1)
+        self.assertEqual(final, list(reversed(range(16, 32))))
+        self.assertEqual(len(swaps), 16)
+        self.assertEqual({swap.selected_rank for swap in swaps}, set(range(16)))
+        self.assertEqual({swap.candidate_rank for swap in swaps}, set(range(16, 32)))
 
     def test_invalid_config_and_candidates_fail(self):
         baseline, candidates, scores, tiers = routing_inputs()
@@ -301,6 +314,11 @@ class OfflineReplayTests(unittest.TestCase):
         self.assertEqual(changed["route_decisions"], 1)
         self.assertEqual(changed["provider_loads_avoided"], 1)
         self.assertEqual(changed["backing_store_byte_reduction_fraction"], 1.0)
+
+    def test_retained_default_sweep_includes_required_upper_bounds(self):
+        self.assertEqual(
+            [int(value) for value in DEFAULT_MAX_SWAPS.split(",")],
+            [0, 1, 2, 4, 8, 16])
 
     def test_observed_gap_gate_is_positive_and_repeatable(self):
         kwargs = dict(

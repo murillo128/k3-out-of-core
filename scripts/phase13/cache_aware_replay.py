@@ -16,6 +16,7 @@ from typing import Any, Iterable
 GIB = 1024**3
 TIERS = ("HOT", "COLD", "BACKING")
 TIER_COST = {"HOT": 0, "COLD": 1, "BACKING": 2}
+DEFAULT_MAX_SWAPS = "0,1,2,4,8,16"
 
 
 class ReplayError(ValueError):
@@ -312,6 +313,7 @@ def replay_point(
     policy_totals = defaultdict(int)
     candidate_tiers = defaultdict(int)
     decisions = warmup_decisions = changed_decisions = swap_count = boundary_swaps = 0
+    measured_expert_slots = 0
     regrets: list[float] = []
     baseline_token_keys: dict[tuple[Any, ...], set[Key]] = defaultdict(set)
     policy_token_keys: dict[tuple[Any, ...], set[Key]] = defaultdict(set)
@@ -331,6 +333,7 @@ def replay_point(
             tiers = [policy_cache.tier(Key(record["layer"], expert))
                      for expert in candidates[:candidate_count]]
             if measured:
+                measured_expert_slots += top_k
                 for tier in tiers:
                     candidate_tiers[tier.lower()] += 1
                 decisions += 1
@@ -399,6 +402,9 @@ def replay_point(
         "changed_route_decisions": changed_decisions,
         "changed_route_fraction": changed_decisions/decisions if decisions else 0.0,
         "swaps": swap_count,
+        "changed_expert_slots": swap_count,
+        "changed_expert_slot_fraction":
+            swap_count/measured_expert_slots if measured_expert_slots else 0.0,
         "swaps_per_token": swap_count/token_count if token_count else 0.0,
         "swaps_per_routed_layer": swap_count/decisions if decisions else 0.0,
         "per_swap_regret": {
@@ -538,7 +544,7 @@ def main() -> int:
     parser.add_argument("--capacities-gib", default="20,32,40,60,64,80,96")
     parser.add_argument("--hot-capacity-gib", type=float, default=0.0)
     parser.add_argument("--candidate-counts", default="16,24,32")
-    parser.add_argument("--max-swaps", default="0,1,2,4")
+    parser.add_argument("--max-swaps", default=DEFAULT_MAX_SWAPS)
     parser.add_argument("--reroute-phases", default="DECODE")
     parser.add_argument("--material-reduction", type=float, default=0.05)
     args = parser.parse_args()
