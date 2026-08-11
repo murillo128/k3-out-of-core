@@ -1,0 +1,45 @@
+{
+  "schema_version": "phase13-routing-corpus-v1",
+  "cases": [
+    {
+      "id": "issue73-decision-prompt",
+      "decision_driving": true,
+      "source": "results/2026-08-10/issue73-k3-optimization/t1-controls/matrix-summary.json",
+      "source_case": "CPU_CONTROL",
+      "prompt": "<|open|>message role=\"system\" type=\"thinking-effort\"<|sep|>`thinking_effort` guides on how much to think in your thinking channel (not including the response channel), supported values include `low`, `medium`, `high`, and `max`.\nNow the system is invoked with `thinking_effort=max`.<|close|>message<|sep|><|end_of_msg|><|open|>message role=\"user\"<|sep|>Explain why a careful measurement should distinguish observed facts from assumptions.<|close|>message<|sep|><|end_of_msg|><|open|>message role=\"assistant\"<|sep|><|open|>think<|sep|>",
+      "expected_prompt_tokens": 100,
+      "max_generate": 24,
+      "expected_generated_ids": [
+        1008,
+        2742,
+        387,
+        15738,
+        261,
+        53349,
+        148832,
+        93907,
+        7802,
+        6315,
+        1215,
+        26534,
+        25,
+        4730,
+        1765,
+        261,
+        21872,
+        26534,
+        48963,
+        22225,
+        20761,
+        658,
+        46740,
+        30
+      ],
+      "candidate_count": 32,
+      "n_ctx": 512,
+      "n_batch": 512,
+      "n_ubatch": 4,
+      "threads": 32
+    }
+  ]
+}
