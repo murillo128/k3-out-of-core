@@ -213,8 +213,7 @@ def compare(
         raise ReplayError("route captures use different candidate counts")
     exact_config = exact.get("cache_aware_routing", {"enabled": False})
     changed_config = changed.get("cache_aware_routing", {"enabled": False})
-    if exact_config.get("enabled") or not changed_config.get("enabled") or \
-            changed_config.get("capacity_slots") != capacity_slots:
+    if exact_config.get("enabled") or not changed_config.get("enabled"):
         raise ReplayError("capture routing configuration does not match exact/changed comparison")
 
     routing = compare_route_membership(exact, changed)
@@ -229,6 +228,7 @@ def compare(
         "status": "pass",
         "configuration": {
             "capacity_slots": capacity_slots,
+            "route_generation_capacity_slots": changed_config["capacity_slots"],
             "bundle_bytes": bundle_bytes,
             "candidate_count": exact["candidate_count"],
             "measured_phase": "DECODE",

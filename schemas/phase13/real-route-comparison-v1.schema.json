@@ -21,11 +21,13 @@
     "configuration": {
       "type": "object",
       "required": [
-        "capacity_slots", "bundle_bytes", "candidate_count", "measured_phase",
+        "capacity_slots", "route_generation_capacity_slots", "bundle_bytes",
+        "candidate_count", "measured_phase",
         "prefill_role", "request_accounting"
       ],
       "properties": {
         "capacity_slots": {"type": "integer", "minimum": 1},
+        "route_generation_capacity_slots": {"type": "integer", "minimum": 1},
         "bundle_bytes": {"type": "integer", "minimum": 1},
         "candidate_count": {"type": "integer", "minimum": 1},
         "measured_phase": {"const": "DECODE"},

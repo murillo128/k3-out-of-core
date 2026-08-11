@@ -299,6 +299,8 @@ class OfflineReplayTests(unittest.TestCase):
         self.assertEqual(result["routing"]["intentional_changed_expert_slot_fraction"], 1/16)
         self.assertEqual(result["routing"]["decode_decisions_by_intentional_swaps"], {"1": 1})
         self.assertEqual(result["routing"]["maximum_intentional_swaps_per_decode_decision"], 1)
+        self.assertEqual(result["configuration"]["capacity_slots"], 16)
+        self.assertEqual(result["configuration"]["route_generation_capacity_slots"], 16)
         self.assertEqual(result["decode_comparison"]["backing_loads_avoided"], 1)
         self.assertEqual(result["decode_comparison"]["backing_store_bytes_avoided"], 128)
         self.assertEqual(
@@ -307,6 +309,17 @@ class OfflineReplayTests(unittest.TestCase):
         schema = json.loads((
             ROOT / "schemas/phase13/real-route-comparison-v1.schema.json").read_text())
         jsonschema.Draft7Validator(schema).validate(result)
+
+        with tempfile.TemporaryDirectory() as directory:
+            temporary = Path(directory)
+            exact_path = temporary / "exact.json"
+            changed_path = temporary / "changed.json"
+            exact_path.write_text(json.dumps(exact))
+            changed_path.write_text(json.dumps(changed))
+            replayed = compare_route_streams(exact_path, changed_path, 8, 128)
+            self.assertEqual(replayed["configuration"]["capacity_slots"], 8)
+            self.assertEqual(replayed["configuration"]["route_generation_capacity_slots"], 16)
+            jsonschema.Draft7Validator(schema).validate(replayed)
 
     def test_prefill_warms_but_does_not_dilute_decode_gate(self):
         value = capture()
