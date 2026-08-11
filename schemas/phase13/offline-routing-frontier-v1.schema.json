@@ -96,6 +96,8 @@
         "swaps",
         "changed_expert_slots",
         "changed_expert_slot_fraction",
+        "decisions_by_realized_swaps",
+        "maximum_realized_swaps_per_decision",
         "swaps_per_token",
         "swaps_per_routed_layer",
         "per_swap_regret",
@@ -127,6 +129,12 @@
         "swaps": {"type": "integer", "minimum": 0},
         "changed_expert_slots": {"type": "integer", "minimum": 0},
         "changed_expert_slot_fraction": {"type": "number", "minimum": 0, "maximum": 1},
+        "decisions_by_realized_swaps": {
+          "type": "object",
+          "patternProperties": {"^[0-9]+$": {"type": "integer", "minimum": 0}},
+          "additionalProperties": false
+        },
+        "maximum_realized_swaps_per_decision": {"type": "integer", "minimum": 0, "maximum": 16},
         "swaps_per_token": {"type": "number", "minimum": 0},
         "swaps_per_routed_layer": {"type": "number", "minimum": 0},
         "per_swap_regret": {"type": "object"},

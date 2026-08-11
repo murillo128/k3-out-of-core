@@ -270,6 +270,8 @@ class OfflineReplayTests(unittest.TestCase):
         self.assertEqual(changed["baseline"]["miss_ratio"], 1/16)
         self.assertEqual(changed["cache_aware"]["hit_ratio"], 1.0)
         self.assertEqual(changed["baseline"]["backing_store_bytes_per_token"], 128)
+        self.assertEqual(changed["decisions_by_realized_swaps"], {"1": 1})
+        self.assertEqual(changed["maximum_realized_swaps_per_decision"], 1)
 
     def test_real_route_comparison_uses_actual_generated_streams(self):
         exact = capture()
@@ -293,6 +295,8 @@ class OfflineReplayTests(unittest.TestCase):
             result = compare_route_streams(exact_path, changed_path, 16, 128)
         self.assertEqual(result["routing"]["common_generated_prefix_tokens"], 0)
         self.assertEqual(result["routing"]["intentional_decode_decisions"], 1)
+        self.assertEqual(result["routing"]["decode_decisions_by_intentional_swaps"], {"1": 1})
+        self.assertEqual(result["routing"]["maximum_intentional_swaps_per_decode_decision"], 1)
         self.assertEqual(result["decode_comparison"]["backing_loads_avoided"], 1)
         self.assertEqual(result["decode_comparison"]["backing_store_bytes_avoided"], 128)
         self.assertEqual(

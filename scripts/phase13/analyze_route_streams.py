@@ -118,6 +118,7 @@ def compare_route_membership(
         raise ReplayError("route captures have different record counts")
 
     decisions = decode_decisions = intentional = intentional_decode = induced = final = swaps = 0
+    decode_decisions_by_swaps: dict[int, int] = defaultdict(int)
     cumulative_regret = 0.0
     first_intentional: dict[str, int] | None = None
     for exact_route, changed_route in zip(exact_routes, changed_routes):
@@ -153,6 +154,7 @@ def compare_route_membership(
                     "position": exact_route["positions"][token],
                     "layer": exact_route["layer"],
                 }
+            decision_swaps = 0
             for rank, selected in enumerate(changed_selected):
                 if selected == changed_intrinsic[rank]:
                     continue
@@ -161,7 +163,10 @@ def compare_route_membership(
                 if not math.isfinite(regret) or regret < 0:
                     raise ReplayError("changed capture contains invalid swap regret")
                 swaps += 1
+                decision_swaps += 1
                 cumulative_regret += regret
+            if is_decode:
+                decode_decisions_by_swaps[decision_swaps] += 1
 
     generated_exact = exact.get("generated_ids", [])
     generated_changed = changed.get("generated_ids", [])
@@ -173,6 +178,12 @@ def compare_route_membership(
         "intentional_decode_fraction":
             intentional_decode/decode_decisions if decode_decisions else 0.0,
         "intentional_swaps": swaps,
+        "decode_decisions_by_intentional_swaps": {
+            str(count): decode_decisions_by_swaps[count]
+            for count in sorted(decode_decisions_by_swaps)
+        },
+        "maximum_intentional_swaps_per_decode_decision":
+            max(decode_decisions_by_swaps, default=0),
         "cumulative_score_regret": cumulative_regret,
         "mean_score_regret_per_swap": cumulative_regret/swaps if swaps else 0.0,
         "induced_exact_topk_divergent_decisions": induced,

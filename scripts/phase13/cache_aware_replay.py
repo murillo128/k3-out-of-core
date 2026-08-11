@@ -314,6 +314,7 @@ def replay_point(
     candidate_tiers = defaultdict(int)
     decisions = warmup_decisions = changed_decisions = swap_count = boundary_swaps = 0
     measured_expert_slots = 0
+    decisions_by_realized_swaps = defaultdict(int)
     regrets: list[float] = []
     baseline_token_keys: dict[tuple[Any, ...], set[Key]] = defaultdict(set)
     policy_token_keys: dict[tuple[Any, ...], set[Key]] = defaultdict(set)
@@ -348,6 +349,8 @@ def replay_point(
                 swap_count += len(swaps)
                 regrets.extend(swap.regret for swap in swaps)
                 boundary_swaps += sum(swap.candidate_rank == candidate_count - 1 for swap in swaps)
+            if measured:
+                decisions_by_realized_swaps[len(swaps)] += 1
 
             baseline_keys = [Key(record["layer"], expert) for expert in selected]
             policy_keys = [Key(record["layer"], expert) for expert in final]
@@ -405,6 +408,12 @@ def replay_point(
         "changed_expert_slots": swap_count,
         "changed_expert_slot_fraction":
             swap_count/measured_expert_slots if measured_expert_slots else 0.0,
+        "decisions_by_realized_swaps": {
+            str(count): decisions_by_realized_swaps[count]
+            for count in sorted(decisions_by_realized_swaps)
+        },
+        "maximum_realized_swaps_per_decision":
+            max(decisions_by_realized_swaps, default=0),
         "swaps_per_token": swap_count/token_count if token_count else 0.0,
         "swaps_per_routed_layer": swap_count/decisions if decisions else 0.0,
         "per_swap_regret": {
