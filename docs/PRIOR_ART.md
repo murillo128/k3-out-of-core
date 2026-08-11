@@ -1,6 +1,6 @@
 # Prior Art and Reuse Plan
 
-Reviewed on **2026-08-01**. Statuses can change; verify them before basing implementation work on a branch.
+Reviewed through **2026-08-11**. Statuses can change; verify them before basing implementation work on a branch.
 
 The central conclusion is that the proposed architecture is not novel in isolation. Nearly identical systems have been designed and prototyped. The opportunity is to combine the strongest ideas behind a clean provider abstraction, avoid documented lifetime and synchronization failures, and adapt the result to Kimi-K3 MXFP4 and UMA.
 
@@ -19,6 +19,10 @@ The central conclusion is that the proposed architecture is not novel in isolati
 | MoE-Infinity | Active external project | Activation tracing, activation-aware caching/prefetch | Reuse research ideas, not runtime integration |
 | WASTE | Active external implementation | Full 2.78T K3 streamed from NVMe on 64 GB, custom 3-bit experts, measured cache/prefetch limits | Use as external full-size baseline; reuse methodology and isolated ideas after review |
 | Colibrì v1.4.0 | Active external implementation | Full text K3 with source MXFP4 experts, direct/repacked safetensors, direct I/O, CPU/Vulkan tiers, and chunked prefill | Use as primary high-fidelity K3 layout/execution baseline; reuse isolated ideas after review |
+| Cache-Conditional Experts | TMLR 2025 | Training-free cache-aware expert membership selection with a quality/locality frontier | Direct Phase 13.6 prior art; compare against hard-regret-bounded routing |
+| MoE-ERAS | MLArchSys 2024 | Expert-residency-aware selection balancing performance and accuracy | Historical residency-aware routing prior art |
+| Local Routing Consistency | arXiv 2025 | Measures how naturally cacheable/offload-friendly different MoE routers are | Reuse methodology; do not transfer other-model locality assumptions to K3 |
+| ReMoE | ICML 2026 | Router fine-tuning to increase temporal expert reuse under memory constraints | Adjacent training-based prior art; compare quality/locality methodology |
 
 ## 1. `llama.cpp` issue #20757
 
@@ -483,6 +487,59 @@ The PR supplies the architecture and conversion foundation:
 - MXFP4 expert repacking.
 
 This project must pin an exact K3 PR commit for each validation run. Do not merge out-of-core work with ongoing model-support changes until the baseline is stable.
+
+## 13. Cache-aware / locality-aware MoE routing
+
+Phase 13.6 should treat the following work as explicit prior art. These papers establish that expert residency/reuse can be incorporated into MoE routing and that there is a real quality/locality frontier; they do **not** remove the need for the Kimi K3-specific experiment because #77 uses a different bounded policy and measures the resulting real route evolution on full K3.
+
+### 13.1 Mixture of Cache-Conditional Experts for Efficient Mobile Device Inference
+
+Andrii Skliar et al., arXiv:2412.00099, published in TMLR (06/2025):
+<https://arxiv.org/abs/2412.00099>
+
+Directly relevant prior art. The paper introduces training-free cache-aware routing for memory-constrained MoE inference, explicitly trading router preference for cached-expert reuse. It evaluates language modeling, MMLU and GSM8K and reports up to 2× on-device speedup. The key conceptual overlap with #77 is that cache state may affect **expert membership selection** while the underlying model/router remains otherwise unchanged.
+
+Important distinction for #77: rather than applying an unconstrained cache prior/reranking bias, Phase 13.6 uses an explicit deterministic substitution policy with a **hard per-swap router-score regret bound** and a hard `max_swaps` bound. The exact top-16 remains the reference decision and final expert weights continue to come from the original unbiased probabilities.
+
+### 13.2 MoE-ERAS: Expert Residency Aware Selection
+
+Abhimanyu Rajeshkumar Bambhaniya, Sashankh Chengavalli Kumar, Tushar Krishna, MLArchSys 2024:
+<https://openreview.net/forum?id=o43eHjPEMO>
+
+Earlier residency-aware routing work that explicitly selects experts considering both performance and accuracy and presents a speedup/quality trade-off. It is useful as historical evidence that expert residency can legitimately be part of the selection objective for offloaded MoEs.
+
+Difference from #77: Phase 13.6 is specifically interested in **near-tie bounded substitution** in Kimi K3's 896→16 router, with exact-route controls, cache-state contemporaneity, downstream route evolution, and semantic-drift instrumentation.
+
+### 13.3 Not All Models Suit Expert Offloading: On Local Routing Consistency of Mixture-of-Expert Models
+
+Jingcong Liang et al., arXiv:2505.16056:
+<https://arxiv.org/abs/2505.16056>
+
+Studies local routing consistency across 20 MoE LLMs and introduces metrics such as Segment Routing Best Performance and Segment Cache Best Hit Rate. Its main relevance is methodological: the amount of naturally exploitable expert locality varies materially between models, so results from DeepSeek/Qwen/Mixtral should not be assumed to transfer to Kimi K3.
+
+For #77 this supports measuring K3's own real route streams and cache-capacity frontier rather than extrapolating from another MoE architecture.
+
+### 13.4 ReMoE: Boosting Expert Reuse through Router Fine-Tuning in Memory-Constrained MoE LLM Inference
+
+Xiongwei Zhu et al., arXiv:2605.27081, accepted at ICML 2026:
+<https://arxiv.org/abs/2605.27081>
+
+Adjacent but important prior art. ReMoE fine-tunes the router to favor recently selected experts and increase temporal expert reuse. The paper reports ~26% improved expert reuse while maintaining downstream task performance, plus real-system gains under vLLM offloading and llama.cpp/Jetson evaluation.
+
+Difference from #77: ReMoE changes the router through training; Phase 13.6 is **training-free** and changes membership only at inference time under explicit regret/swap bounds. ReMoE nevertheless strengthens the premise that routing locality is an optimization dimension worth targeting and that quality must be measured as part of the locality frontier.
+
+### Phase 13.6 positioning relative to prior art
+
+The novelty/value of #77 should therefore be stated narrowly rather than as the first cache-aware MoE routing idea. The K3-specific questions are:
+
+- whether a very fine-grained **896-expert / top-16** router exposes enough near-tie slack to improve locality;
+- whether a **hard-regret-bounded**, deterministic, training-free substitution policy gives a better-controlled quality/locality frontier than cache-prior reranking;
+- how intentional swaps alter the **real subsequent K3 route stream**, rather than only an offline replay of the original route;
+- how perturbations propagate through **local MoE output → hidden states → induced routing divergence → logits/NLL**;
+- how the frontier behaves under genuinely out-of-core local-NVMe execution and project-relevant cache capacities;
+- where the practical knee and the upper-bound/stress region (`max_swaps` through 16) occur.
+
+These works should be cited in the final #77 interpretation and used to compare methodology/results, while preserving the preregistered K3 experiment and avoiding retrofitting the policy to reproduce prior-art outcomes.
 
 ## Reuse checklist before importing code
 
