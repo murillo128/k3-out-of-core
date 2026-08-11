@@ -1,0 +1,153 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/phase13/offline-routing-frontier-v1.schema.json",
+  "title": "Phase 13 offline routing frontier v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "disposition",
+    "configuration",
+    "observed_score_gap_distribution",
+    "observed_score_regret_thresholds",
+    "gate",
+    "points",
+    "frontier"
+  ],
+  "properties": {
+    "schema_version": {"const": "phase13-offline-routing-frontier-v1"},
+    "disposition": {"enum": ["positive-frontier", "negative-locality"]},
+    "configuration": {"type": "object"},
+    "observed_score_gap_distribution": {"type": "object"},
+    "observed_score_regret_thresholds": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "number", "minimum": 0}
+    },
+    "gate": {
+      "type": "object",
+      "required": [
+        "minimum_backing_store_byte_reduction_fraction",
+        "maximum_small_regret_threshold",
+        "maximum_swaps",
+        "candidate_count",
+        "qualifying_points"
+      ]
+    },
+    "points": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/definitions/point"}
+    },
+    "frontier": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/definitions/point"}
+    }
+  },
+  "definitions": {
+    "tierSummary": {
+      "type": "object",
+      "required": [
+        "requests",
+        "hot_hits",
+        "cold_hits",
+        "misses",
+        "service_cost_units",
+        "hit_ratio",
+        "miss_ratio",
+        "requests_per_token",
+        "distinct_expert_loads_per_token",
+        "backing_store_bytes",
+        "backing_store_bytes_per_token",
+        "service_cost_units_per_token",
+        "distinct_expert_keys_per_token"
+      ],
+      "properties": {
+        "requests": {"type": "integer", "minimum": 0},
+        "hot_hits": {"type": "integer", "minimum": 0},
+        "cold_hits": {"type": "integer", "minimum": 0},
+        "misses": {"type": "integer", "minimum": 0},
+        "service_cost_units": {"type": "integer", "minimum": 0},
+        "hit_ratio": {"type": "number", "minimum": 0, "maximum": 1},
+        "miss_ratio": {"type": "number", "minimum": 0, "maximum": 1},
+        "requests_per_token": {"type": "number", "minimum": 0},
+        "distinct_expert_loads_per_token": {"type": "number", "minimum": 0},
+        "backing_store_bytes": {"type": "integer", "minimum": 0},
+        "backing_store_bytes_per_token": {"type": "number", "minimum": 0},
+        "service_cost_units_per_token": {"type": "number", "minimum": 0},
+        "distinct_expert_keys_per_token": {"type": "number", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "point": {
+      "type": "object",
+      "required": [
+        "hot_capacity_slots",
+        "cold_capacity_slots",
+        "total_capacity_bytes",
+        "candidate_count",
+        "max_swaps",
+        "max_score_regret",
+        "measured_phases",
+        "warmup_route_decisions",
+        "route_decisions",
+        "changed_route_decisions",
+        "changed_route_fraction",
+        "swaps",
+        "changed_expert_slots",
+        "changed_expert_slot_fraction",
+        "decisions_by_realized_swaps",
+        "maximum_realized_swaps_per_decision",
+        "swaps_per_token",
+        "swaps_per_routed_layer",
+        "per_swap_regret",
+        "candidate_tiers_at_selection",
+        "baseline",
+        "cache_aware",
+        "provider_loads_avoided",
+        "backing_store_bytes_avoided",
+        "backing_store_byte_reduction_fraction",
+        "candidate_boundary_swaps"
+      ],
+      "properties": {
+        "hot_capacity_slots": {"type": "integer", "minimum": 0},
+        "cold_capacity_slots": {"type": "integer", "minimum": 0},
+        "total_capacity_bytes": {"type": "integer", "minimum": 1},
+        "candidate_count": {"type": "integer", "minimum": 1, "maximum": 64},
+        "max_swaps": {"type": "integer", "minimum": 0, "maximum": 16},
+        "max_score_regret": {"type": "number", "minimum": 0},
+        "measured_phases": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"enum": ["PREFILL", "DECODE"]}
+        },
+        "warmup_route_decisions": {"type": "integer", "minimum": 0},
+        "route_decisions": {"type": "integer", "minimum": 1},
+        "changed_route_decisions": {"type": "integer", "minimum": 0},
+        "changed_route_fraction": {"type": "number", "minimum": 0, "maximum": 1},
+        "swaps": {"type": "integer", "minimum": 0},
+        "changed_expert_slots": {"type": "integer", "minimum": 0},
+        "changed_expert_slot_fraction": {"type": "number", "minimum": 0, "maximum": 1},
+        "decisions_by_realized_swaps": {
+          "type": "object",
+          "patternProperties": {"^[0-9]+$": {"type": "integer", "minimum": 0}},
+          "additionalProperties": false
+        },
+        "maximum_realized_swaps_per_decision": {"type": "integer", "minimum": 0, "maximum": 16},
+        "swaps_per_token": {"type": "number", "minimum": 0},
+        "swaps_per_routed_layer": {"type": "number", "minimum": 0},
+        "per_swap_regret": {"type": "object"},
+        "candidate_tiers_at_selection": {"type": "object"},
+        "baseline": {"$ref": "#/definitions/tierSummary"},
+        "cache_aware": {"$ref": "#/definitions/tierSummary"},
+        "provider_loads_avoided": {"type": "integer"},
+        "backing_store_bytes_avoided": {"type": "integer"},
+        "backing_store_byte_reduction_fraction": {"type": "number"},
+        "candidate_boundary_swaps": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": true
+}

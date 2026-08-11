@@ -243,6 +243,18 @@ Rationale: the resident GPU and an expert-only GPU have materially different VRA
 
 Consequences: topology and capacity are explicit configuration; every run emits a per-device memory/transport ledger; disjoint and asymmetric-overlap configurations are supported without rewriting the Phase-13 mechanism; dedicated versus striped performance is selected empirically rather than assumed; and multi-resident ordinary-model partitioning remains future work.
 
+### D-021 — Permit one bounded default-off cache-aware routing experiment
+
+**Status:** ACCEPTED
+
+Phase 13.6 introduces one deliberate exception to the invariant that selected expert IDs never change. The exception applies only when the explicit cache-aware routing experiment is enabled. The ordinary exact top-k selection remains computed and available as the reference; every replacement must move from a more expensive provider service tier to a cheaper tier, satisfy the configured non-negative finite score-regret bound, preserve the displaced expert's rank slot, and remain within the hard per-layer/token swap bound. A configured maximum regret of zero, a maximum swap count of zero, or a candidate count equal to top-k is an exact control and performs no substitutions.
+
+The policy is deterministic, bounded, model-owned, and separate from provider ownership and cache policy. It consumes only the ordered exact top-k, bounded ordered candidates, original K3 selection scores, and a contemporaneous read-only provider residency/service snapshot. It always returns the original top-k cardinality with unique valid logical expert IDs. It is not learned or adaptive and cannot inspect or mutate expert tensors.
+
+K3 correction bias remains selection-only. After the experimental membership decision, expert weights are gathered from the unchanged ordinary unbiased probabilities and use the existing normalization and scale rules. Router projection, router logits, correction-bias values, routing probabilities, expert weights, and accumulation order are not redefined by this decision.
+
+The exact path remains the production/default path and cannot activate the experiment implicitly. Disabled mode retains the existing route IDs, order, weights, graph/provider boundary, and structural zero-work behavior: no top-M copy, residency query, host reranking, provider callback, synchronization, or steady-state allocation is allowed solely for Phase 13.6. This exception does not authorize expert dropping, pruning, arbitrary rerouting, learned router changes, approximate arithmetic, or a new cache policy.
+
 ## Rejected shortcuts
 
 ### R-001 — Rely exclusively on `mmap` and OS page replacement

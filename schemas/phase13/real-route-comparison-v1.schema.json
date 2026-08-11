@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/phase13/real-route-comparison-v1.schema.json",
+  "title": "Phase 13.6 real generated-route locality comparison v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "configuration",
+    "exact_capture",
+    "changed_capture",
+    "changed_policy",
+    "routing",
+    "exact_locality",
+    "changed_locality",
+    "decode_comparison"
+  ],
+  "properties": {
+    "schema_version": {"const": "phase13-real-route-comparison-v1"},
+    "status": {"const": "pass"},
+    "configuration": {
+      "type": "object",
+      "required": [
+        "capacity_slots", "route_generation_capacity_slots", "bundle_bytes",
+        "candidate_count", "measured_phase",
+        "prefill_role", "request_accounting"
+      ],
+      "properties": {
+        "capacity_slots": {"type": "integer", "minimum": 1},
+        "route_generation_capacity_slots": {"type": "integer", "minimum": 1},
+        "bundle_bytes": {"type": "integer", "minimum": 1},
+        "candidate_count": {"type": "integer", "minimum": 1},
+        "measured_phase": {"const": "DECODE"},
+        "prefill_role": {"const": "cache_warmup"},
+        "request_accounting": {"const": "unique_layer_expert_keys_at_batch_snapshot"}
+      },
+      "additionalProperties": false
+    },
+    "exact_capture": {"$ref": "#/definitions/fileIdentity"},
+    "changed_capture": {"$ref": "#/definitions/fileIdentity"},
+    "changed_policy": {"type": "object"},
+    "routing": {
+      "type": "object",
+      "required": [
+        "intentional_changed_expert_slots",
+        "intentional_changed_expert_slot_fraction"
+      ],
+      "properties": {
+        "intentional_changed_expert_slots": {"type": "integer", "minimum": 0},
+        "intentional_changed_expert_slot_fraction": {
+          "type": "number", "minimum": 0.0, "maximum": 1.0
+        }
+      }
+    },
+    "exact_locality": {"$ref": "#/definitions/locality"},
+    "changed_locality": {"$ref": "#/definitions/locality"},
+    "decode_comparison": {
+      "type": "object",
+      "required": [
+        "backing_loads_avoided", "backing_store_bytes_avoided",
+        "backing_store_byte_reduction_fraction", "service_cost_units_avoided",
+        "backing_store_bytes_avoided_per_changed_output_token",
+        "backing_store_bytes_avoided_per_routed_decode_token"
+      ]
+    }
+  },
+  "definitions": {
+    "fileIdentity": {
+      "type": "object",
+      "required": ["path", "bytes", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "bytes": {"type": "integer", "minimum": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      },
+      "additionalProperties": false
+    },
+    "locality": {
+      "type": "object",
+      "required": ["route_decisions", "prefill", "decode", "all_phases"]
+    }
+  },
+  "additionalProperties": false
+}

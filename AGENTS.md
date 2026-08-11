@@ -119,7 +119,7 @@ Agents must not:
 - pin the complete cold cache without an explicit bounded configuration;
 - add global singleton state that prevents multiple models or devices;
 - mix cache policy with CUDA or I/O implementation;
-- change selected expert IDs or routing weights;
+- change selected expert IDs or routing weights, except that D-021 permits selected-ID substitutions only when the explicit default-off Phase 13.6 cache-aware mode is enabled, the exact top-k remains available as the reference, every substitution satisfies its hard regret bound, final weights still come from the original unbiased probabilities with the existing normalization, and the unchanged exact path remains available; routing-weight changes remain forbidden;
 - reorder top-k accumulation without an approved numerical decision;
 - create a new expert file format before Phase 12 evidence;
 - make N+1 prefetch mandatory without trace evidence;

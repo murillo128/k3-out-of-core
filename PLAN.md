@@ -14,6 +14,7 @@ Live phase status, active ownership, ordering changes, and links to controlling 
 - [Phases 11–15: UMA, full-size scaling, diagnostic tracing, multi-GPU, benchmark readiness, concurrency, and hardening](docs/plan/11-scaling-and-hardening.md)
 - [Phase 12–14 Colibrì comparison addendum](docs/plan/12-colibri-comparison.md) establishes mandatory storage-layout, I/O-submission, full-size K3, trace-identity, and single-request chunked-prefill comparisons without changing the accepted technical boundaries.
 - [Cross-model portability follow-up](docs/plan/12-heterogeneous-layout-classes.md) defines bounded heterogeneous expert layout classes and the conditions for resuming full-model DeepSeek-V4 validation without changing K3 Phase 12 gates or runtime defaults.
+- [Phase 13.6 cache-aware bounded routing](docs/plan/13-cache-aware-routing.md) defines the default-off Kimi K3 top-M opportunity gate and the conditional runtime/quality frontier required by issue #77.
 
 ## Research references
 

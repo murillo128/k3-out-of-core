@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/phase13/routing-corpus-v1.schema.json",
+  "title": "Phase 13 routing corpus v1",
+  "type": "object",
+  "required": ["schema_version", "cases"],
+  "properties": {
+    "schema_version": {"const": "phase13-routing-corpus-v1"},
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "decision_driving",
+          "source",
+          "source_case",
+          "prompt",
+          "expected_prompt_tokens",
+          "max_generate",
+          "expected_generated_ids",
+          "candidate_count",
+          "n_ctx",
+          "n_batch",
+          "n_ubatch",
+          "threads"
+        ],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "decision_driving": {"type": "boolean"},
+          "source": {"type": "string", "minLength": 1},
+          "source_case": {"type": "string", "minLength": 1},
+          "prompt": {"type": "string", "minLength": 1},
+          "expected_prompt_tokens": {"type": "integer", "minimum": 1},
+          "max_generate": {"type": "integer", "minimum": 1},
+          "expected_generated_ids": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"type": "integer", "minimum": 0}
+          },
+          "candidate_count": {"type": "integer", "minimum": 16, "maximum": 64},
+          "n_ctx": {"type": "integer", "minimum": 1},
+          "n_batch": {"type": "integer", "minimum": 1},
+          "n_ubatch": {"type": "integer", "minimum": 1},
+          "threads": {"type": "integer", "minimum": 1}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
