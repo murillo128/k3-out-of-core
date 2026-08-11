@@ -1,0 +1,33 @@
+{
+  "schema_version": "phase13-quality-corpus-v1",
+  "cases": [
+    {
+      "id": "measurement-distinction",
+      "category": "measurement",
+      "decision_driving": true,
+      "prompt": "<|open|>message role=\"system\" type=\"thinking-effort\"<|sep|>`thinking_effort` guides on how much to think in your thinking channel (not including the response channel), supported values include `low`, `medium`, `high`, and `max`.\nNow the system is invoked with `thinking_effort=max`.<|close|>message<|sep|><|end_of_msg|><|open|>message role=\"user\"<|sep|>Explain why a careful measurement should distinguish observed facts from assumptions.<|close|>message<|sep|><|end_of_msg|><|open|>message role=\"assistant\"<|sep|><|open|>think<|sep|>",
+      "max_generate": 24
+    },
+    {
+      "id": "bounded-arithmetic",
+      "category": "reasoning",
+      "decision_driving": false,
+      "prompt": "<|open|>message role=\"user\"<|sep|>A cache holds 32 items and 7 are replaced. How many original items remain? Give only the number.<|close|>message<|sep|><|end_of_msg|><|open|>message role=\"assistant\"<|sep|><|open|>think<|sep|>",
+      "max_generate": 6
+    },
+    {
+      "id": "small-code",
+      "category": "code",
+      "decision_driving": false,
+      "prompt": "<|open|>message role=\"user\"<|sep|>Write a Python expression that returns the unique values of xs in sorted order.<|close|>message<|sep|><|end_of_msg|><|open|>message role=\"assistant\"<|sep|><|open|>think<|sep|>",
+      "max_generate": 6
+    },
+    {
+      "id": "spanish-summary",
+      "category": "multilingual",
+      "decision_driving": false,
+      "prompt": "<|open|>message role=\"user\"<|sep|>Resume en una frase: medir primero evita confundir una hipotesis con un resultado.<|close|>message<|sep|><|end_of_msg|><|open|>message role=\"assistant\"<|sep|><|open|>think<|sep|>",
+      "max_generate": 6
+    }
+  ]
+}

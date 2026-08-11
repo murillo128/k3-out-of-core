@@ -63,11 +63,13 @@ routing_max_swaps             bounded to 0..16
 routing_max_score_regret      finite and non-negative
 ```
 
-The provider remains the owner of residency, generation, admission, eviction, materialization, and failure cleanup. The routing component receives only a bounded read-only tier snapshot at the existing per-layer remap/materialization boundary. The portable CPU implementation uses one explicit, counted policy checkpoint per routed layer; when provider remapping is active, both operations share that callback boundary. No second hidden per-layer synchronization is permitted.
+The provider remains the owner of residency, generation, admission, eviction, materialization, and failure cleanup. The routing component receives only a bounded read-only tier snapshot at the existing per-layer remap/materialization boundary. The portable CPU implementation uses one explicit, counted routing-policy checkpoint per routed layer. Provider-backed execution retains its distinct existing remap callback/checkpoint and counter; evidence must report both when both are active. No synchronization may be hidden inside the claimed locality or performance result.
 
 ## Validation
 
 Focused native tests cover disabled zero-work, all exact controls, near-tie replacement, outside-bound rejection, deterministic multi-swap ordering, tier preference, unique cardinality, unaffected slots, unchanged unbiased weight gathering, invalid configuration, stale provider generation, repeated warm execution, abort, unload, and teardown.
+
+The retained quality mechanism is harness-only and explicit: supplying a quality-trace path installs the graph evaluation callback, while omitting it leaves the callback null. Measurement mode captures decode-time `ffn_moe_out` and `l_out` tensors plus full per-step logits in a versioned binary stream. Exact generation supplies the reference token IDs; changed routing consumes those same IDs through teacher forcing. The paired analyzer streams exact and changed traces to compute local-MoE and hidden-state relative L2/cosine/norm-ratio statistics, logit KL/JS, top-token/top-k agreement, reference-token NLL delta, intentional swaps, and induced subsequent exact-top-k divergence. Raw vectors and run summaries remain external issue-owned evidence.
 
 On complete Kimi K3:
 

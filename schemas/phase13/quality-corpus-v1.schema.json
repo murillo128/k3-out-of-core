@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/phase13/quality-corpus-v1.schema.json",
+  "title": "Phase 13.6 bounded heterogeneous quality corpus v1",
+  "type": "object",
+  "required": ["schema_version", "cases"],
+  "properties": {
+    "schema_version": {"const": "phase13-quality-corpus-v1"},
+    "cases": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["id", "category", "decision_driving", "prompt", "max_generate"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+          "category": {"enum": ["measurement", "reasoning", "code", "multilingual"]},
+          "decision_driving": {"type": "boolean"},
+          "prompt": {"type": "string", "minLength": 1},
+          "max_generate": {"type": "integer", "minimum": 1, "maximum": 32}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

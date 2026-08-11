@@ -40,11 +40,34 @@
       "required": ["temperature", "selection"],
       "properties": {
         "temperature": {"const": 0.0},
-        "selection": {"const": "argmax"}
+        "selection": {"const": "argmax"},
+        "teacher_forced": {"type": "boolean"}
       },
       "additionalProperties": false
     },
     "generated_ids": {"type": "array", "items": {"type": "integer"}},
+    "argmax_ids": {"type": "array", "items": {"type": "integer"}},
+    "teacher_forced_ids": {"type": "array", "items": {"type": "integer", "minimum": 0}},
+    "quality_trace": {
+      "type": "object",
+      "required": [
+        "enabled", "path", "capture_internal_phase", "records", "moe_records",
+        "hidden_records", "logits_records", "payload_bytes", "file_bytes", "failures"
+      ],
+      "properties": {
+        "enabled": {"type": "boolean"},
+        "path": {"type": "string"},
+        "capture_internal_phase": {"const": "DECODE"},
+        "records": {"type": "integer", "minimum": 0},
+        "moe_records": {"type": "integer", "minimum": 0},
+        "hidden_records": {"type": "integer", "minimum": 0},
+        "logits_records": {"type": "integer", "minimum": 0},
+        "payload_bytes": {"type": "integer", "minimum": 0},
+        "file_bytes": {"type": "integer", "minimum": 0},
+        "failures": {"const": 0}
+      },
+      "additionalProperties": false
+    },
     "cache_aware_routing": {
       "type": "object",
       "required": ["enabled", "candidate_count", "capacity_slots", "max_swaps", "max_score_regret", "prefill_rerouting", "tier_source", "stats", "cache"],

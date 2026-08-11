@@ -342,6 +342,16 @@ class OfflineReplayTests(unittest.TestCase):
         self.assertEqual(loaded, case)
         self.assertEqual(digest, "34c6a2f4a5fe551c79a23b72898abb12796c33f03997c421d75e406d7a7aa5bd")
 
+    def test_quality_corpus_is_valid_bounded_and_heterogeneous(self):
+        corpus_schema = json.loads((
+            ROOT / "schemas/phase13/quality-corpus-v1.schema.json").read_text())
+        corpus = json.loads((ROOT / "corpus/phase13/quality-v1.json").read_text())
+        jsonschema.Draft7Validator(corpus_schema).validate(corpus)
+        categories = {case["category"] for case in corpus["cases"]}
+        self.assertEqual(categories, {"measurement", "reasoning", "code", "multilingual"})
+        self.assertEqual(sum(case["decision_driving"] for case in corpus["cases"]), 1)
+        self.assertLessEqual(sum(case["max_generate"] for case in corpus["cases"]), 42)
+
 
 if __name__ == "__main__":
     unittest.main()

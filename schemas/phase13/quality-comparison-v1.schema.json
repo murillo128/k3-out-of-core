@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/phase13/quality-comparison-v1.schema.json",
+  "title": "Phase 13.6 paired quality comparison v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "exact_metadata",
+    "changed_metadata",
+    "moe_output",
+    "hidden_state",
+    "predictive",
+    "internal_records",
+    "predictive_records",
+    "routing",
+    "local_moe_at_first_intentional_swap"
+  ],
+  "properties": {
+    "schema_version": {"const": "phase13-quality-comparison-v1"},
+    "status": {"const": "pass"},
+    "exact_trace": {"type": "string", "minLength": 1},
+    "changed_trace": {"type": "string", "minLength": 1},
+    "exact_metadata": {"$ref": "#/definitions/traceMetadata"},
+    "changed_metadata": {"$ref": "#/definitions/traceMetadata"},
+    "moe_output": {"$ref": "#/definitions/internalSummary"},
+    "hidden_state": {"$ref": "#/definitions/internalSummary"},
+    "predictive": {
+      "type": "object",
+      "required": [
+        "steps", "kl_exact_to_changed", "js_divergence", "top1_agreement_fraction",
+        "top_k_overlap", "exact_reference_nll", "changed_reference_nll", "delta_reference_nll"
+      ]
+    },
+    "internal_records": {"type": "array", "items": {"type": "object"}},
+    "predictive_records": {"type": "array", "items": {"type": "object"}},
+    "routing": {"type": ["object", "null"]},
+    "local_moe_at_first_intentional_swap": {"type": ["object", "null"]}
+  },
+  "definitions": {
+    "traceMetadata": {
+      "type": "object",
+      "required": ["schema_version", "prompt_ids"],
+      "properties": {
+        "schema_version": {"const": "phase13-quality-trace-v1"},
+        "prompt_ids": {"type": "array", "items": {"type": "integer", "minimum": 0}}
+      }
+    },
+    "internalSummary": {
+      "type": "object",
+      "required": ["records", "relative_l2", "cosine_similarity", "norm_ratio"],
+      "properties": {
+        "records": {"type": "integer", "minimum": 0},
+        "relative_l2": {"type": "object"},
+        "cosine_similarity": {"type": "object"},
+        "norm_ratio": {"type": "object"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": true
+}
