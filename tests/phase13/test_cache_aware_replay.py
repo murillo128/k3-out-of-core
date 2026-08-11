@@ -4,6 +4,7 @@ import copy
 import json
 import math
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -21,6 +22,7 @@ from cache_aware_replay import (  # noqa: E402
     select_cache_aware,
     validate_capture,
 )
+from analyze_route_streams import compare as compare_route_streams  # noqa: E402
 from run_cache_aware_gate import load_case, validate_decision_capture  # noqa: E402
 
 
@@ -255,6 +257,37 @@ class OfflineReplayTests(unittest.TestCase):
         self.assertEqual(changed["baseline"]["miss_ratio"], 1/16)
         self.assertEqual(changed["cache_aware"]["hit_ratio"], 1.0)
         self.assertEqual(changed["baseline"]["backing_store_bytes_per_token"], 128)
+
+    def test_real_route_comparison_uses_actual_generated_streams(self):
+        exact = capture()
+        changed = copy.deepcopy(exact)
+        changed["generated_ids"] = [3]
+        changed["cache_aware_routing"] = {
+            "enabled": True,
+            "candidate_count": 17,
+            "capacity_slots": 16,
+            "max_swaps": 1,
+            "max_score_regret": 0.002,
+            "prefill_rerouting": False,
+        }
+        changed["routes"][1]["selected_experts"][15] = 16
+        with tempfile.TemporaryDirectory() as directory:
+            temporary = Path(directory)
+            exact_path = temporary / "exact.json"
+            changed_path = temporary / "changed.json"
+            exact_path.write_text(json.dumps(exact))
+            changed_path.write_text(json.dumps(changed))
+            result = compare_route_streams(exact_path, changed_path, 16, 128)
+        self.assertEqual(result["routing"]["common_generated_prefix_tokens"], 0)
+        self.assertEqual(result["routing"]["intentional_decode_decisions"], 1)
+        self.assertEqual(result["decode_comparison"]["backing_loads_avoided"], 1)
+        self.assertEqual(result["decode_comparison"]["backing_store_bytes_avoided"], 128)
+        self.assertEqual(
+            result["decode_comparison"]["backing_store_bytes_avoided_per_routed_decode_token"],
+            128)
+        schema = json.loads((
+            ROOT / "schemas/phase13/real-route-comparison-v1.schema.json").read_text())
+        jsonschema.Draft7Validator(schema).validate(result)
 
     def test_prefill_warms_but_does_not_dilute_decode_gate(self):
         value = capture()

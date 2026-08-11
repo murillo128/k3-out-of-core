@@ -71,6 +71,8 @@ Focused native tests cover disabled zero-work, all exact controls, near-tie repl
 
 The retained quality mechanism is harness-only and explicit: supplying a quality-trace path installs the graph evaluation callback, while omitting it leaves the callback null. Measurement mode captures decode-time `ffn_moe_out` and `l_out` tensors plus full per-step logits in a versioned binary stream. Exact generation supplies the reference token IDs; changed routing consumes those same IDs through teacher forcing. The paired analyzer streams exact and changed traces to compute local-MoE and hidden-state relative L2/cosine/norm-ratio statistics, logit KL/JS, top-token/top-k agreement, reference-token NLL delta, intentional swaps, and induced subsequent exact-top-k divergence. Raw vectors and run summaries remain external issue-owned evidence.
 
+The real-route analyzer independently replays the actual selected expert IDs from fresh exact and changed generated streams. It warms the fixed LRU from prefill, measures decode using unique layer/expert requests from one immutable batch snapshot, and reports both total generated-output and routed-decode-token denominators so first-token prefill is not silently mixed into decode locality.
+
 On complete Kimi K3:
 
 - compare fresh-process exact-disabled routes, weights, logits and generated tokens with the accepted exact baseline;
