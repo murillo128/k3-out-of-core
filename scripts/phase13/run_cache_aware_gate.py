@@ -91,8 +91,10 @@ def validate_decision_capture(capture: dict[str, Any], case: dict[str, Any]) -> 
         "n_ubatch": case["n_ubatch"],
         "threads": case["threads"],
     }
+    sampling = capture.get("sampling", {})
     if capture.get("execution") != expected_execution or \
-            capture.get("sampling") != {"temperature": 0.0, "selection": "argmax"}:
+            sampling.get("temperature") != 0.0 or sampling.get("selection") != "argmax" or \
+            sampling.get("teacher_forced", False) is not False:
         raise ReplayError("capture execution configuration does not match the fixed workload")
     expected_layers = set(range(1, KIMI_K3_ROUTED_LAYERS + 1))
     prefill_ubatches = (

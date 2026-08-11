@@ -227,6 +227,12 @@ class OfflineReplayTests(unittest.TestCase):
             "failures": 0,
         }
         validate_decision_capture(validate_capture(value), case)
+        value["sampling"]["teacher_forced"] = False
+        validate_decision_capture(validate_capture(value), case)
+        value["sampling"]["teacher_forced"] = True
+        with self.assertRaises(ReplayError):
+            validate_decision_capture(validate_capture(value), case)
+        value["sampling"]["teacher_forced"] = False
         invalid = copy.deepcopy(value)
         invalid["observer_stats"]["copy_bytes"] -= 1
         with self.assertRaises(ReplayError):
