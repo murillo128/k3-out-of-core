@@ -1,0 +1,35 @@
+{
+  "schema_version": "phase13-6-d3p-max-native-final-build-fingerprint-v1",
+  "technical_project": "b88d56e2db689446ef258e41f480c50acf076f1a",
+  "nested_runtime": "fb8e271dcafd33b5ba5300bd0d69c4bee5b1e6ce",
+  "nested_base": "588d1b4b1ea32e10f99b0c3ce8506b703c3f3c93",
+  "base_fingerprint": "max-native-build-fingerprint.json",
+  "material_build_fingerprint_sha256": "bfbbe40c83f60fc20fc68301a9502fb97293a08b93a429dc9baa507f3313cb36",
+  "build": {
+    "path": "/mnt/nvme1/issue89/build-max-native/candidate-8f7cd238",
+    "cmake_cache_sha256": "247ec1db5804307a0f411607556c64fccc5c3dc09f5a3e64a10108f21fe294f2",
+    "compile_commands_sha256": "cc6d899ad794f129dd502d65f5bc51332760ddcf1ff53d6f1466decdd6ea3eb0",
+    "build_type": "Release",
+    "ggml_native": true,
+    "resolved_cpu_compile_flag": "-march=native",
+    "shared_libraries": true,
+    "openmp": true,
+    "lto": false,
+    "perfetto": false
+  },
+  "final_runtime_image": {
+    "phase13_mode_p_probe_sha256": "3d96ce06d67302916a6c6fb3afcd975d467947bbfba80d0d69e387eb1f8ac53e",
+    "libllama_sha256": "d96ed2d8649a23d275a04e8280c432df8efc4249fe36b10ef3ef9278089e90bd",
+    "libllama_common_sha256": "b3674f67cb9230b767db1e0333ada809ed3e089705a7506034c1c9f780d36a3f",
+    "libggml_sha256": "8d01c8eced5bce794c55f68d2eaccbdab45d8edbc434bc7117db1b92c964e071",
+    "libggml_cpu_sha256": "bec1f9bdd01d9f50b11d6fa632567a1381d85ceafd49a4ac0526810ecc544f86",
+    "libggml_base_sha256": "9277f127045c4ff745762b3cf3a3e3dda43547580f0b5365e90ed1a460353f6f"
+  },
+  "screening_runtime_image": {
+    "classification": "source-identical pre-commit build used for the final 96-GiB screening",
+    "phase13_mode_p_probe_sha256": "5cd11d1db181e0e393d14f349d7e3204e48c6a4d6bf0bc5db4a55adf8a381306",
+    "libllama_sha256": "abcf1170c5e630a145db68fd6022219cbb3642532b38e4c24cb21bcbcf00fe5f",
+    "source_diff_sha256": "180c7db7680272e3a6163a806f64c725d5023654ce9ca01ff059bc3161a864e9",
+    "source_equivalent_to_final_nested": true
+  }
+}

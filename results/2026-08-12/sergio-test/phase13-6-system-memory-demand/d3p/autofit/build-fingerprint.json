@@ -1,0 +1,63 @@
+{
+  "schema_version": "phase13-6-d3p-autofit-build-fingerprint-v1",
+  "status": "MATCH",
+  "technical_project": "5f88dfc5b32ddc540d0ec98e88dd66ae12f1ee99",
+  "nested_runtime": "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9",
+  "nested_base": "588d1b4b1ea32e10f99b0c3ce8506b703c3f3c93",
+  "reference_fingerprint": "../max-native-final-build-fingerprint.json",
+  "material_build_fingerprint_sha256": "bfbbe40c83f60fc20fc68301a9502fb97293a08b93a429dc9baa507f3313cb36",
+  "host": {
+    "architecture": "x86_64",
+    "vendor": "AuthenticAMD",
+    "model_name": "AMD EPYC 9J14 96-Core Processor",
+    "family": 25,
+    "model": 17,
+    "stepping": 1,
+    "online_logical_cpus": 32,
+    "cores": 16,
+    "threads_per_core": 2,
+    "numa_nodes": 1,
+    "cpu_flags_sha256": "face76c2f01a86f7b66754dac22397af51850669226342c22b19b5ace903aae0"
+  },
+  "toolchain": {
+    "c_compiler": "/usr/bin/cc",
+    "cxx_compiler": "/usr/bin/c++",
+    "compiler": "GCC 11.5.0 20240719 (Red Hat 11.5.0-14.0.1)",
+    "cmake": "3.31.8",
+    "generator": "Unix Makefiles"
+  },
+  "production_build": {
+    "path": "/workspace/k3-out-of-core/llama.cpp/build-issue89-cpu",
+    "build_type": "Release",
+    "c_flags": "-O3 -DNDEBUG",
+    "cxx_flags": "-O3 -DNDEBUG",
+    "ggml_cpu": true,
+    "ggml_cuda": false,
+    "ggml_native": true,
+    "ggml_cpu_compile_flag": "-march=native",
+    "ggml_openmp": true,
+    "build_shared_libs": true,
+    "ggml_lto": false,
+    "llama_perfetto": false,
+    "runtime_backend": "CPU; single shared ggml-cpu backend compiled with -march=native",
+    "inference_threads": 32,
+    "affinity": "inherited; no explicit pinning",
+    "numa_policy": "single exposed NUMA node; default policy",
+    "cmake_cache_sha256": "974ede226e7ae996e5476c3e20352fabce68ecffd26c6f1d61e38faa5adf78a4",
+    "compile_commands_sha256": "fd1b9088e9d9b450517650c3df08999f2edf699014060cb5f888d6ca383836c1"
+  },
+  "runtime_image": {
+    "phase13_mode_p_probe_sha256": "000315703c3c3e24d589a48661746bd1c17e4d557e770fbb952b335ed5aec786",
+    "libllama_sha256": "aaee10868799309b7244764bfcc60d4edcd2e294c35b778c8d5eaba69c928212",
+    "libllama_common_sha256": "7a8dbb6c12b5b9849ecadddd753fee75f0afb76ea06530b9e1cd3f7f729391c9",
+    "libggml_sha256": "e7b489f7d4295b86b0a6d8708373156e822c4adc753b1b1a4744f4d83144b80a",
+    "libggml_cpu_sha256": "eac6b2c7da1f1f3387ca7ec8afc3812ca4030998b8fe1f521b1789f538defa84",
+    "libggml_base_sha256": "05e815f3c58c6274c3d84b6fe56e445e6568ee6fe130d256c878813d32f02bdd"
+  },
+  "comparison": {
+    "reference_host_and_toolchain_match": true,
+    "material_build_fields_match": true,
+    "only_intentional_source_delta": true,
+    "performance_comparison_valid": true
+  }
+}

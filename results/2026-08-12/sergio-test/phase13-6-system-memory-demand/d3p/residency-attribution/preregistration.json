@@ -1,0 +1,43 @@
+{
+  "schema_version": "phase13-6p-residency-preregistration-v1",
+  "authority": "issue-89 D3P profile-first amendment",
+  "technical_project": "b88d56e2db689446ef258e41f480c50acf076f1a",
+  "nested_runtime": "fb8e271dcafd33b5ba5300bd0d69c4bee5b1e6ce",
+  "build_fingerprint": "../max-native-final-build-fingerprint.json",
+  "classification": "profiling diagnostics only; throughput is not endpoint or K3_CPU_BEST evidence",
+  "unresolved_questions": [
+    "actual resident bytes in the ColdExpertCache anonymous VMA versus GGUF file mappings",
+    "per-shard GGUF residency evolution around first-full and post-fill decode",
+    "process read_bytes beyond exact explicit expert O_DIRECT aligned bytes",
+    "same-interval cgroup/host file refault, scan, steal, and direct-reclaim counters",
+    "optimized call stacks sampled at major faults when perf supports them"
+  ],
+  "cells": [
+    {
+      "name": "retained-96gib-residency",
+      "cache_requested_bytes": 103079215104,
+      "cache_actual_bytes_expected": 103072628736,
+      "decode_forwards": 3,
+      "snapshot_plan_elapsed_s": {
+        "setup-pre-fill": 1.2,
+        "near-fill": 60.0,
+        "first-full-post-fill": 80.0,
+        "post-fill-decode": 105.0,
+        "late-post-fill-decode": 125.0
+      },
+      "perf_major_fault_window": {"start_elapsed_s": 82.0, "duration_s": 25.0},
+      "rationale": "Existing endpoint fixes TPS but lacks lifecycle smaps/process-I/O attribution. Three post-fill forwards bound the new cost while exposing sustained pressure."
+    },
+    {
+      "name": "control-64gib-residency",
+      "cache_requested_bytes": 68719476736,
+      "cache_actual_bytes_expected": 68715085824,
+      "decode_forwards": 3,
+      "snapshot_plan_elapsed_s": {
+        "post-fill-residency": 34.0
+      },
+      "rationale": "Pressure-free control supplies the required resident model working-set budget and causal disappearance test; it is diagnostic and cannot alter the fixed 96-GiB gate. After the 96-GiB cell showed that each full smaps walk materially perturbs fill timing, this plan was narrowed before execution to one post-fill VMA snapshot plus the continuous lightweight series and automatic terminal snapshot."
+    }
+  ],
+  "intermediate_capacity_sweep": "NOT_PREREGISTERED; decide only after the two anchor budgets are analyzed"
+}

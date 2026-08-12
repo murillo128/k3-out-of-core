@@ -255,6 +255,22 @@ K3 correction bias remains selection-only. After the experimental membership dec
 
 The exact path remains the production/default path and cannot activate the experiment implicitly. Disabled mode retains the existing route IDs, order, weights, graph/provider boundary, and structural zero-work behavior: no top-M copy, residency query, host reranking, provider callback, synchronization, or steady-state allocation is allowed solely for Phase 13.6. This exception does not authorize expert dropping, pruning, arbitrary rerouting, learned router changes, approximate arithmetic, or a new cache policy.
 
+### D-022 — Share physical system-memory expert residency and stop the common mechanism at `HOST_READY`
+
+**Status:** ACCEPTED
+
+CPU-only cold execution, coherent UMA execution, and the durable cold tier for discrete CUDA share `ColdExpertCache` as the one physical system-memory expert store. A bounded internal current-layer demand coordinator borrows the model-owned storage, scheduler, and asynchronous transport; it performs exact occurrence planning, preserves the semantic order frozen by each provider, keeps that semantic order separate from physical I/O issue and completion order, performs direct-to-final-slot backing reads, deterministic publication, failure cleanup, and temporary lifetime retention only through validated `HOST_READY` cold references. It does not impose a universal canonical reservation order and does not own another cache, policy, scheduler, worker, ring, transport, or device-specific state.
+
+CPU, UMA, and discrete CUDA remain distinct after `HOST_READY`. CPU acquires generation-protected execution references to the same cold slots. UMA applies its accepted coherent-memory readiness and pressure policy to those slots without a second payload pool or expert H2D copy. Discrete CUDA retains its independent hot tier, direct storage-to-hot service, transfers, events, and device-role semantics. Publication-to-adapter lifetime is bridged by an explicit bounded cache reference and never by the current single-request restriction.
+
+### D-023 — Prefer the cleaner coherent architecture when performance is equivalent
+
+**Status:** ACCEPTED
+
+Optimization choices use preregistered paired endpoints, ordering, noise estimates, and materiality floors. Alternatives are performance-equivalent when the paired confidence interval includes parity and no endpoint, tail, or resource delta exceeds its floor. Until tighter evidence justifies another bound, the floors are 3% for median decode TPS, 5% for p95 routed-forward latency, 5% for owned, pinned, or device memory with no unbounded state, and no material all-hit regression; correctness and lifetime have zero tolerance.
+
+When alternatives are equivalent, select the design with clearer ownership and lifetime, fewer independent mechanisms and public surfaces, stronger deterministic failure semantics, and greater reuse across CPU, UMA, and discrete CUDA. A materially faster divergent mechanism may win only when its gain exceeds the preregistered floor, its cause is demonstrated, and design authority explicitly accepts the semantic and maintenance cost. Equivalent and negative results remain evidence rather than being discarded or selected by point estimate.
+
 ## Rejected shortcuts
 
 ### R-001 — Rely exclusively on `mmap` and OS page replacement

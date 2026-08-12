@@ -1,0 +1,237 @@
+{
+  "schema_version": "phase13-6p-residency-attribution-v1",
+  "status": "DESIGN_REQUIRED",
+  "authority": "issue-89 D3P profile-first amendment",
+  "identity": {
+    "accepted_checkpoint_b": {
+      "project": "4589bcb07ae81e32aff70f06008618a8b2ac9b4f",
+      "nested": "7930fdcf428ed1221ff070a14e62e2073cc1a803",
+      "nested_base": "588d1b4b1ea32e10f99b0c3ce8506b703c3f3c93",
+      "safety": "YES"
+    },
+    "technical_project": "b88d56e2db689446ef258e41f480c50acf076f1a",
+    "evidence_parent_base": "79acc7cb749d0c9e064f371cae47c6094b6ee59e",
+    "nested_runtime": "fb8e271dcafd33b5ba5300bd0d69c4bee5b1e6ce",
+    "binary_sha256": "3d96ce06d67302916a6c6fb3afcd975d467947bbfba80d0d69e387eb1f8ac53e",
+    "build_fingerprint": "../max-native-final-build-fingerprint.json",
+    "build": {
+      "type": "Release",
+      "compiler": "GCC 11.5",
+      "flags": ["-O3", "-DNDEBUG", "-march=native"],
+      "ggml_native": true,
+      "cpu_only": true,
+      "shared": true,
+      "openmp": true,
+      "threads": 32,
+      "runtime": ["Mode-P", "EXACT", "native io_uring", "O_DIRECT"]
+    }
+  },
+  "evidence": {
+    "reused": {
+      "manifest": "../manifest.json",
+      "endpoint_96gib_decode_tok_s": 0.041757989646191845,
+      "endpoint_96gib_p50_forward_s": 22.432494834,
+      "endpoint_96gib_peak_rss_kib": 192764064,
+      "control_64gib_decode_tok_s": 0.23998784390054267,
+      "control_64gib_p50_forward_s": 4.134216721,
+      "classification": "unprofiled endpoint anchors"
+    },
+    "new": [
+      {
+        "name": "retained-96gib-residency",
+        "decode_forwards": 3,
+        "classification": "profiled residency diagnostic; TPS invalid as endpoint",
+        "status": "pass",
+        "major_faults": 622776,
+        "peak_rss_kib": 192545208,
+        "terminal_resources_balanced": true
+      },
+      {
+        "name": "control-64gib-residency",
+        "decode_forwards": 3,
+        "classification": "profiled pressure-free diagnostic; TPS invalid as endpoint",
+        "status": "pass",
+        "major_faults": 0,
+        "peak_rss_kib": 178672388,
+        "terminal_resources_balanced": true
+      }
+    ],
+    "intermediate_capacity_sweep": "NOT_RUN; natural 96-GiB fill localizes background and direct reclaim knees"
+  },
+  "resident_budget": {
+    "units": "bytes",
+    "host_usable": 202049667072,
+    "practical_fixed_host_reserve": 3146735616,
+    "control_64gib": {
+      "cold_cache": 68715085824,
+      "model_gguf": 112346304512,
+      "other_process": 950722560,
+      "total_with_host_reserve": 185158848512,
+      "headroom": 16890818560
+    },
+    "desired_96gib": {
+      "cold_cache": 103072628736,
+      "model_gguf": 112346304512,
+      "other_process": 950722560,
+      "total_with_host_reserve": 219516391424,
+      "deficit": 17466724352
+    },
+    "actual_96gib_first_full": {
+      "process_rss_kib": 192052124,
+      "process_anon_kib": 101640024,
+      "process_file_kib": 90412100,
+      "mem_free_kib": 1227728,
+      "model_file_rss_loss_bytes": 19764314112
+    },
+    "cache_vma_identification": "largest anonymous VMA Size equals configured actual cache bytes plus 4096",
+    "other_process_attribution_limit": "KV/context, graph/work, allocator and direct staging are not separately named VMAs; combined pressure-free remainder is 0.885 GiB"
+  },
+  "model_residency": {
+    "virtual_bytes": 114694852608,
+    "pressure_free_resident_bytes": 112346304512,
+    "material_shards": {
+      "31": {"virtual_kib": 18037996, "pressure_free_rss_kib": 18037992, "reclaim_sample_rss_kib": 16395372},
+      "32": {"virtual_kib": 48791320, "pressure_free_rss_kib": 48791320, "reclaim_sample_rss_kib": 48791320},
+      "33": {"virtual_kib": 45177256, "pressure_free_rss_kib": 42883876, "reclaim_sample_rss_kib": 33710328}
+    },
+    "expert_shards_1_to_30": "4-KiB control mappings with zero RSS; payload uses explicit storage",
+    "dominant_sampled_resident_loss": "shard 33",
+    "per_shard_refault_counts": "NOT_AVAILABLE"
+  },
+  "pressure_knee": {
+    "background_reclaim": {
+      "approx_cache_resident_gib": 77.6,
+      "process_rss_kib": 191555796,
+      "mem_free_gib": 0.99,
+      "pgscan_pages_delta": 117440,
+      "pgsteal_pages_delta": 117440
+    },
+    "direct_reclaim": {
+      "approx_cache_resident_gib": 87.1,
+      "pgscan_pages_delta": 5665664,
+      "pgscan_direct_pages_delta": 3712
+    },
+    "first_full": {
+      "cache_resident_gib": 95.994,
+      "file_rss_gib": 86.224,
+      "workingset_refault_file_pages_delta": 18092258,
+      "pgscan_pages_delta": 17925799,
+      "pgsteal_pages_delta": 17906691,
+      "pgscan_direct_pages_delta": 138624
+    },
+    "bounded_terminal_pressure": {
+      "workingset_refault_file_pages_delta": 46294050,
+      "pgscan_pages_delta": 46480233,
+      "pgsteal_pages_delta": 46461105,
+      "pgscan_direct_pages_delta": 293760,
+      "pgsteal_direct_pages_delta": 293760,
+      "swap_bytes": 0,
+      "oom_kills": 0
+    },
+    "active_inactive_file": {
+      "control_active_gib": 35.73,
+      "control_inactive_gib": 69.48,
+      "full_96_active_gib": 35.75,
+      "full_96_inactive_gib": 51.04,
+      "conclusion": "reclaim removes inactive model/file pages while active file stays constant"
+    }
+  },
+  "physical_io_attribution": {
+    "unprofiled_endpoints": {
+      "96gib": {
+        "explicit_expert_aligned_bytes": 149603519264,
+        "inferred_model_file_bytes": 201558938848,
+        "nvme_physical_read_bytes": 351162458112,
+        "expert_fraction": 0.4260236702645627,
+        "model_fraction": 0.5739763297354374,
+        "file_refault_bytes": 201564487680
+      },
+      "64gib": {
+        "explicit_expert_aligned_bytes": 121630732320,
+        "inferred_model_file_bytes": 20605122016,
+        "nvme_physical_read_bytes": 142235854336,
+        "expert_fraction": 0.8551341213353626,
+        "model_fraction": 0.1448658786646373,
+        "file_refault_bytes": 20606660608
+      }
+    },
+    "new_profiled_96gib": {
+      "process_read_bytes": 330727307264,
+      "nvme0_read_bytes": 330727307264,
+      "explicit_expert_aligned_bytes": 141109900064,
+      "inferred_model_file_bytes": 189617407200,
+      "file_refault_bytes": 189620428800,
+      "attribution_difference_bytes": 3021600,
+      "post_fill_per_forward": {
+        "explicit_expert_bytes": 10804211040,
+        "inferred_model_file_bytes": 38472664565.333336
+      }
+    },
+    "conclusion": "physical read amplification is fault/refault-driven GGUF traffic; no expert buffered or synchronous fallback"
+  },
+  "performance_budget": {
+    "current_96gib_decode_tok_s": 0.041757989646191845,
+    "hard_floor_tok_s": 0.2,
+    "required_speedup": 4.78950260045,
+    "current_average_s_per_forward": 23.94751300225,
+    "required_average_s_per_forward": 5.0,
+    "required_recovery_s_per_forward": 18.94751300225,
+    "measured_p50_recoverable_s": 18.298278113,
+    "pressure_free_control_tok_s": 0.23998784390054267,
+    "pressure_free_average_s_per_forward": 4.16687769825,
+    "conclusion": "pressure-free envelope clears the floor; removing non-material policy/copy/queue buckets cannot recover 79.1% of wall"
+  },
+  "bucket_classification": {
+    "cold_expert_cache_residency": "PRIMARY",
+    "model_mmap_page_fault_io": "PRIMARY",
+    "expert_backing_io": "SECONDARY",
+    "other_anonymous_runtime_memory": "NON-MATERIAL",
+    "cpu_useful_compute": "SECONDARY_IRREDUCIBLE_HERE",
+    "scheduler_cache_policy": "NON-MATERIAL",
+    "kernel_io_overlap": "NON-MATERIAL_DEFECT",
+    "synchronization_openmp_wait": "SYMPTOM"
+  },
+  "recommended_next_mechanism": {
+    "count": 1,
+    "name": "logical-capacity/physical-residency decoupling for ColdExpertCache",
+    "target": "preserve 96-GiB logical policy capacity and fixed identities while bounding physical cache payload to <=76 GiB with explicit nonresident/restoring states",
+    "measured_cause": "16.267-GiB pressure-free deficit and reclaim onset near 78 GiB resident cache payload",
+    "expected_upper_bound": "recover up to 18.298-s p50 / 18.948-s average and approach the observed 0.240-tok/s pressure-free envelope",
+    "risks": [
+      "logical cache-hit and telemetry meaning",
+      "generation/publication state transitions",
+      "cpu_execution lifetime versus decommit",
+      "failure/cancellation/unload cleanup",
+      "deterministic policy/final cache state",
+      "bounded extra expert rehydration reads"
+    ],
+    "preferred_over": "file-backed scratch slots add dirty-writeback, O_DIRECT coherence and storage-layout risks; OpenMP/policy/queue changes do not attack the measured primary cause",
+    "implementation_authorized": false
+  },
+  "falsified": [
+    "insufficient io_uring concurrency is primary",
+    "cache-policy administration is primary",
+    "other anonymous heap/runtime memory contains the missing tens of GiB",
+    "virtual 1.56-TB model size equals resident memory",
+    "OpenMP tuning alone can recover the required wall",
+    "sequential mmap advice alone makes the 96-GiB set fit"
+  ],
+  "limitations": {
+    "tracefs": "permission-blocked",
+    "host_memory_psi": "unavailable",
+    "cgroup_memory_psi": "unavailable",
+    "major_fault_call_stacks": "sample window preceded smaps-delayed pressure knee; zero samples",
+    "full_smaps_timing": "non-atomic and materially perturbing; diagnostic only",
+    "per_shard_refault_counts": "not exposed by available interfaces",
+    "perfetto": "unavailable in current CPU-only CMake path"
+  },
+  "gates": {
+    "k3_cpu_best_exists": false,
+    "hard_floor_pass": false,
+    "final_d3_run": false,
+    "checkpoint_c_requested": false,
+    "parent_pr_ready": false,
+    "merge_permitted": false,
+    "issue_83_restart_permitted": false
+  }
+}
