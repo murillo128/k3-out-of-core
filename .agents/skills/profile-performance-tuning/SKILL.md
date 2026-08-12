@@ -1,6 +1,6 @@
 ---
 name: profile-performance-tuning
-description: Profile and tune an already-correct runtime using clean production-performance measurements, causal Perfetto/perf/FlameGraph attribution, bounded one-change-at-a-time experiments, and a validation pyramid that defers broad conformance until the retained winner.
+description: Profile and tune an already-correct runtime using clean production-performance measurements, causal Perfetto/perf/FlameGraph attribution, bounded one-change-at-a-time experiments, a maximum-native production build envelope, and a validation pyramid that defers broad conformance until the retained winner.
 ---
 
 # Profile and Performance Tune
@@ -23,6 +23,7 @@ Before tuning:
 - identify the exact target metric and any hard exit floor from the controlling issue;
 - preserve a runnable baseline for A/B comparison;
 - confirm the workload, model/artifact, cache/storage topology, thread/device configuration, and other decision-driving inputs are frozen enough for comparison;
+- read `../native-build-test/MAX_NATIVE_POLICY.md` and establish the production build fingerprint for the decision host;
 - do not profile through a known correctness, lifetime, cancellation, stale-generation, or resource-safety defect.
 
 A safety defect is not performance noise. Fix it or return to the owning design/execution workflow before using the result.
@@ -55,15 +56,47 @@ Do **not** disable production safety semantics merely to improve a number. Gener
 
 Mode-C/compliance cost is never a performance denominator unless the controlling issue explicitly measures it as a product feature.
 
+### Production build envelope — optimize the host, fingerprint it exactly
+
+Reproducibility must not impose an artificial performance tax.
+
+For a fixed decision host, use the repository-supported **maximum stable native ISA/backend feature set actually exposed by that host**. Prefer the normal native feature-detection path when it is trustworthy. If auto-detection is unreliable, use an explicit maximum feature set matching the host. Do not intentionally cap to AVX2, generic x86-64, or another portability baseline merely to make performance evidence reproducible.
+
+Record enough of the build fingerprint to reproduce and validate the cell:
+
+```text
+host CPU/model + exposed feature flags
+compiler + version
+generator/toolchain
+Release/build type
+GGML_NATIVE or equivalent
+resolved ISA/backend features
+material C/CXX flags
+static/shared linkage
+LTO/PGO or other production codegen when used
+runtime-selected CPU/backend variant
+thread/affinity/NUMA configuration when decision-driving
+project + nested source identity
+binary identity when final evidence requires it
+```
+
+Baseline and candidate must match this fingerprint except for the intentional source/configuration delta under test. A material mismatch invalidates performance attribution.
+
+Static/shared linkage and native/explicit ISA selection are independent dimensions. Do not change both and then attribute the result to a runtime delta.
+
+Historical portable/capped-ISA evidence may remain valid for compatibility or earlier correctness claims, but it does not constrain `K3_BEST`, `K3_CPU_BEST`, or another host-specific optimized winner unless the controlling issue explicitly defines that portable envelope as the product target.
+
 ### Profiling mode
 
 Profiler runs are diagnostic evidence, not throughput acceptance runs.
 
-Use a bounded window representative of the same production state. Keep workload/configuration adjacent to the unprofiled control and quantify profiler perturbation when the trace is used for before/after attribution.
+Use a bounded window representative of the same production state and the same optimized production build envelope. Keep workload/configuration adjacent to the unprofiled control and quantify profiler perturbation when the trace is used for before/after attribution.
 
 ### Conformance mode
 
 Use full correctness/compliance/failure/lifetime validation to qualify a frozen implementation target. Do not repeatedly run the broadest matrix after every exploratory performance edit when narrower tests can prove the touched seam.
+
+Expensive conformance/full-model execution should also reuse the optimized Release/max-native build whenever the test semantics permit. Use Debug/sanitizer/portable builds only for the bounded tests that require those properties; do not make every long qualification run pay their cost.
 
 A known correctness failure is never deferred just because the implementation may be rewritten.
 
@@ -71,7 +104,7 @@ A known correctness failure is never deferred just because the implementation ma
 
 Do not begin a tuning round with a large parameter sweep or a long final campaign.
 
-1. Capture one clean unprofiled baseline on the real decision workload.
+1. Capture one clean unprofiled baseline on the real decision workload and optimized production build.
 2. Record enough scalar counters to know work identity and resource state.
 3. Capture a bounded profiling window.
 4. Attribute non-overlapping wall time and rank causal buckets.
@@ -79,7 +112,7 @@ Do not begin a tuning round with a large parameter sweep or a long final campaig
 6. Validate narrowly, then screen the real workload.
 7. Retain or reject the delta before moving to the next bucket.
 8. Freeze the best coherent candidate.
-9. Run complete locally applicable conformance once on that candidate.
+9. Run complete locally applicable conformance once on that candidate, using the optimized build except where a specific validation requires instrumentation/portability.
 10. Run the final statistical performance campaign required by the issue.
 
 ## Profiling stack
@@ -219,7 +252,7 @@ Use the cheapest test that proves the risk introduced by the candidate.
 
 ### Level 1 — touched seam
 
-Run the focused unit/native tests for the changed component.
+Run the focused unit/native tests for the changed component in the optimized build unless the test specifically requires another build class.
 
 ### Level 2 — adversarial lifetime/concurrency
 
@@ -236,6 +269,8 @@ cache/slot lifetime
 transfer/event lifetime
 ```
 
+Use sanitizer/race/debug builds only where they add evidence for the targeted defect; keep the expensive real-model repetitions on the optimized build.
+
 ### Level 3 — bounded real-path smoke
 
 Use the repository's smallest real-model or exact-layout smoke that proves:
@@ -246,19 +281,21 @@ Use the repository's smallest real-model or exact-layout smoke that proves:
 - terminal resource balance;
 - required concurrency/overlap structure.
 
+Run this on the same optimized build envelope used for candidate selection unless its explicit purpose is cross-build compatibility.
+
 ### Level 4 — bounded decision-workload screen
 
-Only candidates that survive focused correctness and look causally promising should pay for a larger real workload/capacity run.
+Only candidates that survive focused correctness and look causally promising should pay for a larger real workload/capacity run. Use the optimized production build.
 
 ### Level 5 — frozen-winner conformance
 
-After selecting the retained candidate, run the complete locally applicable correctness/compliance/failure/lifetime suite once before the final performance campaign.
+After selecting the retained candidate, run the complete locally applicable correctness/compliance/failure/lifetime suite once before the final performance campaign. Split out special Debug/sanitizer/portability cells where required instead of de-optimizing the entire expensive qualification.
 
 A later technical change invalidates that frozen qualification and requires the appropriate validation again.
 
 ## Statistical performance selection
 
-Final performance claims use fresh, unprofiled production-performance runs.
+Final performance claims use fresh, unprofiled production-performance runs on the optimized max-native build envelope for the decision host.
 
 Prefer interleaved baseline/candidate ordering when drift is plausible. Preserve all valid repetitions, including regressions. Report paired distributions/confidence or the repository's accepted equivalent rather than selecting the best run.
 
@@ -304,6 +341,7 @@ Do not change routing, quantization, arithmetic, cache/storage policy, model rep
 Keep enough compact evidence to reproduce the decision:
 
 - exact implementation and workload identities when material;
+- exact optimized build fingerprint and resolved host-native features;
 - unprofiled baseline and retained candidate results;
 - profiler commands/configuration and perturbation note;
 - compact Perfetto analysis/queries;
@@ -318,8 +356,8 @@ Large `.pftrace`, `perf.data`, raw logs, or repetitive samples may use the repos
 
 A performance-tuning round is complete when:
 
-- the issue's hard performance/resource gates pass on clean unprofiled production runs;
+- the issue's hard performance/resource gates pass on clean unprofiled production runs using the optimized decision-host build envelope;
 - the retained candidate is causally explained rather than selected by luck;
-- full locally applicable conformance passes on the frozen candidate;
+- full locally applicable conformance passes on the frozen candidate, with special instrumented/portable builds limited to the checks that require them;
 - remaining material wall time is attributed well enough to justify stopping or is returned to design with evidence;
 - exact final evidence is sufficient for independent review without relying on profiler runs as the throughput denominator.
