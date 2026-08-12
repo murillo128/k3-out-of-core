@@ -1,0 +1,299 @@
+{
+  "schema_version": "phase13-6-d3p-design-return-v2",
+  "status": "DESIGN_REQUIRED_NO_ACCEPTABLE_K3_CPU_BEST",
+  "accepted_correctness_floor": {
+    "checkpoint": "B",
+    "safety": "YES",
+    "project": "4589bcb07ae81e32aff70f06008618a8b2ac9b4f",
+    "nested_runtime": "7930fdcf428ed1221ff070a14e62e2073cc1a803",
+    "nested_base": "588d1b4b1ea32e10f99b0c3ce8506b703c3f3c93"
+  },
+  "published_partial_improvement": {
+    "technical_project": "b88d56e2db689446ef258e41f480c50acf076f1a",
+    "nested_runtime": "fb8e271dcafd33b5ba5300bd0d69c4bee5b1e6ce",
+    "nested_base": "588d1b4b1ea32e10f99b0c3ce8506b703c3f3c93",
+    "classification": "retained coherent D3P improvements; not K3_CPU_BEST"
+  },
+  "hard_exit": {
+    "required_decode_tok_s": 0.2,
+    "configuration": "full K3, exact routing, 96-GiB ColdExpertCache, natural empty-cache fill, native io_uring/O_DIRECT, unprofiled CPU Mode-P, Release max-native",
+    "best_trustworthy_decode_tok_s": 0.041757989646191845,
+    "fraction_of_required_floor": 0.2087899482309592,
+    "shortfall_fraction": 0.7912100517690408,
+    "pass": false,
+    "k3_cpu_best_frozen": false
+  },
+  "inputs": {
+    "model": {
+      "path": "/mnt/nvme0/issue77/model/kimi-k3-bf16-00001-of-00033.gguf",
+      "shards": 33,
+      "identity_manifest_sha256": "58b14d13a602944e1134fc753b2cc819a84a31290aee9c1479264a66dbb5efe2"
+    },
+    "prompt": {
+      "path": "corpus/phase13/issue73-decision-v1.json",
+      "sha256": "34c6a2f4a5fe551c79a23b72898abb12796c33f03997c421d75e406d7a7aa5bd"
+    },
+    "build_fingerprint": "results/2026-08-12/sergio-test/phase13-6-system-memory-demand/d3p/max-native-build-fingerprint.json",
+    "final_build_fingerprint": "results/2026-08-12/sergio-test/phase13-6-system-memory-demand/d3p/max-native-final-build-fingerprint.json"
+  },
+  "matched_max_native_ab": {
+    "common": {
+      "cache_requested_bytes": 103079215104,
+      "cache_actual_bytes": 103072628736,
+      "cache_capacity_experts": 5874,
+      "decode_forwards": 8,
+      "threads": 32,
+      "n_ctx": 256,
+      "native_io_uring": true,
+      "direct_staging_lanes": 16,
+      "registered_file_count": 33,
+      "registered_buffer_count": 0,
+      "buffer_registration_errno": 12,
+      "buffered_fallback_operations": 0,
+      "synchronous_fallback_operations": 0,
+      "peak_active_requests": 16,
+      "peak_active_read_operations": 48,
+      "sq_high_water": 16,
+      "cq_high_water": 15,
+      "exact_output_work_cache_async_and_terminal_equality": true,
+      "measured_hits": 7101,
+      "measured_misses": 4675,
+      "measured_backing_loads": 4675,
+      "measured_backing_bytes": 82033459200,
+      "generated_token_hash": "93a8c32850eba1e5",
+      "final_residency_digest": "32f1aade19a68314"
+    },
+    "checkpoint_b_source": {
+      "nested": "7930fdcf428ed1221ff070a14e62e2073cc1a803",
+      "time_to_full_s": 155.483096434,
+      "decode_tok_s": 0.03243147761072615,
+      "p50_forward_s": 30.54081726,
+      "p95_forward_s": 32.545973891,
+      "process_major_faults": 1023224,
+      "peak_rss_kib": 193114588,
+      "physical_nvme_read_bytes": 866909356032,
+      "physical_to_logical_read_amplification": 4.545427040077232,
+      "host_workingset_refault_file": 165322837,
+      "host_pgscan_file": 268315686,
+      "host_pgsteal_file": 165517050,
+      "swap_kib": 0,
+      "oom_kills": 0
+    },
+    "linear_policy_candidate": {
+      "nested": "8f7cd23816b96f451e95487f1213e2de60c8ccce",
+      "time_to_full_s": 100.328975541,
+      "decode_tok_s": 0.036496784967080496,
+      "p50_forward_s": 27.056225224,
+      "p95_forward_s": 31.312110508,
+      "process_major_faults": 1029325,
+      "peak_rss_kib": 193056196,
+      "physical_nvme_read_bytes": 820104691712,
+      "physical_to_logical_read_amplification": 4.300018237736411,
+      "host_workingset_refault_file": 153855916,
+      "host_pgscan_file": 261946614,
+      "host_pgsteal_file": 159349690,
+      "swap_kib": 0,
+      "oom_kills": 0
+    },
+    "effects": {
+      "decode_tps_gain_fraction": 0.12535066718667842,
+      "fill_time_reduction_fraction": 0.35472744084699914,
+      "p50_reduction_fraction": 0.11409622756113513,
+      "p95_reduction_fraction": 0.03791139841543367
+    }
+  },
+  "final_96gib_endpoint": {
+    "classification": "trustworthy unprofiled max-native Mode-P hard-gate result from source-identical pre-commit tree",
+    "nested_final": "fb8e271dcafd33b5ba5300bd0d69c4bee5b1e6ce",
+    "cache_actual_bytes": 103072628736,
+    "cache_capacity_experts": 5874,
+    "decode_forwards": 4,
+    "time_to_full_s": 76.372789775,
+    "decode_tok_s": 0.041757989646191845,
+    "p50_forward_s": 22.432494834,
+    "p95_forward_s": 26.149514372,
+    "measured_hits": 3557,
+    "measured_misses": 2331,
+    "measured_backing_loads": 2331,
+    "measured_backing_bytes": 40902672384,
+    "peak_active_requests": 16,
+    "peak_active_read_operations": 48,
+    "sq_high_water": 16,
+    "cq_high_water": 15,
+    "buffered_fallback_operations": 0,
+    "synchronous_fallback_operations": 0,
+    "process_major_faults": 786558,
+    "process_minor_faults": 2261278,
+    "peak_rss_kib": 192764064,
+    "minimum_sampled_mem_available_kib": 90872476,
+    "physical_nvme_read_bytes": 351162458112,
+    "physical_to_logical_read_amplification": 2.3474928739824374,
+    "host_workingset_refault_file": 49210080,
+    "host_pgscan_file": 54472234,
+    "host_pgsteal_file": 54469171,
+    "swap_kib": 0,
+    "oom_kills": 0,
+    "terminal_references_balanced": true
+  },
+  "profile": {
+    "nested": "8f7cd23816b96f451e95487f1213e2de60c8ccce",
+    "scope": "separate bounded max-native diagnostic cell; not a throughput acceptance result",
+    "perfetto": {
+      "available": false,
+      "reason": "Current repository CMake requires GGML_CUDA and CUPTI when LLAMA_PERFETTO=ON; the CPU decision build remains CUDA-free."
+    },
+    "perf_stat": {
+      "elapsed_s": 60.023500292,
+      "average_cpus": 22.836,
+      "cycles": 4230491457663,
+      "instructions": 394927728393,
+      "ipc": 0.09,
+      "cache_miss_fraction": 0.0628,
+      "page_faults": 2790428,
+      "major_faults": 256365
+    },
+    "perf_record": {
+      "duration_s": 60,
+      "frequency_hz": 49,
+      "call_graph": "DWARF",
+      "samples": 69537,
+      "flamegraph_revision": "41fee1f99f9276008b7cd112fca19dc3ea84ac32"
+    },
+    "weighted_cycle_fractions": {
+      "process_libgomp_leaf": 0.958816,
+      "process_bf16_dot_leaf": 0.016382,
+      "process_mxfp4_dot_leaf": 0.013609,
+      "process_memmove_leaf": 0.00223,
+      "main_cache_policy_inclusive": 0.003138
+    },
+    "attribution_limit": "Without Perfetto, router/attention/dense/exposed-wait elapsed wall cannot be cleanly partitioned from generic CPU graph stacks; capacity and page-advice controls determine the optimization choice."
+  },
+  "capacity_control_64gib": {
+    "classification": "diagnostic only; not eligible for the fixed 96-GiB hard gate",
+    "cache_actual_bytes": 68715085824,
+    "cache_capacity_experts": 3916,
+    "decode_forwards": 4,
+    "time_to_full_s": 30.961860592,
+    "decode_tok_s": 0.23998784390054267,
+    "p50_forward_s": 4.134216721,
+    "p95_forward_s": 4.380813343,
+    "measured_hits": 2907,
+    "measured_misses": 2981,
+    "measured_backing_loads": 2981,
+    "measured_backing_bytes": 52308393984,
+    "process_major_faults": 9,
+    "peak_rss_kib": 178673156,
+    "minimum_sampled_mem_available_kib": 125076304,
+    "physical_nvme_read_bytes": 142235854336,
+    "physical_to_logical_read_amplification": 1.1695095612669153,
+    "host_workingset_refault_file": 5030923,
+    "host_pgscan_file": 13456,
+    "host_pgsteal_file": 27,
+    "swap_kib": 0,
+    "oom_kills": 0,
+    "terminal_references_balanced": true
+  },
+  "hypotheses": {
+    "H1_io_serialization": "NOT_PRIMARY: 16 requests, 48 operations and SQ/CQ 16/15 are real; all storage operations remain direct native io_uring.",
+    "H2_reclaim_refault": "CONFIRMED_PRIMARY: 96-GiB cells sustain major faults/refault/page stealing; the 64-GiB control removes them and exceeds the floor despite more expert misses per forward.",
+    "H3_cache_policy_complexity": "CONFIRMED_AND_REDUCED: linear validation yields a matched 12.54% TPS gain and policy cost falls to 0.31% of profiled main-thread cycles.",
+    "H4_cpu_compute": "PRESENT_NOT_THE_96GIB_GAP: pressure-free execution is about 4.17 seconds per forward and exceeds the floor without semantic changes.",
+    "H5_sync_copies_bookkeeping": "OPENMP_WAIT_IS_A_PRESSURE_SYMPTOM: libgomp dominates weighted cycles while memmove is 0.22%; sequential mmap advice reduces physical read/refault amplification but cannot make the 96-GiB footprint fit."
+  },
+  "optimization_candidates": [
+    {
+      "id": 1,
+      "name": "linear_duplicate_candidate_validation",
+      "nested": "8f7cd23816b96f451e95487f1213e2de60c8ccce",
+      "decision": "RETAIN_PARTIAL_IMPROVEMENT",
+      "focused_test": "PASS",
+      "max_native_512m_exact_equality_smoke": "PASS",
+      "max_native_96gib_exact_matched_ab": "PASS",
+      "k3_cpu_best": false
+    },
+    {
+      "id": 2,
+      "name": "passive_openmp_waiting",
+      "decision": "REJECT_HISTORICAL_CAPPED_BUILD_EXPERIMENT",
+      "production_gate_role": "NONE"
+    },
+    {
+      "id": 3,
+      "name": "sequential_advice_for_no_prefetch_deferred_mappings",
+      "nested": "fb8e271dcafd33b5ba5300bd0d69c4bee5b1e6ce",
+      "decision": "RETAIN_PARTIAL_IMPROVEMENT",
+      "focused_test": "PASS",
+      "max_native_512m_exact_equality_smoke": "PASS",
+      "max_native_96gib_endpoint": "FAIL_HARD_FLOOR",
+      "k3_cpu_best": false
+    }
+  ],
+  "validation": [
+    {
+      "level": 1,
+      "command": "ctest --test-dir <matched-max-native-build> -R '^test-expert-cache-policy$' --output-on-failure --parallel 1",
+      "result": "PASS on baseline, candidate 1, candidate 3 and final rebuilt source"
+    },
+    {
+      "level": 2,
+      "result": "NOT_REQUIRED; retained deltas do not change generations, cancellation, retries, scheduler state, publication, I/O ownership, or cache/slot lifetime."
+    },
+    {
+      "level": 3,
+      "result": "PASS; matched max-native 512-MiB SERIAL/BATCHED smoke has exact output, work, cache, bytes, concurrency and terminal-resource equality."
+    },
+    {
+      "level": 4,
+      "result": "CORRECTNESS PASS / PERFORMANCE FAIL; best 96-GiB endpoint is 0.041758 tok/s."
+    },
+    {
+      "level": 5,
+      "result": "NOT RUN because no candidate met the hard floor."
+    }
+  ],
+  "raw_evidence": {
+    "root": "/mnt/nvme1/issue89/d3p-max-native",
+    "storage": "host-local; large perf capture intentionally not committed",
+    "artifacts": [
+      {"path": "screen-96gib-baseline-7930fdcf/batched-8.json", "sha256": "d0f5eb92ce84043102ee200ad2bfd0f920de6399fe23a917fbe69d675892688c", "size": 8628},
+      {"path": "screen-96gib-baseline-7930fdcf/batched-8-envelope.json", "sha256": "8e092108f8c972250561aa3abb75c5bdaea1c45b302474ce7d05fdde5c54b4fb", "size": 25451},
+      {"path": "screen-96gib-candidate-8f7cd238/batched-8.json", "sha256": "d43002436eb04000abcf678cda0bf54b8e21f872c0db7d569f14cbd2665492d9", "size": 8636},
+      {"path": "screen-96gib-candidate-8f7cd238/batched-8-envelope.json", "sha256": "0c8547338164a5f2d3e70c27477ba11c4dec787a86f267465853a6ff9a257059", "size": 25457},
+      {"path": "profile-candidate-8f7cd238/profile-batched-4.json", "sha256": "9ee459a2479725417e908b970f31c20c33ccb8d2d3e342347cf7a159bfd2d8c3", "size": 8577},
+      {"path": "profile-candidate-8f7cd238/profile-batched-4-envelope.json", "sha256": "ea1f497845b375a754bcc035b33baa5f824000fe1606114274c2459e5998b1c6", "size": 25460},
+      {"path": "profile-candidate-8f7cd238/perf-stat-60s.txt", "sha256": "f0813371d04519c951758182dffd832a3d45537dcce7f32dd65ba5f1127bf893", "size": 990},
+      {"path": "profile-candidate-8f7cd238/perf-stacks-60s.data", "sha256": "2aa0dc730c556683bb55d3977ce1eed248df1d62d0186fdfcec422e0e9452e13", "size": 587002988},
+      {"path": "profile-candidate-8f7cd238/process.folded", "sha256": "785feeebe11187c60773e63a979b2da712bd4a5dd6d25bc3f5cc6d9632166a35", "size": 37215},
+      {"path": "profile-candidate-8f7cd238/process.svg", "sha256": "72e30a3dee16400481dcc6565661d66e791e742e77ec566aa4062affa73938de", "size": 26114},
+      {"path": "profile-candidate-8f7cd238/main.folded", "sha256": "d8d0e63fd86a783c4ae1c2f0357b3868ccdd944775e0e5fcd41f3f67b4762ae2", "size": 16201},
+      {"path": "profile-candidate-8f7cd238/main.svg", "sha256": "f7ea5beedb8f21158de687ecac8e07f844c3ec94261d1b8c34a74cc87bec1e3a", "size": 23960},
+      {"path": "capacity-control-64gib-candidate-8f7cd238/batched-4.json", "sha256": "6cfd67b36cda716d3ab2f66bcd93c4900223cf9a223a6a7ab31eea0a4c76f092", "size": 8555},
+      {"path": "capacity-control-64gib-candidate-8f7cd238/batched-4-envelope.json", "sha256": "495a87b3bb6b49a747c6fd66d42eb023e124152557895d92f7fc39959f1ee617", "size": 25340},
+      {"path": "candidate3-sequential/smoke-512m/serial.json", "sha256": "12b937a1f029743742a7f24924928e10e7995137a71471d954e3be2baea10e76", "size": 8453},
+      {"path": "candidate3-sequential/smoke-512m/batched.json", "sha256": "cf86873e552027c6fd46162e959a89ff1b074d2d59ecf5d5c64ff877f5a73851", "size": 8457},
+      {"path": "candidate3-sequential/screen-96gib/batched-4.json", "sha256": "772f5f028d7b5b9d3e91891ab02a811344fe68e13b054b97562a4f0d2d33fc6f", "size": 8588},
+      {"path": "candidate3-sequential/screen-96gib/batched-4-envelope.json", "sha256": "b07b19ea378a9c6c9203faa12de96a130a2305fc868906d2b8e02f6097a384a3", "size": 25388}
+    ]
+  },
+  "quarantine": {
+    "historical_avx2_static_root": "/mnt/nvme1/issue89/d3p",
+    "mixed_native_shared_cell": "/mnt/nvme1/issue89/d3p/candidate-1-policy-linear/screen-96gib",
+    "classification": "not used for K3_CPU_BEST or the 0.20 tok/s gate"
+  },
+  "design_return": {
+    "measured_bottleneck": "The full 96-GiB anonymous ColdExpertCache competes with the non-expert mmap working set and causes sustained reclaim/refault amplification.",
+    "measured_p50_recoverable_interval_s": 18.298278113,
+    "scope_boundary": "Meeting the floor requires changing fixed capacity, host RAM, resident footprint/residency, storage mechanism/layout, quantization or another frozen semantic.",
+    "smallest_proposed_delta": "Amend capacity to a measured residency-safe point, add physical RAM, or explicitly authorize a constrained resident-footprint/residency mechanism.",
+    "current_layer_expert_residency_protection": "NOT_PROPOSED; explicitly excluded from D3P.",
+    "full_conformance_run": false,
+    "final_d3_campaign_run": false,
+    "checkpoint_c_requested": false,
+    "merge_permitted": false,
+    "dependent_cpu_campaign_restart_permitted": false
+  },
+  "deferred_qualification": {
+    "physical_coherent_uma": "DEFERRED_TO_92",
+    "discrete_cuda": "DEFERRED_TO_93"
+  }
+}
