@@ -13,6 +13,7 @@ import pathlib
 import statistics
 import subprocess
 import sys
+import time
 from typing import Any
 
 
@@ -86,6 +87,18 @@ def scalar_snapshot(path: pathlib.Path) -> dict[str, int | str]:
             except ValueError:
                 result[fields[0].rstrip(":")] = " ".join(fields[1:])
     return result
+
+
+def scalar_value(path: pathlib.Path) -> int | None:
+    try:
+        return int(path.read_text().strip())
+    except (FileNotFoundError, ValueError):
+        return None
+
+
+def process_status(pid: int) -> dict[str, int | str]:
+    path = pathlib.Path("/proc") / str(pid) / "status"
+    return scalar_snapshot(path) if path.exists() else {}
 
 
 def current_cgroup_memory_events() -> pathlib.Path | None:
@@ -237,6 +250,7 @@ def build_summary(results: list[dict[str, Any]], preregistration: dict[str, Any]
     p95_ratios: list[float] = []
     p99_ratios: list[float] = []
     peak_rss_ratios: list[float] = []
+    batched_tps: list[float] = []
     for pair_index in range(preregistration["pair_count"]):
         pair_runs = [item for item in results if item["pair"] == pair_index + 1]
         serial = next(item["result"] for item in pair_runs if item["mode"] == "SERIAL")
@@ -250,6 +264,7 @@ def build_summary(results: list[dict[str, Any]], preregistration: dict[str, Any]
         p95_ratios.append(p95_ratio)
         p99_ratios.append(p99_ratio)
         peak_rss_ratios.append(peak_rss_ratio)
+        batched_tps.append(batched["measured"]["decode_tok_s"])
         pairs.append({
             "pair": pair_index + 1,
             "tps_ratio_batched_over_serial": tps_ratio,
@@ -287,9 +302,14 @@ def build_summary(results: list[dict[str, Any]], preregistration: dict[str, Any]
         classification = "CPU_PERF_EQUIVALENT_CLEANER"
     else:
         classification = "CPU_PERF_AMBIGUOUS"
+    hard_floor = preregistration["batched_hard_floor"]
+    batched_median = statistics.median(batched_tps)
+    materially_below_floor = hard_floor*(1.0 - floors["median_decode_tps"])
+    hard_floor_pass = batched_median >= hard_floor and min(batched_tps) >= materially_below_floor
     return {
         "schema_version": "phase13-6p-cpu-paired-summary-v1",
-        "status": "pass" if classification != "CPU_PERF_AMBIGUOUS" else "ambiguous",
+        "status": "pass" if classification != "CPU_PERF_AMBIGUOUS" and hard_floor_pass else
+            "ambiguous" if classification == "CPU_PERF_AMBIGUOUS" else "fail",
         "classification": classification,
         "pairs": pairs,
         "tps_ratio": tps,
@@ -299,6 +319,14 @@ def build_summary(results: list[dict[str, Any]], preregistration: dict[str, Any]
         "parity_in_intervals": parity_in_intervals,
         "within_point_floors": within_point_floors,
         "all_work_and_outputs_equal": True,
+        "batched_endpoint": {
+            "samples_decode_tok_s": batched_tps,
+            "median_decode_tok_s": batched_median,
+            "minimum_decode_tok_s": min(batched_tps),
+            "hard_floor_decode_tok_s": hard_floor,
+            "materially_below_floor_decode_tok_s": materially_below_floor,
+            "pass": hard_floor_pass,
+        },
         "preregistration": preregistration,
     }
 
@@ -338,6 +366,7 @@ def main() -> int:
             "owned_or_pinned_memory": 0.05,
         },
         "correctness_and_lifetime_tolerance": 0,
+        "batched_hard_floor": 0.20,
         "all_hit_rule": "no material regression in focused all-hit evidence",
         "identities": {
             "parent": git_head(parent),
@@ -382,10 +411,52 @@ def main() -> int:
                 "--threads", str(args.threads), "--n-ctx", str(args.n_ctx),
             ]
             before = host_snapshot(devices)
+            cgroup_events = current_cgroup_memory_events()
+            cgroup_current = cgroup_events.parent / "memory.current" if cgroup_events else None
+            samples = {
+                "count": 0,
+                "minimum_mem_available_kib": before["meminfo"].get("MemAvailable"),
+                "peak_cgroup_memory_current_bytes": scalar_value(cgroup_current) if cgroup_current else None,
+                "peak_sampled_process_rss_kib": 0,
+                "peak_sampled_process_hwm_kib": 0,
+                "peak_sampled_process_swap_kib": 0,
+                "cpu_affinity_allowed_list": None,
+            }
             print(f"start {stem} {before['utc']}", flush=True)
             with (output_root / f"{stem}.stdout.log").open("w") as stdout, \
                     (output_root / f"{stem}.stderr.log").open("w") as stderr:
-                process = subprocess.run(command, stdout=stdout, stderr=stderr, check=False)
+                process = subprocess.Popen(command, stdout=stdout, stderr=stderr)
+                while True:
+                    meminfo = scalar_snapshot(pathlib.Path("/proc/meminfo"))
+                    status = process_status(process.pid)
+                    samples["count"] += 1
+                    available = meminfo.get("MemAvailable")
+                    if isinstance(available, int):
+                        previous = samples["minimum_mem_available_kib"]
+                        samples["minimum_mem_available_kib"] = (
+                            available if previous is None else min(previous, available)
+                        )
+                    current = scalar_value(cgroup_current) if cgroup_current else None
+                    if current is not None:
+                        previous = samples["peak_cgroup_memory_current_bytes"]
+                        samples["peak_cgroup_memory_current_bytes"] = (
+                            current if previous is None else max(previous, current)
+                        )
+                    for source, target in (
+                        ("VmRSS", "peak_sampled_process_rss_kib"),
+                        ("VmHWM", "peak_sampled_process_hwm_kib"),
+                        ("VmSwap", "peak_sampled_process_swap_kib"),
+                    ):
+                        value = status.get(source)
+                        if isinstance(value, int):
+                            samples[target] = max(samples[target], value)
+                    affinity = status.get("Cpus_allowed_list")
+                    if affinity is not None:
+                        samples["cpu_affinity_allowed_list"] = affinity
+                    returncode = process.poll()
+                    if returncode is not None:
+                        break
+                    time.sleep(1)
             after = host_snapshot(devices)
             envelope = {
                 "schema_version": "phase13-6p-cpu-run-envelope-v1",
@@ -393,15 +464,16 @@ def main() -> int:
                 "pair": pair_index,
                 "mode": mode,
                 "command": command,
-                "exit_status": process.returncode,
+                "exit_status": returncode,
+                "resource_samples": samples,
                 "before": before,
                 "after": after,
                 "delta": host_delta(before, after),
             }
             write_json(envelope_path, envelope)
             verify_host_envelope(envelope)
-            if process.returncode != 0 or not result_path.exists():
-                raise RuntimeError(f"{stem} failed with exit status {process.returncode}")
+            if returncode != 0 or not result_path.exists():
+                raise RuntimeError(f"{stem} failed with exit status {returncode}")
             result = load_json(result_path)
             if result.get("status") != "pass" or result["execution"]["current_layer_issue_mode"] != mode:
                 raise RuntimeError(f"{stem} result identity/status mismatch")
