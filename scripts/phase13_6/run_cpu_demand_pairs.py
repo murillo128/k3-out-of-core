@@ -206,6 +206,14 @@ def verify_pair(serial: dict[str, Any], batched: dict[str, Any]) -> None:
         raise RuntimeError("serial control exceeded one K3 bundle operation width")
     if batched_async["peak_active_operations_lifetime"] < 6:
         raise RuntimeError("batched path did not prove concurrent read operations")
+    if serial_async["peak_ring_batch_requests_lifetime"] != 1:
+        raise RuntimeError("serial control did not retain one-request kernel issue width")
+    if batched_async["peak_ring_batch_requests_lifetime"] < 2:
+        raise RuntimeError("batched path did not issue multiple expert requests to io_uring")
+    if batched_async["peak_sq_occupancy_lifetime"] <= serial_async["peak_sq_occupancy_lifetime"]:
+        raise RuntimeError("batched path did not increase native io_uring SQ occupancy")
+    if batched["execution"]["direct_staging_lanes"] < 2:
+        raise RuntimeError("batched path did not provision concurrent O_DIRECT staging lanes")
 
 
 def log_ci(values: list[float]) -> dict[str, float]:
