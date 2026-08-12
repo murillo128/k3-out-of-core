@@ -9,7 +9,7 @@ Reproducibility means reproducing the exact optimized build/runtime envelope use
 For host-specific performance work and expensive runtime/integration/full-model tests, default to the fastest production-representative build that preserves the tested semantics:
 
 ```text
-Release
+Release / production optimization
 + maximum stable native CPU ISA/features exposed by the host
 + maximum normal production backend optimizations
 + production linkage/configuration chosen for the runtime
@@ -25,7 +25,7 @@ Reproduce and compare optimized runs by recording enough identity to prove the b
 host CPU/model and exposed feature flags
 compiler + version
 generator/toolchain
-Release/build type
+Release/build type and optimization level
 GGML_NATIVE or equivalent
 resolved ISA/backend feature set
 relevant C/CXX flags
@@ -49,11 +49,25 @@ Reuse the already-configured optimized build whenever the test semantics do not 
 
 ### Expensive integration, real-model, full-model and hardware tests
 
-Use an optimized Release max-native build by default. These tests may take minutes or hours; do not multiply their cost with a generic/portable ISA merely for reproducibility.
+Use an optimized Release/max-native build by default. These tests may take minutes or hours; do not multiply their cost with a generic/portable ISA merely for reproducibility.
 
 ### Performance tests
 
-Always use the production-performance build envelope required by `profile-performance-tuning`: unprofiled Release, maximum stable native features for the fixed decision host, and Mode-P discipline.
+Always use the production-performance build envelope required by `profile-performance-tuning`: unprofiled Release/production optimization, maximum stable native features for the fixed decision host, and Mode-P discipline.
+
+### Profiling / attribution runs
+
+Profiling should preserve the optimized production code path whenever the profiler permits it.
+
+Perfetto/ftrace does **not** require a de-optimized build. Run it against the same Release/max-native binary/configuration used by the adjacent production cell, with tracing enabled only for the bounded profiling run.
+
+`perf stat` likewise uses the same optimized binary.
+
+For `perf record` / folded stacks / FlameGraph, keep normal production optimization and max-native code generation. Add symbol/debug information (`-g`, an equivalent CMake configuration, or separate debug symbols) without lowering optimization. Do not switch to `Debug`, `-O0`, generic ISA, or another slow build merely to obtain symbols.
+
+If reliable stack unwinding requires an additional code-generation change such as `-fno-omit-frame-pointer`, treat that as a **profiling-only fingerprint delta**, use it only when needed, and keep an adjacent unprofiled control on the untouched production binary. Prefer DWARF/separate-symbol unwinding when reliable enough to avoid changing production code generation.
+
+Profiler perturbation belongs to the profiler configuration/run, not to an intentionally slower application build. Throughput acceptance still comes only from the clean unprofiled production cell.
 
 ### Debug/assertion/sanitizer/race tests
 
