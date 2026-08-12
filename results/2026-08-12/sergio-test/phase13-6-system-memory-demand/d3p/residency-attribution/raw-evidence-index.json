@@ -1,0 +1,24 @@
+{
+  "schema_version": "phase13-6p-residency-external-index-v1",
+  "root": "/mnt/nvme1/issue89/d3p-max-native/residency-attribution",
+  "raw_checksum_manifest": {
+    "path": "/mnt/nvme1/issue89/d3p-max-native/residency-attribution/raw-checksums.json",
+    "size": 30436,
+    "sha256": "e6a1f4532665159adf8ab2650d881f2c8db9a3878d234590e6cf888797667077",
+    "indexed_file_count": 155,
+    "indexed_total_bytes": 4069633,
+    "canonical_tree_sha256": "a64bcac92a7235ec169e260b4c5179f26316e96304584e51ee141939ad59e0ca"
+  },
+  "key_artifacts": [
+    {"path": "retained-96gib-residency/metadata.json", "size": 37638, "sha256": "154f7d9d4b78b95db422d2f4f6b7663b28b2216799c1958a63147f56527e00bf"},
+    {"path": "retained-96gib-residency/result.json", "size": 8587, "sha256": "9809bb75c30b6a688dd62f139dcc149399c271ad2ee3406de8183fd5b16c690d"},
+    {"path": "retained-96gib-residency/residency.json", "size": 189401, "sha256": "7dd72d0fbd6d07cd016c60f412ce086127520f0420e227dd5e6a7790820920a8"},
+    {"path": "retained-96gib-residency/samples.jsonl", "size": 1249515, "sha256": "00ca726fb4eb64e20dcde625f73a7df9595ce70042cb6f4eb8446352ebc5d07c"},
+    {"path": "retained-96gib-residency/perf-stat.txt", "size": 895, "sha256": "dcad108b50d7fb5764928e2806e3f4626aac6a9d401e5f2a34cb956684c1836b"},
+    {"path": "retained-96gib-residency/perf-major-faults.data", "size": 89848, "sha256": "44ea82fa7aa64ad62c6f74ddfcbfac2cb972ff083c3df5529d468a27b5c8c1b3"},
+    {"path": "control-64gib-residency/metadata.json", "size": 35643, "sha256": "212b174599e2dd5db8ce884809b6d84a82d14a3d04a01e9b5abbff82899355a4"},
+    {"path": "control-64gib-residency/result.json", "size": 8548, "sha256": "5a701658d17d638495333debf35edf2f4eef78d5dbfe69f8a7fdccd4662ac5a3"},
+    {"path": "control-64gib-residency/residency.json", "size": 63833, "sha256": "114fd792d38095c63f1bee1b52659212555a05464b1bdd3a975408738d7ccbff"},
+    {"path": "control-64gib-residency/samples.jsonl", "size": 617785, "sha256": "dbdc5242a25503dff9d127570d049c9ecb499526b762471be988420a4f0a5590"}
+  ]
+}
