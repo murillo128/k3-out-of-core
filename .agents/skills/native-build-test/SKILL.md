@@ -1,26 +1,51 @@
 ---
 name: native-build-test
-description: Accelerate non-trivial CMake and CTest loops conservatively by deriving safe parallelism from online CPUs and available memory while preserving incremental builds, test isolation, and truthful failures.
+description: Accelerate non-trivial CMake and CTest loops conservatively by deriving safe parallelism from online CPUs and available memory while preserving incremental builds, test isolation, truthful failures, and optimized host-native execution for expensive tests.
 ---
 
 # Native Build and Test Acceleration
 
 ## Responsibility
 
-Use this utility skill when an executor or independent reviewer is about to run a non-trivial native CMake build or CTest suite. It optimizes only operational build/test scheduling. The controlling issue, exact build configuration, selected targets, test semantics, and evidence requirements remain authoritative.
+Use this utility skill when an executor or independent reviewer is about to run a non-trivial native CMake build or CTest suite. It optimizes operational build/test scheduling and avoids unnecessary de-optimization of expensive same-host tests. The controlling issue, exact test semantics, and evidence requirements remain authoritative.
 
-The objective is to avoid habitual fixed low parallelism such as `-j4` on large hosts without trading speed for OOMs, flaky shared-resource tests, hidden retries, or irreproducible validation.
+When the work includes performance, real-model, full-model, hardware, or otherwise expensive integration execution, also read `MAX_NATIVE_POLICY.md` once and apply it unless the controlling issue explicitly requires a different build envelope.
+
+The objective is to avoid habitual fixed low parallelism such as `-j4` and slow portability-oriented builds on capable hosts without trading speed for OOMs, flaky shared-resource tests, hidden retries, invalid A/B comparisons, or irreproducible validation.
 
 ## Hard boundaries
 
-- Keep the existing CMake generator, configure flags, build type, toolchain, build directory, targets, and test selection unless the controlling issue authorizes a change.
-- Prefer incremental builds. Do not clean, reconfigure, use `--clean-first`, or create another build directory solely to gain parallelism.
+- Keep the existing CMake generator, toolchain, targets, and test selection unless the controlling issue authorizes a change. Preserve an explicitly issue-pinned build configuration when that configuration is itself an evidence input.
+- Do **not** preserve a slower generic/minimum-ISA build merely for reproducibility when the active outcome is host-specific performance or an expensive same-host integration/full-model test. Follow `MAX_NATIVE_POLICY.md`: reproducibility is the exact optimized build fingerprint, not deliberate de-optimization.
+- Prefer incremental builds. Do not clean, reconfigure, use `--clean-first`, or create another build directory solely to gain parallelism. A separate optimized or sanitizer build directory is justified when the active test class genuinely requires a different build envelope; reuse it afterward.
 - Do not install or enable `ccache`, `sccache`, Ninja, or another tool automatically. Reuse them only when the existing build is already configured to do so.
 - Do not run two builds that write the same build directory concurrently.
 - Do not overlap a build with tests from that build directory.
 - Do not parallelize decision-driving performance runs, full-model runs, GPU-sharing tests, fixed-port tests, pressure tests, or tests that intentionally contend for the same files/device unless the issue explicitly defines that concurrency.
 - Parallelism is an operational choice unless the issue or command makes it part of the tested configuration. Never alter a decision-driving queue depth, worker count, thread count, or benchmark concurrency under this skill.
 - A job count typed by the agent from habit is not authoritative. An explicit issue requirement or operator-provided override is.
+
+## Build-envelope rule
+
+Before paying for an expensive test, classify the required build:
+
+```text
+host-specific performance / full-model / expensive integration
+    -> optimized Release + maximum stable native features exposed by the host
+
+focused ordinary correctness
+    -> reuse the existing optimized build when semantics permit
+
+Debug / assertions / ASan / UBSan / TSan / race instrumentation
+    -> dedicated instrumented build only for the tests that require it
+
+portability / minimum-ISA compatibility
+    -> explicit generic/capped build only because portability is the claim
+```
+
+Do not run a many-minute/hour full-model test in a generic, AVX2-capped, Debug, sanitizer, or otherwise slower build unless that exact build property is decision-driving.
+
+For A/B comparisons, require matching build fingerprints except for the intentional delta. A mismatch in ISA/native flags, compiler/toolchain, linkage, Release/debug mode, backend variant, or other material codegen input invalidates performance attribution; do not interpret the resulting TPS difference.
 
 ## Respect explicit overrides
 
@@ -32,6 +57,8 @@ Use an explicit positive integer from the first applicable source:
 4. otherwise derive safe values below.
 
 When an exact issue command contains a fixed parallelism value, run it as written first. Change only the operational parallelism on later repetitions when the issue does not treat that value as evidence identity and the result remains directly comparable.
+
+An issue-pinned historical build envelope remains authoritative only for the evidence cell that actually requires it. It does not automatically cap a later `*_BEST` or expensive production-representative qualification unless the issue says so.
 
 ## Derive safe parallelism once per host and build class
 
@@ -102,7 +129,7 @@ Print the chosen values once in the terminal/log. Do not add routine job-count p
 
 ## Build efficiently
 
-- Configure only when required by changed CMake inputs or a missing build directory.
+- Configure only when required by changed CMake inputs, a missing build directory, or a genuinely different build class from `MAX_NATIVE_POLICY.md`.
 - Build the smallest useful target set first, then the wider required set at the checkpoint.
 - Prefer the generator-neutral form:
 
@@ -114,6 +141,7 @@ cmake --build <build-dir> --parallel "$build_jobs" --target <target>...
 - Replace an agent-invented `-j4` with the derived value. Do not rewrite an operator/issue-mandated `-j4` silently.
 - Preserve multi-config `--config` arguments and all other command semantics.
 - Reuse already-built dependencies and existing native targets rather than invoking a broad `all` build after every edit.
+- For a fixed decision host, prefer the repository's supported maximum-native feature path. If auto-detection is unreliable, use an explicit maximum feature set matching the host rather than falling back to a slower generic baseline.
 
 ## Test efficiently and safely
 
@@ -127,6 +155,8 @@ ctest --test-dir <build-dir> \
 ```
 
 Use `CTEST_PARALLEL_LEVEL="$test_jobs"` when a repository wrapper invokes CTest without an explicit parallel flag.
+
+Before an expensive integration/full-model/hardware test, verify the build class is appropriate. Do not spend real-model runtime on a deliberately slower compatibility or instrumentation build unless that build is the test subject.
 
 Run serially when a test:
 
@@ -148,11 +178,11 @@ Build focused test executables in one parallel build, then run independent tests
 
 ## Expected behavior on common project hosts
 
-The formula intentionally remains conservative:
+The formula intentionally remains conservative for scheduling but not for code generation:
 
-- a 32-logical-CPU / ~192-GiB OCI host normally selects `build_jobs=32` rather than `4`;
+- a 32-logical-CPU / ~192-GiB OCI host normally selects `build_jobs=32` rather than `4`, while expensive host-specific CPU tests use its maximum stable native ISA rather than an AVX2 portability cap;
 - a 72-logical-CPU / ~48-GiB host remains memory-limited rather than selecting all CPUs;
 - a small 8-GiB VM stays near `build_jobs=2` or `3` depending on current headroom;
-- CUDA/sanitizer builds receive fewer jobs than ordinary Release builds on the same host.
+- CUDA/sanitizer builds receive fewer compile jobs than ordinary Release builds on the same host, and sanitizer execution is kept to the tests that require it.
 
-These are examples, not fixed configuration. Always derive from the actual host and respect explicit overrides.
+These are examples, not fixed configuration. Always derive from the actual host and respect explicit overrides and test purpose.
