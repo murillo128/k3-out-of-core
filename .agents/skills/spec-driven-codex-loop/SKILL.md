@@ -19,6 +19,8 @@ Load once:
 2. the controlling issue;
 3. only the exact plan, decision, source, test, build, manifest, or external inputs needed by the active outcome.
 
+When the active outcome becomes profiling or performance tuning, also load `.agents/skills/profile-performance-tuning/SKILL.md` as the utility procedure for clean production-performance measurement, profiler separation, causal tuning, and the tuning validation pyramid. The controlling issue still owns scope, workload, thresholds, and exit gates; this executor skill still owns progression, publication, and handoff.
+
 Assume the design authority may have more context and stronger reasoning. Do not weaken the issue, reconstruct its intent from history, or choose between materially different implementations when the issue is silent. Return to design instead.
 
 On resume, verify branch, `HEAD`, worktree, the controlling issue's single authoritative state label, and new material comments. Body readiness and state prose in comments are historical; the label alone determines current workflow state. Reuse unchanged inspected context.
