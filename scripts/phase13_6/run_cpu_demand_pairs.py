@@ -88,15 +88,25 @@ def scalar_snapshot(path: pathlib.Path) -> dict[str, int | str]:
     return result
 
 
+def current_cgroup_memory_events() -> pathlib.Path | None:
+    for line in pathlib.Path("/proc/self/cgroup").read_text().splitlines():
+        fields = line.split(":", 2)
+        if len(fields) == 3 and fields[0] == "0" and fields[1] == "":
+            candidate = pathlib.Path("/sys/fs/cgroup") / fields[2].lstrip("/") / "memory.events"
+            return candidate if candidate.exists() else None
+    return None
+
+
 def host_snapshot(devices: list[str]) -> dict[str, Any]:
-    cgroup_events = pathlib.Path("/sys/fs/cgroup/memory.events")
+    cgroup_events = current_cgroup_memory_events()
     pressure = pathlib.Path("/proc/pressure/memory")
     return {
         "utc": utc_now(),
         "nvme": nvme_snapshot(devices),
         "meminfo": scalar_snapshot(pathlib.Path("/proc/meminfo")),
         "vmstat": scalar_snapshot(pathlib.Path("/proc/vmstat")),
-        "cgroup_memory_events": scalar_snapshot(cgroup_events) if cgroup_events.exists() else {},
+        "cgroup_memory_events_path": str(cgroup_events) if cgroup_events is not None else None,
+        "cgroup_memory_events": scalar_snapshot(cgroup_events) if cgroup_events is not None else {},
         "memory_pressure": pressure.read_text().splitlines() if pressure.exists() else [],
     }
 
