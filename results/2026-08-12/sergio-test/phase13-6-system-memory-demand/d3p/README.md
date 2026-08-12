@@ -1,5 +1,10 @@
 # Phase 13.6 D3P CPU production-performance recovery
 
+> **Superseded production status:** this report remains the immutable pre-autofit
+> 96-GiB design return. The later accepted common system-memory autofit and
+> passing final CPU D3 are recorded in [autofit/README.md](autofit/README.md)
+> and [autofit/manifest.json](autofit/manifest.json).
+
 Status: `DESIGN_REQUIRED_NO_ACCEPTABLE_K3_CPU_BEST`
 
 Checkpoint B remains the accepted correctness/concurrency floor at project
