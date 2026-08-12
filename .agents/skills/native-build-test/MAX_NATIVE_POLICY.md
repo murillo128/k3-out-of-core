@@ -51,6 +51,25 @@ Reuse the already-configured optimized build whenever the test semantics do not 
 
 Use an optimized Release/max-native build by default. These tests may take minutes or hours; do not multiply their cost with a generic/portable ISA merely for reproducibility.
 
+Before accepting an expensive or decision-driving run as representative performance evidence, perform a small **residency sanity check**. Verify that the tested working set has not crossed into sustained memory-pressure/reclaim behavior that would dominate the result.
+
+At minimum use the available same-host evidence to inspect:
+
+```text
+RSS / peak RSS / MemAvailable
+swap / OOM
+process major faults
+workingset_refault and/or pgscan / pgsteal when available
+PSI memory when available
+unexpected physical-read amplification from fault-driven file-backed rereads
+```
+
+Zero swap/OOM is **not** sufficient by itself. Sustained major faults, refaults, page stealing, monotonic loss of headroom, or a pressure-correlated latency/throughput cliff means the cell is pressure-contaminated.
+
+Unless memory-pressure behavior is itself the test target, do not use such a cell as the normal performance baseline, candidate-selection result, or hard-gate evidence. Preserve it as stress/negative evidence, identify the pressure cause, and use a residency-safe configuration for representative performance measurement. For an AUTO-sized cache or memory pool, an accepted production cell should remain on the pressure-free side of the observed same-host residency knee.
+
+Optional counters being unavailable does not by itself block a run when the remaining host/process evidence is sufficient to classify residency honestly. Do not rerun an hours-long cell solely to obtain one unavailable optional counter.
+
 ### Performance tests
 
 Always use the production-performance build envelope required by `profile-performance-tuning`: unprofiled Release/production optimization, maximum stable native features for the fixed decision host, and Mode-P discipline.
