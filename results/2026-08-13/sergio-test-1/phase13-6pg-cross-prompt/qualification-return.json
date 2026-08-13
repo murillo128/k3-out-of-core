@@ -1,0 +1,131 @@
+{
+  "schema_version": "phase13-6pg-qualification-return-v1",
+  "captured_utc": "2026-08-13T14:49:25Z",
+  "status": "fail-closed-before-stage-a",
+  "revisions": {
+    "project": "c379b34067c6dcec67e01b98a1c2b61eddf13179",
+    "nested_llama_cpp": "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9"
+  },
+  "frozen_inputs": {
+    "helper_binary_sha256": "c35cdc52d3669b080972e1c1ac68df6b88290e79d46c92edde2f48eae3733975",
+    "helper_source_sha256": "1ba6c540196e7f777f9ec761813b240057f08abfbc5ce711cae037c4babf8b43",
+    "execution_manifest_sha256": "e0f1746f987f888d68a36261a2822f4754a413b7799c6252aae8a4ded2a900d8",
+    "model_identity_sha256": "58b14d13a602944e1134fc753b2cc819a84a31290aee9c1479264a66dbb5efe2",
+    "build_fingerprint_sha256": "d150d179f41ebd2deab49b663e64c909b7d8fa6b4546c716aee889479f633a10",
+    "expert_bundle_bytes": 17547264,
+    "target_cache_slots": 7849,
+    "target_cache_bytes": 137728475136
+  },
+  "raw_evidence_root": "/mnt/nvme1/issue102/qualification",
+  "legacy_helper_parity": {
+    "protocol": "legacy-first-full",
+    "n_ctx": 256,
+    "point": "S2_P50",
+    "required_cache_slots": 7849,
+    "required_cache_bytes": 137728475136,
+    "result": "not_measured_admission_rejected",
+    "attempts": [
+      {
+        "name": "legacy-parity-01",
+        "status": "admission_rejected_before_inference",
+        "exit_status": 1,
+        "result_present": false,
+        "runner_sha256": "e1bd2f9c37d91c13183b981270d5dfccb893bf97695c68d0528f3e6a4c42906c",
+        "envelope_sha256": "01d3a877b4578fc268ca252da15cf3792d3235ef56711c1b4e49084b270ab347",
+        "stderr_sha256": "0f6d3b45b046f4f26da59ca25cecadcaa15a9e5775db736de622def87ba53267"
+      },
+      {
+        "name": "legacy-parity-02",
+        "status": "admission_rejected_before_inference",
+        "exit_status": 1,
+        "result_present": false,
+        "runner_sha256": "d5dddacc8cf250022d26ce98e6ddb74ab722b98567f08a4da31e15bb07e04b82",
+        "envelope_sha256": "5cf184267f53bf884ca3c47ff39701627fd0cab848a859f7d9512d88b15287be",
+        "stderr_sha256": "0f6d3b45b046f4f26da59ca25cecadcaa15a9e5775db736de622def87ba53267"
+      }
+    ],
+    "common_failure": "system-memory cold-cache budget rejected context initialization after a non-gating io_uring buffer-registration ENOMEM warning",
+    "host_safety": {
+      "swap_events": 0,
+      "reclaim_refault_events": 0,
+      "memory_psi_total_delta_usec": 0,
+      "cgroup_memory_events": 0,
+      "oom_events": 0
+    },
+    "deterministic_signature_inspected": false
+  },
+  "n_ctx_768_target_capacity": {
+    "protocol": "full-prompt",
+    "point": "EXACT",
+    "decode_forwards": 1,
+    "requested_slots": 7849,
+    "requested_bytes": 137728475136,
+    "attempts": [
+      {
+        "name": "capacity-target-01",
+        "status": "admission_rejected",
+        "runner_sha256": "ad7f3908e06909e089708e602422856504e5ec68189149663b4a8ed6b7601744",
+        "disposition_sha256": "6a6d5cabf146b11af135ac6fffb8f32c4e14167c9a12d82b3fcc01ad34ed6026",
+        "envelope_sha256": "6a4bfa2fe78a75cf7acae8daf6f385888a19559f27a78d1b60f60106bc606aeb"
+      },
+      {
+        "name": "capacity-target-02",
+        "status": "admission_rejected",
+        "runner_sha256": "ad7f3908e06909e089708e602422856504e5ec68189149663b4a8ed6b7601744",
+        "disposition_sha256": "aebfea8bcb9c055f33a20a2bab9a3e0ce2c9e77014ad47dbbf64ef2ddb1b3573",
+        "envelope_sha256": "6f717e3e05e19c8094126c75a527550752c97a084dcea1abba06e113de918e93"
+      },
+      {
+        "name": "capacity-target-03",
+        "status": "admission_rejected",
+        "runner_sha256": "ad7f3908e06909e089708e602422856504e5ec68189149663b4a8ed6b7601744",
+        "disposition_sha256": "e74417e833f342e226e10126036e477857e80f79c20f383df8db349a4775d497",
+        "envelope_sha256": "e388a64f4f937fed3b7abc573b9e960f721d6acb1cd961c3468cc30124892d81"
+      }
+    ],
+    "all_host_safety_clean": true,
+    "performance_or_locality_inspected": false
+  },
+  "auto_capacity_diagnostic": {
+    "name": "capacity-auto-01",
+    "qualification_status": "invalid_validator_schema_mismatch",
+    "invalid_reason": "the inherited EXACT structural-zero check treated non-numeric maximum-regret availability metadata as a nonzero routing counter",
+    "runner_sha256": "ad7f3908e06909e089708e602422856504e5ec68189149663b4a8ed6b7601744",
+    "envelope_sha256": "d065482aaf7a1df97530e6b2cb27e4afe97f4587820d26f7383c618d7a04195e",
+    "result_sha256": "0eb08526df3e7a782d4661a1e54ab43e8bace95c393e99965e1f69651c8bfce4",
+    "process_exit_status": 0,
+    "safety_only_observation": {
+      "selected_slots": 7807,
+      "selected_bytes": 136991490048,
+      "safe_pool_bytes": 138079420416,
+      "admission_safe_pool_bytes": 136991490048,
+      "target_delta_slots": -42,
+      "target_delta_bytes": -736985088,
+      "target_delta_percent": -0.5351000127404765,
+      "measured_non_pool_committed_bytes": 117892016512,
+      "reference_non_pool_committed_bytes": 117154765184,
+      "non_pool_delta_bytes": 737251328,
+      "swap_events": 0,
+      "reclaim_refault_events": 0,
+      "memory_psi_total_delta_usec": 0,
+      "cgroup_memory_events": 0,
+      "pressure_rejections": 0,
+      "pressure_circuit_open": false
+    },
+    "performance_or_locality_inspected": false,
+    "usable_for_capacity_freeze": false
+  },
+  "tooling_after_diagnostic_correction": {
+    "safety_runner_sha256": "5e45340fce13a28e5d16e2c3c3571cc2a8fa9b72c781038bdbb3527e47db7607",
+    "safety_runner_bounded_diff_sha256": "2f3a20b4729afabd81e53fc0fd6206108a461b78c015cd8107a12bbf1f556dea",
+    "qualification_runner_sha256": "d5dddacc8cf250022d26ce98e6ddb74ab722b98567f08a4da31e15bb07e04b82",
+    "qualification_runner_bounded_diff_sha256": "d834da34994bae75714dc0e563aac45f617e20be280022dc7ca7f2bd10ee59d6"
+  },
+  "progression": {
+    "stage_a_started": false,
+    "full_prompt_sentinel_baseline_started": false,
+    "failure_count_same_legacy_admission_mechanism": 2,
+    "disposition": "return_to_design_before_third_legacy_attempt",
+    "required_decision": "resolve the mandatory 7849-slot legacy-parity gate against the current production admission envelope without page-cache manipulation or outcome-driven capacity selection"
+  }
+}
