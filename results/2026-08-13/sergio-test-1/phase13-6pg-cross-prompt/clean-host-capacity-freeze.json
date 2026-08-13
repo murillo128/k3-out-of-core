@@ -1,0 +1,160 @@
+{
+  "schema_version": "phase13-6pg-clean-host-capacity-freeze-v1",
+  "frozen_utc": "2026-08-13T16:06:31Z",
+  "status": "frozen-before-full-prompt-s2-p50",
+  "revisions": {
+    "project_at_qualification": "2fe3b39ef3152c3b2b96b34ad063bb8ff78e897a",
+    "nested_llama_cpp": "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9"
+  },
+  "clean_host": {
+    "reboot_performed": true,
+    "boot_id_before": "7e243112-7df7-4d45-9ae3-522fda3c7deb",
+    "boot_id_after": "e8ac1909-5568-4bc8-a490-995c2dd70aff",
+    "post_reboot_initial_inventory": {
+      "path": "/mnt/nvme1/issue102/host-normalization/post-reboot-initial.json",
+      "sha256": "c40da8a1150319bcc9fe11b05bce6fbbd8e40459c350ba7226a0d884b92aa911",
+      "swap_file_present": true,
+      "swap_used_bytes": 0
+    },
+    "normalization": {
+      "swap_file_disabled": true,
+      "manual_page_cache_eviction": false,
+      "memory_pressure_trick": false,
+      "cgroup_limit_change": false,
+      "sysctl_tuning": false,
+      "nvme_mounts_resolved_by_filesystem_label": true
+    },
+    "post_reboot_normalized_inventory": {
+      "path": "/mnt/nvme1/issue102/host-normalization/post-reboot-normalized.json",
+      "sha256": "8845553055ff4ec361702e0bc29f896511f12bc84bf91d8fa22ad731f2290774",
+      "uptime_seconds": 735.04,
+      "mem_available_kib": 293104312,
+      "cached_kib": 761072,
+      "s_reclaimable_kib": 59604,
+      "slab_kib": 290820,
+      "shmem_kib": 9404,
+      "unevictable_kib": 10576,
+      "mlocked_kib": 10576,
+      "page_tables_kib": 7992,
+      "kernel_stack_kib": 16496,
+      "cgroup_memory_current_bytes": 495706112,
+      "cgroup_memory_max": "max",
+      "swap_enabled": false,
+      "live_k3_helper_build_or_compiler_processes": 0
+    },
+    "storage_roles": {
+      "model": {
+        "filesystem_label": "K3_NVME0",
+        "filesystem_uuid": "be7c5a2c-ca4d-4f37-b2b8-85ef9e872f6a",
+        "mount": "/mnt/nvme0",
+        "post_reboot_kernel_device": "nvme2n1"
+      },
+      "build_and_evidence": {
+        "filesystem_label": "K3_NVME1",
+        "filesystem_uuid": "fa954c90-0da0-4f42-9045-fdb7e1834992",
+        "mount": "/mnt/nvme1",
+        "post_reboot_kernel_device": "nvme0n1"
+      },
+      "unused_for_model_reads": "nvme1n1"
+    }
+  },
+  "verified_identities": {
+    "helper_binary_sha256": "c35cdc52d3669b080972e1c1ac68df6b88290e79d46c92edde2f48eae3733975",
+    "helper_source_sha256": "1ba6c540196e7f777f9ec761813b240057f08abfbc5ce711cae037c4babf8b43",
+    "build_fingerprint_sha256": "d150d179f41ebd2deab49b663e64c909b7d8fa6b4546c716aee889479f633a10",
+    "model_identity_manifest_sha256": "58b14d13a602944e1134fc753b2cc819a84a31290aee9c1479264a66dbb5efe2",
+    "execution_manifest_sha256": "e0f1746f987f888d68a36261a2822f4754a413b7799c6252aae8a4ded2a900d8",
+    "preregistration_sha256": "31444069cb1221bbf585288fb39e476d69c7e74a1fb56b2ec23043b3a5cb6149",
+    "frozen_library_sha256": {
+      "libllama-common.so.0.0.10345": "73c62e1f250739d5a7d3f48366c6eaa2ae3a99740273272e39fac37eb5355002",
+      "libllama.so.0.0.10345": "d06bb63d4e6175792ddbc320e9afe4d0c6b01d4c501903913a85669b8b790476",
+      "libggml.so.0.17.0": "a7644bb79e3047b7e2f628a077151f401831490337eac3480be11a5b3aaca372",
+      "libggml-cpu.so.0.17.0": "50d2eb5bb27c778060e43a09e4bd4bbb5392946f685693d6fc8aca7c36f1c83a",
+      "libggml-base.so.0.17.0": "05e815f3c58c6274c3d84b6fe56e445e6568ee6fe130d256c878813d32f02bdd"
+    }
+  },
+  "legacy_helper_parity": {
+    "method": "EXACT_7849",
+    "protocol": "legacy-first-full",
+    "n_ctx": 256,
+    "cache_slots": 7849,
+    "cache_bytes": 137728475136,
+    "point": "S2_P50",
+    "result": "pass",
+    "raw_result_sha256": "21196a5e3db73df63f41b068755e38d26f62521b2e4055dd8bcf6f94ca971e90",
+    "envelope_sha256": "68a4bc301e2c53c57ea889640f2cbb16c3cf433bd3396cbe9a9ad406f20c1e54",
+    "deterministic_signature": {
+      "fill_token": 9,
+      "hit_ratio": 0.8480808423913043,
+      "loads_per_token": 223.625,
+      "bytes_per_token": 3924006912,
+      "changed_decisions": 4348,
+      "realized_swaps": 6385,
+      "cumulative_regret": 18.945931773632765,
+      "output_hash": "76d94d040575edb4"
+    },
+    "all_frozen_signature_checks_pass": true,
+    "host_safety_clean": true,
+    "io_fallback_or_error": 0,
+    "terminal_resources": 0
+  },
+  "n_ctx_768_target_samples": [
+    {
+      "name": "capacity-target-768-01",
+      "status": "admitted_cleanly",
+      "selected_slots": 7849,
+      "selected_bytes": 137728475136,
+      "admission_safe_pool_slots": 7886,
+      "minimum_mem_available_kib": 155161092,
+      "peak_process_swap_kib": 0,
+      "disposition_sha256": "b0a473fafcdda94d303004f1c5d7bacf4157b5b1c6d02673dfb5e83b04f04598",
+      "envelope_sha256": "f4240afc613dc46334ad6875fd3087e3557ca462525afd6bf269ff120a305572"
+    },
+    {
+      "name": "capacity-target-768-02",
+      "status": "admitted_cleanly",
+      "selected_slots": 7849,
+      "selected_bytes": 137728475136,
+      "admission_safe_pool_slots": 7885,
+      "minimum_mem_available_kib": 155169488,
+      "peak_process_swap_kib": 0,
+      "disposition_sha256": "333a07411f09ad8faf2c3d03e444878cbf0dc8744ad9589f74dbb11ce753f9b3",
+      "envelope_sha256": "bbd40a6728b659f14caca5de46e6967187d9fd8646e278849263c698da8155c2"
+    },
+    {
+      "name": "capacity-target-768-03",
+      "status": "admitted_cleanly",
+      "selected_slots": 7849,
+      "selected_bytes": 137728475136,
+      "admission_safe_pool_slots": 7885,
+      "minimum_mem_available_kib": 155160916,
+      "peak_process_swap_kib": 0,
+      "disposition_sha256": "e153ab7c558ed838ac0e3a5d437273b4a9b02d58828627b03cbe0c7a940e49d7",
+      "envelope_sha256": "fc20b1d1d8564a811fb59bb799eb4f1daf1980715acb652c40c54033eb04649c"
+    }
+  ],
+  "capacity_freeze": {
+    "cross_prompt_cache_slots": 7849,
+    "cross_prompt_cache_bytes": 137728475136,
+    "capacity_relation": "EXACT_MATCH_TO_98_V3",
+    "slot_delta_from_98_v3": 0,
+    "byte_delta_from_98_v3": 0,
+    "percent_delta_from_98_v3": 0.0,
+    "all_three_target_samples_admitted_cleanly": true,
+    "auto_fallback_run": false,
+    "performance_or_locality_inspected_for_selection": false,
+    "all_swap_reclaim_psi_oom_cgroup_pressure_fallback_error_counters_zero": true
+  },
+  "tooling": {
+    "safety_runner_sha256": "f5480555e5d0a014db5eab1772563cae2b0c28e2d0da85c220edde7e697e7879",
+    "safety_runner_bounded_diff_sha256": "b1914e9cbe1ff0974bd5f2d511cd40f7027274fa6480120aee9666dbaca948af",
+    "qualification_runner_sha256": "0e09960035666f15bfc82cef2a8dd81358f744a848f3f1f633d27d420afeca92",
+    "qualification_runner_bounded_diff_sha256": "490eaf782af124c3d5c56eb49d8f8523d687909994b3a27b97fb80213687d5c4",
+    "post_reboot_delta": "NVMe kernel names are supplied by explicit model/unused role after reboot; validation semantics are unchanged"
+  },
+  "progression": {
+    "full_prompt_sentinel_baseline_started": false,
+    "stage_a_started": false,
+    "next": "run three fresh full-prompt n_ctx=768 S2_P50 sentinel processes at the frozen capacity and require deterministic equality"
+  }
+}
