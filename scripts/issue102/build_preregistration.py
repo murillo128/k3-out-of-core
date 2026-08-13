@@ -47,11 +47,11 @@ def main() -> int:
         if item["file"].endswith("issue102-cross-prompt-probe.cpp")
     )
     cases = corpus["cases"]
-    family_band = {
-        f"{case['family_index']:02d}/{case['token_band']}": case["id"]
+    family_level = {
+        f"{case['family_index']:02d}/{case['length_level']}": case["id"]
         for case in cases
     }
-    if len(cases) != 128 or len(family_band) != 128:
+    if len(cases) != 128 or len(family_level) != 128:
         raise RuntimeError("corpus is not a complete 16 by 8 grid")
 
     frozen_libraries = Path("/mnt/nvme1/issue77/build/cpu/bin")
@@ -71,24 +71,27 @@ def main() -> int:
             "sha256": sha256(args.corpus),
             "primary_cases": len(cases),
             "semantic_families": len({case["semantic_family"] for case in cases}),
-            "token_bands": len({case["token_band"] for case in cases}),
-            "templated_token_min": min(case["expected_prompt_tokens"] for case in cases),
-            "templated_token_max": max(case["expected_prompt_tokens"] for case in cases),
+            "length_levels": len({case["length_level"] for case in cases}),
+            "templated_token_min": min(case["observed_templated_prompt_tokens"] for case in cases),
+            "templated_token_max": max(case["observed_templated_prompt_tokens"] for case in cases),
+            "owner_candidate_canonical_sha256": corpus["owner_candidate"]["canonical_sha256"],
             "prompt_table_canonical_sha256": canonical_sha([
                 {
                     "id": case["id"],
                     "family": case["semantic_family"],
-                    "band": case["token_band"],
+                    "length_level": case["length_level"],
+                    "round": case["round"],
+                    "position": case["position"],
                     "raw_prompt": case["raw_prompt"],
                     "templated_prompt": case["templated_prompt"],
-                    "tokens": case["expected_prompt_tokens"],
+                    "tokens": case["observed_templated_prompt_tokens"],
                 }
                 for case in cases
             ]),
             "execution_order_canonical_sha256": canonical_sha(corpus["execution_order"]),
             "execution_order_entries": len(corpus["execution_order"]),
             "sentinel_id": corpus["sentinel"]["id"],
-            "sentinel_tokens": corpus["sentinel"]["expected_prompt_tokens"],
+            "sentinel_tokens": corpus["sentinel"]["observed_templated_prompt_tokens"],
         },
         "helper": {
             "scope": "measurement orchestration only; no production runtime source change",
@@ -127,7 +130,7 @@ def main() -> int:
             "runtime_build_fingerprint": "d150d179f41ebd2deab49b663e64c909b7d8fa6b4546c716aee889479f633a10",
             "backend": "CPU-only Mode-P/BATCHED",
             "threads": 32,
-            "n_ctx": 512,
+            "n_ctx": 768,
             "decode_forwards": 64,
             "candidate_count": 32,
             "s2_p50": {"max_swaps": 2, "max_score_regret": 0.007303759455680847},
@@ -140,7 +143,7 @@ def main() -> int:
         },
         "pre_primary_gates": [
             "independent Checkpoint A review",
-            "three fresh n_ctx=512 capacity admission samples",
+            "three fresh n_ctx=768 capacity admission samples",
             "legacy helper parity against the frozen issue98 signature",
             "three fresh full-prompt sentinel baseline processes with deterministic equality",
         ],

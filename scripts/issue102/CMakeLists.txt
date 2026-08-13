@@ -108,7 +108,7 @@ required_replace("prompt loader"
   [=[struct prompt_case {
     std::string id;
     std::string family;
-    int band = 0;
+    int length_level = 0;
     std::string templated_prompt;
     std::vector<llama_token> tokens;
 };
@@ -167,7 +167,7 @@ prompt_case load_prompt(
     prompt_case result;
     result.id = case_id;
     result.family = selected.value("semantic_family", legacy ? "legacy-sentinel" : "sentinel");
-    result.band = selected.value("token_band", 0);
+    result.length_level = selected.value("length_level", 0);
     result.templated_prompt = rendered;
     result.tokens.resize(size_t(count));
     if (llama_tokenize(vocab, rendered.data(), rendered.size(), result.tokens.data(), result.tokens.size(), true, true) != count) {
@@ -342,7 +342,7 @@ required_replace("result identity"
             {"protocol", args.protocol},
             {"case", {
                 {"id", selected_case.id}, {"semantic_family", selected_case.family},
-                {"token_band", selected_case.band}, {"templated_prompt_tokens", prompt.size()},
+                {"length_level", selected_case.length_level}, {"templated_prompt_tokens", prompt.size()},
                 {"consumed_prompt_tokens", args.protocol == "full-prompt" ? prompt.size() : tokens_to_full},
             }},
             {"pid", getpid()},]=])

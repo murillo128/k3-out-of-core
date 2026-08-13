@@ -85,75 +85,123 @@ int main(int argc, char ** argv) {
         if (!input) throw std::runtime_error("unable to open draft corpus");
         json draft;
         input >> draft;
+        if (draft.at("version") != "owner-preregistered-candidate-v2") {
+            throw std::runtime_error("unexpected owner candidate version");
+        }
         if (draft.at("cases").size() != 128) throw std::runtime_error("draft must contain exactly 128 primary cases");
 
-        const std::vector<std::pair<int, int>> bands = {
-            {64, 95}, {96, 127}, {128, 159}, {160, 191},
-            {192, 223}, {224, 255}, {256, 287}, {288, 319},
-        };
         std::set<std::string> ids;
         std::set<std::string> raw_prompts;
         std::set<std::string> families;
+        const std::vector<std::string> semantic_families = {
+            "mathematical reasoning",
+            "formal logic / proof-style reasoning",
+            "physics / scientific reasoning",
+            "factual / explanatory knowledge",
+            "code generation",
+            "debugging / code review",
+            "algorithms / data-structure reasoning",
+            "summarization / synthesis",
+            "structured extraction / transformation",
+            "planning / constraint satisfaction",
+            "multi-step instruction following / structured response",
+            "analytical comparison / argumentation",
+            "creative / language generation",
+            "conversational / direct QA",
+            "Spanish-language reasoning/explanation",
+            "multilingual / translation / cross-language transformation",
+        };
         json frozen_cases = json::array();
         json order = json::array();
-        bool all_counts_valid = true;
+        std::vector<int> prior_family_counts(16, 0);
         size_t index = 0;
         for (const auto & item : draft.at("cases")) {
-            const int band = item.at("token_band").get<int>();
-            const int family_index = item.at("family_index").get<int>();
+            const int length_level = item.at("band").get<int>();
+            const int family_index = int(index / 8) + 1;
             const std::string id = item.at("id").get<std::string>();
-            const std::string family = item.at("semantic_family").get<std::string>();
-            const std::string raw = item.at("raw_prompt").get<std::string>();
-            if (band < 1 || band > 8 || family_index < 1 || family_index > 16) {
-                throw std::runtime_error("invalid family or band index");
+            const std::string family = item.at("family").get<std::string>();
+            const std::string raw = item.at("prompt").get<std::string>();
+            if (length_level < 1 || length_level > 8 || family_index < 1 || family_index > 16) {
+                throw std::runtime_error("invalid family or length-level index");
             }
-            const size_t expected_index = size_t((band - 1)*16 + (family_index - 1));
-            if (index != expected_index) throw std::runtime_error("cases are not in frozen band-outer/family-inner order");
-            const std::string expected_id = "f" + std::string(family_index < 10 ? "0" : "") +
-                std::to_string(family_index) + "-b" + std::to_string(band);
+            const int expected_level = int(index % 8) + 1;
+            if (length_level != expected_level) {
+                throw std::runtime_error("owner cases are not in frozen family/length-level order");
+            }
+            const std::string expected_id = std::string(family_index < 10 ? "0" : "") +
+                std::to_string(family_index) + "-" + family + "-b" + std::to_string(length_level);
             if (id != expected_id || !ids.insert(id).second || !raw_prompts.insert(raw).second) {
                 throw std::runtime_error("case ID or prompt uniqueness failure");
             }
             families.insert(family);
             const std::string rendered = render_prompt(model.get(), raw);
             const int count = token_count(vocab, rendered);
-            if (count < bands[size_t(band - 1)].first || count > bands[size_t(band - 1)].second) {
-                std::cerr << id << " count=" << count << " expected=" << bands[size_t(band - 1)].first
-                          << "-" << bands[size_t(band - 1)].second << "\n";
-                all_counts_valid = false;
+            if (length_level > 1 && count <= prior_family_counts[size_t(family_index - 1)]) {
+                throw std::runtime_error("templated token counts are not strictly increasing within family: " + id);
             }
-            if (count + 64 > 512) throw std::runtime_error("prompt plus decode horizon exceeds n_ctx=512");
-            json frozen = item;
+            prior_family_counts[size_t(family_index - 1)] = count;
+            if (count + 64 > 768) {
+                throw std::runtime_error("prompt plus decode horizon exceeds n_ctx=768: " + id);
+            }
+            json frozen = {
+                {"id", id},
+                {"family_index", family_index},
+                {"semantic_family", semantic_families[size_t(family_index - 1)]},
+                {"owner_family", family},
+                {"length_level", length_level},
+                {"round", length_level},
+                {"position", family_index},
+                {"raw_prompt", raw},
+            };
             frozen["templated_prompt"] = rendered;
-            frozen["expected_prompt_tokens"] = count;
+            frozen["observed_templated_prompt_tokens"] = count;
             frozen_cases.push_back(std::move(frozen));
-            order.push_back(id);
-            if (family_index == 16) order.push_back("issue102-sentinel");
             ++index;
         }
         if (families.size() != 16) throw std::runtime_error("corpus does not contain exactly 16 semantic families");
-        if (!all_counts_valid) throw std::runtime_error("one or more templated prompts are outside their assigned token band");
 
-        json sentinel = draft.at("sentinel");
+        for (int length_level = 1; length_level <= 8; ++length_level) {
+            for (int family_index = 1; family_index <= 16; ++family_index) {
+                const auto & item = frozen_cases[size_t((family_index - 1)*8 + (length_level - 1))];
+                order.push_back(item.at("id"));
+            }
+            order.push_back("issue102-sentinel");
+        }
+
+        json sentinel = {
+            {"id", "issue102-sentinel"},
+            {"semantic_family", "sentinel"},
+            {"length_level", 0},
+            {"raw_prompt", "Explain why a careful measurement should distinguish observed facts from assumptions."},
+        };
         sentinel["templated_prompt"] = render_prompt(model.get(), sentinel.at("raw_prompt").get<std::string>());
-        sentinel["expected_prompt_tokens"] = token_count(vocab, sentinel.at("templated_prompt").get<std::string>());
-        if (sentinel.at("expected_prompt_tokens").get<int>() != 100) {
+        sentinel["observed_templated_prompt_tokens"] = token_count(vocab, sentinel.at("templated_prompt").get<std::string>());
+        if (sentinel.at("observed_templated_prompt_tokens").get<int>() != 100) {
             throw std::runtime_error("full-prompt sentinel does not preserve the 100-token prompt identity");
         }
 
         const json output = {
             {"schema_version", "issue102-cross-prompt-corpus-v1"},
             {"status", "frozen-before-performance"},
+            {"owner_candidate", {
+                {"version", "owner-preregistered-candidate-v2"},
+                {"canonical_sha256", "3535638264d920b025e8c99caedf2197a73f3a7d4a274d865bd7f4defbdf3ef6"},
+                {"canonicalization", draft.at("canonicalization")},
+            }},
             {"template", {
                 {"model_embedded_template", false},
                 {"frozen_path", "issue73 Kimi-K3 max-thinking chat wrapper"},
+                {"wrapper_placeholder_sha256", "2fba93a789cd8e3656306446e174f8ec8478f7ea6092727836c357421a335e86"},
+                {"sentinel_templated_prompt_sha256", "619f2ebc9be1e36147b9f5c24095b3daa16b04d67ef4e9f354d0607a3f4517fa"},
+                {"tokenizer_model_manifest_sha256", "58b14d13a602944e1134fc753b2cc819a84a31290aee9c1479264a66dbb5efe2"},
                 {"enable_thinking", true}, {"thinking_effort", "max"},
                 {"tokenize_add_special", true}, {"tokenize_parse_special", true},
             }},
             {"design", {
-                {"semantic_families", 16}, {"token_bands", 8},
-                {"primary_cases", 128}, {"decode_horizon", 64}, {"n_ctx", 512},
-                {"ordering", "token-band-outer/family-inner/sentinel-after-each-band"},
+                {"semantic_families", 16}, {"length_levels", 8},
+                {"length_semantics", "ordered within-family factor; actual templated token count is quantitative"},
+                {"primary_cases", 128}, {"decode_horizon", 64}, {"n_ctx", 768},
+                {"ordering", "length-level-outer/family-inner/sentinel-after-each-level"},
             }},
             {"cases", frozen_cases},
             {"sentinel", sentinel},

@@ -1,17 +1,18 @@
 {
   "schema_version": "issue102-checkpoint-a-preregistration-v1",
   "status": "frozen-before-performance",
-  "frozen_utc": "2026-08-13T12:19:13Z",
+  "frozen_utc": "2026-08-13T14:19:21Z",
   "corpus": {
     "path": "corpus/phase13/issue102-cross-prompt-v1.json",
-    "sha256": "3b93cdf45ee52acf363a0392934df0a317e682ebe9aa910990a2fbf6317f616d",
+    "sha256": "e0f1746f987f888d68a36261a2822f4754a413b7799c6252aae8a4ded2a900d8",
     "primary_cases": 128,
     "semantic_families": 16,
-    "token_bands": 8,
-    "templated_token_min": 93,
-    "templated_token_max": 307,
-    "prompt_table_canonical_sha256": "908a1a748b473311bcedbadc3a12b16293760aaff10c80a21c07ee2dca42f689",
-    "execution_order_canonical_sha256": "1033edc02ffe0f35e0da26d5bb09a3d92fa6606f12d2483549468bfe4d33adf1",
+    "length_levels": 8,
+    "templated_token_min": 154,
+    "templated_token_max": 599,
+    "owner_candidate_canonical_sha256": "3535638264d920b025e8c99caedf2197a73f3a7d4a274d865bd7f4defbdf3ef6",
+    "prompt_table_canonical_sha256": "30e366e65594cc16528dd393957178c986cedc955e8970a178e16947898e5499",
+    "execution_order_canonical_sha256": "f831aa5a38c5a80d4e80c490ee04bd7c762624a2ad703ba428cfccbde055ec61",
     "execution_order_entries": 136,
     "sentinel_id": "issue102-sentinel",
     "sentinel_tokens": 100
@@ -19,12 +20,12 @@
   "helper": {
     "scope": "measurement orchestration only; no production runtime source change",
     "source_path": "/mnt/nvme1/issue102/build/issue102-cross-prompt-probe.cpp",
-    "source_sha256": "bd3762c58ec9f3bbce7716f018221f9ef7b478fecbc4f6fb25a8b510d4b1dc8e",
+    "source_sha256": "3c3c120191e7029365efd13e4594376f92dcfdb2cfb996e48a69b6e50b9779bd",
     "binary_path": "/mnt/nvme1/issue102/build/bin/issue102-cross-prompt-probe",
-    "binary_sha256": "403cb464ef65f8c84ce004117ba53b419a905a9eaca4c9a97a6fe0780aba7bb3",
-    "freezer_binary_sha256": "8ff124da70edaa95ad48df0739f51d673e1f8a464629b29d5673e561b7c87e00",
-    "bounded_diff_path": "/mnt/nvme1/issue102/checkpoint-a/helper-vs-issue98.diff",
-    "bounded_diff_sha256": "485a16ad0cc695c9d3ed5f63d812edd89fdf0c973b1f9457fc720918bb8030fd",
+    "binary_sha256": "5ff3cf1d067c080db74619f939e9de0d3ae213bea22eb3b55f32121364db411f",
+    "freezer_binary_sha256": "9e309689c1d454bf54abaa7a9c302bf1848d31f739c71cd6762c1af55fdd677e",
+    "bounded_diff_path": "/mnt/nvme1/issue102/checkpoint-a/helper-vs-issue98-v2.diff",
+    "bounded_diff_sha256": "1ddfbbdafb42f80e7c7d041f4110f36dc0c25138adfa3abd336ccf3c95d31f23",
     "bounded_changes": [
       "select a frozen case ID and validate exact templated bytes/token count",
       "support legacy-first-full qualification and full-prompt protocols",
@@ -57,7 +58,7 @@
     "runtime_build_fingerprint": "d150d179f41ebd2deab49b663e64c909b7d8fa6b4546c716aee889479f633a10",
     "backend": "CPU-only Mode-P/BATCHED",
     "threads": 32,
-    "n_ctx": 512,
+    "n_ctx": 768,
     "decode_forwards": 64,
     "candidate_count": 32,
     "s2_p50": {
@@ -76,7 +77,7 @@
   },
   "pre_primary_gates": [
     "independent Checkpoint A review",
-    "three fresh n_ctx=512 capacity admission samples",
+    "three fresh n_ctx=768 capacity admission samples",
     "legacy helper parity against the frozen issue98 signature",
     "three fresh full-prompt sentinel baseline processes with deterministic equality"
   ],
