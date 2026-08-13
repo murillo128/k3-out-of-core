@@ -1,0 +1,88 @@
+{
+  "schema_version": "issue102-checkpoint-a-preregistration-v1",
+  "status": "frozen-before-performance",
+  "frozen_utc": "2026-08-13T12:19:13Z",
+  "corpus": {
+    "path": "corpus/phase13/issue102-cross-prompt-v1.json",
+    "sha256": "3b93cdf45ee52acf363a0392934df0a317e682ebe9aa910990a2fbf6317f616d",
+    "primary_cases": 128,
+    "semantic_families": 16,
+    "token_bands": 8,
+    "templated_token_min": 93,
+    "templated_token_max": 307,
+    "prompt_table_canonical_sha256": "908a1a748b473311bcedbadc3a12b16293760aaff10c80a21c07ee2dca42f689",
+    "execution_order_canonical_sha256": "1033edc02ffe0f35e0da26d5bb09a3d92fa6606f12d2483549468bfe4d33adf1",
+    "execution_order_entries": 136,
+    "sentinel_id": "issue102-sentinel",
+    "sentinel_tokens": 100
+  },
+  "helper": {
+    "scope": "measurement orchestration only; no production runtime source change",
+    "source_path": "/mnt/nvme1/issue102/build/issue102-cross-prompt-probe.cpp",
+    "source_sha256": "bd3762c58ec9f3bbce7716f018221f9ef7b478fecbc4f6fb25a8b510d4b1dc8e",
+    "binary_path": "/mnt/nvme1/issue102/build/bin/issue102-cross-prompt-probe",
+    "binary_sha256": "403cb464ef65f8c84ce004117ba53b419a905a9eaca4c9a97a6fe0780aba7bb3",
+    "freezer_binary_sha256": "8ff124da70edaa95ad48df0739f51d673e1f8a464629b29d5673e561b7c87e00",
+    "bounded_diff_path": "/mnt/nvme1/issue102/checkpoint-a/helper-vs-issue98.diff",
+    "bounded_diff_sha256": "485a16ad0cc695c9d3ed5f63d812edd89fdf0c973b1f9457fc720918bb8030fd",
+    "bounded_changes": [
+      "select a frozen case ID and validate exact templated bytes/token count",
+      "support legacy-first-full qualification and full-prompt protocols",
+      "continue exact prompt ingestion after first-full occupancy",
+      "activate the requested policy and segment counters at the decode boundary",
+      "emit case, prefill, and maximum-regret availability metadata"
+    ]
+  },
+  "build": {
+    "cmake_build_type": "Release",
+    "compiler": "c++ (GCC) 11.5.0 20240719 (Red Hat 11.5.0-14.0.1)",
+    "cmake": "cmake version 3.31.8",
+    "compile_command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_SHARED -DLLAMA_SUBPROCESS -I/workspace/k3-out-of-core/llama.cpp/src -I/workspace/k3-out-of-core/llama.cpp/vendor -I/workspace/k3-out-of-core/llama.cpp/include -I/workspace/k3-out-of-core/llama.cpp/ggml/include -I/workspace/k3-out-of-core/llama.cpp/common -O3 -DNDEBUG -O3 -DNDEBUG -march=native -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o CMakeFiles/issue102-cross-prompt-probe.dir/issue102-cross-prompt-probe.cpp.o -c /mnt/nvme1/issue102/build/issue102-cross-prompt-probe.cpp",
+    "host": "sergio-test-1",
+    "machine": "x86_64",
+    "linked_frozen_libraries": {
+      "libllama-common.so.0.0.10345": "73c62e1f250739d5a7d3f48366c6eaa2ae3a99740273272e39fac37eb5355002",
+      "libllama.so.0.0.10345": "d06bb63d4e6175792ddbc320e9afe4d0c6b01d4c501903913a85669b8b790476",
+      "libggml.so.0.17.0": "a7644bb79e3047b7e2f628a077151f401831490337eac3480be11a5b3aaca372",
+      "libggml-cpu.so.0.17.0": "50d2eb5bb27c778060e43a09e4bd4bbb5392946f685693d6fc8aca7c36f1c83a",
+      "libggml-base.so.0.17.0": "05e815f3c58c6274c3d84b6fe56e445e6568ee6fe130d256c878813d32f02bdd"
+    }
+  },
+  "frozen_inputs": {
+    "project_runtime_parent": "4d2dbaff5b4dc271b34169d11a6bb0bc80e7bba9",
+    "nested_llama_cpp": "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9",
+    "k3_model_manifest": "58b14d13a602944e1134fc753b2cc819a84a31290aee9c1479264a66dbb5efe2",
+    "model_source": "moonshotai/Kimi-K3@9f62e4e9fffbd0a83ddd60e1c209d828994b3569",
+    "model_path": "/mnt/nvme0/issue77/model/kimi-k3-bf16-00001-of-00033.gguf",
+    "runtime_build_fingerprint": "d150d179f41ebd2deab49b663e64c909b7d8fa6b4546c716aee889479f633a10",
+    "backend": "CPU-only Mode-P/BATCHED",
+    "threads": 32,
+    "n_ctx": 512,
+    "decode_forwards": 64,
+    "candidate_count": 32,
+    "s2_p50": {
+      "max_swaps": 2,
+      "max_score_regret": 0.007303759455680847
+    },
+    "knee": {
+      "max_swaps": 1,
+      "max_score_regret": 0.0030885785818099976
+    },
+    "target_cache_slots": 7849,
+    "target_cache_bytes": 137728475136,
+    "expert_bundle_bytes": 17547264,
+    "io": "native io_uring + O_DIRECT",
+    "model_device": "nvme0"
+  },
+  "pre_primary_gates": [
+    "independent Checkpoint A review",
+    "three fresh n_ctx=512 capacity admission samples",
+    "legacy helper parity against the frozen issue98 signature",
+    "three fresh full-prompt sentinel baseline processes with deterministic equality"
+  ],
+  "outcome_independence": {
+    "k3_performance_results_inspected": 0,
+    "primary_prompt_replacement_after_performance": "forbidden",
+    "remaining_order_or_policy_changes_from_intermediate_results": "forbidden"
+  }
+}
