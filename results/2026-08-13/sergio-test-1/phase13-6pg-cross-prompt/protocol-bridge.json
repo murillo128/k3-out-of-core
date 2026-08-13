@@ -1,0 +1,1102 @@
+{
+  "arms": {
+    "FULL_PROMPT_EXACT": {
+      "deterministic_equality": true,
+      "label": "FULL_PROMPT_EXACT",
+      "metrics": {
+        "bytes_per_token": {
+          "max": 10712330496.0,
+          "median": 10712330496.0,
+          "min": 10712330496.0,
+          "values": [
+            10712330496.0,
+            10712330496.0,
+            10712330496.0
+          ]
+        },
+        "changed_fraction": {
+          "max": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "cumulative_score_regret": {
+          "max": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "decode_tok_s": {
+          "max": 0.3100983703086269,
+          "median": 0.3089775428171769,
+          "min": 0.30880419901672046,
+          "values": [
+            0.3100983703086269,
+            0.3089775428171769,
+            0.30880419901672046
+          ]
+        },
+        "hit_ratio": {
+          "max": 0.5852687669836957,
+          "median": 0.5852687669836957,
+          "min": 0.5852687669836957,
+          "values": [
+            0.5852687669836957,
+            0.5852687669836957,
+            0.5852687669836957
+          ]
+        },
+        "loads_per_token": {
+          "max": 610.484375,
+          "median": 610.484375,
+          "min": 610.484375,
+          "values": [
+            610.484375,
+            610.484375,
+            610.484375
+          ]
+        },
+        "mean_score_regret_per_realized_swap": {
+          "max": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "p50_forward_s": {
+          "max": 3.194165057,
+          "median": 3.18083208,
+          "min": 3.165520862,
+          "values": [
+            3.165520862,
+            3.194165057,
+            3.18083208
+          ]
+        },
+        "p95_forward_s": {
+          "max": 3.859360928,
+          "median": 3.854328033,
+          "min": 3.844935099,
+          "values": [
+            3.854328033,
+            3.859360928,
+            3.844935099
+          ]
+        },
+        "p99_forward_s": {
+          "max": 4.185978437,
+          "median": 4.178735877,
+          "min": 4.132728165,
+          "values": [
+            4.178735877,
+            4.132728165,
+            4.185978437
+          ]
+        },
+        "swaps_per_token": {
+          "max": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "n_ctx": 768,
+      "output_hashes": [
+        "5d220ce0df270235",
+        "5d220ce0df270235",
+        "5d220ce0df270235"
+      ],
+      "point": "EXACT",
+      "protocol": "full-prompt",
+      "run_count": 3,
+      "runs": [
+        {
+          "bytes_per_token": 10712330496.0,
+          "changed_decisions": 0,
+          "changed_fraction": 0.0,
+          "cumulative_score_regret": 0.0,
+          "decode_tok_s": 0.3100983703086269,
+          "envelope_sha256": "8fce3ca787901336be2791ea55d0270dc7a76f649aed8f48550121d57d70b603",
+          "fill_token": 9,
+          "hit_ratio": 0.5852687669836957,
+          "hits": 55137,
+          "label": "pair-1-exact",
+          "loads_per_token": 610.484375,
+          "maximum_realized_regret": null,
+          "maximum_realized_regret_status": "unavailable_without_observer",
+          "mean_score_regret_per_realized_swap": 0.0,
+          "minimum_mem_available_kib": 155061672,
+          "misses": 39071,
+          "model_nvme_read_bytes": 1835359636992,
+          "model_nvme_read_operations": 1909654,
+          "n_ctx": 768,
+          "output_hash": "5d220ce0df270235",
+          "p50_forward_s": 3.165520862,
+          "p95_forward_s": 3.854328033,
+          "p99_forward_s": 4.178735877,
+          "peak_process_rss_kib": 246968740,
+          "point": "EXACT",
+          "prefill_tokens_consumed": 100,
+          "protocol": "full-prompt",
+          "realized_swaps": 0,
+          "result_sha256": "ed1c295f1cf3bd856b541220a3f5449daa5be4da7d6ea3347a8b4f9091283264",
+          "swaps_per_token": 0.0
+        },
+        {
+          "bytes_per_token": 10712330496.0,
+          "changed_decisions": 0,
+          "changed_fraction": 0.0,
+          "cumulative_score_regret": 0.0,
+          "decode_tok_s": 0.3089775428171769,
+          "envelope_sha256": "840586e2a9ab5045ddb7dee34371de4b987e60c3d973334e44adb29652a9cc7f",
+          "fill_token": 9,
+          "hit_ratio": 0.5852687669836957,
+          "hits": 55137,
+          "label": "pair-2-exact",
+          "loads_per_token": 610.484375,
+          "maximum_realized_regret": null,
+          "maximum_realized_regret_status": "unavailable_without_observer",
+          "mean_score_regret_per_realized_swap": 0.0,
+          "minimum_mem_available_kib": 155066844,
+          "misses": 39071,
+          "model_nvme_read_bytes": 1835358813696,
+          "model_nvme_read_operations": 1909638,
+          "n_ctx": 768,
+          "output_hash": "5d220ce0df270235",
+          "p50_forward_s": 3.194165057,
+          "p95_forward_s": 3.859360928,
+          "p99_forward_s": 4.132728165,
+          "peak_process_rss_kib": 246935932,
+          "point": "EXACT",
+          "prefill_tokens_consumed": 100,
+          "protocol": "full-prompt",
+          "realized_swaps": 0,
+          "result_sha256": "6f99c167279e93c880b42c3e73a94e5639dc4c91ad624d82d4d221529491c976",
+          "swaps_per_token": 0.0
+        },
+        {
+          "bytes_per_token": 10712330496.0,
+          "changed_decisions": 0,
+          "changed_fraction": 0.0,
+          "cumulative_score_regret": 0.0,
+          "decode_tok_s": 0.30880419901672046,
+          "envelope_sha256": "a1cf93423991bbea66d07ffcaf827c0910bb4e0af793a4bceb22877dac128a89",
+          "fill_token": 9,
+          "hit_ratio": 0.5852687669836957,
+          "hits": 55137,
+          "label": "pair-3-exact",
+          "loads_per_token": 610.484375,
+          "maximum_realized_regret": null,
+          "maximum_realized_regret_status": "unavailable_without_observer",
+          "mean_score_regret_per_realized_swap": 0.0,
+          "minimum_mem_available_kib": 155079552,
+          "misses": 39071,
+          "model_nvme_read_bytes": 1835358813696,
+          "model_nvme_read_operations": 1909650,
+          "n_ctx": 768,
+          "output_hash": "5d220ce0df270235",
+          "p50_forward_s": 3.18083208,
+          "p95_forward_s": 3.844935099,
+          "p99_forward_s": 4.185978437,
+          "peak_process_rss_kib": 246935936,
+          "point": "EXACT",
+          "prefill_tokens_consumed": 100,
+          "protocol": "full-prompt",
+          "realized_swaps": 0,
+          "result_sha256": "9ac3de538bdc204e5e61e8afc60b622e432e644544bcf9d188d67cfee5f064d0",
+          "swaps_per_token": 0.0
+        }
+      ]
+    },
+    "FULL_PROMPT_KNEE": {
+      "deterministic_equality": true,
+      "label": "FULL_PROMPT_KNEE",
+      "metrics": {
+        "bytes_per_token": {
+          "max": 9726941952.0,
+          "median": 9726941952.0,
+          "min": 9726941952.0,
+          "values": [
+            9726941952.0,
+            9726941952.0,
+            9726941952.0
+          ]
+        },
+        "changed_fraction": {
+          "max": 0.45991847826086957,
+          "median": 0.45991847826086957,
+          "min": 0.45991847826086957,
+          "values": [
+            0.45991847826086957,
+            0.45991847826086957,
+            0.45991847826086957
+          ]
+        },
+        "cumulative_score_regret": {
+          "max": 3.4952498842030764,
+          "median": 3.4952498842030764,
+          "min": 3.4952498842030764,
+          "values": [
+            3.4952498842030764,
+            3.4952498842030764,
+            3.4952498842030764
+          ]
+        },
+        "decode_tok_s": {
+          "max": 0.32583813564772823,
+          "median": 0.32549897527452165,
+          "min": 0.32521774097533446,
+          "values": [
+            0.32521774097533446,
+            0.32549897527452165,
+            0.32583813564772823
+          ]
+        },
+        "hit_ratio": {
+          "max": 0.6234183933423914,
+          "median": 0.6234183933423914,
+          "min": 0.6234183933423914,
+          "values": [
+            0.6234183933423914,
+            0.6234183933423914,
+            0.6234183933423914
+          ]
+        },
+        "loads_per_token": {
+          "max": 554.328125,
+          "median": 554.328125,
+          "min": 554.328125,
+          "values": [
+            554.328125,
+            554.328125,
+            554.328125
+          ]
+        },
+        "mean_score_regret_per_realized_swap": {
+          "max": 0.0012907126603408702,
+          "median": 0.0012907126603408702,
+          "min": 0.0012907126603408702,
+          "values": [
+            0.0012907126603408702,
+            0.0012907126603408702,
+            0.0012907126603408702
+          ]
+        },
+        "p50_forward_s": {
+          "max": 3.050871445,
+          "median": 3.049519975,
+          "min": 3.042805697,
+          "values": [
+            3.049519975,
+            3.050871445,
+            3.042805697
+          ]
+        },
+        "p95_forward_s": {
+          "max": 3.897968615,
+          "median": 3.886230873,
+          "min": 3.883795606,
+          "values": [
+            3.886230873,
+            3.897968615,
+            3.883795606
+          ]
+        },
+        "p99_forward_s": {
+          "max": 4.159072025,
+          "median": 4.145121625,
+          "min": 4.145078651,
+          "values": [
+            4.145078651,
+            4.159072025,
+            4.145121625
+          ]
+        },
+        "swaps_per_token": {
+          "max": 42.3125,
+          "median": 42.3125,
+          "min": 42.3125,
+          "values": [
+            42.3125,
+            42.3125,
+            42.3125
+          ]
+        }
+      },
+      "n_ctx": 768,
+      "output_hashes": [
+        "7d08ec6b2168ce6d",
+        "7d08ec6b2168ce6d",
+        "7d08ec6b2168ce6d"
+      ],
+      "point": "KNEE",
+      "protocol": "full-prompt",
+      "run_count": 3,
+      "runs": [
+        {
+          "bytes_per_token": 9726941952.0,
+          "changed_decisions": 2708,
+          "changed_fraction": 0.45991847826086957,
+          "cumulative_score_regret": 3.4952498842030764,
+          "decode_tok_s": 0.32521774097533446,
+          "envelope_sha256": "10f767807142571c0e5de2d0080bb7a4796467fd7edb051af6788fafe130f27e",
+          "fill_token": 9,
+          "hit_ratio": 0.6234183933423914,
+          "hits": 58731,
+          "label": "pair-1-knee",
+          "loads_per_token": 554.328125,
+          "maximum_realized_regret": null,
+          "maximum_realized_regret_status": "unavailable_without_observer",
+          "mean_score_regret_per_realized_swap": 0.0012907126603408702,
+          "minimum_mem_available_kib": 155073960,
+          "misses": 35477,
+          "model_nvme_read_bytes": 1772288950784,
+          "model_nvme_read_operations": 1844306,
+          "n_ctx": 768,
+          "output_hash": "7d08ec6b2168ce6d",
+          "p50_forward_s": 3.049519975,
+          "p95_forward_s": 3.886230873,
+          "p99_forward_s": 4.145078651,
+          "peak_process_rss_kib": 246936032,
+          "point": "KNEE",
+          "prefill_tokens_consumed": 100,
+          "protocol": "full-prompt",
+          "realized_swaps": 2708,
+          "result_sha256": "688117d38182cd12753595a7cf959fcf0e27313ec241aed1ff4063e3b60dbc03",
+          "swaps_per_token": 42.3125
+        },
+        {
+          "bytes_per_token": 9726941952.0,
+          "changed_decisions": 2708,
+          "changed_fraction": 0.45991847826086957,
+          "cumulative_score_regret": 3.4952498842030764,
+          "decode_tok_s": 0.32549897527452165,
+          "envelope_sha256": "065c2a219571b1019cd85c8af3e98e2b74df0d74bf7e7089000cd4cb65bc70bc",
+          "fill_token": 9,
+          "hit_ratio": 0.6234183933423914,
+          "hits": 58731,
+          "label": "pair-2-knee",
+          "loads_per_token": 554.328125,
+          "maximum_realized_regret": null,
+          "maximum_realized_regret_status": "unavailable_without_observer",
+          "mean_score_regret_per_realized_swap": 0.0012907126603408702,
+          "minimum_mem_available_kib": 155093588,
+          "misses": 35477,
+          "model_nvme_read_bytes": 1772288426496,
+          "model_nvme_read_operations": 1844299,
+          "n_ctx": 768,
+          "output_hash": "7d08ec6b2168ce6d",
+          "p50_forward_s": 3.050871445,
+          "p95_forward_s": 3.897968615,
+          "p99_forward_s": 4.159072025,
+          "peak_process_rss_kib": 246935952,
+          "point": "KNEE",
+          "prefill_tokens_consumed": 100,
+          "protocol": "full-prompt",
+          "realized_swaps": 2708,
+          "result_sha256": "b9024cc16acc8457b833caef1d9585773370ab7c6607a1845755e1cb476555ee",
+          "swaps_per_token": 42.3125
+        },
+        {
+          "bytes_per_token": 9726941952.0,
+          "changed_decisions": 2708,
+          "changed_fraction": 0.45991847826086957,
+          "cumulative_score_regret": 3.4952498842030764,
+          "decode_tok_s": 0.32583813564772823,
+          "envelope_sha256": "1656a3bc8e2eac667b707910e7913a6a6f652c575e26a4e9a87f0fc653b82d8f",
+          "fill_token": 9,
+          "hit_ratio": 0.6234183933423914,
+          "hits": 58731,
+          "label": "pair-3-knee",
+          "loads_per_token": 554.328125,
+          "maximum_realized_regret": null,
+          "maximum_realized_regret_status": "unavailable_without_observer",
+          "mean_score_regret_per_realized_swap": 0.0012907126603408702,
+          "minimum_mem_available_kib": 155051304,
+          "misses": 35477,
+          "model_nvme_read_bytes": 1772288426496,
+          "model_nvme_read_operations": 1844304,
+          "n_ctx": 768,
+          "output_hash": "7d08ec6b2168ce6d",
+          "p50_forward_s": 3.042805697,
+          "p95_forward_s": 3.883795606,
+          "p99_forward_s": 4.145121625,
+          "peak_process_rss_kib": 246936992,
+          "point": "KNEE",
+          "prefill_tokens_consumed": 100,
+          "protocol": "full-prompt",
+          "realized_swaps": 2708,
+          "result_sha256": "74ae63fbeb9db59984ffb5c01eb74ff7af002a30f300c6fcbf2258ec10c47e0b",
+          "swaps_per_token": 42.3125
+        }
+      ]
+    },
+    "FULL_PROMPT_S2_P50": {
+      "deterministic_equality": true,
+      "label": "FULL_PROMPT_S2_P50",
+      "metrics": {
+        "bytes_per_token": {
+          "max": 8716055040.0,
+          "median": 8716055040.0,
+          "min": 8716055040.0,
+          "values": [
+            8716055040.0,
+            8716055040.0,
+            8716055040.0
+          ]
+        },
+        "changed_fraction": {
+          "max": 0.6761209239130435,
+          "median": 0.6761209239130435,
+          "min": 0.6761209239130435,
+          "values": [
+            0.6761209239130435,
+            0.6761209239130435,
+            0.6761209239130435
+          ]
+        },
+        "cumulative_score_regret": {
+          "max": 17.71107554808259,
+          "median": 17.71107554808259,
+          "min": 17.71107554808259,
+          "values": [
+            17.71107554808259,
+            17.71107554808259,
+            17.71107554808259
+          ]
+        },
+        "decode_tok_s": {
+          "max": 0.3473605484594497,
+          "median": 0.34716918258582,
+          "min": 0.346932418373893,
+          "values": [
+            0.346932418373893,
+            0.3473605484594497,
+            0.34716918258582
+          ]
+        },
+        "hit_ratio": {
+          "max": 0.6625551970108695,
+          "median": 0.6625551970108695,
+          "min": 0.6625551970108695,
+          "values": [
+            0.6625551970108695,
+            0.6625551970108695,
+            0.6625551970108695
+          ]
+        },
+        "loads_per_token": {
+          "max": 496.71875,
+          "median": 496.71875,
+          "min": 496.71875,
+          "values": [
+            496.71875,
+            496.71875,
+            496.71875
+          ]
+        },
+        "mean_score_regret_per_realized_swap": {
+          "max": 0.00288313129547169,
+          "median": 0.00288313129547169,
+          "min": 0.00288313129547169,
+          "values": [
+            0.00288313129547169,
+            0.00288313129547169,
+            0.00288313129547169
+          ]
+        },
+        "p50_forward_s": {
+          "max": 2.84597014,
+          "median": 2.840146723,
+          "min": 2.829597845,
+          "values": [
+            2.84597014,
+            2.829597845,
+            2.840146723
+          ]
+        },
+        "p95_forward_s": {
+          "max": 3.682386681,
+          "median": 3.677669127,
+          "min": 3.67593481,
+          "values": [
+            3.682386681,
+            3.677669127,
+            3.67593481
+          ]
+        },
+        "p99_forward_s": {
+          "max": 3.970292675,
+          "median": 3.963134042,
+          "min": 3.958412932,
+          "values": [
+            3.970292675,
+            3.958412932,
+            3.963134042
+          ]
+        },
+        "swaps_per_token": {
+          "max": 95.984375,
+          "median": 95.984375,
+          "min": 95.984375,
+          "values": [
+            95.984375,
+            95.984375,
+            95.984375
+          ]
+        }
+      },
+      "n_ctx": 768,
+      "output_hashes": [
+        "d69f3b3d530f6f56",
+        "d69f3b3d530f6f56",
+        "d69f3b3d530f6f56"
+      ],
+      "point": "S2_P50",
+      "protocol": "full-prompt",
+      "run_count": 3,
+      "runs": [
+        {
+          "bytes_per_token": 8716055040.0,
+          "changed_decisions": 3981,
+          "changed_fraction": 0.6761209239130435,
+          "cumulative_score_regret": 17.71107554808259,
+          "decode_tok_s": 0.346932418373893,
+          "envelope_sha256": "a5337f686c1af889bfc3971ff1e99cd603f77dac4a63eba8af37fcbbd93ac66f",
+          "fill_token": 9,
+          "hit_ratio": 0.6625551970108695,
+          "hits": 62418,
+          "label": "full-s2-1",
+          "loads_per_token": 496.71875,
+          "maximum_realized_regret": null,
+          "maximum_realized_regret_status": "unavailable_without_observer",
+          "mean_score_regret_per_realized_swap": 0.00288313129547169,
+          "minimum_mem_available_kib": 155141168,
+          "misses": 31790,
+          "model_nvme_read_bytes": 1707593979904,
+          "model_nvme_read_operations": 1777219,
+          "n_ctx": 768,
+          "output_hash": "d69f3b3d530f6f56",
+          "p50_forward_s": 2.84597014,
+          "p95_forward_s": 3.682386681,
+          "p99_forward_s": 3.970292675,
+          "peak_process_rss_kib": 246935164,
+          "point": "S2_P50",
+          "prefill_tokens_consumed": 100,
+          "protocol": "full-prompt",
+          "realized_swaps": 6143,
+          "result_sha256": "8140dade12c623db448f47de7cd7944b49fcc4627d7bf088112a0843c71d5fb2",
+          "swaps_per_token": 95.984375
+        },
+        {
+          "bytes_per_token": 8716055040.0,
+          "changed_decisions": 3981,
+          "changed_fraction": 0.6761209239130435,
+          "cumulative_score_regret": 17.71107554808259,
+          "decode_tok_s": 0.3473605484594497,
+          "envelope_sha256": "f9f1c9c4ef2f9554beefec6fe574ca7224ad3d4935c231f9fff24371c9d80f70",
+          "fill_token": 9,
+          "hit_ratio": 0.6625551970108695,
+          "hits": 62418,
+          "label": "full-s2-2",
+          "loads_per_token": 496.71875,
+          "maximum_realized_regret": null,
+          "maximum_realized_regret_status": "unavailable_without_observer",
+          "mean_score_regret_per_realized_swap": 0.00288313129547169,
+          "minimum_mem_available_kib": 155124464,
+          "misses": 31790,
+          "model_nvme_read_bytes": 1707586000896,
+          "model_nvme_read_operations": 1777187,
+          "n_ctx": 768,
+          "output_hash": "d69f3b3d530f6f56",
+          "p50_forward_s": 2.829597845,
+          "p95_forward_s": 3.677669127,
+          "p99_forward_s": 3.958412932,
+          "peak_process_rss_kib": 246935156,
+          "point": "S2_P50",
+          "prefill_tokens_consumed": 100,
+          "protocol": "full-prompt",
+          "realized_swaps": 6143,
+          "result_sha256": "95f74cbfa6910d4864797b6c0670e8cb9c90cb059a134f08360625cee47aa355",
+          "swaps_per_token": 95.984375
+        },
+        {
+          "bytes_per_token": 8716055040.0,
+          "changed_decisions": 3981,
+          "changed_fraction": 0.6761209239130435,
+          "cumulative_score_regret": 17.71107554808259,
+          "decode_tok_s": 0.34716918258582,
+          "envelope_sha256": "a01d44d8c742bd2410d57ab5a82d49b64ce3ba8c02b17b58dccf23b8f0faba2b",
+          "fill_token": 9,
+          "hit_ratio": 0.6625551970108695,
+          "hits": 62418,
+          "label": "full-s2-3",
+          "loads_per_token": 496.71875,
+          "maximum_realized_regret": null,
+          "maximum_realized_regret_status": "unavailable_without_observer",
+          "mean_score_regret_per_realized_swap": 0.00288313129547169,
+          "minimum_mem_available_kib": 155188276,
+          "misses": 31790,
+          "model_nvme_read_bytes": 1707586000896,
+          "model_nvme_read_operations": 1777187,
+          "n_ctx": 768,
+          "output_hash": "d69f3b3d530f6f56",
+          "p50_forward_s": 2.840146723,
+          "p95_forward_s": 3.67593481,
+          "p99_forward_s": 3.963134042,
+          "peak_process_rss_kib": 246935148,
+          "point": "S2_P50",
+          "prefill_tokens_consumed": 100,
+          "protocol": "full-prompt",
+          "realized_swaps": 6143,
+          "result_sha256": "0446e5171d95d12e7c9e47105fd436cb2ee1f7bfadc1627adcb530a3cb5cfaa8",
+          "swaps_per_token": 95.984375
+        }
+      ]
+    },
+    "LEGACY_S2_P50_CTX256": {
+      "deterministic_equality": true,
+      "label": "LEGACY_S2_P50_CTX256",
+      "metrics": {
+        "bytes_per_token": {
+          "max": 3924006912.0,
+          "median": 3924006912.0,
+          "min": 3924006912.0,
+          "values": [
+            3924006912.0
+          ]
+        },
+        "changed_fraction": {
+          "max": 0.7384510869565217,
+          "median": 0.7384510869565217,
+          "min": 0.7384510869565217,
+          "values": [
+            0.7384510869565217
+          ]
+        },
+        "cumulative_score_regret": {
+          "max": 18.945931773632765,
+          "median": 18.945931773632765,
+          "min": 18.945931773632765,
+          "values": [
+            18.945931773632765
+          ]
+        },
+        "decode_tok_s": {
+          "max": 0.502239454553695,
+          "median": 0.502239454553695,
+          "min": 0.502239454553695,
+          "values": [
+            0.502239454553695
+          ]
+        },
+        "hit_ratio": {
+          "max": 0.8480808423913043,
+          "median": 0.8480808423913043,
+          "min": 0.8480808423913043,
+          "values": [
+            0.8480808423913043
+          ]
+        },
+        "loads_per_token": {
+          "max": 223.625,
+          "median": 223.625,
+          "min": 223.625,
+          "values": [
+            223.625
+          ]
+        },
+        "mean_score_regret_per_realized_swap": {
+          "max": 0.0029672563466926804,
+          "median": 0.0029672563466926804,
+          "min": 0.0029672563466926804,
+          "values": [
+            0.0029672563466926804
+          ]
+        },
+        "p50_forward_s": {
+          "max": 1.894571502,
+          "median": 1.894571502,
+          "min": 1.894571502,
+          "values": [
+            1.894571502
+          ]
+        },
+        "p95_forward_s": {
+          "max": 2.698734906,
+          "median": 2.698734906,
+          "min": 2.698734906,
+          "values": [
+            2.698734906
+          ]
+        },
+        "p99_forward_s": {
+          "max": 2.939613407,
+          "median": 2.939613407,
+          "min": 2.939613407,
+          "values": [
+            2.939613407
+          ]
+        },
+        "swaps_per_token": {
+          "max": 99.765625,
+          "median": 99.765625,
+          "min": 99.765625,
+          "values": [
+            99.765625
+          ]
+        }
+      },
+      "n_ctx": 256,
+      "output_hashes": [
+        "76d94d040575edb4"
+      ],
+      "point": "S2_P50",
+      "protocol": "legacy-first-full",
+      "run_count": 1,
+      "runs": [
+        {
+          "bytes_per_token": 3924006912.0,
+          "changed_decisions": 4348,
+          "changed_fraction": 0.7384510869565217,
+          "cumulative_score_regret": 18.945931773632765,
+          "decode_tok_s": 0.502239454553695,
+          "envelope_sha256": "68a4bc301e2c53c57ea889640f2cbb16c3cf433bd3396cbe9a9ad406f20c1e54",
+          "fill_token": 9,
+          "hit_ratio": 0.8480808423913043,
+          "hits": 79896,
+          "label": "legacy256-reused",
+          "loads_per_token": 223.625,
+          "maximum_realized_regret": null,
+          "maximum_realized_regret_status": "unavailable_without_observer",
+          "mean_score_regret_per_realized_swap": 0.0029672563466926804,
+          "minimum_mem_available_kib": 155192904,
+          "misses": 14312,
+          "model_nvme_read_bytes": 505311056384,
+          "model_nvme_read_operations": 962828,
+          "n_ctx": 256,
+          "output_hash": "76d94d040575edb4",
+          "p50_forward_s": 1.894571502,
+          "p95_forward_s": 2.698734906,
+          "p99_forward_s": 2.939613407,
+          "peak_process_rss_kib": 246917644,
+          "point": "S2_P50",
+          "prefill_tokens_consumed": 9,
+          "protocol": "legacy-first-full",
+          "realized_swaps": 6385,
+          "result_sha256": "21196a5e3db73df63f41b068755e38d26f62521b2e4055dd8bcf6f94ca971e90",
+          "swaps_per_token": 99.765625
+        }
+      ]
+    },
+    "LEGACY_S2_P50_CTX768": {
+      "deterministic_equality": true,
+      "label": "LEGACY_S2_P50_CTX768",
+      "metrics": {
+        "bytes_per_token": {
+          "max": 3924006912.0,
+          "median": 3924006912.0,
+          "min": 3924006912.0,
+          "values": [
+            3924006912.0,
+            3924006912.0,
+            3924006912.0
+          ]
+        },
+        "changed_fraction": {
+          "max": 0.7384510869565217,
+          "median": 0.7384510869565217,
+          "min": 0.7384510869565217,
+          "values": [
+            0.7384510869565217,
+            0.7384510869565217,
+            0.7384510869565217
+          ]
+        },
+        "cumulative_score_regret": {
+          "max": 18.945931773632765,
+          "median": 18.945931773632765,
+          "min": 18.945931773632765,
+          "values": [
+            18.945931773632765,
+            18.945931773632765,
+            18.945931773632765
+          ]
+        },
+        "decode_tok_s": {
+          "max": 0.5056563200362204,
+          "median": 0.5055556762499077,
+          "min": 0.5044347791968812,
+          "values": [
+            0.5056563200362204,
+            0.5044347791968812,
+            0.5055556762499077
+          ]
+        },
+        "hit_ratio": {
+          "max": 0.8480808423913043,
+          "median": 0.8480808423913043,
+          "min": 0.8480808423913043,
+          "values": [
+            0.8480808423913043,
+            0.8480808423913043,
+            0.8480808423913043
+          ]
+        },
+        "loads_per_token": {
+          "max": 223.625,
+          "median": 223.625,
+          "min": 223.625,
+          "values": [
+            223.625,
+            223.625,
+            223.625
+          ]
+        },
+        "mean_score_regret_per_realized_swap": {
+          "max": 0.0029672563466926804,
+          "median": 0.0029672563466926804,
+          "min": 0.0029672563466926804,
+          "values": [
+            0.0029672563466926804,
+            0.0029672563466926804,
+            0.0029672563466926804
+          ]
+        },
+        "p50_forward_s": {
+          "max": 1.890324558,
+          "median": 1.884287671,
+          "min": 1.880120207,
+          "values": [
+            1.884287671,
+            1.890324558,
+            1.880120207
+          ]
+        },
+        "p95_forward_s": {
+          "max": 2.699008429,
+          "median": 2.685955782,
+          "min": 2.661318145,
+          "values": [
+            2.661318145,
+            2.699008429,
+            2.685955782
+          ]
+        },
+        "p99_forward_s": {
+          "max": 2.945286273,
+          "median": 2.929544735,
+          "min": 2.92904343,
+          "values": [
+            2.945286273,
+            2.929544735,
+            2.92904343
+          ]
+        },
+        "swaps_per_token": {
+          "max": 99.765625,
+          "median": 99.765625,
+          "min": 99.765625,
+          "values": [
+            99.765625,
+            99.765625,
+            99.765625
+          ]
+        }
+      },
+      "n_ctx": 768,
+      "output_hashes": [
+        "76d94d040575edb4",
+        "76d94d040575edb4",
+        "76d94d040575edb4"
+      ],
+      "point": "S2_P50",
+      "protocol": "legacy-first-full",
+      "run_count": 3,
+      "runs": [
+        {
+          "bytes_per_token": 3924006912.0,
+          "changed_decisions": 4348,
+          "changed_fraction": 0.7384510869565217,
+          "cumulative_score_regret": 18.945931773632765,
+          "decode_tok_s": 0.5056563200362204,
+          "envelope_sha256": "b35f000718fad7222f649d623761d1e27277a6e6cc417d4b2040c1b35529ff88",
+          "fill_token": 9,
+          "hit_ratio": 0.8480808423913043,
+          "hits": 79896,
+          "label": "legacy768-1",
+          "loads_per_token": 223.625,
+          "maximum_realized_regret": null,
+          "maximum_realized_regret_status": "unavailable_without_observer",
+          "mean_score_regret_per_realized_swap": 0.0029672563466926804,
+          "minimum_mem_available_kib": 155097912,
+          "misses": 14312,
+          "model_nvme_read_bytes": 392952746496,
+          "model_nvme_read_operations": 410268,
+          "n_ctx": 768,
+          "output_hash": "76d94d040575edb4",
+          "p50_forward_s": 1.884287671,
+          "p95_forward_s": 2.661318145,
+          "p99_forward_s": 2.945286273,
+          "peak_process_rss_kib": 246931980,
+          "point": "S2_P50",
+          "prefill_tokens_consumed": 9,
+          "protocol": "legacy-first-full",
+          "realized_swaps": 6385,
+          "result_sha256": "3f999ca1eeab1bff49f12684e2c91d4cb62955e2370b9b89f0fc4cbed19f4095",
+          "swaps_per_token": 99.765625
+        },
+        {
+          "bytes_per_token": 3924006912.0,
+          "changed_decisions": 4348,
+          "changed_fraction": 0.7384510869565217,
+          "cumulative_score_regret": 18.945931773632765,
+          "decode_tok_s": 0.5044347791968812,
+          "envelope_sha256": "13d2f1c03c52c77db48631432c5e95acf323a1b59863c5b0485c24dc74e689d2",
+          "fill_token": 9,
+          "hit_ratio": 0.8480808423913043,
+          "hits": 79896,
+          "label": "legacy768-2",
+          "loads_per_token": 223.625,
+          "maximum_realized_regret": null,
+          "maximum_realized_regret_status": "unavailable_without_observer",
+          "mean_score_regret_per_realized_swap": 0.0029672563466926804,
+          "minimum_mem_available_kib": 155050892,
+          "misses": 14312,
+          "model_nvme_read_bytes": 392952746496,
+          "model_nvme_read_operations": 410269,
+          "n_ctx": 768,
+          "output_hash": "76d94d040575edb4",
+          "p50_forward_s": 1.890324558,
+          "p95_forward_s": 2.699008429,
+          "p99_forward_s": 2.929544735,
+          "peak_process_rss_kib": 246931976,
+          "point": "S2_P50",
+          "prefill_tokens_consumed": 9,
+          "protocol": "legacy-first-full",
+          "realized_swaps": 6385,
+          "result_sha256": "c26d4b51414e65b166abb0b4ba3c683528f1d9a2b0f8d9e1fe0c289ab40d3cb3",
+          "swaps_per_token": 99.765625
+        },
+        {
+          "bytes_per_token": 3924006912.0,
+          "changed_decisions": 4348,
+          "changed_fraction": 0.7384510869565217,
+          "cumulative_score_regret": 18.945931773632765,
+          "decode_tok_s": 0.5055556762499077,
+          "envelope_sha256": "e48ae1e816d516f673406dd6cb40a3e38105f9a7a435ba682cb5ca09e15453ec",
+          "fill_token": 9,
+          "hit_ratio": 0.8480808423913043,
+          "hits": 79896,
+          "label": "legacy768-3",
+          "loads_per_token": 223.625,
+          "maximum_realized_regret": null,
+          "maximum_realized_regret_status": "unavailable_without_observer",
+          "mean_score_regret_per_realized_swap": 0.0029672563466926804,
+          "minimum_mem_available_kib": 155047848,
+          "misses": 14312,
+          "model_nvme_read_bytes": 392952746496,
+          "model_nvme_read_operations": 410269,
+          "n_ctx": 768,
+          "output_hash": "76d94d040575edb4",
+          "p50_forward_s": 1.880120207,
+          "p95_forward_s": 2.685955782,
+          "p99_forward_s": 2.92904343,
+          "peak_process_rss_kib": 246931976,
+          "point": "S2_P50",
+          "prefill_tokens_consumed": 9,
+          "protocol": "legacy-first-full",
+          "realized_swaps": 6385,
+          "result_sha256": "3e08bba5498593bd21290bce5051c8f2f01b733c9ad081d7b4cedb8b754187c5",
+          "swaps_per_token": 99.765625
+        }
+      ]
+    }
+  },
+  "classification": "diagnostic_not_stage_a_or_stage_c",
+  "comparisons": {
+    "full_prompt_knee_over_exact_tps_ratio_by_pair": [
+      1.0487566917931879,
+      1.053471305088087,
+      1.0551609618173794
+    ],
+    "full_prompt_knee_over_exact_tps_ratio_median": 1.053471305088087,
+    "full_prompt_s2_minus_exact_hit_ratio": 0.07728643002717384,
+    "full_prompt_s2_minus_exact_loads_per_token": -113.765625,
+    "full_prompt_s2_minus_knee_hit_ratio": 0.03913680366847816,
+    "full_prompt_s2_minus_knee_loads_per_token": -57.609375,
+    "full_prompt_s2_over_exact_median_tps_ratio": 1.1236065230515515,
+    "full_prompt_s2_over_knee_median_tps_ratio": 1.0665753472588415,
+    "full_s2_over_legacy_ctx768_median_tps_ratio": 0.6867081093046741,
+    "legacy_ctx768_over_ctx256_median_tps_ratio": 1.0066028697390164
+  },
+  "diagnostic_answers": {
+    "cross_issue_tps_interpretation_blocked_by_host_or_helper_confound": false,
+    "current_helper_host_reproduces_historical_legacy_tps_regime": true,
+    "evidence": "LEGACY_S2_P50_CTX768 median and range reproduce the historical #98 approximately 0.5033-0.5054 tok/s regime while retaining the exact legacy deterministic signature; the reused clean-host ctx256 bridge is within about 0.66% of the ctx768 median",
+    "full_prompt_s2_still_improves_over_exact": true,
+    "full_prompt_s2_still_improves_over_knee": true,
+    "full_prompt_trajectory_explains_large_absolute_shift": true,
+    "prefill_depth_curve_authorized_to_proceed": true,
+    "raising_n_ctx_alone_materially_changes_legacy_tps": false
+  },
+  "generated_utc": "2026-08-13T21:49:00Z",
+  "identities": {
+    "build_fingerprint_sha256": "d150d179f41ebd2deab49b663e64c909b7d8fa6b4546c716aee889479f633a10",
+    "cache_bytes": 137728475136,
+    "cache_slots": 7849,
+    "helper_binary_sha256": "c35cdc52d3669b080972e1c1ac68df6b88290e79d46c92edde2f48eae3733975",
+    "model_identity_manifest_sha256": "58b14d13a602944e1134fc753b2cc819a84a31290aee9c1479264a66dbb5efe2",
+    "nested_llama_cpp": "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9",
+    "project": "822b2039009c91f268350716829eee57dd92e40f"
+  },
+  "limitations": [
+    "FULL_PROMPT_S2_P50 reuses the preregistered three-run sentinel baseline and is not contemporaneously paired",
+    "LEGACY_S2_P50_CTX256 reuses one clean-host parity run; ctx768 provides the requested three-run same-helper context isolation",
+    "output divergence among policies is trajectory metadata only and not semantic-quality evidence",
+    "maximum realized per-swap regret is unavailable without the later observer diagnostic"
+  ],
+  "paired_order": [
+    [
+      "FULL_PROMPT_EXACT",
+      "FULL_PROMPT_KNEE"
+    ],
+    [
+      "FULL_PROMPT_KNEE",
+      "FULL_PROMPT_EXACT"
+    ],
+    [
+      "FULL_PROMPT_EXACT",
+      "FULL_PROMPT_KNEE"
+    ]
+  ],
+  "progression": {
+    "next": "publish this bridge synthesis, then execute the fixed N={9,16,32,64,100} prefill-depth locality curve before rerunning primary 17",
+    "stage_a_completed_primary_prompts": 16,
+    "stage_a_primary_17_started_validly": false
+  },
+  "safety": {
+    "all_new_bridge_runs_passed": true,
+    "all_reused_runs_passed": true,
+    "all_swap_reclaim_psi_oom_cgroup_pressure_fallback_error_counters_zero": true,
+    "all_terminal_resources_zero": true,
+    "all_unused_nvme_read_bytes_zero": true
+  },
+  "schema_version": "issue102-protocol-bridge-v1",
+  "status": "pass"
+}
