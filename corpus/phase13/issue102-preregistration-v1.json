@@ -1,7 +1,7 @@
 {
   "schema_version": "issue102-checkpoint-a-preregistration-v1",
   "status": "frozen-before-performance",
-  "frozen_utc": "2026-08-13T14:19:21Z",
+  "frozen_utc": "2026-08-13T14:27:02Z",
   "corpus": {
     "path": "corpus/phase13/issue102-cross-prompt-v1.json",
     "sha256": "e0f1746f987f888d68a36261a2822f4754a413b7799c6252aae8a4ded2a900d8",
@@ -20,12 +20,12 @@
   "helper": {
     "scope": "measurement orchestration only; no production runtime source change",
     "source_path": "/mnt/nvme1/issue102/build/issue102-cross-prompt-probe.cpp",
-    "source_sha256": "3c3c120191e7029365efd13e4594376f92dcfdb2cfb996e48a69b6e50b9779bd",
+    "source_sha256": "1ba6c540196e7f777f9ec761813b240057f08abfbc5ce711cae037c4babf8b43",
     "binary_path": "/mnt/nvme1/issue102/build/bin/issue102-cross-prompt-probe",
-    "binary_sha256": "5ff3cf1d067c080db74619f939e9de0d3ae213bea22eb3b55f32121364db411f",
+    "binary_sha256": "c35cdc52d3669b080972e1c1ac68df6b88290e79d46c92edde2f48eae3733975",
     "freezer_binary_sha256": "9e309689c1d454bf54abaa7a9c302bf1848d31f739c71cd6762c1af55fdd677e",
-    "bounded_diff_path": "/mnt/nvme1/issue102/checkpoint-a/helper-vs-issue98-v2.diff",
-    "bounded_diff_sha256": "1ddfbbdafb42f80e7c7d041f4110f36dc0c25138adfa3abd336ccf3c95d31f23",
+    "bounded_diff_path": "/mnt/nvme1/issue102/checkpoint-a/helper-vs-issue98-v3.diff",
+    "bounded_diff_sha256": "685d79870140b2db54e7943bea448917b23f9d71ef91feadf84744c5196b9464",
     "bounded_changes": [
       "select a frozen case ID and validate exact templated bytes/token count",
       "support legacy-first-full qualification and full-prompt protocols",

@@ -159,7 +159,9 @@ prompt_case load_prompt(
     } else {
         rendered = selected.at("prompt").get<std::string>();
     }
-    const int expected = selected.at("expected_prompt_tokens").get<int>();
+    const int expected = selected.contains("observed_templated_prompt_tokens") ?
+        selected.at("observed_templated_prompt_tokens").get<int>() :
+        selected.at("expected_prompt_tokens").get<int>();
     const int count = -llama_tokenize(vocab, rendered.data(), rendered.size(), nullptr, 0, true, true);
     if (count != expected || (legacy && count != 100)) {
         throw std::runtime_error("prompt token identity mismatch");
