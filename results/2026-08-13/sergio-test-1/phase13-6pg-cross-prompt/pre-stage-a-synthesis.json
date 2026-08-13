@@ -1,0 +1,212 @@
+{
+  "schema_version": "issue102-pre-stage-a-synthesis-v1",
+  "status": "pass",
+  "synthesized_utc": "2026-08-13T16:39:24Z",
+  "revisions": {
+    "project_at_sentinel_baseline": "cc026458d7c9eab5b1c7f4628832ca493f80feb4",
+    "nested_llama_cpp": "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9"
+  },
+  "host_normalization": {
+    "pre_clean_inventory": {
+      "path": "/mnt/nvme1/issue102/host-normalization/pre-clean-pre-reboot.json",
+      "sha256": "d19f9ee45735acbbad55e40fb9a1fee0287c86e1909e7483f4e9c1de6b3d8646"
+    },
+    "post_clean_inventory": {
+      "path": "/mnt/nvme1/issue102/host-normalization/post-clean-pre-reboot.json",
+      "sha256": "23966985312d819fb249e28771447c9a933f4a794b3026d70fc087a429eb85d8"
+    },
+    "pre_reboot_final_inventory": {
+      "path": "/mnt/nvme1/issue102/host-normalization/pre-reboot-final.json",
+      "sha256": "d80286de8ef7434d42b2e0de863ff8a496328566573ea64eeb32f2597109e540",
+      "usable_for_admission_evidence": false,
+      "reason": "an interrupted accidental read of the first model shard warmed file cache; no performance or locality result was inspected"
+    },
+    "controlled_reboot_performed": true,
+    "boot_id_before": "7e243112-7df7-4d45-9ae3-522fda3c7deb",
+    "boot_id_after": "e8ac1909-5568-4bc8-a490-995c2dd70aff",
+    "post_reboot_initial_inventory": {
+      "path": "/mnt/nvme1/issue102/host-normalization/post-reboot-initial.json",
+      "sha256": "c40da8a1150319bcc9fe11b05bce6fbbd8e40459c350ba7226a0d884b92aa911"
+    },
+    "post_reboot_normalized_inventory": {
+      "path": "/mnt/nvme1/issue102/host-normalization/post-reboot-normalized.json",
+      "sha256": "8845553055ff4ec361702e0bc29f896511f12bc84bf91d8fa22ad731f2290774"
+    },
+    "safe_cleanup": {
+      "stale_k3_helper_build_or_compiler_processes_found": 0,
+      "swap_file_disabled_after_cloud_init_recreated_it": true,
+      "manual_page_cache_eviction": false,
+      "memory_pressure_trick": false,
+      "cgroup_limit_change": false,
+      "sysctl_tuning": false
+    }
+  },
+  "legacy_helper_parity": {
+    "method": "EXACT_7849",
+    "protocol": "legacy-first-full",
+    "n_ctx": 256,
+    "point": "S2_P50",
+    "cache_slots": 7849,
+    "cache_bytes": 137728475136,
+    "result": "pass",
+    "raw_result_sha256": "21196a5e3db73df63f41b068755e38d26f62521b2e4055dd8bcf6f94ca971e90",
+    "envelope_sha256": "68a4bc301e2c53c57ea889640f2cbb16c3cf433bd3396cbe9a9ad406f20c1e54",
+    "frozen_signature_exact": true,
+    "host_safety_clean": true
+  },
+  "capacity_freeze": {
+    "manifest_path": "results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/clean-host-capacity-freeze.json",
+    "manifest_sha256": "9e7fc0eb3005eb5982da15fd7c69c0b262e3b6aa5417f8f3a088fa8371e61293",
+    "method": "three fresh n_ctx=768 target-capacity safety samples",
+    "cross_prompt_cache_slots": 7849,
+    "cross_prompt_cache_bytes": 137728475136,
+    "capacity_relation": "EXACT_MATCH_TO_98_V3",
+    "all_three_target_samples_admitted_cleanly": true,
+    "auto_fallback_run": false,
+    "selection_did_not_inspect_performance_or_locality": true
+  },
+  "full_prompt_sentinel_baseline": {
+    "configuration": {
+      "case_id": "issue102-sentinel",
+      "protocol": "full-prompt",
+      "point": "S2_P50",
+      "n_ctx": 768,
+      "threads": 32,
+      "decode_forwards": 64,
+      "warmup_limit": 128,
+      "fresh_processes": 3,
+      "cache_slots": 7849,
+      "cache_bytes": 137728475136
+    },
+    "deterministic_equality": {
+      "result": "pass",
+      "signature_sha256": "19c23a98b8c8410929e8080c95f230e62b2476589d7f1dd112afaf14153fa947",
+      "scope": "case, point, protocol, fill boundary and locality, measured locality and storage counters, routing configuration and counters, and generated output",
+      "all_three_signatures_equal": true
+    },
+    "common_signature": {
+      "fill_token": 9,
+      "full_prompt_tokens": 100,
+      "fill_requests": 13248,
+      "fill_hits": 5168,
+      "fill_misses": 8080,
+      "fill_backing_loads": 8080,
+      "fill_backing_bytes": 141781893120,
+      "fill_residency_digest": "8da8a87704bf4513",
+      "measured_forwards": 64,
+      "measured_requests": 94208,
+      "measured_hits": 62418,
+      "measured_misses": 31790,
+      "hit_ratio": 0.6625551970108695,
+      "backing_loads": 31790,
+      "backing_bytes": 557827522560,
+      "loads_per_token": 496.71875,
+      "bytes_per_token": 8716055040,
+      "cold_residency_digest_before": "e436ac36c0f342fb",
+      "cold_residency_digest_after": "e78b7dbfb45b4d59",
+      "changed_decisions": 3981,
+      "realized_swaps": 6143,
+      "cumulative_score_regret": 17.71107554808259,
+      "mean_score_regret_per_realized_swap": 0.00288313129547169,
+      "mean_score_regret_per_decision": 0.00300799516781294,
+      "maximum_realized_regret": null,
+      "maximum_realized_regret_status": "unavailable_without_observer",
+      "routing_failures": 0,
+      "generated_token_count": 64,
+      "generated_token_hash": "d69f3b3d530f6f56"
+    },
+    "throughput": {
+      "decode_tok_s": {
+        "values": [
+          0.346932418373893,
+          0.3473605484594497,
+          0.34716918258582
+        ],
+        "min": 0.346932418373893,
+        "median": 0.34716918258582,
+        "max": 0.3473605484594497
+      },
+      "p50_forward_s": {
+        "values": [
+          2.84597014,
+          2.829597845,
+          2.840146723
+        ],
+        "min": 2.829597845,
+        "median": 2.840146723,
+        "max": 2.84597014
+      },
+      "p95_forward_s": {
+        "values": [
+          3.682386681,
+          3.677669127,
+          3.67593481
+        ],
+        "min": 3.67593481,
+        "median": 3.677669127,
+        "max": 3.682386681
+      },
+      "p99_forward_s": {
+        "values": [
+          3.970292675,
+          3.958412932,
+          3.963134042
+        ],
+        "min": 3.958412932,
+        "median": 3.963134042,
+        "max": 3.970292675
+      }
+    },
+    "host_safety": {
+      "all_three_runner_validations_passed": true,
+      "all_swap_reclaim_psi_oom_cgroup_pressure_fallback_error_counters_zero": true,
+      "all_terminal_resource_counters_zero": true,
+      "unused_nvme_read_bytes_each_run": [
+        0,
+        0,
+        0
+      ],
+      "minimum_mem_available_kib_each_run": [
+        155141168,
+        155124464,
+        155188276
+      ],
+      "peak_process_rss_kib_each_run": [
+        246935164,
+        246935156,
+        246935148
+      ]
+    },
+    "runs": [
+      {
+        "ordinal": 1,
+        "root": "/mnt/nvme1/issue102/sentinel-baseline/sentinel-full-01",
+        "result_sha256": "8140dade12c623db448f47de7cd7944b49fcc4627d7bf088112a0843c71d5fb2",
+        "envelope_sha256": "a5337f686c1af889bfc3971ff1e99cd603f77dac4a63eba8af37fcbbd93ac66f",
+        "elapsed_s": 539.4266165460003,
+        "model_nvme_read_bytes": 1707593979904
+      },
+      {
+        "ordinal": 2,
+        "root": "/mnt/nvme1/issue102/sentinel-baseline/sentinel-full-02",
+        "result_sha256": "95f74cbfa6910d4864797b6c0670e8cb9c90cb059a134f08360625cee47aa355",
+        "envelope_sha256": "f9f1c9c4ef2f9554beefec6fe574ca7224ad3d4935c231f9fff24371c9d80f70",
+        "elapsed_s": 539.4428232519999,
+        "model_nvme_read_bytes": 1707586000896
+      },
+      {
+        "ordinal": 3,
+        "root": "/mnt/nvme1/issue102/sentinel-baseline/sentinel-full-03",
+        "result_sha256": "0446e5171d95d12e7c9e47105fd436cb2ee1f7bfadc1627adcb530a3cb5cfaa8",
+        "envelope_sha256": "a01d44d8c742bd2410d57ab5a82d49b64ce3ba8c02b17b58dccf23b8f0faba2b",
+        "elapsed_s": 539.4614010730002,
+        "model_nvme_read_bytes": 1707586000896
+      }
+    ]
+  },
+  "progression": {
+    "pre_stage_a_gate_passed": true,
+    "stage_a_started": false,
+    "next": "publish this synthesis, then begin Stage A in the frozen execution order with one fresh process per case"
+  }
+}
