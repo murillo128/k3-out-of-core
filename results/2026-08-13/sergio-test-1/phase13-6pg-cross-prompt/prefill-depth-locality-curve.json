@@ -1,0 +1,2245 @@
+{
+  "classification": "bounded_diagnostic_not_stage_a_or_stage_c",
+  "generated_utc": "2026-08-13T22:21:00Z",
+  "identities": {
+    "build_fingerprint_sha256": "d150d179f41ebd2deab49b663e64c909b7d8fa6b4546c716aee889479f633a10",
+    "cache_bytes": 137728475136,
+    "cache_slots": 7849,
+    "helper_binary_sha256": "c35cdc52d3669b080972e1c1ac68df6b88290e79d46c92edde2f48eae3733975",
+    "model_identity_manifest_sha256": "58b14d13a602944e1134fc753b2cc819a84a31290aee9c1479264a66dbb5efe2",
+    "n_ctx": 768,
+    "nested_llama_cpp": "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9",
+    "prefix_corpus_path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/prefill-depth-prefix-corpus.json",
+    "prefix_corpus_sha256": "9de09549e794de4b4f40edfde87db47932407dcad423742b1d91388c018c6e58",
+    "project": "ca7eb0d7ca3e3b20c51300bae9dfefe5bcce2b64",
+    "sentinel_templated_prompt_sha256": "619f2ebc9be1e36147b9f5c24095b3daa16b04d67ef4e9f354d0607a3f4517fa",
+    "stage_a_corpus_sha256": "e0f1746f987f888d68a36261a2822f4754a413b7799c6252aae8a4ded2a900d8"
+  },
+  "interpretations": {
+    "EARLY_FIRST_FULL_LOCALITY_EFFECT": {
+      "evidence": {
+        "exact_curve_is_monotonic": false,
+        "exact_hit_ratio_n100": 0.5852687669836957,
+        "exact_hit_ratio_n9": 0.6228239639945652,
+        "s2_hit_ratio_n100": 0.6625551970108695,
+        "s2_hit_ratio_n9": 0.8480808423913043,
+        "s2_hit_ratio_n9_minus_n100": 0.1855256453804348,
+        "s2_hit_ratio_strictly_decreases_across_grid": true
+      },
+      "note": "The historical S2 first-full regime loses locality monotonically with depth; EXACT is nonmonotonic but ends below its N=9 hit ratio at N=100.",
+      "verdict": "SUPPORTED_WITH_NONMONOTONIC_EXACT_CURVE"
+    },
+    "NO_PREFILL_DEPTH_EFFECT": {
+      "evidence": {
+        "s2_hit_ratio_change_n100_minus_n9": -0.1855256453804348,
+        "s2_tps_ratio_change_n100_minus_n9": -0.42208897004871115
+      },
+      "note": "Depth materially changes deterministic locality and the relative TPS regime.",
+      "verdict": "REJECTED"
+    },
+    "S2_ADVANTAGE_DECAYS": {
+      "evidence": {
+        "ratio_n100_minus_n9": -0.42208897004871115,
+        "ratio_strictly_decreases_across_grid": false,
+        "s2_over_exact_tps_ratio_n100": 1.1236065230515515,
+        "s2_over_exact_tps_ratio_n9": 1.5456954931002627
+      },
+      "note": "The exceptionally large N=9 advantage shrinks substantially by N=100, although interior ratios are nonmonotonic.",
+      "verdict": "SUPPORTED_OVERALL_NOT_MONOTONIC"
+    },
+    "S2_COMPENSATES_DECAY": {
+      "evidence": {
+        "minimum_hit_ratio_advantage": 0.034975798233695565,
+        "minimum_tps_ratio": 1.0558729526196706,
+        "s2_hit_ratio_above_exact_at_every_depth": true,
+        "s2_tps_above_exact_at_every_depth": true
+      },
+      "note": "Both endpoint policies lose locality from N=9 to N=100, while S2 retains positive locality and TPS advantages at every measured depth.",
+      "verdict": "SUPPORTED_AT_ALL_GRID_POINTS"
+    }
+  },
+  "limitations": [
+    "N=9 S2, N=100 EXACT and N=100 S2 reuse already-valid same-host endpoint evidence as authorized",
+    "interior points have one clean process per arm and establish deterministic curve shape rather than a host-noise confidence interval",
+    "output divergence is trajectory metadata only and is not semantic-quality evidence",
+    "the curve is explanatory only and cannot authorize routing retuning"
+  ],
+  "points": [
+    {
+      "EXACT": {
+        "deterministic_equality": true,
+        "metrics": {
+          "backing_bytes_per_token": {
+            "max": 9742295808.0,
+            "median": 9742295808.0,
+            "min": 9742295808.0,
+            "values": [
+              9742295808.0
+            ]
+          },
+          "backing_loads_per_token": {
+            "max": 555.203125,
+            "median": 555.203125,
+            "min": 555.203125,
+            "values": [
+              555.203125
+            ]
+          },
+          "decode_tok_s": {
+            "max": 0.32707326799271097,
+            "median": 0.32707326799271097,
+            "min": 0.32707326799271097,
+            "values": [
+              0.32707326799271097
+            ]
+          },
+          "hit_ratio": {
+            "max": 0.6228239639945652,
+            "median": 0.6228239639945652,
+            "min": 0.6228239639945652,
+            "values": [
+              0.6228239639945652
+            ]
+          },
+          "model_nvme_read_bytes": {
+            "max": 765358080000,
+            "median": 765358080000,
+            "min": 765358080000,
+            "values": [
+              765358080000
+            ]
+          },
+          "model_nvme_read_operations": {
+            "max": 796483,
+            "median": 796483,
+            "min": 796483,
+            "values": [
+              796483
+            ]
+          },
+          "p50_forward_s": {
+            "max": 3.083619497,
+            "median": 3.083619497,
+            "min": 3.083619497,
+            "values": [
+              3.083619497
+            ]
+          },
+          "p95_forward_s": {
+            "max": 3.586529397,
+            "median": 3.586529397,
+            "min": 3.586529397,
+            "values": [
+              3.586529397
+            ]
+          },
+          "p99_forward_s": {
+            "max": 4.006524484,
+            "median": 4.006524484,
+            "min": 4.006524484,
+            "values": [
+              4.006524484
+            ]
+          }
+        },
+        "n_ctx": 768,
+        "point": "EXACT",
+        "protocol": "full-prompt",
+        "run_count": 1,
+        "runs": [
+          {
+            "backing_bytes_per_token": 9742295808.0,
+            "backing_loads_per_token": 555.203125,
+            "decode_boundary": {
+              "admissions": 8080,
+              "canonical_sha256": "419c7469c04adce97b3bcf4a00038909448cef2f61eab502c8828f2a653fa236",
+              "capacity": 7849,
+              "evictions": 231,
+              "hits": 5168,
+              "misses": 8080,
+              "occupancy": 7849,
+              "requests": 13248,
+              "residency_digest": "8da8a87704bf4513"
+            },
+            "decode_forwards": 64,
+            "decode_tok_s": 0.32707326799271097,
+            "envelope_path": "/mnt/nvme1/issue102/prefill-depth-curve/n009-exact/envelope.json",
+            "envelope_sha256": "fa5eeb2333a366584f0cf86e87486e454f9aaedb1174de86dcf08e2c5ff6c7e4",
+            "first_full_token": 9,
+            "hit_ratio": 0.6228239639945652,
+            "hits": 58675,
+            "label": "n009-exact",
+            "misses": 35533,
+            "model_nvme_read_bytes": 765358080000,
+            "model_nvme_read_operations": 796483,
+            "n_ctx": 768,
+            "p50_forward_s": 3.083619497,
+            "p95_forward_s": 3.586529397,
+            "p99_forward_s": 4.006524484,
+            "point": "EXACT",
+            "prefill_tokens_consumed": 9,
+            "protocol": "full-prompt",
+            "result_path": "/mnt/nvme1/issue102/prefill-depth-curve/n009-exact/result.json",
+            "result_sha256": "9dc7d1d8411e8d6e4eb53d84ad849723bc603ff7b5dd857a61a254b095646f09",
+            "routing": {
+              "changed_decisions": 0,
+              "changed_fraction": 0.0,
+              "cumulative_score_regret": 0.0,
+              "mean_realized_regret": 0.0,
+              "realized_swaps": 0,
+              "swaps_per_token": 0.0
+            },
+            "safety": {
+              "cgroup_pressure_oom_events": 0,
+              "io_fallback_error_events": 0,
+              "memory_psi_total_delta_usec": 0,
+              "peak_process_swap_kib": 0,
+              "pressure_circuit_open": false,
+              "pressure_rejections": 0,
+              "reclaim_refault_events": 0,
+              "swap_kib": 0,
+              "unused_nvme_read_bytes": 0
+            },
+            "source": "fresh_curve"
+          }
+        ]
+      },
+      "S2_P50": {
+        "deterministic_equality": true,
+        "metrics": {
+          "backing_bytes_per_token": {
+            "max": 3924006912.0,
+            "median": 3924006912.0,
+            "min": 3924006912.0,
+            "values": [
+              3924006912.0,
+              3924006912.0,
+              3924006912.0
+            ]
+          },
+          "backing_loads_per_token": {
+            "max": 223.625,
+            "median": 223.625,
+            "min": 223.625,
+            "values": [
+              223.625,
+              223.625,
+              223.625
+            ]
+          },
+          "decode_tok_s": {
+            "max": 0.5056563200362204,
+            "median": 0.5055556762499077,
+            "min": 0.5044347791968812,
+            "values": [
+              0.5056563200362204,
+              0.5044347791968812,
+              0.5055556762499077
+            ]
+          },
+          "hit_ratio": {
+            "max": 0.8480808423913043,
+            "median": 0.8480808423913043,
+            "min": 0.8480808423913043,
+            "values": [
+              0.8480808423913043,
+              0.8480808423913043,
+              0.8480808423913043
+            ]
+          },
+          "model_nvme_read_bytes": {
+            "max": 392952746496,
+            "median": 392952746496,
+            "min": 392952746496,
+            "values": [
+              392952746496,
+              392952746496,
+              392952746496
+            ]
+          },
+          "model_nvme_read_operations": {
+            "max": 410269,
+            "median": 410269,
+            "min": 410268,
+            "values": [
+              410268,
+              410269,
+              410269
+            ]
+          },
+          "p50_forward_s": {
+            "max": 1.890324558,
+            "median": 1.884287671,
+            "min": 1.880120207,
+            "values": [
+              1.884287671,
+              1.890324558,
+              1.880120207
+            ]
+          },
+          "p95_forward_s": {
+            "max": 2.699008429,
+            "median": 2.685955782,
+            "min": 2.661318145,
+            "values": [
+              2.661318145,
+              2.699008429,
+              2.685955782
+            ]
+          },
+          "p99_forward_s": {
+            "max": 2.945286273,
+            "median": 2.929544735,
+            "min": 2.92904343,
+            "values": [
+              2.945286273,
+              2.929544735,
+              2.92904343
+            ]
+          }
+        },
+        "n_ctx": 768,
+        "point": "S2_P50",
+        "protocol": "legacy-first-full",
+        "run_count": 3,
+        "runs": [
+          {
+            "backing_bytes_per_token": 3924006912.0,
+            "backing_loads_per_token": 223.625,
+            "decode_boundary": {
+              "admissions": 8080,
+              "canonical_sha256": "419c7469c04adce97b3bcf4a00038909448cef2f61eab502c8828f2a653fa236",
+              "capacity": 7849,
+              "evictions": 231,
+              "hits": 5168,
+              "misses": 8080,
+              "occupancy": 7849,
+              "requests": 13248,
+              "residency_digest": "8da8a87704bf4513"
+            },
+            "decode_forwards": 64,
+            "decode_tok_s": 0.5056563200362204,
+            "envelope_path": "/mnt/nvme1/issue102/protocol-bridge/legacy-s2-ctx768-01/envelope.json",
+            "envelope_sha256": "b35f000718fad7222f649d623761d1e27277a6e6cc417d4b2040c1b35529ff88",
+            "first_full_token": 9,
+            "hit_ratio": 0.8480808423913043,
+            "hits": 79896,
+            "label": "n009-s2-reused-1",
+            "misses": 14312,
+            "model_nvme_read_bytes": 392952746496,
+            "model_nvme_read_operations": 410268,
+            "n_ctx": 768,
+            "p50_forward_s": 1.884287671,
+            "p95_forward_s": 2.661318145,
+            "p99_forward_s": 2.945286273,
+            "point": "S2_P50",
+            "prefill_tokens_consumed": 9,
+            "protocol": "legacy-first-full",
+            "result_path": "/mnt/nvme1/issue102/protocol-bridge/legacy-s2-ctx768-01/result.json",
+            "result_sha256": "3f999ca1eeab1bff49f12684e2c91d4cb62955e2370b9b89f0fc4cbed19f4095",
+            "routing": {
+              "changed_decisions": 4348,
+              "changed_fraction": 0.7384510869565217,
+              "cumulative_score_regret": 18.945931773632765,
+              "mean_realized_regret": 0.0029672563466926804,
+              "realized_swaps": 6385,
+              "swaps_per_token": 99.765625
+            },
+            "safety": {
+              "cgroup_pressure_oom_events": 0,
+              "io_fallback_error_events": 0,
+              "memory_psi_total_delta_usec": 0,
+              "peak_process_swap_kib": 0,
+              "pressure_circuit_open": false,
+              "pressure_rejections": 0,
+              "reclaim_refault_events": 0,
+              "swap_kib": 0,
+              "unused_nvme_read_bytes": 0
+            },
+            "source": "reused_protocol_bridge"
+          },
+          {
+            "backing_bytes_per_token": 3924006912.0,
+            "backing_loads_per_token": 223.625,
+            "decode_boundary": {
+              "admissions": 8080,
+              "canonical_sha256": "419c7469c04adce97b3bcf4a00038909448cef2f61eab502c8828f2a653fa236",
+              "capacity": 7849,
+              "evictions": 231,
+              "hits": 5168,
+              "misses": 8080,
+              "occupancy": 7849,
+              "requests": 13248,
+              "residency_digest": "8da8a87704bf4513"
+            },
+            "decode_forwards": 64,
+            "decode_tok_s": 0.5044347791968812,
+            "envelope_path": "/mnt/nvme1/issue102/protocol-bridge/legacy-s2-ctx768-02/envelope.json",
+            "envelope_sha256": "13d2f1c03c52c77db48631432c5e95acf323a1b59863c5b0485c24dc74e689d2",
+            "first_full_token": 9,
+            "hit_ratio": 0.8480808423913043,
+            "hits": 79896,
+            "label": "n009-s2-reused-2",
+            "misses": 14312,
+            "model_nvme_read_bytes": 392952746496,
+            "model_nvme_read_operations": 410269,
+            "n_ctx": 768,
+            "p50_forward_s": 1.890324558,
+            "p95_forward_s": 2.699008429,
+            "p99_forward_s": 2.929544735,
+            "point": "S2_P50",
+            "prefill_tokens_consumed": 9,
+            "protocol": "legacy-first-full",
+            "result_path": "/mnt/nvme1/issue102/protocol-bridge/legacy-s2-ctx768-02/result.json",
+            "result_sha256": "c26d4b51414e65b166abb0b4ba3c683528f1d9a2b0f8d9e1fe0c289ab40d3cb3",
+            "routing": {
+              "changed_decisions": 4348,
+              "changed_fraction": 0.7384510869565217,
+              "cumulative_score_regret": 18.945931773632765,
+              "mean_realized_regret": 0.0029672563466926804,
+              "realized_swaps": 6385,
+              "swaps_per_token": 99.765625
+            },
+            "safety": {
+              "cgroup_pressure_oom_events": 0,
+              "io_fallback_error_events": 0,
+              "memory_psi_total_delta_usec": 0,
+              "peak_process_swap_kib": 0,
+              "pressure_circuit_open": false,
+              "pressure_rejections": 0,
+              "reclaim_refault_events": 0,
+              "swap_kib": 0,
+              "unused_nvme_read_bytes": 0
+            },
+            "source": "reused_protocol_bridge"
+          },
+          {
+            "backing_bytes_per_token": 3924006912.0,
+            "backing_loads_per_token": 223.625,
+            "decode_boundary": {
+              "admissions": 8080,
+              "canonical_sha256": "419c7469c04adce97b3bcf4a00038909448cef2f61eab502c8828f2a653fa236",
+              "capacity": 7849,
+              "evictions": 231,
+              "hits": 5168,
+              "misses": 8080,
+              "occupancy": 7849,
+              "requests": 13248,
+              "residency_digest": "8da8a87704bf4513"
+            },
+            "decode_forwards": 64,
+            "decode_tok_s": 0.5055556762499077,
+            "envelope_path": "/mnt/nvme1/issue102/protocol-bridge/legacy-s2-ctx768-03/envelope.json",
+            "envelope_sha256": "e48ae1e816d516f673406dd6cb40a3e38105f9a7a435ba682cb5ca09e15453ec",
+            "first_full_token": 9,
+            "hit_ratio": 0.8480808423913043,
+            "hits": 79896,
+            "label": "n009-s2-reused-3",
+            "misses": 14312,
+            "model_nvme_read_bytes": 392952746496,
+            "model_nvme_read_operations": 410269,
+            "n_ctx": 768,
+            "p50_forward_s": 1.880120207,
+            "p95_forward_s": 2.685955782,
+            "p99_forward_s": 2.92904343,
+            "point": "S2_P50",
+            "prefill_tokens_consumed": 9,
+            "protocol": "legacy-first-full",
+            "result_path": "/mnt/nvme1/issue102/protocol-bridge/legacy-s2-ctx768-03/result.json",
+            "result_sha256": "3e08bba5498593bd21290bce5051c8f2f01b733c9ad081d7b4cedb8b754187c5",
+            "routing": {
+              "changed_decisions": 4348,
+              "changed_fraction": 0.7384510869565217,
+              "cumulative_score_regret": 18.945931773632765,
+              "mean_realized_regret": 0.0029672563466926804,
+              "realized_swaps": 6385,
+              "swaps_per_token": 99.765625
+            },
+            "safety": {
+              "cgroup_pressure_oom_events": 0,
+              "io_fallback_error_events": 0,
+              "memory_psi_total_delta_usec": 0,
+              "peak_process_swap_kib": 0,
+              "pressure_circuit_open": false,
+              "pressure_rejections": 0,
+              "reclaim_refault_events": 0,
+              "swap_kib": 0,
+              "unused_nvme_read_bytes": 0
+            },
+            "source": "reused_protocol_bridge"
+          }
+        ]
+      },
+      "paired": {
+        "s2_minus_exact_backing_bytes_per_token": -5818288896.0,
+        "s2_minus_exact_backing_loads_per_token": -331.578125,
+        "s2_minus_exact_hit_ratio": 0.22525687839673914,
+        "s2_over_exact_tps_ratio": 1.5456954931002627
+      },
+      "prefill_boundary": {
+        "admissions": 8080,
+        "canonical_sha256": "419c7469c04adce97b3bcf4a00038909448cef2f61eab502c8828f2a653fa236",
+        "capacity": 7849,
+        "evictions": 231,
+        "hits": 5168,
+        "misses": 8080,
+        "occupancy": 7849,
+        "requests": 13248,
+        "residency_digest": "8da8a87704bf4513"
+      },
+      "prefill_boundary_equal_between_exact_and_s2": true,
+      "prefill_tokens": 9
+    },
+    {
+      "EXACT": {
+        "deterministic_equality": true,
+        "metrics": {
+          "backing_bytes_per_token": {
+            "max": 7880914944.0,
+            "median": 7880914944.0,
+            "min": 7880914944.0,
+            "values": [
+              7880914944.0
+            ]
+          },
+          "backing_loads_per_token": {
+            "max": 449.125,
+            "median": 449.125,
+            "min": 449.125,
+            "values": [
+              449.125
+            ]
+          },
+          "decode_tok_s": {
+            "max": 0.3680819852902639,
+            "median": 0.3680819852902639,
+            "min": 0.3680819852902639,
+            "values": [
+              0.3680819852902639
+            ]
+          },
+          "hit_ratio": {
+            "max": 0.6948879076086957,
+            "median": 0.6948879076086957,
+            "min": 0.6948879076086957,
+            "values": [
+              0.6948879076086957
+            ]
+          },
+          "model_nvme_read_bytes": {
+            "max": 711572167168,
+            "median": 711572167168,
+            "min": 711572167168,
+            "values": [
+              711572167168
+            ]
+          },
+          "model_nvme_read_operations": {
+            "max": 741042,
+            "median": 741042,
+            "min": 741042,
+            "values": [
+              741042
+            ]
+          },
+          "p50_forward_s": {
+            "max": 2.709055513,
+            "median": 2.709055513,
+            "min": 2.709055513,
+            "values": [
+              2.709055513
+            ]
+          },
+          "p95_forward_s": {
+            "max": 3.344502858,
+            "median": 3.344502858,
+            "min": 3.344502858,
+            "values": [
+              3.344502858
+            ]
+          },
+          "p99_forward_s": {
+            "max": 3.487470141,
+            "median": 3.487470141,
+            "min": 3.487470141,
+            "values": [
+              3.487470141
+            ]
+          }
+        },
+        "n_ctx": 768,
+        "point": "EXACT",
+        "protocol": "full-prompt",
+        "run_count": 1,
+        "runs": [
+          {
+            "backing_bytes_per_token": 7880914944.0,
+            "backing_loads_per_token": 449.125,
+            "decode_boundary": {
+              "admissions": 11804,
+              "canonical_sha256": "0f37064d86c400fbf8175034136cc895ef0f87e0e2748b4e1ead27d9708fa1c3",
+              "capacity": 7849,
+              "evictions": 3955,
+              "hits": 11748,
+              "misses": 11804,
+              "occupancy": 7849,
+              "requests": 23552,
+              "residency_digest": "a9a98790736919fc"
+            },
+            "decode_forwards": 64,
+            "decode_tok_s": 0.3680819852902639,
+            "envelope_path": "/mnt/nvme1/issue102/prefill-depth-curve/n016-exact/envelope.json",
+            "envelope_sha256": "bceb30b66fb261a181bd510b1e21518001de79cf0d799a2c37d1980a0337f42e",
+            "first_full_token": 9,
+            "hit_ratio": 0.6948879076086957,
+            "hits": 65464,
+            "label": "n016-exact",
+            "misses": 28744,
+            "model_nvme_read_bytes": 711572167168,
+            "model_nvme_read_operations": 741042,
+            "n_ctx": 768,
+            "p50_forward_s": 2.709055513,
+            "p95_forward_s": 3.344502858,
+            "p99_forward_s": 3.487470141,
+            "point": "EXACT",
+            "prefill_tokens_consumed": 16,
+            "protocol": "full-prompt",
+            "result_path": "/mnt/nvme1/issue102/prefill-depth-curve/n016-exact/result.json",
+            "result_sha256": "00410582cbdf820c3950fa4ae4a17b8df30700b67502386b7b3db22e73103ecd",
+            "routing": {
+              "changed_decisions": 0,
+              "changed_fraction": 0.0,
+              "cumulative_score_regret": 0.0,
+              "mean_realized_regret": 0.0,
+              "realized_swaps": 0,
+              "swaps_per_token": 0.0
+            },
+            "safety": {
+              "cgroup_pressure_oom_events": 0,
+              "io_fallback_error_events": 0,
+              "memory_psi_total_delta_usec": 0,
+              "peak_process_swap_kib": 0,
+              "pressure_circuit_open": false,
+              "pressure_rejections": 0,
+              "reclaim_refault_events": 0,
+              "swap_kib": 0,
+              "unused_nvme_read_bytes": 0
+            },
+            "source": "fresh_curve"
+          }
+        ]
+      },
+      "S2_P50": {
+        "deterministic_equality": true,
+        "metrics": {
+          "backing_bytes_per_token": {
+            "max": 5969908224.0,
+            "median": 5969908224.0,
+            "min": 5969908224.0,
+            "values": [
+              5969908224.0
+            ]
+          },
+          "backing_loads_per_token": {
+            "max": 340.21875,
+            "median": 340.21875,
+            "min": 340.21875,
+            "values": [
+              340.21875
+            ]
+          },
+          "decode_tok_s": {
+            "max": 0.4213483964732334,
+            "median": 0.4213483964732334,
+            "min": 0.4213483964732334,
+            "values": [
+              0.4213483964732334
+            ]
+          },
+          "hit_ratio": {
+            "max": 0.7688731317934783,
+            "median": 0.7688731317934783,
+            "min": 0.7688731317934783,
+            "values": [
+              0.7688731317934783
+            ]
+          },
+          "model_nvme_read_bytes": {
+            "max": 589258386944,
+            "median": 589258386944,
+            "min": 589258386944,
+            "values": [
+              589258386944
+            ]
+          },
+          "model_nvme_read_operations": {
+            "max": 614247,
+            "median": 614247,
+            "min": 614247,
+            "values": [
+              614247
+            ]
+          },
+          "p50_forward_s": {
+            "max": 2.378325824,
+            "median": 2.378325824,
+            "min": 2.378325824,
+            "values": [
+              2.378325824
+            ]
+          },
+          "p95_forward_s": {
+            "max": 2.889412218,
+            "median": 2.889412218,
+            "min": 2.889412218,
+            "values": [
+              2.889412218
+            ]
+          },
+          "p99_forward_s": {
+            "max": 3.330321529,
+            "median": 3.330321529,
+            "min": 3.330321529,
+            "values": [
+              3.330321529
+            ]
+          }
+        },
+        "n_ctx": 768,
+        "point": "S2_P50",
+        "protocol": "full-prompt",
+        "run_count": 1,
+        "runs": [
+          {
+            "backing_bytes_per_token": 5969908224.0,
+            "backing_loads_per_token": 340.21875,
+            "decode_boundary": {
+              "admissions": 11804,
+              "canonical_sha256": "0f37064d86c400fbf8175034136cc895ef0f87e0e2748b4e1ead27d9708fa1c3",
+              "capacity": 7849,
+              "evictions": 3955,
+              "hits": 11748,
+              "misses": 11804,
+              "occupancy": 7849,
+              "requests": 23552,
+              "residency_digest": "a9a98790736919fc"
+            },
+            "decode_forwards": 64,
+            "decode_tok_s": 0.4213483964732334,
+            "envelope_path": "/mnt/nvme1/issue102/prefill-depth-curve/n016-s2/envelope.json",
+            "envelope_sha256": "d03fb6896eb0836a6c6028ff13d9ae6ddae8bc8b8b240f41c39d669f1f134b45",
+            "first_full_token": 9,
+            "hit_ratio": 0.7688731317934783,
+            "hits": 72434,
+            "label": "n016-s2",
+            "misses": 21774,
+            "model_nvme_read_bytes": 589258386944,
+            "model_nvme_read_operations": 614247,
+            "n_ctx": 768,
+            "p50_forward_s": 2.378325824,
+            "p95_forward_s": 2.889412218,
+            "p99_forward_s": 3.330321529,
+            "point": "S2_P50",
+            "prefill_tokens_consumed": 16,
+            "protocol": "full-prompt",
+            "result_path": "/mnt/nvme1/issue102/prefill-depth-curve/n016-s2/result.json",
+            "result_sha256": "cbc2ba398b4f7d086a9f987a45909ee0e5b10dbe9949ac2d0f1ca4d6b0a1b0ff",
+            "routing": {
+              "changed_decisions": 3856,
+              "changed_fraction": 0.654891304347826,
+              "cumulative_score_regret": 17.391053991392255,
+              "mean_realized_regret": 0.0030271634449768937,
+              "realized_swaps": 5745,
+              "swaps_per_token": 89.765625
+            },
+            "safety": {
+              "cgroup_pressure_oom_events": 0,
+              "io_fallback_error_events": 0,
+              "memory_psi_total_delta_usec": 0,
+              "peak_process_swap_kib": 0,
+              "pressure_circuit_open": false,
+              "pressure_rejections": 0,
+              "reclaim_refault_events": 0,
+              "swap_kib": 0,
+              "unused_nvme_read_bytes": 0
+            },
+            "source": "fresh_curve"
+          }
+        ]
+      },
+      "paired": {
+        "s2_minus_exact_backing_bytes_per_token": -1911006720.0,
+        "s2_minus_exact_backing_loads_per_token": -108.90625,
+        "s2_minus_exact_hit_ratio": 0.0739852241847826,
+        "s2_over_exact_tps_ratio": 1.1447134424168148
+      },
+      "prefill_boundary": {
+        "admissions": 11804,
+        "canonical_sha256": "0f37064d86c400fbf8175034136cc895ef0f87e0e2748b4e1ead27d9708fa1c3",
+        "capacity": 7849,
+        "evictions": 3955,
+        "hits": 11748,
+        "misses": 11804,
+        "occupancy": 7849,
+        "requests": 23552,
+        "residency_digest": "a9a98790736919fc"
+      },
+      "prefill_boundary_equal_between_exact_and_s2": true,
+      "prefill_tokens": 16
+    },
+    {
+      "EXACT": {
+        "deterministic_equality": true,
+        "metrics": {
+          "backing_bytes_per_token": {
+            "max": 9477990144.0,
+            "median": 9477990144.0,
+            "min": 9477990144.0,
+            "values": [
+              9477990144.0
+            ]
+          },
+          "backing_loads_per_token": {
+            "max": 540.140625,
+            "median": 540.140625,
+            "min": 540.140625,
+            "values": [
+              540.140625
+            ]
+          },
+          "decode_tok_s": {
+            "max": 0.332836629625,
+            "median": 0.332836629625,
+            "min": 0.332836629625,
+            "values": [
+              0.332836629625
+            ]
+          },
+          "hit_ratio": {
+            "max": 0.633056640625,
+            "median": 0.633056640625,
+            "min": 0.633056640625,
+            "values": [
+              0.633056640625
+            ]
+          },
+          "model_nvme_read_bytes": {
+            "max": 992947463680,
+            "median": 992947463680,
+            "min": 992947463680,
+            "values": [
+              992947463680
+            ]
+          },
+          "model_nvme_read_operations": {
+            "max": 1033402,
+            "median": 1033402,
+            "min": 1033402,
+            "values": [
+              1033402
+            ]
+          },
+          "p50_forward_s": {
+            "max": 2.993574929,
+            "median": 2.993574929,
+            "min": 2.993574929,
+            "values": [
+              2.993574929
+            ]
+          },
+          "p95_forward_s": {
+            "max": 3.504238716,
+            "median": 3.504238716,
+            "min": 3.504238716,
+            "values": [
+              3.504238716
+            ]
+          },
+          "p99_forward_s": {
+            "max": 3.723172704,
+            "median": 3.723172704,
+            "min": 3.723172704,
+            "values": [
+              3.723172704
+            ]
+          }
+        },
+        "n_ctx": 768,
+        "point": "EXACT",
+        "protocol": "full-prompt",
+        "run_count": 1,
+        "runs": [
+          {
+            "backing_bytes_per_token": 9477990144.0,
+            "backing_loads_per_token": 540.140625,
+            "decode_boundary": {
+              "admissions": 22013,
+              "canonical_sha256": "bad68d094ff1dd550e43a819f78d2c20ac39d3d3e3dbb39b7b5f611b21008796",
+              "capacity": 7849,
+              "evictions": 14164,
+              "hits": 25091,
+              "misses": 22013,
+              "occupancy": 7849,
+              "requests": 47104,
+              "residency_digest": "951298633e68176b"
+            },
+            "decode_forwards": 64,
+            "decode_tok_s": 0.332836629625,
+            "envelope_path": "/mnt/nvme1/issue102/prefill-depth-curve/n032-exact/envelope.json",
+            "envelope_sha256": "4f487b871ef811253d2992a29e6b4f5a8cd6649ee68e45b9a0b29da349241281",
+            "first_full_token": 9,
+            "hit_ratio": 0.633056640625,
+            "hits": 59639,
+            "label": "n032-exact",
+            "misses": 34569,
+            "model_nvme_read_bytes": 992947463680,
+            "model_nvme_read_operations": 1033402,
+            "n_ctx": 768,
+            "p50_forward_s": 2.993574929,
+            "p95_forward_s": 3.504238716,
+            "p99_forward_s": 3.723172704,
+            "point": "EXACT",
+            "prefill_tokens_consumed": 32,
+            "protocol": "full-prompt",
+            "result_path": "/mnt/nvme1/issue102/prefill-depth-curve/n032-exact/result.json",
+            "result_sha256": "a7c6715b5284239a37d20abad4273bea9fc618cee5461ad25cbfd218eb56bf8f",
+            "routing": {
+              "changed_decisions": 0,
+              "changed_fraction": 0.0,
+              "cumulative_score_regret": 0.0,
+              "mean_realized_regret": 0.0,
+              "realized_swaps": 0,
+              "swaps_per_token": 0.0
+            },
+            "safety": {
+              "cgroup_pressure_oom_events": 0,
+              "io_fallback_error_events": 0,
+              "memory_psi_total_delta_usec": 0,
+              "peak_process_swap_kib": 0,
+              "pressure_circuit_open": false,
+              "pressure_rejections": 0,
+              "reclaim_refault_events": 0,
+              "swap_kib": 0,
+              "unused_nvme_read_bytes": 0
+            },
+            "source": "fresh_curve"
+          }
+        ]
+      },
+      "S2_P50": {
+        "deterministic_equality": true,
+        "metrics": {
+          "backing_bytes_per_token": {
+            "max": 7158735360.0,
+            "median": 7158735360.0,
+            "min": 7158735360.0,
+            "values": [
+              7158735360.0
+            ]
+          },
+          "backing_loads_per_token": {
+            "max": 407.96875,
+            "median": 407.96875,
+            "min": 407.96875,
+            "values": [
+              407.96875
+            ]
+          },
+          "decode_tok_s": {
+            "max": 0.385626609140489,
+            "median": 0.385626609140489,
+            "min": 0.385626609140489,
+            "values": [
+              0.385626609140489
+            ]
+          },
+          "hit_ratio": {
+            "max": 0.7228473165760869,
+            "median": 0.7228473165760869,
+            "min": 0.7228473165760869,
+            "values": [
+              0.7228473165760869
+            ]
+          },
+          "model_nvme_read_bytes": {
+            "max": 844503696384,
+            "median": 844503696384,
+            "min": 844503696384,
+            "values": [
+              844503696384
+            ]
+          },
+          "model_nvme_read_operations": {
+            "max": 879508,
+            "median": 879508,
+            "min": 879508,
+            "values": [
+              879508
+            ]
+          },
+          "p50_forward_s": {
+            "max": 2.557299769,
+            "median": 2.557299769,
+            "min": 2.557299769,
+            "values": [
+              2.557299769
+            ]
+          },
+          "p95_forward_s": {
+            "max": 3.24002114,
+            "median": 3.24002114,
+            "min": 3.24002114,
+            "values": [
+              3.24002114
+            ]
+          },
+          "p99_forward_s": {
+            "max": 3.826782446,
+            "median": 3.826782446,
+            "min": 3.826782446,
+            "values": [
+              3.826782446
+            ]
+          }
+        },
+        "n_ctx": 768,
+        "point": "S2_P50",
+        "protocol": "full-prompt",
+        "run_count": 1,
+        "runs": [
+          {
+            "backing_bytes_per_token": 7158735360.0,
+            "backing_loads_per_token": 407.96875,
+            "decode_boundary": {
+              "admissions": 22013,
+              "canonical_sha256": "bad68d094ff1dd550e43a819f78d2c20ac39d3d3e3dbb39b7b5f611b21008796",
+              "capacity": 7849,
+              "evictions": 14164,
+              "hits": 25091,
+              "misses": 22013,
+              "occupancy": 7849,
+              "requests": 47104,
+              "residency_digest": "951298633e68176b"
+            },
+            "decode_forwards": 64,
+            "decode_tok_s": 0.385626609140489,
+            "envelope_path": "/mnt/nvme1/issue102/prefill-depth-curve/n032-s2/envelope.json",
+            "envelope_sha256": "3e83bdd8a5b87f9aae8cdf54f01bd3e6503a8451cadd6b2c8861c43ce671acd1",
+            "first_full_token": 9,
+            "hit_ratio": 0.7228473165760869,
+            "hits": 68098,
+            "label": "n032-s2",
+            "misses": 26110,
+            "model_nvme_read_bytes": 844503696384,
+            "model_nvme_read_operations": 879508,
+            "n_ctx": 768,
+            "p50_forward_s": 2.557299769,
+            "p95_forward_s": 3.24002114,
+            "p99_forward_s": 3.826782446,
+            "point": "S2_P50",
+            "prefill_tokens_consumed": 32,
+            "protocol": "full-prompt",
+            "result_path": "/mnt/nvme1/issue102/prefill-depth-curve/n032-s2/result.json",
+            "result_sha256": "d1dd6f5cf4541fece8302b0b34a5a318d127e71714d32177b78f9b06361237c1",
+            "routing": {
+              "changed_decisions": 3947,
+              "changed_fraction": 0.6703464673913043,
+              "cumulative_score_regret": 18.035103786736727,
+              "mean_realized_regret": 0.0030871454616119014,
+              "realized_swaps": 5842,
+              "swaps_per_token": 91.28125
+            },
+            "safety": {
+              "cgroup_pressure_oom_events": 0,
+              "io_fallback_error_events": 0,
+              "memory_psi_total_delta_usec": 0,
+              "peak_process_swap_kib": 0,
+              "pressure_circuit_open": false,
+              "pressure_rejections": 0,
+              "reclaim_refault_events": 0,
+              "swap_kib": 0,
+              "unused_nvme_read_bytes": 0
+            },
+            "source": "fresh_curve"
+          }
+        ]
+      },
+      "paired": {
+        "s2_minus_exact_backing_bytes_per_token": -2319254784.0,
+        "s2_minus_exact_backing_loads_per_token": -132.171875,
+        "s2_minus_exact_hit_ratio": 0.08979067595108692,
+        "s2_over_exact_tps_ratio": 1.1586062795280867
+      },
+      "prefill_boundary": {
+        "admissions": 22013,
+        "canonical_sha256": "bad68d094ff1dd550e43a819f78d2c20ac39d3d3e3dbb39b7b5f611b21008796",
+        "capacity": 7849,
+        "evictions": 14164,
+        "hits": 25091,
+        "misses": 22013,
+        "occupancy": 7849,
+        "requests": 47104,
+        "residency_digest": "951298633e68176b"
+      },
+      "prefill_boundary_equal_between_exact_and_s2": true,
+      "prefill_tokens": 32
+    },
+    {
+      "EXACT": {
+        "deterministic_equality": true,
+        "metrics": {
+          "backing_bytes_per_token": {
+            "max": 8534824704.0,
+            "median": 8534824704.0,
+            "min": 8534824704.0,
+            "values": [
+              8534824704.0
+            ]
+          },
+          "backing_loads_per_token": {
+            "max": 486.390625,
+            "median": 486.390625,
+            "min": 486.390625,
+            "values": [
+              486.390625
+            ]
+          },
+          "decode_tok_s": {
+            "max": 0.3528150798370203,
+            "median": 0.3528150798370203,
+            "min": 0.3528150798370203,
+            "values": [
+              0.3528150798370203
+            ]
+          },
+          "hit_ratio": {
+            "max": 0.669571586277174,
+            "median": 0.669571586277174,
+            "min": 0.669571586277174,
+            "values": [
+              0.669571586277174
+            ]
+          },
+          "model_nvme_read_bytes": {
+            "max": 1313144920576,
+            "median": 1313144920576,
+            "min": 1313144920576,
+            "values": [
+              1313144920576
+            ]
+          },
+          "model_nvme_read_operations": {
+            "max": 1366752,
+            "median": 1366752,
+            "min": 1366752,
+            "values": [
+              1366752
+            ]
+          },
+          "p50_forward_s": {
+            "max": 2.813174088,
+            "median": 2.813174088,
+            "min": 2.813174088,
+            "values": [
+              2.813174088
+            ]
+          },
+          "p95_forward_s": {
+            "max": 3.492273637,
+            "median": 3.492273637,
+            "min": 3.492273637,
+            "values": [
+              3.492273637
+            ]
+          },
+          "p99_forward_s": {
+            "max": 3.779962779,
+            "median": 3.779962779,
+            "min": 3.779962779,
+            "values": [
+              3.779962779
+            ]
+          }
+        },
+        "n_ctx": 768,
+        "point": "EXACT",
+        "protocol": "full-prompt",
+        "run_count": 1,
+        "runs": [
+          {
+            "backing_bytes_per_token": 8534824704.0,
+            "backing_loads_per_token": 486.390625,
+            "decode_boundary": {
+              "admissions": 43699,
+              "canonical_sha256": "c13cb1441184076e4e0c9dd3c03175fd66fb7c714c7b5060684a8017972251b6",
+              "capacity": 7849,
+              "evictions": 35850,
+              "hits": 50509,
+              "misses": 43699,
+              "occupancy": 7849,
+              "requests": 94208,
+              "residency_digest": "96e264176ad4a0ed"
+            },
+            "decode_forwards": 64,
+            "decode_tok_s": 0.3528150798370203,
+            "envelope_path": "/mnt/nvme1/issue102/prefill-depth-curve/n064-exact/envelope.json",
+            "envelope_sha256": "3face3fa5aa04abbb2c345a5ea1fc923df120698205a0d7c8d453c48d7ac0d44",
+            "first_full_token": 9,
+            "hit_ratio": 0.669571586277174,
+            "hits": 63079,
+            "label": "n064-exact",
+            "misses": 31129,
+            "model_nvme_read_bytes": 1313144920576,
+            "model_nvme_read_operations": 1366752,
+            "n_ctx": 768,
+            "p50_forward_s": 2.813174088,
+            "p95_forward_s": 3.492273637,
+            "p99_forward_s": 3.779962779,
+            "point": "EXACT",
+            "prefill_tokens_consumed": 64,
+            "protocol": "full-prompt",
+            "result_path": "/mnt/nvme1/issue102/prefill-depth-curve/n064-exact/result.json",
+            "result_sha256": "279cb75a80b19b7ce3b1e7c9acb3d23a5b85f73df853fc95bb705c717cbceaeb",
+            "routing": {
+              "changed_decisions": 0,
+              "changed_fraction": 0.0,
+              "cumulative_score_regret": 0.0,
+              "mean_realized_regret": 0.0,
+              "realized_swaps": 0,
+              "swaps_per_token": 0.0
+            },
+            "safety": {
+              "cgroup_pressure_oom_events": 0,
+              "io_fallback_error_events": 0,
+              "memory_psi_total_delta_usec": 0,
+              "peak_process_swap_kib": 0,
+              "pressure_circuit_open": false,
+              "pressure_rejections": 0,
+              "reclaim_refault_events": 0,
+              "swap_kib": 0,
+              "unused_nvme_read_bytes": 0
+            },
+            "source": "fresh_curve"
+          }
+        ]
+      },
+      "S2_P50": {
+        "deterministic_equality": true,
+        "metrics": {
+          "backing_bytes_per_token": {
+            "max": 7631414784.0,
+            "median": 7631414784.0,
+            "min": 7631414784.0,
+            "values": [
+              7631414784.0
+            ]
+          },
+          "backing_loads_per_token": {
+            "max": 434.90625,
+            "median": 434.90625,
+            "min": 434.90625,
+            "values": [
+              434.90625
+            ]
+          },
+          "decode_tok_s": {
+            "max": 0.37252790007625947,
+            "median": 0.37252790007625947,
+            "min": 0.37252790007625947,
+            "values": [
+              0.37252790007625947
+            ]
+          },
+          "hit_ratio": {
+            "max": 0.7045473845108695,
+            "median": 0.7045473845108695,
+            "min": 0.7045473845108695,
+            "values": [
+              0.7045473845108695
+            ]
+          },
+          "model_nvme_read_bytes": {
+            "max": 1255319732224,
+            "median": 1255319732224,
+            "min": 1255319732224,
+            "values": [
+              1255319732224
+            ]
+          },
+          "model_nvme_read_operations": {
+            "max": 1306817,
+            "median": 1306817,
+            "min": 1306817,
+            "values": [
+              1306817
+            ]
+          },
+          "p50_forward_s": {
+            "max": 2.675048383,
+            "median": 2.675048383,
+            "min": 2.675048383,
+            "values": [
+              2.675048383
+            ]
+          },
+          "p95_forward_s": {
+            "max": 3.286157438,
+            "median": 3.286157438,
+            "min": 3.286157438,
+            "values": [
+              3.286157438
+            ]
+          },
+          "p99_forward_s": {
+            "max": 3.499389617,
+            "median": 3.499389617,
+            "min": 3.499389617,
+            "values": [
+              3.499389617
+            ]
+          }
+        },
+        "n_ctx": 768,
+        "point": "S2_P50",
+        "protocol": "full-prompt",
+        "run_count": 1,
+        "runs": [
+          {
+            "backing_bytes_per_token": 7631414784.0,
+            "backing_loads_per_token": 434.90625,
+            "decode_boundary": {
+              "admissions": 43699,
+              "canonical_sha256": "c13cb1441184076e4e0c9dd3c03175fd66fb7c714c7b5060684a8017972251b6",
+              "capacity": 7849,
+              "evictions": 35850,
+              "hits": 50509,
+              "misses": 43699,
+              "occupancy": 7849,
+              "requests": 94208,
+              "residency_digest": "96e264176ad4a0ed"
+            },
+            "decode_forwards": 64,
+            "decode_tok_s": 0.37252790007625947,
+            "envelope_path": "/mnt/nvme1/issue102/prefill-depth-curve/n064-s2/envelope.json",
+            "envelope_sha256": "528a7a4e05d1a035d38f354a61b2713a2b6fca87ecaaa1a57e8a33aa107405fa",
+            "first_full_token": 9,
+            "hit_ratio": 0.7045473845108695,
+            "hits": 66374,
+            "label": "n064-s2",
+            "misses": 27834,
+            "model_nvme_read_bytes": 1255319732224,
+            "model_nvme_read_operations": 1306817,
+            "n_ctx": 768,
+            "p50_forward_s": 2.675048383,
+            "p95_forward_s": 3.286157438,
+            "p99_forward_s": 3.499389617,
+            "point": "S2_P50",
+            "prefill_tokens_consumed": 64,
+            "protocol": "full-prompt",
+            "result_path": "/mnt/nvme1/issue102/prefill-depth-curve/n064-s2/result.json",
+            "result_sha256": "2584d315246b0b360e753f4e2a21d69d339edaadb02362cb33eadc7a8afd8013",
+            "routing": {
+              "changed_decisions": 4157,
+              "changed_fraction": 0.7060122282608695,
+              "cumulative_score_regret": 19.146755311638117,
+              "mean_realized_regret": 0.0030285914760579116,
+              "realized_swaps": 6322,
+              "swaps_per_token": 98.78125
+            },
+            "safety": {
+              "cgroup_pressure_oom_events": 0,
+              "io_fallback_error_events": 0,
+              "memory_psi_total_delta_usec": 0,
+              "peak_process_swap_kib": 0,
+              "pressure_circuit_open": false,
+              "pressure_rejections": 0,
+              "reclaim_refault_events": 0,
+              "swap_kib": 0,
+              "unused_nvme_read_bytes": 0
+            },
+            "source": "fresh_curve"
+          }
+        ]
+      },
+      "paired": {
+        "s2_minus_exact_backing_bytes_per_token": -903409920.0,
+        "s2_minus_exact_backing_loads_per_token": -51.484375,
+        "s2_minus_exact_hit_ratio": 0.034975798233695565,
+        "s2_over_exact_tps_ratio": 1.0558729526196706
+      },
+      "prefill_boundary": {
+        "admissions": 43699,
+        "canonical_sha256": "c13cb1441184076e4e0c9dd3c03175fd66fb7c714c7b5060684a8017972251b6",
+        "capacity": 7849,
+        "evictions": 35850,
+        "hits": 50509,
+        "misses": 43699,
+        "occupancy": 7849,
+        "requests": 94208,
+        "residency_digest": "96e264176ad4a0ed"
+      },
+      "prefill_boundary_equal_between_exact_and_s2": true,
+      "prefill_tokens": 64
+    },
+    {
+      "EXACT": {
+        "deterministic_equality": true,
+        "metrics": {
+          "backing_bytes_per_token": {
+            "max": 10712330496.0,
+            "median": 10712330496.0,
+            "min": 10712330496.0,
+            "values": [
+              10712330496.0,
+              10712330496.0,
+              10712330496.0
+            ]
+          },
+          "backing_loads_per_token": {
+            "max": 610.484375,
+            "median": 610.484375,
+            "min": 610.484375,
+            "values": [
+              610.484375,
+              610.484375,
+              610.484375
+            ]
+          },
+          "decode_tok_s": {
+            "max": 0.3100983703086269,
+            "median": 0.3089775428171769,
+            "min": 0.30880419901672046,
+            "values": [
+              0.3100983703086269,
+              0.3089775428171769,
+              0.30880419901672046
+            ]
+          },
+          "hit_ratio": {
+            "max": 0.5852687669836957,
+            "median": 0.5852687669836957,
+            "min": 0.5852687669836957,
+            "values": [
+              0.5852687669836957,
+              0.5852687669836957,
+              0.5852687669836957
+            ]
+          },
+          "model_nvme_read_bytes": {
+            "max": 1835359636992,
+            "median": 1835358813696,
+            "min": 1835358813696,
+            "values": [
+              1835359636992,
+              1835358813696,
+              1835358813696
+            ]
+          },
+          "model_nvme_read_operations": {
+            "max": 1909654,
+            "median": 1909650,
+            "min": 1909638,
+            "values": [
+              1909654,
+              1909638,
+              1909650
+            ]
+          },
+          "p50_forward_s": {
+            "max": 3.194165057,
+            "median": 3.18083208,
+            "min": 3.165520862,
+            "values": [
+              3.165520862,
+              3.194165057,
+              3.18083208
+            ]
+          },
+          "p95_forward_s": {
+            "max": 3.859360928,
+            "median": 3.854328033,
+            "min": 3.844935099,
+            "values": [
+              3.854328033,
+              3.859360928,
+              3.844935099
+            ]
+          },
+          "p99_forward_s": {
+            "max": 4.185978437,
+            "median": 4.178735877,
+            "min": 4.132728165,
+            "values": [
+              4.178735877,
+              4.132728165,
+              4.185978437
+            ]
+          }
+        },
+        "n_ctx": 768,
+        "point": "EXACT",
+        "protocol": "full-prompt",
+        "run_count": 3,
+        "runs": [
+          {
+            "backing_bytes_per_token": 10712330496.0,
+            "backing_loads_per_token": 610.484375,
+            "decode_boundary": {
+              "admissions": 65515,
+              "canonical_sha256": "0094cda8ca31f61e2176264d10d9481ab25cf09e01e2d9f6e49c10ca3b7eb710",
+              "capacity": 7849,
+              "evictions": 57666,
+              "hits": 81685,
+              "misses": 65515,
+              "occupancy": 7849,
+              "requests": 147200,
+              "residency_digest": "e436ac36c0f342fb"
+            },
+            "decode_forwards": 64,
+            "decode_tok_s": 0.3100983703086269,
+            "envelope_path": "/mnt/nvme1/issue102/protocol-bridge/pair-01-full-exact/envelope.json",
+            "envelope_sha256": "8fce3ca787901336be2791ea55d0270dc7a76f649aed8f48550121d57d70b603",
+            "first_full_token": 9,
+            "hit_ratio": 0.5852687669836957,
+            "hits": 55137,
+            "label": "n100-exact-reused-1",
+            "misses": 39071,
+            "model_nvme_read_bytes": 1835359636992,
+            "model_nvme_read_operations": 1909654,
+            "n_ctx": 768,
+            "p50_forward_s": 3.165520862,
+            "p95_forward_s": 3.854328033,
+            "p99_forward_s": 4.178735877,
+            "point": "EXACT",
+            "prefill_tokens_consumed": 100,
+            "protocol": "full-prompt",
+            "result_path": "/mnt/nvme1/issue102/protocol-bridge/pair-01-full-exact/result.json",
+            "result_sha256": "ed1c295f1cf3bd856b541220a3f5449daa5be4da7d6ea3347a8b4f9091283264",
+            "routing": {
+              "changed_decisions": 0,
+              "changed_fraction": 0.0,
+              "cumulative_score_regret": 0.0,
+              "mean_realized_regret": 0.0,
+              "realized_swaps": 0,
+              "swaps_per_token": 0.0
+            },
+            "safety": {
+              "cgroup_pressure_oom_events": 0,
+              "io_fallback_error_events": 0,
+              "memory_psi_total_delta_usec": 0,
+              "peak_process_swap_kib": 0,
+              "pressure_circuit_open": false,
+              "pressure_rejections": 0,
+              "reclaim_refault_events": 0,
+              "swap_kib": 0,
+              "unused_nvme_read_bytes": 0
+            },
+            "source": "reused_protocol_bridge"
+          },
+          {
+            "backing_bytes_per_token": 10712330496.0,
+            "backing_loads_per_token": 610.484375,
+            "decode_boundary": {
+              "admissions": 65515,
+              "canonical_sha256": "0094cda8ca31f61e2176264d10d9481ab25cf09e01e2d9f6e49c10ca3b7eb710",
+              "capacity": 7849,
+              "evictions": 57666,
+              "hits": 81685,
+              "misses": 65515,
+              "occupancy": 7849,
+              "requests": 147200,
+              "residency_digest": "e436ac36c0f342fb"
+            },
+            "decode_forwards": 64,
+            "decode_tok_s": 0.3089775428171769,
+            "envelope_path": "/mnt/nvme1/issue102/protocol-bridge/pair-02-full-exact/envelope.json",
+            "envelope_sha256": "840586e2a9ab5045ddb7dee34371de4b987e60c3d973334e44adb29652a9cc7f",
+            "first_full_token": 9,
+            "hit_ratio": 0.5852687669836957,
+            "hits": 55137,
+            "label": "n100-exact-reused-2",
+            "misses": 39071,
+            "model_nvme_read_bytes": 1835358813696,
+            "model_nvme_read_operations": 1909638,
+            "n_ctx": 768,
+            "p50_forward_s": 3.194165057,
+            "p95_forward_s": 3.859360928,
+            "p99_forward_s": 4.132728165,
+            "point": "EXACT",
+            "prefill_tokens_consumed": 100,
+            "protocol": "full-prompt",
+            "result_path": "/mnt/nvme1/issue102/protocol-bridge/pair-02-full-exact/result.json",
+            "result_sha256": "6f99c167279e93c880b42c3e73a94e5639dc4c91ad624d82d4d221529491c976",
+            "routing": {
+              "changed_decisions": 0,
+              "changed_fraction": 0.0,
+              "cumulative_score_regret": 0.0,
+              "mean_realized_regret": 0.0,
+              "realized_swaps": 0,
+              "swaps_per_token": 0.0
+            },
+            "safety": {
+              "cgroup_pressure_oom_events": 0,
+              "io_fallback_error_events": 0,
+              "memory_psi_total_delta_usec": 0,
+              "peak_process_swap_kib": 0,
+              "pressure_circuit_open": false,
+              "pressure_rejections": 0,
+              "reclaim_refault_events": 0,
+              "swap_kib": 0,
+              "unused_nvme_read_bytes": 0
+            },
+            "source": "reused_protocol_bridge"
+          },
+          {
+            "backing_bytes_per_token": 10712330496.0,
+            "backing_loads_per_token": 610.484375,
+            "decode_boundary": {
+              "admissions": 65515,
+              "canonical_sha256": "0094cda8ca31f61e2176264d10d9481ab25cf09e01e2d9f6e49c10ca3b7eb710",
+              "capacity": 7849,
+              "evictions": 57666,
+              "hits": 81685,
+              "misses": 65515,
+              "occupancy": 7849,
+              "requests": 147200,
+              "residency_digest": "e436ac36c0f342fb"
+            },
+            "decode_forwards": 64,
+            "decode_tok_s": 0.30880419901672046,
+            "envelope_path": "/mnt/nvme1/issue102/protocol-bridge/pair-03-full-exact/envelope.json",
+            "envelope_sha256": "a1cf93423991bbea66d07ffcaf827c0910bb4e0af793a4bceb22877dac128a89",
+            "first_full_token": 9,
+            "hit_ratio": 0.5852687669836957,
+            "hits": 55137,
+            "label": "n100-exact-reused-3",
+            "misses": 39071,
+            "model_nvme_read_bytes": 1835358813696,
+            "model_nvme_read_operations": 1909650,
+            "n_ctx": 768,
+            "p50_forward_s": 3.18083208,
+            "p95_forward_s": 3.844935099,
+            "p99_forward_s": 4.185978437,
+            "point": "EXACT",
+            "prefill_tokens_consumed": 100,
+            "protocol": "full-prompt",
+            "result_path": "/mnt/nvme1/issue102/protocol-bridge/pair-03-full-exact/result.json",
+            "result_sha256": "9ac3de538bdc204e5e61e8afc60b622e432e644544bcf9d188d67cfee5f064d0",
+            "routing": {
+              "changed_decisions": 0,
+              "changed_fraction": 0.0,
+              "cumulative_score_regret": 0.0,
+              "mean_realized_regret": 0.0,
+              "realized_swaps": 0,
+              "swaps_per_token": 0.0
+            },
+            "safety": {
+              "cgroup_pressure_oom_events": 0,
+              "io_fallback_error_events": 0,
+              "memory_psi_total_delta_usec": 0,
+              "peak_process_swap_kib": 0,
+              "pressure_circuit_open": false,
+              "pressure_rejections": 0,
+              "reclaim_refault_events": 0,
+              "swap_kib": 0,
+              "unused_nvme_read_bytes": 0
+            },
+            "source": "reused_protocol_bridge"
+          }
+        ]
+      },
+      "S2_P50": {
+        "deterministic_equality": true,
+        "metrics": {
+          "backing_bytes_per_token": {
+            "max": 8716055040.0,
+            "median": 8716055040.0,
+            "min": 8716055040.0,
+            "values": [
+              8716055040.0,
+              8716055040.0,
+              8716055040.0
+            ]
+          },
+          "backing_loads_per_token": {
+            "max": 496.71875,
+            "median": 496.71875,
+            "min": 496.71875,
+            "values": [
+              496.71875,
+              496.71875,
+              496.71875
+            ]
+          },
+          "decode_tok_s": {
+            "max": 0.3473605484594497,
+            "median": 0.34716918258582,
+            "min": 0.346932418373893,
+            "values": [
+              0.346932418373893,
+              0.3473605484594497,
+              0.34716918258582
+            ]
+          },
+          "hit_ratio": {
+            "max": 0.6625551970108695,
+            "median": 0.6625551970108695,
+            "min": 0.6625551970108695,
+            "values": [
+              0.6625551970108695,
+              0.6625551970108695,
+              0.6625551970108695
+            ]
+          },
+          "model_nvme_read_bytes": {
+            "max": 1707593979904,
+            "median": 1707586000896,
+            "min": 1707586000896,
+            "values": [
+              1707593979904,
+              1707586000896,
+              1707586000896
+            ]
+          },
+          "model_nvme_read_operations": {
+            "max": 1777219,
+            "median": 1777187,
+            "min": 1777187,
+            "values": [
+              1777219,
+              1777187,
+              1777187
+            ]
+          },
+          "p50_forward_s": {
+            "max": 2.84597014,
+            "median": 2.840146723,
+            "min": 2.829597845,
+            "values": [
+              2.84597014,
+              2.829597845,
+              2.840146723
+            ]
+          },
+          "p95_forward_s": {
+            "max": 3.682386681,
+            "median": 3.677669127,
+            "min": 3.67593481,
+            "values": [
+              3.682386681,
+              3.677669127,
+              3.67593481
+            ]
+          },
+          "p99_forward_s": {
+            "max": 3.970292675,
+            "median": 3.963134042,
+            "min": 3.958412932,
+            "values": [
+              3.970292675,
+              3.958412932,
+              3.963134042
+            ]
+          }
+        },
+        "n_ctx": 768,
+        "point": "S2_P50",
+        "protocol": "full-prompt",
+        "run_count": 3,
+        "runs": [
+          {
+            "backing_bytes_per_token": 8716055040.0,
+            "backing_loads_per_token": 496.71875,
+            "decode_boundary": {
+              "admissions": 65515,
+              "canonical_sha256": "0094cda8ca31f61e2176264d10d9481ab25cf09e01e2d9f6e49c10ca3b7eb710",
+              "capacity": 7849,
+              "evictions": 57666,
+              "hits": 81685,
+              "misses": 65515,
+              "occupancy": 7849,
+              "requests": 147200,
+              "residency_digest": "e436ac36c0f342fb"
+            },
+            "decode_forwards": 64,
+            "decode_tok_s": 0.346932418373893,
+            "envelope_path": "/mnt/nvme1/issue102/sentinel-baseline/sentinel-full-01/envelope.json",
+            "envelope_sha256": "a5337f686c1af889bfc3971ff1e99cd603f77dac4a63eba8af37fcbbd93ac66f",
+            "first_full_token": 9,
+            "hit_ratio": 0.6625551970108695,
+            "hits": 62418,
+            "label": "n100-s2-reused-1",
+            "misses": 31790,
+            "model_nvme_read_bytes": 1707593979904,
+            "model_nvme_read_operations": 1777219,
+            "n_ctx": 768,
+            "p50_forward_s": 2.84597014,
+            "p95_forward_s": 3.682386681,
+            "p99_forward_s": 3.970292675,
+            "point": "S2_P50",
+            "prefill_tokens_consumed": 100,
+            "protocol": "full-prompt",
+            "result_path": "/mnt/nvme1/issue102/sentinel-baseline/sentinel-full-01/result.json",
+            "result_sha256": "8140dade12c623db448f47de7cd7944b49fcc4627d7bf088112a0843c71d5fb2",
+            "routing": {
+              "changed_decisions": 3981,
+              "changed_fraction": 0.6761209239130435,
+              "cumulative_score_regret": 17.71107554808259,
+              "mean_realized_regret": 0.00288313129547169,
+              "realized_swaps": 6143,
+              "swaps_per_token": 95.984375
+            },
+            "safety": {
+              "cgroup_pressure_oom_events": 0,
+              "io_fallback_error_events": 0,
+              "memory_psi_total_delta_usec": 0,
+              "peak_process_swap_kib": 0,
+              "pressure_circuit_open": false,
+              "pressure_rejections": 0,
+              "reclaim_refault_events": 0,
+              "swap_kib": 0,
+              "unused_nvme_read_bytes": 0
+            },
+            "source": "reused_sentinel_baseline"
+          },
+          {
+            "backing_bytes_per_token": 8716055040.0,
+            "backing_loads_per_token": 496.71875,
+            "decode_boundary": {
+              "admissions": 65515,
+              "canonical_sha256": "0094cda8ca31f61e2176264d10d9481ab25cf09e01e2d9f6e49c10ca3b7eb710",
+              "capacity": 7849,
+              "evictions": 57666,
+              "hits": 81685,
+              "misses": 65515,
+              "occupancy": 7849,
+              "requests": 147200,
+              "residency_digest": "e436ac36c0f342fb"
+            },
+            "decode_forwards": 64,
+            "decode_tok_s": 0.3473605484594497,
+            "envelope_path": "/mnt/nvme1/issue102/sentinel-baseline/sentinel-full-02/envelope.json",
+            "envelope_sha256": "f9f1c9c4ef2f9554beefec6fe574ca7224ad3d4935c231f9fff24371c9d80f70",
+            "first_full_token": 9,
+            "hit_ratio": 0.6625551970108695,
+            "hits": 62418,
+            "label": "n100-s2-reused-2",
+            "misses": 31790,
+            "model_nvme_read_bytes": 1707586000896,
+            "model_nvme_read_operations": 1777187,
+            "n_ctx": 768,
+            "p50_forward_s": 2.829597845,
+            "p95_forward_s": 3.677669127,
+            "p99_forward_s": 3.958412932,
+            "point": "S2_P50",
+            "prefill_tokens_consumed": 100,
+            "protocol": "full-prompt",
+            "result_path": "/mnt/nvme1/issue102/sentinel-baseline/sentinel-full-02/result.json",
+            "result_sha256": "95f74cbfa6910d4864797b6c0670e8cb9c90cb059a134f08360625cee47aa355",
+            "routing": {
+              "changed_decisions": 3981,
+              "changed_fraction": 0.6761209239130435,
+              "cumulative_score_regret": 17.71107554808259,
+              "mean_realized_regret": 0.00288313129547169,
+              "realized_swaps": 6143,
+              "swaps_per_token": 95.984375
+            },
+            "safety": {
+              "cgroup_pressure_oom_events": 0,
+              "io_fallback_error_events": 0,
+              "memory_psi_total_delta_usec": 0,
+              "peak_process_swap_kib": 0,
+              "pressure_circuit_open": false,
+              "pressure_rejections": 0,
+              "reclaim_refault_events": 0,
+              "swap_kib": 0,
+              "unused_nvme_read_bytes": 0
+            },
+            "source": "reused_sentinel_baseline"
+          },
+          {
+            "backing_bytes_per_token": 8716055040.0,
+            "backing_loads_per_token": 496.71875,
+            "decode_boundary": {
+              "admissions": 65515,
+              "canonical_sha256": "0094cda8ca31f61e2176264d10d9481ab25cf09e01e2d9f6e49c10ca3b7eb710",
+              "capacity": 7849,
+              "evictions": 57666,
+              "hits": 81685,
+              "misses": 65515,
+              "occupancy": 7849,
+              "requests": 147200,
+              "residency_digest": "e436ac36c0f342fb"
+            },
+            "decode_forwards": 64,
+            "decode_tok_s": 0.34716918258582,
+            "envelope_path": "/mnt/nvme1/issue102/sentinel-baseline/sentinel-full-03/envelope.json",
+            "envelope_sha256": "a01d44d8c742bd2410d57ab5a82d49b64ce3ba8c02b17b58dccf23b8f0faba2b",
+            "first_full_token": 9,
+            "hit_ratio": 0.6625551970108695,
+            "hits": 62418,
+            "label": "n100-s2-reused-3",
+            "misses": 31790,
+            "model_nvme_read_bytes": 1707586000896,
+            "model_nvme_read_operations": 1777187,
+            "n_ctx": 768,
+            "p50_forward_s": 2.840146723,
+            "p95_forward_s": 3.67593481,
+            "p99_forward_s": 3.963134042,
+            "point": "S2_P50",
+            "prefill_tokens_consumed": 100,
+            "protocol": "full-prompt",
+            "result_path": "/mnt/nvme1/issue102/sentinel-baseline/sentinel-full-03/result.json",
+            "result_sha256": "0446e5171d95d12e7c9e47105fd436cb2ee1f7bfadc1627adcb530a3cb5cfaa8",
+            "routing": {
+              "changed_decisions": 3981,
+              "changed_fraction": 0.6761209239130435,
+              "cumulative_score_regret": 17.71107554808259,
+              "mean_realized_regret": 0.00288313129547169,
+              "realized_swaps": 6143,
+              "swaps_per_token": 95.984375
+            },
+            "safety": {
+              "cgroup_pressure_oom_events": 0,
+              "io_fallback_error_events": 0,
+              "memory_psi_total_delta_usec": 0,
+              "peak_process_swap_kib": 0,
+              "pressure_circuit_open": false,
+              "pressure_rejections": 0,
+              "reclaim_refault_events": 0,
+              "swap_kib": 0,
+              "unused_nvme_read_bytes": 0
+            },
+            "source": "reused_sentinel_baseline"
+          }
+        ]
+      },
+      "paired": {
+        "s2_minus_exact_backing_bytes_per_token": -1996275456.0,
+        "s2_minus_exact_backing_loads_per_token": -113.765625,
+        "s2_minus_exact_hit_ratio": 0.07728643002717384,
+        "s2_over_exact_tps_ratio": 1.1236065230515515
+      },
+      "prefill_boundary": {
+        "admissions": 65515,
+        "canonical_sha256": "0094cda8ca31f61e2176264d10d9481ab25cf09e01e2d9f6e49c10ca3b7eb710",
+        "capacity": 7849,
+        "evictions": 57666,
+        "hits": 81685,
+        "misses": 65515,
+        "occupancy": 7849,
+        "requests": 147200,
+        "residency_digest": "e436ac36c0f342fb"
+      },
+      "prefill_boundary_equal_between_exact_and_s2": true,
+      "prefill_tokens": 100
+    }
+  ],
+  "progression": {
+    "curve_gate_passed": true,
+    "next": "publish checksum-addressed curve, then resume frozen Stage A at primary 17 (01-math-b2)",
+    "stage_a_completed_primary_prompts": 16
+  },
+  "protocol": {
+    "decode_forwards": 64,
+    "decode_policies": [
+      "EXACT",
+      "S2_P50"
+    ],
+    "depths": [
+      9,
+      16,
+      32,
+      64,
+      100
+    ],
+    "fresh_curve_processes": 7,
+    "interior_repetitions": 1,
+    "prefill_policy": "EXACT",
+    "prefix_identity_proofs": [
+      {
+        "case_id": "issue102-sentinel-prefix-009",
+        "depth": 9,
+        "prefix_sha256": "609bb234c6d6c5f58864ba82a8f9844165a0bee4feac102eb50610e27f391a44",
+        "prefix_utf8_bytes": 44,
+        "roundtrip_token_ids_equal_original_prefix": true,
+        "token_ids": [
+          163587,
+          2778,
+          6244,
+          878,
+          14062,
+          1,
+          1798,
+          878,
+          130400
+        ],
+        "token_ids_canonical_sha256": "a4fc8511f5fd9eb9c777c6e0536834b5b92ec9a1acef83abbb3db92591858d96"
+      },
+      {
+        "case_id": "issue102-sentinel-prefix-016",
+        "depth": 16,
+        "prefix_sha256": "b0c534cb1ca6df1f8ccc21a87eb91f7c1a402af6acd4acf5702e2d1a9a264a5b",
+        "prefix_utf8_bytes": 72,
+        "roundtrip_token_ids_equal_original_prefix": true,
+        "token_ids": [
+          163587,
+          2778,
+          6244,
+          878,
+          14062,
+          1,
+          1798,
+          878,
+          130400,
+          59991,
+          470,
+          1,
+          163589,
+          63,
+          130400,
+          123074
+        ],
+        "token_ids_canonical_sha256": "3385d30d1f3b048901735aa655c4347970c8e24f80626c4f82b083f5f58379e1"
+      },
+      {
+        "case_id": "issue102-sentinel-prefix-032",
+        "depth": 32,
+        "prefix_sha256": "7716bab0c81ecf8114ff65b27d1fea9ccb76774247146fe453263cc1a00d5180",
+        "prefix_utf8_bytes": 148,
+        "roundtrip_token_ids_equal_original_prefix": true,
+        "token_ids": [
+          163587,
+          2778,
+          6244,
+          878,
+          14062,
+          1,
+          1798,
+          878,
+          130400,
+          59991,
+          470,
+          1,
+          163589,
+          63,
+          130400,
+          123074,
+          470,
+          63,
+          28560,
+          418,
+          1632,
+          2455,
+          308,
+          2704,
+          306,
+          651,
+          9545,
+          8491,
+          347,
+          2976,
+          3411,
+          276
+        ],
+        "token_ids_canonical_sha256": "b0f8910b4a7b30d760ca2d47caf1efd49e8147dd008d516790c70ee6fb24fb33"
+      },
+      {
+        "case_id": "issue102-sentinel-prefix-064",
+        "depth": 64,
+        "prefix_sha256": "5c569443f68b9beac06415f43bcb22933fd6b8b2d6a7a65197b9ae464e7cf42e",
+        "prefix_utf8_bytes": 291,
+        "roundtrip_token_ids_equal_original_prefix": true,
+        "token_ids": [
+          163587,
+          2778,
+          6244,
+          878,
+          14062,
+          1,
+          1798,
+          878,
+          130400,
+          59991,
+          470,
+          1,
+          163589,
+          63,
+          130400,
+          123074,
+          470,
+          63,
+          28560,
+          418,
+          1632,
+          2455,
+          308,
+          2704,
+          306,
+          651,
+          9545,
+          8491,
+          347,
+          2976,
+          3411,
+          276,
+          4503,
+          8491,
+          904,
+          9141,
+          4661,
+          3867,
+          1268,
+          1332,
+          5713,
+          1268,
+          50004,
+          5713,
+          1268,
+          19421,
+          5713,
+          316,
+          1268,
+          5354,
+          16518,
+          10048,
+          276,
+          2403,
+          387,
+          42070,
+          472,
+          1268,
+          130400,
+          123074,
+          470,
+          105281,
+          11369,
+          163588
+        ],
+        "token_ids_canonical_sha256": "23f2e116cfe2d5c86056192de3fb44c9227453bd8bc7128a0dd7ab81da8faaf7"
+      },
+      {
+        "case_id": "issue102-sentinel-prefix-100",
+        "depth": 100,
+        "prefix_sha256": "619f2ebc9be1e36147b9f5c24095b3daa16b04d67ef4e9f354d0607a3f4517fa",
+        "prefix_utf8_bytes": 534,
+        "roundtrip_token_ids_equal_original_prefix": true,
+        "token_ids": [
+          163587,
+          2778,
+          6244,
+          878,
+          14062,
+          1,
+          1798,
+          878,
+          130400,
+          59991,
+          470,
+          1,
+          163589,
+          63,
+          130400,
+          123074,
+          470,
+          63,
+          28560,
+          418,
+          1632,
+          2455,
+          308,
+          2704,
+          306,
+          651,
+          9545,
+          8491,
+          347,
+          2976,
+          3411,
+          276,
+          4503,
+          8491,
+          904,
+          9141,
+          4661,
+          3867,
+          1268,
+          1332,
+          5713,
+          1268,
+          50004,
+          5713,
+          1268,
+          19421,
+          5713,
+          316,
+          1268,
+          5354,
+          16518,
+          10048,
+          276,
+          2403,
+          387,
+          42070,
+          472,
+          1268,
+          130400,
+          123074,
+          470,
+          105281,
+          11369,
+          163588,
+          2778,
+          163589,
+          163586,
+          163587,
+          2778,
+          6244,
+          878,
+          2482,
+          1,
+          163589,
+          91561,
+          4730,
+          261,
+          21872,
+          26534,
+          1765,
+          48963,
+          22225,
+          20761,
+          658,
+          46740,
+          13,
+          163588,
+          2778,
+          163589,
+          163586,
+          163587,
+          2778,
+          6244,
+          878,
+          69702,
+          1,
+          163589,
+          163587,
+          39964,
+          163589
+        ],
+        "token_ids_canonical_sha256": "52e9635ff4d0f002bf4e7a19bb6e914a9fb7c8f1bc60e1bf56d84b276f395786"
+      }
+    ],
+    "reused_endpoint_processes": 9,
+    "routing_retuned": false,
+    "stage_a_corpus_or_order_changed": false
+  },
+  "safety": {
+    "all_exact_s2_prefill_boundaries_equal": true,
+    "all_fresh_and_reused_runs_passed": true,
+    "all_swap_reclaim_refault_psi_oom_pressure_fallback_error_counters_zero": true,
+    "all_terminal_resources_zero": true,
+    "all_unused_nvme_read_bytes_zero": true
+  },
+  "schema_version": "issue102-prefill-depth-locality-curve-v1",
+  "status": "pass"
+}
