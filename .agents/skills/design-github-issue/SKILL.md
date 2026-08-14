@@ -114,7 +114,7 @@ Use these classifications only where they clarify a real decision:
 
 Do not turn `OPEN` or `SPECULATIVE` items into implementation requirements. Record durable cross-phase architecture in `docs/DECISIONS.md`; keep phase-local choices in the issue.
 
-When implementation may reuse third-party code or a prior fork, resolve the provenance boundary before execution. Record the source repository/URL, exact revision when material, license, smallest reusable unit, and required attribution; identify ownership/lifetime adaptations needed by this architecture and require isolated validation plus comparison with the unmodified baseline. Do not authorize wholesale copying merely because prior art exists.
+When implementation may reuse third-party code or a prior fork, consult `docs/PRIOR_ART.md` when relevant and resolve the provenance boundary before execution. Record the source repository/URL, exact revision, license, smallest reusable unit, required attribution, and any known failure or non-merge reason that constrains reuse; identify ownership/lifetime adaptations needed by this architecture and require isolated validation plus comparison with the unmodified baseline. Do not authorize wholesale copying merely because prior art exists.
 
 ### 3. Bound implementation without under-specifying it
 
