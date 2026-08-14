@@ -114,6 +114,8 @@ Use these classifications only where they clarify a real decision:
 
 Do not turn `OPEN` or `SPECULATIVE` items into implementation requirements. Record durable cross-phase architecture in `docs/DECISIONS.md`; keep phase-local choices in the issue.
 
+When implementation may reuse third-party code or a prior fork, resolve the provenance boundary before execution. Record the source repository/URL, exact revision when material, license, smallest reusable unit, and required attribution; identify ownership/lifetime adaptations needed by this architecture and require isolated validation plus comparison with the unmodified baseline. Do not authorize wholesale copying merely because prior art exists.
+
 ### 3. Bound implementation without under-specifying it
 
 Define the smallest coherent outcome, permitted subsystem or files, explicit exclusions, and invariants. Split work only when a failure would otherwise obscure which design or edit caused it.
@@ -129,6 +131,8 @@ Specify only material validation, but specify it concretely:
 - required environment and external artifacts;
 - objective pass/fail criteria;
 - the authoritative technical evidence artifact, when needed.
+
+When execution changes persistent/cache/generation state across compute epochs, include repeated warm-run validation unless the design establishes that the historical cross-epoch failure mode cannot apply. The issue should define enough repetition and state reuse to exercise that risk rather than relying only on a cold first run.
 
 Prefer repository-native targets. Use exact commands when their arguments or environment are part of what is being proven; otherwise identify the target and required result without freezing replaceable invocation syntax.
 
