@@ -107,6 +107,8 @@ Keep manifests, bounded summaries, schemas, reproduction tooling, small determin
 
 Publish when remote preservation, collaboration, a checkpoint, or PR review requires it. Exact full SHAs belong at review targets, immutable evidence boundaries, recovery handoffs, and pinned dependencies—not routine progress prose.
 
+Update durable repository documents only when the durable content they own changes: roadmap/status changes belong in the epic, technical plan changes in `PLAN.md`/`docs/plan/`, durable architecture in `docs/DECISIONS.md`, and model/artifact/manifest records only when their inputs or evidence change. Do not commit document edits merely to mirror GitHub workflow state.
+
 ## Material comments
 
 Under `STANDARD`, comment only when:
