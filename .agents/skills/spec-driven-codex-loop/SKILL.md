@@ -19,11 +19,13 @@ Load once:
 2. the controlling issue;
 3. only the exact plan, decision, source, test, build, manifest, or external inputs needed by the active outcome.
 
+When the next action is a non-trivial native build or CTest run, also load `.agents/skills/native-build-test/SKILL.md` and use it for build/test scheduling without changing issue-owned semantics.
+
 When the active outcome becomes profiling or performance tuning, also load `.agents/skills/profile-performance-tuning/SKILL.md` as the utility procedure for clean production-performance measurement, profiler separation, causal tuning, and the tuning validation pyramid. The controlling issue still owns scope, workload, thresholds, and exit gates; this executor skill still owns progression, publication, and handoff.
 
 Assume the design authority may have more context and stronger reasoning. Do not weaken the issue, reconstruct its intent from history, or choose between materially different implementations when the issue is silent. Return to design instead.
 
-On resume, verify branch, `HEAD`, worktree, the controlling issue's single authoritative state label, and new material comments. Body readiness and state prose in comments are historical; the label alone determines current workflow state. Reuse unchanged inspected context.
+On resume, verify branch, `HEAD`, worktree, the controlling issue's single authoritative state label, and new material controlling-issue or PR discussion. Body readiness and state prose in comments are historical; the label alone determines current workflow state. Reuse unchanged inspected context.
 
 ## Profiles
 
@@ -67,6 +69,8 @@ Confirm the intended behavior, permitted subsystem, invariants, required validat
 - avoid unrelated cleanup and formatting;
 - stop when evidence invalidates the design or acceptance strategy.
 
+If the issue authorizes reuse of third-party or prior-fork code, verify its recorded provenance, exact revision, license, attribution, and bounded reusable unit before copying. If that material reuse boundary is absent or ambiguous, return to design rather than infer it.
+
 Commits should represent reviewable outcomes. Mechanical substeps do not need separate commits.
 
 ### 3. Handle nested `llama.cpp` efficiently
@@ -102,6 +106,8 @@ Keep manifests, bounded summaries, schemas, reproduction tooling, small determin
 ### 6. Publish intentionally
 
 Publish when remote preservation, collaboration, a checkpoint, or PR review requires it. Exact full SHAs belong at review targets, immutable evidence boundaries, recovery handoffs, and pinned dependencies—not routine progress prose.
+
+Update durable repository documents only when the durable content they own changes: roadmap/status changes belong in the epic, technical plan changes in `PLAN.md`/`docs/plan/`, durable architecture in `docs/DECISIONS.md`, and model/artifact/manifest records only when their inputs or evidence change. Do not commit document edits merely to mirror GitHub workflow state.
 
 ## Material comments
 
@@ -166,5 +172,7 @@ Include only what the next actor cannot derive cheaply:
 - material evidence;
 - unresolved finding;
 - one immediate next action.
+
+Leave the worktree clean. If intentional uncommitted work must remain, identify it explicitly in the handoff.
 
 Do not repeat current workflow state in prose; the label is authoritative. Include exact heads only when needed to disambiguate a target or preserve recovery.

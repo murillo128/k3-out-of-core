@@ -47,9 +47,11 @@ Load skills lazily by role:
 - design authority: `.agents/skills/design-github-issue/SKILL.md`;
 - main executor: `.agents/skills/spec-driven-codex-loop/SKILL.md`;
 - Git and GitHub mutation or publication: `.agents/skills/codex-github-operations/SKILL.md`;
-- independent checkpoint or final review: `.agents/skills/codex-independent-review/SKILL.md`.
+- independent checkpoint or final review: `.agents/skills/codex-independent-review/SKILL.md`;
+- non-trivial native build/test utility: `.agents/skills/native-build-test/SKILL.md`;
+- profiling/performance-tuning utility: `.agents/skills/profile-performance-tuning/SKILL.md`.
 
-Do not read a role skill merely because it exists. The executor does not need the design or reviewer procedure; the reviewer does not need the executor or GitHub-operations procedure.
+Do not read a role skill merely because it exists. The executor does not need the design or reviewer procedure; the reviewer does not need the executor or GitHub-operations procedure. Utility skills are loaded only when the active action needs them.
 
 `AGENTS.md` owns repository-wide invariants and routing. Each skill owns its procedure. Issues own phase-specific scope, commands, and gates. Avoid copying the same rule into all three places; reference the owning source and record only the phase-specific delta.
 
@@ -57,97 +59,15 @@ Do not read a role skill merely because it exists. The executor does not need th
 
 Trivial typo-only edits may skip the complete issue workflow unless the user explicitly requests it, but repository safety and source-of-truth rules still apply.
 
-## Context and inference economy
-
-Reasoning and tool exploration are project resources. Use them where they reduce technical risk, not to reconstruct known state repeatedly.
-
-- Maintain a compact working ledger containing only the controlling issue, active phase, branch, changed inputs, last accepted checkpoint, and exact revisions required for the current decision.
-- Re-read an input only when its identity changed, new evidence affects it, or a conflict requires broader inspection.
-- Prefer the previous phase's final machine-readable manifest and accepted review over complete historical issue, PR, and results traversal. Read older records only when the current issue identifies an unresolved dependency or dispute.
-- Prefer exact paths, symbols, commands, and section anchors supplied by the issue over repository-wide searches.
-- Under `STANDARD`, report only material starts, checkpoints, failures, blockers, scope changes, and handoffs.
-- Do not create redundant summaries of authoritative data. Link or identify the authoritative record and describe only changes, deviations, and conclusions.
-
-## Native build and test tooling
-
-Prefer repository-native build and test systems over bespoke compiler, linker, or test orchestration.
-
-- Use existing CMake targets, presets, incremental builds, and CTest integration where available.
-- A persistent C or C++ helper, probe, fixture generator, or test executable should normally be a CMake target rather than a script that reconstructs include paths, library order, `rpath`, or linker flags.
-- Do not invent committed manual `c++`, `-L`, `-l`, or `-Wl,...` command construction merely to reduce local CPU time or avoid an incremental native build. Local computation is cheaper than repeated agent reasoning and custom build maintenance.
-- Ad-hoc compiler commands are acceptable for disposable investigation. They are not the default durable implementation or validation path.
-- If the approved deliverable requires a new native target, the issue should permit the necessary build metadata. If its allowlist accidentally excludes required build files, return for a bounded contract correction instead of building a permanent workaround.
-- When the issue provides an exact native command, run it before designing an alternative. Classify actual failures rather than speculating about tool behavior.
-
-## Implementation discipline
-
-Before changing a phase:
-
-- identify the smallest independently verifiable outcome and its exit gate;
-- confirm exact upstream or nested revisions only when the phase touches or validates them;
-- confirm model, artifact, and checksum inputs only when the phase consumes them;
-- inspect prior art and licensing only when code or design is being reused.
-
-During implementation:
-
-- make one architectural step per commit where practical;
-- keep storage, cache mechanism, policy, transport, and execution separate;
-- add tests with the implementation;
-- add telemetry before optimizing a path;
-- preserve the baseline path for A/B comparison;
-- record reproducible commands and results in machine-readable form;
-- do not report performance without exact revisions and configuration;
-- avoid unrelated cleanup and formatting.
-
-At the end of an implementation session:
-
-- update the controlling issue or PR only when a material result, finding, blocker, scope change, or handoff needs to be recorded;
-- update epic #39 only when phase status, order, dependency, or active ownership changes;
-- update `PLAN.md` or linked plan sections only when the technical plan, sequence, scope, or exit gate changes, never merely to synchronize execution status;
-- update `docs/DECISIONS.md` only when a durable decision is added, changed, or reopened;
-- update model, repository, artifact, and manifest records only when their inputs or evidence changed;
-- avoid commits whose sole purpose is to copy status already visible in GitHub;
-- leave the working tree clean or clearly document intentional uncommitted work.
-
 ## Architectural constraints
 
 Agents must not:
 
-- replace the final design with a page-cache-only implementation;
-- use graph-temporary staging memory as persistent expert storage;
-- infer backing files through `/proc/self/maps`;
-- pin the complete cold cache without an explicit bounded configuration;
-- add global singleton state that prevents multiple models or devices;
-- mix cache policy with CUDA or I/O implementation;
-- change selected expert IDs or routing weights, except that D-021 permits selected-ID substitutions only when the explicit default-off Phase 13.6 cache-aware mode is enabled, the exact top-k remains available as the reference, every substitution satisfies its hard regret bound, final weights still come from the original unbiased probabilities with the existing normalization, and the unchanged exact path remains available; routing-weight changes remain forbidden;
-- reorder top-k accumulation without an approved numerical decision;
-- create a new expert file format before Phase 12 evidence;
-- make N+1 prefetch mandatory without trace evidence;
 - silently downgrade unsupported configurations;
 - claim CUDA or UMA support from compilation alone;
-- copy a prior fork wholesale;
-- import third-party code without license and attribution review;
-- combine K3 model support, CPU, CUDA, disk, and policies into one upstream pull request.
+- import third-party code without license and attribution review.
 
-## Required abstractions
-
-Implementation should converge on components equivalent to:
-
-```text
-ExpertWeightProvider
-ExpertDirectory
-HotExpertCache
-ColdExpertCache
-ExpertStorage
-ExpertScheduler
-ExpertTransport
-CachePolicy
-PrefetchPolicy
-MissExecutionPolicy
-Telemetry
-```
-
-Names may follow GGML conventions, but responsibilities must remain separated.
+Architecture-specific accepted and rejected mechanisms are authoritative in `docs/DECISIONS.md` and should be loaded only when relevant to the active contract.
 
 ## Correctness requirements
 
@@ -172,20 +92,6 @@ Tests must include repeated warm runs because prior work failed across compute e
 Do not optimize from hit rate alone. Record prompt and decode throughput; p50, p95, and p99 token latency; tier requests and hits; bytes moved; disk and H2D wait and overlap; CPU miss compute; useful and wasted prefetch; and RAM, pinned RAM, VRAM, and UMA usage.
 
 A strategy that improves warm average throughput but worsens cold or tail latency must be described accurately.
-
-## Prior-art reuse protocol
-
-Before porting code:
-
-1. record repository, URL, branch, commit, and license;
-2. identify the smallest reusable unit;
-3. explain why the original design did or did not merge;
-4. write an isolated test;
-5. adapt ownership and lifetime to this architecture;
-6. preserve attribution;
-7. benchmark against the unmodified baseline.
-
-Primary references are listed in `docs/PRIOR_ART.md`.
 
 ## Upstream `llama.cpp` integration
 
