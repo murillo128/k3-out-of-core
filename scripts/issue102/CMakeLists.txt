@@ -475,3 +475,211 @@ set(horizon_generated_source "${CMAKE_CURRENT_BINARY_DIR}/issue102-long-horizon-
 file(WRITE "${horizon_generated_source}" "${horizon_source}")
 add_executable(issue102-long-horizon-probe "${horizon_generated_source}")
 configure_issue102_target(issue102-long-horizon-probe)
+
+# Derive the Stage-B/B2 EXACT observer from the frozen Stage-A helper. It
+# preserves the sequential full-prompt production path and adds only the
+# instrumentation-separated route observer plus post-run JSON serialization.
+set(observer_source "${probe_source}")
+
+macro(observer_required_replace label needle replacement)
+  set(before "${observer_source}")
+  string(REPLACE "${needle}" "${replacement}" observer_source "${observer_source}")
+  if(observer_source STREQUAL before)
+    message(FATAL_ERROR "${label} observer source anchor did not match")
+  endif()
+endmacro()
+
+observer_required_replace("observer capture types"
+  [=[} // namespace]=]
+  [=[struct observer_route_record {
+    uint64_t request_ordinal = 0;
+    std::string phase;
+    int32_t layer = -1;
+    std::vector<int32_t> selected_experts;
+    std::vector<float> selected_weights;
+    std::vector<int32_t> candidate_experts;
+    std::vector<float> candidate_selection_scores;
+    std::vector<float> candidate_probabilities;
+};
+
+struct observer_route_capture {
+    std::vector<observer_route_record> records;
+    std::string error;
+    uint64_t prefill_records = 0;
+    uint64_t decode_records = 0;
+};
+
+bool capture_observer_route(const llama_route_observation * observation, void * user_data) {
+    auto & capture = *static_cast<observer_route_capture *>(user_data);
+    if (observation == nullptr || observation->n_tokens != 1 || observation->n_expert_used != 16 ||
+        observation->n_candidates != 32 || observation->layer < 0 ||
+        observation->selected_experts == nullptr || observation->weights == nullptr ||
+        observation->candidate_experts == nullptr || observation->candidate_selection_scores == nullptr ||
+        observation->candidate_probabilities == nullptr) {
+        capture.error = "incomplete or structurally invalid route-observer payload";
+        return false;
+    }
+    for (uint32_t rank = 0; rank < observation->n_candidates; ++rank) {
+        const int32_t candidate = observation->candidate_experts[rank];
+        const float score = observation->candidate_selection_scores[rank];
+        const float probability = observation->candidate_probabilities[rank];
+        if (candidate < 0 || !std::isfinite(score) || !std::isfinite(probability) ||
+            (rank > 0 && score > observation->candidate_selection_scores[rank - 1])) {
+            capture.error = "invalid ordered candidate payload";
+            return false;
+        }
+        for (uint32_t prior = 0; prior < rank; ++prior) {
+            if (candidate == observation->candidate_experts[prior]) {
+                capture.error = "duplicate candidate expert";
+                return false;
+            }
+        }
+    }
+    for (uint32_t rank = 0; rank < observation->n_expert_used; ++rank) {
+        if (observation->selected_experts[rank] != observation->candidate_experts[rank] ||
+            !std::isfinite(observation->weights[rank])) {
+            capture.error = "EXACT selected route differs from the ordered top-16 candidates";
+            return false;
+        }
+    }
+    observer_route_record record;
+    record.request_ordinal = observation->request_ordinal;
+    record.phase = observation->phase == LLAMA_ROUTE_PHASE_PREFILL ? "PREFILL" : "DECODE";
+    record.layer = observation->layer;
+    record.selected_experts.assign(
+        observation->selected_experts, observation->selected_experts + observation->n_expert_used);
+    record.selected_weights.assign(observation->weights, observation->weights + observation->n_expert_used);
+    record.candidate_experts.assign(
+        observation->candidate_experts, observation->candidate_experts + observation->n_candidates);
+    record.candidate_selection_scores.assign(
+        observation->candidate_selection_scores,
+        observation->candidate_selection_scores + observation->n_candidates);
+    record.candidate_probabilities.assign(
+        observation->candidate_probabilities,
+        observation->candidate_probabilities + observation->n_candidates);
+    if (observation->phase == LLAMA_ROUTE_PHASE_PREFILL) {
+        capture.prefill_records++;
+    } else {
+        capture.decode_records++;
+    }
+    capture.records.push_back(std::move(record));
+    return true;
+}
+
+json observer_route_json(const observer_route_capture & capture) {
+    json rows = json::array();
+    for (const auto & record : capture.records) {
+        rows.push_back({
+            {"request_ordinal", record.request_ordinal},
+            {"phase", record.phase},
+            {"layer", record.layer},
+            {"selected_experts", record.selected_experts},
+            {"selected_weights", record.selected_weights},
+            {"candidate_experts", record.candidate_experts},
+            {"candidate_selection_scores", record.candidate_selection_scores},
+            {"candidate_probabilities", record.candidate_probabilities},
+        });
+    }
+    return rows;
+}
+
+} // namespace]=])
+
+observer_required_replace("observer fixed execution"
+  [=[        const auto process_started = steady_clock::now();]=]
+  [=[        const auto process_started = steady_clock::now();
+        if (args.point != "EXACT" || args.protocol != "full-prompt" ||
+            args.decode_forwards != 64 || args.cold_cache_bytes != 137728475136ULL ||
+            args.n_ctx != 768 || args.threads != 32 || args.issue_mode != "BATCHED") {
+            throw std::runtime_error("Stage-B observer requires the frozen EXACT full-prompt envelope");
+        }]=])
+
+observer_required_replace("observer setup"
+  [=[        const auto context_loaded = steady_clock::now();
+
+        auto * storage = model->expert_storage();]=]
+  [=[        const auto context_loaded = steady_clock::now();
+        observer_route_capture route_capture;
+        if (llama_set_route_observer_candidate_count(context.get(), 32) !=
+                LLAMA_ROUTE_OBSERVER_STATUS_OK ||
+            llama_set_route_observer(context.get(), capture_observer_route, &route_capture) !=
+                LLAMA_ROUTE_OBSERVER_STATUS_OK) {
+            throw std::runtime_error("unable to configure the Stage-B route observer");
+        }
+
+        auto * storage = model->expert_storage();]=])
+
+observer_required_replace("observer decode begin"
+  [=[        auto decode_one = [&](llama_token token, bool changed_routing, uint64_t request) -> llama_token {
+            if (changed_routing && llama_cache_aware_routing_begin(]=]
+  [=[        auto decode_one = [&](llama_token token, bool changed_routing, uint64_t request,
+                                  llama_route_phase observation_phase) -> llama_token {
+            if (llama_route_observer_begin(context.get(), request, observation_phase) !=
+                    LLAMA_ROUTE_OBSERVER_STATUS_OK) {
+                throw std::runtime_error("route observer begin failed");
+            }
+            if (changed_routing && llama_cache_aware_routing_begin(]=])
+
+observer_required_replace("observer prefill call"
+  [=[            next_token = decode_one(input, false, 0);]=]
+  [=[            next_token = decode_one(input, false, uint64_t(index + 1), LLAMA_ROUTE_PHASE_PREFILL);]=])
+
+observer_required_replace("observer decode call"
+  [=[            next_token = decode_one(next_token, changed_routing, 1);]=]
+  [=[            next_token = decode_one(
+                next_token, changed_routing, uint64_t(index + 1), LLAMA_ROUTE_PHASE_DECODE);]=])
+
+observer_required_replace("observer validation"
+  [=[        const auto routing_stats = llama_cache_aware_routing_get_stats(context.get());
+        struct rusage usage {};]=]
+  [=[        const auto routing_stats = llama_cache_aware_routing_get_stats(context.get());
+        const auto observer_stats = llama_route_observer_get_stats(context.get());
+        const uint64_t routed_layers = std::count_if(
+            model->layers.begin(), model->layers.end(),
+            [](const auto & layer) { return layer.ffn_down_exps != nullptr; });
+        const uint64_t expected_prefill_records = uint64_t(prompt.size())*routed_layers;
+        const uint64_t expected_decode_records = uint64_t(args.decode_forwards)*routed_layers;
+        if (!route_capture.error.empty() || routed_layers != 92 ||
+            route_capture.prefill_records != expected_prefill_records ||
+            route_capture.decode_records != expected_decode_records ||
+            route_capture.records.size() != expected_prefill_records + expected_decode_records ||
+            observer_stats.failures != 0) {
+            throw std::runtime_error("route observer completeness validation failed: " + route_capture.error);
+        }
+        struct rusage usage {};]=])
+
+observer_required_replace("observer schema"
+  [=[            {"schema_version", "issue102-cross-prompt-cell-v1"},]=]
+  [=[            {"schema_version", "issue102-exact-route-capture-v1"},]=])
+
+observer_required_replace("observer result"
+  [=[            {"routing", {
+                {"enabled", changed_routing},]=]
+  [=[            {"observer", {
+                {"provenance", "MEASURED_OBSERVER"},
+                {"performance_evidence", false},
+                {"candidate_count", 32},
+                {"routed_layers", routed_layers},
+                {"prefill_tokens", prompt.size()},
+                {"decode_forwards", args.decode_forwards},
+                {"prefill_records", route_capture.prefill_records},
+                {"decode_records", route_capture.decode_records},
+                {"record_count", route_capture.records.size()},
+                {"selected_occurrence_count", route_capture.records.size()*16},
+                {"candidate_occurrence_count", route_capture.records.size()*32},
+                {"stats", {
+                    {"ubatches", observer_stats.ubatches},
+                    {"layers", observer_stats.layers},
+                    {"copy_bytes", observer_stats.copy_bytes},
+                    {"explicit_synchronizations", observer_stats.explicit_synchronizations},
+                    {"failures", observer_stats.failures},
+                }},
+                {"records", observer_route_json(route_capture)},
+            }},
+            {"routing", {
+                {"enabled", changed_routing},]=])
+
+set(observer_generated_source "${CMAKE_CURRENT_BINARY_DIR}/issue102-exact-route-observer.cpp")
+file(WRITE "${observer_generated_source}" "${observer_source}")
+add_executable(issue102-exact-route-observer "${observer_generated_source}")
+configure_issue102_target(issue102-exact-route-observer)
