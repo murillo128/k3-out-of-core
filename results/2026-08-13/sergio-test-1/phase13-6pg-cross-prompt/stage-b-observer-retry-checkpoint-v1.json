@@ -1,0 +1,150 @@
+{
+  "accepted_retry": {
+    "case_id": "04-factual-b2",
+    "evidence": {
+      "envelope.json": {
+        "bytes": 25407,
+        "path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/envelope.json",
+        "sha256": "8f24d3f7a7c414e721f7147ad1f72635c8ad6cb02c2bd6dfc39b4d192078c3eb"
+      },
+      "result.json": {
+        "bytes": 84506736,
+        "path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/result.json",
+        "sha256": "f0a795961cea21bb1a575c664ec21cbf1607f98f3e8f8bcc689da9440d59ae81"
+      },
+      "stderr.log": {
+        "bytes": 67,
+        "path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/stderr.log",
+        "sha256": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      "stdout.log": {
+        "bytes": 47072384,
+        "path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/stdout.log",
+        "sha256": "23a7156d711f5d05278267201369ac507bb47b852feb9ac492834517ce26d22e"
+      }
+    },
+    "execution_project_sha": "734d33a39ec17606571289558b95297c1a5ceb51",
+    "hygiene": {
+      "projected_margin_after": 1140572160,
+      "projected_margin_before": 1017741312,
+      "released_resident_bytes": 131604594,
+      "resident_bytes_after": 0,
+      "status": "pass"
+    },
+    "ordinal": 4,
+    "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01",
+    "selection_role": "STAGE_B_REPRESENTATIVE",
+    "validation": {
+      "candidate_occurrences": 774272,
+      "exhaustive_record_order_shape_prefix_and_finite_checks": "pass",
+      "generated_tokens": 64,
+      "host_swap_reclaim_pressure_oom_cgroup_and_unused_nvme_checks": "pass",
+      "nested_sha": "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9",
+      "observer_records": 24196,
+      "performed_before_targeted_page_cache_release": true,
+      "point": "EXACT",
+      "post_release_payload_read_or_hash": false,
+      "project_sha": "734d33a39ec17606571289558b95297c1a5ceb51",
+      "prompt_tokens": 199,
+      "protocol": "full-prompt",
+      "result_schema_status_exit_case": "pass",
+      "selected_occurrences": 387136
+    }
+  },
+  "campaign": {
+    "accepted_capture_count": 4,
+    "expected_capture_count": 44,
+    "next_capture": {
+      "actual_templated_prompt_tokens": 278,
+      "case_id": "05-codegen-b5",
+      "length_level": 5,
+      "ordinal": 5,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-005-05-codegen-b5",
+      "same_case_retry": 0,
+      "selection_role": "STAGE_B_REPRESENTATIVE",
+      "semantic_family": "code generation"
+    },
+    "retry_budget_consumed": 1,
+    "retry_budget_remaining": 0
+  },
+  "disposition": "CAPTURE_004_RETRY_ACCEPTED_READY_FOR_ORDINAL_005",
+  "inputs": {
+    "generator": {
+      "bytes": 8447,
+      "path": "/workspace/k3-out-of-core/scripts/issue102/build_stage_b_observer_retry_checkpoint.py",
+      "sha256": "3ba38a43479e9dd201c3d682597cd7d9319d5738521f35ed318d581591594a7c"
+    },
+    "initial_hygiene": {
+      "bytes": 25330,
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/observer-evidence-cache-hygiene-gate-001.json",
+      "schema_version": "phase13-6pg-observer-evidence-cache-hygiene-gate-v1",
+      "sha256": "0ff25fceb0df8bffa58130dfdd0ade244912e9502ae3007277cc1737f53b3ba8"
+    },
+    "resume_preregistration": {
+      "bytes": 26446,
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/stage-b-observer-resume-preregistration-v3.json",
+      "schema_version": "phase13-6pg-stage-b-observer-resume-preregistration-v3",
+      "sha256": "ffde39561a0574ccf4b7313d3fbc2ef20a7dcaf321ac8d79987581a533070f36"
+    },
+    "retry_allowlist": {
+      "bytes": 2311,
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/observer-evidence-cache-allowlist-run-004-retry-01.json",
+      "schema_version": "phase13-6pg-observer-capture-cache-allowlist-v1",
+      "sha256": "c102ba316a3d4a51420a48ef941d86fa6af9e96c52838064e489daf76b1d8450"
+    },
+    "retry_hygiene": {
+      "bytes": 12625,
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/observer-evidence-cache-hygiene-after-run-004-retry-01.json",
+      "schema_version": "phase13-6pg-observer-evidence-cache-hygiene-gate-v1",
+      "sha256": "04543c4b0f87cf6772a0f29f8b192bdebf64a764ca220a5a83a22c13ec2da6d4"
+    }
+  },
+  "performance_interpretation": "FORBIDDEN",
+  "preserved_pre_context_failure": {
+    "artifacts": {
+      "envelope": {
+        "bytes": 25289,
+        "path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2/envelope.json",
+        "sha256": "4969f9dae69e085f19baffe5b15454cb83160f9f842282a4921bd2a41bbcd58a"
+      },
+      "stderr": {
+        "bytes": 332,
+        "path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2/stderr.log",
+        "sha256": "0f6d3b45b046f4f26da59ca25cecadcaa15a9e5775db736de622def87ba53267"
+      },
+      "stdout": {
+        "bytes": 0,
+        "path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2/stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "case_id": "04-factual-b2",
+    "classification": "HOST_MEMORY_ENVELOPE_DRIFT",
+    "context_initialized": false,
+    "elapsed_s": 3.0079090550025285,
+    "execution_project_sha": "d7b6a3bf8819c8de61cc9b899630f4605bd36af3",
+    "exit_status": 1,
+    "failure": "FROZEN_CAPACITY_ADMISSION_FAILURE",
+    "host_observation": {
+      "minimum_mem_available_kib": 291434892,
+      "peak_cgroup_memory_current_bytes": 115047051264
+    },
+    "host_safety": {
+      "zero_memory_pressure": true,
+      "zero_oom_cgroup": true,
+      "zero_reclaim_refault": true,
+      "zero_swap": true,
+      "zero_unused_nvme_reads": true
+    },
+    "ordinal": 4,
+    "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2",
+    "provenance": "NO_RESULT_PRE_CONTEXT_TECHNICAL_FAILURE",
+    "provider_error": 6,
+    "provider_error_name": "allocation_failed",
+    "replacement_allowed": false,
+    "scientific_result_available": false
+  },
+  "provenance": "MEASURED_OBSERVER_NON_PERFORMANCE",
+  "schema_version": "phase13-6pg-stage-b-observer-retry-checkpoint-v1",
+  "status": "pass"
+}

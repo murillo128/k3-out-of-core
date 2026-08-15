@@ -1,0 +1,371 @@
+{
+  "disposition": "READY_FOR_SINGLE_CAPTURE_004_RETRY",
+  "files": {
+    "after": [
+      {
+        "bytes": 84506736,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/result.json",
+        "device": 66304,
+        "inode": 9126852496,
+        "resident_bytes": 0,
+        "sha256_before_release": "f0a795961cea21bb1a575c664ec21cbf1607f98f3e8f8bcc689da9440d59ae81"
+      },
+      {
+        "bytes": 25407,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/envelope.json",
+        "device": 66304,
+        "inode": 9126852497,
+        "resident_bytes": 0,
+        "sha256_before_release": "8f24d3f7a7c414e721f7147ad1f72635c8ad6cb02c2bd6dfc39b4d192078c3eb"
+      },
+      {
+        "bytes": 47072384,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/stdout.log",
+        "device": 66304,
+        "inode": 9126852494,
+        "resident_bytes": 0,
+        "sha256_before_release": "23a7156d711f5d05278267201369ac507bb47b852feb9ac492834517ce26d22e"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/stderr.log",
+        "device": 66304,
+        "inode": 9126852495,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      }
+    ],
+    "before": [
+      {
+        "bytes": 84506736,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/result.json",
+        "device": 66304,
+        "inode": 9126852496,
+        "resident_bytes": 84506736,
+        "sha256_before_release": "f0a795961cea21bb1a575c664ec21cbf1607f98f3e8f8bcc689da9440d59ae81"
+      },
+      {
+        "bytes": 25407,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/envelope.json",
+        "device": 66304,
+        "inode": 9126852497,
+        "resident_bytes": 25407,
+        "sha256_before_release": "8f24d3f7a7c414e721f7147ad1f72635c8ad6cb02c2bd6dfc39b4d192078c3eb"
+      },
+      {
+        "bytes": 47072384,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/stdout.log",
+        "device": 66304,
+        "inode": 9126852494,
+        "resident_bytes": 47072384,
+        "sha256_before_release": "23a7156d711f5d05278267201369ac507bb47b852feb9ac492834517ce26d22e"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/stderr.log",
+        "device": 66304,
+        "inode": 9126852495,
+        "resident_bytes": 67,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      }
+    ],
+    "content_identity_source": "PRE_RELEASE_ALLOWLIST_SHA256",
+    "content_read_after_release": false,
+    "released_resident_bytes": 131604594,
+    "resident_bytes_after": 0,
+    "resident_bytes_before": 131604594
+  },
+  "gate": {
+    "all_allowlisted_pages_released": true,
+    "all_targeted_advice_succeeded": true,
+    "exact_allowlist_file_count": true,
+    "no_active_k3_or_helper_process": true,
+    "no_payload_reread_or_rehash_after_release": true,
+    "projected_exact_capacity_admissible": true,
+    "projected_margin_improved": true,
+    "resident_bytes_decreased": true,
+    "swap_reclaim_refault_psi_oom_cgroup_clean": true
+  },
+  "host": {
+    "after": {
+      "cgroup": {
+        "memory_current_bytes": 113873203200,
+        "memory_events": {
+          "high": 0,
+          "low": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_group_kill": 0,
+          "oom_kill": 0
+        },
+        "memory_max": "max",
+        "memory_pressure_total_usec": {},
+        "memory_stat": {
+          "active_file": 131956736,
+          "anon": 301850624,
+          "file": 113269354496,
+          "file_dirty": 356352,
+          "file_mapped": 222760960,
+          "file_writeback": 0,
+          "inactive_file": 113152040960,
+          "kernel": 277872640,
+          "workingset_refault_file": 0
+        },
+        "memory_swap_current_bytes": 0,
+        "path": "/sys/fs/cgroup/user.slice/user-1000.slice/session-4.scope"
+      },
+      "meminfo": {
+        "Cached": 114470731776,
+        "KernelStack": 16809984,
+        "MemAvailable": 299518160896,
+        "MemFree": 187153199104,
+        "MemTotal": 303509725184,
+        "Mlocked": 10780672,
+        "PageTables": 8441856,
+        "SReclaimable": 326684672,
+        "Shmem": 18022400,
+        "Slab": 605249536,
+        "SwapFree": 0,
+        "SwapTotal": 0,
+        "Unevictable": 10780672
+      },
+      "system_memory_pressure_total_usec": {},
+      "vmstat": {
+        "allocstall_device": 0,
+        "allocstall_dma": 0,
+        "allocstall_dma32": 0,
+        "allocstall_movable": 0,
+        "allocstall_normal": 0,
+        "oom_kill": 0,
+        "pgscan_anon": 0,
+        "pgscan_direct": 0,
+        "pgscan_direct_throttle": 0,
+        "pgscan_file": 0,
+        "pgscan_khugepaged": 0,
+        "pgscan_kswapd": 0,
+        "pgsteal_anon": 0,
+        "pgsteal_direct": 0,
+        "pgsteal_file": 0,
+        "pgsteal_khugepaged": 0,
+        "pgsteal_kswapd": 0,
+        "pswpin": 0,
+        "pswpout": 0,
+        "workingset_refault_anon": 0,
+        "workingset_refault_file": 0
+      }
+    },
+    "before": {
+      "cgroup": {
+        "memory_current_bytes": 114004819968,
+        "memory_events": {
+          "high": 0,
+          "low": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_group_kill": 0,
+          "oom_kill": 0
+        },
+        "memory_max": "max",
+        "memory_pressure_total_usec": {},
+        "memory_stat": {
+          "active_file": 131956736,
+          "anon": 301842432,
+          "file": 113400971264,
+          "file_dirty": 356352,
+          "file_mapped": 222760960,
+          "file_writeback": 0,
+          "inactive_file": 113283657728,
+          "kernel": 277872640,
+          "workingset_refault_file": 0
+        },
+        "memory_swap_current_bytes": 0,
+        "path": "/sys/fs/cgroup/user.slice/user-1000.slice/session-4.scope"
+      },
+      "meminfo": {
+        "Cached": 114601930752,
+        "KernelStack": 16809984,
+        "MemAvailable": 299539144704,
+        "MemFree": 187042983936,
+        "MemTotal": 303509725184,
+        "Mlocked": 10780672,
+        "PageTables": 8441856,
+        "SReclaimable": 326684672,
+        "Shmem": 18022400,
+        "Slab": 605249536,
+        "SwapFree": 0,
+        "SwapTotal": 0,
+        "Unevictable": 10780672
+      },
+      "system_memory_pressure_total_usec": {},
+      "vmstat": {
+        "allocstall_device": 0,
+        "allocstall_dma": 0,
+        "allocstall_dma32": 0,
+        "allocstall_movable": 0,
+        "allocstall_normal": 0,
+        "oom_kill": 0,
+        "pgscan_anon": 0,
+        "pgscan_direct": 0,
+        "pgscan_direct_throttle": 0,
+        "pgscan_file": 0,
+        "pgscan_khugepaged": 0,
+        "pgscan_kswapd": 0,
+        "pgsteal_anon": 0,
+        "pgsteal_direct": 0,
+        "pgsteal_file": 0,
+        "pgsteal_khugepaged": 0,
+        "pgsteal_kswapd": 0,
+        "pswpin": 0,
+        "pswpout": 0,
+        "workingset_refault_anon": 0,
+        "workingset_refault_file": 0
+      }
+    },
+    "delta": {
+      "cgroup_memory_pressure_total_usec": {},
+      "memory_current_bytes": -131616768,
+      "memory_events": {
+        "high": 0,
+        "low": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_group_kill": 0,
+        "oom_kill": 0
+      },
+      "memory_stat": {
+        "active_file": 0,
+        "anon": 8192,
+        "file": -131616768,
+        "file_dirty": 0,
+        "file_mapped": 0,
+        "file_writeback": 0,
+        "inactive_file": -131616768,
+        "kernel": 0,
+        "workingset_refault_file": 0
+      },
+      "system_memory_pressure_total_usec": {},
+      "vmstat": {
+        "allocstall_device": 0,
+        "allocstall_dma": 0,
+        "allocstall_dma32": 0,
+        "allocstall_movable": 0,
+        "allocstall_normal": 0,
+        "oom_kill": 0,
+        "pgscan_anon": 0,
+        "pgscan_direct": 0,
+        "pgscan_direct_throttle": 0,
+        "pgscan_file": 0,
+        "pgscan_khugepaged": 0,
+        "pgscan_kswapd": 0,
+        "pgsteal_anon": 0,
+        "pgsteal_direct": 0,
+        "pgsteal_file": 0,
+        "pgsteal_khugepaged": 0,
+        "pgsteal_kswapd": 0,
+        "pswpin": 0,
+        "pswpout": 0,
+        "workingset_refault_anon": 0,
+        "workingset_refault_file": 0
+      }
+    },
+    "guard_projection_after": {
+      "admission_safe_pool_bytes": 138869047296,
+      "available_headroom_bytes": 189636521984,
+      "cgroup_memory_current_bytes": 113873203200,
+      "cgroup_memory_max_bytes": 303509725184,
+      "classification": "PROJECTED_FROM_LAST_ACCEPTED_MODEL_RESIDENCY",
+      "hysteresis_bytes": 1073741824,
+      "limit_headroom_bytes": 187498067584,
+      "memory_available_bytes": 299518160896,
+      "physical_ram_bytes": 303509725184,
+      "production_guard_is_final_authority": true,
+      "projected_admission_margin_bytes": 1140572160,
+      "projected_measured_non_pool_committed_bytes": 116011657600,
+      "reference_model_file_cache_resident_bytes": 112556261376,
+      "reference_model_file_virtual_bytes": 114694715776,
+      "requested_pool_bytes": 137728475136,
+      "runtime_reserve_bytes": 17179869184,
+      "safe_pool_bytes": 139956977664,
+      "system_reserve_bytes": 30350972519
+    },
+    "guard_projection_before": {
+      "admission_safe_pool_bytes": 138746216448,
+      "available_headroom_bytes": 189504905216,
+      "cgroup_memory_current_bytes": 114004819968,
+      "cgroup_memory_max_bytes": 303509725184,
+      "classification": "PROJECTED_FROM_LAST_ACCEPTED_MODEL_RESIDENCY",
+      "hysteresis_bytes": 1073741824,
+      "limit_headroom_bytes": 187366450816,
+      "memory_available_bytes": 299539144704,
+      "physical_ram_bytes": 303509725184,
+      "production_guard_is_final_authority": true,
+      "projected_admission_margin_bytes": 1017741312,
+      "projected_measured_non_pool_committed_bytes": 116143274368,
+      "reference_model_file_cache_resident_bytes": 112556261376,
+      "reference_model_file_virtual_bytes": 114694715776,
+      "requested_pool_bytes": 137728475136,
+      "runtime_reserve_bytes": 17179869184,
+      "safe_pool_bytes": 139834146816,
+      "system_reserve_bytes": 30350972519
+    }
+  },
+  "inputs": {
+    "allowlist": {
+      "bytes": 2311,
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/observer-evidence-cache-allowlist-run-004-retry-01.json",
+      "sha256": "c102ba316a3d4a51420a48ef941d86fa6af9e96c52838064e489daf76b1d8450"
+    },
+    "generator": {
+      "bytes": 17719,
+      "path": "/workspace/k3-out-of-core/scripts/issue102/release_observer_evidence_page_cache.py",
+      "sha256": "61f353cae307887bd123b0f4474bfb616799297184a9f105477eede03459657a"
+    },
+    "reference_preflight": {
+      "bytes": 84506736,
+      "path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/result.json",
+      "sha256": "f0a795961cea21bb1a575c664ec21cbf1607f98f3e8f8bcc689da9440d59ae81"
+    }
+  },
+  "operation": {
+    "advice": [
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 84506736,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/result.json",
+        "device": 66304,
+        "inode": 9126852496,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25407,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/envelope.json",
+        "device": 66304,
+        "inode": 9126852497,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 47072384,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/stdout.log",
+        "device": 66304,
+        "inode": 9126852494,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/stderr.log",
+        "device": 66304,
+        "inode": 9126852495,
+        "status": "success"
+      }
+    ],
+    "model_or_runtime_file_touched": false,
+    "syncfs_root": "/mnt/nvme1/issue102/stage-b-observer",
+    "syncfs_status": "success"
+  },
+  "provenance": "MEASUREMENT_HYGIENE_NON_SCIENTIFIC",
+  "schema_version": "phase13-6pg-observer-evidence-cache-hygiene-gate-v1",
+  "status": "pass"
+}
