@@ -627,7 +627,8 @@ observer_required_replace("observer prefill call"
 observer_required_replace("observer decode call"
   [=[            next_token = decode_one(next_token, changed_routing, 1);]=]
   [=[            next_token = decode_one(
-                next_token, changed_routing, uint64_t(index + 1), LLAMA_ROUTE_PHASE_DECODE);]=])
+                next_token, changed_routing, uint64_t(prompt.size()) + index + 1,
+                LLAMA_ROUTE_PHASE_DECODE);]=])
 
 observer_required_replace("observer validation"
   [=[        const auto routing_stats = llama_cache_aware_routing_get_stats(context.get());
