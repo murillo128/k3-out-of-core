@@ -1,0 +1,1750 @@
+{
+  "capture_constraints": {
+    "stage_b_fresh_process_per_capture": true,
+    "stage_b_full_prompt_plus_decode_forwards": 64,
+    "stage_b_policy": "EXACT",
+    "stage_b_timing_evidence": false,
+    "stage_c_pair_order": "ALTERNATE_BY_FROZEN_PROMPT_ORDER",
+    "stage_c_policies": [
+      "EXACT",
+      "KNEE"
+    ]
+  },
+  "disposition": "POST_STAGE_A_SELECTIONS_FROZEN",
+  "input": {
+    "nested_llama_cpp_sha": "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9",
+    "project_sha": "c2360039dee6d0d3f62b38621766fab48dc866ad",
+    "stage_a_checkpoint": {
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/stage-a-round-08-checkpoint.json",
+      "schema_version": "issue102-stage-a-checkpoint-v1",
+      "sha256": "baf8d7583175aa55eca8c7183608259bb2d30f350a8a643f8b40d4831a362786"
+    }
+  },
+  "provenance": "FROZEN_STAGE_A_DERIVATION",
+  "rules": {
+    "stage_b": "Per family, choose the Stage-A S2_P50 hit ratio closest to the family median; tie-break by lower length_level, then stable case_id.",
+    "stage_b2": "For every family choose the fixed length_level=1 and length_level=8 endpoints.",
+    "stage_c": "Use all 16 Stage-B representatives, then four lowest-hit and four highest-hit Stage-A prompts not already selected; stable case_id breaks equal-hit ties."
+  },
+  "schema_version": "phase13-6pg-post-stage-a-selections-v1",
+  "stage_b": {
+    "count": 16,
+    "representatives": [
+      {
+        "absolute_distance_to_family_median": 0.0005731997282608647,
+        "actual_templated_prompt_tokens": 276,
+        "case_id": "15-spanish-b2",
+        "family_median_hit_ratio": 0.6429814877717391,
+        "length_level": 2,
+        "semantic_family": "Spanish-language reasoning/explanation",
+        "stage_a_envelope_sha256": "734e3c6c6ff7e9062801e11d627377217dd772dd90ab22b36e8edee0b5dd89a5",
+        "stage_a_hit_ratio": 0.6424082880434783,
+        "stage_a_ordinal": 31,
+        "stage_a_result_sha256": "cc30c1f8afdcea2a102ca01356442d52473defa563c6d8618ebf900e6355acab"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0032375169836956763,
+        "actual_templated_prompt_tokens": 194,
+        "case_id": "07-algorithms-b2",
+        "family_median_hit_ratio": 0.629638671875,
+        "length_level": 2,
+        "semantic_family": "algorithms / data-structure reasoning",
+        "stage_a_envelope_sha256": "23223f48b2c90d73e5fc4737d56bcd42352b7bc6573a6e430f20baf61dc705c4",
+        "stage_a_hit_ratio": 0.6328761888586957,
+        "stage_a_ordinal": 23,
+        "stage_a_result_sha256": "a54189257b11efd8dd789be86c7475865ff6d8e2bed1adf2a1d754235df9810d"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0007854959239129711,
+        "actual_templated_prompt_tokens": 160,
+        "case_id": "12-compare-b1",
+        "family_median_hit_ratio": 0.6427161175271738,
+        "length_level": 1,
+        "semantic_family": "analytical comparison / argumentation",
+        "stage_a_envelope_sha256": "000a1d3c7ac5709d48cfa6ed91d1101b3ce285f1918ab5382434513f66991e5b",
+        "stage_a_hit_ratio": 0.6419306216032609,
+        "stage_a_ordinal": 12,
+        "stage_a_result_sha256": "9013a34b83ec69a9d16225967a6f2e962d35a2023840a8dc7c8b468d7caeaa36"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0038850203804347005,
+        "actual_templated_prompt_tokens": 278,
+        "case_id": "05-codegen-b5",
+        "family_median_hit_ratio": 0.6265709918478262,
+        "length_level": 5,
+        "semantic_family": "code generation",
+        "stage_a_envelope_sha256": "a8e4a0d030b9ee509335ec81e3bb8932ad35fe62d5b52d6c8a6299be798b3d86",
+        "stage_a_hit_ratio": 0.6304560122282609,
+        "stage_a_ordinal": 69,
+        "stage_a_result_sha256": "e18749a557473711b759c244aefaa91668711188a5c00760430b257d1edc00cd"
+      },
+      {
+        "absolute_distance_to_family_median": 0.001273777173913082,
+        "actual_templated_prompt_tokens": 191,
+        "case_id": "14-qa-b2",
+        "family_median_hit_ratio": 0.6053944463315217,
+        "length_level": 2,
+        "semantic_family": "conversational / direct QA",
+        "stage_a_envelope_sha256": "d174300e7506757722ee720c58de1da2044a985e45f44bc17063527bd17db11a",
+        "stage_a_hit_ratio": 0.6041206691576086,
+        "stage_a_ordinal": 30,
+        "stage_a_result_sha256": "7e82ef56e094bddc4d32f6a38fffe26025f2c060039ac35ea05b7268c193dd12"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0019849694293477826,
+        "actual_templated_prompt_tokens": 221,
+        "case_id": "13-creative-b3",
+        "family_median_hit_ratio": 0.6201384171195652,
+        "length_level": 3,
+        "semantic_family": "creative / language generation",
+        "stage_a_envelope_sha256": "8b008aa2420deee13aef9a9b61fcac5b50d7d90139c25794fb825b2aeb5ea87b",
+        "stage_a_hit_ratio": 0.6181534476902174,
+        "stage_a_ordinal": 45,
+        "stage_a_result_sha256": "e0342de661b06b451c9c22bc4856f694d7136f8ec605c060f8630a2794dda8db"
+      },
+      {
+        "absolute_distance_to_family_median": 0.003646187160326053,
+        "actual_templated_prompt_tokens": 278,
+        "case_id": "06-debug-b4",
+        "family_median_hit_ratio": 0.6392185377038044,
+        "length_level": 4,
+        "semantic_family": "debugging / code review",
+        "stage_a_envelope_sha256": "be2ab33736c071bfeccf95b73eff647ef05e2135ab7da2c504d7b53e7d64feff",
+        "stage_a_hit_ratio": 0.6428647248641305,
+        "stage_a_ordinal": 54,
+        "stage_a_result_sha256": "50246a918beb9b6cf8072aeddd6bf4add5574cd66200e9b2b79edac7ef9736fc"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0014170771059782705,
+        "actual_templated_prompt_tokens": 199,
+        "case_id": "04-factual-b2",
+        "family_median_hit_ratio": 0.6097942849864131,
+        "length_level": 2,
+        "semantic_family": "factual / explanatory knowledge",
+        "stage_a_envelope_sha256": "aa456f630f363596792a7e3fb45df87ce89b768ec2a083b3dc851746cb797923",
+        "stage_a_hit_ratio": 0.6112113620923914,
+        "stage_a_ordinal": 20,
+        "stage_a_result_sha256": "3879af6b3303e842172ac8d9b36bc2f01ab2e103b9d67efe84612766a1a0de4c"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0028713060461956763,
+        "actual_templated_prompt_tokens": 237,
+        "case_id": "02-formal-b3",
+        "family_median_hit_ratio": 0.6502791694972826,
+        "length_level": 3,
+        "semantic_family": "formal logic / proof-style reasoning",
+        "stage_a_envelope_sha256": "fd3846fbdedd254ab7bb9f9e2f76a3db3046de7ed75522b60811bed8c2318859",
+        "stage_a_hit_ratio": 0.6531504755434783,
+        "stage_a_ordinal": 34,
+        "stage_a_result_sha256": "758caf1f8613f4e2d235406e9bb4052dbfd47e60931929f865dbf41eef8dd88f"
+      },
+      {
+        "absolute_distance_to_family_median": 0.002329950747282594,
+        "actual_templated_prompt_tokens": 178,
+        "case_id": "01-math-b1",
+        "family_median_hit_ratio": 0.6592911430027174,
+        "length_level": 1,
+        "semantic_family": "mathematical reasoning",
+        "stage_a_envelope_sha256": "c39b44f2811273b63be17498f09ed80fe2e8825e5a07f44a31d0c8554b08132d",
+        "stage_a_hit_ratio": 0.66162109375,
+        "stage_a_ordinal": 1,
+        "stage_a_result_sha256": "eaac1bc84ed8d1cb20d253313383296d103b4a22e33f0cfc46f5d155560ad2a7"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0009818699048912416,
+        "actual_templated_prompt_tokens": 168,
+        "case_id": "11-instructions-b1",
+        "family_median_hit_ratio": 0.6209929093070652,
+        "length_level": 1,
+        "semantic_family": "multi-step instruction following / structured response",
+        "stage_a_envelope_sha256": "46e6256c4b5cebd3fc680ed7f8af4f5d4bbd132dc3143f239786b72ffe77189c",
+        "stage_a_hit_ratio": 0.620011039402174,
+        "stage_a_ordinal": 11,
+        "stage_a_result_sha256": "88be0831b8fef6d861b36639ac59b06d6475eca4a10de1248748135183c0994f"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0008916440217391353,
+        "actual_templated_prompt_tokens": 217,
+        "case_id": "16-multi-b2",
+        "family_median_hit_ratio": 0.6232697860054348,
+        "length_level": 2,
+        "semantic_family": "multilingual / translation / cross-language transformation",
+        "stage_a_envelope_sha256": "57f2ec338ba31944215afe1a3342c3dfb9ad4eeec8f0655a0c7d4d0f0f3ed94b",
+        "stage_a_hit_ratio": 0.624161430027174,
+        "stage_a_ordinal": 32,
+        "stage_a_result_sha256": "c4d50e04d755a87222e2cea639c27527615fd9a18caca5c93c09535828e8eac8"
+      },
+      {
+        "absolute_distance_to_family_median": 0.002085810122282594,
+        "actual_templated_prompt_tokens": 225,
+        "case_id": "03-science-b3",
+        "family_median_hit_ratio": 0.6490796959918479,
+        "length_level": 3,
+        "semantic_family": "physics / scientific reasoning",
+        "stage_a_envelope_sha256": "85d0a3f34bb0fe3b86ffde8ad5c8db1cc5c99392318f846a443d84fde5f9dc9d",
+        "stage_a_hit_ratio": 0.6511655061141305,
+        "stage_a_ordinal": 35,
+        "stage_a_result_sha256": "817515448713deab58b2b189caba151fe6881a770d912b5a91fe0519b79a5316"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0019584324048912416,
+        "actual_templated_prompt_tokens": 246,
+        "case_id": "10-planning-b4",
+        "family_median_hit_ratio": 0.6211627462635869,
+        "length_level": 4,
+        "semantic_family": "planning / constraint satisfaction",
+        "stage_a_envelope_sha256": "90f5f1cdd4ff33fb7a4abebdfd2698c54881795bb25eece6ef093a5c771a0388",
+        "stage_a_hit_ratio": 0.6192043138586957,
+        "stage_a_ordinal": 58,
+        "stage_a_result_sha256": "7b66fe0a5530d042a04e01d928e984aef6a19a7acf38290c9dea8b8ab5265e3a"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0013640030570651884,
+        "actual_templated_prompt_tokens": 393,
+        "case_id": "09-extract-b8",
+        "family_median_hit_ratio": 0.6330407184103262,
+        "length_level": 8,
+        "semantic_family": "structured extraction / transformation",
+        "stage_a_envelope_sha256": "9a47fd7d7bd6375b3b766074ca646dc08d3a0b6748f92a543a97f612ee88c13c",
+        "stage_a_hit_ratio": 0.6344047214673914,
+        "stage_a_ordinal": 121,
+        "stage_a_result_sha256": "2bdfd4da8c72a7d1ff3a7c57ec3d6c487bc1d7026314d314bd80acde120880dc"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0024095618206521063,
+        "actual_templated_prompt_tokens": 211,
+        "case_id": "08-summary-b2",
+        "family_median_hit_ratio": 0.6029318104619565,
+        "length_level": 2,
+        "semantic_family": "summarization / synthesis",
+        "stage_a_envelope_sha256": "3c3eee0e5c9427f9eaf7d1dd020420f8f738d17e651d64a071604e12d42449ae",
+        "stage_a_hit_ratio": 0.6053413722826086,
+        "stage_a_ordinal": 24,
+        "stage_a_result_sha256": "8c18956c3de327809eb2003ef08d1f538745acdf01f30f059df5be6d0acb5ea9"
+      }
+    ],
+    "selection_audit": [
+      {
+        "family_median_hit_ratio": 0.6429814877717391,
+        "ranking": [
+          {
+            "absolute_distance_to_median": 0.0005731997282608647,
+            "case_id": "15-spanish-b2",
+            "hit_ratio": 0.6424082880434783,
+            "length_level": 2
+          },
+          {
+            "absolute_distance_to_median": 0.0005731997282608647,
+            "case_id": "15-spanish-b7",
+            "hit_ratio": 0.6435546875,
+            "length_level": 7
+          },
+          {
+            "absolute_distance_to_median": 0.001029636548913082,
+            "case_id": "15-spanish-b8",
+            "hit_ratio": 0.6440111243206522,
+            "length_level": 8
+          },
+          {
+            "absolute_distance_to_median": 0.003853175951086918,
+            "case_id": "15-spanish-b4",
+            "hit_ratio": 0.646834663722826,
+            "length_level": 4
+          },
+          {
+            "absolute_distance_to_median": 0.021208389945652217,
+            "case_id": "15-spanish-b1",
+            "hit_ratio": 0.6217730978260869,
+            "length_level": 1
+          },
+          {
+            "absolute_distance_to_median": 0.02174974524456519,
+            "case_id": "15-spanish-b6",
+            "hit_ratio": 0.6647312330163043,
+            "length_level": 6
+          },
+          {
+            "absolute_distance_to_median": 0.023978855298913082,
+            "case_id": "15-spanish-b5",
+            "hit_ratio": 0.619002632472826,
+            "length_level": 5
+          },
+          {
+            "absolute_distance_to_median": 0.03184442934782605,
+            "case_id": "15-spanish-b3",
+            "hit_ratio": 0.6111370584239131,
+            "length_level": 3
+          }
+        ],
+        "selected_case_id": "15-spanish-b2",
+        "semantic_family": "Spanish-language reasoning/explanation"
+      },
+      {
+        "family_median_hit_ratio": 0.629638671875,
+        "ranking": [
+          {
+            "absolute_distance_to_median": 0.0032375169836956763,
+            "case_id": "07-algorithms-b2",
+            "hit_ratio": 0.6328761888586957,
+            "length_level": 2
+          },
+          {
+            "absolute_distance_to_median": 0.0032375169836956763,
+            "case_id": "07-algorithms-b8",
+            "hit_ratio": 0.6264011548913043,
+            "length_level": 8
+          },
+          {
+            "absolute_distance_to_median": 0.005647078804347783,
+            "case_id": "07-algorithms-b5",
+            "hit_ratio": 0.6239915930706522,
+            "length_level": 5
+          },
+          {
+            "absolute_distance_to_median": 0.007504670516304324,
+            "case_id": "07-algorithms-b4",
+            "hit_ratio": 0.6371433423913043,
+            "length_level": 4
+          },
+          {
+            "absolute_distance_to_median": 0.007716966711956541,
+            "case_id": "07-algorithms-b3",
+            "hit_ratio": 0.6373556385869565,
+            "length_level": 3
+          },
+          {
+            "absolute_distance_to_median": 0.009033203125,
+            "case_id": "07-algorithms-b1",
+            "hit_ratio": 0.62060546875,
+            "length_level": 1
+          },
+          {
+            "absolute_distance_to_median": 0.013523267663043459,
+            "case_id": "07-algorithms-b6",
+            "hit_ratio": 0.6431619395380435,
+            "length_level": 6
+          },
+          {
+            "absolute_distance_to_median": 0.017567510190217406,
+            "case_id": "07-algorithms-b7",
+            "hit_ratio": 0.6120711616847826,
+            "length_level": 7
+          }
+        ],
+        "selected_case_id": "07-algorithms-b2",
+        "semantic_family": "algorithms / data-structure reasoning"
+      },
+      {
+        "family_median_hit_ratio": 0.6427161175271738,
+        "ranking": [
+          {
+            "absolute_distance_to_median": 0.0007854959239129711,
+            "case_id": "12-compare-b1",
+            "hit_ratio": 0.6419306216032609,
+            "length_level": 1
+          },
+          {
+            "absolute_distance_to_median": 0.0007854959239130821,
+            "case_id": "12-compare-b6",
+            "hit_ratio": 0.6435016134510869,
+            "length_level": 6
+          },
+          {
+            "absolute_distance_to_median": 0.010975713315217295,
+            "case_id": "12-compare-b3",
+            "hit_ratio": 0.6317404042119565,
+            "length_level": 3
+          },
+          {
+            "absolute_distance_to_median": 0.012621008831521618,
+            "case_id": "12-compare-b2",
+            "hit_ratio": 0.6300951086956522,
+            "length_level": 2
+          },
+          {
+            "absolute_distance_to_median": 0.012822690217391353,
+            "case_id": "12-compare-b7",
+            "hit_ratio": 0.6555388077445652,
+            "length_level": 7
+          },
+          {
+            "absolute_distance_to_median": 0.021155315896739246,
+            "case_id": "12-compare-b4",
+            "hit_ratio": 0.6638714334239131,
+            "length_level": 4
+          },
+          {
+            "absolute_distance_to_median": 0.024031929347826164,
+            "case_id": "12-compare-b5",
+            "hit_ratio": 0.666748046875,
+            "length_level": 5
+          },
+          {
+            "absolute_distance_to_median": 0.034338909646739024,
+            "case_id": "12-compare-b8",
+            "hit_ratio": 0.6083772078804348,
+            "length_level": 8
+          }
+        ],
+        "selected_case_id": "12-compare-b1",
+        "semantic_family": "analytical comparison / argumentation"
+      },
+      {
+        "family_median_hit_ratio": 0.6265709918478262,
+        "ranking": [
+          {
+            "absolute_distance_to_median": 0.0038850203804347005,
+            "case_id": "05-codegen-b5",
+            "hit_ratio": 0.6304560122282609,
+            "length_level": 5
+          },
+          {
+            "absolute_distance_to_median": 0.0038850203804348116,
+            "case_id": "05-codegen-b1",
+            "hit_ratio": 0.6226859714673914,
+            "length_level": 1
+          },
+          {
+            "absolute_distance_to_median": 0.005477241847826053,
+            "case_id": "05-codegen-b6",
+            "hit_ratio": 0.6320482336956522,
+            "length_level": 6
+          },
+          {
+            "absolute_distance_to_median": 0.006039826766304324,
+            "case_id": "05-codegen-b8",
+            "hit_ratio": 0.6326108186141305,
+            "length_level": 8
+          },
+          {
+            "absolute_distance_to_median": 0.020412279211956652,
+            "case_id": "05-codegen-b3",
+            "hit_ratio": 0.6061587126358695,
+            "length_level": 3
+          },
+          {
+            "absolute_distance_to_median": 0.028044327445652106,
+            "case_id": "05-codegen-b7",
+            "hit_ratio": 0.6546153192934783,
+            "length_level": 7
+          },
+          {
+            "absolute_distance_to_median": 0.0315153702445653,
+            "case_id": "05-codegen-b2",
+            "hit_ratio": 0.5950556216032609,
+            "length_level": 2
+          },
+          {
+            "absolute_distance_to_median": 0.03872282608695665,
+            "case_id": "05-codegen-b4",
+            "hit_ratio": 0.5878481657608695,
+            "length_level": 4
+          }
+        ],
+        "selected_case_id": "05-codegen-b5",
+        "semantic_family": "code generation"
+      },
+      {
+        "family_median_hit_ratio": 0.6053944463315217,
+        "ranking": [
+          {
+            "absolute_distance_to_median": 0.001273777173913082,
+            "case_id": "14-qa-b2",
+            "hit_ratio": 0.6041206691576086,
+            "length_level": 2
+          },
+          {
+            "absolute_distance_to_median": 0.001273777173913082,
+            "case_id": "14-qa-b4",
+            "hit_ratio": 0.6066682235054348,
+            "length_level": 4
+          },
+          {
+            "absolute_distance_to_median": 0.006963315217391242,
+            "case_id": "14-qa-b5",
+            "hit_ratio": 0.5984311311141305,
+            "length_level": 5
+          },
+          {
+            "absolute_distance_to_median": 0.011527683423913082,
+            "case_id": "14-qa-b1",
+            "hit_ratio": 0.5938667629076086,
+            "length_level": 1
+          },
+          {
+            "absolute_distance_to_median": 0.012026579483695676,
+            "case_id": "14-qa-b7",
+            "hit_ratio": 0.6174210258152174,
+            "length_level": 7
+          },
+          {
+            "absolute_distance_to_median": 0.019074813179347783,
+            "case_id": "14-qa-b3",
+            "hit_ratio": 0.586319633152174,
+            "length_level": 3
+          },
+          {
+            "absolute_distance_to_median": 0.03871221127717395,
+            "case_id": "14-qa-b6",
+            "hit_ratio": 0.6441066576086957,
+            "length_level": 6
+          },
+          {
+            "absolute_distance_to_median": 0.046545940896739135,
+            "case_id": "14-qa-b8",
+            "hit_ratio": 0.6519403872282609,
+            "length_level": 8
+          }
+        ],
+        "selected_case_id": "14-qa-b2",
+        "semantic_family": "conversational / direct QA"
+      },
+      {
+        "family_median_hit_ratio": 0.6201384171195652,
+        "ranking": [
+          {
+            "absolute_distance_to_median": 0.0019849694293477826,
+            "case_id": "13-creative-b3",
+            "hit_ratio": 0.6181534476902174,
+            "length_level": 3
+          },
+          {
+            "absolute_distance_to_median": 0.0019849694293478937,
+            "case_id": "13-creative-b6",
+            "hit_ratio": 0.6221233865489131,
+            "length_level": 6
+          },
+          {
+            "absolute_distance_to_median": 0.0021229619565217295,
+            "case_id": "13-creative-b1",
+            "hit_ratio": 0.6180154551630435,
+            "length_level": 1
+          },
+          {
+            "absolute_distance_to_median": 0.0036408797554348116,
+            "case_id": "13-creative-b4",
+            "hit_ratio": 0.623779296875,
+            "length_level": 4
+          },
+          {
+            "absolute_distance_to_median": 0.004118546195652106,
+            "case_id": "13-creative-b5",
+            "hit_ratio": 0.6160198709239131,
+            "length_level": 5
+          },
+          {
+            "absolute_distance_to_median": 0.014043393342391353,
+            "case_id": "13-creative-b8",
+            "hit_ratio": 0.6341818104619565,
+            "length_level": 8
+          },
+          {
+            "absolute_distance_to_median": 0.017195991847826053,
+            "case_id": "13-creative-b7",
+            "hit_ratio": 0.6029424252717391,
+            "length_level": 7
+          },
+          {
+            "absolute_distance_to_median": 0.01987092391304346,
+            "case_id": "13-creative-b2",
+            "hit_ratio": 0.6400093410326086,
+            "length_level": 2
+          }
+        ],
+        "selected_case_id": "13-creative-b3",
+        "semantic_family": "creative / language generation"
+      },
+      {
+        "family_median_hit_ratio": 0.6392185377038044,
+        "ranking": [
+          {
+            "absolute_distance_to_median": 0.003646187160326053,
+            "case_id": "06-debug-b4",
+            "hit_ratio": 0.6428647248641305,
+            "length_level": 4
+          },
+          {
+            "absolute_distance_to_median": 0.003646187160326164,
+            "case_id": "06-debug-b1",
+            "hit_ratio": 0.6355723505434783,
+            "length_level": 1
+          },
+          {
+            "absolute_distance_to_median": 0.007488748301630488,
+            "case_id": "06-debug-b2",
+            "hit_ratio": 0.631729789402174,
+            "length_level": 2
+          },
+          {
+            "absolute_distance_to_median": 0.009335725203804213,
+            "case_id": "06-debug-b6",
+            "hit_ratio": 0.6485542629076086,
+            "length_level": 6
+          },
+          {
+            "absolute_distance_to_median": 0.011670983355978382,
+            "case_id": "06-debug-b3",
+            "hit_ratio": 0.627547554347826,
+            "length_level": 3
+          },
+          {
+            "absolute_distance_to_median": 0.019908075747282483,
+            "case_id": "06-debug-b5",
+            "hit_ratio": 0.6591266134510869,
+            "length_level": 5
+          },
+          {
+            "absolute_distance_to_median": 0.022455630095108647,
+            "case_id": "06-debug-b8",
+            "hit_ratio": 0.6616741677989131,
+            "length_level": 8
+          },
+          {
+            "absolute_distance_to_median": 0.02326235563858703,
+            "case_id": "06-debug-b7",
+            "hit_ratio": 0.6159561820652174,
+            "length_level": 7
+          }
+        ],
+        "selected_case_id": "06-debug-b4",
+        "semantic_family": "debugging / code review"
+      },
+      {
+        "family_median_hit_ratio": 0.6097942849864131,
+        "ranking": [
+          {
+            "absolute_distance_to_median": 0.0014170771059782705,
+            "case_id": "04-factual-b2",
+            "hit_ratio": 0.6112113620923914,
+            "length_level": 2
+          },
+          {
+            "absolute_distance_to_median": 0.0014170771059782705,
+            "case_id": "04-factual-b8",
+            "hit_ratio": 0.6083772078804348,
+            "length_level": 8
+          },
+          {
+            "absolute_distance_to_median": 0.003338357676630488,
+            "case_id": "04-factual-b7",
+            "hit_ratio": 0.6064559273097826,
+            "length_level": 7
+          },
+          {
+            "absolute_distance_to_median": 0.0067138671875,
+            "case_id": "04-factual-b1",
+            "hit_ratio": 0.6165081521739131,
+            "length_level": 1
+          },
+          {
+            "absolute_distance_to_median": 0.016617484714673836,
+            "case_id": "04-factual-b6",
+            "hit_ratio": 0.6264117697010869,
+            "length_level": 6
+          },
+          {
+            "absolute_distance_to_median": 0.018443231997282594,
+            "case_id": "04-factual-b3",
+            "hit_ratio": 0.5913510529891305,
+            "length_level": 3
+          },
+          {
+            "absolute_distance_to_median": 0.02866529381793481,
+            "case_id": "04-factual-b4",
+            "hit_ratio": 0.5811289911684783,
+            "length_level": 4
+          },
+          {
+            "absolute_distance_to_median": 0.0286865234375,
+            "case_id": "04-factual-b5",
+            "hit_ratio": 0.6384808084239131,
+            "length_level": 5
+          }
+        ],
+        "selected_case_id": "04-factual-b2",
+        "semantic_family": "factual / explanatory knowledge"
+      },
+      {
+        "family_median_hit_ratio": 0.6502791694972826,
+        "ranking": [
+          {
+            "absolute_distance_to_median": 0.0028713060461956763,
+            "case_id": "02-formal-b3",
+            "hit_ratio": 0.6531504755434783,
+            "length_level": 3
+          },
+          {
+            "absolute_distance_to_median": 0.0028713060461956763,
+            "case_id": "02-formal-b5",
+            "hit_ratio": 0.6474078634510869,
+            "length_level": 5
+          },
+          {
+            "absolute_distance_to_median": 0.003200365149456541,
+            "case_id": "02-formal-b1",
+            "hit_ratio": 0.647078804347826,
+            "length_level": 1
+          },
+          {
+            "absolute_distance_to_median": 0.004431683084239135,
+            "case_id": "02-formal-b2",
+            "hit_ratio": 0.6547108525815217,
+            "length_level": 2
+          },
+          {
+            "absolute_distance_to_median": 0.0049305791440217295,
+            "case_id": "02-formal-b6",
+            "hit_ratio": 0.6453485903532609,
+            "length_level": 6
+          },
+          {
+            "absolute_distance_to_median": 0.006183126698369623,
+            "case_id": "02-formal-b4",
+            "hit_ratio": 0.6564622961956522,
+            "length_level": 4
+          },
+          {
+            "absolute_distance_to_median": 0.018804135529891353,
+            "case_id": "02-formal-b8",
+            "hit_ratio": 0.669083305027174,
+            "length_level": 8
+          },
+          {
+            "absolute_distance_to_median": 0.03873874830163038,
+            "case_id": "02-formal-b7",
+            "hit_ratio": 0.6115404211956522,
+            "length_level": 7
+          }
+        ],
+        "selected_case_id": "02-formal-b3",
+        "semantic_family": "formal logic / proof-style reasoning"
+      },
+      {
+        "family_median_hit_ratio": 0.6592911430027174,
+        "ranking": [
+          {
+            "absolute_distance_to_median": 0.002329950747282594,
+            "case_id": "01-math-b1",
+            "hit_ratio": 0.66162109375,
+            "length_level": 1
+          },
+          {
+            "absolute_distance_to_median": 0.002329950747282594,
+            "case_id": "01-math-b3",
+            "hit_ratio": 0.6569611922554348,
+            "length_level": 3
+          },
+          {
+            "absolute_distance_to_median": 0.003985861073369623,
+            "case_id": "01-math-b2",
+            "hit_ratio": 0.6553052819293478,
+            "length_level": 2
+          },
+          {
+            "absolute_distance_to_median": 0.0044422978940217295,
+            "case_id": "01-math-b4",
+            "hit_ratio": 0.6637334408967391,
+            "length_level": 4
+          },
+          {
+            "absolute_distance_to_median": 0.00834854789402173,
+            "case_id": "01-math-b6",
+            "hit_ratio": 0.6676396908967391,
+            "length_level": 6
+          },
+          {
+            "absolute_distance_to_median": 0.009165888247282594,
+            "case_id": "01-math-b8",
+            "hit_ratio": 0.66845703125,
+            "length_level": 8
+          },
+          {
+            "absolute_distance_to_median": 0.012031886888586918,
+            "case_id": "01-math-b5",
+            "hit_ratio": 0.6472592561141305,
+            "length_level": 5
+          },
+          {
+            "absolute_distance_to_median": 0.015831988790760865,
+            "case_id": "01-math-b7",
+            "hit_ratio": 0.6434591542119565,
+            "length_level": 7
+          }
+        ],
+        "selected_case_id": "01-math-b1",
+        "semantic_family": "mathematical reasoning"
+      },
+      {
+        "family_median_hit_ratio": 0.6209929093070652,
+        "ranking": [
+          {
+            "absolute_distance_to_median": 0.0009818699048912416,
+            "case_id": "11-instructions-b1",
+            "hit_ratio": 0.620011039402174,
+            "length_level": 1
+          },
+          {
+            "absolute_distance_to_median": 0.0009818699048913526,
+            "case_id": "11-instructions-b2",
+            "hit_ratio": 0.6219747792119565,
+            "length_level": 2
+          },
+          {
+            "absolute_distance_to_median": 0.002457328464673947,
+            "case_id": "11-instructions-b8",
+            "hit_ratio": 0.6234502377717391,
+            "length_level": 8
+          },
+          {
+            "absolute_distance_to_median": 0.003678031589673947,
+            "case_id": "11-instructions-b7",
+            "hit_ratio": 0.6246709408967391,
+            "length_level": 7
+          },
+          {
+            "absolute_distance_to_median": 0.015407396399456541,
+            "case_id": "11-instructions-b4",
+            "hit_ratio": 0.6055855129076086,
+            "length_level": 4
+          },
+          {
+            "absolute_distance_to_median": 0.03659455672554346,
+            "case_id": "11-instructions-b5",
+            "hit_ratio": 0.5843983525815217,
+            "length_level": 5
+          },
+          {
+            "absolute_distance_to_median": 0.038123089334239135,
+            "case_id": "11-instructions-b6",
+            "hit_ratio": 0.582869819972826,
+            "length_level": 6
+          },
+          {
+            "absolute_distance_to_median": 0.040925399116847894,
+            "case_id": "11-instructions-b3",
+            "hit_ratio": 0.6619183084239131,
+            "length_level": 3
+          }
+        ],
+        "selected_case_id": "11-instructions-b1",
+        "semantic_family": "multi-step instruction following / structured response"
+      },
+      {
+        "family_median_hit_ratio": 0.6232697860054348,
+        "ranking": [
+          {
+            "absolute_distance_to_median": 0.0008916440217391353,
+            "case_id": "16-multi-b2",
+            "hit_ratio": 0.624161430027174,
+            "length_level": 2
+          },
+          {
+            "absolute_distance_to_median": 0.0008916440217391353,
+            "case_id": "16-multi-b7",
+            "hit_ratio": 0.6223781419836957,
+            "length_level": 7
+          },
+          {
+            "absolute_distance_to_median": 0.003704568614130377,
+            "case_id": "16-multi-b8",
+            "hit_ratio": 0.6269743546195652,
+            "length_level": 8
+          },
+          {
+            "absolute_distance_to_median": 0.007706351902173836,
+            "case_id": "16-multi-b5",
+            "hit_ratio": 0.6309761379076086,
+            "length_level": 5
+          },
+          {
+            "absolute_distance_to_median": 0.012429942255434812,
+            "case_id": "16-multi-b4",
+            "hit_ratio": 0.61083984375,
+            "length_level": 4
+          },
+          {
+            "absolute_distance_to_median": 0.024785580842391353,
+            "case_id": "16-multi-b3",
+            "hit_ratio": 0.5984842051630435,
+            "length_level": 3
+          },
+          {
+            "absolute_distance_to_median": 0.02482804008152173,
+            "case_id": "16-multi-b6",
+            "hit_ratio": 0.6480978260869565,
+            "length_level": 6
+          },
+          {
+            "absolute_distance_to_median": 0.027768342391304324,
+            "case_id": "16-multi-b1",
+            "hit_ratio": 0.5955014436141305,
+            "length_level": 1
+          }
+        ],
+        "selected_case_id": "16-multi-b2",
+        "semantic_family": "multilingual / translation / cross-language transformation"
+      },
+      {
+        "family_median_hit_ratio": 0.6490796959918479,
+        "ranking": [
+          {
+            "absolute_distance_to_median": 0.002085810122282594,
+            "case_id": "03-science-b3",
+            "hit_ratio": 0.6511655061141305,
+            "length_level": 3
+          },
+          {
+            "absolute_distance_to_median": 0.0020858101222827052,
+            "case_id": "03-science-b7",
+            "hit_ratio": 0.6469938858695652,
+            "length_level": 7
+          },
+          {
+            "absolute_distance_to_median": 0.004410453464673947,
+            "case_id": "03-science-b4",
+            "hit_ratio": 0.644669242527174,
+            "length_level": 4
+          },
+          {
+            "absolute_distance_to_median": 0.005854067595108758,
+            "case_id": "03-science-b8",
+            "hit_ratio": 0.6432256283967391,
+            "length_level": 8
+          },
+          {
+            "absolute_distance_to_median": 0.010471509850543459,
+            "case_id": "03-science-b1",
+            "hit_ratio": 0.6595512058423914,
+            "length_level": 1
+          },
+          {
+            "absolute_distance_to_median": 0.014165463654891353,
+            "case_id": "03-science-b2",
+            "hit_ratio": 0.6349142323369565,
+            "length_level": 2
+          },
+          {
+            "absolute_distance_to_median": 0.01750912873641297,
+            "case_id": "03-science-b5",
+            "hit_ratio": 0.6665888247282609,
+            "length_level": 5
+          },
+          {
+            "absolute_distance_to_median": 0.030724566915760754,
+            "case_id": "03-science-b6",
+            "hit_ratio": 0.6798042629076086,
+            "length_level": 6
+          }
+        ],
+        "selected_case_id": "03-science-b3",
+        "semantic_family": "physics / scientific reasoning"
+      },
+      {
+        "family_median_hit_ratio": 0.6211627462635869,
+        "ranking": [
+          {
+            "absolute_distance_to_median": 0.0019584324048912416,
+            "case_id": "10-planning-b4",
+            "hit_ratio": 0.6192043138586957,
+            "length_level": 4
+          },
+          {
+            "absolute_distance_to_median": 0.0019584324048913526,
+            "case_id": "10-planning-b8",
+            "hit_ratio": 0.6231211786684783,
+            "length_level": 8
+          },
+          {
+            "absolute_distance_to_median": 0.0028819208559782705,
+            "case_id": "10-planning-b3",
+            "hit_ratio": 0.6182808254076086,
+            "length_level": 3
+          },
+          {
+            "absolute_distance_to_median": 0.004697053328804324,
+            "case_id": "10-planning-b5",
+            "hit_ratio": 0.6164656929347826,
+            "length_level": 5
+          },
+          {
+            "absolute_distance_to_median": 0.008507770040760865,
+            "case_id": "10-planning-b7",
+            "hit_ratio": 0.612654976222826,
+            "length_level": 7
+          },
+          {
+            "absolute_distance_to_median": 0.0093994140625,
+            "case_id": "10-planning-b6",
+            "hit_ratio": 0.6305621603260869,
+            "length_level": 6
+          },
+          {
+            "absolute_distance_to_median": 0.0115966796875,
+            "case_id": "10-planning-b1",
+            "hit_ratio": 0.6327594259510869,
+            "length_level": 1
+          },
+          {
+            "absolute_distance_to_median": 0.045373004415760865,
+            "case_id": "10-planning-b2",
+            "hit_ratio": 0.6665357506793478,
+            "length_level": 2
+          }
+        ],
+        "selected_case_id": "10-planning-b4",
+        "semantic_family": "planning / constraint satisfaction"
+      },
+      {
+        "family_median_hit_ratio": 0.6330407184103262,
+        "ranking": [
+          {
+            "absolute_distance_to_median": 0.0013640030570651884,
+            "case_id": "09-extract-b8",
+            "hit_ratio": 0.6344047214673914,
+            "length_level": 8
+          },
+          {
+            "absolute_distance_to_median": 0.0013640030570652995,
+            "case_id": "09-extract-b4",
+            "hit_ratio": 0.6316767153532609,
+            "length_level": 4
+          },
+          {
+            "absolute_distance_to_median": 0.00735075577445643,
+            "case_id": "09-extract-b5",
+            "hit_ratio": 0.6403914741847826,
+            "length_level": 5
+          },
+          {
+            "absolute_distance_to_median": 0.009325110394021618,
+            "case_id": "09-extract-b1",
+            "hit_ratio": 0.6423658288043478,
+            "length_level": 1
+          },
+          {
+            "absolute_distance_to_median": 0.011193316915760976,
+            "case_id": "09-extract-b2",
+            "hit_ratio": 0.6218474014945652,
+            "length_level": 2
+          },
+          {
+            "absolute_distance_to_median": 0.013878863790760976,
+            "case_id": "09-extract-b7",
+            "hit_ratio": 0.6191618546195652,
+            "length_level": 7
+          },
+          {
+            "absolute_distance_to_median": 0.014547596807065188,
+            "case_id": "09-extract-b3",
+            "hit_ratio": 0.6475883152173914,
+            "length_level": 3
+          },
+          {
+            "absolute_distance_to_median": 0.018050484035326164,
+            "case_id": "09-extract-b6",
+            "hit_ratio": 0.614990234375,
+            "length_level": 6
+          }
+        ],
+        "selected_case_id": "09-extract-b8",
+        "semantic_family": "structured extraction / transformation"
+      },
+      {
+        "family_median_hit_ratio": 0.6029318104619565,
+        "ranking": [
+          {
+            "absolute_distance_to_median": 0.0024095618206521063,
+            "case_id": "08-summary-b2",
+            "hit_ratio": 0.6053413722826086,
+            "length_level": 2
+          },
+          {
+            "absolute_distance_to_median": 0.0024095618206522174,
+            "case_id": "08-summary-b7",
+            "hit_ratio": 0.6005222486413043,
+            "length_level": 7
+          },
+          {
+            "absolute_distance_to_median": 0.004532523777173947,
+            "case_id": "08-summary-b6",
+            "hit_ratio": 0.6074643342391305,
+            "length_level": 6
+          },
+          {
+            "absolute_distance_to_median": 0.004819123641304324,
+            "case_id": "08-summary-b8",
+            "hit_ratio": 0.6077509341032609,
+            "length_level": 8
+          },
+          {
+            "absolute_distance_to_median": 0.008099099864130488,
+            "case_id": "08-summary-b1",
+            "hit_ratio": 0.594832710597826,
+            "length_level": 1
+          },
+          {
+            "absolute_distance_to_median": 0.008449388586956541,
+            "case_id": "08-summary-b4",
+            "hit_ratio": 0.6113811990489131,
+            "length_level": 4
+          },
+          {
+            "absolute_distance_to_median": 0.012663468070652217,
+            "case_id": "08-summary-b3",
+            "hit_ratio": 0.5902683423913043,
+            "length_level": 3
+          },
+          {
+            "absolute_distance_to_median": 0.021102241847826053,
+            "case_id": "08-summary-b5",
+            "hit_ratio": 0.5818295686141305,
+            "length_level": 5
+          }
+        ],
+        "selected_case_id": "08-summary-b2",
+        "semantic_family": "summarization / synthesis"
+      }
+    ]
+  },
+  "stage_b2": {
+    "count": 32,
+    "endpoints": [
+      {
+        "actual_templated_prompt_tokens": 208,
+        "case_id": "15-spanish-b1",
+        "length_level": 1,
+        "semantic_family": "Spanish-language reasoning/explanation",
+        "stage_a_envelope_sha256": "961d4462614020cdd1b6430a89b4f2c7251cf51ab563f1cb494836f6e029f8ed",
+        "stage_a_hit_ratio": 0.6217730978260869,
+        "stage_a_ordinal": 15,
+        "stage_a_result_sha256": "6dc2778844acdf853368e366007a8bc5dd618ac691acccafcd6b95fb18d1d39e"
+      },
+      {
+        "actual_templated_prompt_tokens": 599,
+        "case_id": "15-spanish-b8",
+        "length_level": 8,
+        "semantic_family": "Spanish-language reasoning/explanation",
+        "stage_a_envelope_sha256": "c8cf0de97631a3dc6100f8eeafd7393aa6cbd114097f71387dad57a677fb06c5",
+        "stage_a_hit_ratio": 0.6440111243206522,
+        "stage_a_ordinal": 127,
+        "stage_a_result_sha256": "56b71991e938d7d41b5c98a2417f56510076d13f88e92899385e4208832b9270"
+      },
+      {
+        "actual_templated_prompt_tokens": 175,
+        "case_id": "07-algorithms-b1",
+        "length_level": 1,
+        "semantic_family": "algorithms / data-structure reasoning",
+        "stage_a_envelope_sha256": "ee656bb3a58c23ac9d7f5abeb982734efa897ab25bf4eb8560af5d4fd14393a3",
+        "stage_a_hit_ratio": 0.62060546875,
+        "stage_a_ordinal": 7,
+        "stage_a_result_sha256": "a373e1c4c0e8fbf647bdb06983b2137809ae87a81e4a16d53ad0b3d97b9f6756"
+      },
+      {
+        "actual_templated_prompt_tokens": 408,
+        "case_id": "07-algorithms-b8",
+        "length_level": 8,
+        "semantic_family": "algorithms / data-structure reasoning",
+        "stage_a_envelope_sha256": "0f2e3d34ee9e54c3810d644ba5b1bbd5666605890f721527afdecc2b7c9edd0a",
+        "stage_a_hit_ratio": 0.6264011548913043,
+        "stage_a_ordinal": 119,
+        "stage_a_result_sha256": "39deeb110eb0dd56bd7055838e7de06bd32f39527752c04eea791cd3790a5f6a"
+      },
+      {
+        "actual_templated_prompt_tokens": 160,
+        "case_id": "12-compare-b1",
+        "length_level": 1,
+        "semantic_family": "analytical comparison / argumentation",
+        "stage_a_envelope_sha256": "000a1d3c7ac5709d48cfa6ed91d1101b3ce285f1918ab5382434513f66991e5b",
+        "stage_a_hit_ratio": 0.6419306216032609,
+        "stage_a_ordinal": 12,
+        "stage_a_result_sha256": "9013a34b83ec69a9d16225967a6f2e962d35a2023840a8dc7c8b468d7caeaa36"
+      },
+      {
+        "actual_templated_prompt_tokens": 382,
+        "case_id": "12-compare-b8",
+        "length_level": 8,
+        "semantic_family": "analytical comparison / argumentation",
+        "stage_a_envelope_sha256": "0b294b283ace93d2929947caef420d773b32488dff82b55003ef708bc0cb3e6f",
+        "stage_a_hit_ratio": 0.6083772078804348,
+        "stage_a_ordinal": 124,
+        "stage_a_result_sha256": "e039c907ea514db9438e7f85d2c3613e65203b37d164058f72ce7498b8c712c8"
+      },
+      {
+        "actual_templated_prompt_tokens": 168,
+        "case_id": "05-codegen-b1",
+        "length_level": 1,
+        "semantic_family": "code generation",
+        "stage_a_envelope_sha256": "cd73d6f8d45e95019f01ae25e8d0148aafb23844c5e6c82140b3c0b1ba60be52",
+        "stage_a_hit_ratio": 0.6226859714673914,
+        "stage_a_ordinal": 5,
+        "stage_a_result_sha256": "80b38dc58005a825ef7e75659a7915301f9297b2a19eb29b508f667d35281ee3"
+      },
+      {
+        "actual_templated_prompt_tokens": 392,
+        "case_id": "05-codegen-b8",
+        "length_level": 8,
+        "semantic_family": "code generation",
+        "stage_a_envelope_sha256": "88c46b241c262366249feb8fbd3d4ada8ac677e287751a60bbd31f9e738c62b9",
+        "stage_a_hit_ratio": 0.6326108186141305,
+        "stage_a_ordinal": 117,
+        "stage_a_result_sha256": "0a33a1d680c6d10a91734febcc9c34779dfe1558d1e7e937ab0a40d877b2e901"
+      },
+      {
+        "actual_templated_prompt_tokens": 171,
+        "case_id": "14-qa-b1",
+        "length_level": 1,
+        "semantic_family": "conversational / direct QA",
+        "stage_a_envelope_sha256": "975f4470909848e4057b23b999573e542fc0296b0c161182b94a02aaa45edbe7",
+        "stage_a_hit_ratio": 0.5938667629076086,
+        "stage_a_ordinal": 14,
+        "stage_a_result_sha256": "3274a51d6f915758ab61db1b0a0613d54bc848bf0b0998819989156176e11480"
+      },
+      {
+        "actual_templated_prompt_tokens": 385,
+        "case_id": "14-qa-b8",
+        "length_level": 8,
+        "semantic_family": "conversational / direct QA",
+        "stage_a_envelope_sha256": "2c86d1a84f02d2db77d9dc6182f71e24b235a404207f9006c1b6ad904253ddea",
+        "stage_a_hit_ratio": 0.6519403872282609,
+        "stage_a_ordinal": 126,
+        "stage_a_result_sha256": "ae89daf914718413000de3d8ee933f594269804a0912ad52649050b49f5397c7"
+      },
+      {
+        "actual_templated_prompt_tokens": 161,
+        "case_id": "13-creative-b1",
+        "length_level": 1,
+        "semantic_family": "creative / language generation",
+        "stage_a_envelope_sha256": "0f39dd243ce6ce538e773587202f51fd2619aeca61be96a99bf09f77c68be3e5",
+        "stage_a_hit_ratio": 0.6180154551630435,
+        "stage_a_ordinal": 13,
+        "stage_a_result_sha256": "caa767d119fa3872e6c03bde01d7a3c634c797b7dff7b46fee3d21f6fdbbf2bc"
+      },
+      {
+        "actual_templated_prompt_tokens": 381,
+        "case_id": "13-creative-b8",
+        "length_level": 8,
+        "semantic_family": "creative / language generation",
+        "stage_a_envelope_sha256": "b4fb28a8532c43bf2fb35e98750f625ee243a8f1509f12319e041bed5c7d2899",
+        "stage_a_hit_ratio": 0.6341818104619565,
+        "stage_a_ordinal": 125,
+        "stage_a_result_sha256": "315842ce8709c4877761f470416b8fd77a0f348ef4b62755c3a76c6c77f17f8e"
+      },
+      {
+        "actual_templated_prompt_tokens": 165,
+        "case_id": "06-debug-b1",
+        "length_level": 1,
+        "semantic_family": "debugging / code review",
+        "stage_a_envelope_sha256": "18fa7e10cad82c40e12f48255ddce5a145d2a66d89b59fe0d7c12c54c62618db",
+        "stage_a_hit_ratio": 0.6355723505434783,
+        "stage_a_ordinal": 6,
+        "stage_a_result_sha256": "c0399f3f1e7ff85cd252bd0065b8664a73d64307aa886c077b42a460236d566b"
+      },
+      {
+        "actual_templated_prompt_tokens": 376,
+        "case_id": "06-debug-b8",
+        "length_level": 8,
+        "semantic_family": "debugging / code review",
+        "stage_a_envelope_sha256": "a27c33629c7655bbff019e235149d9171f47ceee5ddb7248cde72871358075cf",
+        "stage_a_hit_ratio": 0.6616741677989131,
+        "stage_a_ordinal": 118,
+        "stage_a_result_sha256": "4b0a5d2d5c4b714cab638740dc322f9af05d3147664d3e442bda2708a1354b7f"
+      },
+      {
+        "actual_templated_prompt_tokens": 165,
+        "case_id": "04-factual-b1",
+        "length_level": 1,
+        "semantic_family": "factual / explanatory knowledge",
+        "stage_a_envelope_sha256": "8fe9d47113a48ffba219959ef527cefb1a3bbe6f6b40ee0374541e796fd2b1e7",
+        "stage_a_hit_ratio": 0.6165081521739131,
+        "stage_a_ordinal": 4,
+        "stage_a_result_sha256": "073729885989877f935dbd76acc0f33da8d3c155366e89bf4e2f3365ac5ae7a4"
+      },
+      {
+        "actual_templated_prompt_tokens": 386,
+        "case_id": "04-factual-b8",
+        "length_level": 8,
+        "semantic_family": "factual / explanatory knowledge",
+        "stage_a_envelope_sha256": "295959564e3d1979e2cb9977237ace01d1ccec373b7a7ce2f1eabe499ad57333",
+        "stage_a_hit_ratio": 0.6083772078804348,
+        "stage_a_ordinal": 116,
+        "stage_a_result_sha256": "80b82c8897b4e24b42b36fd8ef14af0849571b6688101a4effc6e39cac8f1968"
+      },
+      {
+        "actual_templated_prompt_tokens": 184,
+        "case_id": "02-formal-b1",
+        "length_level": 1,
+        "semantic_family": "formal logic / proof-style reasoning",
+        "stage_a_envelope_sha256": "13f0f9566cd4cb2c92bfe3233df7a0b56d46aa627dc35bc17ed1234fea9383fc",
+        "stage_a_hit_ratio": 0.647078804347826,
+        "stage_a_ordinal": 2,
+        "stage_a_result_sha256": "0af0eaf98b3463e12bea6d30ec0d97055907629373b73df969f6419eae23bfa1"
+      },
+      {
+        "actual_templated_prompt_tokens": 374,
+        "case_id": "02-formal-b8",
+        "length_level": 8,
+        "semantic_family": "formal logic / proof-style reasoning",
+        "stage_a_envelope_sha256": "de6c5b02b4b91daf3b16405ff6a57bb74a7d60947d22d727db9317f8fe5c9d33",
+        "stage_a_hit_ratio": 0.669083305027174,
+        "stage_a_ordinal": 114,
+        "stage_a_result_sha256": "d798ca69ff3dfd63b965925fb0c85832a092d499afb6f1fd516709a2c7c66e76"
+      },
+      {
+        "actual_templated_prompt_tokens": 178,
+        "case_id": "01-math-b1",
+        "length_level": 1,
+        "semantic_family": "mathematical reasoning",
+        "stage_a_envelope_sha256": "c39b44f2811273b63be17498f09ed80fe2e8825e5a07f44a31d0c8554b08132d",
+        "stage_a_hit_ratio": 0.66162109375,
+        "stage_a_ordinal": 1,
+        "stage_a_result_sha256": "eaac1bc84ed8d1cb20d253313383296d103b4a22e33f0cfc46f5d155560ad2a7"
+      },
+      {
+        "actual_templated_prompt_tokens": 403,
+        "case_id": "01-math-b8",
+        "length_level": 8,
+        "semantic_family": "mathematical reasoning",
+        "stage_a_envelope_sha256": "a4c3c5353f63bb7d916902aec20fde417d7d738036e691eed24cf36d23205da8",
+        "stage_a_hit_ratio": 0.66845703125,
+        "stage_a_ordinal": 113,
+        "stage_a_result_sha256": "4e9a7d1430d085660fa7315d6e25206f375f6669b7d0b3eb0b19790a5cc8893d"
+      },
+      {
+        "actual_templated_prompt_tokens": 168,
+        "case_id": "11-instructions-b1",
+        "length_level": 1,
+        "semantic_family": "multi-step instruction following / structured response",
+        "stage_a_envelope_sha256": "46e6256c4b5cebd3fc680ed7f8af4f5d4bbd132dc3143f239786b72ffe77189c",
+        "stage_a_hit_ratio": 0.620011039402174,
+        "stage_a_ordinal": 11,
+        "stage_a_result_sha256": "88be0831b8fef6d861b36639ac59b06d6475eca4a10de1248748135183c0994f"
+      },
+      {
+        "actual_templated_prompt_tokens": 380,
+        "case_id": "11-instructions-b8",
+        "length_level": 8,
+        "semantic_family": "multi-step instruction following / structured response",
+        "stage_a_envelope_sha256": "df3fa7c986ad348509057fe8e197aa838f0fb278c700f9030b3b6751263ae263",
+        "stage_a_hit_ratio": 0.6234502377717391,
+        "stage_a_ordinal": 123,
+        "stage_a_result_sha256": "c4a3e616f649bd77bb21e6a64f6af1b948ff1165199f21918abd72f9f417ae86"
+      },
+      {
+        "actual_templated_prompt_tokens": 169,
+        "case_id": "16-multi-b1",
+        "length_level": 1,
+        "semantic_family": "multilingual / translation / cross-language transformation",
+        "stage_a_envelope_sha256": "bb284912d7e8c25bff1cbef1ef9b7cd2ea161e6fef206f220c9a68cf13905e5f",
+        "stage_a_hit_ratio": 0.5955014436141305,
+        "stage_a_ordinal": 16,
+        "stage_a_result_sha256": "f93a7e16fb78b6696269669e739b4a51950e5272b1c390a4f45f130d8959c07c"
+      },
+      {
+        "actual_templated_prompt_tokens": 404,
+        "case_id": "16-multi-b8",
+        "length_level": 8,
+        "semantic_family": "multilingual / translation / cross-language transformation",
+        "stage_a_envelope_sha256": "f67ae5ec96d0d7b92fd3f46d1e3ed245357ee3c89b8ceaa1e1cf8583b619b8b7",
+        "stage_a_hit_ratio": 0.6269743546195652,
+        "stage_a_ordinal": 128,
+        "stage_a_result_sha256": "3c0eaae04c6702971eef965fd78d11eec7f9114cf3cbbcdb1c761a77c2549ef8"
+      },
+      {
+        "actual_templated_prompt_tokens": 154,
+        "case_id": "03-science-b1",
+        "length_level": 1,
+        "semantic_family": "physics / scientific reasoning",
+        "stage_a_envelope_sha256": "d324671dc0558b087b0213689b68af5e678131b48565f6519ade59a06278609f",
+        "stage_a_hit_ratio": 0.6595512058423914,
+        "stage_a_ordinal": 3,
+        "stage_a_result_sha256": "0dc75e5e5c6af1d124cb8b77757fda9685ce484eb466be291dade58eb4e4131a"
+      },
+      {
+        "actual_templated_prompt_tokens": 375,
+        "case_id": "03-science-b8",
+        "length_level": 8,
+        "semantic_family": "physics / scientific reasoning",
+        "stage_a_envelope_sha256": "55e01383db847364c1bf4bae1895e8ed479026f09e7733cd61b068de900772b2",
+        "stage_a_hit_ratio": 0.6432256283967391,
+        "stage_a_ordinal": 115,
+        "stage_a_result_sha256": "80373936be61f97a34a70e35101f8b66457eb0244d217f469ea8d88dd049a398"
+      },
+      {
+        "actual_templated_prompt_tokens": 172,
+        "case_id": "10-planning-b1",
+        "length_level": 1,
+        "semantic_family": "planning / constraint satisfaction",
+        "stage_a_envelope_sha256": "61715f1c49eda46d80d7c7428cb41f0facfbfe42a46bda6ec7f355c30813539a",
+        "stage_a_hit_ratio": 0.6327594259510869,
+        "stage_a_ordinal": 10,
+        "stage_a_result_sha256": "2c2babbcbedbf4a033a8a030663c3fbf14535bdeb1b67d79f14ec4172503a961"
+      },
+      {
+        "actual_templated_prompt_tokens": 395,
+        "case_id": "10-planning-b8",
+        "length_level": 8,
+        "semantic_family": "planning / constraint satisfaction",
+        "stage_a_envelope_sha256": "d77a77bea8dfb80d05e2dd961f2b483bfe09dc73a5a55e7a14f4cac38de2ffa1",
+        "stage_a_hit_ratio": 0.6231211786684783,
+        "stage_a_ordinal": 122,
+        "stage_a_result_sha256": "6b5467f4a54527459508c318b48da13b059c90985f0abb140672ab167411652c"
+      },
+      {
+        "actual_templated_prompt_tokens": 183,
+        "case_id": "09-extract-b1",
+        "length_level": 1,
+        "semantic_family": "structured extraction / transformation",
+        "stage_a_envelope_sha256": "cea462c9653a6d676c819a1880398044e996c068fb6eec0ba76e60840f169248",
+        "stage_a_hit_ratio": 0.6423658288043478,
+        "stage_a_ordinal": 9,
+        "stage_a_result_sha256": "96ad06baaa40e7566c5c129233d7c14966f50a497d703a588de1e44e2982120e"
+      },
+      {
+        "actual_templated_prompt_tokens": 393,
+        "case_id": "09-extract-b8",
+        "length_level": 8,
+        "semantic_family": "structured extraction / transformation",
+        "stage_a_envelope_sha256": "9a47fd7d7bd6375b3b766074ca646dc08d3a0b6748f92a543a97f612ee88c13c",
+        "stage_a_hit_ratio": 0.6344047214673914,
+        "stage_a_ordinal": 121,
+        "stage_a_result_sha256": "2bdfd4da8c72a7d1ff3a7c57ec3d6c487bc1d7026314d314bd80acde120880dc"
+      },
+      {
+        "actual_templated_prompt_tokens": 177,
+        "case_id": "08-summary-b1",
+        "length_level": 1,
+        "semantic_family": "summarization / synthesis",
+        "stage_a_envelope_sha256": "120a58f6147228ff20c4363212e25d093181f666c67661c28e11443a7f37a0bd",
+        "stage_a_hit_ratio": 0.594832710597826,
+        "stage_a_ordinal": 8,
+        "stage_a_result_sha256": "9352ba29c885320ec14114576c4d31126c7027aa890ce0f5053ab24cdd8f2211"
+      },
+      {
+        "actual_templated_prompt_tokens": 412,
+        "case_id": "08-summary-b8",
+        "length_level": 8,
+        "semantic_family": "summarization / synthesis",
+        "stage_a_envelope_sha256": "ecca55b1148e669bbec05d29f039906a413f76e495123956092cfaa7375f058c",
+        "stage_a_hit_ratio": 0.6077509341032609,
+        "stage_a_ordinal": 120,
+        "stage_a_result_sha256": "64316379947fd6d2bc1711869c1ee2b7aeea7bc5b8c4c34decd78301ff80e81a"
+      }
+    ],
+    "representative_overlap_count": 4,
+    "unique_exact_observer_prompt_count_after_deduplication": 44
+  },
+  "stage_c": {
+    "additional_high_hit_case_ids": [
+      "03-science-b6",
+      "02-formal-b8",
+      "01-math-b8",
+      "01-math-b6"
+    ],
+    "additional_low_hit_case_ids": [
+      "04-factual-b4",
+      "08-summary-b5",
+      "11-instructions-b6",
+      "11-instructions-b5"
+    ],
+    "count": 24,
+    "prompts": [
+      {
+        "actual_templated_prompt_tokens": 308,
+        "case_id": "01-math-b6",
+        "length_level": 6,
+        "selection_role": "ADDITIONAL_HIGH_HIT",
+        "semantic_family": "mathematical reasoning",
+        "stage_a_envelope_sha256": "bb4ae125804fd90790053e09dc115f22f6004d995cb01c36364d2593a343aad7",
+        "stage_a_hit_ratio": 0.6676396908967391,
+        "stage_a_ordinal": 81,
+        "stage_a_result_sha256": "217343417aec521e5cb250726b6b56ea5365c8420fb40692a98c147a0b44dad3"
+      },
+      {
+        "actual_templated_prompt_tokens": 403,
+        "case_id": "01-math-b8",
+        "length_level": 8,
+        "selection_role": "ADDITIONAL_HIGH_HIT",
+        "semantic_family": "mathematical reasoning",
+        "stage_a_envelope_sha256": "a4c3c5353f63bb7d916902aec20fde417d7d738036e691eed24cf36d23205da8",
+        "stage_a_hit_ratio": 0.66845703125,
+        "stage_a_ordinal": 113,
+        "stage_a_result_sha256": "4e9a7d1430d085660fa7315d6e25206f375f6669b7d0b3eb0b19790a5cc8893d"
+      },
+      {
+        "actual_templated_prompt_tokens": 374,
+        "case_id": "02-formal-b8",
+        "length_level": 8,
+        "selection_role": "ADDITIONAL_HIGH_HIT",
+        "semantic_family": "formal logic / proof-style reasoning",
+        "stage_a_envelope_sha256": "de6c5b02b4b91daf3b16405ff6a57bb74a7d60947d22d727db9317f8fe5c9d33",
+        "stage_a_hit_ratio": 0.669083305027174,
+        "stage_a_ordinal": 114,
+        "stage_a_result_sha256": "d798ca69ff3dfd63b965925fb0c85832a092d499afb6f1fd516709a2c7c66e76"
+      },
+      {
+        "actual_templated_prompt_tokens": 320,
+        "case_id": "03-science-b6",
+        "length_level": 6,
+        "selection_role": "ADDITIONAL_HIGH_HIT",
+        "semantic_family": "physics / scientific reasoning",
+        "stage_a_envelope_sha256": "15fd5a9211113b996f0ef637963b70cd69a744f553e5b63507fe0177f798bf0b",
+        "stage_a_hit_ratio": 0.6798042629076086,
+        "stage_a_ordinal": 83,
+        "stage_a_result_sha256": "159b1de110fb655265386e96155b5e5fa4357b6cf8b1f0c5731dfa7063d4a8cd"
+      },
+      {
+        "actual_templated_prompt_tokens": 254,
+        "case_id": "04-factual-b4",
+        "length_level": 4,
+        "selection_role": "ADDITIONAL_LOW_HIT",
+        "semantic_family": "factual / explanatory knowledge",
+        "stage_a_envelope_sha256": "f8ca2f1a7dbdca329d928dacae94c84691c8957808e76bfe558aa8594b2c2998",
+        "stage_a_hit_ratio": 0.5811289911684783,
+        "stage_a_ordinal": 52,
+        "stage_a_result_sha256": "125531f8adcf0bb6c4049fa1f43e3b93b7c3ab4ae4d8d3d1327aecefa69f442a"
+      },
+      {
+        "actual_templated_prompt_tokens": 294,
+        "case_id": "08-summary-b5",
+        "length_level": 5,
+        "selection_role": "ADDITIONAL_LOW_HIT",
+        "semantic_family": "summarization / synthesis",
+        "stage_a_envelope_sha256": "2041f74a5959a7bd149a4ef6bce08b15299f520a00dd78e544699c181bf00c0c",
+        "stage_a_hit_ratio": 0.5818295686141305,
+        "stage_a_ordinal": 72,
+        "stage_a_result_sha256": "fd565dd3ae840ef39fc60a08b3ccce5efd748334f00adb6a2a5294b333d46cf7"
+      },
+      {
+        "actual_templated_prompt_tokens": 282,
+        "case_id": "11-instructions-b5",
+        "length_level": 5,
+        "selection_role": "ADDITIONAL_LOW_HIT",
+        "semantic_family": "multi-step instruction following / structured response",
+        "stage_a_envelope_sha256": "b2d9d105eb1f964d2c767265b8d4164e75d42462b2d9c0997f4228058c924f46",
+        "stage_a_hit_ratio": 0.5843983525815217,
+        "stage_a_ordinal": 75,
+        "stage_a_result_sha256": "bda6a818c35ce42be5e8324564487422841595fe413886ff96ac9801ae692472"
+      },
+      {
+        "actual_templated_prompt_tokens": 313,
+        "case_id": "11-instructions-b6",
+        "length_level": 6,
+        "selection_role": "ADDITIONAL_LOW_HIT",
+        "semantic_family": "multi-step instruction following / structured response",
+        "stage_a_envelope_sha256": "7f93d822332ab9692b17b52048bd461c7e4bb34a785f98ce13e4616d0f8d7675",
+        "stage_a_hit_ratio": 0.582869819972826,
+        "stage_a_ordinal": 91,
+        "stage_a_result_sha256": "5124282640bea4313edad37f22312f8bac07ed5426f7d7c41155dfb0eecedd01"
+      },
+      {
+        "absolute_distance_to_family_median": 0.002329950747282594,
+        "actual_templated_prompt_tokens": 178,
+        "case_id": "01-math-b1",
+        "family_median_hit_ratio": 0.6592911430027174,
+        "length_level": 1,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "mathematical reasoning",
+        "stage_a_envelope_sha256": "c39b44f2811273b63be17498f09ed80fe2e8825e5a07f44a31d0c8554b08132d",
+        "stage_a_hit_ratio": 0.66162109375,
+        "stage_a_ordinal": 1,
+        "stage_a_result_sha256": "eaac1bc84ed8d1cb20d253313383296d103b4a22e33f0cfc46f5d155560ad2a7"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0028713060461956763,
+        "actual_templated_prompt_tokens": 237,
+        "case_id": "02-formal-b3",
+        "family_median_hit_ratio": 0.6502791694972826,
+        "length_level": 3,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "formal logic / proof-style reasoning",
+        "stage_a_envelope_sha256": "fd3846fbdedd254ab7bb9f9e2f76a3db3046de7ed75522b60811bed8c2318859",
+        "stage_a_hit_ratio": 0.6531504755434783,
+        "stage_a_ordinal": 34,
+        "stage_a_result_sha256": "758caf1f8613f4e2d235406e9bb4052dbfd47e60931929f865dbf41eef8dd88f"
+      },
+      {
+        "absolute_distance_to_family_median": 0.002085810122282594,
+        "actual_templated_prompt_tokens": 225,
+        "case_id": "03-science-b3",
+        "family_median_hit_ratio": 0.6490796959918479,
+        "length_level": 3,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "physics / scientific reasoning",
+        "stage_a_envelope_sha256": "85d0a3f34bb0fe3b86ffde8ad5c8db1cc5c99392318f846a443d84fde5f9dc9d",
+        "stage_a_hit_ratio": 0.6511655061141305,
+        "stage_a_ordinal": 35,
+        "stage_a_result_sha256": "817515448713deab58b2b189caba151fe6881a770d912b5a91fe0519b79a5316"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0014170771059782705,
+        "actual_templated_prompt_tokens": 199,
+        "case_id": "04-factual-b2",
+        "family_median_hit_ratio": 0.6097942849864131,
+        "length_level": 2,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "factual / explanatory knowledge",
+        "stage_a_envelope_sha256": "aa456f630f363596792a7e3fb45df87ce89b768ec2a083b3dc851746cb797923",
+        "stage_a_hit_ratio": 0.6112113620923914,
+        "stage_a_ordinal": 20,
+        "stage_a_result_sha256": "3879af6b3303e842172ac8d9b36bc2f01ab2e103b9d67efe84612766a1a0de4c"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0038850203804347005,
+        "actual_templated_prompt_tokens": 278,
+        "case_id": "05-codegen-b5",
+        "family_median_hit_ratio": 0.6265709918478262,
+        "length_level": 5,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "code generation",
+        "stage_a_envelope_sha256": "a8e4a0d030b9ee509335ec81e3bb8932ad35fe62d5b52d6c8a6299be798b3d86",
+        "stage_a_hit_ratio": 0.6304560122282609,
+        "stage_a_ordinal": 69,
+        "stage_a_result_sha256": "e18749a557473711b759c244aefaa91668711188a5c00760430b257d1edc00cd"
+      },
+      {
+        "absolute_distance_to_family_median": 0.003646187160326053,
+        "actual_templated_prompt_tokens": 278,
+        "case_id": "06-debug-b4",
+        "family_median_hit_ratio": 0.6392185377038044,
+        "length_level": 4,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "debugging / code review",
+        "stage_a_envelope_sha256": "be2ab33736c071bfeccf95b73eff647ef05e2135ab7da2c504d7b53e7d64feff",
+        "stage_a_hit_ratio": 0.6428647248641305,
+        "stage_a_ordinal": 54,
+        "stage_a_result_sha256": "50246a918beb9b6cf8072aeddd6bf4add5574cd66200e9b2b79edac7ef9736fc"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0032375169836956763,
+        "actual_templated_prompt_tokens": 194,
+        "case_id": "07-algorithms-b2",
+        "family_median_hit_ratio": 0.629638671875,
+        "length_level": 2,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "algorithms / data-structure reasoning",
+        "stage_a_envelope_sha256": "23223f48b2c90d73e5fc4737d56bcd42352b7bc6573a6e430f20baf61dc705c4",
+        "stage_a_hit_ratio": 0.6328761888586957,
+        "stage_a_ordinal": 23,
+        "stage_a_result_sha256": "a54189257b11efd8dd789be86c7475865ff6d8e2bed1adf2a1d754235df9810d"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0024095618206521063,
+        "actual_templated_prompt_tokens": 211,
+        "case_id": "08-summary-b2",
+        "family_median_hit_ratio": 0.6029318104619565,
+        "length_level": 2,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "summarization / synthesis",
+        "stage_a_envelope_sha256": "3c3eee0e5c9427f9eaf7d1dd020420f8f738d17e651d64a071604e12d42449ae",
+        "stage_a_hit_ratio": 0.6053413722826086,
+        "stage_a_ordinal": 24,
+        "stage_a_result_sha256": "8c18956c3de327809eb2003ef08d1f538745acdf01f30f059df5be6d0acb5ea9"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0013640030570651884,
+        "actual_templated_prompt_tokens": 393,
+        "case_id": "09-extract-b8",
+        "family_median_hit_ratio": 0.6330407184103262,
+        "length_level": 8,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "structured extraction / transformation",
+        "stage_a_envelope_sha256": "9a47fd7d7bd6375b3b766074ca646dc08d3a0b6748f92a543a97f612ee88c13c",
+        "stage_a_hit_ratio": 0.6344047214673914,
+        "stage_a_ordinal": 121,
+        "stage_a_result_sha256": "2bdfd4da8c72a7d1ff3a7c57ec3d6c487bc1d7026314d314bd80acde120880dc"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0019584324048912416,
+        "actual_templated_prompt_tokens": 246,
+        "case_id": "10-planning-b4",
+        "family_median_hit_ratio": 0.6211627462635869,
+        "length_level": 4,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "planning / constraint satisfaction",
+        "stage_a_envelope_sha256": "90f5f1cdd4ff33fb7a4abebdfd2698c54881795bb25eece6ef093a5c771a0388",
+        "stage_a_hit_ratio": 0.6192043138586957,
+        "stage_a_ordinal": 58,
+        "stage_a_result_sha256": "7b66fe0a5530d042a04e01d928e984aef6a19a7acf38290c9dea8b8ab5265e3a"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0009818699048912416,
+        "actual_templated_prompt_tokens": 168,
+        "case_id": "11-instructions-b1",
+        "family_median_hit_ratio": 0.6209929093070652,
+        "length_level": 1,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "multi-step instruction following / structured response",
+        "stage_a_envelope_sha256": "46e6256c4b5cebd3fc680ed7f8af4f5d4bbd132dc3143f239786b72ffe77189c",
+        "stage_a_hit_ratio": 0.620011039402174,
+        "stage_a_ordinal": 11,
+        "stage_a_result_sha256": "88be0831b8fef6d861b36639ac59b06d6475eca4a10de1248748135183c0994f"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0007854959239129711,
+        "actual_templated_prompt_tokens": 160,
+        "case_id": "12-compare-b1",
+        "family_median_hit_ratio": 0.6427161175271738,
+        "length_level": 1,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "analytical comparison / argumentation",
+        "stage_a_envelope_sha256": "000a1d3c7ac5709d48cfa6ed91d1101b3ce285f1918ab5382434513f66991e5b",
+        "stage_a_hit_ratio": 0.6419306216032609,
+        "stage_a_ordinal": 12,
+        "stage_a_result_sha256": "9013a34b83ec69a9d16225967a6f2e962d35a2023840a8dc7c8b468d7caeaa36"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0019849694293477826,
+        "actual_templated_prompt_tokens": 221,
+        "case_id": "13-creative-b3",
+        "family_median_hit_ratio": 0.6201384171195652,
+        "length_level": 3,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "creative / language generation",
+        "stage_a_envelope_sha256": "8b008aa2420deee13aef9a9b61fcac5b50d7d90139c25794fb825b2aeb5ea87b",
+        "stage_a_hit_ratio": 0.6181534476902174,
+        "stage_a_ordinal": 45,
+        "stage_a_result_sha256": "e0342de661b06b451c9c22bc4856f694d7136f8ec605c060f8630a2794dda8db"
+      },
+      {
+        "absolute_distance_to_family_median": 0.001273777173913082,
+        "actual_templated_prompt_tokens": 191,
+        "case_id": "14-qa-b2",
+        "family_median_hit_ratio": 0.6053944463315217,
+        "length_level": 2,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "conversational / direct QA",
+        "stage_a_envelope_sha256": "d174300e7506757722ee720c58de1da2044a985e45f44bc17063527bd17db11a",
+        "stage_a_hit_ratio": 0.6041206691576086,
+        "stage_a_ordinal": 30,
+        "stage_a_result_sha256": "7e82ef56e094bddc4d32f6a38fffe26025f2c060039ac35ea05b7268c193dd12"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0005731997282608647,
+        "actual_templated_prompt_tokens": 276,
+        "case_id": "15-spanish-b2",
+        "family_median_hit_ratio": 0.6429814877717391,
+        "length_level": 2,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "Spanish-language reasoning/explanation",
+        "stage_a_envelope_sha256": "734e3c6c6ff7e9062801e11d627377217dd772dd90ab22b36e8edee0b5dd89a5",
+        "stage_a_hit_ratio": 0.6424082880434783,
+        "stage_a_ordinal": 31,
+        "stage_a_result_sha256": "cc30c1f8afdcea2a102ca01356442d52473defa563c6d8618ebf900e6355acab"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0008916440217391353,
+        "actual_templated_prompt_tokens": 217,
+        "case_id": "16-multi-b2",
+        "family_median_hit_ratio": 0.6232697860054348,
+        "length_level": 2,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "multilingual / translation / cross-language transformation",
+        "stage_a_envelope_sha256": "57f2ec338ba31944215afe1a3342c3dfb9ad4eeec8f0655a0c7d4d0f0f3ed94b",
+        "stage_a_hit_ratio": 0.624161430027174,
+        "stage_a_ordinal": 32,
+        "stage_a_result_sha256": "c4d50e04d755a87222e2cea639c27527615fd9a18caca5c93c09535828e8eac8"
+      }
+    ]
+  },
+  "status": "pass"
+}
