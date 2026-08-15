@@ -78,6 +78,23 @@ When implementation occurs primarily in nested `llama.cpp`:
 
 If parent-side code, tests, evidence, or configuration depends on an intermediate nested revision, the controlling issue may require an earlier gitlink boundary. Otherwise avoid parent commits whose only purpose is to mirror routine nested progress.
 
+## Active Codex PR ownership
+
+Once a Codex executor creates or adopts a pull request for a controlling issue, that executor is the exclusive owner of the PR head branch and PR control plane until the PR is merged/closed or the user explicitly transfers ownership.
+
+Other actors, including ChatGPT acting as design authority, may inspect that PR and branch read-only but must not:
+
+- push, commit, update, delete, reset, rebase, or otherwise modify the PR head branch;
+- edit PR title, body, base, state, draft state, labels, reviewers, or other PR metadata;
+- add PR conversation comments, inline review comments, reviews, reactions, or other messages intended for the Codex executor;
+- merge, close, reopen, or otherwise operate the PR.
+
+The **controlling issue is the only communication channel between ChatGPT/design authority and the Codex executor**. Contract amendments, design decisions, blockers, evidence requests, handoffs, and corrections for an active Codex execution must be posted on the controlling issue. The executor must inspect new material controlling-issue comments when resuming. Do not use PR discussion as a side channel between those actors.
+
+If the user explicitly asks ChatGPT/design authority to make an independent durable repository edit while a Codex-owned PR is active, the edit may target the default branch or a separate non-Codex branch only when it does not require taking ownership of the active PR. Never move or rewrite the Codex PR head. If the requested change belongs to the active issue's implementation/evidence diff, communicate the requirement through the controlling issue and let the owning Codex executor integrate it.
+
+A transport limitation, convenience, documentation-only change, or apparently harmless metadata edit is not an exception to this ownership boundary. When ownership is ambiguous, stop and resolve it through the controlling issue before mutating the PR or branch.
+
 ## Pull requests
 
 Create or reuse one PR for one controlling issue unless the issue explicitly requires decomposition.
