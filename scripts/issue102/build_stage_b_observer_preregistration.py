@@ -22,8 +22,13 @@ def arguments() -> argparse.Namespace:
     parser.add_argument("--runtime-project-sha", required=True)
     parser.add_argument("--nested-sha", required=True)
     parser.add_argument("--output-root", type=pathlib.Path, required=True)
+    parser.add_argument("--supersedes-preregistration", type=pathlib.Path)
+    parser.add_argument("--failed-attempt-root", type=pathlib.Path)
     parser.add_argument("--output", type=pathlib.Path, required=True)
-    return parser.parse_args()
+    args = parser.parse_args()
+    if (args.supersedes_preregistration is None) != (args.failed_attempt_root is None):
+        parser.error("supersedes-preregistration and failed-attempt-root must be provided together")
+    return args
 
 
 def sha256(path: pathlib.Path) -> str:
@@ -67,6 +72,9 @@ def main() -> int:
 
     capture_plan = []
     for ordinal, (role, row) in enumerate(ordered, 1):
+        directory = f"run-{ordinal:03d}-{row['case_id']}"
+        if ordinal == 1 and args.failed_attempt_root is not None:
+            directory += "-retry-01"
         capture_plan.append({
             "ordinal": ordinal,
             "selection_role": role,
@@ -74,15 +82,73 @@ def main() -> int:
             "semantic_family": row["semantic_family"],
             "length_level": row["length_level"],
             "actual_templated_prompt_tokens": row["actual_templated_prompt_tokens"],
-            "output_directory": str(args.output_root.resolve() / f"run-{ordinal:03d}-{row['case_id']}"),
+            "output_directory": str(args.output_root.resolve() / directory),
         })
 
     output_path = args.output.resolve()
+    supersession: dict[str, Any] | None = None
+    schema_version = "phase13-6pg-stage-b-observer-preregistration-v1"
+    outcome_inspection = "NONE"
+    if args.supersedes_preregistration is not None:
+        prior_path = args.supersedes_preregistration.resolve()
+        failed_root = args.failed_attempt_root.resolve()
+        prior = json.loads(prior_path.read_text())
+        envelope_path = failed_root / "envelope.json"
+        stderr_path = failed_root / "stderr.log"
+        stdout_path = failed_root / "stdout.log"
+        envelope = json.loads(envelope_path.read_text())
+        stderr = stderr_path.read_text()
+        if (
+            prior["status"] != "frozen"
+            or envelope["exit_status"] != 1
+            or "route observer begin failed" not in stderr
+            or (failed_root / "result.json").exists()
+        ):
+            raise ValueError("failed observer attempt does not match the bounded compatibility failure")
+        vmstat = envelope["delta"]["vmstat"]
+        host_safety = {
+            "zero_swap": envelope["samples"]["peak_process_swap_kib"] == 0
+            and vmstat["pswpin"] == 0 and vmstat["pswpout"] == 0,
+            "zero_reclaim": vmstat["pgscan_direct"] == 0 and vmstat["pgscan_kswapd"] == 0,
+            "zero_oom": vmstat["oom_kill"] == 0
+            and all(value == 0 for value in envelope["delta"]["cgroup_memory_events"].values()),
+            "zero_memory_pressure": not any(envelope["memory_pressure_total_delta_usec"].values()),
+            "zero_unused_nvme_reads": envelope["delta"]["nvme"]["nvme2n1"]["read_bytes"] == 0,
+        }
+        if not all(host_safety.values()):
+            raise ValueError("failed observer attempt was not host-safe")
+        schema_version = "phase13-6pg-stage-b-observer-preregistration-v2"
+        outcome_inspection = "NO_RESULT_OR_ROUTE_PAYLOAD_SERIALIZED_OR_INSPECTED"
+        supersession = {
+            "supersedes": identity(prior_path),
+            "reason": (
+                "The first validation attempt completed prefill then failed at the prompt/decode boundary "
+                "because diagnostic request ordinals decreased from prompt length to 1."
+            ),
+            "scientific_outcome_available": False,
+            "failed_attempt": {
+                "case_id": "01-math-b1",
+                "output_directory": str(failed_root),
+                "envelope": identity(envelope_path),
+                "stderr": identity(stderr_path),
+                "stdout": identity(stdout_path),
+                "exit_status": envelope["exit_status"],
+                "failure": "route observer begin failed",
+                "host_safety": host_safety,
+            },
+            "bounded_delta": (
+                "Keep globally nondecreasing observer request ordinals by continuing decode ordinals "
+                "after the complete prompt; no token, route, cache, model, policy, or selection change."
+            ),
+            "same_case_retry_authorized": True,
+            "prompt_replacement_authorized": False,
+            "maximum_total_process_attempts": 45,
+        }
     output: dict[str, Any] = {
-        "schema_version": "phase13-6pg-stage-b-observer-preregistration-v1",
+        "schema_version": schema_version,
         "status": "frozen",
         "provenance": "PREREGISTERED_MEASURED_OBSERVER",
-        "outcome_inspection": "NONE",
+        "outcome_inspection": outcome_inspection,
         "inputs": {
             "selection_manifest": identity(selection_path),
             "corpus": identity(args.corpus),
@@ -134,6 +200,8 @@ def main() -> int:
         },
         "disposition": "READY_FOR_STAGE_B_OBSERVER_CAPTURE",
     }
+    if supersession is not None:
+        output["supersession"] = supersession
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(json.dumps(output, ensure_ascii=False, indent=2, sort_keys=True) + "\n")
     print(json.dumps({"output": str(output_path), "sha256": sha256(output_path), "status": output["status"]}, sort_keys=True))
