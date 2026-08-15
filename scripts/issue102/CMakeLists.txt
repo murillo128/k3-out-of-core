@@ -42,6 +42,9 @@ endfunction()
 add_executable(issue102-corpus-freezer freeze_corpus.cpp)
 configure_issue102_target(issue102-corpus-freezer)
 
+add_executable(issue102-stage-a-detokenizer detokenize_stage_a.cpp)
+configure_issue102_target(issue102-stage-a-detokenizer)
+
 # Keep the measurement-only delta auditable: derive it from the exact nested
 # probe source pinned by issue #102, then require every source anchor to match.
 set(original_source "${ISSUE102_LLAMA_SOURCE}/tests/phase13-mode-p-probe.cpp")
@@ -371,3 +374,104 @@ set(generated_source "${CMAKE_CURRENT_BINARY_DIR}/issue102-cross-prompt-probe.cp
 file(WRITE "${generated_source}" "${probe_source}")
 add_executable(issue102-cross-prompt-probe "${generated_source}")
 configure_issue102_target(issue102-cross-prompt-probe)
+
+# Derive the post-Stage-A long-horizon diagnostic from the frozen Stage-A
+# helper without changing that helper's source or binary. The only execution
+# delta is six bounded, read-only scalar snapshots retained in memory.
+set(horizon_source "${probe_source}")
+
+macro(horizon_required_replace label needle replacement)
+  set(before "${horizon_source}")
+  string(REPLACE "${needle}" "${replacement}" horizon_source "${horizon_source}")
+  if(horizon_source STREQUAL before)
+    message(FATAL_ERROR "${label} horizon source anchor did not match")
+  endif()
+endmacro()
+
+horizon_required_replace("fixed horizon validation"
+  [=[        args.warmup_limit != 0 && args.decode_forwards != 0 && args.threads != 0;]=]
+  [=[        args.warmup_limit != 0 && args.decode_forwards == 512 && args.threads != 0 &&
+        args.protocol == "full-prompt";]=])
+
+horizon_required_replace("snapshot storage"
+  [=[        std::vector<double> forward_latency_s;
+        forward_latency_s.reserve(args.decode_forwards);]=]
+  [=[        std::vector<double> forward_latency_s;
+        forward_latency_s.reserve(args.decode_forwards);
+        json horizon_snapshots = json::array();
+        int32_t first_eog_position = -1;]=])
+
+horizon_required_replace("bounded snapshot loop"
+  [=[            generated.push_back(next_token);
+            forward_latency_s.push_back(seconds(forward_completed - forward_started));]=]
+  [=[            generated.push_back(next_token);
+            forward_latency_s.push_back(seconds(forward_completed - forward_started));
+            const uint32_t generated_count = index + 1;
+            if (first_eog_position < 0 && llama_vocab_is_eog(vocab, next_token)) {
+                first_eog_position = int32_t(generated_count);
+            }
+            if (generated_count == 16 || generated_count == 32 || generated_count == 64 ||
+                generated_count == 128 || generated_count == 256 || generated_count == 512) {
+                const auto snapshot_cold = provider->cold_cache_scalar_snapshot();
+                const auto snapshot_storage = storage->diagnostics();
+                const auto snapshot_async = model->expert_async_diagnostics();
+                const auto snapshot_scheduler = model->expert_scheduler_diagnostics();
+                const auto snapshot_full = provider->hot_cache_diagnostics();
+                const auto snapshot_routing = llama_cache_aware_routing_get_stats(context.get());
+                struct rusage snapshot_usage {};
+                if (getrusage(RUSAGE_SELF, &snapshot_usage) != 0) {
+                    throw std::runtime_error("horizon snapshot getrusage failed");
+                }
+                horizon_snapshots.push_back({
+                    {"generated_tokens", generated_count},
+                    {"elapsed_s", seconds(forward_completed - measured_started)},
+                    {"cold", cold_json(snapshot_cold)},
+                    {"cold_delta", cold_delta_json(before_cold, snapshot_cold)},
+                    {"storage_delta", storage_delta_json(before_storage, snapshot_storage)},
+                    {"async_delta", async_delta_json(before_async, snapshot_async)},
+                    {"scheduler_delta", scheduler_delta_json(before_scheduler, snapshot_scheduler)},
+                    {"routing", {
+                        {"ubatches", snapshot_routing.ubatches},
+                        {"layers", snapshot_routing.layers},
+                        {"decisions", snapshot_routing.decisions},
+                        {"changed_decisions", snapshot_routing.changed_decisions},
+                        {"swaps", snapshot_routing.swaps},
+                        {"cumulative_score_regret", snapshot_routing.cumulative_score_regret},
+                        {"explicit_synchronizations", snapshot_routing.explicit_synchronizations},
+                        {"failures", snapshot_routing.failures},
+                    }},
+                    {"output_prefix", {
+                        {"generated_token_count", generated.size()},
+                        {"generated_token_hash", hex_u64(token_hash(generated))},
+                        {"first_eog_position", first_eog_position < 0 ? json(nullptr) : json(first_eog_position)},
+                    }},
+                    {"resources", {
+                        {"peak_rss_kib", snapshot_usage.ru_maxrss},
+                        {"vm_swap_kib", vm_swap_kib()},
+                        {"terminal_references", terminal_reference_json(snapshot_full)},
+                        {"system_memory", system_memory_json(snapshot_full)},
+                        {"scheduler_active_requests", snapshot_scheduler.active_requests},
+                        {"scheduler_queued_requests", snapshot_scheduler.queued_requests},
+                    }},
+                });
+            }]=])
+
+horizon_required_replace("horizon schema"
+  [=[            {"schema_version", "issue102-cross-prompt-cell-v1"},]=]
+  [=[            {"schema_version", "issue102-long-horizon-cell-v1"},]=])
+
+horizon_required_replace("horizon result"
+  [=[            {"output", {
+                {"generated_token_count", generated.size()},]=]
+  [=[            {"horizon", {
+                {"snapshot_boundaries", json::array({16, 32, 64, 128, 256, 512})},
+                {"cumulative_snapshots", horizon_snapshots},
+                {"first_eog_position", first_eog_position < 0 ? json(nullptr) : json(first_eog_position)},
+            }},
+            {"output", {
+                {"generated_token_count", generated.size()},]=])
+
+set(horizon_generated_source "${CMAKE_CURRENT_BINARY_DIR}/issue102-long-horizon-probe.cpp")
+file(WRITE "${horizon_generated_source}" "${horizon_source}")
+add_executable(issue102-long-horizon-probe "${horizon_generated_source}")
+configure_issue102_target(issue102-long-horizon-probe)
