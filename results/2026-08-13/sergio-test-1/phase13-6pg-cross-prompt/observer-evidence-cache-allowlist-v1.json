@@ -1,0 +1,179 @@
+{
+  "disposition": "READY_FOR_TARGETED_HYGIENE_GATE",
+  "evidence_root": "/mnt/nvme1/issue102/stage-b-observer",
+  "file_count": 18,
+  "files": [
+    {
+      "bytes": 25346,
+      "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1/envelope.json",
+      "device": 66304,
+      "inode": 5368889474,
+      "sha256": "38a90eb44d711a1acef3ce59ec1f1b5466df0cbbc605dd88f81f3989ff016633",
+      "source": "observer-v1-failed-attempt:envelope"
+    },
+    {
+      "bytes": 117,
+      "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1/stderr.log",
+      "device": 66304,
+      "inode": 5368889473,
+      "sha256": "4a21f2f969b9ad345cab48b76f058f02392e21259daebadf872fe007d92922b8",
+      "source": "observer-v1-failed-attempt:stderr"
+    },
+    {
+      "bytes": 0,
+      "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1/stdout.log",
+      "device": 66304,
+      "inode": 5368889472,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "observer-v1-failed-attempt:stdout"
+    },
+    {
+      "bytes": 77759299,
+      "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/result.json",
+      "device": 66304,
+      "inode": 6979337068,
+      "sha256": "e1fab368ce78869f1276ce7b0835b3017d4d4c87877bb6ebccb9a9611eb5a023",
+      "source": "accepted-001:result"
+    },
+    {
+      "bytes": 25400,
+      "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/envelope.json",
+      "device": 66304,
+      "inode": 6979337069,
+      "sha256": "eda77ef6bcdb01005193568b37846322312978d70e232d66bda34bdd8c7bf094",
+      "source": "accepted-001:envelope"
+    },
+    {
+      "bytes": 43313751,
+      "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/stdout.log",
+      "device": 66304,
+      "inode": 6979337066,
+      "sha256": "429432280b7a1b36b2adfaaf20777e9a7e8e16607537f935358a665d8e7c9260",
+      "source": "accepted-001:stdout"
+    },
+    {
+      "bytes": 67,
+      "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/stderr.log",
+      "device": 66304,
+      "inode": 6979337067,
+      "sha256": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f",
+      "source": "accepted-001:stderr"
+    },
+    {
+      "bytes": 96719907,
+      "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/result.json",
+      "device": 66304,
+      "inode": 7516226583,
+      "sha256": "48e746b49a9d1ccda8fd60a91872eeaf03ac38d83ff900ea16a3c5f5a3811e54",
+      "source": "accepted-002:result"
+    },
+    {
+      "bytes": 25397,
+      "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/envelope.json",
+      "device": 66304,
+      "inode": 7516226584,
+      "sha256": "feb3cf928adad3dc3c820481f0e9d03dab12afb88adde5c641f8604fbb64e291",
+      "source": "accepted-002:envelope"
+    },
+    {
+      "bytes": 53877243,
+      "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/stdout.log",
+      "device": 66304,
+      "inode": 7516226581,
+      "sha256": "be329bd2a27f4f4dbb3893f80e61f33760909cc7686f1325a0e1c21ca398a5c8",
+      "source": "accepted-002:stdout"
+    },
+    {
+      "bytes": 67,
+      "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/stderr.log",
+      "device": 66304,
+      "inode": 7516226582,
+      "sha256": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f",
+      "source": "accepted-002:stderr"
+    },
+    {
+      "bytes": 92865351,
+      "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/result.json",
+      "device": 66304,
+      "inode": 8053171558,
+      "sha256": "c408fe912169f7284b08671bd5abb720203542c1404a2437a37d598c0b42efc5",
+      "source": "accepted-003:result"
+    },
+    {
+      "bytes": 25404,
+      "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/envelope.json",
+      "device": 66304,
+      "inode": 8053171559,
+      "sha256": "7d82f5c246be160a97b5ca08db08bd3d2425165110cbd5cf5125cadb79045945",
+      "source": "accepted-003:envelope"
+    },
+    {
+      "bytes": 51730575,
+      "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/stdout.log",
+      "device": 66304,
+      "inode": 8053171556,
+      "sha256": "7dd1b8e358684a7d19862490bd048aff552664cb5592ff76c44f671a3821a0a7",
+      "source": "accepted-003:stdout"
+    },
+    {
+      "bytes": 67,
+      "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/stderr.log",
+      "device": 66304,
+      "inode": 8053171557,
+      "sha256": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f",
+      "source": "accepted-003:stderr"
+    },
+    {
+      "bytes": 25289,
+      "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2/envelope.json",
+      "device": 66304,
+      "inode": 8589954768,
+      "sha256": "4969f9dae69e085f19baffe5b15454cb83160f9f842282a4921bd2a41bbcd58a",
+      "source": "failed-004:envelope"
+    },
+    {
+      "bytes": 0,
+      "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2/stdout.log",
+      "device": 66304,
+      "inode": 8589954766,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "failed-004:stdout"
+    },
+    {
+      "bytes": 332,
+      "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2/stderr.log",
+      "device": 66304,
+      "inode": 8589954767,
+      "sha256": "0f6d3b45b046f4f26da59ca25cecadcaa15a9e5775db736de622def87ba53267",
+      "source": "failed-004:stderr"
+    }
+  ],
+  "inputs": {
+    "generator": {
+      "bytes": 6369,
+      "path": "/workspace/k3-out-of-core/scripts/issue102/build_observer_evidence_cache_allowlist.py",
+      "sha256": "c3004d25e1277ea25253af31596553da2fde190f9346d70f5d677ff986e61ff8"
+    },
+    "preregistration": {
+      "bytes": 19964,
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/stage-b-observer-preregistration-v2.json",
+      "sha256": "1c96c86920e6f7312ce887783c7436eb2601aadf4ea622b47b3cd1b8d53ab701"
+    },
+    "technical_return": {
+      "bytes": 8916,
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/stage-b-observer-technical-return.json",
+      "sha256": "c1493c3732e349179ce71dc8a5933da82736967083fee87d07ceef57d3f3d264"
+    }
+  },
+  "operation": {
+    "advice": "POSIX_FADV_DONTNEED",
+    "durability": "syncfs on the observer evidence filesystem before exact-file advice",
+    "model_or_runtime_file_allowed": false,
+    "path_outside_evidence_root_allowed": false,
+    "read_payload_after_release": false
+  },
+  "purpose": "TARGETED_OBSERVER_OUTPUT_PAGE_CACHE_RELEASE",
+  "schema_version": "phase13-6pg-observer-evidence-cache-allowlist-v1",
+  "status": "frozen",
+  "total_bytes": 416393612
+}
