@@ -1,6 +1,6 @@
 # Prior Art and Reuse Plan
 
-Reviewed through **2026-08-11**. Statuses can change; verify them before basing implementation work on a branch.
+Reviewed through **2026-08-15**. Statuses can change; verify them before basing implementation work on a branch.
 
 The central conclusion is that the proposed architecture is not novel in isolation. Nearly identical systems have been designed and prototyped. The opportunity is to combine the strongest ideas behind a clean provider abstraction, avoid documented lifetime and synchronization failures, and adapt the result to Kimi-K3 MXFP4 and UMA.
 
@@ -23,6 +23,8 @@ The central conclusion is that the proposed architecture is not novel in isolati
 | MoE-ERAS | MLArchSys 2024 | Expert-residency-aware selection balancing performance and accuracy | Historical residency-aware routing prior art |
 | Local Routing Consistency | arXiv 2025 | Measures how naturally cacheable/offload-friendly different MoE routers are | Reuse methodology; do not transfer other-model locality assumptions to K3 |
 | ReMoE | ICML 2026 | Router fine-tuning to increase temporal expert reuse under memory constraints | Adjacent training-based prior art; compare quality/locality methodology |
+| PipeNetwork Kimi-K3 REAP domain overlap | External K3 experiment | Per-source K3 saliency/top-N overlap and targeted pruning expose domain-conditioned expert structure | Use as K3-specific specialization prior; methodology only until project-code license is clarified |
+| CommitteeAudit / Standing Committee | ACL 2026 | Domain-invariant routed-expert core plus task-specific periphery in other MoE models | Adapt core/periphery diagnostics to K3; do not transfer model-specific conclusions |
 
 ## 1. `llama.cpp` issue #20757
 
@@ -540,6 +542,105 @@ The novelty/value of #77 should therefore be stated narrowly rather than as the 
 - where the practical knee and the upper-bound/stress region (`max_swaps` through 16) occur.
 
 These works should be cited in the final #77 interpretation and used to compare methodology/results, while preserving the preregistered K3 experiment and avoiding retrofitting the policy to reproduce prior-art outcomes.
+
+## 14. Expert specialization, domain overlap, and standing-committee structure
+
+Phase 13.6P-G (#102) exposes a new K3-specific question that is distinct from both static router geometry (#75) and expert substitutability (#81): whether **actual hidden-state-conditioned expert activation** is organized primarily by domain/family, by a shared cross-domain core plus specialized periphery, or by a mixed layer-dependent regime.
+
+The two works below provide complementary priors. Neither result is transferred into K3 as an assumption.
+
+### 14.1 PipeNetwork `kimi-k3-mlx` — K3 domain-conditioned REAP saliency
+
+- Repository: <https://github.com/PipeNetwork/kimi-k3-mlx>
+- Pinned inspected commit: `20a4fb101ce81380ab8af0036743d49e7256c521`.
+- Relevant files: `README.md`, `scripts/reap_calibrate.py`, `scripts/reap_overlap.py`, `scripts/reap_subset.py`.
+- Code provenance note: no root `LICENSE` file was present at the pinned revision when inspected. Treat this entry as **methodology/evidence prior art only** until the license and attribution boundary for PipeNetwork-authored code is resolved; do not copy scripts into this project merely from this reference.
+
+The project applies REAP-style expert saliency to Kimi K3. Its calibration path tags tokens by source corpus and accumulates a per-source, per-layer, per-expert score based on router gate and expert-output magnitude. `reap_overlap.py` then normalizes each source/layer and compares top-N salient-expert sets.
+
+For its published top-242 comparison over K3's 896 routed experts, the random independent-set overlap reference is about `242/896 = 27%`. At the pinned revision the README reports examples including:
+
+```text
+code-python <-> code-multi    57.2%
+lang-de <-> lang-es           59.3%
+lang-de <-> web-en            56.5%
+chinese <-> lang-ja           42.8%
+chinese <-> code-python       17.8%   # below random-set expectation
+```
+
+The same project also reports targeted-pruning demonstrations in which changing the calibration-domain mixture changes retained capability. The authors explicitly bound that demonstration: the quoted generation comparison uses one prompt per domain and 24 greedy tokens and is not a rigorous domain evaluation by itself; the repository therefore adds held-out source-bucketed perplexity as the stronger evaluation path.
+
+#### Relevance and non-equivalence to this project
+
+This is the closest K3-specific external evidence found for domain-conditioned expert structure, but its observable is **REAP saliency**, not the production top-16 demand stream and not cache reuse distance. A high-saliency expert need not have the same frequency/rank behavior as an actually selected expert under #102's free-generation traces.
+
+Use the work to motivate:
+
+- per-family expert-set overlap normalized against a random `N/896` reference;
+- source/family-specific versus shared expert mass;
+- sensitivity across fixed N rather than cherry-picking one top-set size;
+- held-out or leave-one-family-out validation before claiming specialization.
+
+Do not numerically pool its overlap percentages with #102. Corpus, metric, normalization, pruning objective, route horizon and runtime are different.
+
+### 14.2 CommitteeAudit — domain-invariant Standing Committee
+
+Yan Wang, Yitao Xu, Nanhan Shen, Jinyan Su, Jimin Huang, and Zining Zhu, *The Illusion of Specialization: Unveiling the Domain-Invariant "Standing Committee" in Mixture-of-Experts Models*, ACL 2026:
+
+- ACL Anthology: <https://aclanthology.org/2026.acl-long.665/>
+- arXiv: <https://arxiv.org/abs/2601.03425>
+- Code referenced by the paper: <https://github.com/The-FinAI/CommitteeAudit>
+
+The paper introduces **COMMITTEEAUDIT**, a post-hoc group-level analysis of MoE routing. Across three representative MoE models and MMLU domains, it reports a compact coalition of routed experts that captures a majority of routing mass across otherwise different domains, with a more domain-specific periphery.
+
+The important prior for this project is structural, not functional:
+
+```text
+shared routed core / "standing committee"
+        +
+more workload-specific peripheral experts
+```
+
+This provides a direct competing hypothesis to a purely domain-specialized interpretation of the PipeNetwork-style overlap result.
+
+#### Adaptation boundary for K3
+
+CommitteeAudit analyzes routing-weight profiles. #102 should reproduce that construction only if its instrumentation can expose the required complete routing-weight information without changing runtime/model semantics. If the available observer provides selected top-16/top-M routes only, the K3 result must be labeled a **top-k CommitteeAudit-inspired analysis**, not an exact reproduction.
+
+Do not transfer the paper's qualitative functional labels (for example reasoning/syntax versus domain knowledge) to K3 from routing frequency alone. #102 can establish structural recurrence, overlap, core/periphery working sets and cache behavior; functional attribution requires separate intervention/quality evidence.
+
+### 14.3 Positioning against #75, #81, and #102
+
+These questions are deliberately distinct:
+
+```text
+#75 static router geometry:
+    do router vectors themselves form broad stable expert families?
+
+#81 substitutability:
+    when expert i is actually competitive, which nearby alternatives are low-regret
+    and semantically safe substitutes?
+
+#102 dynamic specialization/core-periphery:
+    which experts are actually selected across semantic families and lengths,
+    and how does that organization determine cache locality / backing loads?
+```
+
+#75's negative result for broad static geometric clusters does **not** preclude a dynamic standing committee, because actual selection is hidden-state conditioned. Conversely, repeatedly selecting the same expert across domains does not imply that expert is substitutable with another; #81 owns that question.
+
+The accepted #102 post-hoc amendment therefore uses EXACT observer captures, family overlap/fingerprint analysis, leave-one-family-out standing-committee construction, core-versus-periphery reuse/cache decomposition, and a replay-only `COMMITTEE_PIN_COUNTERFACTUAL`. Any positive pinning result remains nonphysical and cannot change the production cache policy inside #102; a later bounded issue and physical validation would be required.
+
+Possible valid K3 outcomes include:
+
+```text
+MOSTLY_SHARED
+CORE_PERIPHERY
+DOMAIN_SPECIALIZED
+MIXED_BY_LAYER
+NO_STABLE_STRUCTURE
+```
+
+A negative or heterogeneous result is evidence, not a reason to redefine the family set, committee threshold, or routing policy.
 
 ## Reuse checklist before importing code
 
