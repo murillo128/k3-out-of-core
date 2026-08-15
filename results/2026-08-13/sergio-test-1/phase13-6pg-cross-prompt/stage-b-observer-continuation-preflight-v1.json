@@ -1,0 +1,58 @@
+{
+  "bounded_deviation": {
+    "broad_cache_operation_used": false,
+    "classification": "OBSERVER_OUTPUT_PAGE_CACHE_REPOPULATED_BY_PATH_DISCOVERY_READ",
+    "description": "A read-only path-discovery search traversed previously released observer output evidence before K3 continuation.",
+    "model_runtime_corpus_binary_or_library_file_touched_by_recovery": false,
+    "observer_content_mutated": false,
+    "recovery": "The two previously frozen exact observer-output allowlists were released again with POSIX_FADV_DONTNEED.",
+    "scientific_or_performance_result_inspected": false
+  },
+  "campaign": {
+    "accepted_capture_count": 4,
+    "expected_capture_count": 44,
+    "next_case_id": "05-codegen-b5",
+    "next_ordinal": 5,
+    "retry_budget_remaining": 0
+  },
+  "disposition": "READY_FOR_SERIAL_CAPTURE_005",
+  "inputs": {
+    "control": {
+      "bytes": 31571,
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/stage-b-observer-continuation-control-v4.json",
+      "schema_version": "phase13-6pg-stage-b-observer-continuation-control-v4",
+      "sha256": "8783f4301d61dc590f192fdce26918141c5529b0cf16174f17d9323371d6bc10"
+    },
+    "generator": {
+      "bytes": 5816,
+      "path": "/workspace/k3-out-of-core/scripts/issue102/build_stage_b_observer_continuation_preflight.py",
+      "sha256": "bed862421ee7e381c54ebad03d4f0772a10a6a3c8ed23f5b5b7627646a79e9f5"
+    },
+    "prefix_recovery_hygiene": {
+      "bytes": 25367,
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/observer-evidence-cache-hygiene-recovery-prefix-001.json",
+      "schema_version": "phase13-6pg-observer-evidence-cache-hygiene-gate-v1",
+      "sha256": "ef1391c0be3a9c5216fa2a6ae2cd9d25b72bd01dced10cb8d89c06529a2bb60f"
+    },
+    "retry_recovery_hygiene": {
+      "bytes": 12666,
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/observer-evidence-cache-hygiene-recovery-retry-001.json",
+      "schema_version": "phase13-6pg-observer-evidence-cache-hygiene-gate-v1",
+      "sha256": "68a39fcacb170d22e9176d82420b861d7ec2eda4ca6fcd0b13b7cfebe914e1f4"
+    }
+  },
+  "performance_interpretation": "FORBIDDEN",
+  "post_retry_k3_attempts": 0,
+  "provenance": "MEASUREMENT_HYGIENE_NON_SCIENTIFIC",
+  "recovery_gate": {
+    "exact_allowlist_count": 2,
+    "final_projected_admission_margin_bytes": 1263403008,
+    "no_active_k3_during_recovery": true,
+    "no_payload_reread_or_rehash_after_recovery": true,
+    "released_resident_bytes": 494120896,
+    "resident_bytes_after": 0,
+    "swap_reclaim_refault_psi_oom_cgroup_clean": true
+  },
+  "schema_version": "phase13-6pg-stage-b-observer-continuation-preflight-v1",
+  "status": "pass"
+}

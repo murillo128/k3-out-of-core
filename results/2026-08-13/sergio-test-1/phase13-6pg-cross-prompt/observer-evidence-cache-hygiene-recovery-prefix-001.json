@@ -1,0 +1,707 @@
+{
+  "disposition": "READY_FOR_SINGLE_CAPTURE_004_RETRY",
+  "files": {
+    "after": [
+      {
+        "bytes": 25346,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1/envelope.json",
+        "device": 66304,
+        "inode": 5368889474,
+        "resident_bytes": 0,
+        "sha256_before_release": "38a90eb44d711a1acef3ce59ec1f1b5466df0cbbc605dd88f81f3989ff016633"
+      },
+      {
+        "bytes": 117,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1/stderr.log",
+        "device": 66304,
+        "inode": 5368889473,
+        "resident_bytes": 0,
+        "sha256_before_release": "4a21f2f969b9ad345cab48b76f058f02392e21259daebadf872fe007d92922b8"
+      },
+      {
+        "bytes": 0,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1/stdout.log",
+        "device": 66304,
+        "inode": 5368889472,
+        "resident_bytes": 0,
+        "sha256_before_release": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 77759299,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/result.json",
+        "device": 66304,
+        "inode": 6979337068,
+        "resident_bytes": 0,
+        "sha256_before_release": "e1fab368ce78869f1276ce7b0835b3017d4d4c87877bb6ebccb9a9611eb5a023"
+      },
+      {
+        "bytes": 25400,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/envelope.json",
+        "device": 66304,
+        "inode": 6979337069,
+        "resident_bytes": 0,
+        "sha256_before_release": "eda77ef6bcdb01005193568b37846322312978d70e232d66bda34bdd8c7bf094"
+      },
+      {
+        "bytes": 43313751,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/stdout.log",
+        "device": 66304,
+        "inode": 6979337066,
+        "resident_bytes": 0,
+        "sha256_before_release": "429432280b7a1b36b2adfaaf20777e9a7e8e16607537f935358a665d8e7c9260"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/stderr.log",
+        "device": 66304,
+        "inode": 6979337067,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 96719907,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/result.json",
+        "device": 66304,
+        "inode": 7516226583,
+        "resident_bytes": 0,
+        "sha256_before_release": "48e746b49a9d1ccda8fd60a91872eeaf03ac38d83ff900ea16a3c5f5a3811e54"
+      },
+      {
+        "bytes": 25397,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/envelope.json",
+        "device": 66304,
+        "inode": 7516226584,
+        "resident_bytes": 0,
+        "sha256_before_release": "feb3cf928adad3dc3c820481f0e9d03dab12afb88adde5c641f8604fbb64e291"
+      },
+      {
+        "bytes": 53877243,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/stdout.log",
+        "device": 66304,
+        "inode": 7516226581,
+        "resident_bytes": 0,
+        "sha256_before_release": "be329bd2a27f4f4dbb3893f80e61f33760909cc7686f1325a0e1c21ca398a5c8"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/stderr.log",
+        "device": 66304,
+        "inode": 7516226582,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 92865351,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/result.json",
+        "device": 66304,
+        "inode": 8053171558,
+        "resident_bytes": 0,
+        "sha256_before_release": "c408fe912169f7284b08671bd5abb720203542c1404a2437a37d598c0b42efc5"
+      },
+      {
+        "bytes": 25404,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/envelope.json",
+        "device": 66304,
+        "inode": 8053171559,
+        "resident_bytes": 0,
+        "sha256_before_release": "7d82f5c246be160a97b5ca08db08bd3d2425165110cbd5cf5125cadb79045945"
+      },
+      {
+        "bytes": 51730575,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/stdout.log",
+        "device": 66304,
+        "inode": 8053171556,
+        "resident_bytes": 0,
+        "sha256_before_release": "7dd1b8e358684a7d19862490bd048aff552664cb5592ff76c44f671a3821a0a7"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/stderr.log",
+        "device": 66304,
+        "inode": 8053171557,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 25289,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2/envelope.json",
+        "device": 66304,
+        "inode": 8589954768,
+        "resident_bytes": 0,
+        "sha256_before_release": "4969f9dae69e085f19baffe5b15454cb83160f9f842282a4921bd2a41bbcd58a"
+      },
+      {
+        "bytes": 0,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2/stdout.log",
+        "device": 66304,
+        "inode": 8589954766,
+        "resident_bytes": 0,
+        "sha256_before_release": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 332,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2/stderr.log",
+        "device": 66304,
+        "inode": 8589954767,
+        "resident_bytes": 0,
+        "sha256_before_release": "0f6d3b45b046f4f26da59ca25cecadcaa15a9e5775db736de622def87ba53267"
+      }
+    ],
+    "before": [
+      {
+        "bytes": 25346,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1/envelope.json",
+        "device": 66304,
+        "inode": 5368889474,
+        "resident_bytes": 25346,
+        "sha256_before_release": "38a90eb44d711a1acef3ce59ec1f1b5466df0cbbc605dd88f81f3989ff016633"
+      },
+      {
+        "bytes": 117,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1/stderr.log",
+        "device": 66304,
+        "inode": 5368889473,
+        "resident_bytes": 117,
+        "sha256_before_release": "4a21f2f969b9ad345cab48b76f058f02392e21259daebadf872fe007d92922b8"
+      },
+      {
+        "bytes": 0,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1/stdout.log",
+        "device": 66304,
+        "inode": 5368889472,
+        "resident_bytes": 0,
+        "sha256_before_release": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 77759299,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/result.json",
+        "device": 66304,
+        "inode": 6979337068,
+        "resident_bytes": 77759299,
+        "sha256_before_release": "e1fab368ce78869f1276ce7b0835b3017d4d4c87877bb6ebccb9a9611eb5a023"
+      },
+      {
+        "bytes": 25400,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/envelope.json",
+        "device": 66304,
+        "inode": 6979337069,
+        "resident_bytes": 25400,
+        "sha256_before_release": "eda77ef6bcdb01005193568b37846322312978d70e232d66bda34bdd8c7bf094"
+      },
+      {
+        "bytes": 43313751,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/stdout.log",
+        "device": 66304,
+        "inode": 6979337066,
+        "resident_bytes": 43313751,
+        "sha256_before_release": "429432280b7a1b36b2adfaaf20777e9a7e8e16607537f935358a665d8e7c9260"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/stderr.log",
+        "device": 66304,
+        "inode": 6979337067,
+        "resident_bytes": 67,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 96719907,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/result.json",
+        "device": 66304,
+        "inode": 7516226583,
+        "resident_bytes": 96719907,
+        "sha256_before_release": "48e746b49a9d1ccda8fd60a91872eeaf03ac38d83ff900ea16a3c5f5a3811e54"
+      },
+      {
+        "bytes": 25397,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/envelope.json",
+        "device": 66304,
+        "inode": 7516226584,
+        "resident_bytes": 25397,
+        "sha256_before_release": "feb3cf928adad3dc3c820481f0e9d03dab12afb88adde5c641f8604fbb64e291"
+      },
+      {
+        "bytes": 53877243,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/stdout.log",
+        "device": 66304,
+        "inode": 7516226581,
+        "resident_bytes": 0,
+        "sha256_before_release": "be329bd2a27f4f4dbb3893f80e61f33760909cc7686f1325a0e1c21ca398a5c8"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/stderr.log",
+        "device": 66304,
+        "inode": 7516226582,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 92865351,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/result.json",
+        "device": 66304,
+        "inode": 8053171558,
+        "resident_bytes": 92865351,
+        "sha256_before_release": "c408fe912169f7284b08671bd5abb720203542c1404a2437a37d598c0b42efc5"
+      },
+      {
+        "bytes": 25404,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/envelope.json",
+        "device": 66304,
+        "inode": 8053171559,
+        "resident_bytes": 25404,
+        "sha256_before_release": "7d82f5c246be160a97b5ca08db08bd3d2425165110cbd5cf5125cadb79045945"
+      },
+      {
+        "bytes": 51730575,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/stdout.log",
+        "device": 66304,
+        "inode": 8053171556,
+        "resident_bytes": 51730575,
+        "sha256_before_release": "7dd1b8e358684a7d19862490bd048aff552664cb5592ff76c44f671a3821a0a7"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/stderr.log",
+        "device": 66304,
+        "inode": 8053171557,
+        "resident_bytes": 67,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 25289,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2/envelope.json",
+        "device": 66304,
+        "inode": 8589954768,
+        "resident_bytes": 25289,
+        "sha256_before_release": "4969f9dae69e085f19baffe5b15454cb83160f9f842282a4921bd2a41bbcd58a"
+      },
+      {
+        "bytes": 0,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2/stdout.log",
+        "device": 66304,
+        "inode": 8589954766,
+        "resident_bytes": 0,
+        "sha256_before_release": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 332,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2/stderr.log",
+        "device": 66304,
+        "inode": 8589954767,
+        "resident_bytes": 332,
+        "sha256_before_release": "0f6d3b45b046f4f26da59ca25cecadcaa15a9e5775db736de622def87ba53267"
+      }
+    ],
+    "content_identity_source": "PRE_RELEASE_ALLOWLIST_SHA256",
+    "content_read_after_release": false,
+    "released_resident_bytes": 362516302,
+    "resident_bytes_after": 0,
+    "resident_bytes_before": 362516302
+  },
+  "gate": {
+    "all_allowlisted_pages_released": true,
+    "all_targeted_advice_succeeded": true,
+    "exact_allowlist_file_count": true,
+    "no_active_k3_or_helper_process": true,
+    "no_payload_reread_or_rehash_after_release": true,
+    "projected_exact_capacity_admissible": true,
+    "projected_margin_improved": true,
+    "resident_bytes_decreased": true,
+    "swap_reclaim_refault_psi_oom_cgroup_clean": true
+  },
+  "host": {
+    "after": {
+      "cgroup": {
+        "memory_current_bytes": 113873997824,
+        "memory_events": {
+          "high": 0,
+          "low": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_group_kill": 0,
+          "oom_kill": 0
+        },
+        "memory_max": "max",
+        "memory_pressure_total_usec": {},
+        "memory_stat": {
+          "active_file": 131956736,
+          "anon": 167428096,
+          "file": 113402806272,
+          "file_dirty": 90112,
+          "file_mapped": 222806016,
+          "file_writeback": 0,
+          "inactive_file": 113285492736,
+          "kernel": 278339584,
+          "workingset_refault_file": 0
+        },
+        "memory_swap_current_bytes": 0,
+        "path": "/sys/fs/cgroup/user.slice/user-1000.slice/session-4.scope"
+      },
+      "meminfo": {
+        "Cached": 114620448768,
+        "KernelStack": 16629760,
+        "MemAvailable": 299793899520,
+        "MemFree": 187278786560,
+        "MemTotal": 303509725184,
+        "Mlocked": 10780672,
+        "PageTables": 7901184,
+        "SReclaimable": 327544832,
+        "Shmem": 18022400,
+        "Slab": 606351360,
+        "SwapFree": 0,
+        "SwapTotal": 0,
+        "Unevictable": 10780672
+      },
+      "system_memory_pressure_total_usec": {},
+      "vmstat": {
+        "allocstall_device": 0,
+        "allocstall_dma": 0,
+        "allocstall_dma32": 0,
+        "allocstall_movable": 0,
+        "allocstall_normal": 0,
+        "oom_kill": 0,
+        "pgscan_anon": 0,
+        "pgscan_direct": 0,
+        "pgscan_direct_throttle": 0,
+        "pgscan_file": 0,
+        "pgscan_khugepaged": 0,
+        "pgscan_kswapd": 0,
+        "pgsteal_anon": 0,
+        "pgsteal_direct": 0,
+        "pgsteal_file": 0,
+        "pgsteal_khugepaged": 0,
+        "pgsteal_kswapd": 0,
+        "pswpin": 0,
+        "pswpout": 0,
+        "workingset_refault_anon": 0,
+        "workingset_refault_file": 0
+      }
+    },
+    "before": {
+      "cgroup": {
+        "memory_current_bytes": 114237358080,
+        "memory_events": {
+          "high": 0,
+          "low": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_group_kill": 0,
+          "oom_kill": 0
+        },
+        "memory_max": "max",
+        "memory_pressure_total_usec": {},
+        "memory_stat": {
+          "active_file": 131956736,
+          "anon": 167411712,
+          "file": 113765367808,
+          "file_dirty": 90112,
+          "file_mapped": 222806016,
+          "file_writeback": 0,
+          "inactive_file": 113648054272,
+          "kernel": 279175168,
+          "workingset_refault_file": 0
+        },
+        "memory_swap_current_bytes": 0,
+        "path": "/sys/fs/cgroup/user.slice/user-1000.slice/session-4.scope"
+      },
+      "meminfo": {
+        "Cached": 114982621184,
+        "KernelStack": 16629760,
+        "MemAvailable": 299791908864,
+        "MemFree": 186914369536,
+        "MemTotal": 303509725184,
+        "Mlocked": 10780672,
+        "PageTables": 7901184,
+        "SReclaimable": 328069120,
+        "Shmem": 18022400,
+        "Slab": 606875648,
+        "SwapFree": 0,
+        "SwapTotal": 0,
+        "Unevictable": 10780672
+      },
+      "system_memory_pressure_total_usec": {},
+      "vmstat": {
+        "allocstall_device": 0,
+        "allocstall_dma": 0,
+        "allocstall_dma32": 0,
+        "allocstall_movable": 0,
+        "allocstall_normal": 0,
+        "oom_kill": 0,
+        "pgscan_anon": 0,
+        "pgscan_direct": 0,
+        "pgscan_direct_throttle": 0,
+        "pgscan_file": 0,
+        "pgscan_khugepaged": 0,
+        "pgscan_kswapd": 0,
+        "pgsteal_anon": 0,
+        "pgsteal_direct": 0,
+        "pgsteal_file": 0,
+        "pgsteal_khugepaged": 0,
+        "pgsteal_kswapd": 0,
+        "pswpin": 0,
+        "pswpout": 0,
+        "workingset_refault_anon": 0,
+        "workingset_refault_file": 0
+      }
+    },
+    "delta": {
+      "cgroup_memory_pressure_total_usec": {},
+      "memory_current_bytes": -363360256,
+      "memory_events": {
+        "high": 0,
+        "low": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_group_kill": 0,
+        "oom_kill": 0
+      },
+      "memory_stat": {
+        "active_file": 0,
+        "anon": 16384,
+        "file": -362561536,
+        "file_dirty": 0,
+        "file_mapped": 0,
+        "file_writeback": 0,
+        "inactive_file": -362561536,
+        "kernel": -835584,
+        "workingset_refault_file": 0
+      },
+      "system_memory_pressure_total_usec": {},
+      "vmstat": {
+        "allocstall_device": 0,
+        "allocstall_dma": 0,
+        "allocstall_dma32": 0,
+        "allocstall_movable": 0,
+        "allocstall_normal": 0,
+        "oom_kill": 0,
+        "pgscan_anon": 0,
+        "pgscan_direct": 0,
+        "pgscan_direct_throttle": 0,
+        "pgscan_file": 0,
+        "pgscan_khugepaged": 0,
+        "pgscan_kswapd": 0,
+        "pgsteal_anon": 0,
+        "pgsteal_direct": 0,
+        "pgsteal_file": 0,
+        "pgsteal_khugepaged": 0,
+        "pgsteal_kswapd": 0,
+        "pswpin": 0,
+        "pswpout": 0,
+        "workingset_refault_anon": 0,
+        "workingset_refault_file": 0
+      }
+    },
+    "guard_projection_after": {
+      "admission_safe_pool_bytes": 138869047296,
+      "available_headroom_bytes": 189635727360,
+      "cgroup_memory_current_bytes": 113873997824,
+      "cgroup_memory_max_bytes": 303509725184,
+      "classification": "PROJECTED_FROM_LAST_ACCEPTED_MODEL_RESIDENCY",
+      "hysteresis_bytes": 1073741824,
+      "limit_headroom_bytes": 187489306240,
+      "memory_available_bytes": 299793899520,
+      "physical_ram_bytes": 303509725184,
+      "production_guard_is_final_authority": true,
+      "projected_admission_margin_bytes": 1140572160,
+      "projected_measured_non_pool_committed_bytes": 116020418944,
+      "reference_model_file_cache_resident_bytes": 112548294656,
+      "reference_model_file_virtual_bytes": 114694715776,
+      "requested_pool_bytes": 137728475136,
+      "runtime_reserve_bytes": 17179869184,
+      "safe_pool_bytes": 139956977664,
+      "system_reserve_bytes": 30350972519
+    },
+    "guard_projection_before": {
+      "admission_safe_pool_bytes": 138500554752,
+      "available_headroom_bytes": 189272367104,
+      "cgroup_memory_current_bytes": 114237358080,
+      "cgroup_memory_max_bytes": 303509725184,
+      "classification": "PROJECTED_FROM_LAST_ACCEPTED_MODEL_RESIDENCY",
+      "hysteresis_bytes": 1073741824,
+      "limit_headroom_bytes": 187125945984,
+      "memory_available_bytes": 299791908864,
+      "physical_ram_bytes": 303509725184,
+      "production_guard_is_final_authority": true,
+      "projected_admission_margin_bytes": 772079616,
+      "projected_measured_non_pool_committed_bytes": 116383779200,
+      "reference_model_file_cache_resident_bytes": 112548294656,
+      "reference_model_file_virtual_bytes": 114694715776,
+      "requested_pool_bytes": 137728475136,
+      "runtime_reserve_bytes": 17179869184,
+      "safe_pool_bytes": 139588485120,
+      "system_reserve_bytes": 30350972519
+    }
+  },
+  "inputs": {
+    "allowlist": {
+      "bytes": 6965,
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/observer-evidence-cache-allowlist-v1.json",
+      "sha256": "402846d1a1f9bb34e43ca144b2a0294998174fd854cd9313a6dafdb3976c6c1b"
+    },
+    "generator": {
+      "bytes": 17719,
+      "path": "/workspace/k3-out-of-core/scripts/issue102/release_observer_evidence_page_cache.py",
+      "sha256": "61f353cae307887bd123b0f4474bfb616799297184a9f105477eede03459657a"
+    },
+    "reference_preflight": {
+      "bytes": 1115,
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/observer-hygiene-reference-v1.json",
+      "sha256": "3e7df357e5c32331b099464e50adaa7b6431b7bd205105326addaa14d761f41f"
+    }
+  },
+  "operation": {
+    "advice": [
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25346,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1/envelope.json",
+        "device": 66304,
+        "inode": 5368889474,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 117,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1/stderr.log",
+        "device": 66304,
+        "inode": 5368889473,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 0,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1/stdout.log",
+        "device": 66304,
+        "inode": 5368889472,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 77759299,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/result.json",
+        "device": 66304,
+        "inode": 6979337068,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25400,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/envelope.json",
+        "device": 66304,
+        "inode": 6979337069,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 43313751,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/stdout.log",
+        "device": 66304,
+        "inode": 6979337066,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/stderr.log",
+        "device": 66304,
+        "inode": 6979337067,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 96719907,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/result.json",
+        "device": 66304,
+        "inode": 7516226583,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25397,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/envelope.json",
+        "device": 66304,
+        "inode": 7516226584,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 53877243,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/stdout.log",
+        "device": 66304,
+        "inode": 7516226581,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/stderr.log",
+        "device": 66304,
+        "inode": 7516226582,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 92865351,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/result.json",
+        "device": 66304,
+        "inode": 8053171558,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25404,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/envelope.json",
+        "device": 66304,
+        "inode": 8053171559,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 51730575,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/stdout.log",
+        "device": 66304,
+        "inode": 8053171556,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/stderr.log",
+        "device": 66304,
+        "inode": 8053171557,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25289,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2/envelope.json",
+        "device": 66304,
+        "inode": 8589954768,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 0,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2/stdout.log",
+        "device": 66304,
+        "inode": 8589954766,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 332,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2/stderr.log",
+        "device": 66304,
+        "inode": 8589954767,
+        "status": "success"
+      }
+    ],
+    "model_or_runtime_file_touched": false,
+    "syncfs_root": "/mnt/nvme1/issue102/stage-b-observer",
+    "syncfs_status": "success"
+  },
+  "provenance": "MEASUREMENT_HYGIENE_NON_SCIENTIFIC",
+  "schema_version": "phase13-6pg-observer-evidence-cache-hygiene-gate-v1",
+  "status": "pass"
+}
