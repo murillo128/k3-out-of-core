@@ -1,0 +1,130 @@
+{
+  "schema_version": "phase13-6pg-post-stage-a-reboot-clean-host-v1",
+  "captured_utc": "2026-08-15T14:10:56Z",
+  "status": "ready-for-single-long-horizon-continuity-attempt",
+  "revisions": {
+    "project_before_clean_host_commit": "09c982b42ed7adbaafc85faed5752171547aa70a",
+    "runtime_source_parent": "69ce262228f3a20367101797415b336e92e0e601",
+    "nested_llama_cpp": "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9",
+    "only_intervening_project_delta": "post-stage-a-reboot-preflight.json"
+  },
+  "reboot": {
+    "pre_reboot_boot_id": "e8ac1909-5568-4bc8-a490-995c2dd70aff",
+    "post_reboot_boot_id": "85756c6c-198b-4754-b52e-2345c107d81d",
+    "new_boot_id_verified": true,
+    "additional_authorized_reboot_consumed": true
+  },
+  "inventories": {
+    "pre_reboot": {
+      "path": "/mnt/nvme1/issue102/host-normalization/post-stage-a-pre-reboot.json",
+      "sha256": "b16c2269204ec71a97d9cc7476ab32ad8bbf2e51eb0e5f65b151e3e0acaffd95"
+    },
+    "post_reboot": {
+      "path": "/mnt/nvme1/issue102/host-normalization/post-stage-a-post-reboot.json",
+      "sha256": "beb89e0f7a98a655c309fe89a376e7c69d806a10982565901ca79075acb615d2"
+    },
+    "post_reboot_summary": {
+      "uptime_seconds": 422.22,
+      "mem_total_kib": 296396216,
+      "mem_available_kib": 293102172,
+      "cached_kib": 765728,
+      "s_reclaimable_kib": 59708,
+      "slab_kib": 291288,
+      "cgroup_path": "/sys/fs/cgroup/user.slice/user-1000.slice/session-4.scope",
+      "cgroup_memory_current_bytes": 556871680,
+      "cgroup_memory_max": "max",
+      "cgroup_swap_current_bytes": 0,
+      "cgroup_pressure_or_oom_events": false,
+      "active_k3_helper_observer_build_processes": 0
+    }
+  },
+  "swap": {
+    "cloud_init_automatically_reactivated_swap_file": true,
+    "reactivated_swap_used_bytes": 0,
+    "disabled_before_k3": true,
+    "post_restore_swap_total_kib": 0,
+    "purpose": "restore the frozen swap-disabled runtime invariant, not capacity selection",
+    "swap_in_or_out_observed": false
+  },
+  "storage_roles": {
+    "model": {
+      "filesystem_label": "K3_NVME0",
+      "filesystem_uuid": "be7c5a2c-ca4d-4f37-b2b8-85ef9e872f6a",
+      "post_reboot_device": "/dev/nvme0n1",
+      "mount": "/mnt/nvme0",
+      "filesystem": "xfs",
+      "mount_options_include": [
+        "noatime",
+        "nodiratime"
+      ]
+    },
+    "build_and_evidence": {
+      "filesystem_label": "K3_NVME1",
+      "filesystem_uuid": "fa954c90-0da0-4f42-9045-fdb7e1834992",
+      "post_reboot_device": "/dev/nvme1n1",
+      "mount": "/mnt/nvme1",
+      "filesystem": "xfs",
+      "mount_options_include": [
+        "noatime",
+        "nodiratime"
+      ]
+    },
+    "unused_for_model_reads": "/dev/nvme2n1",
+    "resolved_by_filesystem_label": true,
+    "single_model_nvme_role_verified": true
+  },
+  "verified_identities": {
+    "pre_reboot_manifest_sha256": "57c5e2e143db5daac7b12be01c4912a8a5875cd8f9e13890b3a2e960d1824308",
+    "stage_a_final_checkpoint_sha256": "baf8d7583175aa55eca8c7183608259bb2d30f350a8a643f8b40d4831a362786",
+    "semantic_detokenized_sha256": "e065d71376b2918670e14ccc468d3d7e0bc38129ba1cb8bba6ba1c232add0fc3",
+    "semantic_audit_sha256": "6bfb9b5bd818cf5cd16554067469c8832bd9355fb5a516a23557b831a37e1489",
+    "corpus_sha256": "e0f1746f987f888d68a36261a2822f4754a413b7799c6252aae8a4ded2a900d8",
+    "preregistration_sha256": "31444069cb1221bbf585288fb39e476d69c7e74a1fb56b2ec23043b3a5cb6149",
+    "stage_a_helper_source_sha256": "1ba6c540196e7f777f9ec761813b240057f08abfbc5ce711cae037c4babf8b43",
+    "stage_a_helper_binary_sha256": "c35cdc52d3669b080972e1c1ac68df6b88290e79d46c92edde2f48eae3733975",
+    "long_horizon_helper_source_sha256": "411306904bf1443a8f2bfbfa0f922883c8fb34b5fdaf99f0bda7d8448eaf7adc",
+    "long_horizon_helper_binary_sha256": "aef1c347bad779fde7842b1364f3d0e2b5b721a049a9b64200b6be7802d5f25d",
+    "qualification_runner_sha256": "0e09960035666f15bfc82cef2a8dd81358f744a848f3f1f633d27d420afeca92",
+    "inventory_tool_sha256": "a76eb6b4458edc0d77ad6b829b7174ab88de79d3ce9c4fbfc62e51e986d27e1e",
+    "build_fingerprint_sha256": "d150d179f41ebd2deab49b663e64c909b7d8fa6b4546c716aee889479f633a10",
+    "model_identity_sha256": "58b14d13a602944e1134fc753b2cc819a84a31290aee9c1479264a66dbb5efe2",
+    "frozen_libraries": {
+      "libllama-common.so.0.0.10345": "73c62e1f250739d5a7d3f48366c6eaa2ae3a99740273272e39fac37eb5355002",
+      "libllama.so.0.0.10345": "d06bb63d4e6175792ddbc320e9afe4d0c6b01d4c501903913a85669b8b790476",
+      "libggml.so.0.17.0": "a7644bb79e3047b7e2f628a077151f401831490337eac3480be11a5b3aaca372",
+      "libggml-cpu.so.0.17.0": "50d2eb5bb27c778060e43a09e4bd4bbb5392946f685693d6fc8aca7c36f1c83a",
+      "libggml-base.so.0.17.0": "05e815f3c58c6274c3d84b6fe56e445e6568ee6fe130d256c878813d32f02bdd"
+    },
+    "all_match_pre_reboot": true
+  },
+  "host_configuration": {
+    "vm.overcommit_memory": 0,
+    "vm.overcommit_ratio": 50,
+    "vm.max_map_count": 65530,
+    "relevant_sysctl_change": false,
+    "cgroup_limit_change": false,
+    "manual_page_cache_eviction": false,
+    "memory_pressure_trick": false,
+    "auto_capacity": false,
+    "admission_guard_bypass": false
+  },
+  "continuity_attempt": {
+    "prompt": "issue102-sentinel",
+    "policy": "S2_P50",
+    "protocol": "full-prompt",
+    "n_ctx": 768,
+    "cache_slots": 7849,
+    "cache_bytes": 137728475136,
+    "decode_forwards": 512,
+    "snapshots": [
+      16,
+      32,
+      64,
+      128,
+      256,
+      512
+    ],
+    "attempts_authorized": 1,
+    "next": "publish this clean-host precondition, then execute the single authorized attempt and validate exact Stage-A continuity through token 64 before any second cell"
+  }
+}
