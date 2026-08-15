@@ -3,6 +3,7 @@
 
 #include <nlohmann/json.hpp>
 
+#include <algorithm>
 #include <cstdint>
 #include <cstdio>
 #include <filesystem>
@@ -161,10 +162,30 @@ int main(int argc, char ** argv) {
             throw std::runtime_error("expected exactly 128 corpus cases");
         }
 
+        std::vector<std::string> primary_ids;
+        const std::string sentinel_id = corpus.at("sentinel").at("id").get<std::string>();
+        for (const auto & entry : corpus.at("execution_order")) {
+            const std::string id = entry.get<std::string>();
+            if (id != sentinel_id) {
+                primary_ids.push_back(id);
+            }
+        }
+        if (primary_ids.size() != 128) {
+            throw std::runtime_error("execution order does not contain exactly 128 primary cases");
+        }
+
         json rows = json::array();
-        for (size_t index = 0; index < corpus_cases.size(); ++index) {
-            const auto & corpus_case = corpus_cases.at(index);
-            const std::string case_id = corpus_case.at("id").get<std::string>();
+        for (size_t index = 0; index < primary_ids.size(); ++index) {
+            const std::string & case_id = primary_ids[index];
+            const auto selected = std::find_if(
+                corpus_cases.begin(), corpus_cases.end(), [&](const json & item) {
+                    return item.value("id", "") == case_id;
+                });
+            if (selected == corpus_cases.end()) {
+                throw std::runtime_error("execution-order case is absent from corpus: " + case_id);
+            }
+            const auto & corpus_case = *selected;
+            const size_t corpus_index = size_t(std::distance(corpus_cases.begin(), selected));
             const fs::path source_path = result_path(stage_a_root, index + 1, case_id);
             const json result = load_json(source_path);
             const auto & result_case = result.at("case");
@@ -212,7 +233,7 @@ int main(int argc, char ** argv) {
                 {"semantic_family", corpus_case.at("semantic_family")},
                 {"length_level", corpus_case.at("length_level")},
                 {"corpus_reference", "corpus/phase13/issue102-cross-prompt-v1.json#cases/" +
-                    std::to_string(index)},
+                    std::to_string(corpus_index)},
                 {"source_result_path", source_path.string()},
                 {"templated_prompt_tokens", expected_prompt_tokens},
                 {"generated_token_count", generated.size()},
