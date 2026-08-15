@@ -98,7 +98,8 @@ def main() -> int:
         "bounded_deviation": {
             "classification": "OBSERVER_OUTPUT_PAGE_CACHE_REPOPULATED_BY_PATH_DISCOVERY_READ",
             "description": "A read-only path-discovery search traversed previously released observer output evidence before K3 continuation.",
-            "scientific_or_performance_result_inspected": False,
+            "raw_evidence_lines_surfaced_by_search": True,
+            "scientific_or_performance_result_interpreted_or_used": False,
             "model_runtime_corpus_binary_or_library_file_touched_by_recovery": False,
             "observer_content_mutated": False,
             "broad_cache_operation_used": False,
