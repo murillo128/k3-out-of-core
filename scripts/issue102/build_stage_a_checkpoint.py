@@ -310,7 +310,11 @@ def main() -> int:
             "observational_only": True,
             "corpus_policy_capacity_or_order_changed": False,
             "early_stopping_or_winner_selection_authorized": False,
-            "next": "continue the immutable execution order after publishing this checkpoint",
+            "next": (
+                "continue the immutable execution order after publishing this checkpoint"
+                if args.completed_rounds < 8
+                else "publish the final Stage A checkpoint before any post-Stage-A work"
+            ),
         },
     }
     output_path.parent.mkdir(parents=True, exist_ok=True)
