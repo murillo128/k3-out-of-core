@@ -45,6 +45,9 @@ configure_issue102_target(issue102-corpus-freezer)
 add_executable(issue102-stage-a-detokenizer detokenize_stage_a.cpp)
 configure_issue102_target(issue102-stage-a-detokenizer)
 
+add_executable(issue102-observer-replay analyze_observer_replay.cpp)
+configure_issue102_target(issue102-observer-replay)
+
 # Keep the measurement-only delta auditable: derive it from the exact nested
 # probe source pinned by issue #102, then require every source anchor to match.
 set(original_source "${ISSUE102_LLAMA_SOURCE}/tests/phase13-mode-p-probe.cpp")
