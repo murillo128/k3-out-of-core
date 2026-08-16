@@ -33,6 +33,9 @@ def arguments() -> argparse.Namespace:
     parser.add_argument("--allowlist", type=pathlib.Path, required=True)
     parser.add_argument("--expected-allowlist-sha256", required=True)
     parser.add_argument("--reference-preflight", type=pathlib.Path, required=True)
+    parser.add_argument(
+        "--success-disposition", default="READY_FOR_SINGLE_CAPTURE_004_RETRY",
+    )
     parser.add_argument("--output", type=pathlib.Path, required=True)
     return parser.parse_args()
 
@@ -164,8 +167,11 @@ def active_k3_processes() -> list[dict[str, Any]]:
         joined = " ".join(arguments)
         if (
             "issue102-exact-route-observer" in joined
+            or "issue102-cross-prompt-probe" in joined
             or "run_qualification_cell.py" in joined
             or "run_stage_b_observer_campaign.py" in joined
+            or "run_stage_b_observer_resume_campaign.py" in joined
+            or "run_stage_c_campaign.py" in joined
         ):
             active.append({"pid": pid, "arguments": arguments})
     return active
@@ -419,7 +425,7 @@ def main() -> int:
         },
         "gate": gate,
         "disposition": (
-            "READY_FOR_SINGLE_CAPTURE_004_RETRY"
+            args.success_disposition
             if status == "pass" else "RETURN_TO_DESIGN"
         ),
     }
