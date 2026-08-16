@@ -33,7 +33,7 @@
     "threads": 32
   },
   "disposition": "READY_AFTER_PUBLICATION_AND_INDEPENDENT_REVIEW_FOR_VERIFY_ONLY_THEN_RECOVERY_01",
-  "execution_project_sha": "b6c6f7e33241652d4353dd9d0d91cc42a53fbe3a",
+  "execution_project_sha": "6ef64ba85a019d85a0fed06f49f8c45963f060ad",
   "inputs": {
     "build_fingerprint": {
       "bytes": 5518,
@@ -135,7 +135,8 @@
     },
     "initial_expected_file_count": 199,
     "operation": "POSIX_FADV_DONTNEED_AFTER_SYNCFS_NVME1",
-    "payload_reread_or_rehash_after_release": false
+    "payload_reread_or_rehash_after_release": false,
+    "release_possible_marker": "DURABLE_RECOVERY_PROGRESS_EXISTS_BEFORE_ANY_ADVICE"
   },
   "plan": [
     {
@@ -2418,14 +2419,14 @@
       "sha256": "a933dbec67e45d93555a64951345b826aaa91e07bd1a17124751f846bad4f65c"
     },
     "controller": {
-      "bytes": 28098,
+      "bytes": 28708,
       "path": "/workspace/k3-out-of-core/scripts/issue102/run_stage_c_recovery_campaign.py",
-      "sha256": "535b344cce1de2ece5f9ccddc0e6f668cd9bdbef552fa52703cd9df7a94bd47d"
+      "sha256": "a2087ab410cba027d711635457b3381d6f50bbd4e385dc5e1e999c940c2c9832"
     },
     "generator": {
-      "bytes": 11920,
+      "bytes": 12106,
       "path": "/workspace/k3-out-of-core/scripts/issue102/build_stage_c_recovery_control.py",
-      "sha256": "645a64f762cf69b90dce3f1ac74a74273361b297e55e8c7249ae9787dd444179"
+      "sha256": "ccb50cf0e4bf9de9df6c7401478b2c0bd0a7644074e746f44f5ac59deaf6ee44"
     },
     "helper_binary": {
       "bytes": 320664,
@@ -2442,6 +2443,11 @@
       "bytes": 15551,
       "path": "/mnt/nvme1/issue102/tooling/run_qualification_cell.py",
       "sha256": "0e09960035666f15bfc82cef2a8dd81358f744a848f3f1f633d27d420afeca92"
+    },
+    "resume_guard_test": {
+      "bytes": 3549,
+      "path": "/workspace/k3-out-of-core/scripts/issue102/test_stage_c_recovery_resume_guard.py",
+      "sha256": "9c597475d8240cf331471c918aac4681783066cf4564511c17c843d8a9065972"
     }
   },
   "schema_version": "phase13-6pg-stage-c-recovery-control-v1",
