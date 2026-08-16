@@ -81,7 +81,19 @@ def write_json(path: pathlib.Path, value: Any) -> None:
     with temporary.open("w") as stream:
         json.dump(value, stream, indent=2, sort_keys=True)
         stream.write("\n")
+        stream.flush()
+        os.fsync(stream.fileno())
     os.replace(temporary, path)
+    directory = os.open(path.parent, os.O_RDONLY | os.O_CLOEXEC | os.O_DIRECTORY)
+    try:
+        os.fsync(directory)
+    finally:
+        os.close(directory)
+
+
+def output_release_may_have_occurred(progress_path: pathlib.Path) -> bool:
+    """Treat the durable pre-advice progress marker conservatively on every restart."""
+    return progress_path.exists()
 
 
 def git_output(*args: str) -> str:
@@ -170,7 +182,7 @@ def validate_control(
 
     runtime_names = (
         "controller", "allowlist_builder", "hygiene_executor", "cache_operations",
-        "helper_binary", "qualification_runner",
+        "helper_binary", "qualification_runner", "resume_guard_test",
     )
     paths = {name: verify_identity(control["runtime"][name]) for name in runtime_names}
     if paths["controller"] != pathlib.Path(__file__).resolve(strict=True):
@@ -294,6 +306,8 @@ def initial_progress(control_path: pathlib.Path, control: dict[str, Any]) -> dic
         "execution_project_sha": control["execution_project_sha"],
         "nested_llama_cpp_sha": control["nested_llama_cpp_sha"],
         "original_failure_preserved": True,
+        "output_release_may_have_occurred": True,
+        "release_guard": "PROGRESS_EXISTENCE_IS_DURABLE_BEFORE_ANY_OUTPUT_ADVICE",
         "expected_cell_count": 48,
         "accepted_cell_count": 0,
         "failed_cell_count": 0,
@@ -321,6 +335,7 @@ def verify_progress(
         or progress.get("inputs", {}).get("recovery_control", {}).get("sha256") != sha256(control_path)
         or progress.get("execution_project_sha") != control["execution_project_sha"]
         or progress.get("nested_llama_cpp_sha") != control["nested_llama_cpp_sha"]
+        or progress.get("output_release_may_have_occurred") is not True
         or progress.get("failed_cell_count") != 0
         or progress.get("failures")
         or progress.get("technical_failures")
@@ -472,7 +487,7 @@ def main() -> int:
         raise ValueError("Stage-C recovery control identity changed")
     preliminary = load_json(control_path)
     progress_path = pathlib.Path(preliminary["output"]["progress"])
-    released_outputs_possible = progress_path.exists() and bool(load_json(progress_path).get("hygiene_events"))
+    released_outputs_possible = output_release_may_have_occurred(progress_path)
     control, paths = validate_control(control_path, args.expected_control_sha256, released_outputs_possible)
     active = active_k3_processes()
     if active:

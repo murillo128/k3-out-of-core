@@ -125,6 +125,7 @@ def main() -> None:
     source_dir = pathlib.Path(__file__).resolve(strict=True).parent
     runtime = {
         "controller": identity(source_dir / "run_stage_c_recovery_campaign.py"),
+        "resume_guard_test": identity(source_dir / "test_stage_c_recovery_resume_guard.py"),
         "allowlist_builder": identity(source_dir / "build_stage_c_output_cache_allowlist.py"),
         "hygiene_executor": identity(source_dir / "apply_stage_c_output_cache_hygiene.py"),
         "cache_operations": identity(source_dir / "release_observer_evidence_page_cache.py"),
@@ -204,6 +205,7 @@ def main() -> None:
             },
             "operation": "POSIX_FADV_DONTNEED_AFTER_SYNCFS_NVME1",
             "payload_reread_or_rehash_after_release": False,
+            "release_possible_marker": "DURABLE_RECOVERY_PROGRESS_EXISTS_BEFORE_ANY_ADVICE",
             "excluded": [
                 "GGUF_OR_MODEL_OR_EXPERT_FILES", "CORPUS_OR_PROMPT_INPUTS",
                 "STAGE_C_SELECTION_PREREGISTRATION_OR_CONTROL_INPUTS",
