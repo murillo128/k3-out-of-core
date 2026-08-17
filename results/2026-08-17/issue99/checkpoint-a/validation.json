@@ -3,12 +3,12 @@
   "status": "pass",
   "outcome_blind": true,
   "changed_policy_issue99_outcomes_created_or_inspected": false,
-  "implementation_parent": "5e2f8965d0f44d8b358f60a04595eb36f08beab6",
+  "implementation_parent": "2b830525b61dae06b5a669dfdedd91548bef7f4d",
   "nested_llama_cpp": "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9",
   "nested_worktree_clean": true,
   "preregistration": {
     "path": "results/2026-08-17/issue99/checkpoint-a/preregistration.json",
-    "sha256": "e1157d3f5df5d060b73d2c15c1400da60ffc58f997e0000d3f05c5a8d42873cb",
+    "sha256": "90aebe0880347c3a68655b644f1557a3169fa11140a8edcf3b802d9e08b307c1",
     "schema_validation": "pass",
     "planned_decision_cells": 72
   },
@@ -34,7 +34,7 @@
   "focused_validation": [
     {
       "command": "/mnt/nvme1/issue99/venv/bin/python -m unittest discover -s tests/issue99 -v",
-      "result": "8/8 passed, including FREE_TRAJECTORY EOG in both orders and single unified transaction source contract"
+      "result": "9/9 passed, including the four-arm reference-sequence command contract, FREE_TRAJECTORY EOG in both orders, and the single unified transaction source contract"
     },
     {
       "command": "Draft202012Validator.check_schema over schemas/issue99/*.schema.json",
@@ -79,6 +79,12 @@
       "subsequent_status": "invalidated by technical helper change after a pre-decode campaign failure",
       "material_finding": null,
       "resolution": "republish and independently review the corrected exact target before a clean campaign"
+    },
+    {
+      "target": "d11cff509206eeba1121a8cc80c8daf0efee2677",
+      "verdict": "FAIL",
+      "material_finding": "the six changed-policy FREE_TRAJECTORY bridge cells were assigned a fixed reference-sequence argument that the quality probe correctly rejects",
+      "resolution": "reference path and argument construction now encode the intervention contract directly: all 25 free cells omit the argument and all 47 fixed cells supply it; focused tests cover exact free, changed fixed, changed free, and low-capacity fixed cells"
     }
   ],
   "preserved_pre_pass_failures": [
