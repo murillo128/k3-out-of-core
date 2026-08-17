@@ -836,7 +836,8 @@ def route_feature_rows(
             for gamma in (0.8, 1.0):
                 core_count = 0
                 for layer_index, frequency in enumerate(matrix):
-                    core_count += sum(frequency[expert] for expert in cores[phase][gamma])
+                    layer_core = cores[phase][gamma][layer_index]
+                    core_count += sum(frequency[expert] for expert in layer_core)
                 core_masses[gamma] = core_count / selected if selected else None
             stack = replay[f"{phase.lower()}_stack_distance"]
             finite = stack["finite_stack_distance_slots"]

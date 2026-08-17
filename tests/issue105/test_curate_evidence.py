@@ -18,6 +18,7 @@ from curate_evidence import (  # noqa: E402
     require_identity,
     source_evidence_class,
     source_status,
+    phase_core_sets,
     validate_physical_rows,
     validate_source_catalog,
 )
@@ -117,6 +118,23 @@ class Issue105CurationTests(unittest.TestCase):
             "host/stage-c-control-v1/progress.json", "RAW_OR_DERIVED_HOST_EVIDENCE", set()
         )
         self.assertEqual(status[0], "superseded")
+
+    def test_core_sets_preserve_layer_boundaries(self) -> None:
+        committee = {
+            "phases": {
+                "DECODE": {
+                    "gamma_sensitivity": [{
+                        "gamma": 1.0,
+                        "layers": [
+                            {"core_experts": [1, 2]},
+                            {"core_experts": [3]},
+                        ],
+                    }]
+                }
+            }
+        }
+        cores = phase_core_sets(committee)
+        self.assertEqual(cores["DECODE"][1.0], [{1, 2}, {3}])
 
     def test_logical_hash_depends_on_canonical_row_order(self) -> None:
         rows = [{"b": 2, "a": 1}, {"b": 4, "a": 3}]
