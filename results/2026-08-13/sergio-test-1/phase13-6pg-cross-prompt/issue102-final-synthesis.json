@@ -1,0 +1,1004 @@
+{
+  "artifacts": {
+    "normalized_prompt_level_csv": {
+      "bytes": 63325,
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/issue102-normalized-prompt-level.csv",
+      "sha256": "c3cb07d5d9cc90c14e77f4cc14744f7c70c682d7e267aa332095dd9f3b5a82ca"
+    }
+  },
+  "completeness": {
+    "stage_a_primary": 128,
+    "stage_a_sentinels": 8,
+    "stage_b2_family_length_endpoints": 32,
+    "stage_b_b2_observer_captures": 44,
+    "stage_b_family_representatives": 16,
+    "stage_c_failed_cells": 0,
+    "stage_c_physical_cells": 48,
+    "stage_c_physical_replay_anchor_exact_matches": 16,
+    "stage_c_unique_prompts": 24
+  },
+  "disposition": "ISSUE102_FINAL_SYNTHESIS_COMPLETE_READY_FOR_EVIDENCE_FREEZE_AND_CHECKPOINT_C",
+  "family_length_decomposition": {
+    "descriptive_r_squared": {
+      "decode_tok_s": {
+        "actual_token_only": 0.008915228695447253,
+        "family_only": 0.49725423807511904,
+        "family_plus_actual_tokens": 0.5041324071052828,
+        "family_plus_length_level": 0.501760574909135,
+        "length_level_only": 0.0045063368340158005,
+        "within_family_centered_actual_tokens": 0.0068781690301639165
+      },
+      "hit_ratio": {
+        "actual_token_only": 0.015625479562704547,
+        "family_only": 0.5004528468936358,
+        "family_plus_actual_tokens": 0.5124788402167426,
+        "family_plus_length_level": 0.5092778237424258,
+        "length_level_only": 0.0088249768487908,
+        "within_family_centered_actual_tokens": 0.012025993323107054
+      }
+    },
+    "effect_classification_rule": {
+      "authority": "post-hoc descriptive label; not a causal claim",
+      "moderate": "0.10 <= R^2 < 0.25",
+      "strong": "R^2 >= 0.25",
+      "weak": "R^2 < 0.10"
+    },
+    "family_effect_r_squared_statistic": 0.5004528468936358,
+    "family_specific_bh_rejections": {
+      "decode_tok_s": [],
+      "hit_ratio": []
+    },
+    "token_length_effect_r_squared_statistic": 0.0088249768487908
+  },
+  "handoff": {
+    "issue_105": "secondary analyses only; no additional issue-102 experimentation",
+    "issue_98": "resume final v3 synthesis/release/review/closeout after issue-102 closeout",
+    "issue_99_and_81": "frozen corpus and normalized prompt-level evidence ready"
+  },
+  "inputs": {
+    "generator": {
+      "bytes": 19965,
+      "path": "/workspace/k3-out-of-core/scripts/issue102/build_final_synthesis.py",
+      "sha256": "fbc2d0cd3232b63d5f1b122516ffccf872ac7c56a45c59abb4f4515c5832aa89"
+    },
+    "s2_fixed_route_replay": {
+      "bytes": 1351344,
+      "path": "/mnt/nvme1/issue102/observer-replay-v1/s2-fixed-route-capacity-counterfactual.json",
+      "schema_version": "phase13-6pg-s2-fixed-route-capacity-counterfactual-v1",
+      "sha256": "b87d9461ff503e2d13675b08d0362d5675ab8b6a2481e2d19ee46027d0b0ea9d"
+    },
+    "stage_a_checkpoint": {
+      "bytes": 600977,
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/stage-a-round-08-checkpoint.json",
+      "schema_version": "issue102-stage-a-checkpoint-v1",
+      "sha256": "baf8d7583175aa55eca8c7183608259bb2d30f350a8a643f8b40d4831a362786"
+    },
+    "stage_b_handoff": {
+      "bytes": 43692,
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/stage-b-capacity-handoff.json",
+      "schema_version": "phase13-6pg-stage-b-capacity-handoff-v1",
+      "sha256": "e560db9dfc1c05c8aa163d88b44073bebbfbafefb4c86dfbf78f075c3b403eca"
+    },
+    "stage_c_synthesis": {
+      "bytes": 175067,
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/stage-c-synthesis.json",
+      "schema_version": "phase13-6pg-stage-c-synthesis-v1",
+      "sha256": "69b6f3d5642e905c7759c8c35ce280a07fdecec0afc9094c2a61180fb8b1e34d"
+    }
+  },
+  "limitations": [
+    "The 16x8 corpus is deliberate and complete, not a random sample of all Kimi K3 prompts.",
+    "Family/length labels and outcome categories are descriptive, not causal or universal.",
+    "The 24-prompt Stage-C set is a frozen explanatory sample, not a second search.",
+    "Generated-token equality/divergence is not semantic-quality evidence; #77/#99 own quality.",
+    "Observer timing is excluded from performance evidence; physical Stage A/C own TPS.",
+    "No policy, capacity, corpus, order, runtime, model, or storage topology was retuned."
+  ],
+  "maximum_realized_regret": {
+    "authority": "separate non-performance observer/replay diagnostic",
+    "maximum_allowed_regret": 0.007303759455680847,
+    "observer_replay_physical_distribution": {
+      "count": 44,
+      "max": 0.007303677499294281,
+      "mean": 0.007301679558374665,
+      "median": 0.007302459329366684,
+      "min": 0.007294192910194397,
+      "p10": 0.007299074530601501,
+      "p90": 0.007303562015295029
+    },
+    "observer_replay_physical_prompt_count": 44,
+    "stage_a_timed_path": "unavailable_without_observer"
+  },
+  "observations": [
+    "OBSERVED: Stage A accepted all 128 frozen primary prompts and all eight deterministic sentinels at one S2_P50/capacity/runtime envelope.",
+    "OBSERVED: prompt TPS p90-p10 dispersion was 22.580 times the repeated-sentinel TPS p90-p10 dispersion.",
+    "OBSERVED: semantic-family-only descriptive models explain about half of TPS/hit variation, while ordinal token-length-only models explain under 1%.",
+    "OBSERVED: Stage-B representative routes have broad cross-family diversity; selected-expert frequency does not assign semantic function.",
+    "OBSERVED: S2_P50 improved TPS, hit ratio, and loads/token versus both EXACT and KNEE in all 24 frozen Stage-C prompts; gain magnitude remained prompt-conditioned.",
+    "OBSERVED: all 16 representative physical EXACT cells matched semantic-order replay at the 7,849-slot anchor exactly."
+  ],
+  "primary_outcomes": {
+    "FOLLOWUP_99_CORPUS_READY": "yes",
+    "KNEE_VS_S2P50_PROMPT_INTERACTION": "moderate",
+    "PROMPT_CONDITIONED_REGIMES": "supported",
+    "ROUTE_COVERAGE": "broad",
+    "S2P50_CROSS_PROMPT_DISPERSION": "high",
+    "S2P50_PAIRED_GAIN": "broad",
+    "SEMANTIC_FAMILY_EFFECT": "strong",
+    "TOKEN_LENGTH_EFFECT": "weak"
+  },
+  "provenance": "COMPLETE_FROZEN_ISSUE102_EVIDENCE_SYNTHESIS",
+  "route_diversity": {
+    "coverage_label": "broad",
+    "coverage_rule": "broad when median layerwise support Jaccard <= 0.50 and median weighted Jensen-Shannon divergence >= 0.25; otherwise limited",
+    "decode_pair_distributions": {
+      "cosine_similarity": {
+        "count": 120,
+        "max": 0.6840633633844544,
+        "mean": 0.42721459743189183,
+        "median": 0.4246805829514755,
+        "min": 0.23611668779873535,
+        "p10": 0.3029187628037138,
+        "p90": 0.5493312827923479
+      },
+      "count": 120,
+      "mean_layerwise_support_jaccard": {
+        "count": 120,
+        "max": 0.44141203361020964,
+        "mean": 0.3457721748700554,
+        "median": 0.3410760444059922,
+        "min": 0.2874823090948406,
+        "p10": 0.3084860054789234,
+        "p90": 0.3868615463751362
+      },
+      "weighted_jensen_shannon_divergence_bits": {
+        "count": 120,
+        "max": 0.6149191717892044,
+        "mean": 0.4994775355648687,
+        "median": 0.5004903030281606,
+        "min": 0.3332073685005134,
+        "p10": 0.42012577703196763,
+        "p90": 0.5728444501293517
+      }
+    },
+    "interpretation_guard": "Selected top-16 frequency cannot assign semantic functions or establish substitutability.",
+    "pair_count": 120,
+    "representative_count": 16
+  },
+  "schema_version": "phase13-6pg-issue102-final-synthesis-v1",
+  "stage_a_cross_prompt": {
+    "dispersion_classification_rule": {
+      "authority": "post-hoc descriptive label; not a tuning gate",
+      "high": "ratio >= 10",
+      "low": "ratio < 3",
+      "moderate": "3 <= ratio < 10"
+    },
+    "overall_distributions": {
+      "bytes_per_token": {
+        "count": 128,
+        "max": 10819259136.0,
+        "median": 9549824256.0,
+        "min": 8270519040.0,
+        "p10": 8777607552.0,
+        "p90": 10371392640.0
+      },
+      "changed_fraction": {
+        "count": 128,
+        "max": 0.7680027173913043,
+        "median": 0.7160326086956522,
+        "min": 0.6808763586956522,
+        "p10": 0.7000849184782609,
+        "p90": 0.737109375
+      },
+      "cumulative_score_regret": {
+        "count": 128,
+        "max": 21.640543047338724,
+        "median": 19.50530925858766,
+        "min": 18.035465341061354,
+        "p10": 18.85865706540644,
+        "p90": 20.20246653407812
+      },
+      "decode_tok_s": {
+        "count": 128,
+        "max": 0.3573151910351385,
+        "median": 0.32908797995468947,
+        "min": 0.3049902428468884,
+        "p10": 0.3133915249123856,
+        "p90": 0.34562668915606837
+      },
+      "hit_ratio": {
+        "count": 128,
+        "max": 0.6798042629076086,
+        "median": 0.6302755604619565,
+        "min": 0.5811289911684783,
+        "p10": 0.5984682829483695,
+        "p90": 0.660172172214674
+      },
+      "loads_per_token": {
+        "count": 128,
+        "max": 616.578125,
+        "median": 544.234375,
+        "min": 471.328125,
+        "p10": 500.2265625,
+        "p90": 591.0546875
+      },
+      "mean_score_regret_per_realized_swap": {
+        "count": 128,
+        "max": 0.003201301772189659,
+        "median": 0.003028604352713801,
+        "min": 0.0028924676753637993,
+        "p10": 0.002951202143036767,
+        "p90": 0.0031139003251060156
+      },
+      "swaps_per_token": {
+        "count": 128,
+        "max": 109.3125,
+        "median": 100.5546875,
+        "min": 93.328125,
+        "p10": 97.27968750000001,
+        "p90": 104.55625
+      }
+    },
+    "prompt_to_sentinel_tps_spread_ratio": 22.57979116677749,
+    "prompt_tps_p90_minus_p10": 0.03223516424368278,
+    "sentinel_all_deterministic_signatures_equal": true,
+    "sentinel_deterministic_signature_status": "pass",
+    "sentinel_tps": {
+      "count": 8,
+      "max": 0.3480169559046152,
+      "median": 0.3472168730820213,
+      "min": 0.34638026466863864,
+      "p10": 0.34653994866968113,
+      "p90": 0.3479675599352411
+    },
+    "sentinel_tps_p90_minus_p10": 0.0014276112655599582
+  },
+  "stage_c": {
+    "aggregates": {
+      "knee_vs_exact": {
+        "bytes_per_token_delta": {
+          "count": 24,
+          "max": 375346944.0,
+          "mean": -754578048.0,
+          "median": -784280448.0,
+          "min": -1223099136.0,
+          "p10": -1147755571.1999998,
+          "p90": -419845708.8000002
+        },
+        "count": 24,
+        "decode_tok_s_delta_fraction": {
+          "count": 24,
+          "max": 0.06865477618913762,
+          "mean": 0.040661799319234485,
+          "median": 0.04146645777915492,
+          "min": -0.02234942687703867,
+          "p10": 0.021159421104989563,
+          "p90": 0.06008846980207376
+        },
+        "decode_tok_s_ratio": {
+          "count": 24,
+          "max": 1.0686547761891376,
+          "mean": 1.0406617993192344,
+          "median": 1.0414664577791548,
+          "min": 0.9776505731229613,
+          "p10": 1.0211594211049895,
+          "p90": 1.0600884698020738
+        },
+        "direction_counts": {
+          "hit_better": 23,
+          "hit_equal": 0,
+          "hit_worse": 1,
+          "loads_equal": 0,
+          "loads_higher": 1,
+          "loads_lower": 23,
+          "tps_better": 23,
+          "tps_equal": 0,
+          "tps_worse": 1
+        },
+        "hit_ratio_delta": {
+          "count": 24,
+          "max": 0.047352666440217406,
+          "mean": 0.029213725656702893,
+          "median": 0.030363663383152162,
+          "min": -0.014531674592391353,
+          "p10": 0.01625445822010865,
+          "p90": 0.04443571671195655
+        },
+        "loads_per_token_delta": {
+          "count": 24,
+          "max": 21.390625,
+          "mean": -43.002604166666664,
+          "median": -44.6953125,
+          "min": -69.703125,
+          "p10": -65.40937500000001,
+          "p90": -23.92656250000001
+        },
+        "trajectory": {
+          "aligned_equal_fraction": {
+            "count": 24,
+            "max": 1.0,
+            "mean": 0.701171875,
+            "median": 0.9609375,
+            "min": 0.015625,
+            "p10": 0.1609375,
+            "p90": 1.0
+          },
+          "authority": "trajectory feedback only; not semantic-quality evidence",
+          "hash_equal_count": 11,
+          "levenshtein_edit_distance": {
+            "count": 24,
+            "max": 59.0,
+            "mean": 13.208333333333334,
+            "median": 1.5,
+            "min": 0.0,
+            "p10": 0.0,
+            "p90": 47.4
+          },
+          "longest_common_prefix_tokens": {
+            "count": 24,
+            "max": 64.0,
+            "mean": 42.083333333333336,
+            "median": 55.5,
+            "min": 1.0,
+            "p10": 3.8000000000000016,
+            "p90": 64.0
+          }
+        }
+      },
+      "s2_vs_exact": {
+        "bytes_per_token_delta": {
+          "count": 24,
+          "max": -504483840.0,
+          "mean": -1733123616.0,
+          "median": -1792014336.0,
+          "min": -2311852032.0,
+          "p10": -2203908940.7999997,
+          "p90": -1404685900.8000002
+        },
+        "count": 24,
+        "decode_tok_s_delta_fraction": {
+          "count": 24,
+          "max": 0.14581435885387295,
+          "mean": 0.10271428761735936,
+          "median": 0.1049403420055125,
+          "min": 0.029577896555852634,
+          "p10": 0.07943620346760287,
+          "p90": 0.13362207132256693
+        },
+        "decode_tok_s_ratio": {
+          "count": 24,
+          "max": 1.145814358853873,
+          "mean": 1.1027142876173592,
+          "median": 1.1049403420055124,
+          "min": 1.0295778965558526,
+          "p10": 1.0794362034676028,
+          "p90": 1.1336220713225669
+        },
+        "direction_counts": {
+          "hit_better": 24,
+          "hit_equal": 0,
+          "hit_worse": 0,
+          "loads_equal": 0,
+          "loads_higher": 0,
+          "loads_lower": 24,
+          "tps_better": 24,
+          "tps_equal": 0,
+          "tps_worse": 0
+        },
+        "hit_ratio_delta": {
+          "count": 24,
+          "max": 0.08950407608695654,
+          "mean": 0.06709842405457428,
+          "median": 0.06937839673913049,
+          "min": 0.01953125,
+          "p10": 0.054382854959239155,
+          "p90": 0.08532502547554353
+        },
+        "loads_per_token_delta": {
+          "count": 24,
+          "max": -28.75,
+          "mean": -98.76888020833333,
+          "median": -102.125,
+          "min": -131.75,
+          "p10": -125.5984375,
+          "p90": -80.0515625
+        },
+        "trajectory": {
+          "aligned_equal_fraction": {
+            "count": 24,
+            "max": 1.0,
+            "mean": 0.6276041666666666,
+            "median": 0.734375,
+            "min": 0.046875,
+            "p10": 0.10312500000000001,
+            "p90": 1.0
+          },
+          "authority": "trajectory feedback only; not semantic-quality evidence",
+          "hash_equal_count": 8,
+          "levenshtein_edit_distance": {
+            "count": 24,
+            "max": 57.0,
+            "mean": 15.666666666666666,
+            "median": 4.0,
+            "min": 0.0,
+            "p10": 0.0,
+            "p90": 49.4
+          },
+          "longest_common_prefix_tokens": {
+            "count": 24,
+            "max": 64.0,
+            "mean": 37.25,
+            "median": 40.0,
+            "min": 1.0,
+            "p10": 5.0,
+            "p90": 64.0
+          }
+        }
+      },
+      "s2_vs_knee": {
+        "bytes_per_token_delta": {
+          "count": 24,
+          "max": -65528064.0,
+          "mean": -978545568.0,
+          "median": -1040909184.0,
+          "min": -1525789440.0,
+          "p10": -1297976601.6,
+          "p90": -626738918.4000001
+        },
+        "count": 24,
+        "decode_tok_s_delta_fraction": {
+          "count": 24,
+          "max": 0.09749509981756166,
+          "mean": 0.05971711013548267,
+          "median": 0.06224723079451133,
+          "min": 0.004444539514948165,
+          "p10": 0.041961757252613995,
+          "p90": 0.07847990145320448
+        },
+        "decode_tok_s_ratio": {
+          "count": 24,
+          "max": 1.0974950998175617,
+          "mean": 1.0597171101354828,
+          "median": 1.0622472307945112,
+          "min": 1.0044445395149482,
+          "p10": 1.041961757252614,
+          "p90": 1.0784799014532045
+        },
+        "direction_counts": {
+          "hit_better": 24,
+          "hit_equal": 0,
+          "hit_worse": 0,
+          "loads_equal": 0,
+          "loads_higher": 0,
+          "loads_lower": 24,
+          "tps_better": 24,
+          "tps_equal": 0,
+          "tps_worse": 0
+        },
+        "hit_ratio_delta": {
+          "count": 24,
+          "max": 0.059071416440217406,
+          "mean": 0.03788469839787139,
+          "median": 0.04029912533967389,
+          "min": 0.002536939538043459,
+          "p10": 0.024264393682065222,
+          "p90": 0.05025157099184785
+        },
+        "loads_per_token_delta": {
+          "count": 24,
+          "max": -3.734375,
+          "mean": -55.766276041666664,
+          "median": -59.3203125,
+          "min": -86.953125,
+          "p10": -73.9703125,
+          "p90": -35.71718750000001
+        },
+        "trajectory": {
+          "aligned_equal_fraction": {
+            "count": 24,
+            "max": 1.0,
+            "mean": 0.6666666666666666,
+            "median": 0.8828125,
+            "min": 0.015625,
+            "p10": 0.10312500000000001,
+            "p90": 1.0
+          },
+          "authority": "trajectory feedback only; not semantic-quality evidence",
+          "hash_equal_count": 11,
+          "levenshtein_edit_distance": {
+            "count": 24,
+            "max": 59.0,
+            "mean": 14.083333333333334,
+            "median": 2.0,
+            "min": 0.0,
+            "p10": 0.0,
+            "p90": 49.8
+          },
+          "longest_common_prefix_tokens": {
+            "count": 24,
+            "max": 64.0,
+            "mean": 42.541666666666664,
+            "median": 56.5,
+            "min": 1.0,
+            "p10": 5.9,
+            "p90": 64.0
+          }
+        }
+      }
+    },
+    "physical_replay_anchor_validation": {
+      "authoritative_larger_capacity_curve": true,
+      "authority": "Stage-C physical EXACT validates the semantic-order replay at the frozen 7,849-slot anchor; larger-capacity replay remains offline evidence, not TPS.",
+      "capacity_bytes": 137728475136,
+      "capacity_slots": 7849,
+      "exact_match_count": 16,
+      "mismatches": [],
+      "replacement_policy": "production-equivalent global whole-ExpertKey LRU/ALWAYS",
+      "representative_count": 16,
+      "rows": [
+        {
+          "case_id": "01-math-b1",
+          "matches": true,
+          "measured_exact": {
+            "backing_bytes": 664374509568,
+            "bytes_per_token": 10380851712.0,
+            "hit_ratio": 0.5981020720108695,
+            "hits": 56346,
+            "loads_per_token": 591.59375,
+            "misses": 37862
+          },
+          "measured_minus_replay": {
+            "backing_bytes": 0,
+            "bytes_per_token": 0.0,
+            "hit_ratio": 0.0,
+            "hits": 0,
+            "loads_per_token": 0.0,
+            "misses": 0
+          },
+          "replay_decode": {
+            "backing_bytes": 664374509568,
+            "bytes_per_token": 10380851712.0,
+            "hit_ratio": 0.5981020720108695,
+            "hits": 56346,
+            "loads_per_token": 591.59375,
+            "misses": 37862
+          }
+        },
+        {
+          "case_id": "02-formal-b3",
+          "matches": true,
+          "measured_exact": {
+            "backing_bytes": 688273883136,
+            "bytes_per_token": 10754279424.0,
+            "hit_ratio": 0.5836447010869565,
+            "hits": 54984,
+            "loads_per_token": 612.875,
+            "misses": 39224
+          },
+          "measured_minus_replay": {
+            "backing_bytes": 0,
+            "bytes_per_token": 0.0,
+            "hit_ratio": 0.0,
+            "hits": 0,
+            "loads_per_token": 0.0,
+            "misses": 0
+          },
+          "replay_decode": {
+            "backing_bytes": 688273883136,
+            "bytes_per_token": 10754279424.0,
+            "hit_ratio": 0.5836447010869565,
+            "hits": 54984,
+            "loads_per_token": 612.875,
+            "misses": 39224
+          }
+        },
+        {
+          "case_id": "03-science-b3",
+          "matches": true,
+          "measured_exact": {
+            "backing_bytes": 724614266880,
+            "bytes_per_token": 11322097920.0,
+            "hit_ratio": 0.561661430027174,
+            "hits": 52913,
+            "loads_per_token": 645.234375,
+            "misses": 41295
+          },
+          "measured_minus_replay": {
+            "backing_bytes": 0,
+            "bytes_per_token": 0.0,
+            "hit_ratio": 0.0,
+            "hits": 0,
+            "loads_per_token": 0.0,
+            "misses": 0
+          },
+          "replay_decode": {
+            "backing_bytes": 724614266880,
+            "bytes_per_token": 11322097920.0,
+            "hit_ratio": 0.561661430027174,
+            "hits": 52913,
+            "loads_per_token": 645.234375,
+            "misses": 41295
+          }
+        },
+        {
+          "case_id": "04-factual-b2",
+          "matches": true,
+          "measured_exact": {
+            "backing_bytes": 728334286848,
+            "bytes_per_token": 11380223232.0,
+            "hit_ratio": 0.5594110903532609,
+            "hits": 52701,
+            "loads_per_token": 648.546875,
+            "misses": 41507
+          },
+          "measured_minus_replay": {
+            "backing_bytes": 0,
+            "bytes_per_token": 0.0,
+            "hit_ratio": 0.0,
+            "hits": 0,
+            "loads_per_token": 0.0,
+            "misses": 0
+          },
+          "replay_decode": {
+            "backing_bytes": 728334286848,
+            "bytes_per_token": 11380223232.0,
+            "hit_ratio": 0.5594110903532609,
+            "hits": 52701,
+            "loads_per_token": 648.546875,
+            "misses": 41507
+          }
+        },
+        {
+          "case_id": "05-codegen-b5",
+          "matches": true,
+          "measured_exact": {
+            "backing_bytes": 726772580352,
+            "bytes_per_token": 11355821568.0,
+            "hit_ratio": 0.5603558084239131,
+            "hits": 52790,
+            "loads_per_token": 647.15625,
+            "misses": 41418
+          },
+          "measured_minus_replay": {
+            "backing_bytes": 0,
+            "bytes_per_token": 0.0,
+            "hit_ratio": 0.0,
+            "hits": 0,
+            "loads_per_token": 0.0,
+            "misses": 0
+          },
+          "replay_decode": {
+            "backing_bytes": 726772580352,
+            "bytes_per_token": 11355821568.0,
+            "hit_ratio": 0.5603558084239131,
+            "hits": 52790,
+            "loads_per_token": 647.15625,
+            "misses": 41418
+          }
+        },
+        {
+          "case_id": "06-debug-b4",
+          "matches": true,
+          "measured_exact": {
+            "backing_bytes": 622664663040,
+            "bytes_per_token": 9729135360.0,
+            "hit_ratio": 0.6233334748641305,
+            "hits": 58723,
+            "loads_per_token": 554.453125,
+            "misses": 35485
+          },
+          "measured_minus_replay": {
+            "backing_bytes": 0,
+            "bytes_per_token": 0.0,
+            "hit_ratio": 0.0,
+            "hits": 0,
+            "loads_per_token": 0.0,
+            "misses": 0
+          },
+          "replay_decode": {
+            "backing_bytes": 622664663040,
+            "bytes_per_token": 9729135360.0,
+            "hit_ratio": 0.6233334748641305,
+            "hits": 58723,
+            "loads_per_token": 554.453125,
+            "misses": 35485
+          }
+        },
+        {
+          "case_id": "07-algorithms-b2",
+          "matches": true,
+          "measured_exact": {
+            "backing_bytes": 709979848704,
+            "bytes_per_token": 11093435136.0,
+            "hit_ratio": 0.5705141813858695,
+            "hits": 53747,
+            "loads_per_token": 632.203125,
+            "misses": 40461
+          },
+          "measured_minus_replay": {
+            "backing_bytes": 0,
+            "bytes_per_token": 0.0,
+            "hit_ratio": 0.0,
+            "hits": 0,
+            "loads_per_token": 0.0,
+            "misses": 0
+          },
+          "replay_decode": {
+            "backing_bytes": 709979848704,
+            "bytes_per_token": 11093435136.0,
+            "hit_ratio": 0.5705141813858695,
+            "hits": 53747,
+            "loads_per_token": 632.203125,
+            "misses": 40461
+          }
+        },
+        {
+          "case_id": "08-summary-b2",
+          "matches": true,
+          "measured_exact": {
+            "backing_bytes": 766850531328,
+            "bytes_per_token": 11982039552.0,
+            "hit_ratio": 0.5361115828804348,
+            "hits": 50506,
+            "loads_per_token": 682.84375,
+            "misses": 43702
+          },
+          "measured_minus_replay": {
+            "backing_bytes": 0,
+            "bytes_per_token": 0.0,
+            "hit_ratio": 0.0,
+            "hits": 0,
+            "loads_per_token": 0.0,
+            "misses": 0
+          },
+          "replay_decode": {
+            "backing_bytes": 766850531328,
+            "bytes_per_token": 11982039552.0,
+            "hit_ratio": 0.5361115828804348,
+            "hits": 50506,
+            "loads_per_token": 682.84375,
+            "misses": 43702
+          }
+        },
+        {
+          "case_id": "09-extract-b8",
+          "matches": true,
+          "measured_exact": {
+            "backing_bytes": 708962107392,
+            "bytes_per_token": 11077532928.0,
+            "hit_ratio": 0.5711298403532609,
+            "hits": 53805,
+            "loads_per_token": 631.296875,
+            "misses": 40403
+          },
+          "measured_minus_replay": {
+            "backing_bytes": 0,
+            "bytes_per_token": 0.0,
+            "hit_ratio": 0.0,
+            "hits": 0,
+            "loads_per_token": 0.0,
+            "misses": 0
+          },
+          "replay_decode": {
+            "backing_bytes": 708962107392,
+            "bytes_per_token": 11077532928.0,
+            "hit_ratio": 0.5711298403532609,
+            "hits": 53805,
+            "loads_per_token": 631.296875,
+            "misses": 40403
+          }
+        },
+        {
+          "case_id": "10-planning-b4",
+          "matches": true,
+          "measured_exact": {
+            "backing_bytes": 744021540864,
+            "bytes_per_token": 11625336576.0,
+            "hit_ratio": 0.5499214504076086,
+            "hits": 51807,
+            "loads_per_token": 662.515625,
+            "misses": 42401
+          },
+          "measured_minus_replay": {
+            "backing_bytes": 0,
+            "bytes_per_token": 0.0,
+            "hit_ratio": 0.0,
+            "hits": 0,
+            "loads_per_token": 0.0,
+            "misses": 0
+          },
+          "replay_decode": {
+            "backing_bytes": 744021540864,
+            "bytes_per_token": 11625336576.0,
+            "hit_ratio": 0.5499214504076086,
+            "hits": 51807,
+            "loads_per_token": 662.515625,
+            "misses": 42401
+          }
+        },
+        {
+          "case_id": "11-instructions-b1",
+          "matches": true,
+          "measured_exact": {
+            "backing_bytes": 747267784704,
+            "bytes_per_token": 11676059136.0,
+            "hit_ratio": 0.547957710597826,
+            "hits": 51622,
+            "loads_per_token": 665.40625,
+            "misses": 42586
+          },
+          "measured_minus_replay": {
+            "backing_bytes": 0,
+            "bytes_per_token": 0.0,
+            "hit_ratio": 0.0,
+            "hits": 0,
+            "loads_per_token": 0.0,
+            "misses": 0
+          },
+          "replay_decode": {
+            "backing_bytes": 747267784704,
+            "bytes_per_token": 11676059136.0,
+            "hit_ratio": 0.547957710597826,
+            "hits": 51622,
+            "loads_per_token": 665.40625,
+            "misses": 42586
+          }
+        },
+        {
+          "case_id": "12-compare-b1",
+          "matches": true,
+          "measured_exact": {
+            "backing_bytes": 738441510912,
+            "bytes_per_token": 11538148608.0,
+            "hit_ratio": 0.5532969599184783,
+            "hits": 52125,
+            "loads_per_token": 657.546875,
+            "misses": 42083
+          },
+          "measured_minus_replay": {
+            "backing_bytes": 0,
+            "bytes_per_token": 0.0,
+            "hit_ratio": 0.0,
+            "hits": 0,
+            "loads_per_token": 0.0,
+            "misses": 0
+          },
+          "replay_decode": {
+            "backing_bytes": 738441510912,
+            "bytes_per_token": 11538148608.0,
+            "hit_ratio": 0.5532969599184783,
+            "hits": 52125,
+            "loads_per_token": 657.546875,
+            "misses": 42083
+          }
+        },
+        {
+          "case_id": "13-creative-b3",
+          "matches": true,
+          "measured_exact": {
+            "backing_bytes": 739564535808,
+            "bytes_per_token": 11555695872.0,
+            "hit_ratio": 0.5526176120923914,
+            "hits": 52061,
+            "loads_per_token": 658.546875,
+            "misses": 42147
+          },
+          "measured_minus_replay": {
+            "backing_bytes": 0,
+            "bytes_per_token": 0.0,
+            "hit_ratio": 0.0,
+            "hits": 0,
+            "loads_per_token": 0.0,
+            "misses": 0
+          },
+          "replay_decode": {
+            "backing_bytes": 739564535808,
+            "bytes_per_token": 11555695872.0,
+            "hit_ratio": 0.5526176120923914,
+            "hits": 52061,
+            "loads_per_token": 658.546875,
+            "misses": 42147
+          }
+        },
+        {
+          "case_id": "14-qa-b2",
+          "matches": true,
+          "measured_exact": {
+            "backing_bytes": 777852665856,
+            "bytes_per_token": 12153947904.0,
+            "hit_ratio": 0.5294560971467391,
+            "hits": 49879,
+            "loads_per_token": 692.640625,
+            "misses": 44329
+          },
+          "measured_minus_replay": {
+            "backing_bytes": 0,
+            "bytes_per_token": 0.0,
+            "hit_ratio": 0.0,
+            "hits": 0,
+            "loads_per_token": 0.0,
+            "misses": 0
+          },
+          "replay_decode": {
+            "backing_bytes": 777852665856,
+            "bytes_per_token": 12153947904.0,
+            "hit_ratio": 0.5294560971467391,
+            "hits": 49879,
+            "loads_per_token": 692.640625,
+            "misses": 44329
+          }
+        },
+        {
+          "case_id": "15-spanish-b2",
+          "matches": true,
+          "measured_exact": {
+            "backing_bytes": 690993709056,
+            "bytes_per_token": 10796776704.0,
+            "hit_ratio": 0.5819994055706522,
+            "hits": 54829,
+            "loads_per_token": 615.296875,
+            "misses": 39379
+          },
+          "measured_minus_replay": {
+            "backing_bytes": 0,
+            "bytes_per_token": 0.0,
+            "hit_ratio": 0.0,
+            "hits": 0,
+            "loads_per_token": 0.0,
+            "misses": 0
+          },
+          "replay_decode": {
+            "backing_bytes": 690993709056,
+            "bytes_per_token": 10796776704.0,
+            "hit_ratio": 0.5819994055706522,
+            "hits": 54829,
+            "loads_per_token": 615.296875,
+            "misses": 39379
+          }
+        },
+        {
+          "case_id": "16-multi-b2",
+          "matches": true,
+          "measured_exact": {
+            "backing_bytes": 721543495680,
+            "bytes_per_token": 11274117120.0,
+            "hit_ratio": 0.5635190217391305,
+            "hits": 53088,
+            "loads_per_token": 642.5,
+            "misses": 41120
+          },
+          "measured_minus_replay": {
+            "backing_bytes": 0,
+            "bytes_per_token": 0.0,
+            "hit_ratio": 0.0,
+            "hits": 0,
+            "loads_per_token": 0.0,
+            "misses": 0
+          },
+          "replay_decode": {
+            "backing_bytes": 721543495680,
+            "bytes_per_token": 11274117120.0,
+            "hit_ratio": 0.5635190217391305,
+            "hits": 53088,
+            "loads_per_token": 642.5,
+            "misses": 41120
+          }
+        }
+      ],
+      "status": "PASS"
+    },
+    "regimes": {
+      "absolute_s2_locality_counts": {
+        "HIGH_S2_CREATED_FROM_BELOW_MEDIAN_EXACT": 1,
+        "HIGH_S2_INHERITED_FROM_CACHEABLE_EXACT_AND_AUGMENTED": 11,
+        "S2_GAIN_WITH_BELOW_COHORT_MEDIAN_ABSOLUTE_LOCALITY": 12
+      },
+      "s2_vs_knee_counts": {
+        "S2_MATERIAL_GAIN_VS_KNEE": 23,
+        "S2_NEAR_NEUTRAL_GAIN_VS_KNEE": 1
+      }
+    },
+    "trajectory_authority": "generated-ID prefix/alignment/edit/hash evidence is trajectory feedback only"
+  },
+  "status": "pass"
+}
