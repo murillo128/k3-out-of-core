@@ -35,7 +35,7 @@ class Issue105ReleaseReproductionTests(unittest.TestCase):
                 validate_member_paths(archive)
 
     def test_archive_root_is_fixed(self) -> None:
-        self.assertEqual(ARCHIVE_ROOT, "issue105-curated-analysis-v2")
+        self.assertEqual(ARCHIVE_ROOT, "issue105-curated-analysis-v3")
         self.assertTrue(issubclass(ReproductionError, ValueError))
 
 
