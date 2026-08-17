@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://k3.local/schemas/issue99/output-cache-allowlist-v1.schema.json",
+  "title": "Issue 99 targeted output-cache advice allowlist",
+  "type": "object",
+  "required": ["schema_version", "events"],
+  "properties": {
+    "schema_version": {"const": "issue99-output-cache-allowlist-v1"},
+    "events": {"type": "array", "items": {"type": "object", "required": ["canonical_path", "device", "inode", "size_bytes", "sha256", "role", "why_not_next_k3_input", "resident_bytes_before", "resident_bytes_after", "advice"]}}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://k3.local/schemas/issue99/pair-summary-v1.schema.json",
+  "title": "Issue 99 paired scalarization summary",
+  "type": "object",
+  "required": ["schema_version", "status", "pair_id", "identity", "rows", "outputs", "direct_fixed_context", "terminal"],
+  "properties": {
+    "schema_version": {"const": "issue99-pair-summary-v1"},
+    "status": {"const": "pass"},
+    "rows": {"type": "object", "required": ["tokens", "layers", "routes", "events"]},
+    "outputs": {"type": "object"}
+  },
+  "additionalProperties": true
+}
