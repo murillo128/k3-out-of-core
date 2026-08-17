@@ -19,8 +19,11 @@ from protocol import (
     ISSUE105_RELEASE, ISSUE105_RELEASE_SHA256, ISSUE105_ROOT, ISSUE105_TARGET,
     LOW_BRIDGE_CACHE_BYTES, LOW_BRIDGE_CACHE_SLOTS, MODEL_MANIFEST_SHA256,
     MODEL_PATH, MODEL_SOURCE, N_CTX, NESTED_BASELINE, POLICIES, PROFILE,
-    PROJECT_BASELINE, ROUTED_LAYERS, SELECTED_EXPERTS, TARGET_CACHE_BYTES,
-    TARGET_CACHE_SLOTS, THREADS, atomic_json, expected_cell_count, file_identity,
+    PROJECT_BASELINE, QUALITY_MAX_ACTIVE_OUTPUT_BYTES, QUALITY_MAX_ROUTE_BYTES,
+    QUALITY_MAX_TRACE_BYTES, QUALITY_OUTPUT_RESIDENCY_RESERVE_BYTES,
+    QUALITY_OUTPUT_RESIDENCY_RESERVE_SLOTS, ROUTED_LAYERS, SELECTED_EXPERTS,
+    TARGET_CACHE_BYTES, TARGET_CACHE_SLOTS, THREADS, atomic_json,
+    expected_cell_count, file_identity,
 )
 
 
@@ -39,6 +42,7 @@ SOURCE_FILES = (
     "scripts/issue99/analyze_pair.py",
     "scripts/issue99/run_campaign.py",
     "scripts/issue99/qualify_instrumentation.py",
+    "scripts/issue99/qualify_long_horizon_capacity.py",
     "scripts/issue99/sample_quality_capacity.py",
     "scripts/issue99/analyze_campaign.py",
     "scripts/issue99/reproduce_release.py",
@@ -99,9 +103,12 @@ def validate_qualification(root: Path, quality_root: Path, low_root: Path) -> di
         raise ValueError("quality-helper AUTO qualification did not produce three clean admissions")
     slots = [int(row["selected_slots"]) for row in auto]
     minimum_auto_slots = min(slots)
-    if minimum_auto_slots <= CAPACITY_STABILITY_RESERVE_SLOTS:
-        raise ValueError("AUTO capacity cannot cover the preregistered stability reserve")
-    resolved_slots = minimum_auto_slots - CAPACITY_STABILITY_RESERVE_SLOTS
+    total_reserve_slots = CAPACITY_STABILITY_RESERVE_SLOTS + QUALITY_OUTPUT_RESIDENCY_RESERVE_SLOTS
+    if QUALITY_MAX_ACTIVE_OUTPUT_BYTES > QUALITY_OUTPUT_RESIDENCY_RESERVE_BYTES:
+        raise ValueError("active output bound exceeds its registered residency reserve")
+    if minimum_auto_slots <= total_reserve_slots:
+        raise ValueError("AUTO capacity cannot cover the preregistered stability/output reserves")
+    resolved_slots = minimum_auto_slots - total_reserve_slots
     if resolved_slots < LOW_BRIDGE_CACHE_SLOTS:
         raise ValueError("resolved capacity is below the fail-closed floor")
     if any(int(row["selected_bytes"]) != slots[index] * EXPERT_BUNDLE_BYTES
@@ -134,6 +141,12 @@ def validate_qualification(root: Path, quality_root: Path, low_root: Path) -> di
         "minimum_auto_slots_before_stability_reserve": minimum_auto_slots,
         "stability_reserve_slots": CAPACITY_STABILITY_RESERVE_SLOTS,
         "stability_reserve_basis": "one additional >=1-GiB whole-expert reserve after the instantaneous AUTO ceiling failed the next fresh explicit admission",
+        "active_output_residency_reserve_bytes": QUALITY_OUTPUT_RESIDENCY_RESERVE_BYTES,
+        "active_output_residency_reserve_slots": QUALITY_OUTPUT_RESIDENCY_RESERVE_SLOTS,
+        "active_output_residency_reserve_basis": "format-derived worst-1024-token trace and conservative 4-KiB-per-route-record bound, rounded up to a separate 6-GiB reserve after a 492-token exact capture crossed the runtime cgroup guard",
+        "maximum_active_quality_trace_bytes": QUALITY_MAX_TRACE_BYTES,
+        "maximum_active_route_stream_bytes": QUALITY_MAX_ROUTE_BYTES,
+        "maximum_active_output_bytes": QUALITY_MAX_ACTIVE_OUTPUT_BYTES,
         "issue99_cache_slots": resolved_slots,
         "issue99_cache_bytes": resolved_slots * EXPERT_BUNDLE_BYTES,
         "capacity_relation": "LOWER_DUE_TO_CONTEXT_BUDGET",

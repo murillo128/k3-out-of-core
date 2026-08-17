@@ -20,8 +20,9 @@ from analyze_pair import (  # noqa: E402
 )
 from analyze_pair import Record as TraceRecord  # noqa: E402
 from protocol import (  # noqa: E402
-    BROAD_CASES, BRIDGE_CASES, LOW_BRIDGE_CACHE_BYTES, expected_cell_count,
-    reference_identity,
+    BROAD_CASES, BRIDGE_CASES, EXPERT_BUNDLE_BYTES, LOW_BRIDGE_CACHE_BYTES,
+    QUALITY_MAX_ACTIVE_OUTPUT_BYTES, QUALITY_OUTPUT_RESIDENCY_RESERVE_BYTES,
+    QUALITY_OUTPUT_RESIDENCY_RESERVE_SLOTS, expected_cell_count, reference_identity,
 )
 from run_campaign import (  # noqa: E402
     CampaignError, reference_sequence_arguments, reference_sequence_path,
@@ -84,6 +85,13 @@ def trace_records(horizon: int, accepted_token: int = 1) -> list[tuple[int, int,
 
 
 class Issue99ToolTests(unittest.TestCase):
+    def test_long_horizon_output_reserve_covers_format_bound(self):
+        self.assertLessEqual(QUALITY_MAX_ACTIVE_OUTPUT_BYTES,
+                             QUALITY_OUTPUT_RESIDENCY_RESERVE_BYTES)
+        self.assertGreaterEqual(QUALITY_OUTPUT_RESIDENCY_RESERVE_SLOTS * EXPERT_BUNDLE_BYTES,
+                                QUALITY_OUTPUT_RESIDENCY_RESERVE_BYTES)
+        self.assertEqual(QUALITY_OUTPUT_RESIDENCY_RESERVE_SLOTS, 368)
+
     def test_command_construction_respects_reference_sequence_contract(self):
         cases = (
             ({"cohort": "bridge", "case_id": "case", "policy": "EXACT",
