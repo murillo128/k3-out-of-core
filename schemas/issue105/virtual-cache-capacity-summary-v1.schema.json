@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/issue105/virtual-cache-capacity-summary-v1.schema.json",
+  "$defs": {
+    "distribution": {
+      "additionalProperties": false,
+      "properties": {
+        "count": {"minimum": 0, "type": "integer"},
+        "max": {"type": "number"},
+        "mean": {"type": "number"},
+        "median": {"type": "number"},
+        "min": {"type": "number"},
+        "p10": {"type": "number"},
+        "p90": {"type": "number"}
+      },
+      "required": ["count", "min", "max", "mean", "median", "p10", "p90"],
+      "type": "object"
+    },
+    "intervalEndpoints": {
+      "additionalProperties": false,
+      "properties": {
+        "lower_endpoints": {"$ref": "#/$defs/distribution"},
+        "upper_endpoints": {"$ref": "#/$defs/distribution"}
+      },
+      "required": ["lower_endpoints", "upper_endpoints"],
+      "type": "object"
+    },
+    "metricIntervals": {
+      "additionalProperties": false,
+      "properties": {
+        "counterfactual_capacity_amplification": {"$ref": "#/$defs/intervalEndpoints"},
+        "counterfactual_memory_saving": {"$ref": "#/$defs/intervalEndpoints"},
+        "physical_capacity_amplification": {"$ref": "#/$defs/intervalEndpoints"},
+        "physical_memory_saving": {"$ref": "#/$defs/intervalEndpoints"}
+      },
+      "required": ["physical_capacity_amplification", "physical_memory_saving", "counterfactual_capacity_amplification", "counterfactual_memory_saving"],
+      "type": "object"
+    },
+    "derivedIntervals": {
+      "additionalProperties": false,
+      "properties": {
+        "hit": {"$ref": "#/$defs/metricIntervals"},
+        "load": {"$ref": "#/$defs/metricIntervals"}
+      },
+      "required": ["hit", "load"],
+      "type": "object"
+    },
+    "statusCounts": {
+      "additionalProperties": {"minimum": 0, "type": "integer"},
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "derived_interval_distributions": {"$ref": "#/$defs/derivedIntervals"},
+    "endpoint_sensitivity": {
+      "additionalProperties": false,
+      "properties": {
+        "b1_count": {"const": 16},
+        "b8_count": {"const": 16},
+        "derived_interval_distributions": {"$ref": "#/$defs/derivedIntervals"},
+        "representative_overlap_count": {"const": 4},
+        "row_count": {"const": 32}
+      },
+      "required": ["row_count", "b1_count", "b8_count", "representative_overlap_count", "derived_interval_distributions"],
+      "type": "object"
+    },
+    "family_heterogeneity": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "derived_interval_distributions": {"$ref": "#/$defs/derivedIntervals"},
+          "row_count": {"minimum": 1, "type": "integer"},
+          "semantic_family": {"type": "string"},
+          "status_counts": {"$ref": "#/$defs/statusCounts"}
+        },
+        "required": ["semantic_family", "row_count", "status_counts", "derived_interval_distributions"],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "hit_load_disagreement_count": {"minimum": 0, "type": "integer"},
+    "interpretation": {"type": "string"},
+    "no_extrapolation": {"const": true},
+    "post_hoc_exploratory": {"const": true},
+    "row_count": {"const": 44},
+    "schema_version": {"const": "issue105-virtual-cache-capacity-summary-v1"},
+    "status": {"const": "PASS"},
+    "status_counts": {"$ref": "#/$defs/statusCounts"},
+    "validation_stratum_counts": {"$ref": "#/$defs/statusCounts"}
+  },
+  "required": ["schema_version", "status", "row_count", "status_counts", "hit_load_disagreement_count", "validation_stratum_counts", "derived_interval_distributions", "family_heterogeneity", "endpoint_sensitivity", "interpretation", "no_extrapolation", "post_hoc_exploratory"],
+  "title": "Issue 105 virtual cache capacity summary",
+  "type": "object"
+}

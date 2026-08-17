@@ -1,0 +1,129 @@
+{
+  "canonical_row_order": [
+    "case_id",
+    "phase",
+    "policy_result_class",
+    "gamma",
+    "capacity_slots"
+  ],
+  "fields": [
+    {
+      "name": "case_id",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "semantic_family",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "length_level",
+      "nullable": true,
+      "type": "int64"
+    },
+    {
+      "name": "selection_role",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "phase",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "capacity_label",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "capacity_slots",
+      "nullable": false,
+      "type": "int64"
+    },
+    {
+      "name": "capacity_bytes",
+      "nullable": false,
+      "type": "int64"
+    },
+    {
+      "name": "policy_result_class",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "gamma",
+      "nullable": true,
+      "type": "float64"
+    },
+    {
+      "name": "status",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "hit_ratio",
+      "nullable": true,
+      "type": "float64"
+    },
+    {
+      "name": "loads_per_token",
+      "nullable": true,
+      "type": "float64"
+    },
+    {
+      "name": "bytes_per_token",
+      "nullable": true,
+      "type": "float64"
+    },
+    {
+      "name": "physical_anchor",
+      "nullable": false,
+      "type": "bool"
+    },
+    {
+      "name": "validation_stratum",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "source_sha256",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "derivation_id",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "analysis_code_version",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "source_evidence_class",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "derived_evidence_class",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "protocol",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "authority_scope",
+      "nullable": false,
+      "type": "string"
+    }
+  ],
+  "format": "Parquet 2.6 + Zstd",
+  "logical_hash": "SHA-256 over sorted-key compact UTF-8 JSON for each row plus LF",
+  "schema_version": "issue105-capacity-curves-v1"
+}

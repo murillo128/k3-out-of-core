@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/issue105/release-archive-index-v1.schema.json",
+  "additionalProperties": true,
+  "properties": {
+    "archive": {
+      "additionalProperties": true,
+      "properties": {
+        "bytes": {"minimum": 1, "type": "integer"},
+        "member_count": {"minimum": 1, "type": "integer"},
+        "name": {"const": "issue105-curated-analysis-v1.tar.zst"},
+        "sha256": {"pattern": "^[0-9a-f]{64}$", "type": "string"}
+      },
+      "required": ["name", "bytes", "sha256", "member_count"],
+      "type": "object"
+    },
+    "members": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "archive_path": {"pattern": "^issue105-curated-analysis-v1/", "type": "string"},
+          "bytes": {"minimum": 0, "type": "integer"},
+          "role": {"type": "string"},
+          "sha256": {"pattern": "^[0-9a-f]{64}$", "type": "string"}
+        },
+        "required": ["archive_path", "bytes", "sha256", "role"],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "schema_version": {"const": "issue105-release-archive-index-v1"},
+    "status": {"const": "PASS"},
+    "targets": {
+      "properties": {
+        "analysis_code_commit": {"pattern": "^[0-9a-f]{40}$", "type": "string"},
+        "archive_content_project_commit": {"pattern": "^[0-9a-f]{40}$", "type": "string"},
+        "nested_llama_cpp_commit": {"pattern": "^[0-9a-f]{40}$", "type": "string"}
+      },
+      "required": ["analysis_code_commit", "archive_content_project_commit", "nested_llama_cpp_commit"],
+      "type": "object"
+    },
+    "verification": {
+      "properties": {
+        "fresh_checkout_regeneration_required": {"const": true},
+        "requires_k3_model_or_original_host": {"const": false},
+        "status": {"const": "PASS"}
+      },
+      "required": ["status", "fresh_checkout_regeneration_required", "requires_k3_model_or_original_host"],
+      "type": "object"
+    }
+  },
+  "required": ["schema_version", "status", "archive", "targets", "verification", "members"],
+  "title": "Issue 105 release archive index",
+  "type": "object"
+}

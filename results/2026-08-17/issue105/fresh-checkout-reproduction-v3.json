@@ -1,0 +1,34 @@
+{
+  "checkout": {
+    "detached": true,
+    "nested_llama_cpp_commit": "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9",
+    "project_commit": "b75c8cf6cffa4c611d5fd2355db98ee8baee5c0f",
+    "tracked_worktree_clean": true
+  },
+  "focused_tests": {
+    "command": "python -m unittest discover -s tests/issue105 -p test_*.py",
+    "output_tail": [
+      "----------------------------------------------------------------------",
+      "Ran 38 tests in 0.037s",
+      "",
+      "OK"
+    ],
+    "status": "PASS"
+  },
+  "regeneration": {
+    "analysis_code_version": "76e0c3d578c4dba56e91d15ad643d8740037788a",
+    "artifact_count": 44,
+    "byte_identical_to_checkout": true,
+    "byte_identical_to_packaged_analysis": true,
+    "requires_k3_model_or_original_host": false
+  },
+  "release_archive": {
+    "archive_index_sha256": "8b0df22c996ce7b2945a22026d71673e3216172274c081911a8fd247cfc85d58",
+    "bytes": 15031406,
+    "member_count": 96,
+    "name": "issue105-curated-analysis-v3.tar.zst",
+    "sha256": "e0fe96c2f4dd3d2cfc8ced16901949936ba3e72c79ebdd4eb412f371fe843fb3"
+  },
+  "schema_version": "issue105-fresh-checkout-reproduction-v3",
+  "status": "PASS"
+}

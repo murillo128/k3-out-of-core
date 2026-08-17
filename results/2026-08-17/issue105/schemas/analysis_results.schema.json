@@ -1,0 +1,75 @@
+{
+  "canonical_row_order": [
+    "result_id"
+  ],
+  "fields": [
+    {
+      "name": "result_id",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "analysis_family",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "metric",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "result_json",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "status",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "post_hoc_exploratory",
+      "nullable": false,
+      "type": "bool"
+    },
+    {
+      "name": "source_sha256",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "derivation_id",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "analysis_code_version",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "source_evidence_class",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "derived_evidence_class",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "protocol",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "authority_scope",
+      "nullable": false,
+      "type": "string"
+    }
+  ],
+  "format": "CSV/RFC4180 with LF records",
+  "logical_hash": "SHA-256 over sorted-key compact UTF-8 JSON for each row plus LF",
+  "schema_version": "issue105-analysis_results-v1"
+}

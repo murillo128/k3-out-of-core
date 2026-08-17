@@ -1,0 +1,92 @@
+{
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/issue105/hypothesis-registry-v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "hypotheses": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "appropriate_downstream_issue": {
+            "enum": [
+              "#99",
+              "#81"
+            ]
+          },
+          "cheapest_falsifying_experiment": {
+            "type": "string"
+          },
+          "id": {
+            "pattern": "^H105-0[1-8]$",
+            "type": "string"
+          },
+          "null_or_contrary_observations": {
+            "type": "string"
+          },
+          "post_hoc": {
+            "const": true
+          },
+          "predicted_measurable_consequence": {
+            "type": "string"
+          },
+          "source_provenance_sha256": {
+            "items": {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array"
+          },
+          "statement": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "supported",
+              "weak",
+              "contradicted",
+              "heterogeneous",
+              "inconclusive"
+            ]
+          },
+          "supporting_observations": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "statement",
+          "supporting_observations",
+          "null_or_contrary_observations",
+          "source_provenance_sha256",
+          "post_hoc",
+          "predicted_measurable_consequence",
+          "cheapest_falsifying_experiment",
+          "appropriate_downstream_issue",
+          "status"
+        ],
+        "type": "object"
+      },
+      "maxItems": 8,
+      "minItems": 8,
+      "type": "array"
+    },
+    "post_hoc_exploratory": {
+      "const": true
+    },
+    "schema_version": {
+      "const": "issue105-hypothesis-registry-v1"
+    },
+    "status": {
+      "const": "PASS"
+    }
+  },
+  "required": [
+    "schema_version",
+    "status",
+    "post_hoc_exploratory",
+    "hypotheses"
+  ],
+  "title": "Issue 105 hypothesis registry",
+  "type": "object"
+}

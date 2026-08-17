@@ -1,0 +1,95 @@
+{
+  "canonical_row_order": [
+    "policy"
+  ],
+  "fields": [
+    {
+      "name": "study",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "policy",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "replicates",
+      "nullable": false,
+      "type": "int64"
+    },
+    {
+      "name": "capacity_slots",
+      "nullable": false,
+      "type": "int64"
+    },
+    {
+      "name": "capacity_bytes",
+      "nullable": false,
+      "type": "int64"
+    },
+    {
+      "name": "decode_tok_s_median",
+      "nullable": false,
+      "type": "float64"
+    },
+    {
+      "name": "hit_ratio_median",
+      "nullable": false,
+      "type": "float64"
+    },
+    {
+      "name": "loads_per_token_median",
+      "nullable": false,
+      "type": "float64"
+    },
+    {
+      "name": "bytes_per_token_median",
+      "nullable": false,
+      "type": "float64"
+    },
+    {
+      "name": "context_only",
+      "nullable": false,
+      "type": "bool"
+    },
+    {
+      "name": "source_sha256",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "derivation_id",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "analysis_code_version",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "source_evidence_class",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "derived_evidence_class",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "protocol",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "authority_scope",
+      "nullable": false,
+      "type": "string"
+    }
+  ],
+  "format": "CSV/RFC4180 with LF records",
+  "logical_hash": "SHA-256 over sorted-key compact UTF-8 JSON for each row plus LF",
+  "schema_version": "issue105-legacy_physical_context-v1"
+}

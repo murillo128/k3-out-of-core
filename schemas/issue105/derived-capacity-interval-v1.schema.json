@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/issue105/derived-capacity-interval-v1.schema.json",
+  "$defs": {
+    "capacity": {
+      "additionalProperties": false,
+      "properties": {
+        "bytes": {"items": {"minimum": 1, "type": "integer"}, "maxItems": 2, "minItems": 2, "type": "array"},
+        "gib": {"items": {"exclusiveMinimum": 0, "type": "number"}, "maxItems": 2, "minItems": 2, "type": "array"},
+        "slots": {"items": {"minimum": 1, "type": "integer"}, "maxItems": 2, "minItems": 2, "type": "array"}
+      },
+      "required": ["slots", "bytes", "gib"],
+      "type": "object"
+    },
+    "interval": {
+      "items": {"type": "number"},
+      "maxItems": 2,
+      "minItems": 2,
+      "type": "array"
+    }
+  },
+  "oneOf": [
+    {
+      "additionalProperties": false,
+      "properties": {
+        "counterfactual_capacity_amplification": {"$ref": "#/$defs/interval"},
+        "counterfactual_memory_saving": {"$ref": "#/$defs/interval"},
+        "exact_capacity": {"$ref": "#/$defs/capacity"},
+        "interval_semantics": {"type": "string"},
+        "physical_capacity_amplification": {"$ref": "#/$defs/interval"},
+        "physical_memory_saving": {"$ref": "#/$defs/interval"},
+        "s2_counterfactual_capacity": {"$ref": "#/$defs/capacity"},
+        "status": {"const": "BRACKETED"}
+      },
+      "required": ["status", "exact_capacity", "s2_counterfactual_capacity", "physical_capacity_amplification", "physical_memory_saving", "counterfactual_capacity_amplification", "counterfactual_memory_saving", "interval_semantics"],
+      "type": "object"
+    },
+    {
+      "additionalProperties": false,
+      "properties": {
+        "reason": {"type": "string"},
+        "status": {"const": "INCONCLUSIVE"}
+      },
+      "required": ["status", "reason"],
+      "type": "object"
+    }
+  ],
+  "title": "Issue 105 derived capacity interval"
+}

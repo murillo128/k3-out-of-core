@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/issue105/secondary-analysis-v1.schema.json",
+  "additionalProperties": true,
+  "properties": {
+    "analysis_code_version": {"type": "string"},
+    "post_hoc_exploratory": {"const": true},
+    "projection_gate": {"enum": ["PASS", "FAIL"]},
+    "schema_version": {"const": "issue105-secondary-analysis-v1"},
+    "status": {"const": "PASS"}
+  },
+  "required": ["schema_version", "status", "post_hoc_exploratory", "analysis_code_version", "projection_gate"],
+  "title": "Issue 105 secondary analysis result",
+  "type": "object"
+}

@@ -1,0 +1,5081 @@
+{
+  "model_selection": {
+    "family_dummy_models_projection_eligible": false,
+    "primary_rmse_relative_difference": 1.565845267883016e-14,
+    "rule": "RMSE values differ by less than 5%; prefer loads_per_token",
+    "selected_model": "M2",
+    "selected_predictor": "loads_per_token"
+  },
+  "post_hoc_exploratory": true,
+  "primary": {
+    "lofo": {
+      "M1": {
+        "cluster_bootstrap": {
+          "interpretation": "sensitivity interval over the 16 constructed families",
+          "pooled_oof_r_squared_95_interval": [
+            0.9903916411770716,
+            0.9952167227097745
+          ],
+          "pooled_oof_rmse_95_interval": [
+            0.0008186517305316191,
+            0.0010240971848442164
+          ],
+          "replicates": 2000,
+          "seed": 105,
+          "unit": "semantic_family_cluster"
+        },
+        "family_residuals": [
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0009452812783726644,
+            "mean_signed_residual": -0.0006325620964200557,
+            "median_signed_residual": -0.0009470481777314743,
+            "semantic_family": "Spanish-language reasoning/explanation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0009284863241629596,
+            "mean_signed_residual": -3.975459628470512e-06,
+            "median_signed_residual": -0.00027912699259569074,
+            "semantic_family": "algorithms / data-structure reasoning"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0006868188606865833,
+            "mean_signed_residual": -0.0003373712254176736,
+            "median_signed_residual": -0.00033567730000491625,
+            "semantic_family": "analytical comparison / argumentation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0007961615074452977,
+            "mean_signed_residual": 0.0004778002548933291,
+            "median_signed_residual": 0.0005273107483612371,
+            "semantic_family": "code generation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0005366255458373881,
+            "mean_signed_residual": -2.3433529434388478e-05,
+            "median_signed_residual": 4.0039581956335946e-05,
+            "semantic_family": "conversational / direct QA"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0004735207485387638,
+            "mean_signed_residual": -0.00041116785172298775,
+            "median_signed_residual": -0.0005101329156178558,
+            "semantic_family": "creative / language generation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0005011228570358378,
+            "mean_signed_residual": 7.436957915565867e-05,
+            "median_signed_residual": -6.721196249234729e-05,
+            "semantic_family": "debugging / code review"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0006920188308523201,
+            "mean_signed_residual": 0.00029960379049391583,
+            "median_signed_residual": 0.00016933097988050538,
+            "semantic_family": "factual / explanatory knowledge"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0010121123532405851,
+            "mean_signed_residual": -0.00027818945193749944,
+            "median_signed_residual": -0.000503826016169634,
+            "semantic_family": "formal logic / proof-style reasoning"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0010284482546181958,
+            "mean_signed_residual": 0.0006325093343312951,
+            "median_signed_residual": 0.0007834915407468335,
+            "semantic_family": "mathematical reasoning"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0004149661254025175,
+            "mean_signed_residual": 0.0003697667287077891,
+            "median_signed_residual": 0.0002989385064294525,
+            "semantic_family": "multi-step instruction following / structured response"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0008328659621210308,
+            "mean_signed_residual": -0.0005699276854779708,
+            "median_signed_residual": -0.0008428725612085741,
+            "semantic_family": "multilingual / translation / cross-language transformation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0007108833894733588,
+            "mean_signed_residual": 0.0005135894868742649,
+            "median_signed_residual": 0.00033188837007297467,
+            "semantic_family": "physics / scientific reasoning"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0006370975242338678,
+            "mean_signed_residual": 0.0003010393924138127,
+            "median_signed_residual": 0.0004349014117989991,
+            "semantic_family": "planning / constraint satisfaction"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0011264606100072974,
+            "mean_signed_residual": -0.00045257151255734956,
+            "median_signed_residual": -0.0008417787150009071,
+            "semantic_family": "structured extraction / transformation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0008338051963303617,
+            "mean_signed_residual": 0.00034907538683211226,
+            "median_signed_residual": 5.3210312264351245e-05,
+            "semantic_family": "summarization / synthesis"
+          }
+        ],
+        "fold_count": 16,
+        "folds": [
+          {
+            "held_out_family": "Spanish-language reasoning/explanation",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.0009452812783726644,
+              "max": 0.0006662376770702472,
+              "mean": -0.0006325620964200557,
+              "median": -0.0009470481777314743,
+              "min": -0.0018654021815997512,
+              "p10": -0.001346655348385839,
+              "p90": 0.0006091186386392055,
+              "rmse": 0.0010436698639505393
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.0074256607245064025,
+            "training_row_count": 120,
+            "training_slope": 0.5114569049014694
+          },
+          {
+            "held_out_family": "algorithms / data-structure reasoning",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.0009284863241629596,
+              "max": 0.002251845629962501,
+              "mean": -3.975459628470512e-06,
+              "median": -0.00027912699259569074,
+              "min": -0.0013860508970129914,
+              "p10": -0.0012294443773447961,
+              "p90": 0.0012289503102795583,
+              "rmse": 0.0011156652016600023
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.00690635194460173,
+            "training_row_count": 120,
+            "training_slope": 0.5122197792754652
+          },
+          {
+            "held_out_family": "analytical comparison / argumentation",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.0006868188606865833,
+              "max": 0.0013977905410756386,
+              "mean": -0.0003373712254176736,
+              "median": -0.00033567730000491625,
+              "min": -0.0014273154373299901,
+              "p10": -0.0011760336433118302,
+              "p90": 0.0003676878219851851,
+              "rmse": 0.0008511764282020236
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.0077681594903990766,
+            "training_row_count": 120,
+            "training_slope": 0.5108832685628663
+          },
+          {
+            "held_out_family": "code generation",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.0007961615074452977,
+              "max": 0.0017194979746793515,
+              "mean": 0.0004778002548933291,
+              "median": 0.0005273107483612371,
+              "min": -0.0009398223831765251,
+              "p10": -0.0005154825538749019,
+              "p90": 0.0012792478990989176,
+              "rmse": 0.0009351309001764098
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.005868293571678021,
+            "training_row_count": 120,
+            "training_slope": 0.513821658044286
+          },
+          {
+            "held_out_family": "conversational / direct QA",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.0005366255458373881,
+              "max": 0.0010010385290747381,
+              "mean": -2.3433529434388478e-05,
+              "median": 4.0039581956335946e-05,
+              "min": -0.0011142685434655797,
+              "p10": -0.0008948134387095463,
+              "p90": 0.0008019815988290213,
+              "rmse": 0.0006683452526075526
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.006725641650163652,
+            "training_row_count": 120,
+            "training_slope": 0.5125089055517413
+          },
+          {
+            "held_out_family": "creative / language generation",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.0004735207485387638,
+              "max": 0.00012986335767894985,
+              "mean": -0.00041116785172298775,
+              "median": -0.0005101329156178558,
+              "min": -0.000862487541456125,
+              "p10": -0.0007907706560624616,
+              "p90": 0.00012264276801259298,
+              "rmse": 0.0005425217683617045
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.007587943584930594,
+            "training_row_count": 120,
+            "training_slope": 0.511177006473735
+          },
+          {
+            "held_out_family": "debugging / code review",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.0005011228570358378,
+              "max": 0.0007959140510253593,
+              "mean": 7.436957915565867e-05,
+              "median": -6.721196249234729e-05,
+              "min": -0.0009373698491359495,
+              "p10": -0.0005111144965675329,
+              "p90": 0.0007789072182261992,
+              "rmse": 0.000597833932537947
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.007635439692258014,
+            "training_row_count": 120,
+            "training_slope": 0.5110532958877996
+          },
+          {
+            "held_out_family": "factual / explanatory knowledge",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.0006920188308523201,
+              "max": 0.0016567402746319182,
+              "mean": 0.00029960379049391583,
+              "median": 0.00016933097988050538,
+              "min": -0.0008121945945825382,
+              "p10": -0.0005241867762347862,
+              "p90": 0.0015542930838356116,
+              "rmse": 0.0008849307677613083
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.006578645025319428,
+            "training_row_count": 120,
+            "training_slope": 0.5127104330424281
+          },
+          {
+            "held_out_family": "formal logic / proof-style reasoning",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.0010121123532405851,
+              "max": 0.0013922753315801506,
+              "mean": -0.00027818945193749944,
+              "median": -0.000503826016169634,
+              "min": -0.0017216682496361546,
+              "p10": -0.0014000359446937228,
+              "p90": 0.001298013866121761,
+              "rmse": 0.0011200201734379493
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.007136050022283352,
+            "training_row_count": 120,
+            "training_slope": 0.5118819691092586
+          },
+          {
+            "held_out_family": "mathematical reasoning",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.0010284482546181958,
+              "max": 0.002243015881113919,
+              "mean": 0.0006325093343312951,
+              "median": 0.0007834915407468335,
+              "min": -0.0010983685788700237,
+              "p10": -0.0006692815452553124,
+              "p90": 0.0015577484431732124,
+              "rmse": 0.001168011394576823
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.009160590171471186,
+            "training_row_count": 120,
+            "training_slope": 0.508574014023694
+          },
+          {
+            "held_out_family": "multi-step instruction following / structured response",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.0004149661254025175,
+              "max": 0.001106471651931451,
+              "mean": 0.0003697667287077891,
+              "median": 0.0002989385064294525,
+              "min": -0.00018079758677891355,
+              "p10": 7.226910645425357e-05,
+              "p90": 0.0007320242636456863,
+              "rmse": 0.0005104256762251358
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.006741473778575712,
+            "training_row_count": 120,
+            "training_slope": 0.5124446885622934
+          },
+          {
+            "held_out_family": "multilingual / translation / cross-language transformation",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.0008328659621210308,
+              "max": 0.0006881139900704047,
+              "mean": -0.0005699276854779708,
+              "median": -0.0008428725612085741,
+              "min": -0.001406780483787451,
+              "p10": -0.0013155453674748019,
+              "p90": 0.00046098157857240576,
+              "rmse": 0.0009241968683979445
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.007456624863038959,
+            "training_row_count": 120,
+            "training_slope": 0.5114014738418331
+          },
+          {
+            "held_out_family": "physics / scientific reasoning",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.0007108833894733588,
+              "max": 0.0023898114655703795,
+              "mean": 0.0005135894868742649,
+              "median": 0.00033188837007297467,
+              "min": -0.0006676894178471171,
+              "p10": -0.0002647187612158874,
+              "p90": 0.001408775127409034,
+              "rmse": 0.0010114132719219397
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.008837406993547337,
+            "training_row_count": 120,
+            "training_slope": 0.5090994444426676
+          },
+          {
+            "held_out_family": "planning / constraint satisfaction",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.0006370975242338678,
+              "max": 0.0012390273468808055,
+              "mean": 0.0003010393924138127,
+              "median": 0.0004349014117989991,
+              "min": -0.0006947416608782953,
+              "p10": -0.0006218065710823728,
+              "p90": 0.0010801982675071487,
+              "rmse": 0.0007231791147021564
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.007339202164889622,
+            "training_row_count": 120,
+            "training_slope": 0.5115015762367263
+          },
+          {
+            "held_out_family": "structured extraction / transformation",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.0011264606100072974,
+              "max": 0.0013665373366608113,
+              "mean": -0.00045257151255734956,
+              "median": -0.0008417787150009071,
+              "min": -0.0017760653689121164,
+              "p10": -0.0016660241613059568,
+              "p90": 0.0013402745381955294,
+              "rmse": 0.0012160675734506341
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.00751209843241165,
+            "training_row_count": 120,
+            "training_slope": 0.5113016558041631
+          },
+          {
+            "held_out_family": "summarization / synthesis",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.0008338051963303617,
+              "max": 0.0020034477000540063,
+              "mean": 0.00034907538683211226,
+              "median": 5.3210312264351245e-05,
+              "min": -0.0012729584264278282,
+              "p10": -0.0005497366304976603,
+              "p90": 0.001889993886521224,
+              "rmse": 0.0010959801924923923
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.005839955386230633,
+            "training_row_count": 120,
+            "training_slope": 0.5138794804467465
+          }
+        ],
+        "pooled_oof_mae": 0.0007597922105224393,
+        "pooled_oof_r_squared": 0.9935359494754907,
+        "pooled_oof_rmse": 0.0009278253355740507,
+        "predictor": "hit_ratio",
+        "residual_association_with_actual_tokens": {
+          "count": 128,
+          "pearson_r": -0.384828893555671,
+          "spearman_rho": -0.39653606126056207
+        },
+        "residual_distribution": {
+          "count": 128,
+          "mae": 0.0007597922105224393,
+          "max": 0.0023898114655703795,
+          "mean": 1.9284696319111366e-05,
+          "median": -6.636348142854964e-05,
+          "min": -0.0018654021815997512,
+          "p10": -0.0011172885635284402,
+          "p90": 0.0012595499861501602,
+          "rmse": 0.0009278253355740506
+        },
+        "residuals_by_length_level": [
+          {
+            "count": 16,
+            "length_level": 1,
+            "mae": 0.0008007781450483538,
+            "max": 0.002251845629962501,
+            "mean": 0.0007414606917987947,
+            "median": 0.0006506552683033795,
+            "min": -0.00040075485408574973,
+            "p10": 2.2881728836715576e-05,
+            "p90": 0.0016978615158170784,
+            "rmse": 0.0010205561833036192
+          },
+          {
+            "count": 16,
+            "length_level": 2,
+            "mae": 0.0006638357968056958,
+            "max": 0.0012576160952110227,
+            "mean": 0.00022469828276747497,
+            "median": 0.00027231865523150156,
+            "min": -0.0011070916328768665,
+            "p10": -0.0007229147239436462,
+            "p90": 0.001156583760634572,
+            "rmse": 0.0007686912168016242
+          },
+          {
+            "count": 16,
+            "length_level": 3,
+            "mae": 0.0007783995265013277,
+            "max": 0.001510387144922909,
+            "mean": -1.6706969920919634e-05,
+            "median": 0.00012964580343743926,
+            "min": -0.0011696934104470924,
+            "p10": -0.0010912057784497886,
+            "p90": 0.0010100401992545749,
+            "rmse": 0.0008626325199995784
+          },
+          {
+            "count": 16,
+            "length_level": 4,
+            "mae": 0.0008907546203193797,
+            "max": 0.002243015881113919,
+            "mean": 9.254245017781271e-05,
+            "median": -3.8201507242957566e-05,
+            "min": -0.0016188636437604598,
+            "p10": -0.0012176428619574131,
+            "p90": 0.001558644257877495,
+            "rmse": 0.0010970339686071568
+          },
+          {
+            "count": 16,
+            "length_level": 5,
+            "mae": 0.000797639303923698,
+            "max": 0.001841370823578603,
+            "mean": -0.0002495257386383558,
+            "median": -0.0003409586097149475,
+            "min": -0.0018654021815997512,
+            "p10": -0.0015642243667118028,
+            "p90": 0.0010624665520821697,
+            "rmse": 0.0010030562911078544
+          },
+          {
+            "count": 16,
+            "length_level": 6,
+            "mae": 0.0007858277300493294,
+            "max": 0.0023898114655703795,
+            "mean": 0.00026023210944668695,
+            "median": 7.380444548799048e-05,
+            "min": -0.0012621935282898233,
+            "p10": -0.0009058651611208723,
+            "p90": 0.0014604013364866997,
+            "rmse": 0.001007866379682653
+          },
+          {
+            "count": 16,
+            "length_level": 7,
+            "mae": 0.0005835082825757232,
+            "max": 0.0006556312263314434,
+            "mean": -0.000400014992440835,
+            "median": -0.0004092845177507687,
+            "min": -0.0011142685434655797,
+            "p10": -0.0009786594967098328,
+            "p90": 0.00040615754737383103,
+            "rmse": 0.0006582483884052696
+          },
+          {
+            "count": 16,
+            "length_level": 8,
+            "mae": 0.0007775942789560071,
+            "max": 0.0007799683911952626,
+            "mean": -0.000498408262637768,
+            "median": -0.0005523469546573068,
+            "min": -0.0017760653689121164,
+            "p10": -0.0014066831671714908,
+            "p90": 0.0005287093770095785,
+            "rmse": 0.0009228390003109948
+          }
+        ]
+      },
+      "M2": {
+        "cluster_bootstrap": {
+          "interpretation": "sensitivity interval over the 16 constructed families",
+          "pooled_oof_r_squared_95_interval": [
+            0.9903916411770711,
+            0.9952167227097748
+          ],
+          "pooled_oof_rmse_95_interval": [
+            0.0008186517305316174,
+            0.0010240971848442329
+          ],
+          "replicates": 2000,
+          "seed": 105,
+          "unit": "semantic_family_cluster"
+        },
+        "family_residuals": [
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0009452812783728171,
+            "mean_signed_residual": -0.0006325620964203887,
+            "median_signed_residual": -0.0009470481777318074,
+            "semantic_family": "Spanish-language reasoning/explanation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0009284863241630359,
+            "mean_signed_residual": -3.9754596287272514e-06,
+            "median_signed_residual": -0.00027912699259594054,
+            "semantic_family": "algorithms / data-structure reasoning"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.000686818860686722,
+            "mean_signed_residual": -0.000337371225417854,
+            "median_signed_residual": -0.00033567730000511053,
+            "semantic_family": "analytical comparison / argumentation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.000796161507445256,
+            "mean_signed_residual": 0.0004778002548932597,
+            "median_signed_residual": 0.0005273107483611816,
+            "semantic_family": "code generation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0005366255458374158,
+            "mean_signed_residual": -2.3433529434277456e-05,
+            "median_signed_residual": 4.003958195641921e-05,
+            "semantic_family": "conversational / direct QA"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0004735207485389026,
+            "mean_signed_residual": -0.00041116785172323755,
+            "median_signed_residual": -0.0005101329156181056,
+            "semantic_family": "creative / language generation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0005011228570358309,
+            "mean_signed_residual": 7.436957915515213e-05,
+            "median_signed_residual": -6.721196249284689e-05,
+            "semantic_family": "debugging / code review"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.000692018830852327,
+            "mean_signed_residual": 0.0002996037904939089,
+            "median_signed_residual": 0.00016933097988050538,
+            "semantic_family": "factual / explanatory knowledge"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0010121123532405435,
+            "mean_signed_residual": -0.0002781894519374162,
+            "median_signed_residual": -0.0005038260161694952,
+            "semantic_family": "formal logic / proof-style reasoning"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0010284482546178905,
+            "mean_signed_residual": 0.0006325093343306845,
+            "median_signed_residual": 0.0007834915407462228,
+            "semantic_family": "mathematical reasoning"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0004149661254023787,
+            "mean_signed_residual": 0.0003697667287075948,
+            "median_signed_residual": 0.00029893850642925823,
+            "semantic_family": "multi-step instruction following / structured response"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0008328659621210655,
+            "mean_signed_residual": -0.0005699276854779917,
+            "median_signed_residual": -0.0008428725612086019,
+            "semantic_family": "multilingual / translation / cross-language transformation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.000710883389473331,
+            "mean_signed_residual": 0.0005135894868741123,
+            "median_signed_residual": 0.0003318883700728359,
+            "semantic_family": "physics / scientific reasoning"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0006370975242337984,
+            "mean_signed_residual": 0.0003010393924135768,
+            "median_signed_residual": 0.00043490141179872155,
+            "semantic_family": "planning / constraint satisfaction"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.001126460610007332,
+            "mean_signed_residual": -0.00045257151255745365,
+            "median_signed_residual": -0.0008417787150010181,
+            "semantic_family": "structured extraction / transformation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0008338051963303755,
+            "mean_signed_residual": 0.0003490753868322233,
+            "median_signed_residual": 5.321031226443451e-05,
+            "semantic_family": "summarization / synthesis"
+          }
+        ],
+        "fold_count": 16,
+        "folds": [
+          {
+            "held_out_family": "Spanish-language reasoning/explanation",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.0009452812783728171,
+              "max": 0.0006662376770698586,
+              "mean": -0.0006325620964203887,
+              "median": -0.0009470481777318074,
+              "min": -0.0018654021816000843,
+              "p10": -0.001346655348386133,
+              "p90": 0.0006091186386388558,
+              "rmse": 0.0010436698639507292
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.5188825656259765,
+            "training_row_count": 120,
+            "training_slope": -0.00034745713648197705
+          },
+          {
+            "held_out_family": "algorithms / data-structure reasoning",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.0009284863241630359,
+              "max": 0.002251845629962279,
+              "mean": -3.9754596287272514e-06,
+              "median": -0.00027912699259594054,
+              "min": -0.001386050897013269,
+              "p10": -0.0012294443773450737,
+              "p90": 0.0012289503102793362,
+              "rmse": 0.00111566520166002
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.5191261312200673,
+            "training_row_count": 120,
+            "training_slope": -0.0003479753935295283
+          },
+          {
+            "held_out_family": "analytical comparison / argumentation",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.000686818860686722,
+              "max": 0.001397790541075472,
+              "mean": -0.000337371225417854,
+              "median": -0.00033567730000511053,
+              "min": -0.0014273154373301566,
+              "p10": -0.0011760336433119967,
+              "p90": 0.0003676878219850186,
+              "rmse": 0.0008511764282020971
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.5186514280532658,
+            "training_row_count": 120,
+            "training_slope": -0.0003470674378823826
+          },
+          {
+            "held_out_family": "code generation",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.000796161507445256,
+              "max": 0.001719497974679296,
+              "mean": 0.0004778002548932597,
+              "median": 0.0005273107483611816,
+              "min": -0.0009398223831765806,
+              "p10": -0.0005154825538749574,
+              "p90": 0.001279247899098862,
+              "rmse": 0.0009351309001763724
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.5196899516159645,
+            "training_row_count": 120,
+            "training_slope": -0.00034906362638878203
+          },
+          {
+            "held_out_family": "conversational / direct QA",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.0005366255458374158,
+              "max": 0.0010010385290748491,
+              "mean": -2.3433529434277456e-05,
+              "median": 4.003958195641921e-05,
+              "min": -0.0011142685434654132,
+              "p10": -0.0008948134387094963,
+              "p90": 0.0008019815988291323,
+              "rmse": 0.0006683452526075529
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.5192345472019054,
+            "training_row_count": 120,
+            "training_slope": -0.00034817181083678176
+          },
+          {
+            "held_out_family": "creative / language generation",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.0004735207485389026,
+              "max": 0.0001298633576787278,
+              "mean": -0.00041116785172323755,
+              "median": -0.0005101329156181056,
+              "min": -0.0008624875414563471,
+              "p10": -0.0007907706560627226,
+              "p90": 0.00012264276801237094,
+              "rmse": 0.0005425217683618992
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.5187649500586662,
+            "training_row_count": 120,
+            "training_slope": -0.0003472669880935706
+          },
+          {
+            "held_out_family": "debugging / code review",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.0005011228570358309,
+              "max": 0.0007959140510248042,
+              "mean": 7.436957915515213e-05,
+              "median": -6.721196249284689e-05,
+              "min": -0.0009373698491365046,
+              "p10": -0.0005111144965680492,
+              "p90": 0.0007789072182256829,
+              "rmse": 0.000597833932537883
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.5186887355800587,
+            "training_row_count": 120,
+            "training_slope": -0.0003471829455759519
+          },
+          {
+            "held_out_family": "factual / explanatory knowledge",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.000692018830852327,
+              "max": 0.0016567402746318627,
+              "mean": 0.0002996037904939089,
+              "median": 0.00016933097988050538,
+              "min": -0.0008121945945825382,
+              "p10": -0.0005241867762348251,
+              "p90": 0.001554293083835595,
+              "rmse": 0.000884930767761302
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.5192890780677482,
+            "training_row_count": 120,
+            "training_slope": -0.00034830871809947666
+          },
+          {
+            "held_out_family": "formal logic / proof-style reasoning",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.0010121123532405435,
+              "max": 0.0013922753315802061,
+              "mean": -0.0002781894519374162,
+              "median": -0.0005038260161694952,
+              "min": -0.001721668249636099,
+              "p10": -0.0014000359446936284,
+              "p90": 0.0012980138661218166,
+              "rmse": 0.0011200201734379185
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.519018019131542,
+            "training_row_count": 120,
+            "training_slope": -0.00034774590292748565
+          },
+          {
+            "held_out_family": "mathematical reasoning",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.0010284482546178905,
+              "max": 0.0022430158811133083,
+              "mean": 0.0006325093343306845,
+              "median": 0.0007834915407462228,
+              "min": -0.0010983685788706343,
+              "p10": -0.0006692815452559231,
+              "p90": 0.0015577484431726406,
+              "rmse": 0.0011680113945764926
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.5177346041951658,
+            "training_row_count": 120,
+            "training_slope": -0.00034549865083131394
+          },
+          {
+            "held_out_family": "multi-step instruction following / structured response",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.0004149661254023787,
+              "max": 0.0011064716519312845,
+              "mean": 0.0003697667287075948,
+              "median": 0.00029893850642925823,
+              "min": -0.0001807975867791356,
+              "p10": 7.22691064540704e-05,
+              "p90": 0.0007320242636454809,
+              "rmse": 0.0005104256762250017
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.5191861623408696,
+            "training_row_count": 120,
+            "training_slope": -0.0003481281851646019
+          },
+          {
+            "held_out_family": "multilingual / translation / cross-language transformation",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.0008328659621210655,
+              "max": 0.0006881139900704047,
+              "mean": -0.0005699276854779917,
+              "median": -0.0008428725612086019,
+              "min": -0.001406780483787562,
+              "p10": -0.001315545367474874,
+              "p90": 0.00046098157857244463,
+              "rmse": 0.0009241968683979846
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.5188580987048727,
+            "training_row_count": 120,
+            "training_slope": -0.0003474194795121159
+          },
+          {
+            "held_out_family": "physics / scientific reasoning",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.000710883389473331,
+              "max": 0.002389811465570213,
+              "mean": 0.0005135894868741123,
+              "median": 0.0003318883700728359,
+              "min": -0.0006676894178472836,
+              "p10": -0.00026471876121605394,
+              "p90": 0.0014087751274089065,
+              "rmse": 0.001011413271921863
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.5179368514362153,
+            "training_row_count": 120,
+            "training_slope": -0.00034585560084420377
+          },
+          {
+            "held_out_family": "planning / constraint satisfaction",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.0006370975242337984,
+              "max": 0.001239027346880639,
+              "mean": 0.0003010393924135768,
+              "median": 0.00043490141179872155,
+              "min": -0.0006947416608785173,
+              "p10": -0.0006218065710825949,
+              "p90": 0.0010801982675069043,
+              "rmse": 0.0007231791147020579
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.5188407784016165,
+            "training_row_count": 120,
+            "training_slope": -0.0003474874838564722
+          },
+          {
+            "held_out_family": "structured extraction / transformation",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.001126460610007332,
+              "max": 0.0013665373366607003,
+              "mean": -0.00045257151255745365,
+              "median": -0.0008417787150010181,
+              "min": -0.001776065368912172,
+              "p10": -0.001666024161306051,
+              "p90": 0.0013402745381953796,
+              "rmse": 0.001216067573450656
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.5188137542365752,
+            "training_row_count": 120,
+            "training_slope": -0.0003473516683452201
+          },
+          {
+            "held_out_family": "summarization / synthesis",
+            "held_out_row_count": 8,
+            "residuals": {
+              "count": 8,
+              "mae": 0.0008338051963303755,
+              "max": 0.0020034477000541173,
+              "mean": 0.0003490753868322233,
+              "median": 5.321031226443451e-05,
+              "min": -0.0012729584264277172,
+              "p10": -0.0005497366304975492,
+              "p90": 0.0018899938865213739,
+              "rmse": 0.0010959801924924407
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.5197194358329774,
+            "training_row_count": 120,
+            "training_slope": -0.00034910290791219264
+          }
+        ],
+        "pooled_oof_mae": 0.0007597922105224389,
+        "pooled_oof_r_squared": 0.993535949475491,
+        "pooled_oof_rmse": 0.0009278253355740362,
+        "predictor": "loads_per_token",
+        "residual_association_with_actual_tokens": {
+          "count": 128,
+          "pearson_r": -0.3848288935556881,
+          "spearman_rho": -0.39653606126056207
+        },
+        "residual_distribution": {
+          "count": 128,
+          "mae": 0.0007597922105224389,
+          "max": 0.002389811465570213,
+          "mean": 1.928469631894787e-05,
+          "median": -6.636348142874393e-05,
+          "min": -0.0018654021816000843,
+          "p10": -0.0011172885635284068,
+          "p90": 0.0012595499861500325,
+          "rmse": 0.0009278253355740362
+        },
+        "residuals_by_length_level": [
+          {
+            "count": 16,
+            "length_level": 1,
+            "mae": 0.000800778145048215,
+            "max": 0.002251845629962279,
+            "mean": 0.0007414606917986281,
+            "median": 0.0006506552683032685,
+            "min": -0.00040075485408580525,
+            "p10": 2.2881728836521287e-05,
+            "p90": 0.0016978615158171617,
+            "rmse": 0.0010205561833035244
+          },
+          {
+            "count": 16,
+            "length_level": 2,
+            "mae": 0.0006638357968057097,
+            "max": 0.0012576160952110782,
+            "mean": 0.00022469828276730844,
+            "median": 0.0002723186552314183,
+            "min": -0.0011070916328771996,
+            "p10": -0.0007229147239438405,
+            "p90": 0.001156583760634211,
+            "rmse": 0.0007686912168016035
+          },
+          {
+            "count": 16,
+            "length_level": 3,
+            "mae": 0.0007783995265012965,
+            "max": 0.001510387144922909,
+            "mean": -1.6706969921082698e-05,
+            "median": 0.00012964580343727272,
+            "min": -0.001169693410447037,
+            "p10": -0.0010912057784500384,
+            "p90": 0.0010100401992544639,
+            "rmse": 0.0008626325199995839
+          },
+          {
+            "count": 16,
+            "length_level": 4,
+            "mae": 0.0008907546203193832,
+            "max": 0.0022430158811133083,
+            "mean": 9.254245017765658e-05,
+            "median": -3.8201507243151855e-05,
+            "min": -0.0016188636437605708,
+            "p10": -0.0012176428619574964,
+            "p90": 0.001558644257877384,
+            "rmse": 0.001097033968607074
+          },
+          {
+            "count": 16,
+            "length_level": 5,
+            "mae": 0.0007976393039237674,
+            "max": 0.0018413708235787696,
+            "mean": -0.0002495257386385223,
+            "median": -0.00034095860971486425,
+            "min": -0.0018654021816000843,
+            "p10": -0.0015642243667118305,
+            "p90": 0.0010624665520818088,
+            "rmse": 0.0010030562911079173
+          },
+          {
+            "count": 16,
+            "length_level": 6,
+            "mae": 0.000785827730049319,
+            "max": 0.002389811465570213,
+            "mean": 0.00026023210944651695,
+            "median": 7.380444548790721e-05,
+            "min": -0.0012621935282897123,
+            "p10": -0.0009058651611211777,
+            "p90": 0.0014604013364863944,
+            "rmse": 0.0010078663796825892
+          },
+          {
+            "count": 16,
+            "length_level": 7,
+            "mae": 0.0005835082825757891,
+            "max": 0.0006556312263311659,
+            "mean": -0.0004000149924409842,
+            "median": -0.00040928451775071317,
+            "min": -0.0011142685434654132,
+            "p10": -0.0009786594967101936,
+            "p90": 0.00040615754737363674,
+            "rmse": 0.0006582483884053549
+          },
+          {
+            "count": 16,
+            "length_level": 8,
+            "mae": 0.0007775942789560314,
+            "max": 0.000779968391194652,
+            "mean": -0.000498408262637938,
+            "median": -0.0005523469546575566,
+            "min": -0.001776065368912172,
+            "p10": -0.0014066831671717128,
+            "p90": 0.0005287093770093565,
+            "rmse": 0.000922839000311035
+          }
+        ]
+      }
+    },
+    "models": {
+      "M1": {
+        "coefficient_names": [
+          "intercept",
+          "hit_ratio"
+        ],
+        "coefficients": {
+          "hit_ratio": 0.5116194062386655,
+          "intercept": 0.0072838751597951185
+        },
+        "formula": "decode_tok_s ~ hit_ratio",
+        "largest_absolute_residuals": [
+          {
+            "case_id": "07-algorithms-b1",
+            "policy": "S2_P50",
+            "residual": 0.002246917204697052
+          },
+          {
+            "case_id": "03-science-b6",
+            "policy": "S2_P50",
+            "residual": 0.0022302625280389288
+          },
+          {
+            "case_id": "01-math-b4",
+            "policy": "S2_P50",
+            "residual": 0.002098402239066821
+          },
+          {
+            "case_id": "08-summary-b1",
+            "policy": "S2_P50",
+            "residual": 0.00190389399383456
+          },
+          {
+            "case_id": "15-spanish-b5",
+            "policy": "S2_P50",
+            "residual": -0.001824205372393195
+          },
+          {
+            "case_id": "09-extract-b8",
+            "policy": "S2_P50",
+            "residual": -0.0017494244721922292
+          },
+          {
+            "case_id": "08-summary-b5",
+            "policy": "S2_P50",
+            "residual": 0.0017124290515377338
+          },
+          {
+            "case_id": "02-formal-b5",
+            "policy": "S2_P50",
+            "residual": -0.0016995081200756879
+          }
+        ],
+        "mae": 0.0007392492725752011,
+        "projection_eligible": true,
+        "r_squared": 0.9938940823887215,
+        "rank": 2,
+        "residual_association_with_actual_tokens": {
+          "count": 128,
+          "pearson_r": -0.3864739697040338,
+          "spearman_rho": -0.39720275368013225
+        },
+        "residual_distribution": {
+          "count": 128,
+          "mae": 0.0007392492725752011,
+          "max": 0.002246917204697052,
+          "mean": 1.474514954580286e-17,
+          "median": -7.690562160814207e-05,
+          "min": -0.001824205372393195,
+          "p10": -0.0011301221775803616,
+          "p90": 0.0012394835700992755,
+          "rmse": 0.0009017565928485514
+        },
+        "residuals_by_family": [
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0009255854385694928,
+            "mean_signed_residual": -0.0005942381427788551,
+            "median_signed_residual": -0.0009097479645754358,
+            "semantic_family": "Spanish-language reasoning/explanation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0009251188291789156,
+            "mean_signed_residual": -3.743473182098167e-06,
+            "median_signed_residual": -0.0002762678005572283,
+            "semantic_family": "algorithms / data-structure reasoning"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0006745648053974873,
+            "mean_signed_residual": -0.00032622128098515335,
+            "median_signed_residual": -0.0003287205226099599,
+            "semantic_family": "analytical comparison / argumentation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.000745474912728257,
+            "mean_signed_residual": 0.00042802188772998045,
+            "median_signed_residual": 0.0005019052878388885,
+            "semantic_family": "code generation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0005268550586038159,
+            "mean_signed_residual": -3.652910264247827e-05,
+            "median_signed_residual": 3.8087771106587454e-05,
+            "semantic_family": "conversational / direct QA"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0004594570511453483,
+            "mean_signed_residual": -0.0003822292247754877,
+            "median_signed_residual": -0.00048308090239276846,
+            "semantic_family": "creative / language generation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0004979515261757175,
+            "mean_signed_residual": 6.340938091833198e-05,
+            "median_signed_residual": -7.524420059404346e-05,
+            "semantic_family": "debugging / code review"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0006735058896031182,
+            "mean_signed_residual": 0.00025988981499645847,
+            "median_signed_residual": 0.00012940275510622823,
+            "semantic_family": "factual / explanatory knowledge"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0010082717275923872,
+            "mean_signed_residual": -0.0002558481638067281,
+            "median_signed_residual": -0.00048518593698232415,
+            "semantic_family": "formal logic / proof-style reasoning"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0009454576049702304,
+            "mean_signed_residual": 0.0005051902408894707,
+            "median_signed_residual": 0.0006419973827004599,
+            "semantic_family": "mathematical reasoning"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.00038758642144152977,
+            "mean_signed_residual": 0.000335417294665602,
+            "median_signed_residual": 0.00026204489742701065,
+            "semantic_family": "multi-step instruction following / structured response"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0008150877197390174,
+            "mean_signed_residual": -0.0005322256048190879,
+            "median_signed_residual": -0.0008059581629240309,
+            "semantic_family": "multilingual / translation / cross-language transformation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0006803482445407183,
+            "mean_signed_residual": 0.00042066875330219744,
+            "median_signed_residual": 0.00026269726783026415,
+            "semantic_family": "physics / scientific reasoning"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0006320869876926191,
+            "mean_signed_residual": 0.00028243419367874473,
+            "median_signed_residual": 0.00041453344706759987,
+            "semantic_family": "planning / constraint satisfaction"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0011111261423687319,
+            "mean_signed_residual": -0.000425024581207023,
+            "median_signed_residual": -0.0008107210575603041,
+            "semantic_family": "structured extraction / transformation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.000819510001455831,
+            "mean_signed_residual": 0.00026102800801636183,
+            "median_signed_residual": -1.747111867678175e-05,
+            "semantic_family": "summarization / synthesis"
+          }
+        ],
+        "residuals_by_length_level": [
+          {
+            "count": 16,
+            "length_level": 1,
+            "mae": 0.0007818910559081044,
+            "max": 0.002246917204697052,
+            "mean": 0.0007199650775431415,
+            "median": 0.0006560338547610955,
+            "min": -0.00043335806980154823,
+            "p10": 4.407850275695013e-05,
+            "p90": 0.0016591215281362148,
+            "rmse": 0.0010036079544557116
+          },
+          {
+            "count": 16,
+            "length_level": 2,
+            "mae": 0.0006479927845838146,
+            "max": 0.0012816937185615163,
+            "mean": 0.00020649339649769088,
+            "median": 0.0002385792823004773,
+            "min": -0.0010696982739984984,
+            "p10": -0.0006971350070902882,
+            "p90": 0.0010445508289655958,
+            "rmse": 0.0007441423496485523
+          },
+          {
+            "count": 16,
+            "length_level": 3,
+            "mae": 0.0007345313750086388,
+            "max": 0.0014503368596915922,
+            "mean": -3.734047893876047e-05,
+            "median": 0.00010944618723054966,
+            "min": -0.0011460254841709205,
+            "p10": -0.0010603500818267275,
+            "p90": 0.0009260162826300045,
+            "rmse": 0.0008193108171136842
+          },
+          {
+            "count": 16,
+            "length_level": 4,
+            "mae": 0.0008546278002828922,
+            "max": 0.002098402239066821,
+            "mean": 6.728257144057725e-05,
+            "median": -5.368669926686387e-05,
+            "min": -0.0015913559219125073,
+            "p10": -0.0012462190750242574,
+            "p90": 0.0014959400843445603,
+            "rmse": 0.0010589263302434161
+          },
+          {
+            "count": 16,
+            "length_level": 5,
+            "mae": 0.0007938148674558193,
+            "max": 0.0017124290515377338,
+            "mean": -0.00027233173745060124,
+            "median": -0.0003582385539046551,
+            "min": -0.001824205372393195,
+            "p10": -0.0015355245213488078,
+            "p90": 0.0010640489208319504,
+            "rmse": 0.0009827169518786347
+          },
+          {
+            "count": 16,
+            "length_level": 6,
+            "mae": 0.0007553810699156595,
+            "max": 0.0022302625280389288,
+            "mean": 0.00023860657752747608,
+            "median": 9.557449800171036e-05,
+            "min": -0.0012405740873852045,
+            "p10": -0.0008979054402431519,
+            "p90": 0.0013712474320235757,
+            "rmse": 0.0009621060034037388
+          },
+          {
+            "count": 16,
+            "length_level": 7,
+            "mae": 0.0005871803279770445,
+            "max": 0.0006455790332162703,
+            "mean": -0.00041041026542595546,
+            "median": -0.0003993415488912355,
+            "min": -0.0011812390660832506,
+            "p10": -0.0009895357659092108,
+            "p90": 0.0003842907335962209,
+            "rmse": 0.0006671492315969284
+          },
+          {
+            "count": 16,
+            "length_level": 8,
+            "mae": 0.0007585748994696356,
+            "max": 0.0007486025127693141,
+            "mean": -0.0005122651411934506,
+            "median": -0.0005496413663235444,
+            "min": -0.0017494244721922292,
+            "p10": -0.001389190119566952,
+            "p90": 0.00046731051900142373,
+            "rmse": 0.0009029280174751334
+          }
+        ],
+        "rmse": 0.0009017565928485514,
+        "row_count": 128
+      },
+      "M2": {
+        "coefficient_names": [
+          "intercept",
+          "loads_per_token"
+        ],
+        "coefficients": {
+          "intercept": 0.5189032813984603,
+          "loads_per_token": -0.00034756753141213637
+        },
+        "formula": "decode_tok_s ~ loads_per_token",
+        "largest_absolute_residuals": [
+          {
+            "case_id": "07-algorithms-b1",
+            "policy": "S2_P50",
+            "residual": 0.002246917204697052
+          },
+          {
+            "case_id": "03-science-b6",
+            "policy": "S2_P50",
+            "residual": 0.0022302625280389843
+          },
+          {
+            "case_id": "01-math-b4",
+            "policy": "S2_P50",
+            "residual": 0.0020984022390668766
+          },
+          {
+            "case_id": "08-summary-b1",
+            "policy": "S2_P50",
+            "residual": 0.0019038939938345045
+          },
+          {
+            "case_id": "15-spanish-b5",
+            "policy": "S2_P50",
+            "residual": -0.001824205372393195
+          },
+          {
+            "case_id": "09-extract-b8",
+            "policy": "S2_P50",
+            "residual": -0.0017494244721921737
+          },
+          {
+            "case_id": "08-summary-b5",
+            "policy": "S2_P50",
+            "residual": 0.0017124290515377338
+          },
+          {
+            "case_id": "02-formal-b5",
+            "policy": "S2_P50",
+            "residual": -0.0016995081200756323
+          }
+        ],
+        "mae": 0.0007392492725751968,
+        "projection_eligible": true,
+        "r_squared": 0.9938940823887215,
+        "rank": 2,
+        "residual_association_with_actual_tokens": {
+          "count": 128,
+          "pearson_r": -0.3864739697040275,
+          "spearman_rho": -0.39720275368013225
+        },
+        "residual_distribution": {
+          "count": 128,
+          "mae": 0.0007392492725751968,
+          "max": 0.002246917204697052,
+          "mean": 5.117434254131581e-17,
+          "median": -7.690562160811432e-05,
+          "min": -0.001824205372393195,
+          "p10": -0.001130122177580306,
+          "p90": 0.0012394835700993477,
+          "rmse": 0.0009017565928485487
+        },
+        "residuals_by_family": [
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0009255854385694581,
+            "mean_signed_residual": -0.0005942381427788065,
+            "median_signed_residual": -0.0009097479645753803,
+            "semantic_family": "Spanish-language reasoning/explanation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0009251188291789017,
+            "mean_signed_residual": -3.7434731820704115e-06,
+            "median_signed_residual": -0.00027626780055720057,
+            "semantic_family": "algorithms / data-structure reasoning"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0006745648053974596,
+            "mean_signed_residual": -0.00032622128098509784,
+            "median_signed_residual": -0.00032872052260990436,
+            "semantic_family": "analytical comparison / argumentation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.000745474912728257,
+            "mean_signed_residual": 0.0004280218877300082,
+            "median_signed_residual": 0.0005019052878389441,
+            "semantic_family": "code generation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0005268550586038159,
+            "mean_signed_residual": -3.652910264245052e-05,
+            "median_signed_residual": 3.8087771106642965e-05,
+            "semantic_family": "conversational / direct QA"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0004594570511453483,
+            "mean_signed_residual": -0.00038222922477545995,
+            "median_signed_residual": -0.0004830809023927407,
+            "semantic_family": "creative / language generation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0004979515261757037,
+            "mean_signed_residual": 6.340938091837361e-05,
+            "median_signed_residual": -7.524420059398795e-05,
+            "semantic_family": "debugging / code review"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0006735058896031113,
+            "mean_signed_residual": 0.0002598898149964654,
+            "median_signed_residual": 0.00012940275510622823,
+            "semantic_family": "factual / explanatory knowledge"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0010082717275923941,
+            "mean_signed_residual": -0.00025584816380666564,
+            "median_signed_residual": -0.00048518593698226864,
+            "semantic_family": "formal logic / proof-style reasoning"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0009454576049702512,
+            "mean_signed_residual": 0.0005051902408895331,
+            "median_signed_residual": 0.0006419973827005432,
+            "semantic_family": "mathematical reasoning"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.00038758642144152977,
+            "mean_signed_residual": 0.000335417294665602,
+            "median_signed_residual": 0.0002620448974269829,
+            "semantic_family": "multi-step instruction following / structured response"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0008150877197389966,
+            "mean_signed_residual": -0.0005322256048190532,
+            "median_signed_residual": -0.0008059581629240031,
+            "semantic_family": "multilingual / translation / cross-language transformation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.000680348244540746,
+            "mean_signed_residual": 0.00042066875330226683,
+            "median_signed_residual": 0.0002626972678303474,
+            "semantic_family": "physics / scientific reasoning"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0006320869876926399,
+            "mean_signed_residual": 0.0002824341936787794,
+            "median_signed_residual": 0.0004145334470676276,
+            "semantic_family": "planning / constraint satisfaction"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.001111126142368711,
+            "mean_signed_residual": -0.00042502458120697445,
+            "median_signed_residual": -0.0008107210575602763,
+            "semantic_family": "structured extraction / transformation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.000819510001455824,
+            "mean_signed_residual": 0.0002610280080163688,
+            "median_signed_residual": -1.7471118676726238e-05,
+            "semantic_family": "summarization / synthesis"
+          }
+        ],
+        "residuals_by_length_level": [
+          {
+            "count": 16,
+            "length_level": 1,
+            "mae": 0.0007818910559081217,
+            "max": 0.002246917204697052,
+            "mean": 0.0007199650775431658,
+            "median": 0.0006560338547610955,
+            "min": -0.00043335806980154823,
+            "p10": 4.4078502757005644e-05,
+            "p90": 0.0016591215281362148,
+            "rmse": 0.0010036079544557231
+          },
+          {
+            "count": 16,
+            "length_level": 2,
+            "mae": 0.0006479927845838111,
+            "max": 0.0012816937185616273,
+            "mean": 0.00020649339649771517,
+            "median": 0.0002385792823004773,
+            "min": -0.0010696982739984429,
+            "p10": -0.0006971350070902882,
+            "p90": 0.0010445508289655958,
+            "rmse": 0.0007441423496485595
+          },
+          {
+            "count": 16,
+            "length_level": 3,
+            "mae": 0.0007345313750086457,
+            "max": 0.0014503368596915922,
+            "mean": -3.7340478938718835e-05,
+            "median": 0.00010944618723054966,
+            "min": -0.001146025484170865,
+            "p10": -0.001060350081826672,
+            "p90": 0.00092601628263006,
+            "rmse": 0.0008193108171136832
+          },
+          {
+            "count": 16,
+            "length_level": 4,
+            "mae": 0.0008546278002828853,
+            "max": 0.0020984022390668766,
+            "mean": 6.728257144062583e-05,
+            "median": -5.36866992667806e-05,
+            "min": -0.0015913559219124518,
+            "p10": -0.0012462190750242297,
+            "p90": 0.0014959400843446158,
+            "rmse": 0.0010589263302434213
+          },
+          {
+            "count": 16,
+            "length_level": 5,
+            "mae": 0.0007938148674557985,
+            "max": 0.0017124290515377338,
+            "mean": -0.0002723317374505735,
+            "median": -0.00035823855390462733,
+            "min": -0.001824205372393195,
+            "p10": -0.00153552452134878,
+            "p90": 0.0010640489208320059,
+            "rmse": 0.0009827169518786272
+          },
+          {
+            "count": 16,
+            "length_level": 6,
+            "mae": 0.0007553810699156699,
+            "max": 0.0022302625280389843,
+            "mean": 0.00023860657752751424,
+            "median": 9.557449800176587e-05,
+            "min": -0.0012405740873852045,
+            "p10": -0.0008979054402430964,
+            "p90": 0.0013712474320236034,
+            "rmse": 0.0009621060034037475
+          },
+          {
+            "count": 16,
+            "length_level": 7,
+            "mae": 0.0005871803279770167,
+            "max": 0.0006455790332162703,
+            "mean": -0.00041041026542591383,
+            "median": -0.0003993415488912355,
+            "min": -0.0011812390660831396,
+            "p10": -0.000989535765909183,
+            "p90": 0.0003842907335962764,
+            "rmse": 0.0006671492315968949
+          },
+          {
+            "count": 16,
+            "length_level": 8,
+            "mae": 0.0007585748994696252,
+            "max": 0.0007486025127693696,
+            "mean": -0.0005122651411934055,
+            "median": -0.0005496413663235167,
+            "min": -0.0017494244721921737,
+            "p10": -0.001389190119566952,
+            "p90": 0.000467310519001507,
+            "rmse": 0.0009029280174751123
+          }
+        ],
+        "rmse": 0.0009017565928485488,
+        "row_count": 128
+      },
+      "M3": {
+        "coefficient_names": [
+          "intercept",
+          "hit_ratio",
+          "family[algorithms / data-structure reasoning]",
+          "family[analytical comparison / argumentation]",
+          "family[code generation]",
+          "family[conversational / direct QA]",
+          "family[creative / language generation]",
+          "family[debugging / code review]",
+          "family[factual / explanatory knowledge]",
+          "family[formal logic / proof-style reasoning]",
+          "family[mathematical reasoning]",
+          "family[multi-step instruction following / structured response]",
+          "family[multilingual / translation / cross-language transformation]",
+          "family[physics / scientific reasoning]",
+          "family[planning / constraint satisfaction]",
+          "family[structured extraction / transformation]",
+          "family[summarization / synthesis]"
+        ],
+        "coefficients": {
+          "family[algorithms / data-structure reasoning]": 0.000594814491128729,
+          "family[analytical comparison / argumentation]": 0.0002645268321594,
+          "family[code generation]": 0.0010317861640858161,
+          "family[conversational / direct QA]": 0.0005714653501372685,
+          "family[creative / language generation]": 0.0002205428258116474,
+          "family[debugging / code review]": 0.0006555128974488503,
+          "family[factual / explanatory knowledge]": 0.0008695407867815605,
+          "family[formal logic / proof-style reasoning]": 0.00033179761564093086,
+          "family[mathematical reasoning]": 0.0010870864742612374,
+          "family[multi-step instruction following / structured response]": 0.0009418234200179335,
+          "family[multilingual / translation / cross-language transformation]": 7.183212518109054e-05,
+          "family[physics / scientific reasoning]": 0.0010052734948533695,
+          "family[planning / constraint satisfaction]": 0.000882004304893389,
+          "family[structured extraction / transformation]": 0.00017217491492782709,
+          "family[summarization / synthesis]": 0.0008764921202702744,
+          "hit_ratio": 0.5121968617149117,
+          "intercept": 0.00632198174153007
+        },
+        "formula": "decode_tok_s ~ hit_ratio + family",
+        "largest_absolute_residuals": [
+          {
+            "case_id": "07-algorithms-b1",
+            "policy": "S2_P50",
+            "residual": 0.0022556241053153236
+          },
+          {
+            "case_id": "09-extract-b1",
+            "policy": "S2_P50",
+            "residual": 0.0018094294258059196
+          },
+          {
+            "case_id": "03-science-b6",
+            "policy": "S2_P50",
+            "residual": 0.0017943257570591231
+          },
+          {
+            "case_id": "09-extract-b5",
+            "policy": "S2_P50",
+            "residual": 0.001773678596209416
+          },
+          {
+            "case_id": "12-compare-b4",
+            "policy": "S2_P50",
+            "residual": 0.0017073844890009293
+          },
+          {
+            "case_id": "01-math-b7",
+            "policy": "S2_P50",
+            "residual": -0.0016780011344198487
+          },
+          {
+            "case_id": "02-formal-b1",
+            "policy": "S2_P50",
+            "residual": 0.0016707856659284315
+          },
+          {
+            "case_id": "08-summary-b1",
+            "policy": "S2_P50",
+            "residual": 0.0016458058856441693
+          }
+        ],
+        "mae": 0.0006543030570442128,
+        "projection_eligible": false,
+        "r_squared": 0.9948726040137598,
+        "rank": 17,
+        "residual_association_with_actual_tokens": {
+          "count": 128,
+          "pearson_r": -0.3459932317952781,
+          "spearman_rho": -0.37285560433196707
+        },
+        "residual_distribution": {
+          "count": 128,
+          "mae": 0.0006543030570442128,
+          "max": 0.0022556241053153236,
+          "mean": 1.7997756063259374e-16,
+          "median": -0.00016442593210336254,
+          "min": -0.0016780011344198487,
+          "p10": -0.001055013312795916,
+          "p90": 0.0012361053217288364,
+          "rmse": 0.0008263466784196683
+        },
+        "residuals_by_family": [
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0007044641852352318,
+            "mean_signed_residual": 1.5265566588595902e-16,
+            "median_signed_residual": -0.0003110672869119091,
+            "semantic_family": "Spanish-language reasoning/explanation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0009273661284169496,
+            "mean_signed_residual": 2.0122792321330962e-16,
+            "median_signed_residual": -0.0002750512467457056,
+            "semantic_family": "algorithms / data-structure reasoning"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0005115780229814071,
+            "mean_signed_residual": 1.942890293094024e-16,
+            "median_signed_residual": -5.7885275126512425e-06,
+            "semantic_family": "analytical comparison / argumentation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.000668280824337189,
+            "mean_signed_residual": 1.942890293094024e-16,
+            "median_signed_residual": 6.749254672169802e-05,
+            "semantic_family": "code generation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0005402048684295668,
+            "mean_signed_residual": 1.942890293094024e-16,
+            "median_signed_residual": 6.738243690909695e-05,
+            "semantic_family": "conversational / direct QA"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.00030249955234579184,
+            "mean_signed_residual": 1.8041124150158794e-16,
+            "median_signed_residual": -0.00010331423639747817,
+            "semantic_family": "creative / language generation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0005085626814715499,
+            "mean_signed_residual": 1.5265566588595902e-16,
+            "median_signed_residual": -0.0001356669436385627,
+            "semantic_family": "debugging / code review"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0006782638183870926,
+            "mean_signed_residual": 1.8041124150158794e-16,
+            "median_signed_residual": -0.00013037366265933326,
+            "semantic_family": "factual / explanatory knowledge"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0009404725695367003,
+            "mean_signed_residual": 1.734723475976807e-16,
+            "median_signed_residual": -0.00022119769088457808,
+            "semantic_family": "formal logic / proof-style reasoning"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0007637619275163987,
+            "mean_signed_residual": 2.0816681711721685e-16,
+            "median_signed_residual": 0.00013411932096440982,
+            "semantic_family": "mathematical reasoning"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.000269716543436653,
+            "mean_signed_residual": 1.8735013540549517e-16,
+            "median_signed_residual": -7.174882472577027e-05,
+            "semantic_family": "multi-step instruction following / structured response"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.000653684257922553,
+            "mean_signed_residual": 1.8735013540549517e-16,
+            "median_signed_residual": -0.0002758196801077861,
+            "semantic_family": "multilingual / translation / cross-language transformation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0006633801491790214,
+            "mean_signed_residual": 2.0816681711721685e-16,
+            "median_signed_residual": -0.00015253378178028965,
+            "semantic_family": "physics / scientific reasoning"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0005597179089563628,
+            "mean_signed_residual": 1.8735013540549517e-16,
+            "median_signed_residual": 0.0001234603765225828,
+            "semantic_family": "planning / constraint satisfaction"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.000944174668491303,
+            "mean_signed_residual": 1.5959455978986625e-16,
+            "median_signed_residual": -0.00037931634973079054,
+            "semantic_family": "structured extraction / transformation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0008327208060636346,
+            "mean_signed_residual": 1.1796119636642288e-16,
+            "median_signed_residual": -0.0002829361764432048,
+            "semantic_family": "summarization / synthesis"
+          }
+        ],
+        "residuals_by_length_level": [
+          {
+            "count": 16,
+            "length_level": 1,
+            "mae": 0.0008802158500616948,
+            "max": 0.0022556241053153236,
+            "mean": 0.0007215160049550175,
+            "median": 0.0006843234855223312,
+            "min": -0.0006970114469413424,
+            "p10": -0.00028629365695603815,
+            "p90": 0.0017401075458671755,
+            "rmse": 0.0010858816003524408
+          },
+          {
+            "count": 16,
+            "length_level": 2,
+            "mae": 0.0005527575274491513,
+            "max": 0.0015337231540045737,
+            "mean": 0.00020632574290633046,
+            "median": 4.8660778781628444e-05,
+            "min": -0.000574402503816962,
+            "p10": -0.00048233936671926436,
+            "p90": 0.0011381098865970996,
+            "rmse": 0.000685740745251271
+          },
+          {
+            "count": 16,
+            "length_level": 3,
+            "mae": 0.0004270765770222826,
+            "max": 0.0012012105872425405,
+            "mean": -3.44506213872664e-05,
+            "median": 3.3102547102870084e-06,
+            "min": -0.0008930950004622518,
+            "p10": -0.0006677965025495836,
+            "p90": 0.0005063554936583781,
+            "rmse": 0.0005262117503680893
+          },
+          {
+            "count": 16,
+            "length_level": 4,
+            "mae": 0.0007015941378985986,
+            "max": 0.0017073844890009293,
+            "mean": 6.850824801168595e-05,
+            "median": 6.91299387730604e-05,
+            "min": -0.0016027554441863656,
+            "p10": -0.0011622862057433792,
+            "p90": 0.001389544927778097,
+            "rmse": 0.0009204732718213702
+          },
+          {
+            "count": 16,
+            "length_level": 5,
+            "mae": 0.0007645697690156529,
+            "max": 0.001773678596209416,
+            "mean": -0.0002723289120971327,
+            "median": -0.00040452713754349223,
+            "min": -0.0014432615335662757,
+            "p10": -0.0011492726311452817,
+            "p90": 0.0010809770561578946,
+            "rmse": 0.0009134244604187896
+          },
+          {
+            "count": 16,
+            "length_level": 6,
+            "mae": 0.0006324151734852755,
+            "max": 0.0017943257570591231,
+            "mean": 0.00023377891071202708,
+            "median": 0.00012226012825578003,
+            "min": -0.0010210892879459754,
+            "p10": -0.0006726425739982944,
+            "p90": 0.0013218070754226208,
+            "rmse": 0.0008077515021997081
+          },
+          {
+            "count": 16,
+            "length_level": 7,
+            "mae": 0.0005925453222884978,
+            "max": 0.0006592141161853027,
+            "mean": -0.0004076054557974988,
+            "median": -0.0003392220983101657,
+            "min": -0.0016780011344198487,
+            "p10": -0.0011375807098590318,
+            "p90": 0.0003741509179063518,
+            "rmse": 0.0007380356345281904
+          },
+          {
+            "count": 16,
+            "length_level": 8,
+            "mae": 0.0006832500991325492,
+            "max": 0.0006728956618993198,
+            "mean": -0.0005157439173017232,
+            "median": -0.0005381301256506543,
+            "min": -0.0013974329811076713,
+            "p10": -0.0013540930240474591,
+            "p90": 0.00033357689637364407,
+            "rmse": 0.0008110106419809451
+          }
+        ],
+        "rmse": 0.0008263466784196683,
+        "row_count": 128
+      },
+      "M4": {
+        "coefficient_names": [
+          "intercept",
+          "loads_per_token",
+          "family[algorithms / data-structure reasoning]",
+          "family[analytical comparison / argumentation]",
+          "family[code generation]",
+          "family[conversational / direct QA]",
+          "family[creative / language generation]",
+          "family[debugging / code review]",
+          "family[factual / explanatory knowledge]",
+          "family[formal logic / proof-style reasoning]",
+          "family[mathematical reasoning]",
+          "family[multi-step instruction following / structured response]",
+          "family[multilingual / translation / cross-language transformation]",
+          "family[physics / scientific reasoning]",
+          "family[planning / constraint satisfaction]",
+          "family[structured extraction / transformation]",
+          "family[summarization / synthesis]"
+        ],
+        "coefficients": {
+          "family[algorithms / data-structure reasoning]": 0.0005948144911287516,
+          "family[analytical comparison / argumentation]": 0.00026452683215941295,
+          "family[code generation]": 0.0010317861640858443,
+          "family[conversational / direct QA]": 0.0005714653501373181,
+          "family[creative / language generation]": 0.00022054282581168686,
+          "family[debugging / code review]": 0.000655512897448863,
+          "family[factual / explanatory knowledge]": 0.0008695407867816028,
+          "family[formal logic / proof-style reasoning]": 0.00033179761564095943,
+          "family[mathematical reasoning]": 0.0010870864742611073,
+          "family[multi-step instruction following / structured response]": 0.000941823420017965,
+          "family[multilingual / translation / cross-language transformation]": 7.183212518112547e-05,
+          "family[physics / scientific reasoning]": 0.0010052734948533966,
+          "family[planning / constraint satisfaction]": 0.0008820043048934088,
+          "family[structured extraction / transformation]": 0.00017217491492783958,
+          "family[summarization / synthesis]": 0.0008764921202703221,
+          "intercept": 0.5185188434564428,
+          "loads_per_token": -0.0003479598245345882
+        },
+        "formula": "decode_tok_s ~ loads_per_token + family",
+        "largest_absolute_residuals": [
+          {
+            "case_id": "07-algorithms-b1",
+            "policy": "S2_P50",
+            "residual": 0.0022556241053151016
+          },
+          {
+            "case_id": "09-extract-b1",
+            "policy": "S2_P50",
+            "residual": 0.001809429425805642
+          },
+          {
+            "case_id": "03-science-b6",
+            "policy": "S2_P50",
+            "residual": 0.001794325757058679
+          },
+          {
+            "case_id": "09-extract-b5",
+            "policy": "S2_P50",
+            "residual": 0.0017736785962090829
+          },
+          {
+            "case_id": "12-compare-b4",
+            "policy": "S2_P50",
+            "residual": 0.0017073844890006518
+          },
+          {
+            "case_id": "01-math-b7",
+            "policy": "S2_P50",
+            "residual": -0.0016780011344200707
+          },
+          {
+            "case_id": "02-formal-b1",
+            "policy": "S2_P50",
+            "residual": 0.001670785665928154
+          },
+          {
+            "case_id": "08-summary-b1",
+            "policy": "S2_P50",
+            "residual": 0.0016458058856440028
+          }
+        ],
+        "mae": 0.000654303057044238,
+        "projection_eligible": false,
+        "r_squared": 0.9948726040137598,
+        "rank": 17,
+        "residual_association_with_actual_tokens": {
+          "count": 128,
+          "pearson_r": -0.34599323179528135,
+          "spearman_rho": -0.37285560433196707
+        },
+        "residual_distribution": {
+          "count": 128,
+          "mae": 0.000654303057044238,
+          "max": 0.0022556241053151016,
+          "mean": -8.109832250191573e-17,
+          "median": -0.0001644259321036401,
+          "min": -0.0016780011344200707,
+          "p10": -0.001055013312796138,
+          "p90": 0.0012361053217285589,
+          "rmse": 0.00082634667841967
+        },
+        "residuals_by_family": [
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0007044641852352665,
+            "mean_signed_residual": -9.020562075079397e-17,
+            "median_signed_residual": -0.00031106728691213115,
+            "semantic_family": "Spanish-language reasoning/explanation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0009273661284170467,
+            "mean_signed_residual": -7.632783294297951e-17,
+            "median_signed_residual": -0.00027505124674598314,
+            "semantic_family": "algorithms / data-structure reasoning"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0005115780229813793,
+            "mean_signed_residual": -1.1102230246251565e-16,
+            "median_signed_residual": -5.7885275129843095e-06,
+            "semantic_family": "analytical comparison / argumentation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0006682808243372168,
+            "mean_signed_residual": -8.326672684688674e-17,
+            "median_signed_residual": 6.749254672139271e-05,
+            "semantic_family": "code generation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0005402048684295252,
+            "mean_signed_residual": -8.326672684688674e-17,
+            "median_signed_residual": 6.73824369088194e-05,
+            "semantic_family": "conversational / direct QA"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0003024995523458543,
+            "mean_signed_residual": -2.0816681711721685e-17,
+            "median_signed_residual": -0.00010331423639770021,
+            "semantic_family": "creative / language generation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0005085626814715777,
+            "mean_signed_residual": -9.71445146547012e-17,
+            "median_signed_residual": -0.00013566694363878473,
+            "semantic_family": "debugging / code review"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0006782638183871689,
+            "mean_signed_residual": -7.632783294297951e-17,
+            "median_signed_residual": -0.00013037366265958306,
+            "semantic_family": "factual / explanatory knowledge"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0009404725695367558,
+            "mean_signed_residual": -9.020562075079397e-17,
+            "median_signed_residual": -0.00022119769088480012,
+            "semantic_family": "formal logic / proof-style reasoning"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0007637619275163432,
+            "mean_signed_residual": -2.7755575615628914e-17,
+            "median_signed_residual": 0.00013411932096418777,
+            "semantic_family": "mathematical reasoning"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0002697165434366461,
+            "mean_signed_residual": -9.71445146547012e-17,
+            "median_signed_residual": -7.174882472604782e-05,
+            "semantic_family": "multi-step instruction following / structured response"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0006536842579226501,
+            "mean_signed_residual": -9.020562075079397e-17,
+            "median_signed_residual": -0.0002758196801080637,
+            "semantic_family": "multilingual / translation / cross-language transformation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0006633801491790214,
+            "mean_signed_residual": -1.249000902703301e-16,
+            "median_signed_residual": -0.0001525337817805672,
+            "semantic_family": "physics / scientific reasoning"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0005597179089562934,
+            "mean_signed_residual": -6.245004513516506e-17,
+            "median_signed_residual": 0.00012346037652230524,
+            "semantic_family": "planning / constraint satisfaction"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.0009441746684913654,
+            "mean_signed_residual": -1.1102230246251565e-16,
+            "median_signed_residual": -0.00037931634973104034,
+            "semantic_family": "structured extraction / transformation"
+          },
+          {
+            "count": 8,
+            "mean_absolute_residual": 0.000832720806063697,
+            "mean_signed_residual": -5.551115123125783e-17,
+            "median_signed_residual": -0.0002829361764433991,
+            "semantic_family": "summarization / synthesis"
+          }
+        ],
+        "residuals_by_length_level": [
+          {
+            "count": 16,
+            "length_level": 1,
+            "mae": 0.0008802158500615387,
+            "max": 0.0022556241053151016,
+            "mean": 0.0007215160049547573,
+            "median": 0.0006843234855220537,
+            "min": -0.00069701144694162,
+            "p10": -0.0002862936569563157,
+            "p90": 0.001740107545866898,
+            "rmse": 0.001085881600352281
+          },
+          {
+            "count": 16,
+            "length_level": 2,
+            "mae": 0.0005527575274491409,
+            "max": 0.0015337231540042962,
+            "mean": 0.00020632574290607025,
+            "median": 4.866077878135089e-05,
+            "min": -0.000574402503817184,
+            "p10": -0.0004823393667195419,
+            "p90": 0.001138109886596822,
+            "rmse": 0.0006857407452511853
+          },
+          {
+            "count": 16,
+            "length_level": 3,
+            "mae": 0.0004270765770222791,
+            "max": 0.0012012105872423184,
+            "mean": -3.445062138751273e-05,
+            "median": 3.3102547100649637e-06,
+            "min": -0.0008930950004625293,
+            "p10": -0.0006677965025498889,
+            "p90": 0.0005063554936580728,
+            "rmse": 0.000526211750368111
+          },
+          {
+            "count": 16,
+            "length_level": 4,
+            "mae": 0.0007015941378985813,
+            "max": 0.0017073844890006518,
+            "mean": 6.850824801143962e-05,
+            "median": 6.91299387728106e-05,
+            "min": -0.0016027554441865322,
+            "p10": -0.0011622862057436845,
+            "p90": 0.001389544927777847,
+            "rmse": 0.0009204732718213514
+          },
+          {
+            "count": 16,
+            "length_level": 5,
+            "mae": 0.0007645697690157847,
+            "max": 0.0017736785962090829,
+            "mean": -0.00027232891209741025,
+            "median": -0.0004045271375437143,
+            "min": -0.0014432615335666088,
+            "p10": -0.0011492726311455037,
+            "p90": 0.0010809770561576726,
+            "rmse": 0.0009134244604188781
+          },
+          {
+            "count": 16,
+            "length_level": 6,
+            "mae": 0.0006324151734852339,
+            "max": 0.001794325757058679,
+            "mean": 0.00023377891071175647,
+            "median": 0.00012226012825550248,
+            "min": -0.001021089287946253,
+            "p10": -0.0006726425739985165,
+            "p90": 0.0013218070754223155,
+            "rmse": 0.0008077515021996062
+          },
+          {
+            "count": 16,
+            "length_level": 7,
+            "mae": 0.0005925453222886193,
+            "max": 0.0006592141161850806,
+            "mean": -0.0004076054557977521,
+            "median": -0.00033922209831036,
+            "min": -0.0016780011344200707,
+            "p10": -0.0011375807098593371,
+            "p90": 0.000374150917906102,
+            "rmse": 0.000738035634528336
+          },
+          {
+            "count": 16,
+            "length_level": 8,
+            "mae": 0.0006832500991327262,
+            "max": 0.0006728956618990423,
+            "mean": -0.0005157439173019973,
+            "median": -0.0005381301256509041,
+            "min": -0.0013974329811079489,
+            "p10": -0.0013540930240477367,
+            "p90": 0.00033357689637339427,
+            "rmse": 0.0008110106419811229
+          }
+        ],
+        "rmse": 0.00082634667841967,
+        "row_count": 128
+      }
+    },
+    "row_count": 128
+  },
+  "projection_domain": {
+    "maximum": 730.703125,
+    "minimum": 471.328125,
+    "predictor": "loads_per_token"
+  },
+  "projection_gate": {
+    "datasets": [
+      {
+        "checks": {
+          "bootstrap_r_squared_lower": {
+            "minimum": 0.8,
+            "observed": 0.9903916411770711,
+            "pass": true
+          },
+          "family_mean_residuals": {
+            "pass": true,
+            "rows": [
+              {
+                "absolute_mean_residual": 0.0006325620964203887,
+                "limit": 0.01676419963980132,
+                "pass": true,
+                "semantic_family": "Spanish-language reasoning/explanation"
+              },
+              {
+                "absolute_mean_residual": 3.9754596287272514e-06,
+                "limit": 0.016472830352679508,
+                "pass": true,
+                "semantic_family": "algorithms / data-structure reasoning"
+              },
+              {
+                "absolute_mean_residual": 0.000337371225417854,
+                "limit": 0.016789023213206463,
+                "pass": true,
+                "semantic_family": "analytical comparison / argumentation"
+              },
+              {
+                "absolute_mean_residual": 0.0004778002548932597,
+                "limit": 0.01639987129110462,
+                "pass": true,
+                "semantic_family": "code generation"
+              },
+              {
+                "absolute_mean_residual": 2.3433529434277456e-05,
+                "limit": 0.015876368642323974,
+                "pass": true,
+                "semantic_family": "conversational / direct QA"
+              },
+              {
+                "absolute_mean_residual": 0.00041116785172323755,
+                "limit": 0.016233893986881184,
+                "pass": true,
+                "semantic_family": "creative / language generation"
+              },
+              {
+                "absolute_mean_residual": 7.436957915515213e-05,
+                "limit": 0.016730293702741452,
+                "pass": true,
+                "semantic_family": "debugging / code review"
+              },
+              {
+                "absolute_mean_residual": 0.0002996037904939089,
+                "limit": 0.015969793396369083,
+                "pass": true,
+                "semantic_family": "factual / explanatory knowledge"
+              },
+              {
+                "absolute_mean_residual": 0.0002781894519374162,
+                "limit": 0.01700146515124935,
+                "pass": true,
+                "semantic_family": "formal logic / proof-style reasoning"
+              },
+              {
+                "absolute_mean_residual": 0.0006325093343306845,
+                "limit": 0.017251301295410543,
+                "pass": true,
+                "semantic_family": "mathematical reasoning"
+              },
+              {
+                "absolute_mean_residual": 0.0003697667287075948,
+                "limit": 0.016270146686759947,
+                "pass": true,
+                "semantic_family": "multi-step instruction following / structured response"
+              },
+              {
+                "absolute_mean_residual": 0.0005699276854779917,
+                "limit": 0.016309930031382387,
+                "pass": true,
+                "semantic_family": "multilingual / translation / cross-language transformation"
+              },
+              {
+                "absolute_mean_residual": 0.0005135894868741123,
+                "limit": 0.016972824452254568,
+                "pass": true,
+                "semantic_family": "physics / scientific reasoning"
+              },
+              {
+                "absolute_mean_residual": 0.0003010393924135768,
+                "limit": 0.01626685344106247,
+                "pass": true,
+                "semantic_family": "planning / constraint satisfaction"
+              },
+              {
+                "absolute_mean_residual": 0.00045257151255745365,
+                "limit": 0.0164744700720366,
+                "pass": true,
+                "semantic_family": "structured extraction / transformation"
+              },
+              {
+                "absolute_mean_residual": 0.0003490753868322233,
+                "limit": 0.015771856364745693,
+                "pass": true,
+                "semantic_family": "summarization / synthesis"
+              }
+            ]
+          },
+          "lofo_rmse": {
+            "maximum": 0.00658175959909379,
+            "observed": 0.0009278253355740362,
+            "pass": true
+          },
+          "pooled_lofo_r_squared": {
+            "minimum": 0.9,
+            "observed": 0.993535949475491,
+            "pass": true
+          },
+          "unexplained_material_regime": {
+            "definition": "length-level and policy mean OOF residuals must each remain within 5% of group median measured TPS; all row outliers remain retained",
+            "length_level_rows": [
+              {
+                "absolute_mean_residual": 0.0007414606917986281,
+                "count": 16,
+                "length_level": "1",
+                "limit": 0.016326625943380284,
+                "pass": true
+              },
+              {
+                "absolute_mean_residual": 0.00022469828276730844,
+                "count": 16,
+                "length_level": "2",
+                "limit": 0.01648649929183085,
+                "pass": true
+              },
+              {
+                "absolute_mean_residual": 1.6706969921082698e-05,
+                "count": 16,
+                "length_level": "3",
+                "limit": 0.01630743718852325,
+                "pass": true
+              },
+              {
+                "absolute_mean_residual": 9.254245017765658e-05,
+                "count": 16,
+                "length_level": "4",
+                "limit": 0.016376135469890234,
+                "pass": true
+              },
+              {
+                "absolute_mean_residual": 0.0002495257386385223,
+                "count": 16,
+                "length_level": "5",
+                "limit": 0.016468936193643632,
+                "pass": true
+              },
+              {
+                "absolute_mean_residual": 0.00026023210944651695,
+                "count": 16,
+                "length_level": "6",
+                "limit": 0.016801772376418042,
+                "pass": true
+              },
+              {
+                "absolute_mean_residual": 0.0004000149924409842,
+                "count": 16,
+                "length_level": "7",
+                "limit": 0.016133775829216823,
+                "pass": true
+              },
+              {
+                "absolute_mean_residual": 0.000498408262637938,
+                "count": 16,
+                "length_level": "8",
+                "limit": 0.01650214571263307,
+                "pass": true
+              }
+            ],
+            "observed": false,
+            "pass": true,
+            "policy_rows": [
+              {
+                "absolute_mean_residual": 1.928469631894787e-05,
+                "count": 128,
+                "limit": 0.016454398997734473,
+                "pass": true,
+                "policy": "S2_P50"
+              }
+            ]
+          }
+        },
+        "dataset": "primary_stage_a",
+        "pass": true
+      },
+      {
+        "checks": {
+          "bootstrap_r_squared_lower": {
+            "minimum": 0.8,
+            "observed": 0.9910573497774843,
+            "pass": true
+          },
+          "family_mean_residuals": {
+            "pass": true,
+            "rows": [
+              {
+                "absolute_mean_residual": 0.0006000262313939408,
+                "limit": 0.016522579192944354,
+                "pass": true,
+                "semantic_family": "Spanish-language reasoning/explanation"
+              },
+              {
+                "absolute_mean_residual": 9.590671110504267e-07,
+                "limit": 0.016335498903468627,
+                "pass": true,
+                "semantic_family": "algorithms / data-structure reasoning"
+              },
+              {
+                "absolute_mean_residual": 0.00013115779285748362,
+                "limit": 0.016627285237632725,
+                "pass": true,
+                "semantic_family": "analytical comparison / argumentation"
+              },
+              {
+                "absolute_mean_residual": 7.778134041406814e-05,
+                "limit": 0.01610936896227186,
+                "pass": true,
+                "semantic_family": "code generation"
+              },
+              {
+                "absolute_mean_residual": 0.0002710664089929704,
+                "limit": 0.015761140558732067,
+                "pass": true,
+                "semantic_family": "conversational / direct QA"
+              },
+              {
+                "absolute_mean_residual": 0.0006123926972502025,
+                "limit": 0.01616465602682743,
+                "pass": true,
+                "semantic_family": "creative / language generation"
+              },
+              {
+                "absolute_mean_residual": 0.00025337986005135595,
+                "limit": 0.01658328764140619,
+                "pass": true,
+                "semantic_family": "debugging / code review"
+              },
+              {
+                "absolute_mean_residual": 9.632779678117136e-05,
+                "limit": 0.015699590454281955,
+                "pass": true,
+                "semantic_family": "factual / explanatory knowledge"
+              },
+              {
+                "absolute_mean_residual": 2.99626150171937e-05,
+                "limit": 0.016825673935467817,
+                "pass": true,
+                "semantic_family": "formal logic / proof-style reasoning"
+              },
+              {
+                "absolute_mean_residual": 0.0012141628138438601,
+                "limit": 0.016866364112135126,
+                "pass": true,
+                "semantic_family": "mathematical reasoning"
+              },
+              {
+                "absolute_mean_residual": 0.0006255996272852163,
+                "limit": 0.015323829239354736,
+                "pass": true,
+                "semantic_family": "multi-step instruction following / structured response"
+              },
+              {
+                "absolute_mean_residual": 0.0009475918587804,
+                "limit": 0.0161085135204424,
+                "pass": true,
+                "semantic_family": "multilingual / translation / cross-language transformation"
+              },
+              {
+                "absolute_mean_residual": 0.0007712236787261045,
+                "limit": 0.01684949641834111,
+                "pass": true,
+                "semantic_family": "physics / scientific reasoning"
+              },
+              {
+                "absolute_mean_residual": 3.7504835890500574e-05,
+                "limit": 0.016231242530396112,
+                "pass": true,
+                "semantic_family": "planning / constraint satisfaction"
+              },
+              {
+                "absolute_mean_residual": 0.0004582274013459675,
+                "limit": 0.01633774206850888,
+                "pass": true,
+                "semantic_family": "structured extraction / transformation"
+              },
+              {
+                "absolute_mean_residual": 0.00010983790473636142,
+                "limit": 0.015581775535625786,
+                "pass": true,
+                "semantic_family": "summarization / synthesis"
+              }
+            ]
+          },
+          "lofo_rmse": {
+            "maximum": 0.006494964370298959,
+            "observed": 0.0014058162266313012,
+            "pass": true
+          },
+          "pooled_lofo_r_squared": {
+            "minimum": 0.9,
+            "observed": 0.9926559259504573,
+            "pass": true
+          },
+          "unexplained_material_regime": {
+            "definition": "length-level and policy mean OOF residuals must each remain within 5% of group median measured TPS; all row outliers remain retained",
+            "length_level_rows": [
+              {
+                "absolute_mean_residual": 0.0005249869113545373,
+                "count": 22,
+                "length_level": "1",
+                "limit": 0.016271864507746665,
+                "pass": true
+              },
+              {
+                "absolute_mean_residual": 0.00022859249812105402,
+                "count": 28,
+                "length_level": "2",
+                "limit": 0.01588696703436551,
+                "pass": true
+              },
+              {
+                "absolute_mean_residual": 0.00038308446269006373,
+                "count": 22,
+                "length_level": "3",
+                "limit": 0.015992822711457515,
+                "pass": true
+              },
+              {
+                "absolute_mean_residual": 1.2923012302270855e-05,
+                "count": 22,
+                "length_level": "4",
+                "limit": 0.016109723773346584,
+                "pass": true
+              },
+              {
+                "absolute_mean_residual": 0.00025919584405137674,
+                "count": 22,
+                "length_level": "5",
+                "limit": 0.016105631404869033,
+                "pass": true
+              },
+              {
+                "absolute_mean_residual": 0.00044139391191210344,
+                "count": 22,
+                "length_level": "6",
+                "limit": 0.016629940342449776,
+                "pass": true
+              },
+              {
+                "absolute_mean_residual": 0.0007203736937468445,
+                "count": 16,
+                "length_level": "7",
+                "limit": 0.016133775829216823,
+                "pass": true
+              },
+              {
+                "absolute_mean_residual": 0.00031708873921336043,
+                "count": 22,
+                "length_level": "8",
+                "limit": 0.016329778790427126,
+                "pass": true
+              }
+            ],
+            "observed": false,
+            "pass": true,
+            "policy_rows": [
+              {
+                "absolute_mean_residual": 0.0012642668141250868,
+                "count": 24,
+                "limit": 0.01490914232474962,
+                "pass": true,
+                "policy": "EXACT"
+              },
+              {
+                "absolute_mean_residual": 0.00041510325479714405,
+                "count": 24,
+                "limit": 0.015481361191439247,
+                "pass": true,
+                "policy": "KNEE"
+              },
+              {
+                "absolute_mean_residual": 0.00010673540677077825,
+                "count": 128,
+                "limit": 0.016454398997734473,
+                "pass": true,
+                "policy": "S2_P50"
+              }
+            ]
+          }
+        },
+        "dataset": "protocol_compatible_sensitivity",
+        "pass": true
+      }
+    ],
+    "status": "PASS"
+  },
+  "protocol_compatible_sensitivity": {
+    "cluster_structure": "rows retained by case; LOFO and bootstrap cluster at semantic family",
+    "lofo": {
+      "M1": {
+        "cluster_bootstrap": {
+          "interpretation": "sensitivity interval over the 16 constructed families",
+          "pooled_oof_r_squared_95_interval": [
+            0.9910573497774852,
+            0.9934032661379125
+          ],
+          "pooled_oof_rmse_95_interval": [
+            0.001237518280263011,
+            0.0015547109008590672
+          ],
+          "replicates": 2000,
+          "seed": 105,
+          "unit": "semantic_family_cluster"
+        },
+        "family_residuals": [
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0010820274926643613,
+            "mean_signed_residual": -0.0006000262313935912,
+            "median_signed_residual": -0.0006745328406988771,
+            "semantic_family": "Spanish-language reasoning/explanation"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0007864044340568976,
+            "mean_signed_residual": -9.590671106951555e-07,
+            "median_signed_residual": 3.082603631032743e-05,
+            "semantic_family": "algorithms / data-structure reasoning"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.001134838249057485,
+            "mean_signed_residual": 0.00013115779285781116,
+            "median_signed_residual": 0.00010152579121264216,
+            "semantic_family": "analytical comparison / argumentation"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0006921485563136043,
+            "mean_signed_residual": -7.77813404138239e-05,
+            "median_signed_residual": -0.00014697690751491743,
+            "semantic_family": "code generation"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0011546435712791459,
+            "mean_signed_residual": -0.00027106640899285937,
+            "median_signed_residual": -0.000503780401817755,
+            "semantic_family": "conversational / direct QA"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0009556852019638573,
+            "mean_signed_residual": -0.0006123926972500026,
+            "median_signed_residual": -0.0005497188463878255,
+            "semantic_family": "creative / language generation"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.000752536989380137,
+            "mean_signed_residual": 0.0002533798600516723,
+            "median_signed_residual": -0.0001656184948065076,
+            "semantic_family": "debugging / code review"
+          },
+          {
+            "count": 12,
+            "mean_absolute_residual": 0.0010214960975713644,
+            "mean_signed_residual": -9.63277967811621e-05,
+            "median_signed_residual": -0.00019195946229513816,
+            "semantic_family": "factual / explanatory knowledge"
+          },
+          {
+            "count": 12,
+            "mean_absolute_residual": 0.0011267302314579286,
+            "mean_signed_residual": -2.996261501753139e-05,
+            "median_signed_residual": -0.000529710483225726,
+            "semantic_family": "formal logic / proof-style reasoning"
+          },
+          {
+            "count": 14,
+            "mean_absolute_residual": 0.00134689248954931,
+            "mean_signed_residual": 0.0012141628138438998,
+            "median_signed_residual": 0.001252801606898335,
+            "semantic_family": "mathematical reasoning"
+          },
+          {
+            "count": 14,
+            "mean_absolute_residual": 0.0013239060655122362,
+            "mean_signed_residual": 0.0006255996272850854,
+            "median_signed_residual": -2.9798796522290116e-05,
+            "semantic_family": "multi-step instruction following / structured response"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0010797142900807965,
+            "mean_signed_residual": -0.0009475918587801557,
+            "median_signed_residual": -0.0010677427880142198,
+            "semantic_family": "multilingual / translation / cross-language transformation"
+          },
+          {
+            "count": 12,
+            "mean_absolute_residual": 0.001196585831478363,
+            "mean_signed_residual": 0.00077122367872616,
+            "median_signed_residual": 0.0004724766919741996,
+            "semantic_family": "physics / scientific reasoning"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0008580530212306314,
+            "mean_signed_residual": 3.750483589083364e-05,
+            "median_signed_residual": -0.00016345954779714567,
+            "semantic_family": "planning / constraint satisfaction"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0013060993351171669,
+            "mean_signed_residual": -0.0004582274013456733,
+            "median_signed_residual": -0.0011076683188619985,
+            "semantic_family": "structured extraction / transformation"
+          },
+          {
+            "count": 12,
+            "mean_absolute_residual": 0.0013955999170746126,
+            "mean_signed_residual": -0.0001098379047363568,
+            "median_signed_residual": -0.0006390486519867455,
+            "semantic_family": "summarization / synthesis"
+          }
+        ],
+        "fold_count": 16,
+        "folds": [
+          {
+            "held_out_family": "Spanish-language reasoning/explanation",
+            "held_out_row_count": 10,
+            "residuals": {
+              "count": 10,
+              "mae": 0.0010820274926643613,
+              "max": 0.0019721212835806523,
+              "mean": -0.0006000262313935912,
+              "median": -0.0006745328406988771,
+              "min": -0.0023968258454640234,
+              "p10": -0.002005051359525528,
+              "p90": 0.0004432329348784341,
+              "rmse": 0.0013337748249078749
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.03282769104387179,
+            "training_row_count": 166,
+            "training_slope": 0.4712783897372501
+          },
+          {
+            "held_out_family": "algorithms / data-structure reasoning",
+            "held_out_row_count": 10,
+            "residuals": {
+              "count": 10,
+              "mae": 0.0007864044340568976,
+              "max": 0.0017686137675088087,
+              "mean": -9.590671106951555e-07,
+              "median": 3.082603631032743e-05,
+              "min": -0.0016365206770390661,
+              "p10": -0.0010468915900754827,
+              "p90": 0.0008969895113553779,
+              "rmse": 0.0009439916034672305
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.03231388401073662,
+            "training_row_count": 166,
+            "training_slope": 0.47205851506056423
+          },
+          {
+            "held_out_family": "analytical comparison / argumentation",
+            "held_out_row_count": 10,
+            "residuals": {
+              "count": 10,
+              "mae": 0.001134838249057485,
+              "max": 0.002681915427077186,
+              "mean": 0.00013115779285781116,
+              "median": 0.00010152579121264216,
+              "min": -0.002351890672911805,
+              "p10": -0.0011919330418031448,
+              "p90": 0.0016289384664761204,
+              "rmse": 0.001386873857724781
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.03290647588291062,
+            "training_row_count": 166,
+            "training_slope": 0.4710827289580221
+          },
+          {
+            "held_out_family": "code generation",
+            "held_out_row_count": 10,
+            "residuals": {
+              "count": 10,
+              "mae": 0.0006921485563136043,
+              "max": 0.001614162424122434,
+              "mean": -7.77813404138239e-05,
+              "median": -0.00014697690751491743,
+              "min": -0.001834129467074952,
+              "p10": -0.0010516301593788858,
+              "p90": 0.0008731946963187406,
+              "rmse": 0.0009070243014194339
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.032502381473420036,
+            "training_row_count": 166,
+            "training_slope": 0.4717591075628468
+          },
+          {
+            "held_out_family": "conversational / direct QA",
+            "held_out_row_count": 10,
+            "residuals": {
+              "count": 10,
+              "mae": 0.0011546435712791459,
+              "max": 0.0037248456040210876,
+              "mean": -0.00027106640899285937,
+              "median": -0.000503780401817755,
+              "min": -0.0017446726676733082,
+              "p10": -0.0017136444797760885,
+              "p90": 0.0007754388940337631,
+              "rmse": 0.0015633659192896936
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.031890011746722235,
+            "training_row_count": 166,
+            "training_slope": 0.47277270456966886
+          },
+          {
+            "held_out_family": "creative / language generation",
+            "held_out_row_count": 10,
+            "residuals": {
+              "count": 10,
+              "mae": 0.0009556852019638573,
+              "max": 0.0017164625235692732,
+              "mean": -0.0006123926972500026,
+              "median": -0.0005497188463878255,
+              "min": -0.00193449981688254,
+              "p10": -0.0015663117955408811,
+              "p90": -9.322363123831018e-05,
+              "rmse": 0.0011212754381980353
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.0323477098621299,
+            "training_row_count": 166,
+            "training_slope": 0.47206000239540397
+          },
+          {
+            "held_out_family": "debugging / code review",
+            "held_out_row_count": 10,
+            "residuals": {
+              "count": 10,
+              "mae": 0.000752536989380137,
+              "max": 0.001966421543944663,
+              "mean": 0.0002533798600516723,
+              "median": -0.0001656184948065076,
+              "min": -0.0009462108947122516,
+              "p10": -0.0006439068627911327,
+              "p90": 0.0018960829607026109,
+              "rmse": 0.000989854873494659
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.03304974876595912,
+            "training_row_count": 166,
+            "training_slope": 0.4708384691089877
+          },
+          {
+            "held_out_family": "factual / explanatory knowledge",
+            "held_out_row_count": 12,
+            "residuals": {
+              "count": 12,
+              "mae": 0.0010214960975713644,
+              "max": 0.0030735833573670712,
+              "mean": -9.63277967811621e-05,
+              "median": -0.00019195946229513816,
+              "min": -0.001893019983209565,
+              "p10": -0.001573319370388343,
+              "p90": 0.0013235012419764716,
+              "rmse": 0.0013198968694606997
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.031792143778715885,
+            "training_row_count": 164,
+            "training_slope": 0.4729174781416143
+          },
+          {
+            "held_out_family": "formal logic / proof-style reasoning",
+            "held_out_row_count": 12,
+            "residuals": {
+              "count": 12,
+              "mae": 0.0011267302314579286,
+              "max": 0.0022117132445886867,
+              "mean": -2.996261501753139e-05,
+              "median": -0.000529710483225726,
+              "min": -0.0015614580486465468,
+              "p10": -0.0012917414042138363,
+              "p90": 0.0020110687606470392,
+              "rmse": 0.0012913861000662915
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.03326143316970931,
+            "training_row_count": 164,
+            "training_slope": 0.47052099244294965
+          },
+          {
+            "held_out_family": "mathematical reasoning",
+            "held_out_row_count": 14,
+            "residuals": {
+              "count": 14,
+              "mae": 0.00134689248954931,
+              "max": 0.0035940598311736127,
+              "mean": 0.0012141628138438998,
+              "median": 0.001252801606898335,
+              "min": -0.0005588356358925406,
+              "p10": -0.00020228593954944586,
+              "p90": 0.00263604670901641,
+              "rmse": 0.0017142370729946546
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.03437654714384307,
+            "training_row_count": 162,
+            "training_slope": 0.46854740200526357
+          },
+          {
+            "held_out_family": "multi-step instruction following / structured response",
+            "held_out_row_count": 14,
+            "residuals": {
+              "count": 14,
+              "mae": 0.0013239060655122362,
+              "max": 0.005549729883482291,
+              "mean": 0.0006255996272850854,
+              "median": -2.9798796522290116e-05,
+              "min": -0.0015969520920808833,
+              "p10": -0.0008764358243527004,
+              "p90": 0.002681711032476876,
+              "rmse": 0.0019325507171140872
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.02983856919298488,
+            "training_row_count": 162,
+            "training_slope": 0.47600247749781066
+          },
+          {
+            "held_out_family": "multilingual / translation / cross-language transformation",
+            "held_out_row_count": 10,
+            "residuals": {
+              "count": 10,
+              "mae": 0.0010797142900807965,
+              "max": 0.00033769175559222875,
+              "mean": -0.0009475918587801557,
+              "median": -0.0010677427880142198,
+              "min": -0.0021839666141958425,
+              "p10": -0.0019847553268677043,
+              "p90": 0.0003243975363791007,
+              "rmse": 0.0012665875034550955
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.032653683851390745,
+            "training_row_count": 166,
+            "training_slope": 0.4715934441262003
+          },
+          {
+            "held_out_family": "physics / scientific reasoning",
+            "held_out_row_count": 12,
+            "residuals": {
+              "count": 12,
+              "mae": 0.001196585831478363,
+              "max": 0.0043466424134968595,
+              "mean": 0.00077122367872616,
+              "median": 0.0004724766919741996,
+              "min": -0.0013659648493353216,
+              "p10": -0.0010456080059057238,
+              "p90": 0.0019796738149963355,
+              "rmse": 0.0016538661328242884
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.03415977784444126,
+            "training_row_count": 164,
+            "training_slope": 0.4689714204109504
+          },
+          {
+            "held_out_family": "planning / constraint satisfaction",
+            "held_out_row_count": 10,
+            "residuals": {
+              "count": 10,
+              "mae": 0.0008580530212306314,
+              "max": 0.00186642729529235,
+              "mean": 3.750483589083364e-05,
+              "median": -0.00016345954779714567,
+              "min": -0.0012467322738223263,
+              "p10": -0.0012214177962562745,
+              "p90": 0.0010955229197492974,
+              "rmse": 0.001006395263601978
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.03273620875276853,
+            "training_row_count": 166,
+            "training_slope": 0.47136824315256143
+          },
+          {
+            "held_out_family": "structured extraction / transformation",
+            "held_out_row_count": 10,
+            "residuals": {
+              "count": 10,
+              "mae": 0.0013060993351171669,
+              "max": 0.0017520878945940788,
+              "mean": -0.0004582274013456733,
+              "median": -0.0011076683188619985,
+              "min": -0.001704348339403139,
+              "p10": -0.001659653046932652,
+              "p90": 0.001648273795880062,
+              "rmse": 0.0013741928292338216
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.032449147615974124,
+            "training_row_count": 166,
+            "training_slope": 0.47188081707644103
+          },
+          {
+            "held_out_family": "summarization / synthesis",
+            "held_out_row_count": 12,
+            "residuals": {
+              "count": 12,
+              "mae": 0.0013955999170746126,
+              "max": 0.0037908886314030887,
+              "mean": -0.0001098379047363568,
+              "median": -0.0006390486519867455,
+              "min": -0.0021776573026166535,
+              "p10": -0.0015545990831652978,
+              "p90": 0.0023408524438385376,
+              "rmse": 0.0016989128060672367
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.030938808011058312,
+            "training_row_count": 164,
+            "training_slope": 0.47430653678037893
+          }
+        ],
+        "pooled_oof_mae": 0.001092600205189146,
+        "pooled_oof_r_squared": 0.9926559259504575,
+        "pooled_oof_rmse": 0.001405816226631273,
+        "predictor": "hit_ratio",
+        "residual_association_with_actual_tokens": {
+          "count": 176,
+          "pearson_r": -0.17548410932835395,
+          "spearman_rho": -0.20998470142585224
+        },
+        "residual_distribution": {
+          "count": 176,
+          "mae": 0.001092600205189146,
+          "max": 0.005549729883482291,
+          "mean": 3.816928043883108e-05,
+          "median": -0.00018286415336557504,
+          "min": -0.0023968258454640234,
+          "p10": -0.0015855780166338929,
+          "p90": 0.001877628017032451,
+          "rmse": 0.001405816226631273
+        },
+        "residuals_by_length_level": [
+          {
+            "count": 22,
+            "length_level": 1,
+            "mae": 0.0009926781579192529,
+            "max": 0.0020307035120477046,
+            "mean": 0.0005249869113546635,
+            "median": 0.0005074326127085249,
+            "min": -0.0011276807087564067,
+            "p10": -0.0010222341790158517,
+            "p90": 0.0017669611802173357,
+            "rmse": 0.001161386164625704
+          },
+          {
+            "count": 28,
+            "length_level": 2,
+            "mae": 0.0009458504970701985,
+            "max": 0.0037248456040210876,
+            "mean": 0.00022859249812121657,
+            "median": -5.4724190147098506e-05,
+            "min": -0.0016180499817690097,
+            "p10": -0.001079836428523734,
+            "p90": 0.002219086729321873,
+            "rmse": 0.0012786276133542203
+          },
+          {
+            "count": 22,
+            "length_level": 3,
+            "mae": 0.001047527264795789,
+            "max": 0.0018669884715002971,
+            "mean": -0.00038308446268996534,
+            "median": -0.00040307364266412016,
+            "min": -0.0021839666141958425,
+            "p10": -0.0016062945892823476,
+            "p90": 0.0017044380812267115,
+            "rmse": 0.0012441089676367395
+          },
+          {
+            "count": 22,
+            "length_level": 4,
+            "mae": 0.0011978455392310542,
+            "max": 0.0035940598311736127,
+            "mean": 1.2923012302439913e-05,
+            "median": -0.00017307680445913243,
+            "min": -0.0021776573026166535,
+            "p10": -0.001652014004012803,
+            "p90": 0.0025225253347253484,
+            "rmse": 0.0015291551474900845
+          },
+          {
+            "count": 22,
+            "length_level": 5,
+            "mae": 0.00152979285847687,
+            "max": 0.005549729883482291,
+            "mean": 0.00025919584405149026,
+            "median": -3.1721064927214826e-05,
+            "min": -0.0023968258454640234,
+            "p10": -0.001698872422216846,
+            "p90": 0.0018631146959104399,
+            "rmse": 0.0019378339931743762
+          },
+          {
+            "count": 22,
+            "length_level": 6,
+            "mae": 0.0010187368344358738,
+            "max": 0.0043466424134968595,
+            "mean": 0.00044139391191221446,
+            "median": -1.1556484553754132e-06,
+            "min": -0.0011587339989849177,
+            "p10": -0.0008846735067442824,
+            "p90": 0.0026915263997964417,
+            "rmse": 0.0014865871219831457
+          },
+          {
+            "count": 16,
+            "length_level": 7,
+            "mae": 0.0008792517718146896,
+            "max": 0.000703945239612036,
+            "mean": -0.000720373693746678,
+            "median": -0.0005702795160600349,
+            "min": -0.00193449981688254,
+            "p10": -0.0018188463254414367,
+            "p90": 0.000269802658369539,
+            "rmse": 0.0010915978986706309
+          },
+          {
+            "count": 22,
+            "length_level": 8,
+            "mae": 0.0011109554290633927,
+            "max": 0.0023200816596589124,
+            "mean": -0.0003170887392132494,
+            "median": -0.0006044713600194818,
+            "min": -0.002351890672911805,
+            "p10": -0.0016243575945408817,
+            "p90": 0.00176586486252764,
+            "rmse": 0.0012896110192033357
+          }
+        ]
+      },
+      "M2": {
+        "cluster_bootstrap": {
+          "interpretation": "sensitivity interval over the 16 constructed families",
+          "pooled_oof_r_squared_95_interval": [
+            0.9910573497774843,
+            0.9934032661379127
+          ],
+          "pooled_oof_rmse_95_interval": [
+            0.0012375182802630538,
+            0.0015547109008590878
+          ],
+          "replicates": 2000,
+          "seed": 105,
+          "unit": "semantic_family_cluster"
+        },
+        "family_residuals": [
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.001082027492664478,
+            "mean_signed_residual": -0.0006000262313939408,
+            "median_signed_residual": -0.0006745328406992379,
+            "semantic_family": "Spanish-language reasoning/explanation"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0007864044340569421,
+            "mean_signed_residual": -9.590671110504267e-07,
+            "median_signed_residual": 3.082603630996661e-05,
+            "semantic_family": "algorithms / data-structure reasoning"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0011348382490574903,
+            "mean_signed_residual": 0.00013115779285748362,
+            "median_signed_residual": 0.00010152579121230909,
+            "semantic_family": "analytical comparison / argumentation"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0006921485563136376,
+            "mean_signed_residual": -7.778134041406814e-05,
+            "median_signed_residual": -0.00014697690751516723,
+            "semantic_family": "code generation"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0011546435712792014,
+            "mean_signed_residual": -0.0002710664089929704,
+            "median_signed_residual": -0.0005037804018178937,
+            "semantic_family": "conversational / direct QA"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0009556852019640238,
+            "mean_signed_residual": -0.0006123926972502025,
+            "median_signed_residual": -0.0005497188463880753,
+            "semantic_family": "creative / language generation"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.000752536989380187,
+            "mean_signed_residual": 0.00025337986005135595,
+            "median_signed_residual": -0.00016561849480684065,
+            "semantic_family": "debugging / code review"
+          },
+          {
+            "count": 12,
+            "mean_absolute_residual": 0.001021496097571355,
+            "mean_signed_residual": -9.632779678117136e-05,
+            "median_signed_residual": -0.00019195946229516592,
+            "semantic_family": "factual / explanatory knowledge"
+          },
+          {
+            "count": 12,
+            "mean_absolute_residual": 0.0011267302314578408,
+            "mean_signed_residual": -2.99626150171937e-05,
+            "median_signed_residual": -0.0005297104832254207,
+            "semantic_family": "formal logic / proof-style reasoning"
+          },
+          {
+            "count": 14,
+            "mean_absolute_residual": 0.0013468924895492864,
+            "mean_signed_residual": 0.0012141628138438601,
+            "median_signed_residual": 0.001252801606898335,
+            "semantic_family": "mathematical reasoning"
+          },
+          {
+            "count": 14,
+            "mean_absolute_residual": 0.001323906065512264,
+            "mean_signed_residual": 0.0006255996272852163,
+            "median_signed_residual": -2.9798796522179094e-05,
+            "semantic_family": "multi-step instruction following / structured response"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.001079714290080963,
+            "mean_signed_residual": -0.0009475918587804,
+            "median_signed_residual": -0.0010677427880144696,
+            "semantic_family": "multilingual / translation / cross-language transformation"
+          },
+          {
+            "count": 12,
+            "mean_absolute_residual": 0.0011965858314783445,
+            "mean_signed_residual": 0.0007712236787261045,
+            "median_signed_residual": 0.0004724766919741441,
+            "semantic_family": "physics / scientific reasoning"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0008580530212306869,
+            "mean_signed_residual": 3.7504835890500574e-05,
+            "median_signed_residual": -0.00016345954779747873,
+            "semantic_family": "planning / constraint satisfaction"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0013060993351172833,
+            "mean_signed_residual": -0.0004582274013459675,
+            "median_signed_residual": -0.0011076683188623038,
+            "semantic_family": "structured extraction / transformation"
+          },
+          {
+            "count": 12,
+            "mean_absolute_residual": 0.001395599917074608,
+            "mean_signed_residual": -0.00010983790473636142,
+            "median_signed_residual": -0.0006390486519867455,
+            "semantic_family": "summarization / synthesis"
+          }
+        ],
+        "fold_count": 16,
+        "folds": [
+          {
+            "held_out_family": "Spanish-language reasoning/explanation",
+            "held_out_row_count": 10,
+            "residuals": {
+              "count": 10,
+              "mae": 0.001082027492664478,
+              "max": 0.0019721212835802637,
+              "mean": -0.0006000262313939408,
+              "median": -0.0006745328406992379,
+              "min": -0.0023968258454643565,
+              "p10": -0.0020050513595258612,
+              "p90": 0.00044323293487804553,
+              "rmse": 0.0013337748249080143
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.5041060807811225,
+            "training_row_count": 166,
+            "training_slope": -0.0003201619495497628
+          },
+          {
+            "held_out_family": "algorithms / data-structure reasoning",
+            "held_out_row_count": 10,
+            "residuals": {
+              "count": 10,
+              "mae": 0.0007864044340569421,
+              "max": 0.0017686137675084757,
+              "mean": -9.590671110504267e-07,
+              "median": 3.082603630996661e-05,
+              "min": -0.0016365206770395102,
+              "p10": -0.0010468915900759268,
+              "p90": 0.0008969895113550448,
+              "rmse": 0.0009439916034672694
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.5043723990713016,
+            "training_row_count": 166,
+            "training_slope": -0.00032069192599223185
+          },
+          {
+            "held_out_family": "analytical comparison / argumentation",
+            "held_out_row_count": 10,
+            "residuals": {
+              "count": 10,
+              "mae": 0.0011348382490574903,
+              "max": 0.002681915427076853,
+              "mean": 0.00013115779285748362,
+              "median": 0.00010152579121230909,
+              "min": -0.002351890672912138,
+              "p10": -0.0011919330418034778,
+              "p90": 0.0016289384664758373,
+              "rmse": 0.0013868738577247556
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.5039892048409332,
+            "training_row_count": 166,
+            "training_slope": -0.0003200290278247436
+          },
+          {
+            "held_out_family": "code generation",
+            "held_out_row_count": 10,
+            "residuals": {
+              "count": 10,
+              "mae": 0.0006921485563136376,
+              "max": 0.001614162424122212,
+              "mean": -7.778134041406814e-05,
+              "median": -0.00014697690751516723,
+              "min": -0.001834129467075174,
+              "p10": -0.0010516301593791078,
+              "p90": 0.0008731946963184686,
+              "rmse": 0.0009070243014194462
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.5042614890362673,
+            "training_row_count": 166,
+            "training_slope": -0.0003204885241595431
+          },
+          {
+            "held_out_family": "conversational / direct QA",
+            "held_out_row_count": 10,
+            "residuals": {
+              "count": 10,
+              "mae": 0.0011546435712792014,
+              "max": 0.003724845604021032,
+              "mean": -0.0002710664089929704,
+              "median": -0.0005037804018178937,
+              "min": -0.0017446726676734192,
+              "p10": -0.0017136444797761995,
+              "p90": 0.0007754388940336076,
+              "rmse": 0.0015633659192897259
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.5046627163163916,
+            "training_row_count": 166,
+            "training_slope": -0.0003211771090826561
+          },
+          {
+            "held_out_family": "creative / language generation",
+            "held_out_row_count": 10,
+            "residuals": {
+              "count": 10,
+              "mae": 0.0009556852019640238,
+              "max": 0.0017164625235691067,
+              "mean": -0.0006123926972502025,
+              "median": -0.0005497188463880753,
+              "min": -0.001934499816882762,
+              "p10": -0.0015663117955410533,
+              "p90": -9.322363123852667e-05,
+              "rmse": 0.001121275438198143
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.5044077122575346,
+            "training_row_count": 166,
+            "training_slope": -0.000320692936409922
+          },
+          {
+            "held_out_family": "debugging / code review",
+            "held_out_row_count": 10,
+            "residuals": {
+              "count": 10,
+              "mae": 0.000752536989380187,
+              "max": 0.00196642154394433,
+              "mean": 0.00025337986005135595,
+              "median": -0.00016561849480684065,
+              "min": -0.0009462108947125292,
+              "p10": -0.0006439068627914102,
+              "p90": 0.0018960829607022277,
+              "rmse": 0.0009898548734945543
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.5038882178749474,
+            "training_row_count": 166,
+            "training_slope": -0.0003198630904273019
+          },
+          {
+            "held_out_family": "factual / explanatory knowledge",
+            "held_out_row_count": 12,
+            "residuals": {
+              "count": 12,
+              "mae": 0.001021496097571355,
+              "max": 0.0030735833573670712,
+              "mean": -9.632779678117136e-05,
+              "median": -0.00019195946229516592,
+              "min": -0.0018930199832096206,
+              "p10": -0.001573319370388343,
+              "p90": 0.001323501241976466,
+              "rmse": 0.0013198968694607
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.50470962192033,
+            "training_row_count": 164,
+            "training_slope": -0.00032127546069403114
+          },
+          {
+            "held_out_family": "formal logic / proof-style reasoning",
+            "held_out_row_count": 12,
+            "residuals": {
+              "count": 12,
+              "mae": 0.0011267302314578408,
+              "max": 0.0022117132445890197,
+              "mean": -2.99626150171937e-05,
+              "median": -0.0005297104832254207,
+              "min": -0.0015614580486462137,
+              "p10": -0.001291741404213509,
+              "p90": 0.002011068760647428,
+              "rmse": 0.0012913861000663043
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.5037824256126584,
+            "training_row_count": 164,
+            "training_slope": -0.00031964741334439473
+          },
+          {
+            "held_out_family": "mathematical reasoning",
+            "held_out_row_count": 14,
+            "residuals": {
+              "count": 14,
+              "mae": 0.0013468924895492864,
+              "max": 0.003594059831173557,
+              "mean": 0.0012141628138438601,
+              "median": 0.001252801606898335,
+              "min": -0.0005588356358925961,
+              "p10": -0.0002022859395494625,
+              "p90": 0.0026360467090163547,
+              "rmse": 0.001714237072994622
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.502923949149107,
+            "training_row_count": 162,
+            "training_slope": -0.00031830665897096766
+          },
+          {
+            "held_out_family": "multi-step instruction following / structured response",
+            "held_out_row_count": 14,
+            "residuals": {
+              "count": 14,
+              "mae": 0.001323906065512264,
+              "max": 0.005549729883482513,
+              "mean": 0.0006255996272852163,
+              "median": -2.9798796522179094e-05,
+              "min": -0.0015969520920807723,
+              "p10": -0.0008764358243525505,
+              "p90": 0.0026817110324770647,
+              "rmse": 0.0019325507171141626
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.5058410466907959,
+            "training_row_count": 162,
+            "training_slope": -0.0003233712483001439
+          },
+          {
+            "held_out_family": "multilingual / translation / cross-language transformation",
+            "held_out_row_count": 10,
+            "residuals": {
+              "count": 10,
+              "mae": 0.001079714290080963,
+              "max": 0.0003376917555920067,
+              "mean": -0.0009475918587804,
+              "median": -0.0010677427880144696,
+              "min": -0.0021839666141960645,
+              "p10": -0.001984755326867976,
+              "p90": 0.00032439753637892866,
+              "rmse": 0.0012665875034552903
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.5042471279775915,
+            "training_row_count": 166,
+            "training_slope": -0.0003203759810639952
+          },
+          {
+            "held_out_family": "physics / scientific reasoning",
+            "held_out_row_count": 12,
+            "residuals": {
+              "count": 12,
+              "mae": 0.0011965858314783445,
+              "max": 0.0043466424134967485,
+              "mean": 0.0007712236787261045,
+              "median": 0.0004724766919741441,
+              "min": -0.001365964849335377,
+              "p10": -0.0010456080059057847,
+              "p90": 0.0019796738149963355,
+              "rmse": 0.0016538661328242609
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.5031311982553917,
+            "training_row_count": 164,
+            "training_slope": -0.0003185947149530912
+          },
+          {
+            "held_out_family": "planning / constraint satisfaction",
+            "held_out_row_count": 10,
+            "residuals": {
+              "count": 10,
+              "mae": 0.0008580530212306869,
+              "max": 0.0018664272952919059,
+              "mean": 3.7504835890500574e-05,
+              "median": -0.00016345954779747873,
+              "min": -0.0012467322738226039,
+              "p10": -0.001221417796256552,
+              "p90": 0.0010955229197489532,
+              "rmse": 0.0010063952636019374
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.5041044519053307,
+            "training_row_count": 166,
+            "training_slope": -0.0003202229912721213
+          },
+          {
+            "held_out_family": "structured extraction / transformation",
+            "held_out_row_count": 10,
+            "residuals": {
+              "count": 10,
+              "mae": 0.0013060993351172833,
+              "max": 0.0017520878945937457,
+              "mean": -0.0004582274013459675,
+              "median": -0.0011076683188623038,
+              "min": -0.0017043483394034165,
+              "p10": -0.0016596530469329296,
+              "p90": 0.0016482737958797289,
+              "rmse": 0.0013741928292339146
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.5043299646924159,
+            "training_row_count": 166,
+            "training_slope": -0.00032057120725301777
+          },
+          {
+            "held_out_family": "summarization / synthesis",
+            "held_out_row_count": 12,
+            "residuals": {
+              "count": 12,
+              "mae": 0.001395599917074608,
+              "max": 0.0037908886314030887,
+              "mean": -0.00010983790473636142,
+              "median": -0.0006390486519867455,
+              "min": -0.0021776573026166535,
+              "p10": -0.0015545990831653035,
+              "p90": 0.0023408524438385376,
+              "rmse": 0.0016989128060672387
+            },
+            "training_family_count": 15,
+            "training_intercept": 0.5052453447914372,
+            "training_row_count": 164,
+            "training_slope": -0.0003222191146605835
+          }
+        ],
+        "pooled_oof_mae": 0.0010926002051891842,
+        "pooled_oof_r_squared": 0.9926559259504573,
+        "pooled_oof_rmse": 0.0014058162266313012,
+        "predictor": "loads_per_token",
+        "residual_association_with_actual_tokens": {
+          "count": 176,
+          "pearson_r": -0.17548410932836195,
+          "spearman_rho": -0.20998470142585224
+        },
+        "residual_distribution": {
+          "count": 176,
+          "mae": 0.0010926002051891842,
+          "max": 0.005549729883482513,
+          "mean": 3.816928043869892e-05,
+          "median": -0.0001828641533658526,
+          "min": -0.0023968258454643565,
+          "p10": -0.0015855780166338374,
+          "p90": 0.001877628017032229,
+          "rmse": 0.0014058162266313012
+        },
+        "residuals_by_length_level": [
+          {
+            "count": 22,
+            "length_level": 1,
+            "mae": 0.0009926781579192175,
+            "max": 0.002030703512048093,
+            "mean": 0.0005249869113545373,
+            "median": 0.0005074326127085804,
+            "min": -0.0011276807087566287,
+            "p10": -0.0010222341790161627,
+            "p90": 0.0017669611802170026,
+            "rmse": 0.0011613861646256791
+          },
+          {
+            "count": 28,
+            "length_level": 2,
+            "mae": 0.0009458504970702501,
+            "max": 0.003724845604021032,
+            "mean": 0.00022859249812105402,
+            "median": -5.472419014712626e-05,
+            "min": -0.0016180499817693428,
+            "p10": -0.001079836428524028,
+            "p90": 0.0022190867293220896,
+            "rmse": 0.00127862761335425
+          },
+          {
+            "count": 22,
+            "length_level": 3,
+            "mae": 0.0010475272647958722,
+            "max": 0.0018669884715002416,
+            "mean": -0.00038308446269006373,
+            "median": -0.0004030736426644532,
+            "min": -0.0021839666141960645,
+            "p10": -0.0016062945892824144,
+            "p90": 0.0017044380812265727,
+            "rmse": 0.0012441089676367906
+          },
+          {
+            "count": 22,
+            "length_level": 4,
+            "mae": 0.001197845539231097,
+            "max": 0.003594059831173557,
+            "mean": 1.2923012302270855e-05,
+            "median": -0.00017307680445940998,
+            "min": -0.0021776573026166535,
+            "p10": -0.0016520140040130527,
+            "p90": 0.002522525334725043,
+            "rmse": 0.001529155147490101
+          },
+          {
+            "count": 22,
+            "length_level": 5,
+            "mae": 0.0015297928584768674,
+            "max": 0.005549729883482513,
+            "mean": 0.00025919584405137674,
+            "median": -3.172106492732585e-05,
+            "min": -0.0023968258454643565,
+            "p10": -0.001698872422216935,
+            "p90": 0.001863114695910057,
+            "rmse": 0.0019378339931744116
+          },
+          {
+            "count": 22,
+            "length_level": 6,
+            "mae": 0.0010187368344358738,
+            "max": 0.0043466424134967485,
+            "mean": 0.00044139391191210344,
+            "median": -1.1556484555697022e-06,
+            "min": -0.0011587339989849732,
+            "p10": -0.0008846735067441324,
+            "p90": 0.0026915263997963528,
+            "rmse": 0.0014865871219831182
+          },
+          {
+            "count": 16,
+            "length_level": 7,
+            "mae": 0.0008792517718147798,
+            "max": 0.000703945239611703,
+            "mean": -0.0007203736937468445,
+            "median": -0.0005702795160601737,
+            "min": -0.001934499816882762,
+            "p10": -0.00181884632544152,
+            "p90": 0.0002698026583693447,
+            "rmse": 0.0010915978986706888
+          },
+          {
+            "count": 22,
+            "length_level": 8,
+            "mae": 0.0011109554290634786,
+            "max": 0.002320081659658857,
+            "mean": -0.00031708873921336043,
+            "median": -0.0006044713600196205,
+            "min": -0.002351890672912138,
+            "p10": -0.001624357594541309,
+            "p90": 0.0017658648625279898,
+            "rmse": 0.00128961101920344
+          }
+        ]
+      }
+    },
+    "models": {
+      "M1": {
+        "coefficient_names": [
+          "intercept",
+          "hit_ratio"
+        ],
+        "coefficients": {
+          "hit_ratio": 0.47171905213448123,
+          "intercept": 0.03252259575944635
+        },
+        "formula": "decode_tok_s ~ hit_ratio",
+        "largest_absolute_residuals": [
+          {
+            "case_id": "11-instructions-b5",
+            "policy": "EXACT",
+            "residual": 0.005022829564392983
+          },
+          {
+            "case_id": "03-science-b6",
+            "policy": "S2_P50",
+            "residual": 0.004115972739935303
+          },
+          {
+            "case_id": "14-qa-b2",
+            "policy": "EXACT",
+            "residual": 0.0036501242973805414
+          },
+          {
+            "case_id": "08-summary-b5",
+            "policy": "EXACT",
+            "residual": 0.003532813231097942
+          },
+          {
+            "case_id": "01-math-b4",
+            "policy": "S2_P50",
+            "residual": 0.0033428809619841515
+          },
+          {
+            "case_id": "04-factual-b4",
+            "policy": "EXACT",
+            "residual": 0.0029663999124242557
+          },
+          {
+            "case_id": "11-instructions-b6",
+            "policy": "EXACT",
+            "residual": 0.0027563797387056277
+          },
+          {
+            "case_id": "12-compare-b4",
+            "policy": "S2_P50",
+            "residual": 0.0026433587712647033
+          }
+        ],
+        "mae": 0.0010618740548657823,
+        "projection_eligible": true,
+        "r_squared": 0.993204584449893,
+        "rank": 2,
+        "residual_association_with_actual_tokens": {
+          "count": 176,
+          "pearson_r": -0.17783600042001288,
+          "spearman_rho": -0.21305573139916095
+        },
+        "residual_distribution": {
+          "count": 176,
+          "mae": 0.0010618740548657823,
+          "max": 0.005022829564392983,
+          "mean": 3.027880976250427e-17,
+          "median": -0.00021048750233393365,
+          "min": -0.0023645017449564487,
+          "p10": -0.0015926948524402629,
+          "p90": 0.0018300356173198695,
+          "rmse": 0.001352284400226783
+        },
+        "residuals_by_family": [
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0010665237980583332,
+            "mean_signed_residual": -0.000571855325333398,
+            "median_signed_residual": -0.0006528758873219354,
+            "semantic_family": "Spanish-language reasoning/explanation"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.00078337763317049,
+            "mean_signed_residual": 2.7890366622873585e-07,
+            "median_signed_residual": 3.516683832929801e-05,
+            "semantic_family": "algorithms / data-structure reasoning"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0011305734896568497,
+            "mean_signed_residual": 0.00011442476330998374,
+            "median_signed_residual": 7.643075321059345e-05,
+            "semantic_family": "analytical comparison / argumentation"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0006915552000715808,
+            "mean_signed_residual": -7.351214552157038e-05,
+            "median_signed_residual": -0.00014327796504839951,
+            "semantic_family": "code generation"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0011417330559159277,
+            "mean_signed_residual": -0.0002721423225671593,
+            "median_signed_residual": -0.0005052332269820103,
+            "semantic_family": "conversational / direct QA"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0009251426755619019,
+            "mean_signed_residual": -0.0005791443265046603,
+            "median_signed_residual": -0.0005129096213443429,
+            "semantic_family": "creative / language generation"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0007489621240076405,
+            "mean_signed_residual": 0.0002209081834758264,
+            "median_signed_residual": -0.00018921778891164975,
+            "semantic_family": "debugging / code review"
+          },
+          {
+            "count": 12,
+            "mean_absolute_residual": 0.001007990214202827,
+            "mean_signed_residual": -0.00011974197450881352,
+            "median_signed_residual": -0.00022474376382425332,
+            "semantic_family": "factual / explanatory knowledge"
+          },
+          {
+            "count": 12,
+            "mean_absolute_residual": 0.0011120838530486777,
+            "mean_signed_residual": -4.737537458827009e-05,
+            "median_signed_residual": -0.0005267341188130714,
+            "semantic_family": "formal logic / proof-style reasoning"
+          },
+          {
+            "count": 14,
+            "mean_absolute_residual": 0.0012324195799129317,
+            "mean_signed_residual": 0.0010388897945737235,
+            "median_signed_residual": 0.0011648377494535844,
+            "semantic_family": "mathematical reasoning"
+          },
+          {
+            "count": 14,
+            "mean_absolute_residual": 0.001252762034667799,
+            "mean_signed_residual": 0.0004535295936856206,
+            "median_signed_residual": -5.384858481008448e-05,
+            "semantic_family": "multi-step instruction following / structured response"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.001047934176226134,
+            "mean_signed_residual": -0.0008932129433518454,
+            "median_signed_residual": -0.0010108637921646402,
+            "semantic_family": "multilingual / translation / cross-language transformation"
+          },
+          {
+            "count": 12,
+            "mean_absolute_residual": 0.0011147379507653922,
+            "mean_signed_residual": 0.0006619606265536732,
+            "median_signed_residual": 0.00045436582447047624,
+            "semantic_family": "physics / scientific reasoning"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0008582491131446435,
+            "mean_signed_residual": 3.501029118948007e-05,
+            "median_signed_residual": -0.00016791242346395063,
+            "semantic_family": "planning / constraint satisfaction"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0012945478106404951,
+            "mean_signed_residual": -0.0004307659737237624,
+            "median_signed_residual": -0.0010810779781441349,
+            "semantic_family": "structured extraction / transformation"
+          },
+          {
+            "count": 12,
+            "mean_absolute_residual": 0.0013661296726253935,
+            "mean_signed_residual": -0.00019432348429131627,
+            "median_signed_residual": -0.0007064437262671031,
+            "semantic_family": "summarization / synthesis"
+          }
+        ],
+        "residuals_by_length_level": [
+          {
+            "count": 22,
+            "length_level": 1,
+            "mae": 0.0009391635042437205,
+            "max": 0.0019943018895771103,
+            "mean": 0.00047408801894722894,
+            "median": 0.00038342307005484466,
+            "min": -0.001073185089597306,
+            "p10": -0.0010214141034441348,
+            "p90": 0.0017813542766382197,
+            "rmse": 0.0011038277884660996
+          },
+          {
+            "count": 28,
+            "length_level": 2,
+            "mae": 0.0009204121047587388,
+            "max": 0.0036501242973805414,
+            "mean": 0.0002042046707141722,
+            "median": -6.761842967134557e-05,
+            "min": -0.0015812401131849452,
+            "p10": -0.0010314641839113126,
+            "p90": 0.002058141072354469,
+            "rmse": 0.001236175706390673
+          },
+          {
+            "count": 22,
+            "length_level": 3,
+            "mae": 0.0010392952955491817,
+            "max": 0.001747469204437302,
+            "mean": -0.00038603039660747596,
+            "median": -0.00038359574062749036,
+            "min": -0.002128052931249569,
+            "p10": -0.0016193567916885864,
+            "p90": 0.0016432967439787948,
+            "rmse": 0.001224430707649023
+          },
+          {
+            "count": 22,
+            "length_level": 4,
+            "mae": 0.0011686070591808832,
+            "max": 0.0033428809619841515,
+            "mean": -1.7388061073287337e-05,
+            "median": -0.00018228262776276427,
+            "min": -0.00217950558567509,
+            "p10": -0.0016583680049378712,
+            "p90": 0.002474411186798379,
+            "rmse": 0.0014836270950239646
+          },
+          {
+            "count": 22,
+            "length_level": 5,
+            "mae": 0.001454562193479697,
+            "max": 0.005022829564392983,
+            "mean": 0.00017123531196871792,
+            "median": -6.056445005001021e-05,
+            "min": -0.0023645017449564487,
+            "p10": -0.0017712009892737134,
+            "p90": 0.001818192739679553,
+            "rmse": 0.0018273444680213056
+          },
+          {
+            "count": 22,
+            "length_level": 6,
+            "mae": 0.0009917109074419365,
+            "max": 0.004115972739935303,
+            "mean": 0.00037002582812716136,
+            "median": -0.00010877829258099103,
+            "min": -0.0011898527187803043,
+            "p10": -0.0009409423607622203,
+            "p90": 0.002455532407617401,
+            "rmse": 0.0014114271532235558
+          },
+          {
+            "count": 16,
+            "length_level": 7,
+            "mae": 0.0008919760819264995,
+            "max": 0.000670690826640119,
+            "mean": -0.0007365039791046475,
+            "median": -0.0006372612720968451,
+            "min": -0.00190381233698117,
+            "p10": -0.0018116944607415586,
+            "p90": 0.0002064059508705418,
+            "rmse": 0.0010924998217748127
+          },
+          {
+            "count": 22,
+            "length_level": 8,
+            "mae": 0.001081510013391354,
+            "max": 0.002053921214515142,
+            "mean": -0.00033618829746766906,
+            "median": -0.0006005814633582018,
+            "min": -0.002355135066851366,
+            "p10": -0.0016155886871308534,
+            "p90": 0.0017055430184125045,
+            "rmse": 0.0012515274046301385
+          }
+        ],
+        "rmse": 0.001352284400226783,
+        "row_count": 176
+      },
+      "M2": {
+        "coefficient_names": [
+          "intercept",
+          "loads_per_token"
+        ],
+        "coefficients": {
+          "intercept": 0.5042416478939273,
+          "loads_per_token": -0.0003204613125913596
+        },
+        "formula": "decode_tok_s ~ loads_per_token",
+        "largest_absolute_residuals": [
+          {
+            "case_id": "11-instructions-b5",
+            "policy": "EXACT",
+            "residual": 0.005022829564393316
+          },
+          {
+            "case_id": "03-science-b6",
+            "policy": "S2_P50",
+            "residual": 0.004115972739935525
+          },
+          {
+            "case_id": "14-qa-b2",
+            "policy": "EXACT",
+            "residual": 0.0036501242973808745
+          },
+          {
+            "case_id": "08-summary-b5",
+            "policy": "EXACT",
+            "residual": 0.0035328132310982197
+          },
+          {
+            "case_id": "01-math-b4",
+            "policy": "S2_P50",
+            "residual": 0.003342880961984429
+          },
+          {
+            "case_id": "04-factual-b4",
+            "policy": "EXACT",
+            "residual": 0.0029663999124245888
+          },
+          {
+            "case_id": "11-instructions-b6",
+            "policy": "EXACT",
+            "residual": 0.0027563797387059052
+          },
+          {
+            "case_id": "12-compare-b4",
+            "policy": "S2_P50",
+            "residual": 0.002643358771264981
+          }
+        ],
+        "mae": 0.0010618740548657345,
+        "projection_eligible": true,
+        "r_squared": 0.9932045844498929,
+        "rank": 2,
+        "residual_association_with_actual_tokens": {
+          "count": 176,
+          "pearson_r": -0.17783600042001585,
+          "spearman_rho": -0.21305573139916095
+        },
+        "residual_distribution": {
+          "count": 176,
+          "mae": 0.0010618740548657345,
+          "max": 0.005022829564393316,
+          "mean": 2.9868784213637025e-16,
+          "median": -0.00021048750233368385,
+          "min": -0.002364501744956171,
+          "p10": -0.0015926948524400408,
+          "p90": 0.0018300356173201193,
+          "rmse": 0.0013522844002267851
+        },
+        "residuals_by_family": [
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0010665237980582165,
+            "mean_signed_residual": -0.000571855325333126,
+            "median_signed_residual": -0.0006528758873216578,
+            "semantic_family": "Spanish-language reasoning/explanation"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.000783377633170479,
+            "mean_signed_residual": 2.7890366648408716e-07,
+            "median_signed_residual": 3.516683832954781e-05,
+            "semantic_family": "algorithms / data-structure reasoning"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0011305734896568387,
+            "mean_signed_residual": 0.0001144247633102502,
+            "median_signed_residual": 7.643075321084325e-05,
+            "semantic_family": "analytical comparison / argumentation"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0006915552000715197,
+            "mean_signed_residual": -7.351214552130946e-05,
+            "median_signed_residual": -0.00014327796504814971,
+            "semantic_family": "code generation"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0011417330559158334,
+            "mean_signed_residual": -0.00027214232256688733,
+            "median_signed_residual": -0.0005052332269817605,
+            "semantic_family": "conversational / direct QA"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0009251426755617076,
+            "mean_signed_residual": -0.0005791443265043994,
+            "median_signed_residual": -0.0005129096213440931,
+            "semantic_family": "creative / language generation"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0007489621240075961,
+            "mean_signed_residual": 0.00022090818347608176,
+            "median_signed_residual": -0.00018921778891139995,
+            "semantic_family": "debugging / code review"
+          },
+          {
+            "count": 12,
+            "mean_absolute_residual": 0.0010079902142027298,
+            "mean_signed_residual": -0.00011974197450853134,
+            "median_signed_residual": -0.00022474376382397576,
+            "semantic_family": "factual / explanatory knowledge"
+          },
+          {
+            "count": 12,
+            "mean_absolute_residual": 0.0011120838530485806,
+            "mean_signed_residual": -4.737537458800641e-05,
+            "median_signed_residual": -0.0005267341188128216,
+            "semantic_family": "formal logic / proof-style reasoning"
+          },
+          {
+            "count": 14,
+            "mean_absolute_residual": 0.0012324195799130546,
+            "mean_signed_residual": 0.001038889794573997,
+            "median_signed_residual": 0.001164837749453862,
+            "semantic_family": "mathematical reasoning"
+          },
+          {
+            "count": 14,
+            "mean_absolute_residual": 0.0012527620346678109,
+            "mean_signed_residual": 0.0004535295936858942,
+            "median_signed_residual": -5.3848584809834676e-05,
+            "semantic_family": "multi-step instruction following / structured response"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0010479341762259843,
+            "mean_signed_residual": -0.0008932129433515734,
+            "median_signed_residual": -0.0010108637921643626,
+            "semantic_family": "multilingual / translation / cross-language transformation"
+          },
+          {
+            "count": 12,
+            "mean_absolute_residual": 0.0011147379507655218,
+            "mean_signed_residual": 0.0006619606265539415,
+            "median_signed_residual": 0.0004543658244707538,
+            "semantic_family": "physics / scientific reasoning"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0008582491131445935,
+            "mean_signed_residual": 3.501029118974097e-05,
+            "median_signed_residual": -0.00016791242346367308,
+            "semantic_family": "planning / constraint satisfaction"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.001294547810640373,
+            "mean_signed_residual": -0.0004307659737234959,
+            "median_signed_residual": -0.0010810779781438573,
+            "semantic_family": "structured extraction / transformation"
+          },
+          {
+            "count": 12,
+            "mean_absolute_residual": 0.0013661296726253148,
+            "mean_signed_residual": -0.00019432348429103408,
+            "median_signed_residual": -0.0007064437262668255,
+            "semantic_family": "summarization / synthesis"
+          }
+        ],
+        "residuals_by_length_level": [
+          {
+            "count": 22,
+            "length_level": 1,
+            "mae": 0.0009391635042437911,
+            "max": 0.0019943018895773323,
+            "mean": 0.0004740880189474964,
+            "median": 0.0003834230700551222,
+            "min": -0.0010731850895970285,
+            "p10": -0.0010214141034438572,
+            "p90": 0.0017813542766384471,
+            "rmse": 0.001103827788466207
+          },
+          {
+            "count": 28,
+            "length_level": 2,
+            "mae": 0.0009204121047587369,
+            "max": 0.0036501242973808745,
+            "mean": 0.00020420467071444775,
+            "median": -6.761842967112353e-05,
+            "min": -0.0015812401131847231,
+            "p10": -0.0010314641839110738,
+            "p90": 0.00205814107235473,
+            "rmse": 0.001236175706390725
+          },
+          {
+            "count": 22,
+            "length_level": 3,
+            "mae": 0.0010392952955490405,
+            "max": 0.0017474692044375795,
+            "mean": -0.0003860303966071984,
+            "median": -0.00038359574062718504,
+            "min": -0.0021280529312492913,
+            "p10": -0.0016193567916883145,
+            "p90": 0.0016432967439790724,
+            "rmse": 0.001224430707648939
+          },
+          {
+            "count": 22,
+            "length_level": 4,
+            "mae": 0.0011686070591808656,
+            "max": 0.003342880961984429,
+            "mean": -1.738806107301735e-05,
+            "median": -0.00018228262776248672,
+            "min": -0.0021795055856748125,
+            "p10": -0.0016583680049375936,
+            "p90": 0.0024744111867986565,
+            "rmse": 0.0014836270950239715
+          },
+          {
+            "count": 22,
+            "length_level": 5,
+            "mae": 0.001454562193479697,
+            "max": 0.005022829564393316,
+            "mean": 0.00017123531196899547,
+            "median": -6.056445004967714e-05,
+            "min": -0.002364501744956171,
+            "p10": -0.0017712009892734304,
+            "p90": 0.0018181927396797807,
+            "rmse": 0.001827344468021337
+          },
+          {
+            "count": 22,
+            "length_level": 6,
+            "mae": 0.0009917109074419088,
+            "max": 0.004115972739935525,
+            "mean": 0.0003700258281274162,
+            "median": -0.00010877829258071348,
+            "min": -0.0011898527187800823,
+            "p10": -0.0009409423607619427,
+            "p90": 0.0024555324076176287,
+            "rmse": 0.0014114271532236166
+          },
+          {
+            "count": 16,
+            "length_level": 7,
+            "mae": 0.0008919760819263087,
+            "max": 0.0006706908266403411,
+            "mean": -0.0007365039791043942,
+            "median": -0.0006372612720965676,
+            "min": -0.0019038123369808924,
+            "p10": -0.0018116944607413366,
+            "p90": 0.0002064059508707916,
+            "rmse": 0.0010924998217746447
+          },
+          {
+            "count": 22,
+            "length_level": 8,
+            "mae": 0.0010815100133912301,
+            "max": 0.0020539212145154195,
+            "mean": -0.00033618829746740413,
+            "median": -0.0006005814633578965,
+            "min": -0.0023551350668510884,
+            "p10": -0.0016155886871306257,
+            "p90": 0.001705543018412782,
+            "rmse": 0.0012515274046300635
+          }
+        ],
+        "rmse": 0.0013522844002267851,
+        "row_count": 176
+      },
+      "M3": {
+        "coefficient_names": [
+          "intercept",
+          "hit_ratio",
+          "family[algorithms / data-structure reasoning]",
+          "family[analytical comparison / argumentation]",
+          "family[code generation]",
+          "family[conversational / direct QA]",
+          "family[creative / language generation]",
+          "family[debugging / code review]",
+          "family[factual / explanatory knowledge]",
+          "family[formal logic / proof-style reasoning]",
+          "family[mathematical reasoning]",
+          "family[multi-step instruction following / structured response]",
+          "family[multilingual / translation / cross-language transformation]",
+          "family[physics / scientific reasoning]",
+          "family[planning / constraint satisfaction]",
+          "family[structured extraction / transformation]",
+          "family[summarization / synthesis]"
+        ],
+        "coefficients": {
+          "family[algorithms / data-structure reasoning]": 0.0005378990238403676,
+          "family[analytical comparison / argumentation]": 0.000690227636032963,
+          "family[code generation]": 0.0004392139593383725,
+          "family[conversational / direct QA]": 0.00019968412386254286,
+          "family[creative / language generation]": -6.912417226050222e-05,
+          "family[debugging / code review]": 0.0008171499301482175,
+          "family[factual / explanatory knowledge]": 0.0003198169541977864,
+          "family[formal logic / proof-style reasoning]": 0.0005341181500144758,
+          "family[mathematical reasoning]": 0.0016498721120190754,
+          "family[multi-step instruction following / structured response]": 0.0008809251343903214,
+          "family[multilingual / translation / cross-language transformation]": -0.00038233462663170384,
+          "family[physics / scientific reasoning]": 0.0012585541589786474,
+          "family[planning / constraint satisfaction]": 0.0005642021603228163,
+          "family[structured extraction / transformation]": 0.00012518230588441553,
+          "family[summarization / synthesis]": 0.0002090161189214996,
+          "hit_ratio": 0.46827880657966453,
+          "intercept": 0.034112685423468125
+        },
+        "formula": "decode_tok_s ~ hit_ratio + family",
+        "largest_absolute_residuals": [
+          {
+            "case_id": "11-instructions-b5",
+            "policy": "EXACT",
+            "residual": 0.004284316993574844
+          },
+          {
+            "case_id": "14-qa-b2",
+            "policy": "EXACT",
+            "residual": 0.0036818094941759028
+          },
+          {
+            "case_id": "03-science-b6",
+            "policy": "S2_P50",
+            "residual": 0.003606022510548257
+          },
+          {
+            "case_id": "08-summary-b5",
+            "policy": "EXACT",
+            "residual": 0.003496336656288679
+          },
+          {
+            "case_id": "04-factual-b4",
+            "policy": "EXACT",
+            "residual": 0.002845670762766206
+          },
+          {
+            "case_id": "15-spanish-b6",
+            "policy": "S2_P50",
+            "residual": 0.0026810435148610923
+          },
+          {
+            "case_id": "12-compare-b4",
+            "policy": "S2_P50",
+            "residual": 0.0026469222190163566
+          },
+          {
+            "case_id": "12-compare-b8",
+            "policy": "S2_P50",
+            "residual": -0.0025424853818435955
+          }
+        ],
+        "mae": 0.000991386158757914,
+        "projection_eligible": false,
+        "r_squared": 0.9941238903532175,
+        "rank": 17,
+        "residual_association_with_actual_tokens": {
+          "count": 176,
+          "pearson_r": -0.1468484655773771,
+          "spearman_rho": -0.1962002898288111
+        },
+        "residual_distribution": {
+          "count": 176,
+          "mae": 0.000991386158757914,
+          "max": 0.004284316993574844,
+          "mean": 9.171956123891919e-16,
+          "median": -0.00019430898974129307,
+          "min": -0.0025424853818435955,
+          "p10": -0.0013955884841004573,
+          "p90": 0.0017788093073437539,
+          "rmse": 0.001257491255779612
+        },
+        "residuals_by_family": [
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0009335344808694468,
+            "mean_signed_residual": 8.881784197001252e-16,
+            "median_signed_residual": -3.0166218835919745e-05,
+            "semantic_family": "Spanish-language reasoning/explanation"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0007527028893478061,
+            "mean_signed_residual": 8.93729534823251e-16,
+            "median_signed_residual": 1.0562299588817714e-05,
+            "semantic_family": "algorithms / data-structure reasoning"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0011536306720968726,
+            "mean_signed_residual": 8.881784197001252e-16,
+            "median_signed_residual": 7.214719487752541e-06,
+            "semantic_family": "analytical comparison / argumentation"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0006992248841284187,
+            "mean_signed_residual": 9.270362255620057e-16,
+            "median_signed_residual": -8.548120918927538e-05,
+            "semantic_family": "code generation"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.001105822524849881,
+            "mean_signed_residual": 9.270362255620057e-16,
+            "median_signed_residual": -0.00023432154592203935,
+            "semantic_family": "conversational / direct QA"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0006789621959028602,
+            "mean_signed_residual": 9.381384558082572e-16,
+            "median_signed_residual": 0.00010216432474116632,
+            "semantic_family": "creative / language generation"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0008324819286020746,
+            "mean_signed_residual": 9.270362255620057e-16,
+            "median_signed_residual": -0.00044478843290618464,
+            "semantic_family": "debugging / code review"
+          },
+          {
+            "count": 12,
+            "mean_absolute_residual": 0.0009332633275406418,
+            "mean_signed_residual": 8.881784197001252e-16,
+            "median_signed_residual": -0.00013190000961696424,
+            "semantic_family": "factual / explanatory knowledge"
+          },
+          {
+            "count": 12,
+            "mean_absolute_residual": 0.0011550163429138542,
+            "mean_signed_residual": 9.066821367772111e-16,
+            "median_signed_residual": -0.0005393120273027852,
+            "semantic_family": "formal logic / proof-style reasoning"
+          },
+          {
+            "count": 14,
+            "mean_absolute_residual": 0.0010418015478998177,
+            "mean_signed_residual": 9.873054754702284e-16,
+            "median_signed_residual": 3.124490012154646e-05,
+            "semantic_family": "mathematical reasoning"
+          },
+          {
+            "count": 14,
+            "mean_absolute_residual": 0.001254723456249924,
+            "mean_signed_residual": 9.1196891308495e-16,
+            "median_signed_residual": -0.0003884952874058656,
+            "semantic_family": "multi-step instruction following / structured response"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0007296393201973561,
+            "mean_signed_residual": 9.49240686054509e-16,
+            "median_signed_residual": -0.00018612491088548788,
+            "semantic_family": "multilingual / translation / cross-language transformation"
+          },
+          {
+            "count": 12,
+            "mean_absolute_residual": 0.0011324573082233853,
+            "mean_signed_residual": 9.159339953157541e-16,
+            "median_signed_residual": -0.0003217243251304458,
+            "semantic_family": "physics / scientific reasoning"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0008682207787248042,
+            "mean_signed_residual": 9.103828801926283e-16,
+            "median_signed_residual": -0.00018371813396639292,
+            "semantic_family": "planning / constraint satisfaction"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.001144482322126733,
+            "mean_signed_residual": 9.048317650695026e-16,
+            "median_signed_residual": -0.0006688373586352381,
+            "semantic_family": "structured extraction / transformation"
+          },
+          {
+            "count": 12,
+            "mean_absolute_residual": 0.001224729180891615,
+            "mean_signed_residual": 8.974302782386683e-16,
+            "median_signed_residual": -0.0004893971951372145,
+            "semantic_family": "summarization / synthesis"
+          }
+        ],
+        "residuals_by_length_level": [
+          {
+            "count": 22,
+            "length_level": 1,
+            "mae": 0.0008186879311467958,
+            "max": 0.002277176239339429,
+            "mean": 0.00035381879751950063,
+            "median": 0.00028862020650577414,
+            "min": -0.0014533736894002947,
+            "p10": -0.0008362641211801247,
+            "p90": 0.0017244030414267763,
+            "rmse": 0.0010344798892695016
+          },
+          {
+            "count": 28,
+            "length_level": 2,
+            "mae": 0.0008766386824406368,
+            "max": 0.0036818094941759028,
+            "mean": 0.00034822464900401736,
+            "median": 3.9239755935560616e-05,
+            "min": -0.0011122144208524087,
+            "p10": -0.000691007239720709,
+            "p90": 0.002077775750397276,
+            "rmse": 0.0011905505540685572
+          },
+          {
+            "count": 22,
+            "length_level": 3,
+            "mae": 0.0008823927271375189,
+            "max": 0.0021101665370392153,
+            "mean": -0.00037982924064035686,
+            "median": -0.0004681237660620896,
+            "min": -0.0021665326673262486,
+            "p10": -0.001411900292615198,
+            "p90": 0.000997684221881879,
+            "rmse": 0.001079055384950207
+          },
+          {
+            "count": 22,
+            "length_level": 4,
+            "mae": 0.0010310532776586349,
+            "max": 0.002845670762766206,
+            "mean": -8.536623470604335e-06,
+            "median": -8.15892932428397e-05,
+            "min": -0.0018753099162918674,
+            "p10": -0.0013310599999200646,
+            "p90": 0.0022405523285282257,
+            "rmse": 0.0013018373611240015
+          },
+          {
+            "count": 22,
+            "length_level": 5,
+            "mae": 0.001333622635035417,
+            "max": 0.004284316993574844,
+            "mean": 0.0001707330858699462,
+            "median": 2.4808895220135296e-05,
+            "min": -0.002238292896508065,
+            "p10": -0.0017868899434425654,
+            "p90": 0.002108776302177663,
+            "rmse": 0.001677129168807308
+          },
+          {
+            "count": 22,
+            "length_level": 6,
+            "mae": 0.00111939486147846,
+            "max": 0.003606022510548257,
+            "mean": 0.00024094058685275084,
+            "median": -0.00018406279178745377,
+            "min": -0.00194965604011349,
+            "p10": -0.0013705349120710475,
+            "p90": 0.0020781826447126128,
+            "rmse": 0.0014101580073019632
+          },
+          {
+            "count": 16,
+            "length_level": 7,
+            "mae": 0.0009344307190860372,
+            "max": 0.000795819814888854,
+            "mean": -0.0006645040218982816,
+            "median": -0.0008687157433599768,
+            "min": -0.0017720158421555277,
+            "p10": -0.001556316039978134,
+            "p90": 0.0005250778059137928,
+            "rmse": 0.0010646839144691795
+          },
+          {
+            "count": 22,
+            "length_level": 8,
+            "mae": 0.0009506299006194662,
+            "max": 0.0019491947221597639,
+            "mean": -0.0003370459616575344,
+            "median": -0.0005313129106555292,
+            "min": -0.0025424853818435955,
+            "p10": -0.0013446348803564379,
+            "p90": 0.001118487177234878,
+            "rmse": 0.0011363529561823104
+          }
+        ],
+        "rmse": 0.001257491255779612,
+        "row_count": 176
+      },
+      "M4": {
+        "coefficient_names": [
+          "intercept",
+          "loads_per_token",
+          "family[algorithms / data-structure reasoning]",
+          "family[analytical comparison / argumentation]",
+          "family[code generation]",
+          "family[conversational / direct QA]",
+          "family[creative / language generation]",
+          "family[debugging / code review]",
+          "family[factual / explanatory knowledge]",
+          "family[formal logic / proof-style reasoning]",
+          "family[mathematical reasoning]",
+          "family[multi-step instruction following / structured response]",
+          "family[multilingual / translation / cross-language transformation]",
+          "family[physics / scientific reasoning]",
+          "family[planning / constraint satisfaction]",
+          "family[structured extraction / transformation]",
+          "family[summarization / synthesis]"
+        ],
+        "coefficients": {
+          "family[algorithms / data-structure reasoning]": 0.0005378990238404216,
+          "family[analytical comparison / argumentation]": 0.0006902276360329669,
+          "family[code generation]": 0.00043921395933846184,
+          "family[conversational / direct QA]": 0.00019968412386265523,
+          "family[creative / language generation]": -6.912417226042722e-05,
+          "family[debugging / code review]": 0.0008171499301482644,
+          "family[factual / explanatory knowledge]": 0.00031981695419783273,
+          "family[formal logic / proof-style reasoning]": 0.0005341181500145591,
+          "family[mathematical reasoning]": 0.0016498721120191194,
+          "family[multi-step instruction following / structured response]": 0.0008809251343903457,
+          "family[multilingual / translation / cross-language transformation]": -0.000382334626631615,
+          "family[physics / scientific reasoning]": 0.001258554158978735,
+          "family[planning / constraint satisfaction]": 0.0005642021603228737,
+          "family[structured extraction / transformation]": 0.00012518230588447725,
+          "family[summarization / synthesis]": 0.0002090161189215214,
+          "intercept": 0.5023914920031337,
+          "loads_per_token": -0.00031812418925249007
+        },
+        "formula": "decode_tok_s ~ loads_per_token + family",
+        "largest_absolute_residuals": [
+          {
+            "case_id": "11-instructions-b5",
+            "policy": "EXACT",
+            "residual": 0.004284316993574178
+          },
+          {
+            "case_id": "14-qa-b2",
+            "policy": "EXACT",
+            "residual": 0.003681809494175181
+          },
+          {
+            "case_id": "03-science-b6",
+            "policy": "S2_P50",
+            "residual": 0.003606022510547313
+          },
+          {
+            "case_id": "08-summary-b5",
+            "policy": "EXACT",
+            "residual": 0.0034963366562880127
+          },
+          {
+            "case_id": "04-factual-b4",
+            "policy": "EXACT",
+            "residual": 0.0028456707627655953
+          },
+          {
+            "case_id": "15-spanish-b6",
+            "policy": "S2_P50",
+            "residual": 0.002681043514860315
+          },
+          {
+            "case_id": "12-compare-b4",
+            "policy": "S2_P50",
+            "residual": 0.0026469222190155794
+          },
+          {
+            "case_id": "12-compare-b8",
+            "policy": "S2_P50",
+            "residual": -0.0025424853818443727
+          }
+        ],
+        "mae": 0.0009913861587580244,
+        "projection_eligible": false,
+        "r_squared": 0.9941238903532175,
+        "rank": 17,
+        "residual_association_with_actual_tokens": {
+          "count": 176,
+          "pearson_r": -0.1468484655773781,
+          "spearman_rho": -0.1962002898288111
+        },
+        "residual_distribution": {
+          "count": 176,
+          "mae": 0.0009913861587580244,
+          "max": 0.004284316993574178,
+          "mean": 1.3688545246798805e-16,
+          "median": -0.00019430898974204247,
+          "min": -0.0025424853818443727,
+          "p10": -0.0013955884841012622,
+          "p90": 0.0017788093073430045,
+          "rmse": 0.00125749125577961
+        },
+        "residuals_by_family": [
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0009335344808695745,
+            "mean_signed_residual": 1.4988010832439614e-16,
+            "median_signed_residual": -3.0166218836669145e-05,
+            "semantic_family": "Spanish-language reasoning/explanation"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0007527028893478171,
+            "mean_signed_residual": 1.4988010832439614e-16,
+            "median_signed_residual": 1.0562299588068313e-05,
+            "semantic_family": "algorithms / data-structure reasoning"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.001153630672096867,
+            "mean_signed_residual": 1.27675647831893e-16,
+            "median_signed_residual": 7.214719486975385e-06,
+            "semantic_family": "analytical comparison / argumentation"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0006992248841285631,
+            "mean_signed_residual": 1.4988010832439614e-16,
+            "median_signed_residual": -8.548120919005253e-05,
+            "semantic_family": "code generation"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.00110582252484987,
+            "mean_signed_residual": 1.27675647831893e-16,
+            "median_signed_residual": -0.00023432154592287202,
+            "semantic_family": "conversational / direct QA"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0006789621959026992,
+            "mean_signed_residual": 1.554312234475219e-16,
+            "median_signed_residual": 0.00010216432474036141,
+            "semantic_family": "creative / language generation"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0008324819286022245,
+            "mean_signed_residual": 1.2212453270876723e-16,
+            "median_signed_residual": -0.00044478843290698955,
+            "semantic_family": "debugging / code review"
+          },
+          {
+            "count": 12,
+            "mean_absolute_residual": 0.0009332633275407712,
+            "mean_signed_residual": 1.8503717077085943e-16,
+            "median_signed_residual": -0.0001319000096176859,
+            "semantic_family": "factual / explanatory knowledge"
+          },
+          {
+            "count": 12,
+            "mean_absolute_residual": 0.0011550163429141225,
+            "mean_signed_residual": 8.326672684688674e-17,
+            "median_signed_residual": -0.0005393120273036178,
+            "semantic_family": "formal logic / proof-style reasoning"
+          },
+          {
+            "count": 14,
+            "mean_absolute_residual": 0.0010418015478998019,
+            "mean_signed_residual": 1.2291754915492805e-16,
+            "median_signed_residual": 3.124490012071379e-05,
+            "semantic_family": "mathematical reasoning"
+          },
+          {
+            "count": 14,
+            "mean_absolute_residual": 0.0012547234562501658,
+            "mean_signed_residual": 1.7842870038618588e-16,
+            "median_signed_residual": -0.00038849528740664274,
+            "semantic_family": "multi-step instruction following / structured response"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0007296393201975115,
+            "mean_signed_residual": 1.27675647831893e-16,
+            "median_signed_residual": -0.0001861249108862928,
+            "semantic_family": "multilingual / translation / cross-language transformation"
+          },
+          {
+            "count": 12,
+            "mean_absolute_residual": 0.001132457308223501,
+            "mean_signed_residual": 6.013708050052931e-17,
+            "median_signed_residual": -0.0003217243251312507,
+            "semantic_family": "physics / scientific reasoning"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0008682207787249485,
+            "mean_signed_residual": 1.6653345369377348e-16,
+            "median_signed_residual": -0.00018371813396714232,
+            "semantic_family": "planning / constraint satisfaction"
+          },
+          {
+            "count": 10,
+            "mean_absolute_residual": 0.0011444823221268886,
+            "mean_signed_residual": 1.1657341758564144e-16,
+            "median_signed_residual": -0.000668837358636043,
+            "semantic_family": "structured extraction / transformation"
+          },
+          {
+            "count": 12,
+            "mean_absolute_residual": 0.0012247291808918648,
+            "mean_signed_residual": 1.6653345369377348e-16,
+            "median_signed_residual": -0.0004893971951379361,
+            "semantic_family": "summarization / synthesis"
+          }
+        ],
+        "residuals_by_length_level": [
+          {
+            "count": 22,
+            "length_level": 1,
+            "mae": 0.0008186879311465636,
+            "max": 0.0022771762393385964,
+            "mean": 0.00035381879751871843,
+            "median": 0.0002886202065050525,
+            "min": -0.0014533736894011273,
+            "p10": -0.0008362641211808519,
+            "p90": 0.0017244030414260382,
+            "rmse": 0.0010344798892692204
+          },
+          {
+            "count": 28,
+            "length_level": 2,
+            "mae": 0.0008766386824406268,
+            "max": 0.003681809494175181,
+            "mean": 0.0003482246490032382,
+            "median": 3.923975593472795e-05,
+            "min": -0.001112214420853186,
+            "p10": -0.0006910072397215639,
+            "p90": 0.0020777757503964434,
+            "rmse": 0.001190550554068327
+          },
+          {
+            "count": 22,
+            "length_level": 3,
+            "mae": 0.0008823927271379403,
+            "max": 0.0021101665370384937,
+            "mean": -0.00037982924064114155,
+            "median": -0.0004681237660628945,
+            "min": -0.0021665326673270258,
+            "p10": -0.0014119002926158807,
+            "p90": 0.0009976842218810409,
+            "rmse": 0.0010790553849504812
+          },
+          {
+            "count": 22,
+            "length_level": 4,
+            "mae": 0.00103105327765863,
+            "max": 0.0028456707627655953,
+            "mean": -8.536623471366351e-06,
+            "median": -8.158929324364461e-05,
+            "min": -0.001875309916292589,
+            "p10": -0.0013310599999207917,
+            "p90": 0.0022405523285273484,
+            "rmse": 0.0013018373611240039
+          },
+          {
+            "count": 22,
+            "length_level": 5,
+            "mae": 0.0013336226350354247,
+            "max": 0.004284316993574178,
+            "mean": 0.0001707330858691867,
+            "median": 2.4808895219469163e-05,
+            "min": -0.0022382928965087867,
+            "p10": -0.0017868899434432927,
+            "p90": 0.00210877630217683,
+            "rmse": 0.001677129168807244
+          },
+          {
+            "count": 22,
+            "length_level": 6,
+            "mae": 0.0011193948614785334,
+            "max": 0.003606022510547313,
+            "mean": 0.00024094058685195097,
+            "median": -0.00018406279178820317,
+            "min": -0.0019496560401143226,
+            "p10": -0.0013705349120718357,
+            "p90": 0.0020781826447119353,
+            "rmse": 0.001410158007301819
+          },
+          {
+            "count": 16,
+            "length_level": 7,
+            "mae": 0.0009344307190864293,
+            "max": 0.0007958198148880213,
+            "mean": -0.0006645040218990692,
+            "median": -0.0008687157433608095,
+            "min": -0.0017720158421563603,
+            "p10": -0.0015563160399788833,
+            "p90": 0.0005250778059129879,
+            "rmse": 0.001064683914469667
+          },
+          {
+            "count": 22,
+            "length_level": 8,
+            "mae": 0.0009506299006198118,
+            "max": 0.0019491947221589312,
+            "mean": -0.00033704596165832416,
+            "median": -0.0005313129106562786,
+            "min": -0.0025424853818443727,
+            "p10": -0.001344634880357315,
+            "p90": 0.0011184871772341397,
+            "rmse": 0.0011363529561825342
+          }
+        ],
+        "rmse": 0.00125749125577961,
+        "row_count": 176
+      }
+    },
+    "policy_counts": {
+      "EXACT": 24,
+      "KNEE": 24,
+      "S2_P50": 128
+    },
+    "row_count": 176,
+    "unique_case_count": 128
+  },
+  "schema_version": "issue105-locality-tps-validation-v1",
+  "status": "PASS"
+}

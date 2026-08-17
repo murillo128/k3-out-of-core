@@ -1,0 +1,81 @@
+{
+  "canonical_row_order": [
+    "source_issue_release",
+    "archive_member_original_path"
+  ],
+  "fields": [
+    {
+      "name": "source_issue_release",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "archive_member_original_path",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "sha256",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "bytes",
+      "nullable": false,
+      "type": "int64"
+    },
+    {
+      "name": "schema_version",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "case_run_identity",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "protocol",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "policy",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "source_evidence_class",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "authority_scope",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "status",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "reason",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "supersedes",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "superseded_by",
+      "nullable": false,
+      "type": "string"
+    }
+  ],
+  "format": "CSV/RFC4180 with LF records",
+  "logical_hash": "SHA-256 over sorted-key compact UTF-8 JSON for each row plus LF",
+  "schema_version": "issue105-sources-v1"
+}

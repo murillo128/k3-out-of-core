@@ -1,0 +1,2060 @@
+{
+  "outcomes": {
+    "decode_tok_s": {
+      "actual_token_only": {
+        "coefficient_names": [
+          "intercept",
+          "templated_prompt_tokens"
+        ],
+        "coefficients": {
+          "intercept": 0.3253450351641573,
+          "templated_prompt_tokens": 1.3595967440190576e-05
+        },
+        "mae": 0.009495774016207355,
+        "r_squared": 0.008915228695447586,
+        "rank": 2,
+        "residual_distribution": {
+          "count": 128,
+          "mae": 0.009495774016207355,
+          "max": 0.027619446290120198,
+          "mean": -1.5569143196891844e-16,
+          "median": -0.0004714646693699531,
+          "min": -0.023808168047077305,
+          "p10": -0.01531562789000172,
+          "p90": 0.01631359811326759,
+          "rmse": 0.011488656845068152
+        },
+        "rmse": 0.011488656845068152,
+        "row_count": 128
+      },
+      "family_descriptions": [
+        {
+          "count": 8,
+          "iqr": 0.01127322979078782,
+          "mad": 0.0059599011503573,
+          "max": 0.3480732774314331,
+          "median": 0.3352839927960264,
+          "min": 0.31888185898556537,
+          "semantic_family": "Spanish-language reasoning/explanation"
+        },
+        {
+          "count": 8,
+          "iqr": 0.005941989438125073,
+          "mad": 0.003186969581101151,
+          "max": 0.336155955402218,
+          "median": 0.32945660705359014,
+          "min": 0.3210769385099901,
+          "semantic_family": "algorithms / data-structure reasoning"
+        },
+        {
+          "count": 8,
+          "iqr": 0.014430929550065752,
+          "mad": 0.0065590284925250986,
+          "max": 0.34832675784459866,
+          "median": 0.3357804642641292,
+          "min": 0.31715058053417594,
+          "semantic_family": "analytical comparison / argumentation"
+        },
+        {
+          "count": 8,
+          "iqr": 0.0134400760717992,
+          "mad": 0.006555119667441378,
+          "max": 0.3418901996852114,
+          "median": 0.32799742582209235,
+          "min": 0.3096369107558996,
+          "semantic_family": "code generation"
+        },
+        {
+          "count": 8,
+          "iqr": 0.012969937958676736,
+          "mad": 0.005120414737262213,
+          "max": 0.3400501347425411,
+          "median": 0.31752737284647947,
+          "min": 0.30747465402724083,
+          "semantic_family": "conversational / direct QA"
+        },
+        {
+          "count": 8,
+          "iqr": 0.004842656229507802,
+          "mad": 0.0023858254753576225,
+          "max": 0.3341247802167721,
+          "median": 0.32467787973762363,
+          "min": 0.31503821276331523,
+          "semantic_family": "creative / language generation"
+        },
+        {
+          "count": 8,
+          "iqr": 0.010224495705597247,
+          "mad": 0.005353576337967597,
+          "max": 0.3465578225253075,
+          "median": 0.334605874054829,
+          "min": 0.32211940367305075,
+          "semantic_family": "debugging / code review"
+        },
+        {
+          "count": 8,
+          "iqr": 0.008704577322187323,
+          "mad": 0.0054935826090562745,
+          "max": 0.3335777060888582,
+          "median": 0.3193958679273816,
+          "min": 0.3049902428468884,
+          "semantic_family": "factual / explanatory knowledge"
+        },
+        {
+          "count": 8,
+          "iqr": 0.0062033683282219365,
+          "mad": 0.003358776400658847,
+          "max": 0.34991352987614505,
+          "median": 0.340029303024987,
+          "min": 0.31968761860534906,
+          "semantic_family": "formal logic / proof-style reasoning"
+        },
+        {
+          "count": 8,
+          "iqr": 0.006991568489673083,
+          "mad": 0.004404784331308531,
+          "max": 0.3499688500907056,
+          "median": 0.34502602590821085,
+          "min": 0.335308826510467,
+          "semantic_family": "mathematical reasoning"
+        },
+        {
+          "count": 8,
+          "iqr": 0.011701972898099988,
+          "mad": 0.004879012438467639,
+          "max": 0.34650954200407114,
+          "median": 0.3254029337351989,
+          "min": 0.3064166807753474,
+          "semantic_family": "multi-step instruction following / structured response"
+        },
+        {
+          "count": 8,
+          "iqr": 0.010442270551257904,
+          "mad": 0.004986421214326908,
+          "max": 0.33802044784449076,
+          "median": 0.3261986006276477,
+          "min": 0.3123605799187464,
+          "semantic_family": "multilingual / translation / cross-language transformation"
+        },
+        {
+          "count": 8,
+          "iqr": 0.008857309512474598,
+          "mad": 0.004522310241322991,
+          "max": 0.3573151910351385,
+          "median": 0.33945648904509135,
+          "min": 0.33204242080371654,
+          "semantic_family": "physics / scientific reasoning"
+        },
+        {
+          "count": 8,
+          "iqr": 0.006883969171935289,
+          "mad": 0.0036287667474338703,
+          "max": 0.3487864218441587,
+          "median": 0.32533706882124935,
+          "min": 0.32134477702618985,
+          "semantic_family": "planning / constraint satisfaction"
+        },
+        {
+          "count": 8,
+          "iqr": 0.012248860398620776,
+          "mad": 0.006521354551738356,
+          "max": 0.3376612424660459,
+          "median": 0.329489401440732,
+          "min": 0.3216838153406015,
+          "semantic_family": "structured extraction / transformation"
+        },
+        {
+          "count": 8,
+          "iqr": 0.005468989506822508,
+          "mad": 0.002693133766951933,
+          "max": 0.3187432498819671,
+          "median": 0.31543712729491385,
+          "min": 0.3066716026377932,
+          "semantic_family": "summarization / synthesis"
+        }
+      ],
+      "family_only": {
+        "coefficient_names": [
+          "intercept",
+          "family[algorithms / data-structure reasoning]",
+          "family[analytical comparison / argumentation]",
+          "family[code generation]",
+          "family[conversational / direct QA]",
+          "family[creative / language generation]",
+          "family[debugging / code review]",
+          "family[factual / explanatory knowledge]",
+          "family[formal logic / proof-style reasoning]",
+          "family[mathematical reasoning]",
+          "family[multi-step instruction following / structured response]",
+          "family[multilingual / translation / cross-language transformation]",
+          "family[physics / scientific reasoning]",
+          "family[planning / constraint satisfaction]",
+          "family[structured extraction / transformation]",
+          "family[summarization / synthesis]"
+        ],
+        "coefficients": {
+          "family[algorithms / data-structure reasoning]": -0.003236821232945471,
+          "family[analytical comparison / argumentation]": 0.003360145974259124,
+          "family[code generation]": -0.007417792934426916,
+          "family[conversational / direct QA]": -0.011630235215671253,
+          "family[creative / language generation]": -0.0073489425758801845,
+          "family[debugging / code review]": 0.002548903661420289,
+          "family[factual / explanatory knowledge]": -0.012801474506846834,
+          "family[formal logic / proof-style reasoning]": 0.006179153729499547,
+          "family[mathematical reasoning]": 0.012034228766454788,
+          "family[multi-step instruction following / structured response]": -0.00985104762184489,
+          "family[multilingual / translation / cross-language transformation]": -0.008638037232700282,
+          "family[physics / scientific reasoning]": 0.009549997857887328,
+          "family[planning / constraint satisfaction]": -0.0038473949508413393,
+          "family[structured extraction / transformation]": -0.002454513994888925,
+          "family[summarization / synthesis]": -0.017950716901373582,
+          "intercept": 0.3324282982336673
+        },
+        "mae": 0.006389911024780499,
+        "r_squared": 0.49725423807511915,
+        "rank": 16,
+        "residual_distribution": {
+          "count": 128,
+          "mae": 0.006389911024780499,
+          "max": 0.023932291392248728,
+          "mean": 1.5829351718288365e-16,
+          "median": 0.00026297600754032757,
+          "min": -0.018919833357817828,
+          "p10": -0.010111260774234498,
+          "p90": 0.010603909415709586,
+          "rmse": 0.008182538649272762
+        },
+        "rmse": 0.00818253864927276,
+        "row_count": 128
+      },
+      "family_plus_within_family_centered_tokens": {
+        "coefficient_names": [
+          "intercept",
+          "within_family_centered_tokens",
+          "family[algorithms / data-structure reasoning]",
+          "family[analytical comparison / argumentation]",
+          "family[code generation]",
+          "family[conversational / direct QA]",
+          "family[creative / language generation]",
+          "family[debugging / code review]",
+          "family[factual / explanatory knowledge]",
+          "family[formal logic / proof-style reasoning]",
+          "family[mathematical reasoning]",
+          "family[multi-step instruction following / structured response]",
+          "family[multilingual / translation / cross-language transformation]",
+          "family[physics / scientific reasoning]",
+          "family[planning / constraint satisfaction]",
+          "family[structured extraction / transformation]",
+          "family[summarization / synthesis]"
+        ],
+        "coefficients": {
+          "family[algorithms / data-structure reasoning]": -0.0032368212329454346,
+          "family[analytical comparison / argumentation]": 0.0033601459742591587,
+          "family[code generation]": -0.007417792934426844,
+          "family[conversational / direct QA]": -0.011630235215671188,
+          "family[creative / language generation]": -0.007348942575880128,
+          "family[debugging / code review]": 0.00254890366142033,
+          "family[factual / explanatory knowledge]": -0.012801474506846785,
+          "family[formal logic / proof-style reasoning]": 0.006179153729499602,
+          "family[mathematical reasoning]": 0.012034228766454831,
+          "family[multi-step instruction following / structured response]": -0.009851047621844826,
+          "family[multilingual / translation / cross-language transformation]": -0.008638037232700218,
+          "family[physics / scientific reasoning]": 0.009549997857887352,
+          "family[planning / constraint satisfaction]": -0.003847394950841336,
+          "family[structured extraction / transformation]": -0.0024545139948888997,
+          "family[summarization / synthesis]": -0.01795071690137354,
+          "intercept": 0.3324282982336674,
+          "within_family_centered_tokens": 1.278143541686913e-05
+        },
+        "mae": 0.006317148248293528,
+        "r_squared": 0.5041324071052828,
+        "rank": 17,
+        "residual_distribution": {
+          "count": 128,
+          "mae": 0.006317148248293528,
+          "max": 0.024504260627153496,
+          "mean": 6.548581121812447e-17,
+          "median": 0.0002789319965525727,
+          "min": -0.020040626210751977,
+          "p10": -0.01015988282384949,
+          "p90": 0.010104217128059277,
+          "rmse": 0.008126372377985904
+        },
+        "rmse": 0.008126372377985904,
+        "row_count": 128
+      },
+      "incremental_r_squared_over_family": 0.006878169030163694,
+      "largest_absolute_residuals": [
+        {
+          "case_id": "11-instructions-b3",
+          "residual": 0.024504260627153496
+        },
+        {
+          "case_id": "10-planning-b2",
+          "residual": 0.020972404686344814
+        },
+        {
+          "case_id": "12-compare-b8",
+          "residual": -0.020040626210751977
+        },
+        {
+          "case_id": "02-formal-b7",
+          "residual": -0.019685121803402983
+        },
+        {
+          "case_id": "14-qa-b8",
+          "residual": 0.017874872058377234
+        },
+        {
+          "case_id": "11-instructions-b6",
+          "residual": -0.016542433153092617
+        },
+        {
+          "case_id": "11-instructions-b5",
+          "residual": -0.01626601667866434
+        },
+        {
+          "case_id": "05-codegen-b7",
+          "residual": 0.015855581873194247
+        }
+      ],
+      "residual_association_with_actual_tokens": {
+        "count": 128,
+        "pearson_r": 8.604573864520953e-15,
+        "spearman_rho": -0.0043177633524951525
+      },
+      "residuals_by_length_level": [
+        {
+          "count": 16,
+          "length_level": 1,
+          "mae": 0.003633463654924396,
+          "max": 0.008753521325826186,
+          "mean": 0.0007753835643035181,
+          "median": 0.0018029075114301962,
+          "min": -0.00991667866474888,
+          "p10": -0.005841899723520977,
+          "p90": 0.004910746415709127,
+          "rmse": 0.004665770906184963
+        },
+        {
+          "count": 16,
+          "length_level": 2,
+          "mae": 0.005900460017733644,
+          "max": 0.020972404686344814,
+          "mean": 0.0013396026412407641,
+          "median": 0.002190680393752392,
+          "min": -0.01136772920551865,
+          "p10": -0.007217313509812667,
+          "p90": 0.007909014792981062,
+          "rmse": 0.007636080745180848
+        },
+        {
+          "count": 16,
+          "length_level": 3,
+          "mae": 0.006879188770872045,
+          "max": 0.024504260627153496,
+          "mean": -0.0019806198346574745,
+          "median": -0.004027595172338361,
+          "min": -0.012745049038141998,
+          "p10": -0.011552382314647835,
+          "p90": 0.006149076737560766,
+          "rmse": 0.009077969878178088
+        },
+        {
+          "count": 16,
+          "length_level": 4,
+          "mae": 0.005530768269623437,
+          "max": 0.012682104785111892,
+          "mean": -0.0008193433173046098,
+          "median": 7.575232523093778e-06,
+          "min": -0.015209033562348706,
+          "p10": -0.00987431451820997,
+          "p90": 0.005216197353627661,
+          "rmse": 0.007047087327566415
+        },
+        {
+          "count": 16,
+          "length_level": 5,
+          "mae": 0.007668099433349607,
+          "max": 0.013864607672973706,
+          "mean": -0.0004381976918256987,
+          "median": -0.0025261065340651534,
+          "min": -0.01626601667866434,
+          "p10": -0.009293656116620697,
+          "p90": 0.011125857772286335,
+          "rmse": 0.008588795053290382
+        },
+        {
+          "count": 16,
+          "length_level": 6,
+          "mae": 0.007542719296871052,
+          "max": 0.015509315951016123,
+          "mean": 0.003948292380023234,
+          "median": 0.0041802582222229545,
+          "min": -0.016542433153092617,
+          "p10": -0.005812742858430059,
+          "p90": 0.014894203804649675,
+          "rmse": 0.009456844925147216
+        },
+        {
+          "count": 16,
+          "length_level": 7,
+          "mae": 0.0073925519714460285,
+          "max": 0.015855581873194247,
+          "mean": -0.003879212852445916,
+          "median": -0.0047398736007784326,
+          "min": -0.019685121803402983,
+          "p10": -0.012539087927542575,
+          "p90": 0.004681874406355646,
+          "rmse": 0.00923181052523916
+        },
+        {
+          "count": 16,
+          "length_level": 8,
+          "mae": 0.005989934571528018,
+          "max": 0.017874872058377234,
+          "mean": 0.0010540951106667064,
+          "median": 0.0016501801775141156,
+          "min": -0.020040626210751977,
+          "p10": -0.0057674669882354646,
+          "p90": 0.0101707976079069,
+          "rmse": 0.00822968152594827
+        }
+      ],
+      "slope_direction_counts": {
+        "negative": 7,
+        "positive": 9
+      },
+      "within_family_slopes": [
+        {
+          "confidence_interval_95": [
+            -0.003793722148437805,
+            0.009893920953976515
+          ],
+          "direction": "positive",
+          "leave_one_case_out_slope_range": [
+            0.0021119080214181828,
+            0.004171021701492468
+          ],
+          "r_squared": 0.1654187244212596,
+          "semantic_family": "Spanish-language reasoning/explanation",
+          "slope_per_100_prompt_tokens": 0.003050099402769355,
+          "standard_error_per_100_prompt_tokens": 0.0027969219847477425,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -0.0075819153845016335,
+            0.003199991164527909
+          ],
+          "direction": "negative",
+          "leave_one_case_out_slope_range": [
+            -0.0036599251545121644,
+            -0.0005452935050829017
+          ],
+          "r_squared": 0.14150219765751038,
+          "semantic_family": "algorithms / data-structure reasoning",
+          "slope_per_100_prompt_tokens": -0.0021909621099868624,
+          "standard_error_per_100_prompt_tokens": 0.0022031661140519687,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -0.015598352058600657,
+            0.012288439139981707
+          ],
+          "direction": "negative",
+          "leave_one_case_out_slope_range": [
+            -0.0035798388863201498,
+            0.006512288993244236
+          ],
+          "r_squared": 0.013863046433441384,
+          "semantic_family": "analytical comparison / argumentation",
+          "slope_per_100_prompt_tokens": -0.001654956459309475,
+          "standard_error_per_100_prompt_tokens": 0.005698364488596812,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -0.0026923863711586678,
+            0.019842447971937436
+          ],
+          "direction": "positive",
+          "leave_one_case_out_slope_range": [
+            0.005795778333988247,
+            0.01325586613094186
+          ],
+          "r_squared": 0.36627584998415863,
+          "semantic_family": "code generation",
+          "slope_per_100_prompt_tokens": 0.008575030800389384,
+          "standard_error_per_100_prompt_tokens": 0.0046047499284764815,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            0.0008270190234749477,
+            0.021697971585270204
+          ],
+          "direction": "positive",
+          "leave_one_case_out_slope_range": [
+            0.008109938223207859,
+            0.013416866557876397
+          ],
+          "r_squared": 0.5375362687964467,
+          "semantic_family": "conversational / direct QA",
+          "slope_per_100_prompt_tokens": 0.011262495304372577,
+          "standard_error_per_100_prompt_tokens": 0.004264753663281584,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -0.008664936620328613,
+            0.006131222507080104
+          ],
+          "direction": "negative",
+          "leave_one_case_out_slope_range": [
+            -0.004664410040093288,
+            0.0010237203098002595
+          ],
+          "r_squared": 0.028429991687219935,
+          "semantic_family": "creative / language generation",
+          "slope_per_100_prompt_tokens": -0.0012668570566242547,
+          "standard_error_per_100_prompt_tokens": 0.003023435257891541,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -0.007841000583762197,
+            0.013041554319187397
+          ],
+          "direction": "positive",
+          "leave_one_case_out_slope_range": [
+            -0.0007700622455265638,
+            0.007491140347174867
+          ],
+          "r_squared": 0.05828247213730542,
+          "semantic_family": "debugging / code review",
+          "slope_per_100_prompt_tokens": 0.0026002768677126,
+          "standard_error_per_100_prompt_tokens": 0.004267124476343139,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -0.010000867837659607,
+            0.013140041013993286
+          ],
+          "direction": "positive",
+          "leave_one_case_out_slope_range": [
+            0.0002764958860829472,
+            0.0033320504427508586
+          ],
+          "r_squared": 0.018032349052819918,
+          "semantic_family": "factual / explanatory knowledge",
+          "slope_per_100_prompt_tokens": 0.0015695865881668397,
+          "standard_error_per_100_prompt_tokens": 0.004728594706185411,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -0.015558813330676458,
+            0.010866381751235091
+          ],
+          "direction": "negative",
+          "leave_one_case_out_slope_range": [
+            -0.010570372191719805,
+            0.00229965679984044
+          ],
+          "r_squared": 0.030506323583709083,
+          "semantic_family": "formal logic / proof-style reasoning",
+          "slope_per_100_prompt_tokens": -0.0023462157897206834,
+          "standard_error_per_100_prompt_tokens": 0.0053997031134461505,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -0.006949798557755776,
+            0.007384675992852231
+          ],
+          "direction": "positive",
+          "leave_one_case_out_slope_range": [
+            -0.0033779859432923084,
+            0.002155371895055194
+          ],
+          "r_squared": 0.000917607373974394,
+          "semantic_family": "mathematical reasoning",
+          "slope_per_100_prompt_tokens": 0.00021743871754822757,
+          "standard_error_per_100_prompt_tokens": 0.002929095002727736,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -0.021704758979547597,
+            0.012659692677251751
+          ],
+          "direction": "negative",
+          "leave_one_case_out_slope_range": [
+            -0.008704876531498833,
+            -0.0012870916394716115
+          ],
+          "r_squared": 0.06466332530182795,
+          "semantic_family": "multi-step instruction following / structured response",
+          "slope_per_100_prompt_tokens": -0.004522533151147923,
+          "standard_error_per_100_prompt_tokens": 0.007022004417674341,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -0.0018274224787344778,
+            0.015399160267346928
+          ],
+          "direction": "positive",
+          "leave_one_case_out_slope_range": [
+            0.005147966727668024,
+            0.009069867455565064
+          ],
+          "r_squared": 0.38248018875820433,
+          "semantic_family": "multilingual / translation / cross-language transformation",
+          "slope_per_100_prompt_tokens": 0.006785868894306225,
+          "standard_error_per_100_prompt_tokens": 0.0035200660657270246,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -0.00930072986937843,
+            0.011085681449214022
+          ],
+          "direction": "positive",
+          "leave_one_case_out_slope_range": [
+            -0.0015322286893119433,
+            0.003249937679728902
+          ],
+          "r_squared": 0.007591839873748341,
+          "semantic_family": "physics / scientific reasoning",
+          "slope_per_100_prompt_tokens": 0.0008924757899177964,
+          "standard_error_per_100_prompt_tokens": 0.004165742895285165,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -0.01598434693940626,
+            0.005136588916446528
+          ],
+          "direction": "negative",
+          "leave_one_case_out_slope_range": [
+            -0.007112523245372053,
+            -0.0021464393296409564
+          ],
+          "r_squared": 0.2083799184817008,
+          "semantic_family": "planning / constraint satisfaction",
+          "slope_per_100_prompt_tokens": -0.005423879011479866,
+          "standard_error_per_100_prompt_tokens": 0.0043158350485674,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -0.013020373223837655,
+            0.004445757508610306
+          ],
+          "direction": "negative",
+          "leave_one_case_out_slope_range": [
+            -0.0068316457522211785,
+            -0.00239273057527393
+          ],
+          "r_squared": 0.19387568217880802,
+          "semantic_family": "structured extraction / transformation",
+          "slope_per_100_prompt_tokens": -0.004287307857613674,
+          "standard_error_per_100_prompt_tokens": 0.003569015108630729,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -0.004217102140966416,
+            0.006815141590832987
+          ],
+          "direction": "positive",
+          "leave_one_case_out_slope_range": [
+            3.262226788334886e-05,
+            0.0019391688031726317
+          ],
+          "r_squared": 0.05243922441210247,
+          "semantic_family": "summarization / synthesis",
+          "slope_per_100_prompt_tokens": 0.0012990197249332855,
+          "standard_error_per_100_prompt_tokens": 0.0022543198126726855,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        }
+      ]
+    },
+    "hit_ratio": {
+      "actual_token_only": {
+        "coefficient_names": [
+          "intercept",
+          "templated_prompt_tokens"
+        ],
+        "coefficients": {
+          "intercept": 0.6192596109106377,
+          "templated_prompt_tokens": 3.5073862282140514e-05
+        },
+        "mae": 0.01853652044627776,
+        "r_squared": 0.015625479562702882,
+        "rank": 2,
+        "residual_distribution": {
+          "count": 128,
+          "mae": 0.01853652044627776,
+          "max": 0.04932101606668593,
+          "mean": -2.6281060661048627e-16,
+          "median": 9.638849601534272e-06,
+          "min": -0.0477417578074566,
+          "p10": -0.02994713117305676,
+          "p90": 0.030041282221502263,
+          "rmse": 0.022310899566756588
+        },
+        "rmse": 0.02231089956675659,
+        "row_count": 128
+      },
+      "family_descriptions": [
+        {
+          "count": 8,
+          "iqr": 0.023636527683423947,
+          "mad": 0.012530782948369568,
+          "max": 0.6647312330163043,
+          "median": 0.6429814877717391,
+          "min": 0.6111370584239131,
+          "semantic_family": "Spanish-language reasoning/explanation"
+        },
+        {
+          "count": 8,
+          "iqr": 0.01405135444972827,
+          "mad": 0.007610818614130432,
+          "max": 0.6431619395380435,
+          "median": 0.629638671875,
+          "min": 0.6120711616847826,
+          "semantic_family": "algorithms / data-structure reasoning"
+        },
+        {
+          "count": 8,
+          "iqr": 0.02629288383152162,
+          "mad": 0.012721849524456486,
+          "max": 0.666748046875,
+          "median": 0.6427161175271738,
+          "min": 0.6083772078804348,
+          "semantic_family": "analytical comparison / argumentation"
+        },
+        {
+          "count": 8,
+          "iqr": 0.028805940047554435,
+          "mad": 0.013226052989130488,
+          "max": 0.6546153192934783,
+          "median": 0.6265709918478262,
+          "min": 0.5878481657608695,
+          "semantic_family": "code generation"
+        },
+        {
+          "count": 8,
+          "iqr": 0.026802394701086918,
+          "mad": 0.01177713145380438,
+          "max": 0.6519403872282609,
+          "median": 0.6053944463315217,
+          "min": 0.586319633152174,
+          "semantic_family": "conversational / direct QA"
+        },
+        {
+          "count": 8,
+          "iqr": 0.00886336616847827,
+          "mad": 0.003879712975543459,
+          "max": 0.6400093410326086,
+          "median": 0.6201384171195652,
+          "min": 0.6029424252717391,
+          "semantic_family": "creative / language generation"
+        },
+        {
+          "count": 8,
+          "iqr": 0.020513119904891353,
+          "mad": 0.010503354279891297,
+          "max": 0.6616741677989131,
+          "median": 0.6392185377038044,
+          "min": 0.6159561820652174,
+          "semantic_family": "debugging / code review"
+        },
+        {
+          "count": 8,
+          "iqr": 0.016304347826086918,
+          "mad": 0.011665675951086918,
+          "max": 0.6384808084239131,
+          "median": 0.6097942849864131,
+          "min": 0.5811289911684783,
+          "semantic_family": "factual / explanatory knowledge"
+        },
+        {
+          "count": 8,
+          "iqr": 0.008502462635869512,
+          "mad": 0.004681131114130432,
+          "max": 0.669083305027174,
+          "median": 0.6502791694972826,
+          "min": 0.6115404211956522,
+          "semantic_family": "formal logic / proof-style reasoning"
+        },
+        {
+          "count": 8,
+          "iqr": 0.011416227921195676,
+          "mad": 0.0063954228940217295,
+          "max": 0.66845703125,
+          "median": 0.6592911430027174,
+          "min": 0.6434591542119565,
+          "semantic_family": "mathematical reasoning"
+        },
+        {
+          "count": 8,
+          "iqr": 0.023466690726902217,
+          "mad": 0.009542713994565244,
+          "max": 0.6619183084239131,
+          "median": 0.6209929093070652,
+          "min": 0.582869819972826,
+          "semantic_family": "multi-step instruction following / structured response"
+        },
+        {
+          "count": 8,
+          "iqr": 0.02022386633831519,
+          "mad": 0.010068147078804324,
+          "max": 0.6480978260869565,
+          "median": 0.6232697860054348,
+          "min": 0.5955014436141305,
+          "semantic_family": "multilingual / translation / cross-language transformation"
+        },
+        {
+          "count": 8,
+          "iqr": 0.01700227156929357,
+          "mad": 0.008162788722826109,
+          "max": 0.6798042629076086,
+          "median": 0.6490796959918479,
+          "min": 0.6349142323369565,
+          "semantic_family": "physics / scientific reasoning"
+        },
+        {
+          "count": 8,
+          "iqr": 0.013284434442934812,
+          "mad": 0.006602411684782594,
+          "max": 0.6665357506793478,
+          "median": 0.6211627462635869,
+          "min": 0.612654976222826,
+          "semantic_family": "planning / constraint satisfaction"
+        },
+        {
+          "count": 8,
+          "iqr": 0.019709048063858647,
+          "mad": 0.010259213654891297,
+          "max": 0.6475883152173914,
+          "median": 0.6330407184103262,
+          "min": 0.614990234375,
+          "semantic_family": "structured extraction / transformation"
+        },
+        {
+          "count": 8,
+          "iqr": 0.013844365658967517,
+          "mad": 0.006459111752717406,
+          "max": 0.6113811990489131,
+          "median": 0.6029318104619565,
+          "min": 0.5818295686141305,
+          "semantic_family": "summarization / synthesis"
+        }
+      ],
+      "family_only": {
+        "coefficient_names": [
+          "intercept",
+          "family[algorithms / data-structure reasoning]",
+          "family[analytical comparison / argumentation]",
+          "family[code generation]",
+          "family[conversational / direct QA]",
+          "family[creative / language generation]",
+          "family[debugging / code review]",
+          "family[factual / explanatory knowledge]",
+          "family[formal logic / proof-style reasoning]",
+          "family[mathematical reasoning]",
+          "family[multi-step instruction following / structured response]",
+          "family[multilingual / translation / cross-language transformation]",
+          "family[physics / scientific reasoning]",
+          "family[planning / constraint satisfaction]",
+          "family[structured extraction / transformation]",
+          "family[summarization / synthesis]"
+        ],
+        "coefficients": {
+          "family[algorithms / data-structure reasoning]": -0.007480787194293466,
+          "family[analytical comparison / argumentation]": 0.006043807319972848,
+          "family[code generation]": -0.01649674125339674,
+          "family[conversational / direct QA]": -0.02382228685461956,
+          "family[creative / language generation]": -0.014778468919836953,
+          "family[debugging / code review]": 0.0036966075067935136,
+          "family[factual / explanatory knowledge]": -0.026690939198369512,
+          "family[formal logic / proof-style reasoning]": 0.011416227921195671,
+          "family[mathematical reasoning]": 0.021372919497282414,
+          "family[multi-step instruction following / structured response]": -0.02107172426970108,
+          "family[multilingual / translation / cross-language transformation]": -0.017004925271739142,
+          "family[physics / scientific reasoning]": 0.01668250042459242,
+          "family[planning / constraint satisfaction]": -0.009233557659646728,
+          "family[structured extraction / transformation]": -0.005128279976222824,
+          "family[summarization / synthesis]": -0.036757759425951095,
+          "intercept": 0.6366815981657605
+        },
+        "mae": 0.01243968631910243,
+        "r_squared": 0.5004528468936352,
+        "rank": 16,
+        "residual_distribution": {
+          "count": 128,
+          "mae": 0.01243968631910243,
+          "max": 0.046308434527853604,
+          "mean": 3.3219954564955856e-16,
+          "median": 0.0006873089334241689,
+          "min": -0.03655740489130399,
+          "p10": -0.018970257302988847,
+          "p90": 0.019419529127038364,
+          "rmse": 0.015893704836100447
+        },
+        "rmse": 0.015893704836100447,
+        "row_count": 128
+      },
+      "family_plus_within_family_centered_tokens": {
+        "coefficient_names": [
+          "intercept",
+          "within_family_centered_tokens",
+          "family[algorithms / data-structure reasoning]",
+          "family[analytical comparison / argumentation]",
+          "family[code generation]",
+          "family[conversational / direct QA]",
+          "family[creative / language generation]",
+          "family[debugging / code review]",
+          "family[factual / explanatory knowledge]",
+          "family[formal logic / proof-style reasoning]",
+          "family[mathematical reasoning]",
+          "family[multi-step instruction following / structured response]",
+          "family[multilingual / translation / cross-language transformation]",
+          "family[physics / scientific reasoning]",
+          "family[planning / constraint satisfaction]",
+          "family[structured extraction / transformation]",
+          "family[summarization / synthesis]"
+        ],
+        "coefficients": {
+          "family[algorithms / data-structure reasoning]": -0.007480787194293381,
+          "family[analytical comparison / argumentation]": 0.006043807319972947,
+          "family[code generation]": -0.0164967412533966,
+          "family[conversational / direct QA]": -0.023822286854619425,
+          "family[creative / language generation]": -0.014778468919836822,
+          "family[debugging / code review]": 0.003696607506793623,
+          "family[factual / explanatory knowledge]": -0.02669093919836943,
+          "family[formal logic / proof-style reasoning]": 0.011416227921195813,
+          "family[mathematical reasoning]": 0.02137291949728253,
+          "family[multi-step instruction following / structured response]": -0.02107172426970092,
+          "family[multilingual / translation / cross-language transformation]": -0.017004925271739014,
+          "family[physics / scientific reasoning]": 0.016682500424592468,
+          "family[planning / constraint satisfaction]": -0.009233557659646709,
+          "family[structured extraction / transformation]": -0.005128279976222766,
+          "family[summarization / synthesis]": -0.036757759425950984,
+          "intercept": 0.6366815981657605,
+          "within_family_centered_tokens": 3.293265389870542e-05
+        },
+        "mae": 0.012177171247788466,
+        "r_squared": 0.5124788402167424,
+        "rank": 17,
+        "residual_distribution": {
+          "count": 128,
+          "mae": 0.012177171247788466,
+          "max": 0.0477821707898205,
+          "mean": 2.42861286636753e-16,
+          "median": 0.0004103924059284947,
+          "min": -0.038529247543489076,
+          "p10": -0.01992504653318946,
+          "p90": 0.018178657700948574,
+          "rmse": 0.01570122851313112
+        },
+        "rmse": 0.01570122851313112,
+        "row_count": 128
+      },
+      "incremental_r_squared_over_family": 0.012025993323107165,
+      "largest_absolute_residuals": [
+        {
+          "case_id": "11-instructions-b3",
+          "residual": 0.0477821707898205
+        },
+        {
+          "case_id": "10-planning-b2",
+          "residual": 0.041063669407156334
+        },
+        {
+          "case_id": "02-formal-b7",
+          "residual": -0.038529247543489076
+        },
+        {
+          "case_id": "12-compare-b8",
+          "residual": -0.03796255637068158
+        },
+        {
+          "case_id": "14-qa-b8",
+          "residual": 0.03553258245953428
+        },
+        {
+          "case_id": "11-instructions-b6",
+          "residual": -0.03403266058875776
+        },
+        {
+          "case_id": "05-codegen-b4",
+          "residual": -0.03191268323254859
+        },
+        {
+          "case_id": "05-codegen-b7",
+          "residual": 0.031791733487480545
+        }
+      ],
+      "residual_association_with_actual_tokens": {
+        "count": 128,
+        "pearson_r": -1.7808895543189395e-14,
+        "spearman_rho": 0.0015394013808100672
+      },
+      "residuals_by_length_level": [
+        {
+          "count": 16,
+          "length_level": 1,
+          "mae": 0.007621835953469422,
+          "max": 0.014435102543667644,
+          "mean": 0.0009975158498792963,
+          "median": 0.002441936432523162,
+          "min": -0.020276826374631796,
+          "p10": -0.012160881520210054,
+          "p90": 0.010094273028520562,
+          "rmse": 0.009374991593358728
+        },
+        {
+          "count": 16,
+          "length_level": 2,
+          "mae": 0.01136684701391806,
+          "max": 0.041063669407156334,
+          "mean": 0.0028271751288295177,
+          "median": 0.005060011618455429,
+          "min": -0.022729268156234883,
+          "p10": -0.012983684262851847,
+          "p90": 0.01506769415213366,
+          "rmse": 0.014828155266980832
+        },
+        {
+          "count": 16,
+          "length_level": 3,
+          "mae": 0.01359692456986105,
+          "max": 0.0477821707898205,
+          "mean": -0.003414438475445751,
+          "median": -0.007735906956408578,
+          "min": -0.025049475570050772,
+          "p10": -0.0214090108294398,
+          "p90": 0.013451326004124409,
+          "rmse": 0.0177471624953788
+        },
+        {
+          "count": 16,
+          "length_level": 4,
+          "mae": 0.010863582496301975,
+          "max": 0.021516520294539987,
+          "mean": -0.00160900374378143,
+          "median": 0.0013831732306591182,
+          "min": -0.03191268323254859,
+          "p10": -0.019196019489441662,
+          "p90": 0.011535906191462053,
+          "rmse": 0.013873077826020458
+        },
+        {
+          "count": 16,
+          "length_level": 5,
+          "mae": 0.014431566562116756,
+          "max": 0.02826785404270571,
+          "mean": -0.0004258132465267614,
+          "median": -0.0032377509899558787,
+          "min": -0.031483215709202206,
+          "p10": -0.018539096114674858,
+          "p90": 0.02092446742931775,
+          "rmse": 0.016505416635761612
+        },
+        {
+          "count": 16,
+          "length_level": 6,
+          "mae": 0.014185976188555813,
+          "max": 0.029839475343384936,
+          "mean": 0.006897825108233752,
+          "median": 0.007565367369295806,
+          "min": -0.03403266058875776,
+          "p10": -0.010872609677500034,
+          "p90": 0.026621693980702854,
+          "rmse": 0.01779179725072386
+        },
+        {
+          "count": 16,
+          "length_level": 7,
+          "mae": 0.014180512983023308,
+          "max": 0.031791733487480545,
+          "mean": -0.007391972890524914,
+          "median": -0.007698232208002753,
+          "min": -0.038529247543489076,
+          "p10": -0.02449887253562527,
+          "p90": 0.008714280491593007,
+          "rmse": 0.018015557648762705
+        },
+        {
+          "count": 16,
+          "length_level": 8,
+          "mae": 0.01117012421506134,
+          "max": 0.03553258245953428,
+          "mean": 0.002118712269338234,
+          "median": 0.00343139877107862,
+          "min": -0.03796255637068158,
+          "p10": -0.01080585896363423,
+          "p90": 0.017861863179498394,
+          "rmse": 0.015604574599912067
+        }
+      ],
+      "slope_direction_counts": {
+        "negative": 7,
+        "positive": 9
+      },
+      "within_family_slopes": [
+        {
+          "confidence_interval_95": [
+            -0.006127638954911854,
+            0.018829062246059763
+          ],
+          "direction": "positive",
+          "leave_one_case_out_slope_range": [
+            0.004620594974643633,
+            0.008482369851333695
+          ],
+          "r_squared": 0.20538644890805047,
+          "semantic_family": "Spanish-language reasoning/explanation",
+          "slope_per_100_prompt_tokens": 0.006350711645573956,
+          "standard_error_per_100_prompt_tokens": 0.005099632254691516,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -0.014819686298111166,
+            0.009237411037422438
+          ],
+          "direction": "negative",
+          "leave_one_case_out_slope_range": [
+            -0.0066041373537125804,
+            0.0011356436966003603
+          ],
+          "r_squared": 0.05099080444016524,
+          "semantic_family": "algorithms / data-structure reasoning",
+          "slope_per_100_prompt_tokens": -0.0027911376303443648,
+          "standard_error_per_100_prompt_tokens": 0.004915807924236565,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -0.028275852164936638,
+            0.02314981270246147
+          ],
+          "direction": "negative",
+          "leave_one_case_out_slope_range": [
+            -0.006191928573746719,
+            0.012748079203340163
+          ],
+          "r_squared": 0.009817584945226332,
+          "semantic_family": "analytical comparison / argumentation",
+          "slope_per_100_prompt_tokens": -0.002563019731237583,
+          "standard_error_per_100_prompt_tokens": 0.01050827900550132,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -0.0051300721017915815,
+            0.04112182041191826
+          ],
+          "direction": "positive",
+          "leave_one_case_out_slope_range": [
+            0.012439211246167706,
+            0.027996468185579666
+          ],
+          "r_squared": 0.37666419728836154,
+          "semantic_family": "code generation",
+          "slope_per_100_prompt_tokens": 0.01799587415506334,
+          "standard_error_per_100_prompt_tokens": 0.00945107452319287,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            0.003865661694320059,
+            0.0434602224958785
+          ],
+          "direction": "positive",
+          "leave_one_case_out_slope_range": [
+            0.017645413878153954,
+            0.027656341324859772
+          ],
+          "r_squared": 0.5877387513865286,
+          "semantic_family": "conversational / direct QA",
+          "slope_per_100_prompt_tokens": 0.02366294209509928,
+          "standard_error_per_100_prompt_tokens": 0.008090720714567463,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -0.0166367610249019,
+            0.012015312072394275
+          ],
+          "direction": "negative",
+          "leave_one_case_out_slope_range": [
+            -0.008873799222151884,
+            0.0020309434004858145
+          ],
+          "r_squared": 0.02530454649247471,
+          "semantic_family": "creative / language generation",
+          "slope_per_100_prompt_tokens": -0.002310724476253813,
+          "standard_error_per_100_prompt_tokens": 0.0058547415763851845,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -0.014336443036328321,
+            0.024902920379504735
+          ],
+          "direction": "positive",
+          "leave_one_case_out_slope_range": [
+            -0.0007257579178984225,
+            0.014673799708269644
+          ],
+          "r_squared": 0.06747783031658838,
+          "semantic_family": "debugging / code review",
+          "slope_per_100_prompt_tokens": 0.005283238671588206,
+          "standard_error_per_100_prompt_tokens": 0.008018139966397239,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -0.019818634183568815,
+            0.026056300801908565
+          ],
+          "direction": "positive",
+          "leave_one_case_out_slope_range": [
+            0.0003253740936620902,
+            0.007138201179050739
+          ],
+          "r_squared": 0.018115044270908487,
+          "semantic_family": "factual / explanatory knowledge",
+          "slope_per_100_prompt_tokens": 0.0031188333091698756,
+          "standard_error_per_100_prompt_tokens": 0.009374047325000977,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -0.028188143058678866,
+            0.022151577222088853
+          ],
+          "direction": "negative",
+          "leave_one_case_out_slope_range": [
+            -0.0174856907692297,
+            0.006199227840750108
+          ],
+          "r_squared": 0.014146726850918001,
+          "semantic_family": "formal logic / proof-style reasoning",
+          "slope_per_100_prompt_tokens": -0.0030182829182950053,
+          "standard_error_per_100_prompt_tokens": 0.010286377961922197,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -0.010761600848717991,
+            0.012994714502329061
+          ],
+          "direction": "positive",
+          "leave_one_case_out_slope_range": [
+            -0.005122923357831761,
+            0.004311864487461546
+          ],
+          "r_squared": 0.008740499486992404,
+          "semantic_family": "mathematical reasoning",
+          "slope_per_100_prompt_tokens": 0.0011165568268055354,
+          "standard_error_per_100_prompt_tokens": 0.00485434637539781,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -0.042291119379815584,
+            0.02532569513331323
+          ],
+          "direction": "negative",
+          "leave_one_case_out_slope_range": [
+            -0.017003362762445295,
+            -0.002204476913831846
+          ],
+          "r_squared": 0.05910786482934827,
+          "semantic_family": "multi-step instruction following / structured response",
+          "slope_per_100_prompt_tokens": -0.008482712123251177,
+          "standard_error_per_100_prompt_tokens": 0.01381676550413724,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -0.002210587840136424,
+            0.030976413759074478
+          ],
+          "direction": "positive",
+          "leave_one_case_out_slope_range": [
+            0.010935628872381618,
+            0.018810467568084795
+          ],
+          "r_squared": 0.4284822212104009,
+          "semantic_family": "multilingual / translation / cross-language transformation",
+          "slope_per_100_prompt_tokens": 0.014382912959469028,
+          "standard_error_per_100_prompt_tokens": 0.006781405219742981,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -0.016188500409495925,
+            0.020472998646313516
+          ],
+          "direction": "positive",
+          "leave_one_case_out_slope_range": [
+            -0.00225539664305584,
+            0.006636019666511205
+          ],
+          "r_squared": 0.0134457755721068,
+          "semantic_family": "physics / scientific reasoning",
+          "slope_per_100_prompt_tokens": 0.002142249118408797,
+          "standard_error_per_100_prompt_tokens": 0.007491381236037302,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -0.030253797321829288,
+            0.01148247973719085
+          ],
+          "direction": "negative",
+          "leave_one_case_out_slope_range": [
+            -0.012979351205743303,
+            -0.002917024638221234
+          ],
+          "r_squared": 0.16795544330103584,
+          "semantic_family": "planning / constraint satisfaction",
+          "slope_per_100_prompt_tokens": -0.009385658792319219,
+          "standard_error_per_100_prompt_tokens": 0.008528357292374616,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -0.02302087503932898,
+            0.0098397170302766
+          ],
+          "direction": "negative",
+          "leave_one_case_out_slope_range": [
+            -0.01202364080838429,
+            -0.004025473167455939
+          ],
+          "r_squared": 0.13834821344809667,
+          "semantic_family": "structured extraction / transformation",
+          "slope_per_100_prompt_tokens": -0.006590579004526189,
+          "standard_error_per_100_prompt_tokens": 0.006714706958942823,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -0.00940670551440024,
+            0.016102835156590094
+          ],
+          "direction": "positive",
+          "leave_one_case_out_slope_range": [
+            0.0009191822448978913,
+            0.0049449993694166885
+          ],
+          "r_squared": 0.06433512567118993,
+          "semantic_family": "summarization / synthesis",
+          "slope_per_100_prompt_tokens": 0.0033480648210949264,
+          "standard_error_per_100_prompt_tokens": 0.00521259902743407,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        }
+      ]
+    },
+    "loads_per_token": {
+      "actual_token_only": {
+        "coefficient_names": [
+          "intercept",
+          "templated_prompt_tokens"
+        ],
+        "coefficients": {
+          "intercept": 560.4498527395416,
+          "templated_prompt_tokens": -0.051628725279309784
+        },
+        "mae": 27.285758096920848,
+        "r_squared": 0.01562547956270377,
+        "rank": 2,
+        "residual_distribution": {
+          "count": 128,
+          "mae": 27.285758096920848,
+          "max": 70.27586749257546,
+          "mean": -2.673417043297377e-13,
+          "median": -0.01418838661419386,
+          "min": -72.60053565016244,
+          "p10": -44.220767430052184,
+          "p90": 44.08217708673894,
+          "rmse": 32.84164416226569
+        },
+        "rmse": 32.84164416226569,
+        "row_count": 128
+      },
+      "family_descriptions": [
+        {
+          "count": 8,
+          "iqr": 34.79296875,
+          "mad": 18.4453125,
+          "max": 572.40625,
+          "median": 525.53125,
+          "min": 493.515625,
+          "semantic_family": "Spanish-language reasoning/explanation"
+        },
+        {
+          "count": 8,
+          "iqr": 20.68359375,
+          "mad": 11.203125,
+          "max": 571.03125,
+          "median": 545.171875,
+          "min": 525.265625,
+          "semantic_family": "algorithms / data-structure reasoning"
+        },
+        {
+          "count": 8,
+          "iqr": 38.703125,
+          "mad": 18.7265625,
+          "max": 576.46875,
+          "median": 525.921875,
+          "min": 490.546875,
+          "semantic_family": "analytical comparison / argumentation"
+        },
+        {
+          "count": 8,
+          "iqr": 42.40234375,
+          "mad": 19.46875,
+          "max": 606.6875,
+          "median": 549.6875,
+          "min": 508.40625,
+          "semantic_family": "code generation"
+        },
+        {
+          "count": 8,
+          "iqr": 39.453125,
+          "mad": 17.3359375,
+          "max": 608.9375,
+          "median": 580.859375,
+          "min": 512.34375,
+          "semantic_family": "conversational / direct QA"
+        },
+        {
+          "count": 8,
+          "iqr": 13.046875,
+          "mad": 5.7109375,
+          "max": 584.46875,
+          "median": 559.15625,
+          "min": 529.90625,
+          "semantic_family": "creative / language generation"
+        },
+        {
+          "count": 8,
+          "iqr": 30.1953125,
+          "mad": 15.4609375,
+          "max": 565.3125,
+          "median": 531.0703125,
+          "min": 498.015625,
+          "semantic_family": "debugging / code review"
+        },
+        {
+          "count": 8,
+          "iqr": 24.0,
+          "mad": 17.171875,
+          "max": 616.578125,
+          "median": 574.3828125,
+          "min": 532.15625,
+          "semantic_family": "factual / explanatory knowledge"
+        },
+        {
+          "count": 8,
+          "iqr": 12.515625,
+          "mad": 6.890625,
+          "max": 571.8125,
+          "median": 514.7890625,
+          "min": 487.109375,
+          "semantic_family": "formal logic / proof-style reasoning"
+        },
+        {
+          "count": 8,
+          "iqr": 16.8046875,
+          "mad": 9.4140625,
+          "max": 524.828125,
+          "median": 501.5234375,
+          "min": 488.03125,
+          "semantic_family": "mathematical reasoning"
+        },
+        {
+          "count": 8,
+          "iqr": 34.54296875,
+          "mad": 14.046875,
+          "max": 614.015625,
+          "median": 557.8984375,
+          "min": 497.65625,
+          "semantic_family": "multi-step instruction following / structured response"
+        },
+        {
+          "count": 8,
+          "iqr": 29.76953125,
+          "mad": 14.8203125,
+          "max": 595.421875,
+          "median": 554.546875,
+          "min": 518.0,
+          "semantic_family": "multilingual / translation / cross-language transformation"
+        },
+        {
+          "count": 8,
+          "iqr": 25.02734375,
+          "mad": 12.015625,
+          "max": 537.40625,
+          "median": 516.5546875,
+          "min": 471.328125,
+          "semantic_family": "physics / scientific reasoning"
+        },
+        {
+          "count": 8,
+          "iqr": 19.5546875,
+          "mad": 9.71875,
+          "max": 570.171875,
+          "median": 557.6484375,
+          "min": 490.859375,
+          "semantic_family": "planning / constraint satisfaction"
+        },
+        {
+          "count": 8,
+          "iqr": 29.01171875,
+          "mad": 15.1015625,
+          "max": 566.734375,
+          "median": 540.1640625,
+          "min": 518.75,
+          "semantic_family": "structured extraction / transformation"
+        },
+        {
+          "count": 8,
+          "iqr": 20.37890625,
+          "mad": 9.5078125,
+          "max": 615.546875,
+          "median": 584.484375,
+          "min": 572.046875,
+          "semantic_family": "summarization / synthesis"
+        }
+      ],
+      "family_only": {
+        "coefficient_names": [
+          "intercept",
+          "family[algorithms / data-structure reasoning]",
+          "family[analytical comparison / argumentation]",
+          "family[code generation]",
+          "family[conversational / direct QA]",
+          "family[creative / language generation]",
+          "family[debugging / code review]",
+          "family[factual / explanatory knowledge]",
+          "family[formal logic / proof-style reasoning]",
+          "family[mathematical reasoning]",
+          "family[multi-step instruction following / structured response]",
+          "family[multilingual / translation / cross-language transformation]",
+          "family[physics / scientific reasoning]",
+          "family[planning / constraint satisfaction]",
+          "family[structured extraction / transformation]",
+          "family[summarization / synthesis]"
+        ],
+        "coefficients": {
+          "family[algorithms / data-structure reasoning]": 11.011718749999964,
+          "family[analytical comparison / argumentation]": -8.896484375000044,
+          "family[code generation]": 24.28320312499998,
+          "family[conversational / direct QA]": 35.06640625,
+          "family[creative / language generation]": 21.753906250000018,
+          "family[debugging / code review]": -5.441406250000055,
+          "family[factual / explanatory knowledge]": 39.28906249999995,
+          "family[formal logic / proof-style reasoning]": -16.804687500000046,
+          "family[mathematical reasoning]": -31.46093750000018,
+          "family[multi-step instruction following / structured response]": 31.017578124999968,
+          "family[multilingual / translation / cross-language transformation]": 25.03125,
+          "family[physics / scientific reasoning]": -24.556640625000053,
+          "family[planning / constraint satisfaction]": 13.591796874999957,
+          "family[structured extraction / transformation]": 7.548828124999977,
+          "family[summarization / synthesis]": 54.107421874999986,
+          "intercept": 534.8046874999999
+        },
+        "mae": 18.311218261718746,
+        "r_squared": 0.5004528468936353,
+        "rank": 16,
+        "residual_distribution": {
+          "count": 128,
+          "mae": 18.311218261718746,
+          "max": 53.812500000000114,
+          "mean": 1.2789769243681803e-13,
+          "median": -1.0117187499998863,
+          "min": -68.16601562499989,
+          "p10": -28.58554687499988,
+          "p90": 27.924218750000115,
+          "rmse": 23.395533518739857
+        },
+        "rmse": 23.395533518739857,
+        "row_count": 128
+      },
+      "family_plus_within_family_centered_tokens": {
+        "coefficient_names": [
+          "intercept",
+          "within_family_centered_tokens",
+          "family[algorithms / data-structure reasoning]",
+          "family[analytical comparison / argumentation]",
+          "family[code generation]",
+          "family[conversational / direct QA]",
+          "family[creative / language generation]",
+          "family[debugging / code review]",
+          "family[factual / explanatory knowledge]",
+          "family[formal logic / proof-style reasoning]",
+          "family[mathematical reasoning]",
+          "family[multi-step instruction following / structured response]",
+          "family[multilingual / translation / cross-language transformation]",
+          "family[physics / scientific reasoning]",
+          "family[planning / constraint satisfaction]",
+          "family[structured extraction / transformation]",
+          "family[summarization / synthesis]"
+        ],
+        "coefficients": {
+          "family[algorithms / data-structure reasoning]": 11.011718749999853,
+          "family[analytical comparison / argumentation]": -8.896484375000183,
+          "family[code generation]": 24.283203124999808,
+          "family[conversational / direct QA]": 35.06640624999978,
+          "family[creative / language generation]": 21.753906249999797,
+          "family[debugging / code review]": -5.441406250000219,
+          "family[factual / explanatory knowledge]": 39.28906249999983,
+          "family[formal logic / proof-style reasoning]": -16.804687500000245,
+          "family[mathematical reasoning]": -31.46093750000032,
+          "family[multi-step instruction following / structured response]": 31.017578124999776,
+          "family[multilingual / translation / cross-language transformation]": 25.031249999999822,
+          "family[physics / scientific reasoning]": -24.55664062500012,
+          "family[planning / constraint satisfaction]": 13.591796874999932,
+          "family[structured extraction / transformation]": 7.548828124999893,
+          "family[summarization / synthesis]": 54.10742187499985,
+          "intercept": 534.8046875,
+          "within_family_centered_tokens": -0.04847686653887706
+        },
+        "mae": 17.92479607674467,
+        "r_squared": 0.5124788402167425,
+        "rank": 17,
+        "residual_distribution": {
+          "count": 128,
+          "mae": 17.924796076744673,
+          "max": 56.71505238401551,
+          "mean": 1.8118839761882555e-13,
+          "median": -0.6040976215255114,
+          "min": -70.33535540261448,
+          "p10": -26.758984135796982,
+          "p90": 29.329668496855366,
+          "rmse": 23.112208371329004
+        },
+        "rmse": 23.112208371329007,
+        "row_count": 128
+      },
+      "incremental_r_squared_over_family": 0.012025993323107165,
+      "largest_absolute_residuals": [
+        {
+          "case_id": "11-instructions-b3",
+          "residual": -70.33535540261448
+        },
+        {
+          "case_id": "10-planning-b2",
+          "residual": -60.44572136733245
+        },
+        {
+          "case_id": "02-formal-b7",
+          "residual": 56.71505238401551
+        },
+        {
+          "case_id": "12-compare-b8",
+          "residual": 55.88088297764193
+        },
+        {
+          "case_id": "14-qa-b8",
+          "residual": -52.303961380435794
+        },
+        {
+          "case_id": "11-instructions-b6",
+          "residual": 50.096076386651134
+        },
+        {
+          "case_id": "05-codegen-b4",
+          "residual": 46.97546971831218
+        },
+        {
+          "case_id": "05-codegen-b7",
+          "residual": -46.79743169357221
+        }
+      ],
+      "residual_association_with_actual_tokens": {
+        "count": 128,
+        "pearson_r": -3.4633157922630737e-14,
+        "spearman_rho": -0.0015394013808100672
+      },
+      "residuals_by_length_level": [
+        {
+          "count": 16,
+          "length_level": 1,
+          "mae": 11.219342523506729,
+          "max": 29.847488423460618,
+          "mean": -1.468343331019856,
+          "median": -3.594530428671874,
+          "min": -21.24847094427639,
+          "p10": -14.858769897979755,
+          "p90": 17.900817597752166,
+          "rmse": 13.79998762542384
+        },
+        {
+          "count": 16,
+          "length_level": 2,
+          "mae": 16.731998804487212,
+          "max": 33.45748272597962,
+          "mean": -4.161601789635178,
+          "median": -7.448337102364519,
+          "min": -60.44572136733245,
+          "p10": -22.179645791938697,
+          "p90": 19.11198323491982,
+          "rmse": 21.82704455299548
+        },
+        {
+          "count": 16,
+          "length_level": 3,
+          "mae": 20.01467296683598,
+          "max": 36.87282803911603,
+          "mean": 5.026053435857527,
+          "median": 11.38725503983477,
+          "min": -70.33535540261448,
+          "p10": -19.800351878069876,
+          "p90": 31.51406394093692,
+          "rmse": 26.12382319319791
+        },
+        {
+          "count": 16,
+          "length_level": 4,
+          "mae": 15.99119343455638,
+          "max": 46.97546971831218,
+          "mean": 2.368453510847054,
+          "median": -2.0360309955297,
+          "min": -31.67231787356218,
+          "p10": -16.98085391383131,
+          "p90": 28.256540688458642,
+          "rmse": 20.421170559902162
+        },
+        {
+          "count": 16,
+          "length_level": 5,
+          "mae": 21.243265979435925,
+          "max": 46.34329352394593,
+          "mean": 0.6267970988877067,
+          "median": 4.765969457215306,
+          "min": -41.610281150862306,
+          "p10": -30.800816055955522,
+          "p90": 27.289549480801554,
+          "rmse": 24.29597328784111
+        },
+        {
+          "count": 16,
+          "length_level": 6,
+          "mae": 20.88175694955422,
+          "max": 50.096076386651134,
+          "mean": -10.153598559320319,
+          "median": -11.136220767603305,
+          "min": -43.92370770546279,
+          "p10": -39.187133539594925,
+          "p90": 16.004481445279907,
+          "rmse": 26.18952555306562
+        },
+        {
+          "count": 16,
+          "length_level": 7,
+          "mae": 20.8737151110102,
+          "max": 56.71505238401551,
+          "mean": 10.880984094851883,
+          "median": 11.33179781017904,
+          "min": -46.79743169357221,
+          "p10": -12.82742088362562,
+          "p90": 36.06234037243951,
+          "rmse": 26.518900858978444
+        },
+        {
+          "count": 16,
+          "length_level": 8,
+          "mae": 16.442422844570736,
+          "max": 55.88088297764193,
+          "mean": -3.1187444604673686,
+          "median": -5.051018991029423,
+          "min": -52.303961380435794,
+          "p10": -26.292662600222798,
+          "p90": 15.906224394468296,
+          "rmse": 22.96993381107072
+        }
+      ],
+      "slope_direction_counts": {
+        "negative": 9,
+        "positive": 7
+      },
+      "within_family_slopes": [
+        {
+          "confidence_interval_95": [
+            -27.716379626200087,
+            9.01988454163019
+          ],
+          "direction": "negative",
+          "leave_one_case_out_slope_range": [
+            -12.486048421163181,
+            -6.801515802675301
+          ],
+          "r_squared": 0.2053864489080488,
+          "semantic_family": "Spanish-language reasoning/explanation",
+          "slope_per_100_prompt_tokens": -9.348247542284948,
+          "standard_error_per_100_prompt_tokens": 7.5066586789059215,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -13.59746904708568,
+            21.81457823081982
+          ],
+          "direction": "positive",
+          "leave_one_case_out_slope_range": [
+            -1.671667521395781,
+            9.721290184664893
+          ],
+          "r_squared": 0.050990804440163795,
+          "semantic_family": "algorithms / data-structure reasoning",
+          "slope_per_100_prompt_tokens": 4.108554591867071,
+          "standard_error_per_100_prompt_tokens": 7.236069264476232,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -34.076524298023024,
+            41.622054386787006
+          ],
+          "direction": "positive",
+          "leave_one_case_out_slope_range": [
+            -18.765172587316666,
+            9.114518860555348
+          ],
+          "r_squared": 0.009817584945226776,
+          "semantic_family": "analytical comparison / argumentation",
+          "slope_per_100_prompt_tokens": 3.772765044381991,
+          "standard_error_per_100_prompt_tokens": 15.468186696097948,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -60.53131964634345,
+            7.551466133837362
+          ],
+          "direction": "negative",
+          "leave_one_case_out_slope_range": [
+            -41.21080116917318,
+            -18.310518954358844
+          ],
+          "r_squared": 0.37666419728836165,
+          "semantic_family": "code generation",
+          "slope_per_100_prompt_tokens": -26.489926756253045,
+          "standard_error_per_100_prompt_tokens": 13.911981698139888,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -63.97344751393307,
+            -5.690254014038928
+          ],
+          "direction": "negative",
+          "leave_one_case_out_slope_range": [
+            -40.71013443019365,
+            -25.97404922864251
+          ],
+          "r_squared": 0.5877387513865269,
+          "semantic_family": "conversational / direct QA",
+          "slope_per_100_prompt_tokens": -34.831850763986,
+          "standard_error_per_100_prompt_tokens": 11.90954089184333,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -17.68653937056412,
+            24.489312228655834
+          ],
+          "direction": "positive",
+          "leave_one_case_out_slope_range": [
+            -2.9895486855150857,
+            13.062232455007733
+          ],
+          "r_squared": 0.025304546492477042,
+          "semantic_family": "creative / language generation",
+          "slope_per_100_prompt_tokens": 3.401386429045858,
+          "standard_error_per_100_prompt_tokens": 8.618179600438989,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -36.657098798630685,
+            21.103244149475692
+          ],
+          "direction": "negative",
+          "leave_one_case_out_slope_range": [
+            -21.599833170572918,
+            1.0683156551466533
+          ],
+          "r_squared": 0.06747783031658527,
+          "semantic_family": "debugging / code review",
+          "slope_per_100_prompt_tokens": -7.776927324577497,
+          "standard_error_per_100_prompt_tokens": 11.802702030536759,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -38.35487478040913,
+            29.173029518213582
+          ],
+          "direction": "negative",
+          "leave_one_case_out_slope_range": [
+            -10.50743213556255,
+            -0.4789506658704856
+          ],
+          "r_squared": 0.01811504427090871,
+          "semantic_family": "factual / explanatory knowledge",
+          "slope_per_100_prompt_tokens": -4.590922631097776,
+          "standard_error_per_100_prompt_tokens": 13.798597662401441,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -32.60712167091467,
+            41.4929465823755
+          ],
+          "direction": "positive",
+          "leave_one_case_out_slope_range": [
+            -9.125263381584285,
+            25.738936812306356
+          ],
+          "r_squared": 0.014146726850916003,
+          "semantic_family": "formal logic / proof-style reasoning",
+          "slope_per_100_prompt_tokens": 4.442912455730416,
+          "standard_error_per_100_prompt_tokens": 15.141548359949494,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -19.12821974742816,
+            15.841076449313142
+          ],
+          "direction": "negative",
+          "leave_one_case_out_slope_range": [
+            -6.347064525543414,
+            7.540943182728579
+          ],
+          "r_squared": 0.008740499486992515,
+          "semantic_family": "mathematical reasoning",
+          "slope_per_100_prompt_tokens": -1.6435716490575096,
+          "standard_error_per_100_prompt_tokens": 7.145597864585584,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -37.27942323623681,
+            62.25252772708875
+          ],
+          "direction": "positive",
+          "leave_one_case_out_slope_range": [
+            3.244990017160676,
+            25.028949986319642
+          ],
+          "r_squared": 0.05910786482934782,
+          "semantic_family": "multi-step instruction following / structured response",
+          "slope_per_100_prompt_tokens": 12.48655224542597,
+          "standard_error_per_100_prompt_tokens": 20.338278822090004,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -45.597281053357605,
+            3.2539853006808492
+          ],
+          "direction": "negative",
+          "leave_one_case_out_slope_range": [
+            -27.68900826022066,
+            -16.097245700145592
+          ],
+          "r_squared": 0.42848222121040125,
+          "semantic_family": "multilingual / translation / cross-language transformation",
+          "slope_per_100_prompt_tokens": -21.17164787633838,
+          "standard_error_per_100_prompt_tokens": 9.982228483461668,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -30.136254007373594,
+            23.829472602777983
+          ],
+          "direction": "negative",
+          "leave_one_case_out_slope_range": [
+            -9.768220949104409,
+            3.3199438585782497
+          ],
+          "r_squared": 0.013445775572106355,
+          "semantic_family": "physics / scientific reasoning",
+          "slope_per_100_prompt_tokens": -3.153390702297804,
+          "standard_error_per_100_prompt_tokens": 11.027313179446924,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -16.90221017314459,
+            44.53358965773298
+          ],
+          "direction": "positive",
+          "leave_one_case_out_slope_range": [
+            4.293860267461515,
+            19.10560497485424
+          ],
+          "r_squared": 0.16795544330103862,
+          "semantic_family": "planning / constraint satisfaction",
+          "slope_per_100_prompt_tokens": 13.815689742294198,
+          "standard_error_per_100_prompt_tokens": 12.55374193437542,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -14.484063468566749,
+            33.8867280578926
+          ],
+          "direction": "positive",
+          "leave_one_case_out_slope_range": [
+            5.925496502495417,
+            17.698799269941738
+          ],
+          "r_squared": 0.13834821344809722,
+          "semantic_family": "structured extraction / transformation",
+          "slope_per_100_prompt_tokens": 9.701332294662922,
+          "standard_error_per_100_prompt_tokens": 9.88404864356382,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        },
+        {
+          "confidence_interval_95": [
+            -23.703373350500556,
+            13.846670517197246
+          ],
+          "direction": "negative",
+          "leave_one_case_out_slope_range": [
+            -7.279039071781472,
+            -1.3530362644895377
+          ],
+          "r_squared": 0.06433512567118838,
+          "semantic_family": "summarization / synthesis",
+          "slope_per_100_prompt_tokens": -4.9283514166516555,
+          "standard_error_per_100_prompt_tokens": 7.672945768382958,
+          "uncertainty_method": "OLS t interval with 6 degrees of freedom; descriptive constructed-grid sensitivity"
+        }
+      ]
+    }
+  },
+  "post_hoc_exploratory": true,
+  "row_count": 128,
+  "schema_version": "issue105-family-length-analysis-v1",
+  "status": "PASS"
+}

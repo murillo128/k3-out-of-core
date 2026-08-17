@@ -1,0 +1,24 @@
+{
+  "analysis_code_version": "76e0c3d578c4dba56e91d15ad643d8740037788a",
+  "evidence_classes": [
+    "FIXED_ROUTE_COUNTERFACTUAL",
+    "MEASURED_OBSERVER"
+  ],
+  "figure_id": "F06",
+  "input_source_sha256": [
+    "b7a23e73108c1612c3db9d822c9d82ff065764a4682ef037cdc277ba5d730566"
+  ],
+  "input_table_logical_sha256": [
+    "3cea8da7f50b5b9c1b76399fee199fdd1f9192ab538e48776bc09477b92944a6",
+    "4731949078aa993195cafb1c351e056c0df6e557570a271949e62702a6ba62e3"
+  ],
+  "metric_definitions": [
+    "selected_mass_fraction",
+    "committee_hit_ratio_minus_EXACT"
+  ],
+  "output_figure_sha256": "dcf1f7851ff6b2adeaceba700b024524e2d3ca3eecd1e717871720e8a20735af",
+  "output_status": "rendered",
+  "projection_gate_status": "not_applicable",
+  "query_filter_definition": "DECODE core gamma sensitivity and every comparable committee-pin cell",
+  "schema_version": "issue105-figure-sidecar-v1"
+}

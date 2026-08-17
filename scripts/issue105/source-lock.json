@@ -1,0 +1,107 @@
+{
+  "schema_version": "issue105-source-lock-v1",
+  "issue102": {
+    "archive": {
+      "bytes": 2087815152,
+      "member_count": 1442,
+      "name": "issue102-cross-prompt-evidence-v1.tar.zst",
+      "release_tag": "issue102-cross-prompt-v1",
+      "sha256": "e198913eb541b2a2e7465a01e09215fc5fecf6fb91574ff1841b11bf2664250c"
+    },
+    "committed_artifacts": [
+      {
+        "path": "results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/issue102-evidence-freeze.json",
+        "schema_version": "phase13-6pg-issue102-evidence-freeze-v1",
+        "sha256": "ba7d4b98bed13dabaf1f7c1b18a56b3fbaafbc1e193e6febcacf346aee9c4a48"
+      },
+      {
+        "path": "results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/issue102-evidence-archive-index.json",
+        "schema_version": "phase13-6pg-issue102-evidence-archive-index-v1",
+        "sha256": "c5187d192d67c63b9f0efdf7ebc30995ffbcb75f7dd0900d3b7c8e78d50a7497"
+      },
+      {
+        "path": "results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/issue102-final-synthesis.json",
+        "schema_version": "phase13-6pg-issue102-final-synthesis-v1",
+        "sha256": "0a70a4b4e79bb4b046641b74177e2592907b7a815831ad987a5b9a0707ce6964"
+      },
+      {
+        "path": "results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/issue102-normalized-prompt-level.csv",
+        "sha256": "c3cb07d5d9cc90c14e77f4cc14744f7c70c682d7e267aa332095dd9f3b5a82ca"
+      },
+      {
+        "path": "corpus/phase13/issue102-cross-prompt-v1.json",
+        "sha256": "e0f1746f987f888d68a36261a2822f4754a413b7799c6252aae8a4ded2a900d8"
+      }
+    ],
+    "execution_project_sha": "6ef64ba85a019d85a0fed06f49f8c45963f060ad",
+    "final_review": {
+      "body_sha256": "9c9df32c89d04149127c7ad0bdffc1a39560e0d2604350d4855c4c48b440d55b",
+      "comment_id": 5312549951,
+      "required_fragments": [
+        "Checkpoint C — PASS (final-capable)",
+        "project `0c4ed0ae92f4cc7efc79e544f04f745ff0b168cf`",
+        "nested `a702c36b4ec50db5b5f653d5177eb4d732eeaaa9`",
+        "1,442/1,442 members independently verified"
+      ]
+    },
+    "nested_llama_cpp_sha": "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9",
+    "project_evidence_target": "0c4ed0ae92f4cc7efc79e544f04f745ff0b168cf",
+    "secondary_artifacts": [
+      ["host/posthoc-analysis-v1/locality-throughput-calibration.json", "aa0814eb56d959f0ca839d9743234abbc32c78311cf9d12e1bfb52f7751747e4"],
+      ["host/posthoc-analysis-v1/stage-a-family-length-analysis.json", "3a29f1664fa4510b06092cb15d0dea9e66acd698e5d104fbbfdc15c16766b15b"],
+      ["host/observer-replay-v1/exact-capacity-mrc.json", "18ab89a63b63f6c96a0e0aa4807fcf152aed251b441ab77a8b593bcb35929ba0"],
+      ["host/observer-replay-v1/s2-fixed-route-capacity-counterfactual.json", "b87d9461ff503e2d13675b08d0362d5675ab8b6a2481e2d19ee46027d0b0ea9d"],
+      ["host/observer-replay-v1/committee-pin-capacity-counterfactual.json", "0927db654db7b106584a5099415733edc65ed505a631836268158dc94d876889"],
+      ["host/observer-replay-v1/family-length-capacity-extension.json", "abcc533e974347585d544a914e0a7820b405986eaacaad3ce4577f4c95632f03"],
+      ["host/stage-b-analysis-v1/family-overlap-matrix.json", "c1ef18ce953d15231c997e115980e9dcb1a315e8fa581ee32f15fb0324d6ea73"],
+      ["host/stage-b-analysis-v1/stage-b2-family-length-route-endpoints.json", "24d48e8cf0fdf2c981562231d1492f6c6890b01eccaae239d1ac7c8b63d05b47"],
+      ["host/stage-b-analysis-v1/standing-committee-core-periphery.json", "b7a23e73108c1612c3db9d822c9d82ff065764a4682ef037cdc277ba5d730566"],
+      ["host/stage-b-analysis-v1/family-route-fingerprints.json", "2dceb8a4e860f3978e6327eae0c473626868b77fbb3ede2b5b15d0a666536059"],
+      ["host/stage-c-control-v2/progress.json", "2170d77f5a6f712e2a7d5d5dc4b758e83d49659129c78e7dd8af8fd77adad1d6"]
+    ]
+  },
+  "issue98": {
+    "archives": [
+      {
+        "file": "issue98-final-evidence-v1.tar.zst",
+        "member_file_count": 238,
+        "release_tag": "issue98-phase13-6p-r-evidence-v1",
+        "sha256": "0f3166223eae11d70e8267743514c06bf9866b17410330440e2e47288ec4e715"
+      },
+      {
+        "file": "issue98-profile-shape-extension-v2.tar.zst",
+        "member_file_count": 28,
+        "release_tag": "issue98-profile-shape-extension-v2",
+        "sha256": "5a47160f16ff6a85fe669796d5727057280238aa510bd0b78032737bfa5112df"
+      },
+      {
+        "file": "issue98-profile-shape-extension-v3.tar.zst",
+        "member_file_count": 255,
+        "release_tag": "issue98-profile-shape-extension-v3",
+        "sha256": "f85b8fae5e4122956592723f537c4e0c905d97f47dab586da50b5e34c9356643"
+      }
+    ],
+    "archive_index": {
+      "file": "issue98-profile-shape-extension-v3.archive-index.json",
+      "sha256": "b0133490fa263a023f5dba7f4055fe2eaa7dcc3fb2e4e08fe99948079b804839"
+    },
+    "final_review": {
+      "body_sha256": "6dd353fd3b8c110df7d54e152751d9d64b63e5f2c72a5a3cd63eb93ed46a99e9",
+      "comment_id": 5314223292,
+      "required_fragments": [
+        "Final-capable closeout review — PASS",
+        "project `485819939e9d074f99a646443a2bbab8f1466eb8`",
+        "nested `a702c36b4ec50db5b5f653d5177eb4d732eeaaa9`",
+        "#102 is not pooled or used to retune #98"
+      ]
+    },
+    "final_review_target": "485819939e9d074f99a646443a2bbab8f1466eb8",
+    "final_synthesis": {
+      "file": "final-synthesis.json",
+      "schema_version": "issue98-profile-shape-v3-final-synthesis-v1",
+      "sha256": "5142b1ce19dfe0b55e40b2f23e8932cb9ec025b9569781c56fceda0eb2766dc9"
+    },
+    "frozen_v3_physical_target": "4d2dbaff5b4dc271b34169d11a6bb0bc80e7bba9",
+    "nested_llama_cpp_sha": "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9"
+  }
+}

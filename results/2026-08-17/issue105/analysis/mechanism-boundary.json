@@ -1,0 +1,16 @@
+{
+  "allowed": {
+    "EXACT_capacity": "EXACT_REPLAY",
+    "S2_fixed_route_capacity": "FIXED_ROUTE_COUNTERFACTUAL",
+    "committee_pin": "FIXED_ROUTE_COUNTERFACTUAL",
+    "physical_S2": "MEASURED_PHYSICAL"
+  },
+  "downstream_issue": "#99",
+  "fixed_route_interpretation": "residency/locality behavior compatible with a frozen captured route",
+  "forbidden_inference": "ROUTE_FEEDBACK = physical - replay",
+  "physical_anchor_consistency": "16/16 physical EXACT anchor matches plus 44/44 observer semantic-order prevalidation",
+  "post_hoc_exploratory": true,
+  "route_feedback_status": "UNMEASURED_BY_ISSUE_105",
+  "schema_version": "issue105-mechanism-boundary-v1",
+  "status": "PASS"
+}

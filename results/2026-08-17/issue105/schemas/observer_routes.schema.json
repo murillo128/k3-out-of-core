@@ -1,0 +1,93 @@
+{
+  "canonical_row_order": [
+    "case_id",
+    "phase=PREFILL,DECODE",
+    "layer",
+    "expert"
+  ],
+  "fields": [
+    {
+      "name": "case_id",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "semantic_family",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "length_level",
+      "nullable": false,
+      "type": "int64"
+    },
+    {
+      "name": "selection_role",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "prompt_tokens",
+      "nullable": false,
+      "type": "int64"
+    },
+    {
+      "name": "phase",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "layer",
+      "nullable": false,
+      "type": "int64"
+    },
+    {
+      "name": "expert",
+      "nullable": false,
+      "type": "int64"
+    },
+    {
+      "name": "selected_count",
+      "nullable": false,
+      "type": "int64"
+    },
+    {
+      "name": "source_sha256",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "derivation_id",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "analysis_code_version",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "source_evidence_class",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "derived_evidence_class",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "protocol",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "authority_scope",
+      "nullable": false,
+      "type": "string"
+    }
+  ],
+  "format": "Parquet 2.6 + Zstd",
+  "logical_hash": "SHA-256 over sorted-key compact UTF-8 JSON for each row plus LF",
+  "schema_version": "issue105-observer-routes-v1"
+}

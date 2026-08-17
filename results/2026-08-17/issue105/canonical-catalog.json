@@ -1,0 +1,228 @@
+{
+  "analysis_code_version": "5278f4201b4d26c35835a3f4a42ebe85b9487994",
+  "artifacts": [
+    {
+      "artifact_id": "analysis_results",
+      "bytes": 9989,
+      "file_sha256": "1262a364a12beb23b351340e164271af97930ea7bc0a8d192ec8436c207f20f8",
+      "logical_sha256": "91911bf2e361fce8cfeb89ba30230e05b19288a2711133ff8b252b30dd9df494",
+      "path": "tables/analysis_results.csv",
+      "row_count": 16,
+      "settings": "UTF-8,LF,sorted JSON keys where applicable",
+      "writer": "python-json/csv deterministic writer"
+    },
+    {
+      "artifact_id": "analysis_results_schema",
+      "bytes": 1454,
+      "file_sha256": "771d7c98fa1062fb307d688517cf3cd1c656827fc73da2178494ebcda7d5a4f7",
+      "logical_sha256": "",
+      "path": "schemas/analysis_results.schema.json",
+      "row_count": null,
+      "settings": "UTF-8,LF,sorted JSON keys where applicable",
+      "writer": "python-json/csv deterministic writer"
+    },
+    {
+      "artifact_id": "capacity_curves",
+      "bytes": 59052,
+      "file_sha256": "de97464ea1f10b3a1439ba0f52a51861cbbb1007bf19d3bcb84d64bd8bd1b0ba",
+      "logical_sha256": "4731949078aa993195cafb1c351e056c0df6e557570a271949e62702a6ba62e3",
+      "path": "tables/capacity_curves.parquet",
+      "row_count": 3816,
+      "settings": "parquet-2.6,zstd-9,dictionary,statistics",
+      "writer": "pyarrow 21.0.0"
+    },
+    {
+      "artifact_id": "capacity_curves_schema",
+      "bytes": 2433,
+      "file_sha256": "397d1557762238b1069becd3369c0f1213cf7c05c8ca7e0353137ca79cea829d",
+      "logical_sha256": "",
+      "path": "schemas/capacity_curves.schema.json",
+      "row_count": null,
+      "settings": "UTF-8,LF,sorted JSON keys where applicable",
+      "writer": "python-json/csv deterministic writer"
+    },
+    {
+      "artifact_id": "cases",
+      "bytes": 57032,
+      "file_sha256": "2ab32e2e98ffdf4c674d99da34966b398fdce1eb0a0be7466bd5e71977ed7482",
+      "logical_sha256": "ef18197654bd2bfcc438817b1c5f7868cfc1561d8202efc9b6ffb3ebcd540f02",
+      "path": "tables/cases.csv",
+      "row_count": 128,
+      "settings": "UTF-8,LF,sorted JSON keys where applicable",
+      "writer": "python-json/csv deterministic writer"
+    },
+    {
+      "artifact_id": "cases_schema",
+      "bytes": 1740,
+      "file_sha256": "b08932373081d23bcd716fb89b2c7dc6acb7b4c6091e19dfb74a1de811297195",
+      "logical_sha256": "",
+      "path": "schemas/cases.schema.json",
+      "row_count": null,
+      "settings": "UTF-8,LF,sorted JSON keys where applicable",
+      "writer": "python-json/csv deterministic writer"
+    },
+    {
+      "artifact_id": "fidelity_report",
+      "bytes": 33064,
+      "file_sha256": "b62443971ad442101faf9f4555350fa1fa098057579ac5eec1d0325f7b22412e",
+      "logical_sha256": "",
+      "path": "fidelity-report.json",
+      "row_count": null,
+      "settings": "UTF-8,LF,sorted JSON keys where applicable",
+      "writer": "python-json/csv deterministic writer"
+    },
+    {
+      "artifact_id": "ingestion_report",
+      "bytes": 4151,
+      "file_sha256": "53aa0fa7bda62383cacf1c9535d32a1ceda8e35ce40d4235285e9575a8a1a2b9",
+      "logical_sha256": "",
+      "path": "ingestion-report.json",
+      "row_count": null,
+      "settings": "UTF-8,LF,sorted JSON keys where applicable",
+      "writer": "python-json/csv deterministic writer"
+    },
+    {
+      "artifact_id": "legacy_physical_context",
+      "bytes": 2677,
+      "file_sha256": "ffd877ee98ac0ce88bb69c2425466b6354928726829e5d5f465063def58be340",
+      "logical_sha256": "7de6462aadf5fd7c1e036ecdc93a753613d2f0e4c2ad90b254de17b51c4dd61f",
+      "path": "tables/legacy_physical_context.csv",
+      "row_count": 7,
+      "settings": "UTF-8,LF,sorted JSON keys where applicable",
+      "writer": "python-json/csv deterministic writer"
+    },
+    {
+      "artifact_id": "legacy_physical_context_schema",
+      "bytes": 1848,
+      "file_sha256": "9d657a708d9bb918d3f818ccbada3315a11dd8c424271b8bbd43f3903f13f7de",
+      "logical_sha256": "",
+      "path": "schemas/legacy_physical_context.schema.json",
+      "row_count": null,
+      "settings": "UTF-8,LF,sorted JSON keys where applicable",
+      "writer": "python-json/csv deterministic writer"
+    },
+    {
+      "artifact_id": "observer_routes",
+      "bytes": 5210280,
+      "file_sha256": "5be80c0f32eae06906e85a3074c99833bded67d626566cc33edf03f94899fc67",
+      "logical_sha256": "6cbff5f255ff8dbd3133ab822970ca380daed5288065938e1c7fa41474df9ef5",
+      "path": "tables/observer_routes.parquet",
+      "row_count": 3710507,
+      "settings": "parquet-2.6,zstd-9,dictionary,statistics,batch-100000",
+      "writer": "pyarrow 21.0.0"
+    },
+    {
+      "artifact_id": "observer_routes_schema",
+      "bytes": 1755,
+      "file_sha256": "7b2998c3bae6b5a71ff9c74d4405b41e9f00c8cfd78dae2205d48c7a4ff6ad65",
+      "logical_sha256": "",
+      "path": "schemas/observer_routes.schema.json",
+      "row_count": null,
+      "settings": "UTF-8,LF,sorted JSON keys where applicable",
+      "writer": "python-json/csv deterministic writer"
+    },
+    {
+      "artifact_id": "physical_runs",
+      "bytes": 144364,
+      "file_sha256": "47527a419d6ec3d1c9939beb3d6ec6b7776627079db6e4011707e746bb03b64c",
+      "logical_sha256": "9567f49ef2dab913c7446dc85c7849b6665d978c9921eb83198d0c2a5e31b49b",
+      "path": "tables/physical_runs.csv",
+      "row_count": 184,
+      "settings": "UTF-8,LF,sorted JSON keys where applicable",
+      "writer": "python-json/csv deterministic writer"
+    },
+    {
+      "artifact_id": "physical_runs_schema",
+      "bytes": 3517,
+      "file_sha256": "1ebc5df05663bae87379159177b1e58ccec2c7891bed6451178e3b8718edc773",
+      "logical_sha256": "",
+      "path": "schemas/physical_runs.schema.json",
+      "row_count": null,
+      "settings": "UTF-8,LF,sorted JSON keys where applicable",
+      "writer": "python-json/csv deterministic writer"
+    },
+    {
+      "artifact_id": "route_features",
+      "bytes": 63340,
+      "file_sha256": "2541019fa05ff2988f209c61206e7917067d1c015cf3317e36be624afcafdcef",
+      "logical_sha256": "3cea8da7f50b5b9c1b76399fee199fdd1f9192ab538e48776bc09477b92944a6",
+      "path": "tables/route_features.csv",
+      "row_count": 88,
+      "settings": "UTF-8,LF,sorted JSON keys where applicable",
+      "writer": "python-json/csv deterministic writer"
+    },
+    {
+      "artifact_id": "route_features_schema",
+      "bytes": 2913,
+      "file_sha256": "23ff9143f768f32ea92374e16d514ec753441e5c4f4beda318f3abb4981b2d40",
+      "logical_sha256": "",
+      "path": "schemas/route_features.schema.json",
+      "row_count": null,
+      "settings": "UTF-8,LF,sorted JSON keys where applicable",
+      "writer": "python-json/csv deterministic writer"
+    },
+    {
+      "artifact_id": "semantic_sanity",
+      "bytes": 39827,
+      "file_sha256": "5fdd871f0505f27e1e6c5f535d14e6854c693e3b1674e6f615bfcbfe4813167a",
+      "logical_sha256": "888a8ab7721a38c6fdc8d1966c4fe1fbb9c36a7a02d904de16ba4d041882b77c",
+      "path": "tables/semantic_sanity.csv",
+      "row_count": 128,
+      "settings": "UTF-8,LF,sorted JSON keys where applicable",
+      "writer": "python-json/csv deterministic writer"
+    },
+    {
+      "artifact_id": "semantic_sanity_schema",
+      "bytes": 1664,
+      "file_sha256": "4f714003ba9d4fbe9a5849c349027dfd6e05475bd1f1e203cc4eedfb804a0b35",
+      "logical_sha256": "",
+      "path": "schemas/semantic_sanity.schema.json",
+      "row_count": null,
+      "settings": "UTF-8,LF,sorted JSON keys where applicable",
+      "writer": "python-json/csv deterministic writer"
+    },
+    {
+      "artifact_id": "source_catalog",
+      "bytes": 454793,
+      "file_sha256": "aeaa936ecfed90705f529c64494143d239b4563d9534444272ad98f65526d010",
+      "logical_sha256": "b3e03222b1574311b7f072593c75243c8a1c9b93d26047c9af07990a702d850d",
+      "path": "source-catalog.csv",
+      "row_count": 1447,
+      "settings": "UTF-8,LF,sorted JSON keys where applicable",
+      "writer": "python-json/csv deterministic writer"
+    },
+    {
+      "artifact_id": "source_catalog_schema",
+      "bytes": 1780,
+      "file_sha256": "74395de646e8b3fa3ef3f144e482dfebda74840a8afec4c225f92b9e9790cdf0",
+      "logical_sha256": "",
+      "path": "source-catalog.schema.json",
+      "row_count": null,
+      "settings": "UTF-8,LF,sorted JSON keys where applicable",
+      "writer": "python-json/csv deterministic writer"
+    },
+    {
+      "artifact_id": "sources",
+      "bytes": 448485,
+      "file_sha256": "1bda08a3fe313c58f92fa7549015a9a9cc1f6d6263fb5a19eee0d7b3d8825fe2",
+      "logical_sha256": "d2d7b25872a7af7e3c0d3b8c41329bd51c212b735d7e26d2fb8aa0351255b574",
+      "path": "tables/sources.csv",
+      "row_count": 1427,
+      "settings": "UTF-8,LF,sorted JSON keys where applicable",
+      "writer": "python-json/csv deterministic writer"
+    },
+    {
+      "artifact_id": "sources_schema",
+      "bytes": 1567,
+      "file_sha256": "244411ebbeed53696afac1739424dd0f09e6ab3f8ff8a353719f8dbe1343d2a2",
+      "logical_sha256": "",
+      "path": "schemas/sources.schema.json",
+      "row_count": null,
+      "settings": "UTF-8,LF,sorted JSON keys where applicable",
+      "writer": "python-json/csv deterministic writer"
+    }
+  ],
+  "schema_version": "issue105-canonical-catalog-v1",
+  "self_reference": "canonical-catalog.json intentionally excludes its own recursive identity",
+  "status": "PASS"
+}

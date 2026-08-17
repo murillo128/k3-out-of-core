@@ -1,0 +1,187 @@
+{
+  "canonical_row_order": [
+    "stage",
+    "case_id",
+    "policy"
+  ],
+  "fields": [
+    {
+      "name": "stage",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "case_id",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "case_role",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "semantic_family",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "length_level",
+      "nullable": true,
+      "type": "int64"
+    },
+    {
+      "name": "templated_prompt_tokens",
+      "nullable": true,
+      "type": "int64"
+    },
+    {
+      "name": "policy",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "capacity_slots",
+      "nullable": false,
+      "type": "int64"
+    },
+    {
+      "name": "capacity_bytes",
+      "nullable": false,
+      "type": "int64"
+    },
+    {
+      "name": "decode_tok_s",
+      "nullable": false,
+      "type": "float64"
+    },
+    {
+      "name": "p50_forward_s",
+      "nullable": true,
+      "type": "float64"
+    },
+    {
+      "name": "p95_forward_s",
+      "nullable": true,
+      "type": "float64"
+    },
+    {
+      "name": "p99_forward_s",
+      "nullable": true,
+      "type": "float64"
+    },
+    {
+      "name": "hit_ratio",
+      "nullable": true,
+      "type": "float64"
+    },
+    {
+      "name": "hits",
+      "nullable": true,
+      "type": "int64"
+    },
+    {
+      "name": "misses",
+      "nullable": true,
+      "type": "int64"
+    },
+    {
+      "name": "backing_loads",
+      "nullable": true,
+      "type": "int64"
+    },
+    {
+      "name": "backing_bytes",
+      "nullable": true,
+      "type": "int64"
+    },
+    {
+      "name": "loads_per_token",
+      "nullable": true,
+      "type": "float64"
+    },
+    {
+      "name": "bytes_per_token",
+      "nullable": true,
+      "type": "float64"
+    },
+    {
+      "name": "changed_fraction",
+      "nullable": true,
+      "type": "float64"
+    },
+    {
+      "name": "swaps_per_token",
+      "nullable": true,
+      "type": "float64"
+    },
+    {
+      "name": "cumulative_score_regret",
+      "nullable": true,
+      "type": "float64"
+    },
+    {
+      "name": "mean_score_regret_per_realized_swap",
+      "nullable": true,
+      "type": "float64"
+    },
+    {
+      "name": "result_sha256",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "envelope_sha256",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "generated_token_hash",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "safety_status",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "source_sha256",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "derivation_id",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "analysis_code_version",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "source_evidence_class",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "derived_evidence_class",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "protocol",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "authority_scope",
+      "nullable": false,
+      "type": "string"
+    }
+  ],
+  "format": "CSV/RFC4180 with LF records",
+  "logical_hash": "SHA-256 over sorted-key compact UTF-8 JSON for each row plus LF",
+  "schema_version": "issue105-physical_runs-v1"
+}
