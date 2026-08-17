@@ -1098,6 +1098,11 @@ def finish_figure(path: pathlib.Path, figure: Any) -> str:
     temporary = path.with_suffix(".tmp.svg")
     figure.savefig(temporary, format="svg", metadata={"Date": None})
     plt.close(figure)
+    with temporary.open(encoding="utf-8") as stream:
+        svg = stream.read()
+    with temporary.open("w", encoding="utf-8", newline="\n") as stream:
+        stream.write("\n".join(line.rstrip() for line in svg.splitlines()))
+        stream.write("\n")
     os.replace(temporary, path)
     return sha256(path)
 
