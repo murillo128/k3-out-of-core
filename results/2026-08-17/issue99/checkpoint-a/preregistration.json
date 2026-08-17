@@ -149,73 +149,74 @@
   },
   "authority": "issue #99 body plus latest additive/superseding design-authority amendment",
   "baseline": {
-    "implementation_parent": "3245c94a4a5b777e86c5bc62dbeaa63ae93dcae4",
+    "implementation_parent": "9268b7ec74f484a65f7f385a6e0d3cd932fe6ec6",
     "nested_llama_cpp": "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9",
     "project_main": "530b887689df6fbf1f8c9da073117c4db8c0e86f"
   },
   "capacity": {
     "capacity_relation": "LOWER_DUE_TO_CONTEXT_BUDGET",
     "generic_probe_context_only": "three generic-probe AUTO samples selected 6841; superseded for execution by actual quality-helper overhead",
-    "issue99_cache_bytes": 119672340480,
-    "issue99_cache_slots": 6820,
+    "issue99_cache_bytes": 118444032000,
+    "issue99_cache_slots": 6750,
     "low_bridge_bytes": 103072628736,
     "low_bridge_disposition": "ADMITTED_CLEANLY",
     "low_bridge_enabled": true,
     "low_bridge_slots": 5874,
+    "minimum_auto_slots_before_stability_reserve": 6814,
     "minimum_floor_slots": 5874,
     "performance_or_locality_inspected": false,
     "quality_helper_auto_selected_slots": [
-      6820,
-      6820,
-      6820
+      6814,
+      6814,
+      6814
     ],
     "sample_artifacts": {
-      "auto-sample-01-v2": {
+      "auto-sample-01-v3": {
         "disposition": {
-          "canonical_path": "/mnt/nvme1/issue99/quality-capacity-qualification/auto-sample-01-v2/disposition.json",
+          "canonical_path": "/mnt/nvme1/issue99/quality-capacity-requalification-v3/auto-sample-01-v3/disposition.json",
           "device": 66304,
-          "inode": 11274572530,
-          "sha256": "a193d3a3a089ff73330e3294ddd907312ffbe867084d8e3ed74716ee607113bd",
-          "size_bytes": 2225
+          "inode": 9663722007,
+          "sha256": "cc247edde6428ca8460e1af2e85791b3c62491d23246b8a32806b24f8ab14540",
+          "size_bytes": 2249
         },
         "envelope": {
-          "canonical_path": "/mnt/nvme1/issue99/quality-capacity-qualification/auto-sample-01-v2/envelope.json",
+          "canonical_path": "/mnt/nvme1/issue99/quality-capacity-requalification-v3/auto-sample-01-v3/envelope.json",
           "device": 66304,
-          "inode": 11274572533,
-          "sha256": "151d344743fde15b0e8f42dc6b8e6bd5285c91e4db18430949c4cfed7558d6ee",
-          "size_bytes": 25233
+          "inode": 9663722010,
+          "sha256": "302b7f263c8aaeceb38937ce1398be93ff0fdb353d20f1d0f9845de25bff3517",
+          "size_bytes": 25250
         }
       },
-      "auto-sample-02-v2": {
+      "auto-sample-02-v3": {
         "disposition": {
-          "canonical_path": "/mnt/nvme1/issue99/quality-capacity-qualification/auto-sample-02-v2/disposition.json",
+          "canonical_path": "/mnt/nvme1/issue99/quality-capacity-requalification-v3/auto-sample-02-v3/disposition.json",
           "device": 66304,
-          "inode": 11811519003,
-          "sha256": "db50a5ce5ba9654d8b972efcaa8e436a9265ed09474d7b5156af3f2d2db1a2ee",
-          "size_bytes": 2225
+          "inode": 10737806632,
+          "sha256": "f6dd4b2017ac835b604f9ec09396757eb914fd59bfed4353a254682779264bb8",
+          "size_bytes": 2255
         },
         "envelope": {
-          "canonical_path": "/mnt/nvme1/issue99/quality-capacity-qualification/auto-sample-02-v2/envelope.json",
+          "canonical_path": "/mnt/nvme1/issue99/quality-capacity-requalification-v3/auto-sample-02-v3/envelope.json",
           "device": 66304,
-          "inode": 11811519006,
-          "sha256": "71e117e7f3da19f3ae90a52d5ea37b8c021d292d34c74f84724d6253d6e83f89",
-          "size_bytes": 25230
+          "inode": 10737806635,
+          "sha256": "01e39aff7c3e1d8d42ca745746bc150cf729927223db513291528721354f1dab",
+          "size_bytes": 25260
         }
       },
-      "auto-sample-03-v2": {
+      "auto-sample-03-v3": {
         "disposition": {
-          "canonical_path": "/mnt/nvme1/issue99/quality-capacity-qualification/auto-sample-03-v2/disposition.json",
+          "canonical_path": "/mnt/nvme1/issue99/quality-capacity-requalification-v3/auto-sample-03-v3/disposition.json",
           "device": 66304,
-          "inode": 12348499455,
-          "sha256": "ce68ad35b8de320a0df1291be20bcd5d7b54809f79a9a2e9119e870ef26302a5",
-          "size_bytes": 2225
+          "inode": 11274575240,
+          "sha256": "8d09c3e6303ec84663c409cda5ef71989da7e3be42dcda9178e96b79f5c6e81a",
+          "size_bytes": 2255
         },
         "envelope": {
-          "canonical_path": "/mnt/nvme1/issue99/quality-capacity-qualification/auto-sample-03-v2/envelope.json",
+          "canonical_path": "/mnt/nvme1/issue99/quality-capacity-requalification-v3/auto-sample-03-v3/envelope.json",
           "device": 66304,
-          "inode": 12348502274,
-          "sha256": "e352d61a042d60c247426bd598e27d10cf738fb375dff6a8995de4c825f4858a",
-          "size_bytes": 25239
+          "inode": 11274575243,
+          "sha256": "2dacdf255d5bc27e024458bd2d559e97df439809ea36bff4d7454703bb9694f5",
+          "size_bytes": 25254
         }
       },
       "generic-high-target-rejection": {
@@ -251,6 +252,8 @@
         }
       }
     },
+    "stability_reserve_basis": "one additional >=1-GiB whole-expert reserve after the instantaneous AUTO ceiling failed the next fresh explicit admission",
+    "stability_reserve_slots": 64,
     "target_attempt": "admission_rejected",
     "target_bytes": 137728475136,
     "target_slots": 7849
@@ -1150,10 +1153,10 @@
       "substitution_events"
     ],
     "qualification": {
-      "canonical_path": "/mnt/nvme1/issue99/instrumentation-qualification-v3/qualification.json",
+      "canonical_path": "/mnt/nvme1/issue99/instrumentation-qualification-v6/qualification.json",
       "device": 66304,
-      "inode": 16106431746,
-      "sha256": "4e55787df00f91ed79f898d3b611480084e119595844e522837a70e76d89dd62",
+      "inode": 13958896219,
+      "sha256": "6f427ea8656c251d050e653bd30d467d69eec006f74b2b33fb8632bb4883bab2",
       "size_bytes": 4143
     },
     "qualification_assertions": {
@@ -1275,8 +1278,8 @@
       "canonical_path": "/workspace/k3-out-of-core/schemas/issue99/pair-summary-v1.schema.json",
       "device": 64512,
       "inode": 39594194,
-      "sha256": "60a464eb45d4b30ba6967a41bb3b368b3b0093e3fe18516248775842bb8097e9",
-      "size_bytes": 599
+      "sha256": "903637fd4441d7868db1c3c3184ce2d09494f4ed244b91bc95a0bfe2cd8e4f1f",
+      "size_bytes": 1926
     },
     "schemas/issue99/reference-sequence-v1.schema.json": {
       "canonical_path": "/workspace/k3-out-of-core/schemas/issue99/reference-sequence-v1.schema.json",
@@ -1331,15 +1334,15 @@
       "canonical_path": "/workspace/k3-out-of-core/scripts/issue99/analyze_pair.py",
       "device": 64512,
       "inode": 54533210,
-      "sha256": "af206a442b30c0b089cbe958478715e76c9e207f09f0848e742113e6e3c2e155",
-      "size_bytes": 27182
+      "sha256": "2a519fd1d2e908a6eee8a5ecb35cb776ceb33783105bc6091f8a06fd81d3fa8d",
+      "size_bytes": 36311
     },
     "scripts/issue99/build_preregistration.py": {
       "canonical_path": "/workspace/k3-out-of-core/scripts/issue99/build_preregistration.py",
       "device": 64512,
       "inode": 54533208,
-      "sha256": "e7c3813d6cdde81bc654cc5290d222f892610c520849882acab94f689f6a8bc5",
-      "size_bytes": 21575
+      "sha256": "6050db6e613468f8e9764fec112013b8bfd877d965e6bc755e8443beca251efd",
+      "size_bytes": 22585
     },
     "scripts/issue99/freeze_core_membership.py": {
       "canonical_path": "/workspace/k3-out-of-core/scripts/issue99/freeze_core_membership.py",
@@ -1380,8 +1383,8 @@
       "canonical_path": "/workspace/k3-out-of-core/scripts/issue99/run_campaign.py",
       "device": 64512,
       "inode": 54533209,
-      "sha256": "30a3a2e9ad5c851d15ed545cc75d6383607819a86b9d80c285083fdd82ebf511",
-      "size_bytes": 23685
+      "sha256": "e9cb117b644f73b3ec7f6d0453a1c63eebdecd338142aa270a5e8b35dfc8fdf4",
+      "size_bytes": 24444
     },
     "scripts/issue99/sample_quality_capacity.py": {
       "canonical_path": "/workspace/k3-out-of-core/scripts/issue99/sample_quality_capacity.py",
@@ -1394,8 +1397,8 @@
       "canonical_path": "/workspace/k3-out-of-core/tests/issue99/test_issue99_tools.py",
       "device": 64512,
       "inode": 18148550,
-      "sha256": "f8f4ebd48788a8f32c76cf6ee26a9429d05271a5ed53101c14556d2e1c746482",
-      "size_bytes": 7214
+      "sha256": "14ddc7e16f34bc68ed71bce97519ab6ca9fd77bee19babe7eac4cc3884faf934",
+      "size_bytes": 10745
     }
   },
   "status": "frozen-outcome-blind"
