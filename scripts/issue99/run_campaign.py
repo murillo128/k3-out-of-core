@@ -303,6 +303,30 @@ def cell_slug(cell: dict[str, Any]) -> str:
     return f"{cell['order']:03d}-{cell['case_id']}-{cell['cache_regime']}-{cell['policy'].lower()}-{suffix}"
 
 
+def reference_sequence_path(root: Path, cell: dict[str, Any]) -> Path | None:
+    """Return the fixed-context input path; free trajectories never accept one."""
+    intervention = cell["intervention"]
+    if intervention == "FREE_TRAJECTORY":
+        return None
+    if intervention not in ("DIRECT_FIXED_CONTEXT", "CAPACITY_FIXED_CONTEXT"):
+        raise CampaignError(f"unsupported intervention: {intervention}")
+    if cell["cache_regime"] == "96-gib-bridge":
+        return root / "references" / f"{cell['case_id']}-low-input-512.json"
+    horizon = 1024 if cell["cohort"] != "broad" else 512
+    return root / "references" / f"{cell['case_id']}-high-{horizon}.json"
+
+
+def reference_sequence_arguments(cell: dict[str, Any], path: Path | None) -> list[str]:
+    """Build the probe arguments while enforcing its intervention contract."""
+    if cell["intervention"] == "FREE_TRAJECTORY":
+        if path is not None:
+            raise CampaignError("free trajectory cannot consume a reference sequence")
+        return []
+    if path is None:
+        raise CampaignError("fixed context requires a reference sequence")
+    return ["--reference-sequence", str(path)]
+
+
 def dependencies_for(cell: dict[str, Any]) -> int:
     if cell["cohort"] == "broad":
         return 2
@@ -361,7 +385,7 @@ def main() -> int:
         trace_path = directory / "quality.p13q"
         capacity_bytes = prereg["capacity"]["issue99_cache_bytes"] \
             if cell["cache_regime"] == "high-cache" else LOW_BRIDGE_CACHE_BYTES
-        reference_path: Path | None = None
+        reference_path = reference_sequence_path(root, cell)
         reference_root_identity: str
         if cell["policy"] == "EXACT" and cell["intervention"] == "FREE_TRAJECTORY":
             reference_root_identity = "generated-by-current-exact-cell"
@@ -372,7 +396,7 @@ def main() -> int:
             high_value = load(high_reference)
             reference_root_identity = high_value["root_reference_identity"]
             if cell["cache_regime"] == "96-gib-bridge":
-                reference_path = root / "references" / f"{cell['case_id']}-low-input-512.json"
+                assert reference_path is not None
                 if not reference_path.exists():
                     exact_manifest = exact_by_group.get(("bridge", cell["case_id"]))
                     if exact_manifest is None:
@@ -383,8 +407,6 @@ def main() -> int:
                     else:
                         high_result = load(Path(exact_manifest["artifacts"]["result"]["canonical_path"]))
                     make_reference(high_result, 512, reference_path, high_value["root_reference_identity"])
-            else:
-                reference_path = high_reference
         command_line = [
             str(FROZEN_BINARY), "--model", str(MODEL_PATH), "--prompt-corpus", str(CORPUS_PATH),
             "--case-id", cell["case_id"], "--output", str(result_path), "--route-output", str(route_path),
@@ -393,8 +415,7 @@ def main() -> int:
             "--horizon", str(cell["horizon"]), "--issue-mode", "BATCHED", "--threads", str(THREADS),
             "--n-ctx", str(N_CTX),
         ]
-        if reference_path is not None:
-            command_line.extend(("--reference-sequence", str(reference_path)))
+        command_line.extend(reference_sequence_arguments(cell, reference_path))
         returncode, envelope = run_with_envelope(command_line, directory, cell)
         if returncode != 0 or not result_path.exists():
             progress.update({"status": "failed", "failed_cell": slug})

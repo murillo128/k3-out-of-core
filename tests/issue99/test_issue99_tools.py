@@ -23,6 +23,9 @@ from protocol import (  # noqa: E402
     BROAD_CASES, BRIDGE_CASES, LOW_BRIDGE_CACHE_BYTES, expected_cell_count,
     reference_identity,
 )
+from run_campaign import (  # noqa: E402
+    CampaignError, reference_sequence_arguments, reference_sequence_path,
+)
 
 
 HEADER = struct.Struct("<B3xIiiIQ")
@@ -81,6 +84,35 @@ def trace_records(horizon: int, accepted_token: int = 1) -> list[tuple[int, int,
 
 
 class Issue99ToolTests(unittest.TestCase):
+    def test_command_construction_respects_reference_sequence_contract(self):
+        cases = (
+            ({"cohort": "bridge", "case_id": "case", "policy": "EXACT",
+              "intervention": "FREE_TRAJECTORY", "cache_regime": "high-cache"}, None),
+            ({"cohort": "broad", "case_id": "case", "policy": "KNEE",
+              "intervention": "DIRECT_FIXED_CONTEXT", "cache_regime": "high-cache"},
+             "case-high-512.json"),
+            ({"cohort": "bridge", "case_id": "case", "policy": "KNEE",
+              "intervention": "FREE_TRAJECTORY", "cache_regime": "high-cache"}, None),
+            ({"cohort": "low-bridge", "case_id": "case", "policy": "EXACT",
+              "intervention": "CAPACITY_FIXED_CONTEXT", "cache_regime": "96-gib-bridge"},
+             "case-low-input-512.json"),
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for cell, expected_name in cases:
+                reference = reference_sequence_path(root, cell)
+                arguments = reference_sequence_arguments(cell, reference)
+                if expected_name is None:
+                    self.assertIsNone(reference)
+                    self.assertEqual(arguments, [])
+                else:
+                    self.assertEqual(reference.name, expected_name)
+                    self.assertEqual(arguments, ["--reference-sequence", str(reference)])
+            with self.assertRaises(CampaignError):
+                reference_sequence_arguments(cases[2][0], root / "forbidden.json")
+            with self.assertRaises(CampaignError):
+                reference_sequence_arguments(cases[1][0], None)
+
     def test_quality_helper_opens_one_unified_route_transaction_per_token(self):
         source = (ROOT / "scripts" / "issue99" / "quality_probe.cpp").read_text()
         self.assertEqual(source.count("llama_cache_aware_routing_begin("), 1)
