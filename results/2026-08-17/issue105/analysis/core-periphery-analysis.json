@@ -1,0 +1,374 @@
+{
+  "committee_pin_counterfactual": {
+    "infeasible_cells_preserved": 196,
+    "interpretation": "fixed-route counterfactual; no production pinning or TPS claim",
+    "negative_cells_preserved": 308,
+    "summary_by_gamma": [
+      {
+        "cell_count": 288,
+        "comparable_count": 160,
+        "equal_count": 63,
+        "gamma": 0.5,
+        "hit_ratio_delta": {
+          "count": 160,
+          "max": 0.02993376358695654,
+          "mean": -0.007977493949558424,
+          "median": 0.0,
+          "min": -0.24892790421195643,
+          "p10": -0.02318274456521734,
+          "p90": 0.015733271059782596
+        },
+        "improves_count": 42,
+        "infeasible_count": 128,
+        "regresses_count": 55
+      },
+      {
+        "cell_count": 288,
+        "comparable_count": 254,
+        "equal_count": 64,
+        "gamma": 0.75,
+        "hit_ratio_delta": {
+          "count": 254,
+          "max": 0.030676800271739135,
+          "mean": -0.02373592660101421,
+          "median": 0.0,
+          "min": -0.3119374150815218,
+          "p10": -0.16977963654891307,
+          "p90": 0.015544327445652187
+        },
+        "improves_count": 115,
+        "infeasible_count": 34,
+        "regresses_count": 75
+      },
+      {
+        "cell_count": 288,
+        "comparable_count": 254,
+        "equal_count": 64,
+        "gamma": 0.8,
+        "hit_ratio_delta": {
+          "count": 254,
+          "max": 0.030676800271739135,
+          "mean": -0.02373592660101421,
+          "median": 0.0,
+          "min": -0.3119374150815218,
+          "p10": -0.16977963654891307,
+          "p90": 0.015544327445652187
+        },
+        "improves_count": 115,
+        "infeasible_count": 34,
+        "regresses_count": 75
+      },
+      {
+        "cell_count": 288,
+        "comparable_count": 288,
+        "equal_count": 67,
+        "gamma": 0.9,
+        "hit_ratio_delta": {
+          "count": 288,
+          "max": 0.02268384850543481,
+          "mean": -0.011249671235752566,
+          "median": 0.0007005774456521063,
+          "min": -0.32649031929347827,
+          "p10": -0.01677139945652172,
+          "p90": 0.009853727921195678
+        },
+        "improves_count": 157,
+        "infeasible_count": 0,
+        "regresses_count": 64
+      },
+      {
+        "cell_count": 288,
+        "comparable_count": 288,
+        "equal_count": 70,
+        "gamma": 1.0,
+        "hit_ratio_delta": {
+          "count": 288,
+          "max": 0.016898777173913082,
+          "mean": 0.000975493647626059,
+          "median": 0.0009181810461956486,
+          "min": -0.058020550271739135,
+          "p10": -0.0010030995244565846,
+          "p90": 0.0074940557065217295
+        },
+        "improves_count": 179,
+        "infeasible_count": 0,
+        "regresses_count": 39
+      }
+    ]
+  },
+  "observable_boundary": "selected top-k/top-M frequency only; CommitteeAudit-inspired",
+  "peripheral_reuse_stratification": {
+    "reason": "frozen summary exposes core demand mass and overall reuse, not core/periphery-specific stack-distance distributions",
+    "status": "INCONCLUSIVE"
+  },
+  "phases": {
+    "DECODE": {
+      "audit_class": "TOPK_COMMITTEE_AUDIT",
+      "complete_routing_weight_profile_available": false,
+      "gamma_sensitivity": [
+        {
+          "core_expert_key_count": 25046,
+          "fraction_of_all_routed_expert_keys": 0.3038383152173913,
+          "gamma": 0.5,
+          "leave_one_family_out_core_key_count": {
+            "count": 16,
+            "max": 16153.0,
+            "mean": 14850.125,
+            "median": 14837.5,
+            "min": 13303.0,
+            "p10": 13723.5,
+            "p90": 16059.5
+          },
+          "leave_one_family_out_core_mass_fraction": {
+            "count": 16,
+            "max": 0.705460258152174,
+            "mean": 0.625629590905231,
+            "median": 0.6272503396739131,
+            "min": 0.5325237771739131,
+            "p10": 0.5563487177309783,
+            "p90": 0.6879086701766304
+          },
+          "selected_mass_fraction": 0.6927450428838315,
+          "threshold_family_count": 8
+        },
+        {
+          "core_expert_key_count": 9526,
+          "fraction_of_all_routed_expert_keys": 0.11556191770186336,
+          "gamma": 0.75,
+          "leave_one_family_out_core_key_count": {
+            "count": 16,
+            "max": 6580.0,
+            "mean": 6200.125,
+            "median": 6249.0,
+            "min": 5579.0,
+            "p10": 5741.5,
+            "p90": 6540.5
+          },
+          "leave_one_family_out_core_mass_fraction": {
+            "count": 16,
+            "max": 0.40047554347826086,
+            "mean": 0.34808017896569293,
+            "median": 0.3451140030570652,
+            "min": 0.2724715523097826,
+            "p10": 0.30025050951086957,
+            "p90": 0.38410750679347827
+          },
+          "selected_mass_fraction": 0.41594331160835596,
+          "threshold_family_count": 12
+        },
+        {
+          "core_expert_key_count": 6939,
+          "fraction_of_all_routed_expert_keys": 0.08417847437888198,
+          "gamma": 0.8,
+          "leave_one_family_out_core_key_count": {
+            "count": 16,
+            "max": 6580.0,
+            "mean": 6200.125,
+            "median": 6249.0,
+            "min": 5579.0,
+            "p10": 5741.5,
+            "p90": 6540.5
+          },
+          "leave_one_family_out_core_mass_fraction": {
+            "count": 16,
+            "max": 0.40047554347826086,
+            "mean": 0.34808017896569293,
+            "median": 0.3451140030570652,
+            "min": 0.2724715523097826,
+            "p10": 0.30025050951086957,
+            "p90": 0.38410750679347827
+          },
+          "selected_mass_fraction": 0.34808017896569293,
+          "threshold_family_count": 13
+        },
+        {
+          "core_expert_key_count": 2903,
+          "fraction_of_all_routed_expert_keys": 0.035216906055900624,
+          "gamma": 0.9,
+          "leave_one_family_out_core_key_count": {
+            "count": 16,
+            "max": 2883.0,
+            "mean": 2810.4375,
+            "median": 2827.0,
+            "min": 2606.0,
+            "p10": 2736.5,
+            "p90": 2869.5
+          },
+          "leave_one_family_out_core_mass_fraction": {
+            "count": 16,
+            "max": 0.23684825067934784,
+            "mean": 0.20654562245244565,
+            "median": 0.20866062330163043,
+            "min": 0.15702488111413043,
+            "p10": 0.1778511379076087,
+            "p90": 0.2325333305027174
+          },
+          "selected_mass_fraction": 0.20654562245244565,
+          "threshold_family_count": 15
+        },
+        {
+          "core_expert_key_count": 1422,
+          "fraction_of_all_routed_expert_keys": 0.017250582298136644,
+          "gamma": 1.0,
+          "leave_one_family_out_core_key_count": {
+            "count": 16,
+            "max": 1422.0,
+            "mean": 1422.0,
+            "median": 1422.0,
+            "min": 1422.0,
+            "p10": 1422.0,
+            "p90": 1422.0
+          },
+          "leave_one_family_out_core_mass_fraction": {
+            "count": 16,
+            "max": 0.15599524456521738,
+            "mean": 0.13329282014266305,
+            "median": 0.13626762058423914,
+            "min": 0.10363238790760869,
+            "p10": 0.1146293308423913,
+            "p90": 0.14743440047554346
+          },
+          "selected_mass_fraction": 0.13329282014266305,
+          "threshold_family_count": 16
+        }
+      ]
+    },
+    "PREFILL": {
+      "audit_class": "TOPK_COMMITTEE_AUDIT",
+      "complete_routing_weight_profile_available": false,
+      "gamma_sensitivity": [
+        {
+          "core_expert_key_count": 54054,
+          "fraction_of_all_routed_expert_keys": 0.6557404891304348,
+          "gamma": 0.5,
+          "leave_one_family_out_core_key_count": {
+            "count": 16,
+            "max": 49671.0,
+            "mean": 46781.0,
+            "median": 46760.5,
+            "min": 44033.0,
+            "p10": 44429.5,
+            "p90": 48613.0
+          },
+          "leave_one_family_out_core_mass_fraction": {
+            "count": 16,
+            "max": 0.9594217051630435,
+            "mean": 0.9297690505568986,
+            "median": 0.9269376690826293,
+            "min": 0.8965028355387523,
+            "p10": 0.9136047171638726,
+            "p90": 0.951506308991984
+          },
+          "selected_mass_fraction": 0.9428147126906318,
+          "threshold_family_count": 8
+        },
+        {
+          "core_expert_key_count": 43323,
+          "fraction_of_all_routed_expert_keys": 0.5255604619565217,
+          "gamma": 0.75,
+          "leave_one_family_out_core_key_count": {
+            "count": 16,
+            "max": 40799.0,
+            "mean": 40120.0,
+            "median": 40172.0,
+            "min": 39180.0,
+            "p10": 39380.0,
+            "p90": 40616.5
+          },
+          "leave_one_family_out_core_mass_fraction": {
+            "count": 16,
+            "max": 0.8932107676630435,
+            "mean": 0.849054331204006,
+            "median": 0.8536242870594035,
+            "min": 0.7968528473534972,
+            "p10": 0.8114321043165468,
+            "p90": 0.8871164441298657
+          },
+          "selected_mass_fraction": 0.8676144974898172,
+          "threshold_family_count": 12
+        },
+        {
+          "core_expert_key_count": 40972,
+          "fraction_of_all_routed_expert_keys": 0.49703998447204967,
+          "gamma": 0.8,
+          "leave_one_family_out_core_key_count": {
+            "count": 16,
+            "max": 40799.0,
+            "mean": 40120.0,
+            "median": 40172.0,
+            "min": 39180.0,
+            "p10": 39380.0,
+            "p90": 40616.5
+          },
+          "leave_one_family_out_core_mass_fraction": {
+            "count": 16,
+            "max": 0.8932107676630435,
+            "mean": 0.849054331204006,
+            "median": 0.8536242870594035,
+            "min": 0.7968528473534972,
+            "p10": 0.8114321043165468,
+            "p90": 0.8871164441298657
+          },
+          "selected_mass_fraction": 0.8436162395211708,
+          "threshold_family_count": 13
+        },
+        {
+          "core_expert_key_count": 36434,
+          "fraction_of_all_routed_expert_keys": 0.44198854813664595,
+          "gamma": 0.9,
+          "leave_one_family_out_core_key_count": {
+            "count": 16,
+            "max": 36415.0,
+            "mean": 36291.625,
+            "median": 36308.0,
+            "min": 36059.0,
+            "p10": 36123.0,
+            "p90": 36392.0
+          },
+          "leave_one_family_out_core_mass_fraction": {
+            "count": 16,
+            "max": 0.8428583559782609,
+            "mean": 0.7925038228297637,
+            "median": 0.801457800729076,
+            "min": 0.7362407451165721,
+            "p10": 0.7403981229221734,
+            "p90": 0.839334641387001
+          },
+          "selected_mass_fraction": 0.7852604092663635,
+          "threshold_family_count": 15
+        },
+        {
+          "core_expert_key_count": 34156,
+          "fraction_of_all_routed_expert_keys": 0.414353649068323,
+          "gamma": 1.0,
+          "leave_one_family_out_core_key_count": {
+            "count": 16,
+            "max": 34156.0,
+            "mean": 34156.0,
+            "median": 34156.0,
+            "min": 34156.0,
+            "p10": 34156.0,
+            "p90": 34156.0
+          },
+          "leave_one_family_out_core_mass_fraction": {
+            "count": 16,
+            "max": 0.8077081715838509,
+            "mean": 0.751549811927081,
+            "median": 0.7604879975939813,
+            "min": 0.6881793478260869,
+            "p10": 0.6919601976880378,
+            "p90": 0.8041471005897166
+          },
+          "selected_mass_fraction": 0.7430302095173819,
+          "threshold_family_count": 16
+        }
+      ]
+    }
+  },
+  "post_hoc_exploratory": true,
+  "schema_version": "issue105-core-periphery-analysis-v1",
+  "source_sha256": [
+    "b7a23e73108c1612c3db9d822c9d82ff065764a4682ef037cdc277ba5d730566"
+  ],
+  "status": "PASS"
+}

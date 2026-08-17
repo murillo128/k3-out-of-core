@@ -1,0 +1,488 @@
+{
+  "counterfactual_capacity_amplification_upper": {
+    "count": 44,
+    "max": 2.0001276813074567,
+    "mean": 1.48761768227434,
+    "median": 1.5,
+    "min": 1.2,
+    "p10": 1.2,
+    "p90": 1.6001021450459654
+  },
+  "endpoint_role_heterogeneity": [
+    {
+      "counterfactual_capacity_amplification_upper": {
+        "count": 28,
+        "max": 2.0001276813074567,
+        "mean": 1.4782616449451738,
+        "median": 1.5,
+        "min": 1.2,
+        "p10": 1.2,
+        "p90": 1.6001021450459654
+      },
+      "physical_capacity_amplification_upper": {
+        "count": 28,
+        "max": 1.9957956427570391,
+        "mean": 1.6749813443022767,
+        "median": 1.4967511784940757,
+        "min": 1.4967511784940757,
+        "p10": 1.4967511784940757,
+        "p90": 1.9957956427570391
+      },
+      "row_count": 28,
+      "selection_role": "STAGE_B2_ENDPOINT",
+      "status_counts": {
+        "BRACKETED_CONSISTENT": 28
+      }
+    },
+    {
+      "counterfactual_capacity_amplification_upper": {
+        "count": 16,
+        "max": 2.0001276813074567,
+        "mean": 1.5039907476003809,
+        "median": 1.5,
+        "min": 1.2,
+        "p10": 1.2,
+        "p90": 1.633384405856316
+      },
+      "physical_capacity_amplification_upper": {
+        "count": 16,
+        "max": 1.9957956427570391,
+        "mean": 1.6059211364505033,
+        "median": 1.4967511784940757,
+        "min": 1.247292648745063,
+        "p10": 1.4967511784940757,
+        "p90": 1.9957956427570391
+      },
+      "row_count": 16,
+      "selection_role": "STAGE_B_REPRESENTATIVE",
+      "status_counts": {
+        "BRACKETED_CONSISTENT": 16
+      }
+    }
+  ],
+  "family_heterogeneity": [
+    {
+      "counterfactual_capacity_amplification_upper": {
+        "count": 3,
+        "max": 1.6001021450459654,
+        "mean": 1.5333673816819884,
+        "median": 1.5,
+        "min": 1.5,
+        "p10": 1.5,
+        "p90": 1.5800817160367724
+      },
+      "physical_capacity_amplification_upper": {
+        "count": 3,
+        "max": 1.9957956427570391,
+        "mean": 1.6630993332483968,
+        "median": 1.4967511784940757,
+        "min": 1.4967511784940757,
+        "p10": 1.4967511784940757,
+        "p90": 1.8959867499044465
+      },
+      "row_count": 3,
+      "semantic_family": "Spanish-language reasoning/explanation",
+      "status_counts": {
+        "BRACKETED_CONSISTENT": 3
+      }
+    },
+    {
+      "counterfactual_capacity_amplification_upper": {
+        "count": 3,
+        "max": 1.5,
+        "mean": 1.5,
+        "median": 1.5,
+        "min": 1.5,
+        "p10": 1.5,
+        "p90": 1.5
+      },
+      "physical_capacity_amplification_upper": {
+        "count": 3,
+        "max": 1.4967511784940757,
+        "mean": 1.4967511784940755,
+        "median": 1.4967511784940757,
+        "min": 1.4967511784940757,
+        "p10": 1.4967511784940757,
+        "p90": 1.4967511784940757
+      },
+      "row_count": 3,
+      "semantic_family": "algorithms / data-structure reasoning",
+      "status_counts": {
+        "BRACKETED_CONSISTENT": 3
+      }
+    },
+    {
+      "counterfactual_capacity_amplification_upper": {
+        "count": 2,
+        "max": 1.6001021450459654,
+        "mean": 1.6001021450459654,
+        "median": 1.6001021450459654,
+        "min": 1.6001021450459654,
+        "p10": 1.6001021450459654,
+        "p90": 1.6001021450459654
+      },
+      "physical_capacity_amplification_upper": {
+        "count": 2,
+        "max": 1.9957956427570391,
+        "mean": 1.9957956427570391,
+        "median": 1.9957956427570391,
+        "min": 1.9957956427570391,
+        "p10": 1.9957956427570391,
+        "p90": 1.9957956427570391
+      },
+      "row_count": 2,
+      "semantic_family": "analytical comparison / argumentation",
+      "status_counts": {
+        "BRACKETED_CONSISTENT": 2
+      }
+    },
+    {
+      "counterfactual_capacity_amplification_upper": {
+        "count": 3,
+        "max": 1.4967511784940757,
+        "mean": 1.3978341189960506,
+        "median": 1.4967511784940757,
+        "min": 1.2,
+        "p10": 1.259350235698815,
+        "p90": 1.4967511784940757
+      },
+      "physical_capacity_amplification_upper": {
+        "count": 3,
+        "max": 1.4967511784940757,
+        "mean": 1.4967511784940755,
+        "median": 1.4967511784940757,
+        "min": 1.4967511784940757,
+        "p10": 1.4967511784940757,
+        "p90": 1.4967511784940757
+      },
+      "row_count": 3,
+      "semantic_family": "code generation",
+      "status_counts": {
+        "BRACKETED_CONSISTENT": 3
+      }
+    },
+    {
+      "counterfactual_capacity_amplification_upper": {
+        "count": 3,
+        "max": 1.6001021450459654,
+        "mean": 1.5333673816819884,
+        "median": 1.5,
+        "min": 1.5,
+        "p10": 1.5,
+        "p90": 1.5800817160367724
+      },
+      "physical_capacity_amplification_upper": {
+        "count": 3,
+        "max": 1.9957956427570391,
+        "mean": 1.6630993332483968,
+        "median": 1.4967511784940757,
+        "min": 1.4967511784940757,
+        "p10": 1.4967511784940757,
+        "p90": 1.8959867499044465
+      },
+      "row_count": 3,
+      "semantic_family": "conversational / direct QA",
+      "status_counts": {
+        "BRACKETED_CONSISTENT": 3
+      }
+    },
+    {
+      "counterfactual_capacity_amplification_upper": {
+        "count": 3,
+        "max": 2.0001276813074567,
+        "mean": 1.5667092271024856,
+        "median": 1.5,
+        "min": 1.2,
+        "p10": 1.26,
+        "p90": 1.9001021450459654
+      },
+      "physical_capacity_amplification_upper": {
+        "count": 3,
+        "max": 1.9957956427570391,
+        "mean": 1.6630993332483968,
+        "median": 1.4967511784940757,
+        "min": 1.4967511784940757,
+        "p10": 1.4967511784940757,
+        "p90": 1.8959867499044465
+      },
+      "row_count": 3,
+      "semantic_family": "creative / language generation",
+      "status_counts": {
+        "BRACKETED_CONSISTENT": 3
+      }
+    },
+    {
+      "counterfactual_capacity_amplification_upper": {
+        "count": 3,
+        "max": 1.6666666666666667,
+        "mean": 1.488922937237544,
+        "median": 1.6001021450459654,
+        "min": 1.2,
+        "p10": 1.280020429009193,
+        "p90": 1.6533537623425265
+      },
+      "physical_capacity_amplification_upper": {
+        "count": 3,
+        "max": 1.9957956427570391,
+        "mean": 1.579946489998726,
+        "median": 1.4967511784940757,
+        "min": 1.247292648745063,
+        "p10": 1.2971843546948656,
+        "p90": 1.8959867499044465
+      },
+      "row_count": 3,
+      "semantic_family": "debugging / code review",
+      "status_counts": {
+        "BRACKETED_CONSISTENT": 3
+      }
+    },
+    {
+      "counterfactual_capacity_amplification_upper": {
+        "count": 3,
+        "max": 1.5,
+        "mean": 1.3,
+        "median": 1.2,
+        "min": 1.2,
+        "p10": 1.2,
+        "p90": 1.44
+      },
+      "physical_capacity_amplification_upper": {
+        "count": 3,
+        "max": 1.4967511784940757,
+        "mean": 1.4967511784940755,
+        "median": 1.4967511784940757,
+        "min": 1.4967511784940757,
+        "p10": 1.4967511784940757,
+        "p90": 1.4967511784940757
+      },
+      "row_count": 3,
+      "semantic_family": "factual / explanatory knowledge",
+      "status_counts": {
+        "BRACKETED_CONSISTENT": 3
+      }
+    },
+    {
+      "counterfactual_capacity_amplification_upper": {
+        "count": 3,
+        "max": 1.6001021450459654,
+        "mean": 1.5667347633639768,
+        "median": 1.6001021450459654,
+        "min": 1.5,
+        "p10": 1.520020429009193,
+        "p90": 1.6001021450459654
+      },
+      "physical_capacity_amplification_upper": {
+        "count": 3,
+        "max": 1.9957956427570391,
+        "mean": 1.829447488002718,
+        "median": 1.9957956427570391,
+        "min": 1.4967511784940757,
+        "p10": 1.5965600713466683,
+        "p90": 1.9957956427570391
+      },
+      "row_count": 3,
+      "semantic_family": "formal logic / proof-style reasoning",
+      "status_counts": {
+        "BRACKETED_CONSISTENT": 3
+      }
+    },
+    {
+      "counterfactual_capacity_amplification_upper": {
+        "count": 2,
+        "max": 2.0001276813074567,
+        "mean": 1.800114913176711,
+        "median": 1.800114913176711,
+        "min": 1.6001021450459654,
+        "p10": 1.6401046986721144,
+        "p90": 1.9601251276813076
+      },
+      "physical_capacity_amplification_upper": {
+        "count": 2,
+        "max": 1.9957956427570391,
+        "mean": 1.9957956427570391,
+        "median": 1.9957956427570391,
+        "min": 1.9957956427570391,
+        "p10": 1.9957956427570391,
+        "p90": 1.9957956427570391
+      },
+      "row_count": 2,
+      "semantic_family": "mathematical reasoning",
+      "status_counts": {
+        "BRACKETED_CONSISTENT": 2
+      }
+    },
+    {
+      "counterfactual_capacity_amplification_upper": {
+        "count": 2,
+        "max": 1.2,
+        "mean": 1.2,
+        "median": 1.2,
+        "min": 1.2,
+        "p10": 1.2,
+        "p90": 1.2
+      },
+      "physical_capacity_amplification_upper": {
+        "count": 2,
+        "max": 1.4967511784940757,
+        "mean": 1.4967511784940757,
+        "median": 1.4967511784940757,
+        "min": 1.4967511784940757,
+        "p10": 1.4967511784940757,
+        "p90": 1.4967511784940757
+      },
+      "row_count": 2,
+      "semantic_family": "multi-step instruction following / structured response",
+      "status_counts": {
+        "BRACKETED_CONSISTENT": 2
+      }
+    },
+    {
+      "counterfactual_capacity_amplification_upper": {
+        "count": 3,
+        "max": 1.5,
+        "mean": 1.4989170594980255,
+        "median": 1.5,
+        "min": 1.4967511784940757,
+        "p10": 1.4974009427952606,
+        "p90": 1.5
+      },
+      "physical_capacity_amplification_upper": {
+        "count": 3,
+        "max": 1.4967511784940757,
+        "mean": 1.4967511784940755,
+        "median": 1.4967511784940757,
+        "min": 1.4967511784940757,
+        "p10": 1.4967511784940757,
+        "p90": 1.4967511784940757
+      },
+      "row_count": 3,
+      "semantic_family": "multilingual / translation / cross-language transformation",
+      "status_counts": {
+        "BRACKETED_CONSISTENT": 3
+      }
+    },
+    {
+      "counterfactual_capacity_amplification_upper": {
+        "count": 3,
+        "max": 2.0001276813074567,
+        "mean": 1.7334439904664627,
+        "median": 1.6001021450459654,
+        "min": 1.6001021450459654,
+        "p10": 1.6001021450459654,
+        "p90": 1.9201225740551584
+      },
+      "physical_capacity_amplification_upper": {
+        "count": 3,
+        "max": 1.9957956427570391,
+        "mean": 1.9957956427570391,
+        "median": 1.9957956427570391,
+        "min": 1.9957956427570391,
+        "p10": 1.9957956427570391,
+        "p90": 1.9957956427570391
+      },
+      "row_count": 3,
+      "semantic_family": "physics / scientific reasoning",
+      "status_counts": {
+        "BRACKETED_CONSISTENT": 3
+      }
+    },
+    {
+      "counterfactual_capacity_amplification_upper": {
+        "count": 3,
+        "max": 1.6001021450459654,
+        "mean": 1.4322844411800137,
+        "median": 1.4967511784940757,
+        "min": 1.2,
+        "p10": 1.259350235698815,
+        "p90": 1.5794319517355875
+      },
+      "physical_capacity_amplification_upper": {
+        "count": 3,
+        "max": 1.9957956427570391,
+        "mean": 1.6630993332483968,
+        "median": 1.4967511784940757,
+        "min": 1.4967511784940757,
+        "p10": 1.4967511784940757,
+        "p90": 1.8959867499044465
+      },
+      "row_count": 3,
+      "semantic_family": "planning / constraint satisfaction",
+      "status_counts": {
+        "BRACKETED_CONSISTENT": 3
+      }
+    },
+    {
+      "counterfactual_capacity_amplification_upper": {
+        "count": 2,
+        "max": 1.5,
+        "mean": 1.35,
+        "median": 1.35,
+        "min": 1.2,
+        "p10": 1.23,
+        "p90": 1.47
+      },
+      "physical_capacity_amplification_upper": {
+        "count": 2,
+        "max": 1.4967511784940757,
+        "mean": 1.4967511784940757,
+        "median": 1.4967511784940757,
+        "min": 1.4967511784940757,
+        "p10": 1.4967511784940757,
+        "p90": 1.4967511784940757
+      },
+      "row_count": 2,
+      "semantic_family": "structured extraction / transformation",
+      "status_counts": {
+        "BRACKETED_CONSISTENT": 2
+      }
+    },
+    {
+      "counterfactual_capacity_amplification_upper": {
+        "count": 3,
+        "max": 1.5,
+        "mean": 1.3,
+        "median": 1.2,
+        "min": 1.2,
+        "p10": 1.2,
+        "p90": 1.44
+      },
+      "physical_capacity_amplification_upper": {
+        "count": 3,
+        "max": 1.4967511784940757,
+        "mean": 1.4967511784940755,
+        "median": 1.4967511784940757,
+        "min": 1.4967511784940757,
+        "p10": 1.4967511784940757,
+        "p90": 1.4967511784940757
+      },
+      "row_count": 3,
+      "semantic_family": "summarization / synthesis",
+      "status_counts": {
+        "BRACKETED_CONSISTENT": 3
+      }
+    }
+  ],
+  "hit_load_disagreement_count": 0,
+  "interpretation": "discrete exported brackets; upper-bound summaries are not exact slot thresholds",
+  "no_extrapolation": true,
+  "physical_capacity_amplification_upper": {
+    "count": 44,
+    "max": 1.9957956427570391,
+    "mean": 1.6498685414470864,
+    "median": 1.4967511784940757,
+    "min": 1.247292648745063,
+    "p10": 1.4967511784940757,
+    "p90": 1.9957956427570391
+  },
+  "post_hoc_exploratory": true,
+  "row_count": 44,
+  "schema_version": "issue105-virtual-cache-capacity-summary-v1",
+  "status": "PASS",
+  "status_counts": {
+    "BRACKETED_CONSISTENT": 44
+  },
+  "validation_stratum_counts": {
+    "observer_semantic_order_44_of_44": 28,
+    "physical_EXACT_anchor_16_of_16": 16
+  }
+}

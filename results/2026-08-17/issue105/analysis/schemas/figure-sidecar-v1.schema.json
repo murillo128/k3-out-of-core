@@ -1,0 +1,82 @@
+{
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/issue105/figure-sidecar-v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "analysis_code_version": {
+      "type": "string"
+    },
+    "evidence_classes": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "figure_id": {
+      "pattern": "^F(0[1-9]|10)$",
+      "type": "string"
+    },
+    "input_source_sha256": {
+      "items": {
+        "pattern": "^[0-9a-f]{64}$",
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "input_table_logical_sha256": {
+      "items": {
+        "pattern": "^[0-9a-f]{64}$",
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "metric_definitions": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "output_figure_sha256": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "output_status": {
+      "enum": [
+        "rendered",
+        "omitted_by_projection_gate"
+      ]
+    },
+    "projection_gate_status": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "not_applicable"
+      ]
+    },
+    "query_filter_definition": {
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "issue105-figure-sidecar-v1"
+    }
+  },
+  "required": [
+    "schema_version",
+    "figure_id",
+    "input_table_logical_sha256",
+    "input_source_sha256",
+    "analysis_code_version",
+    "query_filter_definition",
+    "metric_definitions",
+    "evidence_classes",
+    "projection_gate_status",
+    "output_figure_sha256",
+    "output_status"
+  ],
+  "title": "Issue 105 primary figure sidecar",
+  "type": "object"
+}
