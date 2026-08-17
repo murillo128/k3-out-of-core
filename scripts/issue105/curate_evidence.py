@@ -577,13 +577,16 @@ def build_source_catalog(
     for key in ("archive_index", "final_synthesis"):
         locked = issue98_lock[key]
         path = issue98_root / locked["file"]
+        declared_schema = str(load_json(path).get("schema_version", ""))
+        if not declared_schema:
+            raise CurationError(f"issue-98 JSON lacks schema_version: {path.name}")
         rows.append(
             {
                 "source_issue_release": "#98/issue98-profile-shape-extension-v3",
                 "archive_member_original_path": locked["file"],
                 "sha256": locked["sha256"],
                 "bytes": path.stat().st_size,
-                "schema_version": locked.get("schema_version", ""),
+                "schema_version": declared_schema,
                 "case_run_identity": "",
                 "protocol": "legacy_first_full",
                 "policy": "mixed_legacy_context",
