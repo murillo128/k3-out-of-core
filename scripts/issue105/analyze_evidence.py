@@ -1433,19 +1433,24 @@ def final_synthesis_text(
     gate = locality["projection_gate"]["status"]
     model = locality["model_selection"]["selected_model"]
     predictor = locality["model_selection"]["selected_predictor"]
+    primary_lofo = locality["primary"]["lofo"][model]
+    sensitivity_lofo = locality["protocol_compatible_sensitivity"]["lofo"][model]
     consistent = virtual["status_counts"].get("BRACKETED_CONSISTENT", 0)
+    physical_amplification = virtual["physical_capacity_amplification_upper"]
+    counterfactual_amplification = virtual["counterfactual_capacity_amplification_upper"]
     regressions = core["committee_pin_counterfactual"]["negative_cells_preserved"]
     return f"""# Issue 105 final synthesis
 
-Status: `PASS` for offline analysis; Checkpoint B is still required.
+Status: `PASS` for the deterministic offline analysis package. All results below are `POST_HOC_EXPLORATORY`.
 
 ## Headline results
 
-- `TPS_PROJECTION_GATE = {gate}` using `{model}` / `{predictor}` after primary and protocol-compatible sensitivity LOFO plus family-cluster bootstrap.
-- Virtual-capacity analysis reports discrete published brackets, never fitted extrapolation: {consistent} cases are bracket-consistent; all inconclusive cases remain explicit.
+- `TPS_PROJECTION_GATE = {gate}` using `{model}` / `{predictor}`. Primary LOFO R² is {primary_lofo['pooled_oof_r_squared']:.6f} with RMSE {primary_lofo['pooled_oof_rmse']:.6f}; protocol-compatible sensitivity LOFO R² is {sensitivity_lofo['pooled_oof_r_squared']:.6f} with RMSE {sensitivity_lofo['pooled_oof_rmse']:.6f}. Both family-cluster bootstrap and family/policy/length-level residual gates pass.
+- Virtual-capacity analysis reports discrete published brackets, never fitted thresholds or extrapolation: {consistent}/44 cases are bracket-consistent. The physical-reference EXACT upper-bracket amplification has median {physical_amplification['median']:.3f}× and range {physical_amplification['min']:.3f}–{physical_amplification['max']:.3f}×. The fixed-route counterfactual upper-bracket amplification has median {counterfactual_amplification['median']:.3f}× and range {counterfactual_amplification['min']:.3f}–{counterfactual_amplification['max']:.3f}×. These are bracket-upper summaries, not exact RAM thresholds or measured savings.
 - The best single frozen working-set feature for physical hit ratio is `{working['best_hit_ratio_feature']['feature']}` with pooled LOFO R² {working['best_hit_ratio_feature']['pooled_oof_r_squared']:.6f}.
 - Recurrent selected-expert cores exist under top-k/top-M observables, but committee pinning is heterogeneous and preserves {regressions} regressing fixed-route cells.
 - Actual-token effects remain weak/heterogeneous after family adjustment; the constructed 16×8 corpus is not treated as an IID prompt-population sample.
+- Prior-art values are classified claim by claim as normalized-comparable or qualitative-only; heterogeneous raw TPS is never pooled.
 
 ## Authority limits
 
