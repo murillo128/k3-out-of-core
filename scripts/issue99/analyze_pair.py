@@ -17,7 +17,9 @@ import numpy as np
 import pyarrow as pa
 import pyarrow.parquet as pq
 
-from protocol import ROUTED_LAYERS, SELECTED_EXPERTS, atomic_json
+from protocol import (
+    BRIDGE_CHECKPOINTS, BROAD_CHECKPOINTS, ROUTED_LAYERS, SELECTED_EXPERTS, atomic_json,
+)
 
 
 MAGIC = b"P13QTR1\n"
@@ -182,6 +184,55 @@ def route_key(row: dict[str, Any]) -> tuple[int, int]:
     return int(row["sequence_position"]), int(row["layer"])
 
 
+def validate_route_stream(
+    rows: list[dict[str, Any]],
+    *,
+    exact: bool,
+) -> tuple[dict[tuple[int, int], dict[str, Any]], int, list[int]]:
+    by_key = {route_key(row): row for row in rows}
+    if len(by_key) != len(rows):
+        raise PairError("route stream contains duplicate keys")
+    positions = sorted({position for position, _ in by_key})
+    if not positions or positions != list(range(1, positions[-1] + 1)):
+        raise PairError("route stream positions are empty, skipped, or non-contiguous")
+    layers = sorted({layer for _, layer in by_key})
+    if len(layers) != ROUTED_LAYERS:
+        raise PairError(f"expected {ROUTED_LAYERS} routed layers, observed {len(layers)}")
+    layer_set = set(layers)
+    for position in positions:
+        if {layer for observed_position, layer in by_key if observed_position == position} != layer_set:
+            raise PairError(f"position {position} has incomplete route-layer coverage")
+    for row in rows:
+        selected = row.get("selected_experts", [])
+        candidates = row.get("candidate_experts", [])
+        scores = row.get("candidate_selection_scores", [])
+        probabilities = row.get("candidate_probabilities", [])
+        if len(selected) != SELECTED_EXPERTS or len(candidates) != 32 or \
+                len(scores) != 32 or len(probabilities) != 32:
+            raise PairError("route has the wrong selected/candidate width")
+        if len(set(map(int, candidates))) != len(candidates):
+            raise PairError("route candidate list contains duplicates")
+        if len(set(map(int, selected))) != len(selected):
+            raise PairError("route selection contains duplicates")
+        if not all(math.isfinite(float(value)) for value in (*scores, *probabilities)):
+            raise PairError("route contains non-finite scores")
+        intrinsic = candidates[:SELECTED_EXPERTS]
+        if exact and selected != intrinsic:
+            raise PairError("EXACT route contains a substitution")
+        if not exact and any(selected_expert not in candidates for selected_expert in selected):
+            raise PairError("replacement is outside retained top-M")
+        if not exact:
+            for rank, selected_expert in enumerate(selected):
+                if selected_expert == intrinsic[rank]:
+                    continue
+                replacement_rank = candidates.index(selected_expert)
+                corrected = float(scores[rank]) - float(scores[replacement_rank])
+                raw = float(probabilities[rank]) - float(probabilities[replacement_rank])
+                if corrected < 0 or not math.isfinite(corrected) or not math.isfinite(raw):
+                    raise PairError("invalid substitution regret")
+    return by_key, positions[-1], layers
+
+
 def load_core_membership(path: Path) -> dict[str, dict[int, set[int]]]:
     value = load_json(path)
     if value.get("schema_version") != "issue99-frozen-core-membership-v1" or value.get("status") != "pass":
@@ -200,34 +251,39 @@ def pair_routes(
     changed_path: Path,
     identity: dict[str, Any],
     core: dict[str, dict[int, set[int]]],
-) -> tuple[list[dict[str, Any]], list[dict[str, Any]], dict[int, dict[str, float]]]:
+    direct: bool = True,
+) -> tuple[
+    list[dict[str, Any]], list[dict[str, Any]], dict[int, dict[str, float]], dict[str, int]
+]:
     exact_meta, exact_rows = load_routes(exact_path)
     changed_meta, changed_rows = load_routes(changed_path)
     for field in ("case_id", "capacity_bytes", "candidate_count", "selected_count"):
         if exact_meta.get(field) != changed_meta.get(field):
             raise PairError(f"route metadata mismatch: {field}")
-    exact_by_key = {route_key(row): row for row in exact_rows}
-    changed_by_key = {route_key(row): row for row in changed_rows}
-    if len(exact_by_key) != len(exact_rows) or set(exact_by_key) != set(changed_by_key):
-        raise PairError("paired route keys differ or are duplicated")
-    layers = sorted({layer for _, layer in exact_by_key})
-    if len(layers) != ROUTED_LAYERS:
-        raise PairError(f"expected {ROUTED_LAYERS} routed layers, observed {len(layers)}")
+    exact_by_key, exact_horizon, layers = validate_route_stream(exact_rows, exact=True)
+    changed_by_key, changed_horizon, changed_layers = validate_route_stream(changed_rows, exact=False)
+    if changed_layers != layers:
+        raise PairError("paired route streams use different routed layers")
+    if direct and set(exact_by_key) != set(changed_by_key):
+        raise PairError("fixed-context paired route keys differ")
+    common_horizon = min(exact_horizon, changed_horizon)
+    common_keys = {
+        (position, layer)
+        for position in range(1, common_horizon + 1)
+        for layer in layers
+    }
+    if not common_keys.issubset(exact_by_key) or not common_keys.issubset(changed_by_key):
+        raise PairError("paired route common prefix is incomplete")
     ordinal = {layer: index for index, layer in enumerate(layers)}
     route_rows: list[dict[str, Any]] = []
     events: list[dict[str, Any]] = []
     token: dict[int, dict[str, float]] = defaultdict(lambda: defaultdict(float))
-    for key in sorted(exact_by_key):
+    for key in sorted(common_keys):
         position, layer = key
         exact = exact_by_key[key]
         changed = changed_by_key[key]
-        for row in (exact, changed):
-            if len(row["selected_experts"]) != SELECTED_EXPERTS or len(row["candidate_experts"]) != 32:
-                raise PairError("route has the wrong selected/candidate width")
         exact_intrinsic = exact["candidate_experts"][:SELECTED_EXPERTS]
         changed_intrinsic = changed["candidate_experts"][:SELECTED_EXPERTS]
-        if exact["selected_experts"] != exact_intrinsic:
-            raise PairError("EXACT route contains a substitution")
         swaps = []
         for rank, selected in enumerate(changed["selected_experts"]):
             if selected == changed_intrinsic[rank]:
@@ -305,14 +361,47 @@ def pair_routes(
         aggregate["raw_regret_absolute"] += sum(item["raw_probability_regret_absolute"] for item in swaps)
         aggregate["max_corrected_regret"] = max(
             aggregate["max_corrected_regret"], *(item["corrected_regret"] for item in swaps), 0.0)
-    return route_rows, events, token
+    return route_rows, events, token, {
+        "exact": exact_horizon,
+        "changed": changed_horizon,
+        "common": common_horizon,
+    }
+
+
+def trace_groups(reader: TraceReader) -> Iterator[tuple[int, list[Record]]]:
+    expected_position = 1
+    for position, rows in itertools.groupby(reader.records(), key=lambda row: row.position):
+        records = list(rows)
+        if position != expected_position:
+            raise PairError("trace positions are skipped, repeated, or non-contiguous")
+        expected_position += 1
+        structural_keys = [row.structural_key for row in records]
+        if len(set(structural_keys)) != len(structural_keys):
+            raise PairError(f"position {position} contains duplicate trace records")
+        moe = [row for row in records if row.kind == "moe_output"]
+        hidden = [row for row in records if row.kind == "hidden_state"]
+        moe_layers = {row.layer for row in moe}
+        hidden_layers = {row.layer for row in hidden}
+        logits = [row for row in records if row.kind == "logits"]
+        if len(moe) != ROUTED_LAYERS or len(hidden) != ROUTED_LAYERS or \
+                len(moe_layers) != ROUTED_LAYERS or moe_layers != hidden_layers or len(logits) != 1:
+            raise PairError(f"position {position} has incomplete trace coverage")
+        if any(row.n_tokens != 1 for row in records) or logits[0].layer != -1:
+            raise PairError(f"position {position} has an invalid trace record shape")
+        yield position, records
+
+
+def next_group(groups: Iterator[tuple[int, list[Record]]]) -> tuple[int, list[Record]] | None:
+    return next(groups, None)
 
 
 def paired_trace_metrics(
     exact_path: Path,
     changed_path: Path,
     direct: bool,
-) -> tuple[dict[int, dict[str, Any]], dict[tuple[int, int], dict[str, Any]]]:
+) -> tuple[
+    dict[int, dict[str, Any]], dict[tuple[int, int], dict[str, Any]], dict[str, int]
+]:
     exact = TraceReader(exact_path)
     changed = TraceReader(changed_path)
     token: dict[int, dict[str, Any]] = defaultdict(lambda: {
@@ -322,18 +411,42 @@ def paired_trace_metrics(
     try:
         if exact.metadata.get("case_id") != changed.metadata.get("case_id"):
             raise PairError("trace case identity mismatch")
-        for left, right in itertools.zip_longest(exact.records(), changed.records()):
-            if left is None or right is None or left.structural_key != right.structural_key:
+        exact_groups = trace_groups(exact)
+        changed_groups = trace_groups(changed)
+        left_group = next_group(exact_groups)
+        right_group = next_group(changed_groups)
+        exact_horizon = changed_horizon = 0
+        while left_group is not None and right_group is not None:
+            left_position, left_rows = left_group
+            right_position, right_rows = right_group
+            if left_position != right_position:
+                raise PairError("trace common-prefix positions differ")
+            if len(left_rows) != len(right_rows):
                 raise PairError("trace record sequence mismatch")
-            if left.kind == "logits":
-                token[left.position].update(predictive_metrics(left, right, direct))
-                continue
-            metric = vector_metrics(left.values, right.values)
-            prefix = "moe" if left.kind == "moe_output" else "hidden"
-            token[left.position][f"{prefix}_relative_l2"].append(metric["relative_l2"])
-            token[left.position][f"{prefix}_cosine"].append(metric["cosine_similarity"])
-            row = layer.setdefault((left.position, left.layer), {})
-            row.update({f"{prefix}_{name}": value for name, value in metric.items()})
+            for left, right in zip(left_rows, right_rows):
+                if left.structural_key != right.structural_key:
+                    raise PairError("trace record sequence mismatch")
+                if left.kind == "logits":
+                    token[left.position].update(predictive_metrics(left, right, direct))
+                    continue
+                metric = vector_metrics(left.values, right.values)
+                prefix = "moe" if left.kind == "moe_output" else "hidden"
+                token[left.position][f"{prefix}_relative_l2"].append(metric["relative_l2"])
+                token[left.position][f"{prefix}_cosine"].append(metric["cosine_similarity"])
+                row = layer.setdefault((left.position, left.layer), {})
+                row.update({f"{prefix}_{name}": value for name, value in metric.items()})
+            exact_horizon = left_position
+            changed_horizon = right_position
+            left_group = next_group(exact_groups)
+            right_group = next_group(changed_groups)
+        while left_group is not None:
+            exact_horizon = left_group[0]
+            left_group = next_group(exact_groups)
+        while right_group is not None:
+            changed_horizon = right_group[0]
+            right_group = next_group(changed_groups)
+        if direct and exact_horizon != changed_horizon:
+            raise PairError("fixed-context trace horizons differ")
     finally:
         exact.close()
         changed.close()
@@ -346,7 +459,11 @@ def paired_trace_metrics(
             values[f"{prefix}_relative_l2_mean"] = float(np.mean(distances))
             values[f"{prefix}_relative_l2_max"] = float(np.max(distances))
             values[f"{prefix}_cosine_mean"] = float(np.mean(cosines))
-    return token, layer
+    return token, layer, {
+        "exact": exact_horizon,
+        "changed": changed_horizon,
+        "common": min(exact_horizon, changed_horizon),
+    }
 
 
 def write_parquet(path: Path, rows: list[dict[str, Any]]) -> None:
@@ -360,6 +477,48 @@ def write_parquet(path: Path, rows: list[dict[str, Any]]) -> None:
         raise PairError(f"Parquet validation failed: {path}")
 
 
+def validate_result_stream(result: dict[str, Any], label: str) -> tuple[int, int, dict[int, dict[str, Any]]]:
+    reference = result.get("reference", {})
+    achieved = int(reference.get("achieved_horizon", 0))
+    horizon_limit = int(reference.get("horizon_limit", 0))
+    targets = reference.get("target_ids", [])
+    telemetry_rows = result.get("measured", {}).get("token_telemetry", [])
+    telemetry = {int(row["sequence_position"]): row for row in telemetry_rows}
+    expected_positions = list(range(1, achieved + 1))
+    if achieved <= 0 or achieved > horizon_limit or len(targets) != achieved:
+        raise PairError(f"{label} result has invalid achieved horizon")
+    if len(telemetry) != len(telemetry_rows) or sorted(telemetry) != expected_positions:
+        raise PairError(f"{label} result has invalid token telemetry coverage")
+    if int(result.get("measured", {}).get("decode_forwards", -1)) != achieved:
+        raise PairError(f"{label} result decode count differs from achieved horizon")
+    return achieved, horizon_limit, telemetry
+
+
+def horizon_evidence(
+    exact_result: dict[str, Any],
+    changed_result: dict[str, Any],
+    exact_horizon: int,
+    changed_horizon: int,
+    horizon_limit: int,
+) -> dict[str, Any]:
+    checkpoints = BRIDGE_CHECKPOINTS if horizon_limit > BROAD_CHECKPOINTS[-1] else BROAD_CHECKPOINTS
+    common_horizon = min(exact_horizon, changed_horizon)
+    unavailable = lambda achieved: [checkpoint for checkpoint in checkpoints if checkpoint > achieved]
+    return {
+        "horizon_limit": horizon_limit,
+        "exact_achieved_horizon": exact_horizon,
+        "changed_achieved_horizon": changed_horizon,
+        "paired_achieved_horizon": common_horizon,
+        "exact_eog_position": int(exact_result.get("generation_phase", {}).get("eog_position", -1)),
+        "changed_eog_position": int(changed_result.get("generation_phase", {}).get("eog_position", -1)),
+        "unavailable_tail_checkpoints": {
+            "exact": unavailable(exact_horizon),
+            "changed": unavailable(changed_horizon),
+            "paired": unavailable(common_horizon),
+        },
+    }
+
+
 def analyze(args: argparse.Namespace) -> dict[str, Any]:
     exact_result = load_json(args.exact_result)
     changed_result = load_json(args.changed_result)
@@ -369,8 +528,16 @@ def analyze(args: argparse.Namespace) -> dict[str, Any]:
     if case_id != changed_result["case"]["id"]:
         raise PairError("cell cases differ")
     direct = args.evidence_class in ("DIRECT_FIXED_CONTEXT", "CAPACITY_FIXED_CONTEXT")
+    exact_horizon, exact_limit, exact_telemetry = validate_result_stream(exact_result, "EXACT")
+    changed_horizon, changed_limit, changed_telemetry = validate_result_stream(changed_result, "changed")
+    if exact_limit != changed_limit:
+        raise PairError("paired horizon limits differ")
+    if direct and exact_horizon != changed_horizon:
+        raise PairError("fixed-context achieved horizons differ")
     if direct and exact_result["reference"]["target_ids"] != changed_result["reference"]["target_ids"]:
         raise PairError("fixed-context target sequence differs")
+    horizon = horizon_evidence(
+        exact_result, changed_result, exact_horizon, changed_horizon, exact_limit)
     identity = {
         "case_id": case_id,
         "semantic_family": exact_result["case"]["semantic_family"],
@@ -380,13 +547,27 @@ def analyze(args: argparse.Namespace) -> dict[str, Any]:
         "cache_regime": args.cache_regime,
         "capacity_bytes": int(changed_result["preflight"]["initial_cold"]["actual_bytes"]),
         "reference_identity": args.reference_identity,
+        "exact_achieved_horizon": exact_horizon,
+        "changed_achieved_horizon": changed_horizon,
+        "paired_achieved_horizon": horizon["paired_achieved_horizon"],
     }
     core = load_core_membership(args.core_membership)
-    route_rows, events, route_token = pair_routes(
-        args.exact_routes, args.changed_routes, identity, core)
-    trace_token, layer_metrics = paired_trace_metrics(args.exact_trace, args.changed_trace, direct)
+    route_rows, events, route_token, route_coverage = pair_routes(
+        args.exact_routes, args.changed_routes, identity, core, direct=direct)
+    trace_token, layer_metrics, trace_coverage = paired_trace_metrics(
+        args.exact_trace, args.changed_trace, direct)
+    expected_coverage = {
+        "exact": exact_horizon,
+        "changed": changed_horizon,
+        "common": horizon["paired_achieved_horizon"],
+    }
+    if route_coverage != expected_coverage or trace_coverage != expected_coverage:
+        raise PairError("result, route, and trace horizons differ")
+    if sorted(exact_telemetry) != list(range(1, exact_horizon + 1)):
+        raise PairError("EXACT telemetry is incomplete")
     changed_telemetry = {
-        int(row["sequence_position"]): row for row in changed_result["measured"]["token_telemetry"]
+        position: changed_telemetry[position]
+        for position in range(1, horizon["paired_achieved_horizon"] + 1)
     }
     positions = sorted(trace_token)
     if positions != sorted(route_token) or positions != sorted(changed_telemetry):
@@ -512,6 +693,7 @@ def analyze(args: argparse.Namespace) -> dict[str, Any]:
         },
         "outputs": {name: str(path) for name, path in outputs.items() if path.exists()},
         "direct_fixed_context": direct,
+        "horizons": horizon,
         "common_prefix_tokens": next((position - 1 for position in positions
                                       if trace_token[position]["exact_reference_token"] !=
                                       trace_token[position]["changed_accepted_token"]), len(positions)),

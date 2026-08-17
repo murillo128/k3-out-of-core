@@ -16,7 +16,7 @@ sys.path.insert(0, str(ROOT / "scripts" / "issue99"))
 
 from analyze_campaign import added_model_signal, breakpoint_test  # noqa: E402
 from analyze_pair import (  # noqa: E402
-    MAGIC, PairError, predictive_metrics, pair_routes, paired_trace_metrics,
+    MAGIC, PairError, horizon_evidence, predictive_metrics, pair_routes, paired_trace_metrics,
 )
 from analyze_pair import Record as TraceRecord  # noqa: E402
 from protocol import (  # noqa: E402
@@ -57,7 +57,7 @@ def route(position: int, layer: int, swap: bool) -> dict[str, object]:
     }
 
 
-def write_routes(path: Path, swap: bool) -> None:
+def write_routes(path: Path, swap: bool, horizon: int = 1) -> None:
     metadata = {
         "record_type": "metadata",
         "metadata": {"case_id": "case", "capacity_bytes": LOW_BRIDGE_CACHE_BYTES,
@@ -65,8 +65,19 @@ def write_routes(path: Path, swap: bool) -> None:
     }
     with path.open("w") as destination:
         destination.write(json.dumps(metadata) + "\n")
+        for position in range(1, horizon + 1):
+            for layer in range(1, 93):
+                destination.write(json.dumps(route(position, layer, swap)) + "\n")
+
+
+def trace_records(horizon: int, accepted_token: int = 1) -> list[tuple[int, int, int, int, list[float]]]:
+    records = []
+    for position in range(1, horizon + 1):
         for layer in range(1, 93):
-            destination.write(json.dumps(route(1, layer, swap)) + "\n")
+            records.extend(((1, position, layer, -1, [1.0, 0.0]),
+                            (2, position, layer, -1, [1.0, 1.0])))
+        records.append((3, position, -1, accepted_token, [0.0, 2.0, 1.0]))
+    return records
 
 
 class Issue99ToolTests(unittest.TestCase):
@@ -107,12 +118,56 @@ class Issue99ToolTests(unittest.TestCase):
             changed_path = Path(directory) / "changed.p13q"
             write_trace(exact_path, "case", records)
             write_trace(changed_path, "case", changed)
-            token, layers = paired_trace_metrics(exact_path, changed_path, direct=True)
+            token, layers, coverage = paired_trace_metrics(exact_path, changed_path, direct=True)
             self.assertEqual(len(layers), 92)
             self.assertEqual(list(token), [1])
+            self.assertEqual(coverage, {"exact": 1, "changed": 1, "common": 1})
             self.assertGreater(token[1]["hidden_relative_l2_mean"], 0)
-            identity, _ = paired_trace_metrics(exact_path, exact_path, direct=True)
+            identity, _, _ = paired_trace_metrics(exact_path, exact_path, direct=True)
             self.assertEqual(identity[1]["moe_relative_l2_max"], 0)
+
+    def test_free_trajectory_preserves_eog_shortened_common_prefix_in_both_orders(self):
+        core = {
+            gamma: {layer: set() for layer in range(1, 93)}
+            for gamma in ("1.0", "0.8")
+        }
+        identity = {"case_id": "case", "cache_regime": "high-cache",
+                    "changed_intervention": "FREE_TRAJECTORY", "policy": "KNEE"}
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for exact_horizon, changed_horizon in ((2, 1), (1, 2)):
+                exact_trace = root / f"exact-{exact_horizon}-{changed_horizon}.p13q"
+                changed_trace = root / f"changed-{exact_horizon}-{changed_horizon}.p13q"
+                exact_routes = root / f"exact-{exact_horizon}-{changed_horizon}.jsonl"
+                changed_routes = root / f"changed-{exact_horizon}-{changed_horizon}.jsonl"
+                write_trace(exact_trace, "case", trace_records(exact_horizon))
+                write_trace(changed_trace, "case", trace_records(changed_horizon, accepted_token=2))
+                write_routes(exact_routes, False, exact_horizon)
+                write_routes(changed_routes, True, changed_horizon)
+                tokens, layers, trace_coverage = paired_trace_metrics(
+                    exact_trace, changed_trace, direct=False)
+                routes, _, route_tokens, route_coverage = pair_routes(
+                    exact_routes, changed_routes, identity, core, direct=False)
+                expected = {"exact": exact_horizon, "changed": changed_horizon, "common": 1}
+                self.assertEqual(trace_coverage, expected)
+                self.assertEqual(route_coverage, expected)
+                self.assertEqual(list(tokens), [1])
+                self.assertEqual(list(route_tokens), [1])
+                self.assertEqual(len(layers), 92)
+                self.assertEqual(len(routes), 92)
+                summary = horizon_evidence(
+                    {"generation_phase": {"eog_position": exact_horizon}},
+                    {"generation_phase": {"eog_position": changed_horizon}},
+                    exact_horizon, changed_horizon, 1024)
+                self.assertEqual(summary["exact_achieved_horizon"], exact_horizon)
+                self.assertEqual(summary["changed_achieved_horizon"], changed_horizon)
+                self.assertEqual(summary["paired_achieved_horizon"], 1)
+                self.assertEqual(summary["unavailable_tail_checkpoints"]["paired"],
+                                 [16, 32, 64, 128, 256, 512, 1024])
+                with self.assertRaises(PairError):
+                    paired_trace_metrics(exact_trace, changed_trace, direct=True)
+                with self.assertRaises(PairError):
+                    pair_routes(exact_routes, changed_routes, identity, core, direct=True)
 
     def test_route_pair_recomputes_signed_and_corrected_regret(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -126,9 +181,10 @@ class Issue99ToolTests(unittest.TestCase):
             }
             identity = {"case_id": "case", "cache_regime": "96-gib-bridge",
                         "changed_intervention": "CAPACITY_FIXED_CONTEXT", "policy": "KNEE"}
-            routes, events, token = pair_routes(exact_path, changed_path, identity, core)
+            routes, events, token, coverage = pair_routes(exact_path, changed_path, identity, core)
             self.assertEqual(len(routes), 92)
             self.assertEqual(len(events), 1)
+            self.assertEqual(coverage, {"exact": 1, "changed": 1, "common": 1})
             self.assertAlmostEqual(events[0]["corrected_regret"], 0.016)
             self.assertAlmostEqual(events[0]["raw_probability_regret_signed"], 0.008)
             self.assertEqual(events[0]["transition_gamma_1_0"], "core_to_peripheral")

@@ -288,6 +288,16 @@ def persistent_bytes(root: Path) -> int:
     return sum(path.stat().st_size for path in root.rglob("*") if path.is_file())
 
 
+def enforce_raw_trace_limits(root: Path, preregistration: dict[str, Any]) -> None:
+    paths = [path for path in root.glob("cells/*/quality.p13q") if path.is_file()]
+    live_bytes = sum(path.stat().st_size for path in paths)
+    limits = preregistration["resource_limits"]
+    if len(paths) > int(limits["maximum_live_raw_tensor_files"]) or \
+            live_bytes > int(limits["maximum_live_raw_tensor_bytes"]):
+        raise CampaignError(
+            f"live raw tensor limit exceeded: files={len(paths)} bytes={live_bytes}")
+
+
 def cell_slug(cell: dict[str, Any]) -> str:
     suffix = "free" if cell["intervention"] == "FREE_TRAJECTORY" else "fixed"
     return f"{cell['order']:03d}-{cell['case_id']}-{cell['cache_regime']}-{cell['policy'].lower()}-{suffix}"
@@ -338,9 +348,11 @@ def main() -> int:
                 raise CampaignError(f"completed manifest is not pass: {slug}")
             if cell["policy"] == "EXACT":
                 exact_by_group[group] = manifest
+                changed_completed[group] = 0
             else:
                 changed_completed[group] = changed_completed.get(group, 0) + 1
             continue
+        enforce_raw_trace_limits(root, prereg)
         if persistent_bytes(root) >= max_persistent:
             raise CampaignError("preregistered persistent evidence limit reached")
         directory.mkdir(parents=False, exist_ok=False)
@@ -389,6 +401,7 @@ def main() -> int:
             atomic_json(progress_path, progress)
             raise CampaignError(f"K3 cell failed without retry: {slug} exit={returncode}")
         result = validate_result(result_path, route_path, trace_path, cell, capacity_bytes, envelope)
+        enforce_raw_trace_limits(root, prereg)
         if cell["policy"] == "EXACT" and cell["intervention"] == "FREE_TRAJECTORY":
             reference_path = root / "references" / f"{cell['case_id']}-high-{cell['horizon']}.json"
             reference = make_reference(result, cell["horizon"], reference_path)
@@ -443,6 +456,7 @@ def main() -> int:
         else:
             advise_output(trace_path, "ephemeral-exact-tensor-trace-retained-for-pairing", root, allowlist,
                           artifacts["quality_trace"])
+            changed_completed[group] = 0
         manifest = {
             "schema_version": "issue99-quality-cell-manifest-v1", "status": "pass", "slug": slug,
             "cell": cell, "reference_root_identity": reference_root_identity,
@@ -467,6 +481,7 @@ def main() -> int:
                     "reason": "all preregistered same-regime pair scalarizations completed",
                 }
                 atomic_json(root / "control" / f"trace-release-{group[0]}-{group[1]}.json", release)
+        enforce_raw_trace_limits(root, prereg)
         print(f"ISSUE99_CAMPAIGN cell={slug} status=pass completed={len(completed)}/{len(prereg['cells'])}", flush=True)
     progress.update({"status": "complete", "completed": sorted(completed), "completed_cells": len(completed)})
     atomic_json(progress_path, progress)

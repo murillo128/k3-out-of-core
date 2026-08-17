@@ -24,6 +24,9 @@ from protocol import (
 )
 
 
+CAPACITY_STABILITY_RESERVE_SLOTS = 64
+
+
 SOURCE_FILES = (
     "scripts/issue99/CMakeLists.txt",
     "scripts/issue99/PROVENANCE.md",
@@ -83,22 +86,32 @@ def host_snapshot() -> dict[str, Any]:
     }
 
 
-def validate_qualification(root: Path, quality_root: Path) -> dict[str, Any]:
+def validate_qualification(root: Path, quality_root: Path, low_root: Path) -> dict[str, Any]:
     target = load(root / "high-target-sample-01" / "disposition.json")
     if target.get("status") != "admission_rejected" or target.get("requested_slots") != TARGET_CACHE_SLOTS:
         raise ValueError("the explicit high target was not cleanly rejected")
-    auto = [load(quality_root / f"auto-sample-{index:02d}-v2" / "disposition.json") for index in range(1, 4)]
+    auto_paths = sorted(quality_root.glob("auto-sample-*/disposition.json"))
+    if len(auto_paths) != 3:
+        raise ValueError("quality-helper qualification must contain exactly three AUTO samples")
+    auto = [load(path) for path in auto_paths]
     if any(row.get("status") != "admitted_cleanly" or row.get("mode") != "AUTO" or
            row.get("changed_policy_outcomes_created") for row in auto):
         raise ValueError("quality-helper AUTO qualification did not produce three clean admissions")
     slots = [int(row["selected_slots"]) for row in auto]
-    resolved_slots = min(slots)
+    minimum_auto_slots = min(slots)
+    if minimum_auto_slots <= CAPACITY_STABILITY_RESERVE_SLOTS:
+        raise ValueError("AUTO capacity cannot cover the preregistered stability reserve")
+    resolved_slots = minimum_auto_slots - CAPACITY_STABILITY_RESERVE_SLOTS
     if resolved_slots < LOW_BRIDGE_CACHE_SLOTS:
         raise ValueError("resolved capacity is below the fail-closed floor")
     if any(int(row["selected_bytes"]) != slots[index] * EXPERT_BUNDLE_BYTES
            for index, row in enumerate(auto)):
         raise ValueError("AUTO sample contains non-whole-expert capacity")
-    low = load(quality_root / "low-bridge-explicit-01-v2" / "disposition.json")
+    low_paths = sorted(low_root.glob("low-bridge-explicit-*/disposition.json"))
+    if len(low_paths) != 1:
+        raise ValueError("quality-helper qualification must identify exactly one low bridge sample")
+    low_path = low_paths[0]
+    low = load(low_path)
     low_enabled = low.get("status") == "admitted_cleanly" and \
         low.get("selected_slots") == LOW_BRIDGE_CACHE_SLOTS and \
         low.get("selected_bytes") == LOW_BRIDGE_CACHE_BYTES and low.get("mode") == "EXPLICIT"
@@ -107,17 +120,20 @@ def validate_qualification(root: Path, quality_root: Path) -> dict[str, Any]:
         "disposition": file_identity(root / "high-target-sample-01" / "disposition.json"),
         "envelope": file_identity(root / "high-target-sample-01" / "envelope.json"),
     }
-    for directory in ("auto-sample-01-v2", "auto-sample-02-v2", "auto-sample-03-v2",
-                      "low-bridge-explicit-01-v2"):
+    for disposition_path in (*auto_paths, low_path):
+        directory = disposition_path.parent.name
         identities[directory] = {
-            "disposition": file_identity(quality_root / directory / "disposition.json"),
-            "envelope": file_identity(quality_root / directory / "envelope.json"),
+            "disposition": file_identity(disposition_path),
+            "envelope": file_identity(disposition_path.with_name("envelope.json")),
         }
     return {
         "target_attempt": "admission_rejected",
         "target_slots": TARGET_CACHE_SLOTS,
         "target_bytes": TARGET_CACHE_BYTES,
         "quality_helper_auto_selected_slots": slots,
+        "minimum_auto_slots_before_stability_reserve": minimum_auto_slots,
+        "stability_reserve_slots": CAPACITY_STABILITY_RESERVE_SLOTS,
+        "stability_reserve_basis": "one additional >=1-GiB whole-expert reserve after the instantaneous AUTO ceiling failed the next fresh explicit admission",
         "issue99_cache_slots": resolved_slots,
         "issue99_cache_bytes": resolved_slots * EXPERT_BUNDLE_BYTES,
         "capacity_relation": "LOWER_DUE_TO_CONTEXT_BUDGET",
@@ -278,7 +294,9 @@ def analysis_registration() -> dict[str, Any]:
 
 
 def build(args: argparse.Namespace) -> dict[str, Any]:
-    qualification = validate_qualification(args.qualification_root, args.quality_qualification_root)
+    qualification = validate_qualification(
+        args.qualification_root, args.quality_qualification_root,
+        args.low_bridge_qualification_root or args.quality_qualification_root)
     instrumentation = load(args.instrumentation_qualification)
     if instrumentation.get("schema_version") != "issue99-checkpoint-a-instrumentation-qualification-v1" or \
             instrumentation.get("status") != "pass" or instrumentation.get("changed_policy_outcomes_created") or \
@@ -372,6 +390,7 @@ def main() -> int:
     parser.add_argument("--qualification-root", type=Path, default=EVIDENCE_ROOT / "qualification")
     parser.add_argument("--quality-qualification-root", type=Path,
                         default=EVIDENCE_ROOT / "quality-capacity-qualification")
+    parser.add_argument("--low-bridge-qualification-root", type=Path)
     parser.add_argument("--core-membership", type=Path, required=True)
     parser.add_argument("--instrumentation-qualification", type=Path, required=True)
     parser.add_argument("--implementation-parent", required=True)

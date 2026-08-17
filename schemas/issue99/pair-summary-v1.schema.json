@@ -3,12 +3,35 @@
   "$id": "https://k3.local/schemas/issue99/pair-summary-v1.schema.json",
   "title": "Issue 99 paired scalarization summary",
   "type": "object",
-  "required": ["schema_version", "status", "pair_id", "identity", "rows", "outputs", "direct_fixed_context", "terminal"],
+  "required": ["schema_version", "status", "pair_id", "identity", "rows", "outputs", "direct_fixed_context", "horizons", "terminal"],
   "properties": {
     "schema_version": {"const": "issue99-pair-summary-v1"},
     "status": {"const": "pass"},
     "rows": {"type": "object", "required": ["tokens", "layers", "routes", "events"]},
-    "outputs": {"type": "object"}
+    "outputs": {"type": "object"},
+    "horizons": {
+      "type": "object",
+      "required": ["horizon_limit", "exact_achieved_horizon", "changed_achieved_horizon", "paired_achieved_horizon", "exact_eog_position", "changed_eog_position", "unavailable_tail_checkpoints"],
+      "properties": {
+        "horizon_limit": {"type": "integer", "minimum": 1, "maximum": 1024},
+        "exact_achieved_horizon": {"type": "integer", "minimum": 1, "maximum": 1024},
+        "changed_achieved_horizon": {"type": "integer", "minimum": 1, "maximum": 1024},
+        "paired_achieved_horizon": {"type": "integer", "minimum": 1, "maximum": 1024},
+        "exact_eog_position": {"type": "integer", "minimum": -1, "maximum": 1024},
+        "changed_eog_position": {"type": "integer", "minimum": -1, "maximum": 1024},
+        "unavailable_tail_checkpoints": {
+          "type": "object",
+          "required": ["exact", "changed", "paired"],
+          "properties": {
+            "exact": {"type": "array", "items": {"enum": [16, 32, 64, 128, 256, 512, 1024]}},
+            "changed": {"type": "array", "items": {"enum": [16, 32, 64, 128, 256, 512, 1024]}},
+            "paired": {"type": "array", "items": {"enum": [16, 32, 64, 128, 256, 512, 1024]}}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
   },
   "additionalProperties": true
 }
