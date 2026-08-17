@@ -68,6 +68,7 @@ COMMON_FIELDS = (
     "authority_scope",
 )
 CASE_PATTERN = re.compile(r"(?:^|[-/])(\d{2}-[a-z0-9]+-b\d)(?:[-/]|$)")
+SCHEMA_SCAN_LIMIT_BYTES = 1024 * 1024
 
 
 class CurationError(ValueError):
@@ -109,6 +110,7 @@ class TopLevelSchemaScanner:
                     elif self.depth == 1 and self.current_key == "schema_version":
                         self.schema_values.append(value)
                         self.current_key = None
+                        return
                 continue
 
             if byte in b" \t\r\n":
@@ -315,6 +317,7 @@ def verify_issue102_archive(
                 digest = hashlib.sha256()
                 size = 0
                 schema_scanner = TopLevelSchemaScanner() if member.name.endswith(".json") else None
+                schema_bytes_scanned = 0
                 destination = None
                 temporary = None
                 if member.name in SELECTED_ARCHIVE_PATHS:
@@ -328,8 +331,12 @@ def verify_issue102_archive(
                     for chunk in iter(lambda: source.read(1024 * 1024), b""):
                         size += len(chunk)
                         digest.update(chunk)
-                        if schema_scanner is not None:
-                            schema_scanner.feed(chunk)
+                        if schema_scanner is not None and not schema_scanner.schema_values:
+                            remaining = SCHEMA_SCAN_LIMIT_BYTES - schema_bytes_scanned
+                            if remaining > 0:
+                                candidate = chunk[:remaining]
+                                schema_scanner.feed(candidate)
+                                schema_bytes_scanned += len(candidate)
                         if sink is not None:
                             sink.write(chunk)
                 finally:
@@ -343,7 +350,11 @@ def verify_issue102_archive(
                 if destination is not None and temporary is not None:
                     os.replace(temporary, destination)
                 if schema_scanner is not None:
-                    schemas[member.name] = schema_scanner.finish()
+                    schemas[member.name] = (
+                        schema_scanner.finish()
+                        if schema_scanner.schema_values or size <= SCHEMA_SCAN_LIMIT_BYTES
+                        else ""
+                    )
                 observed.add(member.name)
         close_decompressor(process, "issue-102 decompression")
     except BaseException:
@@ -363,6 +374,7 @@ def verify_issue102_archive(
         "selected_members_materialized": len(SELECTED_ARCHIVE_PATHS),
         "json_members": len(schemas),
         "schema_versioned_json_members": sum(bool(value) for value in schemas.values()),
+        "schema_scan_limit_bytes": SCHEMA_SCAN_LIMIT_BYTES,
     }, schemas
 
 

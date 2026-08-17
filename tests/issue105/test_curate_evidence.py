@@ -53,6 +53,12 @@ class Issue105CurationTests(unittest.TestCase):
         with self.assertRaisesRegex(CurationError, "invalid top-level"):
             scanner.finish()
 
+    def test_schema_less_json_is_failed_for_scientific_ingestion(self) -> None:
+        status = source_status(
+            "host/unknown/result.json", "RAW_OR_DERIVED_HOST_EVIDENCE", set(), ""
+        )
+        self.assertEqual(status[0], "failed")
+
     def test_source_sha_rejection(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = pathlib.Path(directory) / "input.json"
