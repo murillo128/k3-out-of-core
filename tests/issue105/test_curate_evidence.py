@@ -13,13 +13,17 @@ sys.path.insert(0, str(ROOT / "scripts" / "issue105"))
 
 from curate_evidence import (  # noqa: E402
     CurationError,
+    TopLevelSchemaScanner,
     common_provenance,
+    compare_nested_numbers,
     csv_schema_fields,
     csv_logical_hash,
     require_identity,
     source_evidence_class,
     source_status,
     phase_core_sets,
+    stage_a_descriptive_decompositions,
+    stage_c_comparison_aggregates,
     validate_physical_rows,
     validate_source_catalog,
 )
@@ -37,6 +41,18 @@ def physical_row(stage: str, case_id: str, policy: str) -> dict[str, object]:
 
 
 class Issue105CurationTests(unittest.TestCase):
+    def test_streamed_top_level_schema_preserves_chunk_boundary(self) -> None:
+        scanner = TopLevelSchemaScanner()
+        scanner.feed(b'{"nested":{"schema_version":"not-top-level"},"schema_')
+        scanner.feed(b'version":"issue102-cross-prompt-cell-v1","value":1}')
+        self.assertEqual(scanner.finish(), "issue102-cross-prompt-cell-v1")
+
+    def test_streamed_top_level_schema_rejects_ambiguous_declaration(self) -> None:
+        scanner = TopLevelSchemaScanner()
+        scanner.feed(b'{"schema_version":null}')
+        with self.assertRaisesRegex(CurationError, "invalid top-level"):
+            scanner.finish()
+
     def test_source_sha_rejection(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = pathlib.Path(directory) / "input.json"
@@ -152,6 +168,41 @@ class Issue105CurationTests(unittest.TestCase):
         )
         self.assertEqual(fields[0], {"name": "name", "type": "string", "nullable": False})
         self.assertEqual(fields[1], {"name": "value", "type": "float64", "nullable": True})
+
+    def test_stage_a_actual_token_decomposition_is_falsifiable(self) -> None:
+        rows = [
+            {"semantic_family": "a", "length_level": 1, "templated_prompt_tokens": 10,
+             "hit_ratio": 0.5, "decode_tok_s": 1.0},
+            {"semantic_family": "a", "length_level": 2, "templated_prompt_tokens": 20,
+             "hit_ratio": 0.6, "decode_tok_s": 1.2},
+            {"semantic_family": "b", "length_level": 1, "templated_prompt_tokens": 30,
+             "hit_ratio": 0.7, "decode_tok_s": 1.4},
+        ]
+        observed = stage_a_descriptive_decompositions(rows)
+        expected = json.loads(json.dumps(observed))
+        expected["per_family"][0]["templated_prompt_tokens"]["median"] += 1
+        with self.assertRaisesRegex(CurationError, "numeric mismatch"):
+            compare_nested_numbers(observed, expected, "/stage_a")
+
+    def test_stage_c_paired_aggregate_is_falsifiable(self) -> None:
+        rows = []
+        for index in range(24):
+            case_id = f"case-{index:02d}"
+            for stage, policy, tps, hit, loads, byte_count in (
+                ("STAGE_A", "S2_P50", 1.2, 0.7, 30.0, 300.0),
+                ("STAGE_C", "EXACT", 1.0, 0.5, 50.0, 500.0),
+                ("STAGE_C", "KNEE", 1.1, 0.6, 40.0, 400.0),
+            ):
+                rows.append({
+                    "stage": stage, "case_id": case_id, "policy": policy,
+                    "decode_tok_s": tps, "hit_ratio": hit,
+                    "loads_per_token": loads, "bytes_per_token": byte_count,
+                })
+        observed = stage_c_comparison_aggregates(rows)
+        expected = json.loads(json.dumps(observed))
+        expected["s2_vs_exact"]["decode_tok_s_ratio"]["median"] += 0.01
+        with self.assertRaisesRegex(CurationError, "numeric mismatch"):
+            compare_nested_numbers(observed, expected, "/stage_c")
 
 
 if __name__ == "__main__":

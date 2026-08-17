@@ -74,6 +74,79 @@ class CurationError(ValueError):
     """Raised when evidence cannot be admitted without weakening the contract."""
 
 
+class TopLevelSchemaScanner:
+    """Extract a JSON object's top-level schema_version while bytes stream past."""
+
+    def __init__(self) -> None:
+        self.depth = 0
+        self.started = False
+        self.in_string = False
+        self.escape = False
+        self.string_bytes = bytearray()
+        self.expecting_key = False
+        self.current_key: str | None = None
+        self.schema_values: list[str] = []
+        self.invalid_schema_value = False
+
+    def feed(self, payload: bytes) -> None:
+        for byte in payload:
+            if self.in_string:
+                self.string_bytes.append(byte)
+                if self.escape:
+                    self.escape = False
+                elif byte == ord("\\"):
+                    self.escape = True
+                elif byte == ord('"'):
+                    self.in_string = False
+                    try:
+                        value = json.loads(self.string_bytes.decode("utf-8"))
+                    except (UnicodeDecodeError, json.JSONDecodeError) as error:
+                        raise CurationError("invalid JSON string while scanning schema") from error
+                    self.string_bytes.clear()
+                    if self.depth == 1 and self.expecting_key:
+                        self.current_key = value
+                        self.expecting_key = False
+                    elif self.depth == 1 and self.current_key == "schema_version":
+                        self.schema_values.append(value)
+                        self.current_key = None
+                continue
+
+            if byte in b" \t\r\n":
+                continue
+            if byte == ord('"'):
+                self.in_string = True
+                self.escape = False
+                self.string_bytes = bytearray(b'"')
+            elif byte in (ord("{"), ord("[")):
+                if not self.started:
+                    self.started = True
+                    self.expecting_key = byte == ord("{")
+                elif self.depth == 1 and self.current_key == "schema_version":
+                    self.invalid_schema_value = True
+                    self.current_key = None
+                self.depth += 1
+            elif byte in (ord("}"), ord("]")):
+                self.depth -= 1
+            elif self.depth == 1 and byte == ord(","):
+                self.current_key = None
+                self.expecting_key = True
+            elif self.depth == 1 and byte == ord(":"):
+                if self.current_key != "schema_version":
+                    self.current_key = None
+            elif self.depth == 1 and self.current_key == "schema_version":
+                self.invalid_schema_value = True
+                self.current_key = None
+
+    def finish(self) -> str:
+        if self.in_string or self.invalid_schema_value:
+            raise CurationError("invalid top-level schema_version declaration")
+        if len(self.schema_values) > 1:
+            raise CurationError("duplicate top-level schema_version declaration")
+        if self.schema_values and not self.schema_values[0]:
+            raise CurationError("empty top-level schema_version declaration")
+        return self.schema_values[0] if self.schema_values else ""
+
+
 def arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--repository-root", type=pathlib.Path, required=True)
@@ -214,7 +287,7 @@ def verify_issue102_archive(
     archive: pathlib.Path,
     archive_index: dict[str, Any],
     extract_root: pathlib.Path,
-) -> dict[str, Any]:
+) -> tuple[dict[str, Any], dict[str, str]]:
     expected_rows = archive_index.get("members", [])
     expected = {row["archive_path"]: row for row in expected_rows}
     if len(expected) != len(expected_rows):
@@ -228,6 +301,7 @@ def verify_issue102_archive(
     if process.stdout is None:
         raise CurationError("zstd stdout unavailable")
     observed: set[str] = set()
+    schemas: dict[str, str] = {}
     try:
         with tarfile.open(fileobj=process.stdout, mode="r|") as tar:
             for member in tar:
@@ -240,6 +314,7 @@ def verify_issue102_archive(
                     raise CurationError(f"unreadable issue-102 member: {member.name}")
                 digest = hashlib.sha256()
                 size = 0
+                schema_scanner = TopLevelSchemaScanner() if member.name.endswith(".json") else None
                 destination = None
                 temporary = None
                 if member.name in SELECTED_ARCHIVE_PATHS:
@@ -253,6 +328,8 @@ def verify_issue102_archive(
                     for chunk in iter(lambda: source.read(1024 * 1024), b""):
                         size += len(chunk)
                         digest.update(chunk)
+                        if schema_scanner is not None:
+                            schema_scanner.feed(chunk)
                         if sink is not None:
                             sink.write(chunk)
                 finally:
@@ -265,6 +342,8 @@ def verify_issue102_archive(
                     raise CurationError(f"issue-102 member identity mismatch: {member.name}")
                 if destination is not None and temporary is not None:
                     os.replace(temporary, destination)
+                if schema_scanner is not None:
+                    schemas[member.name] = schema_scanner.finish()
                 observed.add(member.name)
         close_decompressor(process, "issue-102 decompression")
     except BaseException:
@@ -282,7 +361,9 @@ def verify_issue102_archive(
         "member_bytes": sum(row["bytes"] for row in expected_rows),
         "member_validation": "PASS",
         "selected_members_materialized": len(SELECTED_ARCHIVE_PATHS),
-    }
+        "json_members": len(schemas),
+        "schema_versioned_json_members": sum(bool(value) for value in schemas.values()),
+    }, schemas
 
 
 def normalize_checksum_path(path: str) -> str:
@@ -389,7 +470,10 @@ def source_evidence_class(path: str) -> str:
 
 
 def source_status(
-    path: str, role: str, accepted_observer_prefixes: set[str]
+    path: str,
+    role: str,
+    accepted_observer_prefixes: set[str],
+    schema_version: str | None = None,
 ) -> tuple[str, str, str, str]:
     if "/stage-a-invalid/" in path or "/stage-c-v1/" in path:
         return "failed", "preserved invalid/pre-context execution; no scientific authority", "", ""
@@ -401,6 +485,8 @@ def source_status(
         return "failed", "not one of the 44 final accepted observer capture directories", "", ""
     if role == "WORKFLOW_CONTEXT":
         return "contextual_non_authoritative", "workflow context retained outside scientific authority", "", ""
+    if path.endswith(".json") and schema_version is not None and not schema_version:
+        return "failed", "schema-less JSON has ambiguous scientific authority", "", ""
     return "accepted", "checksum-verified member within frozen authority", "", ""
 
 
@@ -427,16 +513,6 @@ def source_policy(path: str) -> str:
     if "/stage-a/" in path or "/stage-a-sentinels/" in path:
         return "S2_P50"
     return ""
-
-
-def schema_versions(extract_root: pathlib.Path) -> dict[str, str]:
-    result = {}
-    for relative in SELECTED_ARCHIVE_PATHS:
-        path = extract_root / relative
-        if path.suffix == ".json":
-            value = load_json(path)
-            result[relative] = str(value.get("schema_version", ""))
-    return result
 
 
 def accepted_observer_prefixes(
@@ -466,7 +542,7 @@ def build_source_catalog(
     for member in index["members"]:
         path = member["archive_path"]
         status, reason, supersedes, superseded_by = source_status(
-            path, member["role"], observer_prefixes
+            path, member["role"], observer_prefixes, schemas.get(path)
         )
         evidence_class = source_evidence_class(path)
         if evidence_class not in EVIDENCE_CLASSES or status not in SOURCE_STATUSES:
@@ -1071,12 +1147,151 @@ def distribution(values: Iterable[float]) -> dict[str, Any]:
     }
 
 
+def descriptive_distribution(values: Iterable[float]) -> dict[str, Any]:
+    rows = list(float(value) for value in values)
+    result = distribution(rows)
+    result["mean"] = statistics.fmean(rows)
+    return result
+
+
+def average_ranks(values: Sequence[float]) -> list[float]:
+    ordered = sorted(range(len(values)), key=lambda index: (values[index], index))
+    ranks = [0.0] * len(values)
+    start = 0
+    while start < len(ordered):
+        end = start + 1
+        while end < len(ordered) and values[ordered[end]] == values[ordered[start]]:
+            end += 1
+        rank = (start + 1 + end) / 2.0
+        for position in range(start, end):
+            ranks[ordered[position]] = rank
+        start = end
+    return ranks
+
+
+def association(x_values: Sequence[float], y_values: Sequence[float]) -> dict[str, Any]:
+    if len(x_values) != len(y_values) or len(x_values) < 2:
+        raise CurationError("invalid association inputs")
+    x = [float(value) for value in x_values]
+    y = [float(value) for value in y_values]
+    def correlation(left: Sequence[float], right: Sequence[float]) -> float:
+        left_mean = statistics.fmean(left)
+        right_mean = statistics.fmean(right)
+        numerator = math.fsum(
+            (a - left_mean) * (b - right_mean) for a, b in zip(left, right)
+        )
+        denominator = math.sqrt(
+            math.fsum((value - left_mean) ** 2 for value in left)
+            * math.fsum((value - right_mean) ** 2 for value in right)
+        )
+        if denominator == 0:
+            raise CurationError("association input has zero variance")
+        return numerator / denominator
+    return {
+        "count": len(x),
+        "pearson_r": correlation(x, y),
+        "spearman_rho": correlation(average_ranks(x), average_ranks(y)),
+    }
+
+
+def stage_a_descriptive_decompositions(
+    primary: Sequence[dict[str, Any]],
+) -> dict[str, Any]:
+    fields = ("templated_prompt_tokens", "hit_ratio", "decode_tok_s")
+    per_family = []
+    for family in sorted(set(str(row["semantic_family"]) for row in primary)):
+        group = [row for row in primary if row["semantic_family"] == family]
+        entry = {"semantic_family": family, "count": len(group)}
+        entry.update({field: descriptive_distribution(row[field] for row in group) for field in fields})
+        per_family.append(entry)
+    per_length = []
+    for level in sorted(set(int(row["length_level"]) for row in primary)):
+        group = [row for row in primary if int(row["length_level"]) == level]
+        entry = {"length_level": level, "count": len(group)}
+        entry.update({field: descriptive_distribution(row[field] for row in group) for field in fields})
+        per_length.append(entry)
+    tokens = [float(row["templated_prompt_tokens"]) for row in primary]
+    associations = {
+        outcome: association(tokens, [float(row[outcome]) for row in primary])
+        for outcome in ("decode_tok_s", "hit_ratio")
+    }
+    return {
+        "per_family": per_family,
+        "per_length_level": per_length,
+        "global_actual_token_associations": associations,
+    }
+
+
+def stage_c_comparison_aggregates(
+    physical: Sequence[dict[str, Any]],
+) -> dict[str, Any]:
+    rows = {
+        (str(row["case_id"]), str(row["policy"])): row
+        for row in physical
+        if row["stage"] in {"STAGE_A", "STAGE_C"}
+    }
+    stage_c_cases = sorted({
+        str(row["case_id"]) for row in physical if row["stage"] == "STAGE_C"
+    })
+    if len(stage_c_cases) != 24:
+        raise CurationError("Stage-C comparison set is not 24 prompts")
+    pair_definitions = {
+        "knee_vs_exact": ("KNEE", "EXACT"),
+        "s2_vs_exact": ("S2_P50", "EXACT"),
+        "s2_vs_knee": ("S2_P50", "KNEE"),
+    }
+    result = {}
+    for name, (left_policy, right_policy) in pair_definitions.items():
+        comparisons = []
+        directions = {
+            "hit_better": 0, "hit_equal": 0, "hit_worse": 0,
+            "loads_equal": 0, "loads_higher": 0, "loads_lower": 0,
+            "tps_better": 0, "tps_equal": 0, "tps_worse": 0,
+        }
+        for case_id in stage_c_cases:
+            try:
+                left = rows[(case_id, left_policy)]
+                right = rows[(case_id, right_policy)]
+            except KeyError as error:
+                raise CurationError(f"missing Stage-C comparison row: {error.args[0]}") from error
+            comparison = {
+                "bytes_per_token_delta": float(left["bytes_per_token"]) - float(right["bytes_per_token"]),
+                "decode_tok_s_delta_fraction": (
+                    (float(left["decode_tok_s"]) - float(right["decode_tok_s"]))
+                    / float(right["decode_tok_s"])
+                ),
+                "decode_tok_s_ratio": float(left["decode_tok_s"]) / float(right["decode_tok_s"]),
+                "hit_ratio_delta": float(left["hit_ratio"]) - float(right["hit_ratio"]),
+                "loads_per_token_delta": float(left["loads_per_token"]) - float(right["loads_per_token"]),
+            }
+            comparisons.append(comparison)
+            for prefix, field, better in (
+                ("hit", "hit_ratio", 1), ("loads", "loads_per_token", -1),
+                ("tps", "decode_tok_s", 1),
+            ):
+                delta = (float(left[field]) - float(right[field])) * better
+                label = "equal" if delta == 0 else ("better" if delta > 0 else "worse")
+                if prefix == "loads":
+                    label = "equal" if delta == 0 else ("lower" if delta > 0 else "higher")
+                directions[f"{prefix}_{label}"] += 1
+        aggregate = {"count": len(comparisons), "direction_counts": directions}
+        for field in comparisons[0]:
+            aggregate[field] = descriptive_distribution(row[field] for row in comparisons)
+        result[name] = aggregate
+    return result
+
+
 def compare_nested_numbers(observed: Any, expected: Any, path: str = "") -> None:
     if isinstance(expected, dict):
         if not isinstance(observed, dict):
             raise CurationError(f"fidelity type mismatch at {path}")
         for key, value in expected.items():
             compare_nested_numbers(observed.get(key), value, f"{path}/{key}")
+    elif isinstance(expected, list):
+        if not isinstance(observed, list) or len(observed) != len(expected):
+            raise CurationError(f"fidelity list mismatch at {path}")
+        for index, value in enumerate(expected):
+            compare_nested_numbers(observed[index], value, f"{path}/{index}")
     elif isinstance(expected, (int, float)) and not isinstance(expected, bool):
         if observed is None or not math.isclose(float(observed), float(expected), rel_tol=1e-12, abs_tol=1e-12):
             raise CurationError(f"fidelity numeric mismatch at {path}: {observed} != {expected}")
@@ -1092,6 +1307,7 @@ def fidelity_report(
     fingerprints: dict[str, Any],
     overlap: dict[str, Any],
     endpoints: dict[str, Any],
+    family_length: dict[str, Any],
     final_synthesis: dict[str, Any],
     secondary_identities: dict[str, str],
 ) -> dict[str, Any]:
@@ -1100,7 +1316,20 @@ def fidelity_report(
     for key in checkpoint["overall_distributions"]:
         observed_distributions[key] = distribution(row[key] for row in primary)
     compare_nested_numbers(observed_distributions, checkpoint["overall_distributions"], "/stage_a")
+    stage_a_decompositions = stage_a_descriptive_decompositions(primary)
+    for key in stage_a_decompositions:
+        compare_nested_numbers(
+            stage_a_decompositions[key], family_length[key], f"/stage_a/{key}"
+        )
     stage_c_rows = [row for row in physical if row["stage"] == "STAGE_C"]
+    stage_c_aggregates = stage_c_comparison_aggregates(physical)
+    expected_stage_c_aggregates = {
+        name: {key: value for key, value in aggregate.items() if key != "trajectory"}
+        for name, aggregate in stage_c["aggregates"].items()
+    }
+    compare_nested_numbers(
+        stage_c_aggregates, expected_stage_c_aggregates, "/stage_c/aggregates"
+    )
     report = {
         "schema_version": "issue105-curated-fidelity-v1",
         "status": "PASS",
@@ -1108,6 +1337,7 @@ def fidelity_report(
             "primary_rows": len(primary),
             "sentinels": len([row for row in physical if row["case_role"] == "sentinel"]),
             "overall_distributions": observed_distributions,
+            "family_actual_token_decompositions": stage_a_decompositions,
         },
         "stage_c": {
             "physical_exact_knee_rows": len(stage_c_rows),
@@ -1115,6 +1345,7 @@ def fidelity_report(
             "s2_rows_reused_from_stage_a": len(set(row["case_id"] for row in stage_c_rows)),
             "double_counted_s2_rows": 0,
             "failed_cells": stage_c["completeness"]["failed_cells"],
+            "comparison_aggregates": stage_c_aggregates,
         },
         "observer": {
             "capture_identities": len(fingerprints["profiles"]),
@@ -1371,7 +1602,9 @@ def main() -> None:
     if len(archive_index["members"]) != issue102_lock["archive"]["member_count"]:
         raise CurationError("issue-102 archive index member count mismatch")
     extracted_root = work_root / "selected"
-    archive_verification = verify_issue102_archive(archive, archive_index, extracted_root)
+    archive_verification, archive_schemas = verify_issue102_archive(
+        archive, archive_index, extracted_root
+    )
     documents = materialized_documents(extracted_root)
     secondary_identities = {}
     for relative, expected_sha in issue102_lock["secondary_artifacts"]:
@@ -1399,7 +1632,7 @@ def main() -> None:
     exact = documents["host/observer-replay-v1/exact-capacity-mrc.json"]
     observer_prefixes = accepted_observer_prefixes(archive_index["members"], exact)
     sources = build_source_catalog(
-        archive_index, schema_versions(extracted_root), observer_prefixes,
+        archive_index, archive_schemas, observer_prefixes,
         issue98_lock, issue98_root,
     )
     if any(
@@ -1458,6 +1691,7 @@ def main() -> None:
         physical, checkpoint, stage_c, exact, fingerprints,
         documents["host/stage-b-analysis-v1/family-overlap-matrix.json"],
         documents["host/stage-b-analysis-v1/stage-b2-family-length-route-endpoints.json"],
+        documents["host/posthoc-analysis-v1/stage-a-family-length-analysis.json"],
         final_synthesis, secondary_identities,
     )
     fidelity["source_sha256"] = sorted({
