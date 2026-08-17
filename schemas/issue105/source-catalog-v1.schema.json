@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/issue105/source-catalog-v1.schema.json",
+  "title": "Issue 105 source catalog row",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "source_issue_release",
+    "archive_member_original_path",
+    "sha256",
+    "bytes",
+    "schema_version",
+    "case_run_identity",
+    "protocol",
+    "policy",
+    "source_evidence_class",
+    "authority_scope",
+    "status",
+    "reason",
+    "supersedes",
+    "superseded_by"
+  ],
+  "properties": {
+    "source_issue_release": {"type": "string"},
+    "archive_member_original_path": {"type": "string"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "bytes": {"type": "integer", "minimum": 0},
+    "schema_version": {"type": "string"},
+    "case_run_identity": {"type": "string"},
+    "protocol": {"type": "string"},
+    "policy": {"type": "string"},
+    "source_evidence_class": {
+      "enum": [
+        "MEASURED_PHYSICAL",
+        "MEASURED_OBSERVER",
+        "CURATED_FROM_MEASURED",
+        "EXACT_REPLAY",
+        "FIXED_ROUTE_COUNTERFACTUAL",
+        "EXACT_REPLAY_COUNTERFACTUAL",
+        "TPS_PROJECTION",
+        "SEMANTIC_SANITY",
+        "POST_HOC_EXPLORATORY"
+      ]
+    },
+    "authority_scope": {"type": "string"},
+    "status": {"enum": ["accepted", "missing", "failed", "superseded", "contextual_non_authoritative"]},
+    "reason": {"type": "string"},
+    "supersedes": {"type": "string"},
+    "superseded_by": {"type": "string"}
+  }
+}
