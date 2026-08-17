@@ -728,8 +728,8 @@ def threshold_crossing(
 
 def capacity_equivalence_status(results: Sequence[dict[str, Any]]) -> tuple[str, bool]:
     all_bracketed = all(item.get("status") == "BRACKETED" for item in results)
-    upper_slots = [item.get("upper_slots") for item in results]
-    disagreement = len(set(upper_slots)) > 1 if all_bracketed else True
+    brackets = [(item.get("lower_slots"), item.get("upper_slots")) for item in results]
+    disagreement = len(set(brackets)) > 1 if all_bracketed else True
     return ("BRACKETED_CONSISTENT" if all_bracketed and not disagreement else "INCONCLUSIVE", disagreement)
 
 
@@ -744,8 +744,87 @@ def physical_exact_anchor_cases(capacity: Sequence[dict[str, Any]]) -> set[str]:
     return cases
 
 
+def case_membership_sets(
+    cases: Sequence[dict[str, Any]], endpoint_analysis: dict[str, Any]
+) -> tuple[set[str], set[str]]:
+    representatives = set()
+    case_by_id = {str(row["case_id"]): row for row in cases}
+    for row in cases:
+        roles = set(json.loads(str(row["selection_roles"])))
+        if "STAGE_B_REPRESENTATIVE" in roles:
+            representatives.add(str(row["case_id"]))
+    endpoint_pairs = endpoint_analysis.get("within_family_b1_b8", [])
+    endpoints = {
+        str(pair[field])
+        for pair in endpoint_pairs
+        for field in ("left_case_id", "right_case_id")
+    }
+    valid_pairs = 0
+    for pair in endpoint_pairs:
+        left = case_by_id.get(str(pair.get("left_case_id")))
+        right = case_by_id.get(str(pair.get("right_case_id")))
+        if (
+            left is not None
+            and right is not None
+            and left["semantic_family"] == right["semantic_family"]
+            and {int(left["length_level"]), int(right["length_level"])} == {1, 8}
+        ):
+            valid_pairs += 1
+    if (
+        endpoint_analysis.get("status") != "pass"
+        or endpoint_analysis.get("schema_version")
+        != "phase13-6pg-stage-b2-family-length-route-endpoints-v1"
+        or len(representatives) != 16
+        or len(endpoint_pairs) != 16
+        or len(endpoints) != 32
+        or valid_pairs != 16
+        or len(representatives & endpoints) != 4
+    ):
+        raise AnalysisError(
+            f"authoritative role membership mismatch: {len(representatives)} representatives, "
+            f"{len(endpoints)} endpoints, {len(representatives & endpoints)} overlaps, "
+            f"{valid_pairs}/{len(endpoint_pairs)} valid B1/B8 pairs"
+        )
+    return representatives, endpoints
+
+
+def derived_capacity_intervals(
+    exact: dict[str, Any], s2_counterfactual: dict[str, Any]
+) -> dict[str, Any]:
+    if exact.get("status") != "BRACKETED" or s2_counterfactual.get("status") != "BRACKETED":
+        return {"status": "INCONCLUSIVE", "reason": "one or both capacity thresholds are not bracketed"}
+    e_low, e_high = exact.get("lower_slots"), exact.get("upper_slots")
+    s_low, s_high = s2_counterfactual.get("lower_slots"), s2_counterfactual.get("upper_slots")
+    if None in (e_low, e_high, s_low, s_high) or min(e_low, e_high, s_low, s_high) <= 0:
+        return {"status": "INCONCLUSIVE", "reason": "domain-floor censoring prevents a finite two-sided ratio interval"}
+    e_low, e_high, s_low, s_high = map(float, (e_low, e_high, s_low, s_high))
+    return {
+        "status": "BRACKETED",
+        "exact_capacity": {
+            "slots": [int(e_low), int(e_high)],
+            "bytes": [int(e_low) * EXPERT_BYTES, int(e_high) * EXPERT_BYTES],
+            "gib": [e_low * EXPERT_BYTES / 2**30, e_high * EXPERT_BYTES / 2**30],
+        },
+        "s2_counterfactual_capacity": {
+            "slots": [int(s_low), int(s_high)],
+            "bytes": [int(s_low) * EXPERT_BYTES, int(s_high) * EXPERT_BYTES],
+            "gib": [s_low * EXPERT_BYTES / 2**30, s_high * EXPERT_BYTES / 2**30],
+        },
+        "physical_capacity_amplification": [e_low / C0_SLOTS, e_high / C0_SLOTS],
+        "physical_memory_saving": [1.0 - C0_SLOTS / e_low, 1.0 - C0_SLOTS / e_high],
+        "counterfactual_capacity_amplification": [e_low / s_high, e_high / s_low],
+        "counterfactual_memory_saving": [1.0 - s_high / e_low, 1.0 - s_low / e_high],
+        "interval_semantics": (
+            "capacity threshold brackets are (lower_slots,upper_slots]; derived two-element arrays "
+            "are conservative closed envelopes from monotone endpoint propagation, not point estimates; "
+            "ratio envelopes use [numerator_lower/denominator_upper,numerator_upper/denominator_lower]"
+        ),
+    }
+
+
 def virtual_capacity_rows(
-    physical: Sequence[dict[str, Any]], capacity: Sequence[dict[str, Any]]
+    physical: Sequence[dict[str, Any]], capacity: Sequence[dict[str, Any]],
+    endpoint_cases: set[str],
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     targets = {
         row["case_id"]: row for row in physical
@@ -783,14 +862,22 @@ def virtual_capacity_rows(
         exact_status, exact_disagreement = capacity_equivalence_status((exact_hit, exact_load))
         s2_status, s2_disagreement = capacity_equivalence_status((s2_hit, s2_load))
         disagreement = exact_disagreement or s2_disagreement
-        exact_upper = exact_hit.get("upper_slots") if all_bracketed else None
-        s2_upper = s2_hit.get("upper_slots") if all_bracketed else None
-        status = "BRACKETED_CONSISTENT" if exact_status == s2_status == "BRACKETED_CONSISTENT" else "INCONCLUSIVE"
+        hit_intervals = derived_capacity_intervals(exact_hit, s2_hit)
+        load_intervals = derived_capacity_intervals(exact_load, s2_load)
+        status = (
+            "BRACKETED_CONSISTENT"
+            if all_bracketed
+            and exact_status == s2_status == "BRACKETED_CONSISTENT"
+            and hit_intervals["status"] == load_intervals["status"] == "BRACKETED"
+            else "INCONCLUSIVE"
+        )
         output.append({
             "case_id": case_id,
             "semantic_family": target["semantic_family"],
             "length_level": int(target["length_level"]),
             "selection_role": selection_role,
+            "b1_b8_endpoint": case_id in endpoint_cases,
+            "representative_endpoint_overlap": case_id in endpoint_cases and case_id in direct_anchor_cases,
             "physical_s2_hit_ratio": float(target["hit_ratio"]),
             "physical_s2_loads_per_token": float(target["loads_per_token"]),
             "physical_target_source_sha256_json": json.dumps(source_hashes([target]), separators=(",", ":")),
@@ -802,16 +889,8 @@ def virtual_capacity_rows(
             "s2_counterfactual_load_result_json": json.dumps(native(s2_load), sort_keys=True, separators=(",", ":")),
             "exact_source_sha256_json": json.dumps(source_hashes(curves["EXACT_LRU"]), separators=(",", ":")),
             "s2_counterfactual_source_sha256_json": json.dumps(source_hashes(curves["S2_P50_FIXED_ROUTE"]), separators=(",", ":")),
-            "exact_upper_slots": exact_upper,
-            "s2_counterfactual_upper_slots": s2_upper,
-            "exact_upper_bytes": int(exact_upper) * EXPERT_BYTES if exact_upper else None,
-            "exact_upper_gib": int(exact_upper) * EXPERT_BYTES / 2**30 if exact_upper else None,
-            "s2_counterfactual_upper_bytes": int(s2_upper) * EXPERT_BYTES if s2_upper else None,
-            "s2_counterfactual_upper_gib": int(s2_upper) * EXPERT_BYTES / 2**30 if s2_upper else None,
-            "physical_capacity_amplification_upper": float(exact_upper) / C0_SLOTS if exact_upper else None,
-            "physical_memory_saving_lower": 1.0 - C0_SLOTS / float(exact_upper) if exact_upper else None,
-            "counterfactual_capacity_amplification_upper": float(exact_upper) / float(s2_upper) if exact_upper and s2_upper else None,
-            "counterfactual_memory_saving_lower": 1.0 - float(s2_upper) / float(exact_upper) if exact_upper and s2_upper else None,
+            "hit_derived_intervals_json": json.dumps(native(hit_intervals), sort_keys=True, separators=(",", ":")),
+            "load_derived_intervals_json": json.dumps(native(load_intervals), sort_keys=True, separators=(",", ":")),
             "hit_load_disagreement": disagreement,
             "status": status,
             "physical_target_evidence_class": "MEASURED_PHYSICAL",
@@ -825,6 +904,22 @@ def virtual_capacity_rows(
             ),
             "post_hoc_exploratory": True,
         })
+    def interval_distributions(rows: Sequence[dict[str, Any]]) -> dict[str, Any]:
+        result = {}
+        for metric in ("hit", "load"):
+            documents = [json.loads(row[f"{metric}_derived_intervals_json"]) for row in rows]
+            result[metric] = {}
+            for quantity in (
+                "physical_capacity_amplification", "physical_memory_saving",
+                "counterfactual_capacity_amplification", "counterfactual_memory_saving",
+            ):
+                intervals = [document[quantity] for document in documents if document["status"] == "BRACKETED"]
+                result[metric][quantity] = {
+                    "lower_endpoints": distribution(interval[0] for interval in intervals),
+                    "upper_endpoints": distribution(interval[1] for interval in intervals),
+                }
+        return result
+
     def heterogeneity(group_field: str) -> list[dict[str, Any]]:
         rows = []
         for group_name in sorted({str(row[group_field]) for row in output}):
@@ -833,17 +928,14 @@ def virtual_capacity_rows(
                 group_field: group_name,
                 "row_count": len(group),
                 "status_counts": dict(Counter(row["status"] for row in group)),
-                "physical_capacity_amplification_upper": distribution(
-                    row["physical_capacity_amplification_upper"] for row in group
-                    if row["physical_capacity_amplification_upper"] is not None
-                ),
-                "counterfactual_capacity_amplification_upper": distribution(
-                    row["counterfactual_capacity_amplification_upper"] for row in group
-                    if row["counterfactual_capacity_amplification_upper"] is not None
-                ),
+                "derived_interval_distributions": interval_distributions(group),
             })
         return rows
 
+    endpoint_rows = [row for row in output if row["b1_b8_endpoint"]]
+    endpoint_counts = Counter(row["length_level"] for row in endpoint_rows)
+    if len(endpoint_rows) != 32 or endpoint_counts != Counter({1: 16, 8: 16}):
+        raise AnalysisError(f"B1/B8 virtual-capacity endpoint membership mismatch: {endpoint_counts}")
     summary = {
         "schema_version": "issue105-virtual-cache-capacity-summary-v1",
         "status": "PASS",
@@ -851,17 +943,18 @@ def virtual_capacity_rows(
         "status_counts": dict(Counter(row["status"] for row in output)),
         "hit_load_disagreement_count": sum(row["hit_load_disagreement"] for row in output),
         "validation_stratum_counts": dict(Counter(row["validation_stratum"] for row in output)),
-        "physical_capacity_amplification_upper": distribution(
-            row["physical_capacity_amplification_upper"] for row in output
-            if row["physical_capacity_amplification_upper"] is not None
-        ),
-        "counterfactual_capacity_amplification_upper": distribution(
-            row["counterfactual_capacity_amplification_upper"] for row in output
-            if row["counterfactual_capacity_amplification_upper"] is not None
-        ),
+        "derived_interval_distributions": interval_distributions(output),
         "family_heterogeneity": heterogeneity("semantic_family"),
-        "endpoint_role_heterogeneity": heterogeneity("selection_role"),
-        "interpretation": "discrete exported brackets; upper-bound summaries are not exact slot thresholds",
+        "endpoint_sensitivity": {
+            "row_count": len(endpoint_rows),
+            "b1_count": endpoint_counts[1],
+            "b8_count": endpoint_counts[8],
+            "representative_overlap_count": sum(row["representative_endpoint_overlap"] for row in output),
+            "derived_interval_distributions": interval_distributions(
+                endpoint_rows
+            ),
+        },
+        "interpretation": "discrete exported threshold brackets with monotone interval propagation; no endpoint quotient is presented as a bound by itself",
         "no_extrapolation": True,
         "post_hoc_exploratory": True,
     }
@@ -869,7 +962,8 @@ def virtual_capacity_rows(
 
 
 def working_set_analysis(
-    route_features: Sequence[dict[str, Any]], physical: Sequence[dict[str, Any]]
+    route_features: Sequence[dict[str, Any]], physical: Sequence[dict[str, Any]],
+    endpoint_cases: set[str],
 ) -> dict[str, Any]:
     targets = {row["case_id"]: row for row in physical if row["stage"] == "STAGE_A"}
     rows = []
@@ -882,6 +976,7 @@ def working_set_analysis(
             "loads_per_token": targets[source["case_id"]]["loads_per_token"],
             "templated_prompt_tokens": targets[source["case_id"]]["templated_prompt_tokens"],
             "policy": "S2_P50",
+            "b1_b8_endpoint": source["case_id"] in endpoint_cases,
         })
         rows.append(row)
     features = (
@@ -907,7 +1002,10 @@ def working_set_analysis(
         (row for row in predictive if row["outcome"] == "hit_ratio"),
         key=lambda row: row["lofo"]["pooled_oof_r_squared"],
     )
-    endpoint_rows = [row for row in rows if row["selection_role"] == "STAGE_B2_ENDPOINT"]
+    endpoint_rows = [row for row in rows if row["b1_b8_endpoint"]]
+    endpoint_counts = Counter(int(row["length_level"]) for row in endpoint_rows)
+    if len(endpoint_rows) != 32 or endpoint_counts != Counter({1: 16, 8: 16}):
+        raise AnalysisError(f"working-set B1/B8 endpoint membership mismatch: {endpoint_counts}")
     family_descriptions = []
     for family in sorted({str(row["semantic_family"]) for row in rows}):
         group = [row for row in rows if row["semantic_family"] == family]
@@ -932,8 +1030,9 @@ def working_set_analysis(
         "family_descriptions": family_descriptions,
         "endpoint_sensitivity": {
             "row_count": len(endpoint_rows),
-            "b1_count": sum(int(row["length_level"]) == 1 for row in endpoint_rows),
-            "b8_count": sum(int(row["length_level"]) == 8 for row in endpoint_rows),
+            "b1_count": endpoint_counts[1],
+            "b8_count": endpoint_counts[8],
+            "membership": "authoritative frozen Stage-B2 within-family B1/B8 pairs; representative overlap retained",
             "feature_distributions": {
                 feature: {
                     "B1": distribution(float(row[feature]) for row in endpoint_rows if int(row["length_level"]) == 1),
@@ -1280,20 +1379,22 @@ def render_figures(
         ["capacity_slots", "hit_ratio", "loads_per_token"], ["EXACT_REPLAY", "FIXED_ROUTE_COUNTERFACTUAL"], "not_applicable",
     ))
 
-    conclusive = [row for row in virtual if row["exact_upper_slots"] is not None]
-    inconclusive = [row for row in virtual if row["exact_upper_slots"] is None]
+    hit_intervals = {
+        row["case_id"]: json.loads(row["hit_derived_intervals_json"])
+        for row in virtual
+    }
+    conclusive = [row for row in virtual if hit_intervals[row["case_id"]]["status"] == "BRACKETED"]
+    inconclusive = [row for row in virtual if hit_intervals[row["case_id"]]["status"] != "BRACKETED"]
     figure, axis = plt.subplots(figsize=(8, 5))
     x = np.arange(len(conclusive))
-    exact_brackets = [json.loads(row["exact_hit_result_json"]) for row in conclusive]
-    s2_brackets = [json.loads(row["s2_counterfactual_hit_result_json"]) for row in conclusive]
+    exact_brackets = [hit_intervals[row["case_id"]]["exact_capacity"]["slots"] for row in conclusive]
+    s2_brackets = [hit_intervals[row["case_id"]]["s2_counterfactual_capacity"]["slots"] for row in conclusive]
     for index, bracket in enumerate(exact_brackets):
-        lower = bracket["lower_slots"] if bracket["lower_slots"] is not None else bracket["upper_slots"]
-        axis.vlines(index - 0.08, lower, bracket["upper_slots"], color="tab:blue", alpha=0.55)
+        axis.vlines(index - 0.08, bracket[0], bracket[1], color="tab:blue", alpha=0.55)
     for index, bracket in enumerate(s2_brackets):
-        lower = bracket["lower_slots"] if bracket["lower_slots"] is not None else bracket["upper_slots"]
-        axis.vlines(index + 0.08, lower, bracket["upper_slots"], color="tab:orange", alpha=0.55)
-    axis.scatter(x - 0.08, [row["exact_upper_slots"] for row in conclusive], s=16, label="EXACT bracket upper")
-    axis.scatter(x + 0.08, [row["s2_counterfactual_upper_slots"] for row in conclusive], s=16, label="S2 fixed-route bracket upper")
+        axis.vlines(index + 0.08, bracket[0], bracket[1], color="tab:orange", alpha=0.55)
+    axis.scatter(x - 0.08, [row[1] for row in exact_brackets], s=16, label="EXACT bracket")
+    axis.scatter(x + 0.08, [row[1] for row in s2_brackets], s=16, label="S2 fixed-route bracket")
     if inconclusive:
         lower_bounds = []
         for row in inconclusive:
@@ -1382,7 +1483,7 @@ def hypothesis_registry(
     regresses = core["committee_pin_counterfactual"]["negative_cells_preserved"]
     hypotheses = [
         ("H105-01", "Locality predicts TPS outside semantic family", locality_status, "projection gate and LOFO metrics", "policy sensitivity or held-out family residual failure", provenance["physical"], "new same-protocol policies remain on the calibrated line", "add a held-out family/policy physical cohort", "#99"),
-        ("H105-02", "Physical S2 locality is equivalent to materially larger EXACT cache capacity", capacity_status, f"{virtual['status_counts'].get('BRACKETED_CONSISTENT', 0)} bracket-consistent cases", "inconclusive and bracket-censored cases are retained", provenance["capacity"], "denser capacity support narrows the same above-C0 brackets", "run denser exact replay thresholds or physical larger-capacity anchors", "#81"),
+        ("H105-02", "Physical S2 locality is equivalent to materially larger EXACT cache capacity", capacity_status, f"{virtual['status_counts'].get('BRACKETED_CONSISTENT', 0)} bracket-consistent cases with monotone lower/upper interval propagation", "inconclusive and bracket-censored cases are retained; no quotient of two upper endpoints is treated as a bound", provenance["capacity"], "denser capacity support narrows the same above-C0 brackets", "run denser exact replay thresholds or physical larger-capacity anchors", "#81"),
         ("H105-03", "Working-set/reuse features explain cross-workload locality variation", working_status, f"best single-feature LOFO R2={best_r2:.6f}", "feature models retain family residuals and weak alternatives", provenance["routes"], "held-out workloads preserve feature/locality rank association", "capture observer routes for new held-out workloads", "#99"),
         ("H105-04", "Family labels are associated with distinct route-demand structure", "supported" if within > between else "weak", f"within-family endpoint median cosine={within:.6f}; between-B1={between:.6f}", "substantial overlap and heterogeneity remain", provenance["overlap"], "new within-family pairs remain more similar than matched between-family pairs", "add preregistered prompts per family with observer captures", "#99"),
         ("H105-05", "A recurrent selected-expert core exists under the frozen observables", "supported", f"gamma=1 core mass={core_gamma['selected_mass_fraction']:.6f}", "selected-frequency observables cannot assign semantic functions", provenance["core"], "held-out families retain nonzero recurrent selected mass", "repeat with complete routing weights and held-out domains", "#81"),
@@ -1441,8 +1542,13 @@ def final_synthesis_text(
     primary_lofo = locality["primary"]["lofo"][model]
     sensitivity_lofo = locality["protocol_compatible_sensitivity"]["lofo"][model]
     consistent = virtual["status_counts"].get("BRACKETED_CONSISTENT", 0)
-    physical_amplification = virtual["physical_capacity_amplification_upper"]
-    counterfactual_amplification = virtual["counterfactual_capacity_amplification_upper"]
+    hit_intervals = virtual["derived_interval_distributions"]["hit"]
+    physical_amplification = hit_intervals["physical_capacity_amplification"]
+    counterfactual_amplification = hit_intervals["counterfactual_capacity_amplification"]
+    physical_lower = physical_amplification["lower_endpoints"]
+    physical_upper = physical_amplification["upper_endpoints"]
+    counterfactual_lower = counterfactual_amplification["lower_endpoints"]
+    counterfactual_upper = counterfactual_amplification["upper_endpoints"]
     regressions = core["committee_pin_counterfactual"]["negative_cells_preserved"]
     return f"""# Issue 105 final synthesis
 
@@ -1451,7 +1557,7 @@ Status: `PASS` for the deterministic offline analysis package. All results below
 ## Headline results
 
 - `TPS_PROJECTION_GATE = {gate}` using `{model}` / `{predictor}`. Primary LOFO R² is {primary_lofo['pooled_oof_r_squared']:.6f} with RMSE {primary_lofo['pooled_oof_rmse']:.6f}; protocol-compatible sensitivity LOFO R² is {sensitivity_lofo['pooled_oof_r_squared']:.6f} with RMSE {sensitivity_lofo['pooled_oof_rmse']:.6f}. Both family-cluster bootstrap and family/policy/length-level residual gates pass.
-- Virtual-capacity analysis reports discrete published brackets, never fitted thresholds or extrapolation: {consistent}/44 cases are bracket-consistent. The physical-reference EXACT upper-bracket amplification has median {physical_amplification['median']:.3f}× and range {physical_amplification['min']:.3f}–{physical_amplification['max']:.3f}×. The fixed-route counterfactual upper-bracket amplification has median {counterfactual_amplification['median']:.3f}× and range {counterfactual_amplification['min']:.3f}–{counterfactual_amplification['max']:.3f}×. These are bracket-upper summaries, not exact RAM thresholds or measured savings.
+- Virtual-capacity analysis reports discrete published brackets, never fitted thresholds or extrapolation: {consistent}/44 cases are bracket-consistent. Across hit-derived physical-reference EXACT amplification intervals, the median lower/upper endpoints are {physical_lower['median']:.3f}×/{physical_upper['median']:.3f}× (lower-endpoint range {physical_lower['min']:.3f}–{physical_lower['max']:.3f}×; upper-endpoint range {physical_upper['min']:.3f}–{physical_upper['max']:.3f}×). Across EXACT/S2 fixed-route amplification intervals, the median lower/upper endpoints are {counterfactual_lower['median']:.3f}×/{counterfactual_upper['median']:.3f}×. Bounds use monotone endpoint propagation; no quotient of two upper endpoints is presented as a bound, exact RAM threshold, or measured saving.
 - The best single frozen working-set feature for physical hit ratio is `{working['best_hit_ratio_feature']['feature']}` with pooled LOFO R² {working['best_hit_ratio_feature']['pooled_oof_r_squared']:.6f}.
 - Recurrent selected-expert cores exist under top-k/top-M observables, but committee pinning is heterogeneous and preserves {regressions} regressing fixed-route cells.
 - Actual-token effects remain weak/heterogeneous after family adjustment; the constructed 16×8 corpus is not treated as an IID prompt-population sample.
@@ -1499,6 +1605,8 @@ def main() -> None:
     output_root.mkdir(parents=True, exist_ok=True)
     schema_paths = {
         "analysis": schema_root / "secondary-analysis-v1.schema.json",
+        "interval": schema_root / "derived-capacity-interval-v1.schema.json",
+        "virtual_summary": schema_root / "virtual-cache-capacity-summary-v1.schema.json",
         "virtual": schema_root / "virtual-cache-capacity-v1.schema.json",
         "figure": schema_root / "figure-sidecar-v1.schema.json",
         "hypothesis": schema_root / "hypothesis-registry-v1.schema.json",
@@ -1527,7 +1635,17 @@ def main() -> None:
             "finite_stack_distance_p90", "core_mass_gamma_0_8", "core_mass_gamma_1_0",
         },
     )
+    cases = read_csv(
+        canonical_root / "tables/cases.csv",
+        integer_fields={"length_level", "templated_prompt_tokens", "execution_round", "execution_position"},
+    )
+    endpoints_path = frozen_root / "host/stage-b-analysis-v1/stage-b2-family-length-route-endpoints.json"
+    endpoints = load_json(endpoints_path)
+    endpoints["_source_sha256"] = sha256(endpoints_path)
+    representative_cases, endpoint_cases = case_membership_sets(cases, endpoints)
     capacity = pq.read_table(canonical_root / "tables/capacity_curves.parquet").to_pylist()
+    if representative_cases != physical_exact_anchor_cases(capacity):
+        raise AnalysisError("canonical representative membership disagrees with capacity direct anchors")
     primary = [row for row in physical if row["stage"] == "STAGE_A" and row["case_role"] == "primary"]
     sensitivity = [row for row in physical if row["stage"] == "STAGE_A" or row["stage"] == "STAGE_C"]
     if len(primary) != 128 or len(sensitivity) != 176:
@@ -1535,10 +1653,13 @@ def main() -> None:
 
     family_length = family_length_analysis(primary)
     locality = locality_tps_analysis(primary, sensitivity)
-    virtual_rows, virtual_summary = virtual_capacity_rows(physical, capacity)
+    virtual_rows, virtual_summary = virtual_capacity_rows(physical, capacity, endpoint_cases)
     for row in virtual_rows:
         validate_json(row, schema_paths["virtual"])
-    working = working_set_analysis(route_features, physical)
+        for field in ("hit_derived_intervals_json", "load_derived_intervals_json"):
+            validate_json(json.loads(row[field]), schema_paths["interval"])
+    validate_json(virtual_summary, schema_paths["virtual_summary"])
+    working = working_set_analysis(route_features, physical, endpoint_cases)
     committee_path = frozen_root / "host/stage-b-analysis-v1/standing-committee-core-periphery.json"
     committee = load_json(committee_path)
     core, committee_cells = core_periphery_analysis(committee, capacity)
@@ -1546,9 +1667,6 @@ def main() -> None:
     overlap_path = frozen_root / "host/stage-b-analysis-v1/family-overlap-matrix.json"
     overlap = load_json(overlap_path)
     overlap["_source_sha256"] = sha256(overlap_path)
-    endpoints_path = frozen_root / "host/stage-b-analysis-v1/stage-b2-family-length-route-endpoints.json"
-    endpoints = load_json(endpoints_path)
-    endpoints["_source_sha256"] = sha256(endpoints_path)
     mechanism = mechanism_boundary()
     prior_art = prior_art_rows(pathlib.Path(__file__).resolve().parents[2] / "docs/PRIOR_ART.md")
 
