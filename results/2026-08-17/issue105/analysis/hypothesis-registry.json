@@ -274,7 +274,7 @@
       "appropriate_downstream_issue": "#81",
       "cheapest_falsifying_experiment": "run denser exact replay thresholds or physical larger-capacity anchors",
       "id": "H105-02",
-      "null_or_contrary_observations": "inconclusive and bracket-censored cases are retained",
+      "null_or_contrary_observations": "inconclusive and bracket-censored cases are retained; no quotient of two upper endpoints is treated as a bound",
       "post_hoc": true,
       "predicted_measurable_consequence": "denser capacity support narrows the same above-C0 brackets",
       "source_provenance_sha256": [
@@ -328,7 +328,7 @@
       ],
       "statement": "Physical S2 locality is equivalent to materially larger EXACT cache capacity",
       "status": "supported",
-      "supporting_observations": "44 bracket-consistent cases"
+      "supporting_observations": "44 bracket-consistent cases with monotone lower/upper interval propagation"
     },
     {
       "appropriate_downstream_issue": "#99",

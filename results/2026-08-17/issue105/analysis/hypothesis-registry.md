@@ -15,8 +15,8 @@ Locality predicts TPS outside semantic family
 
 Physical S2 locality is equivalent to materially larger EXACT cache capacity
 
-- Supporting: 44 bracket-consistent cases
-- Contrary/null: inconclusive and bracket-censored cases are retained
+- Supporting: 44 bracket-consistent cases with monotone lower/upper interval propagation
+- Contrary/null: inconclusive and bracket-censored cases are retained; no quotient of two upper endpoints is treated as a bound
 - Falsifier: run denser exact replay thresholds or physical larger-capacity anchors
 - Downstream: #81
 
