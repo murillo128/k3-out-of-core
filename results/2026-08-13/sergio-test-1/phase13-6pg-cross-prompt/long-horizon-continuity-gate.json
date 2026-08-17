@@ -1,0 +1,106 @@
+{
+  "configuration": {
+    "cache_bytes": 137728475136,
+    "cache_slots": 7849,
+    "case": {
+      "consumed_prompt_tokens": 100,
+      "id": "issue102-sentinel",
+      "length_level": 0,
+      "semantic_family": "sentinel",
+      "templated_prompt_tokens": 100
+    },
+    "decode_forwards": 512,
+    "point": "S2_P50",
+    "protocol": "full-prompt",
+    "snapshot_boundaries": [
+      16,
+      32,
+      64,
+      128,
+      256,
+      512
+    ]
+  },
+  "continuity_at_64": {
+    "backing_bytes": 557827522560,
+    "backing_loads": 31790,
+    "changed_decisions": 3981,
+    "cold_after_digest": "e78b7dbfb45b4d59",
+    "cold_before_digest": "e436ac36c0f342fb",
+    "comparisons": {
+      "case_identity": true,
+      "decode_async_structural_64": true,
+      "decode_cold_after_64": true,
+      "decode_cold_before": true,
+      "decode_cold_delta_64": true,
+      "decode_scheduler_delta_64": true,
+      "decode_storage_delta_64": true,
+      "fill_async_structural": true,
+      "fill_semantics": true,
+      "generated_count_64": true,
+      "generated_hash_64": true,
+      "generated_ids_64": true,
+      "no_eog_through_64": true,
+      "point": true,
+      "preflight_semantics": true,
+      "protocol": true,
+      "routing_64": true
+    },
+    "cumulative_score_regret": 17.71107554808259,
+    "excluded_async_scheduling_fields": [
+      "queue_wait_us",
+      "queue_wait_max_us_lifetime",
+      "cq_empty_waits",
+      "peak_cq_occupancy_lifetime"
+    ],
+    "generated_token_hash": "d69f3b3d530f6f56",
+    "hit_ratio": 0.6625551970108695,
+    "swaps": 6143
+  },
+  "disposition": "CONTINUITY_PASS_PROCEED",
+  "inputs": {
+    "long_envelope": {
+      "path": "/mnt/nvme1/issue102/long-horizon/01-sentinel-s2-post-reboot-gate/envelope.json",
+      "sha256": "ab5f2531bd6e7490da36f76eea2b2fa6be2713e400c9d891be14699bc53fa30a"
+    },
+    "long_result": {
+      "path": "/mnt/nvme1/issue102/long-horizon/01-sentinel-s2-post-reboot-gate/result.json",
+      "sha256": "60ff3175bbea6b0e2dd5d1cc7c9bdc22c9b04373dd8b8dc9b64fbdd90288ff1e"
+    },
+    "stage_a_result": {
+      "path": "/mnt/nvme1/issue102/stage-a-sentinels/round-08-sentinel/result.json",
+      "sha256": "c3eda5d3674fddfc060e3425483ea652d331f7365cb3eaf1f0104a78554762af"
+    }
+  },
+  "long_horizon_context": {
+    "backing_loads": 269981,
+    "decode_tok_s": 0.33156156959681987,
+    "first_eog_position": null,
+    "generated_token_hash": "986f2c9930d57ec3",
+    "minimum_mem_available_kib": 155446948
+  },
+  "revisions": {
+    "helper_binary_sha256": "aef1c347bad779fde7842b1364f3d0e2b5b721a049a9b64200b6be7802d5f25d",
+    "nested_llama_cpp": "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9",
+    "project": "cf17c797750eee75f919eff845daf4757964dd6c",
+    "runner_sha256": "0e09960035666f15bfc82cef2a8dd81358f744a848f3f1f633d27d420afeca92"
+  },
+  "safety": {
+    "boundaries_exact": true,
+    "empty_cache_start": true,
+    "frozen_capacity": true,
+    "generated_512": true,
+    "no_io_fallback": true,
+    "no_pressure_circuit": true,
+    "no_reclaim_or_oom": true,
+    "no_result_io_error": true,
+    "no_routing_failure": true,
+    "no_swap": true,
+    "result_pass": true,
+    "runner_pass": true,
+    "terminal_references_zero": true,
+    "unused_nvme_zero_reads": true
+  },
+  "schema_version": "phase13-6pg-long-horizon-continuity-gate-v1",
+  "status": "pass"
+}

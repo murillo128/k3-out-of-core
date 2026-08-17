@@ -1,0 +1,4643 @@
+{
+  "disposition": "READY_FOR_STAGE_C_PREFLIGHT",
+  "files": {
+    "after": [
+      {
+        "bytes": 25346,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1/envelope.json",
+        "device": 66304,
+        "inode": 5368889474,
+        "resident_bytes": 0,
+        "sha256_before_release": "38a90eb44d711a1acef3ce59ec1f1b5466df0cbbc605dd88f81f3989ff016633"
+      },
+      {
+        "bytes": 117,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1/stderr.log",
+        "device": 66304,
+        "inode": 5368889473,
+        "resident_bytes": 0,
+        "sha256_before_release": "4a21f2f969b9ad345cab48b76f058f02392e21259daebadf872fe007d92922b8"
+      },
+      {
+        "bytes": 0,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1/stdout.log",
+        "device": 66304,
+        "inode": 5368889472,
+        "resident_bytes": 0,
+        "sha256_before_release": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 77759299,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/result.json",
+        "device": 66304,
+        "inode": 6979337068,
+        "resident_bytes": 0,
+        "sha256_before_release": "e1fab368ce78869f1276ce7b0835b3017d4d4c87877bb6ebccb9a9611eb5a023"
+      },
+      {
+        "bytes": 25400,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/envelope.json",
+        "device": 66304,
+        "inode": 6979337069,
+        "resident_bytes": 0,
+        "sha256_before_release": "eda77ef6bcdb01005193568b37846322312978d70e232d66bda34bdd8c7bf094"
+      },
+      {
+        "bytes": 43313751,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/stdout.log",
+        "device": 66304,
+        "inode": 6979337066,
+        "resident_bytes": 0,
+        "sha256_before_release": "429432280b7a1b36b2adfaaf20777e9a7e8e16607537f935358a665d8e7c9260"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/stderr.log",
+        "device": 66304,
+        "inode": 6979337067,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 96719907,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/result.json",
+        "device": 66304,
+        "inode": 7516226583,
+        "resident_bytes": 0,
+        "sha256_before_release": "48e746b49a9d1ccda8fd60a91872eeaf03ac38d83ff900ea16a3c5f5a3811e54"
+      },
+      {
+        "bytes": 25397,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/envelope.json",
+        "device": 66304,
+        "inode": 7516226584,
+        "resident_bytes": 0,
+        "sha256_before_release": "feb3cf928adad3dc3c820481f0e9d03dab12afb88adde5c641f8604fbb64e291"
+      },
+      {
+        "bytes": 53877243,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/stdout.log",
+        "device": 66304,
+        "inode": 7516226581,
+        "resident_bytes": 0,
+        "sha256_before_release": "be329bd2a27f4f4dbb3893f80e61f33760909cc7686f1325a0e1c21ca398a5c8"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/stderr.log",
+        "device": 66304,
+        "inode": 7516226582,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 92865351,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/result.json",
+        "device": 66304,
+        "inode": 8053171558,
+        "resident_bytes": 0,
+        "sha256_before_release": "c408fe912169f7284b08671bd5abb720203542c1404a2437a37d598c0b42efc5"
+      },
+      {
+        "bytes": 25404,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/envelope.json",
+        "device": 66304,
+        "inode": 8053171559,
+        "resident_bytes": 0,
+        "sha256_before_release": "7d82f5c246be160a97b5ca08db08bd3d2425165110cbd5cf5125cadb79045945"
+      },
+      {
+        "bytes": 51730575,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/stdout.log",
+        "device": 66304,
+        "inode": 8053171556,
+        "resident_bytes": 0,
+        "sha256_before_release": "7dd1b8e358684a7d19862490bd048aff552664cb5592ff76c44f671a3821a0a7"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/stderr.log",
+        "device": 66304,
+        "inode": 8053171557,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 25289,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2/envelope.json",
+        "device": 66304,
+        "inode": 8589954768,
+        "resident_bytes": 0,
+        "sha256_before_release": "4969f9dae69e085f19baffe5b15454cb83160f9f842282a4921bd2a41bbcd58a"
+      },
+      {
+        "bytes": 0,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2/stdout.log",
+        "device": 66304,
+        "inode": 8589954766,
+        "resident_bytes": 0,
+        "sha256_before_release": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 332,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2/stderr.log",
+        "device": 66304,
+        "inode": 8589954767,
+        "resident_bytes": 0,
+        "sha256_before_release": "0f6d3b45b046f4f26da59ca25cecadcaa15a9e5775db736de622def87ba53267"
+      },
+      {
+        "bytes": 84506736,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/result.json",
+        "device": 66304,
+        "inode": 9126852496,
+        "resident_bytes": 0,
+        "sha256_before_release": "f0a795961cea21bb1a575c664ec21cbf1607f98f3e8f8bcc689da9440d59ae81"
+      },
+      {
+        "bytes": 25407,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/envelope.json",
+        "device": 66304,
+        "inode": 9126852497,
+        "resident_bytes": 0,
+        "sha256_before_release": "8f24d3f7a7c414e721f7147ad1f72635c8ad6cb02c2bd6dfc39b4d192078c3eb"
+      },
+      {
+        "bytes": 47072384,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/stdout.log",
+        "device": 66304,
+        "inode": 9126852494,
+        "resident_bytes": 0,
+        "sha256_before_release": "23a7156d711f5d05278267201369ac507bb47b852feb9ac492834517ce26d22e"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/stderr.log",
+        "device": 66304,
+        "inode": 9126852495,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 109878041,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-005-05-codegen-b5/result.json",
+        "device": 66304,
+        "inode": 10200581400,
+        "resident_bytes": 0,
+        "sha256_before_release": "76eac0bc80147e7a7bec21b268fa0882ea0c1fb64bf19a88a92d49cd407d3fed"
+      },
+      {
+        "bytes": 25410,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-005-05-codegen-b5/envelope.json",
+        "device": 66304,
+        "inode": 10200581401,
+        "resident_bytes": 0,
+        "sha256_before_release": "781b241fc942ac2bdb37fe58ad71c3bac513de09810411e64b560ec43b8e3f56"
+      },
+      {
+        "bytes": 61200093,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-005-05-codegen-b5/stdout.log",
+        "device": 66304,
+        "inode": 10200581398,
+        "resident_bytes": 0,
+        "sha256_before_release": "217c3b5990662263ac731f1f14f1924e2ee7a4c0e70586b3bd12239030811893"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-005-05-codegen-b5/stderr.log",
+        "device": 66304,
+        "inode": 10200581399,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 109896247,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-006-06-debug-b4/result.json",
+        "device": 66304,
+        "inode": 10737470801,
+        "resident_bytes": 0,
+        "sha256_before_release": "50c542f24657df86cdf1b83385335e40eeb850f676142cbd8b0abb3e7f58fe1e"
+      },
+      {
+        "bytes": 25407,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-006-06-debug-b4/envelope.json",
+        "device": 66304,
+        "inode": 10737470802,
+        "resident_bytes": 0,
+        "sha256_before_release": "48c86ec3c0b1fbe197bc4f04191e4cc79a12dcbeca2d082b0f1d44be79ccefe8"
+      },
+      {
+        "bytes": 61218299,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-006-06-debug-b4/stdout.log",
+        "device": 66304,
+        "inode": 10737470799,
+        "resident_bytes": 0,
+        "sha256_before_release": "cc17e56dfbc99047131dae56ee7465afb2ff40be11fcd84e72a34fb139c544ec"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-006-06-debug-b4/stderr.log",
+        "device": 66304,
+        "inode": 10737470800,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 82905512,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-007-07-algorithms-b2/result.json",
+        "device": 66304,
+        "inode": 11274318039,
+        "resident_bytes": 0,
+        "sha256_before_release": "20af69ef77e69f48779e0f6e38c9254e9127b3aba0917aa53f827d5d533a33a9"
+      },
+      {
+        "bytes": 25415,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-007-07-algorithms-b2/envelope.json",
+        "device": 66304,
+        "inode": 11274318040,
+        "resident_bytes": 0,
+        "sha256_before_release": "398c00d5779dd91849c827a0a9c81ab7a077322d6a03a7277d0f38e41ceb8977"
+      },
+      {
+        "bytes": 46182780,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-007-07-algorithms-b2/stdout.log",
+        "device": 66304,
+        "inode": 11274318037,
+        "resident_bytes": 0,
+        "sha256_before_release": "5e6c1a1de0f13bd7714112504e8f13379a7ef309ea116ce40b0bbac1218203fc"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-007-07-algorithms-b2/stderr.log",
+        "device": 66304,
+        "inode": 11274318038,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 88335313,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-008-08-summary-b2/result.json",
+        "device": 66304,
+        "inode": 11811247985,
+        "resident_bytes": 0,
+        "sha256_before_release": "4ef3c41d4799bab0a8601943b4803f8fb7244806c9a058e7842e26ba1f8fd108"
+      },
+      {
+        "bytes": 25414,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-008-08-summary-b2/envelope.json",
+        "device": 66304,
+        "inode": 11811247986,
+        "resident_bytes": 0,
+        "sha256_before_release": "2e6a06929cdb515db02b9543c0c23b14f9bdc504ad6b45ec6a47e4cb8d502112"
+      },
+      {
+        "bytes": 49193073,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-008-08-summary-b2/stdout.log",
+        "device": 66304,
+        "inode": 11811247983,
+        "resident_bytes": 0,
+        "sha256_before_release": "ee1625b69fc209c25764265cce2f683fa7863a2e6bbfc69427d56ea25f890b56"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-008-08-summary-b2/stderr.log",
+        "device": 66304,
+        "inode": 11811247984,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 146793798,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-009-09-extract-b8/result.json",
+        "device": 66304,
+        "inode": 12348050273,
+        "resident_bytes": 0,
+        "sha256_before_release": "87813ce819b5e5bba2ed451b9e4664e238b065aa22122e3b536762fba9325b96"
+      },
+      {
+        "bytes": 25425,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-009-09-extract-b8/envelope.json",
+        "device": 66304,
+        "inode": 12348050274,
+        "resident_bytes": 0,
+        "sha256_before_release": "66b33024e6f2447fb48c9920a56cd8923b147d2b0d4d97b5026968fd4d898a68"
+      },
+      {
+        "bytes": 81748590,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-009-09-extract-b8/stdout.log",
+        "device": 66304,
+        "inode": 12348050271,
+        "resident_bytes": 0,
+        "sha256_before_release": "7e9d4b0c27130d91d1171520f56a7d0d6a1b6b41506c1169cc7d065e4691d246"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-009-09-extract-b8/stderr.log",
+        "device": 66304,
+        "inode": 12348050272,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 99591561,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-010-10-planning-b4/result.json",
+        "device": 66304,
+        "inode": 12889095497,
+        "resident_bytes": 0,
+        "sha256_before_release": "f5d051688b02df839e0cea6dfc1fad591f6f2dbf60b17994f687e5340aaa8a5c"
+      },
+      {
+        "bytes": 25430,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-010-10-planning-b4/envelope.json",
+        "device": 66304,
+        "inode": 12889095498,
+        "resident_bytes": 0,
+        "sha256_before_release": "cac983fb5034a566db51ef092d1a02b3bca464926dc3c330834d130ef5ed5e05"
+      },
+      {
+        "bytes": 55467981,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-010-10-planning-b4/stdout.log",
+        "device": 66304,
+        "inode": 12889095495,
+        "resident_bytes": 0,
+        "sha256_before_release": "d5b8291425b79f0ae683845fbd4940a5d30371c12b7cdccb8da6b849422c7db4"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-010-10-planning-b4/stderr.log",
+        "device": 66304,
+        "inode": 12889095496,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 74527065,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-011-11-instructions-b1/result.json",
+        "device": 66304,
+        "inode": 13421798028,
+        "resident_bytes": 0,
+        "sha256_before_release": "e3de04b44f994fc3e9a95ccd8e25423ee5c1075246d0a88e85590650e9bc31b7"
+      },
+      {
+        "bytes": 25421,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-011-11-instructions-b1/envelope.json",
+        "device": 66304,
+        "inode": 13421798029,
+        "resident_bytes": 0,
+        "sha256_before_release": "e613f10335da6ce94f1c11a972ed429d801769e32d99ee63ea5e7b318043779e"
+      },
+      {
+        "bytes": 41504757,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-011-11-instructions-b1/stdout.log",
+        "device": 66304,
+        "inode": 13421798026,
+        "resident_bytes": 0,
+        "sha256_before_release": "4d67ea2ce1bfd04acba326d7c079d467f7f9b9f71900633e2ede7ba97b33f7a6"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-011-11-instructions-b1/stderr.log",
+        "device": 66304,
+        "inode": 13421798027,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 71978999,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-012-12-compare-b1/result.json",
+        "device": 66304,
+        "inode": 13958655669,
+        "resident_bytes": 0,
+        "sha256_before_release": "32effda4c65deaf8ae315eaf94b1ec42294f6a61851227a336abcccd604e1b2d"
+      },
+      {
+        "bytes": 25401,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-012-12-compare-b1/envelope.json",
+        "device": 66304,
+        "inode": 13958655670,
+        "resident_bytes": 0,
+        "sha256_before_release": "bab994d964074d3e63aac9e209cc5dc3c3483104f26a4d5c572bfebff7c0f4e1"
+      },
+      {
+        "bytes": 40095283,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-012-12-compare-b1/stdout.log",
+        "device": 66304,
+        "inode": 13958655667,
+        "resident_bytes": 0,
+        "sha256_before_release": "4c9ff546e536f4ca061c3a7b7769eb83422293963a1bf1b05c3feb1066456386"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-012-12-compare-b1/stderr.log",
+        "device": 66304,
+        "inode": 13958655668,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 91543822,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-013-13-creative-b3/result.json",
+        "device": 66304,
+        "inode": 14495533363,
+        "resident_bytes": 0,
+        "sha256_before_release": "00ae2fdfb09568af8d0fc0b1ebd4484029075c185e2fca04602dcb11637dfe1b"
+      },
+      {
+        "bytes": 25419,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-013-13-creative-b3/envelope.json",
+        "device": 66304,
+        "inode": 14495533364,
+        "resident_bytes": 0,
+        "sha256_before_release": "947725a90e893f20289b58a28f698872ba3015cf29466a9fc42be2249e96437d"
+      },
+      {
+        "bytes": 50978342,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-013-13-creative-b3/stdout.log",
+        "device": 66304,
+        "inode": 14495533361,
+        "resident_bytes": 0,
+        "sha256_before_release": "6038e3535fae72365e1c77f67ac5f2af736471955d67865159257923b3959ec0"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-013-13-creative-b3/stderr.log",
+        "device": 66304,
+        "inode": 14495533362,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 81922025,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-014-14-qa-b2/result.json",
+        "device": 66304,
+        "inode": 15032433611,
+        "resident_bytes": 0,
+        "sha256_before_release": "c66e4e6a6bf734331b1490f9ea2cacf0eb309883c904dd0edc0de4a1f9bedef7"
+      },
+      {
+        "bytes": 25406,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-014-14-qa-b2/envelope.json",
+        "device": 66304,
+        "inode": 15032433612,
+        "resident_bytes": 0,
+        "sha256_before_release": "2f8d3fb5145927087277cc31b2257b8d9f4fc9716ad68828c251538d71999d0e"
+      },
+      {
+        "bytes": 45626265,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-014-14-qa-b2/stdout.log",
+        "device": 66304,
+        "inode": 15032433609,
+        "resident_bytes": 0,
+        "sha256_before_release": "5738fc2330c0818f43b887c27e9e5dc4c9324acfaa5c0d222c27bdb6392cb8de"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-014-14-qa-b2/stderr.log",
+        "device": 66304,
+        "inode": 15032433610,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 109209043,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-015-15-spanish-b2/result.json",
+        "device": 66304,
+        "inode": 15569299618,
+        "resident_bytes": 0,
+        "sha256_before_release": "21e23108a07ad69f63b35b73bded71cc0c146202b85af1117ff8f2956582759c"
+      },
+      {
+        "bytes": 25429,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-015-15-spanish-b2/envelope.json",
+        "device": 66304,
+        "inode": 15569299619,
+        "resident_bytes": 0,
+        "sha256_before_release": "b02ac837eedc3953ebc20191dd03c37f74912198eda31810ac5c4c14578e65b9"
+      },
+      {
+        "bytes": 60815743,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-015-15-spanish-b2/stdout.log",
+        "device": 66304,
+        "inode": 15569299616,
+        "resident_bytes": 0,
+        "sha256_before_release": "838e908aa82832c9f056cd01124d313c4913464db1272ee74875f316ac81210a"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-015-15-spanish-b2/stderr.log",
+        "device": 66304,
+        "inode": 15569299617,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 90259978,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-016-16-multi-b2/result.json",
+        "device": 66304,
+        "inode": 16106150390,
+        "resident_bytes": 0,
+        "sha256_before_release": "1c67745a4f933322d5698b09e61b0c133a99ea9214149400206fe2e0c3e004ef"
+      },
+      {
+        "bytes": 25415,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-016-16-multi-b2/envelope.json",
+        "device": 66304,
+        "inode": 16106150391,
+        "resident_bytes": 0,
+        "sha256_before_release": "60b176047280b3c2083f32b1e0901dc972b9c757f278308ecaf9f444e733c82e"
+      },
+      {
+        "bytes": 50263794,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-016-16-multi-b2/stdout.log",
+        "device": 66304,
+        "inode": 16106150388,
+        "resident_bytes": 0,
+        "sha256_before_release": "9b339ca3fb7b48db4e3b890fdff546c8b62d9f58be200cb78c59d3ac45d4b242"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-016-16-multi-b2/stderr.log",
+        "device": 66304,
+        "inode": 16106150389,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 150024455,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-017-01-math-b8/result.json",
+        "device": 66304,
+        "inode": 16643037954,
+        "resident_bytes": 0,
+        "sha256_before_release": "5446636d4a2659d92e71f1d319bf7701196a4e31553247857eaa54bb5b4ab064"
+      },
+      {
+        "bytes": 25431,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-017-01-math-b8/envelope.json",
+        "device": 66304,
+        "inode": 16643037955,
+        "resident_bytes": 0,
+        "sha256_before_release": "445619528bc08d80588a8e4cc5f6dd805baf5ed2ca8edabda53c892c2c1e5c54"
+      },
+      {
+        "bytes": 83556007,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-017-01-math-b8/stdout.log",
+        "device": 66304,
+        "inode": 16643037952,
+        "resident_bytes": 0,
+        "sha256_before_release": "a1239d2f1b885ca90f6b8e4770776fcfd96c1738f9914b37ff2009dcd3f152cc"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-017-01-math-b8/stderr.log",
+        "device": 66304,
+        "inode": 16643037953,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 79687289,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-018-02-formal-b1/result.json",
+        "device": 66304,
+        "inode": 17179917258,
+        "resident_bytes": 0,
+        "sha256_before_release": "860bdf5e13fbab90294309b9652b3240b2c40217c72f6a8e84be6fcec61d5261"
+      },
+      {
+        "bytes": 25437,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-018-02-formal-b1/envelope.json",
+        "device": 66304,
+        "inode": 17179917259,
+        "resident_bytes": 0,
+        "sha256_before_release": "b736a71d99ae370e827c3cca5e966a9a911c982fbc22ab121edfe4643cb6334d"
+      },
+      {
+        "bytes": 44387797,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-018-02-formal-b1/stdout.log",
+        "device": 66304,
+        "inode": 17179917256,
+        "resident_bytes": 0,
+        "sha256_before_release": "762447991df7947f61af01b571b3f2d0b0e639f0e8668579c55521a89d714609"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-018-02-formal-b1/stderr.log",
+        "device": 66304,
+        "inode": 17179917257,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 140717593,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-019-02-formal-b8/result.json",
+        "device": 66304,
+        "inode": 17717826379,
+        "resident_bytes": 0,
+        "sha256_before_release": "9b7bdd806e6013ffa2ce2a19cb29145226c29953a545d110cab39be50de1eafc"
+      },
+      {
+        "bytes": 25441,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-019-02-formal-b8/envelope.json",
+        "device": 66304,
+        "inode": 17717826380,
+        "resident_bytes": 0,
+        "sha256_before_release": "98b5148573bd503efdb006c064bba436c78c073bdd94c4929b620725952f6d9e"
+      },
+      {
+        "bytes": 78376541,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-019-02-formal-b8/stdout.log",
+        "device": 66304,
+        "inode": 17717826377,
+        "resident_bytes": 0,
+        "sha256_before_release": "015e80841af12e9728a767eb72a8b76d9f78faff74c6681ad0080ec4c1bdca2d"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-019-02-formal-b8/stderr.log",
+        "device": 66304,
+        "inode": 17717826378,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 70052884,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-020-03-science-b1/result.json",
+        "device": 66304,
+        "inode": 18253629743,
+        "resident_bytes": 0,
+        "sha256_before_release": "90964851b35daac6a17715d0c0c6e742ddd80cd020165d78f24ed0499b070fd9"
+      },
+      {
+        "bytes": 25447,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-020-03-science-b1/envelope.json",
+        "device": 66304,
+        "inode": 18253629744,
+        "resident_bytes": 0,
+        "sha256_before_release": "a311a6201848636b8e3e603902271d7480d74f6820c9da62d3bdc3ea66f98829"
+      },
+      {
+        "bytes": 39023112,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-020-03-science-b1/stdout.log",
+        "device": 66304,
+        "inode": 18253629741,
+        "resident_bytes": 0,
+        "sha256_before_release": "a895b1bb2113dcce242274b4614dd2c30b4290e2d9ab9804140954091671327f"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-020-03-science-b1/stderr.log",
+        "device": 66304,
+        "inode": 18253629742,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 141058368,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-021-03-science-b8/result.json",
+        "device": 66304,
+        "inode": 18790511259,
+        "resident_bytes": 0,
+        "sha256_before_release": "11a7b36b929b39cb303584442b28124566d18ee5d02144c1df527db330b9d4ed"
+      },
+      {
+        "bytes": 25444,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-021-03-science-b8/envelope.json",
+        "device": 66304,
+        "inode": 18790511260,
+        "resident_bytes": 0,
+        "sha256_before_release": "8b68d8adc94d09068a87a1621a0cd6bd21a616b24ebb40d7411eacec1abfec66"
+      },
+      {
+        "bytes": 78574992,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-021-03-science-b8/stdout.log",
+        "device": 66304,
+        "inode": 18790511257,
+        "resident_bytes": 0,
+        "sha256_before_release": "1392ce72148f1814cdeb0f0c49e2edec117ec63300ec86a57fab4873f43922a2"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-021-03-science-b8/stderr.log",
+        "device": 66304,
+        "inode": 18790511258,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 73586871,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-022-04-factual-b1/result.json",
+        "device": 66304,
+        "inode": 19327373529,
+        "resident_bytes": 0,
+        "sha256_before_release": "0e04919aec7143dac60c510951e8211b6d8bc7f18e0f516439a7b3094bfa5dd5"
+      },
+      {
+        "bytes": 25445,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-022-04-factual-b1/envelope.json",
+        "device": 66304,
+        "inode": 19327373530,
+        "resident_bytes": 0,
+        "sha256_before_release": "7ecff36d21dad9cdc6c59426e4e75860ed480995c24e47be5029dc6e56521f5a"
+      },
+      {
+        "bytes": 40991535,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-022-04-factual-b1/stdout.log",
+        "device": 66304,
+        "inode": 19327373527,
+        "resident_bytes": 0,
+        "sha256_before_release": "d4faee20f3dc6286b30222fd4aed57ed947a48fc76d3e56855df6816afe988c1"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-022-04-factual-b1/stderr.log",
+        "device": 66304,
+        "inode": 19327373528,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 144573769,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-023-04-factual-b8/result.json",
+        "device": 66304,
+        "inode": 19864249338,
+        "resident_bytes": 0,
+        "sha256_before_release": "8da137779e43af3b0c45d708b602a46242f00272d8783ef7d1458dd028a2eb73"
+      },
+      {
+        "bytes": 25452,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-023-04-factual-b8/envelope.json",
+        "device": 66304,
+        "inode": 19864249339,
+        "resident_bytes": 0,
+        "sha256_before_release": "9d16ea4ff618783da8b2b2b2ca11fc7e8ca8bb178ae5ac6c6d36ee3a0a54642e"
+      },
+      {
+        "bytes": 80524829,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-023-04-factual-b8/stdout.log",
+        "device": 66304,
+        "inode": 19864249336,
+        "resident_bytes": 0,
+        "sha256_before_release": "866113954bb3ba7c5607e1024a08e271a8b89f2483206c09129b2bc7b2dd5064"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-023-04-factual-b8/stderr.log",
+        "device": 66304,
+        "inode": 19864249337,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 74546344,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-024-05-codegen-b1/result.json",
+        "device": 66304,
+        "inode": 20401114612,
+        "resident_bytes": 0,
+        "sha256_before_release": "6c6f55624e99334f228a2934fbc75ff9fd5f892579f10295a373f073e0273d2c"
+      },
+      {
+        "bytes": 25442,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-024-05-codegen-b1/envelope.json",
+        "device": 66304,
+        "inode": 20401114613,
+        "resident_bytes": 0,
+        "sha256_before_release": "8f910c78eacda568e839897424a7d734da6940047a3c45cc0ab6e4a4e6bb0c37"
+      },
+      {
+        "bytes": 41524036,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-024-05-codegen-b1/stdout.log",
+        "device": 66304,
+        "inode": 20401114610,
+        "resident_bytes": 0,
+        "sha256_before_release": "02a6dbeaf6ea85735656213ea87a827c399de85baf109d7b1bfb3bb5c9f3b6b2"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-024-05-codegen-b1/stderr.log",
+        "device": 66304,
+        "inode": 20401114611,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 146491760,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-025-05-codegen-b8/result.json",
+        "device": 66304,
+        "inode": 20937985730,
+        "resident_bytes": 0,
+        "sha256_before_release": "6d340743af8075222c0e12684b4403723d5bbb494cf56450da83f62b1ae1854c"
+      },
+      {
+        "bytes": 25451,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-025-05-codegen-b8/envelope.json",
+        "device": 66304,
+        "inode": 20937985731,
+        "resident_bytes": 0,
+        "sha256_before_release": "8f977a3cbe1345d82cdaabc07ab5fbb56a389454b4441d58dd0143507279d65f"
+      },
+      {
+        "bytes": 81588876,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-025-05-codegen-b8/stdout.log",
+        "device": 66304,
+        "inode": 20937985728,
+        "resident_bytes": 0,
+        "sha256_before_release": "651a59de491013fc03c76ef77d7ff3b2a16db3daf4050e510e8ce3b0a7927c50"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-025-05-codegen-b8/stderr.log",
+        "device": 66304,
+        "inode": 20937985729,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 73582928,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-026-06-debug-b1/result.json",
+        "device": 66304,
+        "inode": 21474875614,
+        "resident_bytes": 0,
+        "sha256_before_release": "91d086139252d7555304b75faf04e624b1d873be0d379679bde30fceccc3b521"
+      },
+      {
+        "bytes": 25445,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-026-06-debug-b1/envelope.json",
+        "device": 66304,
+        "inode": 21474875615,
+        "resident_bytes": 0,
+        "sha256_before_release": "c68fde51ba9c728bfde5a2b9170f0758808321fc4f241fae7c88ee754491dc8e"
+      },
+      {
+        "bytes": 40987592,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-026-06-debug-b1/stdout.log",
+        "device": 66304,
+        "inode": 21474875612,
+        "resident_bytes": 0,
+        "sha256_before_release": "f034fd1d554d3f7df1bc169046226859b0d73f658f66c1e80f308ab61d0ab8ca"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-026-06-debug-b1/stderr.log",
+        "device": 66304,
+        "inode": 21474875613,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 141353283,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-027-06-debug-b8/result.json",
+        "device": 66304,
+        "inode": 22011731026,
+        "resident_bytes": 0,
+        "sha256_before_release": "82e9e16c2c76c7ccbe57ef73083b9a0122a506b03289db1c78525afaed3c8d15"
+      },
+      {
+        "bytes": 25443,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-027-06-debug-b8/envelope.json",
+        "device": 66304,
+        "inode": 22011731027,
+        "resident_bytes": 0,
+        "sha256_before_release": "c3f55d8011f89210b5258fbf92418170a8c0bf2580590c0f75d3931bde9f08cf"
+      },
+      {
+        "bytes": 78727583,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-027-06-debug-b8/stdout.log",
+        "device": 66304,
+        "inode": 22011731024,
+        "resident_bytes": 0,
+        "sha256_before_release": "88f89c1d1641bbeaf64a60cecd13eb330594a2f4c129c24666be1fc4b659a27c"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-027-06-debug-b8/stderr.log",
+        "device": 66304,
+        "inode": 22011731025,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 76820252,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-028-07-algorithms-b1/result.json",
+        "device": 66304,
+        "inode": 22548623427,
+        "resident_bytes": 0,
+        "sha256_before_release": "00974cfe319a79901de6322aeea32ce0205e2a84e1a783ab767c9171b2af400f"
+      },
+      {
+        "bytes": 25447,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-028-07-algorithms-b1/envelope.json",
+        "device": 66304,
+        "inode": 22548623428,
+        "resident_bytes": 0,
+        "sha256_before_release": "7545bcba869a2fba6ad2029c9a1fe392c974f5b85b2151fdd16932c6aba52098"
+      },
+      {
+        "bytes": 42801676,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-028-07-algorithms-b1/stdout.log",
+        "device": 66304,
+        "inode": 22548623425,
+        "resident_bytes": 0,
+        "sha256_before_release": "d6a2d2e19745d58f737c9ec18d0b549a9c6a68751bef04125b36933a16c9bddf"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-028-07-algorithms-b1/stderr.log",
+        "device": 66304,
+        "inode": 22548623426,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 151657402,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-029-07-algorithms-b8/result.json",
+        "device": 66304,
+        "inode": 23085479081,
+        "resident_bytes": 0,
+        "sha256_before_release": "25f282940d91c9adcefccf1c86955ce69bbdd033b49fb0460285791af70b4230"
+      },
+      {
+        "bytes": 25465,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-029-07-algorithms-b8/envelope.json",
+        "device": 66304,
+        "inode": 23085479082,
+        "resident_bytes": 0,
+        "sha256_before_release": "c05fe64c5e2cd39c1d6795542baa7786842e7e2e202332f5cc503175981f32ee"
+      },
+      {
+        "bytes": 84477334,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-029-07-algorithms-b8/stdout.log",
+        "device": 66304,
+        "inode": 23085479079,
+        "resident_bytes": 0,
+        "sha256_before_release": "0b4414baa7c88c65763dd9f4a7ece77cead85780c1dd2fa1ab3e564c27cbd498"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-029-07-algorithms-b8/stderr.log",
+        "device": 66304,
+        "inode": 23085479080,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 77420952,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-030-08-summary-b1/result.json",
+        "device": 66304,
+        "inode": 23622377164,
+        "resident_bytes": 0,
+        "sha256_before_release": "b7295fb206b42ad866364290f41bf03b43cea52caf7aaf218884127863fe8f66"
+      },
+      {
+        "bytes": 25444,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-030-08-summary-b1/envelope.json",
+        "device": 66304,
+        "inode": 23622377165,
+        "resident_bytes": 0,
+        "sha256_before_release": "c511353f080dc65eef590633e6ce051fe93fb923c61e03b9d891efeca170bff3"
+      },
+      {
+        "bytes": 43117728,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-030-08-summary-b1/stdout.log",
+        "device": 66304,
+        "inode": 23622377162,
+        "resident_bytes": 0,
+        "sha256_before_release": "92c459138a1b470910776aae8e650dcd081e287b407ba610dc65ba94321f0ddf"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-030-08-summary-b1/stderr.log",
+        "device": 66304,
+        "inode": 23622377163,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 152886778,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-031-08-summary-b8/result.json",
+        "device": 66304,
+        "inode": 24159220766,
+        "resident_bytes": 0,
+        "sha256_before_release": "7a59040b254ea460befc42720456d2afcf99af75bccb20eaa8e1e219a22e8ac0"
+      },
+      {
+        "bytes": 25464,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-031-08-summary-b8/envelope.json",
+        "device": 66304,
+        "inode": 24159220767,
+        "resident_bytes": 0,
+        "sha256_before_release": "ac5f5d30eb16a21dae6ef3d61a032175faa9e42a9107b9a52d7887a8c29da43c"
+      },
+      {
+        "bytes": 85137414,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-031-08-summary-b8/stdout.log",
+        "device": 66304,
+        "inode": 24159220764,
+        "resident_bytes": 0,
+        "sha256_before_release": "48f396870e2a37010bd09243d40b8f6ef2f5ec3cbb5a6744b1960d19a2fbef4b"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-031-08-summary-b8/stderr.log",
+        "device": 66304,
+        "inode": 24159220765,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 79350260,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-032-09-extract-b1/result.json",
+        "device": 66304,
+        "inode": 24696160833,
+        "resident_bytes": 0,
+        "sha256_before_release": "4afd133672f4efd1f4f9c594529ae0826a6590359a5994efc77c1d1bad8d77d5"
+      },
+      {
+        "bytes": 25440,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-032-09-extract-b1/envelope.json",
+        "device": 66304,
+        "inode": 24696160834,
+        "resident_bytes": 0,
+        "sha256_before_release": "2c3f4bf995e3733349c9fe347db96c4e1d10e719cbcf1338e48104f090242842"
+      },
+      {
+        "bytes": 44193092,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-032-09-extract-b1/stdout.log",
+        "device": 66304,
+        "inode": 24696158399,
+        "resident_bytes": 0,
+        "sha256_before_release": "6fe22687e7efa83871f3b3c6db0a3be192e312cabbc296e4e2ab796252714624"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-032-09-extract-b1/stderr.log",
+        "device": 66304,
+        "inode": 24696160832,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 75814507,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-033-10-planning-b1/result.json",
+        "device": 66304,
+        "inode": 25232951963,
+        "resident_bytes": 0,
+        "sha256_before_release": "ad568faaca11d2aa71df2c1acbf527903d99018816d59130844e95fc29c30629"
+      },
+      {
+        "bytes": 25447,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-033-10-planning-b1/envelope.json",
+        "device": 66304,
+        "inode": 25232951964,
+        "resident_bytes": 0,
+        "sha256_before_release": "46385ba4ded9e8b03231f9f0353b8bf8c4c51071db6eab9880fea939af4615db"
+      },
+      {
+        "bytes": 42222903,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-033-10-planning-b1/stdout.log",
+        "device": 66304,
+        "inode": 25232951937,
+        "resident_bytes": 0,
+        "sha256_before_release": "3c8b7744e385f6101a38bb4c1b3361ccc82deb78caf93a4867af624f5279a318"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-033-10-planning-b1/stderr.log",
+        "device": 66304,
+        "inode": 25232951962,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 147442693,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-034-10-planning-b8/result.json",
+        "device": 66304,
+        "inode": 16042,
+        "resident_bytes": 0,
+        "sha256_before_release": "e2d06dc826f6bbb3d455fe149870ab88628a348e5d01cea1220b32f7f4067658"
+      },
+      {
+        "bytes": 25454,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-034-10-planning-b8/envelope.json",
+        "device": 66304,
+        "inode": 16043,
+        "resident_bytes": 0,
+        "sha256_before_release": "5cc0cd3d06430676de5443fe772efe50a10a1d5af2e7f515a3e96758b6f6ff4c"
+      },
+      {
+        "bytes": 82112837,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-034-10-planning-b8/stdout.log",
+        "device": 66304,
+        "inode": 16040,
+        "resident_bytes": 0,
+        "sha256_before_release": "6d032ef4f1427b02db748b4971efd8acbd75f0077c5f6f1b36a767ccf0ca2fb9"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-034-10-planning-b8/stderr.log",
+        "device": 66304,
+        "inode": 16041,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 142607432,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-035-11-instructions-b8/result.json",
+        "device": 66304,
+        "inode": 536891860,
+        "resident_bytes": 0,
+        "sha256_before_release": "e7e912f3f422b0c1c678bbdbec6566c2421bc39f58d717d2bf376af0fae541f5"
+      },
+      {
+        "bytes": 25465,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-035-11-instructions-b8/envelope.json",
+        "device": 66304,
+        "inode": 536891861,
+        "resident_bytes": 0,
+        "sha256_before_release": "fb5f2e3eb9a1731537e47a10c9437fd1a7dd0aeac9e14736401d84281d844be9"
+      },
+      {
+        "bytes": 79412436,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-035-11-instructions-b8/stdout.log",
+        "device": 66304,
+        "inode": 536891858,
+        "resident_bytes": 0,
+        "sha256_before_release": "4e1ac6245cfe519ce67eec5cc674167748b1f468163d5738883356056e75d0d4"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-035-11-instructions-b8/stderr.log",
+        "device": 66304,
+        "inode": 536891859,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 143272684,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-036-12-compare-b8/result.json",
+        "device": 66304,
+        "inode": 1073757397,
+        "resident_bytes": 0,
+        "sha256_before_release": "094c24d78ab6f5bdc8d16519ddbe1126c84fa8800f453eb85729884ee1014d92"
+      },
+      {
+        "bytes": 25453,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-036-12-compare-b8/envelope.json",
+        "device": 66304,
+        "inode": 1073757398,
+        "resident_bytes": 0,
+        "sha256_before_release": "9b3b972220b153720583fd1df6e8300fd49e34ca429cb42ccfd9c02786fa1834"
+      },
+      {
+        "bytes": 79793040,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-036-12-compare-b8/stdout.log",
+        "device": 66304,
+        "inode": 1073757395,
+        "resident_bytes": 0,
+        "sha256_before_release": "404a997f45feb0a0e20e50cd48f20505df17aec55f79dd221a1a3b8cf3de2142"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-036-12-compare-b8/stderr.log",
+        "device": 66304,
+        "inode": 1073757396,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 72287869,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-037-13-creative-b1/result.json",
+        "device": 66304,
+        "inode": 1610642291,
+        "resident_bytes": 0,
+        "sha256_before_release": "b5971b806780f5cb7e64e9bddff0040649cfacf91960d81e4bd7917149534e67"
+      },
+      {
+        "bytes": 25448,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-037-13-creative-b1/envelope.json",
+        "device": 66304,
+        "inode": 1610642292,
+        "resident_bytes": 0,
+        "sha256_before_release": "855e15ecebbb8dbf5065d05c18b63eae568582eacbf179b51067ffe85157949f"
+      },
+      {
+        "bytes": 40261829,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-037-13-creative-b1/stdout.log",
+        "device": 66304,
+        "inode": 1610642289,
+        "resident_bytes": 0,
+        "sha256_before_release": "6e818a556b11c6cd6a9206aea9b181c1bb7f7748c92cb0930549524fe6bcc47c"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-037-13-creative-b1/stderr.log",
+        "device": 66304,
+        "inode": 1610642290,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 142943660,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-038-13-creative-b8/result.json",
+        "device": 66304,
+        "inode": 2147504912,
+        "resident_bytes": 0,
+        "sha256_before_release": "0ea0489cd436aecf0d1261df1ae834e66149537c91ee4415050ad4bab439446b"
+      },
+      {
+        "bytes": 25455,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-038-13-creative-b8/envelope.json",
+        "device": 66304,
+        "inode": 2147504913,
+        "resident_bytes": 0,
+        "sha256_before_release": "e511d16b53eebebb9e2ec773db8790db5a58471efc5e379c7f88c79c68c8fcc0"
+      },
+      {
+        "bytes": 79606340,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-038-13-creative-b8/stdout.log",
+        "device": 66304,
+        "inode": 2147504910,
+        "resident_bytes": 0,
+        "sha256_before_release": "897d8fe0288ccc72a0a8699a6131a5fea4f71cc79eadfa96956ab13272327667"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-038-13-creative-b8/stderr.log",
+        "device": 66304,
+        "inode": 2147504911,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 75496972,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-039-14-qa-b1/result.json",
+        "device": 66304,
+        "inode": 2684372578,
+        "resident_bytes": 0,
+        "sha256_before_release": "8c28bf5a8c15335ed872e7a1a6882b16c6d4886d474c50699be85dcb05ebfb3c"
+      },
+      {
+        "bytes": 25443,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-039-14-qa-b1/envelope.json",
+        "device": 66304,
+        "inode": 2684372579,
+        "resident_bytes": 0,
+        "sha256_before_release": "96feb74f07fb37e870465c8ecfd6f1c4306841d79cccb566c84c85331d999e54"
+      },
+      {
+        "bytes": 42047692,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-039-14-qa-b1/stdout.log",
+        "device": 66304,
+        "inode": 2684372576,
+        "resident_bytes": 0,
+        "sha256_before_release": "76d109444805e0dd414b9d317089e6af36d212f9c3324144a4d6154388cceff1"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-039-14-qa-b1/stderr.log",
+        "device": 66304,
+        "inode": 2684372577,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 144228420,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-040-14-qa-b8/result.json",
+        "device": 66304,
+        "inode": 3221233789,
+        "resident_bytes": 0,
+        "sha256_before_release": "c9a9cac79f9b628274d5cc993f7cf96057c4042bb0931da50ea2698bc83338c9"
+      },
+      {
+        "bytes": 25446,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-040-14-qa-b8/envelope.json",
+        "device": 66304,
+        "inode": 3221233790,
+        "resident_bytes": 0,
+        "sha256_before_release": "2ae40494262cd25d0d7deac2405b78da231b85442deb86a8db30892bab25c041"
+      },
+      {
+        "bytes": 80321804,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-040-14-qa-b8/stdout.log",
+        "device": 66304,
+        "inode": 3221233787,
+        "resident_bytes": 0,
+        "sha256_before_release": "7b5dc4481730d73ba80c98efd02d550b088409b332052809472245ea41280627"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-040-14-qa-b8/stderr.log",
+        "device": 66304,
+        "inode": 3221233788,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 87378089,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-041-15-spanish-b1/result.json",
+        "device": 66304,
+        "inode": 3758120260,
+        "resident_bytes": 0,
+        "sha256_before_release": "660895b18301ca877ec094c5605427e5c132b2d4215167d03ce92048084c0a24"
+      },
+      {
+        "bytes": 25458,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-041-15-spanish-b1/envelope.json",
+        "device": 66304,
+        "inode": 3758120261,
+        "resident_bytes": 0,
+        "sha256_before_release": "7fe29e8020f0e1ec171d1b90ed0a460edf79a1a6fe4f3286642247853b955cca"
+      },
+      {
+        "bytes": 48662821,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-041-15-spanish-b1/stdout.log",
+        "device": 66304,
+        "inode": 3758120258,
+        "resident_bytes": 0,
+        "sha256_before_release": "6638bf8b2919e7439b3c725ab09dd75e6ab49c871c3f59431b500f5828b65207"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-041-15-spanish-b1/stderr.log",
+        "device": 66304,
+        "inode": 3758120259,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 212941282,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-042-15-spanish-b8/result.json",
+        "device": 66304,
+        "inode": 4295071778,
+        "resident_bytes": 0,
+        "sha256_before_release": "e7609656e3a646118e4e47e8156c77537d545963883bd4b37527eb00cc83b1bc"
+      },
+      {
+        "bytes": 25449,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-042-15-spanish-b8/envelope.json",
+        "device": 66304,
+        "inode": 4295071779,
+        "resident_bytes": 0,
+        "sha256_before_release": "b195e779f3395950a9105a67b52d0869b6d5c2fbbefbee6b88d576a3094d0a9f"
+      },
+      {
+        "bytes": 118577330,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-042-15-spanish-b8/stdout.log",
+        "device": 66304,
+        "inode": 4295071776,
+        "resident_bytes": 0,
+        "sha256_before_release": "1da2b90081ef4a162077558805a79df043ac1f71dfcd9e3aa3a7098456f165f4"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-042-15-spanish-b8/stderr.log",
+        "device": 66304,
+        "inode": 4295071777,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 74851587,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-043-16-multi-b1/result.json",
+        "device": 66304,
+        "inode": 4831855459,
+        "resident_bytes": 0,
+        "sha256_before_release": "12d850801662811e8e418a9c28e50835d53c620ae0a6e11c8acadf36e9d3e431"
+      },
+      {
+        "bytes": 25437,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-043-16-multi-b1/envelope.json",
+        "device": 66304,
+        "inode": 4831855460,
+        "resident_bytes": 0,
+        "sha256_before_release": "aff8c723c95ee45fa4e9f6794aa9042142684003b3a956017b415774ec761c32"
+      },
+      {
+        "bytes": 41686955,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-043-16-multi-b1/stdout.log",
+        "device": 66304,
+        "inode": 4831855457,
+        "resident_bytes": 0,
+        "sha256_before_release": "ddd8b9191d0ab945b11fc116fc77df9200f1a7384e9ec6d09944eb280d557c2a"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-043-16-multi-b1/stderr.log",
+        "device": 66304,
+        "inode": 4831855458,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 150308629,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-044-16-multi-b8/result.json",
+        "device": 66304,
+        "inode": 5368889480,
+        "resident_bytes": 0,
+        "sha256_before_release": "a6ccd8684295aa648007171379dfa20284a6e7a673478d5ec37d5e64f4a1e761"
+      },
+      {
+        "bytes": 25462,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-044-16-multi-b8/envelope.json",
+        "device": 66304,
+        "inode": 5368889481,
+        "resident_bytes": 0,
+        "sha256_before_release": "edd40a9fd2dce8924e735e7bd787d7e2477e86903b48607d91c91c562f026d2d"
+      },
+      {
+        "bytes": 83697857,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-044-16-multi-b8/stdout.log",
+        "device": 66304,
+        "inode": 5368889478,
+        "resident_bytes": 0,
+        "sha256_before_release": "b6c5d1ba1b76de786afdab548fbb1a4ce32aed03aec6e9c45f127d44ee9b0ba0"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-044-16-multi-b8/stderr.log",
+        "device": 66304,
+        "inode": 5368889479,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      }
+    ],
+    "before": [
+      {
+        "bytes": 25346,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1/envelope.json",
+        "device": 66304,
+        "inode": 5368889474,
+        "resident_bytes": 0,
+        "sha256_before_release": "38a90eb44d711a1acef3ce59ec1f1b5466df0cbbc605dd88f81f3989ff016633"
+      },
+      {
+        "bytes": 117,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1/stderr.log",
+        "device": 66304,
+        "inode": 5368889473,
+        "resident_bytes": 0,
+        "sha256_before_release": "4a21f2f969b9ad345cab48b76f058f02392e21259daebadf872fe007d92922b8"
+      },
+      {
+        "bytes": 0,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1/stdout.log",
+        "device": 66304,
+        "inode": 5368889472,
+        "resident_bytes": 0,
+        "sha256_before_release": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 77759299,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/result.json",
+        "device": 66304,
+        "inode": 6979337068,
+        "resident_bytes": 77759299,
+        "sha256_before_release": "e1fab368ce78869f1276ce7b0835b3017d4d4c87877bb6ebccb9a9611eb5a023"
+      },
+      {
+        "bytes": 25400,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/envelope.json",
+        "device": 66304,
+        "inode": 6979337069,
+        "resident_bytes": 0,
+        "sha256_before_release": "eda77ef6bcdb01005193568b37846322312978d70e232d66bda34bdd8c7bf094"
+      },
+      {
+        "bytes": 43313751,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/stdout.log",
+        "device": 66304,
+        "inode": 6979337066,
+        "resident_bytes": 0,
+        "sha256_before_release": "429432280b7a1b36b2adfaaf20777e9a7e8e16607537f935358a665d8e7c9260"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/stderr.log",
+        "device": 66304,
+        "inode": 6979337067,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 96719907,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/result.json",
+        "device": 66304,
+        "inode": 7516226583,
+        "resident_bytes": 96719907,
+        "sha256_before_release": "48e746b49a9d1ccda8fd60a91872eeaf03ac38d83ff900ea16a3c5f5a3811e54"
+      },
+      {
+        "bytes": 25397,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/envelope.json",
+        "device": 66304,
+        "inode": 7516226584,
+        "resident_bytes": 0,
+        "sha256_before_release": "feb3cf928adad3dc3c820481f0e9d03dab12afb88adde5c641f8604fbb64e291"
+      },
+      {
+        "bytes": 53877243,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/stdout.log",
+        "device": 66304,
+        "inode": 7516226581,
+        "resident_bytes": 0,
+        "sha256_before_release": "be329bd2a27f4f4dbb3893f80e61f33760909cc7686f1325a0e1c21ca398a5c8"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/stderr.log",
+        "device": 66304,
+        "inode": 7516226582,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 92865351,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/result.json",
+        "device": 66304,
+        "inode": 8053171558,
+        "resident_bytes": 92865351,
+        "sha256_before_release": "c408fe912169f7284b08671bd5abb720203542c1404a2437a37d598c0b42efc5"
+      },
+      {
+        "bytes": 25404,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/envelope.json",
+        "device": 66304,
+        "inode": 8053171559,
+        "resident_bytes": 0,
+        "sha256_before_release": "7d82f5c246be160a97b5ca08db08bd3d2425165110cbd5cf5125cadb79045945"
+      },
+      {
+        "bytes": 51730575,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/stdout.log",
+        "device": 66304,
+        "inode": 8053171556,
+        "resident_bytes": 0,
+        "sha256_before_release": "7dd1b8e358684a7d19862490bd048aff552664cb5592ff76c44f671a3821a0a7"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/stderr.log",
+        "device": 66304,
+        "inode": 8053171557,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 25289,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2/envelope.json",
+        "device": 66304,
+        "inode": 8589954768,
+        "resident_bytes": 0,
+        "sha256_before_release": "4969f9dae69e085f19baffe5b15454cb83160f9f842282a4921bd2a41bbcd58a"
+      },
+      {
+        "bytes": 0,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2/stdout.log",
+        "device": 66304,
+        "inode": 8589954766,
+        "resident_bytes": 0,
+        "sha256_before_release": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 332,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2/stderr.log",
+        "device": 66304,
+        "inode": 8589954767,
+        "resident_bytes": 0,
+        "sha256_before_release": "0f6d3b45b046f4f26da59ca25cecadcaa15a9e5775db736de622def87ba53267"
+      },
+      {
+        "bytes": 84506736,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/result.json",
+        "device": 66304,
+        "inode": 9126852496,
+        "resident_bytes": 84506736,
+        "sha256_before_release": "f0a795961cea21bb1a575c664ec21cbf1607f98f3e8f8bcc689da9440d59ae81"
+      },
+      {
+        "bytes": 25407,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/envelope.json",
+        "device": 66304,
+        "inode": 9126852497,
+        "resident_bytes": 0,
+        "sha256_before_release": "8f24d3f7a7c414e721f7147ad1f72635c8ad6cb02c2bd6dfc39b4d192078c3eb"
+      },
+      {
+        "bytes": 47072384,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/stdout.log",
+        "device": 66304,
+        "inode": 9126852494,
+        "resident_bytes": 0,
+        "sha256_before_release": "23a7156d711f5d05278267201369ac507bb47b852feb9ac492834517ce26d22e"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/stderr.log",
+        "device": 66304,
+        "inode": 9126852495,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 109878041,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-005-05-codegen-b5/result.json",
+        "device": 66304,
+        "inode": 10200581400,
+        "resident_bytes": 109878041,
+        "sha256_before_release": "76eac0bc80147e7a7bec21b268fa0882ea0c1fb64bf19a88a92d49cd407d3fed"
+      },
+      {
+        "bytes": 25410,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-005-05-codegen-b5/envelope.json",
+        "device": 66304,
+        "inode": 10200581401,
+        "resident_bytes": 0,
+        "sha256_before_release": "781b241fc942ac2bdb37fe58ad71c3bac513de09810411e64b560ec43b8e3f56"
+      },
+      {
+        "bytes": 61200093,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-005-05-codegen-b5/stdout.log",
+        "device": 66304,
+        "inode": 10200581398,
+        "resident_bytes": 0,
+        "sha256_before_release": "217c3b5990662263ac731f1f14f1924e2ee7a4c0e70586b3bd12239030811893"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-005-05-codegen-b5/stderr.log",
+        "device": 66304,
+        "inode": 10200581399,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 109896247,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-006-06-debug-b4/result.json",
+        "device": 66304,
+        "inode": 10737470801,
+        "resident_bytes": 109896247,
+        "sha256_before_release": "50c542f24657df86cdf1b83385335e40eeb850f676142cbd8b0abb3e7f58fe1e"
+      },
+      {
+        "bytes": 25407,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-006-06-debug-b4/envelope.json",
+        "device": 66304,
+        "inode": 10737470802,
+        "resident_bytes": 0,
+        "sha256_before_release": "48c86ec3c0b1fbe197bc4f04191e4cc79a12dcbeca2d082b0f1d44be79ccefe8"
+      },
+      {
+        "bytes": 61218299,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-006-06-debug-b4/stdout.log",
+        "device": 66304,
+        "inode": 10737470799,
+        "resident_bytes": 0,
+        "sha256_before_release": "cc17e56dfbc99047131dae56ee7465afb2ff40be11fcd84e72a34fb139c544ec"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-006-06-debug-b4/stderr.log",
+        "device": 66304,
+        "inode": 10737470800,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 82905512,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-007-07-algorithms-b2/result.json",
+        "device": 66304,
+        "inode": 11274318039,
+        "resident_bytes": 82905512,
+        "sha256_before_release": "20af69ef77e69f48779e0f6e38c9254e9127b3aba0917aa53f827d5d533a33a9"
+      },
+      {
+        "bytes": 25415,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-007-07-algorithms-b2/envelope.json",
+        "device": 66304,
+        "inode": 11274318040,
+        "resident_bytes": 0,
+        "sha256_before_release": "398c00d5779dd91849c827a0a9c81ab7a077322d6a03a7277d0f38e41ceb8977"
+      },
+      {
+        "bytes": 46182780,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-007-07-algorithms-b2/stdout.log",
+        "device": 66304,
+        "inode": 11274318037,
+        "resident_bytes": 0,
+        "sha256_before_release": "5e6c1a1de0f13bd7714112504e8f13379a7ef309ea116ce40b0bbac1218203fc"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-007-07-algorithms-b2/stderr.log",
+        "device": 66304,
+        "inode": 11274318038,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 88335313,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-008-08-summary-b2/result.json",
+        "device": 66304,
+        "inode": 11811247985,
+        "resident_bytes": 88335313,
+        "sha256_before_release": "4ef3c41d4799bab0a8601943b4803f8fb7244806c9a058e7842e26ba1f8fd108"
+      },
+      {
+        "bytes": 25414,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-008-08-summary-b2/envelope.json",
+        "device": 66304,
+        "inode": 11811247986,
+        "resident_bytes": 0,
+        "sha256_before_release": "2e6a06929cdb515db02b9543c0c23b14f9bdc504ad6b45ec6a47e4cb8d502112"
+      },
+      {
+        "bytes": 49193073,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-008-08-summary-b2/stdout.log",
+        "device": 66304,
+        "inode": 11811247983,
+        "resident_bytes": 0,
+        "sha256_before_release": "ee1625b69fc209c25764265cce2f683fa7863a2e6bbfc69427d56ea25f890b56"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-008-08-summary-b2/stderr.log",
+        "device": 66304,
+        "inode": 11811247984,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 146793798,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-009-09-extract-b8/result.json",
+        "device": 66304,
+        "inode": 12348050273,
+        "resident_bytes": 146793798,
+        "sha256_before_release": "87813ce819b5e5bba2ed451b9e4664e238b065aa22122e3b536762fba9325b96"
+      },
+      {
+        "bytes": 25425,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-009-09-extract-b8/envelope.json",
+        "device": 66304,
+        "inode": 12348050274,
+        "resident_bytes": 0,
+        "sha256_before_release": "66b33024e6f2447fb48c9920a56cd8923b147d2b0d4d97b5026968fd4d898a68"
+      },
+      {
+        "bytes": 81748590,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-009-09-extract-b8/stdout.log",
+        "device": 66304,
+        "inode": 12348050271,
+        "resident_bytes": 0,
+        "sha256_before_release": "7e9d4b0c27130d91d1171520f56a7d0d6a1b6b41506c1169cc7d065e4691d246"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-009-09-extract-b8/stderr.log",
+        "device": 66304,
+        "inode": 12348050272,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 99591561,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-010-10-planning-b4/result.json",
+        "device": 66304,
+        "inode": 12889095497,
+        "resident_bytes": 99591561,
+        "sha256_before_release": "f5d051688b02df839e0cea6dfc1fad591f6f2dbf60b17994f687e5340aaa8a5c"
+      },
+      {
+        "bytes": 25430,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-010-10-planning-b4/envelope.json",
+        "device": 66304,
+        "inode": 12889095498,
+        "resident_bytes": 0,
+        "sha256_before_release": "cac983fb5034a566db51ef092d1a02b3bca464926dc3c330834d130ef5ed5e05"
+      },
+      {
+        "bytes": 55467981,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-010-10-planning-b4/stdout.log",
+        "device": 66304,
+        "inode": 12889095495,
+        "resident_bytes": 0,
+        "sha256_before_release": "d5b8291425b79f0ae683845fbd4940a5d30371c12b7cdccb8da6b849422c7db4"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-010-10-planning-b4/stderr.log",
+        "device": 66304,
+        "inode": 12889095496,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 74527065,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-011-11-instructions-b1/result.json",
+        "device": 66304,
+        "inode": 13421798028,
+        "resident_bytes": 74527065,
+        "sha256_before_release": "e3de04b44f994fc3e9a95ccd8e25423ee5c1075246d0a88e85590650e9bc31b7"
+      },
+      {
+        "bytes": 25421,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-011-11-instructions-b1/envelope.json",
+        "device": 66304,
+        "inode": 13421798029,
+        "resident_bytes": 0,
+        "sha256_before_release": "e613f10335da6ce94f1c11a972ed429d801769e32d99ee63ea5e7b318043779e"
+      },
+      {
+        "bytes": 41504757,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-011-11-instructions-b1/stdout.log",
+        "device": 66304,
+        "inode": 13421798026,
+        "resident_bytes": 0,
+        "sha256_before_release": "4d67ea2ce1bfd04acba326d7c079d467f7f9b9f71900633e2ede7ba97b33f7a6"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-011-11-instructions-b1/stderr.log",
+        "device": 66304,
+        "inode": 13421798027,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 71978999,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-012-12-compare-b1/result.json",
+        "device": 66304,
+        "inode": 13958655669,
+        "resident_bytes": 71978999,
+        "sha256_before_release": "32effda4c65deaf8ae315eaf94b1ec42294f6a61851227a336abcccd604e1b2d"
+      },
+      {
+        "bytes": 25401,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-012-12-compare-b1/envelope.json",
+        "device": 66304,
+        "inode": 13958655670,
+        "resident_bytes": 0,
+        "sha256_before_release": "bab994d964074d3e63aac9e209cc5dc3c3483104f26a4d5c572bfebff7c0f4e1"
+      },
+      {
+        "bytes": 40095283,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-012-12-compare-b1/stdout.log",
+        "device": 66304,
+        "inode": 13958655667,
+        "resident_bytes": 0,
+        "sha256_before_release": "4c9ff546e536f4ca061c3a7b7769eb83422293963a1bf1b05c3feb1066456386"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-012-12-compare-b1/stderr.log",
+        "device": 66304,
+        "inode": 13958655668,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 91543822,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-013-13-creative-b3/result.json",
+        "device": 66304,
+        "inode": 14495533363,
+        "resident_bytes": 91543822,
+        "sha256_before_release": "00ae2fdfb09568af8d0fc0b1ebd4484029075c185e2fca04602dcb11637dfe1b"
+      },
+      {
+        "bytes": 25419,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-013-13-creative-b3/envelope.json",
+        "device": 66304,
+        "inode": 14495533364,
+        "resident_bytes": 0,
+        "sha256_before_release": "947725a90e893f20289b58a28f698872ba3015cf29466a9fc42be2249e96437d"
+      },
+      {
+        "bytes": 50978342,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-013-13-creative-b3/stdout.log",
+        "device": 66304,
+        "inode": 14495533361,
+        "resident_bytes": 0,
+        "sha256_before_release": "6038e3535fae72365e1c77f67ac5f2af736471955d67865159257923b3959ec0"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-013-13-creative-b3/stderr.log",
+        "device": 66304,
+        "inode": 14495533362,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 81922025,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-014-14-qa-b2/result.json",
+        "device": 66304,
+        "inode": 15032433611,
+        "resident_bytes": 81922025,
+        "sha256_before_release": "c66e4e6a6bf734331b1490f9ea2cacf0eb309883c904dd0edc0de4a1f9bedef7"
+      },
+      {
+        "bytes": 25406,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-014-14-qa-b2/envelope.json",
+        "device": 66304,
+        "inode": 15032433612,
+        "resident_bytes": 0,
+        "sha256_before_release": "2f8d3fb5145927087277cc31b2257b8d9f4fc9716ad68828c251538d71999d0e"
+      },
+      {
+        "bytes": 45626265,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-014-14-qa-b2/stdout.log",
+        "device": 66304,
+        "inode": 15032433609,
+        "resident_bytes": 0,
+        "sha256_before_release": "5738fc2330c0818f43b887c27e9e5dc4c9324acfaa5c0d222c27bdb6392cb8de"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-014-14-qa-b2/stderr.log",
+        "device": 66304,
+        "inode": 15032433610,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 109209043,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-015-15-spanish-b2/result.json",
+        "device": 66304,
+        "inode": 15569299618,
+        "resident_bytes": 109209043,
+        "sha256_before_release": "21e23108a07ad69f63b35b73bded71cc0c146202b85af1117ff8f2956582759c"
+      },
+      {
+        "bytes": 25429,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-015-15-spanish-b2/envelope.json",
+        "device": 66304,
+        "inode": 15569299619,
+        "resident_bytes": 0,
+        "sha256_before_release": "b02ac837eedc3953ebc20191dd03c37f74912198eda31810ac5c4c14578e65b9"
+      },
+      {
+        "bytes": 60815743,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-015-15-spanish-b2/stdout.log",
+        "device": 66304,
+        "inode": 15569299616,
+        "resident_bytes": 0,
+        "sha256_before_release": "838e908aa82832c9f056cd01124d313c4913464db1272ee74875f316ac81210a"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-015-15-spanish-b2/stderr.log",
+        "device": 66304,
+        "inode": 15569299617,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 90259978,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-016-16-multi-b2/result.json",
+        "device": 66304,
+        "inode": 16106150390,
+        "resident_bytes": 90259978,
+        "sha256_before_release": "1c67745a4f933322d5698b09e61b0c133a99ea9214149400206fe2e0c3e004ef"
+      },
+      {
+        "bytes": 25415,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-016-16-multi-b2/envelope.json",
+        "device": 66304,
+        "inode": 16106150391,
+        "resident_bytes": 0,
+        "sha256_before_release": "60b176047280b3c2083f32b1e0901dc972b9c757f278308ecaf9f444e733c82e"
+      },
+      {
+        "bytes": 50263794,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-016-16-multi-b2/stdout.log",
+        "device": 66304,
+        "inode": 16106150388,
+        "resident_bytes": 0,
+        "sha256_before_release": "9b339ca3fb7b48db4e3b890fdff546c8b62d9f58be200cb78c59d3ac45d4b242"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-016-16-multi-b2/stderr.log",
+        "device": 66304,
+        "inode": 16106150389,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 150024455,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-017-01-math-b8/result.json",
+        "device": 66304,
+        "inode": 16643037954,
+        "resident_bytes": 150024455,
+        "sha256_before_release": "5446636d4a2659d92e71f1d319bf7701196a4e31553247857eaa54bb5b4ab064"
+      },
+      {
+        "bytes": 25431,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-017-01-math-b8/envelope.json",
+        "device": 66304,
+        "inode": 16643037955,
+        "resident_bytes": 0,
+        "sha256_before_release": "445619528bc08d80588a8e4cc5f6dd805baf5ed2ca8edabda53c892c2c1e5c54"
+      },
+      {
+        "bytes": 83556007,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-017-01-math-b8/stdout.log",
+        "device": 66304,
+        "inode": 16643037952,
+        "resident_bytes": 0,
+        "sha256_before_release": "a1239d2f1b885ca90f6b8e4770776fcfd96c1738f9914b37ff2009dcd3f152cc"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-017-01-math-b8/stderr.log",
+        "device": 66304,
+        "inode": 16643037953,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 79687289,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-018-02-formal-b1/result.json",
+        "device": 66304,
+        "inode": 17179917258,
+        "resident_bytes": 79687289,
+        "sha256_before_release": "860bdf5e13fbab90294309b9652b3240b2c40217c72f6a8e84be6fcec61d5261"
+      },
+      {
+        "bytes": 25437,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-018-02-formal-b1/envelope.json",
+        "device": 66304,
+        "inode": 17179917259,
+        "resident_bytes": 0,
+        "sha256_before_release": "b736a71d99ae370e827c3cca5e966a9a911c982fbc22ab121edfe4643cb6334d"
+      },
+      {
+        "bytes": 44387797,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-018-02-formal-b1/stdout.log",
+        "device": 66304,
+        "inode": 17179917256,
+        "resident_bytes": 0,
+        "sha256_before_release": "762447991df7947f61af01b571b3f2d0b0e639f0e8668579c55521a89d714609"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-018-02-formal-b1/stderr.log",
+        "device": 66304,
+        "inode": 17179917257,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 140717593,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-019-02-formal-b8/result.json",
+        "device": 66304,
+        "inode": 17717826379,
+        "resident_bytes": 140717593,
+        "sha256_before_release": "9b7bdd806e6013ffa2ce2a19cb29145226c29953a545d110cab39be50de1eafc"
+      },
+      {
+        "bytes": 25441,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-019-02-formal-b8/envelope.json",
+        "device": 66304,
+        "inode": 17717826380,
+        "resident_bytes": 0,
+        "sha256_before_release": "98b5148573bd503efdb006c064bba436c78c073bdd94c4929b620725952f6d9e"
+      },
+      {
+        "bytes": 78376541,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-019-02-formal-b8/stdout.log",
+        "device": 66304,
+        "inode": 17717826377,
+        "resident_bytes": 0,
+        "sha256_before_release": "015e80841af12e9728a767eb72a8b76d9f78faff74c6681ad0080ec4c1bdca2d"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-019-02-formal-b8/stderr.log",
+        "device": 66304,
+        "inode": 17717826378,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 70052884,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-020-03-science-b1/result.json",
+        "device": 66304,
+        "inode": 18253629743,
+        "resident_bytes": 70052884,
+        "sha256_before_release": "90964851b35daac6a17715d0c0c6e742ddd80cd020165d78f24ed0499b070fd9"
+      },
+      {
+        "bytes": 25447,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-020-03-science-b1/envelope.json",
+        "device": 66304,
+        "inode": 18253629744,
+        "resident_bytes": 0,
+        "sha256_before_release": "a311a6201848636b8e3e603902271d7480d74f6820c9da62d3bdc3ea66f98829"
+      },
+      {
+        "bytes": 39023112,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-020-03-science-b1/stdout.log",
+        "device": 66304,
+        "inode": 18253629741,
+        "resident_bytes": 0,
+        "sha256_before_release": "a895b1bb2113dcce242274b4614dd2c30b4290e2d9ab9804140954091671327f"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-020-03-science-b1/stderr.log",
+        "device": 66304,
+        "inode": 18253629742,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 141058368,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-021-03-science-b8/result.json",
+        "device": 66304,
+        "inode": 18790511259,
+        "resident_bytes": 141058368,
+        "sha256_before_release": "11a7b36b929b39cb303584442b28124566d18ee5d02144c1df527db330b9d4ed"
+      },
+      {
+        "bytes": 25444,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-021-03-science-b8/envelope.json",
+        "device": 66304,
+        "inode": 18790511260,
+        "resident_bytes": 0,
+        "sha256_before_release": "8b68d8adc94d09068a87a1621a0cd6bd21a616b24ebb40d7411eacec1abfec66"
+      },
+      {
+        "bytes": 78574992,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-021-03-science-b8/stdout.log",
+        "device": 66304,
+        "inode": 18790511257,
+        "resident_bytes": 0,
+        "sha256_before_release": "1392ce72148f1814cdeb0f0c49e2edec117ec63300ec86a57fab4873f43922a2"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-021-03-science-b8/stderr.log",
+        "device": 66304,
+        "inode": 18790511258,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 73586871,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-022-04-factual-b1/result.json",
+        "device": 66304,
+        "inode": 19327373529,
+        "resident_bytes": 73586871,
+        "sha256_before_release": "0e04919aec7143dac60c510951e8211b6d8bc7f18e0f516439a7b3094bfa5dd5"
+      },
+      {
+        "bytes": 25445,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-022-04-factual-b1/envelope.json",
+        "device": 66304,
+        "inode": 19327373530,
+        "resident_bytes": 0,
+        "sha256_before_release": "7ecff36d21dad9cdc6c59426e4e75860ed480995c24e47be5029dc6e56521f5a"
+      },
+      {
+        "bytes": 40991535,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-022-04-factual-b1/stdout.log",
+        "device": 66304,
+        "inode": 19327373527,
+        "resident_bytes": 0,
+        "sha256_before_release": "d4faee20f3dc6286b30222fd4aed57ed947a48fc76d3e56855df6816afe988c1"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-022-04-factual-b1/stderr.log",
+        "device": 66304,
+        "inode": 19327373528,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 144573769,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-023-04-factual-b8/result.json",
+        "device": 66304,
+        "inode": 19864249338,
+        "resident_bytes": 144573769,
+        "sha256_before_release": "8da137779e43af3b0c45d708b602a46242f00272d8783ef7d1458dd028a2eb73"
+      },
+      {
+        "bytes": 25452,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-023-04-factual-b8/envelope.json",
+        "device": 66304,
+        "inode": 19864249339,
+        "resident_bytes": 0,
+        "sha256_before_release": "9d16ea4ff618783da8b2b2b2ca11fc7e8ca8bb178ae5ac6c6d36ee3a0a54642e"
+      },
+      {
+        "bytes": 80524829,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-023-04-factual-b8/stdout.log",
+        "device": 66304,
+        "inode": 19864249336,
+        "resident_bytes": 0,
+        "sha256_before_release": "866113954bb3ba7c5607e1024a08e271a8b89f2483206c09129b2bc7b2dd5064"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-023-04-factual-b8/stderr.log",
+        "device": 66304,
+        "inode": 19864249337,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 74546344,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-024-05-codegen-b1/result.json",
+        "device": 66304,
+        "inode": 20401114612,
+        "resident_bytes": 74546344,
+        "sha256_before_release": "6c6f55624e99334f228a2934fbc75ff9fd5f892579f10295a373f073e0273d2c"
+      },
+      {
+        "bytes": 25442,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-024-05-codegen-b1/envelope.json",
+        "device": 66304,
+        "inode": 20401114613,
+        "resident_bytes": 0,
+        "sha256_before_release": "8f910c78eacda568e839897424a7d734da6940047a3c45cc0ab6e4a4e6bb0c37"
+      },
+      {
+        "bytes": 41524036,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-024-05-codegen-b1/stdout.log",
+        "device": 66304,
+        "inode": 20401114610,
+        "resident_bytes": 0,
+        "sha256_before_release": "02a6dbeaf6ea85735656213ea87a827c399de85baf109d7b1bfb3bb5c9f3b6b2"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-024-05-codegen-b1/stderr.log",
+        "device": 66304,
+        "inode": 20401114611,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 146491760,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-025-05-codegen-b8/result.json",
+        "device": 66304,
+        "inode": 20937985730,
+        "resident_bytes": 146491760,
+        "sha256_before_release": "6d340743af8075222c0e12684b4403723d5bbb494cf56450da83f62b1ae1854c"
+      },
+      {
+        "bytes": 25451,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-025-05-codegen-b8/envelope.json",
+        "device": 66304,
+        "inode": 20937985731,
+        "resident_bytes": 0,
+        "sha256_before_release": "8f977a3cbe1345d82cdaabc07ab5fbb56a389454b4441d58dd0143507279d65f"
+      },
+      {
+        "bytes": 81588876,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-025-05-codegen-b8/stdout.log",
+        "device": 66304,
+        "inode": 20937985728,
+        "resident_bytes": 0,
+        "sha256_before_release": "651a59de491013fc03c76ef77d7ff3b2a16db3daf4050e510e8ce3b0a7927c50"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-025-05-codegen-b8/stderr.log",
+        "device": 66304,
+        "inode": 20937985729,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 73582928,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-026-06-debug-b1/result.json",
+        "device": 66304,
+        "inode": 21474875614,
+        "resident_bytes": 73582928,
+        "sha256_before_release": "91d086139252d7555304b75faf04e624b1d873be0d379679bde30fceccc3b521"
+      },
+      {
+        "bytes": 25445,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-026-06-debug-b1/envelope.json",
+        "device": 66304,
+        "inode": 21474875615,
+        "resident_bytes": 0,
+        "sha256_before_release": "c68fde51ba9c728bfde5a2b9170f0758808321fc4f241fae7c88ee754491dc8e"
+      },
+      {
+        "bytes": 40987592,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-026-06-debug-b1/stdout.log",
+        "device": 66304,
+        "inode": 21474875612,
+        "resident_bytes": 0,
+        "sha256_before_release": "f034fd1d554d3f7df1bc169046226859b0d73f658f66c1e80f308ab61d0ab8ca"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-026-06-debug-b1/stderr.log",
+        "device": 66304,
+        "inode": 21474875613,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 141353283,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-027-06-debug-b8/result.json",
+        "device": 66304,
+        "inode": 22011731026,
+        "resident_bytes": 141353283,
+        "sha256_before_release": "82e9e16c2c76c7ccbe57ef73083b9a0122a506b03289db1c78525afaed3c8d15"
+      },
+      {
+        "bytes": 25443,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-027-06-debug-b8/envelope.json",
+        "device": 66304,
+        "inode": 22011731027,
+        "resident_bytes": 0,
+        "sha256_before_release": "c3f55d8011f89210b5258fbf92418170a8c0bf2580590c0f75d3931bde9f08cf"
+      },
+      {
+        "bytes": 78727583,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-027-06-debug-b8/stdout.log",
+        "device": 66304,
+        "inode": 22011731024,
+        "resident_bytes": 0,
+        "sha256_before_release": "88f89c1d1641bbeaf64a60cecd13eb330594a2f4c129c24666be1fc4b659a27c"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-027-06-debug-b8/stderr.log",
+        "device": 66304,
+        "inode": 22011731025,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 76820252,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-028-07-algorithms-b1/result.json",
+        "device": 66304,
+        "inode": 22548623427,
+        "resident_bytes": 76820252,
+        "sha256_before_release": "00974cfe319a79901de6322aeea32ce0205e2a84e1a783ab767c9171b2af400f"
+      },
+      {
+        "bytes": 25447,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-028-07-algorithms-b1/envelope.json",
+        "device": 66304,
+        "inode": 22548623428,
+        "resident_bytes": 0,
+        "sha256_before_release": "7545bcba869a2fba6ad2029c9a1fe392c974f5b85b2151fdd16932c6aba52098"
+      },
+      {
+        "bytes": 42801676,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-028-07-algorithms-b1/stdout.log",
+        "device": 66304,
+        "inode": 22548623425,
+        "resident_bytes": 0,
+        "sha256_before_release": "d6a2d2e19745d58f737c9ec18d0b549a9c6a68751bef04125b36933a16c9bddf"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-028-07-algorithms-b1/stderr.log",
+        "device": 66304,
+        "inode": 22548623426,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 151657402,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-029-07-algorithms-b8/result.json",
+        "device": 66304,
+        "inode": 23085479081,
+        "resident_bytes": 151657402,
+        "sha256_before_release": "25f282940d91c9adcefccf1c86955ce69bbdd033b49fb0460285791af70b4230"
+      },
+      {
+        "bytes": 25465,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-029-07-algorithms-b8/envelope.json",
+        "device": 66304,
+        "inode": 23085479082,
+        "resident_bytes": 0,
+        "sha256_before_release": "c05fe64c5e2cd39c1d6795542baa7786842e7e2e202332f5cc503175981f32ee"
+      },
+      {
+        "bytes": 84477334,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-029-07-algorithms-b8/stdout.log",
+        "device": 66304,
+        "inode": 23085479079,
+        "resident_bytes": 0,
+        "sha256_before_release": "0b4414baa7c88c65763dd9f4a7ece77cead85780c1dd2fa1ab3e564c27cbd498"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-029-07-algorithms-b8/stderr.log",
+        "device": 66304,
+        "inode": 23085479080,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 77420952,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-030-08-summary-b1/result.json",
+        "device": 66304,
+        "inode": 23622377164,
+        "resident_bytes": 77420952,
+        "sha256_before_release": "b7295fb206b42ad866364290f41bf03b43cea52caf7aaf218884127863fe8f66"
+      },
+      {
+        "bytes": 25444,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-030-08-summary-b1/envelope.json",
+        "device": 66304,
+        "inode": 23622377165,
+        "resident_bytes": 0,
+        "sha256_before_release": "c511353f080dc65eef590633e6ce051fe93fb923c61e03b9d891efeca170bff3"
+      },
+      {
+        "bytes": 43117728,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-030-08-summary-b1/stdout.log",
+        "device": 66304,
+        "inode": 23622377162,
+        "resident_bytes": 0,
+        "sha256_before_release": "92c459138a1b470910776aae8e650dcd081e287b407ba610dc65ba94321f0ddf"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-030-08-summary-b1/stderr.log",
+        "device": 66304,
+        "inode": 23622377163,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 152886778,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-031-08-summary-b8/result.json",
+        "device": 66304,
+        "inode": 24159220766,
+        "resident_bytes": 152886778,
+        "sha256_before_release": "7a59040b254ea460befc42720456d2afcf99af75bccb20eaa8e1e219a22e8ac0"
+      },
+      {
+        "bytes": 25464,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-031-08-summary-b8/envelope.json",
+        "device": 66304,
+        "inode": 24159220767,
+        "resident_bytes": 0,
+        "sha256_before_release": "ac5f5d30eb16a21dae6ef3d61a032175faa9e42a9107b9a52d7887a8c29da43c"
+      },
+      {
+        "bytes": 85137414,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-031-08-summary-b8/stdout.log",
+        "device": 66304,
+        "inode": 24159220764,
+        "resident_bytes": 0,
+        "sha256_before_release": "48f396870e2a37010bd09243d40b8f6ef2f5ec3cbb5a6744b1960d19a2fbef4b"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-031-08-summary-b8/stderr.log",
+        "device": 66304,
+        "inode": 24159220765,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 79350260,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-032-09-extract-b1/result.json",
+        "device": 66304,
+        "inode": 24696160833,
+        "resident_bytes": 79350260,
+        "sha256_before_release": "4afd133672f4efd1f4f9c594529ae0826a6590359a5994efc77c1d1bad8d77d5"
+      },
+      {
+        "bytes": 25440,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-032-09-extract-b1/envelope.json",
+        "device": 66304,
+        "inode": 24696160834,
+        "resident_bytes": 0,
+        "sha256_before_release": "2c3f4bf995e3733349c9fe347db96c4e1d10e719cbcf1338e48104f090242842"
+      },
+      {
+        "bytes": 44193092,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-032-09-extract-b1/stdout.log",
+        "device": 66304,
+        "inode": 24696158399,
+        "resident_bytes": 0,
+        "sha256_before_release": "6fe22687e7efa83871f3b3c6db0a3be192e312cabbc296e4e2ab796252714624"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-032-09-extract-b1/stderr.log",
+        "device": 66304,
+        "inode": 24696160832,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 75814507,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-033-10-planning-b1/result.json",
+        "device": 66304,
+        "inode": 25232951963,
+        "resident_bytes": 75814507,
+        "sha256_before_release": "ad568faaca11d2aa71df2c1acbf527903d99018816d59130844e95fc29c30629"
+      },
+      {
+        "bytes": 25447,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-033-10-planning-b1/envelope.json",
+        "device": 66304,
+        "inode": 25232951964,
+        "resident_bytes": 0,
+        "sha256_before_release": "46385ba4ded9e8b03231f9f0353b8bf8c4c51071db6eab9880fea939af4615db"
+      },
+      {
+        "bytes": 42222903,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-033-10-planning-b1/stdout.log",
+        "device": 66304,
+        "inode": 25232951937,
+        "resident_bytes": 0,
+        "sha256_before_release": "3c8b7744e385f6101a38bb4c1b3361ccc82deb78caf93a4867af624f5279a318"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-033-10-planning-b1/stderr.log",
+        "device": 66304,
+        "inode": 25232951962,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 147442693,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-034-10-planning-b8/result.json",
+        "device": 66304,
+        "inode": 16042,
+        "resident_bytes": 147442693,
+        "sha256_before_release": "e2d06dc826f6bbb3d455fe149870ab88628a348e5d01cea1220b32f7f4067658"
+      },
+      {
+        "bytes": 25454,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-034-10-planning-b8/envelope.json",
+        "device": 66304,
+        "inode": 16043,
+        "resident_bytes": 0,
+        "sha256_before_release": "5cc0cd3d06430676de5443fe772efe50a10a1d5af2e7f515a3e96758b6f6ff4c"
+      },
+      {
+        "bytes": 82112837,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-034-10-planning-b8/stdout.log",
+        "device": 66304,
+        "inode": 16040,
+        "resident_bytes": 0,
+        "sha256_before_release": "6d032ef4f1427b02db748b4971efd8acbd75f0077c5f6f1b36a767ccf0ca2fb9"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-034-10-planning-b8/stderr.log",
+        "device": 66304,
+        "inode": 16041,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 142607432,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-035-11-instructions-b8/result.json",
+        "device": 66304,
+        "inode": 536891860,
+        "resident_bytes": 142607432,
+        "sha256_before_release": "e7e912f3f422b0c1c678bbdbec6566c2421bc39f58d717d2bf376af0fae541f5"
+      },
+      {
+        "bytes": 25465,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-035-11-instructions-b8/envelope.json",
+        "device": 66304,
+        "inode": 536891861,
+        "resident_bytes": 0,
+        "sha256_before_release": "fb5f2e3eb9a1731537e47a10c9437fd1a7dd0aeac9e14736401d84281d844be9"
+      },
+      {
+        "bytes": 79412436,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-035-11-instructions-b8/stdout.log",
+        "device": 66304,
+        "inode": 536891858,
+        "resident_bytes": 0,
+        "sha256_before_release": "4e1ac6245cfe519ce67eec5cc674167748b1f468163d5738883356056e75d0d4"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-035-11-instructions-b8/stderr.log",
+        "device": 66304,
+        "inode": 536891859,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 143272684,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-036-12-compare-b8/result.json",
+        "device": 66304,
+        "inode": 1073757397,
+        "resident_bytes": 143272684,
+        "sha256_before_release": "094c24d78ab6f5bdc8d16519ddbe1126c84fa8800f453eb85729884ee1014d92"
+      },
+      {
+        "bytes": 25453,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-036-12-compare-b8/envelope.json",
+        "device": 66304,
+        "inode": 1073757398,
+        "resident_bytes": 0,
+        "sha256_before_release": "9b3b972220b153720583fd1df6e8300fd49e34ca429cb42ccfd9c02786fa1834"
+      },
+      {
+        "bytes": 79793040,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-036-12-compare-b8/stdout.log",
+        "device": 66304,
+        "inode": 1073757395,
+        "resident_bytes": 0,
+        "sha256_before_release": "404a997f45feb0a0e20e50cd48f20505df17aec55f79dd221a1a3b8cf3de2142"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-036-12-compare-b8/stderr.log",
+        "device": 66304,
+        "inode": 1073757396,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 72287869,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-037-13-creative-b1/result.json",
+        "device": 66304,
+        "inode": 1610642291,
+        "resident_bytes": 72287869,
+        "sha256_before_release": "b5971b806780f5cb7e64e9bddff0040649cfacf91960d81e4bd7917149534e67"
+      },
+      {
+        "bytes": 25448,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-037-13-creative-b1/envelope.json",
+        "device": 66304,
+        "inode": 1610642292,
+        "resident_bytes": 0,
+        "sha256_before_release": "855e15ecebbb8dbf5065d05c18b63eae568582eacbf179b51067ffe85157949f"
+      },
+      {
+        "bytes": 40261829,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-037-13-creative-b1/stdout.log",
+        "device": 66304,
+        "inode": 1610642289,
+        "resident_bytes": 0,
+        "sha256_before_release": "6e818a556b11c6cd6a9206aea9b181c1bb7f7748c92cb0930549524fe6bcc47c"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-037-13-creative-b1/stderr.log",
+        "device": 66304,
+        "inode": 1610642290,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 142943660,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-038-13-creative-b8/result.json",
+        "device": 66304,
+        "inode": 2147504912,
+        "resident_bytes": 142943660,
+        "sha256_before_release": "0ea0489cd436aecf0d1261df1ae834e66149537c91ee4415050ad4bab439446b"
+      },
+      {
+        "bytes": 25455,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-038-13-creative-b8/envelope.json",
+        "device": 66304,
+        "inode": 2147504913,
+        "resident_bytes": 0,
+        "sha256_before_release": "e511d16b53eebebb9e2ec773db8790db5a58471efc5e379c7f88c79c68c8fcc0"
+      },
+      {
+        "bytes": 79606340,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-038-13-creative-b8/stdout.log",
+        "device": 66304,
+        "inode": 2147504910,
+        "resident_bytes": 0,
+        "sha256_before_release": "897d8fe0288ccc72a0a8699a6131a5fea4f71cc79eadfa96956ab13272327667"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-038-13-creative-b8/stderr.log",
+        "device": 66304,
+        "inode": 2147504911,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 75496972,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-039-14-qa-b1/result.json",
+        "device": 66304,
+        "inode": 2684372578,
+        "resident_bytes": 75496972,
+        "sha256_before_release": "8c28bf5a8c15335ed872e7a1a6882b16c6d4886d474c50699be85dcb05ebfb3c"
+      },
+      {
+        "bytes": 25443,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-039-14-qa-b1/envelope.json",
+        "device": 66304,
+        "inode": 2684372579,
+        "resident_bytes": 0,
+        "sha256_before_release": "96feb74f07fb37e870465c8ecfd6f1c4306841d79cccb566c84c85331d999e54"
+      },
+      {
+        "bytes": 42047692,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-039-14-qa-b1/stdout.log",
+        "device": 66304,
+        "inode": 2684372576,
+        "resident_bytes": 0,
+        "sha256_before_release": "76d109444805e0dd414b9d317089e6af36d212f9c3324144a4d6154388cceff1"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-039-14-qa-b1/stderr.log",
+        "device": 66304,
+        "inode": 2684372577,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 144228420,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-040-14-qa-b8/result.json",
+        "device": 66304,
+        "inode": 3221233789,
+        "resident_bytes": 144228420,
+        "sha256_before_release": "c9a9cac79f9b628274d5cc993f7cf96057c4042bb0931da50ea2698bc83338c9"
+      },
+      {
+        "bytes": 25446,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-040-14-qa-b8/envelope.json",
+        "device": 66304,
+        "inode": 3221233790,
+        "resident_bytes": 0,
+        "sha256_before_release": "2ae40494262cd25d0d7deac2405b78da231b85442deb86a8db30892bab25c041"
+      },
+      {
+        "bytes": 80321804,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-040-14-qa-b8/stdout.log",
+        "device": 66304,
+        "inode": 3221233787,
+        "resident_bytes": 0,
+        "sha256_before_release": "7b5dc4481730d73ba80c98efd02d550b088409b332052809472245ea41280627"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-040-14-qa-b8/stderr.log",
+        "device": 66304,
+        "inode": 3221233788,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 87378089,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-041-15-spanish-b1/result.json",
+        "device": 66304,
+        "inode": 3758120260,
+        "resident_bytes": 87378089,
+        "sha256_before_release": "660895b18301ca877ec094c5605427e5c132b2d4215167d03ce92048084c0a24"
+      },
+      {
+        "bytes": 25458,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-041-15-spanish-b1/envelope.json",
+        "device": 66304,
+        "inode": 3758120261,
+        "resident_bytes": 0,
+        "sha256_before_release": "7fe29e8020f0e1ec171d1b90ed0a460edf79a1a6fe4f3286642247853b955cca"
+      },
+      {
+        "bytes": 48662821,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-041-15-spanish-b1/stdout.log",
+        "device": 66304,
+        "inode": 3758120258,
+        "resident_bytes": 0,
+        "sha256_before_release": "6638bf8b2919e7439b3c725ab09dd75e6ab49c871c3f59431b500f5828b65207"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-041-15-spanish-b1/stderr.log",
+        "device": 66304,
+        "inode": 3758120259,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 212941282,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-042-15-spanish-b8/result.json",
+        "device": 66304,
+        "inode": 4295071778,
+        "resident_bytes": 212941282,
+        "sha256_before_release": "e7609656e3a646118e4e47e8156c77537d545963883bd4b37527eb00cc83b1bc"
+      },
+      {
+        "bytes": 25449,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-042-15-spanish-b8/envelope.json",
+        "device": 66304,
+        "inode": 4295071779,
+        "resident_bytes": 0,
+        "sha256_before_release": "b195e779f3395950a9105a67b52d0869b6d5c2fbbefbee6b88d576a3094d0a9f"
+      },
+      {
+        "bytes": 118577330,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-042-15-spanish-b8/stdout.log",
+        "device": 66304,
+        "inode": 4295071776,
+        "resident_bytes": 0,
+        "sha256_before_release": "1da2b90081ef4a162077558805a79df043ac1f71dfcd9e3aa3a7098456f165f4"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-042-15-spanish-b8/stderr.log",
+        "device": 66304,
+        "inode": 4295071777,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 74851587,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-043-16-multi-b1/result.json",
+        "device": 66304,
+        "inode": 4831855459,
+        "resident_bytes": 74851587,
+        "sha256_before_release": "12d850801662811e8e418a9c28e50835d53c620ae0a6e11c8acadf36e9d3e431"
+      },
+      {
+        "bytes": 25437,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-043-16-multi-b1/envelope.json",
+        "device": 66304,
+        "inode": 4831855460,
+        "resident_bytes": 0,
+        "sha256_before_release": "aff8c723c95ee45fa4e9f6794aa9042142684003b3a956017b415774ec761c32"
+      },
+      {
+        "bytes": 41686955,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-043-16-multi-b1/stdout.log",
+        "device": 66304,
+        "inode": 4831855457,
+        "resident_bytes": 0,
+        "sha256_before_release": "ddd8b9191d0ab945b11fc116fc77df9200f1a7384e9ec6d09944eb280d557c2a"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-043-16-multi-b1/stderr.log",
+        "device": 66304,
+        "inode": 4831855458,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      },
+      {
+        "bytes": 150308629,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-044-16-multi-b8/result.json",
+        "device": 66304,
+        "inode": 5368889480,
+        "resident_bytes": 150308629,
+        "sha256_before_release": "a6ccd8684295aa648007171379dfa20284a6e7a673478d5ec37d5e64f4a1e761"
+      },
+      {
+        "bytes": 25462,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-044-16-multi-b8/envelope.json",
+        "device": 66304,
+        "inode": 5368889481,
+        "resident_bytes": 0,
+        "sha256_before_release": "edd40a9fd2dce8924e735e7bd787d7e2477e86903b48607d91c91c562f026d2d"
+      },
+      {
+        "bytes": 83697857,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-044-16-multi-b8/stdout.log",
+        "device": 66304,
+        "inode": 5368889478,
+        "resident_bytes": 0,
+        "sha256_before_release": "b6c5d1ba1b76de786afdab548fbb1a4ce32aed03aec6e9c45f127d44ee9b0ba0"
+      },
+      {
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-044-16-multi-b8/stderr.log",
+        "device": 66304,
+        "inode": 5368889479,
+        "resident_bytes": 0,
+        "sha256_before_release": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+      }
+    ],
+    "content_identity_source": "PRE_RELEASE_ALLOWLIST_SHA256",
+    "content_read_after_release": false,
+    "released_resident_bytes": 4752077709,
+    "resident_bytes_after": 0,
+    "resident_bytes_before": 4752077709
+  },
+  "gate": {
+    "all_allowlisted_pages_released": true,
+    "all_targeted_advice_succeeded": true,
+    "exact_allowlist_file_count": true,
+    "no_active_k3_or_helper_process": true,
+    "no_payload_reread_or_rehash_after_release": true,
+    "projected_exact_capacity_admissible": true,
+    "projected_margin_improved": true,
+    "resident_bytes_decreased": true,
+    "swap_reclaim_refault_psi_oom_cgroup_clean": true
+  },
+  "host": {
+    "after": {
+      "cgroup": {
+        "memory_current_bytes": 114356178944,
+        "memory_events": {
+          "high": 0,
+          "low": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_group_kill": 0,
+          "oom_kill": 0
+        },
+        "memory_max": "max",
+        "memory_pressure_total_usec": {},
+        "memory_stat": {
+          "active_file": 132902912,
+          "anon": 186671104,
+          "file": 113862582272,
+          "file_dirty": 217088,
+          "file_mapped": 222793728,
+          "file_writeback": 0,
+          "inactive_file": 113744318464,
+          "kernel": 280903680,
+          "workingset_refault_file": 0
+        },
+        "memory_swap_current_bytes": 0,
+        "path": "/sys/fs/cgroup/user.slice/user-1000.slice/session-4.scope"
+      },
+      "meminfo": {
+        "Cached": 115112902656,
+        "KernelStack": 16842752,
+        "MemAvailable": 299676147712,
+        "MemFree": 186665623552,
+        "MemTotal": 303509725184,
+        "Mlocked": 10780672,
+        "PageTables": 8642560,
+        "SReclaimable": 350240768,
+        "Shmem": 26411008,
+        "Slab": 642994176,
+        "SwapFree": 0,
+        "SwapTotal": 0,
+        "Unevictable": 10780672
+      },
+      "system_memory_pressure_total_usec": {},
+      "vmstat": {
+        "allocstall_device": 0,
+        "allocstall_dma": 0,
+        "allocstall_dma32": 0,
+        "allocstall_movable": 0,
+        "allocstall_normal": 0,
+        "oom_kill": 0,
+        "pgscan_anon": 0,
+        "pgscan_direct": 0,
+        "pgscan_direct_throttle": 0,
+        "pgscan_file": 0,
+        "pgscan_khugepaged": 0,
+        "pgscan_kswapd": 0,
+        "pgsteal_anon": 0,
+        "pgsteal_direct": 0,
+        "pgsteal_file": 0,
+        "pgsteal_khugepaged": 0,
+        "pgsteal_kswapd": 0,
+        "pswpin": 0,
+        "pswpout": 0,
+        "workingset_refault_anon": 0,
+        "workingset_refault_file": 0
+      }
+    },
+    "before": {
+      "cgroup": {
+        "memory_current_bytes": 119108886528,
+        "memory_events": {
+          "high": 0,
+          "low": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_group_kill": 0,
+          "oom_kill": 0
+        },
+        "memory_max": "max",
+        "memory_pressure_total_usec": {},
+        "memory_stat": {
+          "active_file": 132902912,
+          "anon": 186511360,
+          "file": 118614753280,
+          "file_dirty": 217088,
+          "file_mapped": 222793728,
+          "file_writeback": 0,
+          "inactive_file": 118496489472,
+          "kernel": 281513984,
+          "workingset_refault_file": 0
+        },
+        "memory_swap_current_bytes": 0,
+        "path": "/sys/fs/cgroup/user.slice/user-1000.slice/session-4.scope"
+      },
+      "meminfo": {
+        "Cached": 119864709120,
+        "KernelStack": 16842752,
+        "MemAvailable": 299674931200,
+        "MemFree": 181912600576,
+        "MemTotal": 303509725184,
+        "Mlocked": 10780672,
+        "PageTables": 8642560,
+        "SReclaimable": 350240768,
+        "Shmem": 26411008,
+        "Slab": 642994176,
+        "SwapFree": 0,
+        "SwapTotal": 0,
+        "Unevictable": 10780672
+      },
+      "system_memory_pressure_total_usec": {},
+      "vmstat": {
+        "allocstall_device": 0,
+        "allocstall_dma": 0,
+        "allocstall_dma32": 0,
+        "allocstall_movable": 0,
+        "allocstall_normal": 0,
+        "oom_kill": 0,
+        "pgscan_anon": 0,
+        "pgscan_direct": 0,
+        "pgscan_direct_throttle": 0,
+        "pgscan_file": 0,
+        "pgscan_khugepaged": 0,
+        "pgscan_kswapd": 0,
+        "pgsteal_anon": 0,
+        "pgsteal_direct": 0,
+        "pgsteal_file": 0,
+        "pgsteal_khugepaged": 0,
+        "pgsteal_kswapd": 0,
+        "pswpin": 0,
+        "pswpout": 0,
+        "workingset_refault_anon": 0,
+        "workingset_refault_file": 0
+      }
+    },
+    "delta": {
+      "cgroup_memory_pressure_total_usec": {},
+      "memory_current_bytes": -4752707584,
+      "memory_events": {
+        "high": 0,
+        "low": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_group_kill": 0,
+        "oom_kill": 0
+      },
+      "memory_stat": {
+        "active_file": 0,
+        "anon": 159744,
+        "file": -4752171008,
+        "file_dirty": 0,
+        "file_mapped": 0,
+        "file_writeback": 0,
+        "inactive_file": -4752171008,
+        "kernel": -610304,
+        "workingset_refault_file": 0
+      },
+      "system_memory_pressure_total_usec": {},
+      "vmstat": {
+        "allocstall_device": 0,
+        "allocstall_dma": 0,
+        "allocstall_dma32": 0,
+        "allocstall_movable": 0,
+        "allocstall_normal": 0,
+        "oom_kill": 0,
+        "pgscan_anon": 0,
+        "pgscan_direct": 0,
+        "pgscan_direct_throttle": 0,
+        "pgscan_file": 0,
+        "pgscan_khugepaged": 0,
+        "pgscan_kswapd": 0,
+        "pgsteal_anon": 0,
+        "pgsteal_direct": 0,
+        "pgsteal_file": 0,
+        "pgsteal_khugepaged": 0,
+        "pgsteal_kswapd": 0,
+        "pswpin": 0,
+        "pswpout": 0,
+        "workingset_refault_anon": 0,
+        "workingset_refault_file": 0
+      }
+    },
+    "guard_projection_after": {
+      "admission_safe_pool_bytes": 138377723904,
+      "available_headroom_bytes": 189153546240,
+      "cgroup_memory_current_bytes": 114356178944,
+      "cgroup_memory_max_bytes": 303509725184,
+      "classification": "PROJECTED_FROM_LAST_ACCEPTED_MODEL_RESIDENCY",
+      "hysteresis_bytes": 1073741824,
+      "limit_headroom_bytes": 187007125120,
+      "memory_available_bytes": 299676147712,
+      "physical_ram_bytes": 303509725184,
+      "production_guard_is_final_authority": true,
+      "projected_admission_margin_bytes": 649248768,
+      "projected_measured_non_pool_committed_bytes": 116502600064,
+      "reference_model_file_cache_resident_bytes": 112548294656,
+      "reference_model_file_virtual_bytes": 114694715776,
+      "requested_pool_bytes": 137728475136,
+      "runtime_reserve_bytes": 17179869184,
+      "safe_pool_bytes": 139465654272,
+      "system_reserve_bytes": 30350972519
+    },
+    "guard_projection_before": {
+      "admission_safe_pool_bytes": 133622415360,
+      "available_headroom_bytes": 184400838656,
+      "cgroup_memory_current_bytes": 119108886528,
+      "cgroup_memory_max_bytes": 303509725184,
+      "classification": "PROJECTED_FROM_LAST_ACCEPTED_MODEL_RESIDENCY",
+      "hysteresis_bytes": 1073741824,
+      "limit_headroom_bytes": 182254417536,
+      "memory_available_bytes": 299674931200,
+      "physical_ram_bytes": 303509725184,
+      "production_guard_is_final_authority": true,
+      "projected_admission_margin_bytes": -4106059776,
+      "projected_measured_non_pool_committed_bytes": 121255307648,
+      "reference_model_file_cache_resident_bytes": 112548294656,
+      "reference_model_file_virtual_bytes": 114694715776,
+      "requested_pool_bytes": 137728475136,
+      "runtime_reserve_bytes": 17179869184,
+      "safe_pool_bytes": 134710345728,
+      "system_reserve_bytes": 30350972519
+    }
+  },
+  "inputs": {
+    "allowlist": {
+      "bytes": 89933,
+      "path": "/mnt/nvme1/issue102/stage-c-control-v1/final-observer-cache-allowlist.json",
+      "sha256": "2c226965c7b26220dbb0801d48c1fd5e548f84c090bdfc650a3845bd76099887"
+    },
+    "generator": {
+      "bytes": 17990,
+      "path": "/workspace/k3-out-of-core/scripts/issue102/release_observer_evidence_page_cache.py",
+      "sha256": "a933dbec67e45d93555a64951345b826aaa91e07bd1a17124751f846bad4f65c"
+    },
+    "reference_preflight": {
+      "bytes": 1115,
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/observer-hygiene-reference-v1.json",
+      "sha256": "3e7df357e5c32331b099464e50adaa7b6431b7bd205105326addaa14d761f41f"
+    }
+  },
+  "operation": {
+    "advice": [
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25346,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1/envelope.json",
+        "device": 66304,
+        "inode": 5368889474,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 117,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1/stderr.log",
+        "device": 66304,
+        "inode": 5368889473,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 0,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1/stdout.log",
+        "device": 66304,
+        "inode": 5368889472,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 77759299,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/result.json",
+        "device": 66304,
+        "inode": 6979337068,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25400,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/envelope.json",
+        "device": 66304,
+        "inode": 6979337069,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 43313751,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/stdout.log",
+        "device": 66304,
+        "inode": 6979337066,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/stderr.log",
+        "device": 66304,
+        "inode": 6979337067,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 96719907,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/result.json",
+        "device": 66304,
+        "inode": 7516226583,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25397,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/envelope.json",
+        "device": 66304,
+        "inode": 7516226584,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 53877243,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/stdout.log",
+        "device": 66304,
+        "inode": 7516226581,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/stderr.log",
+        "device": 66304,
+        "inode": 7516226582,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 92865351,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/result.json",
+        "device": 66304,
+        "inode": 8053171558,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25404,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/envelope.json",
+        "device": 66304,
+        "inode": 8053171559,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 51730575,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/stdout.log",
+        "device": 66304,
+        "inode": 8053171556,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/stderr.log",
+        "device": 66304,
+        "inode": 8053171557,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25289,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2/envelope.json",
+        "device": 66304,
+        "inode": 8589954768,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 0,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2/stdout.log",
+        "device": 66304,
+        "inode": 8589954766,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 332,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2/stderr.log",
+        "device": 66304,
+        "inode": 8589954767,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 84506736,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/result.json",
+        "device": 66304,
+        "inode": 9126852496,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25407,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/envelope.json",
+        "device": 66304,
+        "inode": 9126852497,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 47072384,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/stdout.log",
+        "device": 66304,
+        "inode": 9126852494,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/stderr.log",
+        "device": 66304,
+        "inode": 9126852495,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 109878041,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-005-05-codegen-b5/result.json",
+        "device": 66304,
+        "inode": 10200581400,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25410,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-005-05-codegen-b5/envelope.json",
+        "device": 66304,
+        "inode": 10200581401,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 61200093,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-005-05-codegen-b5/stdout.log",
+        "device": 66304,
+        "inode": 10200581398,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-005-05-codegen-b5/stderr.log",
+        "device": 66304,
+        "inode": 10200581399,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 109896247,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-006-06-debug-b4/result.json",
+        "device": 66304,
+        "inode": 10737470801,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25407,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-006-06-debug-b4/envelope.json",
+        "device": 66304,
+        "inode": 10737470802,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 61218299,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-006-06-debug-b4/stdout.log",
+        "device": 66304,
+        "inode": 10737470799,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-006-06-debug-b4/stderr.log",
+        "device": 66304,
+        "inode": 10737470800,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 82905512,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-007-07-algorithms-b2/result.json",
+        "device": 66304,
+        "inode": 11274318039,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25415,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-007-07-algorithms-b2/envelope.json",
+        "device": 66304,
+        "inode": 11274318040,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 46182780,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-007-07-algorithms-b2/stdout.log",
+        "device": 66304,
+        "inode": 11274318037,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-007-07-algorithms-b2/stderr.log",
+        "device": 66304,
+        "inode": 11274318038,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 88335313,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-008-08-summary-b2/result.json",
+        "device": 66304,
+        "inode": 11811247985,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25414,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-008-08-summary-b2/envelope.json",
+        "device": 66304,
+        "inode": 11811247986,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 49193073,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-008-08-summary-b2/stdout.log",
+        "device": 66304,
+        "inode": 11811247983,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-008-08-summary-b2/stderr.log",
+        "device": 66304,
+        "inode": 11811247984,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 146793798,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-009-09-extract-b8/result.json",
+        "device": 66304,
+        "inode": 12348050273,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25425,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-009-09-extract-b8/envelope.json",
+        "device": 66304,
+        "inode": 12348050274,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 81748590,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-009-09-extract-b8/stdout.log",
+        "device": 66304,
+        "inode": 12348050271,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-009-09-extract-b8/stderr.log",
+        "device": 66304,
+        "inode": 12348050272,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 99591561,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-010-10-planning-b4/result.json",
+        "device": 66304,
+        "inode": 12889095497,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25430,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-010-10-planning-b4/envelope.json",
+        "device": 66304,
+        "inode": 12889095498,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 55467981,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-010-10-planning-b4/stdout.log",
+        "device": 66304,
+        "inode": 12889095495,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-010-10-planning-b4/stderr.log",
+        "device": 66304,
+        "inode": 12889095496,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 74527065,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-011-11-instructions-b1/result.json",
+        "device": 66304,
+        "inode": 13421798028,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25421,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-011-11-instructions-b1/envelope.json",
+        "device": 66304,
+        "inode": 13421798029,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 41504757,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-011-11-instructions-b1/stdout.log",
+        "device": 66304,
+        "inode": 13421798026,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-011-11-instructions-b1/stderr.log",
+        "device": 66304,
+        "inode": 13421798027,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 71978999,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-012-12-compare-b1/result.json",
+        "device": 66304,
+        "inode": 13958655669,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25401,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-012-12-compare-b1/envelope.json",
+        "device": 66304,
+        "inode": 13958655670,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 40095283,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-012-12-compare-b1/stdout.log",
+        "device": 66304,
+        "inode": 13958655667,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-012-12-compare-b1/stderr.log",
+        "device": 66304,
+        "inode": 13958655668,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 91543822,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-013-13-creative-b3/result.json",
+        "device": 66304,
+        "inode": 14495533363,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25419,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-013-13-creative-b3/envelope.json",
+        "device": 66304,
+        "inode": 14495533364,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 50978342,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-013-13-creative-b3/stdout.log",
+        "device": 66304,
+        "inode": 14495533361,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-013-13-creative-b3/stderr.log",
+        "device": 66304,
+        "inode": 14495533362,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 81922025,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-014-14-qa-b2/result.json",
+        "device": 66304,
+        "inode": 15032433611,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25406,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-014-14-qa-b2/envelope.json",
+        "device": 66304,
+        "inode": 15032433612,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 45626265,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-014-14-qa-b2/stdout.log",
+        "device": 66304,
+        "inode": 15032433609,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-014-14-qa-b2/stderr.log",
+        "device": 66304,
+        "inode": 15032433610,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 109209043,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-015-15-spanish-b2/result.json",
+        "device": 66304,
+        "inode": 15569299618,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25429,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-015-15-spanish-b2/envelope.json",
+        "device": 66304,
+        "inode": 15569299619,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 60815743,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-015-15-spanish-b2/stdout.log",
+        "device": 66304,
+        "inode": 15569299616,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-015-15-spanish-b2/stderr.log",
+        "device": 66304,
+        "inode": 15569299617,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 90259978,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-016-16-multi-b2/result.json",
+        "device": 66304,
+        "inode": 16106150390,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25415,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-016-16-multi-b2/envelope.json",
+        "device": 66304,
+        "inode": 16106150391,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 50263794,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-016-16-multi-b2/stdout.log",
+        "device": 66304,
+        "inode": 16106150388,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-016-16-multi-b2/stderr.log",
+        "device": 66304,
+        "inode": 16106150389,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 150024455,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-017-01-math-b8/result.json",
+        "device": 66304,
+        "inode": 16643037954,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25431,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-017-01-math-b8/envelope.json",
+        "device": 66304,
+        "inode": 16643037955,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 83556007,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-017-01-math-b8/stdout.log",
+        "device": 66304,
+        "inode": 16643037952,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-017-01-math-b8/stderr.log",
+        "device": 66304,
+        "inode": 16643037953,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 79687289,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-018-02-formal-b1/result.json",
+        "device": 66304,
+        "inode": 17179917258,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25437,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-018-02-formal-b1/envelope.json",
+        "device": 66304,
+        "inode": 17179917259,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 44387797,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-018-02-formal-b1/stdout.log",
+        "device": 66304,
+        "inode": 17179917256,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-018-02-formal-b1/stderr.log",
+        "device": 66304,
+        "inode": 17179917257,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 140717593,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-019-02-formal-b8/result.json",
+        "device": 66304,
+        "inode": 17717826379,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25441,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-019-02-formal-b8/envelope.json",
+        "device": 66304,
+        "inode": 17717826380,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 78376541,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-019-02-formal-b8/stdout.log",
+        "device": 66304,
+        "inode": 17717826377,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-019-02-formal-b8/stderr.log",
+        "device": 66304,
+        "inode": 17717826378,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 70052884,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-020-03-science-b1/result.json",
+        "device": 66304,
+        "inode": 18253629743,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25447,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-020-03-science-b1/envelope.json",
+        "device": 66304,
+        "inode": 18253629744,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 39023112,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-020-03-science-b1/stdout.log",
+        "device": 66304,
+        "inode": 18253629741,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-020-03-science-b1/stderr.log",
+        "device": 66304,
+        "inode": 18253629742,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 141058368,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-021-03-science-b8/result.json",
+        "device": 66304,
+        "inode": 18790511259,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25444,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-021-03-science-b8/envelope.json",
+        "device": 66304,
+        "inode": 18790511260,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 78574992,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-021-03-science-b8/stdout.log",
+        "device": 66304,
+        "inode": 18790511257,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-021-03-science-b8/stderr.log",
+        "device": 66304,
+        "inode": 18790511258,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 73586871,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-022-04-factual-b1/result.json",
+        "device": 66304,
+        "inode": 19327373529,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25445,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-022-04-factual-b1/envelope.json",
+        "device": 66304,
+        "inode": 19327373530,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 40991535,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-022-04-factual-b1/stdout.log",
+        "device": 66304,
+        "inode": 19327373527,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-022-04-factual-b1/stderr.log",
+        "device": 66304,
+        "inode": 19327373528,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 144573769,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-023-04-factual-b8/result.json",
+        "device": 66304,
+        "inode": 19864249338,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25452,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-023-04-factual-b8/envelope.json",
+        "device": 66304,
+        "inode": 19864249339,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 80524829,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-023-04-factual-b8/stdout.log",
+        "device": 66304,
+        "inode": 19864249336,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-023-04-factual-b8/stderr.log",
+        "device": 66304,
+        "inode": 19864249337,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 74546344,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-024-05-codegen-b1/result.json",
+        "device": 66304,
+        "inode": 20401114612,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25442,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-024-05-codegen-b1/envelope.json",
+        "device": 66304,
+        "inode": 20401114613,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 41524036,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-024-05-codegen-b1/stdout.log",
+        "device": 66304,
+        "inode": 20401114610,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-024-05-codegen-b1/stderr.log",
+        "device": 66304,
+        "inode": 20401114611,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 146491760,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-025-05-codegen-b8/result.json",
+        "device": 66304,
+        "inode": 20937985730,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25451,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-025-05-codegen-b8/envelope.json",
+        "device": 66304,
+        "inode": 20937985731,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 81588876,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-025-05-codegen-b8/stdout.log",
+        "device": 66304,
+        "inode": 20937985728,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-025-05-codegen-b8/stderr.log",
+        "device": 66304,
+        "inode": 20937985729,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 73582928,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-026-06-debug-b1/result.json",
+        "device": 66304,
+        "inode": 21474875614,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25445,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-026-06-debug-b1/envelope.json",
+        "device": 66304,
+        "inode": 21474875615,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 40987592,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-026-06-debug-b1/stdout.log",
+        "device": 66304,
+        "inode": 21474875612,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-026-06-debug-b1/stderr.log",
+        "device": 66304,
+        "inode": 21474875613,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 141353283,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-027-06-debug-b8/result.json",
+        "device": 66304,
+        "inode": 22011731026,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25443,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-027-06-debug-b8/envelope.json",
+        "device": 66304,
+        "inode": 22011731027,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 78727583,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-027-06-debug-b8/stdout.log",
+        "device": 66304,
+        "inode": 22011731024,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-027-06-debug-b8/stderr.log",
+        "device": 66304,
+        "inode": 22011731025,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 76820252,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-028-07-algorithms-b1/result.json",
+        "device": 66304,
+        "inode": 22548623427,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25447,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-028-07-algorithms-b1/envelope.json",
+        "device": 66304,
+        "inode": 22548623428,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 42801676,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-028-07-algorithms-b1/stdout.log",
+        "device": 66304,
+        "inode": 22548623425,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-028-07-algorithms-b1/stderr.log",
+        "device": 66304,
+        "inode": 22548623426,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 151657402,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-029-07-algorithms-b8/result.json",
+        "device": 66304,
+        "inode": 23085479081,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25465,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-029-07-algorithms-b8/envelope.json",
+        "device": 66304,
+        "inode": 23085479082,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 84477334,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-029-07-algorithms-b8/stdout.log",
+        "device": 66304,
+        "inode": 23085479079,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-029-07-algorithms-b8/stderr.log",
+        "device": 66304,
+        "inode": 23085479080,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 77420952,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-030-08-summary-b1/result.json",
+        "device": 66304,
+        "inode": 23622377164,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25444,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-030-08-summary-b1/envelope.json",
+        "device": 66304,
+        "inode": 23622377165,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 43117728,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-030-08-summary-b1/stdout.log",
+        "device": 66304,
+        "inode": 23622377162,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-030-08-summary-b1/stderr.log",
+        "device": 66304,
+        "inode": 23622377163,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 152886778,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-031-08-summary-b8/result.json",
+        "device": 66304,
+        "inode": 24159220766,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25464,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-031-08-summary-b8/envelope.json",
+        "device": 66304,
+        "inode": 24159220767,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 85137414,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-031-08-summary-b8/stdout.log",
+        "device": 66304,
+        "inode": 24159220764,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-031-08-summary-b8/stderr.log",
+        "device": 66304,
+        "inode": 24159220765,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 79350260,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-032-09-extract-b1/result.json",
+        "device": 66304,
+        "inode": 24696160833,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25440,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-032-09-extract-b1/envelope.json",
+        "device": 66304,
+        "inode": 24696160834,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 44193092,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-032-09-extract-b1/stdout.log",
+        "device": 66304,
+        "inode": 24696158399,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-032-09-extract-b1/stderr.log",
+        "device": 66304,
+        "inode": 24696160832,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 75814507,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-033-10-planning-b1/result.json",
+        "device": 66304,
+        "inode": 25232951963,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25447,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-033-10-planning-b1/envelope.json",
+        "device": 66304,
+        "inode": 25232951964,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 42222903,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-033-10-planning-b1/stdout.log",
+        "device": 66304,
+        "inode": 25232951937,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-033-10-planning-b1/stderr.log",
+        "device": 66304,
+        "inode": 25232951962,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 147442693,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-034-10-planning-b8/result.json",
+        "device": 66304,
+        "inode": 16042,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25454,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-034-10-planning-b8/envelope.json",
+        "device": 66304,
+        "inode": 16043,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 82112837,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-034-10-planning-b8/stdout.log",
+        "device": 66304,
+        "inode": 16040,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-034-10-planning-b8/stderr.log",
+        "device": 66304,
+        "inode": 16041,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 142607432,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-035-11-instructions-b8/result.json",
+        "device": 66304,
+        "inode": 536891860,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25465,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-035-11-instructions-b8/envelope.json",
+        "device": 66304,
+        "inode": 536891861,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 79412436,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-035-11-instructions-b8/stdout.log",
+        "device": 66304,
+        "inode": 536891858,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-035-11-instructions-b8/stderr.log",
+        "device": 66304,
+        "inode": 536891859,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 143272684,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-036-12-compare-b8/result.json",
+        "device": 66304,
+        "inode": 1073757397,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25453,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-036-12-compare-b8/envelope.json",
+        "device": 66304,
+        "inode": 1073757398,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 79793040,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-036-12-compare-b8/stdout.log",
+        "device": 66304,
+        "inode": 1073757395,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-036-12-compare-b8/stderr.log",
+        "device": 66304,
+        "inode": 1073757396,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 72287869,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-037-13-creative-b1/result.json",
+        "device": 66304,
+        "inode": 1610642291,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25448,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-037-13-creative-b1/envelope.json",
+        "device": 66304,
+        "inode": 1610642292,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 40261829,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-037-13-creative-b1/stdout.log",
+        "device": 66304,
+        "inode": 1610642289,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-037-13-creative-b1/stderr.log",
+        "device": 66304,
+        "inode": 1610642290,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 142943660,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-038-13-creative-b8/result.json",
+        "device": 66304,
+        "inode": 2147504912,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25455,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-038-13-creative-b8/envelope.json",
+        "device": 66304,
+        "inode": 2147504913,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 79606340,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-038-13-creative-b8/stdout.log",
+        "device": 66304,
+        "inode": 2147504910,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-038-13-creative-b8/stderr.log",
+        "device": 66304,
+        "inode": 2147504911,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 75496972,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-039-14-qa-b1/result.json",
+        "device": 66304,
+        "inode": 2684372578,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25443,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-039-14-qa-b1/envelope.json",
+        "device": 66304,
+        "inode": 2684372579,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 42047692,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-039-14-qa-b1/stdout.log",
+        "device": 66304,
+        "inode": 2684372576,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-039-14-qa-b1/stderr.log",
+        "device": 66304,
+        "inode": 2684372577,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 144228420,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-040-14-qa-b8/result.json",
+        "device": 66304,
+        "inode": 3221233789,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25446,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-040-14-qa-b8/envelope.json",
+        "device": 66304,
+        "inode": 3221233790,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 80321804,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-040-14-qa-b8/stdout.log",
+        "device": 66304,
+        "inode": 3221233787,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-040-14-qa-b8/stderr.log",
+        "device": 66304,
+        "inode": 3221233788,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 87378089,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-041-15-spanish-b1/result.json",
+        "device": 66304,
+        "inode": 3758120260,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25458,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-041-15-spanish-b1/envelope.json",
+        "device": 66304,
+        "inode": 3758120261,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 48662821,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-041-15-spanish-b1/stdout.log",
+        "device": 66304,
+        "inode": 3758120258,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-041-15-spanish-b1/stderr.log",
+        "device": 66304,
+        "inode": 3758120259,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 212941282,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-042-15-spanish-b8/result.json",
+        "device": 66304,
+        "inode": 4295071778,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25449,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-042-15-spanish-b8/envelope.json",
+        "device": 66304,
+        "inode": 4295071779,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 118577330,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-042-15-spanish-b8/stdout.log",
+        "device": 66304,
+        "inode": 4295071776,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-042-15-spanish-b8/stderr.log",
+        "device": 66304,
+        "inode": 4295071777,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 74851587,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-043-16-multi-b1/result.json",
+        "device": 66304,
+        "inode": 4831855459,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25437,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-043-16-multi-b1/envelope.json",
+        "device": 66304,
+        "inode": 4831855460,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 41686955,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-043-16-multi-b1/stdout.log",
+        "device": 66304,
+        "inode": 4831855457,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-043-16-multi-b1/stderr.log",
+        "device": 66304,
+        "inode": 4831855458,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 150308629,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-044-16-multi-b8/result.json",
+        "device": 66304,
+        "inode": 5368889480,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 25462,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-044-16-multi-b8/envelope.json",
+        "device": 66304,
+        "inode": 5368889481,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 83697857,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-044-16-multi-b8/stdout.log",
+        "device": 66304,
+        "inode": 5368889478,
+        "status": "success"
+      },
+      {
+        "advice": "POSIX_FADV_DONTNEED",
+        "bytes": 67,
+        "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-044-16-multi-b8/stderr.log",
+        "device": 66304,
+        "inode": 5368889479,
+        "status": "success"
+      }
+    ],
+    "model_or_runtime_file_touched": false,
+    "syncfs_root": "/mnt/nvme1/issue102/stage-b-observer",
+    "syncfs_status": "success"
+  },
+  "provenance": "MEASUREMENT_HYGIENE_NON_SCIENTIFIC",
+  "schema_version": "phase13-6pg-observer-evidence-cache-hygiene-gate-v1",
+  "status": "pass"
+}

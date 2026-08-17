@@ -1,0 +1,140 @@
+{
+  "schema_version": "phase13-6pg-post-stage-a-reboot-preflight-v1",
+  "captured_utc": "2026-08-15T13:58:53Z",
+  "status": "ready-for-authorized-clean-host-reboot",
+  "revisions": {
+    "project": "69ce262228f3a20367101797415b336e92e0e601",
+    "nested_llama_cpp": "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9",
+    "published_project_ref_matches": true
+  },
+  "frozen_evidence": {
+    "stage_a_final_checkpoint": {
+      "path": "results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/stage-a-round-08-checkpoint.json",
+      "sha256": "baf8d7583175aa55eca8c7183608259bb2d30f350a8a643f8b40d4831a362786"
+    },
+    "semantic_detokenized": {
+      "path": "results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/semantic-sanity-detokenized.json",
+      "sha256": "e065d71376b2918670e14ccc468d3d7e0bc38129ba1cb8bba6ba1c232add0fc3"
+    },
+    "semantic_audit": {
+      "path": "results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/semantic-sanity-audit.json",
+      "sha256": "6bfb9b5bd818cf5cd16554067469c8832bd9355fb5a516a23557b831a37e1489"
+    },
+    "corpus": {
+      "path": "corpus/phase13/issue102-cross-prompt-v1.json",
+      "sha256": "e0f1746f987f888d68a36261a2822f4754a413b7799c6252aae8a4ded2a900d8"
+    },
+    "preregistration": {
+      "path": "corpus/phase13/issue102-preregistration-v1.json",
+      "sha256": "31444069cb1221bbf585288fb39e476d69c7e74a1fb56b2ec23043b3a5cb6149"
+    }
+  },
+  "runtime_identities": {
+    "stage_a_helper_source": {
+      "path": "/mnt/nvme1/issue102/build/issue102-cross-prompt-probe.cpp",
+      "sha256": "1ba6c540196e7f777f9ec761813b240057f08abfbc5ce711cae037c4babf8b43"
+    },
+    "stage_a_helper_binary": {
+      "path": "/mnt/nvme1/issue102/build/bin/issue102-cross-prompt-probe",
+      "sha256": "c35cdc52d3669b080972e1c1ac68df6b88290e79d46c92edde2f48eae3733975"
+    },
+    "long_horizon_helper_source": {
+      "path": "/mnt/nvme1/issue102/build/issue102-long-horizon-probe.cpp",
+      "sha256": "411306904bf1443a8f2bfbfa0f922883c8fb34b5fdaf99f0bda7d8448eaf7adc"
+    },
+    "long_horizon_helper_binary": {
+      "path": "/mnt/nvme1/issue102/build/bin/issue102-long-horizon-probe",
+      "sha256": "aef1c347bad779fde7842b1364f3d0e2b5b721a049a9b64200b6be7802d5f25d"
+    },
+    "qualification_runner": {
+      "path": "/mnt/nvme1/issue102/tooling/run_qualification_cell.py",
+      "sha256": "0e09960035666f15bfc82cef2a8dd81358f744a848f3f1f633d27d420afeca92"
+    },
+    "inventory_tool": {
+      "path": "scripts/issue102/capture_host_memory_inventory.py",
+      "sha256": "a76eb6b4458edc0d77ad6b829b7174ab88de79d3ce9c4fbfc62e51e986d27e1e"
+    },
+    "build_fingerprint": {
+      "path": "/mnt/nvme1/issue98/identity/build-fingerprint.json",
+      "sha256": "d150d179f41ebd2deab49b663e64c909b7d8fa6b4546c716aee889479f633a10"
+    },
+    "model_identity": {
+      "path": "/mnt/nvme1/issue98/upstream-evidence/issue73-final/identity/max-safe-artifact-identity.json",
+      "sha256": "58b14d13a602944e1134fc753b2cc819a84a31290aee9c1479264a66dbb5efe2"
+    }
+  },
+  "preserved_admission_failures": [
+    {
+      "root": "/mnt/nvme1/issue102/long-horizon/01-sentinel-s2",
+      "envelope_sha256": "fe95cc3f7149ef2d35e9f700675695b37f024f27a75479e022f2e91733b3fa17",
+      "stderr_sha256": "0f6d3b45b046f4f26da59ca25cecadcaa15a9e5775db736de622def87ba53267",
+      "result_json_created": false
+    },
+    {
+      "root": "/mnt/nvme1/issue102/long-horizon/01-sentinel-s2-retry-01",
+      "envelope_sha256": "e83e977c3f9cd768a2b83ea961d190f1b38b907698c8763c25b0d0fe6b3134b3",
+      "stderr_sha256": "0f6d3b45b046f4f26da59ca25cecadcaa15a9e5775db736de622def87ba53267",
+      "result_json_created": false
+    }
+  ],
+  "admission_guard_diagnostic": {
+    "classification": "HOST_MEMORY_ENVELOPE_DRIFT",
+    "requested_slots": 7849,
+    "requested_bytes": 137728475136,
+    "admission_safe_slots": 7842,
+    "admission_safe_bytes": 137605644288,
+    "shortfall_slots": 7,
+    "shortfall_bytes": 122830848,
+    "shortfall_percent": 0.08918333545674609,
+    "context_created": false,
+    "k3_inference_performed": false
+  },
+  "host_precondition": {
+    "boot_id": "e8ac1909-5568-4bc8-a490-995c2dd70aff",
+    "inventory": {
+      "path": "/mnt/nvme1/issue102/host-normalization/post-stage-a-pre-reboot.json",
+      "sha256": "b16c2269204ec71a97d9cc7476ab32ad8bbf2e51eb0e5f65b151e3e0acaffd95"
+    },
+    "mem_available_kib": 292561388,
+    "cached_kib": 112895492,
+    "cgroup_memory_current_bytes": 114525126656,
+    "cgroup_memory_max": "max",
+    "swap_enabled": false,
+    "cgroup_pressure_or_oom_events": false,
+    "active_k3_helper_observer_build_processes": 0,
+    "sysctl": {
+      "vm.overcommit_memory": 0,
+      "vm.overcommit_ratio": 50,
+      "vm.max_map_count": 65530
+    }
+  },
+  "persistent_storage": {
+    "model": {
+      "filesystem_label": "K3_NVME0",
+      "filesystem_uuid": "be7c5a2c-ca4d-4f37-b2b8-85ef9e872f6a",
+      "current_device": "/dev/nvme2n1",
+      "mount": "/mnt/nvme0",
+      "filesystem": "xfs",
+      "mount_options": "rw,noatime,nodiratime"
+    },
+    "build_and_evidence": {
+      "filesystem_label": "K3_NVME1",
+      "filesystem_uuid": "fa954c90-0da0-4f42-9045-fdb7e1834992",
+      "current_device": "/dev/nvme0n1",
+      "mount": "/mnt/nvme1",
+      "filesystem": "xfs",
+      "mount_options": "rw,noatime,nodiratime"
+    },
+    "automatic_fstab_mounts": false,
+    "post_reboot_mount_resolution": "resolve by filesystem label and mount explicitly with noatime,nodiratime",
+    "survival_expected": true
+  },
+  "reboot_gate": {
+    "source_and_compact_evidence_persisted": true,
+    "remote_branch_exact_before_preflight_commit": true,
+    "sudo_noninteractive_available": true,
+    "manual_cache_or_pressure_manipulation_used": false,
+    "one_additional_reboot_authorized": true,
+    "next": "commit and publish this preflight, verify the remote target, then perform the single authorized reboot"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "disposition": "REFERENCE_ONLY_FOR_POST_ATTEMPT_HYGIENE_PROJECTION",
+  "generator": {
+    "bytes": 8845,
+    "path": "/workspace/k3-out-of-core/scripts/issue102/build_stage_b_observer_continuation_control.py",
+    "sha256": "b961c482adadbb9349881ffe114cbb18eef3640b9415eea5192624202eccbdd4"
+  },
+  "preflight": {
+    "system_memory": {
+      "hysteresis_bytes": 1073741824,
+      "model_file_cache_resident_bytes": 112548294656,
+      "model_file_virtual_bytes": 114694715776,
+      "runtime_reserve_bytes": 17179869184,
+      "system_reserve_bytes": 30350972519
+    }
+  },
+  "provenance": "DERIVED_NON_SCIENTIFIC_HYGIENE_REFERENCE",
+  "schema_version": "phase13-6pg-observer-hygiene-reference-v1",
+  "scientific_or_performance_evidence": false,
+  "source": {
+    "bytes": 25330,
+    "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/observer-evidence-cache-hygiene-gate-001.json",
+    "schema_version": "phase13-6pg-observer-evidence-cache-hygiene-gate-v1",
+    "sha256": "0ff25fceb0df8bffa58130dfdd0ade244912e9502ae3007277cc1737f53b3ba8"
+  },
+  "status": "frozen"
+}

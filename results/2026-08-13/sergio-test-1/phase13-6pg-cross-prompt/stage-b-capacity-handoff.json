@@ -1,0 +1,1086 @@
+{
+  "artifacts": {
+    "committee_pin_capacity_counterfactual": {
+      "bytes": 2811402,
+      "path": "/mnt/nvme1/issue102/observer-replay-v1/committee-pin-capacity-counterfactual.json",
+      "schema_version": "phase13-6pg-committee-pin-capacity-counterfactual-v1",
+      "sha256": "0927db654db7b106584a5099415733edc65ed505a631836268158dc94d876889"
+    },
+    "exact_capacity_mrc": {
+      "bytes": 1047538,
+      "path": "/mnt/nvme1/issue102/observer-replay-v1/exact-capacity-mrc.json",
+      "schema_version": "phase13-6pg-exact-capacity-mrc-v1",
+      "sha256": "18ab89a63b63f6c96a0e0aa4807fcf152aed251b441ab77a8b593bcb35929ba0"
+    },
+    "family_length_capacity_extension": {
+      "bytes": 1837059,
+      "path": "/mnt/nvme1/issue102/observer-replay-v1/family-length-capacity-extension.json",
+      "schema_version": "phase13-6pg-family-length-capacity-extension-v1",
+      "sha256": "abcc533e974347585d544a914e0a7820b405986eaacaad3ce4577f4c95632f03"
+    },
+    "family_overlap_matrix": {
+      "bytes": 679545,
+      "path": "/mnt/nvme1/issue102/stage-b-analysis-v1/family-overlap-matrix.json",
+      "schema_version": "phase13-6pg-family-overlap-matrix-v1",
+      "sha256": "c1ef18ce953d15231c997e115980e9dcb1a315e8fa581ee32f15fb0324d6ea73"
+    },
+    "locality_throughput_calibration": {
+      "bytes": 40789,
+      "path": "/mnt/nvme1/issue102/posthoc-analysis-v1/locality-throughput-calibration.json",
+      "schema_version": "phase13-6pg-locality-throughput-calibration-v1",
+      "sha256": "aa0814eb56d959f0ca839d9743234abbc32c78311cf9d12e1bfb52f7751747e4"
+    },
+    "observer_progress": {
+      "bytes": 116310,
+      "path": "/mnt/nvme1/issue102/stage-b-observer-control-v4/progress.json",
+      "schema_version": "phase13-6pg-stage-b-observer-resume-progress-v4",
+      "sha256": "061e94cb6fd9018f746ac4b163bc340cb84d39b888f72bbaf016b996192262b1"
+    },
+    "post_stage_a_selections": {
+      "bytes": 70807,
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/post-stage-a-selections.json",
+      "schema_version": "phase13-6pg-post-stage-a-selections-v1",
+      "sha256": "cd4abec601244a9b187347c57bf4a5516970f3b615141070488f424b9a1db96c"
+    },
+    "s2_fixed_route_capacity_counterfactual": {
+      "bytes": 1351344,
+      "path": "/mnt/nvme1/issue102/observer-replay-v1/s2-fixed-route-capacity-counterfactual.json",
+      "schema_version": "phase13-6pg-s2-fixed-route-capacity-counterfactual-v1",
+      "sha256": "b87d9461ff503e2d13675b08d0362d5675ab8b6a2481e2d19ee46027d0b0ea9d"
+    },
+    "stage_a_family_length_analysis": {
+      "bytes": 56684,
+      "path": "/mnt/nvme1/issue102/posthoc-analysis-v1/stage-a-family-length-analysis.json",
+      "schema_version": "phase13-6pg-stage-a-family-length-analysis-v1",
+      "sha256": "3a29f1664fa4510b06092cb15d0dea9e66acd698e5d104fbbfdc15c16766b15b"
+    },
+    "stage_a_final_checkpoint": {
+      "bytes": 600977,
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/stage-a-round-08-checkpoint.json",
+      "schema_version": "issue102-stage-a-checkpoint-v1",
+      "sha256": "baf8d7583175aa55eca8c7183608259bb2d30f350a8a643f8b40d4831a362786"
+    },
+    "stage_a_posthoc_analysis_index": {
+      "bytes": 1557,
+      "path": "/mnt/nvme1/issue102/posthoc-analysis-v1/stage-a-posthoc-analysis-index.json",
+      "schema_version": "phase13-6pg-stage-a-posthoc-analysis-index-v1",
+      "sha256": "1a7e42c0d549ccd9486a91b24e89b172d2848b1f80874e0cd40986d273d60111"
+    },
+    "stage_b2_family_length_route_endpoints": {
+      "bytes": 1449552,
+      "path": "/mnt/nvme1/issue102/stage-b-analysis-v1/stage-b2-family-length-route-endpoints.json",
+      "schema_version": "phase13-6pg-stage-b2-family-length-route-endpoints-v1",
+      "sha256": "24d48e8cf0fdf2c981562231d1492f6c6890b01eccaae239d1ac7c8b63d05b47"
+    },
+    "stage_b_route_analysis_index": {
+      "bytes": 2747,
+      "path": "/mnt/nvme1/issue102/stage-b-analysis-v1/stage-b-route-analysis-index.json",
+      "schema_version": "phase13-6pg-stage-b-route-analysis-index-v1",
+      "sha256": "c4eeb570f760dbe1fdeb38ccddb783aa6095a75af98ae5489bbf8d12a57cdb7d"
+    },
+    "standing_committee_core_periphery": {
+      "bytes": 177635691,
+      "path": "/mnt/nvme1/issue102/stage-b-analysis-v1/standing-committee-core-periphery.json",
+      "schema_version": "phase13-6pg-standing-committee-core-periphery-v1",
+      "sha256": "b7a23e73108c1612c3db9d822c9d82ff065764a4682ef037cdc277ba5d730566"
+    }
+  },
+  "checkpoint_b_readiness": {
+    "prompt_level_evidence_complete": true,
+    "safe_to_request_independent_checkpoint_b_review": true,
+    "sentinel_determinism": {
+      "all_deterministic_signatures_equal": true,
+      "decode_tok_s": {
+        "count": 8,
+        "max": 0.3480169559046152,
+        "median": 0.3472168730820213,
+        "min": 0.34638026466863864,
+        "p10": 0.34653994866968113,
+        "p90": 0.3479675599352411
+      },
+      "expected_deterministic_signature_sha256": "19c23a98b8c8410929e8080c95f230e62b2476589d7f1dd112afaf14153fa947",
+      "runs": [
+        {
+          "decode_tok_s": 0.34794639023408075,
+          "deterministic_signature_sha256": "19c23a98b8c8410929e8080c95f230e62b2476589d7f1dd112afaf14153fa947",
+          "envelope_sha256": "e5d350ed28427f390aa692ef4cd01934b39ac719b6d8634cc7421b4d4788face",
+          "result_sha256": "116b20b2c9a5b2779aba18f7ca1cbc86098b8f6153c8b59c90d8e9f8a58c6d77",
+          "round": 1,
+          "status": "pass"
+        },
+        {
+          "decode_tok_s": 0.3469845739276607,
+          "deterministic_signature_sha256": "19c23a98b8c8410929e8080c95f230e62b2476589d7f1dd112afaf14153fa947",
+          "envelope_sha256": "71498b0f6f38c213bf28314df32516a865674108d035a6524c63feafe2e60524",
+          "result_sha256": "23e245256f43f44d6d61a4babc9208a9673e793de23e0de6e7d6268e4791a380",
+          "round": 2,
+          "status": "pass"
+        },
+        {
+          "decode_tok_s": 0.34744917223638194,
+          "deterministic_signature_sha256": "19c23a98b8c8410929e8080c95f230e62b2476589d7f1dd112afaf14153fa947",
+          "envelope_sha256": "c00c19df38c3c7e47e43ea34da1fd9f7a09376e3510d6256368efd0cad087754",
+          "result_sha256": "ccfdfef0b64a97b2539e687c27ac1e3f1fd3cd2121330b54fdd3051ce8b07229",
+          "round": 3,
+          "status": "pass"
+        },
+        {
+          "decode_tok_s": 0.34638026466863864,
+          "deterministic_signature_sha256": "19c23a98b8c8410929e8080c95f230e62b2476589d7f1dd112afaf14153fa947",
+          "envelope_sha256": "dce83f40f589b2197e4493f58231d37b44072cc6444890b2f077faafc3bb055e",
+          "result_sha256": "19abd7964cf837b9e15e3cd2b7f1ba11c27d876f74cd36726f4f1133b10c56bd",
+          "round": 4,
+          "status": "pass"
+        },
+        {
+          "decode_tok_s": 0.34660838467012794,
+          "deterministic_signature_sha256": "19c23a98b8c8410929e8080c95f230e62b2476589d7f1dd112afaf14153fa947",
+          "envelope_sha256": "03edf018c2fa69148078f35eb7da8aac5ce166d5956a352b4400ebb212466198",
+          "result_sha256": "95f5e4e72252fad4272cb6b9a044b6657c26f68682a4f2cafc6d73a9b0f93de4",
+          "round": 5,
+          "status": "pass"
+        },
+        {
+          "decode_tok_s": 0.3478485973640937,
+          "deterministic_signature_sha256": "19c23a98b8c8410929e8080c95f230e62b2476589d7f1dd112afaf14153fa947",
+          "envelope_sha256": "4ab7e60ba57ea7490c7e1525c7d3658aca23db9f7373f6ee94a99fde7cdc1e63",
+          "result_sha256": "5267325172ad235d71ab61e5adcfa5c2081aaab37bc33f1e94e2691cdd4bade8",
+          "round": 6,
+          "status": "pass"
+        },
+        {
+          "decode_tok_s": 0.3480169559046152,
+          "deterministic_signature_sha256": "19c23a98b8c8410929e8080c95f230e62b2476589d7f1dd112afaf14153fa947",
+          "envelope_sha256": "0f709d72eac18a7d8faa674c949f4cf58b4dcb0a6fc27abe1851777dffad1dc6",
+          "result_sha256": "2c39e3fa6b303f16367a428b55148900c09e5977b1eb6051976fe5a9392e0aab",
+          "round": 7,
+          "status": "pass"
+        },
+        {
+          "decode_tok_s": 0.3467032919050487,
+          "deterministic_signature_sha256": "19c23a98b8c8410929e8080c95f230e62b2476589d7f1dd112afaf14153fa947",
+          "envelope_sha256": "80b6fc074b579eb75f80f93b093db3cd6b877535ef9680712d76703686c7185e",
+          "result_sha256": "c3eda5d3674fddfc060e3425483ea652d331f7365cb3eaf1f0104a78554762af",
+          "round": 8,
+          "status": "pass"
+        }
+      ],
+      "status": "pass"
+    },
+    "stage_c_ids_published_before_followup_outcomes": true,
+    "stage_c_rule_reproduced_before_followup_outcomes": true,
+    "timed_instrumentation_contamination": false
+  },
+  "completeness": {
+    "observer_captures": 44,
+    "observer_performance_interpretation": "FORBIDDEN",
+    "stage_a_primary": 128,
+    "stage_a_sentinels": 8,
+    "stage_b2_endpoints": 32,
+    "stage_b_representatives": 16,
+    "stage_c_frozen_unique_prompts": 24,
+    "stage_c_outcomes_inspected": 0
+  },
+  "disposition": "STAGE_B_AND_OFFLINE_ANALYSIS_COMPLETE_CHECKPOINT_B_REVIEW_REQUIRED",
+  "execution_target": {
+    "nested_llama_cpp_sha": "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9",
+    "project_sha": "05a8d248db818b4ce9a5580dbd6c0c8a97aaf180"
+  },
+  "offline_capacity_replay_summary": {
+    "authority": "Larger-capacity curves remain non-authoritative pending Stage-C EXACT.",
+    "capacity_thresholds": {
+      "C80": {
+        "attained_actual_gib": {
+          "count": 44,
+          "max": 487.76454162597656,
+          "mean": 444.3248436667702,
+          "median": 445.04612731933594,
+          "min": 388.3878479003906,
+          "p10": 409.2894744873047,
+          "p90": 473.6465469360352
+        },
+        "attained_count": 44,
+        "not_attainable_count": 0
+      },
+      "C90": {
+        "attained_actual_gib": {
+          "count": 44,
+          "max": 771.6932830810547,
+          "mean": 677.619249864058,
+          "median": 676.9087371826172,
+          "min": 573.7406616210938,
+          "p10": 620.1867233276367,
+          "p90": 736.243862915039
+        },
+        "attained_count": 44,
+        "not_attainable_count": 0
+      },
+      "C95": {
+        "attained_actual_gib": {
+          "count": 28,
+          "max": 940.0665893554688,
+          "mean": 870.1915855407715,
+          "median": 876.0543365478516,
+          "min": 787.5778656005859,
+          "p10": 806.9220840454102,
+          "p90": 912.8045928955078
+        },
+        "attained_count": 28,
+        "not_attainable_count": 16
+      },
+      "C96": {
+        "attained_actual_gib": {
+          "count": 23,
+          "max": 970.4139862060547,
+          "mean": 912.8199403182319,
+          "median": 918.1517486572266,
+          "min": 846.4913635253906,
+          "p10": 875.1457122802735,
+          "p90": 947.5807159423828
+        },
+        "attained_count": 23,
+        "not_attainable_count": 21
+      },
+      "C98": {
+        "attained_actual_gib": {
+          "count": 1,
+          "max": 1102.1808471679688,
+          "mean": 1102.1808471679688,
+          "median": 1102.1808471679688,
+          "min": 1102.1808471679688,
+          "p10": 1102.1808471679688,
+          "p90": 1102.1808471679688
+        },
+        "attained_count": 1,
+        "not_attainable_count": 43
+      }
+    },
+    "committee_pin_same_capacity_counterfactual": [
+      {
+        "feasible_prompt_capacity_cells": 160,
+        "gamma": 0.5,
+        "hit_ratio_delta_vs_global_lru": {
+          "count": 160,
+          "max": 0.02993376358695654,
+          "mean": -0.007977493949558424,
+          "median": 0.0,
+          "min": -0.24892790421195643,
+          "p10": -0.023182744565217336,
+          "p90": 0.015733271059782596
+        },
+        "infeasible_prompt_capacity_cells": 128,
+        "negative_cells": 55,
+        "positive_cells": 42,
+        "zero_cells": 63
+      },
+      {
+        "feasible_prompt_capacity_cells": 254,
+        "gamma": 0.75,
+        "hit_ratio_delta_vs_global_lru": {
+          "count": 254,
+          "max": 0.030676800271739135,
+          "mean": -0.02373592660101421,
+          "median": 0.0,
+          "min": -0.3119374150815218,
+          "p10": -0.16977963654891307,
+          "p90": 0.015544327445652187
+        },
+        "infeasible_prompt_capacity_cells": 34,
+        "negative_cells": 75,
+        "positive_cells": 115,
+        "zero_cells": 64
+      },
+      {
+        "feasible_prompt_capacity_cells": 254,
+        "gamma": 0.8,
+        "hit_ratio_delta_vs_global_lru": {
+          "count": 254,
+          "max": 0.030676800271739135,
+          "mean": -0.02373592660101421,
+          "median": 0.0,
+          "min": -0.3119374150815218,
+          "p10": -0.16977963654891307,
+          "p90": 0.015544327445652187
+        },
+        "infeasible_prompt_capacity_cells": 34,
+        "negative_cells": 75,
+        "positive_cells": 115,
+        "zero_cells": 64
+      },
+      {
+        "feasible_prompt_capacity_cells": 288,
+        "gamma": 0.9,
+        "hit_ratio_delta_vs_global_lru": {
+          "count": 288,
+          "max": 0.02268384850543481,
+          "mean": -0.011249671235752566,
+          "median": 0.0007005774456521063,
+          "min": -0.32649031929347827,
+          "p10": -0.01677139945652172,
+          "p90": 0.009853727921195678
+        },
+        "infeasible_prompt_capacity_cells": 0,
+        "negative_cells": 64,
+        "positive_cells": 157,
+        "zero_cells": 67
+      },
+      {
+        "feasible_prompt_capacity_cells": 288,
+        "gamma": 1.0,
+        "hit_ratio_delta_vs_global_lru": {
+          "count": 288,
+          "max": 0.016898777173913082,
+          "mean": 0.000975493647626059,
+          "median": 0.0009181810461956486,
+          "min": -0.058020550271739135,
+          "p10": -0.0010030995244565848,
+          "p90": 0.0074940557065217295
+        },
+        "infeasible_prompt_capacity_cells": 0,
+        "negative_cells": 39,
+        "positive_cells": 179,
+        "zero_cells": 70
+      }
+    ],
+    "family_length_endpoint_limit": "B1/B8 are endpoint sensitivity evidence, not complete family characterization.",
+    "family_length_endpoint_status": "pass",
+    "physical_7849_representative_exact_hit_ratio": {
+      "count": 16,
+      "max": 0.6233334748641305,
+      "mean": 0.5651895274286685,
+      "median": 0.5610086192255435,
+      "min": 0.5294560971467391,
+      "p10": 0.5420346467391304,
+      "p90": 0.5908733865489131
+    },
+    "physical_7849_representative_exact_loads_per_token": {
+      "count": 16,
+      "max": 692.640625,
+      "mean": 640.041015625,
+      "median": 646.1953125,
+      "min": 554.453125,
+      "p10": 602.234375,
+      "p90": 674.125
+    },
+    "physical_anchor_validation": {
+      "authoritative_larger_capacity_curve": false,
+      "required_slots": 7849,
+      "status": "PENDING_STAGE_C_EXACT"
+    },
+    "physical_observer_prevalidation": {
+      "authority": "supporting semantic-order check; Stage-C EXACT remains the required physical anchor",
+      "expected_capture_count": 44,
+      "matched_capture_count": 44,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    "replacement_policy": "production-equivalent global whole-ExpertKey LRU/ALWAYS",
+    "s2_fixed_route_physical_counterfactual": {
+      "exact_hit_ratio": {
+        "count": 44,
+        "max": 0.6233334748641305,
+        "mean": 0.5628756195188983,
+        "median": 0.5602655825407609,
+        "min": 0.5073348335597826,
+        "p10": 0.5367452870244566,
+        "p90": 0.585242229959239
+      },
+      "guard": "Captured exact hidden-state trajectory counterfactual; not physical TPS evidence.",
+      "prompt_count": 44,
+      "s2_fixed_route_hit_ratio": {
+        "count": 44,
+        "max": 0.6878290591032609,
+        "mean": 0.6298958397665514,
+        "median": 0.6294476052989131,
+        "min": 0.5947796365489131,
+        "p10": 0.6037502122961956,
+        "p90": 0.6589005180027174
+      },
+      "s2_minus_exact_hit_ratio": {
+        "count": 44,
+        "max": 0.08744480298913049,
+        "mean": 0.06702022024765317,
+        "median": 0.0661568019701087,
+        "min": 0.0558869735054347,
+        "p10": 0.06172830332880429,
+        "p90": 0.07299592391304349
+      }
+    }
+  },
+  "schema_version": "phase13-6pg-stage-b-capacity-handoff-v1",
+  "stage_a_posthoc_summary": {
+    "actual_token_associations": {
+      "decode_tok_s": {
+        "count": 128,
+        "pearson_r": 0.09442048874819373,
+        "spearman_rho": 0.06801693350043887
+      },
+      "hit_ratio": {
+        "count": 128,
+        "pearson_r": 0.12500191823609635,
+        "spearman_rho": 0.10291113247039962
+      }
+    },
+    "descriptive_r_squared": {
+      "decode_tok_s": {
+        "actual_token_only": 0.008915228695447253,
+        "family_only": 0.49725423807511904,
+        "family_plus_actual_tokens": 0.5041324071052828,
+        "family_plus_length_level": 0.501760574909135,
+        "length_level_only": 0.0045063368340158005,
+        "within_family_centered_actual_tokens": 0.0068781690301639165
+      },
+      "hit_ratio": {
+        "actual_token_only": 0.015625479562704547,
+        "family_only": 0.5004528468936358,
+        "family_plus_actual_tokens": 0.5124788402167426,
+        "family_plus_length_level": 0.5092778237424258,
+        "length_level_only": 0.0088249768487908,
+        "within_family_centered_actual_tokens": 0.012025993323107054
+      }
+    },
+    "family_specific_bh_rejections": {
+      "decode_tok_s": [],
+      "hit_ratio": []
+    },
+    "interpretation": "Artifact-only post-hoc descriptive analysis; no model process executed.",
+    "locality_throughput_calibration": {
+      "hit_ratio": {
+        "lofo_mae": 0.0007597922105225148,
+        "lofo_rmse": 0.000927825335573933,
+        "mae": 0.0007392492725751738,
+        "r_squared": 0.9938940823887215,
+        "rmse": 0.0009017565928485504
+      },
+      "loads_per_token": {
+        "lofo_mae": 0.0007597922105222008,
+        "lofo_rmse": 0.0009278253355741124,
+        "mae": 0.0007392492725749075,
+        "r_squared": 0.9938940823887215,
+        "rmse": 0.0009017565928485488
+      }
+    }
+  },
+  "stage_b_route_summary": {
+    "committee": {
+      "DECODE": {
+        "audit_class": "TOPK_COMMITTEE_AUDIT",
+        "complete_routing_weight_profile_available": false,
+        "gamma_sensitivity": [
+          {
+            "core_expert_key_count": 25046,
+            "gamma": 0.5,
+            "leave_one_family_out_core_mass_fraction": {
+              "count": 16,
+              "max": 0.705460258152174,
+              "mean": 0.625629590905231,
+              "median": 0.6272503396739131,
+              "min": 0.5325237771739131,
+              "p10": 0.5563487177309783,
+              "p90": 0.6879086701766304
+            },
+            "selected_mass_fraction": 0.6927450428838315,
+            "threshold_family_count": 8
+          },
+          {
+            "core_expert_key_count": 9526,
+            "gamma": 0.75,
+            "leave_one_family_out_core_mass_fraction": {
+              "count": 16,
+              "max": 0.40047554347826086,
+              "mean": 0.34808017896569293,
+              "median": 0.3451140030570652,
+              "min": 0.2724715523097826,
+              "p10": 0.30025050951086957,
+              "p90": 0.38410750679347827
+            },
+            "selected_mass_fraction": 0.41594331160835596,
+            "threshold_family_count": 12
+          },
+          {
+            "core_expert_key_count": 6939,
+            "gamma": 0.8,
+            "leave_one_family_out_core_mass_fraction": {
+              "count": 16,
+              "max": 0.40047554347826086,
+              "mean": 0.34808017896569293,
+              "median": 0.3451140030570652,
+              "min": 0.2724715523097826,
+              "p10": 0.30025050951086957,
+              "p90": 0.38410750679347827
+            },
+            "selected_mass_fraction": 0.34808017896569293,
+            "threshold_family_count": 13
+          },
+          {
+            "core_expert_key_count": 2903,
+            "gamma": 0.9,
+            "leave_one_family_out_core_mass_fraction": {
+              "count": 16,
+              "max": 0.23684825067934784,
+              "mean": 0.20654562245244565,
+              "median": 0.20866062330163043,
+              "min": 0.15702488111413043,
+              "p10": 0.1778511379076087,
+              "p90": 0.2325333305027174
+            },
+            "selected_mass_fraction": 0.20654562245244565,
+            "threshold_family_count": 15
+          },
+          {
+            "core_expert_key_count": 1422,
+            "gamma": 1.0,
+            "leave_one_family_out_core_mass_fraction": {
+              "count": 16,
+              "max": 0.15599524456521738,
+              "mean": 0.13329282014266305,
+              "median": 0.13626762058423914,
+              "min": 0.10363238790760869,
+              "p10": 0.1146293308423913,
+              "p90": 0.14743440047554346
+            },
+            "selected_mass_fraction": 0.13329282014266305,
+            "threshold_family_count": 16
+          }
+        ]
+      },
+      "PREFILL": {
+        "audit_class": "TOPK_COMMITTEE_AUDIT",
+        "complete_routing_weight_profile_available": false,
+        "gamma_sensitivity": [
+          {
+            "core_expert_key_count": 54054,
+            "gamma": 0.5,
+            "leave_one_family_out_core_mass_fraction": {
+              "count": 16,
+              "max": 0.9594217051630435,
+              "mean": 0.9297690505568986,
+              "median": 0.9269376690826293,
+              "min": 0.8965028355387523,
+              "p10": 0.9136047171638726,
+              "p90": 0.951506308991984
+            },
+            "selected_mass_fraction": 0.9428147126906318,
+            "threshold_family_count": 8
+          },
+          {
+            "core_expert_key_count": 43323,
+            "gamma": 0.75,
+            "leave_one_family_out_core_mass_fraction": {
+              "count": 16,
+              "max": 0.8932107676630435,
+              "mean": 0.849054331204006,
+              "median": 0.8536242870594035,
+              "min": 0.7968528473534972,
+              "p10": 0.8114321043165468,
+              "p90": 0.8871164441298657
+            },
+            "selected_mass_fraction": 0.8676144974898172,
+            "threshold_family_count": 12
+          },
+          {
+            "core_expert_key_count": 40972,
+            "gamma": 0.8,
+            "leave_one_family_out_core_mass_fraction": {
+              "count": 16,
+              "max": 0.8932107676630435,
+              "mean": 0.849054331204006,
+              "median": 0.8536242870594035,
+              "min": 0.7968528473534972,
+              "p10": 0.8114321043165468,
+              "p90": 0.8871164441298657
+            },
+            "selected_mass_fraction": 0.8436162395211708,
+            "threshold_family_count": 13
+          },
+          {
+            "core_expert_key_count": 36434,
+            "gamma": 0.9,
+            "leave_one_family_out_core_mass_fraction": {
+              "count": 16,
+              "max": 0.8428583559782609,
+              "mean": 0.7925038228297637,
+              "median": 0.801457800729076,
+              "min": 0.7362407451165721,
+              "p10": 0.7403981229221734,
+              "p90": 0.839334641387001
+            },
+            "selected_mass_fraction": 0.7852604092663635,
+            "threshold_family_count": 15
+          },
+          {
+            "core_expert_key_count": 34156,
+            "gamma": 1.0,
+            "leave_one_family_out_core_mass_fraction": {
+              "count": 16,
+              "max": 0.8077081715838509,
+              "mean": 0.751549811927081,
+              "median": 0.7604879975939813,
+              "min": 0.6881793478260869,
+              "p10": 0.6919601976880378,
+              "p90": 0.8041471005897166
+            },
+            "selected_mass_fraction": 0.7430302095173819,
+            "threshold_family_count": 16
+          }
+        ]
+      }
+    },
+    "endpoint_limit": "Two prompts are endpoint sensitivity evidence and do not fully characterize a family.",
+    "interpretation_guard": "Selected top-16 frequency cannot assign semantic functions or establish substitutability.",
+    "representative_decode_pair_count": 120,
+    "representative_decode_pairs": {
+      "cosine_similarity": {
+        "count": 120,
+        "max": 0.6840633633844544,
+        "mean": 0.42721459743189183,
+        "median": 0.4246805829514755,
+        "min": 0.23611668779873535,
+        "p10": 0.3029187628037138,
+        "p90": 0.5493312827923479
+      },
+      "count": 120,
+      "mean_layerwise_support_jaccard": {
+        "count": 120,
+        "max": 0.44141203361020964,
+        "mean": 0.3457721748700554,
+        "median": 0.3410760444059922,
+        "min": 0.2874823090948406,
+        "p10": 0.3084860054789234,
+        "p90": 0.3868615463751362
+      },
+      "weighted_jensen_shannon_divergence_bits": {
+        "count": 120,
+        "max": 0.6149191717892044,
+        "mean": 0.4994775355648687,
+        "median": 0.5004903030281606,
+        "min": 0.3332073685005134,
+        "p10": 0.42012577703196763,
+        "p90": 0.5728444501293517
+      }
+    },
+    "stage_b2_endpoints": {
+      "between_family_b1": {
+        "cosine_similarity": {
+          "count": 120,
+          "max": 0.6599988043646416,
+          "mean": 0.42695458781103474,
+          "median": 0.42072914688120255,
+          "min": 0.23049828539417597,
+          "p10": 0.3010402979973712,
+          "p90": 0.5653363876399665
+        },
+        "count": 120,
+        "mean_layerwise_support_jaccard": {
+          "count": 120,
+          "max": 0.43412810812841157,
+          "mean": 0.3463253081066558,
+          "median": 0.3437101548909308,
+          "min": 0.2820381373907633,
+          "p10": 0.3008666741881444,
+          "p90": 0.38984294707438266
+        },
+        "weighted_jensen_shannon_divergence_bits": {
+          "count": 120,
+          "max": 0.6259509594633728,
+          "mean": 0.5019458545521424,
+          "median": 0.49933642333863976,
+          "min": 0.3583658448260157,
+          "p10": 0.4177140705145578,
+          "p90": 0.5839899510706638
+        }
+      },
+      "between_family_b8": {
+        "cosine_similarity": {
+          "count": 120,
+          "max": 0.7950322788722418,
+          "mean": 0.48036496947333657,
+          "median": 0.45944070183811203,
+          "min": 0.29034925639655074,
+          "p10": 0.35213938295569386,
+          "p90": 0.620845177990384
+        },
+        "count": 120,
+        "mean_layerwise_support_jaccard": {
+          "count": 120,
+          "max": 0.45598442553602364,
+          "mean": 0.3593554487819322,
+          "median": 0.3512007253409934,
+          "min": 0.2913882692765394,
+          "p10": 0.30665323059222865,
+          "p90": 0.41507537605540584
+        },
+        "weighted_jensen_shannon_divergence_bits": {
+          "count": 120,
+          "max": 0.5976310492360758,
+          "mean": 0.4703293370475209,
+          "median": 0.48209203377150744,
+          "min": 0.2838699752003191,
+          "p10": 0.3751305192338256,
+          "p90": 0.5554231615618409
+        }
+      },
+      "within_family_b1_b8": {
+        "cosine_similarity": {
+          "count": 16,
+          "max": 0.7305382668298689,
+          "mean": 0.5786422107845253,
+          "median": 0.5651564847818376,
+          "min": 0.43013345337927555,
+          "p10": 0.48153425606004285,
+          "p90": 0.6775074334796444
+        },
+        "count": 16,
+        "mean_layerwise_support_jaccard": {
+          "count": 16,
+          "max": 0.4180598227535728,
+          "mean": 0.3880860817732711,
+          "median": 0.3993034754510314,
+          "min": 0.3206149471640064,
+          "p10": 0.35734082718208404,
+          "p90": 0.4145574576688066
+        },
+        "weighted_jensen_shannon_divergence_bits": {
+          "count": 16,
+          "max": 0.5137613266632209,
+          "mean": 0.4127989796905928,
+          "median": 0.39808856369265966,
+          "min": 0.34461770013751525,
+          "p10": 0.36117904070587803,
+          "p90": 0.4755222580095935
+        }
+      }
+    }
+  },
+  "stage_c_frozen_selection": {
+    "additional_high_hit_case_ids": [
+      "03-science-b6",
+      "02-formal-b8",
+      "01-math-b8",
+      "01-math-b6"
+    ],
+    "additional_low_hit_case_ids": [
+      "04-factual-b4",
+      "08-summary-b5",
+      "11-instructions-b6",
+      "11-instructions-b5"
+    ],
+    "count": 24,
+    "prompts": [
+      {
+        "actual_templated_prompt_tokens": 308,
+        "case_id": "01-math-b6",
+        "length_level": 6,
+        "selection_role": "ADDITIONAL_HIGH_HIT",
+        "semantic_family": "mathematical reasoning",
+        "stage_a_envelope_sha256": "bb4ae125804fd90790053e09dc115f22f6004d995cb01c36364d2593a343aad7",
+        "stage_a_hit_ratio": 0.6676396908967391,
+        "stage_a_ordinal": 81,
+        "stage_a_result_sha256": "217343417aec521e5cb250726b6b56ea5365c8420fb40692a98c147a0b44dad3"
+      },
+      {
+        "actual_templated_prompt_tokens": 403,
+        "case_id": "01-math-b8",
+        "length_level": 8,
+        "selection_role": "ADDITIONAL_HIGH_HIT",
+        "semantic_family": "mathematical reasoning",
+        "stage_a_envelope_sha256": "a4c3c5353f63bb7d916902aec20fde417d7d738036e691eed24cf36d23205da8",
+        "stage_a_hit_ratio": 0.66845703125,
+        "stage_a_ordinal": 113,
+        "stage_a_result_sha256": "4e9a7d1430d085660fa7315d6e25206f375f6669b7d0b3eb0b19790a5cc8893d"
+      },
+      {
+        "actual_templated_prompt_tokens": 374,
+        "case_id": "02-formal-b8",
+        "length_level": 8,
+        "selection_role": "ADDITIONAL_HIGH_HIT",
+        "semantic_family": "formal logic / proof-style reasoning",
+        "stage_a_envelope_sha256": "de6c5b02b4b91daf3b16405ff6a57bb74a7d60947d22d727db9317f8fe5c9d33",
+        "stage_a_hit_ratio": 0.669083305027174,
+        "stage_a_ordinal": 114,
+        "stage_a_result_sha256": "d798ca69ff3dfd63b965925fb0c85832a092d499afb6f1fd516709a2c7c66e76"
+      },
+      {
+        "actual_templated_prompt_tokens": 320,
+        "case_id": "03-science-b6",
+        "length_level": 6,
+        "selection_role": "ADDITIONAL_HIGH_HIT",
+        "semantic_family": "physics / scientific reasoning",
+        "stage_a_envelope_sha256": "15fd5a9211113b996f0ef637963b70cd69a744f553e5b63507fe0177f798bf0b",
+        "stage_a_hit_ratio": 0.6798042629076086,
+        "stage_a_ordinal": 83,
+        "stage_a_result_sha256": "159b1de110fb655265386e96155b5e5fa4357b6cf8b1f0c5731dfa7063d4a8cd"
+      },
+      {
+        "actual_templated_prompt_tokens": 254,
+        "case_id": "04-factual-b4",
+        "length_level": 4,
+        "selection_role": "ADDITIONAL_LOW_HIT",
+        "semantic_family": "factual / explanatory knowledge",
+        "stage_a_envelope_sha256": "f8ca2f1a7dbdca329d928dacae94c84691c8957808e76bfe558aa8594b2c2998",
+        "stage_a_hit_ratio": 0.5811289911684783,
+        "stage_a_ordinal": 52,
+        "stage_a_result_sha256": "125531f8adcf0bb6c4049fa1f43e3b93b7c3ab4ae4d8d3d1327aecefa69f442a"
+      },
+      {
+        "actual_templated_prompt_tokens": 294,
+        "case_id": "08-summary-b5",
+        "length_level": 5,
+        "selection_role": "ADDITIONAL_LOW_HIT",
+        "semantic_family": "summarization / synthesis",
+        "stage_a_envelope_sha256": "2041f74a5959a7bd149a4ef6bce08b15299f520a00dd78e544699c181bf00c0c",
+        "stage_a_hit_ratio": 0.5818295686141305,
+        "stage_a_ordinal": 72,
+        "stage_a_result_sha256": "fd565dd3ae840ef39fc60a08b3ccce5efd748334f00adb6a2a5294b333d46cf7"
+      },
+      {
+        "actual_templated_prompt_tokens": 282,
+        "case_id": "11-instructions-b5",
+        "length_level": 5,
+        "selection_role": "ADDITIONAL_LOW_HIT",
+        "semantic_family": "multi-step instruction following / structured response",
+        "stage_a_envelope_sha256": "b2d9d105eb1f964d2c767265b8d4164e75d42462b2d9c0997f4228058c924f46",
+        "stage_a_hit_ratio": 0.5843983525815217,
+        "stage_a_ordinal": 75,
+        "stage_a_result_sha256": "bda6a818c35ce42be5e8324564487422841595fe413886ff96ac9801ae692472"
+      },
+      {
+        "actual_templated_prompt_tokens": 313,
+        "case_id": "11-instructions-b6",
+        "length_level": 6,
+        "selection_role": "ADDITIONAL_LOW_HIT",
+        "semantic_family": "multi-step instruction following / structured response",
+        "stage_a_envelope_sha256": "7f93d822332ab9692b17b52048bd461c7e4bb34a785f98ce13e4616d0f8d7675",
+        "stage_a_hit_ratio": 0.582869819972826,
+        "stage_a_ordinal": 91,
+        "stage_a_result_sha256": "5124282640bea4313edad37f22312f8bac07ed5426f7d7c41155dfb0eecedd01"
+      },
+      {
+        "absolute_distance_to_family_median": 0.002329950747282594,
+        "actual_templated_prompt_tokens": 178,
+        "case_id": "01-math-b1",
+        "family_median_hit_ratio": 0.6592911430027174,
+        "length_level": 1,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "mathematical reasoning",
+        "stage_a_envelope_sha256": "c39b44f2811273b63be17498f09ed80fe2e8825e5a07f44a31d0c8554b08132d",
+        "stage_a_hit_ratio": 0.66162109375,
+        "stage_a_ordinal": 1,
+        "stage_a_result_sha256": "eaac1bc84ed8d1cb20d253313383296d103b4a22e33f0cfc46f5d155560ad2a7"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0028713060461956763,
+        "actual_templated_prompt_tokens": 237,
+        "case_id": "02-formal-b3",
+        "family_median_hit_ratio": 0.6502791694972826,
+        "length_level": 3,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "formal logic / proof-style reasoning",
+        "stage_a_envelope_sha256": "fd3846fbdedd254ab7bb9f9e2f76a3db3046de7ed75522b60811bed8c2318859",
+        "stage_a_hit_ratio": 0.6531504755434783,
+        "stage_a_ordinal": 34,
+        "stage_a_result_sha256": "758caf1f8613f4e2d235406e9bb4052dbfd47e60931929f865dbf41eef8dd88f"
+      },
+      {
+        "absolute_distance_to_family_median": 0.002085810122282594,
+        "actual_templated_prompt_tokens": 225,
+        "case_id": "03-science-b3",
+        "family_median_hit_ratio": 0.6490796959918479,
+        "length_level": 3,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "physics / scientific reasoning",
+        "stage_a_envelope_sha256": "85d0a3f34bb0fe3b86ffde8ad5c8db1cc5c99392318f846a443d84fde5f9dc9d",
+        "stage_a_hit_ratio": 0.6511655061141305,
+        "stage_a_ordinal": 35,
+        "stage_a_result_sha256": "817515448713deab58b2b189caba151fe6881a770d912b5a91fe0519b79a5316"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0014170771059782705,
+        "actual_templated_prompt_tokens": 199,
+        "case_id": "04-factual-b2",
+        "family_median_hit_ratio": 0.6097942849864131,
+        "length_level": 2,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "factual / explanatory knowledge",
+        "stage_a_envelope_sha256": "aa456f630f363596792a7e3fb45df87ce89b768ec2a083b3dc851746cb797923",
+        "stage_a_hit_ratio": 0.6112113620923914,
+        "stage_a_ordinal": 20,
+        "stage_a_result_sha256": "3879af6b3303e842172ac8d9b36bc2f01ab2e103b9d67efe84612766a1a0de4c"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0038850203804347005,
+        "actual_templated_prompt_tokens": 278,
+        "case_id": "05-codegen-b5",
+        "family_median_hit_ratio": 0.6265709918478262,
+        "length_level": 5,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "code generation",
+        "stage_a_envelope_sha256": "a8e4a0d030b9ee509335ec81e3bb8932ad35fe62d5b52d6c8a6299be798b3d86",
+        "stage_a_hit_ratio": 0.6304560122282609,
+        "stage_a_ordinal": 69,
+        "stage_a_result_sha256": "e18749a557473711b759c244aefaa91668711188a5c00760430b257d1edc00cd"
+      },
+      {
+        "absolute_distance_to_family_median": 0.003646187160326053,
+        "actual_templated_prompt_tokens": 278,
+        "case_id": "06-debug-b4",
+        "family_median_hit_ratio": 0.6392185377038044,
+        "length_level": 4,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "debugging / code review",
+        "stage_a_envelope_sha256": "be2ab33736c071bfeccf95b73eff647ef05e2135ab7da2c504d7b53e7d64feff",
+        "stage_a_hit_ratio": 0.6428647248641305,
+        "stage_a_ordinal": 54,
+        "stage_a_result_sha256": "50246a918beb9b6cf8072aeddd6bf4add5574cd66200e9b2b79edac7ef9736fc"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0032375169836956763,
+        "actual_templated_prompt_tokens": 194,
+        "case_id": "07-algorithms-b2",
+        "family_median_hit_ratio": 0.629638671875,
+        "length_level": 2,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "algorithms / data-structure reasoning",
+        "stage_a_envelope_sha256": "23223f48b2c90d73e5fc4737d56bcd42352b7bc6573a6e430f20baf61dc705c4",
+        "stage_a_hit_ratio": 0.6328761888586957,
+        "stage_a_ordinal": 23,
+        "stage_a_result_sha256": "a54189257b11efd8dd789be86c7475865ff6d8e2bed1adf2a1d754235df9810d"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0024095618206521063,
+        "actual_templated_prompt_tokens": 211,
+        "case_id": "08-summary-b2",
+        "family_median_hit_ratio": 0.6029318104619565,
+        "length_level": 2,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "summarization / synthesis",
+        "stage_a_envelope_sha256": "3c3eee0e5c9427f9eaf7d1dd020420f8f738d17e651d64a071604e12d42449ae",
+        "stage_a_hit_ratio": 0.6053413722826086,
+        "stage_a_ordinal": 24,
+        "stage_a_result_sha256": "8c18956c3de327809eb2003ef08d1f538745acdf01f30f059df5be6d0acb5ea9"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0013640030570651884,
+        "actual_templated_prompt_tokens": 393,
+        "case_id": "09-extract-b8",
+        "family_median_hit_ratio": 0.6330407184103262,
+        "length_level": 8,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "structured extraction / transformation",
+        "stage_a_envelope_sha256": "9a47fd7d7bd6375b3b766074ca646dc08d3a0b6748f92a543a97f612ee88c13c",
+        "stage_a_hit_ratio": 0.6344047214673914,
+        "stage_a_ordinal": 121,
+        "stage_a_result_sha256": "2bdfd4da8c72a7d1ff3a7c57ec3d6c487bc1d7026314d314bd80acde120880dc"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0019584324048912416,
+        "actual_templated_prompt_tokens": 246,
+        "case_id": "10-planning-b4",
+        "family_median_hit_ratio": 0.6211627462635869,
+        "length_level": 4,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "planning / constraint satisfaction",
+        "stage_a_envelope_sha256": "90f5f1cdd4ff33fb7a4abebdfd2698c54881795bb25eece6ef093a5c771a0388",
+        "stage_a_hit_ratio": 0.6192043138586957,
+        "stage_a_ordinal": 58,
+        "stage_a_result_sha256": "7b66fe0a5530d042a04e01d928e984aef6a19a7acf38290c9dea8b8ab5265e3a"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0009818699048912416,
+        "actual_templated_prompt_tokens": 168,
+        "case_id": "11-instructions-b1",
+        "family_median_hit_ratio": 0.6209929093070652,
+        "length_level": 1,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "multi-step instruction following / structured response",
+        "stage_a_envelope_sha256": "46e6256c4b5cebd3fc680ed7f8af4f5d4bbd132dc3143f239786b72ffe77189c",
+        "stage_a_hit_ratio": 0.620011039402174,
+        "stage_a_ordinal": 11,
+        "stage_a_result_sha256": "88be0831b8fef6d861b36639ac59b06d6475eca4a10de1248748135183c0994f"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0007854959239129711,
+        "actual_templated_prompt_tokens": 160,
+        "case_id": "12-compare-b1",
+        "family_median_hit_ratio": 0.6427161175271738,
+        "length_level": 1,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "analytical comparison / argumentation",
+        "stage_a_envelope_sha256": "000a1d3c7ac5709d48cfa6ed91d1101b3ce285f1918ab5382434513f66991e5b",
+        "stage_a_hit_ratio": 0.6419306216032609,
+        "stage_a_ordinal": 12,
+        "stage_a_result_sha256": "9013a34b83ec69a9d16225967a6f2e962d35a2023840a8dc7c8b468d7caeaa36"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0019849694293477826,
+        "actual_templated_prompt_tokens": 221,
+        "case_id": "13-creative-b3",
+        "family_median_hit_ratio": 0.6201384171195652,
+        "length_level": 3,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "creative / language generation",
+        "stage_a_envelope_sha256": "8b008aa2420deee13aef9a9b61fcac5b50d7d90139c25794fb825b2aeb5ea87b",
+        "stage_a_hit_ratio": 0.6181534476902174,
+        "stage_a_ordinal": 45,
+        "stage_a_result_sha256": "e0342de661b06b451c9c22bc4856f694d7136f8ec605c060f8630a2794dda8db"
+      },
+      {
+        "absolute_distance_to_family_median": 0.001273777173913082,
+        "actual_templated_prompt_tokens": 191,
+        "case_id": "14-qa-b2",
+        "family_median_hit_ratio": 0.6053944463315217,
+        "length_level": 2,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "conversational / direct QA",
+        "stage_a_envelope_sha256": "d174300e7506757722ee720c58de1da2044a985e45f44bc17063527bd17db11a",
+        "stage_a_hit_ratio": 0.6041206691576086,
+        "stage_a_ordinal": 30,
+        "stage_a_result_sha256": "7e82ef56e094bddc4d32f6a38fffe26025f2c060039ac35ea05b7268c193dd12"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0005731997282608647,
+        "actual_templated_prompt_tokens": 276,
+        "case_id": "15-spanish-b2",
+        "family_median_hit_ratio": 0.6429814877717391,
+        "length_level": 2,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "Spanish-language reasoning/explanation",
+        "stage_a_envelope_sha256": "734e3c6c6ff7e9062801e11d627377217dd772dd90ab22b36e8edee0b5dd89a5",
+        "stage_a_hit_ratio": 0.6424082880434783,
+        "stage_a_ordinal": 31,
+        "stage_a_result_sha256": "cc30c1f8afdcea2a102ca01356442d52473defa563c6d8618ebf900e6355acab"
+      },
+      {
+        "absolute_distance_to_family_median": 0.0008916440217391353,
+        "actual_templated_prompt_tokens": 217,
+        "case_id": "16-multi-b2",
+        "family_median_hit_ratio": 0.6232697860054348,
+        "length_level": 2,
+        "selection_role": "FAMILY_REPRESENTATIVE",
+        "semantic_family": "multilingual / translation / cross-language transformation",
+        "stage_a_envelope_sha256": "57f2ec338ba31944215afe1a3342c3dfb9ad4eeec8f0655a0c7d4d0f0f3ed94b",
+        "stage_a_hit_ratio": 0.624161430027174,
+        "stage_a_ordinal": 32,
+        "stage_a_result_sha256": "c4d50e04d755a87222e2cea639c27527615fd9a18caca5c93c09535828e8eac8"
+      }
+    ]
+  },
+  "status": "pass",
+  "tools": {
+    "handoff_freezer_source": {
+      "bytes": 15632,
+      "path": "/workspace/k3-out-of-core/scripts/issue102/freeze_stage_b_handoff.py",
+      "sha256": "66b8352b9f0974bf6e3f2ccb005bd6ee54090cbc124acccc6be1c161d6e93ac8"
+    },
+    "observer_replay_binary": {
+      "bytes": 457328,
+      "path": "/mnt/nvme1/issue102/build-analysis/bin/issue102-observer-replay",
+      "sha256": "37c460bc3bedea15cb9963aaad429b2697636c26109a928f200a2a62b68605d2"
+    },
+    "observer_replay_source": {
+      "bytes": 46215,
+      "path": "/workspace/k3-out-of-core/scripts/issue102/analyze_observer_replay.cpp",
+      "sha256": "9ecd41063064c09ddadad08af29ecc54e5e5b659d7d45bcc75754d1294a33d33"
+    }
+  }
+}

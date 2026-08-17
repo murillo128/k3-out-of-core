@@ -1,0 +1,122 @@
+{
+  "archive_release": {
+    "archive_bytes": 2087815152,
+    "archive_sha256": "e198913eb541b2a2e7465a01e09215fc5fecf6fb91574ff1841b11bf2664250c",
+    "asset_name": "issue102-cross-prompt-evidence-v1.tar.zst",
+    "member_count": 1442,
+    "publication_status": "READY_AFTER_EXACT_EVIDENCE_COMMIT",
+    "tag": "issue102-cross-prompt-v1",
+    "url": "https://github.com/murillo128/k3-out-of-core/releases/tag/issue102-cross-prompt-v1"
+  },
+  "completeness": {
+    "stage_a_primary": 128,
+    "stage_a_sentinels": 8,
+    "stage_b2_family_length_endpoints": 32,
+    "stage_b_b2_observer_captures": 44,
+    "stage_b_family_representatives": 16,
+    "stage_c_failed_cells": 0,
+    "stage_c_physical_cells": 48,
+    "stage_c_physical_replay_anchor_exact_matches": 16,
+    "stage_c_unique_prompts": 24
+  },
+  "critical_artifacts": {
+    "archive": {
+      "bytes": 2087815152,
+      "path": "/mnt/nvme1/issue102/releases/issue102-cross-prompt-evidence-v1.tar.zst",
+      "sha256": "e198913eb541b2a2e7465a01e09215fc5fecf6fb91574ff1841b11bf2664250c"
+    },
+    "archive_index": {
+      "bytes": 477070,
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/issue102-evidence-archive-index.json",
+      "sha256": "c5187d192d67c63b9f0efdf7ebc30995ffbcb75f7dd0900d3b7c8e78d50a7497"
+    },
+    "final_synthesis": {
+      "bytes": 33087,
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/issue102-final-synthesis.json",
+      "sha256": "0a70a4b4e79bb4b046641b74177e2592907b7a815831ad987a5b9a0707ce6964"
+    },
+    "frozen_corpus": {
+      "bytes": 385670,
+      "path": "/workspace/k3-out-of-core/corpus/phase13/issue102-cross-prompt-v1.json",
+      "sha256": "e0f1746f987f888d68a36261a2822f4754a413b7799c6252aae8a4ded2a900d8"
+    },
+    "normalized_prompt_level": {
+      "bytes": 63325,
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/issue102-normalized-prompt-level.csv",
+      "sha256": "c3cb07d5d9cc90c14e77f4cc14744f7c70c682d7e267aa332095dd9f3b5a82ca"
+    },
+    "original_stage_c_failure": {
+      "bytes": 4177,
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/stage-c-technical-return.json",
+      "sha256": "d3b7deb89ae520f8224f30ea3e0d761440ba2c95022ed3234d38290351b41584"
+    },
+    "packager": {
+      "bytes": 16963,
+      "path": "/workspace/k3-out-of-core/scripts/issue102/package_final_evidence.py",
+      "sha256": "975f23dee456ca50aa7a3de5b7f81de5a8cf97308acb3c539c0e534cad5ac1b0"
+    },
+    "stage_a_final_checkpoint": {
+      "bytes": 600977,
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/stage-a-round-08-checkpoint.json",
+      "sha256": "baf8d7583175aa55eca8c7183608259bb2d30f350a8a643f8b40d4831a362786"
+    },
+    "stage_b_capacity_handoff": {
+      "bytes": 43692,
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/stage-b-capacity-handoff.json",
+      "sha256": "e560db9dfc1c05c8aa163d88b44073bebbfbafefb4c86dfbf78f075c3b403eca"
+    },
+    "stage_c_progress": {
+      "bytes": 184254,
+      "path": "/mnt/nvme1/issue102/stage-c-control-v2/progress.json",
+      "sha256": "2170d77f5a6f712e2a7d5d5dc4b758e83d49659129c78e7dd8af8fd77adad1d6"
+    },
+    "stage_c_recovery_control": {
+      "bytes": 97191,
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/stage-c-recovery-control.json",
+      "sha256": "a85a50e3576d85e6893a54812f50c915d8568c0335a17605b8246d901640ff1f"
+    },
+    "stage_c_synthesis": {
+      "bytes": 175067,
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/stage-c-synthesis.json",
+      "sha256": "69b6f3d5642e905c7759c8c35ce280a07fdecec0afc9094c2a61180fb8b1e34d"
+    }
+  },
+  "disposition": "ISSUE102_FINAL_EVIDENCE_FROZEN_READY_FOR_PUBLICATION_AND_CHECKPOINT_C",
+  "evidence_parent_sha": "848f91faaa75b9469baf25a24953fbd05bd07172",
+  "execution_target": {
+    "nested_llama_cpp_sha": "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9",
+    "project_sha": "6ef64ba85a019d85a0fed06f49f8c45963f060ad"
+  },
+  "handoff": {
+    "issue_105": "secondary analyses only; no additional issue-102 experimentation",
+    "issue_98": "resume final v3 synthesis/release/review/closeout after issue-102 closeout",
+    "issue_99_and_81": "frozen corpus and normalized prompt-level evidence ready"
+  },
+  "interpretation_limits": [
+    "The 16x8 corpus is deliberate and complete, not a random sample of all Kimi K3 prompts.",
+    "Family/length labels and outcome categories are descriptive, not causal or universal.",
+    "The 24-prompt Stage-C set is a frozen explanatory sample, not a second search.",
+    "Generated-token equality/divergence is not semantic-quality evidence; #77/#99 own quality.",
+    "Observer timing is excluded from performance evidence; physical Stage A/C own TPS.",
+    "No policy, capacity, corpus, order, runtime, model, or storage topology was retuned."
+  ],
+  "primary_outcomes": {
+    "FOLLOWUP_99_CORPUS_READY": "yes",
+    "KNEE_VS_S2P50_PROMPT_INTERACTION": "moderate",
+    "PROMPT_CONDITIONED_REGIMES": "supported",
+    "ROUTE_COVERAGE": "broad",
+    "S2P50_CROSS_PROMPT_DISPERSION": "high",
+    "S2P50_PAIRED_GAIN": "broad",
+    "SEMANTIC_FAMILY_EFFECT": "strong",
+    "TOKEN_LENGTH_EFFECT": "weak"
+  },
+  "provenance": "IMMUTABLE_CHECKSUM_ADDRESSED_ISSUE102_FINAL_EVIDENCE",
+  "reviews": {
+    "checkpoint_a_pass": "https://github.com/murillo128/k3-out-of-core/issues/102#issuecomment-5281857040",
+    "checkpoint_b_pass": "https://github.com/murillo128/k3-out-of-core/issues/102#issuecomment-5307346928",
+    "checkpoint_c": "PENDING_FINAL_CAPABLE_REVIEW_OF_EXACT_PUBLISHED_TARGET",
+    "stage_c_recovery_preexecution_pass": "https://github.com/murillo128/k3-out-of-core/issues/102#issuecomment-5308081832"
+  },
+  "schema_version": "phase13-6pg-issue102-evidence-freeze-v1",
+  "status": "pass"
+}

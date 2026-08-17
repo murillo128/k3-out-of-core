@@ -1,0 +1,220 @@
+{
+  "campaign": {
+    "accepted": [
+      {
+        "admission_margin_bytes": 456228864,
+        "admission_safe_pool_bytes": 138184704000,
+        "artifacts": {
+          "envelope": {
+            "bytes": 25400,
+            "path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/envelope.json",
+            "sha256": "eda77ef6bcdb01005193568b37846322312978d70e232d66bda34bdd8c7bf094"
+          },
+          "result": {
+            "bytes": 77759299,
+            "path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/result.json",
+            "sha256": "e1fab368ce78869f1276ce7b0835b3017d4d4c87877bb6ebccb9a9611eb5a023"
+          },
+          "stderr": {
+            "bytes": 67,
+            "path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/stderr.log",
+            "sha256": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+          },
+          "stdout": {
+            "bytes": 43313751,
+            "path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01/stdout.log",
+            "sha256": "429432280b7a1b36b2adfaaf20777e9a7e8e16607537f935358a665d8e7c9260"
+          }
+        },
+        "case_id": "01-math-b1",
+        "execution_project_sha": "ebda15d9953b72e89b3901a0860ae7309817c529",
+        "generated_tokens": 64,
+        "host_safety": {
+          "zero_memory_pressure": true,
+          "zero_oom_cgroup": true,
+          "zero_reclaim_refault": true,
+          "zero_swap": true,
+          "zero_unused_nvme_reads": true
+        },
+        "observer_records": 22264,
+        "ordinal": 1,
+        "prompt_tokens": 178,
+        "provenance": "MEASURED_OBSERVER_NON_PERFORMANCE",
+        "selection_role": "STAGE_B_REPRESENTATIVE"
+      },
+      {
+        "admission_margin_bytes": 263208960,
+        "admission_safe_pool_bytes": 137991684096,
+        "artifacts": {
+          "envelope": {
+            "bytes": 25397,
+            "path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/envelope.json",
+            "sha256": "feb3cf928adad3dc3c820481f0e9d03dab12afb88adde5c641f8604fbb64e291"
+          },
+          "result": {
+            "bytes": 96719907,
+            "path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/result.json",
+            "sha256": "48e746b49a9d1ccda8fd60a91872eeaf03ac38d83ff900ea16a3c5f5a3811e54"
+          },
+          "stderr": {
+            "bytes": 67,
+            "path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/stderr.log",
+            "sha256": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+          },
+          "stdout": {
+            "bytes": 53877243,
+            "path": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3/stdout.log",
+            "sha256": "be329bd2a27f4f4dbb3893f80e61f33760909cc7686f1325a0e1c21ca398a5c8"
+          }
+        },
+        "case_id": "02-formal-b3",
+        "execution_project_sha": "d7b6a3bf8819c8de61cc9b899630f4605bd36af3",
+        "generated_tokens": 64,
+        "host_safety": {
+          "zero_memory_pressure": true,
+          "zero_oom_cgroup": true,
+          "zero_reclaim_refault": true,
+          "zero_swap": true,
+          "zero_unused_nvme_reads": true
+        },
+        "observer_records": 27692,
+        "ordinal": 2,
+        "prompt_tokens": 237,
+        "provenance": "MEASURED_OBSERVER_NON_PERFORMANCE",
+        "selection_role": "STAGE_B_REPRESENTATIVE"
+      },
+      {
+        "admission_margin_bytes": 105283584,
+        "admission_safe_pool_bytes": 137833758720,
+        "artifacts": {
+          "envelope": {
+            "bytes": 25404,
+            "path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/envelope.json",
+            "sha256": "7d82f5c246be160a97b5ca08db08bd3d2425165110cbd5cf5125cadb79045945"
+          },
+          "result": {
+            "bytes": 92865351,
+            "path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/result.json",
+            "sha256": "c408fe912169f7284b08671bd5abb720203542c1404a2437a37d598c0b42efc5"
+          },
+          "stderr": {
+            "bytes": 67,
+            "path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/stderr.log",
+            "sha256": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f"
+          },
+          "stdout": {
+            "bytes": 51730575,
+            "path": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3/stdout.log",
+            "sha256": "7dd1b8e358684a7d19862490bd048aff552664cb5592ff76c44f671a3821a0a7"
+          }
+        },
+        "case_id": "03-science-b3",
+        "execution_project_sha": "d7b6a3bf8819c8de61cc9b899630f4605bd36af3",
+        "generated_tokens": 64,
+        "host_safety": {
+          "zero_memory_pressure": true,
+          "zero_oom_cgroup": true,
+          "zero_reclaim_refault": true,
+          "zero_swap": true,
+          "zero_unused_nvme_reads": true
+        },
+        "observer_records": 26588,
+        "ordinal": 3,
+        "prompt_tokens": 225,
+        "provenance": "MEASURED_OBSERVER_NON_PERFORMANCE",
+        "selection_role": "STAGE_B_REPRESENTATIVE"
+      }
+    ],
+    "accepted_capture_count": 3,
+    "admission_margin_trend_bytes": [
+      456228864,
+      263208960,
+      105283584
+    ],
+    "expected_capture_count": 44,
+    "failed": {
+      "artifacts": {
+        "envelope": {
+          "bytes": 25289,
+          "path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2/envelope.json",
+          "sha256": "4969f9dae69e085f19baffe5b15454cb83160f9f842282a4921bd2a41bbcd58a"
+        },
+        "stderr": {
+          "bytes": 332,
+          "path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2/stderr.log",
+          "sha256": "0f6d3b45b046f4f26da59ca25cecadcaa15a9e5775db736de622def87ba53267"
+        },
+        "stdout": {
+          "bytes": 0,
+          "path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2/stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "case_id": "04-factual-b2",
+      "classification": "HOST_MEMORY_ENVELOPE_DRIFT",
+      "context_initialized": false,
+      "elapsed_s": 3.0079090550025285,
+      "execution_project_sha": "d7b6a3bf8819c8de61cc9b899630f4605bd36af3",
+      "exit_status": 1,
+      "failure": "FROZEN_CAPACITY_ADMISSION_FAILURE",
+      "host_observation": {
+        "minimum_mem_available_kib": 291434892,
+        "peak_cgroup_memory_current_bytes": 115047051264
+      },
+      "host_safety": {
+        "zero_memory_pressure": true,
+        "zero_oom_cgroup": true,
+        "zero_reclaim_refault": true,
+        "zero_swap": true,
+        "zero_unused_nvme_reads": true
+      },
+      "ordinal": 4,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2",
+      "provenance": "NO_RESULT_PRE_CONTEXT_TECHNICAL_FAILURE",
+      "provider_error": 6,
+      "provider_error_name": "allocation_failed",
+      "replacement_allowed": false,
+      "scientific_result_available": false
+    },
+    "failed_capture_count": 1,
+    "first_not_run_ordinal": 5,
+    "not_run_capture_count": 40
+  },
+  "inputs": {
+    "campaign_progress": {
+      "bytes": 5766,
+      "path": "/mnt/nvme1/issue102/stage-b-observer/campaign-progress-v2.json",
+      "sha256": "6e61d184f43b067543e32f8ab78b9a1cddb787fad890afcaae9d9bac4372b855"
+    },
+    "generator": {
+      "bytes": 11718,
+      "path": "/workspace/k3-out-of-core/scripts/issue102/build_stage_b_observer_technical_return.py",
+      "sha256": "68389e8a5727022e9cd34a91b8efe7fbaae83a2f93ed63565988963ca601c084"
+    },
+    "preregistration": {
+      "bytes": 19964,
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/stage-b-observer-preregistration-v2.json",
+      "sha256": "1c96c86920e6f7312ce887783c7436eb2601aadf4ea622b47b3cd1b8d53ab701"
+    }
+  },
+  "interpretation": {
+    "capacity_or_policy_retuning_authorized": false,
+    "failed_capture_replacement_authorized": false,
+    "next": "RETURN_TO_DESIGN_FOR_FROZEN_CAPACITY_ADMISSION_DECISION",
+    "partial_route_diversity_claim_allowed": false,
+    "performance_claim_allowed": false,
+    "stage_b2_disposition": "FAMILY_LENGTH_ROUTE_ENDPOINTS_NOT_CAPTURED",
+    "stage_b_disposition": "ROUTE_COVERAGE_NOT_MEASURED"
+  },
+  "provenance": "MIXED_MEASURED_OBSERVER_AND_PRE_CONTEXT_TECHNICAL_FAILURE",
+  "runtime": {
+    "cache_bytes": 137728475136,
+    "cache_slots": 7849,
+    "helper_binary_sha256": "a8cd60963c7da3ece8937ba83834435217ac2ec7922de15c50cd5a59743fb392",
+    "nested_llama_cpp": "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9",
+    "runner_sha256": "0e09960035666f15bfc82cef2a8dd81358f744a848f3f1f633d27d420afeca92",
+    "runtime_source_target": "7d7307452a97eec9b30d5028bd9e831a96c73990"
+  },
+  "schema_version": "phase13-6pg-stage-b-observer-technical-return-v1",
+  "status": "incomplete"
+}

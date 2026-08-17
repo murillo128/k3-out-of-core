@@ -1,0 +1,111 @@
+{
+  "schema_version": "phase13-6pg-host-normalization-pre-reboot-v1",
+  "captured_utc": "2026-08-13T15:26:31Z",
+  "status": "reboot-required",
+  "revisions": {
+    "project_before_inventory_commit": "bbc7894425e7cf8b2cf57a9a201affbd1b718dd7",
+    "nested_llama_cpp": "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9"
+  },
+  "identities": {
+    "helper_binary_sha256": "c35cdc52d3669b080972e1c1ac68df6b88290e79d46c92edde2f48eae3733975",
+    "build_fingerprint_sha256": "d150d179f41ebd2deab49b663e64c909b7d8fa6b4546c716aee889479f633a10",
+    "model_identity_manifest_sha256": "58b14d13a602944e1134fc753b2cc819a84a31290aee9c1479264a66dbb5efe2",
+    "model_first_shard_path": "/mnt/nvme0/issue77/model/kimi-k3-bf16-00001-of-00033.gguf",
+    "model_first_shard_bytes": 47173955040,
+    "inventory_tool_sha256": "a76eb6b4458edc0d77ad6b829b7174ab88de79d3ce9c4fbfc62e51e986d27e1e"
+  },
+  "pre_clean_inventory": {
+    "path": "/mnt/nvme1/issue102/host-normalization/pre-clean-pre-reboot.json",
+    "sha256": "d19f9ee45735acbbad55e40fb9a1fee0287c86e1909e7483f4e9c1de6b3d8646",
+    "boot_id": "7e243112-7df7-4d45-9ae3-522fda3c7deb",
+    "uptime_seconds": 62807.88,
+    "mem_available_kib": 292630524,
+    "cached_kib": 112704508,
+    "s_reclaimable_kib": 357316,
+    "slab_kib": 674216,
+    "shmem_kib": 25816,
+    "unevictable_kib": 10672,
+    "mlocked_kib": 10672,
+    "page_tables_kib": 7872,
+    "kernel_stack_kib": 16576,
+    "cgroup_memory_current_bytes": 114598297600,
+    "cgroup_memory_max": "max",
+    "cgroup_swap_current_bytes": 0,
+    "total_process_rss_kib": 1447760,
+    "processes_over_100_mib": [
+      {
+        "name": "codex",
+        "pid": 50754,
+        "rss_kib": 329672,
+        "classification": "required_current_control_plane"
+      },
+      {
+        "name": "pmlogger",
+        "pid": 4291,
+        "rss_kib": 132336,
+        "classification": "required_system_monitoring_service"
+      }
+    ],
+    "live_k3_helper_build_or_compiler_processes": 0,
+    "dev_shm_used_bytes": 0,
+    "sysv_shared_memory_segments": 0,
+    "swap_enabled": false
+  },
+  "cleanup": {
+    "processes_stopped": [],
+    "reason": "no stale study-owned or nonessential user workload was present; the only material processes were the required Codex control plane and a host monitoring service",
+    "manual_page_cache_eviction": false,
+    "memory_pressure_trick": false,
+    "swap_or_cgroup_or_sysctl_change": false
+  },
+  "post_cleanup_inventory": {
+    "path": "/mnt/nvme1/issue102/host-normalization/post-clean-pre-reboot.json",
+    "sha256": "23966985312d819fb249e28771447c9a933f4a794b3026d70fc087a429eb85d8",
+    "boot_id": "7e243112-7df7-4d45-9ae3-522fda3c7deb",
+    "uptime_seconds": 62945.90,
+    "mem_available_kib": 292614312,
+    "cached_kib": 112619340,
+    "cgroup_memory_current_bytes": 114615746560,
+    "total_process_rss_kib": 1448976,
+    "live_k3_helper_build_or_compiler_processes": 0
+  },
+  "pre_reboot_deviation": {
+    "description": "an intended artifact-identity command accidentally began hashing the 47,173,955,040-byte first model shard; it was interrupted after the command yielded and before completion",
+    "effect": "the final pre-reboot inventory shows file cache growth, so it is classified as contaminated host state and is not usable for admission evidence",
+    "performance_or_locality_result_inspected": false,
+    "manual_cache_eviction_used": false,
+    "final_inventory_path": "/mnt/nvme1/issue102/host-normalization/pre-reboot-final.json",
+    "final_inventory_sha256": "d80286de8ef7434d42b2e0de863ff8a496328566573ea64eeb32f2597109e540",
+    "final_mem_available_kib": 292460076,
+    "final_cached_kib": 158683052,
+    "final_cgroup_memory_current_bytes": 161893666816
+  },
+  "persistent_storage": {
+    "nvme0": {
+      "device": "/dev/nvme0n1",
+      "filesystem": "xfs",
+      "label": "K3_NVME0",
+      "uuid": "be7c5a2c-ca4d-4f37-b2b8-85ef9e872f6a",
+      "mount": "/mnt/nvme0",
+      "role": "model"
+    },
+    "nvme1": {
+      "device": "/dev/nvme1n1",
+      "filesystem": "xfs",
+      "label": "K3_NVME1",
+      "uuid": "fa954c90-0da0-4f42-9045-fdb7e1834992",
+      "mount": "/mnt/nvme1",
+      "role": "build_and_evidence"
+    },
+    "mounts_automatic": false,
+    "post_reboot_requirement": "mount the two labeled XFS filesystems with noatime,nodiratime before identity verification"
+  },
+  "reboot_preconditions": {
+    "benchmark_or_qualification_process_active": false,
+    "source_and_compact_manifests_must_be_published_before_reboot": true,
+    "external_evidence_checksum_addressed": true,
+    "sudo_noninteractive_available": true,
+    "one_controlled_reboot_authorized": true
+  },
+  "next": "publish this commit, reboot once, remount persistent NVMe filesystems, capture clean-host inventory, verify identities and safety envelope, then make one exact legacy 7849-slot parity attempt"
+}

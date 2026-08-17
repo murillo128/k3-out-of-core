@@ -1,0 +1,63 @@
+{
+  "capture": {
+    "case_id": "04-factual-b2",
+    "ordinal": 4,
+    "root": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01",
+    "status": "pass"
+  },
+  "disposition": "READY_FOR_TARGETED_HYGIENE_GATE",
+  "evidence_root": "/mnt/nvme1/issue102/stage-b-observer",
+  "file_count": 4,
+  "files": [
+    {
+      "bytes": 84506736,
+      "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/result.json",
+      "device": 66304,
+      "inode": 9126852496,
+      "sha256": "f0a795961cea21bb1a575c664ec21cbf1607f98f3e8f8bcc689da9440d59ae81",
+      "source": "capture-004:result.json"
+    },
+    {
+      "bytes": 25407,
+      "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/envelope.json",
+      "device": 66304,
+      "inode": 9126852497,
+      "sha256": "8f24d3f7a7c414e721f7147ad1f72635c8ad6cb02c2bd6dfc39b4d192078c3eb",
+      "source": "capture-004:envelope.json"
+    },
+    {
+      "bytes": 47072384,
+      "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/stdout.log",
+      "device": 66304,
+      "inode": 9126852494,
+      "sha256": "23a7156d711f5d05278267201369ac507bb47b852feb9ac492834517ce26d22e",
+      "source": "capture-004:stdout.log"
+    },
+    {
+      "bytes": 67,
+      "canonical_path": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2-retry-01/stderr.log",
+      "device": 66304,
+      "inode": 9126852495,
+      "sha256": "08d85235c87ca327f337bf2a23a5250e06e2ae94ced24b687fbb05344f317a7f",
+      "source": "capture-004:stderr.log"
+    }
+  ],
+  "inputs": {
+    "generator": {
+      "bytes": 5537,
+      "path": "/workspace/k3-out-of-core/scripts/issue102/build_observer_capture_cache_allowlist.py",
+      "sha256": "8d861b1a557a1c5992873414ff677ce7616ca5c60f5cb2aac9c9b436a45a288f"
+    }
+  },
+  "operation": {
+    "advice": "POSIX_FADV_DONTNEED",
+    "durability": "syncfs on the observer evidence filesystem before exact-file advice",
+    "model_or_runtime_file_allowed": false,
+    "path_outside_evidence_root_allowed": false,
+    "read_payload_after_release": false
+  },
+  "purpose": "TARGETED_OBSERVER_OUTPUT_PAGE_CACHE_RELEASE",
+  "schema_version": "phase13-6pg-observer-capture-cache-allowlist-v1",
+  "status": "frozen",
+  "total_bytes": 131604594
+}

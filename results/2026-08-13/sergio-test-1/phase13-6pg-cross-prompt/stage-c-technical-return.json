@@ -1,0 +1,95 @@
+{
+  "attempt": {
+    "case_id": "01-math-b6",
+    "context_created": false,
+    "elapsed_s": 3.0080315379891545,
+    "error": "system-memory cold-cache budget failed with provider error 6 before context initialization",
+    "helper_exit_status": 1,
+    "k3_inference_performed": false,
+    "point": "EXACT",
+    "prompt_ordinal": 1,
+    "requested_cache_bytes": 137728475136,
+    "requested_cache_slots": 7849,
+    "result_json_created": false,
+    "run_ordinal": 1,
+    "stage_c_performance_outcome_inspected": false
+  },
+  "classification": "PRE_CONTEXT_CAPACITY_ADMISSION_FAILURE",
+  "disposition": "RETURN_TO_DESIGN_NO_STAGE_C_OUTCOME",
+  "host": {
+    "mem_available_before_kib": 292590184,
+    "minimum_mem_available_kib": 291619664,
+    "peak_process_rss_kib": 976840,
+    "peak_process_swap_kib": 0,
+    "swap_reclaim_refault_psi_oom_cgroup_clean": true,
+    "unused_nvme_read_bytes": 0
+  },
+  "inputs": {
+    "failed_envelope": {
+      "bytes": 25293,
+      "path": "/mnt/nvme1/issue102/stage-c-v1/run-001-01-math-b6-exact/envelope.json",
+      "schema_version": "issue102-qualification-cell-envelope-v1",
+      "sha256": "29fbce6a8737f2c2627032fa0c96bdf5286e29d35be4b74934c47ee90d253bbb"
+    },
+    "failed_progress": {
+      "bytes": 1819,
+      "path": "/mnt/nvme1/issue102/stage-c-control-v1/progress.json",
+      "schema_version": "phase13-6pg-stage-c-progress-v1",
+      "sha256": "fa516a2eef9f71ac0065516d1dab4ad61b0e43204400ed929a3414737a85d1a0"
+    },
+    "failed_stderr": {
+      "bytes": 332,
+      "path": "/mnt/nvme1/issue102/stage-c-v1/run-001-01-math-b6-exact/stderr.log",
+      "sha256": "0f6d3b45b046f4f26da59ca25cecadcaa15a9e5775db736de622def87ba53267"
+    },
+    "final_observer_cache_hygiene": {
+      "bytes": 175882,
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/final-observer-evidence-cache-hygiene.json",
+      "schema_version": "phase13-6pg-observer-evidence-cache-hygiene-gate-v1",
+      "sha256": "0caab39228615412f86ba69f4a58680b0480f99c05673f1e22ab16f55730bf27"
+    },
+    "generator": {
+      "bytes": 8314,
+      "path": "/workspace/k3-out-of-core/scripts/issue102/build_stage_c_technical_return.py",
+      "sha256": "203426d1a5a76ef0f72e143ae9c29e3b4b0a1b5fbfbfef51ca372600fe461106"
+    },
+    "stage_c_preregistration": {
+      "bytes": 91915,
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/stage-c-preregistration.json",
+      "schema_version": "phase13-6pg-stage-c-preregistration-v1",
+      "sha256": "c368ca9e8d0e35291e4be9e81747122275c7cd594e4603d570bafc0e7595d256"
+    }
+  },
+  "postprocessing_file_cache_observation": {
+    "advice_applied": false,
+    "authority": "No release or retry is authorized by the frozen Stage-C contract.",
+    "classification": "READ_ONLY_MINCORE_AFTER_FAILURE",
+    "path_scope": [
+      "/mnt/nvme1/issue102/stage-b-analysis-v1/*",
+      "/mnt/nvme1/issue102/observer-replay-v1/*",
+      "/mnt/nvme1/issue102/posthoc-analysis-v1/*"
+    ],
+    "regular_file_count": 14,
+    "resident_bytes": 327971663,
+    "total_bytes": 327971663
+  },
+  "preservation": {
+    "failed_attempt_retained": true,
+    "policy_capacity_runtime_or_selection_changed": false,
+    "retry_attempted": false,
+    "retry_budget_remaining": 0,
+    "subsequent_stage_c_processes_started": 0
+  },
+  "prior_hygiene": {
+    "observer_output_resident_bytes_after": 0,
+    "observer_output_resident_bytes_before": 4752077709,
+    "production_guard_was_final_authority": true,
+    "projected_admission_margin_after_bytes": 649248768,
+    "projection_disposition": "INSUFFICIENT_TO_OVERRIDE_PRODUCTION_REJECTION",
+    "released_resident_bytes": 4752077709,
+    "status": "pass"
+  },
+  "required_design_decision": "Decide whether to authorize a new clean-host normalization and replacement execution contract, or a separately bounded release of the 327,971,663 resident bytes belonging only to issue-102 postprocessing artifacts, followed by a specifically authorized new attempt. The preserved failed ordinal must not be silently retried.",
+  "schema_version": "phase13-6pg-stage-c-technical-return-v1",
+  "status": "blocked"
+}

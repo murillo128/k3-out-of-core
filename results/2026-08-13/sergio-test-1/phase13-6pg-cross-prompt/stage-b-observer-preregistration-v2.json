@@ -1,0 +1,513 @@
+{
+  "capture_count": 44,
+  "capture_order_rule": "All 16 Stage-B representatives in stable case_id order, followed by the 28 Stage-B2 b1/b8 endpoints not already captured, also in stable case_id order.",
+  "capture_plan": [
+    {
+      "actual_templated_prompt_tokens": 178,
+      "case_id": "01-math-b1",
+      "length_level": 1,
+      "ordinal": 1,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1-retry-01",
+      "selection_role": "STAGE_B_REPRESENTATIVE",
+      "semantic_family": "mathematical reasoning"
+    },
+    {
+      "actual_templated_prompt_tokens": 237,
+      "case_id": "02-formal-b3",
+      "length_level": 3,
+      "ordinal": 2,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-002-02-formal-b3",
+      "selection_role": "STAGE_B_REPRESENTATIVE",
+      "semantic_family": "formal logic / proof-style reasoning"
+    },
+    {
+      "actual_templated_prompt_tokens": 225,
+      "case_id": "03-science-b3",
+      "length_level": 3,
+      "ordinal": 3,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-003-03-science-b3",
+      "selection_role": "STAGE_B_REPRESENTATIVE",
+      "semantic_family": "physics / scientific reasoning"
+    },
+    {
+      "actual_templated_prompt_tokens": 199,
+      "case_id": "04-factual-b2",
+      "length_level": 2,
+      "ordinal": 4,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-004-04-factual-b2",
+      "selection_role": "STAGE_B_REPRESENTATIVE",
+      "semantic_family": "factual / explanatory knowledge"
+    },
+    {
+      "actual_templated_prompt_tokens": 278,
+      "case_id": "05-codegen-b5",
+      "length_level": 5,
+      "ordinal": 5,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-005-05-codegen-b5",
+      "selection_role": "STAGE_B_REPRESENTATIVE",
+      "semantic_family": "code generation"
+    },
+    {
+      "actual_templated_prompt_tokens": 278,
+      "case_id": "06-debug-b4",
+      "length_level": 4,
+      "ordinal": 6,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-006-06-debug-b4",
+      "selection_role": "STAGE_B_REPRESENTATIVE",
+      "semantic_family": "debugging / code review"
+    },
+    {
+      "actual_templated_prompt_tokens": 194,
+      "case_id": "07-algorithms-b2",
+      "length_level": 2,
+      "ordinal": 7,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-007-07-algorithms-b2",
+      "selection_role": "STAGE_B_REPRESENTATIVE",
+      "semantic_family": "algorithms / data-structure reasoning"
+    },
+    {
+      "actual_templated_prompt_tokens": 211,
+      "case_id": "08-summary-b2",
+      "length_level": 2,
+      "ordinal": 8,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-008-08-summary-b2",
+      "selection_role": "STAGE_B_REPRESENTATIVE",
+      "semantic_family": "summarization / synthesis"
+    },
+    {
+      "actual_templated_prompt_tokens": 393,
+      "case_id": "09-extract-b8",
+      "length_level": 8,
+      "ordinal": 9,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-009-09-extract-b8",
+      "selection_role": "STAGE_B_REPRESENTATIVE",
+      "semantic_family": "structured extraction / transformation"
+    },
+    {
+      "actual_templated_prompt_tokens": 246,
+      "case_id": "10-planning-b4",
+      "length_level": 4,
+      "ordinal": 10,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-010-10-planning-b4",
+      "selection_role": "STAGE_B_REPRESENTATIVE",
+      "semantic_family": "planning / constraint satisfaction"
+    },
+    {
+      "actual_templated_prompt_tokens": 168,
+      "case_id": "11-instructions-b1",
+      "length_level": 1,
+      "ordinal": 11,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-011-11-instructions-b1",
+      "selection_role": "STAGE_B_REPRESENTATIVE",
+      "semantic_family": "multi-step instruction following / structured response"
+    },
+    {
+      "actual_templated_prompt_tokens": 160,
+      "case_id": "12-compare-b1",
+      "length_level": 1,
+      "ordinal": 12,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-012-12-compare-b1",
+      "selection_role": "STAGE_B_REPRESENTATIVE",
+      "semantic_family": "analytical comparison / argumentation"
+    },
+    {
+      "actual_templated_prompt_tokens": 221,
+      "case_id": "13-creative-b3",
+      "length_level": 3,
+      "ordinal": 13,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-013-13-creative-b3",
+      "selection_role": "STAGE_B_REPRESENTATIVE",
+      "semantic_family": "creative / language generation"
+    },
+    {
+      "actual_templated_prompt_tokens": 191,
+      "case_id": "14-qa-b2",
+      "length_level": 2,
+      "ordinal": 14,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-014-14-qa-b2",
+      "selection_role": "STAGE_B_REPRESENTATIVE",
+      "semantic_family": "conversational / direct QA"
+    },
+    {
+      "actual_templated_prompt_tokens": 276,
+      "case_id": "15-spanish-b2",
+      "length_level": 2,
+      "ordinal": 15,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-015-15-spanish-b2",
+      "selection_role": "STAGE_B_REPRESENTATIVE",
+      "semantic_family": "Spanish-language reasoning/explanation"
+    },
+    {
+      "actual_templated_prompt_tokens": 217,
+      "case_id": "16-multi-b2",
+      "length_level": 2,
+      "ordinal": 16,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-016-16-multi-b2",
+      "selection_role": "STAGE_B_REPRESENTATIVE",
+      "semantic_family": "multilingual / translation / cross-language transformation"
+    },
+    {
+      "actual_templated_prompt_tokens": 403,
+      "case_id": "01-math-b8",
+      "length_level": 8,
+      "ordinal": 17,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-017-01-math-b8",
+      "selection_role": "STAGE_B2_ENDPOINT",
+      "semantic_family": "mathematical reasoning"
+    },
+    {
+      "actual_templated_prompt_tokens": 184,
+      "case_id": "02-formal-b1",
+      "length_level": 1,
+      "ordinal": 18,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-018-02-formal-b1",
+      "selection_role": "STAGE_B2_ENDPOINT",
+      "semantic_family": "formal logic / proof-style reasoning"
+    },
+    {
+      "actual_templated_prompt_tokens": 374,
+      "case_id": "02-formal-b8",
+      "length_level": 8,
+      "ordinal": 19,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-019-02-formal-b8",
+      "selection_role": "STAGE_B2_ENDPOINT",
+      "semantic_family": "formal logic / proof-style reasoning"
+    },
+    {
+      "actual_templated_prompt_tokens": 154,
+      "case_id": "03-science-b1",
+      "length_level": 1,
+      "ordinal": 20,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-020-03-science-b1",
+      "selection_role": "STAGE_B2_ENDPOINT",
+      "semantic_family": "physics / scientific reasoning"
+    },
+    {
+      "actual_templated_prompt_tokens": 375,
+      "case_id": "03-science-b8",
+      "length_level": 8,
+      "ordinal": 21,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-021-03-science-b8",
+      "selection_role": "STAGE_B2_ENDPOINT",
+      "semantic_family": "physics / scientific reasoning"
+    },
+    {
+      "actual_templated_prompt_tokens": 165,
+      "case_id": "04-factual-b1",
+      "length_level": 1,
+      "ordinal": 22,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-022-04-factual-b1",
+      "selection_role": "STAGE_B2_ENDPOINT",
+      "semantic_family": "factual / explanatory knowledge"
+    },
+    {
+      "actual_templated_prompt_tokens": 386,
+      "case_id": "04-factual-b8",
+      "length_level": 8,
+      "ordinal": 23,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-023-04-factual-b8",
+      "selection_role": "STAGE_B2_ENDPOINT",
+      "semantic_family": "factual / explanatory knowledge"
+    },
+    {
+      "actual_templated_prompt_tokens": 168,
+      "case_id": "05-codegen-b1",
+      "length_level": 1,
+      "ordinal": 24,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-024-05-codegen-b1",
+      "selection_role": "STAGE_B2_ENDPOINT",
+      "semantic_family": "code generation"
+    },
+    {
+      "actual_templated_prompt_tokens": 392,
+      "case_id": "05-codegen-b8",
+      "length_level": 8,
+      "ordinal": 25,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-025-05-codegen-b8",
+      "selection_role": "STAGE_B2_ENDPOINT",
+      "semantic_family": "code generation"
+    },
+    {
+      "actual_templated_prompt_tokens": 165,
+      "case_id": "06-debug-b1",
+      "length_level": 1,
+      "ordinal": 26,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-026-06-debug-b1",
+      "selection_role": "STAGE_B2_ENDPOINT",
+      "semantic_family": "debugging / code review"
+    },
+    {
+      "actual_templated_prompt_tokens": 376,
+      "case_id": "06-debug-b8",
+      "length_level": 8,
+      "ordinal": 27,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-027-06-debug-b8",
+      "selection_role": "STAGE_B2_ENDPOINT",
+      "semantic_family": "debugging / code review"
+    },
+    {
+      "actual_templated_prompt_tokens": 175,
+      "case_id": "07-algorithms-b1",
+      "length_level": 1,
+      "ordinal": 28,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-028-07-algorithms-b1",
+      "selection_role": "STAGE_B2_ENDPOINT",
+      "semantic_family": "algorithms / data-structure reasoning"
+    },
+    {
+      "actual_templated_prompt_tokens": 408,
+      "case_id": "07-algorithms-b8",
+      "length_level": 8,
+      "ordinal": 29,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-029-07-algorithms-b8",
+      "selection_role": "STAGE_B2_ENDPOINT",
+      "semantic_family": "algorithms / data-structure reasoning"
+    },
+    {
+      "actual_templated_prompt_tokens": 177,
+      "case_id": "08-summary-b1",
+      "length_level": 1,
+      "ordinal": 30,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-030-08-summary-b1",
+      "selection_role": "STAGE_B2_ENDPOINT",
+      "semantic_family": "summarization / synthesis"
+    },
+    {
+      "actual_templated_prompt_tokens": 412,
+      "case_id": "08-summary-b8",
+      "length_level": 8,
+      "ordinal": 31,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-031-08-summary-b8",
+      "selection_role": "STAGE_B2_ENDPOINT",
+      "semantic_family": "summarization / synthesis"
+    },
+    {
+      "actual_templated_prompt_tokens": 183,
+      "case_id": "09-extract-b1",
+      "length_level": 1,
+      "ordinal": 32,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-032-09-extract-b1",
+      "selection_role": "STAGE_B2_ENDPOINT",
+      "semantic_family": "structured extraction / transformation"
+    },
+    {
+      "actual_templated_prompt_tokens": 172,
+      "case_id": "10-planning-b1",
+      "length_level": 1,
+      "ordinal": 33,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-033-10-planning-b1",
+      "selection_role": "STAGE_B2_ENDPOINT",
+      "semantic_family": "planning / constraint satisfaction"
+    },
+    {
+      "actual_templated_prompt_tokens": 395,
+      "case_id": "10-planning-b8",
+      "length_level": 8,
+      "ordinal": 34,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-034-10-planning-b8",
+      "selection_role": "STAGE_B2_ENDPOINT",
+      "semantic_family": "planning / constraint satisfaction"
+    },
+    {
+      "actual_templated_prompt_tokens": 380,
+      "case_id": "11-instructions-b8",
+      "length_level": 8,
+      "ordinal": 35,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-035-11-instructions-b8",
+      "selection_role": "STAGE_B2_ENDPOINT",
+      "semantic_family": "multi-step instruction following / structured response"
+    },
+    {
+      "actual_templated_prompt_tokens": 382,
+      "case_id": "12-compare-b8",
+      "length_level": 8,
+      "ordinal": 36,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-036-12-compare-b8",
+      "selection_role": "STAGE_B2_ENDPOINT",
+      "semantic_family": "analytical comparison / argumentation"
+    },
+    {
+      "actual_templated_prompt_tokens": 161,
+      "case_id": "13-creative-b1",
+      "length_level": 1,
+      "ordinal": 37,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-037-13-creative-b1",
+      "selection_role": "STAGE_B2_ENDPOINT",
+      "semantic_family": "creative / language generation"
+    },
+    {
+      "actual_templated_prompt_tokens": 381,
+      "case_id": "13-creative-b8",
+      "length_level": 8,
+      "ordinal": 38,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-038-13-creative-b8",
+      "selection_role": "STAGE_B2_ENDPOINT",
+      "semantic_family": "creative / language generation"
+    },
+    {
+      "actual_templated_prompt_tokens": 171,
+      "case_id": "14-qa-b1",
+      "length_level": 1,
+      "ordinal": 39,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-039-14-qa-b1",
+      "selection_role": "STAGE_B2_ENDPOINT",
+      "semantic_family": "conversational / direct QA"
+    },
+    {
+      "actual_templated_prompt_tokens": 385,
+      "case_id": "14-qa-b8",
+      "length_level": 8,
+      "ordinal": 40,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-040-14-qa-b8",
+      "selection_role": "STAGE_B2_ENDPOINT",
+      "semantic_family": "conversational / direct QA"
+    },
+    {
+      "actual_templated_prompt_tokens": 208,
+      "case_id": "15-spanish-b1",
+      "length_level": 1,
+      "ordinal": 41,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-041-15-spanish-b1",
+      "selection_role": "STAGE_B2_ENDPOINT",
+      "semantic_family": "Spanish-language reasoning/explanation"
+    },
+    {
+      "actual_templated_prompt_tokens": 599,
+      "case_id": "15-spanish-b8",
+      "length_level": 8,
+      "ordinal": 42,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-042-15-spanish-b8",
+      "selection_role": "STAGE_B2_ENDPOINT",
+      "semantic_family": "Spanish-language reasoning/explanation"
+    },
+    {
+      "actual_templated_prompt_tokens": 169,
+      "case_id": "16-multi-b1",
+      "length_level": 1,
+      "ordinal": 43,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-043-16-multi-b1",
+      "selection_role": "STAGE_B2_ENDPOINT",
+      "semantic_family": "multilingual / translation / cross-language transformation"
+    },
+    {
+      "actual_templated_prompt_tokens": 404,
+      "case_id": "16-multi-b8",
+      "length_level": 8,
+      "ordinal": 44,
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-044-16-multi-b8",
+      "selection_role": "STAGE_B2_ENDPOINT",
+      "semantic_family": "multilingual / translation / cross-language transformation"
+    }
+  ],
+  "configuration": {
+    "backend": "CPU-only Mode-P/BATCHED",
+    "cache_bytes": 137728475136,
+    "cache_slots": 7849,
+    "candidate_count": 32,
+    "decode_forwards": 64,
+    "fresh_process_per_capture": true,
+    "io": "native io_uring + O_DIRECT",
+    "managed_cache_start_occupancy": 0,
+    "n_ctx": 768,
+    "observer_serialization": "post-run JSON",
+    "performance_evidence": false,
+    "policy": "EXACT",
+    "prefill_capture": "complete sequential templated prompt",
+    "protocol": "full-prompt",
+    "routed_layers": 92,
+    "selected_experts": 16,
+    "threads": 32
+  },
+  "disposition": "READY_FOR_STAGE_B_OBSERVER_CAPTURE",
+  "inputs": {
+    "build_fingerprint": {
+      "path": "/mnt/nvme1/issue98/identity/build-fingerprint.json",
+      "schema_version": "issue98-cpu-build-fingerprint-v1",
+      "sha256": "d150d179f41ebd2deab49b663e64c909b7d8fa6b4546c716aee889479f633a10"
+    },
+    "corpus": {
+      "path": "/workspace/k3-out-of-core/corpus/phase13/issue102-cross-prompt-v1.json",
+      "schema_version": "issue102-cross-prompt-corpus-v1",
+      "sha256": "e0f1746f987f888d68a36261a2822f4754a413b7799c6252aae8a4ded2a900d8"
+    },
+    "model_identity": {
+      "path": "/mnt/nvme1/issue98/upstream-evidence/issue73-final/identity/max-safe-artifact-identity.json",
+      "sha256": "58b14d13a602944e1134fc753b2cc819a84a31290aee9c1479264a66dbb5efe2"
+    },
+    "selection_manifest": {
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/post-stage-a-selections.json",
+      "schema_version": "phase13-6pg-post-stage-a-selections-v1",
+      "sha256": "cd4abec601244a9b187347c57bf4a5516970f3b615141070488f424b9a1db96c"
+    }
+  },
+  "outcome_inspection": "NO_RESULT_OR_ROUTE_PAYLOAD_SERIALIZED_OR_INSPECTED",
+  "provenance": "PREREGISTERED_MEASURED_OBSERVER",
+  "runtime": {
+    "build_type": "Release",
+    "helper_binary": {
+      "path": "/mnt/nvme1/issue102/build/bin/issue102-exact-route-observer",
+      "sha256": "a8cd60963c7da3ece8937ba83834435217ac2ec7922de15c50cd5a59743fb392"
+    },
+    "helper_source": {
+      "path": "/mnt/nvme1/issue102/build/issue102-exact-route-observer.cpp",
+      "sha256": "1dac8b6c5399bffac53beccaf450e3605a74461ba26a6c1d0e1e095163fb8036"
+    },
+    "native_optimization": true,
+    "nested_llama_cpp": "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9",
+    "project_source_target": "7d7307452a97eec9b30d5028bd9e831a96c73990",
+    "runner": {
+      "path": "/mnt/nvme1/issue102/tooling/run_qualification_cell.py",
+      "sha256": "0e09960035666f15bfc82cef2a8dd81358f744a848f3f1f633d27d420afeca92"
+    }
+  },
+  "schema_version": "phase13-6pg-stage-b-observer-preregistration-v2",
+  "status": "frozen",
+  "supersession": {
+    "bounded_delta": "Keep globally nondecreasing observer request ordinals by continuing decode ordinals after the complete prompt; no token, route, cache, model, policy, or selection change.",
+    "failed_attempt": {
+      "case_id": "01-math-b1",
+      "envelope": {
+        "path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1/envelope.json",
+        "schema_version": "issue102-qualification-cell-envelope-v1",
+        "sha256": "38a90eb44d711a1acef3ce59ec1f1b5466df0cbbc605dd88f81f3989ff016633"
+      },
+      "exit_status": 1,
+      "failure": "route observer begin failed",
+      "host_safety": {
+        "zero_memory_pressure": true,
+        "zero_oom": true,
+        "zero_reclaim": true,
+        "zero_swap": true,
+        "zero_unused_nvme_reads": true
+      },
+      "output_directory": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1",
+      "stderr": {
+        "path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1/stderr.log",
+        "sha256": "4a21f2f969b9ad345cab48b76f058f02392e21259daebadf872fe007d92922b8"
+      },
+      "stdout": {
+        "path": "/mnt/nvme1/issue102/stage-b-observer/run-001-01-math-b1/stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "maximum_total_process_attempts": 45,
+    "prompt_replacement_authorized": false,
+    "reason": "The first validation attempt completed prefill then failed at the prompt/decode boundary because diagnostic request ordinals decreased from prompt length to 1.",
+    "same_case_retry_authorized": true,
+    "scientific_outcome_available": false,
+    "supersedes": {
+      "path": "/workspace/k3-out-of-core/results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/stage-b-observer-preregistration.json",
+      "schema_version": "phase13-6pg-stage-b-observer-preregistration-v1",
+      "sha256": "0676362cd62450d2a26a5e6e08d70bf751fafd9bf8d9e14d9e4e7f97442f4a30"
+    }
+  },
+  "validation": {
+    "exact_selected_route_must_equal_candidate_prefix": true,
+    "expected_candidate_occurrences_per_record": 32,
+    "expected_records_per_capture": "(actual_templated_prompt_tokens + 64) * 92",
+    "expected_selected_occurrences_per_record": 16,
+    "failed_capture_replacement_allowed": false,
+    "host_safety_envelope_required": true,
+    "physical_timing_claim_allowed": false
+  }
+}
