@@ -14,6 +14,7 @@ sys.path.insert(0, str(ROOT / "scripts" / "issue105"))
 from curate_evidence import (  # noqa: E402
     CurationError,
     common_provenance,
+    csv_schema_fields,
     csv_logical_hash,
     require_identity,
     source_evidence_class,
@@ -143,6 +144,14 @@ class Issue105CurationTests(unittest.TestCase):
         ).hexdigest()
         self.assertEqual(csv_logical_hash(rows), expected)
         self.assertNotEqual(csv_logical_hash(rows), csv_logical_hash(list(reversed(rows))))
+
+    def test_csv_schema_freezes_type_and_nullability(self) -> None:
+        fields = csv_schema_fields(
+            [{"name": "a", "value": 1.0}, {"name": "b", "value": None}],
+            ["name", "value"],
+        )
+        self.assertEqual(fields[0], {"name": "name", "type": "string", "nullable": False})
+        self.assertEqual(fields[1], {"name": "value", "type": "float64", "nullable": True})
 
 
 if __name__ == "__main__":

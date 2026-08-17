@@ -645,6 +645,10 @@ def physical_rows(
             "p95_forward_s": float(source["p95_forward_s"]),
             "p99_forward_s": float(source["p99_forward_s"]),
             "hit_ratio": float(source["hit_ratio"]),
+            "hits": int(source["hits"]),
+            "misses": int(source["misses"]),
+            "backing_loads": int(source["backing_loads"]),
+            "backing_bytes": int(source["backing_bytes"]),
             "loads_per_token": float(source["loads_per_token"]),
             "bytes_per_token": float(source["bytes_per_token"]),
             "changed_fraction": float(source["changed_fraction"]),
@@ -680,6 +684,10 @@ def physical_rows(
             "p95_forward_s": None,
             "p99_forward_s": None,
             "hit_ratio": None,
+            "hits": None,
+            "misses": None,
+            "backing_loads": None,
+            "backing_bytes": None,
             "loads_per_token": None,
             "bytes_per_token": None,
             "changed_fraction": None,
@@ -716,6 +724,10 @@ def physical_rows(
             "p95_forward_s": None,
             "p99_forward_s": None,
             "hit_ratio": float(source["hit_ratio"]),
+            "hits": int(source["hits"]),
+            "misses": int(source["misses"]),
+            "backing_loads": int(source["misses"]),
+            "backing_bytes": int(source["backing_bytes"]),
             "loads_per_token": float(source["loads_per_token"]),
             "bytes_per_token": float(source["bytes_per_token"]),
             "changed_fraction": (
@@ -997,6 +1009,49 @@ def semantic_rows(
     return sorted(rows, key=lambda row: row["case_id"])
 
 
+def analysis_result_rows(
+    fidelity: dict[str, Any], source_sha256: Sequence[str], code_version: str
+) -> list[dict[str, Any]]:
+    facts = {
+        "stage_a_primary_rows": fidelity["stage_a"]["primary_rows"],
+        "stage_a_sentinels": fidelity["stage_a"]["sentinels"],
+        "stage_c_physical_rows": fidelity["stage_c"]["physical_exact_knee_rows"],
+        "stage_c_unique_prompts": fidelity["stage_c"]["unique_prompts"],
+        "observer_capture_identities": fidelity["observer"]["capture_identities"],
+        "representative_overlap_set": fidelity["observer"]["representative_overlap_set"],
+        "b1_b8_endpoints": fidelity["observer"]["b1_b8_endpoints"],
+        "physical_exact_replay_matches": fidelity["physical_exact_replay_validation"],
+    }
+    rows = []
+    provenance = common_provenance(
+        source_sha256, "issue105-analysis-results-v1", code_version,
+        "CURATED_FROM_MEASURED", "issue102_full_prompt"
+    )
+    for metric, value in sorted(facts.items()):
+        row = {
+            "result_id": f"FIDELITY-{metric}",
+            "analysis_family": "curated_data_fidelity",
+            "metric": metric,
+            "result_json": json.dumps(value, separators=(",", ":")),
+            "status": "PASS",
+            "post_hoc_exploratory": False,
+        }
+        row.update(provenance)
+        rows.append(row)
+    for metric, value in sorted(fidelity["published_final_outcomes"].items()):
+        row = {
+            "result_id": f"FROZEN-OUTCOME-{metric}",
+            "analysis_family": "issue102_frozen_outcome_reproduction",
+            "metric": metric,
+            "result_json": json.dumps(value, separators=(",", ":")),
+            "status": "PASS",
+            "post_hoc_exploratory": False,
+        }
+        row.update(provenance)
+        rows.append(row)
+    return rows
+
+
 def quantile(values: Iterable[float], probability: float) -> float:
     ordered = sorted(float(value) for value in values)
     position = probability * (len(ordered) - 1)
@@ -1261,6 +1316,29 @@ def fields_from_rows(rows: Sequence[dict[str, Any]]) -> list[str]:
     return list(rows[0].keys())
 
 
+def csv_schema_fields(rows: Sequence[dict[str, Any]], fields: Sequence[str]) -> list[dict[str, Any]]:
+    def type_name(values: Sequence[Any]) -> str:
+        observed = {type(value) for value in values if value is not None}
+        if observed <= {bool}:
+            return "bool"
+        if observed <= {int}:
+            return "int64"
+        if observed <= {int, float}:
+            return "float64"
+        if observed <= {str}:
+            return "string"
+        raise CurationError(f"unsupported/mixed CSV field types: {observed}")
+
+    return [
+        {
+            "name": field,
+            "type": type_name([row[field] for row in rows]),
+            "nullable": any(row[field] is None for row in rows),
+        }
+        for field in fields
+    ]
+
+
 def materialized_documents(extract_root: pathlib.Path) -> dict[str, dict[str, Any]]:
     return {relative: load_json(extract_root / relative) for relative in SELECTED_ARCHIVE_PATHS}
 
@@ -1387,6 +1465,13 @@ def main() -> None:
     })
     fidelity["analysis_code_version"] = args.analysis_code_version
     fidelity["derived_evidence_class"] = "CURATED_FROM_MEASURED"
+    analysis_results = analysis_result_rows(
+        fidelity, fidelity["source_sha256"], args.analysis_code_version
+    )
+    accepted_sources = [
+        row for row in sources
+        if row["status"] in {"accepted", "contextual_non_authoritative"}
+    ]
 
     output_root.mkdir(parents=True, exist_ok=True)
     table_root = output_root / "tables"
@@ -1402,11 +1487,13 @@ def main() -> None:
         output_root / "source-catalog.schema.json", source_schema
     )
     for name, rows, order in (
+        ("sources", accepted_sources, ["source_issue_release", "archive_member_original_path"]),
         ("cases", cases, ["case_id"]),
         ("physical_runs", physical, ["stage", "case_id", "policy"]),
         ("legacy_physical_context", legacy, ["policy"]),
         ("route_features", route_features, ["case_id", "phase"]),
         ("semantic_sanity", semantic, ["case_id"]),
+        ("analysis_results", analysis_results, ["result_id"]),
     ):
         fields = fields_from_rows(rows)
         artifacts[name] = write_csv_table(table_root / f"{name}.csv", rows, fields)
@@ -1415,10 +1502,7 @@ def main() -> None:
             {
                 "schema_version": f"issue105-{name}-v1",
                 "format": "CSV/RFC4180 with LF records",
-                "fields": fields,
-                "nullable_fields": sorted(
-                    field for field in fields if any(row[field] is None for row in rows)
-                ),
+                "fields": csv_schema_fields(rows, fields),
                 "canonical_row_order": order,
                 "logical_hash": "SHA-256 over sorted-key compact UTF-8 JSON for each row plus LF",
             },
