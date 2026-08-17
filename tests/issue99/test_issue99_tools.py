@@ -81,6 +81,12 @@ def trace_records(horizon: int, accepted_token: int = 1) -> list[tuple[int, int,
 
 
 class Issue99ToolTests(unittest.TestCase):
+    def test_quality_helper_opens_one_unified_route_transaction_per_token(self):
+        source = (ROOT / "scripts" / "issue99" / "quality_probe.cpp").read_text()
+        self.assertEqual(source.count("llama_cache_aware_routing_begin("), 1)
+        self.assertEqual(source.count("llama_route_observer_begin("), 1)
+        self.assertIn("begin_route_transaction(context.get(), position, changed_routing)", source)
+
     def test_frozen_cohorts_and_cell_budget(self):
         self.assertEqual(len(BROAD_CASES), 16)
         self.assertEqual(len(BRIDGE_CASES), 3)

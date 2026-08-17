@@ -152,6 +152,17 @@ int finite_argmax(const float * logits, int n_vocab) {
     return result;
 }
 
+int32_t begin_route_transaction(
+        llama_context * context,
+        uint64_t request_ordinal,
+        bool changed_routing) {
+    // Both public entry points open the same unified observer/routing request.
+    // Select the semantically appropriate alias; never call both for one token.
+    return changed_routing ?
+        llama_cache_aware_routing_begin(context, request_ordinal, LLAMA_ROUTE_PHASE_DECODE) :
+        llama_route_observer_begin(context, request_ordinal, LLAMA_ROUTE_PHASE_DECODE);
+}
+
 uint64_t vm_swap_kib() {
     std::ifstream status("/proc/self/status");
     std::string key;
@@ -982,14 +993,9 @@ int main(int argc, char ** argv) {
             llama_token input_token = index == 0 ? seed_token : accepted_ids.back();
             trace.current_position = position;
             trace.capture_internal = true;
-            if (llama_route_observer_begin(context.get(), position, LLAMA_ROUTE_PHASE_DECODE) !=
-                LLAMA_ROUTE_OBSERVER_STATUS_OK) {
-                throw std::runtime_error("route observer begin failed");
-            }
-            if (changed_routing && llama_cache_aware_routing_begin(
-                    context.get(), position, LLAMA_ROUTE_PHASE_DECODE) !=
+            if (begin_route_transaction(context.get(), position, changed_routing) !=
                     LLAMA_ROUTE_OBSERVER_STATUS_OK) {
-                throw std::runtime_error("cache-aware routing begin failed");
+                throw std::runtime_error("unified route transaction begin failed");
             }
             const auto forward_started = steady_clock::now();
             llama_batch batch = llama_batch_get_one(&input_token, 1);
