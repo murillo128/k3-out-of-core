@@ -236,7 +236,11 @@ def select_files(
     archive_index: pathlib.Path,
     regeneration_guide: pathlib.Path,
 ) -> list[tuple[pathlib.Path, str, str]]:
-    excluded = {archive.resolve(), archive_index.resolve()}
+    excluded = {
+        archive.resolve(),
+        archive_index.resolve(),
+        (repository / "results/2026-08-17/issue105/release-archive-index.json").resolve(),
+    }
     selected: list[tuple[pathlib.Path, str, str]] = []
     prefix = f"{ARCHIVE_ROOT}/repository"
     add_tree(
