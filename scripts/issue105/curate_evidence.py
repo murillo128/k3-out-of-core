@@ -68,7 +68,16 @@ COMMON_FIELDS = (
     "authority_scope",
 )
 CASE_PATTERN = re.compile(r"(?:^|[-/])(\d{2}-[a-z0-9]+-b\d)(?:[-/]|$)")
-SCHEMA_SCAN_LIMIT_BYTES = 1024 * 1024
+TOP_LEVEL_SCHEMA_LINE = re.compile(
+    rb'(?m)^ {2}"schema_version"[ \t]*:[ \t]*("(?:\\.|[^"\\])*")'
+)
+TOP_LEVEL_SCHEMA_LINE_KEY = re.compile(
+    rb'(?m)^ {2}"schema_version"[ \t]*:[ \t]*([^\r\n]*)\r?$'
+)
+FIRST_KEY_SCHEMA = re.compile(
+    rb'\A\s*\{\s*"schema_version"\s*:\s*("(?:\\.|[^"\\])*")'
+)
+FIRST_KEY_SCHEMA_KEY = re.compile(rb'\A\s*\{\s*"schema_version"\s*:\s*([^,}\r\n]*)')
 
 
 class CurationError(ValueError):
@@ -76,71 +85,49 @@ class CurationError(ValueError):
 
 
 class TopLevelSchemaScanner:
-    """Extract a JSON object's top-level schema_version while bytes stream past."""
+    """Extract a pretty-JSON top-level schema_version while bytes stream past."""
 
     def __init__(self) -> None:
-        self.depth = 0
-        self.started = False
-        self.in_string = False
-        self.escape = False
-        self.string_bytes = bytearray()
-        self.expecting_key = False
-        self.current_key: str | None = None
+        self.tail = b""
+        self.head = b""
         self.schema_values: list[str] = []
         self.invalid_schema_value = False
 
     def feed(self, payload: bytes) -> None:
-        for byte in payload:
-            if self.in_string:
-                self.string_bytes.append(byte)
-                if self.escape:
-                    self.escape = False
-                elif byte == ord("\\"):
-                    self.escape = True
-                elif byte == ord('"'):
-                    self.in_string = False
-                    try:
-                        value = json.loads(self.string_bytes.decode("utf-8"))
-                    except (UnicodeDecodeError, json.JSONDecodeError) as error:
-                        raise CurationError("invalid JSON string while scanning schema") from error
-                    self.string_bytes.clear()
-                    if self.depth == 1 and self.expecting_key:
-                        self.current_key = value
-                        self.expecting_key = False
-                    elif self.depth == 1 and self.current_key == "schema_version":
-                        self.schema_values.append(value)
-                        self.current_key = None
-                        return
+        if len(self.head) < 4096:
+            self.head = (self.head + payload)[:4096]
+        previous_tail_bytes = len(self.tail)
+        candidate = self.tail + payload
+        for match in TOP_LEVEL_SCHEMA_LINE.finditer(candidate):
+            if match.end() <= previous_tail_bytes:
                 continue
-
-            if byte in b" \t\r\n":
+            try:
+                value = json.loads(match.group(1).decode("utf-8"))
+            except (UnicodeDecodeError, json.JSONDecodeError) as error:
+                raise CurationError("invalid JSON string while scanning schema") from error
+            self.schema_values.append(value)
+        for match in TOP_LEVEL_SCHEMA_LINE_KEY.finditer(candidate):
+            if match.end() <= previous_tail_bytes:
                 continue
-            if byte == ord('"'):
-                self.in_string = True
-                self.escape = False
-                self.string_bytes = bytearray(b'"')
-            elif byte in (ord("{"), ord("[")):
-                if not self.started:
-                    self.started = True
-                    self.expecting_key = byte == ord("{")
-                elif self.depth == 1 and self.current_key == "schema_version":
-                    self.invalid_schema_value = True
-                    self.current_key = None
-                self.depth += 1
-            elif byte in (ord("}"), ord("]")):
-                self.depth -= 1
-            elif self.depth == 1 and byte == ord(","):
-                self.current_key = None
-                self.expecting_key = True
-            elif self.depth == 1 and byte == ord(":"):
-                if self.current_key != "schema_version":
-                    self.current_key = None
-            elif self.depth == 1 and self.current_key == "schema_version":
+            raw_value = match.group(1).strip()
+            if raw_value.endswith(b","):
+                raw_value = raw_value[:-1].rstrip()
+            try:
+                parsed = json.loads(raw_value.decode("utf-8"))
+            except (UnicodeDecodeError, json.JSONDecodeError):
+                parsed = None
+            if not isinstance(parsed, str) or not parsed:
                 self.invalid_schema_value = True
-                self.current_key = None
+        self.tail = candidate[-4096:]
 
     def finish(self) -> str:
-        if self.in_string or self.invalid_schema_value:
+        if not self.schema_values:
+            match = FIRST_KEY_SCHEMA.search(self.head)
+            if match is not None:
+                self.schema_values.append(json.loads(match.group(1).decode("utf-8")))
+            elif FIRST_KEY_SCHEMA_KEY.search(self.head) is not None:
+                self.invalid_schema_value = True
+        if self.invalid_schema_value:
             raise CurationError("invalid top-level schema_version declaration")
         if len(self.schema_values) > 1:
             raise CurationError("duplicate top-level schema_version declaration")
@@ -317,7 +304,6 @@ def verify_issue102_archive(
                 digest = hashlib.sha256()
                 size = 0
                 schema_scanner = TopLevelSchemaScanner() if member.name.endswith(".json") else None
-                schema_bytes_scanned = 0
                 destination = None
                 temporary = None
                 if member.name in SELECTED_ARCHIVE_PATHS:
@@ -331,12 +317,8 @@ def verify_issue102_archive(
                     for chunk in iter(lambda: source.read(1024 * 1024), b""):
                         size += len(chunk)
                         digest.update(chunk)
-                        if schema_scanner is not None and not schema_scanner.schema_values:
-                            remaining = SCHEMA_SCAN_LIMIT_BYTES - schema_bytes_scanned
-                            if remaining > 0:
-                                candidate = chunk[:remaining]
-                                schema_scanner.feed(candidate)
-                                schema_bytes_scanned += len(candidate)
+                        if schema_scanner is not None:
+                            schema_scanner.feed(chunk)
                         if sink is not None:
                             sink.write(chunk)
                 finally:
@@ -350,11 +332,7 @@ def verify_issue102_archive(
                 if destination is not None and temporary is not None:
                     os.replace(temporary, destination)
                 if schema_scanner is not None:
-                    schemas[member.name] = (
-                        schema_scanner.finish()
-                        if schema_scanner.schema_values or size <= SCHEMA_SCAN_LIMIT_BYTES
-                        else ""
-                    )
+                    schemas[member.name] = schema_scanner.finish()
                 observed.add(member.name)
         close_decompressor(process, "issue-102 decompression")
     except BaseException:
@@ -374,7 +352,6 @@ def verify_issue102_archive(
         "selected_members_materialized": len(SELECTED_ARCHIVE_PATHS),
         "json_members": len(schemas),
         "schema_versioned_json_members": sum(bool(value) for value in schemas.values()),
-        "schema_scan_limit_bytes": SCHEMA_SCAN_LIMIT_BYTES,
     }, schemas
 
 

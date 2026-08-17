@@ -43,8 +43,8 @@ def physical_row(stage: str, case_id: str, policy: str) -> dict[str, object]:
 class Issue105CurationTests(unittest.TestCase):
     def test_streamed_top_level_schema_preserves_chunk_boundary(self) -> None:
         scanner = TopLevelSchemaScanner()
-        scanner.feed(b'{"nested":{"schema_version":"not-top-level"},"schema_')
-        scanner.feed(b'version":"issue102-cross-prompt-cell-v1","value":1}')
+        scanner.feed(b'{\n  "nested": {\n    "schema_version": "not-top-level"\n  },\n  "schema_')
+        scanner.feed(b'version": "issue102-cross-prompt-cell-v1",\n  "value": 1\n}')
         self.assertEqual(scanner.finish(), "issue102-cross-prompt-cell-v1")
 
     def test_streamed_top_level_schema_rejects_ambiguous_declaration(self) -> None:
