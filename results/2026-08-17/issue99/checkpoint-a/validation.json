@@ -1,0 +1,85 @@
+{
+  "schema_version": "issue99-checkpoint-a-validation-v1",
+  "status": "pass",
+  "outcome_blind": true,
+  "changed_policy_issue99_outcomes_created_or_inspected": false,
+  "implementation_parent": "3245c94a4a5b777e86c5bc62dbeaa63ae93dcae4",
+  "nested_llama_cpp": "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9",
+  "nested_worktree_clean": true,
+  "preregistration": {
+    "path": "results/2026-08-17/issue99/checkpoint-a/preregistration.json",
+    "sha256": "593ea8f63dad2b24fc1f528c2f39bc98e20e5d2e4c51285d52742b4e69848078",
+    "schema_validation": "pass",
+    "planned_decision_cells": 72
+  },
+  "artifacts": {
+    "quality_probe_sha256": "09981ad89a4a839a145647be3dbd0062f30c08d86a0f23495f815a8948700371",
+    "instrumentation_qualification_path": "/mnt/nvme1/issue99/instrumentation-qualification-v3/qualification.json",
+    "instrumentation_qualification_sha256": "4e55787df00f91ed79f898d3b611480084e119595844e522837a70e76d89dd62",
+    "frozen_core_membership_path": "/mnt/nvme1/issue99/control/frozen-core-membership.json",
+    "frozen_core_membership_sha256": "d09514daab111a7aa9805852b64c33720b508e15e3877592dfcc3373fa62732b"
+  },
+  "capacity": {
+    "quality_helper_auto_samples": 3,
+    "selected_slots_each": [6820, 6820, 6820],
+    "issue99_cache_slots": 6820,
+    "issue99_cache_bytes": 119672340480,
+    "capacity_relation": "LOWER_DUE_TO_CONTEXT_BUDGET",
+    "low_bridge_status": "ADMITTED_CLEANLY",
+    "low_bridge_slots": 5874,
+    "low_bridge_bytes": 103072628736
+  },
+  "focused_validation": [
+    {
+      "command": "/mnt/nvme1/issue99/venv/bin/python -m unittest discover -s tests/issue99 -v",
+      "result": "6/6 passed"
+    },
+    {
+      "command": "Draft202012Validator.check_schema over schemas/issue99/*.schema.json",
+      "result": "6/6 passed"
+    },
+    {
+      "command": "cmake --build /mnt/nvme1/issue99/build --parallel 32 --target issue99-quality-probe",
+      "result": "pass"
+    },
+    {
+      "command": "ctest --test-dir /mnt/nvme1/issue77/build/cpu --parallel 1 --output-on-failure -R ^test-cache-aware-routing$",
+      "result": "pass twice independently"
+    },
+    {
+      "command": "analysis environment pip freeze versus analysis-requirements-lock.txt",
+      "result": "23/23 exact"
+    }
+  ],
+  "full_model_qualification": {
+    "case_id": "issue102-sentinel",
+    "horizon": 64,
+    "fresh_exact_processes": 3,
+    "route_decisions_per_process": 5888,
+    "teacher_forced_repeats": 2,
+    "teacher_forced_ids_exact_and_ordered": true,
+    "route_candidate_score_probability_id_and_weight_payload_deterministic": true,
+    "moe_hidden_logit_scalar_identity": true,
+    "substitution_events": 0,
+    "maximum_live_raw_trace_files": 2,
+    "pressure_or_resource_failure": false
+  },
+  "preserved_pre_pass_failures": [
+    {
+      "classification": "capacity_probe_envelope_mismatch",
+      "envelope_sha256": "0f059dcf3acf811ffe3f22ac330586a19fc259675fa80209e18021fd8e83e92d",
+      "resolution": "three AUTO samples with the actual quality helper resolved 6820 rather than generic-probe 6841 slots"
+    },
+    {
+      "classification": "dense_layer_zero_capture_outside_routed_layer_identity",
+      "envelope_sha256": "99f6ae84c5536d121f8edba11157b306d9823c9069520dd4c3da67c50997c201",
+      "resolution": "bounded hidden capture to routed layers 1..92; corrected coverage passed"
+    },
+    {
+      "classification": "validated_issue99_output_page_residency_contaminated_next_admission",
+      "envelope_sha256": "6f000cab508431ef2e452cc59e7a85a6f2b6807b0386ec62dcc8c998128432a2",
+      "resolution": "moved targeted hashed-output fadvise before the next K3 process; allowlist recorded residency before/after"
+    }
+  ],
+  "checkpoint_a_final_capable": false
+}
