@@ -19,10 +19,10 @@ from typing import Any, BinaryIO, Sequence
 from jsonschema import Draft202012Validator
 
 
-ARCHIVE_NAME = "issue105-curated-analysis-v1.tar.zst"
-ARCHIVE_ROOT = "issue105-curated-analysis-v1"
-RELEASE_TAG = "issue105-curated-analysis-v1"
-ANALYSIS_CODE_VERSION = "09a539fe1235c0ff85ea8893ddbb3deaba15f9da"
+ARCHIVE_NAME = "issue105-curated-analysis-v2.tar.zst"
+ARCHIVE_ROOT = "issue105-curated-analysis-v2"
+RELEASE_TAG = "issue105-curated-analysis-v2"
+ANALYSIS_CODE_VERSION = "f00453f6d5572bd915648537ee0828ab10a67f35"
 NESTED_LLAMA_SHA = "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9"
 FROZEN_INPUTS = {
     "host/stage-b-analysis-v1/family-overlap-matrix.json":
@@ -313,7 +313,7 @@ def build_index(
     for row in members:
         role_bytes[row["role"]] += int(row["bytes"])
     result = {
-        "schema_version": "issue105-release-archive-index-v1",
+        "schema_version": "issue105-release-archive-index-v2",
         "status": "PASS",
         "archive": {
             "name": archive.name,
@@ -355,7 +355,7 @@ def build_index(
         },
         "members": list(members),
     }
-    schema_path = args.repository_root / "schemas/issue105/release-archive-index-v1.schema.json"
+    schema_path = args.repository_root / "schemas/issue105/release-archive-index-v2.schema.json"
     schema = load_json(schema_path)
     Draft202012Validator.check_schema(schema)
     Draft202012Validator(schema).validate(result)

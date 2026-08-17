@@ -14,8 +14,8 @@ import tempfile
 from typing import Any
 
 
-ARCHIVE_ROOT = "issue105-curated-analysis-v1"
-ANALYSIS_CODE_VERSION = "09a539fe1235c0ff85ea8893ddbb3deaba15f9da"
+ARCHIVE_ROOT = "issue105-curated-analysis-v2"
+ANALYSIS_CODE_VERSION = "f00453f6d5572bd915648537ee0828ab10a67f35"
 
 
 class ReproductionError(ValueError):
@@ -156,7 +156,7 @@ def main() -> None:
         )
 
     report = {
-        "schema_version": "issue105-fresh-checkout-reproduction-v1",
+        "schema_version": "issue105-fresh-checkout-reproduction-v2",
         "status": "PASS",
         "checkout": {
             "project_commit": args.project_commit,
