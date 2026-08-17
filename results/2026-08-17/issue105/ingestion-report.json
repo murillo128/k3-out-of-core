@@ -1,0 +1,108 @@
+{
+  "analysis_code_version": "358252aa6fc89c60a527f74f00fef8c28860bc7d",
+  "catalog": {
+    "authority_conflicts": 0,
+    "mandatory_issue102_inputs_accepted": true,
+    "rows": 1447,
+    "status_counts": {
+      "accepted": 1431,
+      "contextual_non_authoritative": 1,
+      "failed": 13,
+      "missing": 0,
+      "superseded": 2
+    }
+  },
+  "issue102": {
+    "archive_verification": {
+      "member_bytes": 7757388383,
+      "member_count": 1442,
+      "member_validation": "PASS",
+      "selected_members_materialized": 13
+    },
+    "freeze_status_preserved": "pre-publication fields retained; post-freeze attestations verified separately",
+    "git_attestation": {
+      "artifacts": [
+        {
+          "bytes": 6037,
+          "path": "results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/issue102-evidence-freeze.json",
+          "sha256": "ba7d4b98bed13dabaf1f7c1b18a56b3fbaafbc1e193e6febcacf346aee9c4a48"
+        },
+        {
+          "bytes": 477070,
+          "path": "results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/issue102-evidence-archive-index.json",
+          "sha256": "c5187d192d67c63b9f0efdf7ebc30995ffbcb75f7dd0900d3b7c8e78d50a7497"
+        },
+        {
+          "bytes": 33087,
+          "path": "results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/issue102-final-synthesis.json",
+          "sha256": "0a70a4b4e79bb4b046641b74177e2592907b7a815831ad987a5b9a0707ce6964"
+        },
+        {
+          "bytes": 63325,
+          "path": "results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/issue102-normalized-prompt-level.csv",
+          "sha256": "c3cb07d5d9cc90c14e77f4cc14744f7c70c682d7e267aa332095dd9f3b5a82ca"
+        },
+        {
+          "bytes": 385670,
+          "path": "corpus/phase13/issue102-cross-prompt-v1.json",
+          "sha256": "e0f1746f987f888d68a36261a2822f4754a413b7799c6252aae8a4ded2a900d8"
+        }
+      ],
+      "nested_target": "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9",
+      "project_target": "0c4ed0ae92f4cc7efc79e544f04f745ff0b168cf"
+    },
+    "release_asset": {
+      "bytes": 2087815152,
+      "name": "issue102-cross-prompt-evidence-v1.tar.zst",
+      "sha256": "e198913eb541b2a2e7465a01e09215fc5fecf6fb91574ff1841b11bf2664250c",
+      "tag": "issue102-cross-prompt-v1"
+    },
+    "review_attestation": {
+      "body_sha256": "9c9df32c89d04149127c7ad0bdffc1a39560e0d2604350d4855c4c48b440d55b",
+      "comment_id": 5312549951,
+      "html_url": "https://github.com/murillo128/k3-out-of-core/issues/102#issuecomment-5312549951",
+      "status": "PASS"
+    }
+  },
+  "issue98": {
+    "archives": [
+      {
+        "archive": "issue98-final-evidence-v1.tar.zst",
+        "external_index": "not_applicable",
+        "file_count": 238,
+        "internal_checksums": "PASS",
+        "prefix": "issue98-final-evidence-v1"
+      },
+      {
+        "archive": "issue98-profile-shape-extension-v2.tar.zst",
+        "external_index": "not_applicable",
+        "file_count": 28,
+        "internal_checksums": "PASS",
+        "prefix": "issue98-profile-shape-extension-v2"
+      },
+      {
+        "archive": "issue98-profile-shape-extension-v3.tar.zst",
+        "external_index": "PASS",
+        "file_count": 255,
+        "internal_checksums": "PASS",
+        "prefix": "issue98-profile-shape-extension-v3"
+      }
+    ],
+    "final_synthesis_sha256": "5142b1ce19dfe0b55e40b2f23e8932cb9ec025b9569781c56fceda0eb2766dc9",
+    "protocol": "legacy_first_full",
+    "review_attestation": {
+      "body_sha256": "6dd353fd3b8c110df7d54e152751d9d64b63e5f2c72a5a3cd63eb93ed46a99e9",
+      "comment_id": 5314223292,
+      "html_url": "https://github.com/murillo128/k3-out-of-core/issues/98#issuecomment-5314223292",
+      "status": "PASS"
+    },
+    "structurally_isolated": true
+  },
+  "limitations": [
+    "No K3 model execution or missing-cell recovery was performed.",
+    "Issue 98 remains protocol-distinct context and is never pooled with issue 102.",
+    "Observer timing is not admitted as physical performance evidence."
+  ],
+  "schema_version": "issue105-ingestion-report-v1",
+  "status": "PASS"
+}

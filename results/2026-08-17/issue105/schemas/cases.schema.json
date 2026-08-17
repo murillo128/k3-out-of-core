@@ -1,0 +1,90 @@
+{
+  "canonical_row_order": [
+    "case_id"
+  ],
+  "fields": [
+    {
+      "name": "case_id",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "semantic_family",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "length_level",
+      "nullable": false,
+      "type": "int64"
+    },
+    {
+      "name": "templated_prompt_tokens",
+      "nullable": false,
+      "type": "int64"
+    },
+    {
+      "name": "corpus_sha256",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "prompt_sha256",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "execution_round",
+      "nullable": false,
+      "type": "int64"
+    },
+    {
+      "name": "execution_position",
+      "nullable": false,
+      "type": "int64"
+    },
+    {
+      "name": "selection_roles",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "source_sha256",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "derivation_id",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "analysis_code_version",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "source_evidence_class",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "derived_evidence_class",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "protocol",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "authority_scope",
+      "nullable": false,
+      "type": "string"
+    }
+  ],
+  "format": "CSV/RFC4180 with LF records",
+  "logical_hash": "SHA-256 over sorted-key compact UTF-8 JSON for each row plus LF",
+  "schema_version": "issue105-cases-v1"
+}

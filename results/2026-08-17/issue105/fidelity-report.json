@@ -1,0 +1,120 @@
+{
+  "analysis_code_version": "358252aa6fc89c60a527f74f00fef8c28860bc7d",
+  "derived_evidence_class": "CURATED_FROM_MEASURED",
+  "observer": {
+    "b1_b8_endpoints": 32,
+    "capture_identities": 44,
+    "representative_overlap_set": 16,
+    "semantic_order_prevalidation_matches": 44
+  },
+  "physical_exact_replay_validation": 16,
+  "published_final_outcomes": {
+    "FOLLOWUP_99_CORPUS_READY": "yes",
+    "KNEE_VS_S2P50_PROMPT_INTERACTION": "moderate",
+    "PROMPT_CONDITIONED_REGIMES": "supported",
+    "ROUTE_COVERAGE": "broad",
+    "S2P50_CROSS_PROMPT_DISPERSION": "high",
+    "S2P50_PAIRED_GAIN": "broad",
+    "SEMANTIC_FAMILY_EFFECT": "strong",
+    "TOKEN_LENGTH_EFFECT": "weak"
+  },
+  "published_secondary_artifact_identities": {
+    "host/observer-replay-v1/committee-pin-capacity-counterfactual.json": "0927db654db7b106584a5099415733edc65ed505a631836268158dc94d876889",
+    "host/observer-replay-v1/exact-capacity-mrc.json": "18ab89a63b63f6c96a0e0aa4807fcf152aed251b441ab77a8b593bcb35929ba0",
+    "host/observer-replay-v1/family-length-capacity-extension.json": "abcc533e974347585d544a914e0a7820b405986eaacaad3ce4577f4c95632f03",
+    "host/observer-replay-v1/s2-fixed-route-capacity-counterfactual.json": "b87d9461ff503e2d13675b08d0362d5675ab8b6a2481e2d19ee46027d0b0ea9d",
+    "host/posthoc-analysis-v1/locality-throughput-calibration.json": "aa0814eb56d959f0ca839d9743234abbc32c78311cf9d12e1bfb52f7751747e4",
+    "host/posthoc-analysis-v1/stage-a-family-length-analysis.json": "3a29f1664fa4510b06092cb15d0dea9e66acd698e5d104fbbfdc15c16766b15b",
+    "host/stage-b-analysis-v1/family-overlap-matrix.json": "c1ef18ce953d15231c997e115980e9dcb1a315e8fa581ee32f15fb0324d6ea73",
+    "host/stage-b-analysis-v1/family-route-fingerprints.json": "2dceb8a4e860f3978e6327eae0c473626868b77fbb3ede2b5b15d0a666536059",
+    "host/stage-b-analysis-v1/stage-b2-family-length-route-endpoints.json": "24d48e8cf0fdf2c981562231d1492f6c6890b01eccaae239d1ac7c8b63d05b47",
+    "host/stage-b-analysis-v1/standing-committee-core-periphery.json": "b7a23e73108c1612c3db9d822c9d82ff065764a4682ef037cdc277ba5d730566",
+    "host/stage-c-control-v2/progress.json": "2170d77f5a6f712e2a7d5d5dc4b758e83d49659129c78e7dd8af8fd77adad1d6"
+  },
+  "schema_version": "issue105-curated-fidelity-v1",
+  "source_sha256": [
+    "0a70a4b4e79bb4b046641b74177e2592907b7a815831ad987a5b9a0707ce6964",
+    "18ab89a63b63f6c96a0e0aa4807fcf152aed251b441ab77a8b593bcb35929ba0",
+    "2dceb8a4e860f3978e6327eae0c473626868b77fbb3ede2b5b15d0a666536059",
+    "69b6f3d5642e905c7759c8c35ce280a07fdecec0afc9094c2a61180fb8b1e34d",
+    "baf8d7583175aa55eca8c7183608259bb2d30f350a8a643f8b40d4831a362786"
+  ],
+  "stage_a": {
+    "overall_distributions": {
+      "bytes_per_token": {
+        "count": 128,
+        "max": 10819259136.0,
+        "median": 9549824256.0,
+        "min": 8270519040.0,
+        "p10": 8777607552.0,
+        "p90": 10371392640.0
+      },
+      "changed_fraction": {
+        "count": 128,
+        "max": 0.7680027173913043,
+        "median": 0.7160326086956522,
+        "min": 0.6808763586956522,
+        "p10": 0.7000849184782609,
+        "p90": 0.737109375
+      },
+      "cumulative_score_regret": {
+        "count": 128,
+        "max": 21.640543047338724,
+        "median": 19.50530925858766,
+        "min": 18.035465341061354,
+        "p10": 18.85865706540644,
+        "p90": 20.20246653407812
+      },
+      "decode_tok_s": {
+        "count": 128,
+        "max": 0.3573151910351385,
+        "median": 0.32908797995468947,
+        "min": 0.3049902428468884,
+        "p10": 0.3133915249123856,
+        "p90": 0.34562668915606837
+      },
+      "hit_ratio": {
+        "count": 128,
+        "max": 0.6798042629076086,
+        "median": 0.6302755604619565,
+        "min": 0.5811289911684783,
+        "p10": 0.5984682829483695,
+        "p90": 0.660172172214674
+      },
+      "loads_per_token": {
+        "count": 128,
+        "max": 616.578125,
+        "median": 544.234375,
+        "min": 471.328125,
+        "p10": 500.2265625,
+        "p90": 591.0546875
+      },
+      "mean_score_regret_per_realized_swap": {
+        "count": 128,
+        "max": 0.003201301772189659,
+        "median": 0.003028604352713801,
+        "min": 0.0028924676753637993,
+        "p10": 0.002951202143036767,
+        "p90": 0.0031139003251060156
+      },
+      "swaps_per_token": {
+        "count": 128,
+        "max": 109.3125,
+        "median": 100.5546875,
+        "min": 93.328125,
+        "p10": 97.27968750000001,
+        "p90": 104.55625
+      }
+    },
+    "primary_rows": 128,
+    "sentinels": 8
+  },
+  "stage_c": {
+    "double_counted_s2_rows": 0,
+    "failed_cells": 0,
+    "physical_exact_knee_rows": 48,
+    "s2_rows_reused_from_stage_a": 24,
+    "unique_prompts": 24
+  },
+  "status": "PASS"
+}
