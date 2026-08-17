@@ -163,6 +163,21 @@ class Issue105AnalysisTests(unittest.TestCase):
         )
         self.assertEqual(result["status"], "INCONCLUSIVE")
 
+    def test_corrected_virtual_capacity_schema_has_a_distinct_version(self) -> None:
+        old_schema = json.loads(
+            (ROOT / "schemas/issue105/virtual-cache-capacity-v1.schema.json").read_text()
+        )
+        corrected_schema = json.loads(
+            (ROOT / "schemas/issue105/virtual-cache-capacity-v2.schema.json").read_text()
+        )
+        self.assertNotEqual(old_schema["$id"], corrected_schema["$id"])
+        self.assertEqual(
+            corrected_schema["properties"]["schema_version"]["const"],
+            "issue105-virtual-cache-capacity-v2",
+        )
+        self.assertIn("schema_version", corrected_schema["required"])
+        self.assertNotIn("hit_derived_intervals_json", old_schema["properties"])
+
     def test_authoritative_endpoint_membership_retains_representative_overlap(self) -> None:
         rows = []
         for index in range(44):

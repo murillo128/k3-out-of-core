@@ -872,6 +872,7 @@ def virtual_capacity_rows(
             else "INCONCLUSIVE"
         )
         output.append({
+            "schema_version": "issue105-virtual-cache-capacity-v2",
             "case_id": case_id,
             "semantic_family": target["semantic_family"],
             "length_level": int(target["length_level"]),
@@ -1607,7 +1608,7 @@ def main() -> None:
         "analysis": schema_root / "secondary-analysis-v1.schema.json",
         "interval": schema_root / "derived-capacity-interval-v1.schema.json",
         "virtual_summary": schema_root / "virtual-cache-capacity-summary-v1.schema.json",
-        "virtual": schema_root / "virtual-cache-capacity-v1.schema.json",
+        "virtual": schema_root / "virtual-cache-capacity-v2.schema.json",
         "figure": schema_root / "figure-sidecar-v1.schema.json",
         "hypothesis": schema_root / "hypothesis-registry-v1.schema.json",
     }
