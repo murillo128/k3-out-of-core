@@ -149,7 +149,7 @@
   },
   "authority": "issue #99 body plus latest additive/superseding design-authority amendment",
   "baseline": {
-    "implementation_parent": "9268b7ec74f484a65f7f385a6e0d3cd932fe6ec6",
+    "implementation_parent": "5e2f8965d0f44d8b358f60a04595eb36f08beab6",
     "nested_llama_cpp": "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9",
     "project_main": "530b887689df6fbf1f8c9da073117c4db8c0e86f"
   },
@@ -1153,10 +1153,10 @@
       "substitution_events"
     ],
     "qualification": {
-      "canonical_path": "/mnt/nvme1/issue99/instrumentation-qualification-v6/qualification.json",
+      "canonical_path": "/mnt/nvme1/issue99/instrumentation-qualification-v7/qualification.json",
       "device": 66304,
-      "inode": 13958896219,
-      "sha256": "6f427ea8656c251d050e653bd30d467d69eec006f74b2b33fb8632bb4883bab2",
+      "inode": 21475114318,
+      "sha256": "c67367292fc555299ea2a197a7b121ee0843dcc970e0242dd739705272cd9e05",
       "size_bytes": 4143
     },
     "qualification_assertions": {
@@ -1222,8 +1222,8 @@
     "binary": {
       "canonical_path": "/mnt/nvme1/issue99/build/bin/issue99-quality-probe",
       "device": 66304,
-      "inode": 19864691759,
-      "sha256": "09981ad89a4a839a145647be3dbd0062f30c08d86a0f23495f815a8948700371",
+      "inode": 19864690889,
+      "sha256": "bcff8c4ecdc560e12b1131db93c4a27530edc532364c7e77c3f78ca6c6fab396",
       "size_bytes": 380000
     },
     "build_fingerprint": {
@@ -1369,8 +1369,8 @@
       "canonical_path": "/workspace/k3-out-of-core/scripts/issue99/quality_probe.cpp",
       "device": 64512,
       "inode": 54533207,
-      "sha256": "2b7ab5628ec0b5415062e132999bcc0b9c582a75679b118276420eb0b301ded5",
-      "size_bytes": 60341
+      "sha256": "cebc19ddd082c1f1bf8c3f6b40e5e92551b2aeb69372def4040cd84f7bd60c3a",
+      "size_bytes": 60563
     },
     "scripts/issue99/reproduce_release.py": {
       "canonical_path": "/workspace/k3-out-of-core/scripts/issue99/reproduce_release.py",
@@ -1397,8 +1397,8 @@
       "canonical_path": "/workspace/k3-out-of-core/tests/issue99/test_issue99_tools.py",
       "device": 64512,
       "inode": 18148550,
-      "sha256": "14ddc7e16f34bc68ed71bce97519ab6ca9fd77bee19babe7eac4cc3884faf934",
-      "size_bytes": 10745
+      "sha256": "64ab0ebabb7918a0cfc1d05dae8dca9d071635b0c17b898a98637b44ca43e5b2",
+      "size_bytes": 11159
     }
   },
   "status": "frozen-outcome-blind"

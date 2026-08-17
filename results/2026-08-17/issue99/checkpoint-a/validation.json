@@ -3,19 +3,19 @@
   "status": "pass",
   "outcome_blind": true,
   "changed_policy_issue99_outcomes_created_or_inspected": false,
-  "implementation_parent": "9268b7ec74f484a65f7f385a6e0d3cd932fe6ec6",
+  "implementation_parent": "5e2f8965d0f44d8b358f60a04595eb36f08beab6",
   "nested_llama_cpp": "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9",
   "nested_worktree_clean": true,
   "preregistration": {
     "path": "results/2026-08-17/issue99/checkpoint-a/preregistration.json",
-    "sha256": "c9f90e164ef7a24581e39c47e0c38b362f5295eff4b1ac67940444a54a340b23",
+    "sha256": "e1157d3f5df5d060b73d2c15c1400da60ffc58f997e0000d3f05c5a8d42873cb",
     "schema_validation": "pass",
     "planned_decision_cells": 72
   },
   "artifacts": {
-    "quality_probe_sha256": "09981ad89a4a839a145647be3dbd0062f30c08d86a0f23495f815a8948700371",
-    "instrumentation_qualification_path": "/mnt/nvme1/issue99/instrumentation-qualification-v6/qualification.json",
-    "instrumentation_qualification_sha256": "6f427ea8656c251d050e653bd30d467d69eec006f74b2b33fb8632bb4883bab2",
+    "quality_probe_sha256": "bcff8c4ecdc560e12b1131db93c4a27530edc532364c7e77c3f78ca6c6fab396",
+    "instrumentation_qualification_path": "/mnt/nvme1/issue99/instrumentation-qualification-v7/qualification.json",
+    "instrumentation_qualification_sha256": "c67367292fc555299ea2a197a7b121ee0843dcc970e0242dd739705272cd9e05",
     "frozen_core_membership_path": "/mnt/nvme1/issue99/control/frozen-core-membership.json",
     "frozen_core_membership_sha256": "d09514daab111a7aa9805852b64c33720b508e15e3877592dfcc3373fa62732b"
   },
@@ -34,7 +34,7 @@
   "focused_validation": [
     {
       "command": "/mnt/nvme1/issue99/venv/bin/python -m unittest discover -s tests/issue99 -v",
-      "result": "7/7 passed, including FREE_TRAJECTORY EOG before and after EXACT"
+      "result": "8/8 passed, including FREE_TRAJECTORY EOG in both orders and single unified transaction source contract"
     },
     {
       "command": "Draft202012Validator.check_schema over schemas/issue99/*.schema.json",
@@ -72,6 +72,13 @@
       "verdict": "FAIL",
       "material_finding": "FREE_TRAJECTORY scalarization required identical complete trace/route keys and rejected valid unequal EOG horizons",
       "resolution": "each stream is now independently and fully validated, only the common contiguous decode prefix is paired, both achieved horizons and unavailable tail checkpoints are recorded, fixed-context equality remains strict, and both EOG orderings are tested"
+    },
+    {
+      "target": "2a2d470c48978eeebf50b3a7355e3478e42554f6",
+      "verdict": "PASS",
+      "subsequent_status": "invalidated by technical helper change after a pre-decode campaign failure",
+      "material_finding": null,
+      "resolution": "republish and independently review the corrected exact target before a clean campaign"
     }
   ],
   "preserved_pre_pass_failures": [
@@ -97,6 +104,15 @@
         "7d72fdcde7ed639e66d09d591f88c1194ef5b9f92157318702626ba1b54abc00"
       ],
       "resolution": "after clean explicit rejections at 6820 and then 6814 slots, froze a deterministic additional 64-slot stability reserve at 6750; three consecutive full-model exact qualification processes passed cleanly"
+    },
+    {
+      "classification": "duplicate_unified_route_transaction_begin",
+      "campaign_progress_sha256": "2cbf4fdfb9a0ab652e8319016bfc45f89a0489731234fc2f316858979409ad8d",
+      "envelope_sha256": "27daacbde6d0eb5a2a1585640da9aa70bdc7a59a376f8f17e6d97baed1df5fbc",
+      "stderr_sha256": "686c5b586ba8159d9a3a1fd20fd86e43ea1a70af8a55b1c4839d746cb9ee3703",
+      "changed_policy_decode_records": 0,
+      "pressure_or_resource_failure": false,
+      "resolution": "the helper now selects exactly one of the two public aliases for the unified observer/routing begin; focused 8/8 and native warm-repeat tests pass; rebuilt binary passed three-process exact qualification v7"
     }
   ],
   "checkpoint_a_final_capable": false
