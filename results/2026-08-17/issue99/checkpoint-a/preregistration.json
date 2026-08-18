@@ -149,19 +149,33 @@
   },
   "authority": "issue #99 body plus latest additive/superseding design-authority amendment",
   "baseline": {
-    "implementation_parent": "2b830525b61dae06b5a669dfdedd91548bef7f4d",
+    "implementation_parent": "9d10b3ecefff88fcc99c5a6068622fe839ea7e60",
     "nested_llama_cpp": "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9",
     "project_main": "530b887689df6fbf1f8c9da073117c4db8c0e86f"
   },
   "capacity": {
+    "active_output_residency_reserve_basis": "format-derived worst-1024-token trace and conservative 4-KiB-per-route-record bound, rounded up to a separate 6-GiB reserve after a 492-token exact capture crossed the runtime cgroup guard",
+    "active_output_residency_reserve_bytes": 6442450944,
+    "active_output_residency_reserve_slots": 368,
     "capacity_relation": "LOWER_DUE_TO_CONTEXT_BUDGET",
     "generic_probe_context_only": "three generic-probe AUTO samples selected 6841; superseded for execution by actual quality-helper overhead",
-    "issue99_cache_bytes": 118444032000,
-    "issue99_cache_slots": 6750,
+    "issue99_cache_bytes": 111986638848,
+    "issue99_cache_slots": 6382,
+    "long_horizon_qualification": {
+      "canonical_path": "/mnt/nvme1/issue99/long-horizon-capacity-qualification-v1/qualification.json",
+      "device": 66304,
+      "inode": 2684605262,
+      "sha256": "3b814a159cae8d716e1a9af2cc80bc213e424aa709a70a0f7bb0ee676de45fce",
+      "size_bytes": 7506
+    },
+    "long_horizon_qualification_processes": 3,
     "low_bridge_bytes": 103072628736,
     "low_bridge_disposition": "ADMITTED_CLEANLY",
     "low_bridge_enabled": true,
     "low_bridge_slots": 5874,
+    "maximum_active_output_bytes": 5115016204,
+    "maximum_active_quality_trace_bytes": 4728091660,
+    "maximum_active_route_stream_bytes": 386924544,
     "minimum_auto_slots_before_stability_reserve": 6814,
     "minimum_floor_slots": 5874,
     "performance_or_locality_inspected": false,
@@ -1153,11 +1167,11 @@
       "substitution_events"
     ],
     "qualification": {
-      "canonical_path": "/mnt/nvme1/issue99/instrumentation-qualification-v7/qualification.json",
+      "canonical_path": "/mnt/nvme1/issue99/instrumentation-qualification-v8/qualification.json",
       "device": 66304,
-      "inode": 21475114318,
-      "sha256": "c67367292fc555299ea2a197a7b121ee0843dcc970e0242dd739705272cd9e05",
-      "size_bytes": 4143
+      "inode": 5369352343,
+      "sha256": "09b8a371ccf16d729f5c36e337e06b8b91dba6d7d8cff1938ffbbc9f2849b752",
+      "size_bytes": 4133
     },
     "qualification_assertions": {
       "exact_structural_routing_swaps": 0,
@@ -1341,8 +1355,8 @@
       "canonical_path": "/workspace/k3-out-of-core/scripts/issue99/build_preregistration.py",
       "device": 64512,
       "inode": 54533208,
-      "sha256": "6050db6e613468f8e9764fec112013b8bfd877d965e6bc755e8443beca251efd",
-      "size_bytes": 22585
+      "sha256": "245a93481339f1f455edfdc5e5cff16bfcdb8b0bf8033e476effe4cf8ee21ee0",
+      "size_bytes": 24647
     },
     "scripts/issue99/freeze_core_membership.py": {
       "canonical_path": "/workspace/k3-out-of-core/scripts/issue99/freeze_core_membership.py",
@@ -1355,8 +1369,8 @@
       "canonical_path": "/workspace/k3-out-of-core/scripts/issue99/protocol.py",
       "device": 64512,
       "inode": 53999118,
-      "sha256": "a566eb2423193cd7eb203dbfd844d458fb4cf6925bee7ca8019ce545e4364556",
-      "size_bytes": 4391
+      "sha256": "b36c4f9638b2d197d642019b50799edd10f0c08ad0daef9e4886bfdf4a055aef",
+      "size_bytes": 5344
     },
     "scripts/issue99/qualify_instrumentation.py": {
       "canonical_path": "/workspace/k3-out-of-core/scripts/issue99/qualify_instrumentation.py",
@@ -1364,6 +1378,13 @@
       "inode": 57416420,
       "sha256": "d6804e7383f02b9276a47e6a1917bf7d2ffc4f88ffde3326e2bc6a78e2f759b4",
       "size_bytes": 8650
+    },
+    "scripts/issue99/qualify_long_horizon_capacity.py": {
+      "canonical_path": "/workspace/k3-out-of-core/scripts/issue99/qualify_long_horizon_capacity.py",
+      "device": 64512,
+      "inode": 52938978,
+      "sha256": "6fbe36b98c8d7a3848015149a87ef3fd82e6f09142d0507fe0a431345bba378e",
+      "size_bytes": 6836
     },
     "scripts/issue99/quality_probe.cpp": {
       "canonical_path": "/workspace/k3-out-of-core/scripts/issue99/quality_probe.cpp",
@@ -1397,8 +1418,8 @@
       "canonical_path": "/workspace/k3-out-of-core/tests/issue99/test_issue99_tools.py",
       "device": 64512,
       "inode": 18148550,
-      "sha256": "1d657a0b3d1bac85cbc39e4933ab3ab422f97f04066d2d3c341d985e17cdd739",
-      "size_bytes": 12946
+      "sha256": "b69cc508b8f7c0cfe019b1e2c73d14fc0b1902ba1791e2ffcba024b67fad8584",
+      "size_bytes": 13520
     }
   },
   "status": "frozen-outcome-blind"

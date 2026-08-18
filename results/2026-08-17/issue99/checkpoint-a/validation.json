@@ -3,19 +3,21 @@
   "status": "pass",
   "outcome_blind": true,
   "changed_policy_issue99_outcomes_created_or_inspected": false,
-  "implementation_parent": "2b830525b61dae06b5a669dfdedd91548bef7f4d",
+  "implementation_parent": "9d10b3ecefff88fcc99c5a6068622fe839ea7e60",
   "nested_llama_cpp": "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9",
   "nested_worktree_clean": true,
   "preregistration": {
     "path": "results/2026-08-17/issue99/checkpoint-a/preregistration.json",
-    "sha256": "90aebe0880347c3a68655b644f1557a3169fa11140a8edcf3b802d9e08b307c1",
+    "sha256": "73917df7f533a7a15f8b2de708c03b937613f9a13ded0d1a2c33a7aad19afdba",
     "schema_validation": "pass",
     "planned_decision_cells": 72
   },
   "artifacts": {
     "quality_probe_sha256": "bcff8c4ecdc560e12b1131db93c4a27530edc532364c7e77c3f78ca6c6fab396",
-    "instrumentation_qualification_path": "/mnt/nvme1/issue99/instrumentation-qualification-v7/qualification.json",
-    "instrumentation_qualification_sha256": "c67367292fc555299ea2a197a7b121ee0843dcc970e0242dd739705272cd9e05",
+    "instrumentation_qualification_path": "/mnt/nvme1/issue99/instrumentation-qualification-v8/qualification.json",
+    "instrumentation_qualification_sha256": "09b8a371ccf16d729f5c36e337e06b8b91dba6d7d8cff1938ffbbc9f2849b752",
+    "long_horizon_capacity_qualification_path": "/mnt/nvme1/issue99/long-horizon-capacity-qualification-v1/qualification.json",
+    "long_horizon_capacity_qualification_sha256": "3b814a159cae8d716e1a9af2cc80bc213e424aa709a70a0f7bb0ee676de45fce",
     "frozen_core_membership_path": "/mnt/nvme1/issue99/control/frozen-core-membership.json",
     "frozen_core_membership_sha256": "d09514daab111a7aa9805852b64c33720b508e15e3877592dfcc3373fa62732b"
   },
@@ -24,8 +26,11 @@
     "selected_slots_each": [6814, 6814, 6814],
     "minimum_auto_slots_before_stability_reserve": 6814,
     "stability_reserve_slots": 64,
-    "issue99_cache_slots": 6750,
-    "issue99_cache_bytes": 118444032000,
+    "active_output_residency_reserve_bytes": 6442450944,
+    "active_output_residency_reserve_slots": 368,
+    "maximum_active_output_bytes": 5115016204,
+    "issue99_cache_slots": 6382,
+    "issue99_cache_bytes": 111986638848,
     "capacity_relation": "LOWER_DUE_TO_CONTEXT_BUDGET",
     "low_bridge_status": "ADMITTED_CLEANLY",
     "low_bridge_slots": 5874,
@@ -34,7 +39,7 @@
   "focused_validation": [
     {
       "command": "/mnt/nvme1/issue99/venv/bin/python -m unittest discover -s tests/issue99 -v",
-      "result": "9/9 passed, including the four-arm reference-sequence command contract, FREE_TRAJECTORY EOG in both orders, and the single unified transaction source contract"
+      "result": "10/10 passed, including the maximum-output reserve bound, four-arm reference-sequence command contract, FREE_TRAJECTORY EOG in both orders, and the single unified transaction source contract"
     },
     {
       "command": "Draft202012Validator.check_schema over schemas/issue99/*.schema.json",
@@ -66,6 +71,19 @@
     "maximum_live_raw_trace_files": 2,
     "pressure_or_resource_failure": false
   },
+  "long_horizon_capacity_qualification": {
+    "case_id": "issue102-sentinel",
+    "horizon": 1024,
+    "fixed_non_eog_tokens_per_process": 1024,
+    "fresh_exact_processes": 3,
+    "maximum_trace_bytes_per_process": 4728091100,
+    "maximum_route_bytes_per_process": 182132850,
+    "maximum_route_record_bytes": 2006,
+    "minimum_mem_available_kib": 179945796,
+    "maximum_cgroup_memory_current_bytes": 252474150912,
+    "pressure_or_resource_failure": false,
+    "changed_policy_outcomes_created": false
+  },
   "checkpoint_a_review_history": [
     {
       "target": "bc1de63b490b1eb8188ff3625a75ed91718d97b7",
@@ -85,6 +103,13 @@
       "verdict": "FAIL",
       "material_finding": "the six changed-policy FREE_TRAJECTORY bridge cells were assigned a fixed reference-sequence argument that the quality probe correctly rejects",
       "resolution": "reference path and argument construction now encode the intervention contract directly: all 25 free cells omit the argument and all 47 fixed cells supply it; focused tests cover exact free, changed fixed, changed free, and low-capacity fixed cells"
+    },
+    {
+      "target": "469d824297b5fa610ceaf2590ee906c265e4a4b9",
+      "verdict": "PASS",
+      "subsequent_status": "invalidated by a fail-closed exact-only full-horizon capacity correction",
+      "material_finding": null,
+      "resolution": "republish and independently review the outcome-blind capacity corrected for the registered maximum active 1024-token output"
     }
   ],
   "preserved_pre_pass_failures": [
@@ -119,6 +144,17 @@
       "changed_policy_decode_records": 0,
       "pressure_or_resource_failure": false,
       "resolution": "the helper now selects exactly one of the two public aliases for the unified observer/routing begin; focused 8/8 and native warm-repeat tests pass; rebuilt binary passed three-process exact qualification v7"
+    },
+    {
+      "classification": "active_quality_output_residency_exhausted_runtime_cgroup_headroom",
+      "campaign_progress_sha256": "e544668c935fe165b359242c1c908a764af7a711e0c87d148e84d1b00221dccd",
+      "envelope_sha256": "b0cd58a55e310b4a1239c94b27555f87704c5f2c2a22c9741447ae8f94c067d4",
+      "stderr_sha256": "bde918fbaa6b2d191ab86e950cc36a8122cfbd3b8f4a3b8fafefd787a9672aec",
+      "exact_decode_records": 492,
+      "changed_policy_decode_records": 0,
+      "swap_reclaim_oom_or_cgroup_events": false,
+      "guard_headroom_shortfall_bytes": 1263207,
+      "resolution": "the outcome-blind capacity derivation now subtracts a separate 6-GiB maximum-active-output residency reserve in addition to the 64-slot stability reserve; three fresh fixed 1024-token exact processes passed at 6382 slots, followed by zero-delta three-process instrumentation qualification v8"
     }
   ],
   "checkpoint_a_final_capable": false
