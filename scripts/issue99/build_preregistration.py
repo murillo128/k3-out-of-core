@@ -310,6 +310,15 @@ def build(args: argparse.Namespace) -> dict[str, Any]:
     qualification = validate_qualification(
         args.qualification_root, args.quality_qualification_root,
         args.low_bridge_qualification_root or args.quality_qualification_root)
+    long_horizon = load(args.long_horizon_qualification)
+    if long_horizon.get("schema_version") != "issue99-long-horizon-capacity-qualification-v1" or \
+            long_horizon.get("status") != "pass" or long_horizon.get("changed_policy_outcomes_created") or \
+            long_horizon.get("capacity_bytes") != qualification["issue99_cache_bytes"] or \
+            long_horizon.get("horizon") != 1024 or long_horizon.get("fresh_processes", 0) < 3 or \
+            long_horizon.get("bounds", {}).get("maximum_active_output_bytes") != QUALITY_MAX_ACTIVE_OUTPUT_BYTES:
+        raise ValueError("long-horizon capacity qualification is absent, outcome-bearing, or mismatched")
+    qualification["long_horizon_qualification"] = file_identity(args.long_horizon_qualification)
+    qualification["long_horizon_qualification_processes"] = long_horizon["fresh_processes"]
     instrumentation = load(args.instrumentation_qualification)
     if instrumentation.get("schema_version") != "issue99-checkpoint-a-instrumentation-qualification-v1" or \
             instrumentation.get("status") != "pass" or instrumentation.get("changed_policy_outcomes_created") or \
@@ -406,6 +415,7 @@ def main() -> int:
     parser.add_argument("--low-bridge-qualification-root", type=Path)
     parser.add_argument("--core-membership", type=Path, required=True)
     parser.add_argument("--instrumentation-qualification", type=Path, required=True)
+    parser.add_argument("--long-horizon-qualification", type=Path, required=True)
     parser.add_argument("--implementation-parent", required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
