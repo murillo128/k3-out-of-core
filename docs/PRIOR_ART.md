@@ -1,6 +1,6 @@
 # Prior Art and Reuse Plan
 
-Reviewed through **2026-08-15**. Statuses can change; verify them before basing implementation work on a branch.
+Reviewed through **2026-08-19**. Statuses can change; verify them before basing implementation work on a branch.
 
 The central conclusion is that the proposed architecture is not novel in isolation. Nearly identical systems have been designed and prototyped. The opportunity is to combine the strongest ideas behind a clean provider abstraction, avoid documented lifetime and synchronization failures, and adapt the result to Kimi-K3 MXFP4 and UMA.
 
@@ -19,6 +19,7 @@ The central conclusion is that the proposed architecture is not novel in isolati
 | MoE-Infinity | Active external project | Activation tracing, activation-aware caching/prefetch | Reuse research ideas, not runtime integration |
 | WASTE | Active external implementation | Full 2.78T K3 streamed from NVMe on 64 GB, custom 3-bit experts, measured cache/prefetch limits | Use as external full-size baseline; reuse methodology and isolated ideas after review |
 | Colibrì v1.4.0 | Active external implementation | Full text K3 with source MXFP4 experts, direct/repacked safetensors, direct I/O, CPU/Vulkan tiers, and chunked prefill | Use as primary high-fidelity K3 layout/execution baseline; reuse isolated ideas after review |
+| FreeToken | arXiv 2026 / active Apache-2.0 implementation | RAM-resident expert pool, global VRAM LRU, bandwidth-adaptive CPU/GPU miss execution, streamed prefill | Strong adjacent systems baseline; cite for positioning, do not add implementation work to the current K3 roadmap |
 | Cache-Conditional Experts | TMLR 2025 | Training-free cache-aware expert membership selection with a quality/locality frontier | Direct Phase 13.6 prior art; compare against hard-regret-bounded routing |
 | MoE-ERAS | MLArchSys 2024 | Expert-residency-aware selection balancing performance and accuracy | Historical residency-aware routing prior art |
 | Local Routing Consistency | arXiv 2025 | Measures how naturally cacheable/offload-friendly different MoE routers are | Reuse methodology; do not transfer other-model locality assumptions to K3 |
@@ -641,6 +642,57 @@ NO_STABLE_STRUCTURE
 ```
 
 A negative or heterogeneous result is evidence, not a reason to redefine the family set, committee threshold, or routing policy.
+
+## 15. FreeToken — bandwidth-adaptive edge-native MoE serving
+
+- Paper: Shuo Yang et al., *FreeToken: Efficient Edge-Native MoE Serving with Bandwidth-Adaptive Execution*, arXiv:2608.16157 (2026): <https://arxiv.org/abs/2608.16157>
+- Repository: <https://github.com/FlashML-org/FreeToken>
+- Detailed project note: [`FREETOKEN_PRIOR_ART.md`](FREETOKEN_PRIOR_ART.md)
+- License: Apache-2.0.
+- Reviewed: 2026-08-19.
+
+FreeToken is strong adjacent systems prior art for local MoE inference. Its current offload model keeps the expert pool in host RAM, maintains a global LRU cache of expert slots in VRAM, and exposes `offload`, `cpu`, and `hybrid` execution modes. The hybrid path calibrates machine bandwidth and partitions cache misses between RAM-to-GPU transfer and direct CPU execution so PCIe and CPU memory bandwidth can be used concurrently.
+
+This distinction matters for K3-out-of-core. FreeToken primarily optimizes the regime in which the model's expert pool is RAM-resident and VRAM is the scarce cache. This project targets a harder memory regime in which Kimi K3's routed expert store does not fit in practical host RAM and NVMe remains part of steady-state decode:
+
+```text
+FreeToken:
+    host RAM expert pool -> VRAM cache / CPU execution
+
+K3 out-of-core:
+    NVMe -> bounded host-RAM cache -> optional VRAM tier
+```
+
+As of the review date, FreeToken's public supported-model list includes DeepSeek-V4, GLM-5.2, Qwen3.x MoE, GPT-OSS, Gemma-4, MiniMax-M2.5, and Muse-Glimmer, but not Kimi K3. Its published system therefore provides an important **adjacent/exact-routing baseline**, not a same-model K3 performance comparator.
+
+### Relationship to the cache-aware router
+
+FreeToken preserves the router-selected expert set and optimizes **where/how those exact experts execute**. Phase 13.6/S2_P50 instead attacks **which experts must be physically serviced**, allowing only bounded near-tie substitutions under explicit router-score regret and swap limits.
+
+The clean positioning is:
+
+```text
+FreeToken     optimize execution of exact selected experts
+S2_P50        reduce physical expert demand by boundedly changing selection
+```
+
+FreeToken therefore raises the conceptual bar for routing-changing systems work: changing expert membership is justified only when it provides a measured systems benefit that exact-routing execution techniques do not already remove, and when the resulting semantic cost is measured explicitly.
+
+### Current project decision: citation and positioning, not implementation
+
+Do **not** add FreeToken's bandwidth-adaptive CPU/GPU miss scheduler as a new implementation branch in the current K3 roadmap.
+
+The project's current evidence already shows that full Kimi K3 remains outside the practically useful local-inference regime on ordinary hardware at the measured throughput envelope. A further constant-factor systems optimization is not expected to change that conclusion enough to justify another substantial runtime branch. The higher-value scientific result is the already measured cache-aware-routing effect and its quality boundary.
+
+The remaining work should therefore stay focused on formalizing the existing result:
+
+1. preserve the frozen physical locality/TPS evidence and virtual-cache interpretation;
+2. present `S2_P50` as the main systems result: bounded cache-aware routing reduces physical expert demand and improves measured throughput across the frozen workload evidence;
+3. complete the already-planned long-horizon semantic-quality and route-feedback analysis so that the performance gain has a defensible quality boundary;
+4. use FreeToken to position the paper: exact-routing RAM↔GPU execution can be highly optimized when the expert pool fits host RAM, while this project studies the qualitatively harder NVMe↔RAM regime and shows that routing itself can serve as a bounded systems control;
+5. turn the frozen measurements, negative results, and quality analysis into the planned paper/post rather than expanding the runtime feature surface.
+
+Revisit hybrid CPU/GPU miss execution only if a future target model or hardware regime changes the feasibility conclusion. It is not justified by the present K3 evidence.
 
 ## Reuse checklist before importing code
 
