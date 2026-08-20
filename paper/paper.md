@@ -832,79 +832,29 @@ This distinction also clarifies what the post-hoc core analysis can and cannot s
 # 10. Related Work
 
 **Coordination:** [#120](https://github.com/murillo128/k3-out-of-core/issues/120)  
-**Status:** `OUTLINE`
+**Status:** `EVIDENCE_CHECK`
 
-Keep Related Work grouped by problem, not one paragraph per paper.
+MoE systems expose two complementary control surfaces for memory-constrained inference. A runtime can make the router's exact expert choices cheaper to serve through placement, caching, prefetching, and heterogeneous execution; alternatively, routing itself can be made locality-aware so that the requested working set better matches available residency. We position this paper against both lines, and separately against work that characterizes the routing structure from which cache locality arises.
 
 ## 10.1 Expert offloading, caching, and local MoE serving
 
-Core works from `docs/PRIOR_ART.md`:
+Expert-offloading systems exploit sparse activation by keeping only part of the expert pool in fast memory and servicing the rest from a lower tier. **MoE-Infinity** couples activation tracing with activation-aware expert caching and prefetching for resource-constrained personal-machine inference. **WASTE** and **Colibrì** are especially relevant same-model systems context because both execute full Kimi K3 while streaming routed experts from secondary storage: WASTE uses a custom 3-bit expert representation and bounded RAM cache, whereas Colibrì retains source-MXFP4 expert payloads and emphasizes direct I/O, layout, and CPU/Vulkan execution. **FreeToken** addresses an adjacent edge regime in which the expert pool is resident in host RAM and a global VRAM cache plus bandwidth-adaptive CPU/GPU miss execution determines where exact selected experts run. Related llama.cpp expert-cache proposals, tinyserve, and vLLM's `ExpertWeightProvider` work further establish persistent expert slots, mappings, and provider-mediated residency as systems architecture patterns.
 
-- MoE-Infinity;
-- WASTE;
-- Colibrì;
-- FreeToken;
-- llama.cpp expert-cache/offload work;
-- vLLM ExpertWeightProvider/cached-provider work;
-- tinyserve where useful.
+These systems primarily optimize **where, when, or how an exact router-selected expert is materialized or executed**. Our runtime follows that architectural lineage rather than claiming expert slots, caching, asynchronous offload, or a provider abstraction as new primitives. The additional question studied here is whether the demand presented to that runtime can itself be reduced at fixed managed cache capacity by changing a small number of selected IDs under explicit bounds. The physical regime is also different from FreeToken's RAM-resident expert pool: our primary measurements keep the routed K3 store on NVMe behind bounded host residency. WASTE and Colibrì provide stronger full-K3 context, but their representation, hardware, cache hierarchy, and execution protocols differ from ours; their reported token rates are therefore qualitative feasibility/context points, not direct TPS baselines for the measurements in this paper.
 
-Core positioning:
+## 10.2 Cache-aware and residency-aware routing
 
-> These systems primarily optimize where and how the exact router-selected experts are materialized or executed. This paper additionally asks whether a small, explicitly bounded change in selected membership can reduce the demand presented to the out-of-core memory system.
+Using cache state to influence expert selection predates this work. **Mixture of Cache-Conditional Experts for Efficient Mobile Device Inference** (TMLR 2025) introduces a training-free cache-aware router that trades router preference for cached-expert reuse and evaluates the resulting locality/quality frontier. **MoE-ERAS** (MLArchSys 2024) likewise makes expert residency part of selection, using residency-aware router modifications to expose a performance/accuracy trade-off for offloaded MoEs. **ReMoE** (ICML 2026) attacks the same locality problem from the training side, fine-tuning the router to favor recently used experts and thereby increase temporal reuse. Together these works establish cache/residency-aware routing as an existing design space; we make no priority claim for introducing it.
 
-Important regime distinction:
+The distinction in our mechanism is how departure from exact routing is constrained and how its consequences are measured. On K3's 896-expert, top-16 router, we start from the exact membership, expose only the top-32 candidate envelope, permit at most two substitutions per routed layer, and require every accepted swap to satisfy a hard K3 selection-score regret bound. The policy is deterministic and training-free, and after membership is chosen K3's original expert-weighting semantics are unchanged. We integrate that rule with explicit NVMe-backed residency and measure the resulting physical backing demand on full K3. We also retain the **real subsequent route evolution** produced by each intervention and separate long-horizon direct predictive perturbation from token-mediated free-generation feedback. Those controls make this a tightly bounded K3-specific point in the established cache-aware-routing space, not a claim that local router-score regret guarantees semantic safety.
 
-```text
-FreeToken:
-  host-RAM expert pool -> VRAM cache / CPU execution
+## 10.3 Routing locality, specialization, and expert structure
 
-this paper's primary regime:
-  NVMe-backed expert pool -> bounded host residency
-  + routing used as a bounded demand-control mechanism
-```
+Cache-aware serving depends on locality that is neither uniform across models nor necessarily reducible to one global hot set. **Not All Models Suit Expert Offloading: On Local Routing Consistency of Mixture-of-Expert Models** measures natural routing locality across 20 MoE LLMs and shows that cacheability varies materially with model architecture and routing behavior. Its main implication for this work is methodological: K3's locality must be measured from K3 route streams rather than inferred from results on DeepSeek, Qwen, Mixtral, or other MoEs.
 
-WASTE and Colibrì are stronger same-model K3 context, but representation/hardware/protocol differ; raw TPS should remain qualitative unless a comparison is truly normalized.
+Two closer structural studies frame the interpretation of K3's workload dependence. PipeNetwork's K3 REAP analysis reports domain-conditioned overlap in expert **saliency**, providing same-model evidence that expert structure can vary with source domain. Its observable is not our selected top-16 demand stream, cache reuse distance, or physical miss process, so we do not pool its overlap values with §9. **CommitteeAudit / Standing Committee** (ACL 2026) reports a cross-domain routed-expert core with a more task-specific periphery on other MoE models. Section 9 asks a related structural question on K3, but our frozen observer data contain selected top-k/top-M frequencies rather than the complete routing-weight profiles used by CommitteeAudit. We therefore treat the K3 core/periphery analysis as a `POST_HOC_EXPLORATORY`, selected-route analogue, and we do not transfer functional labels for individual experts from either line of work.
 
-## 10.2 Cache-aware / residency-aware routing
-
-Must cite:
-
-- **Mixture of Cache-Conditional Experts for Efficient Mobile Device Inference** — direct training-free cache-aware routing prior art;
-- **MoE-ERAS: Expert Residency Aware Selection** — residency-aware performance/accuracy trade-off;
-- **ReMoE** — training-based router fine-tuning for temporal reuse.
-
-Do not claim first cache-aware routing.
-
-Safe differentiation:
-
-- K3 896→16 setting;
-- hard per-swap selection-score regret;
-- hard swap-count bound;
-- deterministic training-free inference-time substitution;
-- original weighting semantics retained;
-- full-K3 physical NVMe-backed measurement;
-- real route evolution after swaps;
-- controlled long-horizon direct/free quality attribution.
-
-## 10.3 Routing locality and expert structure
-
-Relevant work:
-
-- Local Routing Consistency;
-- PipeNetwork K3 REAP/domain overlap;
-- CommitteeAudit / Standing Committee.
-
-Use these to motivate measurement/structure questions, not transfer their numerical/model-specific conclusions.
-
-## 10.4 Language rule
-
-For each related-work group:
-
-1. shared problem;
-2. concise examples;
-3. exact difference from this paper.
-
-Avoid claiming external results were reproduced unless they were.
+These prior results motivate the questions we ask about workload-conditioned working sets, shared cores, and peripheral demand; they do not determine the answer. In our evidence, the operational significance of route structure is established only when it changes realized residency and backing service. Likewise, the §9 static-core pinning experiment remains a fixed-route counterfactual: it tests whether one structural summary is sufficient for locality, not whether a recurring core has a particular semantic role or whether a physical pinned implementation would achieve a particular TPS.
 
 ---
 
