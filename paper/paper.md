@@ -598,57 +598,33 @@ The contribution evaluated in this paper is consequently narrower than “cache-
 # 6. Implementation
 
 **Coordination:** [#116](https://github.com/murillo128/k3-out-of-core/issues/116)  
-**Status:** `OUTLINE`
+**Status:** `EVIDENCE_CHECK`
 
-Keep this section short. Design explains *why*; Implementation records enough detail to reproduce and interpret the evaluation.
+Our prototype is implemented in the repository-pinned llama.cpp/GGML Kimi K3 runtime. The implementation changes how routed expert weights are materialized and, when the bounded policy is enabled, which already-ranked experts are selected; it does not replace the model's ordinary non-expert execution path. This section records only the implementation details needed to reproduce and interpret the primary physical measurements.
 
 ## 6.1 llama.cpp / GGML integration
 
-Cover conceptually:
+K3 routing remains on the accepted llama.cpp/GGML path. At each routed layer, the selected expert IDs cross a provider boundary before expert execution: the provider resolves each `(layer, expert_id)` to a cache-resident ExpertBundle or services it from backing storage. Persistent residency metadata and buffers are owned by the provider/cache rather than graph-temporary allocation, so a cache hit denotes bytes whose lifetime extends across graph executions.
 
-- accepted Kimi K3 execution path;
-- provider seam around routed expert materialization;
-- persistent cache ownership independent of graph-temporary allocation;
-- exact routing default;
-- routing/storage separability.
-
-Do not include commit history or file-by-file detail.
+The storage path is independent of the routing policy. With cache-aware routing disabled, the ordinary K3 top-16 membership is passed unchanged through the same provider and is the default/reference path. With the bounded policy enabled, only the final selected IDs can differ; materialization, cache lookup, and expert execution use the same provider interface after membership is fixed.
 
 ## 6.2 GGUF / MXFP4 expert storage
 
-- retain accepted K3 MXFP4 routed experts;
-- explicit expert backing spans/offsets;
-- no quality-changing routed-expert requantization introduced by this mechanism;
-- mention repacking/layout only where it changes measured I/O behavior.
+We retain K3's accepted GGUF/MXFP4 routed-expert representation. The loader associates each ExpertBundle with explicit backing-file spans and offsets for the routed gate, up, and down tensors and the quantization metadata needed by the existing K3 CPU execution path. A miss materializes the required bundle into a bounded cache slot rather than materializing the complete expert pool in DRAM.
 
-## 6.3 Linux backing path used by primary physical evidence
+The out-of-core mechanism does not introduce a second routed-expert quantization format or a quality-changing requantization step: resident and backing-served experts use the same accepted MXFP4 representation. Layout and repacking minutiae that do not alter the evaluated I/O path are left to the artifact documentation.
 
-Primary #102 regime to describe exactly:
+## 6.3 Linux backing path
 
-```text
-full K3
-CPU-only Mode-P/BATCHED
-32 inference threads
-native io_uring + O_DIRECT
-single local NVMe expert backing
-fixed 7,849-slot cache
-fresh process / cold managed cache
-```
+The primary #102 physical campaign exercised full K3 on the CPU-only Mode-P/BATCHED path with 32 inference threads. Expert misses were served from a single local NVMe backing device through native `io_uring` and `O_DIRECT` into the bounded managed host cache. The measured capacity was fixed at 7,849 ExpertBundle slots (137,728,475,136 bytes). Each timed run used a fresh process and a cold managed-cache start so that managed residency, rather than a warm process-local cache, defined the initial state.
 
-Verify final host CPU/memory/NVMe details from the immutable #102 artifacts before prose freeze.
+The runtime records queue/resource failures and fallback state so that an unintended buffered or synchronous path is not silently interpreted as the qualified direct-I/O configuration. These details describe the #102 physical regime specifically; earlier campaigns and other hosts are kept protocol-distinct rather than folded into one hardware configuration.
 
 ## 6.4 Instrumentation and reproducibility
 
-Main-paper level:
+The runtime records cache hits and misses, backing loads and transferred bytes, and routing substitutions with their swap counts and selection-score regret. It also captures resource-pressure, OOM, and fallback truth needed to distinguish successful qualified runs from degraded execution. Timed physical runs are kept separate from observer captures used for route/locality analysis, so observer timing is not treated as physical throughput evidence.
 
-- hit/miss/load/byte telemetry;
-- routing change/swap/regret telemetry;
-- resource pressure/fallback truth;
-- observer captures separated from timed physical runs;
-- immutable evidence releases;
-- offline deterministic regeneration for curated analysis.
-
-Move exact commands, full schemas, hashes, and resume logic to appendix/artifact documentation.
+Paper figures and secondary analyses are regenerated from the frozen evidence releases rather than from ad hoc reruns. The #105 curated analysis and #99 long-horizon analysis use immutable manifests/artifacts and deterministic offline regeneration where applicable. Exact command lines, complete schemas, release-member indices, checksums, retry/resume procedures, and detailed software/host identities are reserved for the appendix and artifact documentation.
 
 ---
 
