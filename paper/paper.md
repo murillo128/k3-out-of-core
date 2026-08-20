@@ -703,141 +703,90 @@ The evaluation intentionally keeps measurement and inference separate. RQ1–RQ3
 # 8. Performance–Quality Trade-off
 
 **Coordination:** [#118](https://github.com/murillo128/k3-out-of-core/issues/118)  
-**Status:** `OUTLINE`; §8.6 `NEEDS_RESULT`
+**Status:** `EVIDENCE_CHECK` / task-level evidence remains pending #100/#101
 
-Quality is a primary result, not a limitations footnote.
+Section 7 shows that S2_P50 reduces physical expert-service demand and improves measured throughput at fixed cache capacity. That gain is obtained by intentionally changing expert membership, so the router-score bounds in §5 cannot by themselves establish that model behavior is unchanged. We therefore evaluate the approximation along the causal path from a local substitution to downstream prediction. The evidence has three distinct layers: #77 provides short-horizon teacher-forced instrumentation, #99 extends the same controlled comparison to long predictive horizons, and #99 separately compares fixed-context and free trajectories to isolate token-mediated autoregressive feedback. These are predictive and internal-model measurements; they are not task-accuracy results.
 
 ## 8.1 Short-horizon controlled perturbation
 
-Use #77 to introduce the measurement chain:
+The original #77 instrumentation holds the token history fixed by teacher-forcing the exact reference sequence while changing only the routing policy. For each decode step it records the intentional membership changes together with local MoE-output divergence, downstream hidden-state divergence, later route changes, logit KL/JS, top-token agreement, and reference-token NLL. This exposes the propagation chain directly:
 
 ```text
-intentional expert swap
-      -> local MoE output
-      -> hidden state
-      -> induced future route differences
-      -> logits / reference-token NLL
+intentional expert substitution
+      -> changed MoE output
+      -> changed hidden state
+      -> changed later routing / logits
+      -> changed reference-token likelihood
 ```
 
-Teacher-forced exact reference tokens separate direct predictive effects from token-mediated free-generation feedback.
+Across the retained 24-token frontier traces, increasing routing aggressiveness produced larger MoE-output and hidden-state divergence, while next-token top-1 agreement remained 23/24 at every retained point. The coexistence is important: a mostly unchanged argmax over a short horizon does not imply that the predictive distribution or internal trajectory is unchanged. Small membership changes can persist in hidden state and can alter later routing even when both runs are forced to consume the same next token.
+
+Teacher forcing deliberately removes one source of amplification. Because the EXACT and changed runs consume the same reference-token history, differences measured in this mode arise from the routing intervention and its propagation through the network, not from the changed model sampling a different token and then conditioning on that token later. #77 therefore establishes the direct perturbation mechanism; the final #99 study is the authority for how that effect behaves over longer horizons.
 
 ## 8.2 Long-horizon predictive drift
 
-Primary authority: final #99.
+#99 extends the fixed-context comparison across 16 frozen prompt clusters and measures the changed policies against the exact reference trajectory through the registered long horizon. For reference token \(y_t\), we use the change in negative log-likelihood,
 
-Frozen classification:
+\[
+\Delta \mathrm{NLL}_t = \mathrm{NLL}_{\mathrm{changed}}(y_t) - \mathrm{NLL}_{\mathrm{EXACT}}(y_t),
+\]
 
-```text
-LONG_HORIZON_PREDICTIVE_DRIFT = gradual
-```
+so positive values mean that the changed policy assigns lower probability to the token on the exact reference continuation. The principal S2_P50 result is positive and measurable: mean direct reference-NLL damage is `+0.012030` across the 16 prompt clusters, with a 95% cluster-bootstrap interval of `0.008440..0.015435`.
 
-Headline fixed-context S2 vs EXACT result:
+The trajectory is classified as `gradual`, and the preregistered breakpoint comparison provides only weak evidence for an abrupt change point. Predictive damage therefore accumulates over the measured horizon without a supported sharp threshold at which the bounded router suddenly becomes unsafe. The amount and shape of drift remain prompt-dependent, which is why we report the aggregate interval together with per-prompt trajectories rather than reduce the result to a single deterministic penalty.
 
-```text
-mean ΔNLL                     +0.012030
-95% cluster bootstrap         0.008440 .. 0.015435
-prompt clusters               16
-```
+This metric answers a narrow question: how much the changed router perturbs likelihood on a controlled reference continuation. It does **not** measure task accuracy, answer correctness, human preference, or semantic equivalence. A positive ΔNLL establishes predictive cost under the intervention; task-level capability remains a separate experiment.
 
-Safe language:
+### Figure 9A candidate — fixed-context predictive drift
 
-> S2_P50 causes small but measurable positive reference-token NLL damage under the controlled fixed-token intervention, with gradual rather than abrupt growth over the measured horizon.
+Plot cumulative/reference-token ΔNLL versus decode horizon for KNEE and S2_P50, retaining per-prompt dispersion and the aggregate uncertainty. The caption should label the evidence `DIRECT_FIXED_CONTEXT` and state explicitly that the ordinate is predictive damage rather than task accuracy.
 
-Do not call this task accuracy.
+## 8.3 KNEE versus S2_P50: no clear quality ordering
 
-### Figure 9A candidate
+KNEE provides a useful comparison because its local approximation is tighter than S2_P50: it allows one swap per routed layer under the lower p25 score-regret bound, whereas S2_P50 allows two swaps under the p50 bound. If local router-score regret were a reliable monotonic proxy for long-horizon predictive quality, KNEE should therefore be clearly favored.
 
-ΔNLL versus decode horizon, with per-family dispersion and aggregate uncertainty.
+The registered #99 comparison does not show that ordering. The S2_P50-minus-KNEE difference in long-horizon reference-NLL damage is `+0.001090`, with a 95% interval of `-0.001228..0.003205`; #99 classifies the result as `no_clear_difference`. The point estimate is compatible with somewhat higher S2_P50 damage, but the interval crosses zero, so the measured data do not support a clear KNEE-versus-S2 ordering.
 
-## 8.3 Is lower local regret clearly better for long-horizon quality?
+This is not an equivalence result. It shows only that the lower local regret/swap budget did not produce a clearly lower long-horizon predictive cost in the frozen cohort. Combined with §7, where S2_P50 has the stronger physical locality result, the comparison illustrates why the design space cannot be reduced to one scalar “regret” dial: a tighter local routing bound and a better systems point need not induce a clearly ordered long-horizon predictive outcome over the measured range.
 
-Frozen KNEE vs S2 result:
+## 8.4 Direct perturbation versus autoregressive feedback
 
-```text
-quality delta    +0.001090
-95% interval     -0.001228 .. 0.003205
-classification  no_clear_difference
-```
+Fixed-context evaluation isolates the routing intervention from changed token history, but production generation closes the autoregressive loop. Once a changed policy samples a different token, that token becomes part of the next context and can alter hidden state, expert routing, and subsequent token probabilities independently of the original local substitution. #99 measures this additional mechanism on three frozen bridge prompts through horizons up to 1,024 tokens using two controlled evidence classes:
 
-Do not say equivalent. Say no clear ordering/difference under the measured metric.
+- `DIRECT_FIXED_CONTEXT`: changed routing consumes the EXACT reference-token trajectory;
+- `FREE_TRAJECTORY`: changed routing consumes its own generated tokens.
 
-## 8.4 Token-mediated autoregressive feedback
+The direct/free contrast isolates the token-mediated feedback increment under this setup. It is not computed from physical-versus-replay locality, and replay differences are not used as a causal feedback estimate.
 
-Controlled evidence classes:
+#99 classifies token-mediated route feedback as `material`. For the registered amplification effect, the free trajectory amplifies the corresponding direct perturbation by a mean `1.4210×`, with a 95% interval of `1.2225..1.7099`. Growth through 1,024 tokens is classified as `heterogeneous`: some prompt-policy trajectories grow while others are non-monotonic. The result therefore supports a feedback loop, not a universal exponential-growth law.
 
-```text
-DIRECT_FIXED_CONTEXT
-FREE_TRAJECTORY
-```
+The `1.4210×` value is an amplification factor for the controlled measured effect. It must not be read as “1.42× worse quality,” nor can it be converted into an accuracy loss. Its systems significance is that direct predictive perturbation understates the full behavior of an autoregressive generator: changed membership can first perturb the distribution and then change the future context on which subsequent routing decisions operate.
 
-Frozen result:
+### Figure 9B candidate — controlled feedback
 
-```text
-TOKEN_MEDIATED_ROUTE_FEEDBACK  material
-mean amplification             1.4210x
-95% interval                   1.2225 .. 1.7099
-growth to 1024                 heterogeneous
-```
+Plot the matched `DIRECT_FIXED_CONTEXT` and `FREE_TRAJECTORY` effects by horizon for the three bridge prompts. If page-constrained, combine this panel with Figure 9A and move individual trajectories to the appendix.
 
-Safe interpretation:
+## 8.5 Simple regret summaries do not predict long-horizon damage well
 
-> Once changed generations feed their own tokens back into the model, token-mediated route feedback amplifies the directly measured perturbation on average, but the growth is heterogeneous across the frozen bridge prompts.
+A natural hope is that the operational bounds already available to the router could also act as an inexpensive semantic-risk controller. #99 tests this directly with nested leave-one-family-out predictors of long-horizon ΔNLL. The baseline using only cumulative maximum and mean corrected regret per swap has LOFO R² `0.0169`. Adding cumulative corrected regret raises LOFO R² to `0.1513`, but the registered incremental result is only `weak`. Adding signed raw regret reaches R² `0.1800`, with raw regret again classified as only weak additional signal.
 
-### Figure 9B candidate
+Adding how much of the route was changed does not repair the predictor. Including changed-slot and perturbed-layer fractions reduces held-out R² to `0.1423` and is classified as providing `no` additional signal; the subsequent depth-conditioned model reaches R² `0.1306`, with depth conditioning likewise unsupported. These held-out results matter more than an in-sample correlation because the intended use would be to predict damage on a different workload family.
 
-Direct fixed-context vs free-trajectory effect by horizon for the three bridge prompts.
+The negative result does not mean router-score regret is irrelevant. Per-swap regret remains the hard operational constraint that makes every substitution local, deterministic, and auditable. What fails is the stronger claim that simple accumulated regret, raw-regret, or perturbation-fraction summaries are sufficient long-horizon semantic-safety proxies. Consistent with that result, #99 concludes that the observed evidence does not justify a new quality-driven follow-up routing design.
 
-## 8.5 Can simple routing statistics predict damage?
+## 8.6 Task-level capability remains open
 
-Make the negative result explicit:
+The predictive experiments above deliberately stop short of a task-level acceptability claim. #100 remains the GPQA Diamond validation authority and currently states that no GPQA task-quality outcome has been generated or inspected. Its planned evidence separates a 30-item paired local EXACT-versus-S2_P50 comparison from a full 198-item S2_P50 run; Moonshot's published GPQA score remains only an external `OFFICIAL_PROTOCOL_NEAR_MATCH` reference, not a local EXACT baseline.
 
-```text
-cumulative regret predictive      weak
-raw regret adds signal             weak
-perturbed fraction adds signal     no
-follow-up routing design justified no
-```
+#101 also remains pending/investigation-required. Its intended standard-suite design separates likelihood-based MMLU-family scoring, which is primarily sensitive to direct predictive/logit changes, from GSM8K-family free generation, where the token-mediated feedback measured above can accumulate. No accepted result from either task family is available to populate this section.
 
-Candidate conclusion:
+Accordingly, we do not convert ΔNLL, top-token agreement, autoregressive amplification, or regret-predictor performance into task accuracy. Until accepted #100/#101 evidence exists, the supported conclusion is predictive rather than task-level: S2_P50 changes the model's predictive trajectory measurably, and free generation can amplify that change.
 
-> Hard local regret bounds are useful operational constraints, but simple accumulated local statistics are not sufficient long-horizon semantic safety proxies.
+## 8.7 Implication for the systems frontier
 
-Do not reinterpret this as “regret is irrelevant.”
+The performance result and the quality result are two sides of the same intervention. S2_P50 reduces physically serviced expert demand at a fixed measured cache capacity, but it does so by changing bounded expert membership. Those changes create measurable long-horizon predictive drift, and autoregressive token feedback can amplify the direct effect. Hard local regret bounds keep the approximation constrained and auditable, but the tested accumulated local statistics are not a sufficient long-horizon quality controller.
 
-## 8.6 Task-level capability — pending
-
-### #100 — GPQA Diamond
-
-Current intended evidence:
-
-- 30 paired EXACT/S2_P50 items;
-- full 198-item S2_P50 campaign;
-- public Moonshot 93.5% only as `OFFICIAL_PROTOCOL_NEAR_MATCH`;
-- no GPQA quality outcome is currently available.
-
-Placeholder questions:
-
-- paired accuracy delta;
-- both-correct / both-wrong / EXACT-only / S2-only;
-- uncertainty / disagreement statistic;
-- full-S2 accuracy and interval;
-- capacity distribution/imbalance caveat;
-- delta to Moonshot reference with explicit near-match protocol caveat.
-
-### #101 — independent task suite
-
-If executed, use its two causal modes rather than broad leaderboard farming:
-
-- MMLU-family likelihood scoring → direct predictive/logit-sensitive task effect;
-- GSM8K-family generation → autoregressive feedback-sensitive task effect.
-
-Do not collapse heterogeneous task results into one opaque “quality preserved” statement.
-
-## 8.7 Section takeaway
-
-Target wording:
-
-> The locality gain is real and physically measurable, but it is purchased with a bounded routing approximation whose predictive effect is also measurable and can be amplified by autoregressive feedback. The current evidence supports a performance–quality trade-off, not semantic equivalence.
+The current evidence therefore supports a performance–quality trade-off, not semantic equivalence. Routing slack is a usable systems resource on Kimi K3, but spending it changes the model; performance, memory locality, and predictive quality must be evaluated jointly.
 
 ---
 
