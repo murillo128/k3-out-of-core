@@ -146,7 +146,6 @@ observer captures                   44
 Stage-C unique prompts              24
 Stage-C failed cells                 0
 S2_P50 vs EXACT/KNEE wins          24/24
-
 S2P50_CROSS_PROMPT_DISPERSION      high
 SEMANTIC_FAMILY_EFFECT             strong
 TOKEN_LENGTH_EFFECT                weak
@@ -323,66 +322,59 @@ Before marking ready:
 # 2. Background and Motivation
 
 **Coordination:** [#112](https://github.com/murillo128/k3-out-of-core/issues/112)  
-**Status:** `OUTLINE`
+**Status:** `EVIDENCE_CHECK`
 
 ## 2.1 Sparse MoE inference and Kimi K3
 
-Explain only what later sections require:
+A routed Mixture-of-Experts layer contains many expert feed-forward networks but evaluates only a small router-selected subset for each token. This sparsity reduces the amount of expert computation performed by one token; it does not remove the requirement that the serving system be able to supply any expert the router may select. Kimi K3 makes this distinction concrete: 92 layers contain routed MoE blocks, each with 896 routed experts, while exact inference selects the top 16 experts at each routed layer. One generated token therefore produces 1,472 layer-expert selections across the routed stack.
 
-- routed layer and expert-selection terminology;
-- top-k membership selection;
-- K3's 896→16 routed selection across 92 layers;
-- ExpertBundle as the unit of storage/cache service;
-- selected membership versus original expert weighting semantics.
+For storage and cache management, we treat one `(layer, expert_id)` as a logical `ExpertKey` and the routed gate/up/down weights plus their required quantization metadata as one `ExpertBundle`. In the accepted K3 runtime, an ExpertBundle occupies 17,547,264 bytes. `ExpertBundle` is a systems service unit used by this paper; it does not change the model's MoE computation.
 
-Avoid a generic transformer/MoE tutorial.
+Expert membership and expert weighting are separate semantics. The exact K3 path first determines the selected top-16 membership and then gathers the final expert weights from the model's original unbiased probabilities using the existing normalization rules. The mechanism introduced later in this paper may change a bounded number of selected IDs, but it does not introduce a second expert-weighting rule. Keeping those concepts separate is important when reasoning about both systems demand and predictive perturbation.
 
 ## 2.2 The memory mismatch
 
-Candidate table:
+K3 activates only `16/896 ≈ 1.8%` of the routed experts in any one layer, which makes sparse execution attractive on hardware that cannot keep the complete expert pool in fast memory. The active path is nevertheless large as a memory-service workload. Across 92 routed layers, one token selects 1,472 ExpertBundles; summing their bundle sizes gives 25,829,572,608 bytes (about 25.83 GB) of selected expert payload before any reuse or cache hits are considered.
 
 | Quantity | Kimi K3 value | Meaning |
 |---|---:|---|
-| Routed experts/layer | 896 | Total routed choice set |
-| Selected experts/layer | 16 | Exact active membership |
-| Routed layers | 92 | Routed decisions per token |
-| Expert bundle | 17,547,264 B | Whole routed expert storage/service unit |
-| Selected bundles/token | 1,472 | Cumulative top-16 selections across routed layers |
-| Selected payload/token | 25,829,572,608 B | Payload demand before reuse/cache hits; not resident-memory requirement |
+| Routed experts/layer | 896 | Total routed choice set in each routed layer |
+| Selected experts/layer | 16 | Exact active membership for one token |
+| Routed layers | 92 | Routed decisions traversed by one token |
+| Expert bundle | 17,547,264 B | Storage/cache service unit for one layer-expert pair |
+| Selected bundles/token | 1,472 | Cumulative top-16 selections across the routed stack |
+| Selected payload/token | 25,829,572,608 B | Sum of selected bundle payload before reuse/cache hits |
 
-Add total checkpoint/routed-pool size only after sourcing it from the exact model artifact/model card used by the paper.
-
-## 2.3 Why ordinary offloading is insufficient
-
-Baseline service path:
-
-```text
-router selection
-   -> residency lookup
-      -> hit: execute resident expert
-      -> miss: service expert from backing store -> execute
-```
-
-Motivating points:
-
-- NVMe solves storage capacity, not miss service cost;
-- adding exact cache consumes scarce RAM/VRAM;
-- exact-routing systems optimize service of the selected set but generally leave demand itself unchanged;
-- page-cache behavior is not a sufficient reproducible cache policy for the paper's measurements.
-
-Target transition:
-
-> The key question is therefore not only how quickly an exact miss can be served, but how much of K3's exact expert demand is intrinsically necessary when nearby router candidates are almost tied.
+The last row is a **service-demand scale**, not a resident-memory requirement and not measured backing-store traffic. A resident bundle can satisfy a selection without a backing load, and repeated use can amortize its storage cost across many tokens. The memory mismatch is therefore not simply “model size versus RAM”: sparse activation makes out-of-core execution possible, while temporal reuse and cache locality determine how much of the selected demand must actually cross a slower memory boundary.
 
 ### Figure 1 candidate — memory mismatch
 
-Conceptual scales:
+A compact explanatory figure can show the same distinction without assigning an unsourced total checkpoint size:
 
 ```text
-total routed expert pool  >>  available memory  >>  per-layer top-16 active set
+per routed layer:   896 available experts -> exact top-16 membership
+across 92 layers:   1,472 selected ExpertBundles / token
+payload scale:      25.83 GB / token before reuse or cache hits
 ```
 
-Do not visually imply that `25.83 GB/token` is simultaneously resident.
+The figure must label the 25.83 GB quantity as cumulative selected payload, not simultaneously resident memory or physical bytes read.
+
+## 2.3 Why exact expert offloading does not remove expert service
+
+Offloading decouples model capacity from fast-memory capacity. A serving system can keep only a bounded expert working set resident and place the rest in host memory or secondary storage. Once the router has made an exact selection, however, each selected ExpertKey still follows a service path:
+
+```text
+exact router selection
+   -> residency lookup
+      -> hit: execute resident expert
+      -> miss: service selected expert from a lower tier -> execute
+```
+
+Prior systems optimize different parts of this exact-selection path. MoE-Infinity uses activation-aware caching and prefetching; WASTE and Colibrì stream router-selected K3 experts from secondary storage; FreeToken keeps the expert pool in host RAM and serves exact selections through a VRAM cache together with CPU/GPU miss execution. These designs are important complements to this work: placement, prefetch, overlap, and miss execution can substantially reduce the cost of serving an exact route without changing which experts the router requested.
+
+The remaining cost is the demand presented to that service path. If an exactly selected ExpertBundle is not resident, it must still be fetched or executed from a lower tier. A larger exact cache can reduce such misses, but only by spending more of the scarce RAM or VRAM that motivated offloading; faster backing I/O and prefetch can reduce or hide miss latency, but do not make the selected demand disappear. OS page cache may assist some implementations, but this paper uses explicit managed residency because implicit page-cache state is not a sufficiently controlled cache policy for reproducible physical measurements; we do not assume that other offloading systems rely on page cache.
+
+Thus exact offloading solves a capacity problem without, by itself, eliminating the expert-service problem. This is not a claim that exact miss handling is exhausted: exact-routing execution techniques remain complementary. The additional question is whether K3's selected demand itself contains bounded flexibility that can improve locality without simply allocating a larger cache. Section 3 first characterizes K3's exact demand and routing slack before the routing mechanism is introduced.
 
 ---
 
@@ -676,7 +668,6 @@ Close the method section with the limitation that motivates §8:
 Visualize exact top-16, candidate ranks 17–32, resident status, one/two accepted swaps, hard regret bound, and unchanged weighting stage.
 
 ## 5.7 Prior-art boundary
-
 Must cite:
 
 - Cache-Conditional Experts;
@@ -874,7 +865,7 @@ Interpretation:
 
 ### Figure 7 — hero figure
 
-Measured TPS vs loads/token, with held-out-family/LOFO validation and measured-domain annotation.
+Measured physical TPS vs backing loads/token with family-aware LOFO annotation.
 
 Caption must state:
 
@@ -1421,7 +1412,7 @@ Verify publication metadata and exact comparability labels before final submissi
 Target roughly 7–9 primary visual elements before appendix material.
 
 | ID | Candidate | Section | Evidence class | Priority |
-|---|---|---|---|---|
+|---|---|---|---|
 | Fig. 1 | K3 memory mismatch / active demand scale | §2 | model constants / explanatory | high |
 | Fig. 2 | K3 workload route/locality variation | §3 | measured observer + post-hoc descriptive | medium |
 | Fig. 3 | Out-of-core architecture | §4 | design diagram | high |
