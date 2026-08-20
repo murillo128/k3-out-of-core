@@ -348,7 +348,7 @@ The final ingredient is whether exact top-16 membership is separated sharply fro
 
 A conservative point illustrates the opportunity without assuming the later policy outcome. At a 96-GiB replay anchor, allowing at most one substitution at the observed p10 score-gap threshold (`0.00129789114`) changed 1.486% of selected slots while reducing replayed expert loads by 4.162%; the p25 threshold (`0.00308857858`) changed 2.747% of slots and reduced replayed loads by 6.575%. The same sweep identified the p50 boundary `0.00730375946`, later used as the hard score-regret scale for the frozen S2_P50 policy. These quantities describe router selection-score slack and replayed locality only. They do not imply semantic equivalence, and the physical effect must be measured on the real generated route stream.
 
-Together, the characterization yields four design requirements. The system should (1) reduce physical backing demand without simply increasing cache capacity; (2) preserve ordinary exact routing as the reference and default path; (3) make every intentional membership change deterministic and bounded in both candidate rank, swap count, and router selection-score regret; and (4) measure the semantic consequences of those changes rather than inferring safety from a small local score gap. The measurements therefore point to two coupled controls: explicit expert residency, so physical demand is observable and reproducible, and a bounded routing rule that can prefer an already-resident near-tie candidate only under hard approximation limits.
+Together, the characterization yields four design requirements. The system should (1) reduce physical backing demand without simply increasing cache capacity; (2) preserve ordinary exact routing as the reference and default path; (3) make every intentional membership change deterministic and bounded in candidate rank, swap count, and router selection-score regret; and (4) measure the semantic consequences of those changes rather than inferring safety from a small local score gap. The measurements therefore point to two coupled controls: explicit expert residency, so physical demand is observable and reproducible, and a bounded routing rule that can prefer an already-resident near-tie candidate only under hard approximation limits.
 
 ---
 
@@ -1299,7 +1299,7 @@ Verify publication metadata and exact comparability labels before final submissi
 Target roughly 7–9 primary visual elements before appendix material.
 
 | ID | Candidate | Section | Evidence class | Priority |
-|---|---|---|---|
+|---|---|---|---|---|
 | Fig. 1 | K3 memory mismatch / active demand scale | §2 | model constants / explanatory | high |
 | Fig. 2 | K3 workload route/locality variation | §3 | measured observer + post-hoc descriptive | medium |
 | Fig. 3 | Out-of-core architecture | §4 | design diagram | high |
