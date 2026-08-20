@@ -355,107 +355,96 @@ Together, the characterization yields four design requirements. The system shoul
 # 4. K3 Out-of-Core Design
 
 **Coordination:** [#114](https://github.com/murillo128/k3-out-of-core/issues/114)  
-**Status:** `OUTLINE`
+**Status:** `EVIDENCE_CHECK`
 
-The design section should answer challenges introduced in §3, not document classes chronologically.
+Section 3 leaves four systems constraints: useful expert residency is workload-dependent, physical backing service is the dominant measured cost in the evaluated regime, increasing an exact cache spends the scarce memory resource, and routing slack is only actionable if the runtime exposes contemporaneous residency. We address these constraints with an explicit expert-service layer whose managed state is bounded and observable, then expose its residency state to the routing mechanism of §5. The storage hierarchy, persistent expert cache, and provider abstraction follow established expert-offloading designs; we use them as a controlled substrate for full-K3 measurement rather than claim them as new architecture.
 
 ## 4.1 Design goals
 
-- bounded memory;
-- explicit/reproducible residency;
-- exact baseline correctness;
-- asynchronous/bounded backing service;
-- sufficient telemetry to connect demand to physical performance.
+The runtime follows five design goals. **First, bound managed memory and concurrency.** Expert caches, staging buffers, and in-flight backing requests have explicit capacities, so out-of-core execution cannot recover model capacity by silently creating another unbounded memory pool. **Second, preserve an exact reference path.** When cache-aware routing is disabled, the router selects the ordinary K3 top-16 membership and the runtime must service those experts without changing their model-defined weighting semantics. Storage placement may change when an expert becomes executable, but not which exact expert was requested.
 
-## 4.2 ExpertWeightProvider and whole-expert residency
+**Third, make residency explicit and reproducible.** Persistent residency is represented by cache-owned state and cache-owned buffers rather than inferred from OS page-cache behavior or graph-temporary allocations. **Fourth, make backing service asynchronous but bounded.** Lower-tier reads and transfers should overlap useful work where the execution regime permits it, while demand requests retain priority over speculative work and queue depth remains controlled. **Finally, expose physical service rather than only logical cache behavior.** Hits, misses, backing loads, backing bytes, wait states, and fallbacks are observable so that routing demand can be connected to the physical bottleneck characterized in §3.
 
-Conceptual interface:
+## 4.2 Provider-mediated expert service
 
-```text
-inference graph
-      -> ExpertWeightProvider
-            -> executable ExpertBundle
-```
+We place a materialization boundary between the inference graph and expert storage. The graph produces selected expert identities and requests executable weights through an `ExpertWeightProvider`; it does not decide whether those weights come from a resident slot, host cache, accelerator cache, or backing file. The logical identity is an `ExpertKey = (layer, expert_id)`. The unit of residency is an `ExpertBundle`: the routed gate, up, and down weights for that key together with the quantization metadata required to execute them.
 
-Logical identity:
+Treating the whole bundle as the cache unit gives one ownership and lifetime rule for all tensors needed by an expert. Admission, eviction, and readiness are atomic at `ExpertBundle` granularity even when the underlying model stores the constituent tensors in separate spans. A directory maps each `ExpertKey` to its current residency state and, when resident, to a persistent slot. On accelerator-backed variants, those slots can be fixed-address so that remapped expert IDs index stable cache storage rather than graph-epoch scratch space.
 
-```text
-ExpertKey(layer, expert_id)
-```
+Persistent cache metadata never points at graph-temporary storage. The provider or cache owns every buffer represented as resident, and the residency record cannot outlive the bytes it names. This rule is both a correctness boundary and a reproducibility boundary: a logical cache hit must mean that the complete executable expert is still present in storage whose lifetime is controlled by the cache.
 
-Storage/cache unit:
+The provider also keeps model semantics separate from materialization. Exact K3 chooses expert membership before the provider is asked to service it. The provider may change where or when the selected weights become executable, but it does not change exact membership or expert weighting. The bounded routing mechanism in §5 is the only component allowed to intentionally change membership.
+
+## 4.3 One logical hierarchy, multiple physical regimes
+
+The design treats routed experts as objects in an explicit storage hierarchy:
 
 ```text
-ExpertBundle = routed gate/up/down tensors + required quantization metadata
+model files / NVMe backing store
+          -> bounded host residency / staging
+          -> optional accelerator-visible hot residency
+          -> expert execution
 ```
 
-Important lifetime rule:
+The non-routed model state follows the ordinary resident execution path; the hierarchy above applies to routed expert bundles whose total pool exceeds the selected memory budget. All variants share the same `ExpertKey`, bundle, directory, and provider semantics, but they need not instantiate every tier physically.
 
-> Persistent cache metadata must own persistent cache buffers; graph-temporary allocations are never treated as durable residency.
+This distinction matters for interpreting the evaluation. The primary #102 physical campaign is a CPU-only full-K3 regime in which the relevant path is local NVMe backing into a bounded managed host cache followed by CPU expert execution. It does not measure a discrete-GPU VRAM hot tier or PCIe transfer path. On a discrete GPU, the same logical hierarchy can place a hot expert tier above host residency and promote misses through bounded staging and asynchronous H2D transfer. On coherent UMA hardware, hot and cold can instead be logical policy states over one physical memory pool. These are architectural variants, not claims that every tier participates in every reported result.
 
-## 4.3 Explicit storage hierarchy
+## 4.4 Bounded asynchronous backing service
 
-General design:
+A miss turns an `ExpertKey` into a demand request for the backing spans already identified by the model loader. The storage layer therefore operates on explicit file offsets and lengths rather than reconstructing tensor ownership from process mappings. Requests enter a bounded in-flight queue and complete into cache-owned or staging-owned buffers before the provider marks the bundle executable.
 
-```text
-model/backing store (NVMe)
-        -> bounded host cache / staging
-        -> optional accelerator-visible hot tier
-        -> expert execution
-```
+The backing service separates *scheduling* from *prediction*. Once routing has selected the experts for a layer, issuing those known reads early is exact issue-ahead: it changes when the system requests already-selected bytes, not which expert it predicts will be needed. Predictive prefetch, when enabled by a separate policy, is speculative and remains subordinate to demand. This distinction prevents an I/O optimization from being mislabeled as routing prediction and lets unsuccessful speculation be cancelled or demoted without changing correctness.
 
-Be precise in evaluation text: the main #102 campaign is a CPU-only full-K3 local-NVMe/cache regime. Do not imply every tier shown in the general architecture was exercised in every headline run.
-
-## 4.4 Demand scheduling and asynchronous I/O
-
-Explain only the scientifically relevant properties:
-
-- explicit backing offsets;
-- bounded in-flight reads;
-- native async I/O on qualified Linux campaign;
-- `O_DIRECT` where used;
-- demand requests take priority;
-- exact same-layer issue-ahead is distinct from predictive prefetch;
-- failures/fallbacks/resource pressure are observable.
+The qualified Linux path used by the primary physical evidence supports native asynchronous I/O with `io_uring` and `O_DIRECT`, bounded aligned buffers, and explicit completion accounting. Other hardware or filesystems may use a different transport or a buffered fallback, but the provider and cache semantics do not depend on a particular I/O API. Queue occupancy, errors, fallbacks, and resource pressure remain visible rather than silently changing the execution mode. Asynchronous completion may reorder storage work, but it cannot reorder the model's logical expert reduction or change the selected membership.
 
 ## 4.5 Cache management and physical truth
 
-- whole-expert fixed-capacity residency;
-- deterministic hit/miss/eviction semantics;
-- backing loads and bytes are primary physical observables;
-- logical hit rate alone is not sufficient when memory pressure changes service behavior;
-- fresh process / cold managed cache for primary physical measurements.
+Managed residency uses fixed-capacity whole-expert slots. For a given request stream and cache policy, directory lookup, hit, miss, admission, and eviction have deterministic semantics. Cache policy is deliberately separate from storage and execution: replacement policy can change which bundles occupy the capacity without changing the provider interface, the backing format, or the MoE kernel. This separation is important because §3 shows that no single workload-independent hot set should be assumed.
 
-## 4.6 Routing interaction
+A logical hit, however, is not sufficient evidence that an expert was served cheaply. Prior out-of-core systems such as WASTE show that memory pressure can turn nominally cached pages into expensive page faults even while logical hit counts improve. We therefore treat physical backing loads and bytes as first-class observables, together with the state needed to detect fallback or resource pressure. The main #102 campaign further uses fresh processes, a cold managed-cache start, and direct I/O on the qualified path so that the measured backing counters describe the managed expert service rather than an uncontrolled warm OS page cache.
 
-The residency directory is visible to the bounded routing mechanism, while storage, execution, and routing policy remain conceptually separate.
+This measurement boundary also prevents two different questions from being conflated. Cache policy determines the residency available at a fixed capacity; the physical counters report how much demand crosses the backing boundary under that residency. Later replay and virtual-cache analyses can ask what a different exact-cache capacity would have done, but those counterfactual capacities are not silently substituted for the measured physical cache.
+
+## 4.6 Routing consumes residency; storage does not choose experts
+
+The residency directory is exposed as a read-only systems signal to routing. Under EXACT, membership ignores that signal: the ordinary top-16 is selected and every miss is serviced through the provider. Under the bounded policy introduced in §5, the router may consult contemporaneous residency while considering near-tie candidates, but it may change membership only when its independent rank, swap-count, and router-score-regret constraints pass. After membership is fixed, the resulting expert IDs follow the same provider, cache, and backing path as exact selections.
+
+This boundary localizes the approximation. The cache controller never invents a semantically cheaper expert because a miss is inconvenient, and the storage layer never applies a routing heuristic. Conversely, the routing policy does not claim that a candidate is resident without consulting the directory owned by the cache. A successful resident substitution can therefore convert a would-be backing request into a cache hit at the same configured cache capacity, directly targeting the physical demand identified in §3 without disguising the change as additional memory.
 
 ### Figure 3 candidate — architecture
 
 ```text
-                        residency directory
-                              |
-                              v
-Router -> bounded membership decision -> ExpertWeightProvider
-                                           |          |
-                                           | hit      | miss
-                                           v          v
-                                        execute   backing read
-                                                     |
-                                                     v
-                                                   cache
-                                                     |
-                                                     v
-                                                   execute
+                         read-only residency directory
+                                   |
+                                   v
+Router -> membership policy (EXACT or §5 bounded)
+                                   |
+                                   v
+                         ExpertWeightProvider
+                          /               \
+                 resident hit             miss
+                      |                     |
+                      v                     v
+                  execution        bounded async service
+                                            |
+                                            v
+                                     model files / NVMe
+                                            |
+                                            v
+                                      managed cache
+                                            |
+                                            v
+                                         execution
 ```
 
-If GPU/UMA tiers are shown, mark them as architectural variants rather than implying they are part of every reported measurement.
+If accelerator or UMA tiers are added to the final figure, they should appear as optional placements inside the provider/cache path, with the CPU-only #102 path called out explicitly as the regime used for the primary physical measurements.
 
-## 4.7 Prior-art boundary
+## 4.7 Architectural lineage and scope
 
-Acknowledge that provider/cache hierarchy concepts have strong prior art in llama.cpp/vLLM, MoE-Infinity, WASTE, Colibrì, FreeToken, etc.
+We do not claim the provider/cache hierarchy itself as a contribution. Persistent accelerator expert slots and ID remapping appear in llama.cpp expert-cache proposals; the current vLLM work makes the same separation explicit through an `ExpertWeightProvider` abstraction with persistent slots and mappings. MoE-Infinity establishes activation-aware expert caching and prefetching for offloaded MoEs. WASTE and Colibrì demonstrate full-K3 expert streaming from secondary storage under bounded memory, while FreeToken combines exact expert caching with heterogeneous CPU/GPU miss execution on edge systems.
 
-Do not sell the storage hierarchy alone as the novel contribution.
+Our use of these established ideas is narrower: provide a full-K3 runtime in which expert residency and physical backing service are explicit enough to measure, hold cache capacity fixed, and expose contemporaneous residency to a separately bounded routing mechanism. The paper's contribution therefore rests on the K3-specific characterization, the bounded demand-control mechanism and its physical evaluation, and the accompanying predictive-quality analysis—not on presenting expert slots, a provider abstraction, caching, or asynchronous offload as new systems primitives.
 
 ---
 
