@@ -229,94 +229,26 @@ Mixture-of-Experts (MoE) models reduce active computation by routing each token 
 # 1. Introduction
 
 **Coordination:** [#111](https://github.com/murillo128/k3-out-of-core/issues/111)  
-**Status:** `OUTLINE`
+**Status:** `EVIDENCE_CHECK`
 
-## 1.1 Paragraph flow
+Mixture-of-Experts (MoE) models decouple total parameter capacity from the amount of expert computation used for one token: a router activates only a small subset of experts at each routed layer. That sparsity, however, does not remove the need to make the complete expert pool serviceable. On a memory-constrained machine, placing experts outside fast memory solves the capacity problem only by creating a second one: every selected expert that is not resident must be serviced from a slower tier.
 
-### P1 — Sparse compute does not imply a small memory footprint
+Kimi K3 makes this tension concrete. Its 92 routed layers each expose 896 routed experts and select the top 16. In the accepted MXFP4 runtime, one `(layer, expert)` bundle occupies 17,547,264 bytes. A generated token therefore produces 1,472 routed expert selections, corresponding to 25,829,572,608 bytes (about 25.83 GB) of selected expert payload before reuse or cache hits. This quantity is neither a resident-memory requirement nor measured storage traffic; it is the cumulative service-demand scale presented by exact routing. Moving the inactive pool to NVMe makes out-of-core execution possible, but a nonresident exact selection still becomes physical backing work.
 
-Target claim:
+Existing MoE offloading systems reduce the cost of serving exact selections through caching, prefetching, and heterogeneous execution. MoE-Infinity makes activation traces and cache behavior part of the serving design, while WASTE and Colibrì stream router-selected K3 experts from secondary storage and FreeToken optimizes exact expert service across a RAM-resident pool, VRAM caching, and heterogeneous CPU/GPU execution. These approaches are complementary to our setting: they improve where, when, or how exact router-selected experts are materialized or executed. Our measurements on K3 show why the demand itself is also important. The frozen #102 corpus spans 128 prompts across 16 semantic families and eight within-family length levels and exhibits broad, workload-conditioned routing and locality. Using those measured rows, the final #105 analysis found, **post hoc**, that backing expert loads per token predict physical decode throughput with leave-one-family-out R² = 0.993536 within the measured domain. We therefore treat physical expert demand, rather than cache hit rate alone, as a first-class systems quantity.
 
-> Sparse Mixture-of-Experts models activate only a small fraction of their parameters per token, but conventional inference still needs access to the complete expert pool.
+The router offers a second control surface. K3 selects 16 experts from a much larger ranked set, and the frozen policy-selection evidence identifies alternatives close enough in the corrected K3 selection score to satisfy explicit hard regret thresholds. Cache-aware and residency-aware expert selection is not new: Cache-Conditional Experts and MoE-ERAS already make residency part of expert selection, while ReMoE fine-tunes the router to increase temporal reuse. We study a narrower K3-specific mechanism with explicit operational bounds. The frozen S2_P50 policy is deterministic and training-free: it considers only the top 32 candidates, changes at most two selected experts per routed layer, accepts a substitution only when corrected K3 router-score regret is at most 0.007303759455680847, and preserves the model's original expert-weighting semantics after membership is chosen.
 
-Purpose: start with the broad systems tension, not K3 implementation history.
+We integrate this bounded substitution rule with an explicit full-K3 out-of-core runtime that owns expert residency and exposes physical hits, misses, backing loads, and bytes. Exact routing remains the reference path. In the primary full-prompt protocol, K3 consumes the prompt under exact routing, preserves the resulting cache state, and enables the changed policy only for decode. A resident near-tie candidate can then replace a nonresident exact selection only when every hard bound passes. The mechanism spends bounded routing slack rather than additional measured cache capacity; it does not assume that a local router-score bound is a semantic-safety guarantee.
 
-### P2 — Kimi K3 makes the mismatch acute
+The systems gain is broad in the frozen K3 workload, but it is not free. In all 24 frozen Stage-C prompts, S2_P50 achieves higher measured physical decode TPS and locality than both EXACT and KNEE at the same measured cache capacity, although the gain magnitude remains prompt-conditioned. Under the controlled long-horizon fixed-token evaluation in #99, S2_P50 increases reference-token NLL relative to EXACT by 0.012030 on average (95% cluster-bootstrap interval 0.008440–0.015435). When changed generations feed their own tokens back into the model, the measured perturbation is amplified by 1.4210× on average (95% interval 1.2225–1.7099), with heterogeneous growth through 1,024 tokens. Simple cumulative-regret summaries are only weakly predictive of this long-horizon damage. These results support a K3-specific performance–memory-locality–quality trade-off; they do not establish task-level accuracy preservation or cross-model generality, both of which remain outside the current evidence.
 
-Introduce the concrete scale:
+This paper makes four contributions:
 
-- 896 routed experts per routed layer;
-- top-16 selected;
-- 92 routed layers;
-- 17,547,264-byte MXFP4 expert bundle;
-- 1,472 selected expert bundles across one token's routed layers.
-
-Target transition:
-
-> Moving the inactive pool to NVMe solves capacity, but transforms expert selection into an online memory-service problem.
-
-### P3 — Exact routing creates a locality/service bottleneck
-
-Use measured evidence rather than intuition:
-
-- workload-conditioned K3 routing;
-- backing loads vary across prompts;
-- #105 shows backing loads/token is an exceptionally strong predictor of measured TPS in the #102 domain.
-
-Do not introduce the full regression here if it makes the Introduction dense; one number is enough.
-
-### P4 — Router slack is an additional systems control
-
-Target claim:
-
-> The top-16 decision is not isolated from nearby candidates: K3 often exposes near-tied alternatives whose router-score cost can be bounded explicitly.
-
-Position novelty narrowly:
-
-- cache-aware routing has prior art;
-- this paper studies deterministic, training-free, hard-regret-bounded substitution on full K3 under real out-of-core execution;
-- real downstream route evolution and long-horizon quality are measured rather than assumed.
-
-### P5 — System/method overview
-
-One paragraph only:
-
-- explicit expert-residency runtime;
-- bounded backing/cache service;
-- contemporaneous residency exposed to routing;
-- hard per-swap regret and swap-count limits;
-- exact routing remains the default/reference.
-
-### P6 — Main findings
-
-Candidate order:
-
-1. broad physical systems result;
-2. physical mechanism/locality→TPS;
-3. equivalent exact-cache/capacity interpretation;
-4. quality/feedback cost;
-5. task-level result once accepted.
-
-## 1.2 Contributions
-
-Target four contributions, not a feature list:
-
-1. **Out-of-core full-K3 runtime and measurement substrate.** An explicit, observable expert-residency/backing path for full Kimi K3 that makes physical service demand measurable rather than relying on implicit OS caching.
-2. **Full-K3 locality characterization.** A cross-workload study showing strong workload dependence and that backing expert loads are the dominant predictor of physical decode throughput in the measured regime.
-3. **Bounded cache-aware routing.** A training-free deterministic mechanism that trades strictly bounded router preference for residency under hard per-swap regret and swap-count limits.
-4. **Quality and feedback characterization.** Controlled short- and long-horizon measurements showing predictive drift, token-mediated autoregressive amplification, and the limits of simple regret-based safety proxies.
-
-Task-level capability should be mentioned as evaluation evidence, not necessarily a fifth contribution.
-
-## 1.3 Reviewer-risk check
-
-Before marking ready:
-
-- novelty language acknowledges Cache-Conditional Experts / MoE-ERAS / ReMoE;
-- no broad cross-model claim;
-- no quality-neutral language;
-- no post-hoc #105 result presented as confirmatory;
-- no implementation feature list displacing the problem→insight→evidence flow.
+1. **An explicit out-of-core full-K3 runtime and measurement substrate.** We make expert residency and physical backing service observable for full Kimi K3, providing a controlled basis for relating routing demand to physical execution rather than relying on implicit cache behavior.
+2. **A cross-workload characterization of K3 expert locality.** Across the frozen 128-prompt corpus, we measure workload-conditioned routing/locality and physical performance; using these frozen measurements, a post-hoc leave-one-family-out analysis connects backing expert loads per token to decode TPS within the measured domain.
+3. **Deterministic bounded cache-aware routing on K3.** We use contemporaneous residency to substitute at most two experts from a top-32 candidate set under a hard corrected router-score regret bound, without training or changing the model's expert-weighting semantics.
+4. **A long-horizon quality and feedback characterization.** Controlled fixed-context and free-generation experiments measure predictive drift, token-mediated autoregressive amplification, and the limited predictive value of simple accumulated-regret summaries.
 
 ---
 
