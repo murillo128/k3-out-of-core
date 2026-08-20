@@ -1,0 +1,1426 @@
+{
+  "analysis": {
+    "checkpoint_estimand": "cumulative arithmetic mean delta NLL through each available checkpoint",
+    "classification_guards": {
+      "association_heterogeneous": "endpoint or registered subgroup directions conflict materially",
+      "association_inverse": "both mandatory endpoint point estimates negative and 95% intervals exclude zero",
+      "association_no_clear": "valid coverage but intervals include zero without registered heterogeneity",
+      "association_positive": "both mandatory endpoint point estimates positive and 95% intervals exclude zero",
+      "s2_acceptable_no": "both corresponding lower CIs are > 0",
+      "s2_acceptable_otherwise": "inconclusive",
+      "s2_acceptable_yes": "S2-vs-KNEE paired damage upper CI <= 0 and S2-vs-EXACT damage upper CI <= 0"
+    },
+    "core_effect_modifier": {
+      "classes": [
+        "core_to_core",
+        "core_to_peripheral",
+        "peripheral_to_core",
+        "peripheral_to_peripheral"
+      ],
+      "evaluation": "same LOFO and prompt-cluster prior-minus-new squared-error rule as P0-P4",
+      "mandatory_sensitivity_gamma": 0.8,
+      "model": "P1 plus three nonreference transition fractions and their cumulative-regret interactions; peripheral_to_peripheral is reference",
+      "primary_gamma": 1.0,
+      "sparse_rule": "do not post-hoc pool; fewer than 8 prompt clusters is inconclusive"
+    },
+    "depth": {
+      "P4_primary": true,
+      "normalization": "routed-layer ordinal / 91 over sorted 92-layer decode set",
+      "third": "min(2, floor(3 * ordinal / 92)) => early/middle/late"
+    },
+    "feedback_increment": {
+      "definition": "FREE_TRAJECTORY_EFFECT minus DIRECT_FIXED_CONTEXT_EFFECT",
+      "generated_token_rule": "common-prefix/equality is trajectory evidence, never semantic-quality proof",
+      "metrics": [
+        "hidden_relative_l2",
+        "route_divergence",
+        "cache_misses",
+        "backing_loads",
+        "cumulative_corrected_regret",
+        "cumulative_raw_regret_signed"
+      ],
+      "scope": "token-mediated feedback increment under the controlled intervention"
+    },
+    "generation_phase": {
+      "boundary_literal": "<|close|>think<|sep|><|open|>response<|sep|>",
+      "otherwise": "phase-specific analysis unavailable; no prose-semantic inference",
+      "rule": "tokenize exact literal; only an exact contiguous token match creates transition/final labels"
+    },
+    "instantaneous_checkpoint_delta_nll": "secondary",
+    "outcome_blinding": "no changed-policy issue99 quality outcome exists or was inspected at freeze",
+    "policy_comparisons": [
+      "KNEE_vs_EXACT",
+      "S2_P50_vs_EXACT",
+      "S2_P50_minus_KNEE_paired_by_prompt"
+    ],
+    "predictor_models": {
+      "P0": [
+        "cumulative_max_corrected_regret_per_swap",
+        "cumulative_mean_corrected_regret_per_swap"
+      ],
+      "P1": [
+        "P0",
+        "cumulative_corrected_regret"
+      ],
+      "P2": [
+        "P1",
+        "cumulative_raw_regret_signed"
+      ],
+      "P3": [
+        "P2",
+        "changed_slot_fraction",
+        "perturbed_layer_fraction"
+      ],
+      "P4": [
+        "P3",
+        "cumulative_regret_weighted_mean_normalized_depth",
+        "cumulative_first_perturbed_normalized_depth"
+      ],
+      "fit": "training-fold standardization plus OLS Moore-Penrose pseudoinverse; no tuning",
+      "score": "pooled out-of-fold RMSE and R2, retaining all checkpoints for a held-out prompt as one cluster",
+      "split": "leave one prompt/semantic family out; the broad cohort has one frozen representative per family",
+      "target": "checkpoint cumulative mean delta NLL; KL/JS/hidden divergence secondary"
+    },
+    "primary_metric": "DIRECT_FIXED_CONTEXT reference-token delta NLL versus EXACT",
+    "systems_quality_joins": {
+      "association": "Spearman effect with prompt-cluster bootstrap; endpoints must agree for a directional label",
+      "derived_views": [
+        "physical-reference amplification lower endpoint with upper sensitivity",
+        "physical-reference saving lower endpoint with upper sensitivity",
+        "fixed-route interval endpoints as separate evidence class"
+      ],
+      "key": "immutable case_id and compatible protocol identity",
+      "measured_views": [
+        "S2 load reduction/hit improvement",
+        "S2 TPS gain"
+      ],
+      "ratio_guard": "no primary quality-per-TPS ratio"
+    },
+    "trajectory_grid": {
+      "bridge": [
+        16,
+        32,
+        64,
+        128,
+        256,
+        512,
+        1024
+      ],
+      "broad": [
+        16,
+        32,
+        64,
+        128,
+        256,
+        512
+      ]
+    },
+    "trend_tests": {
+      "bounded_breakpoints": {
+        "bridge_candidates": [
+          128,
+          256,
+          512
+        ],
+        "broad_candidates": [
+          128,
+          256
+        ]
+      },
+      "claim_guard": "no universal quality-knee claim from two changed policies",
+      "domain": "available checkpoints 64 through 512; bridge feedback additionally through 1024",
+      "linear": "prompt-fixed-effect OLS of cumulative mean delta NLL on log2(position)",
+      "monotonic": "per-prompt Spearman rho summarized with prompt-cluster bootstrap",
+      "selection": "training-fold minimum squared error; compare held-out squared error with unbroken linear model"
+    },
+    "unavailable_checkpoint_rule": "record unavailable after EOG; never extrapolate or replace case",
+    "uncertainty": {
+      "added_signal": {
+        "inconclusive": "fewer than 8 valid broad prompts or rank/coverage failure",
+        "no": "point improvement is zero/adverse",
+        "supported": "prior-minus-new held-out squared-error interval is strictly above zero",
+        "weak": "point improvement is positive but interval includes zero"
+      },
+      "bootstrap_repetitions": 10000,
+      "interval": "two-sided percentile 95%",
+      "seed": 990105,
+      "unit": "prompt cluster with all policies/checkpoints retained"
+    }
+  },
+  "authority": "issue #99 body plus latest additive/superseding design-authority amendment",
+  "baseline": {
+    "implementation_parent": "9d10b3ecefff88fcc99c5a6068622fe839ea7e60",
+    "nested_llama_cpp": "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9",
+    "project_main": "530b887689df6fbf1f8c9da073117c4db8c0e86f"
+  },
+  "capacity": {
+    "active_output_residency_reserve_basis": "format-derived worst-1024-token trace and conservative 4-KiB-per-route-record bound, rounded up to a separate 6-GiB reserve after a 492-token exact capture crossed the runtime cgroup guard",
+    "active_output_residency_reserve_bytes": 6442450944,
+    "active_output_residency_reserve_slots": 368,
+    "capacity_relation": "LOWER_DUE_TO_CONTEXT_BUDGET",
+    "generic_probe_context_only": "three generic-probe AUTO samples selected 6841; superseded for execution by actual quality-helper overhead",
+    "issue99_cache_bytes": 111986638848,
+    "issue99_cache_slots": 6382,
+    "long_horizon_qualification": {
+      "canonical_path": "/mnt/nvme1/issue99/long-horizon-capacity-qualification-v1/qualification.json",
+      "device": 66304,
+      "inode": 2684605262,
+      "sha256": "3b814a159cae8d716e1a9af2cc80bc213e424aa709a70a0f7bb0ee676de45fce",
+      "size_bytes": 7506
+    },
+    "long_horizon_qualification_processes": 3,
+    "low_bridge_bytes": 103072628736,
+    "low_bridge_disposition": "ADMITTED_CLEANLY",
+    "low_bridge_enabled": true,
+    "low_bridge_slots": 5874,
+    "maximum_active_output_bytes": 5115016204,
+    "maximum_active_quality_trace_bytes": 4728091660,
+    "maximum_active_route_stream_bytes": 386924544,
+    "minimum_auto_slots_before_stability_reserve": 6814,
+    "minimum_floor_slots": 5874,
+    "performance_or_locality_inspected": false,
+    "quality_helper_auto_selected_slots": [
+      6814,
+      6814,
+      6814
+    ],
+    "sample_artifacts": {
+      "auto-sample-01-v3": {
+        "disposition": {
+          "canonical_path": "/mnt/nvme1/issue99/quality-capacity-requalification-v3/auto-sample-01-v3/disposition.json",
+          "device": 66304,
+          "inode": 9663722007,
+          "sha256": "cc247edde6428ca8460e1af2e85791b3c62491d23246b8a32806b24f8ab14540",
+          "size_bytes": 2249
+        },
+        "envelope": {
+          "canonical_path": "/mnt/nvme1/issue99/quality-capacity-requalification-v3/auto-sample-01-v3/envelope.json",
+          "device": 66304,
+          "inode": 9663722010,
+          "sha256": "302b7f263c8aaeceb38937ce1398be93ff0fdb353d20f1d0f9845de25bff3517",
+          "size_bytes": 25250
+        }
+      },
+      "auto-sample-02-v3": {
+        "disposition": {
+          "canonical_path": "/mnt/nvme1/issue99/quality-capacity-requalification-v3/auto-sample-02-v3/disposition.json",
+          "device": 66304,
+          "inode": 10737806632,
+          "sha256": "f6dd4b2017ac835b604f9ec09396757eb914fd59bfed4353a254682779264bb8",
+          "size_bytes": 2255
+        },
+        "envelope": {
+          "canonical_path": "/mnt/nvme1/issue99/quality-capacity-requalification-v3/auto-sample-02-v3/envelope.json",
+          "device": 66304,
+          "inode": 10737806635,
+          "sha256": "01e39aff7c3e1d8d42ca745746bc150cf729927223db513291528721354f1dab",
+          "size_bytes": 25260
+        }
+      },
+      "auto-sample-03-v3": {
+        "disposition": {
+          "canonical_path": "/mnt/nvme1/issue99/quality-capacity-requalification-v3/auto-sample-03-v3/disposition.json",
+          "device": 66304,
+          "inode": 11274575240,
+          "sha256": "8d09c3e6303ec84663c409cda5ef71989da7e3be42dcda9178e96b79f5c6e81a",
+          "size_bytes": 2255
+        },
+        "envelope": {
+          "canonical_path": "/mnt/nvme1/issue99/quality-capacity-requalification-v3/auto-sample-03-v3/envelope.json",
+          "device": 66304,
+          "inode": 11274575243,
+          "sha256": "2dacdf255d5bc27e024458bd2d559e97df439809ea36bff4d7454703bb9694f5",
+          "size_bytes": 25254
+        }
+      },
+      "generic-high-target-rejection": {
+        "disposition": {
+          "canonical_path": "/mnt/nvme1/issue99/qualification/high-target-sample-01/disposition.json",
+          "device": 66304,
+          "inode": 22011731046,
+          "sha256": "80fe1bad33e51ec3950824062870541c1bda0830800285b8d9dd752d0164a291",
+          "size_bytes": 578
+        },
+        "envelope": {
+          "canonical_path": "/mnt/nvme1/issue99/qualification/high-target-sample-01/envelope.json",
+          "device": 66304,
+          "inode": 22011731045,
+          "sha256": "84c237d40c3b1a3c36dd06c05b6e5d64fc8e93d1295c703be3f17511f2c3a3de",
+          "size_bytes": 25700
+        }
+      },
+      "low-bridge-explicit-01-v2": {
+        "disposition": {
+          "canonical_path": "/mnt/nvme1/issue99/quality-capacity-qualification/low-bridge-explicit-01-v2/disposition.json",
+          "device": 66304,
+          "inode": 12889400913,
+          "sha256": "cf5a00bee931f9620fbb4ea1e18efa3ce606887c1f1e43d200b54a59b015e0b8",
+          "size_bytes": 2296
+        },
+        "envelope": {
+          "canonical_path": "/mnt/nvme1/issue99/quality-capacity-qualification/low-bridge-explicit-01-v2/envelope.json",
+          "device": 66304,
+          "inode": 12889400916,
+          "sha256": "efd5383a7e2178974a75ec744d98ea6dc6bdc51e85b841579cd53b9999e9398a",
+          "size_bytes": 25273
+        }
+      }
+    },
+    "stability_reserve_basis": "one additional >=1-GiB whole-expert reserve after the instantaneous AUTO ceiling failed the next fresh explicit admission",
+    "stability_reserve_slots": 64,
+    "target_attempt": "admission_rejected",
+    "target_bytes": 137728475136,
+    "target_slots": 7849
+  },
+  "cells": [
+    {
+      "cache_regime": "high-cache",
+      "case_id": "01-math-b1",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "FREE_TRAJECTORY",
+      "order": 1,
+      "policy": "EXACT"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "01-math-b1",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 2,
+      "policy": "KNEE"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "01-math-b1",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 3,
+      "policy": "S2_P50"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "02-formal-b3",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "FREE_TRAJECTORY",
+      "order": 4,
+      "policy": "EXACT"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "02-formal-b3",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 5,
+      "policy": "KNEE"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "02-formal-b3",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 6,
+      "policy": "S2_P50"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "03-science-b3",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "FREE_TRAJECTORY",
+      "order": 7,
+      "policy": "EXACT"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "03-science-b3",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 8,
+      "policy": "KNEE"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "03-science-b3",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 9,
+      "policy": "S2_P50"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "04-factual-b2",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "FREE_TRAJECTORY",
+      "order": 10,
+      "policy": "EXACT"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "04-factual-b2",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 11,
+      "policy": "KNEE"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "04-factual-b2",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 12,
+      "policy": "S2_P50"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "05-codegen-b5",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "FREE_TRAJECTORY",
+      "order": 13,
+      "policy": "EXACT"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "05-codegen-b5",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 14,
+      "policy": "KNEE"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "05-codegen-b5",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 15,
+      "policy": "S2_P50"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "06-debug-b4",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "FREE_TRAJECTORY",
+      "order": 16,
+      "policy": "EXACT"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "06-debug-b4",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 17,
+      "policy": "KNEE"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "06-debug-b4",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 18,
+      "policy": "S2_P50"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "07-algorithms-b2",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "FREE_TRAJECTORY",
+      "order": 19,
+      "policy": "EXACT"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "07-algorithms-b2",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 20,
+      "policy": "KNEE"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "07-algorithms-b2",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 21,
+      "policy": "S2_P50"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "08-summary-b2",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "FREE_TRAJECTORY",
+      "order": 22,
+      "policy": "EXACT"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "08-summary-b2",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 23,
+      "policy": "KNEE"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "08-summary-b2",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 24,
+      "policy": "S2_P50"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "09-extract-b8",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "FREE_TRAJECTORY",
+      "order": 25,
+      "policy": "EXACT"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "09-extract-b8",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 26,
+      "policy": "KNEE"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "09-extract-b8",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 27,
+      "policy": "S2_P50"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "10-planning-b4",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "FREE_TRAJECTORY",
+      "order": 28,
+      "policy": "EXACT"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "10-planning-b4",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 29,
+      "policy": "KNEE"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "10-planning-b4",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 30,
+      "policy": "S2_P50"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "11-instructions-b1",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "FREE_TRAJECTORY",
+      "order": 31,
+      "policy": "EXACT"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "11-instructions-b1",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 32,
+      "policy": "KNEE"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "11-instructions-b1",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 33,
+      "policy": "S2_P50"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "12-compare-b1",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "FREE_TRAJECTORY",
+      "order": 34,
+      "policy": "EXACT"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "12-compare-b1",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 35,
+      "policy": "KNEE"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "12-compare-b1",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 36,
+      "policy": "S2_P50"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "13-creative-b3",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "FREE_TRAJECTORY",
+      "order": 37,
+      "policy": "EXACT"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "13-creative-b3",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 38,
+      "policy": "KNEE"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "13-creative-b3",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 39,
+      "policy": "S2_P50"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "14-qa-b2",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "FREE_TRAJECTORY",
+      "order": 40,
+      "policy": "EXACT"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "14-qa-b2",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 41,
+      "policy": "KNEE"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "14-qa-b2",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 42,
+      "policy": "S2_P50"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "15-spanish-b2",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "FREE_TRAJECTORY",
+      "order": 43,
+      "policy": "EXACT"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "15-spanish-b2",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 44,
+      "policy": "KNEE"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "15-spanish-b2",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 45,
+      "policy": "S2_P50"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "16-multi-b2",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "FREE_TRAJECTORY",
+      "order": 46,
+      "policy": "EXACT"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "16-multi-b2",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 47,
+      "policy": "KNEE"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "16-multi-b2",
+      "cohort": "broad",
+      "horizon": 512,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 48,
+      "policy": "S2_P50"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "issue102-sentinel",
+      "cohort": "bridge",
+      "horizon": 1024,
+      "intervention": "FREE_TRAJECTORY",
+      "order": 49,
+      "policy": "EXACT"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "issue102-sentinel",
+      "cohort": "bridge",
+      "horizon": 1024,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 50,
+      "policy": "KNEE"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "issue102-sentinel",
+      "cohort": "bridge",
+      "horizon": 1024,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 51,
+      "policy": "S2_P50"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "issue102-sentinel",
+      "cohort": "bridge",
+      "horizon": 1024,
+      "intervention": "FREE_TRAJECTORY",
+      "order": 52,
+      "policy": "KNEE"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "issue102-sentinel",
+      "cohort": "bridge",
+      "horizon": 1024,
+      "intervention": "FREE_TRAJECTORY",
+      "order": 53,
+      "policy": "S2_P50"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "04-factual-b4",
+      "cohort": "bridge",
+      "horizon": 1024,
+      "intervention": "FREE_TRAJECTORY",
+      "order": 54,
+      "policy": "EXACT"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "04-factual-b4",
+      "cohort": "bridge",
+      "horizon": 1024,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 55,
+      "policy": "KNEE"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "04-factual-b4",
+      "cohort": "bridge",
+      "horizon": 1024,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 56,
+      "policy": "S2_P50"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "04-factual-b4",
+      "cohort": "bridge",
+      "horizon": 1024,
+      "intervention": "FREE_TRAJECTORY",
+      "order": 57,
+      "policy": "KNEE"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "04-factual-b4",
+      "cohort": "bridge",
+      "horizon": 1024,
+      "intervention": "FREE_TRAJECTORY",
+      "order": 58,
+      "policy": "S2_P50"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "10-planning-b2",
+      "cohort": "bridge",
+      "horizon": 1024,
+      "intervention": "FREE_TRAJECTORY",
+      "order": 59,
+      "policy": "EXACT"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "10-planning-b2",
+      "cohort": "bridge",
+      "horizon": 1024,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 60,
+      "policy": "KNEE"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "10-planning-b2",
+      "cohort": "bridge",
+      "horizon": 1024,
+      "intervention": "DIRECT_FIXED_CONTEXT",
+      "order": 61,
+      "policy": "S2_P50"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "10-planning-b2",
+      "cohort": "bridge",
+      "horizon": 1024,
+      "intervention": "FREE_TRAJECTORY",
+      "order": 62,
+      "policy": "KNEE"
+    },
+    {
+      "cache_regime": "high-cache",
+      "case_id": "10-planning-b2",
+      "cohort": "bridge",
+      "horizon": 1024,
+      "intervention": "FREE_TRAJECTORY",
+      "order": 63,
+      "policy": "S2_P50"
+    },
+    {
+      "cache_regime": "96-gib-bridge",
+      "case_id": "issue102-sentinel",
+      "cohort": "low-bridge",
+      "horizon": 512,
+      "intervention": "CAPACITY_FIXED_CONTEXT",
+      "order": 64,
+      "policy": "EXACT"
+    },
+    {
+      "cache_regime": "96-gib-bridge",
+      "case_id": "issue102-sentinel",
+      "cohort": "low-bridge",
+      "horizon": 512,
+      "intervention": "CAPACITY_FIXED_CONTEXT",
+      "order": 65,
+      "policy": "KNEE"
+    },
+    {
+      "cache_regime": "96-gib-bridge",
+      "case_id": "issue102-sentinel",
+      "cohort": "low-bridge",
+      "horizon": 512,
+      "intervention": "CAPACITY_FIXED_CONTEXT",
+      "order": 66,
+      "policy": "S2_P50"
+    },
+    {
+      "cache_regime": "96-gib-bridge",
+      "case_id": "04-factual-b4",
+      "cohort": "low-bridge",
+      "horizon": 512,
+      "intervention": "CAPACITY_FIXED_CONTEXT",
+      "order": 67,
+      "policy": "EXACT"
+    },
+    {
+      "cache_regime": "96-gib-bridge",
+      "case_id": "04-factual-b4",
+      "cohort": "low-bridge",
+      "horizon": 512,
+      "intervention": "CAPACITY_FIXED_CONTEXT",
+      "order": 68,
+      "policy": "KNEE"
+    },
+    {
+      "cache_regime": "96-gib-bridge",
+      "case_id": "04-factual-b4",
+      "cohort": "low-bridge",
+      "horizon": 512,
+      "intervention": "CAPACITY_FIXED_CONTEXT",
+      "order": 69,
+      "policy": "S2_P50"
+    },
+    {
+      "cache_regime": "96-gib-bridge",
+      "case_id": "10-planning-b2",
+      "cohort": "low-bridge",
+      "horizon": 512,
+      "intervention": "CAPACITY_FIXED_CONTEXT",
+      "order": 70,
+      "policy": "EXACT"
+    },
+    {
+      "cache_regime": "96-gib-bridge",
+      "case_id": "10-planning-b2",
+      "cohort": "low-bridge",
+      "horizon": 512,
+      "intervention": "CAPACITY_FIXED_CONTEXT",
+      "order": 71,
+      "policy": "KNEE"
+    },
+    {
+      "cache_regime": "96-gib-bridge",
+      "case_id": "10-planning-b2",
+      "cohort": "low-bridge",
+      "horizon": 512,
+      "intervention": "CAPACITY_FIXED_CONTEXT",
+      "order": 72,
+      "policy": "S2_P50"
+    }
+  ],
+  "cohorts": {
+    "bridge": [
+      "issue102-sentinel",
+      "04-factual-b4",
+      "10-planning-b2"
+    ],
+    "broad": [
+      "01-math-b1",
+      "02-formal-b3",
+      "03-science-b3",
+      "04-factual-b2",
+      "05-codegen-b5",
+      "06-debug-b4",
+      "07-algorithms-b2",
+      "08-summary-b2",
+      "09-extract-b8",
+      "10-planning-b4",
+      "11-instructions-b1",
+      "12-compare-b1",
+      "13-creative-b3",
+      "14-qa-b2",
+      "15-spanish-b2",
+      "16-multi-b2"
+    ]
+  },
+  "core_membership": {
+    "canonical_path": "/mnt/nvme1/issue99/control/frozen-core-membership.json",
+    "device": 66304,
+    "inode": 5906241607,
+    "sha256": "d09514daab111a7aa9805852b64c33720b508e15e3877592dfcc3373fa62732b",
+    "size_bytes": 130306
+  },
+  "corpus": {
+    "identity": {
+      "canonical_path": "/mnt/nvme1/issue102/corpus/execution-manifest-repro.json",
+      "device": 66304,
+      "inode": 9126837624,
+      "sha256": "e0f1746f987f888d68a36261a2822f4754a413b7799c6252aae8a4ded2a900d8",
+      "size_bytes": 385670
+    },
+    "selected_cases": {
+      "01-math-b1": {
+        "length_level": 1,
+        "semantic_family": "mathematical reasoning",
+        "templated_prompt_tokens": 178
+      },
+      "02-formal-b3": {
+        "length_level": 3,
+        "semantic_family": "formal logic / proof-style reasoning",
+        "templated_prompt_tokens": 237
+      },
+      "03-science-b3": {
+        "length_level": 3,
+        "semantic_family": "physics / scientific reasoning",
+        "templated_prompt_tokens": 225
+      },
+      "04-factual-b2": {
+        "length_level": 2,
+        "semantic_family": "factual / explanatory knowledge",
+        "templated_prompt_tokens": 199
+      },
+      "04-factual-b4": {
+        "length_level": 4,
+        "semantic_family": "factual / explanatory knowledge",
+        "templated_prompt_tokens": 254
+      },
+      "05-codegen-b5": {
+        "length_level": 5,
+        "semantic_family": "code generation",
+        "templated_prompt_tokens": 278
+      },
+      "06-debug-b4": {
+        "length_level": 4,
+        "semantic_family": "debugging / code review",
+        "templated_prompt_tokens": 278
+      },
+      "07-algorithms-b2": {
+        "length_level": 2,
+        "semantic_family": "algorithms / data-structure reasoning",
+        "templated_prompt_tokens": 194
+      },
+      "08-summary-b2": {
+        "length_level": 2,
+        "semantic_family": "summarization / synthesis",
+        "templated_prompt_tokens": 211
+      },
+      "09-extract-b8": {
+        "length_level": 8,
+        "semantic_family": "structured extraction / transformation",
+        "templated_prompt_tokens": 393
+      },
+      "10-planning-b2": {
+        "length_level": 2,
+        "semantic_family": "planning / constraint satisfaction",
+        "templated_prompt_tokens": 219
+      },
+      "10-planning-b4": {
+        "length_level": 4,
+        "semantic_family": "planning / constraint satisfaction",
+        "templated_prompt_tokens": 246
+      },
+      "11-instructions-b1": {
+        "length_level": 1,
+        "semantic_family": "multi-step instruction following / structured response",
+        "templated_prompt_tokens": 168
+      },
+      "12-compare-b1": {
+        "length_level": 1,
+        "semantic_family": "analytical comparison / argumentation",
+        "templated_prompt_tokens": 160
+      },
+      "13-creative-b3": {
+        "length_level": 3,
+        "semantic_family": "creative / language generation",
+        "templated_prompt_tokens": 221
+      },
+      "14-qa-b2": {
+        "length_level": 2,
+        "semantic_family": "conversational / direct QA",
+        "templated_prompt_tokens": 191
+      },
+      "15-spanish-b2": {
+        "length_level": 2,
+        "semantic_family": "Spanish-language reasoning/explanation",
+        "templated_prompt_tokens": 276
+      },
+      "16-multi-b2": {
+        "length_level": 2,
+        "semantic_family": "multilingual / translation / cross-language transformation",
+        "templated_prompt_tokens": 217
+      },
+      "issue102-sentinel": {
+        "length_level": 0,
+        "semantic_family": "sentinel",
+        "templated_prompt_tokens": 100
+      }
+    }
+  },
+  "evidence_hygiene": {
+    "allowed": "targeted POSIX_FADV_DONTNEED on exact issue99-generated closed validated hashed outputs",
+    "allowlist_fields": [
+      "canonical_path",
+      "device",
+      "inode",
+      "size_bytes",
+      "sha256",
+      "role",
+      "why_not_next_k3_input",
+      "resident_bytes_before",
+      "resident_bytes_after"
+    ],
+    "forbidden": [
+      "global drop_caches",
+      "model/corpus/reference/executable/library advice",
+      "swap tricks",
+      "cgroup/sysctl changes",
+      "pressure allocation",
+      "admission bypass"
+    ]
+  },
+  "execution_order": "listed cell order; fresh process per cell; no parallel K3 cells",
+  "failure_policy": {
+    "bridge_102_parity": "not required because capacity relation is lower due to n_ctx budget",
+    "capacity": "fixed explicit bytes in every decision cell; AUTO forbidden",
+    "hard_failures": [
+      "NaN/Inf",
+      "invalid expert ID",
+      "stale generation",
+      "missing projection/scale",
+      "cache metadata/content disagreement",
+      "use-after-free",
+      "async-order nondeterminism",
+      "unexplained tokenization/EOS change",
+      "unbounded memory growth",
+      "observer/route/tensor coverage mismatch"
+    ],
+    "no_retry_until_green": true
+  },
+  "host": {
+    "cpu_model": "AMD EPYC 9J14 96-Core Processor",
+    "decision_host_mounts": [
+      {
+        "filesystems": [
+          {
+            "fstype": "xfs",
+            "source": "/dev/nvme0n1",
+            "target": "/mnt/nvme0"
+          }
+        ]
+      },
+      {
+        "filesystems": [
+          {
+            "fstype": "xfs",
+            "source": "/dev/nvme1n1",
+            "target": "/mnt/nvme1"
+          }
+        ]
+      }
+    ],
+    "hostname": "sergio-test-1",
+    "kernel": "6.12.0-204.92.4.4.3.el9uek.x86_64",
+    "machine": "x86_64",
+    "mem_total": "296396216 kB",
+    "online_logical_cpus": 48,
+    "swap_total": "0 kB"
+  },
+  "imported_authorities": {
+    "issue102": {
+      "evidence_target": "0c4ed0ae92f4cc7efc79e544f04f745ff0b168cf",
+      "execution_code": "6ef64ba85a019d85a0fed06f49f8c45963f060ad",
+      "release": "issue102-cross-prompt-v1",
+      "release_sha256": "e198913eb541b2a2e7465a01e09215fc5fecf6fb91574ff1841b11bf2664250c"
+    },
+    "issue105": {
+      "analysis_code": "76e0c3d578c4dba56e91d15ad643d8740037788a",
+      "final_reviewed_target": "6db0c3ddecf2ab8ff3ca7c729dfac98ef75be468",
+      "physical_runs": {
+        "canonical_path": "/workspace/k3-out-of-core/results/2026-08-17/issue105/tables/physical_runs.csv",
+        "device": 64512,
+        "inode": 1748827,
+        "sha256": "47527a419d6ec3d1c9939beb3d6ec6b7776627079db6e4011707e746bb03b64c",
+        "size_bytes": 144364
+      },
+      "release": "issue105-curated-analysis-v3",
+      "release_sha256": "e0fe96c2f4dd3d2cfc8ced16901949936ba3e72c79ebdd4eb412f371fe843fb3",
+      "virtual_capacity": {
+        "canonical_path": "/workspace/k3-out-of-core/results/2026-08-17/issue105/analysis/virtual-cache-capacity.csv",
+        "device": 64512,
+        "inode": 18585639,
+        "sha256": "311464cbffb6385b1e62df1038fb1c832b57d3659c2653a06534b0fc2c00d80f",
+        "size_bytes": 167136
+      }
+    }
+  },
+  "instrumentation": {
+    "candidate_count": 32,
+    "default_off": true,
+    "persistent_datasets": [
+      "tokens",
+      "layers",
+      "routes",
+      "substitution_events"
+    ],
+    "qualification": {
+      "canonical_path": "/mnt/nvme1/issue99/instrumentation-qualification-v8/qualification.json",
+      "device": 66304,
+      "inode": 5369352343,
+      "sha256": "09b8a371ccf16d729f5c36e337e06b8b91dba6d7d8cff1938ffbbc9f2849b752",
+      "size_bytes": 4133
+    },
+    "qualification_assertions": {
+      "exact_structural_routing_swaps": 0,
+      "maximum_live_raw_trace_files": 2,
+      "raw_trace_files_deleted_after_scalarization": true,
+      "route_candidate_weight_payload_deterministic": true,
+      "teacher_forced_ids_exact_and_ordered": true,
+      "tensor_and_logit_scalar_identity": true
+    },
+    "qualification_horizon": 64,
+    "qualification_processes": 3,
+    "raw_tensor_retention": "ephemeral; immediate paired scalarization; at most 2 live files",
+    "route_density": "top-16 IDs/weights and top-32 IDs/corrected scores/raw probabilities every token/layer",
+    "routed_layers": 92,
+    "selected_experts": 16,
+    "tensor_density": "MoE output + routed-layer hidden state for every decode token/layer; logits every token"
+  },
+  "issue": 99,
+  "model": {
+    "first_shard": {
+      "canonical_path": "/mnt/nvme0/issue77/model/kimi-k3-bf16-00001-of-00033.gguf",
+      "device": 66306,
+      "inode": 5368709249,
+      "size_bytes": 47173955040
+    },
+    "manifest_sha256": "58b14d13a602944e1134fc753b2cc819a84a31290aee9c1479264a66dbb5efe2",
+    "shards": 33,
+    "source": "moonshotai/Kimi-K3@9f62e4e9fffbd0a83ddd60e1c209d828994b3569"
+  },
+  "outcome_inspection": {
+    "changed_policy_issue99_outcomes_present": false,
+    "inspected": false
+  },
+  "policies": {
+    "EXACT": {
+      "candidate_count": 0,
+      "max_score_regret": 0.0,
+      "max_swaps": 0
+    },
+    "KNEE": {
+      "candidate_count": 32,
+      "max_score_regret": 0.0030885785818099976,
+      "max_swaps": 1
+    },
+    "S2_P50": {
+      "candidate_count": 32,
+      "max_score_regret": 0.007303759455680847,
+      "max_swaps": 2
+    }
+  },
+  "profile": "STANDARD",
+  "repeat_count": 1,
+  "resource_limits": {
+    "maximum_k3_processes": 72,
+    "maximum_live_raw_tensor_bytes": 17179869184,
+    "maximum_live_raw_tensor_files": 2,
+    "maximum_persistent_issue99_evidence_bytes": 536870912000,
+    "stop_before_limit": true
+  },
+  "runtime": {
+    "backend": "CPU",
+    "binary": {
+      "canonical_path": "/mnt/nvme1/issue99/build/bin/issue99-quality-probe",
+      "device": 66304,
+      "inode": 19864690889,
+      "sha256": "bcff8c4ecdc560e12b1131db93c4a27530edc532364c7e77c3f78ca6c6fab396",
+      "size_bytes": 380000
+    },
+    "build_fingerprint": {
+      "canonical_path": "/mnt/nvme1/issue98/identity/build-fingerprint.json",
+      "device": 66304,
+      "inode": 25232945946,
+      "sha256": "d150d179f41ebd2deab49b663e64c909b7d8fa6b4546c716aee889479f633a10",
+      "size_bytes": 5518
+    },
+    "changed_routing_boundary": "decode only",
+    "full_prompt_prefill_policy": "EXACT",
+    "helper_cmake_cache": {
+      "canonical_path": "/mnt/nvme1/issue99/build/CMakeCache.txt",
+      "device": 66304,
+      "inode": 13421798046,
+      "sha256": "47356d53ef08c25efaf71d738bafdb2e6bf354c97a0d9fcd1e22fe15fa270436",
+      "size_bytes": 12770
+    },
+    "issue_mode": "BATCHED",
+    "load_mode": "DIRECT_IO",
+    "n_batch": 1,
+    "n_ctx": 1280,
+    "n_gpu_layers": 0,
+    "n_ubatch": 1,
+    "runtime_mode": "PERFORMANCE",
+    "threads": 32
+  },
+  "schema_version": "issue99-checkpoint-a-preregistration-v1",
+  "source_files": {
+    "schemas/issue99/analysis-v1.schema.json": {
+      "canonical_path": "/workspace/k3-out-of-core/schemas/issue99/analysis-v1.schema.json",
+      "device": 64512,
+      "inode": 39594196,
+      "sha256": "08e65d0cb0a9e36389924373d0f762dc2e492e400770e0195e24e174f6a83f58",
+      "size_bytes": 1195
+    },
+    "schemas/issue99/checkpoint-a-preregistration-v1.schema.json": {
+      "canonical_path": "/workspace/k3-out-of-core/schemas/issue99/checkpoint-a-preregistration-v1.schema.json",
+      "device": 64512,
+      "inode": 39594192,
+      "sha256": "7c5e409570c581951e5d083578e6f4057c0ad7b2302f1ad76cf6ca502259fea9",
+      "size_bytes": 1194
+    },
+    "schemas/issue99/output-cache-allowlist-v1.schema.json": {
+      "canonical_path": "/workspace/k3-out-of-core/schemas/issue99/output-cache-allowlist-v1.schema.json",
+      "device": 64512,
+      "inode": 39594195,
+      "sha256": "fda785d7180b4430e40aedb3c9d97c3364557824855e9a9d4f53641471ecbd81",
+      "size_bytes": 627
+    },
+    "schemas/issue99/pair-summary-v1.schema.json": {
+      "canonical_path": "/workspace/k3-out-of-core/schemas/issue99/pair-summary-v1.schema.json",
+      "device": 64512,
+      "inode": 39594194,
+      "sha256": "903637fd4441d7868db1c3c3184ce2d09494f4ed244b91bc95a0bfe2cd8e4f1f",
+      "size_bytes": 1926
+    },
+    "schemas/issue99/reference-sequence-v1.schema.json": {
+      "canonical_path": "/workspace/k3-out-of-core/schemas/issue99/reference-sequence-v1.schema.json",
+      "device": 64512,
+      "inode": 39594193,
+      "sha256": "e02d31e9f6427d0e3c9f91e422d7b1b3ff3acae5b4ece8c0bcb86c44cb7b025e",
+      "size_bytes": 927
+    },
+    "schemas/issue99/reproduction-v1.schema.json": {
+      "canonical_path": "/workspace/k3-out-of-core/schemas/issue99/reproduction-v1.schema.json",
+      "device": 64512,
+      "inode": 35525946,
+      "sha256": "60c1515d9853c9823d6f1f2e515fa89272283839fcb96dc850176cffd5bcfe24",
+      "size_bytes": 636
+    },
+    "scripts/issue99/CMakeLists.txt": {
+      "canonical_path": "/workspace/k3-out-of-core/scripts/issue99/CMakeLists.txt",
+      "device": 64512,
+      "inode": 53999117,
+      "sha256": "17d380819410034807946a965d0866aaccd3844b6aef3faa1387a86f2647d35a",
+      "size_bytes": 2006
+    },
+    "scripts/issue99/PROVENANCE.md": {
+      "canonical_path": "/workspace/k3-out-of-core/scripts/issue99/PROVENANCE.md",
+      "device": 64512,
+      "inode": 57416441,
+      "sha256": "09ad9236b5ed8740444dadac09ae6df18dbf8d9458fd104a6876c5730fc7a817",
+      "size_bytes": 1116
+    },
+    "scripts/issue99/analysis-requirements-lock.txt": {
+      "canonical_path": "/workspace/k3-out-of-core/scripts/issue99/analysis-requirements-lock.txt",
+      "device": 64512,
+      "inode": 57416422,
+      "sha256": "87866d004b155e3d0cf189c073500e4a55b94fafe7988bceccc41fd3d45b8fcd",
+      "size_bytes": 423
+    },
+    "scripts/issue99/analysis-requirements.txt": {
+      "canonical_path": "/workspace/k3-out-of-core/scripts/issue99/analysis-requirements.txt",
+      "device": 64512,
+      "inode": 57416423,
+      "sha256": "c55a7d5615b59c3aba51ea53fc01955e73eae097e3b4629ff9834da9a9fdb51d",
+      "size_bytes": 80
+    },
+    "scripts/issue99/analyze_campaign.py": {
+      "canonical_path": "/workspace/k3-out-of-core/scripts/issue99/analyze_campaign.py",
+      "device": 64512,
+      "inode": 57222074,
+      "sha256": "62747d1ea20c4a555ded18d9a3187e3f3dfd726ec4f311dd0200230e85139a0a",
+      "size_bytes": 40175
+    },
+    "scripts/issue99/analyze_pair.py": {
+      "canonical_path": "/workspace/k3-out-of-core/scripts/issue99/analyze_pair.py",
+      "device": 64512,
+      "inode": 54533210,
+      "sha256": "2a519fd1d2e908a6eee8a5ecb35cb776ceb33783105bc6091f8a06fd81d3fa8d",
+      "size_bytes": 36311
+    },
+    "scripts/issue99/build_preregistration.py": {
+      "canonical_path": "/workspace/k3-out-of-core/scripts/issue99/build_preregistration.py",
+      "device": 64512,
+      "inode": 54533208,
+      "sha256": "245a93481339f1f455edfdc5e5cff16bfcdb8b0bf8033e476effe4cf8ee21ee0",
+      "size_bytes": 24647
+    },
+    "scripts/issue99/freeze_core_membership.py": {
+      "canonical_path": "/workspace/k3-out-of-core/scripts/issue99/freeze_core_membership.py",
+      "device": 64512,
+      "inode": 54533211,
+      "sha256": "ba39138c612366757e3520b1e1bf8cf84024aa4ead67048d0d0362c77ea1cd56",
+      "size_bytes": 2931
+    },
+    "scripts/issue99/protocol.py": {
+      "canonical_path": "/workspace/k3-out-of-core/scripts/issue99/protocol.py",
+      "device": 64512,
+      "inode": 53999118,
+      "sha256": "b36c4f9638b2d197d642019b50799edd10f0c08ad0daef9e4886bfdf4a055aef",
+      "size_bytes": 5344
+    },
+    "scripts/issue99/qualify_instrumentation.py": {
+      "canonical_path": "/workspace/k3-out-of-core/scripts/issue99/qualify_instrumentation.py",
+      "device": 64512,
+      "inode": 57416420,
+      "sha256": "d6804e7383f02b9276a47e6a1917bf7d2ffc4f88ffde3326e2bc6a78e2f759b4",
+      "size_bytes": 8650
+    },
+    "scripts/issue99/qualify_long_horizon_capacity.py": {
+      "canonical_path": "/workspace/k3-out-of-core/scripts/issue99/qualify_long_horizon_capacity.py",
+      "device": 64512,
+      "inode": 52938978,
+      "sha256": "6fbe36b98c8d7a3848015149a87ef3fd82e6f09142d0507fe0a431345bba378e",
+      "size_bytes": 6836
+    },
+    "scripts/issue99/quality_probe.cpp": {
+      "canonical_path": "/workspace/k3-out-of-core/scripts/issue99/quality_probe.cpp",
+      "device": 64512,
+      "inode": 54533207,
+      "sha256": "cebc19ddd082c1f1bf8c3f6b40e5e92551b2aeb69372def4040cd84f7bd60c3a",
+      "size_bytes": 60563
+    },
+    "scripts/issue99/reproduce_release.py": {
+      "canonical_path": "/workspace/k3-out-of-core/scripts/issue99/reproduce_release.py",
+      "device": 64512,
+      "inode": 54310231,
+      "sha256": "8d4747ff3b4e10455be9d98a18ebf262588095416565ba5c81131be22c36d4e4",
+      "size_bytes": 10003
+    },
+    "scripts/issue99/run_campaign.py": {
+      "canonical_path": "/workspace/k3-out-of-core/scripts/issue99/run_campaign.py",
+      "device": 64512,
+      "inode": 54533209,
+      "sha256": "78671a3f2bd4bfab96b8e178842987bf5fb43fca24f9640fa14475b13c43ea5b",
+      "size_bytes": 25482
+    },
+    "scripts/issue99/sample_quality_capacity.py": {
+      "canonical_path": "/workspace/k3-out-of-core/scripts/issue99/sample_quality_capacity.py",
+      "device": 64512,
+      "inode": 57416421,
+      "sha256": "7d2674357a2b9c42fbe9edbb22b20a27e787405a44cbc4a9b89d58ce68cf5e3c",
+      "size_bytes": 5135
+    },
+    "tests/issue99/test_issue99_tools.py": {
+      "canonical_path": "/workspace/k3-out-of-core/tests/issue99/test_issue99_tools.py",
+      "device": 64512,
+      "inode": 18148550,
+      "sha256": "b69cc508b8f7c0cfe019b1e2c73d14fc0b1902ba1791e2ffcba024b67fad8584",
+      "size_bytes": 13520
+    }
+  },
+  "status": "frozen-outcome-blind"
+}

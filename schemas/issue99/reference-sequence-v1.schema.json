@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://k3.local/schemas/issue99/reference-sequence-v1.schema.json",
+  "title": "Issue 99 exact reference-token sequence",
+  "type": "object",
+  "required": ["schema_version", "case_id", "horizon_limit", "seed_token", "target_ids", "achieved_horizon", "reference_identity", "root_reference_identity"],
+  "properties": {
+    "schema_version": {"const": "issue99-reference-sequence-v1"},
+    "horizon_limit": {"enum": [64, 512, 1024]},
+    "seed_token": {"type": "integer", "minimum": 0},
+    "target_ids": {"type": "array", "items": {"type": "integer", "minimum": 0}, "maxItems": 1024},
+    "achieved_horizon": {"type": "integer", "minimum": 1, "maximum": 1024},
+    "reference_identity": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "root_reference_identity": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  },
+  "additionalProperties": true
+}

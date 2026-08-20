@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://k3.local/schemas/issue99/analysis-v1.schema.json",
+  "title": "Issue 99 primary analysis",
+  "type": "object",
+  "required": ["schema_version", "status", "preregistration", "campaign_progress", "coverage", "predictor_hierarchy", "policy_pairing", "trends", "feedback_and_capacity", "systems_quality", "generation_phase", "primary_outcomes", "interpretation_guards"],
+  "properties": {
+    "schema_version": {"const": "issue99-analysis-v1"},
+    "status": {"const": "pass"},
+    "primary_outcomes": {"type": "object", "required": ["LONG_HORIZON_PREDICTIVE_DRIFT", "KNEE_VS_S2_QUALITY_ORDERING", "CUMULATIVE_REGRET_PREDICTIVE", "RAW_REGRET_ADDS_SIGNAL", "PERTURBED_FRACTION_ADDS_SIGNAL", "TOKEN_MEDIATED_ROUTE_FEEDBACK", "FEEDBACK_GROWTH_TO_1024", "FOLLOWUP_ROUTING_DESIGN_JUSTIFIED", "DEPTH_CONDITIONING_ADDS_SIGNAL", "CORE_PERIPHERY_QUALITY_INTERACTION", "GENERATION_PHASE_QUALITY_INTERACTION", "CAPACITY_CHANGES_REALIZED_PERTURBATION", "CAPACITY_CHANGES_PREDICTIVE_DAMAGE", "VIRTUAL_CACHE_QUALITY_TRADEOFF", "SYSTEMS_GAIN_QUALITY_TRADEOFF", "S2P50_LONG_HORIZON_ACCEPTABLE"]}
+  },
+  "additionalProperties": true
+}

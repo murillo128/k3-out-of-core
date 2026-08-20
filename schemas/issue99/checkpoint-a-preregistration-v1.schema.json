@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://k3.local/schemas/issue99/checkpoint-a-preregistration-v1.schema.json",
+  "title": "Issue 99 Checkpoint-A preregistration",
+  "type": "object",
+  "required": ["schema_version", "status", "baseline", "host", "runtime", "model", "corpus", "capacity", "policies", "cells", "instrumentation", "analysis", "evidence_hygiene", "resource_limits", "failure_policy", "outcome_inspection"],
+  "properties": {
+    "schema_version": {"const": "issue99-checkpoint-a-preregistration-v1"},
+    "status": {"const": "frozen-outcome-blind"},
+    "cells": {"type": "array", "minItems": 63, "maxItems": 72, "items": {"type": "object", "required": ["order", "cohort", "case_id", "policy", "intervention", "cache_regime", "horizon"]}},
+    "capacity": {"type": "object", "required": ["issue99_cache_slots", "issue99_cache_bytes", "capacity_relation", "low_bridge_enabled"]},
+    "outcome_inspection": {"type": "object", "properties": {"changed_policy_issue99_outcomes_present": {"const": false}, "inspected": {"const": false}}, "required": ["changed_policy_issue99_outcomes_present", "inspected"]}
+  },
+  "additionalProperties": true
+}

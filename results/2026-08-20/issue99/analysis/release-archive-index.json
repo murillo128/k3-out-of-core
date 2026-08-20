@@ -1,0 +1,56 @@
+{
+  "schema_version": "issue99-release-archive-index-v1",
+  "status": "PASS",
+  "release": {
+    "tag": "issue99-long-horizon-quality-v1",
+    "content_root": "issue99-long-horizon-quality-v1/analysis",
+    "indexed_files": 169,
+    "indexed_bytes": 1835052307
+  },
+  "assets": [
+    {
+      "name": "issue99-long-horizon-quality-v1-core.tar.zst",
+      "bytes": 225619088,
+      "sha256": "59590e168f2d122ef8948d60aa1b1102c79e553846b4d4570ca62cdb4a7e3763",
+      "role": "analysis-and-non-route-datasets",
+      "indexed_files": 119
+    },
+    {
+      "name": "issue99-long-horizon-quality-v1-routes.tar.zst",
+      "bytes": 1572960769,
+      "sha256": "204eedcf86890cbba8bfbac138d76e7c20614aa17b7c779fc2b371118cea3e43",
+      "role": "route-record-dataset",
+      "indexed_files": 50
+    }
+  ],
+  "targets": {
+    "analysis_code_commit": "63cf9e59affca9d07e104c07e7c39a45094a4c9a",
+    "campaign_code_commit": "63cf9e59affca9d07e104c07e7c39a45094a4c9a",
+    "nested_llama_cpp_commit": "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9"
+  },
+  "evidence": {
+    "analysis_sha256": "fdd0877cd5f25bd6858181eb2fede8291ab280f33616da7b0fd0d58717b3553c",
+    "campaign_progress_sha256": "86fe66011115c4b33fb7f34605781b80939287ef5f936fc8a1cd90b496bfe182",
+    "checkpoint_a_preregistration_sha256": "73917df7f533a7a15f8b2de708c03b937613f9a13ded0d1a2c33a7aad19afdba",
+    "checkpoint_a_review_sha256": "49d48654cc066b36497434f09ee2a653531817ad15694be7aa7561c32e8b94a5",
+    "release_index_sha256": "b6edb607b53449d1900c364969292deb108e289fed8025d935cc0e65241355a5",
+    "reproduction_sha256": "75a6149bdfe94a15000fc3dfba62feb34064222e9c066e1ab978e6ce08b8bb6b",
+    "reproduced_analysis_sha256": "048e118a4df8c55f17b6f4fe1c986cf2adaa5836a06187fa2e04f5d7138ac5dc"
+  },
+  "coverage": {
+    "cells": 72,
+    "pairs": 50,
+    "checkpoint_rows": 312,
+    "token_rows": 31744,
+    "substitution_event_rows": 2246262,
+    "layer_rows": 2920448,
+    "route_rows": 2920448
+  },
+  "verification": {
+    "archive_integrity": "PASS",
+    "combined_member_coverage": "PASS",
+    "packaged_reproduction": "PASS",
+    "fresh_checkout_reproduction_required": true,
+    "requires_k3_model_or_original_host": false
+  }
+}

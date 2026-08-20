@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://k3.local/schemas/issue99/reproduction-v1.schema.json",
+  "title": "Issue 99 published-dataset reproduction",
+  "type": "object",
+  "required": ["schema_version", "status", "model_or_original_host_required", "compared_sections", "inputs"],
+  "properties": {
+    "schema_version": {"const": "issue99-published-dataset-reproduction-v1"},
+    "status": {"const": "pass"},
+    "model_or_original_host_required": {"const": false},
+    "compared_sections": {"type": "array", "minItems": 1},
+    "inputs": {"type": "object"}
+  },
+  "additionalProperties": true
+}
