@@ -8,9 +8,10 @@ import sys
 from pathlib import Path
 
 from protocol import (
-    CACHE_BYTES, CACHE_SLOTS, DEFAULT_BINARY, MODEL_PATH, N_CTX, THREADS,
-    atomic_json, file_identity, load_json, repository_identity, sha256_bytes,
-    sha256_file,
+    AUTO_ADMISSION_SHA256, AUTO_CACHE_REQUEST_BYTES, CAPACITY_FLOOR_BYTES,
+    CAPACITY_FLOOR_SLOTS, DEFAULT_BINARY, EXPERT_BUNDLE_BYTES, MODEL_PATH,
+    N_CTX, PUBLIC_AUTO_ADMISSION, THREADS, atomic_json, file_identity,
+    load_json, repository_identity, sha256_bytes, sha256_file,
 )
 from run_campaign import load_host_helpers, parse_progress, pressure_failures, run_with_envelope
 
@@ -33,7 +34,7 @@ def selected_fixture(corpus: dict) -> dict:
 
 def validate_result(path: Path, progress: Path, arm: str, input_value: dict) -> dict:
     result = load_json(path)
-    if result.get("schema_version") != "issue100-gpqa-probe-result-v1" or \
+    if result.get("schema_version") != "issue100-gpqa-probe-result-v2" or \
             result.get("status") != "pass" or result.get("arm") != arm or \
             result.get("seed") != FIXTURE_SEED:
         raise ConformanceError(f"{arm} result identity/status drift")
@@ -44,7 +45,9 @@ def validate_result(path: Path, progress: Path, arm: str, input_value: dict) -> 
         raise ConformanceError(f"{arm} fixture identity drift")
     execution = result.get("execution", {})
     if execution.get("n_ctx") != N_CTX or execution.get("threads") != THREADS or \
-            execution.get("load_mode") != "DIRECT_IO" or not execution.get("native_io_uring"):
+            execution.get("load_mode") != "DIRECT_IO" or not execution.get("native_io_uring") or \
+            execution.get("capacity_request_mode") != "AUTO" or \
+            execution.get("capacity_request_bytes") != AUTO_CACHE_REQUEST_BYTES:
         raise ConformanceError(f"{arm} execution envelope drift")
     protocol = result.get("protocol", {})
     if protocol.get("max_generated") != FIXTURE_MAX_GENERATED or \
@@ -69,8 +72,20 @@ def validate_result(path: Path, progress: Path, arm: str, input_value: dict) -> 
             stats.get("decisions") != expected_forwards*92 or \
             stats.get("failures") != 0:
         raise ConformanceError("S2 conformance route coverage drift")
-    if result.get("cache", {}).get("capacity_slots") != CACHE_SLOTS or \
-            result.get("cache", {}).get("capacity_bytes") != CACHE_BYTES or \
+    cache = result.get("cache", {})
+    slots = cache.get("capacity_slots")
+    capacity_bytes = cache.get("capacity_bytes")
+    memory = result.get("preflight", {}).get("system_memory", {})
+    initial_cold = result.get("preflight", {}).get("initial_cold", {})
+    if not isinstance(slots, int) or slots < CAPACITY_FLOOR_SLOTS or \
+            capacity_bytes != slots*EXPERT_BUNDLE_BYTES or \
+            execution.get("auto_resolved_slots") != slots or \
+            execution.get("auto_resolved_bytes") != capacity_bytes or \
+            memory.get("requested_pool_bytes") != AUTO_CACHE_REQUEST_BYTES or \
+            memory.get("selected_pool_bytes") != capacity_bytes or not memory.get("autofit") or \
+            not memory.get("budget_frozen") or initial_cold.get("capacity") != slots or \
+            initial_cold.get("requested_bytes") != capacity_bytes or \
+            initial_cold.get("actual_bytes") != capacity_bytes or \
             result.get("safety", {}).get("status") != "pass" or \
             result.get("safety", {}).get("vm_swap_kib") != 0 or \
             any(result.get("safety", {}).get("terminal_references", {}).values()):
@@ -89,6 +104,9 @@ def main() -> int:
     args = parser.parse_args()
 
     repo_root = args.repo_root.resolve(strict=True)
+    auto_admission_path = (repo_root / PUBLIC_AUTO_ADMISSION).resolve(strict=True)
+    if sha256_file(auto_admission_path) != AUTO_ADMISSION_SHA256:
+        raise ConformanceError("AUTO admission amendment identity drift")
     binary = args.binary.resolve(strict=True)
     model = args.model.resolve(strict=True)
     corpus = load_json(args.corpus.resolve(strict=True))
@@ -117,7 +135,7 @@ def main() -> int:
             str(binary), "--model", str(model), "--input", str(directory / "input.json"),
             "--output", str(directory / "probe-result.json"),
             "--progress", str(directory / "progress.jsonl"), "--arm", arm,
-            "--seed", str(FIXTURE_SEED), "--cold-cache-bytes", str(CACHE_BYTES),
+            "--seed", str(FIXTURE_SEED),
             "--max-generated", str(FIXTURE_MAX_GENERATED), "--n-ctx", str(N_CTX),
             "--threads", str(THREADS), "--issue-mode", "BATCHED",
         ]
@@ -142,7 +160,7 @@ def main() -> int:
             results["S2_P50"]["generation"]["token_ids"][0]:
         raise ConformanceError("paired first sampled token differs before any generated decode")
     summary = {
-        "schema_version": "issue100-non-scored-conformance-v1",
+        "schema_version": "issue100-non-scored-conformance-v2",
         "status": "pass",
         "outcome_inspected": False,
         "gpqa_item_used": False,
@@ -157,8 +175,21 @@ def main() -> int:
         "s2_decode_forwards": FIXTURE_MAX_GENERATED - 1,
         "s2_routed_layers": (FIXTURE_MAX_GENERATED - 1)*92,
         "s2_routing_decisions": (FIXTURE_MAX_GENERATED - 1)*92,
-        "capacity_slots": CACHE_SLOTS,
-        "capacity_bytes": CACHE_BYTES,
+        "capacity": {
+            "request_mode": "AUTO",
+            "request_bytes": AUTO_CACHE_REQUEST_BYTES,
+            "floor_slots": CAPACITY_FLOOR_SLOTS,
+            "floor_bytes": CAPACITY_FLOOR_BYTES,
+            "exact_auto_slots": results["EXACT"]["cache"]["capacity_slots"],
+            "exact_auto_bytes": results["EXACT"]["cache"]["capacity_bytes"],
+            "s2_auto_slots": results["S2_P50"]["cache"]["capacity_slots"],
+            "s2_auto_bytes": results["S2_P50"]["cache"]["capacity_bytes"],
+            "auto_slot_delta": (
+                results["S2_P50"]["cache"]["capacity_slots"] -
+                results["EXACT"]["cache"]["capacity_slots"]
+            ),
+        },
+        "auto_admission": file_identity(auto_admission_path),
         "repository": repository_identity(repo_root),
         "binary": file_identity(binary),
         "model_first_shard": file_identity(model, hash_payload=False),
@@ -167,7 +198,9 @@ def main() -> int:
     atomic_json(root / "conformance.json", summary)
     print(
         "ISSUE100_CONFORMANCE status=pass scored=false first_token_match=true "
-        f"exact_routes=0 s2_forwards={FIXTURE_MAX_GENERATED - 1}",
+        f"exact_routes=0 s2_forwards={FIXTURE_MAX_GENERATED - 1} "
+        f"exact_auto_slots={results['EXACT']['cache']['capacity_slots']} "
+        f"s2_auto_slots={results['S2_P50']['cache']['capacity_slots']}",
         flush=True,
     )
     return 0

@@ -35,7 +35,8 @@ namespace {
 constexpr uint32_t candidate_count = 32;
 constexpr uint32_t routed_layers = 92;
 constexpr uint64_t expert_bundle_bytes = 17547264;
-constexpr uint64_t frozen_cache_bytes = 107108499456ULL;
+constexpr uint32_t capacity_floor_slots = 5874;
+constexpr uint64_t auto_cache_request_bytes = 0;
 constexpr uint32_t frozen_n_ctx = 7168;
 constexpr uint32_t frozen_threads = 32;
 constexpr uint32_t frozen_max_generated = 4096;
@@ -51,7 +52,6 @@ struct arguments {
     std::string progress;
     std::string arm;
     std::string issue_mode = "BATCHED";
-    uint64_t cold_cache_bytes = frozen_cache_bytes;
     uint32_t seed = 0;
     uint32_t max_generated = frozen_max_generated;
     uint32_t n_ctx = frozen_n_ctx;
@@ -63,14 +63,6 @@ bool parse_u32(const char * text, uint32_t & value) {
     const unsigned long parsed = std::strtoul(text, &end, 10);
     if (end == text || *end != '\0' || parsed > UINT32_MAX) return false;
     value = uint32_t(parsed);
-    return true;
-}
-
-bool parse_u64(const char * text, uint64_t & value) {
-    char * end = nullptr;
-    const unsigned long long parsed = std::strtoull(text, &end, 10);
-    if (end == text || *end != '\0') return false;
-    value = uint64_t(parsed);
     return true;
 }
 
@@ -87,8 +79,6 @@ bool parse_arguments(int argc, char ** argv, arguments & args) {
         else if (option == "--issue-mode") args.issue_mode = value;
         else if (option == "--seed") {
             if (!parse_u32(value, args.seed)) return false;
-        } else if (option == "--cold-cache-bytes") {
-            if (!parse_u64(value, args.cold_cache_bytes)) return false;
         } else if (option == "--max-generated") {
             if (!parse_u32(value, args.max_generated)) return false;
         } else if (option == "--n-ctx") {
@@ -102,7 +92,6 @@ bool parse_arguments(int argc, char ** argv, arguments & args) {
     return !args.model.empty() && !args.input.empty() && !args.output.empty() &&
         !args.progress.empty() && (args.arm == "EXACT" || args.arm == "S2_P50") &&
         (args.issue_mode == "SERIAL" || args.issue_mode == "BATCHED") &&
-        args.cold_cache_bytes == frozen_cache_bytes &&
         args.max_generated > 0 && args.max_generated <= frozen_max_generated &&
         args.n_ctx == frozen_n_ctx && args.threads == frozen_threads;
 }
@@ -257,8 +246,13 @@ json system_memory_json(const llm_hot_cache_diagnostics & value) {
         {"safe_pool_bytes", value.system_memory_safe_pool_bytes},
         {"admission_safe_pool_bytes", value.system_memory_admission_safe_pool_bytes},
         {"effective_limit_bytes", value.system_memory_effective_limit_bytes},
+        {"limit_headroom_bytes", value.system_memory_limit_headroom_bytes},
         {"available_headroom_bytes", value.system_memory_available_headroom_bytes},
         {"measured_non_pool_committed_bytes", value.system_memory_measured_non_pool_committed_bytes},
+        {"runtime_obligation_bytes", value.system_memory_runtime_obligation_bytes},
+        {"system_reserve_bytes", value.system_memory_system_reserve_bytes},
+        {"runtime_reserve_bytes", value.system_memory_runtime_reserve_bytes},
+        {"hysteresis_bytes", value.system_memory_hysteresis_bytes},
         {"model_file_virtual_bytes", value.system_memory_model_file_virtual_bytes},
         {"model_file_cache_resident_bytes", value.system_memory_model_file_cache_resident_bytes},
         {"other_process_resident_bytes", value.system_memory_other_process_resident_bytes},
@@ -367,7 +361,7 @@ int main(int argc, char ** argv) {
     if (!parse_arguments(argc, argv, args)) {
         std::fprintf(stderr,
             "usage: %s --model GGUF --input JSON --output JSON --progress JSONL "
-            "--arm EXACT|S2_P50 --seed UINT32 --cold-cache-bytes 107108499456 "
+            "--arm EXACT|S2_P50 --seed UINT32 "
             "[--max-generated 4096 --n-ctx 7168 --threads 32 --issue-mode BATCHED]\n",
             argv[0]);
         return 2;
@@ -395,7 +389,7 @@ int main(int argc, char ** argv) {
         model_params.expert_weights_mode = LLAMA_EXPERT_WEIGHTS_MODE_COLD_CACHE;
         model_params.expert_runtime_mode = LLAMA_EXPERT_RUNTIME_MODE_PERFORMANCE;
         model_params.expert_hot_cache_capacity = 0;
-        model_params.expert_cold_cache_bytes = args.cold_cache_bytes;
+        model_params.expert_cold_cache_bytes = auto_cache_request_bytes;
         model_params.expert_transfer_ring_bytes = 0;
         model_params.expert_miss_policy = LLAMA_EXPERT_MISS_POLICY_CPU_FALLBACK;
         model_params.expert_io_trace_capacity = 0;
@@ -438,13 +432,17 @@ int main(int argc, char ** argv) {
         const auto initial_async = model->expert_async_diagnostics();
         const auto initial_scheduler = model->expert_scheduler_diagnostics();
         const auto initial_full = provider->hot_cache_diagnostics();
+        const uint64_t resolved_cache_bytes = initial_full.system_memory_selected_pool_bytes;
+        const uint64_t resolved_cache_slots = initial_cold.capacity;
         const uint64_t allowed_async_fallback_mask =
             uint64_t(llm_expert_async_fallback_reason::buffer_registration);
         if (!initial_cold.available || initial_cold.occupancy != 0 ||
-            initial_cold.capacity != args.cold_cache_bytes/expert_bundle_bytes ||
-            initial_full.system_memory_requested_pool_bytes != args.cold_cache_bytes ||
-            initial_full.system_memory_selected_pool_bytes != initial_cold.requested_bytes ||
-            !initial_full.system_memory_budget_frozen || initial_full.system_memory_autofit ||
+            resolved_cache_bytes == 0 || resolved_cache_bytes % expert_bundle_bytes != 0 ||
+            resolved_cache_slots != resolved_cache_bytes/expert_bundle_bytes ||
+            initial_cold.requested_bytes != resolved_cache_bytes ||
+            initial_cold.actual_bytes != resolved_cache_bytes ||
+            initial_full.system_memory_requested_pool_bytes != auto_cache_request_bytes ||
+            !initial_full.system_memory_budget_frozen || !initial_full.system_memory_autofit ||
             initial_full.system_memory_pressure_rejections != 0 ||
             initial_full.system_memory_pressure_circuit_open ||
             !initial_full.cpu_cold_only || initial_full.requested_capacity != 0 ||
@@ -457,6 +455,33 @@ int main(int argc, char ** argv) {
             (initial_async.fallback_reason_mask & ~allowed_async_fallback_mask) != 0) {
             throw std::runtime_error("CPU production-path initial validation failed");
         }
+        if (resolved_cache_slots < capacity_floor_slots) {
+            write_json(args.output, {
+                {"schema_version", "issue100-gpqa-probe-result-v2"},
+                {"status", "halted-below-capacity-floor"},
+                {"item", {
+                    {"id", input.item_id}, {"scored", input.scored},
+                    {"prompt_sha256", input.prompt_sha256},
+                    {"prompt_tokens", input.tokens.size()},
+                }},
+                {"arm", args.arm}, {"seed", args.seed},
+                {"execution", {
+                    {"capacity_request_mode", "AUTO"},
+                    {"capacity_request_bytes", auto_cache_request_bytes},
+                    {"auto_resolved_slots", resolved_cache_slots},
+                    {"auto_resolved_bytes", resolved_cache_bytes},
+                }},
+                {"preflight", {
+                    {"pass", false}, {"prompt_inference_started", false},
+                    {"reason", "AUTO_RESOLVED_SLOTS_BELOW_FLOOR"},
+                    {"capacity_floor_slots", capacity_floor_slots},
+                    {"capacity_floor_bytes", uint64_t(capacity_floor_slots)*expert_bundle_bytes},
+                    {"initial_cold", cold_json(initial_cold)},
+                    {"system_memory", system_memory_json(initial_full)},
+                }},
+            });
+            throw std::runtime_error("AUTO resolved capacity below 5874-slot floor");
+        }
 
         progress_writer progress(args.progress);
         progress.write({
@@ -465,7 +490,9 @@ int main(int argc, char ** argv) {
             {"item_id", input.item_id}, {"arm", args.arm}, {"seed", args.seed},
             {"scored", input.scored}, {"prompt_sha256", input.prompt_sha256},
             {"prompt_tokens", input.tokens.size()}, {"max_generated", args.max_generated},
-            {"capacity_bytes", args.cold_cache_bytes},
+            {"capacity_request_mode", "AUTO"},
+            {"auto_resolved_slots", resolved_cache_slots},
+            {"auto_resolved_bytes", resolved_cache_bytes},
         });
 
         const auto prefill_started = steady_clock::now();
@@ -647,7 +674,7 @@ int main(int argc, char ** argv) {
         json command = json::array();
         for (int index = 0; index < argc; ++index) command.push_back(argv[index]);
         const json result = {
-            {"schema_version", "issue100-gpqa-probe-result-v1"},
+            {"schema_version", "issue100-gpqa-probe-result-v2"},
             {"status", "pass"}, {"exit_status", 0}, {"command", command},
             {"item", {
                 {"id", input.item_id}, {"scored", input.scored},
@@ -667,7 +694,10 @@ int main(int argc, char ** argv) {
                 {"registered_buffer_count", initial_async.registered_buffer_count},
                 {"buffer_registration_error", initial_async.buffer_registration_error},
                 {"async_fallback_reason_mask", initial_async.fallback_reason_mask},
-                {"capacity_request_mode", "EXPLICIT"},
+                {"capacity_request_mode", "AUTO"},
+                {"capacity_request_bytes", auto_cache_request_bytes},
+                {"auto_resolved_slots", resolved_cache_slots},
+                {"auto_resolved_bytes", resolved_cache_bytes},
             }},
             {"protocol", {
                 {"prefill_routing", "EXACT"},
@@ -690,6 +720,8 @@ int main(int argc, char ** argv) {
                 {"pass", true}, {"process_start_occupancy", initial_cold.occupancy},
                 {"cpu_cold_only", initial_full.cpu_cold_only},
                 {"first_miss_backing_read", first_miss_backing_read},
+                {"capacity_floor_slots", capacity_floor_slots},
+                {"capacity_floor_bytes", uint64_t(capacity_floor_slots)*expert_bundle_bytes},
                 {"initial_cold", cold_json(initial_cold)},
                 {"initial_storage", storage_json(initial_storage)},
                 {"system_memory", system_memory_json(initial_full)},
@@ -714,8 +746,8 @@ int main(int argc, char ** argv) {
                 {"forward_latency_s", forward_latency_s},
             }},
             {"cache", {
-                {"capacity_slots", args.cold_cache_bytes/expert_bundle_bytes},
-                {"capacity_bytes", args.cold_cache_bytes},
+                {"capacity_slots", resolved_cache_slots},
+                {"capacity_bytes", resolved_cache_bytes},
                 {"total", cold_delta_json(initial_cold, after_cold)},
                 {"decode", cold_delta_json(before_cold, after_cold)},
                 {"final", cold_json(after_cold)},
@@ -752,8 +784,9 @@ int main(int argc, char ** argv) {
             {"stop", stopped_eog ? "EOG" : "TOKEN_CAP"},
         });
         std::printf(
-            "ISSUE100_PROBE item=%s arm=%s status=pass generated=%zu stop=%s decode_tok_s=%.6f\n",
-            input.item_id.c_str(), args.arm.c_str(), generated_ids.size(),
+            "ISSUE100_PROBE item=%s arm=%s status=pass auto_slots=%llu generated=%zu stop=%s decode_tok_s=%.6f\n",
+            input.item_id.c_str(), args.arm.c_str(),
+            static_cast<unsigned long long>(resolved_cache_slots), generated_ids.size(),
             stopped_eog ? "EOG" : "TOKEN_CAP",
             decode_inference_s > 0.0 ? generated_ids.size()/decode_inference_s : 0.0);
         std::fflush(stdout);

@@ -12,8 +12,9 @@ from pathlib import Path
 from typing import Any, Iterable
 
 from protocol import (
-    BOOTSTRAP_REPLICATE_ZERO, BOOTSTRAP_REPLICATES, BOOTSTRAP_ROOT,
-    BOOTSTRAP_STREAM_SHA256, CAMPAIGN_SHA256, PREREGISTRATION_SHA256,
+    AUTO_ADMISSION_SHA256, BOOTSTRAP_REPLICATE_ZERO, BOOTSTRAP_REPLICATES,
+    BOOTSTRAP_ROOT, BOOTSTRAP_STREAM_SHA256, CAMPAIGN_SHA256,
+    CAPACITY_FLOOR_SLOTS, EXPERT_BUNDLE_BYTES, PREREGISTRATION_SHA256,
     ProtocolError, atomic_json, bootstrap_indices, file_identity, load_json,
     sha256_file, validate_checksum,
 )
@@ -92,6 +93,10 @@ def paired_statistics(pairs: list[dict[str, Any]]) -> dict[str, Any]:
         label: sum(row["pair_class"] == label for row in pairs)
         for label in ("both-correct", "both-wrong", "EXACT-only", "S2-only")
     }
+    exact_slots = [int(row["exact_auto_slots"]) for row in pairs]
+    s2_slots = [int(row["s2_auto_slots"]) for row in pairs]
+    slot_deltas = [int(row["auto_slot_delta"]) for row in pairs]
+    relative_slot_deltas = [float(row["relative_auto_slot_delta"]) for row in pairs]
     return {
         "estimand": "mean(S2_correct - EXACT_correct) over 30 preregistered items",
         "materiality_margin": 0.10,
@@ -109,6 +114,12 @@ def paired_statistics(pairs: list[dict[str, Any]]) -> dict[str, Any]:
             "one_sided_95_lower_bound": one_sided_lower,
         },
         "mcnemar": exact_mcnemar(classes["EXACT-only"], classes["S2-only"]),
+        "auto_capacity": {
+            "exact_slots": distribution([float(value) for value in exact_slots]),
+            "s2_slots": distribution([float(value) for value in s2_slots]),
+            "slot_delta": distribution([float(value) for value in slot_deltas]),
+            "relative_slot_delta": distribution(relative_slot_deltas),
+        },
         "disposition": disposition,
     }
 
@@ -150,6 +161,9 @@ def full_s2_statistics(runs: list[dict[str, Any]], protocol_drift: bool) -> dict
         "material_threshold": 0.03,
         "protocol_fidelity": "OFFICIAL_PROTOCOL_NEAR_MATCH",
         "protocol_drift": protocol_drift,
+        "auto_capacity_slots": distribution([
+            float(row["auto_resolved_slots"]) for row in runs
+        ]),
         "disposition": disposition,
     }
 
@@ -177,6 +191,14 @@ def validate_run_and_attempt(
             if observed[key] != artifact[key]:
                 raise AnalysisError(f"raw attempt artifact drift: {path} {key}")
     result = load_json(Path(manifest["artifacts"]["probe-result.json"]["canonical_path"]))
+    capacity_slots = result.get("cache", {}).get("capacity_slots")
+    capacity_bytes = result.get("cache", {}).get("capacity_bytes")
+    if not isinstance(capacity_slots, int) or capacity_slots < CAPACITY_FLOOR_SLOTS or \
+            capacity_bytes != capacity_slots*EXPERT_BUNDLE_BYTES or \
+            run.get("auto_resolved_slots") != capacity_slots or \
+            run.get("auto_resolved_bytes") != capacity_bytes or \
+            run.get("capacity_request_mode") != "AUTO" or not run.get("autofit"):
+        raise AnalysisError("AUTO capacity evidence drift")
     score = score_result(result, item)
     protected_score = load_json(Path(manifest["artifacts"]["score-evidence.json"]["canonical_path"]))
     if bytes.fromhex(protected_score["raw_generated_bytes_hex"]) != score["raw_bytes"] or \
@@ -252,6 +274,12 @@ def performance_summary(runs: list[dict[str, Any]], raw_results: list[dict[str, 
             "realized_swaps": sum(row["realized_swaps"] for row in selected),
             "changed_decisions": sum(row["changed_decisions"] for row in selected),
             "cumulative_corrected_regret": sum(row["cumulative_corrected_regret"] for row in selected),
+            "auto_capacity_slots": distribution([
+                float(row["auto_resolved_slots"]) for row in selected
+            ]),
+            "auto_capacity_bytes": distribution([
+                float(row["auto_resolved_bytes"]) for row in selected
+            ]),
         }
     return {
         "by_arm": by_arm,
@@ -301,10 +329,13 @@ def main() -> int:
         key: control[key] for key in (
             "campaign_sha256", "preregistration_sha256", "project_commit", "nested_commit",
             "model_manifest_sha256", "adapter_binary_sha256", "protected_plan_sha256",
-            "execution_authorization_sha256", "capacity_slots", "capacity_bytes", "scoring_identity",
+            "execution_authorization_sha256", "auto_admission_sha256",
+            "capacity_request_mode", "capacity_request_bytes", "capacity_floor_slots",
+            "capacity_floor_bytes", "scoring_identity",
         )
     }
-    if expected_identity["preregistration_sha256"] != PREREGISTRATION_SHA256:
+    if expected_identity["preregistration_sha256"] != PREREGISTRATION_SHA256 or \
+            expected_identity["auto_admission_sha256"] != AUTO_ADMISSION_SHA256:
         raise AnalysisError("preregistration identity drift")
     runs = load_jsonl(root / "runs.jsonl")
     pairs = load_jsonl(root / "pairs.jsonl")
@@ -327,7 +358,15 @@ def main() -> int:
                 pair.get("exact_run_checksum") != exact["artifact_checksum"] or \
                 pair.get("s2_run_checksum") != s2["artifact_checksum"] or \
                 pair.get("first_generated_token_id") != exact["first_generated_token_id"] or \
-                exact["first_generated_token_id"] != s2["first_generated_token_id"]:
+                exact["first_generated_token_id"] != s2["first_generated_token_id"] or \
+                pair.get("exact_auto_slots") != exact["auto_resolved_slots"] or \
+                pair.get("s2_auto_slots") != s2["auto_resolved_slots"] or \
+                pair.get("auto_slot_delta") != s2["auto_resolved_slots"] - exact["auto_resolved_slots"] or \
+                pair.get("relative_auto_slot_delta") != (
+                    s2["auto_resolved_slots"] - exact["auto_resolved_slots"]
+                )/exact["auto_resolved_slots"] or \
+                pair.get("exact_auto_bytes") != exact["auto_resolved_bytes"] or \
+                pair.get("s2_auto_bytes") != s2["auto_resolved_bytes"]:
             raise AnalysisError("pair/run binding mismatch")
 
     exact_runs = [row for row in runs if row["arm"] == "EXACT"]

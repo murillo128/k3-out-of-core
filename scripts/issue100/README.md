@@ -1,6 +1,7 @@
 # Issue #100 GPQA Diamond execution tools
 
-This directory implements the accepted Checkpoint-A contract without placing
+This directory implements the accepted Checkpoint-A contract plus the
+production-AUTO admission amendment without placing
 GPQA questions, choice permutations, correct answers, model outputs, or
 per-item scores in Git.
 
@@ -10,8 +11,9 @@ The tool boundary is deliberate:
   permutations, answers, seeds, and the 228-run order from the pinned encrypted
   dataset and the four immutable Checkpoint-A manifests.
 - `gpqa_probe.cpp` performs only native K3 inference and resource validation. It
-  has no answer key and does no scoring.
-- `run_campaign.py` enforces the independent execution authorization, runs each
+  requests production AUTO capacity inside the benchmark process, fails before
+  prompt inference below 5,874 slots, has no answer key, and does no scoring.
+- `run_campaign.py` enforces the exact-target execution authorization, runs each
   arm in a fresh process, scores protected response bytes, durably appends
   accepted records, and resumes only checksum-valid evidence.
 - `analyze_campaign.py` independently re-scores all 228 raw attempts and applies
@@ -24,11 +26,12 @@ project commit:
 
 1. the exact binary has been built from that commit;
 2. Python tests and the non-scored EXACT/S2 conformance run pass;
-3. an independent reviewer publishes a pre-execution `PASS`; and
-4. `freeze_execution_authorization.py` records that published review target.
+3. the authoritative issue amendment still authorizes execution; and
+4. `freeze_execution_authorization.py` binds that amendment and conformance.
 
 The campaign runner rejects a dirty worktree, a changed project or nested
-commit, a changed binary, preregistration, protected plan, capacity, model
+commit, a changed binary, preregistration, AUTO-admission amendment, protected
+plan, capacity mode/floor, model
 manifest identity, or execution authorization.
 
 ## Reproducible command sequence
@@ -62,8 +65,8 @@ python3 scripts/issue100/run_conformance.py \
   --output-root /mnt/nvme1/issue100/conformance-TARGET
 ```
 
-After the independent pre-execution review, freeze its published verdict and
-start or resume the scientific campaign:
+After conformance, bind the published execution amendment and start or resume
+the scientific campaign:
 
 ```bash
 python3 scripts/issue100/freeze_execution_authorization.py \
@@ -71,8 +74,8 @@ python3 scripts/issue100/freeze_execution_authorization.py \
   --protected-plan /mnt/nvme1/issue100/prepared/protected-plan.json \
   --binary /mnt/nvme1/issue100/build/bin/issue100-gpqa-probe \
   --conformance /mnt/nvme1/issue100/conformance-TARGET/conformance.json \
-  --review-comment-url REVIEW_URL \
-  --review-verdict-sha256 REVIEW_BODY_SHA256 \
+  --execution-amendment-url AMENDMENT_URL \
+  --execution-amendment-sha256 AMENDMENT_BODY_SHA256 \
   --output /mnt/nvme1/issue100/execution-authorization.json
 
 python3 scripts/issue100/run_campaign.py \

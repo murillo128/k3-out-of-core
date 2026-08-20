@@ -19,10 +19,12 @@ from pathlib import Path
 from typing import Any
 
 from protocol import (
-    ANSWER_PATTERN, ATTEMPT_TIMEOUT_S, CACHE_BYTES, CACHE_SLOTS, CAMPAIGN_SHA256,
-    CUMULATIVE_ATTEMPT_BUDGET_S, DEFAULT_BINARY, DEFAULT_EVIDENCE_ROOT,
-    MAX_GENERATED, MAX_RESTARTS, MODEL_MANIFEST_SHA256, MODEL_PATH, N_CTX,
-    NESTED_BASELINE, PREREGISTRATION_SHA256, RESPONSE_BOUNDARY, THREADS,
+    ANSWER_PATTERN, ATTEMPT_TIMEOUT_S, AUTO_ADMISSION_SHA256,
+    AUTO_CACHE_REQUEST_BYTES, CAMPAIGN_SHA256, CAPACITY_FLOOR_BYTES,
+    CAPACITY_FLOOR_SLOTS, CUMULATIVE_ATTEMPT_BUDGET_S, DEFAULT_BINARY,
+    DEFAULT_EVIDENCE_ROOT, EXPERT_BUNDLE_BYTES, MAX_GENERATED, MAX_RESTARTS,
+    MODEL_MANIFEST_SHA256, MODEL_PATH, N_CTX, NESTED_BASELINE,
+    PREREGISTRATION_SHA256, PUBLIC_AUTO_ADMISSION, RESPONSE_BOUNDARY, THREADS,
     ProtocolError, append_canonical_jsonl, atomic_json, bind_checksum,
     file_identity, finite_number, load_json, require_frozen_runtime_identity,
     sha256_bytes, sha256_file, validate_checksum,
@@ -39,6 +41,8 @@ HARD_PROBE_MARKERS = (
     "non-finite", "invalid token", "identity mismatch", "resource/safety invariant",
     "routing coverage", "CPU production-path", "prefill did not prove",
     "cache did not fill", "tokenization", "prompt plus maximum",
+    "AUTO resolved capacity below", "system-memory cold-cache budget",
+    "provider error", "context initialization failed",
 )
 LIBC = ctypes.CDLL(None, use_errno=True)
 
@@ -340,7 +344,7 @@ def validate_probe_result(
 ) -> dict[str, Any]:
     result = load_json(path)
     failures = pressure_failures(envelope)
-    if result.get("schema_version") != "issue100-gpqa-probe-result-v1" or \
+    if result.get("schema_version") != "issue100-gpqa-probe-result-v2" or \
             result.get("status") != "pass":
         failures.append("probe schema/status")
     observed_item = result.get("item", {})
@@ -355,7 +359,9 @@ def validate_probe_result(
             execution.get("n_batch") != 1 or execution.get("n_ubatch") != 1 or \
             execution.get("threads") != THREADS or execution.get("load_mode") != "DIRECT_IO" or \
             execution.get("runtime_mode") != "PERFORMANCE" or execution.get("issue_mode") != "BATCHED" or \
-            not execution.get("native_io_uring"):
+            not execution.get("native_io_uring") or \
+            execution.get("capacity_request_mode") != "AUTO" or \
+            execution.get("capacity_request_bytes") != AUTO_CACHE_REQUEST_BYTES:
         failures.append("execution envelope")
     protocol = result.get("protocol", {})
     if protocol.get("prefill_routing") != "EXACT" or \
@@ -367,12 +373,23 @@ def validate_probe_result(
         failures.append("generation protocol")
     preflight = result.get("preflight", {})
     initial_cold = preflight.get("initial_cold", {})
+    initial_memory = preflight.get("system_memory", {})
+    cache_capacity = result.get("cache", {})
+    resolved_slots = cache_capacity.get("capacity_slots")
+    resolved_bytes = cache_capacity.get("capacity_bytes")
     if not preflight.get("pass") or preflight.get("process_start_occupancy") != 0 or \
             not preflight.get("first_miss_backing_read") or \
-            initial_cold.get("requested_bytes") != CACHE_BYTES or \
-            initial_cold.get("actual_bytes") != CACHE_BYTES or \
-            initial_cold.get("capacity") != CACHE_SLOTS:
-        failures.append("fresh explicit cold-cache preflight")
+            not isinstance(resolved_slots, int) or resolved_slots < CAPACITY_FLOOR_SLOTS or \
+            resolved_bytes != resolved_slots*EXPERT_BUNDLE_BYTES or \
+            execution.get("auto_resolved_slots") != resolved_slots or \
+            execution.get("auto_resolved_bytes") != resolved_bytes or \
+            initial_cold.get("requested_bytes") != resolved_bytes or \
+            initial_cold.get("actual_bytes") != resolved_bytes or \
+            initial_cold.get("capacity") != resolved_slots or \
+            initial_memory.get("requested_pool_bytes") != AUTO_CACHE_REQUEST_BYTES or \
+            initial_memory.get("selected_pool_bytes") != resolved_bytes or \
+            not initial_memory.get("autofit") or not initial_memory.get("budget_frozen"):
+        failures.append("fresh production-AUTO cold-cache preflight")
     generation = result.get("generation", {})
     token_ids = generation.get("token_ids", [])
     pieces = generation.get("piece_hex", [])
@@ -405,10 +422,14 @@ def validate_probe_result(
                 stats.get("decisions") != forwards*92 or stats.get("failures") != 0:
             failures.append("S2 routing configuration/coverage")
     safety = result.get("safety", {})
+    terminal_memory = safety.get("system_memory", {})
     if safety.get("status") != "pass" or safety.get("vm_swap_kib") != 0 or \
             any(safety.get("terminal_references", {}).values()) or \
-            safety.get("system_memory", {}).get("pressure_rejections") != 0 or \
-            safety.get("system_memory", {}).get("pressure_circuit_open"):
+            terminal_memory.get("requested_pool_bytes") != AUTO_CACHE_REQUEST_BYTES or \
+            terminal_memory.get("selected_pool_bytes") != resolved_bytes or \
+            not terminal_memory.get("autofit") or not terminal_memory.get("budget_frozen") or \
+            terminal_memory.get("pressure_rejections") != 0 or \
+            terminal_memory.get("pressure_circuit_open"):
         failures.append("terminal safety/resources")
     if failures:
         raise CampaignError("probe validation failed: " + "; ".join(failures))
@@ -531,6 +552,14 @@ def pair_record(pair_ordinal: int, exact: dict[str, Any], s2: dict[str, Any]) ->
         "s2_correct": s2_correct,
         "pair_class": pair_class,
         "accuracy_delta": int(s2_correct) - int(exact_correct),
+        "exact_auto_slots": exact["auto_resolved_slots"],
+        "s2_auto_slots": s2["auto_resolved_slots"],
+        "auto_slot_delta": s2["auto_resolved_slots"] - exact["auto_resolved_slots"],
+        "relative_auto_slot_delta": (
+            (s2["auto_resolved_slots"] - exact["auto_resolved_slots"])/exact["auto_resolved_slots"]
+        ),
+        "exact_auto_bytes": exact["auto_resolved_bytes"],
+        "s2_auto_bytes": s2["auto_resolved_bytes"],
     })
 
 
@@ -545,6 +574,8 @@ def reconcile_pairs(root: Path, runs: list[dict[str, Any]]) -> list[dict[str, An
         for key in (
             "campaign_sha256", "item_id", "exact_run_checksum", "s2_run_checksum",
             "first_generated_token_id", "exact_correct", "s2_correct", "pair_class", "accuracy_delta",
+            "exact_auto_slots", "s2_auto_slots", "auto_slot_delta",
+            "relative_auto_slot_delta", "exact_auto_bytes", "s2_auto_bytes",
         ):
             if pair.get(key) != expected.get(key):
                 raise CampaignError(f"pair evidence drift: {key}")
@@ -572,6 +603,9 @@ def checkpoint(root: Path, runs: list[dict[str, Any]], pairs: list[dict[str, Any
     s2 = [row for row in runs if row["arm"] == "S2_P50"]
     decode_tps = [float(row["decode_tok_s"]) for row in s2]
     generated = [int(row["generated_tokens"]) for row in s2]
+    exact_slots = [int(row["auto_resolved_slots"]) for row in exact]
+    s2_slots = [int(row["auto_resolved_slots"]) for row in s2]
+    pair_slot_deltas = [int(row["auto_slot_delta"]) for row in pairs]
     value = {
         "schema_version": "issue100-cumulative-checkpoint-v1",
         "status": status,
@@ -594,6 +628,24 @@ def checkpoint(root: Path, runs: list[dict[str, Any]], pairs: list[dict[str, Any
         "s2_decode_tok_s_mean": statistics.fmean(decode_tps) if decode_tps else None,
         "s2_decode_tok_s_median": statistics.median(decode_tps) if decode_tps else None,
         "s2_generated_tokens_median": statistics.median(generated) if generated else None,
+        "exact_auto_slots": {
+            "count": len(exact_slots),
+            "min": min(exact_slots) if exact_slots else None,
+            "max": max(exact_slots) if exact_slots else None,
+            "mean": statistics.fmean(exact_slots) if exact_slots else None,
+        },
+        "s2_auto_slots": {
+            "count": len(s2_slots),
+            "min": min(s2_slots) if s2_slots else None,
+            "max": max(s2_slots) if s2_slots else None,
+            "mean": statistics.fmean(s2_slots) if s2_slots else None,
+        },
+        "paired_auto_slot_delta": {
+            "count": len(pair_slot_deltas),
+            "min": min(pair_slot_deltas) if pair_slot_deltas else None,
+            "max": max(pair_slot_deltas) if pair_slot_deltas else None,
+            "mean": statistics.fmean(pair_slot_deltas) if pair_slot_deltas else None,
+        },
         "last_run_checksum": runs[-1]["artifact_checksum"] if runs else None,
         "last_pair_checksum": pairs[-1]["artifact_checksum"] if pairs else None,
     }
@@ -601,7 +653,8 @@ def checkpoint(root: Path, runs: list[dict[str, Any]], pairs: list[dict[str, Any
     atomic_json(root / "pair-summary.json", {
         key: value[key] for key in (
             "schema_version", "updated_at", "campaign_sha256", "completed_pairs",
-            "paired_accuracy_delta", "pair_classes", "last_pair_checksum",
+            "paired_accuracy_delta", "pair_classes", "exact_auto_slots", "s2_auto_slots",
+            "paired_auto_slot_delta", "last_pair_checksum",
         )
     })
 
@@ -629,7 +682,7 @@ def validate_authorization(
     value = load_json(path)
     validate_checksum(value)
     required = {
-        "schema_version": "issue100-execution-authorization-v1",
+        "schema_version": "issue100-execution-authorization-v2",
         "verdict": "PASS",
         "safe_to_start_scored_inference": True,
         "serves_as_final_review": False,
@@ -639,8 +692,11 @@ def validate_authorization(
         "protected_plan_sha256": sha256_file(protected_plan),
         "binary_sha256": sha256_file(binary),
         "model_manifest_sha256": MODEL_MANIFEST_SHA256,
-        "cache_slots": CACHE_SLOTS,
-        "cache_bytes": CACHE_BYTES,
+        "auto_admission_sha256": AUTO_ADMISSION_SHA256,
+        "capacity_request_mode": "AUTO",
+        "capacity_request_bytes": AUTO_CACHE_REQUEST_BYTES,
+        "capacity_floor_slots": CAPACITY_FLOOR_SLOTS,
+        "capacity_floor_bytes": CAPACITY_FLOOR_BYTES,
         "non_scored_conformance": "PASS",
     }
     for key, expected in required.items():
@@ -648,8 +704,11 @@ def validate_authorization(
             raise CampaignError(f"execution authorization mismatch: {key}")
     if sha256_file(preregistration) != PREREGISTRATION_SHA256:
         raise CampaignError("public preregistration identity mismatch")
-    if not value.get("review_comment_url"):
-        raise CampaignError("authorization lacks published independent review URL")
+    if not value.get("execution_amendment_url"):
+        raise CampaignError("authorization lacks published execution amendment URL")
+    for key in ("execution_amendment_sha256", "non_scored_conformance_sha256"):
+        if not re.fullmatch(r"[0-9a-fA-F]{64}", str(value.get(key, ""))):
+            raise CampaignError(f"authorization has invalid {key}")
     return value
 
 
@@ -711,6 +770,10 @@ def build_run_record(
         "realized_swaps": routing["swaps"],
         "changed_decisions": routing["changed_decisions"],
         "cumulative_corrected_regret": routing["cumulative_score_regret"],
+        "capacity_request_mode": result["execution"]["capacity_request_mode"],
+        "auto_resolved_slots": result["cache"]["capacity_slots"],
+        "auto_resolved_bytes": result["cache"]["capacity_bytes"],
+        "autofit": result["preflight"]["system_memory"]["autofit"],
         "resource_status": result["safety"]["status"],
         "attempt_manifest_path": str(attempt_manifest.resolve()),
         "attempt_manifest_sha256": sha256_file(attempt_manifest),
@@ -728,7 +791,7 @@ def print_run_progress(record: dict[str, Any], runs: list[dict[str, Any]]) -> No
     print(
         f"[{prefix}] outcome={record['outcome']} correct={int(record['correct'])} "
         f"out={record['generated_tokens']} decode={record['decode_tok_s']:.4f} tok/s "
-        f"wall={record['total_wall_s']/60:.1f}m status=PASS",
+        f"wall={record['total_wall_s']/60:.1f}m auto_slots={record['auto_resolved_slots']} status=PASS",
         flush=True,
     )
     if record["stage"] == "B":
@@ -740,6 +803,8 @@ def print_run_progress(record: dict[str, Any], runs: list[dict[str, Any]]) -> No
             f"ISSUE100_S2_PROGRESS completed={len(s2)}/198 correct={sum(x['correct'] for x in s2)} "
             f"accuracy={sum(x['correct'] for x in s2)/len(s2):.6f} "
             f"tps_mean={statistics.fmean(tps):.6f} tps_median={statistics.median(tps):.6f} "
+            f"auto_slots_min={min(x['auto_resolved_slots'] for x in s2)} "
+            f"auto_slots_max={max(x['auto_resolved_slots'] for x in s2)} "
             f"eta_s={remaining*statistics.fmean(walls):.0f} resource=PASS",
             flush=True,
         )
@@ -759,11 +824,32 @@ def print_pair_progress(pair: dict[str, Any], runs: list[dict[str, Any]], pairs:
         f"exact={sum(row['correct'] for row in exact)}/{len(exact)} "
         f"s2={sum(row['correct'] for row in s2)}/{len(s2)} "
         f"delta={sum(row['accuracy_delta'] for row in pairs)/len(pairs):+.6f} "
+        f"exact_auto_slots={pair['exact_auto_slots']} s2_auto_slots={pair['s2_auto_slots']} "
+        f"auto_slot_delta={pair['auto_slot_delta']:+d} "
         f"exact_tps_mean={exact_tps:.6f} s2_tps_mean={s2_tps:.6f} "
         f"tps_ratio={s2_tps/exact_tps:.6f} "
         f"eta_pair30_s={(30-len(pairs))*statistics.fmean(pair_walls):.0f}",
         flush=True,
     )
+
+
+def build_probe_command(
+    binary: Path,
+    model: Path,
+    input_path: Path,
+    result_path: Path,
+    progress_path: Path,
+    arm: str,
+    seed: int,
+) -> list[str]:
+    """Build one direct production-AUTO benchmark-process invocation."""
+    return [
+        str(binary), "--model", str(model), "--input", str(input_path),
+        "--output", str(result_path), "--progress", str(progress_path),
+        "--arm", arm, "--seed", str(seed),
+        "--max-generated", str(MAX_GENERATED), "--n-ctx", str(N_CTX),
+        "--threads", str(THREADS), "--issue-mode", "BATCHED",
+    ]
 
 
 def main() -> int:
@@ -778,6 +864,9 @@ def main() -> int:
     args = parser.parse_args()
 
     repo_root = args.repo_root.resolve(strict=True)
+    auto_admission_path = (repo_root / PUBLIC_AUTO_ADMISSION).resolve(strict=True)
+    if sha256_file(auto_admission_path) != AUTO_ADMISSION_SHA256:
+        raise CampaignError("AUTO admission amendment identity drift")
     binary = args.binary.resolve(strict=True)
     model = args.model.resolve(strict=True)
     protected_plan_path = args.protected_plan.resolve(strict=True)
@@ -810,8 +899,11 @@ def main() -> int:
         "adapter_binary_sha256": sha256_file(binary),
         "protected_plan_sha256": sha256_file(protected_plan_path),
         "execution_authorization_sha256": sha256_file(args.execution_authorization),
-        "capacity_slots": CACHE_SLOTS,
-        "capacity_bytes": CACHE_BYTES,
+        "auto_admission_sha256": AUTO_ADMISSION_SHA256,
+        "capacity_request_mode": "AUTO",
+        "capacity_request_bytes": AUTO_CACHE_REQUEST_BYTES,
+        "capacity_floor_slots": CAPACITY_FLOOR_SLOTS,
+        "capacity_floor_bytes": CAPACITY_FLOOR_BYTES,
         "scoring_identity": "issue100-response-boundary-first-regex-v1",
     }
     control_path = root / "campaign-control.json"
@@ -822,7 +914,7 @@ def main() -> int:
                 raise CampaignError(f"campaign-control resume identity drift: {key}")
     else:
         control = {
-            "schema_version": "issue100-campaign-control-v1",
+            "schema_version": "issue100-campaign-control-v2",
             "status": "running", "started_at": utc_now(), **identity,
         }
         atomic_json(control_path, control)
@@ -889,13 +981,10 @@ def main() -> int:
             atomic_json(directory / "input.json", probe_input)
             result_path = directory / "probe-result.json"
             progress_path = directory / "progress.jsonl"
-            command = [
-                str(binary), "--model", str(model), "--input", str(directory / "input.json"),
-                "--output", str(result_path), "--progress", str(progress_path),
-                "--arm", run["arm"], "--seed", str(item["generation_seed"]),
-                "--cold-cache-bytes", str(CACHE_BYTES), "--max-generated", str(MAX_GENERATED),
-                "--n-ctx", str(N_CTX), "--threads", str(THREADS), "--issue-mode", "BATCHED",
-            ]
+            command = build_probe_command(
+                binary, model, directory / "input.json", result_path, progress_path,
+                run["arm"], item["generation_seed"],
+            )
             attempt_identity = {
                 **run, "attempt_ordinal": attempt_ordinal,
                 "campaign_sha256": CAMPAIGN_SHA256,

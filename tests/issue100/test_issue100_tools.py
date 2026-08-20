@@ -42,6 +42,18 @@ def test_committed_preregistration_has_checkpoint_a_identity() -> None:
     assert value["dataset"]["archive_blob_sha1"] == "80788cb325c4d63bbccad56c2e393b33389348fe"
 
 
+def test_committed_auto_admission_amendment_identity() -> None:
+    path = ROOT / protocol.PUBLIC_AUTO_ADMISSION
+    assert protocol.sha256_file(path) == protocol.AUTO_ADMISSION_SHA256
+    value = protocol.load_json(path)
+    assert value["schema_version"] == "issue100-auto-admission-v1"
+    assert value["status"] == "ACCEPTED"
+    assert value["outcome_inspected"] is False
+    assert value["capacity"]["request_mode"] == "AUTO"
+    assert value["capacity"]["request_bytes"] == 0
+    assert value["capacity"]["floor_slots"] == protocol.CAPACITY_FLOOR_SLOTS
+
+
 def test_frozen_prompt_and_seed_algorithms() -> None:
     assert protocol.sha256_bytes(preparation.QUERY_TEMPLATE.encode()) == protocol.QUERY_TEMPLATE_SHA256
     assert protocol.generation_seed("recZSGUkn56v9kEp1") == 3_055_973_621
@@ -139,7 +151,10 @@ def test_bootstrap_exact_byte_stream_identity() -> None:
 def test_exact_mcnemar_and_wilson_dispositions() -> None:
     assert analysis.exact_mcnemar(0, 0)["p_value"] == 1.0
     assert analysis.exact_mcnemar(0, 6)["p_value"] == pytest.approx(0.03125)
-    runs = [{"correct": True} for _ in range(185)] + [{"correct": False} for _ in range(13)]
+    runs = [
+        {"correct": index < 185, "auto_resolved_slots": protocol.CAPACITY_FLOOR_SLOTS}
+        for index in range(198)
+    ]
     result = analysis.full_s2_statistics(runs, protocol_drift=False)
     assert result["accuracy"] == pytest.approx(185/198)
     assert result["protocol_fidelity"] == "OFFICIAL_PROTOCOL_NEAR_MATCH"
@@ -155,6 +170,8 @@ def synthetic_run(ordinal: int, item_id: str, arm: str, correct: bool) -> dict:
         "arm": arm,
         "correct": correct,
         "first_generated_token_id": 42,
+        "auto_resolved_slots": 6_000 if arm == "EXACT" else 6_002,
+        "auto_resolved_bytes": (6_000 if arm == "EXACT" else 6_002)*protocol.EXPERT_BUNDLE_BYTES,
     })
 
 
@@ -166,6 +183,9 @@ def test_pair_reconciliation_appends_only_after_both_arms(tmp_path: Path) -> Non
     assert len(pairs) == 1
     assert pairs[0]["pair_class"] == "EXACT-only"
     assert pairs[0]["accuracy_delta"] == -1
+    assert pairs[0]["exact_auto_slots"] == 6_000
+    assert pairs[0]["s2_auto_slots"] == 6_002
+    assert pairs[0]["auto_slot_delta"] == 2
     assert len(campaign.load_jsonl(tmp_path / "pairs.jsonl")) == 1
     assert len(campaign.reconcile_pairs(tmp_path, [exact, s2])) == 1
 
@@ -202,6 +222,16 @@ def test_interrupted_unaccepted_attempt_is_sealed_not_reused(tmp_path: Path) -> 
     assert campaign.cumulative_attempt_seconds(tmp_path) >= 0.0
 
 
+def test_probe_command_uses_direct_auto_without_capacity_argument(tmp_path: Path) -> None:
+    command = campaign.build_probe_command(
+        tmp_path / "probe", tmp_path / "model", tmp_path / "input.json",
+        tmp_path / "result.json", tmp_path / "progress.jsonl", "EXACT", 7,
+    )
+    assert "--cold-cache-bytes" not in command
+    assert command[command.index("--arm") + 1] == "EXACT"
+    assert command[command.index("--seed") + 1] == "7"
+
+
 def test_analysis_nearest_rank_is_strictly_preregistered() -> None:
     values = [0.0, 1.0, 2.0, 3.0]
     assert analysis.nearest_rank(values, 0.25) == 0.0
@@ -212,6 +242,7 @@ def test_analysis_nearest_rank_is_strictly_preregistered() -> None:
 def test_public_sources_do_not_embed_protected_gpqa_payload() -> None:
     public = [
         ROOT / "corpus/phase13/issue100-preregistration-v2.json",
+        ROOT / "corpus/phase13/issue100-auto-admission-v1.json",
         *TOOLS.glob("*.py"),
         TOOLS / "gpqa_probe.cpp",
     ]
