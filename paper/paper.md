@@ -631,160 +631,72 @@ Paper figures and secondary analyses are regenerated from the frozen evidence re
 # 7. Evaluation: Systems, Locality, and Capacity
 
 **Coordination:** [#117](https://github.com/murillo128/k3-out-of-core/issues/117)  
-**Status:** `OUTLINE`
+**Status:** `EVIDENCE_CHECK`
 
-Open with research questions rather than a results dump.
+We evaluate the systems mechanism with five questions: whether full K3 can execute under a bounded out-of-core regime; whether the frozen S2_P50 policy improves physical throughput and locality at fixed cache capacity; whether the observed behavior extends across the frozen workload corpus; whether physical backing demand explains throughput; and how much exact-routing cache would be required to match the locality physically achieved by S2_P50. Physical claims in the first four questions use #102 as the primary authority. #105 is used only for curated or derived analyses and retains its original evidence classes; in particular, replayed capacities and projected TPS are not physical measurements.
 
 ## 7.1 Experimental setup
 
-### Model
+Table 1 summarizes the primary #102 regime. We evaluate `moonshotai/Kimi-K3@9f62e4e9fffbd0a83ddd60e1c209d828994b3569`, with 92 routed layers, 896 routed experts per layer, and exact top-16 selection. The storage/cache service unit is one 17,547,264-byte ExpertBundle. The measured runtime is CPU-only Mode-P/BATCHED with 32 inference threads. Routed experts are backed by one local NVMe device and serviced through native `io_uring` + `O_DIRECT` into a managed cache of 7,849 ExpertBundle slots (137,728,475,136 bytes, 128.27 GiB).
 
-```text
-Kimi K3
-92 routed layers
-896 routed experts/layer
-top-16 exact selection
-expert bundle 17,547,264 bytes
-```
+| Component | Frozen #102 setting |
+|---|---|
+| Model | Kimi K3, 92 routed layers, 896 experts/layer, top-16 |
+| ExpertBundle | 17,547,264 B per `(layer, expert)` |
+| Managed cache | 7,849 slots = 137,728,475,136 B (128.27 GiB) |
+| Execution | CPU-only Mode-P/BATCHED, 32 threads |
+| Backing path | single local NVMe, native `io_uring` + `O_DIRECT` |
+| Context | `n_ctx = 512` |
+| Run isolation | fresh process/model/provider/context; cold managed cache |
+| Measured window | 64 complete one-token decode forwards |
+| Policies | EXACT, frozen KNEE, frozen S2_P50 |
 
-### Primary #102 physical regime
+The full-prompt protocol is important for interpreting locality. Each run starts from an empty managed cache, consumes the complete templated prompt under EXACT routing, and preserves the resulting cache contents. At the prompt/decode boundary the requested decode policy is enabled and the performance/locality counters are reset, so prompt ingestion is excluded from decode TPS. S2_P50 uses `candidate_count = 32`, `max_swaps = 2`, and `max_score_regret = 0.007303759455680847`; KNEE is the previously frozen one-swap comparison, not a policy retuned on #102.
 
-```text
-cache slots           7,849
-cache bytes           137,728,475,136
-backend               CPU-only Mode-P/BATCHED
-threads               32
-I/O                    native io_uring + O_DIRECT
-backing               single local NVMe
-process discipline    fresh process, cold managed cache
-```
+The workload contains 128 primary prompts arranged as 16 semantic families × 8 templated-prompt length bands, plus eight full-prompt sentinels for drift control. Stage B selects 16 family representatives for untimed observer analysis. Stage C uses 24 unique prompts—the 16 representatives plus four low- and four high-locality cases—and adds one fresh EXACT and one fresh KNEE process for each prompt while reusing its already-frozen S2_P50 row. Thus Stage C contributes 48 new physical comparison runs without rerunning S2_P50. #98 is used only to document the earlier policy-selection history; none of its absolute TPS or locality values are pooled with the full-prompt #102 measurements reported here.
 
-Before final text, copy exact host/device/model/software identities from immutable evidence rather than issue prose.
+The primary physical evidence is frozen in `issue102-cross-prompt-v1` (archive SHA-256 `e198913eb541b2a2e7465a01e09215fc5fecf6fb91574ff1841b11bf2664250c`). The derived analyses used below come from the final reviewed `issue105-curated-analysis-v3` release (archive SHA-256 `e0fe96c2f4dd3d2cfc8ced16901949936ba3e72c79ebdd4eb412f371fe843fb3`).
 
-### Policies
+## 7.2 RQ1: Can full K3 execute out of core in this regime?
 
-```text
-EXACT
-KNEE
-S2_P50
-```
+Yes, within the qualified #102 regime. The campaign produced all 128 primary S2_P50 measurements and all 24 Stage-C comparison pairs without a failed Stage-C cell, while preserving the native direct-I/O path and bounded managed cache. Across the 128 primary prompts, measured S2_P50 decode throughput has median 0.3291 token/s, with p10–p90 0.3134–0.3456 token/s and range 0.3050–0.3573 token/s. The corresponding median hit ratio is 0.6303 and median backing demand is 544.23 loads/token (9.55 GB/token).
 
-Explain the role of KNEE as a historical/frozen comparison, not a candidate being retuned during #102/#99.
+These results establish feasibility and a physical operating envelope, not interactive usability. Absolute throughput is specific to this CPU/NVMe execution regime, representation, capacity, and host. Our subsequent claims therefore focus on paired effects and on the amount of expert demand crossing the backing boundary rather than treating the measured token rate as a hardware-independent property of K3.
 
-### Workload
+## 7.3 RQ2: Does S2_P50 improve physical performance at fixed capacity?
 
-- 128 S2_P50 primary prompts, 16 families × 8 length levels;
-- 8 deterministic sentinels;
-- 16 family representatives / observer analysis;
-- 24 unique Stage-C prompts with physical EXACT/KNEE comparison and frozen S2 rows.
+Yes on every Stage-C prompt. Table 2 reports paired `MEASURED_PHYSICAL` results at the same 7,849-slot cache capacity. Relative to EXACT, S2_P50 improves decode TPS in 24/24 prompts, with a median ratio of 1.1049 (10.49% higher) and a range of 1.0296–1.1458. Relative to KNEE, it also wins 24/24, with a median ratio of 1.0622 (6.22% higher) and a range of 1.0044–1.0975.
 
-## 7.2 Q1 — Can full K3 be served out of core in this regime?
+| S2_P50 relative to | TPS ratio, median (range) | Median Δ hit ratio | Median Δ loads/token | Median Δ backing bytes/token | TPS wins |
+|---|---:|---:|---:|---:|---:|
+| EXACT | 1.1049 (1.0296–1.1458) | +0.06938 | -102.125 | -1,792,014,336 B | 24/24 |
+| KNEE | 1.0622 (1.0044–1.0975) | +0.04030 | -59.320 | -1,040,909,184 B | 24/24 |
 
-Establish feasibility and absolute envelope without overselling usability.
+The direction is equally consistent for locality: S2_P50 has a higher hit ratio and fewer backing loads in all 24 comparisons against both EXACT and KNEE. The throughput gain therefore coincides with less physically serviced expert traffic, rather than with additional measured cache capacity. Because the ExpertBundle size is fixed, the load-count and backing-byte reductions describe the same physical demand at two useful units: expert services and transferred bytes.
 
-Candidate evidence:
+## 7.4 RQ3: Does the behavior extend across workloads?
 
-- successful full-K3 physical campaigns;
-- stable native direct-I/O path;
-- resource/fallback correctness;
-- observed absolute TPS distribution.
+The frozen corpus shows broad but workload-conditioned behavior. Across the 128 primary S2_P50 runs, TPS spans 0.3050–0.3573 token/s, hit ratio spans 0.5811–0.6798, and backing demand spans 471.33–616.58 loads/token. A family-only decomposition accounts for about half of the observed variation in TPS (R² = 0.497) and hit ratio (R² = 0.500), whereas length level alone explains little (R² = 0.0045 for TPS and 0.0088 for hit ratio). #102 therefore classifies the semantic-family effect as strong, the token-length effect as weak, route coverage as broad, and cross-prompt dispersion as high.
 
-Do not turn feasibility into “practical consumer inference” unless absolute performance supports the use case.
+The sentinels separate this workload dependence from timing drift. Their deterministic route/locality signatures remain equal across rounds, while their TPS p90–p10 spread is 0.00143 token/s. The primary-prompt p90–p10 TPS spread is 0.03224 token/s, 22.6× larger. Host noise is therefore visible but too small to explain the cross-prompt range. Stage C then supplies the paired check: S2_P50 remains faster than both EXACT and KNEE throughout its 24 cross-family/locality-selected prompts, although the gain magnitude varies and the KNEE/S2_P50 interaction is classified as moderate. These results support broad generalization within the frozen 16×8 K3 corpus; they do not establish universal prompt or cross-model behavior.
 
-## 7.3 Q2 — Does S2_P50 improve physical performance?
+## 7.5 RQ4: How does backing demand relate to throughput?
 
-Primary #102 Stage-C result:
+The physical comparison suggests a direct mechanism—S2_P50 reduces backing loads at the same time that TPS rises—but #105 tests that relationship more systematically. Using only protocol-compatible `MEASURED_PHYSICAL` #102 rows as inputs, its post-hoc leave-one-family-out model with loads/token as the primary predictor obtains R² = 0.993536 and RMSE = 0.000928 token/s. A protocol-compatible sensitivity fit gives LOFO R² = 0.992656. A separate working-set analysis finds that the best single frozen feature, `top16_selected_mass_fraction`, explains physical hit-ratio variation only moderately (pooled LOFO R² = 0.465884).
 
-> S2_P50 improves the measured systems result versus both EXACT and KNEE in 24/24 selected prompts.
+The distinction is important. Route structure helps explain where reuse can arise, but the number of ExpertBundles actually serviced from backing storage is much more tightly associated with measured decode throughput in this regime than structural descriptors are with locality. We treat the source TPS and load counters as `MEASURED_PHYSICAL`, while the fitted relationship and feature comparison are `POST_HOC_EXPLORATORY`. The #105 projection gate passes within the measured predictor domain, but projected TPS is not used here as physical evidence and is not extrapolated beyond that domain.
 
-Report paired distributions:
+## 7.6 RQ5: What exact-cache capacity would match S2_P50 locality?
 
-- TPS ratio/delta;
-- loads/token delta;
-- bytes/token delta;
-- hit-ratio delta.
+A larger exact cache provides the natural memory-for-locality baseline, but #102 does not physically rerun EXACT at every larger capacity. We therefore answer this question only as a counterfactual. #105 places the locality physically achieved by S2_P50 at the measured cache on the frozen EXACT replay capacity curve and reports discrete capacity brackets rather than fitted thresholds. All 44 published cases are bracket-consistent.
 
-Do not report only the 24/24 count.
+For the hit-derived physical-reference comparison, the median lower and upper endpoints of the EXACT capacity-amplification interval are 1.247× and 1.497× the measured reference capacity. Across cases, lower endpoints range from 1.000× to 1.497× and upper endpoints from 1.247× to 1.996×. Thus, according to the frozen EXACT replay curve, the locality physically reached by S2_P50 often corresponds to an EXACT cache bracket larger than the cache actually used by S2_P50.
 
-### Figure 5 candidate
+This is `EXACT_REPLAY`/counterfactual evidence combined with `POST_HOC_EXPLORATORY` analysis. No larger-cache EXACT TPS is measured by this result, and the interval is neither a measured RAM saving nor an exact memory threshold. Its role is narrower: it expresses the S2_P50 locality improvement in the same resource coordinate that an exact-routing system would otherwise spend—cache capacity.
 
-Paired Stage-C physical results across all 24 prompts, preferably sorted by EXACT locality or semantic family.
+## 7.7 Evidence boundaries
 
-## 7.4 Q3 — Does the gain generalize across workloads?
-
-Use the complete 128-prompt S2 distribution and Stage-C explanations.
-
-Report:
-
-```text
-cross-prompt dispersion       high
-semantic-family effect        strong
-token-length effect           weak
-route coverage                broad
-S2_P50 paired gain            broad
-KNEE/S2 interaction           moderate
-```
-
-Include sentinel evidence to distinguish deterministic route/locality stability from host TPS noise.
-
-### Figure 6 candidate
-
-128-prompt family/length distribution, or combine with Figure 5 to save space.
-
-## 7.5 Q4 — What explains throughput?
-
-Use measured #102 rows through final #105 v3 curated analysis.
-
-Headline:
-
-```text
-loads/token primary LOFO R²       0.993536
-best single working-set LOFO R²   0.465884
-```
-
-Interpretation:
-
-> Route structure matters, but actual physical backing-service demand is a much stronger predictor of throughput in this measured regime.
-
-### Figure 7 — hero figure
-
-Measured TPS vs loads/token, with held-out-family/LOFO validation and measured-domain annotation.
-
-Caption must state:
-
-- source physical rows are measured;
-- statistical relationship/model is post-hoc exploratory;
-- no extrapolation outside measured calibration domain.
-
-## 7.6 Q5 — What exact-cache capacity would match S2 locality?
-
-Use final #105 virtual-cache/exact-replay analysis.
-
-Question:
-
-> At the locality physically achieved by S2_P50, what exact-routing cache capacity would be required according to the frozen exact-replay capacity curve?
-
-This is a **counterfactual equivalence**.
-
-Use final corrected interval propagation from v3 only. Do not reuse failed-review v1/v2 schema/value interpretations.
-
-### Figure 8 candidate
-
-S2 physical locality point projected onto exact-routing capacity/locality curve, with interval/evidence-class labeling.
-
-Do not caption this as a measured RAM saving.
-
-## 7.7 Evidence legend
-
-Every result figure should visually or textually distinguish:
-
-```text
-physical measured
-observer measured
-replay/counterfactual
-projection
-after-the-fact exploratory analysis
-```
+The evaluation intentionally keeps measurement and inference separate. RQ1–RQ3 use #102 physical runs; observer captures contribute route structure but never timed throughput. RQ4 uses measured physical inputs, but its regression is an after-the-fact exploratory analysis from #105. RQ5 uses physical S2_P50 locality as a target and exact-route replay for hypothetical capacities. Any TPS obtained by applying the #105 fitted model to a replayed capacity is a `TPS_PROJECTION`, not a measured physical run. Finally, #98 remains protocol-distinct policy-selection context and is not merged into #102 absolute distributions or calibration data.
 
 ---
 
