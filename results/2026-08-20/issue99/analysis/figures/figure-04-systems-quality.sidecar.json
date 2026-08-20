@@ -1,0 +1,48 @@
+{
+  "figure": {
+    "canonical_path": "/mnt/nvme1/issue99/analysis-v1/figures/figure-04-systems-quality.svg",
+    "device": 66304,
+    "inode": 2147941489,
+    "sha256": "37032403a4c2a87d6fdd23c576b80d5a63d84152e64714a6265f6efd700d7684",
+    "size_bytes": 47670
+  },
+  "inputs": {
+    "checkpoints": {
+      "canonical_path": "/mnt/nvme1/issue99/analysis-v1/datasets/longrun-checkpoints.parquet",
+      "device": 66304,
+      "inode": 468816,
+      "sha256": "ea9d98b5bccaa91d5ed356f214a8f81de0e7ed3fcdf6f9e4dd761eda1d6f64e6",
+      "size_bytes": 60198
+    },
+    "expected_analysis": {
+      "canonical_path": "/mnt/nvme1/issue99/analysis-v1/analysis.json",
+      "device": 66304,
+      "inode": 25233183742,
+      "sha256": "fdd0877cd5f25bd6858181eb2fede8291ab280f33616da7b0fd0d58717b3553c",
+      "size_bytes": 45250
+    },
+    "issue105_physical_runs": {
+      "canonical_path": "/workspace/k3-out-of-core/results/2026-08-17/issue105/tables/physical_runs.csv",
+      "device": 64512,
+      "inode": 1748827,
+      "sha256": "47527a419d6ec3d1c9939beb3d6ec6b7776627079db6e4011707e746bb03b64c",
+      "size_bytes": 144364
+    },
+    "issue105_virtual_capacity": {
+      "canonical_path": "/workspace/k3-out-of-core/results/2026-08-17/issue105/analysis/virtual-cache-capacity.csv",
+      "device": 64512,
+      "inode": 18585639,
+      "sha256": "311464cbffb6385b1e62df1038fb1c832b57d3659c2653a06534b0fc2c00d80f",
+      "size_bytes": 167136
+    },
+    "tokens": {
+      "canonical_path": "/mnt/nvme1/issue99/analysis-v1/datasets/longrun-token-quality.parquet",
+      "device": 66304,
+      "inode": 468815,
+      "sha256": "ec01370d4bb7de40df140021aa9ab13f8d4ab756736e8315d02b993e78da5a1a",
+      "size_bytes": 10329131
+    }
+  },
+  "schema_version": "issue99-figure-sidecar-v1",
+  "title": "Frozen systems benefit versus predictive damage"
+}

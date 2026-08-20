@@ -1,0 +1,102 @@
+{
+  "comparisons": {
+    "P1_over_P0": {
+      "classification": "weak",
+      "interval_95": [
+        -4.1536559342705463e-07,
+        1.5600442143886986e-05
+      ],
+      "mean_prior_minus_new_squared_error": 7.955808300522487e-06
+    },
+    "P2_over_P1": {
+      "classification": "weak",
+      "interval_95": [
+        -2.888378155480594e-06,
+        5.958286096915837e-06
+      ],
+      "mean_prior_minus_new_squared_error": 1.701124482729809e-06
+    },
+    "P3_over_P2": {
+      "classification": "no",
+      "interval_95": [
+        -3.6841805417115723e-06,
+        -1.0394946557280908e-06
+      ],
+      "mean_prior_minus_new_squared_error": -2.232200157362654e-06
+    },
+    "P4_over_P3": {
+      "classification": "no",
+      "interval_95": [
+        -2.193313341462591e-06,
+        5.060477594711532e-07
+      ],
+      "mean_prior_minus_new_squared_error": -6.91627676620406e-07
+    }
+  },
+  "models": {
+    "P0": {
+      "features": [
+        "cumulative_max_corrected_regret_per_swap",
+        "cumulative_mean_corrected_regret_per_swap"
+      ],
+      "lofo_r2": 0.016863127313299198,
+      "lofo_rmse": 0.007627637124897796,
+      "prompt_clusters": 16,
+      "rows": 192
+    },
+    "P1": {
+      "features": [
+        "cumulative_max_corrected_regret_per_swap",
+        "cumulative_mean_corrected_regret_per_swap",
+        "cumulative_corrected_regret"
+      ],
+      "lofo_r2": 0.15129995225612125,
+      "lofo_rmse": 0.007086962664540899,
+      "prompt_clusters": 16,
+      "rows": 192
+    },
+    "P2": {
+      "features": [
+        "cumulative_max_corrected_regret_per_swap",
+        "cumulative_mean_corrected_regret_per_swap",
+        "cumulative_corrected_regret",
+        "cumulative_raw_regret_signed"
+      ],
+      "lofo_r2": 0.18004546316488435,
+      "lofo_rmse": 0.006965910947310971,
+      "prompt_clusters": 16,
+      "rows": 192
+    },
+    "P3": {
+      "features": [
+        "cumulative_max_corrected_regret_per_swap",
+        "cumulative_mean_corrected_regret_per_swap",
+        "cumulative_corrected_regret",
+        "cumulative_raw_regret_signed",
+        "changed_slot_fraction",
+        "perturbed_layer_fraction"
+      ],
+      "lofo_r2": 0.14232586379080248,
+      "lofo_rmse": 0.007124332634235257,
+      "prompt_clusters": 16,
+      "rows": 192
+    },
+    "P4": {
+      "features": [
+        "cumulative_max_corrected_regret_per_swap",
+        "cumulative_mean_corrected_regret_per_swap",
+        "cumulative_corrected_regret",
+        "cumulative_raw_regret_signed",
+        "changed_slot_fraction",
+        "perturbed_layer_fraction",
+        "cumulative_regret_weighted_mean_normalized_depth",
+        "cumulative_first_perturbed_normalized_depth"
+      ],
+      "lofo_r2": 0.13063877614675745,
+      "lofo_rmse": 0.007172708216555994,
+      "prompt_clusters": 16,
+      "rows": 192
+    }
+  },
+  "status": "pass"
+}

@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/murillo128/k3-out-of-core/schemas/issue99/release-archive-index-v1.schema.json",
+  "title": "Issue 99 immutable release archive index",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": "issue99-release-archive-index-v1"},
+    "status": {"const": "PASS"},
+    "release": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tag": {"const": "issue99-long-horizon-quality-v1"},
+        "content_root": {"const": "issue99-long-horizon-quality-v1/analysis"},
+        "indexed_files": {"const": 169},
+        "indexed_bytes": {"minimum": 1, "type": "integer"}
+      },
+      "required": ["tag", "content_root", "indexed_files", "indexed_bytes"]
+    },
+    "assets": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {"pattern": "^issue99-long-horizon-quality-v1-(core|routes)\\.tar\\.zst$", "type": "string"},
+          "bytes": {"minimum": 1, "type": "integer"},
+          "sha256": {"pattern": "^[0-9a-f]{64}$", "type": "string"},
+          "role": {"enum": ["analysis-and-non-route-datasets", "route-record-dataset"], "type": "string"},
+          "indexed_files": {"minimum": 1, "type": "integer"}
+        },
+        "required": ["name", "bytes", "sha256", "role", "indexed_files"]
+      }
+    },
+    "targets": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "analysis_code_commit": {"pattern": "^[0-9a-f]{40}$", "type": "string"},
+        "campaign_code_commit": {"pattern": "^[0-9a-f]{40}$", "type": "string"},
+        "nested_llama_cpp_commit": {"pattern": "^[0-9a-f]{40}$", "type": "string"}
+      },
+      "required": ["analysis_code_commit", "campaign_code_commit", "nested_llama_cpp_commit"]
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "analysis_sha256": {"pattern": "^[0-9a-f]{64}$", "type": "string"},
+        "campaign_progress_sha256": {"pattern": "^[0-9a-f]{64}$", "type": "string"},
+        "checkpoint_a_preregistration_sha256": {"pattern": "^[0-9a-f]{64}$", "type": "string"},
+        "checkpoint_a_review_sha256": {"pattern": "^[0-9a-f]{64}$", "type": "string"},
+        "release_index_sha256": {"pattern": "^[0-9a-f]{64}$", "type": "string"},
+        "reproduction_sha256": {"pattern": "^[0-9a-f]{64}$", "type": "string"},
+        "reproduced_analysis_sha256": {"pattern": "^[0-9a-f]{64}$", "type": "string"}
+      },
+      "required": [
+        "analysis_sha256",
+        "campaign_progress_sha256",
+        "checkpoint_a_preregistration_sha256",
+        "checkpoint_a_review_sha256",
+        "release_index_sha256",
+        "reproduction_sha256",
+        "reproduced_analysis_sha256"
+      ]
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "cells": {"const": 72},
+        "pairs": {"const": 50},
+        "checkpoint_rows": {"const": 312},
+        "token_rows": {"const": 31744},
+        "substitution_event_rows": {"const": 2246262},
+        "layer_rows": {"const": 2920448},
+        "route_rows": {"const": 2920448}
+      },
+      "required": ["cells", "pairs", "checkpoint_rows", "token_rows", "substitution_event_rows", "layer_rows", "route_rows"]
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "archive_integrity": {"const": "PASS"},
+        "combined_member_coverage": {"const": "PASS"},
+        "packaged_reproduction": {"const": "PASS"},
+        "fresh_checkout_reproduction_required": {"const": true},
+        "requires_k3_model_or_original_host": {"const": false}
+      },
+      "required": ["archive_integrity", "combined_member_coverage", "packaged_reproduction", "fresh_checkout_reproduction_required", "requires_k3_model_or_original_host"]
+    }
+  },
+  "required": ["schema_version", "status", "release", "assets", "targets", "evidence", "coverage", "verification"]
+}
