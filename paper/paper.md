@@ -1,4 +1,4 @@
-# Out-of-Core Kimi K3: Bounded Cache-Aware Routing for Memory-Constrained MoE Inference
+# Trading Routing Slack for Memory Locality in Out-of-Core Kimi K3 Inference
 
 > **Manuscript status:** outline v0  
 > **Editorial workflow:** interactive drafting; GitHub issues are coordination/state only, not issue-driven development  
@@ -8,7 +8,7 @@
 
 Alternate working title:
 
-> **Trading Routing Slack for Memory Locality in Out-of-Core MoE Inference**
+> **Out-of-Core Kimi K3: Bounded Cache-Aware Routing for Memory-Constrained MoE Inference**
 
 Do not freeze the title until task-level evaluation and venue positioning are settled.
 
@@ -220,27 +220,9 @@ Prefer precise scope wording:
 # Abstract
 
 **Coordination:** [#110](https://github.com/murillo128/k3-out-of-core/issues/110)  
-**Status:** `OUTLINE` / task-level final sentence pending #100/#101
+**Status:** `EVIDENCE_CHECK` / task-level claims deliberately excluded pending #100/#101
 
-## Abstract flow
-
-1. Sparse MoEs decouple active compute from total capacity, but not storage footprint.
-2. Moving frontier-scale expert pools out of memory makes selected-expert service the bottleneck.
-3. Present explicit out-of-core K3 runtime + deterministic hard-regret-bounded cache-aware routing.
-4. Quantify systems/generalization result and locality→TPS relation.
-5. Quantify predictive cost/feedback and task-level result when available.
-6. End with the scope: K3-specific evidence and a performance–capacity–quality frontier.
-
-## Draft placeholder
-
-> **TODO:** Write a 150–250 word venue-agnostic abstract after the Introduction claim ladder is stable. Use at most 3–4 headline quantitative results. Do not enumerate implementation features.
-
-Candidate result set for the first draft:
-
-- 24/24 Stage-C physical wins vs EXACT and KNEE;
-- loads/token LOFO R² = 0.993536, explicitly in-domain/post-hoc;
-- S2 vs EXACT mean ΔNLL +0.012030 and/or feedback factor 1.4210x;
-- final task-level paired result from #100/#101 once accepted.
+Mixture-of-Experts (MoE) models reduce active computation by routing each token to a small subset of experts, but their full expert pool can remain too large for memory-constrained inference. Moving experts to NVMe allows the expert pool to exceed memory capacity, but turns routing decisions into physical storage demand. We study this problem on full Kimi K3 and combine an explicit out-of-core runtime with deterministic, training-free cache-aware substitutions drawn from a bounded candidate set, with at most two swaps and a hard per-swap router-score regret limit. Across a frozen 128-prompt corpus, the selected S2_P50 policy achieves higher measured decode TPS than both exact routing and the frozen KNEE policy in all 24 Stage-C prompts. Within the same measured domain, a post-hoc leave-one-family-out analysis finds backing expert loads per token to be a strong predictor of physical decode throughput (R² = 0.993536), linking routing locality to systems performance. The gain is not quality-neutral: under controlled fixed-context evaluation, S2_P50 increases reference-token NLL by 0.012030 on average, while free-generation experiments show a mean 1.4210× amplification of the measured perturbation through token-mediated autoregressive feedback. These results establish a K3-specific performance–memory-locality–quality trade-off; task-level accuracy preservation and cross-model generality remain outside the current evidence.
 
 ---
 
