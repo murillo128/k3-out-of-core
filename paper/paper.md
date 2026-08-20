@@ -861,100 +861,55 @@ These prior results motivate the questions we ask about workload-conditioned wor
 # 11. Discussion and Limitations
 
 **Coordination:** [#121](https://github.com/murillo128/k3-out-of-core/issues/121)  
-**Status:** `OUTLINE`
+**Status:** `EVIDENCE_CHECK` / task-level conclusions remain pending #100/#101
 
 ## 11.1 What the evidence establishes
 
-Subject to final claim review:
+The central result is narrower than a new expert-cache architecture. The provider boundary, managed expert slots, asynchronous backing service, and cache hierarchy used here all have clear precedents in expert-offloading systems. What the K3 evidence establishes is that, once expert residency is explicit, a small amount of bounded routing slack can be used as a second systems control surface: at the same measured 7,849-slot cache capacity, the frozen S2_P50 policy reduces the number of ExpertBundles that cross the backing boundary and improves measured decode TPS over both EXACT and KNEE in all 24 Stage-C prompts. The mechanism changes demand presented to the cache; it does not obtain the result by allocating a larger measured cache.
 
-- full K3 can be served/measured out of core under an explicit physical regime;
-- backing expert service demand dominates throughput variation in the measured domain;
-- bounded residency-aware substitutions reduce physical service demand at fixed measured cache capacity;
-- the systems gain is broad but workload-conditioned across the frozen corpus;
-- changed routing has measurable predictive cost and material token-mediated feedback.
+This demand-side control is complementary to making exact misses cheaper. Systems such as MoE-Infinity, WASTE, Colibrì, and FreeToken improve placement, prefetching, transfer, or execution of router-selected experts under different physical regimes. Nothing in our measurements shows that those exact-routing techniques are exhausted or unnecessary. A faster backing path can reduce the cost of every remaining miss, while bounded routing can reduce how many misses reach that path. The distinction matters because the measured K3 regime remains strongly sensitive to backing service: using protocol-compatible physical rows, the post-hoc #105 analysis finds loads/token tightly associated with decode TPS under leave-one-family-out validation. We treat that relationship as an in-domain systems characterization, not as a universal performance law.
+
+The resulting systems gain is also not free. S2_P50 intentionally changes expert membership, and #99 measures a positive long-horizon predictive cost under a fixed reference trajectory together with material token-mediated amplification under free generation. Taken together, the paper therefore establishes a K3-specific performance–memory-locality–quality trade-off: bounded residency-aware routing can reduce physical expert service at fixed measured capacity, but the approximation changes the model and must be evaluated as such.
 
 ## 11.2 Model generality
 
-Primary evidence is Kimi K3.
+The primary evidence is specific to Kimi K3. The useful slack observed here depends on K3's 896-expert, top-16 routing geometry, its corrected selection score, the distribution of near-boundary candidates, and the realized residency opportunities of the measured workloads. S2_P50's top-32 envelope, two-swap limit, and `0.007303759455680847` score-regret threshold are therefore K3 operating parameters, not transferable constants for another MoE.
 
-Do not infer:
+The same boundary applies to the locality analysis. The frozen K3 corpus exhibits workload-conditioned route demand and a recurrent selected-expert core with a large periphery, but §9 derives that structure post hoc from selected-route frequency and overlap. It neither assigns semantic functions to individual experts nor establishes that other MoEs have the same core/periphery shape. Prior cross-model work already shows that natural routing locality varies materially across architectures, so another model requires its own route, residency, and quality measurements before the same mechanism or thresholds can be justified.
 
-- same slack on every MoE;
-- same threshold on another model;
-- universal core/periphery structure.
+Accordingly, the claim of this paper is “on Kimi K3,” not “for MoEs in general.” Cross-model studies could test whether the same bounded-demand principle transfers, but they are not part of the evidence required for the K3-specific result reported here.
 
-#81/#84/#85/#86 may later broaden the claim, but are not required for a K3-specific paper.
+## 11.3 Hardware and storage generality
 
-## 11.3 Hardware/storage generality
+The primary physical measurements also describe one concrete execution regime: CPU-only full-K3 decode, source-MXFP4 routed experts, a 7,849-slot managed host cache, one local NVMe backing device, and native `io_uring` + `O_DIRECT`. The measured absolute TPS and the numerical relationship between loads/token and TPS depend on that balance of compute, storage latency and bandwidth, memory capacity, representation, cache policy, and execution backend. A GPU-heavy system, a RAM-resident expert pool, multiple storage devices, a different quantization, or substantially faster backing I/O can move the bottleneck and change both the value of a cache hit and the benefit of avoiding a load.
 
-State:
+For this reason, the portable quantity is the *physical expert-service demand to be measured*, not the particular slope or R² obtained on this host. The #105 locality-to-TPS fit is `POST_HOC_EXPLORATORY` and valid only within its measured predictor domain. Likewise, WASTE, Colibrì, and FreeToken provide important design and feasibility context but use different representations, memory hierarchies, hardware, and protocols; their reported token rates are not direct throughput baselines for our measurements. The #102 throughput envelope establishes feasibility in the qualified regime, not interactive usability or practicality on arbitrary consumer hardware.
 
-- absolute TPS depends on hardware, storage, representation, memory capacity, and execution backend;
-- #105's locality→TPS model is in-domain/post-hoc exploratory;
-- external WASTE/Colibrì/FreeToken results represent different physical regimes;
-- physical service demand is the transferable concept, not necessarily the measured numerical slope.
+The virtual-cache analysis has a still narrower interpretation. It places the locality physically achieved by S2_P50 on the frozen EXACT replay capacity curve and reports an interval of exact-cache capacities that would match that locality under the replayed route. This is a counterfactual exact-cache equivalence, not a physical experiment at the larger capacities. It therefore does not establish measured RAM savings, measured larger-cache EXACT throughput, or an exact memory threshold on this or another host. Its value is to express the locality gain in the resource coordinate that an exact-routing system would otherwise spend: cache capacity.
 
-## 11.4 Quality/task generality
+## 11.4 Quality and task validity
 
-Evidence hierarchy:
+The hard router-score regret bound is an operational constraint, not a quality guarantee. It limits how far each selected-to-candidate substitution may move in K3's corrected selection score and, together with `max_swaps`, makes the approximation local and auditable. It does not bound the functional difference between two experts or the downstream effect of repeatedly changing membership. The #99 result makes that distinction empirical: S2_P50 increases reference-token NLL versus EXACT by `+0.012030` on average across the 16 fixed-context prompt clusters (95% cluster-bootstrap interval `0.008440..0.015435`), while simple cumulative-regret and perturbation-fraction summaries have weak or unsupported held-out predictive value for long-horizon damage.
 
-```text
-short-horizon internal perturbation   #77
-long-horizon predictive / feedback    #99
-task-level GPQA                        #100 pending
-independent MMLU/GSM8K                #101 pending
-```
+Autoregressive generation adds a second validity boundary. Under the three controlled bridge prompts, free trajectories amplify the corresponding direct perturbation by a mean `1.4210×` (95% interval `1.2225..1.7099`), with heterogeneous behavior through 1,024 tokens. This is evidence that token-mediated feedback matters under the measured intervention; it is not a conversion factor from ΔNLL to answer accuracy, nor a statement that output quality is “1.42× worse.”
 
-Even if task deltas are small, do not claim universal semantic equivalence beyond measured tasks/protocols.
+Task-level validity remains unresolved in the current manuscript. #100 states that no GPQA task-quality outcome has yet been generated or inspected, and #101 remains investigation-required for independent MMLU-family and GSM8K-family validation. Moonshot's published GPQA score is an external near-match reference, not a local EXACT control. Until those experiments produce accepted evidence, the paper does not claim preserved task accuracy, semantic equivalence, or “no quality loss.” Even future small task deltas would support only the measured tasks and protocols; a mixed result across likelihood-based and free-generation tasks would be informative rather than something to collapse into a single quality-neutrality claim.
 
-## 11.5 Evidence classes
+## 11.5 Evidence classes and interpretation
 
-The paper intentionally combines:
+The paper deliberately combines evidence classes because they answer different questions, but their roles are not interchangeable. The strongest systems comparisons in §7 are `MEASURED_PHYSICAL`: fresh-process EXACT, KNEE, and S2_P50 runs at the same measured cache capacity. `MEASURED_OBSERVER` captures describe route and reuse structure without supplying physical throughput. `EXACT_REPLAY`, `FIXED_ROUTE_COUNTERFACTUAL`, and related counterfactuals ask what a frozen route or alternative residency allocation would have done without claiming that the corresponding system was physically run. `TPS_PROJECTION` denotes a fitted estimate, never a timed benchmark. The controlled #99 `DIRECT_FIXED_CONTEXT` and `FREE_TRAJECTORY` experiments form a separate quality evidence layer rather than being inferred from systems replay.
 
-- measured physical runs;
-- observer traces;
-- replay/counterfactuals;
-- projections;
-- post-hoc exploratory analyses;
-- controlled quality interventions.
+The main secondary analyses introduced by #105—including locality-to-TPS modeling, virtual-cache equivalence, working-set predictors, and core/pinning analyses—are explicitly `POST_HOC_EXPLORATORY`. Their measured inputs do not make the analyses preregistered or confirmatory. Leave-one-family-out validation and sensitivity checks strengthen their usefulness inside the frozen domain, but they do not change that evidence class. The same discipline keeps #98 separate: its physical measurements establish the earlier policy-selection context under a different protocol and are not pooled with #102 absolute TPS or locality.
 
-Captions/tables must make those classes visible enough that measurement and inference are not conflated.
+These distinctions are part of the scientific result rather than appendix bookkeeping. A physical 24/24 paired win, a replayed capacity bracket, a projected TPS value, and an exploratory structural explanation can all be useful, but they support different claims. Figures and tables should therefore retain their evidence-class labels wherever a reader could otherwise mistake inference for measurement.
 
 ## 11.6 Practical implications
 
-Candidate implications:
+Three implications follow from the combined evidence. First, an out-of-core MoE runtime should expose physical expert-service demand directly. Cache hit rate is useful, but the evaluated K3 regime is better understood by asking how many complete ExpertBundles actually cross the slow boundary per generated token. That quantity connects routing, residency, and the work the backing system must perform.
 
-- optimize physical expert-service demand, not hit rate alone;
-- exact-routing execution optimizations and bounded routing changes are complementary;
-- router-score bounds are not semantic safety guarantees;
-- workload-conditioned locality limits one universal static hot-set story;
-- when routing becomes a systems control, performance, memory capacity, and quality must be measured jointly.
+Second, exact-routing optimization and demand shaping are complementary rather than competing architectures. Caching, prefetching, layout, faster I/O, and heterogeneous execution reduce the cost of servicing exact selections. Bounded residency-aware routing changes a small subset of those selections so that some expensive services are never requested. Which lever matters more will depend on the model and hardware regime, and a practical system can combine both.
 
-## 11.7 Anticipated reviewer objections
-
-### “Is this just another expert cache?”
-
-Answer: cache hierarchy is prior art; distinctive evidence is bounded routing slack reducing physical demand on full K3 plus explicit quality/feedback measurement.
-
-### “Why not just optimize exact misses?”
-
-Answer: exact-routing systems are complementary. This paper asks whether demand itself can be reduced in a harder NVMe-backed capacity regime; it does not claim exact miss optimization is universally exhausted.
-
-### “Does local regret guarantee quality?”
-
-Answer: no; #99 directly measures drift and weak simple safety predictors.
-
-### “Is it general across models?”
-
-Answer: not yet; primary claim is K3-specific.
-
-### “Are virtual-cache savings real RAM savings?”
-
-Answer: they are replay/counterfactual equivalence estimates unless physically validated at those exact capacities.
-
-### “Was locality→TPS preregistered?”
-
-Answer: no; #105 labels newly introduced secondary analyses post-hoc exploratory.
+Third, routing cannot become a systems control surface without making approximation cost a first-class output. K3's workload-conditioned locality argues against one universal static hot set, while the negative static-core counterfactual shows that recurrence alone is not a sufficient same-capacity placement rule. Dynamic residency provides useful information, but local router-score bounds do not certify long-horizon behavior. The broader systems lesson is therefore to evaluate routing flexibility, physical service demand, memory capacity, and predictive quality together rather than optimizing any one of them in isolation.
 
 ---
 
