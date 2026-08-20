@@ -437,7 +437,6 @@ Router -> membership policy (EXACT or §5 bounded)
                                             v
                                          execution
 ```
-
 If accelerator or UMA tiers are added to the final figure, they should appear as optional placements inside the provider/cache path, with the CPU-only #102 path called out explicitly as the regime used for the primary physical measurements.
 
 ## 4.7 Architectural lineage and scope
@@ -547,7 +546,6 @@ using the same ordinary probability tensor, gather, normalization, and scaling a
 Changing membership can of course change the numerical weight vector because a different expert probability is gathered and the existing normalization is applied to a different selected set. The preserved property is the **weighting semantics**, not equality of the weights to the exact route. This distinction matters for causal interpretation: the intentional approximation is which experts are selected; how K3 combines the resulting selected experts remains model-defined.
 
 ### Figure 4 candidate — bounded routing mechanism
-
 ```text
 ordinary K3 probabilities p ---------------------------> unchanged K3 weighting
               |                                                   ^
@@ -793,81 +791,41 @@ The current evidence therefore supports a performance–quality trade-off, not s
 # 9. Understanding K3 Expert Locality
 
 **Coordination:** [#119](https://github.com/murillo128/k3-out-of-core/issues/119)  
-**Status:** `OUTLINE` / optional main-paper section
+**Status:** `EVIDENCE_CHECK` / optional main-paper section
 
-This section may be shortened or moved partly to appendix if page limits are tight.
+All numerical and statistical analyses introduced in this section come from the final reviewed `issue105-curated-analysis-v3` package and are **`POST_HOC_EXPLORATORY`**. The selected-route captures describe which `ExpertKey`s recur; they are not timed execution measurements. The static-pinning experiment below is a `FIXED_ROUTE_COUNTERFACTUAL`, not a physical benchmark. These analyses were also performed after S2_P50 and the primary measurements were frozen, so they interpret the observed locality structure rather than motivating the policy retrospectively.
 
-All newly introduced #105 structure analyses are `POST_HOC_EXPLORATORY`.
+## 9.1 Workload-dependent working sets
 
-## 9.1 Workload-conditioned working sets
+The curated route summaries do not support one workload-independent expert working set. Under #105's frozen route-demand representation, the median cosine similarity between the B1 and B8 endpoints of the same workload family is `0.565156`, compared with `0.420729` between B1 cases from different families. #105 classifies this family association as supported while retaining substantial overlap and heterogeneity. The result says that route-demand profiles are more similar within the predefined workload groups on average; it does **not** say that individual experts implement the semantics named by those groups.
 
-Use curated observer features to describe:
+Working-set size and concentration also resist a one-dimensional prompt-length explanation. Across the 16 frozen B1/B8 endpoint pairs, the median number of distinct routed `ExpertKey`s is 28,759.5 at B1 and 28,971 at B8. Median mean-layer effective-expert count is 198.95 versus 200.38, mean-layer entropy is 7.553 versus 7.562 bits, and top-16 selected-mass fraction is 0.2805 versus 0.2817. The p90 finite stack distance is more separated—33,630 at B1 versus 40,081 at B8—but #105's family-adjusted actual-length hypothesis remains `weak`, with heterogeneous slopes and influential-case sensitivity. We therefore use length endpoints as descriptive stress points, not as evidence for a universal monotonic length-to-locality law.
 
-- distinct ExpertKey working sets;
-- concentration/reuse/effective-expert metrics where supported;
-- within-family versus between-family overlap;
-- B1→B8 endpoint sensitivity.
+These structural descriptors explain only part of locality itself. The strongest single frozen working-set feature, `top16_selected_mass_fraction`, predicts physical hit-ratio variation with pooled leave-one-family-out R² = `0.465884`; #105 accordingly classifies the broader working-set/reuse hypothesis as `weak`. This is enough to show that route structure contains reusable signal, but not enough to reduce locality to one compact working-set statistic.
 
-Relate structure to the systems result without overclaiming:
+## 9.2 A recurrent core with a large workload-conditioned periphery
 
-> Workload structure explains where reuse differs, but direct physical backing demand remains substantially more predictive of measured TPS.
+#105 next asks whether frequent selections contain a cross-workload core. The observable is deliberately narrow: selected top-k/top-M frequency only, without a complete routing-weight profile. On decode, the strictest core—`ExpertKey`s selected in all 16 workload families (`γ = 1.0`)—contains 1,422 keys, only `1.725%` of all routed `ExpertKey`s in the analysis, yet carries `13.329%` of selected decode mass. Relaxing recurrence to at least 13 of 16 families (`γ = 0.8`) expands the core to 6,939 keys (`8.418%`) and `34.808%` of selected mass; requiring recurrence in at least half the families (`γ = 0.5`) yields 25,046 keys (`30.384%`) and `69.275%` of selected mass.
 
-## 9.2 Shared core and workload-specific periphery
+The useful picture is therefore graded rather than binary. A small universally recurrent routed core exists, but most selected decode mass lies outside that strict core, and the amount captured as “core” changes substantially with the recurrence threshold. We call the remainder a workload-conditioned periphery only in this frequency/overlap sense. Routing frequency does not identify an expert's semantic function, and #105 explicitly marks core-versus-periphery reuse stratification as `INCONCLUSIVE` because the frozen summaries do not contain core/periphery-specific stack-distance distributions.
 
-Use CommitteeAudit-inspired analysis only at the observable supported by K3 route captures.
+## 9.3 Why static core pinning is insufficient
 
-Safe structural language:
+A recurrent core is not automatically a good static cache allocation. #105 tests this with a same-capacity fixed-route counterfactual that reserves cache slots for increasingly broad recurring cores. Across the retained sweep, `308` cells regress in replayed hit ratio and `196` are infeasible because the pinned set consumes more capacity than the tested cell permits. The negative cases are preserved rather than averaged away.
 
-```text
-recurring cross-family routed core
-        +
-workload-conditioned peripheral demand
-```
+The limitation remains even at the strictest core. With `γ = 1.0`, all 288 cells are feasible, but only 179 improve: 70 are unchanged and 39 regress. The mean hit-ratio delta is only `+0.000975`, with a range from `-0.058021` to `+0.016899`. At `γ = 0.8`, 115 cells improve, 64 are unchanged, 75 regress, and 34 are infeasible; the mean hit-ratio delta is `-0.023736`. Static pinning can therefore spend scarce slots on globally recurrent keys while displacing entries that matter more for the current route stream.
 
-Do not assign functions to experts from routing frequency alone.
+These numbers are **`FIXED_ROUTE_COUNTERFACTUAL` + `POST_HOC_EXPLORATORY`** evidence. They do not establish that a physical pinned runtime would lose TPS, and no projected or replayed throughput is promoted to a measured result here. The supported negative conclusion is narrower: the existence of a recurring selected-expert core does not imply that statically pinning that core improves the full same-capacity locality frontier.
 
-Position against:
+## 9.4 From route structure to backing service to TPS
 
-- PipeNetwork K3 REAP/domain saliency;
-- CommitteeAudit Standing Committee.
+The analyses above separate three levels that are easy to conflate. Route structure describes where reuse *may* be available. Cache state and route evolution determine which selections actually miss. Physical backing loads measure the ExpertBundles that the runtime must service, and physical TPS is the resulting systems outcome in the evaluated regime.
 
-Do not numerically pool their overlap metrics with ours.
+The final #105 locality-to-throughput model makes this separation concrete. Using protocol-compatible physical inputs, `loads_per_token` predicts physical decode TPS with leave-one-family-out R² = `0.993536` and RMSE = `0.000928` token/s; the protocol-compatible sensitivity fit gives R² = `0.992656`. The fitted relationship is itself `POST_HOC_EXPLORATORY` even though its TPS and backing-load inputs are `MEASURED_PHYSICAL`. The `0.465884` working-set result above has a different target—physical hit ratio—so the two R² values are not a head-to-head comparison of predictors for the same quantity.
 
-## 9.3 Why static committee pinning is insufficient
+Together, the results suggest a disciplined causal ordering for systems analysis without claiming that #105 proves causality: route structure constrains the opportunity for reuse, realized residency determines backing service, and backing service is the variable most tightly associated with measured TPS in this CPU/NVMe domain. The #105 TPS projection gate passes only inside the measured predictor domain, but any TPS obtained by applying that model to replayed or counterfactual locality remains a `TPS_PROJECTION`, not physical evidence.
 
-Preserve negative/counterfactual result:
-
-```text
-committee-pin regressions   308 cells
-committee-pin infeasible    196 cells
-```
-
-Safe claim:
-
-> The existence of a recurring routed core does not imply that statically pinning it improves the full locality/capacity frontier.
-
-This is counterfactual, not physical production validation.
-
-## 9.4 Structure, demand, and performance
-
-Close with three levels:
-
-```text
-route structure         -> where reuse may exist
-physical backing loads  -> what the system actually services
-TPS                      -> measured systems consequence
-```
-
-### Optional figure
-
-Choose at most one main-paper structure figure:
-
-- family×family route overlap;
-- within-family vs between-family similarity;
-- core/periphery distribution;
-- committee-pin beneficial/regressing/infeasible map.
-
-Move the rest to appendix.
+This distinction also clarifies what the post-hoc core analysis can and cannot say about S2_P50. It helps explain why a dynamic policy that consumes contemporaneous residency can exploit locality that no single static core captures, but it did not motivate S2_P50 and does not validate a new pinning policy. In the frozen K3 evidence, expert locality is best understood as an interaction between workload-conditioned selection, finite residency, and route evolution; its physical significance appears when that interaction changes the backing demand the runtime actually services.
 
 ---
 
@@ -1096,7 +1054,6 @@ Include:
 ## Appendix B — Full systems distributions
 
 Candidate contents:
-
 - all 128 prompt-level S2 metrics;
 - 8 sentinel series;
 - all 24 Stage-C paired EXACT/KNEE/S2 results;
