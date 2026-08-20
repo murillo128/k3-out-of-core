@@ -146,6 +146,7 @@ observer captures                   44
 Stage-C unique prompts              24
 Stage-C failed cells                 0
 S2_P50 vs EXACT/KNEE wins          24/24
+
 S2P50_CROSS_PROMPT_DISPERSION      high
 SEMANTIC_FAMILY_EFFECT             strong
 TOKEN_LENGTH_EFFECT                weak
@@ -668,6 +669,7 @@ Close the method section with the limitation that motivates §8:
 Visualize exact top-16, candidate ranks 17–32, resident status, one/two accepted swaps, hard regret bound, and unchanged weighting stage.
 
 ## 5.7 Prior-art boundary
+
 Must cite:
 
 - Cache-Conditional Experts;
@@ -865,7 +867,7 @@ Interpretation:
 
 ### Figure 7 — hero figure
 
-Measured physical TPS vs backing loads/token with family-aware LOFO annotation.
+Measured TPS vs loads/token, with held-out-family/LOFO validation and measured-domain annotation.
 
 Caption must state:
 
@@ -1412,7 +1414,7 @@ Verify publication metadata and exact comparability labels before final submissi
 Target roughly 7–9 primary visual elements before appendix material.
 
 | ID | Candidate | Section | Evidence class | Priority |
-|---|---|---|---|
+|---|---|---|---|---|
 | Fig. 1 | K3 memory mismatch / active demand scale | §2 | model constants / explanatory | high |
 | Fig. 2 | K3 workload route/locality variation | §3 | measured observer + post-hoc descriptive | medium |
 | Fig. 3 | Out-of-core architecture | §4 | design diagram | high |
