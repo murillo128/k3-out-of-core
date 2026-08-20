@@ -331,7 +331,7 @@ A routed Mixture-of-Experts layer contains many expert feed-forward networks but
 
 For storage and cache management, we treat one `(layer, expert_id)` as a logical `ExpertKey` and the routed gate/up/down weights plus their required quantization metadata as one `ExpertBundle`. In the accepted K3 runtime, an ExpertBundle occupies 17,547,264 bytes. `ExpertBundle` is a systems service unit used by this paper; it does not change the model's MoE computation.
 
-Expert membership and expert weighting are separate semantics. The exact K3 path first determines the selected top-16 membership and then gathers the final expert weights from the model's original unbiased probabilities using the existing normalization rules. The mechanism introduced later in this paper may change a bounded number of selected IDs, but it does not introduce a second expert-weighting rule. Keeping those concepts separate is important when reasoning about both systems demand and predictive perturbation.
+Expert membership and expert weighting are separate semantics. Exact K3 first chooses the top-16 membership, then applies the model's original expert weights and normalization to that selected set. The mechanism introduced later may change a bounded number of selected IDs, but it leaves that weighting rule unchanged. This distinction lets us separate a systems change in which bundles are requested from the model semantics used to combine the selected experts.
 
 ## 2.2 The memory mismatch
 
@@ -371,11 +371,11 @@ exact router selection
       -> miss: service selected expert from a lower tier -> execute
 ```
 
-Prior systems optimize different parts of this exact-selection path. MoE-Infinity uses activation-aware caching and prefetching; WASTE and Colibrì stream router-selected K3 experts from secondary storage; FreeToken keeps the expert pool in host RAM and serves exact selections through a VRAM cache together with CPU/GPU miss execution. These designs are important complements to this work: placement, prefetch, overlap, and miss execution can substantially reduce the cost of serving an exact route without changing which experts the router requested.
+Prior systems reduce the cost of this exact-selection path in complementary ways: MoE-Infinity uses activation-aware caching and prefetching; WASTE and Colibrì stream router-selected K3 experts from secondary storage; and FreeToken serves exact selections from a host-RAM expert pool through VRAM caching and heterogeneous miss execution. These techniques improve where, when, or how exact router-selected experts are materialized or executed; they do not, by themselves, reduce the set of experts requested by exact routing.
 
 The remaining cost is the demand presented to that service path. If an exactly selected ExpertBundle is not resident, it must still be fetched or executed from a lower tier. A larger exact cache can reduce such misses, but only by spending more of the scarce RAM or VRAM that motivated offloading; faster backing I/O and prefetch can reduce or hide miss latency, but do not make the selected demand disappear. OS page cache may assist some implementations, but this paper uses explicit managed residency because implicit page-cache state is not a sufficiently controlled cache policy for reproducible physical measurements; we do not assume that other offloading systems rely on page cache.
 
-Thus exact offloading solves a capacity problem without, by itself, eliminating the expert-service problem. This is not a claim that exact miss handling is exhausted: exact-routing execution techniques remain complementary. The additional question is whether K3's selected demand itself contains bounded flexibility that can improve locality without simply allocating a larger cache. Section 3 first characterizes K3's exact demand and routing slack before the routing mechanism is introduced.
+Thus exact offloading solves a capacity problem without, by itself, eliminating the expert-service problem. Exact-routing execution techniques remain complementary; the remaining question is whether locality can also be improved by reducing the demand presented to the service path rather than only by serving exact misses faster or allocating more cache. Section 3 first characterizes K3's exact demand and routing slack before the routing mechanism is introduced.
 
 ---
 
