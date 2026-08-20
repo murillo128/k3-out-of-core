@@ -314,88 +314,41 @@ Thus exact offloading solves a capacity problem without, by itself, eliminating 
 # 3. Characterizing Out-of-Core K3
 
 **Coordination:** [#113](https://github.com/murillo128/k3-out-of-core/issues/113)  
-**Status:** `OUTLINE`
+**Status:** `EVIDENCE_CHECK`
 
-This section establishes the measurable problem before presenting the solution.
+Out-of-core K3 is not a uniform stream of expert reads. The number of experts activated per layer is fixed, but which ExpertKeys are requested, how often they are reused, and how many of those requests fall outside the resident set depend on the workload and cache state. We therefore characterize the problem in four steps: how expert demand varies across workloads, whether physical backing service explains decode performance, how far exact caching can address that demand by itself, and whether the router exposes a bounded amount of local flexibility that could be used without simply allocating more memory.
 
-## 3.1 K3 routing is workload-dependent
+## 3.1 K3 expert demand is workload-dependent
 
-Primary evidence: #102 physical/observer corpus; #105 curated secondary analysis.
+The frozen #102 corpus contains 128 deliberately diverse prompts arranged as 16 semantic families × 8 within-family prompt-length levels. It is a controlled workload grid, not a random sample of all K3 use. Across that corpus, #102 classifies cross-prompt dispersion as high, the semantic-family effect as strong, and the token-length effect as weak. Repeated sentinels keep deterministic route/locality state fixed while exposing host-level timing noise, so the observed prompt dependence cannot be reduced to process drift alone.
 
-State:
+Separate observer captures provide route-level evidence without treating observer timing as performance data. Across 44 frozen captures, #102 finds broad route coverage, and the curated #105 route features show materially different working-set and overlap structure across prompts and families. These observations do not assign semantic functions to individual experts, nor do they imply that one family deterministically selects one expert set. They establish the narrower systems fact we need: the resident working set useful for one workload cannot be assumed to be the useful working set for another.
 
-```text
-128 primary prompts
-16 semantic families
-8 within-family length levels
-cross-prompt dispersion = high
-semantic-family effect = strong
-token-length effect = weak
-route coverage = broad
-```
+This distinction matters for static caching. A recurring core may exist, but broad, workload-conditioned peripheral demand remains. The later #105 committee-pin counterfactual makes the limitation concrete—many static-pinning cells regress or are infeasible—but that result is post-hoc and counterfactual rather than physical production evidence. For the present characterization, the measured and observer evidence is sufficient to reject a workload-independent hot-set assumption.
 
-Candidate claims:
+## 3.2 Physical backing service is the measured bottleneck
 
-- semantic workload affects selected expert demand materially;
-- prompt length alone explains comparatively little of the measured variation;
-- broad route coverage means one tiny static hot set cannot be assumed to capture all demand.
+The primary #102 campaign makes backing service explicit. Physical rows were collected with a fixed 7,849-slot managed cache (137,728,475,136 bytes), fresh processes, a cold managed-cache start, CPU-only execution, native `io_uring` + `O_DIRECT`, and a single local-NVMe expert backing device. Stage C adds physical EXACT and KNEE runs for 24 selected prompts at that same capacity, alongside the already-frozen S2_P50 rows. The resulting counters distinguish logical expert selections from the ExpertBundles that actually have to be loaded from backing storage.
 
-Boundary: the corpus is deliberately diverse, not a random sample of every K3 workload.
+Using those measured physical rows, #105 asks a narrower post-hoc question: how well does backing demand predict decode throughput when an entire semantic family is held out? Backing expert loads per token achieves leave-one-family-out R² = 0.993536. By comparison, the best single working-set feature reaches LOFO R² = 0.465884. The physical rows are `MEASURED_PHYSICAL`; the regression and feature comparison are `POST_HOC_EXPLORATORY`. We therefore use the result as an in-domain characterization, not as a hardware-independent law or a causal coefficient.
 
-### Figure 2A candidate
+Within that measured domain, the implication is nevertheless strong: route structure matters because it shapes reuse, but decode performance tracks the number of ExpertBundles the system actually services from backing storage much more closely than a compact working-set descriptor. Arithmetic sparsity fixes how many experts are executed; it does not fix how many expert bundles must cross the slow memory boundary. For out-of-core K3, physical backing demand is therefore the systems quantity that the design must control.
 
-Family × family selected-route overlap, or a compact family-wise locality/working-set distribution.
+## 3.3 A larger exact cache buys locality with the scarce resource
 
-## 3.2 Exact routing creates a backing-service bottleneck
+The obvious response to backing demand is to keep more exact-route experts resident. The physical #102 campaign already operates at a fixed high-cache point—7,849 ExpertBundle slots, about 128.27 GiB—so increasing the exact cache would consume more of the memory resource that motivated out-of-core execution in the first place. This makes “add cache” a valid baseline, but not a free solution.
 
-Primary physical data: #102. Secondary model: #105.
+#105 evaluates that baseline offline using the frozen exact-route capacity curve. These rows are `EXACT_REPLAY` or exact-replay counterfactuals, and the virtual-cache analysis built from them is additionally `POST_HOC_EXPLORATORY`. They answer a counterfactual question: given the frozen route, what exact-cache capacity would be required to reach a target locality? They do **not** measure physical TPS at those hypothetical capacities, and an exact-cache equivalence must not be relabeled as measured RAM savings.
 
-Headline candidate:
+The replay nevertheless establishes the right comparison. Exact routing can trade more memory for fewer backing loads. The question for an out-of-core design is whether comparable locality can instead be obtained at the same measured physical cache capacity by changing a very small number of routing decisions. That distinction—larger exact cache versus bounded demand reduction at fixed capacity—sets up the mechanism evaluated later.
 
-```text
-loads/token primary LOFO R² = 0.993536
-```
+## 3.4 The K3 router exposes bounded local slack
 
-Safe language:
+The final ingredient is whether exact top-16 membership is separated sharply from every alternative. #77 captured the exact top-32 K3 candidate ordering and swept observed boundary-score gaps offline before changed routing was used as a systems mechanism. The resulting replay frontier was positive: nearby candidates existed often enough that small, explicitly bounded membership changes could reduce replayed backing demand. This is `FIXED_ROUTE_COUNTERFACTUAL` evidence, not a physical speedup and not a semantic-quality result.
 
-> Within the measured #102 physical domain, backing expert loads per token strongly predict decode throughput even when each semantic family is held out in turn.
+A conservative point illustrates the opportunity without assuming the later policy outcome. At a 96-GiB replay anchor, allowing at most one substitution at the observed p10 score-gap threshold (`0.00129789114`) changed 1.486% of selected slots while reducing replayed expert loads by 4.162%; the p25 threshold (`0.00308857858`) changed 2.747% of slots and reduced replayed loads by 6.575%. The same sweep identified the p50 boundary `0.00730375946`, later used as the hard score-regret scale for the frozen S2_P50 policy. These quantities describe router selection-score slack and replayed locality only. They do not imply semantic equivalence, and the physical effect must be measured on the real generated route stream.
 
-Required qualifiers:
-
-- post-hoc exploratory statistical analysis;
-- measured-domain relation, not hardware-independent law;
-- physical TPS must come only from measured rows.
-
-### Figure 2B / hero candidate
-
-Measured physical TPS vs backing loads/token with family-aware LOFO annotation.
-
-## 3.3 More exact cache helps, but memory is the scarce resource
-
-Use exact replay/capacity curves with explicit evidence class.
-
-Target framing:
-
-> Increasing an exact-routing cache improves locality by spending the resource that out-of-core execution is intended to conserve.
-
-Set up the later equivalence question:
-
-> Can bounded routing flexibility produce locality comparable to a larger exact cache without increasing the measured physical cache capacity?
-
-Do not call replay/counterfactual capacity physically measured memory savings.
-
-## 3.4 Routing contains bounded slack
-
-Use #77 / policy-selection evidence to establish nearby candidates and a usable locality–regret frontier.
-
-Do not explain the full algorithm yet.
-
-End with four design requirements:
-
-1. reduce backing demand without simply adding cache;
-2. keep exact routing as reference/default;
-3. make every intentional membership change deterministic and bounded;
-4. measure semantic consequences explicitly.
+Together, the characterization yields four design requirements. The system should (1) reduce physical backing demand without simply increasing cache capacity; (2) preserve ordinary exact routing as the reference and default path; (3) make every intentional membership change deterministic and bounded in both candidate rank, swap count, and router selection-score regret; and (4) measure the semantic consequences of those changes rather than inferring safety from a small local score gap. The measurements therefore point to two coupled controls: explicit expert residency, so physical demand is observable and reproducible, and a bounded routing rule that can prefer an already-resident near-tie candidate only under hard approximation limits.
 
 ---
 
@@ -1346,7 +1299,7 @@ Verify publication metadata and exact comparability labels before final submissi
 Target roughly 7–9 primary visual elements before appendix material.
 
 | ID | Candidate | Section | Evidence class | Priority |
-|---|---|---|---|---|
+|---|---|---|---|
 | Fig. 1 | K3 memory mismatch / active demand scale | §2 | model constants / explanatory | high |
 | Fig. 2 | K3 workload route/locality variation | §3 | measured observer + post-hoc descriptive | medium |
 | Fig. 3 | Out-of-core architecture | §4 | design diagram | high |
