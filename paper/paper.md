@@ -222,7 +222,7 @@ Prefer precise scope wording:
 **Coordination:** [#110](https://github.com/murillo128/k3-out-of-core/issues/110)  
 **Status:** `EVIDENCE_CHECK` / task-level claims deliberately excluded pending #100/#101
 
-Mixture-of-Experts (MoE) models reduce active computation by routing each token to a small subset of experts, but their full expert pool can remain too large for memory-constrained inference. Moving experts to NVMe allows the expert pool to exceed memory capacity, but turns routing decisions into physical storage demand. We study this problem on full Kimi K3 and combine an explicit out-of-core runtime with deterministic, training-free cache-aware substitutions drawn from a bounded candidate set, with at most two swaps and a hard per-swap router-score regret limit. Across a frozen 128-prompt corpus, the selected S2_P50 policy achieves higher measured decode TPS than both exact routing and the frozen KNEE policy in all 24 Stage-C prompts. Within the same measured domain, a post-hoc leave-one-family-out analysis finds backing expert loads per token to be a strong predictor of physical decode throughput (R² = 0.993536), linking routing locality to systems performance. The gain is not quality-neutral: under controlled fixed-context evaluation, S2_P50 increases reference-token NLL by 0.012030 on average, while free-generation experiments show a mean 1.4210× amplification of the measured perturbation through token-mediated autoregressive feedback. These results establish a K3-specific performance–memory-locality–quality trade-off; task-level accuracy preservation and cross-model generality remain outside the current evidence.
+Mixture-of-Experts (MoE) models reduce active computation by routing each token to a small subset of experts, but their full expert pool can remain too large for memory-constrained inference. Moving experts to NVMe allows the expert pool to exceed memory capacity, but turns routing decisions into physical storage demand. We study this problem on full Kimi K3 and combine an explicit out-of-core runtime with deterministic, training-free cache-aware substitutions drawn from a bounded candidate set, with at most two swaps and a hard per-swap router-score regret limit. In a frozen, non-random 24-prompt Stage-C comparison subset drawn from a 128-prompt corpus, the selected S2_P50 policy achieves higher measured decode TPS than both exact routing and the frozen KNEE policy in all 24 prompts. Within the same measured domain, a post-hoc leave-one-family-out analysis finds backing expert loads per token to be a strong predictor of physical decode throughput (R² = 0.993536), linking routing locality to systems performance. The gain is not quality-neutral: under controlled fixed-context evaluation, S2_P50 increases reference-token NLL by 0.012030 on average, while free-generation experiments show a mean 1.4210× amplification of the measured perturbation through token-mediated autoregressive feedback. These results establish a K3-specific performance–memory-locality–quality trade-off; task-level accuracy preservation and cross-model generality remain outside the current evidence.
 
 ---
 
@@ -280,17 +280,9 @@ K3 activates only `16/896 ≈ 1.8%` of the routed experts in any one layer, whic
 
 The last row is a **service-demand scale**, not a resident-memory requirement and not measured backing-store traffic. A resident bundle can satisfy a selection without a backing load, and repeated use can amortize its storage cost across many tokens. The memory mismatch is therefore not simply “model size versus RAM”: sparse activation makes out-of-core execution possible, while temporal reuse and cache locality determine how much of the selected demand must actually cross a slower memory boundary.
 
-### Figure 1 candidate — memory mismatch
+![Figure 1: memory-service demand funnel](figures/generated/fig01-memory-mismatch.svg)
 
-A compact explanatory figure can show the same distinction without assigning an unsourced total checkpoint size:
-
-```text
-per routed layer:   896 available experts -> exact top-16 membership
-across 92 layers:   1,472 selected ExpertBundles / token
-payload scale:      25.83 GB / token before reuse or cache hits
-```
-
-The figure must label the 25.83 GB quantity as cumulative selected payload, not simultaneously resident memory or physical bytes read.
+**Figure 1 — K3 selected-payload service-demand funnel.** The committed K3 model constants imply 16 selected experts across each of 92 routed layers, or 1,472 selected ExpertBundles per generated token. At 17,547,264 bytes per bundle, that is about 25.83 GB/token of cumulative logical selected payload before reuse or cache hits. It is neither simultaneously resident RAM nor measured physical backing traffic; each selection is subsequently resolved by resident reuse/cache service or by physical backing service. This is an explanatory derivation from model/runtime constants, not an empirical performance result.
 
 ## 2.3 Why exact expert offloading does not remove expert service
 
@@ -326,13 +318,13 @@ Separate observer captures provide route-level evidence without treating observe
 
 This distinction matters for static caching. A recurring core may exist, but broad, workload-conditioned peripheral demand remains. The later #105 committee-pin counterfactual makes the limitation concrete—many static-pinning cells regress or are infeasible—but that result is post-hoc and counterfactual rather than physical production evidence. For the present characterization, the measured and observer evidence is sufficient to reject a workload-independent hot-set assumption.
 
-## 3.2 Physical backing service is the measured bottleneck
+## 3.2 Physical backing service is tightly associated with measured throughput
 
 The primary #102 campaign makes backing service explicit. Physical rows were collected with a fixed 7,849-slot managed cache (137,728,475,136 bytes), fresh processes, a cold managed-cache start, CPU-only execution, native `io_uring` + `O_DIRECT`, and a single local-NVMe expert backing device. Stage C adds physical EXACT and KNEE runs for 24 selected prompts at that same capacity, alongside the already-frozen S2_P50 rows. The resulting counters distinguish logical expert selections from the ExpertBundles that actually have to be loaded from backing storage.
 
-Using those measured physical rows, #105 asks a narrower post-hoc question: how well does backing demand predict decode throughput when an entire semantic family is held out? Backing expert loads per token achieves leave-one-family-out R² = 0.993536. By comparison, the best single working-set feature reaches LOFO R² = 0.465884. The physical rows are `MEASURED_PHYSICAL`; the regression and feature comparison are `POST_HOC_EXPLORATORY`. We therefore use the result as an in-domain characterization, not as a hardware-independent law or a causal coefficient.
+Using those measured physical rows, #105 asks a narrower post-hoc question: how well does backing demand predict decode throughput when an entire semantic family is held out? Backing expert loads per token achieves leave-one-family-out R² = 0.993536 for the target **physical decode TPS**. A separate working-set analysis asks a different question and finds that its best single feature reaches LOFO R² = 0.465884 for the target **physical hit ratio**. These R² values are therefore not competing predictors of the same target. The physical rows are `MEASURED_PHYSICAL`; both fitted analyses are `POST_HOC_EXPLORATORY`. We use them as in-domain characterizations, not as hardware-independent laws or causal coefficients.
 
-Within that measured domain, the implication is nevertheless strong: route structure matters because it shapes reuse, but decode performance tracks the number of ExpertBundles the system actually services from backing storage much more closely than a compact working-set descriptor. Arithmetic sparsity fixes how many experts are executed; it does not fix how many expert bundles must cross the slow memory boundary. For out-of-core K3, physical backing demand is therefore the systems quantity that the design must control.
+Within that measured domain, decode performance tracks the number of ExpertBundles the system actually services from backing storage closely. The separate working-set result instead shows that one compact descriptor explains only part of physical hit-ratio variation; because the targets differ, it does not establish a head-to-head ranking of predictors. Arithmetic sparsity fixes how many experts are executed; it does not fix how many expert bundles must cross the slow memory boundary. For out-of-core K3, physical backing demand is therefore the systems quantity that the design must control.
 
 ## 3.3 A larger exact cache buys locality with the scarce resource
 
@@ -357,13 +349,13 @@ Together, the characterization yields four design requirements. The system shoul
 **Coordination:** [#114](https://github.com/murillo128/k3-out-of-core/issues/114)  
 **Status:** `EVIDENCE_CHECK`
 
-Section 3 leaves four systems constraints: useful expert residency is workload-dependent, physical backing service is the dominant measured cost in the evaluated regime, increasing an exact cache spends the scarce memory resource, and routing slack is only actionable if the runtime exposes contemporaneous residency. We address these constraints with an explicit expert-service layer whose managed state is bounded and observable, then expose its residency state to the routing mechanism of §5. The storage hierarchy, persistent expert cache, and provider abstraction follow established expert-offloading designs; we use them as a controlled substrate for full-K3 measurement rather than claim them as new architecture.
+Section 3 leaves four systems constraints: useful expert residency is workload-dependent, physical backing service is tightly associated with throughput in the evaluated regime, increasing an exact cache spends the scarce memory resource, and routing slack is only actionable if the runtime exposes contemporaneous residency. We address these constraints with an explicit expert-service layer whose managed state is bounded and observable, then expose its residency state to the routing mechanism of §5. The storage hierarchy, persistent expert cache, and provider abstraction follow established expert-offloading designs; we use them as a controlled substrate for full-K3 measurement rather than claim them as new architecture.
 
 ## 4.1 Design goals
 
 The runtime follows five design goals. **First, bound managed memory and concurrency.** Expert caches, staging buffers, and in-flight backing requests have explicit capacities, so out-of-core execution cannot recover model capacity by silently creating another unbounded memory pool. **Second, preserve an exact reference path.** When cache-aware routing is disabled, the router selects the ordinary K3 top-16 membership and the runtime must service those experts without changing their model-defined weighting semantics. Storage placement may change when an expert becomes executable, but not which exact expert was requested.
 
-**Third, make residency explicit and reproducible.** Persistent residency is represented by cache-owned state and cache-owned buffers rather than inferred from OS page-cache behavior or graph-temporary allocations. **Fourth, make backing service asynchronous but bounded.** Lower-tier reads and transfers should overlap useful work where the execution regime permits it, while demand requests retain priority over speculative work and queue depth remains controlled. **Finally, expose physical service rather than only logical cache behavior.** Hits, misses, backing loads, backing bytes, wait states, and fallbacks are observable so that routing demand can be connected to the physical bottleneck characterized in §3.
+**Third, make residency explicit and reproducible.** Persistent residency is represented by cache-owned state and cache-owned buffers rather than inferred from OS page-cache behavior or graph-temporary allocations. **Fourth, make backing service asynchronous but bounded.** Lower-tier reads and transfers should overlap useful work where the execution regime permits it, while demand requests retain priority over speculative work and queue depth remains controlled. **Finally, expose physical service rather than only logical cache behavior.** Hits, misses, backing loads, backing bytes, wait states, and fallbacks are observable so that routing demand can be connected to the measured throughput association characterized in §3.
 
 ## 4.2 Provider-mediated expert service
 
@@ -412,32 +404,9 @@ The residency directory is exposed as a read-only systems signal to routing. Und
 
 This boundary localizes the approximation. The cache controller never invents a semantically cheaper expert because a miss is inconvenient, and the storage layer never applies a routing heuristic. Conversely, the routing policy does not claim that a candidate is resident without consulting the directory owned by the cache. A successful resident substitution can therefore convert a would-be backing request into a cache hit at the same configured cache capacity, directly targeting the physical demand identified in §3 without disguising the change as additional memory.
 
-### Figure 3 candidate — architecture
+![Figure 2: provider-mediated out-of-core architecture](figures/generated/fig02-architecture.svg)
 
-```text
-                         read-only residency directory
-                                   |
-                                   v
-Router -> membership policy (EXACT or §5 bounded)
-                                   |
-                                   v
-                         ExpertWeightProvider
-                          /               \
-                 resident hit             miss
-                      |                     |
-                      v                     v
-                  execution        bounded async service
-                                            |
-                                            v
-                                     model files / NVMe
-                                            |
-                                            v
-                                      managed cache
-                                            |
-                                            v
-                                         execution
-```
-If accelerator or UMA tiers are added to the final figure, they should appear as optional placements inside the provider/cache path, with the CPU-only #102 path called out explicitly as the regime used for the primary physical measurements.
+**Figure 2 — Provider-mediated out-of-core architecture and ownership boundary.** Routing owns ordinary K3 outputs, bounded membership selection, and expert execution; the provider/cache subsystem owns the residency directory, cache slots, admission/eviction/materialization, and the asynchronous verified backing path. The cache exposes a read-only residency/service-state signal to routing but does not choose experts. The optional accelerator tier is shown only as a placement behind the same provider contract; the primary #102 physical evidence is CPU-only and does not establish accelerator behavior. Provider, cache, and asynchronous-offload patterns have prior-art precedents and are not claimed here as standalone novelty.
 
 ## 4.7 Architectural lineage and scope
 
@@ -544,27 +513,9 @@ using the same ordinary probability tensor, gather, normalization, and scaling a
 
 Changing membership can of course change the numerical weight vector because a different expert probability is gathered and the existing normalization is applied to a different selected set. The preserved property is the **weighting semantics**, not equality of the weights to the exact route. This distinction matters for causal interpretation: the intentional approximation is which experts are selected; how K3 combines the resulting selected experts remains model-defined.
 
-### Figure 4 candidate — bounded routing mechanism
-```text
-ordinary K3 probabilities p ---------------------------> unchanged K3 weighting
-              |                                                   ^
-              + correction bias b                                |
-              v                                                   |
-       corrected score s                                         |
-              |                                                   |
-       exact top-16 --------------------+                          |
-              |                         |                          |
-       expand to top-32                 | current provider state  |
-              |                         v                          |
-              +--> cheaper-service candidate pairs                |
-                        |                                         |
-             hard per-swap r <= epsilon                           |
-             hard swaps <= S_max                                  |
-                        |                                         |
-                        +----> final 16 IDs -----------------------+
-```
+![Figure 3: bounded cache-aware routing mechanism](figures/generated/fig03-bounded-routing.svg)
 
-The figure separates the membership control surface from the unchanged weighting path: cache state enters only when choosing whether an eligible top-32 candidate may replace an exact top-16 member.
+**Figure 3 — Bounded cache-aware membership selection.** Ordinary K3 probabilities and the existing correction produce the selection score used for the exact top-16 and candidate top-32 orderings. Contemporaneous read-only service state can trigger a deterministic replacement only when it improves service tier, stays within the hard per-swap corrected-score regret bound, and does not exceed `max_swaps = 2`. The result contains exactly 16 experts, whose weights are computed with the original K3 weighting semantics. The local score-regret bound constrains the intervention; it does not guarantee semantic equivalence or quality neutrality.
 
 ## 5.5 Policy selection and freeze
 
@@ -643,14 +594,14 @@ Table 1 summarizes the primary #102 regime. We evaluate `moonshotai/Kimi-K3@9f62
 | Managed cache | 7,849 slots = 137,728,475,136 B (128.27 GiB) |
 | Execution | CPU-only Mode-P/BATCHED, 32 threads |
 | Backing path | single local NVMe, native `io_uring` + `O_DIRECT` |
-| Context | `n_ctx = 512` |
+| Context | `n_ctx = 768` |
 | Run isolation | fresh process/model/provider/context; cold managed cache |
 | Measured window | 64 complete one-token decode forwards |
 | Policies | EXACT, frozen KNEE, frozen S2_P50 |
 
 The full-prompt protocol is important for interpreting locality. Each run starts from an empty managed cache, consumes the complete templated prompt under EXACT routing, and preserves the resulting cache contents. At the prompt/decode boundary the requested decode policy is enabled and the performance/locality counters are reset, so prompt ingestion is excluded from decode TPS. S2_P50 uses `candidate_count = 32`, `max_swaps = 2`, and `max_score_regret = 0.007303759455680847`; KNEE is the previously frozen one-swap comparison, not a policy retuned on #102.
 
-The workload contains 128 primary prompts arranged as 16 semantic families × 8 templated-prompt length bands, plus eight full-prompt sentinels for drift control. Stage B selects 16 family representatives for untimed observer analysis. Stage C uses 24 unique prompts—the 16 representatives plus four low- and four high-locality cases—and adds one fresh EXACT and one fresh KNEE process for each prompt while reusing its already-frozen S2_P50 row. Thus Stage C contributes 48 new physical comparison runs without rerunning S2_P50. #98 is used only to document the earlier policy-selection history; none of its absolute TPS or locality values are pooled with the full-prompt #102 measurements reported here.
+The workload contains 128 primary prompts arranged as 16 semantic families × 8 ordered within-family length levels; actual templated-prompt tokens are retained separately as the quantitative length variable. Eight full-prompt sentinels provide drift control. Stage B selects 16 family representatives for untimed observer analysis. Stage C uses a non-random subset of 24 unique prompts—the 16 representatives plus four low- and four high-locality cases—and adds one fresh EXACT and one fresh KNEE process for each prompt while reusing its already-frozen S2_P50 row. Thus Stage C contributes 48 new physical comparison runs without rerunning S2_P50, with one physical observation per prompt/policy cell. #98 is used only to document the earlier policy-selection history; none of its absolute TPS or locality values are pooled with the full-prompt #102 measurements reported here.
 
 The primary physical evidence is frozen in `issue102-cross-prompt-v1` (archive SHA-256 `e198913eb541b2a2e7465a01e09215fc5fecf6fb91574ff1841b11bf2664250c`). The derived analyses used below come from the final reviewed `issue105-curated-analysis-v3` release (archive SHA-256 `e0fe96c2f4dd3d2cfc8ced16901949936ba3e72c79ebdd4eb412f371fe843fb3`).
 
@@ -677,11 +628,19 @@ The frozen corpus shows broad but workload-conditioned behavior. Across the 128 
 
 The sentinels separate this workload dependence from timing drift. Their deterministic route/locality signatures remain equal across rounds, while their TPS p90–p10 spread is 0.00143 token/s. The primary-prompt p90–p10 TPS spread is 0.03224 token/s, 22.6× larger. Host noise is therefore visible but too small to explain the cross-prompt range. Stage C then supplies the paired check: S2_P50 remains faster than both EXACT and KNEE throughout its 24 cross-family/locality-selected prompts, although the gain magnitude varies and the KNEE/S2_P50 interaction is classified as moderate. These results support broad generalization within the frozen 16×8 K3 corpus; they do not establish universal prompt or cross-model behavior.
 
+![Figure 4: cross-workload physical systems result](figures/generated/fig04-cross-workload.svg)
+
+**Figure 4 — Cross-workload physical systems result (`MEASURED_PHYSICAL`).** Panel A retains all 128 Stage-A primary S2_P50 observations (16 semantic families × 8 ordered within-family length levels) and reports physical decode TPS without treating the ordinal levels as equal token increments. Panel B retains all 24 non-random Stage-C prompts and shows the S2_P50/EXACT and S2_P50/KNEE physical decode-TPS ratios; every ratio is above the 1.0 reference, but the prompt-conditioned dispersion is visible. Each policy/prompt cell contributes one physical observation, so the 24/24 result is a complete statement about the frozen Stage-C subset, not a confidence interval or a random-population estimate. The eight-sentinel p90–p10 timing spread is shown only as a drift reference.
+
 ## 7.5 RQ4: How does backing demand relate to throughput?
 
-The physical comparison suggests a direct mechanism—S2_P50 reduces backing loads at the same time that TPS rises—but #105 tests that relationship more systematically. Using only protocol-compatible `MEASURED_PHYSICAL` #102 rows as inputs, its post-hoc leave-one-family-out model with loads/token as the primary predictor obtains R² = 0.993536 and RMSE = 0.000928 token/s. A protocol-compatible sensitivity fit gives LOFO R² = 0.992656. A separate working-set analysis finds that the best single frozen feature, `top16_selected_mass_fraction`, explains physical hit-ratio variation only moderately (pooled LOFO R² = 0.465884).
+The physical comparison shows a co-occurring systems pattern—S2_P50 reduces backing loads at the same time that TPS rises—and #105 characterizes that association more systematically. Using only protocol-compatible `MEASURED_PHYSICAL` #102 rows as inputs, its post-hoc leave-one-family-out model with loads/token as the primary predictor obtains R² = 0.993536 and RMSE = 0.000928 token/s. A protocol-compatible sensitivity fit gives LOFO R² = 0.992656. A separate working-set analysis finds that the best single frozen feature, `top16_selected_mass_fraction`, explains physical hit-ratio variation only moderately (pooled LOFO R² = 0.465884).
 
-The distinction is important. Route structure helps explain where reuse can arise, but the number of ExpertBundles actually serviced from backing storage is much more tightly associated with measured decode throughput in this regime than structural descriptors are with locality. We treat the source TPS and load counters as `MEASURED_PHYSICAL`, while the fitted relationship and feature comparison are `POST_HOC_EXPLORATORY`. The #105 projection gate passes within the measured predictor domain, but projected TPS is not used here as physical evidence and is not extrapolated beyond that domain.
+The distinction is important. Route structure helps explain where reuse can arise, while the number of ExpertBundles actually serviced from backing storage is tightly associated with measured decode throughput in this regime. The two reported fits have different targets and are not compared as predictor alternatives. We treat the source TPS and load counters as `MEASURED_PHYSICAL`, while the fitted relationships are `POST_HOC_EXPLORATORY`. The #105 projection gate passes within the measured predictor domain, but projected TPS is not used here as physical evidence and is not extrapolated beyond that domain.
+
+![Figure 5: backing loads per token to decode TPS](figures/generated/fig05-loads-to-tps.svg)
+
+**Figure 5 — Physical backing loads/token and decode TPS.** Panel A shows all 128 Stage-A primary points as `MEASURED_PHYSICAL`; the fitted line is a `POST_HOC_EXPLORATORY` characterization inside that measured domain. Panel B reports the 16 held-out-family residual summaries from the authorized leave-one-family-out analysis, whose pooled R² is 0.993536 and RMSE is 0.000928 token/s. The fit is associative, not a hardware-independent causal law. The separate 0.465884 result is intentionally absent because it predicts a different target—physical hit ratio—not TPS.
 
 ## 7.6 RQ5: What exact-cache capacity would match S2_P50 locality?
 
@@ -690,6 +649,10 @@ A larger exact cache provides the natural memory-for-locality baseline, but #102
 For the hit-derived physical-reference comparison, the median lower and upper endpoints of the EXACT capacity-amplification interval are 1.247× and 1.497× the measured reference capacity. Across cases, lower endpoints range from 1.000× to 1.497× and upper endpoints from 1.247× to 1.996×. Thus, according to the frozen EXACT replay curve, the locality physically reached by S2_P50 often corresponds to an EXACT cache bracket larger than the cache actually used by S2_P50.
 
 This is `EXACT_REPLAY`/counterfactual evidence combined with `POST_HOC_EXPLORATORY` analysis. No larger-cache EXACT TPS is measured by this result, and the interval is neither a measured RAM saving nor an exact memory threshold. Its role is narrower: it expresses the S2_P50 locality improvement in the same resource coordinate that an exact-routing system would otherwise spend—cache capacity.
+
+![Figure 6: exact-cache capacity brackets](figures/generated/fig06-exact-cache-equivalence.svg)
+
+**Figure 6 — Discrete exact-cache capacity required to match physical S2_P50 locality.** For each of 44 frozen observer prompts, the target locality is the `MEASURED_PHYSICAL` S2_P50 hit ratio at the 7,849-slot cache. Open and filled endpoints show the tested `(lower, upper]` `EXACT_REPLAY` bracket in which exact routing first reaches that target; all prompts are retained, and the rendering preserves `INCONCLUSIVE` status if present. The intervals are discrete counterfactual capacity brackets with `POST_HOC_EXPLORATORY` analysis—not interpolated thresholds, measured RAM savings, or physical throughput measurements.
 
 ## 7.7 Evidence boundaries
 
@@ -734,9 +697,9 @@ The trajectory is classified as `gradual`, and the preregistered breakpoint comp
 
 This metric answers a narrow question: how much the changed router perturbs likelihood on a controlled reference continuation. It does **not** measure task accuracy, answer correctness, human preference, or semantic equivalence. A positive ΔNLL establishes predictive cost under the intervention; task-level capability remains a separate experiment.
 
-### Figure 9A candidate — fixed-context predictive drift
+![Figure 7: long-horizon fixed-context predictive damage](figures/generated/fig07-predictive-damage.svg)
 
-Plot cumulative/reference-token ΔNLL versus decode horizon for KNEE and S2_P50, retaining per-prompt dispersion and the aggregate uncertainty. The caption should label the evidence `DIRECT_FIXED_CONTEXT` and state explicitly that the ordinate is predictive damage rather than task accuracy.
+**Figure 7 — Long-horizon fixed-context predictive damage.** The 16 registered broad-cohort prompts are evaluated under `DIRECT_FIXED_CONTEXT`; faint lines retain every prompt trajectory, heavy lines are prompt means, and shaded regions are the observed prompt min–max envelopes used by the reviewed #99 figure. At the terminal checkpoint, S2_P50 mean ΔNLL is 0.012030 with a 95% prompt-bootstrap interval of 0.008440–0.015435. Positive ΔNLL means lower probability on the EXACT reference continuation; it is predictive damage, not an accuracy or task-quality measure, and the plot does not imply quality neutrality.
 
 ## 8.3 KNEE versus S2_P50: no clear quality ordering
 
@@ -759,9 +722,9 @@ The direct/free contrast isolates the token-mediated feedback increment under th
 
 The `1.4210×` value is an amplification factor for the controlled measured effect. It must not be read as “1.42× worse quality,” nor can it be converted into an accuracy loss. Its systems significance is that direct predictive perturbation understates the full behavior of an autoregressive generator: changed membership can first perturb the distribution and then change the future context on which subsequent routing decisions operate.
 
-### Figure 9B candidate — controlled feedback
+![Figure 8: controlled autoregressive feedback](figures/generated/fig08-controlled-feedback.svg)
 
-Plot the matched `DIRECT_FIXED_CONTEXT` and `FREE_TRAJECTORY` effects by horizon for the three bridge prompts. If page-constrained, combine this panel with Figure 9A and move individual trajectories to the appendix.
+**Figure 8 — Controlled autoregressive feedback on all three bridge prompts.** Solid `DIRECT_FIXED_CONTEXT` curves consume the EXACT reference history; dashed `FREE_TRAJECTORY` curves consume the changed policy's generated history. Each panel retains both KNEE and S2_P50 through the 1,024-token horizon and shows the prompt-level heterogeneity in cumulative hidden-state relative L2 versus EXACT. The registered 1.4210× summary is amplification of the measured controlled perturbation (95% prompt-bootstrap interval 1.2225–1.7099), not “1.42× worse quality,” an accuracy loss, or a physical-systems result.
 
 ## 8.5 Simple regret summaries do not predict long-horizon damage well
 
@@ -816,13 +779,15 @@ The limitation remains even at the strictest core. With `γ = 1.0`, all 288 cell
 
 These numbers are **`FIXED_ROUTE_COUNTERFACTUAL` + `POST_HOC_EXPLORATORY`** evidence. They do not establish that a physical pinned runtime would lose TPS, and no projected or replayed throughput is promoted to a measured result here. The supported negative conclusion is narrower: the existence of a recurring selected-expert core does not imply that statically pinning that core improves the full same-capacity locality frontier.
 
+The complete core-size and static-pinning outcome summary is retained as Figure A1 in Appendix C rather than occupying main-paper space: it sharpens a limitation already established by the physical locality results, but does not introduce a separate central physical result.
+
 ## 9.4 From route structure to backing service to TPS
 
 The analyses above separate three levels that are easy to conflate. Route structure describes where reuse *may* be available. Cache state and route evolution determine which selections actually miss. Physical backing loads measure the ExpertBundles that the runtime must service, and physical TPS is the resulting systems outcome in the evaluated regime.
 
 The final #105 locality-to-throughput model makes this separation concrete. Using protocol-compatible physical inputs, `loads_per_token` predicts physical decode TPS with leave-one-family-out R² = `0.993536` and RMSE = `0.000928` token/s; the protocol-compatible sensitivity fit gives R² = `0.992656`. The fitted relationship is itself `POST_HOC_EXPLORATORY` even though its TPS and backing-load inputs are `MEASURED_PHYSICAL`. The `0.465884` working-set result above has a different target—physical hit ratio—so the two R² values are not a head-to-head comparison of predictors for the same quantity.
 
-Together, the results suggest a disciplined causal ordering for systems analysis without claiming that #105 proves causality: route structure constrains the opportunity for reuse, realized residency determines backing service, and backing service is the variable most tightly associated with measured TPS in this CPU/NVMe domain. The #105 TPS projection gate passes only inside the measured predictor domain, but any TPS obtained by applying that model to replayed or counterfactual locality remains a `TPS_PROJECTION`, not physical evidence.
+Together, the results suggest a disciplined systems sequence for analysis without claiming that #105 proves causality: route structure constrains the opportunity for reuse, realized residency determines backing service, and backing service is tightly associated with measured TPS in this CPU/NVMe domain. The #105 TPS projection gate passes only inside the measured predictor domain, but any TPS obtained by applying that model to replayed or counterfactual locality remains a `TPS_PROJECTION`, not physical evidence.
 
 This distinction also clarifies what the post-hoc core analysis can and cannot say about S2_P50. It helps explain why a dynamic policy that consumes contemporaneous residency can exploit locality that no single static core captures, but it did not motivate S2_P50 and does not validate a new pinning policy. In the frozen K3 evidence, expert locality is best understood as an interaction between workload-conditioned selection, finite residency, and route evolution; its physical significance appears when that interaction changes the backing demand the runtime actually services.
 
@@ -958,6 +923,10 @@ Candidate contents:
 - committee-pin beneficial/regressing/infeasible regions;
 - explicit `POST_HOC_EXPLORATORY` label.
 
+![Figure A1: core/periphery and static-pinning limitation](figures/generated/figa1-core-periphery.svg)
+
+**Figure A1 — Recurrent core and static-pinning limitation.** Panel A reports decode core size and selected-mass fraction versus the family-recurrence threshold γ from the `POST_HOC_EXPLORATORY` selected-route analysis. Panel B retains all 1,440 same-capacity `FIXED_ROUTE_COUNTERFACTUAL` cells, including improve, unchanged, regress, and infeasible outcomes (308 regressions and 196 infeasible cells). The analysis uses selected top-k/top-M frequency rather than complete routing-weight profiles. It does not measure a physical pinning runtime, RAM savings, or TPS, and does not assign semantic functions to experts.
+
 ## Appendix D — Quality instrumentation and long-horizon results
 
 - #77 short-horizon measurement details;
@@ -997,28 +966,23 @@ Verify publication metadata and exact comparability labels before final submissi
 
 # Main figure/table plan
 
-Target roughly 7–9 primary visual elements before appendix material.
+The integrated manuscript uses eight main figures and one appendix figure.
 
-| ID | Candidate | Section | Evidence class | Priority |
-|---|---|---|---|---|
-| Fig. 1 | K3 memory mismatch / active demand scale | §2 | model constants / explanatory | high |
-| Fig. 2 | K3 workload route/locality variation | §3 | measured observer + post-hoc descriptive | medium |
-| Fig. 3 | Out-of-core architecture | §4 | design diagram | high |
-| Fig. 4 | Bounded cache-aware routing mechanism | §5 | method diagram | high |
-| Fig. 5 | 24-prompt Stage-C paired physical result | §7 | `MEASURED_PHYSICAL` | high |
-| Fig. 6 | 128-prompt workload/generalization view | §7 | `MEASURED_PHYSICAL` | high/mergeable |
-| Fig. 7 | **Measured loads/token → TPS hero plot** | §7 | physical inputs + `POST_HOC_EXPLORATORY` model | very high |
-| Fig. 8 | Exact-cache / S2 virtual capacity equivalence | §7 | replay/counterfactual + post-hoc | high |
-| Fig. 9 | Long-horizon ΔNLL + direct/free feedback | §8 | controlled quality evidence | very high |
-| Tbl. 1 | System/model/evaluation setup | §7 | measured protocol | high |
-| Tbl. 2 | Final task-level paired result | §8 | pending #100/#101 | high if available |
+| ID | Integrated figure | Section | Evidence class |
+|---|---|---|---|
+| Fig. 1 | K3 selected-payload service-demand funnel | §2.2 | model constants / explanatory |
+| Fig. 2 | Provider-mediated out-of-core architecture | §4.6 | design diagram |
+| Fig. 3 | Bounded cache-aware routing mechanism | §5.4 | method diagram |
+| Fig. 4 | Cross-workload physical systems result | §7.4 | `MEASURED_PHYSICAL` |
+| Fig. 5 | Backing loads/token → physical decode TPS | §7.5 | physical inputs + `POST_HOC_EXPLORATORY` model |
+| Fig. 6 | Exact-cache capacity equivalence brackets | §7.6 | measured target + `EXACT_REPLAY` / post-hoc |
+| Fig. 7 | Long-horizon fixed-context predictive damage | §8.2 | `DIRECT_FIXED_CONTEXT` model execution |
+| Fig. 8 | Controlled autoregressive feedback | §8.4 | direct/free model execution |
+| Fig. A1 | Core/periphery and static-pinning limitation | Appendix C | `POST_HOC_EXPLORATORY` + `FIXED_ROUTE_COUNTERFACTUAL` |
+| Tbl. 1 | System/model/evaluation setup | §7 | measured protocol |
+| Tbl. 2 | Stage-C paired physical result | §7 | `MEASURED_PHYSICAL` |
 
-Likely compression strategy for a page-limited venue:
-
-- combine Fig. 5 + Fig. 6;
-- combine Fig. 9A + Fig. 9B;
-- move §9 structure figures to appendix except one compact panel;
-- keep Fig. 7 and Fig. 8 in the main paper.
+Task-level figures remain excluded because #100/#101 have no accepted results.
 
 ---
 
