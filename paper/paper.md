@@ -451,116 +451,147 @@ Our use of these established ideas is narrower: provide a full-K3 runtime in whi
 # 5. Bounded Cache-Aware Expert Routing
 
 **Coordination:** [#115](https://github.com/murillo128/k3-out-of-core/issues/115)  
-**Status:** `OUTLINE`
+**Status:** `EVIDENCE_CHECK`
 
-This section is the main algorithmic contribution.
+The characterization in §3 identifies two distinct ways to reduce backing service: allocate more cache, or reduce the demand presented to a fixed cache. We take the second route, but constrain it around the model's exact routing decision. At each routed layer, the mechanism first computes ordinary K3 routing exactly, then exposes a bounded fringe of near-ranked candidates to a deterministic policy that may prefer a cheaper-to-service expert. Cache state can therefore change **membership**, but it cannot change the router projection, K3's correction term, the model's ordinary expert probabilities, or the weighting rule applied after membership is fixed.
+
+The exact path remains both the default and the reference. Disabling cache-aware routing performs the ordinary K3 top-16 selection and sends those ExpertKeys through the provider described in §4. The bounded policy is an optional inference-time approximation layered on that decision; it is not a replacement router and requires no training.
 
 ## 5.1 Exact K3 selection
 
-Define notation around the **actual accepted K3 corrected selection score**, not an oversimplified generic MoE score if semantics differ.
+For token \(t\) at routed layer \(\ell\), let \(p_{\ell,t}(e)\) denote the ordinary, unbiased K3 router probability for expert \(e\). In the accepted K3 execution path, the model's expert-selection correction is represented by a per-expert bias \(b_{\ell}(e)\) (`exp_probs_b`). Selection uses the corrected score
 
-Let:
+\[
+s_{\ell,t}(e) = p_{\ell,t}(e) + b_{\ell}(e),
+\]
 
-- `k = 16` be the exact selected membership;
-- `M = 32` be the bounded candidate set used by S2_P50;
-- `s(e)` be the exact K3 selection score used for ordering/eligibility;
-- `w(e)` be the original unbiased expert weighting semantic applied after membership selection.
+while final expert weighting does not. This distinction is part of K3's existing semantics and is important for the approximation below: the mechanism bounds departures in the **selection score** \(s\), not in the final expert weight.
 
-Make clear that membership and weighting are distinct.
+Let \(e_{(j)}\) be the expert at rank \(j\) under the same corrected-score ordering and baseline tie behavior as exact K3. With \(k=16\), the ordered exact membership is
 
-## 5.2 Residency-aware bounded substitution
+\[
+A^{\mathrm{exact}}_{\ell,t} = (e_{(1)},\ldots,e_{(k)}).
+\]
 
-Conceptual flow:
+For the frozen S2_P50 policy we retain the ordered top-\(M\) candidate envelope
+
+\[
+C^{M}_{\ell,t} = (e_{(1)},\ldots,e_{(M)}), \qquad M=32,
+\]
+
+so \(A^{\mathrm{exact}}_{\ell,t}\) is a prefix of \(C^{M}_{\ell,t}\). Expanding the candidate envelope does **not** execute 32 experts. It only makes ranks 17--32 available to the membership policy; exactly \(k=16\) unique experts remain selected and materialized for the layer.
+
+After membership is chosen, exact K3 gathers expert weights from the original \(p_{\ell,t}\) values for the selected IDs and applies its existing normalization and scaling. We denote that unchanged operation by \(W_{\mathrm{K3}}(p,A)\). Keeping \(s\) and \(W_{\mathrm{K3}}\) separate lets the cache-aware policy alter a bounded set of IDs without introducing a cache term into the model's weighting semantics.
+
+## 5.2 Candidate expansion and residency-aware substitution
+
+At the layer boundary, the provider exposes a read-only service state for the candidates in \(C^{M}_{\ell,t}\). Let \(c_{\ell,t}(e)\) denote its ordered service cost: a lower value means that the ExpertBundle can be served from a cheaper tier. In the primary CPU/NVMe regime this distinction is typically a managed-cache resident expert versus an expert that would require backing service; the same policy can distinguish additional provider tiers without changing the routing semantics.
+
+The state is **contemporaneous**. It is read at the current layer after any residency changes caused by earlier layers, rather than copied once at token start and allowed to become stale. The router does not predict future cache contents, and the storage layer does not choose experts; the policy consumes only the current directory state owned by the provider.
+
+Starting from \(A^{\mathrm{exact}}_{\ell,t}\), the policy considers pairs \((e_s,e_c)\) in which \(e_s\) is currently selected and \(e_c \in C^{M}_{\ell,t}\) is currently unselected. A pair can be eligible only if replacing \(e_s\) by \(e_c\) strictly improves service cost,
+
+\[
+c_{\ell,t}(e_c) < c_{\ell,t}(e_s),
+\]
+
+and also satisfies the score-regret constraint in §5.3. Thus residency alone is never sufficient to change membership: the candidate must already lie inside the bounded top-\(M\) envelope and must be close enough to the displaced exact choice under K3's own selection score.
+
+When more than one eligible substitution exists, the policy is deterministic. It orders alternatives by (1) greatest avoided service tier/cost, (2) lowest selection-score regret, (3) better original K3 router rank, and (4) expert ID as a stable final tie-break. Each accepted candidate replaces the displaced expert in that expert's original top-\(k\) slot; unaffected selected experts are not reordered. The procedure stops when no eligible improvement remains or the swap budget is exhausted. The result is an ordered set \(A^{*}_{\ell,t}\) containing exactly 16 unique expert IDs.
+
+This construction makes the approximation local and auditable. Candidate expansion is bounded by rank, substitutions are driven by the provider's current physical state, and every changed slot can be attributed to one explicit selected-to-candidate pair. No learned policy, adaptive threshold, or workload classifier participates in the frozen routing decision.
+
+## 5.3 Hard per-swap regret and `max_swaps`
+
+For an intentional substitution from selected expert \(e_s\) to candidate \(e_c\), we define **router selection-score regret** as
+
+\[
+r_{\ell,t}(e_s \rightarrow e_c)
+    = s_{\ell,t}(e_s) - s_{\ell,t}(e_c).
+\]
+
+An accepted substitution must satisfy the hard per-swap bound
+
+\[
+0 \le r_{\ell,t}(e_s \rightarrow e_c) \le \epsilon.
+\]
+
+Because \(e_c\) comes from below the exact top-16 boundary, nonnegative regret follows from the exact ordering, but the implementation checks the condition explicitly. The bound is applied to **each** accepted substitution, not to an average or cumulative budget. Separately, the number of intentional membership changes is bounded for every routed layer and token:
+
+\[
+N_{\mathrm{swaps}}(\ell,t) \le S_{\max}.
+\]
+
+The frozen S2_P50 operating point is
 
 ```text
-compute exact top-16
-        ↓
-inspect top-32 candidate set
-        ↓
-consult contemporaneous residency
-        ↓
-consider resident near-tie substitutions
-        ↓
-apply deterministic substitutions only if all hard bounds pass
+candidate_count       M       = 32
+max_swaps             S_max   = 2
+max_score_regret      epsilon = 0.007303759455680847
 ```
 
-## 5.3 Hard regret and swap budget
+`max_swaps` is therefore a per-layer, per-token hard limit: S2_P50 can change at most two of the 16 selected IDs at any routed layer. It is not a budget shared across K3's 92 routed layers. Likewise, \(\epsilon\) is a local selection-score bound, not a semantic-regret quantity. As explicit parity controls, `max_swaps = 0` or `candidate_count = 16` recover exact membership; the accepted policy also defines `max_score_regret = 0` to disable substitutions, including exact-score ties.
 
-For an exact selected expert `e_s` and candidate `e_c`, define the local selection regret using the accepted K3 score:
+The runtime does not impose a cumulative-regret budget across layers or tokens. Cumulative regret is recorded as an observable for analysis, but it was not used to select S2_P50 and does not feed back into the frozen policy.
 
-\[
-r(e_s, e_c) = s(e_s) - s(e_c).
-\]
+## 5.4 Preserving K3 expert-weighting semantics
 
-Require:
+Once the final membership \(A^{*}_{\ell,t}\) is fixed, the cache-aware path returns to the ordinary K3 computation. Its expert weights are
 
 \[
-0 \le r(e_s,e_c) \le \epsilon,
+\alpha^{*}_{\ell,t} = W_{\mathrm{K3}}(p_{\ell,t}, A^{*}_{\ell,t}),
 \]
 
-and:
+using the same ordinary probability tensor, gather, normalization, and scaling as the exact path. The correction bias \(b_{\ell}\) continues to affect **selection only**, as it does in exact K3. Cache state is not added to router logits or ordinary probabilities, the correction bias is not repurposed as a final weight, and no second cache-dependent weighting rule is introduced.
 
-\[
-N_{\mathrm{swaps}} \le S_{\max}.
-\]
+Changing membership can of course change the numerical weight vector because a different expert probability is gathered and the existing normalization is applied to a different selected set. The preserved property is the **weighting semantics**, not equality of the weights to the exact route. This distinction matters for causal interpretation: the intentional approximation is which experts are selected; how K3 combines the resulting selected experts remains model-defined.
 
-Frozen S2_P50 parameters:
+### Figure 4 candidate — bounded routing mechanism
 
 ```text
-M = 32
-S_max = 2
-epsilon = 0.007303759455680847
+ordinary K3 probabilities p ---------------------------> unchanged K3 weighting
+              |                                                   ^
+              + correction bias b                                |
+              v                                                   |
+       corrected score s                                         |
+              |                                                   |
+       exact top-16 --------------------+                          |
+              |                         |                          |
+       expand to top-32                 | current provider state  |
+              |                         v                          |
+              +--> cheaper-service candidate pairs                |
+                        |                                         |
+             hard per-swap r <= epsilon                           |
+             hard swaps <= S_max                                  |
+                        |                                         |
+                        +----> final 16 IDs -----------------------+
 ```
 
-Do not call `r` semantic regret. It is router selection-score regret.
-
-## 5.4 Preserve K3 weighting semantics
-
-Key method sentence:
-
-> The mechanism changes bounded expert membership but preserves the model's original unbiased expert weighting semantics for the experts that remain selected.
-
-This is an important distinction from applying a cache prior directly to final expert weights.
+The figure separates the membership control surface from the unchanged weighting path: cache state enters only when choosing whether an eligible top-32 candidate may replace an exact top-16 member.
 
 ## 5.5 Policy selection and freeze
 
-Explain briefly:
+The routing constants were not chosen from the later cross-workload or long-horizon quality results. #77 first established the K3-specific opportunity frontier, the exact top-32 instrumentation, and the observed regret thresholds used to define bounded candidate policies. Top-32 was retained as the candidate envelope, and the p50 boundary supplied the `0.007303759455680847` per-swap score-regret threshold used by S2_P50.
 
-- #77 established the frontier/instrumentation;
-- #98 physically selected S2_P50 using frozen criteria;
-- later #102 generalization and #99 long-horizon quality did not retune S2 from their outcomes.
+#98 then performed the protocol-distinct physical policy-selection experiment. In its frozen 21-cell screening at `EXPLORATORY_MAX_SAFE = 7,849` ExpertBundle slots, S2_P50 was selected by the preregistered highest-median-TPS rule among the six additional bounded profiles. Its screening median was 7.708% higher than KNEE while measured loads and bytes per token were 15.866% lower. The one permitted three-pair confirmation reproduced S2_P50/KNEE TPS gains of 6.832%, 6.857%, and 7.110%. These numbers explain the policy freeze; they are #98-specific selection context and are not pooled with the absolute physical results reported later from #102.
 
-Relevant #98 context can be cited, but its absolute TPS must remain protocol-distinct.
+After that selection, the policy was frozen as \((M,S_{\max},\epsilon)=(32,2,0.007303759455680847)\). #102 subsequently evaluated its systems behavior across the frozen workload corpus, and #99 subsequently evaluated long-horizon predictive effects. Neither campaign retuned candidate count, swap count, or regret threshold from its own outcomes. EXACT remains the default/reference policy throughout.
 
 ## 5.6 A local bound is not a semantic guarantee
 
-Close the method section with the limitation that motivates §8:
+The two hard bounds say exactly how far the routing mechanism may depart from the exact decision operationally: no accepted pair may exceed \(\epsilon\) in K3 selection score, and no routed layer may contain more than \(S_{\max}\) intentional substitutions. They do not bound the difference between the selected experts' functions. A locally small score gap can still change the MoE output, subsequent hidden state, later routing decisions, logits, and eventually the generated-token trajectory.
 
-> Bounding each intentional selection change constrains the local router decision, but does not guarantee bounded hidden-state, logit, or long-horizon task divergence after autoregressive feedback.
+We therefore use **selection-score regret**, not semantic regret, throughout. The later controlled #99 study reinforces this boundary: cumulative corrected-selection regret is only a weak predictor of long-horizon predictive damage, and the frozen evidence does not justify replacing the local operational bounds with a new quality-driven adaptive rule. Section 8 measures those predictive effects directly rather than treating the local score threshold as a safety certificate.
 
-### Figure 4 candidate — routing mechanism
+## 5.7 Relationship to cache-aware routing prior art
 
-Visualize exact top-16, candidate ranks 17–32, resident status, one/two accepted swaps, hard regret bound, and unchanged weighting stage.
+Cache-aware expert selection itself is established prior art. **Mixture of Cache-Conditional Experts** is the closest conceptual predecessor: it already demonstrates training-free routing in which cache state influences expert membership and evaluates an explicit quality/locality frontier. Our mechanism should therefore be read as a more tightly bounded K3-specific point in that design space, not as the invention of cache-aware routing. Its distinguishing control is to begin from K3's exact top-16 and permit only deterministic substitutions from a fixed top-32 envelope under both a hard per-swap K3 selection-score regret limit and a hard swap-count limit, while retaining K3's original final-weight semantics.
 
-## 5.7 Prior-art boundary
+**MoE-ERAS** predates our work in making expert residency part of the selection objective and in treating performance and accuracy as a joint trade-off. Relative to that line of work, our focus is narrower: contemporaneous provider residency is used only to choose among K3 near-tie candidates that already satisfy explicit exact-route-relative bounds. We then measure the real subsequent route stream rather than assuming that an offline replacement leaves future routing unchanged.
 
-Must cite:
+**ReMoE** targets the same underlying locality problem through router fine-tuning that encourages temporal expert reuse. Our policy instead leaves router parameters untouched and applies a deterministic inference-time membership substitution. Training-free operation is a design difference, not a priority claim: ReMoE, Cache-Conditional Experts, and MoE-ERAS all establish that routing locality is a legitimate systems control surface and that its quality cost must be evaluated.
 
-- Cache-Conditional Experts;
-- MoE-ERAS;
-- ReMoE.
-
-Safe differentiation:
-
-- full K3 896→16;
-- deterministic hard per-swap regret + hard swap budget;
-- training-free;
-- original weighting preserved;
-- real downstream route evolution;
-- physical NVMe-backed evaluation;
-- long-horizon direct-vs-free quality attribution.
-
-Never claim “first cache-aware MoE routing.”
+The contribution evaluated in this paper is consequently narrower than “cache-aware MoE routing”: a hard-bounded membership policy for K3's 896-to-16 router, integrated with explicit NVMe-backed residency so its physical effect can be measured, followed by controlled analysis of real route evolution and long-horizon predictive consequences. We make no claim of being first to use cache or residency in MoE routing.
 
 ---
 
