@@ -477,7 +477,6 @@ For the frozen S2_P50 policy we retain the ordered top-\(M\) candidate envelope
 \[
 C^{M}_{\ell,t} = (e_{(1)},\ldots,e_{(M)}), \qquad M=32,
 \]
-
 so \(A^{\mathrm{exact}}_{\ell,t}\) is a prefix of \(C^{M}_{\ell,t}\). Expanding the candidate envelope does **not** execute 32 experts. It only makes ranks 17--32 available to the membership policy; exactly \(k=16\) unique experts remain selected and materialized for the layer.
 
 After membership is chosen, exact K3 gathers expert weights from the original \(p_{\ell,t}\) values for the selected IDs and applies its existing normalization and scaling. We denote that unchanged operation by \(W_{\mathrm{K3}}(p,A)\). Keeping \(s\) and \(W_{\mathrm{K3}}\) separate lets the cache-aware policy alter a bounded set of IDs without introducing a cache term into the model's weighting semantics.
@@ -916,28 +915,11 @@ Third, routing cannot become a systems control surface without making approximat
 # 12. Conclusion
 
 **Coordination:** [#122](https://github.com/murillo128/k3-out-of-core/issues/122)  
-**Status:** `OUTLINE`
+**Status:** `EVIDENCE_CHECK` / task-level conclusions remain pending #100/#101
 
-Keep the conclusion short and conceptual.
+Mixture-of-Experts sparsity reduces the computation performed for each token, but it does not eliminate the mismatch between a large expert pool and limited memory capacity. On full Kimi K3, explicit out-of-core residency turns that mismatch into a measurable expert-service problem, and bounded cache-aware substitutions use local routing flexibility to reduce physical backing demand and improve locality and throughput at fixed measured cache capacity. The same intervention changes the model's predictive trajectory and can be amplified by autoregressive token feedback, so router-score proximity is not itself a quality guarantee.
 
-## Target flow
-
-1. Sparse activation reduces compute but not the expert-capacity/memory mismatch.
-2. Out-of-core inference turns routing into an expert-service problem.
-3. On full Kimi K3, explicit residency plus bounded cache-aware substitutions can reduce physical expert demand and improve locality/throughput across the frozen workload evidence.
-4. Physical backing demand is the strongest measured systems variable in the evaluated regime.
-5. The gain is not free: routing changes cause measurable predictive drift and token-mediated feedback, while simple accumulated regret is not a sufficient long-horizon semantic proxy.
-6. Final conceptual takeaway.
-
-Candidate final sentence:
-
-> MoE sparsity can be exploited not only to reduce computation, but to make model capacity itself an online systems resource. Once routing participates in that control loop, performance, memory capacity, and predictive quality must be evaluated jointly.
-
-Alternative:
-
-> For out-of-core MoE inference, the relevant frontier is not simply cache size versus throughput, but routing flexibility versus physical service demand versus quality.
-
-Use at most one or two quantitative results in the Conclusion after final headline claims are frozen.
+These K3 results point to a coupled frontier for out-of-core MoE inference. Routing flexibility determines which experts are requested, memory capacity determines which requests can be served locally, physical expert-service demand determines how much work crosses the slow boundary, and predictive quality constrains how aggressively routing may be changed. Routing flexibility, physical service demand, memory capacity, and quality should therefore be evaluated jointly when treating MoE capacity as an online systems resource.
 
 ---
 
