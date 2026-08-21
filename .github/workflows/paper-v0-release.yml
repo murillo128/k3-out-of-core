@@ -8,10 +8,13 @@ on:
 
 permissions:
   contents: write
+  issues: write
+  pull-requests: write
 
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     env:
       SOURCE_SHA: 19a977cb884a87305279c7b90dc1a70f226e730e
       RELEASE_TAG: v0
@@ -40,7 +43,7 @@ jobs:
           source = Path('paper/paper.md').read_text(encoding='utf-8')
 
           # The first H1 is the manuscript title; use it as PDF metadata rather
-          # than rendering it as a numbered body heading.
+          # than rendering it as a body heading.
           lines = source.splitlines()
           if not lines or not lines[0].startswith('# '):
               raise SystemExit('paper/paper.md does not start with the expected title H1')
@@ -59,22 +62,22 @@ jobs:
           if b_marker not in appendix or e_marker not in appendix:
               raise SystemExit('expected public/internal appendix boundaries not found')
 
-          # Public v0: manuscript proper + scientific appendices B-D.
-          # Excluded as internal/operational: Appendix A (artifact identities),
-          # Appendix E (scope bookkeeping), Appendix F (prior-art comparability table).
+          # Reader-facing v0: manuscript proper + scientific appendices B-D.
+          # Excluded as internal/operational: A (artifact identities),
+          # E (scope bookkeeping), F (prior-art comparability bookkeeping).
           scientific_appendices = appendix[appendix.index(b_marker):appendix.index(e_marker)].rstrip()
-
           public = main_body.rstrip() + '\n\n---\n\n# Appendix\n\n' + scientific_appendices + '\n'
 
-          # Use the committed vector-PDF figure outputs directly in LaTeX.
+          # Prefer the committed vector PDF figure outputs for LaTeX.
           public = re.sub(r'(figures/generated/[^)\s]+)\.svg\)', r'\1.pdf)', public)
 
           out_dir = Path('paper/build')
           out_dir.mkdir(parents=True, exist_ok=True)
           md = out_dir / 'paper-public.md'
+          escaped_title = title.replace('"', '\\"')
           front_matter = (
               '---\n'
-              f'title: "{title.replace(chr(34), chr(92)+chr(34))}"\n'
+              f'title: "{escaped_title}"\n'
               'subtitle: "Preprint v0"\n'
               'date: "August 2026"\n'
               '---\n\n'
@@ -101,7 +104,7 @@ jobs:
       - name: Validate public PDF
         run: |
           set -euo pipefail
-          pdfinfo "paper/build/${PDF_NAME}"
+          pdfinfo "paper/build/${PDF_NAME}" | tee paper/build/pdfinfo.txt
           pdftotext "paper/build/${PDF_NAME}" paper/build/paper-v0.txt
 
           grep -q 'Cache-Aware Expert Routing' paper/build/paper-v0.txt
@@ -122,12 +125,15 @@ jobs:
             exit 1
           fi
 
-          # Render representative pages as a structural smoke test.
-          pages=$(pdfinfo "paper/build/${PDF_NAME}" | awk '/^Pages:/ {print $2}')
+          pages=$(awk '/^Pages:/ {print $2}' paper/build/pdfinfo.txt)
           test -n "$pages"
           test "$pages" -gt 5
-          pdftoppm -f 1 -singlefile -png -r 120 "paper/build/${PDF_NAME}" paper/build/page-1 >/dev/null 2>&1
+
+          # Rendering the first page catches broken PDF/image integration.
+          pdftoppm -f 1 -singlefile -png -r 120 \
+            "paper/build/${PDF_NAME}" paper/build/page-1 >/dev/null 2>&1
           test -s paper/build/page-1.png
+
           sha256sum "paper/build/${PDF_NAME}" | tee paper/build/SHA256SUMS
 
       - name: Upload Actions artifact
@@ -158,3 +164,41 @@ jobs:
             paper/build/SHA256SUMS
           fail_on_unmatched_files: true
           overwrite_files: true
+
+      - name: Report result on PR 123
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          JOB_STATUS: ${{ job.status }}
+        run: |
+          set -u
+          run_url="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          asset_url="https://github.com/${GITHUB_REPOSITORY}/releases/download/${RELEASE_TAG}/${PDF_NAME}"
+
+          if [ "$JOB_STATUS" = "success" ] && [ -f "paper/build/${PDF_NAME}" ]; then
+            pages=$(pdfinfo "paper/build/${PDF_NAME}" | awk '/^Pages:/ {print $2}')
+            checksum=$(sha256sum "paper/build/${PDF_NAME}" | awk '{print $1}')
+            body=$(cat <<EOF
+          Paper v0 release build: **SUCCESS**
+
+          - Source: \`${SOURCE_SHA}\`
+          - Release: \`${RELEASE_TAG}\`
+          - PDF: [\`${PDF_NAME}\`](${asset_url})
+          - Pages: ${pages}
+          - SHA-256: \`${checksum}\`
+          - Internal appendices A/E/F excluded; scientific appendices B-D retained.
+          - Workflow run: ${run_url}
+          EOF
+          )
+          else
+            body=$(cat <<EOF
+          Paper v0 release build: **${JOB_STATUS^^}**
+
+          - Source: \`${SOURCE_SHA}\`
+          - Intended release: \`${RELEASE_TAG}\`
+          - Workflow run: ${run_url}
+          EOF
+          )
+          fi
+
+          gh api "repos/${GITHUB_REPOSITORY}/issues/123/comments" -f body="$body"
