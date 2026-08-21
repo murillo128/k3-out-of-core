@@ -10,11 +10,13 @@ import sys
 from pathlib import Path
 
 from protocol import (
-    AUTO_ADMISSION_SHA256, AUTO_CACHE_REQUEST_BYTES, CAMPAIGN_SHA256,
-    CAPACITY_FLOOR_BYTES, CAPACITY_FLOOR_SLOTS, MODEL_MANIFEST_SHA256,
-    EXPERT_BUNDLE_BYTES, MEMLOCK_LIMIT_BYTES, NESTED_BASELINE, PREREGISTRATION_SHA256,
+    ATTEMPT_TIMEOUT_S, AUTO_ADMISSION_SHA256, AUTO_CACHE_REQUEST_BYTES,
+    CAMPAIGN_SHA256, CAPACITY_FLOOR_BYTES, CAPACITY_FLOOR_SLOTS,
+    CUMULATIVE_ATTEMPT_BUDGET_S, MODEL_MANIFEST_SHA256, EXPERT_BUNDLE_BYTES,
+    MAX_RESTARTS, MEMLOCK_LIMIT_BYTES, NESTED_BASELINE, PREREGISTRATION_SHA256,
     PREVIOUS_BINARY_SHA256, PREVIOUS_EXECUTION_AUTHORIZATION_SHA256,
-    PREVIOUS_NESTED_COMMIT, PREVIOUS_PROJECT_COMMIT, PUBLIC_AUTO_ADMISSION,
+    PREVIOUS_ATTEMPT_TIMEOUT_S, PREVIOUS_NESTED_COMMIT,
+    PREVIOUS_PROJECT_COMMIT, PUBLIC_AUTO_ADMISSION,
     RECOVERY_ATTEMPT_FIRST, RECOVERY_ATTEMPT_LAST, RECOVERY_EPOCH,
     RECOVERY_RUN_ORDINAL,
     atomic_json, bind_checksum, load_json, repository_identity, sha256_bytes,
@@ -68,9 +70,9 @@ def main() -> int:
             capacity.get("floor_bytes") != CAPACITY_FLOOR_BYTES or \
             conformance.get("auto_admission", {}).get("sha256") != AUTO_ADMISSION_SHA256 or \
             conformance.get("recovery", {}).get("memlock_limit_bytes") != MEMLOCK_LIMIT_BYTES or \
-            conformance.get("repository", {}).get("project_commit") != repository["project_commit"] or \
+            conformance.get("repository", {}).get("project_commit") != PREVIOUS_PROJECT_COMMIT or \
             conformance.get("repository", {}).get("nested_commit") != NESTED_BASELINE:
-        raise AuthorizationError("non-scored conformance evidence does not bind current target")
+        raise AuthorizationError("reused non-scored conformance evidence does not bind recovery-v4")
     for arm in ("exact", "s2"):
         slots = capacity.get(f"{arm}_auto_slots")
         if not isinstance(slots, int) or slots < CAPACITY_FLOOR_SLOTS or \
@@ -105,19 +107,25 @@ def main() -> int:
         raise AuthorizationError("previous execution authorization identity mismatch")
     previous_authorization = load_json(previous_authorization_path)
     validate_checksum(previous_authorization)
-    if previous_authorization.get("schema_version") != "issue100-execution-authorization-v2" or \
+    if previous_authorization.get("schema_version") != "issue100-execution-authorization-v4" or \
             previous_authorization.get("project_commit") != PREVIOUS_PROJECT_COMMIT or \
             previous_authorization.get("nested_commit") != PREVIOUS_NESTED_COMMIT or \
-            previous_authorization.get("binary_sha256") != PREVIOUS_BINARY_SHA256:
+            previous_authorization.get("binary_sha256") != PREVIOUS_BINARY_SHA256 or \
+            previous_authorization.get("non_scored_conformance_sha256") != sha256_file(conformance_path) or \
+            sha256_file(args.binary.resolve(strict=True)) != PREVIOUS_BINARY_SHA256:
         raise AuthorizationError("previous execution authorization target mismatch")
 
     campaign_root = args.campaign_root.resolve(strict=True)
     runs_path = campaign_root / "runs.jsonl"
     lines = runs_path.read_bytes().splitlines(keepends=True)
-    if len(lines) != 1:
-        raise AuthorizationError("recovery authorization requires exactly one accepted run")
-    accepted_run = json.loads(lines[0])
-    validate_checksum(accepted_run)
+    if len(lines) != 2:
+        raise AuthorizationError("recovery-v5 authorization requires exactly two accepted runs")
+    accepted_runs = [json.loads(line) for line in lines]
+    for accepted_run in accepted_runs:
+        validate_checksum(accepted_run)
+    prior_prefix_identity = previous_authorization.get("previous_identity")
+    if not isinstance(prior_prefix_identity, dict):
+        raise AuthorizationError("recovery-v4 accepted-prefix identity is invalid")
     previous_identity = {
         "campaign_sha256": CAMPAIGN_SHA256,
         "preregistration_sha256": PREREGISTRATION_SHA256,
@@ -132,34 +140,43 @@ def main() -> int:
         "capacity_request_bytes": AUTO_CACHE_REQUEST_BYTES,
         "capacity_floor_slots": CAPACITY_FLOOR_SLOTS,
         "capacity_floor_bytes": CAPACITY_FLOOR_BYTES,
+        "memlock_limit_bytes": MEMLOCK_LIMIT_BYTES,
         "scoring_identity": "issue100-response-boundary-first-regex-v1",
+        "recovery_epoch": RECOVERY_EPOCH - 1,
     }
-    if accepted_run.get("run_ordinal") != 1 or any(
-            accepted_run.get(key) != expected for key, expected in previous_identity.items()):
-        raise AuthorizationError("accepted run-1 recovery identity mismatch")
-    accepted_manifest = Path(accepted_run["attempt_manifest_path"])
-    if not accepted_manifest.is_file() or \
-            sha256_file(accepted_manifest) != accepted_run.get("attempt_manifest_sha256"):
-        raise AuthorizationError("accepted run-1 attempt manifest drift")
+    accepted_prefix_identities = [
+        {"first_run": 1, "last_run": 1, "identity": prior_prefix_identity},
+        {"first_run": 2, "last_run": 2, "identity": previous_identity},
+    ]
+    for accepted_run, segment in zip(accepted_runs, accepted_prefix_identities):
+        expected_ordinal = segment["first_run"]
+        if accepted_run.get("run_ordinal") != expected_ordinal or any(
+                accepted_run.get(key) != expected
+                for key, expected in segment["identity"].items()):
+            raise AuthorizationError(f"accepted run-{expected_ordinal} recovery identity mismatch")
+        accepted_manifest = Path(accepted_run["attempt_manifest_path"])
+        if not accepted_manifest.is_file() or \
+                sha256_file(accepted_manifest) != accepted_run.get("attempt_manifest_sha256"):
+            raise AuthorizationError(f"accepted run-{expected_ordinal} attempt manifest drift")
 
     control_path = campaign_root / "campaign-control.json"
     control = load_json(control_path)
     if control.get("status") != "halted" or control.get("failed_run") != RECOVERY_RUN_ORDINAL or \
             control.get("failed_attempt") != RECOVERY_ATTEMPT_FIRST - 1 or any(
                 control.get(key) != expected for key, expected in previous_identity.items()):
-        raise AuthorizationError("pre-recovery campaign-control state drift")
+        raise AuthorizationError("pre-recovery-v5 campaign-control state drift")
     previous_campaign_control_sha256 = sha256_file(control_path)
 
     run_roots = list((campaign_root / "attempts").glob(f"run-{RECOVERY_RUN_ORDINAL:03d}-*"))
     if len(run_roots) != 1:
-        raise AuthorizationError("run-2 recovery lineage root is ambiguous")
+        raise AuthorizationError("recovery-v5 attempt lineage root is ambiguous")
     attempt_hashes = []
     for attempt_ordinal in range(1, RECOVERY_ATTEMPT_FIRST):
         manifest_path = run_roots[0] / f"attempt-{attempt_ordinal:02d}" / "attempt-manifest.json"
         manifest = load_json(manifest_path)
         if manifest.get("run_ordinal") != RECOVERY_RUN_ORDINAL or \
                 manifest.get("attempt_ordinal") != attempt_ordinal or manifest.get("accepted"):
-            raise AuthorizationError("run-2 prior-attempt identity drift")
+            raise AuthorizationError("recovery-v5 prior-attempt identity drift")
         attempt_hashes.append(sha256_file(manifest_path))
     attempt_lineage_sha256 = sha256_bytes(("\n".join(attempt_hashes) + "\n").encode("ascii"))
 
@@ -181,7 +198,7 @@ def main() -> int:
             raise AuthorizationError("reboot evidence does not bind conformance boot")
         reboot_evidence_sha256 = sha256_file(reboot_path)
     value = bind_checksum({
-        "schema_version": "issue100-execution-authorization-v4",
+        "schema_version": "issue100-execution-authorization-v5",
         "verdict": "PASS",
         "safe_to_start_scored_inference": True,
         "serves_as_final_review": False,
@@ -198,14 +215,24 @@ def main() -> int:
         "capacity_floor_slots": CAPACITY_FLOOR_SLOTS,
         "capacity_floor_bytes": CAPACITY_FLOOR_BYTES,
         "memlock_limit_bytes": MEMLOCK_LIMIT_BYTES,
+        "previous_attempt_timeout_s": PREVIOUS_ATTEMPT_TIMEOUT_S,
+        "attempt_timeout_s": ATTEMPT_TIMEOUT_S,
+        "campaign_cumulative_attempt_budget_s": CUMULATIVE_ATTEMPT_BUDGET_S,
+        "max_restarts": MAX_RESTARTS,
         "non_scored_conformance": "PASS",
         "non_scored_conformance_sha256": sha256_file(conformance_path),
+        "non_scored_conformance_project_commit": PREVIOUS_PROJECT_COMMIT,
+        "non_scored_conformance_reused": True,
+        "runtime_binary_unchanged": True,
+        "reviewed_base_project_commit": PREVIOUS_PROJECT_COMMIT,
+        "successful_path_delta": "ATTEMPT_WATCHDOG_AND_CONTROL_ONLY",
         "successful_path_equivalence": "PASS",
         "previous_execution_authorization_sha256": PREVIOUS_EXECUTION_AUTHORIZATION_SHA256,
         "previous_campaign_control_sha256": previous_campaign_control_sha256,
         "previous_identity": previous_identity,
-        "accepted_prefix_runs": 1,
-        "accepted_prefix_sha256": sha256_bytes(lines[0]),
+        "accepted_prefix_identities": accepted_prefix_identities,
+        "accepted_prefix_runs": 2,
+        "accepted_prefix_sha256": sha256_bytes(b"".join(lines)),
         "prior_attempt_manifest_sha256s": attempt_hashes,
         "attempt_lineage_sha256": attempt_lineage_sha256,
         "recovery_epoch": RECOVERY_EPOCH,

@@ -223,41 +223,54 @@ def test_interrupted_unaccepted_attempt_is_sealed_not_reused(tmp_path: Path) -> 
 
 
 def test_recovery_prefix_accepts_only_the_frozen_previous_identity(tmp_path: Path) -> None:
-    manifest = tmp_path / "accepted-attempt.json"
-    protocol.atomic_json(manifest, {"accepted": True})
-    previous_identity = {"project_commit": "old", "nested_commit": "old-nested"}
+    manifests = [tmp_path / "accepted-attempt-1.json", tmp_path / "accepted-attempt-2.json"]
+    for manifest in manifests:
+        protocol.atomic_json(manifest, {"accepted": True})
+    first_identity = {"project_commit": "old", "recovery_epoch": 1}
+    second_identity = {"project_commit": "previous", "recovery_epoch": 2}
     current_identity = {
-        "project_commit": "new", "nested_commit": "new-nested", "recovery_epoch": 2,
+        "project_commit": "new", "recovery_epoch": 3,
     }
-    row = protocol.bind_checksum({
-        "schema_version": "issue100-accepted-run-v1",
-        "run_ordinal": 1, "item_id": "item", "arm": "EXACT",
-        "attempt_manifest_path": str(manifest),
-        "attempt_manifest_sha256": protocol.sha256_file(manifest),
-        **previous_identity,
-    })
+    rows = [
+        protocol.bind_checksum({
+            "schema_version": "issue100-accepted-run-v1",
+            "run_ordinal": ordinal, "item_id": f"item-{ordinal}", "arm": "EXACT",
+            "attempt_manifest_path": str(manifest),
+            "attempt_manifest_sha256": protocol.sha256_file(manifest),
+            **identity,
+        })
+        for ordinal, (manifest, identity) in enumerate(
+            zip(manifests, (first_identity, second_identity)), 1
+        )
+    ]
     path = tmp_path / "runs.jsonl"
-    protocol.append_canonical_jsonl(path, row)
+    for row in rows:
+        protocol.append_canonical_jsonl(path, row)
     authorization = {
-        "accepted_prefix_runs": 1,
+        "accepted_prefix_runs": 2,
         "accepted_prefix_sha256": protocol.sha256_file(path),
-        "previous_identity": previous_identity,
+        "accepted_prefix_identities": [
+            {"first_run": 1, "last_run": 1, "identity": first_identity},
+            {"first_run": 2, "last_run": 2, "identity": second_identity},
+        ],
     }
-    assert campaign.validate_existing_runs(path, current_identity, authorization) == [row]
+    assert campaign.validate_existing_runs(path, current_identity, authorization) == rows
     authorization["accepted_prefix_sha256"] = "0"*64
     with pytest.raises(campaign.CampaignError, match="recovery prefix drift"):
         campaign.validate_existing_runs(path, current_identity, authorization)
 
 
-def test_recovery_attempt_lineage_requires_attempts_one_through_four(tmp_path: Path) -> None:
-    run_root = tmp_path / "attempts/run-002-item-s2_p50"
+def test_recovery_attempt_lineage_requires_run_three_attempt_one(tmp_path: Path) -> None:
+    run_root = tmp_path / "attempts/run-003-item-exact"
     hashes = []
-    for ordinal in range(1, 5):
+    for ordinal in range(1, protocol.RECOVERY_ATTEMPT_FIRST):
         directory = run_root / f"attempt-{ordinal:02d}"
         directory.mkdir(parents=True)
         manifest = directory / "attempt-manifest.json"
         protocol.atomic_json(manifest, {
-            "run_ordinal": 2, "attempt_ordinal": ordinal, "accepted": False,
+            "run_ordinal": protocol.RECOVERY_RUN_ORDINAL,
+            "attempt_ordinal": ordinal,
+            "accepted": False,
         })
         hashes.append(protocol.sha256_file(manifest))
     authorization = {
@@ -279,8 +292,14 @@ def test_probe_command_uses_direct_auto_without_capacity_argument(tmp_path: Path
     assert command[command.index("--seed") + 1] == "7"
 
 
-def test_recovery_attempt_window_preserves_prior_lineage() -> None:
-    assert campaign.attempt_window(protocol.RECOVERY_RUN_ORDINAL) == (5, 7)
+def test_recovery_v5_watchdog_and_attempt_window() -> None:
+    assert protocol.PREVIOUS_ATTEMPT_TIMEOUT_S == 18_000
+    assert protocol.ATTEMPT_TIMEOUT_S == 28_800
+    assert protocol.CUMULATIVE_ATTEMPT_BUDGET_S == 4_320_000
+    assert protocol.MAX_RESTARTS == 2
+    assert campaign.bounded_attempt_timeout(1_000_000.0) == 28_800.0
+    assert campaign.bounded_attempt_timeout(12_345.0) == 12_345.0
+    assert campaign.attempt_window(protocol.RECOVERY_RUN_ORDINAL) == (2, 3)
     assert campaign.attempt_window(protocol.RECOVERY_RUN_ORDINAL + 1) == (1, 3)
 
 

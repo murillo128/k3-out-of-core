@@ -24,7 +24,8 @@ The tool boundary is deliberate:
 Do not run `run_campaign.py` until all of the following bind the same published
 project commit:
 
-1. the exact binary has been built from that commit;
+1. the exact retained probe binary is bound, and the reviewed project-only diff
+   proves its source/runtime inputs are unchanged;
 2. Python tests and the non-scored EXACT/S2 conformance run pass;
 3. the authoritative issue amendment still authorizes execution; and
 4. `freeze_execution_authorization.py` binds that amendment and conformance.
@@ -65,7 +66,7 @@ cmake --build /mnt/nvme1/issue100/recovery-probe-build --parallel 32 \
   --target issue100-gpqa-probe
 ```
 
-Run the outcome-blind fixture after the implementation commit is clean. The
+Run the outcome-blind fixture after a runtime implementation commit is clean. The
 finite 512-MiB memlock envelope is process permission for the bounded fixed
 buffer, not an AUTO-capacity input or reservation:
 
@@ -78,30 +79,30 @@ sudo prlimit --memlock=536870912:536870912 \
   --output-root /mnt/nvme1/issue100/conformance-TARGET
 ```
 
-After conformance, bind the published execution amendment and start or resume
-the scientific campaign:
+Recovery-v5 reuses the recovery-v4 conformance and unchanged probe binary. After
+the focused Python suite and bounded watchdog-only review pass on the published
+project target, bind the timeout amendment and resume the scientific campaign:
 
 ```bash
 python3 scripts/issue100/freeze_execution_authorization.py \
   --preregistration corpus/phase13/issue100-preregistration-v2.json \
   --protected-plan /mnt/nvme1/issue100/prepared-v1/protected-plan.json \
   --binary /mnt/nvme1/issue100/recovery-probe-build/bin/issue100-gpqa-probe \
-  --conformance /mnt/nvme1/issue100/conformance-TARGET/conformance.json \
-  --previous-execution-authorization /mnt/nvme1/issue100/execution-authorization-ac3849f-auto.json \
+  --conformance /mnt/nvme1/issue100/conformance-210dd62-memlock-v4/conformance.json \
+  --previous-execution-authorization /mnt/nvme1/issue100/execution-authorization-recovery-v4.json \
   --campaign-root /mnt/nvme1/issue100/campaign-auto-ac3849f \
   --recovery-amendment-url RECOVERY_AMENDMENT_URL \
   --recovery-amendment-sha256 RECOVERY_AMENDMENT_BODY_SHA256 \
   --independent-review-url REVIEW_URL \
   --independent-review-sha256 REVIEW_BODY_SHA256 \
-  --reboot-evidence /mnt/nvme1/issue100/recovery-reboot-v3.json \
-  --output /mnt/nvme1/issue100/execution-authorization-recovery-v4.json
+  --output /mnt/nvme1/issue100/execution-authorization-recovery-v5.json
 
 sudo prlimit --memlock=536870912:536870912 \
   setpriv --reuid="$(id -u)" --regid="$(id -g)" --init-groups \
   python3 scripts/issue100/run_campaign.py \
   --preregistration corpus/phase13/issue100-preregistration-v2.json \
   --protected-plan /mnt/nvme1/issue100/prepared-v1/protected-plan.json \
-  --execution-authorization /mnt/nvme1/issue100/execution-authorization-recovery-v4.json \
+  --execution-authorization /mnt/nvme1/issue100/execution-authorization-recovery-v5.json \
   --output-root /mnt/nvme1/issue100/campaign-auto-ac3849f
 ```
 

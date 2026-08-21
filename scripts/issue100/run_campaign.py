@@ -28,7 +28,7 @@ from protocol import (
     MODEL_MANIFEST_SHA256, MODEL_PATH, N_CTX, NESTED_BASELINE,
     MEMLOCK_LIMIT_BYTES,
     PREVIOUS_BINARY_SHA256, PREVIOUS_EXECUTION_AUTHORIZATION_SHA256,
-    PREVIOUS_NESTED_COMMIT, PREVIOUS_PROJECT_COMMIT,
+    PREVIOUS_ATTEMPT_TIMEOUT_S, PREVIOUS_NESTED_COMMIT, PREVIOUS_PROJECT_COMMIT,
     PREREGISTRATION_SHA256, PUBLIC_AUTO_ADMISSION, RESPONSE_BOUNDARY, THREADS,
     RECOVERY_ATTEMPT_FIRST, RECOVERY_ATTEMPT_LAST, RECOVERY_EPOCH,
     RECOVERY_RUN_ORDINAL,
@@ -662,12 +662,24 @@ def validate_existing_runs(
 ) -> list[dict[str, Any]]:
     rows = load_jsonl(path)
     accepted_prefix_runs = int(authorization.get("accepted_prefix_runs", 0))
-    previous_identity = authorization.get("previous_identity", {})
+    prefix_segments = authorization.get("accepted_prefix_identities", [])
     if accepted_prefix_runs:
-        if accepted_prefix_runs > len(rows) or not isinstance(previous_identity, dict) or \
+        if accepted_prefix_runs > len(rows) or not isinstance(prefix_segments, list) or \
                 jsonl_prefix_sha256(path, accepted_prefix_runs) != \
                 authorization.get("accepted_prefix_sha256"):
             raise CampaignError("accepted-run recovery prefix drift")
+        covered = []
+        for segment in prefix_segments:
+            if not isinstance(segment, dict) or not isinstance(segment.get("identity"), dict):
+                raise CampaignError("accepted-run recovery identity segment is invalid")
+            first = segment.get("first_run")
+            last = segment.get("last_run")
+            if not isinstance(first, int) or not isinstance(last, int) or \
+                    first < 1 or last < first:
+                raise CampaignError("accepted-run recovery identity range is invalid")
+            covered.extend(range(first, last + 1))
+        if covered != list(range(1, accepted_prefix_runs + 1)):
+            raise CampaignError("accepted-run recovery identity coverage is invalid")
     seen = set()
     for expected_ordinal, row in enumerate(rows, 1):
         validate_checksum(row)
@@ -678,7 +690,13 @@ def validate_existing_runs(
         if key in seen:
             raise CampaignError("duplicate accepted run")
         seen.add(key)
-        expected_identity = previous_identity if expected_ordinal <= accepted_prefix_runs else identity
+        if expected_ordinal <= accepted_prefix_runs:
+            expected_identity = next(
+                segment["identity"] for segment in prefix_segments
+                if segment["first_run"] <= expected_ordinal <= segment["last_run"]
+            )
+        else:
+            expected_identity = identity
         for field, value in expected_identity.items():
             if row.get(field) != value:
                 raise CampaignError(f"accepted run identity drift: {field}")
@@ -836,21 +854,21 @@ def cumulative_attempt_seconds(root: Path) -> float:
 def validate_recovery_attempt_lineage(root: Path, authorization: dict[str, Any]) -> list[str]:
     run_roots = list((root / "attempts").glob(f"run-{RECOVERY_RUN_ORDINAL:03d}-*"))
     if len(run_roots) != 1:
-        raise CampaignError("run-2 recovery lineage root is ambiguous")
+        raise CampaignError("recovery attempt lineage root is ambiguous")
     hashes = []
     for attempt_ordinal in range(1, RECOVERY_ATTEMPT_FIRST):
         path = run_roots[0] / f"attempt-{attempt_ordinal:02d}" / "attempt-manifest.json"
         if not path.is_file():
-            raise CampaignError("run-2 recovery attempt lineage is incomplete")
+            raise CampaignError("recovery attempt lineage is incomplete")
         manifest = load_json(path)
         if manifest.get("run_ordinal") != RECOVERY_RUN_ORDINAL or \
                 manifest.get("attempt_ordinal") != attempt_ordinal or manifest.get("accepted"):
-            raise CampaignError("run-2 recovery attempt identity drift")
+            raise CampaignError("recovery attempt identity drift")
         hashes.append(sha256_file(path))
     expected_hashes = authorization.get("prior_attempt_manifest_sha256s")
     lineage_sha256 = sha256_bytes(("\n".join(hashes) + "\n").encode("ascii"))
     if hashes != expected_hashes or lineage_sha256 != authorization.get("attempt_lineage_sha256"):
-        raise CampaignError("run-2 recovery attempt lineage drift")
+        raise CampaignError("recovery attempt lineage drift")
     return hashes
 
 
@@ -878,7 +896,7 @@ def validate_authorization(
     value = load_json(path)
     validate_checksum(value)
     required = {
-        "schema_version": "issue100-execution-authorization-v4",
+        "schema_version": "issue100-execution-authorization-v5",
         "verdict": "PASS",
         "safe_to_start_scored_inference": True,
         "serves_as_final_review": False,
@@ -894,13 +912,22 @@ def validate_authorization(
         "capacity_floor_slots": CAPACITY_FLOOR_SLOTS,
         "capacity_floor_bytes": CAPACITY_FLOOR_BYTES,
         "memlock_limit_bytes": MEMLOCK_LIMIT_BYTES,
+        "previous_attempt_timeout_s": PREVIOUS_ATTEMPT_TIMEOUT_S,
+        "attempt_timeout_s": ATTEMPT_TIMEOUT_S,
+        "campaign_cumulative_attempt_budget_s": CUMULATIVE_ATTEMPT_BUDGET_S,
+        "max_restarts": MAX_RESTARTS,
         "non_scored_conformance": "PASS",
+        "non_scored_conformance_project_commit": PREVIOUS_PROJECT_COMMIT,
+        "non_scored_conformance_reused": True,
+        "runtime_binary_unchanged": True,
+        "reviewed_base_project_commit": PREVIOUS_PROJECT_COMMIT,
+        "successful_path_delta": "ATTEMPT_WATCHDOG_AND_CONTROL_ONLY",
         "successful_path_equivalence": "PASS",
         "recovery_epoch": RECOVERY_EPOCH,
         "recovery_run_ordinal": RECOVERY_RUN_ORDINAL,
         "recovery_attempt_first": RECOVERY_ATTEMPT_FIRST,
         "recovery_attempt_last": RECOVERY_ATTEMPT_LAST,
-        "accepted_prefix_runs": 1,
+        "accepted_prefix_runs": 2,
         "previous_execution_authorization_sha256": PREVIOUS_EXECUTION_AUTHORIZATION_SHA256,
     }
     for key, expected in required.items():
@@ -923,7 +950,9 @@ def validate_authorization(
         "capacity_request_bytes": AUTO_CACHE_REQUEST_BYTES,
         "capacity_floor_slots": CAPACITY_FLOOR_SLOTS,
         "capacity_floor_bytes": CAPACITY_FLOOR_BYTES,
+        "memlock_limit_bytes": MEMLOCK_LIMIT_BYTES,
         "scoring_identity": "issue100-response-boundary-first-regex-v1",
+        "recovery_epoch": RECOVERY_EPOCH - 1,
     }
     if previous_identity != expected_previous_identity:
         raise CampaignError("authorization previous-target identity drift")
@@ -949,6 +978,11 @@ def validate_authorization(
             r"[0-9a-fA-F]{64}", str(value.get("reboot_evidence_sha256", ""))):
         raise CampaignError("authorization reboot evidence identity is invalid")
     return value
+
+
+def bounded_attempt_timeout(remaining_attempt_s: float) -> float:
+    """Apply the frozen recovery-v5 watchdog without enlarging the campaign budget."""
+    return min(float(ATTEMPT_TIMEOUT_S), remaining_attempt_s)
 
 
 def build_run_record(
@@ -1152,6 +1186,9 @@ def main() -> int:
         "capacity_floor_slots": CAPACITY_FLOOR_SLOTS,
         "capacity_floor_bytes": CAPACITY_FLOOR_BYTES,
         "memlock_limit_bytes": MEMLOCK_LIMIT_BYTES,
+        "attempt_timeout_s": ATTEMPT_TIMEOUT_S,
+        "campaign_cumulative_attempt_budget_s": CUMULATIVE_ATTEMPT_BUDGET_S,
+        "max_restarts": MAX_RESTARTS,
         "scoring_identity": "issue100-response-boundary-first-regex-v1",
         "recovery_epoch": authorization["recovery_epoch"],
     }
@@ -1171,27 +1208,23 @@ def main() -> int:
                 if control.get(key) != expected:
                     raise CampaignError(f"pre-recovery campaign-control identity drift: {key}")
             previous_control_sha256 = sha256_file(control_path)
-            previous_epoch = {
-                "epoch": 1,
-                "status": control["status"],
-                "reason": control.get("reason"),
-                "failed_run": control.get("failed_run"),
-                "failed_attempt": control.get("failed_attempt"),
+            previous_epochs = control.get("recovery_epochs")
+            if not isinstance(previous_epochs, list) or \
+                    len(previous_epochs) != RECOVERY_EPOCH - 1:
+                raise CampaignError("pre-recovery campaign-control epoch drift")
+            previous_epochs[-1] = dict(previous_epochs[-1])
+            previous_epochs[-1].update({
                 "accepted_runs": len(runs),
-                "project_commit": control["project_commit"],
-                "nested_commit": control["nested_commit"],
-                "adapter_binary_sha256": control["adapter_binary_sha256"],
-                "execution_authorization_sha256": control["execution_authorization_sha256"],
                 "campaign_control_sha256": previous_control_sha256,
                 "attempt_manifest_sha256s": prior_attempt_hashes,
-            }
+            })
             control.update(identity)
             control.update({
                 "schema_version": "issue100-campaign-control-v3",
                 "status": "running",
                 "recovery_started_at": utc_now(),
                 "recovery_epochs": [
-                    previous_epoch,
+                    *previous_epochs,
                     {
                         "epoch": RECOVERY_EPOCH,
                         "status": "running",
@@ -1200,6 +1233,10 @@ def main() -> int:
                         "adapter_binary_sha256": identity["adapter_binary_sha256"],
                         "execution_authorization_sha256": identity["execution_authorization_sha256"],
                         "memlock_limit_bytes": identity["memlock_limit_bytes"],
+                        "previous_attempt_timeout_s": PREVIOUS_ATTEMPT_TIMEOUT_S,
+                        "attempt_timeout_s": ATTEMPT_TIMEOUT_S,
+                        "campaign_cumulative_attempt_budget_s": CUMULATIVE_ATTEMPT_BUDGET_S,
+                        "max_restarts": MAX_RESTARTS,
                         "recovery_run_ordinal": RECOVERY_RUN_ORDINAL,
                         "attempt_first": RECOVERY_ATTEMPT_FIRST,
                         "attempt_last": RECOVERY_ATTEMPT_LAST,
@@ -1270,7 +1307,7 @@ def main() -> int:
                 control.update({"status": "halted", "reason": "cumulative-attempt-budget"})
                 persist_campaign_control(control_path, control)
                 raise CampaignError("cumulative 50-day attempt budget exhausted")
-            attempt_timeout_s = min(float(ATTEMPT_TIMEOUT_S), remaining_attempt_s)
+            attempt_timeout_s = bounded_attempt_timeout(remaining_attempt_s)
             probe_input = {
                 "schema_version": "issue100-probe-input-v1",
                 "item_id": item["record_id"],
