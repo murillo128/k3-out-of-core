@@ -1,4 +1,4 @@
-# Figure 4 — Provider-mediated out-of-core architecture
+# Figure 5 — Provider-mediated out-of-core architecture
 
 - **Manuscript section / claim:** §4.6. Shows the implemented ownership boundary and the read-only residency/service signal consumed by routing.
 - **Evidence class:** design/explanatory; no empirical panel.

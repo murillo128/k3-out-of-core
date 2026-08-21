@@ -1,4 +1,4 @@
-# Figure 7 — Backing loads/token to physical decode TPS
+# Figure 8 — Backing loads/token to physical decode TPS
 
 - **Manuscript section / claim:** §7.5. Shows all protocol-compatible raw physical points, including policy/family structure, and separately reports the reviewed primary and sensitivity leave-one-family-out validations for loads/token predicting decode TPS inside the measured domain.
 - **Evidence class by panel:** Panel A points `MEASURED_PHYSICAL`; Panel A fits and Panel B residual/LOFO summaries `POST_HOC_EXPLORATORY`.

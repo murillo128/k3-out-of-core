@@ -1,4 +1,4 @@
-# Figure 6 — Frozen Stage-C physical comparisons
+# Figure 7 — Frozen Stage-C physical comparisons
 
 - **Manuscript section / claim:** §7.4. Shows every matched S2_P50/EXACT and S2_P50/KNEE physical TPS contrast and corresponding backing-load difference in the frozen 24-prompt Stage-C subset.
 - **Evidence class:** both panels and all plotted values are `MEASURED_PHYSICAL`.

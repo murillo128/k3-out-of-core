@@ -10,6 +10,7 @@ import subprocess
 import sys
 from pathlib import Path
 
+from fetch_issue77 import ensure_issue77_inputs
 from fetch_issue99 import ensure_issue99_inputs
 from fetch_issue98 import ensure_issue98_inputs
 from fetch_issue105 import ensure_issue105_inputs
@@ -18,6 +19,7 @@ from scripts.common import FIGURES, GENERATED, ROOT, sha256
 
 FIGURE_SCRIPTS = [
     ("fig01-memory-mismatch", "fig01_memory_mismatch.py"),
+    ("research-journey", "research_journey.py"),
     ("fig02-workload-dependence", "fig02_workload_dependence.py"),
     ("fig03-policy-selection", "fig03_policy_selection.py"),
     ("fig04-architecture", "fig04_architecture.py"),
@@ -71,6 +73,7 @@ def validate_contract() -> None:
     audited = [
         FIGURES / "README.md",
         FIGURES / "generate_all.py",
+        FIGURES / "fetch_issue77.py",
         FIGURES / "fetch_issue98.py",
         FIGURES / "fetch_issue99.py",
         FIGURES / "fetch_issue105.py",
@@ -90,6 +93,7 @@ def main() -> None:
     parser.add_argument("--offline", action="store_true", help="require every release-only input to be cached and verified")
     args = parser.parse_args()
 
+    ensure_issue77_inputs(offline=args.offline)
     ensure_issue98_inputs(offline=args.offline)
     ensure_issue99_inputs(offline=args.offline)
     ensure_issue105_inputs(offline=args.offline)
@@ -106,7 +110,7 @@ def main() -> None:
         if path.is_file() and path.name != "checksums.json"
     }
     (GENERATED / "checksums.json").write_text(
-        json.dumps({"schema_version": "paper-figures-issue124-v2", "outputs": hashes}, indent=2, sort_keys=True) + "\n",
+        json.dumps({"schema_version": "paper-figures-issue124-v3", "outputs": hashes}, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )
     print(f"validated {len(FIGURE_SCRIPTS)} figures; wrote {GENERATED / 'checksums.json'}")

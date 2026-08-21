@@ -1,4 +1,4 @@
-# Figure 2 — Workload-conditioned physical variation
+# Figure 3 — Workload-conditioned physical variation
 
 - **Manuscript section / claim:** §3.1. Supports the bounded claim that physical S2_P50 throughput varies by workload family, is not explained by ordinal prompt-length level alone, and exceeds the repeated-sentinel drift reference.
 - **Evidence class by panel:** A/B source rows `MEASURED_PHYSICAL`; C uses the same physical rows as a descriptive drift/noise comparison, not a confidence interval. Family/length interpretation is descriptive/post-hoc.

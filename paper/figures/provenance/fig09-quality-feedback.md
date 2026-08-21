@@ -1,4 +1,4 @@
-# Figure 9 — Long-horizon predictive damage and controlled feedback
+# Figure 10 — Long-horizon predictive damage and controlled feedback
 
 - **Manuscript section / claim:** §8.2–§8.4. Shows accepted ΔNLL trajectories for the broad cohort and separates direct fixed-context perturbation from free-trajectory autoregressive feedback for all bridge prompts.
 - **Evidence class by panel:** A `DIRECT_FIXED_CONTEXT`; B–D explicitly distinguish `DIRECT_FIXED_CONTEXT` (solid) from `FREE_TRAJECTORY` (dashed). These are controlled model-execution quality measures, not physical systems rows.

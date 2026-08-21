@@ -1,4 +1,4 @@
-# Figure 10 — Safety-controller decision and systems–quality association
+# Figure 11 — Safety-controller decision and systems–quality association
 
 - **Manuscript section / claim:** §8.5 and §8.7. Panel A explains why no cumulative-regret/perturbation/depth safety controller was introduced; Panel B explains the systems–quality trade-off framing.
 - **Evidence class by panel:** A uses `DIRECT_FIXED_CONTEXT` outcomes in a held-out post-hoc predictor hierarchy; B joins `MEASURED_PHYSICAL` systems values to `DIRECT_FIXED_CONTEXT` quality values and is `POST_HOC_EXPLORATORY`.
@@ -10,3 +10,4 @@
 - **Outputs / SHA-256:** `generated/fig10-decision-quality.svg` `b6ced0e7cb775e27e0fe147e7b7620dd6b96dbbb30d60bf16bb778868bc58ee6`; `.pdf` `bff07d4a98f027653e0144d7832e5dd950c8f245b3d269dca4d9e15042f77c0a`; `.png` `68ced5f4a260c7d87674c990e6a94351975625b76295a581c4f013cd6c9a7b04`.
 - **Proposed caption:** Held-out predictor hierarchy and frozen systems–quality association. Weak/no incremental predictor evidence did not justify a new safety controller; greater measured load reduction is inversely associated with ΔNLL in this cohort, not causally.
 - **Interpretation limits:** predictor rankings do not validate semantic safety, and the association is neither causal nor a universal performance–quality law. No adaptive controller was tested or built here.
+- **Closed decision branch:** `ADAPTIVE_REGRET_CONTROLLER_NOT_JUSTIFIED`; the frozen #99 outcome is `FOLLOWUP_ROUTING_DESIGN_JUSTIFIED = no`.

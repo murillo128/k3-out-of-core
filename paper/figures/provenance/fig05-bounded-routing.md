@@ -1,4 +1,4 @@
-# Figure 5 — Bounded cache-aware membership selection
+# Figure 6 — Bounded cache-aware membership selection
 
 - **Manuscript section / claim:** §5.4. Explains exact top-16 and candidate top-32 membership, contemporaneous service-tier state, strictly improving replacements, per-swap regret and swap limits, exactly-16 output, and original K3 weighting semantics.
 - **Evidence class:** method/explanatory with registered constants; not a physical-performance or semantic-equivalence result.

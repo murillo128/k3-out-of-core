@@ -10,3 +10,4 @@
 - **Outputs / SHA-256:** `generated/figa5-core-periphery.svg` `6ca5ca826928b5802f86f04c9e6585d515c0206a8e55c00182dfe69cdd3f63a7`; `.pdf` `f96006c819f5fc5469b714d26c225b0ce69284c7261dc0a8dbcd3353d619a02a`; `.png` `b60e9d18261cff49594ba95837c16ebefec40f221a9949c101563631347dccae`.
 - **Proposed caption:** Decode core size/selected mass across recurrence gamma and all same-capacity fixed-route pinning outcomes, including regressions and infeasible cells.
 - **Interpretation limits:** selected-frequency core is not expert semantics; pinning is not physically benchmarked and supplies no TPS or measured RAM-saving result. The negative quality interaction does not prove equal risk across experts.
+- **Closed decision branch:** `STATIC_PINNING_NOT_SELECTED`; 308 regressing and 196 infeasible fixed-route cells prevent selecting global recurrent-core pinning as the same-capacity strategy.

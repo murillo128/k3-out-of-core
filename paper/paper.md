@@ -83,6 +83,10 @@ The next question was whether simply retaining more exact-route experts solved t
 
 Only then did we ask whether the demand itself could move at fixed safe capacity. This sequence separates two complementary levers: first optimize the cost of servicing exact selections; then, once the memory and service limits are measured, use bounded router near-ties to avoid some expensive selections. The historical campaigns above use different hosts, capacities, and protocols, so their absolute throughput values are not combined. Their role here is methodological: each result closed one explanation or exposed the next question.
 
+![Figure 2: research decision journey](figures/generated/research-journey.svg)
+
+**Figure 2 — Research decision map (mixed evidence classes labeled per node).** Arrows encode decision dependency rather than causal strength or numerical comparability. The service-side sequence made physical expert service observable, improved exact miss service, and exposed the memory-pressure limit of simply increasing residency. The demand-side sequence then moved from bounded near-tie replay and the conservative KNEE decision to the protocol-distinct physical S2_P50 selection, full-prompt cross-workload validation, tests of simpler locality policies, and controlled long-horizon quality/feedback. Dashed branches retain negative results rather than hiding them. No cross-phase throughput values share an axis.
+
 ---
 
 # 3. Characterizing Out-of-Core K3
@@ -97,9 +101,9 @@ Separate observer captures provide route-level evidence without treating observe
 
 This distinction matters for static caching. A recurring core may exist, but broad, workload-conditioned peripheral demand remains. The later committee-pin analysis makes the limitation concrete—many static-pinning cells regress or are infeasible—but that result is post-hoc and counterfactual rather than physical production evidence. For the present characterization, the measured and observer evidence is sufficient to reject a workload-independent hot-set assumption.
 
-![Figure 2: workload-conditioned variation](figures/generated/fig02-workload-dependence.svg)
+![Figure 3: workload-conditioned variation](figures/generated/fig02-workload-dependence.svg)
 
-**Figure 2 — Workload-conditioned physical variation (`MEASURED_PHYSICAL`).** Panels A/B retain the complete 16-family × 8-level S2_P50 corpus and actual templated token counts; Panel C compares primary and repeated-sentinel TPS p90–p10 spreads. The 22.58× ratio is a drift/noise reference, not a CI. The corpus is controlled rather than IID; the plot neither assigns expert semantics nor establishes cross-model behavior. Figure A1 gives route detail and Figure A5 the static-pinning limitation.
+**Figure 3 — Workload-conditioned physical variation (`MEASURED_PHYSICAL`).** Panels A/B retain the complete 16-family × 8-level S2_P50 corpus and actual templated token counts; Panel C compares primary and repeated-sentinel TPS p90–p10 spreads. The 22.58× ratio is a drift/noise reference, not a CI. The corpus is controlled rather than IID; the plot neither assigns expert semantics nor establishes cross-model behavior. Figure A1 gives route detail and Figure A5 the static-pinning limitation.
 
 ## 3.2 Physical backing service is tightly associated with measured throughput
 
@@ -129,9 +133,9 @@ The first runtime decision from that frontier was deliberately conservative. The
 
 That decision did not answer which bounded shape was best once the system later operated at a higher, pressure-safe cache point. A separate physical policy-shape experiment therefore reopened only the already-supported swap/regret envelope, without changing the top-32 candidate boundary or inventing new thresholds. Its preregistered seven-profile screen selected S2_P50, the two-swap p50 point: median TPS was 7.708% higher and measured loads/bytes per token 15.866% lower than KNEE, and three fresh paired confirmations reproduced +6.832%, +6.857%, and +7.110% TPS gains. We therefore carried S2_P50 forward. This is a change in the selected operating point after a different physical question, not retrospective retuning of the original quality evidence.
 
-![Figure 3: policy-selection surface](figures/generated/fig03-policy-selection.svg)
+![Figure 4: two-stage policy evolution](figures/generated/fig03-policy-selection.svg)
 
-**Figure 3 — Frozen physical policy-selection surface.** Panels A/B retain every TPS and loads/token screening observation with swap budget and regret quantile visible; Panel C retains all paired S2_P50/KNEE confirmations. All are `MEASURED_PHYSICAL` under the earlier early-first-full protocol. They explain why the later physical operating-point question moved the selected policy from the earlier conservative KNEE to S2_P50. Absolute results are not pooled with the later full-prompt campaign and do not establish a universal optimum.
+**Figure 4 — Two-stage KNEE → S2_P50 policy evolution.** Panel A keeps #77's `FIXED_ROUTE_COUNTERFACTUAL` 96-GiB free-route locality frontier separate from its short-horizon teacher-forced predictive evidence: KNEE was the conservative one-swap/p25 recommendation, while max16 naturally realized seven swaps and added only 0.683 percentage points beyond max4 as KL/JS rose sharply; 23/24 top-1 agreement is not quality neutrality. Panels B–D are the protocol-distinct #98 `MEASURED_PHYSICAL` screen and all three paired confirmations that selected S2_P50 for the new high-cache operating-point question. Absolute values are never pooled across #77, #98, or the later full-prompt campaign.
 
 Together, the characterization yields four design requirements. The system should (1) reduce physical backing demand without simply increasing cache capacity; (2) preserve ordinary exact routing as the reference and default path; (3) make every intentional membership change deterministic and bounded in candidate rank, swap count, and router selection-score regret; and (4) measure the semantic consequences of those changes rather than inferring safety from a small local score gap. The measurements therefore point to two coupled controls: explicit expert residency, so physical demand is observable and reproducible, and a bounded routing rule that can prefer an already-resident near-tie candidate only under hard approximation limits.
 
@@ -141,9 +145,9 @@ Together, the characterization yields four design requirements. The system shoul
 
 Section 3 leaves four systems constraints: useful expert residency is workload-dependent, physical backing service is tightly associated with throughput in the evaluated regime, increasing an exact cache spends the scarce memory resource, and routing slack is only actionable if the runtime exposes contemporaneous residency. We address these constraints with an explicit expert-service layer whose managed state is bounded and observable, then expose its residency state to the routing mechanism of §5. The storage hierarchy, persistent expert cache, and provider abstraction follow established expert-offloading designs; we use them as a controlled substrate for full-K3 measurement rather than claim them as new architecture.
 
-![Figure 4: architecture](figures/generated/fig04-architecture.svg)
+![Figure 5: architecture](figures/generated/fig04-architecture.svg)
 
-**Figure 4 — Provider-mediated architecture and ownership.** Routing owns K3 outputs, bounded selection, and execution; provider/cache owns residency, slots, admission/eviction/materialization, and verified asynchronous backing. Read-only residency state flows to routing, but cache does not choose experts. The optional accelerator tier is architectural only; primary measurements are CPU-only. Prior-art cache/provider patterns are not claimed as standalone novelty.
+**Figure 5 — Provider-mediated architecture and ownership.** Routing owns K3 outputs, bounded selection, and execution; provider/cache owns residency, slots, admission/eviction/materialization, and verified asynchronous backing. Read-only residency state flows to routing, but cache does not choose experts. The optional accelerator tier is architectural only; primary measurements are CPU-only. Prior-art cache/provider patterns are not claimed as standalone novelty.
 
 ## 4.1 Design goals
 
@@ -300,9 +304,9 @@ using the same ordinary probability tensor, gather, normalization, and scaling a
 
 Changing membership can of course change the numerical weight vector because a different expert probability is gathered and the existing normalization is applied to a different selected set. The preserved property is the **weighting semantics**, not equality of the weights to the exact route. This distinction matters for causal interpretation: the intentional approximation is which experts are selected; how K3 combines the resulting selected experts remains model-defined.
 
-![Figure 5: bounded routing](figures/generated/fig05-bounded-routing.svg)
+![Figure 6: bounded routing](figures/generated/fig05-bounded-routing.svg)
 
-**Figure 5 — Bounded cache-aware membership selection.** Ordinary K3 scores define exact top-16 and candidate top-32. Service state permits replacement only for a better tier within the hard per-swap bound and `max_swaps = 2`. Final membership is exactly 16 and uses original K3 weights. The operational bound does not guarantee semantic equivalence or quality neutrality.
+**Figure 6 — Bounded cache-aware membership selection.** Ordinary K3 scores define exact top-16 and candidate top-32. Service state permits replacement only for a better tier within the hard per-swap bound and `max_swaps = 2`. Final membership is exactly 16 and uses original K3 weights. The operational bound does not guarantee semantic equivalence or quality neutrality.
 
 ## 5.5 Policy selection and freeze
 
@@ -431,11 +435,11 @@ The frozen corpus shows broad but workload-conditioned behavior. Across the 128 
 
 The sentinels separate this workload dependence from timing drift. Their deterministic route/locality signatures remain equal across rounds, while their TPS p90–p10 spread is 0.00143 token/s. The primary-prompt p90–p10 TPS spread is 0.03224 token/s, 22.6× larger. Host noise is therefore visible but too small to explain the cross-prompt range. The matched comparison subset then supplies the paired check: S2_P50 remains faster than both EXACT and KNEE throughout its 24 cross-family/locality-selected prompts, although the gain magnitude varies and the KNEE/S2_P50 interaction is classified as moderate. These results support broad generalization within the frozen 16×8 K3 corpus; they do not establish universal prompt or cross-model behavior.
 
-Figure 2 shows the 128-prompt distribution and sentinel reference; Figure 6 isolates every matched contrast.
+Figure 3 shows the 128-prompt distribution and sentinel reference; Figure 7 isolates every matched contrast.
 
-![Figure 6: Stage-C comparisons](figures/generated/fig06-stagec-comparison.svg)
+![Figure 7: Stage-C comparisons](figures/generated/fig06-stagec-comparison.svg)
 
-**Figure 6 — Matched-subset physical comparisons (`MEASURED_PHYSICAL`; Stage C in provenance).** Panel A retains S2_P50/EXACT and S2_P50/KNEE TPS ratios for all 24 selected prompts; Panel B retains backing-load deltas at 7,849 slots. All ratios exceed 1.0 and all deltas are negative. One observation contributes to each cell; 24/24 describes the selected subset, not a CI or population probability.
+**Figure 7 — Matched-subset physical comparisons (`MEASURED_PHYSICAL`; Stage C in provenance).** Panel A retains S2_P50/EXACT and S2_P50/KNEE TPS ratios for all 24 selected prompts; Panel B retains backing-load deltas at 7,849 slots. All ratios exceed 1.0 and all deltas are negative. One observation contributes to each cell; 24/24 describes the selected subset, not a CI or population probability.
 
 ## 7.5 RQ4: How does backing demand relate to throughput?
 
@@ -443,9 +447,9 @@ The physical comparison shows a co-occurring systems pattern—S2_P50 reduces ba
 
 The distinction is important. Route structure helps explain where reuse can arise, while the number of ExpertBundles actually serviced from backing storage is tightly associated with measured decode throughput in this regime. The two reported fits have different targets and are not compared as predictor alternatives. We treat the source TPS and load counters as `MEASURED_PHYSICAL`, while the fitted relationships are `POST_HOC_EXPLORATORY`. The final curated-analysis projection gate passes within the measured predictor domain, but projected TPS is not used here as physical evidence and is not extrapolated beyond that domain.
 
-![Figure 7: loads to TPS](figures/generated/fig07-loads-to-tps.svg)
+![Figure 8: loads to TPS](figures/generated/fig07-loads-to-tps.svg)
 
-**Figure 7 — Backing loads/token and decode TPS.** Panel A retains all 176 protocol-compatible `MEASURED_PHYSICAL` points: 128 primary S2_P50 observations plus 24 matched-subset EXACT and 24 matched-subset KNEE observations. Marker shape exposes policy and color exposes the 16 semantic families. The solid primary fit uses only the 128 S2_P50 rows; the dashed sensitivity fit uses all 176 rows. Both fits are `POST_HOC_EXPLORATORY`. Panel B retains all 16 held-out-family residual summaries for both validations: primary R² 0.993536 and RMSE 0.000928 token/s; sensitivity R² 0.992656 and RMSE 0.001406 token/s. The matched-subset rows test protocol-compatible sensitivity rather than broadening the primary model. Association is not causality. The 0.465884 working-set result predicts hit ratio, not TPS.
+**Figure 8 — Backing loads/token and decode TPS.** Panel A retains all 176 protocol-compatible `MEASURED_PHYSICAL` points: 128 primary S2_P50 observations plus 24 matched-subset EXACT and 24 matched-subset KNEE observations. Marker shape exposes policy and color exposes the 16 semantic families. The solid primary fit uses only the 128 S2_P50 rows; the dashed sensitivity fit uses all 176 rows. Both fits are `POST_HOC_EXPLORATORY`. Panel B retains all 16 held-out-family residual summaries for both validations: primary R² 0.993536 and RMSE 0.000928 token/s; sensitivity R² 0.992656 and RMSE 0.001406 token/s. The matched-subset rows test protocol-compatible sensitivity rather than broadening the primary model. Association is not causality. The 0.465884 working-set result predicts hit ratio, not TPS.
 
 ## 7.6 RQ5: What exact-cache capacity would match S2_P50 locality?
 
@@ -455,9 +459,9 @@ For the hit-derived physical-reference comparison, the median lower and upper en
 
 This is `EXACT_REPLAY`/counterfactual evidence combined with `POST_HOC_EXPLORATORY` analysis. No larger-cache EXACT TPS is measured by this result, and the interval is neither a measured RAM saving nor an exact memory threshold. Its role is narrower: it expresses the S2_P50 locality improvement in the same resource coordinate that an exact-routing system would otherwise spend—cache capacity.
 
-![Figure 8: exact-cache brackets](figures/generated/fig08-exact-cache-equivalence.svg)
+![Figure 9: exact-cache brackets](figures/generated/fig08-exact-cache-equivalence.svg)
 
-**Figure 8 — Exact-cache locality-equivalence brackets.** For all 44 prompts, `MEASURED_PHYSICAL` S2_P50 locality is matched to tested `(lower, upper]` `EXACT_REPLAY` brackets; `INCONCLUSIVE` is preserved. This `POST_HOC_EXPLORATORY` counterfactual is not an interpolated threshold, measured RAM saving, projected TPS, or physical larger-cache run.
+**Figure 9 — Exact-cache locality-equivalence brackets.** For all 44 prompts, `MEASURED_PHYSICAL` S2_P50 locality is matched to tested `(lower, upper]` `EXACT_REPLAY` brackets; `INCONCLUSIVE` is preserved. This `POST_HOC_EXPLORATORY` counterfactual is not an interpolated threshold, measured RAM saving, projected TPS, or physical larger-cache run.
 
 ## 7.7 Evidence boundaries
 
@@ -499,7 +503,7 @@ The trajectory is classified as `gradual`, and the preregistered breakpoint comp
 
 This metric answers a narrow question: how much the changed router perturbs likelihood on a controlled reference continuation. It does **not** measure task accuracy, answer correctness, human preference, or semantic equivalence. A positive ΔNLL establishes predictive cost under the intervention; task-level capability remains a separate experiment.
 
-Figure 9A retains all 16 prompt paths and the accepted min–max aggregation; Panels B–D show the controlled bridge.
+Figure 10A retains all 16 prompt paths and the accepted min–max aggregation; Panels B–D show the controlled bridge.
 
 ## 8.3 KNEE versus S2_P50: no clear quality ordering
 
@@ -530,9 +534,9 @@ The long-horizon study classifies token-mediated route feedback as `material`. F
 
 The `1.4210×` value is an amplification factor for the controlled measured effect. It must not be read as “1.42× worse quality,” nor can it be converted into an accuracy loss. Its systems significance is that direct predictive perturbation understates the full behavior of an autoregressive generator: changed membership can first perturb the distribution and then change the future context on which subsequent routing decisions operate.
 
-![Figure 9: quality and feedback](figures/generated/fig09-quality-feedback.svg)
+![Figure 10: quality and feedback](figures/generated/fig09-quality-feedback.svg)
 
-**Figure 9 — Predictive damage and controlled feedback.** Panel A retains all 16 `DIRECT_FIXED_CONTEXT` paths, means, and observed min–max envelopes; ΔNLL is not accuracy. Panels B–D retain all bridge prompts and distinguish `DIRECT_FIXED_CONTEXT` (solid) from `FREE_TRAJECTORY` (dashed). The 1.4210× summary is perturbation amplification, not “worse quality”; growth is heterogeneous.
+**Figure 10 — Predictive damage and controlled feedback.** Panel A retains all 16 `DIRECT_FIXED_CONTEXT` paths, means, and observed min–max envelopes; ΔNLL is not accuracy. Panels B–D retain all bridge prompts and distinguish `DIRECT_FIXED_CONTEXT` (solid) from `FREE_TRAJECTORY` (dashed). The 1.4210× summary is perturbation amplification, not “worse quality”; growth is heterogeneous.
 
 ## 8.6 Task-level capability remains open
 
@@ -546,11 +550,11 @@ Accordingly, we do not convert ΔNLL, top-token agreement, autoregressive amplif
 
 The performance result and the quality result are two sides of the same intervention. S2_P50 reduces physically serviced expert demand at a fixed measured cache capacity, but it does so by changing bounded expert membership. Those changes create measurable long-horizon predictive drift, and autoregressive token feedback can amplify the direct effect. Hard local regret bounds keep the approximation constrained and auditable, but the tested accumulated local statistics are not a sufficient long-horizon quality controller.
 
-The current evidence therefore supports a performance–quality trade-off, not semantic equivalence. Figure 10B joins physical load reduction to fixed-context damage for 16 prompts; its inverse association is exploratory, not causal. Capacity changes realized substitutions and damage in the three-prompt bridge (Figure A4), so it remains part of quality analysis without implying a universal law.
+The current evidence therefore supports a performance–quality trade-off, not semantic equivalence. Figure 11B joins physical load reduction to fixed-context damage for 16 prompts; its inverse association is exploratory, not causal. Capacity changes realized substitutions and damage in the three-prompt bridge (Figure A4), so it remains part of quality analysis without implying a universal law.
 
-![Figure 10: decision and trade-off](figures/generated/fig10-decision-quality.svg)
+![Figure 11: decision and trade-off](figures/generated/fig10-decision-quality.svg)
 
-**Figure 10 — Controller decision and systems–quality association.** Panel A shows five held-out predictors: cumulative regret terms add only weak signal and perturbation fraction/depth add none. The result closes the adaptive regret-controller branch (`FOLLOWUP_ROUTING_DESIGN_JUSTIFIED = no`); no semantic-risk controller was introduced. Panel B joins `MEASURED_PHYSICAL` load reduction to `DIRECT_FIXED_CONTEXT` ΔNLL for all 16 prompts and is `POST_HOC_EXPLORATORY`. The inverse association is neither causal nor universal.
+**Figure 11 — Controller decision and systems–quality association.** Panel A shows five held-out predictors: cumulative regret terms add only weak signal and perturbation fraction/depth add none. The result closes the adaptive regret-controller branch (`ADAPTIVE_REGRET_CONTROLLER_NOT_JUSTIFIED`; frozen outcome `FOLLOWUP_ROUTING_DESIGN_JUSTIFIED = no`); no semantic-risk controller was introduced. Panel B joins `MEASURED_PHYSICAL` load reduction to `DIRECT_FIXED_CONTEXT` ΔNLL for all 16 prompts and is `POST_HOC_EXPLORATORY`. The inverse association is neither causal nor universal.
 
 Routing slack is usable on Kimi K3, but spending it changes the model; performance, memory locality, and predictive quality must be evaluated jointly.
 
@@ -694,7 +698,7 @@ Exact model/runtime identities, host/storage configuration, evidence classes, im
 
 ![Figure A2: prefill depth](figures/generated/figa2-prefill-depth.svg)
 
-**Figure A2 — Prefill-depth diagnostic.** Physical EXACT/S2_P50 hit ratios and paired TPS ratios at five depths explain why early-first-full and full-prompt protocols are not pooled. This is a bounded `MEASURED_PHYSICAL_DIAGNOSTIC`, not primary acceptance evidence; interior points have one process per arm and the path is non-monotonic. The full protocol-evolution schematic—from the fixed-prompt/first-full helper to the final full-prompt, ordinal-length design—is tracked as a required extension in the paper-figures issue rather than inferred from this diagnostic alone.
+**Figure A2 — Cross-prompt protocol evolution and prefill-depth diagnostic.** Panels A/B retain the bounded `MEASURED_PHYSICAL_DIAGNOSTIC`: physical EXACT/S2_P50 hit ratios and paired TPS ratios at five depths explain why early-first-full and full-prompt absolute results are not pooled; interior points have one process per arm and the path is non-monotonic. Panel C records the pre-outcome `BLOCKED` gate and the superseding full-prompt EXACT-prefill/decode-boundary protocol. Panel D retains all 128 frozen actual token counts: the guessed absolute bands failed 128/128 tokenizer checks, while all 16 families retained strict b1→b8 order over 154..599 tokens. Panels C/D are protocol/corpus qualification, not performance evidence.
 
 ![Figure A3: systems horizon](figures/generated/figa3-systems-horizon.svg)
 

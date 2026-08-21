@@ -1,4 +1,4 @@
-# Figure 8 — Exact-cache locality-equivalence brackets
+# Figure 9 — Exact-cache locality-equivalence brackets
 
 - **Manuscript section / claim:** §7.6. Shows discrete EXACT replay-capacity brackets required to reach locality physically obtained by S2_P50.
 - **Evidence class:** reference locality `MEASURED_PHYSICAL`; larger EXACT capacities `EXACT_REPLAY`; bracket construction `POST_HOC_EXPLORATORY`. S2 replay rows are validated but not relabeled as physical data.
