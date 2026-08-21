@@ -411,7 +411,7 @@ The distinction is important. Route structure helps explain where reuse can aris
 
 ![Figure 7: loads to TPS](figures/generated/fig07-loads-to-tps.svg)
 
-**Figure 7 — Backing loads/token and decode TPS.** Panel A retains 128 `MEASURED_PHYSICAL` points; its in-domain fit is `POST_HOC_EXPLORATORY`. Panel B retains 16 held-out-family residual summaries; R² 0.993536 and RMSE 0.000928 token/s come from the frozen artifact. Association is not causality. The 0.465884 working-set result predicts hit ratio, not TPS.
+**Figure 7 — Backing loads/token and decode TPS.** Panel A retains all 176 protocol-compatible `MEASURED_PHYSICAL` points: 128 Stage-A S2_P50 plus 24 Stage-C EXACT and 24 Stage-C KNEE observations. Marker shape exposes policy and color exposes the 16 semantic families. The solid primary fit uses only the 128 S2_P50 rows; the dashed sensitivity fit uses all 176 rows. Both fits are `POST_HOC_EXPLORATORY`. Panel B retains all 16 held-out-family residual summaries for both validations: primary R² 0.993536 and RMSE 0.000928 token/s; sensitivity R² 0.992656 and RMSE 0.001406 token/s. The Stage-C rows test protocol-compatible sensitivity rather than broadening the primary model. Association is not causality. The 0.465884 working-set result predicts hit ratio, not TPS.
 
 ## 7.6 RQ5: What exact-cache capacity would match S2_P50 locality?
 
