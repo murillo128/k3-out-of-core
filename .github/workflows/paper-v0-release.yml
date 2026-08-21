@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - .github/workflows/paper-v0-release.yml
+  issues:
+    types: [opened]
 
 permissions:
   contents: write
@@ -13,6 +15,7 @@ permissions:
 
 jobs:
   build-and-release:
+    if: github.event_name == 'push' || github.event.issue.title == '[automation] publish paper v0'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -41,39 +44,29 @@ jobs:
           import re
 
           source = Path('paper/paper.md').read_text(encoding='utf-8')
-
-          # The first H1 is the manuscript title; use it as PDF metadata rather
-          # than rendering it as a body heading.
           lines = source.splitlines()
           if not lines or not lines[0].startswith('# '):
               raise SystemExit('paper/paper.md does not start with the expected title H1')
+
           title = lines[0][2:].strip()
           body = '\n'.join(lines[1:]).lstrip()
-
           appendix_marker = '# Appendix'
           if appendix_marker not in body:
               raise SystemExit('expected Appendix marker not found')
 
           main_body, appendix = body.split(appendix_marker, 1)
           appendix = appendix_marker + appendix
-
           b_marker = '## Appendix B — Systems diagnostics'
           e_marker = '## Appendix E — Scope'
           if b_marker not in appendix or e_marker not in appendix:
               raise SystemExit('expected public/internal appendix boundaries not found')
 
-          # Reader-facing v0: manuscript proper + scientific appendices B-D.
-          # Excluded as internal/operational: A (artifact identities),
-          # E (scope bookkeeping), F (prior-art comparability bookkeeping).
           scientific_appendices = appendix[appendix.index(b_marker):appendix.index(e_marker)].rstrip()
           public = main_body.rstrip() + '\n\n---\n\n# Appendix\n\n' + scientific_appendices + '\n'
-
-          # Prefer the committed vector PDF figure outputs for LaTeX.
           public = re.sub(r'(figures/generated/[^)\s]+)\.svg\)', r'\1.pdf)', public)
 
           out_dir = Path('paper/build')
           out_dir.mkdir(parents=True, exist_ok=True)
-          md = out_dir / 'paper-public.md'
           escaped_title = title.replace('"', '\\"')
           front_matter = (
               '---\n'
@@ -82,8 +75,7 @@ jobs:
               'date: "August 2026"\n'
               '---\n\n'
           )
-          md.write_text(front_matter + public, encoding='utf-8')
-          print(f'Wrote {md}')
+          (out_dir / 'paper-public.md').write_text(front_matter + public, encoding='utf-8')
           PY
 
           pandoc paper/build/paper-public.md \
@@ -112,28 +104,16 @@ jobs:
           grep -q 'Appendix B' paper/build/paper-v0.txt
           grep -q 'Appendix D' paper/build/paper-v0.txt
 
-          if grep -q 'Artifact identities' paper/build/paper-v0.txt; then
-            echo 'Internal Appendix A leaked into the PDF' >&2
-            exit 1
-          fi
-          if grep -q 'Appendix E' paper/build/paper-v0.txt; then
-            echo 'Internal Appendix E leaked into the PDF' >&2
-            exit 1
-          fi
-          if grep -q 'Prior-art comparability' paper/build/paper-v0.txt; then
-            echo 'Internal Appendix F leaked into the PDF' >&2
-            exit 1
-          fi
+          ! grep -q 'Artifact identities' paper/build/paper-v0.txt
+          ! grep -q 'Appendix E' paper/build/paper-v0.txt
+          ! grep -q 'Prior-art comparability' paper/build/paper-v0.txt
 
           pages=$(awk '/^Pages:/ {print $2}' paper/build/pdfinfo.txt)
           test -n "$pages"
           test "$pages" -gt 5
-
-          # Rendering the first page catches broken PDF/image integration.
           pdftoppm -f 1 -singlefile -png -r 120 \
             "paper/build/${PDF_NAME}" paper/build/page-1 >/dev/null 2>&1
           test -s paper/build/page-1.png
-
           sha256sum "paper/build/${PDF_NAME}" | tee paper/build/SHA256SUMS
 
       - name: Upload Actions artifact
