@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fetch and verify the immutable #99 release member needed by Figures 7 and 8."""
+"""Fetch and verify the immutable #99 release member used by the quality figures."""
 
 from __future__ import annotations
 

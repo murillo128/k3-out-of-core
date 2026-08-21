@@ -28,6 +28,31 @@ INK = "#202124"
 GRAY = "#777777"
 LIGHT = "#E8E8E8"
 
+SHORT_FAMILY = {
+    "mathematical reasoning": "math",
+    "formal logic / proof-style reasoning": "formal logic",
+    "physics / scientific reasoning": "science",
+    "factual / explanatory knowledge": "factual",
+    "code generation": "codegen",
+    "debugging / code review": "debugging",
+    "algorithms / data-structure reasoning": "algorithms",
+    "summarization / synthesis": "summary",
+    "structured extraction / transformation": "extraction",
+    "planning / constraint satisfaction": "planning",
+    "multi-step instruction following / structured response": "instructions",
+    "analytical comparison / argumentation": "comparison",
+    "creative / language generation": "creative",
+    "conversational / direct QA": "direct QA",
+    "Spanish-language reasoning/explanation": "Spanish",
+    "multilingual / translation / cross-language transformation": "multilingual",
+}
+
+
+def short_family(name: str) -> str:
+    if name not in SHORT_FAMILY:
+        raise AssertionError(f"unmapped semantic family: {name}")
+    return SHORT_FAMILY[name]
+
 
 def configure() -> None:
     """Apply the paper-wide visual and deterministic-output contract."""

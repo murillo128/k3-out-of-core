@@ -21,7 +21,7 @@ SUMMARY = "results/2026-08-17/issue105/analysis/virtual-cache-capacity-summary.j
 SUMMARY_SHA256 = "9abe39c246f9ee930369936ed2b2f420a71a0263aa935034dced1ecb6e71f865"
 
 
-def main() -> None:
+def main(stem: str = "fig06-exact-cache-equivalence") -> None:
     configure()
     curves = pd.read_parquet(require_file(CURVES, CURVES_SHA256))
     virtual = pd.read_csv(require_file(VIRTUAL, VIRTUAL_SHA256))
@@ -108,7 +108,7 @@ def main() -> None:
     )
     evidence_badge(ax, "target: MEASURED_PHYSICAL\nlarger capacity: EXACT_REPLAY")
     fig.subplots_adjust(bottom=0.12)
-    save_figure(fig, "fig06-exact-cache-equivalence")
+    save_figure(fig, stem)
 
 
 if __name__ == "__main__":

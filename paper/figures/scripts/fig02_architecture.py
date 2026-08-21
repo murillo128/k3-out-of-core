@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 from common import BLUE, GRAY, GREEN, INK, LIGHT, ORANGE, RED, arrow, configure, draw_box, save_figure
 
 
-def main() -> None:
+def main(stem: str = "fig02-architecture") -> None:
     configure()
     fig, ax = plt.subplots(figsize=(7.2, 3.85))
     ax.set_xlim(0, 1)
@@ -67,7 +67,7 @@ def main() -> None:
         fontsize=7,
         color="#555555",
     )
-    save_figure(fig, "fig02-architecture")
+    save_figure(fig, stem)
 
 
 if __name__ == "__main__":

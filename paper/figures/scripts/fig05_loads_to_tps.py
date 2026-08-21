@@ -16,7 +16,7 @@ ANALYSIS = "results/2026-08-17/issue105/analysis/locality-tps-validation.json"
 ANALYSIS_SHA256 = "8e81c4cfe22bc59ab65fb6df475515efe72dd23d3d409a46a3765161db0e0f9e"
 
 
-def main() -> None:
+def main(stem: str = "fig05-loads-to-tps") -> None:
     configure()
     frame = pd.read_csv(require_file(PHYSICAL, PHYSICAL_SHA256))
     analysis = read_json(ANALYSIS, ANALYSIS_SHA256)
@@ -111,7 +111,7 @@ def main() -> None:
     panel_label(ax_b, "B")
     evidence_badge(ax_b, "POST_HOC_EXPLORATORY")
     fig.subplots_adjust(wspace=0.34)
-    save_figure(fig, "fig05-loads-to-tps")
+    save_figure(fig, stem)
 
 
 if __name__ == "__main__":

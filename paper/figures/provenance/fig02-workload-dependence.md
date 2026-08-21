@@ -1,0 +1,12 @@
+# Figure 2 — Workload-conditioned physical variation
+
+- **Manuscript section / claim:** §3.1. Supports the bounded claim that physical S2_P50 throughput varies by workload family, is not explained by ordinal prompt-length level alone, and exceeds the repeated-sentinel drift reference.
+- **Evidence class by panel:** A/B source rows `MEASURED_PHYSICAL`; C uses the same physical rows as a descriptive drift/noise comparison, not a confidence interval. Family/length interpretation is descriptive/post-hoc.
+- **Scientific source:** issues #102 and #105. Canonical curated release `issue105-curated-analysis-v3`, target `6db0c3ddecf2ab8ff3ca7c729dfac98ef75be468`, archive SHA-256 `e0fe96c2f4dd3d2cfc8ced16901949936ba3e72c79ebdd4eb412f371fe843fb3`; physical authority remains #102 release `issue102-cross-prompt-v1`, target `0c4ed0ae92f4cc7efc79e544f04f745ff0b168cf`.
+- **Inputs:** `results/2026-08-17/issue105/tables/physical_runs.csv` (SHA-256 `47527a419d6ec3d1c9939beb3d6ec6b7776627079db6e4011707e746bb03b64c`); cross-check `results/2026-08-13/sergio-test-1/phase13-6pg-cross-prompt/issue102-final-synthesis.json` (`0a70a4b4e79bb4b046641b74177e2592907b7a815831ad987a5b9a0707ce6964`).
+- **Filters / expected cardinality:** 184 total physical rows; exactly 128 `STAGE_A`/primary/S2_P50 prompts forming 16 families × all eight ordinal levels; eight `STAGE_A_SENTINEL` rows. No prompts are pooled or dropped. Assert primary TPS p90–p10 `0.0322351642`, sentinel spread `0.0014276113`, ratio `22.579791×`.
+- **Generator / command:** `paper/figures/scripts/fig02_workload_dependence.py`; `python paper/figures/scripts/fig02_workload_dependence.py`.
+- **Environment:** Python 3.9.25; Matplotlib 3.9.4, NumPy 2.0.2, pandas 2.2.3.
+- **Outputs / SHA-256:** `generated/fig02-workload-dependence.svg` `8559dd104dc5afb65bbea321cd2dabea043336b7ff4b404f3d9571c5abf732cb`; `.pdf` `dbc81204d9fd7d199a1f154a911366d01cbfb4da5b0cf899136a8eeb24d8807d`; `.png` `94d21d836bae7a731c19554f2dd3c4c301e8dc500ab9360c81c60ae16fad690a`.
+- **Proposed caption:** Workload-conditioned physical decode throughput across the complete 16 × 8 corpus, actual templated token counts, and the repeated-sentinel drift reference.
+- **Interpretation limits:** the corpus is controlled rather than IID; sentinel spread is not a CI; connecting within-family points is descriptive; no causal family effect, semantic expert specialization, or cross-model generality is claimed.

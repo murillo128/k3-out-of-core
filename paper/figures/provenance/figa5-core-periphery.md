@@ -1,0 +1,12 @@
+# Figure A5 — Core/periphery and static-pinning limitation
+
+- **Manuscript section / claim:** Appendix C, referenced from §3.1 and §9.3. Shows a graded recurrent core and why neither static pinning nor a core/periphery semantic-risk controller is adopted.
+- **Evidence class by panel:** A `POST_HOC_EXPLORATORY`; B `FIXED_ROUTE_COUNTERFACTUAL` + `POST_HOC_EXPLORATORY`. The later quality-interaction classification is controlled/post-hoc context, not a physical pinning benchmark.
+- **Scientific source:** issue #105 target `6db0c3ddecf2ab8ff3ca7c729dfac98ef75be468`, analysis commit `76e0c3d578c4dba56e91d15ad643d8740037788a`, release `issue105-curated-analysis-v3`; quality context from #99 target `eeaab5fa3f62047e8617ab3ed408ccbddbb56872`.
+- **Inputs:** `results/2026-08-17/issue105/analysis/core-periphery-analysis.json` (`0f21902f655f86e46f892f885d26c590f38be9bd8a4c2509d43dc945a6d2ad92`); `analysis/committee-counterfactual-cells.csv` (`b9e70c327119c0924159614a689025be4f87a2dda7a9c473e385b02c73ac8f9d`); reviewed Figure 06 sidecar (`1e32e11a28fb78ab97bee648f190c9a7b15414bbb75c6d1da97d68dcd82e4521`); #99 `analysis/analysis.json` (`fdd0877cd5f25bd6858181eb2fede8291ab280f33616da7b0fd0d58717b3553c`).
+- **Filters / expected cardinality:** five DECODE gamma points. All 1,440 DECODE committee cells = 288 per gamma; retain improve/unchanged/regress/infeasible and assert 308 regressions plus 196 infeasible cells. No cell is silently dropped. Cross-check final #99 `CORE_PERIPHERY_QUALITY_INTERACTION = no`.
+- **Generator / command:** `paper/figures/scripts/figa5_core_periphery.py` wrapping reviewed `figa1_core_periphery.py`; `python paper/figures/scripts/figa5_core_periphery.py`.
+- **Environment:** Python 3.9.25; Matplotlib 3.9.4, NumPy 2.0.2, pandas 2.2.3.
+- **Outputs / SHA-256:** `generated/figa5-core-periphery.svg` `6ca5ca826928b5802f86f04c9e6585d515c0206a8e55c00182dfe69cdd3f63a7`; `.pdf` `f96006c819f5fc5469b714d26c225b0ce69284c7261dc0a8dbcd3353d619a02a`; `.png` `b60e9d18261cff49594ba95837c16ebefec40f221a9949c101563631347dccae`.
+- **Proposed caption:** Decode core size/selected mass across recurrence gamma and all same-capacity fixed-route pinning outcomes, including regressions and infeasible cells.
+- **Interpretation limits:** selected-frequency core is not expert semantics; pinning is not physically benchmarked and supplies no TPS or measured RAM-saving result. The negative quality interaction does not prove equal risk across experts.

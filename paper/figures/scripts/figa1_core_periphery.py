@@ -17,7 +17,7 @@ CELLS = "results/2026-08-17/issue105/analysis/committee-counterfactual-cells.csv
 CELLS_SHA256 = "b9e70c327119c0924159614a689025be4f87a2dda7a9c473e385b02c73ac8f9d"
 
 
-def main() -> None:
+def main(stem: str = "figa1-core-periphery") -> None:
     configure()
     core = read_json(CORE, CORE_SHA256)
     cells = pd.read_csv(require_file(CELLS, CELLS_SHA256))
@@ -47,7 +47,7 @@ def main() -> None:
     ax_a.grid(color="#E5E5E5", lw=0.6)
     ax_a.legend(line_keys + line_mass, [line.get_label() for line in line_keys + line_mass], frameon=False, loc="lower left")
     panel_label(ax_a, "A")
-    evidence_badge(ax_a, "POST_HOC_EXPLORATORY")
+    evidence_badge(ax_a, "POST_HOC_EXPLORATORY", y=1.06)
 
     x = np.arange(len(summary))
     categories = [
@@ -67,7 +67,7 @@ def main() -> None:
     ax_b.set_ylabel("fixed-route cells (all outcomes retained)")
     ax_b.grid(axis="y", color="#E5E5E5", lw=0.6)
     panel_label(ax_b, "B")
-    evidence_badge(ax_b, "FIXED_ROUTE_COUNTERFACTUAL\nPOST_HOC_EXPLORATORY")
+    evidence_badge(ax_b, "FIXED_ROUTE_COUNTERFACTUAL\nPOST_HOC_EXPLORATORY", y=1.06)
     fig.legend(
         handles=[Patch(facecolor=color, edgecolor="#333333", hatch=hatch, label=label) for _, label, color, hatch in categories],
         loc="lower center",
@@ -77,7 +77,7 @@ def main() -> None:
     )
     fig.text(0.72, 0.005, "1,440 cells total · 308 regress · 196 infeasible", ha="center", fontsize=7)
     fig.subplots_adjust(wspace=0.40, bottom=0.22)
-    save_figure(fig, "figa1-core-periphery")
+    save_figure(fig, stem)
 
 
 if __name__ == "__main__":

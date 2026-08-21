@@ -12,7 +12,7 @@ PREREG = "results/2026-08-17/issue99/checkpoint-a/preregistration.json"
 PREREG_SHA256 = "73917df7f533a7a15f8b2de708c03b937613f9a13ded0d1a2c33a7aad19afdba"
 
 
-def main() -> None:
+def main(stem: str = "fig03-bounded-routing") -> None:
     configure()
     prereg = read_json(PREREG, PREREG_SHA256)
     s2 = prereg["policies"]["S2_P50"]
@@ -91,7 +91,7 @@ def main() -> None:
         color=RED,
         bbox={"boxstyle": "round,pad=0.25", "facecolor": LIGHT, "edgecolor": GRAY, "lw": 0.7},
     )
-    save_figure(fig, "fig03-bounded-routing")
+    save_figure(fig, stem)
 
 
 if __name__ == "__main__":
