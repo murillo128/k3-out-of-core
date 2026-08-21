@@ -1,0 +1,13 @@
+# Figure 11 — Safety-controller decision and systems–quality association
+
+- **Manuscript section / claim:** §8.5 and §8.7. Panel A explains why no cumulative-regret/perturbation/depth safety controller was introduced; Panel B explains the systems–quality trade-off framing.
+- **Evidence class by panel:** A uses `DIRECT_FIXED_CONTEXT` outcomes in a held-out post-hoc predictor hierarchy; B joins `MEASURED_PHYSICAL` systems values to `DIRECT_FIXED_CONTEXT` quality values and is `POST_HOC_EXPLORATORY`.
+- **Scientific source:** issue #99 final target `eeaab5fa3f62047e8617ab3ed408ccbddbb56872`, release `issue99-long-horizon-quality-v1`.
+- **Inputs:** `results/2026-08-20/issue99/analysis/datasets/longrun-predictor-results.json` (`e08470e8f98eb52f76d43b0dafe70711f534406b1e30ff57d6039c2aa2fcdb5f`); `analysis/systems-quality-join.csv` (`8be3c7aaa994bd327ad505b4e30d8397f559e5c0539756a299c31b14933220ec`); `analysis/analysis.json` (`fdd0877cd5f25bd6858181eb2fede8291ab280f33616da7b0fd0d58717b3553c`). Reviewed Figure 02 sidecar `b88886ae52aea92d4dce1250101afb81a4dddc3124edb0fee329a795bfaf115d`; Figure 04 sidecar `f4cb2529a4e0ab39fc514406dc4c4cb37ee4b037f1f50a807da02801998f47b2`.
+- **Filters / expected cardinality:** predictor models P0–P4 each use 192 rows and 16 prompt clusters; assert incremental classes weak, weak, no, no and final follow-up-design decision `no`. Systems–quality join retains 16/16 prompts and cross-checks Spearman rho against final analysis.
+- **Generator / command:** `paper/figures/scripts/fig10_decision_quality.py`; `python paper/figures/scripts/fig10_decision_quality.py`.
+- **Environment:** Python 3.9.25; Matplotlib 3.9.4, NumPy 2.0.2, pandas 2.2.3.
+- **Outputs / SHA-256:** `generated/fig10-decision-quality.svg` `b6ced0e7cb775e27e0fe147e7b7620dd6b96dbbb30d60bf16bb778868bc58ee6`; `.pdf` `bff07d4a98f027653e0144d7832e5dd950c8f245b3d269dca4d9e15042f77c0a`; `.png` `68ced5f4a260c7d87674c990e6a94351975625b76295a581c4f013cd6c9a7b04`.
+- **Proposed caption:** Held-out predictor hierarchy and frozen systems–quality association. Weak/no incremental predictor evidence did not justify a new safety controller; greater measured load reduction is inversely associated with ΔNLL in this cohort, not causally.
+- **Interpretation limits:** predictor rankings do not validate semantic safety, and the association is neither causal nor a universal performance–quality law. No adaptive controller was tested or built here.
+- **Closed decision branch:** `ADAPTIVE_REGRET_CONTROLLER_NOT_JUSTIFIED`; the frozen #99 outcome is `FOLLOWUP_ROUTING_DESIGN_JUSTIFIED = no`.
