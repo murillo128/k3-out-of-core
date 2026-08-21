@@ -13,6 +13,10 @@ permissions:
   issues: write
   pull-requests: write
 
+concurrency:
+  group: paper-v0-release
+  cancel-in-progress: true
+
 jobs:
   build-and-release:
     if: github.event_name == 'push' || github.event.issue.title == '[automation] publish paper v0'
@@ -24,6 +28,14 @@ jobs:
       PDF_NAME: k3-out-of-core-paper-v0.pdf
 
     steps:
+      - name: Report build start on PR 123
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          run_url="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          gh api "repos/${GITHUB_REPOSITORY}/issues/123/comments" \
+            -f body="Paper v0 release build: **STARTED** — ${run_url}"
+
       - name: Check out merged manuscript snapshot
         uses: actions/checkout@v4
         with:
@@ -103,7 +115,6 @@ jobs:
           grep -q '12. Conclusion' paper/build/paper-v0.txt
           grep -q 'Appendix B' paper/build/paper-v0.txt
           grep -q 'Appendix D' paper/build/paper-v0.txt
-
           ! grep -q 'Artifact identities' paper/build/paper-v0.txt
           ! grep -q 'Appendix E' paper/build/paper-v0.txt
           ! grep -q 'Prior-art comparability' paper/build/paper-v0.txt
