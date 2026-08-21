@@ -91,7 +91,7 @@ jobs:
           PY
 
           pandoc paper/build/paper-public.md \
-            --from=markdown \
+            --from=markdown+tex_math_single_backslash \
             --pdf-engine=xelatex \
             --resource-path=paper \
             -V papersize=letter \
