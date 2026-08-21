@@ -1,0 +1,51 @@
+{
+  "capacity": {
+    "below_floor": "halt before prompt inference/scoring and return to design; do not retry to cross the floor",
+    "floor_bytes": 103072628736,
+    "floor_slots": 5874,
+    "request_bytes": 0,
+    "request_mode": "AUTO",
+    "resolution": "the fresh benchmark process resolves AUTO, creates its context, and executes the frozen item without a separate resolver",
+    "run_acceptance": "accept every otherwise-valid completed run at its naturally resolved capacity when resolved_slots >= floor_slots"
+  },
+  "forbidden": [
+    "explicit fixed cache capacity",
+    "separate AUTO resolver process",
+    "retry to obtain a preferred capacity or cross the floor",
+    "page-cache, swap, cgroup, sysctl, reboot, or memory-pressure normalization",
+    "capacity-based completed-run selection, filtering, rebalancing, or rerun"
+  ],
+  "outcome_inspected": false,
+  "pair_evidence": [
+    "exact_auto_slots",
+    "s2_auto_slots",
+    "auto_slot_delta",
+    "relative_auto_slot_delta",
+    "exact_auto_bytes",
+    "s2_auto_bytes"
+  ],
+  "pair_semantics": "natural EXACT/S2 AUTO-capacity differences are retained and reported descriptively; they do not invalidate a pair or trigger retries",
+  "run_evidence": [
+    "capacity_request_mode",
+    "auto_resolved_slots",
+    "auto_resolved_bytes",
+    "autofit",
+    "system_memory",
+    "swap_pressure_oom_status",
+    "terminal_provider_cache_references"
+  ],
+  "schema_version": "issue100-auto-admission-v1",
+  "scientific_contract": {
+    "capacity_terms_superseded": true,
+    "frozen_preregistration_sha256": "7d3fdd3ff2da19a41d51497115b9eb8b514978f6bb81ba060ec0b841ddb1be69",
+    "unchanged": [
+      "dataset and 198-item universe",
+      "paired-30 selection and complete S2 order",
+      "prompt, sampling, seed, context, generation, stop, and scoring semantics",
+      "EXACT and S2_P50 routing semantics",
+      "paired and full-S2 statistics",
+      "durability, resume, campaign order, and no-quality-adaptation rules"
+    ]
+  },
+  "status": "ACCEPTED"
+}
