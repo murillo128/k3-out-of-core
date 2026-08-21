@@ -322,6 +322,88 @@ def test_recovery_memory_diagnostic_arithmetic() -> None:
     ]
 
 
+def recovery_process_entry() -> dict:
+    return {
+        "boot_id": "800f7066-09ed-4787-8eb4-e848f32253ca",
+        "rlimit_memlock_soft_bytes": protocol.MEMLOCK_LIMIT_BYTES,
+        "rlimit_memlock_hard_bytes": protocol.MEMLOCK_LIMIT_BYTES,
+        "io_uring_disabled": 0,
+        "cgroup_path": "/user.slice/user-1000.slice/session-5.scope",
+        "cgroup_memory_current_bytes": 1_000_000,
+        "cgroup_memory_max_bytes": "max",
+        "cgroup_memory_events": {
+            "low": 0, "high": 0, "max": 0, "oom": 0,
+            "oom_kill": 0, "oom_group_kill": 0,
+        },
+        "mem_available_bytes": 200_000_000_000,
+        "swap_total_bytes": 6_666_842_112,
+        "swap_free_bytes": 6_666_842_112,
+        "swap_used_bytes": 0,
+        "process_swap_kib": 0,
+        "vmstat_oom_kill": 0,
+        "system_memory_pressure_available": True,
+        "system_memory_pressure": ["some avg10=0.00 total=0", "full avg10=0.00 total=0"],
+        "cgroup_memory_pressure_available": True,
+        "cgroup_memory_pressure": ["some avg10=0.00 total=0", "full avg10=0.00 total=0"],
+        "page_size_bytes": 4096,
+    }
+
+
+def recovery_transport() -> dict:
+    return {
+        "native_io_uring": True,
+        "staging_ceiling_bytes": 280_903_680,
+        "registered_buffer_count": 1,
+        "registered_buffer_bytes": 280_903_680,
+        "file_registration_error": 0,
+        "buffer_registration_error": 0,
+        "direct_staging_error": 0,
+        "io_uring_setup_error": 0,
+        "io_uring_probe_error": 0,
+        "io_uring_runtime_error": 0,
+        "async_fallback_reason_mask": 0,
+        "buffered_fallback_operations": 0,
+        "synchronous_fallback_operations": 0,
+    }
+
+
+def test_recovery_v4_process_and_transport_envelope() -> None:
+    entry = recovery_process_entry()
+    transport = recovery_transport()
+    pages = transport["registered_buffer_bytes"] // entry["page_size_bytes"]
+    envelope = {"delta": {"vmstat": {
+        "nr_foll_pin_acquired": pages,
+        "nr_foll_pin_released": pages,
+    }}}
+    assert protocol.process_entry_failures(entry) == []
+    assert protocol.transport_diagnostic_failures(transport) == []
+    assert protocol.transport_teardown_failures(transport, envelope, entry) == []
+
+    entry["rlimit_memlock_hard_bytes"] -= 1
+    assert "memlock limit" in protocol.process_entry_failures(entry)
+    transport["registered_buffer_bytes"] = protocol.MEMLOCK_LIMIT_BYTES
+    assert "registered bytes exceed finite memlock envelope" in \
+        protocol.transport_diagnostic_failures(transport)
+    envelope["delta"]["vmstat"]["nr_foll_pin_released"] -= 1
+    assert protocol.transport_teardown_failures(transport, envelope, recovery_process_entry()) == [
+        "long-term pins were not fully released"
+    ]
+
+
+def test_runner_requires_exact_finite_memlock(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(
+        campaign.resource, "getrlimit",
+        lambda _resource: (protocol.MEMLOCK_LIMIT_BYTES, protocol.MEMLOCK_LIMIT_BYTES),
+    )
+    campaign.require_frozen_memlock()
+    monkeypatch.setattr(
+        campaign.resource, "getrlimit",
+        lambda _resource: (protocol.MEMLOCK_LIMIT_BYTES, protocol.MEMLOCK_LIMIT_BYTES - 1),
+    )
+    with pytest.raises(campaign.CampaignError, match="memlock envelope"):
+        campaign.require_frozen_memlock()
+
+
 def test_analysis_nearest_rank_is_strictly_preregistered() -> None:
     values = [0.0, 1.0, 2.0, 3.0]
     assert analysis.nearest_rank(values, 0.25) == 0.0

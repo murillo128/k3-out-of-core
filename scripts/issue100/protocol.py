@@ -48,6 +48,7 @@ MAX_GENERATED = 4_096
 ATTEMPT_TIMEOUT_S = 18_000
 CUMULATIVE_ATTEMPT_BUDGET_S = 4_320_000
 MAX_RESTARTS = 2
+MEMLOCK_LIMIT_BYTES = 512 * 1024 * 1024
 RECOVERY_EPOCH = 2
 RECOVERY_RUN_ORDINAL = 2
 RECOVERY_ATTEMPT_FIRST = 5
@@ -130,6 +131,102 @@ def system_memory_diagnostic_failures(
                 value[f"{prefix}memory_available_bytes"]:
             failures.append(f"{prefix or 'current_'}available arithmetic")
     return failures
+
+
+def process_entry_failures(value: dict[str, Any]) -> list[str]:
+    failures = []
+    if value.get("rlimit_memlock_soft_bytes") != MEMLOCK_LIMIT_BYTES or \
+            value.get("rlimit_memlock_hard_bytes") != MEMLOCK_LIMIT_BYTES:
+        failures.append("memlock limit")
+    if not value.get("boot_id") or value.get("io_uring_disabled") != 0:
+        failures.append("boot/io_uring state")
+    for field in (
+        "cgroup_memory_current_bytes", "mem_available_bytes",
+        "swap_total_bytes", "swap_free_bytes",
+        "swap_used_bytes", "process_swap_kib", "vmstat_oom_kill", "page_size_bytes",
+    ):
+        if not isinstance(value.get(field), int) or isinstance(value.get(field), bool) or \
+                value[field] < 0:
+            failures.append(f"invalid {field}")
+    cgroup_max = value.get("cgroup_memory_max_bytes")
+    if cgroup_max != "max" and (
+        not isinstance(cgroup_max, int) or isinstance(cgroup_max, bool) or cgroup_max < 0
+    ):
+        failures.append("invalid cgroup_memory_max_bytes")
+    if not isinstance(value.get("cgroup_path"), str) or not value["cgroup_path"]:
+        failures.append("invalid cgroup_path")
+    if failures:
+        return failures
+    if (isinstance(cgroup_max, int) and
+            value["cgroup_memory_current_bytes"] > cgroup_max) or \
+            value["mem_available_bytes"] == 0:
+        failures.append("memory availability")
+    if value["swap_used_bytes"] != value["swap_total_bytes"] - value["swap_free_bytes"] or \
+            value["swap_used_bytes"] != 0 or value["process_swap_kib"] != 0:
+        failures.append("swap state")
+    if value["vmstat_oom_kill"] != 0:
+        failures.append("system OOM state")
+    events = value.get("cgroup_memory_events")
+    event_keys = ("low", "high", "max", "oom", "oom_kill", "oom_group_kill")
+    if not isinstance(events, dict) or any(
+        not isinstance(events.get(key), int) or isinstance(events.get(key), bool) or
+        events[key] != 0 for key in event_keys
+    ):
+        failures.append("cgroup pressure/OOM state")
+    for field in ("system_memory_pressure", "cgroup_memory_pressure"):
+        lines = value.get(field)
+        available = value.get(f"{field}_available")
+        if not isinstance(available, bool) or not isinstance(lines, list) or \
+                any(not isinstance(line, str) for line in lines) or \
+                available != bool(lines):
+            failures.append(f"invalid {field}")
+    return failures
+
+
+def transport_diagnostic_failures(value: dict[str, Any]) -> list[str]:
+    failures = []
+    count = value.get("registered_buffer_count")
+    registered = value.get("registered_buffer_bytes")
+    ceiling = value.get("staging_ceiling_bytes")
+    if not value.get("native_io_uring"):
+        failures.append("native io_uring disabled")
+    if count != 1 or not isinstance(registered, int) or isinstance(registered, bool) or \
+            registered <= 0:
+        failures.append("fixed buffer registration")
+    if not isinstance(ceiling, int) or isinstance(ceiling, bool) or ceiling <= 0 or \
+            isinstance(registered, int) and registered > ceiling:
+        failures.append("registered/staging byte bound")
+    if isinstance(registered, int) and registered >= MEMLOCK_LIMIT_BYTES:
+        failures.append("registered bytes exceed finite memlock envelope")
+    if value.get("buffer_registration_error") != 0 or \
+            value.get("file_registration_error") != 0 or \
+            value.get("direct_staging_error") != 0 or \
+            value.get("io_uring_setup_error") != 0 or \
+            value.get("io_uring_probe_error") != 0 or \
+            value.get("io_uring_runtime_error") != 0 or \
+            value.get("async_fallback_reason_mask") != 0 or \
+            value.get("buffered_fallback_operations") != 0 or \
+            value.get("synchronous_fallback_operations") != 0:
+        failures.append("registration/fallback state")
+    return failures
+
+
+def transport_teardown_failures(
+    transport: dict[str, Any], envelope: dict[str, Any], process_entry: dict[str, Any],
+) -> list[str]:
+    registered = transport.get("registered_buffer_bytes")
+    page_size = process_entry.get("page_size_bytes")
+    vmstat = envelope.get("delta", {}).get("vmstat", {})
+    acquired = vmstat.get("nr_foll_pin_acquired")
+    released = vmstat.get("nr_foll_pin_released")
+    if not all(isinstance(value, int) and not isinstance(value, bool) for value in (
+        registered, page_size, acquired, released,
+    )) or registered <= 0 or page_size <= 0:
+        return ["long-term pin counters unavailable"]
+    minimum_pages = (registered + page_size - 1)//page_size
+    if acquired < minimum_pages or released != acquired:
+        return ["long-term pins were not fully released"]
+    return []
 
 
 def canonical_json_bytes(value: Any) -> bytes:

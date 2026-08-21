@@ -65,10 +65,14 @@ cmake --build /mnt/nvme1/issue100/recovery-probe-build --parallel 32 \
   --target issue100-gpqa-probe
 ```
 
-Run the outcome-blind fixture after the implementation commit is clean:
+Run the outcome-blind fixture after the implementation commit is clean. The
+finite 512-MiB memlock envelope is process permission for the bounded fixed
+buffer, not an AUTO-capacity input or reservation:
 
 ```bash
-python3 scripts/issue100/run_conformance.py \
+sudo prlimit --memlock=536870912:536870912 \
+  setpriv --reuid="$(id -u)" --regid="$(id -g)" --init-groups \
+  python3 scripts/issue100/run_conformance.py \
   --binary /mnt/nvme1/issue100/recovery-probe-build/bin/issue100-gpqa-probe \
   --reboot-evidence /mnt/nvme1/issue100/recovery-reboot-v3.json \
   --output-root /mnt/nvme1/issue100/conformance-TARGET
@@ -90,12 +94,14 @@ python3 scripts/issue100/freeze_execution_authorization.py \
   --independent-review-url REVIEW_URL \
   --independent-review-sha256 REVIEW_BODY_SHA256 \
   --reboot-evidence /mnt/nvme1/issue100/recovery-reboot-v3.json \
-  --output /mnt/nvme1/issue100/execution-authorization-recovery-v3.json
+  --output /mnt/nvme1/issue100/execution-authorization-recovery-v4.json
 
-python3 scripts/issue100/run_campaign.py \
+sudo prlimit --memlock=536870912:536870912 \
+  setpriv --reuid="$(id -u)" --regid="$(id -g)" --init-groups \
+  python3 scripts/issue100/run_campaign.py \
   --preregistration corpus/phase13/issue100-preregistration-v2.json \
   --protected-plan /mnt/nvme1/issue100/prepared-v1/protected-plan.json \
-  --execution-authorization /mnt/nvme1/issue100/execution-authorization-recovery-v3.json \
+  --execution-authorization /mnt/nvme1/issue100/execution-authorization-recovery-v4.json \
   --output-root /mnt/nvme1/issue100/campaign-auto-ac3849f
 ```
 

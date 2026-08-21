@@ -44,6 +44,7 @@ constexpr float frozen_top_p = 0.95f;
 constexpr float frozen_temperature = 1.0f;
 constexpr uint32_t frozen_max_swaps = 2;
 constexpr float frozen_max_regret = 0.007303759455680847f;
+constexpr uint64_t frozen_memlock_bytes = UINT64_C(512)*1024*1024;
 
 struct arguments {
     std::string model;
@@ -141,6 +142,29 @@ bool finite_logits(const float * logits, int32_t count) {
         std::all_of(logits, logits + count, [](float value) { return std::isfinite(value); });
 }
 
+struct process_resource_snapshot {
+    uint64_t memlock_soft_bytes = 0;
+    uint64_t memlock_hard_bytes = 0;
+};
+
+process_resource_snapshot process_resources() {
+    rlimit limit{};
+    if (getrlimit(RLIMIT_MEMLOCK, &limit) != 0) {
+        throw std::runtime_error("memlock resource limit unavailable");
+    }
+    const auto bounded = [](rlim_t value) {
+        return value == RLIM_INFINITY ? UINT64_MAX : uint64_t(value);
+    };
+    return {bounded(limit.rlim_cur), bounded(limit.rlim_max)};
+}
+
+json process_resource_json(const process_resource_snapshot & value) {
+    return {
+        {"rlimit_memlock_soft_bytes", value.memlock_soft_bytes},
+        {"rlimit_memlock_hard_bytes", value.memlock_hard_bytes},
+    };
+}
+
 std::string token_piece(const llama_vocab * vocab, llama_token token) {
     std::vector<char> buffer(64);
     int32_t count = llama_token_to_piece(
@@ -224,6 +248,26 @@ json async_delta_json(
             after.buffered_fallback_operations, before.buffered_fallback_operations)},
         {"synchronous_fallback_operations", delta(
             after.synchronous_fallback_operations, before.synchronous_fallback_operations)},
+    };
+}
+
+json transport_json(const llm_expert_async_diagnostics & value) {
+    return {
+        {"native_io_uring", value.io_uring_enabled},
+        {"staging_ceiling_bytes", value.staging_ceiling_bytes},
+        {"direct_staging_lane_count", value.direct_staging_lane_count},
+        {"registered_file_count", value.registered_file_count},
+        {"registered_buffer_count", value.registered_buffer_count},
+        {"registered_buffer_bytes", value.registered_buffer_bytes},
+        {"file_registration_error", value.file_registration_error},
+        {"buffer_registration_error", value.buffer_registration_error},
+        {"direct_staging_error", value.direct_staging_error},
+        {"io_uring_setup_error", value.io_uring_setup_error},
+        {"io_uring_probe_error", value.io_uring_probe_error},
+        {"io_uring_runtime_error", value.io_uring_runtime_error},
+        {"async_fallback_reason_mask", value.fallback_reason_mask},
+        {"buffered_fallback_operations", value.buffered_fallback_operations},
+        {"synchronous_fallback_operations", value.synchronous_fallback_operations},
     };
 }
 
@@ -378,7 +422,9 @@ void write_provider_failure(
         const input_case & input,
         llm_expert_weight_provider * provider,
         const char * probe_stage,
-        bool prompt_inference_started) {
+        bool prompt_inference_started,
+        const process_resource_snapshot & resources,
+        const llm_expert_async_diagnostics & transport) {
     if (provider == nullptr) return;
     const auto cold = provider->cold_cache_scalar_snapshot();
     const auto memory = provider->hot_cache_diagnostics();
@@ -391,6 +437,7 @@ void write_provider_failure(
             {"prompt_tokens", input.tokens.size()},
         }},
         {"arm", args.arm}, {"seed", args.seed},
+        {"process_entry", process_resource_json(resources)},
         {"execution", {
             {"capacity_request_mode", "AUTO"},
             {"capacity_request_bytes", auto_cache_request_bytes},
@@ -402,6 +449,7 @@ void write_provider_failure(
             {"provider_stage", memory.system_memory_stage},
             {"pressure_rejection_reason", memory.system_memory_pressure_rejection_reason},
             {"prompt_inference_started", prompt_inference_started},
+            {"transport", transport_json(transport)},
             {"system_memory", system_memory_json(memory)},
         }},
     });
@@ -422,6 +470,7 @@ int main(int argc, char ** argv) {
 
     try {
         const auto process_started = steady_clock::now();
+        const auto entry_resources = process_resources();
         llama_log_set([](ggml_log_level level, const char * text, void *) {
             if (level == GGML_LOG_LEVEL_ERROR) std::fputs(text, stderr);
         }, nullptr);
@@ -478,7 +527,9 @@ int main(int argc, char ** argv) {
         const auto context_load_started = steady_clock::now();
         llama_context_ptr context(llama_init_from_model(model.get(), context_params));
         if (!context) {
-            write_provider_failure(args, input, provider, "context_initialization", false);
+            write_provider_failure(
+                args, input, provider, "context_initialization", false,
+                entry_resources, model->expert_async_diagnostics());
             throw std::runtime_error("context initialization failed");
         }
         const auto context_loaded = steady_clock::now();
@@ -490,7 +541,9 @@ int main(int argc, char ** argv) {
         const auto initial_full = provider->hot_cache_diagnostics();
         const uint64_t resolved_cache_bytes = initial_full.system_memory_selected_pool_bytes;
         const uint64_t resolved_cache_slots = initial_cold.capacity;
-        if (!initial_cold.available || initial_cold.occupancy != 0 ||
+        if (entry_resources.memlock_soft_bytes != frozen_memlock_bytes ||
+            entry_resources.memlock_hard_bytes != frozen_memlock_bytes ||
+            !initial_cold.available || initial_cold.occupancy != 0 ||
             resolved_cache_bytes == 0 || resolved_cache_bytes % expert_bundle_bytes != 0 ||
             resolved_cache_slots != resolved_cache_bytes/expert_bundle_bytes ||
             initial_cold.requested_bytes != resolved_cache_bytes ||
@@ -502,11 +555,24 @@ int main(int argc, char ** argv) {
             !initial_full.cpu_cold_only || initial_full.requested_capacity != 0 ||
             initial_full.effective_capacity != 0 || initial_full.pool_bytes != 0 ||
             !initial_full.slots.empty() ||
+            initial_storage.cancelled_reads != 0 || initial_storage.short_reads != 0 ||
+            initial_storage.io_errors != 0 ||
             initial_storage.direct_source_count != initial_storage.source_file_count ||
             initial_storage.direct_unsupported_source_count != 0 || !initial_async.io_uring_enabled ||
-            initial_async.buffer_registration_error != 0 || initial_async.fallback_reason_mask != 0 ||
+            initial_async.registered_buffer_count != 1 ||
+            initial_async.registered_buffer_bytes == 0 ||
+            initial_async.registered_buffer_bytes > initial_async.staging_ceiling_bytes ||
+            initial_async.registered_buffer_bytes >= frozen_memlock_bytes ||
+            initial_async.file_registration_error != 0 ||
+            initial_async.buffer_registration_error != 0 ||
+            initial_async.direct_staging_error != 0 || initial_async.io_uring_setup_error != 0 ||
+            initial_async.io_uring_probe_error != 0 || initial_async.io_uring_runtime_error != 0 ||
+            initial_async.fallback_reason_mask != 0 ||
             initial_async.buffered_fallback_operations != 0 ||
             initial_async.synchronous_fallback_operations != 0) {
+            write_provider_failure(
+                args, input, provider, "initial_production_path_validation", false,
+                entry_resources, initial_async);
             throw std::runtime_error("CPU production-path initial validation failed");
         }
         if (resolved_cache_slots < capacity_floor_slots) {
@@ -519,6 +585,7 @@ int main(int argc, char ** argv) {
                     {"prompt_tokens", input.tokens.size()},
                 }},
                 {"arm", args.arm}, {"seed", args.seed},
+                {"process_entry", process_resource_json(entry_resources)},
                 {"execution", {
                     {"capacity_request_mode", "AUTO"},
                     {"capacity_request_bytes", auto_cache_request_bytes},
@@ -556,7 +623,9 @@ int main(int argc, char ** argv) {
             llama_token token = input.tokens[index];
             llama_batch batch = llama_batch_get_one(&token, 1);
             if (llama_decode(context.get(), batch) != 0) {
-                write_provider_failure(args, input, provider, "prefill_decode", true);
+                write_provider_failure(
+                    args, input, provider, "prefill_decode", true,
+                    entry_resources, model->expert_async_diagnostics());
                 throw std::runtime_error("EXACT prefill decode failed");
             }
             llama_synchronize(context.get());
@@ -667,7 +736,9 @@ int main(int argc, char ** argv) {
             llama_token input_token = sampled;
             llama_batch batch = llama_batch_get_one(&input_token, 1);
             if (llama_decode(context.get(), batch) != 0) {
-                write_provider_failure(args, input, provider, "generated_decode", true);
+                write_provider_failure(
+                    args, input, provider, "generated_decode", true,
+                    entry_resources, model->expert_async_diagnostics());
                 throw std::runtime_error("generated-token decode failed");
             }
             llama_synchronize(context.get());
@@ -696,7 +767,14 @@ int main(int argc, char ** argv) {
             after_async.buffered_fallback_operations != 0 ||
             after_async.synchronous_fallback_operations != 0 ||
             after_async.read_requests_cancelled != 0 ||
-            after_async.buffer_registration_error != 0 || after_async.fallback_reason_mask != 0 ||
+            after_async.registered_buffer_count != 1 ||
+            after_async.registered_buffer_bytes != initial_async.registered_buffer_bytes ||
+            after_async.registered_buffer_bytes > after_async.staging_ceiling_bytes ||
+            after_async.registered_buffer_bytes >= frozen_memlock_bytes ||
+            after_async.file_registration_error != 0 || after_async.buffer_registration_error != 0 ||
+            after_async.direct_staging_error != 0 || after_async.io_uring_setup_error != 0 ||
+            after_async.io_uring_probe_error != 0 || after_async.io_uring_runtime_error != 0 ||
+            after_async.fallback_reason_mask != 0 ||
             after_scheduler.active_requests != 0 || after_scheduler.queued_requests != 0 ||
             after_scheduler.terminal_failed != 0 || after_scheduler.terminal_cancelled != 0 ||
             after_scheduler.stale_completions != 0 ||
@@ -732,6 +810,7 @@ int main(int argc, char ** argv) {
         const json result = {
             {"schema_version", "issue100-gpqa-probe-result-v2"},
             {"status", "pass"}, {"exit_status", 0}, {"command", command},
+            {"process_entry", process_resource_json(entry_resources)},
             {"item", {
                 {"id", input.item_id}, {"scored", input.scored},
                 {"prompt_sha256", input.prompt_sha256},
@@ -746,10 +825,20 @@ int main(int argc, char ** argv) {
                 {"n_ctx", args.n_ctx}, {"n_batch", 1}, {"n_ubatch", 1},
                 {"threads", args.threads}, {"issue_mode", args.issue_mode},
                 {"native_io_uring", initial_async.io_uring_enabled},
+                {"staging_ceiling_bytes", initial_async.staging_ceiling_bytes},
+                {"direct_staging_lane_count", initial_async.direct_staging_lane_count},
                 {"registered_file_count", initial_async.registered_file_count},
                 {"registered_buffer_count", initial_async.registered_buffer_count},
+                {"registered_buffer_bytes", initial_async.registered_buffer_bytes},
+                {"file_registration_error", initial_async.file_registration_error},
                 {"buffer_registration_error", initial_async.buffer_registration_error},
+                {"direct_staging_error", initial_async.direct_staging_error},
+                {"io_uring_setup_error", initial_async.io_uring_setup_error},
+                {"io_uring_probe_error", initial_async.io_uring_probe_error},
+                {"io_uring_runtime_error", initial_async.io_uring_runtime_error},
                 {"async_fallback_reason_mask", initial_async.fallback_reason_mask},
+                {"buffered_fallback_operations", initial_async.buffered_fallback_operations},
+                {"synchronous_fallback_operations", initial_async.synchronous_fallback_operations},
                 {"capacity_request_mode", "AUTO"},
                 {"capacity_request_bytes", auto_cache_request_bytes},
                 {"auto_resolved_slots", resolved_cache_slots},
@@ -815,6 +904,7 @@ int main(int argc, char ** argv) {
             }},
             {"safety", {
                 {"status", "pass"}, {"vm_swap_kib", swap_kib},
+                {"transport", transport_json(after_async)},
                 {"system_memory", system_memory_json(after_full)},
                 {"scheduler", scheduler_json(after_scheduler)},
                 {"terminal_references", terminal_reference_json(after_full)},

@@ -10,6 +10,7 @@ import importlib.util
 import json
 import os
 import re
+import resource
 import signal
 import statistics
 import subprocess
@@ -25,6 +26,7 @@ from protocol import (
     CAPACITY_FLOOR_SLOTS, CUMULATIVE_ATTEMPT_BUDGET_S, DEFAULT_BINARY,
     DEFAULT_EVIDENCE_ROOT, EXPERT_BUNDLE_BYTES, MAX_GENERATED, MAX_RESTARTS,
     MODEL_MANIFEST_SHA256, MODEL_PATH, N_CTX, NESTED_BASELINE,
+    MEMLOCK_LIMIT_BYTES,
     PREVIOUS_BINARY_SHA256, PREVIOUS_EXECUTION_AUTHORIZATION_SHA256,
     PREVIOUS_NESTED_COMMIT, PREVIOUS_PROJECT_COMMIT,
     PREREGISTRATION_SHA256, PUBLIC_AUTO_ADMISSION, RESPONSE_BOUNDARY, THREADS,
@@ -32,7 +34,9 @@ from protocol import (
     RECOVERY_RUN_ORDINAL,
     ProtocolError, append_canonical_jsonl, atomic_json, bind_checksum,
     file_identity, finite_number, load_json, require_frozen_runtime_identity,
-    sha256_bytes, sha256_file, system_memory_diagnostic_failures, validate_checksum,
+    process_entry_failures, sha256_bytes, sha256_file,
+    system_memory_diagnostic_failures, transport_diagnostic_failures,
+    transport_teardown_failures, validate_checksum,
 )
 
 
@@ -91,6 +95,87 @@ def pressure_totals() -> dict[str, int]:
     except (FileNotFoundError, PermissionError):
         pass
     return result
+
+
+def require_frozen_memlock() -> None:
+    soft, hard = resource.getrlimit(resource.RLIMIT_MEMLOCK)
+    if soft != MEMLOCK_LIMIT_BYTES or hard != MEMLOCK_LIMIT_BYTES:
+        raise CampaignError(
+            f"process memlock envelope must be exactly {MEMLOCK_LIMIT_BYTES} bytes soft/hard"
+        )
+
+
+def text_lines(path: Path) -> list[str]:
+    try:
+        return path.read_text().splitlines()
+    except (FileNotFoundError, PermissionError, ProcessLookupError):
+        return []
+
+
+def process_memlock_limits(pid: int) -> tuple[int | str | None, int | str | None]:
+    for line in text_lines(Path("/proc") / str(pid) / "limits"):
+        if not line.startswith("Max locked memory"):
+            continue
+        fields = line.split()
+        if len(fields) < 6:
+            break
+        def parse(value: str) -> int | str:
+            return int(value) if value.isdigit() else value
+        return parse(fields[3]), parse(fields[4])
+    return None, None
+
+
+def process_cgroup_root(pid: int) -> tuple[str | None, Path | None]:
+    for line in text_lines(Path("/proc") / str(pid) / "cgroup"):
+        fields = line.split(":", 2)
+        if len(fields) == 3 and fields[0] == "0":
+            name = "/" + fields[2].lstrip("/")
+            return name, Path("/sys/fs/cgroup") / name.lstrip("/")
+    return None, None
+
+
+def process_entry_snapshot(pid: int, host: Any) -> dict[str, Any]:
+    soft, hard = process_memlock_limits(pid)
+    cgroup_name, cgroup_root = process_cgroup_root(pid)
+    meminfo = host.scalar_snapshot(Path("/proc/meminfo"))
+    status_path = Path("/proc") / str(pid) / "status"
+    status = host.scalar_snapshot(status_path) if status_path.exists() else {}
+    events_path = cgroup_root / "memory.events" if cgroup_root else None
+    events = host.scalar_snapshot(events_path) if events_path and events_path.exists() else {}
+    vmstat = host.scalar_snapshot(Path("/proc/vmstat"))
+    system_pressure_path = Path("/proc/pressure/memory")
+    cgroup_pressure_path = cgroup_root / "memory.pressure" if cgroup_root else None
+    system_pressure = text_lines(system_pressure_path)
+    cgroup_pressure = text_lines(cgroup_pressure_path) if cgroup_pressure_path else []
+    swap_total = int(meminfo.get("SwapTotal", 0))*1024
+    swap_free = int(meminfo.get("SwapFree", 0))*1024
+    return {
+        "boot_id": scalar_value(Path("/proc/sys/kernel/random/boot_id")),
+        "rlimit_memlock_soft_bytes": soft,
+        "rlimit_memlock_hard_bytes": hard,
+        "io_uring_disabled": scalar_value(Path("/proc/sys/kernel/io_uring_disabled")),
+        "cgroup_path": cgroup_name,
+        "cgroup_memory_current_bytes": scalar_value(
+            cgroup_root / "memory.current" if cgroup_root else None
+        ),
+        "cgroup_memory_max_bytes": scalar_value(
+            cgroup_root / "memory.max" if cgroup_root else None
+        ),
+        "cgroup_memory_events": events,
+        "mem_available_bytes": int(meminfo.get("MemAvailable", 0))*1024,
+        "swap_total_bytes": swap_total,
+        "swap_free_bytes": swap_free,
+        "swap_used_bytes": max(0, swap_total - swap_free),
+        "process_swap_kib": status.get("VmSwap"),
+        "vmstat_oom_kill": vmstat.get("oom_kill"),
+        "system_memory_pressure_available": system_pressure_path.exists(),
+        "system_memory_pressure": system_pressure,
+        "cgroup_memory_pressure_available": bool(
+            cgroup_pressure_path and cgroup_pressure_path.exists()
+        ),
+        "cgroup_memory_pressure": cgroup_pressure,
+        "page_size_bytes": os.sysconf("SC_PAGE_SIZE"),
+    }
 
 
 def cgroup_paths(host: Any) -> tuple[Path | None, Path | None]:
@@ -231,6 +316,7 @@ def run_with_envelope(
         attempt_start.update({
             "pid": process.pid,
             "process_start_ticks": process_start_ticks(process.pid),
+            "process_entry": process_entry_snapshot(process.pid, host),
         })
         atomic_json(directory / "attempt-start.json", attempt_start)
         samples["pid"] = process.pid
@@ -297,6 +383,7 @@ def run_with_envelope(
         "memory_pressure_total_delta_usec": {
             key: after_pressure.get(key, 0) - value for key, value in before_pressure.items()
         },
+        "process_entry": attempt_start["process_entry"],
     }
     atomic_json(directory / "envelope.json", envelope)
     return returncode, timed_out, envelope
@@ -371,6 +458,22 @@ def validate_probe_result(
             execution.get("capacity_request_mode") != "AUTO" or \
             execution.get("capacity_request_bytes") != AUTO_CACHE_REQUEST_BYTES:
         failures.append("execution envelope")
+    failures.extend(
+        f"transport diagnostics: {reason}" for reason in
+        transport_diagnostic_failures(execution)
+    )
+    entry = envelope.get("process_entry", {})
+    failures.extend(
+        f"process entry: {reason}" for reason in process_entry_failures(entry)
+    )
+    failures.extend(
+        f"transport teardown: {reason}" for reason in
+        transport_teardown_failures(execution, envelope, entry)
+    )
+    probe_entry = result.get("process_entry", {})
+    if probe_entry.get("rlimit_memlock_soft_bytes") != entry.get("rlimit_memlock_soft_bytes") or \
+            probe_entry.get("rlimit_memlock_hard_bytes") != entry.get("rlimit_memlock_hard_bytes"):
+        failures.append("probe/launcher memlock identity")
     protocol = result.get("protocol", {})
     if protocol.get("prefill_routing") != "EXACT" or \
             protocol.get("s2_activation") != "after-complete-prefill-before-first-generated-token-decode" or \
@@ -381,12 +484,15 @@ def validate_probe_result(
         failures.append("generation protocol")
     preflight = result.get("preflight", {})
     initial_cold = preflight.get("initial_cold", {})
+    initial_storage = preflight.get("initial_storage", {})
     initial_memory = preflight.get("system_memory", {})
     cache_capacity = result.get("cache", {})
     resolved_slots = cache_capacity.get("capacity_slots")
     resolved_bytes = cache_capacity.get("capacity_bytes")
     if not preflight.get("pass") or preflight.get("process_start_occupancy") != 0 or \
             not preflight.get("first_miss_backing_read") or \
+            initial_storage.get("cancelled_reads") != 0 or \
+            initial_storage.get("short_reads") != 0 or initial_storage.get("io_errors") != 0 or \
             not isinstance(resolved_slots, int) or resolved_slots < CAPACITY_FLOOR_SLOTS or \
             resolved_bytes != resolved_slots*EXPERT_BUNDLE_BYTES or \
             execution.get("auto_resolved_slots") != resolved_slots or \
@@ -398,6 +504,8 @@ def validate_probe_result(
             initial_memory.get("selected_pool_bytes") != resolved_bytes or \
             not initial_memory.get("autofit") or not initial_memory.get("budget_frozen"):
         failures.append("fresh production-AUTO cold-cache preflight")
+    if result.get("io", {}).get("total", {}).get("io_errors") != 0:
+        failures.append("storage I/O errors")
     generation = result.get("generation", {})
     token_ids = generation.get("token_ids", [])
     pieces = generation.get("piece_hex", [])
@@ -430,6 +538,10 @@ def validate_probe_result(
                 stats.get("decisions") != forwards*92 or stats.get("failures") != 0:
             failures.append("S2 routing configuration/coverage")
     safety = result.get("safety", {})
+    failures.extend(
+        f"terminal transport diagnostics: {reason}" for reason in
+        transport_diagnostic_failures(safety.get("transport", {}))
+    )
     terminal_memory = safety.get("system_memory", {})
     if safety.get("status") != "pass" or safety.get("vm_swap_kib") != 0 or \
             any(safety.get("terminal_references", {}).values()) or \
@@ -766,7 +878,7 @@ def validate_authorization(
     value = load_json(path)
     validate_checksum(value)
     required = {
-        "schema_version": "issue100-execution-authorization-v3",
+        "schema_version": "issue100-execution-authorization-v4",
         "verdict": "PASS",
         "safe_to_start_scored_inference": True,
         "serves_as_final_review": False,
@@ -781,6 +893,7 @@ def validate_authorization(
         "capacity_request_bytes": AUTO_CACHE_REQUEST_BYTES,
         "capacity_floor_slots": CAPACITY_FLOOR_SLOTS,
         "capacity_floor_bytes": CAPACITY_FLOOR_BYTES,
+        "memlock_limit_bytes": MEMLOCK_LIMIT_BYTES,
         "non_scored_conformance": "PASS",
         "successful_path_equivalence": "PASS",
         "recovery_epoch": RECOVERY_EPOCH,
@@ -995,6 +1108,8 @@ def main() -> int:
     parser.add_argument("--output-root", type=Path, default=DEFAULT_EVIDENCE_ROOT)
     args = parser.parse_args()
 
+    require_frozen_memlock()
+
     repo_root = args.repo_root.resolve(strict=True)
     auto_admission_path = (repo_root / PUBLIC_AUTO_ADMISSION).resolve(strict=True)
     if sha256_file(auto_admission_path) != AUTO_ADMISSION_SHA256:
@@ -1036,6 +1151,7 @@ def main() -> int:
         "capacity_request_bytes": AUTO_CACHE_REQUEST_BYTES,
         "capacity_floor_slots": CAPACITY_FLOOR_SLOTS,
         "capacity_floor_bytes": CAPACITY_FLOOR_BYTES,
+        "memlock_limit_bytes": MEMLOCK_LIMIT_BYTES,
         "scoring_identity": "issue100-response-boundary-first-regex-v1",
         "recovery_epoch": authorization["recovery_epoch"],
     }
@@ -1083,6 +1199,7 @@ def main() -> int:
                         "nested_commit": identity["nested_commit"],
                         "adapter_binary_sha256": identity["adapter_binary_sha256"],
                         "execution_authorization_sha256": identity["execution_authorization_sha256"],
+                        "memlock_limit_bytes": identity["memlock_limit_bytes"],
                         "recovery_run_ordinal": RECOVERY_RUN_ORDINAL,
                         "attempt_first": RECOVERY_ATTEMPT_FIRST,
                         "attempt_last": RECOVERY_ATTEMPT_LAST,

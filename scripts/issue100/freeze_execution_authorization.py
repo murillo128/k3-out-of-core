@@ -12,13 +12,14 @@ from pathlib import Path
 from protocol import (
     AUTO_ADMISSION_SHA256, AUTO_CACHE_REQUEST_BYTES, CAMPAIGN_SHA256,
     CAPACITY_FLOOR_BYTES, CAPACITY_FLOOR_SLOTS, MODEL_MANIFEST_SHA256,
-    EXPERT_BUNDLE_BYTES, NESTED_BASELINE, PREREGISTRATION_SHA256,
+    EXPERT_BUNDLE_BYTES, MEMLOCK_LIMIT_BYTES, NESTED_BASELINE, PREREGISTRATION_SHA256,
     PREVIOUS_BINARY_SHA256, PREVIOUS_EXECUTION_AUTHORIZATION_SHA256,
     PREVIOUS_NESTED_COMMIT, PREVIOUS_PROJECT_COMMIT, PUBLIC_AUTO_ADMISSION,
     RECOVERY_ATTEMPT_FIRST, RECOVERY_ATTEMPT_LAST, RECOVERY_EPOCH,
     RECOVERY_RUN_ORDINAL,
     atomic_json, bind_checksum, load_json, repository_identity, sha256_bytes,
-    sha256_file, validate_checksum,
+    sha256_file, process_entry_failures, transport_diagnostic_failures,
+    transport_teardown_failures, validate_checksum,
 )
 
 
@@ -57,7 +58,7 @@ def main() -> int:
     conformance_path = args.conformance.resolve(strict=True)
     conformance = load_json(conformance_path)
     capacity = conformance.get("capacity", {})
-    if conformance.get("schema_version") != "issue100-non-scored-conformance-v3" or \
+    if conformance.get("schema_version") != "issue100-non-scored-conformance-v4" or \
             conformance.get("status") != "pass" or conformance.get("outcome_inspected") or \
             conformance.get("gpqa_item_used") or \
             conformance.get("successful_path_equivalence") != "PASS" or \
@@ -66,6 +67,7 @@ def main() -> int:
             capacity.get("floor_slots") != CAPACITY_FLOOR_SLOTS or \
             capacity.get("floor_bytes") != CAPACITY_FLOOR_BYTES or \
             conformance.get("auto_admission", {}).get("sha256") != AUTO_ADMISSION_SHA256 or \
+            conformance.get("recovery", {}).get("memlock_limit_bytes") != MEMLOCK_LIMIT_BYTES or \
             conformance.get("repository", {}).get("project_commit") != repository["project_commit"] or \
             conformance.get("repository", {}).get("nested_commit") != NESTED_BASELINE:
         raise AuthorizationError("non-scored conformance evidence does not bind current target")
@@ -77,6 +79,27 @@ def main() -> int:
     if capacity.get("auto_slot_delta") != \
             capacity["s2_auto_slots"] - capacity["exact_auto_slots"]:
         raise AuthorizationError("non-scored AUTO capacity delta is invalid")
+    for arm in ("exact", "s2"):
+        entry = conformance.get("process_entry", {}).get(arm, {})
+        transport = conformance.get("transport", {}).get(arm, {})
+        failures = process_entry_failures(entry)
+        failures.extend(transport_diagnostic_failures(transport))
+        failures.extend(transport_teardown_failures(
+            transport,
+            {"delta": {"vmstat": {
+                "nr_foll_pin_acquired": transport.get("nr_foll_pin_acquired"),
+                "nr_foll_pin_released": transport.get("nr_foll_pin_released"),
+            }}},
+            entry,
+        ))
+        if transport.get("storage_io_errors") != 0:
+            failures.append("storage I/O errors")
+        if entry.get("boot_id") != conformance.get("recovery", {}).get("boot_id"):
+            failures.append("boot identity")
+        if failures:
+            raise AuthorizationError(
+                f"non-scored {arm} recovery envelope is invalid: " + "; ".join(failures)
+            )
     previous_authorization_path = args.previous_execution_authorization.resolve(strict=True)
     if sha256_file(previous_authorization_path) != PREVIOUS_EXECUTION_AUTHORIZATION_SHA256:
         raise AuthorizationError("previous execution authorization identity mismatch")
@@ -158,7 +181,7 @@ def main() -> int:
             raise AuthorizationError("reboot evidence does not bind conformance boot")
         reboot_evidence_sha256 = sha256_file(reboot_path)
     value = bind_checksum({
-        "schema_version": "issue100-execution-authorization-v3",
+        "schema_version": "issue100-execution-authorization-v4",
         "verdict": "PASS",
         "safe_to_start_scored_inference": True,
         "serves_as_final_review": False,
@@ -174,6 +197,7 @@ def main() -> int:
         "capacity_request_bytes": AUTO_CACHE_REQUEST_BYTES,
         "capacity_floor_slots": CAPACITY_FLOOR_SLOTS,
         "capacity_floor_bytes": CAPACITY_FLOOR_BYTES,
+        "memlock_limit_bytes": MEMLOCK_LIMIT_BYTES,
         "non_scored_conformance": "PASS",
         "non_scored_conformance_sha256": sha256_file(conformance_path),
         "successful_path_equivalence": "PASS",

@@ -9,13 +9,17 @@ from pathlib import Path
 
 from protocol import (
     AUTO_ADMISSION_SHA256, AUTO_CACHE_REQUEST_BYTES, CAPACITY_FLOOR_BYTES,
-    CAPACITY_FLOOR_SLOTS, DEFAULT_BINARY, EXPERT_BUNDLE_BYTES, MODEL_PATH,
+    CAPACITY_FLOOR_SLOTS, DEFAULT_BINARY, EXPERT_BUNDLE_BYTES, MEMLOCK_LIMIT_BYTES, MODEL_PATH,
     N_CTX, PREVIOUS_NESTED_COMMIT, PREVIOUS_PROJECT_COMMIT,
     PUBLIC_AUTO_ADMISSION, THREADS, atomic_json, file_identity,
-    load_json, repository_identity, sha256_bytes, sha256_file,
-    system_memory_diagnostic_failures,
+    load_json, process_entry_failures, repository_identity, sha256_bytes, sha256_file,
+    system_memory_diagnostic_failures, transport_diagnostic_failures,
+    transport_teardown_failures,
 )
-from run_campaign import load_host_helpers, parse_progress, pressure_failures, run_with_envelope
+from run_campaign import (
+    load_host_helpers, parse_progress, pressure_failures, require_frozen_memlock,
+    run_with_envelope,
+)
 
 
 class ConformanceError(RuntimeError):
@@ -41,7 +45,9 @@ def selected_fixture(corpus: dict) -> dict:
     return matches[0]
 
 
-def validate_result(path: Path, progress: Path, arm: str, input_value: dict) -> dict:
+def validate_result(
+    path: Path, progress: Path, arm: str, input_value: dict, envelope: dict,
+) -> dict:
     result = load_json(path)
     if result.get("schema_version") != "issue100-gpqa-probe-result-v2" or \
             result.get("status") != "pass" or result.get("arm") != arm or \
@@ -60,6 +66,22 @@ def validate_result(path: Path, progress: Path, arm: str, input_value: dict) -> 
             execution.get("capacity_request_mode") != "AUTO" or \
             execution.get("capacity_request_bytes") != AUTO_CACHE_REQUEST_BYTES:
         raise ConformanceError(f"{arm} execution envelope drift")
+    failures = transport_diagnostic_failures(execution)
+    if failures:
+        raise ConformanceError(f"{arm} transport diagnostics: " + "; ".join(failures))
+    if result.get("io", {}).get("total", {}).get("io_errors") != 0:
+        raise ConformanceError(f"{arm} storage I/O error diagnostic drift")
+    entry = envelope.get("process_entry", {})
+    failures = process_entry_failures(entry)
+    if failures:
+        raise ConformanceError(f"{arm} process entry: " + "; ".join(failures))
+    failures = transport_teardown_failures(execution, envelope, entry)
+    if failures:
+        raise ConformanceError(f"{arm} transport teardown: " + "; ".join(failures))
+    probe_entry = result.get("process_entry", {})
+    if probe_entry.get("rlimit_memlock_soft_bytes") != entry.get("rlimit_memlock_soft_bytes") or \
+            probe_entry.get("rlimit_memlock_hard_bytes") != entry.get("rlimit_memlock_hard_bytes"):
+        raise ConformanceError(f"{arm} probe/launcher memlock identity drift")
     protocol = result.get("protocol", {})
     if protocol.get("max_generated") != FIXTURE_MAX_GENERATED or \
             protocol.get("prefill_routing") != "EXACT" or \
@@ -109,6 +131,13 @@ def validate_result(path: Path, progress: Path, arm: str, input_value: dict) -> 
             f"{arm} preflight system-memory diagnostics: " + "; ".join(diagnostic_failures)
         )
     terminal_memory = result.get("safety", {}).get("system_memory", {})
+    failures = transport_diagnostic_failures(
+        result.get("safety", {}).get("transport", {})
+    )
+    if failures:
+        raise ConformanceError(
+            f"{arm} terminal transport diagnostics: " + "; ".join(failures)
+        )
     if terminal_memory.get("pressure_rejections") != 0 or \
             terminal_memory.get("pressure_circuit_open") or \
             terminal_memory.get("pressure_rejection_reason") or \
@@ -127,6 +156,25 @@ def validate_result(path: Path, progress: Path, arm: str, input_value: dict) -> 
     return result
 
 
+def transport_summary(result: dict, envelope: dict) -> dict:
+    execution = result["execution"]
+    vmstat = envelope["delta"]["vmstat"]
+    fields = (
+        "native_io_uring", "staging_ceiling_bytes", "direct_staging_lane_count",
+        "registered_file_count", "registered_buffer_count", "registered_buffer_bytes",
+        "file_registration_error", "buffer_registration_error", "direct_staging_error",
+        "io_uring_setup_error", "io_uring_probe_error", "io_uring_runtime_error",
+        "async_fallback_reason_mask", "buffered_fallback_operations",
+        "synchronous_fallback_operations",
+    )
+    return {
+        **{field: execution[field] for field in fields},
+        "storage_io_errors": result["io"]["total"]["io_errors"],
+        "nr_foll_pin_acquired": vmstat.get("nr_foll_pin_acquired"),
+        "nr_foll_pin_released": vmstat.get("nr_foll_pin_released"),
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--repo-root", type=Path, default=Path.cwd())
@@ -136,6 +184,8 @@ def main() -> int:
     parser.add_argument("--reboot-evidence", type=Path)
     parser.add_argument("--output-root", type=Path, required=True)
     args = parser.parse_args()
+
+    require_frozen_memlock()
 
     repo_root = args.repo_root.resolve(strict=True)
     auto_admission_path = (repo_root / PUBLIC_AUTO_ADMISSION).resolve(strict=True)
@@ -169,6 +219,7 @@ def main() -> int:
     root.mkdir(parents=True)
     host = load_host_helpers(repo_root)
     results = {}
+    envelopes = {}
     artifacts = {}
     for ordinal, arm in enumerate(("EXACT", "S2_P50"), 1):
         directory = root / arm.lower()
@@ -190,20 +241,22 @@ def main() -> int:
             raise ConformanceError(f"{arm} probe failed or violated the host envelope")
         result = validate_result(
             directory / "probe-result.json", directory / "progress.jsonl", arm, input_value,
+            envelope,
         )
         results[arm] = result
+        envelopes[arm] = envelope
         artifacts[arm] = {
             name: file_identity(directory / name)
             for name in (
-                "input.json", "probe-result.json", "progress.jsonl", "stdout.log",
-                "stderr.log", "envelope.json",
+                "attempt-start.json", "input.json", "probe-result.json", "progress.jsonl",
+                "stdout.log", "stderr.log", "envelope.json",
             )
         }
     if results["EXACT"]["generation"]["token_ids"][0] != \
             results["S2_P50"]["generation"]["token_ids"][0]:
         raise ConformanceError("paired first sampled token differs before any generated decode")
     summary = {
-        "schema_version": "issue100-non-scored-conformance-v3",
+        "schema_version": "issue100-non-scored-conformance-v4",
         "status": "pass",
         "outcome_inspected": False,
         "gpqa_item_used": False,
@@ -237,12 +290,21 @@ def main() -> int:
                 results["EXACT"]["cache"]["capacity_slots"]
             ),
         },
+        "process_entry": {
+            "exact": envelopes["EXACT"]["process_entry"],
+            "s2": envelopes["S2_P50"]["process_entry"],
+        },
+        "transport": {
+            "exact": transport_summary(results["EXACT"], envelopes["EXACT"]),
+            "s2": transport_summary(results["S2_P50"], envelopes["S2_P50"]),
+        },
         "auto_admission": file_identity(auto_admission_path),
         "repository": repository_identity(repo_root),
         "recovery": {
             "previous_project_commit": PREVIOUS_PROJECT_COMMIT,
             "previous_nested_commit": PREVIOUS_NESTED_COMMIT,
             "boot_id": current_boot_id,
+            "memlock_limit_bytes": MEMLOCK_LIMIT_BYTES,
             "clean_reboot_used": reboot_evidence is not None,
             "reboot_evidence": file_identity(args.reboot_evidence.resolve(strict=True))
                 if args.reboot_evidence is not None else None,
