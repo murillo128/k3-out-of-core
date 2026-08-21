@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.20)
 project(issue100_gpqa_tools LANGUAGES CXX)
 
-set(ISSUE100_LLAMA_SOURCE "/workspace/k3-out-of-core/llama.cpp" CACHE PATH "Pinned llama.cpp source")
-set(ISSUE100_FROZEN_BUILD "/mnt/nvme1/issue77/build/cpu" CACHE PATH "Pinned CPU runtime build")
+set(ISSUE100_LLAMA_SOURCE "${CMAKE_CURRENT_LIST_DIR}/../../llama.cpp" CACHE PATH "Pinned llama.cpp source")
+set(ISSUE100_FROZEN_BUILD "/mnt/nvme1/issue100/recovery-native-build" CACHE PATH "Pinned CPU runtime build")
 
 function(import_shared name filename)
   add_library(${name} SHARED IMPORTED GLOBAL)

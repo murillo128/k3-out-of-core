@@ -15,12 +15,12 @@ from typing import Any, Iterable
 ISSUE = 100
 PROFILE = "STANDARD"
 PROJECT_BASELINE = "610cfb3eb1870c89016ba5ce25b875cd4e8ae14c"
-NESTED_BASELINE = "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9"
+NESTED_BASELINE = "7515fa2957125192359cb4af98cae63d097ee660"
 MODEL_MANIFEST_SHA256 = "58b14d13a602944e1134fc753b2cc819a84a31290aee9c1479264a66dbb5efe2"
 MODEL_SOURCE = "moonshotai/Kimi-K3@9f62e4e9fffbd0a83ddd60e1c209d828994b3569"
 MODEL_PATH = Path("/mnt/nvme0/issue77/model/kimi-k3-bf16-00001-of-00033.gguf")
-FROZEN_BUILD = Path("/mnt/nvme1/issue77/build/cpu")
-DEFAULT_BINARY = Path("/mnt/nvme1/issue100/build/bin/issue100-gpqa-probe")
+FROZEN_BUILD = Path("/mnt/nvme1/issue100/recovery-native-build")
+DEFAULT_BINARY = Path("/mnt/nvme1/issue100/recovery-probe-build/bin/issue100-gpqa-probe")
 DEFAULT_EVIDENCE_ROOT = Path("/mnt/nvme1/issue100/campaign")
 
 PREREGISTRATION_SHA256 = "7d3fdd3ff2da19a41d51497115b9eb8b514978f6bb81ba060ec0b841ddb1be69"
@@ -48,6 +48,14 @@ MAX_GENERATED = 4_096
 ATTEMPT_TIMEOUT_S = 18_000
 CUMULATIVE_ATTEMPT_BUDGET_S = 4_320_000
 MAX_RESTARTS = 2
+RECOVERY_EPOCH = 2
+RECOVERY_RUN_ORDINAL = 2
+RECOVERY_ATTEMPT_FIRST = 5
+RECOVERY_ATTEMPT_LAST = 7
+PREVIOUS_PROJECT_COMMIT = "ac3849fdaf739f107919ca1000b1ecf1ca1129cd"
+PREVIOUS_NESTED_COMMIT = "a702c36b4ec50db5b5f653d5177eb4d732eeaaa9"
+PREVIOUS_BINARY_SHA256 = "7f29a1ec4f57f30c2437f72f0c45968b8c340dcd1ee76a221757fc7ae25693bf"
+PREVIOUS_EXECUTION_AUTHORIZATION_SHA256 = "e3933800c43972321f485995214680db4058e4ec3dd89f30e963c8354e06feb9"
 ROUTED_LAYERS = 92
 SELECTED_EXPERTS = 16
 CANDIDATE_COUNT = 32
@@ -69,6 +77,59 @@ PUBLIC_AUTO_ADMISSION = Path("corpus/phase13/issue100-auto-admission-v1.json")
 
 class ProtocolError(RuntimeError):
     """A frozen identity, durability, or evidence invariant was violated."""
+
+
+def system_memory_diagnostic_failures(
+    value: dict[str, Any], selected_slots: int, selected_bytes: int,
+) -> list[str]:
+    """Validate recovery-v3 memory accounting without trusting probe arithmetic."""
+    failures = []
+    integer_fields = (
+        "reported_runtime_obligation_bytes", "observed_runtime_obligation_bytes",
+        "runtime_obligation_bytes", "credited_runtime_obligation_bytes",
+        "remaining_runtime_reserve_bytes", "runtime_reserve_bytes",
+        "system_reserve_bytes", "hysteresis_bytes", "incoming_bytes",
+        "required_free_bytes", "memory_current_bytes", "memory_available_bytes",
+        "calculated_available_bytes", "resolve_memory_current_bytes",
+        "resolve_memory_available_bytes", "resolve_calculated_available_bytes",
+        "resolve_required_free_bytes", "obligation_memory_current_bytes",
+        "obligation_memory_available_bytes", "obligation_calculated_available_bytes",
+        "obligation_required_free_bytes",
+    )
+    if any(not isinstance(value.get(field), int) or isinstance(value.get(field), bool) or
+           value[field] < 0 for field in integer_fields):
+        return ["missing or invalid integer diagnostics"]
+    reported = value["reported_runtime_obligation_bytes"]
+    observed = value["observed_runtime_obligation_bytes"]
+    obligation = value["runtime_obligation_bytes"]
+    credited = value["credited_runtime_obligation_bytes"]
+    runtime_reserve = value["runtime_reserve_bytes"]
+    remaining = value["remaining_runtime_reserve_bytes"]
+    system_reserve = value["system_reserve_bytes"]
+    hysteresis = value["hysteresis_bytes"]
+    if value.get("selected_pool_slots") != selected_slots or \
+            value.get("selected_pool_bytes") != selected_bytes:
+        failures.append("selected AUTO capacity")
+    if obligation != max(reported, observed):
+        failures.append("recorded/observed obligation")
+    if credited != (obligation*5 + 3)//4 or credited > runtime_reserve:
+        failures.append("bounded obligation credit")
+    if remaining != runtime_reserve - credited:
+        failures.append("remaining runtime reserve")
+    if value["required_free_bytes"] != \
+            system_reserve + remaining + hysteresis + value["incoming_bytes"]:
+        failures.append("current required-free arithmetic")
+    if value["resolve_required_free_bytes"] != \
+            system_reserve + runtime_reserve + hysteresis:
+        failures.append("resolve required-free arithmetic")
+    if value["obligation_required_free_bytes"] != \
+            system_reserve + remaining + hysteresis:
+        failures.append("obligation required-free arithmetic")
+    for prefix in ("", "resolve_", "obligation_"):
+        if value[f"{prefix}calculated_available_bytes"] > \
+                value[f"{prefix}memory_available_bytes"]:
+            failures.append(f"{prefix or 'current_'}available arithmetic")
+    return failures
 
 
 def canonical_json_bytes(value: Any) -> bytes:

@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import ctypes
+import hashlib
 import importlib.util
 import json
 import os
@@ -24,10 +25,14 @@ from protocol import (
     CAPACITY_FLOOR_SLOTS, CUMULATIVE_ATTEMPT_BUDGET_S, DEFAULT_BINARY,
     DEFAULT_EVIDENCE_ROOT, EXPERT_BUNDLE_BYTES, MAX_GENERATED, MAX_RESTARTS,
     MODEL_MANIFEST_SHA256, MODEL_PATH, N_CTX, NESTED_BASELINE,
+    PREVIOUS_BINARY_SHA256, PREVIOUS_EXECUTION_AUTHORIZATION_SHA256,
+    PREVIOUS_NESTED_COMMIT, PREVIOUS_PROJECT_COMMIT,
     PREREGISTRATION_SHA256, PUBLIC_AUTO_ADMISSION, RESPONSE_BOUNDARY, THREADS,
+    RECOVERY_ATTEMPT_FIRST, RECOVERY_ATTEMPT_LAST, RECOVERY_EPOCH,
+    RECOVERY_RUN_ORDINAL,
     ProtocolError, append_canonical_jsonl, atomic_json, bind_checksum,
     file_identity, finite_number, load_json, require_frozen_runtime_identity,
-    sha256_bytes, sha256_file, validate_checksum,
+    sha256_bytes, sha256_file, system_memory_diagnostic_failures, validate_checksum,
 )
 
 
@@ -44,6 +49,7 @@ HARD_PROBE_MARKERS = (
     "AUTO resolved capacity below", "system-memory cold-cache budget",
     "provider error", "context initialization failed",
 )
+HARD_PROBE_STATUSES = ("provider-failure", "halted-below-capacity-floor")
 LIBC = ctypes.CDLL(None, use_errno=True)
 
 
@@ -360,6 +366,8 @@ def validate_probe_result(
             execution.get("threads") != THREADS or execution.get("load_mode") != "DIRECT_IO" or \
             execution.get("runtime_mode") != "PERFORMANCE" or execution.get("issue_mode") != "BATCHED" or \
             not execution.get("native_io_uring") or \
+            execution.get("buffer_registration_error") != 0 or \
+            execution.get("async_fallback_reason_mask") != 0 or \
             execution.get("capacity_request_mode") != "AUTO" or \
             execution.get("capacity_request_bytes") != AUTO_CACHE_REQUEST_BYTES:
         failures.append("execution envelope")
@@ -428,9 +436,15 @@ def validate_probe_result(
             terminal_memory.get("requested_pool_bytes") != AUTO_CACHE_REQUEST_BYTES or \
             terminal_memory.get("selected_pool_bytes") != resolved_bytes or \
             not terminal_memory.get("autofit") or not terminal_memory.get("budget_frozen") or \
+            terminal_memory.get("selected_pool_slots") != resolved_slots or \
+            not terminal_memory.get("stage") or terminal_memory.get("pressure_rejection_reason") or \
             terminal_memory.get("pressure_rejections") != 0 or \
             terminal_memory.get("pressure_circuit_open"):
         failures.append("terminal safety/resources")
+    failures.extend(
+        f"system-memory diagnostics: {reason}" for reason in
+        system_memory_diagnostic_failures(terminal_memory, resolved_slots, resolved_bytes)
+    )
     if failures:
         raise CampaignError("probe validation failed: " + "; ".join(failures))
     parse_progress(progress_path, result)
@@ -506,8 +520,42 @@ def load_jsonl(path: Path) -> list[dict[str, Any]]:
     return rows
 
 
-def validate_existing_runs(path: Path, identity: dict[str, Any]) -> list[dict[str, Any]]:
+def structured_hard_probe_failure(path: Path) -> bool:
+    if not path.is_file():
+        return False
+    try:
+        return load_json(path).get("status") in HARD_PROBE_STATUSES
+    except (OSError, ValueError, TypeError):
+        return False
+
+
+def jsonl_prefix_sha256(path: Path, count: int) -> str:
+    digest = hashlib.sha256()
+    observed = 0
+    with path.open("rb") as source:
+        for line in source:
+            if observed == count:
+                break
+            digest.update(line)
+            observed += 1
+    if observed != count:
+        raise CampaignError("accepted-run prefix is incomplete")
+    return digest.hexdigest()
+
+
+def validate_existing_runs(
+    path: Path,
+    identity: dict[str, Any],
+    authorization: dict[str, Any],
+) -> list[dict[str, Any]]:
     rows = load_jsonl(path)
+    accepted_prefix_runs = int(authorization.get("accepted_prefix_runs", 0))
+    previous_identity = authorization.get("previous_identity", {})
+    if accepted_prefix_runs:
+        if accepted_prefix_runs > len(rows) or not isinstance(previous_identity, dict) or \
+                jsonl_prefix_sha256(path, accepted_prefix_runs) != \
+                authorization.get("accepted_prefix_sha256"):
+            raise CampaignError("accepted-run recovery prefix drift")
     seen = set()
     for expected_ordinal, row in enumerate(rows, 1):
         validate_checksum(row)
@@ -518,7 +566,8 @@ def validate_existing_runs(path: Path, identity: dict[str, Any]) -> list[dict[st
         if key in seen:
             raise CampaignError("duplicate accepted run")
         seen.add(key)
-        for field, value in identity.items():
+        expected_identity = previous_identity if expected_ordinal <= accepted_prefix_runs else identity
+        for field, value in expected_identity.items():
             if row.get(field) != value:
                 raise CampaignError(f"accepted run identity drift: {field}")
         manifest = Path(row["attempt_manifest_path"])
@@ -672,6 +721,41 @@ def cumulative_attempt_seconds(root: Path) -> float:
     return total
 
 
+def validate_recovery_attempt_lineage(root: Path, authorization: dict[str, Any]) -> list[str]:
+    run_roots = list((root / "attempts").glob(f"run-{RECOVERY_RUN_ORDINAL:03d}-*"))
+    if len(run_roots) != 1:
+        raise CampaignError("run-2 recovery lineage root is ambiguous")
+    hashes = []
+    for attempt_ordinal in range(1, RECOVERY_ATTEMPT_FIRST):
+        path = run_roots[0] / f"attempt-{attempt_ordinal:02d}" / "attempt-manifest.json"
+        if not path.is_file():
+            raise CampaignError("run-2 recovery attempt lineage is incomplete")
+        manifest = load_json(path)
+        if manifest.get("run_ordinal") != RECOVERY_RUN_ORDINAL or \
+                manifest.get("attempt_ordinal") != attempt_ordinal or manifest.get("accepted"):
+            raise CampaignError("run-2 recovery attempt identity drift")
+        hashes.append(sha256_file(path))
+    expected_hashes = authorization.get("prior_attempt_manifest_sha256s")
+    lineage_sha256 = sha256_bytes(("\n".join(hashes) + "\n").encode("ascii"))
+    if hashes != expected_hashes or lineage_sha256 != authorization.get("attempt_lineage_sha256"):
+        raise CampaignError("run-2 recovery attempt lineage drift")
+    return hashes
+
+
+def persist_campaign_control(path: Path, control: dict[str, Any]) -> None:
+    epochs = control.get("recovery_epochs", [])
+    if epochs:
+        current = epochs[-1]
+        current["status"] = control.get("status")
+        current["updated_at"] = utc_now()
+        for key in ("reason", "failed_run", "failed_attempt", "accepted_runs", "completed_pairs"):
+            if key in control:
+                current[key] = control[key]
+            else:
+                current.pop(key, None)
+    atomic_json(path, control)
+
+
 def validate_authorization(
     path: Path,
     *,
@@ -682,7 +766,7 @@ def validate_authorization(
     value = load_json(path)
     validate_checksum(value)
     required = {
-        "schema_version": "issue100-execution-authorization-v2",
+        "schema_version": "issue100-execution-authorization-v3",
         "verdict": "PASS",
         "safe_to_start_scored_inference": True,
         "serves_as_final_review": False,
@@ -698,17 +782,59 @@ def validate_authorization(
         "capacity_floor_slots": CAPACITY_FLOOR_SLOTS,
         "capacity_floor_bytes": CAPACITY_FLOOR_BYTES,
         "non_scored_conformance": "PASS",
+        "successful_path_equivalence": "PASS",
+        "recovery_epoch": RECOVERY_EPOCH,
+        "recovery_run_ordinal": RECOVERY_RUN_ORDINAL,
+        "recovery_attempt_first": RECOVERY_ATTEMPT_FIRST,
+        "recovery_attempt_last": RECOVERY_ATTEMPT_LAST,
+        "accepted_prefix_runs": 1,
+        "previous_execution_authorization_sha256": PREVIOUS_EXECUTION_AUTHORIZATION_SHA256,
     }
     for key, expected in required.items():
         if value.get(key) != expected:
             raise CampaignError(f"execution authorization mismatch: {key}")
     if sha256_file(preregistration) != PREREGISTRATION_SHA256:
         raise CampaignError("public preregistration identity mismatch")
-    if not value.get("execution_amendment_url"):
-        raise CampaignError("authorization lacks published execution amendment URL")
-    for key in ("execution_amendment_sha256", "non_scored_conformance_sha256"):
+    previous_identity = value.get("previous_identity", {})
+    expected_previous_identity = {
+        "campaign_sha256": CAMPAIGN_SHA256,
+        "preregistration_sha256": PREREGISTRATION_SHA256,
+        "project_commit": PREVIOUS_PROJECT_COMMIT,
+        "nested_commit": PREVIOUS_NESTED_COMMIT,
+        "model_manifest_sha256": MODEL_MANIFEST_SHA256,
+        "adapter_binary_sha256": PREVIOUS_BINARY_SHA256,
+        "protected_plan_sha256": sha256_file(protected_plan),
+        "execution_authorization_sha256": PREVIOUS_EXECUTION_AUTHORIZATION_SHA256,
+        "auto_admission_sha256": AUTO_ADMISSION_SHA256,
+        "capacity_request_mode": "AUTO",
+        "capacity_request_bytes": AUTO_CACHE_REQUEST_BYTES,
+        "capacity_floor_slots": CAPACITY_FLOOR_SLOTS,
+        "capacity_floor_bytes": CAPACITY_FLOOR_BYTES,
+        "scoring_identity": "issue100-response-boundary-first-regex-v1",
+    }
+    if previous_identity != expected_previous_identity:
+        raise CampaignError("authorization previous-target identity drift")
+    for key in ("recovery_amendment_url", "independent_review_url"):
+        if not value.get(key):
+            raise CampaignError(f"authorization lacks published {key}")
+    for key in (
+        "accepted_prefix_sha256", "attempt_lineage_sha256", "previous_campaign_control_sha256",
+        "recovery_amendment_sha256", "independent_review_sha256",
+        "non_scored_conformance_sha256",
+    ):
         if not re.fullmatch(r"[0-9a-fA-F]{64}", str(value.get(key, ""))):
             raise CampaignError(f"authorization has invalid {key}")
+    if value.get("clean_reboot_used") not in (True, False):
+        raise CampaignError("authorization clean-reboot disposition is invalid")
+    prior_attempt_hashes = value.get("prior_attempt_manifest_sha256s")
+    if not isinstance(prior_attempt_hashes, list) or \
+            len(prior_attempt_hashes) != RECOVERY_ATTEMPT_FIRST - 1 or any(
+                not re.fullmatch(r"[0-9a-fA-F]{64}", str(digest))
+                for digest in prior_attempt_hashes):
+        raise CampaignError("authorization prior-attempt lineage is invalid")
+    if value.get("clean_reboot_used") and not re.fullmatch(
+            r"[0-9a-fA-F]{64}", str(value.get("reboot_evidence_sha256", ""))):
+        raise CampaignError("authorization reboot evidence identity is invalid")
     return value
 
 
@@ -852,6 +978,12 @@ def build_probe_command(
     ]
 
 
+def attempt_window(run_ordinal: int) -> tuple[int, int]:
+    if run_ordinal == RECOVERY_RUN_ORDINAL:
+        return RECOVERY_ATTEMPT_FIRST, RECOVERY_ATTEMPT_LAST
+    return 1, MAX_RESTARTS + 1
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--repo-root", type=Path, default=Path.cwd())
@@ -905,23 +1037,72 @@ def main() -> int:
         "capacity_floor_slots": CAPACITY_FLOOR_SLOTS,
         "capacity_floor_bytes": CAPACITY_FLOOR_BYTES,
         "scoring_identity": "issue100-response-boundary-first-regex-v1",
+        "recovery_epoch": authorization["recovery_epoch"],
     }
     control_path = root / "campaign-control.json"
+    runs_path = root / "runs.jsonl"
+    runs = validate_existing_runs(runs_path, identity, authorization)
+    prior_attempt_hashes = validate_recovery_attempt_lineage(root, authorization)
     if control_path.exists():
         control = load_json(control_path)
-        for key, expected in identity.items():
-            if control.get(key) != expected:
-                raise CampaignError(f"campaign-control resume identity drift: {key}")
+        if control.get("project_commit") == PREVIOUS_PROJECT_COMMIT:
+            if sha256_file(control_path) != authorization.get("previous_campaign_control_sha256") or \
+                    control.get("status") != "halted" or \
+                    control.get("failed_run") != RECOVERY_RUN_ORDINAL or \
+                    control.get("failed_attempt") != RECOVERY_ATTEMPT_FIRST - 1:
+                raise CampaignError("pre-recovery campaign-control state drift")
+            for key, expected in authorization["previous_identity"].items():
+                if control.get(key) != expected:
+                    raise CampaignError(f"pre-recovery campaign-control identity drift: {key}")
+            previous_control_sha256 = sha256_file(control_path)
+            previous_epoch = {
+                "epoch": 1,
+                "status": control["status"],
+                "reason": control.get("reason"),
+                "failed_run": control.get("failed_run"),
+                "failed_attempt": control.get("failed_attempt"),
+                "accepted_runs": len(runs),
+                "project_commit": control["project_commit"],
+                "nested_commit": control["nested_commit"],
+                "adapter_binary_sha256": control["adapter_binary_sha256"],
+                "execution_authorization_sha256": control["execution_authorization_sha256"],
+                "campaign_control_sha256": previous_control_sha256,
+                "attempt_manifest_sha256s": prior_attempt_hashes,
+            }
+            control.update(identity)
+            control.update({
+                "schema_version": "issue100-campaign-control-v3",
+                "status": "running",
+                "recovery_started_at": utc_now(),
+                "recovery_epochs": [
+                    previous_epoch,
+                    {
+                        "epoch": RECOVERY_EPOCH,
+                        "status": "running",
+                        "project_commit": identity["project_commit"],
+                        "nested_commit": identity["nested_commit"],
+                        "adapter_binary_sha256": identity["adapter_binary_sha256"],
+                        "execution_authorization_sha256": identity["execution_authorization_sha256"],
+                        "recovery_run_ordinal": RECOVERY_RUN_ORDINAL,
+                        "attempt_first": RECOVERY_ATTEMPT_FIRST,
+                        "attempt_last": RECOVERY_ATTEMPT_LAST,
+                    },
+                ],
+            })
+            for key in ("reason", "failed_run", "failed_attempt"):
+                control.pop(key, None)
+            persist_campaign_control(control_path, control)
+        else:
+            for key, expected in identity.items():
+                if control.get(key) != expected:
+                    raise CampaignError(f"campaign-control resume identity drift: {key}")
+            if control.get("schema_version") != "issue100-campaign-control-v3" or \
+                    len(control.get("recovery_epochs", [])) != RECOVERY_EPOCH:
+                raise CampaignError("campaign-control recovery epoch drift")
     else:
-        control = {
-            "schema_version": "issue100-campaign-control-v2",
-            "status": "running", "started_at": utc_now(), **identity,
-        }
-        atomic_json(control_path, control)
+        raise CampaignError("recovery target requires the preserved campaign-control lineage")
 
     campaign_started = time.monotonic()
-    runs_path = root / "runs.jsonl"
-    runs = validate_existing_runs(runs_path, identity)
     pairs = reconcile_pairs(root, runs)
     checkpoint(root, runs, pairs, "running")
     host = load_host_helpers(repo_root)
@@ -938,14 +1119,15 @@ def main() -> int:
             raise CampaignError("protected item identity drift")
         if cumulative_attempt_seconds(root) >= CUMULATIVE_ATTEMPT_BUDGET_S:
             control.update({"status": "halted", "reason": "cumulative-attempt-budget"})
-            atomic_json(control_path, control)
+            persist_campaign_control(control_path, control)
             raise CampaignError("cumulative 50-day attempt budget exhausted")
 
         slug = f"run-{expected_ordinal:03d}-{run['item_id']}-{run['arm'].lower()}"
         run_attempt_root = root / "attempts" / slug
         run_attempt_root.mkdir(parents=True, exist_ok=True)
         accepted = None
-        for attempt_ordinal in range(1, MAX_RESTARTS + 2):
+        attempt_first, attempt_last = attempt_window(expected_ordinal)
+        for attempt_ordinal in range(attempt_first, attempt_last + 1):
             directory = run_attempt_root / f"attempt-{attempt_ordinal:02d}"
             if directory.exists():
                 if (directory / "attempt-manifest.json").exists():
@@ -956,6 +1138,7 @@ def main() -> int:
                 seal_interrupted_attempt(directory, {
                     **run, "attempt_ordinal": attempt_ordinal,
                     "campaign_sha256": CAMPAIGN_SHA256,
+                    "recovery_epoch": RECOVERY_EPOCH,
                 })
                 continue
             directory.mkdir(parents=False)
@@ -965,9 +1148,10 @@ def main() -> int:
                 seal_interrupted_attempt(directory, {
                     **run, "attempt_ordinal": attempt_ordinal,
                     "campaign_sha256": CAMPAIGN_SHA256,
+                    "recovery_epoch": RECOVERY_EPOCH,
                 })
                 control.update({"status": "halted", "reason": "cumulative-attempt-budget"})
-                atomic_json(control_path, control)
+                persist_campaign_control(control_path, control)
                 raise CampaignError("cumulative 50-day attempt budget exhausted")
             attempt_timeout_s = min(float(ATTEMPT_TIMEOUT_S), remaining_attempt_s)
             probe_input = {
@@ -988,6 +1172,7 @@ def main() -> int:
             attempt_identity = {
                 **run, "attempt_ordinal": attempt_ordinal,
                 "campaign_sha256": CAMPAIGN_SHA256,
+                "recovery_epoch": RECOVERY_EPOCH,
             }
             returncode, timed_out, envelope = run_with_envelope(
                 command, directory, attempt_identity, host, timeout_s=attempt_timeout_s,
@@ -1003,7 +1188,9 @@ def main() -> int:
                     artifacts[name] = file_identity(path)
             external_pressure = pressure_failures(envelope)
             probe_error = (directory / "stderr.log").read_text(errors="replace")
-            hard_probe_failure = any(marker.lower() in probe_error.lower() for marker in HARD_PROBE_MARKERS)
+            hard_probe_failure = structured_hard_probe_failure(result_path) or any(
+                marker.lower() in probe_error.lower() for marker in HARD_PROBE_MARKERS
+            )
             attempt_manifest_value = {
                 "schema_version": "issue100-attempt-manifest-v1",
                 **attempt_identity,
@@ -1025,11 +1212,11 @@ def main() -> int:
                         "external-pressure" if external_pressure else "hard-probe-failure"
                     ),
                 })
-                atomic_json(control_path, control)
+                persist_campaign_control(control_path, control)
                 raise CampaignError(control["reason"])
             if returncode != 0 or not result_path.exists() or not progress_path.exists():
                 atomic_json(directory / "attempt-manifest.json", attempt_manifest_value)
-                if attempt_ordinal <= MAX_RESTARTS:
+                if attempt_ordinal < attempt_last:
                     print(
                         f"ISSUE100_RETRY run={expected_ordinal:03d} attempt={attempt_ordinal} "
                         f"exit={returncode}", flush=True,
@@ -1039,7 +1226,7 @@ def main() -> int:
                     "status": "halted", "failed_run": expected_ordinal,
                     "failed_attempt": attempt_ordinal, "reason": "restart-budget",
                 })
-                atomic_json(control_path, control)
+                persist_campaign_control(control_path, control)
                 raise CampaignError("non-semantic partial failure restart budget exhausted")
 
             result = validate_probe_result(result_path, progress_path, run, item, envelope)
@@ -1109,7 +1296,7 @@ def main() -> int:
         "accepted_runs": len(runs), "completed_pairs": len(pairs),
         "cumulative_attempt_wall_s": cumulative_attempt_seconds(root),
     })
-    atomic_json(control_path, control)
+    persist_campaign_control(control_path, control)
     print("ISSUE100_CAMPAIGN status=complete runs=228 pairs=30 s2=198", flush=True)
     return 0
 

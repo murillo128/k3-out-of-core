@@ -47,21 +47,30 @@ python3 scripts/issue100/prepare_campaign.py \
   --output-root /mnt/nvme1/issue100/prepared
 ```
 
-Configure and build with the pinned CPU runtime:
+Configure and build the recovery target with Release/max-native CPU runtime:
 
 ```bash
-cmake -S scripts/issue100 -B /mnt/nvme1/issue100/build \
+cmake -S llama.cpp -B /mnt/nvme1/issue100/recovery-native-build \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DGGML_NATIVE=ON -DGGML_CUDA=OFF -DBUILD_SHARED_LIBS=ON \
+  -DLLAMA_BUILD_TESTS=ON -DLLAMA_BUILD_EXAMPLES=OFF \
+  -DLLAMA_BUILD_SERVER=OFF -DLLAMA_BUILD_TOOLS=OFF
+cmake --build /mnt/nvme1/issue100/recovery-native-build --parallel 32
+
+cmake -S scripts/issue100 -B /mnt/nvme1/issue100/recovery-probe-build \
   -DCMAKE_BUILD_TYPE=Release \
   -DISSUE100_LLAMA_SOURCE="$PWD/llama.cpp" \
-  -DISSUE100_FROZEN_BUILD=/mnt/nvme1/issue77/build/cpu
-cmake --build /mnt/nvme1/issue100/build --target issue100-gpqa-probe
+  -DISSUE100_FROZEN_BUILD=/mnt/nvme1/issue100/recovery-native-build
+cmake --build /mnt/nvme1/issue100/recovery-probe-build --parallel 32 \
+  --target issue100-gpqa-probe
 ```
 
 Run the outcome-blind fixture after the implementation commit is clean:
 
 ```bash
 python3 scripts/issue100/run_conformance.py \
-  --binary /mnt/nvme1/issue100/build/bin/issue100-gpqa-probe \
+  --binary /mnt/nvme1/issue100/recovery-probe-build/bin/issue100-gpqa-probe \
+  --reboot-evidence /mnt/nvme1/issue100/recovery-reboot-v3.json \
   --output-root /mnt/nvme1/issue100/conformance-TARGET
 ```
 
@@ -71,17 +80,23 @@ the scientific campaign:
 ```bash
 python3 scripts/issue100/freeze_execution_authorization.py \
   --preregistration corpus/phase13/issue100-preregistration-v2.json \
-  --protected-plan /mnt/nvme1/issue100/prepared/protected-plan.json \
-  --binary /mnt/nvme1/issue100/build/bin/issue100-gpqa-probe \
+  --protected-plan /mnt/nvme1/issue100/prepared-v1/protected-plan.json \
+  --binary /mnt/nvme1/issue100/recovery-probe-build/bin/issue100-gpqa-probe \
   --conformance /mnt/nvme1/issue100/conformance-TARGET/conformance.json \
-  --execution-amendment-url AMENDMENT_URL \
-  --execution-amendment-sha256 AMENDMENT_BODY_SHA256 \
-  --output /mnt/nvme1/issue100/execution-authorization.json
+  --previous-execution-authorization /mnt/nvme1/issue100/execution-authorization-ac3849f-auto.json \
+  --campaign-root /mnt/nvme1/issue100/campaign-auto-ac3849f \
+  --recovery-amendment-url RECOVERY_AMENDMENT_URL \
+  --recovery-amendment-sha256 RECOVERY_AMENDMENT_BODY_SHA256 \
+  --independent-review-url REVIEW_URL \
+  --independent-review-sha256 REVIEW_BODY_SHA256 \
+  --reboot-evidence /mnt/nvme1/issue100/recovery-reboot-v3.json \
+  --output /mnt/nvme1/issue100/execution-authorization-recovery-v3.json
 
 python3 scripts/issue100/run_campaign.py \
   --preregistration corpus/phase13/issue100-preregistration-v2.json \
-  --protected-plan /mnt/nvme1/issue100/prepared/protected-plan.json \
-  --execution-authorization /mnt/nvme1/issue100/execution-authorization.json
+  --protected-plan /mnt/nvme1/issue100/prepared-v1/protected-plan.json \
+  --execution-authorization /mnt/nvme1/issue100/execution-authorization-recovery-v3.json \
+  --output-root /mnt/nvme1/issue100/campaign-auto-ac3849f
 ```
 
 Once `228/228` accepted runs and `30/30` pairs are complete:

@@ -10,8 +10,10 @@ from pathlib import Path
 from protocol import (
     AUTO_ADMISSION_SHA256, AUTO_CACHE_REQUEST_BYTES, CAPACITY_FLOOR_BYTES,
     CAPACITY_FLOOR_SLOTS, DEFAULT_BINARY, EXPERT_BUNDLE_BYTES, MODEL_PATH,
-    N_CTX, PUBLIC_AUTO_ADMISSION, THREADS, atomic_json, file_identity,
+    N_CTX, PREVIOUS_NESTED_COMMIT, PREVIOUS_PROJECT_COMMIT,
+    PUBLIC_AUTO_ADMISSION, THREADS, atomic_json, file_identity,
     load_json, repository_identity, sha256_bytes, sha256_file,
+    system_memory_diagnostic_failures,
 )
 from run_campaign import load_host_helpers, parse_progress, pressure_failures, run_with_envelope
 
@@ -23,6 +25,13 @@ class ConformanceError(RuntimeError):
 FIXTURE_ID = "15-spanish-b8"
 FIXTURE_SEED = 100_716_832
 FIXTURE_MAX_GENERATED = 4
+
+
+def boot_id() -> str:
+    value = Path("/proc/sys/kernel/random/boot_id").read_text().strip()
+    if not value:
+        raise ConformanceError("boot identity is unavailable")
+    return value
 
 
 def selected_fixture(corpus: dict) -> dict:
@@ -46,6 +55,8 @@ def validate_result(path: Path, progress: Path, arm: str, input_value: dict) -> 
     execution = result.get("execution", {})
     if execution.get("n_ctx") != N_CTX or execution.get("threads") != THREADS or \
             execution.get("load_mode") != "DIRECT_IO" or not execution.get("native_io_uring") or \
+            execution.get("buffer_registration_error") != 0 or \
+            execution.get("async_fallback_reason_mask") != 0 or \
             execution.get("capacity_request_mode") != "AUTO" or \
             execution.get("capacity_request_bytes") != AUTO_CACHE_REQUEST_BYTES:
         raise ConformanceError(f"{arm} execution envelope drift")
@@ -84,12 +95,34 @@ def validate_result(path: Path, progress: Path, arm: str, input_value: dict) -> 
             memory.get("requested_pool_bytes") != AUTO_CACHE_REQUEST_BYTES or \
             memory.get("selected_pool_bytes") != capacity_bytes or not memory.get("autofit") or \
             not memory.get("budget_frozen") or initial_cold.get("capacity") != slots or \
+            memory.get("selected_pool_slots") != slots or \
+            not memory.get("stage") or memory.get("pressure_rejection_reason") or \
             initial_cold.get("requested_bytes") != capacity_bytes or \
             initial_cold.get("actual_bytes") != capacity_bytes or \
             result.get("safety", {}).get("status") != "pass" or \
             result.get("safety", {}).get("vm_swap_kib") != 0 or \
             any(result.get("safety", {}).get("terminal_references", {}).values()):
         raise ConformanceError(f"{arm} capacity/safety drift")
+    diagnostic_failures = system_memory_diagnostic_failures(memory, slots, capacity_bytes)
+    if diagnostic_failures:
+        raise ConformanceError(
+            f"{arm} preflight system-memory diagnostics: " + "; ".join(diagnostic_failures)
+        )
+    terminal_memory = result.get("safety", {}).get("system_memory", {})
+    if terminal_memory.get("pressure_rejections") != 0 or \
+            terminal_memory.get("pressure_circuit_open") or \
+            terminal_memory.get("pressure_rejection_reason") or \
+            terminal_memory.get("selected_pool_slots") != slots or \
+            terminal_memory.get("selected_pool_bytes") != capacity_bytes or \
+            not terminal_memory.get("stage"):
+        raise ConformanceError(f"{arm} system-memory diagnostic drift")
+    diagnostic_failures = system_memory_diagnostic_failures(
+        terminal_memory, slots, capacity_bytes,
+    )
+    if diagnostic_failures:
+        raise ConformanceError(
+            f"{arm} terminal system-memory diagnostics: " + "; ".join(diagnostic_failures)
+        )
     parse_progress(progress, result)
     return result
 
@@ -100,6 +133,7 @@ def main() -> int:
     parser.add_argument("--corpus", type=Path, default=Path("corpus/phase13/issue102-cross-prompt-v1.json"))
     parser.add_argument("--binary", type=Path, default=DEFAULT_BINARY)
     parser.add_argument("--model", type=Path, default=MODEL_PATH)
+    parser.add_argument("--reboot-evidence", type=Path)
     parser.add_argument("--output-root", type=Path, required=True)
     args = parser.parse_args()
 
@@ -123,6 +157,15 @@ def main() -> int:
     root = args.output_root.resolve()
     if root.exists():
         raise ConformanceError("conformance output root already exists; evidence is immutable")
+    current_boot_id = boot_id()
+    reboot_evidence = None
+    if args.reboot_evidence is not None:
+        reboot_path = args.reboot_evidence.resolve(strict=True)
+        reboot_evidence = load_json(reboot_path)
+        if reboot_evidence.get("schema_version") != "issue100-recovery-reboot-v1" or \
+                reboot_evidence.get("status") != "pass" or \
+                reboot_evidence.get("after", {}).get("boot_id") != current_boot_id:
+            raise ConformanceError("reboot evidence does not bind the current boot")
     root.mkdir(parents=True)
     host = load_host_helpers(repo_root)
     results = {}
@@ -160,7 +203,7 @@ def main() -> int:
             results["S2_P50"]["generation"]["token_ids"][0]:
         raise ConformanceError("paired first sampled token differs before any generated decode")
     summary = {
-        "schema_version": "issue100-non-scored-conformance-v2",
+        "schema_version": "issue100-non-scored-conformance-v3",
         "status": "pass",
         "outcome_inspected": False,
         "gpqa_item_used": False,
@@ -175,6 +218,11 @@ def main() -> int:
         "s2_decode_forwards": FIXTURE_MAX_GENERATED - 1,
         "s2_routed_layers": (FIXTURE_MAX_GENERATED - 1)*92,
         "s2_routing_decisions": (FIXTURE_MAX_GENERATED - 1)*92,
+        "successful_path_equivalence": "PASS",
+        "successful_path_equivalence_scope": [
+            "model arithmetic", "tokenizer", "prompt", "sampler", "routing", "weighting",
+            "cache policy", "expert bytes", "I/O ordering", "scoring", "generated-output semantics",
+        ],
         "capacity": {
             "request_mode": "AUTO",
             "request_bytes": AUTO_CACHE_REQUEST_BYTES,
@@ -191,6 +239,14 @@ def main() -> int:
         },
         "auto_admission": file_identity(auto_admission_path),
         "repository": repository_identity(repo_root),
+        "recovery": {
+            "previous_project_commit": PREVIOUS_PROJECT_COMMIT,
+            "previous_nested_commit": PREVIOUS_NESTED_COMMIT,
+            "boot_id": current_boot_id,
+            "clean_reboot_used": reboot_evidence is not None,
+            "reboot_evidence": file_identity(args.reboot_evidence.resolve(strict=True))
+                if args.reboot_evidence is not None else None,
+        },
         "binary": file_identity(binary),
         "model_first_shard": file_identity(model, hash_payload=False),
         "artifacts": artifacts,

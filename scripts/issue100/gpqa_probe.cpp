@@ -250,17 +250,36 @@ json system_memory_json(const llm_hot_cache_diagnostics & value) {
         {"available_headroom_bytes", value.system_memory_available_headroom_bytes},
         {"measured_non_pool_committed_bytes", value.system_memory_measured_non_pool_committed_bytes},
         {"runtime_obligation_bytes", value.system_memory_runtime_obligation_bytes},
+        {"reported_runtime_obligation_bytes", value.system_memory_reported_runtime_obligation_bytes},
+        {"observed_runtime_obligation_bytes", value.system_memory_observed_runtime_obligation_bytes},
+        {"credited_runtime_obligation_bytes", value.system_memory_credited_runtime_obligation_bytes},
+        {"remaining_runtime_reserve_bytes", value.system_memory_remaining_runtime_reserve_bytes},
         {"system_reserve_bytes", value.system_memory_system_reserve_bytes},
         {"runtime_reserve_bytes", value.system_memory_runtime_reserve_bytes},
         {"hysteresis_bytes", value.system_memory_hysteresis_bytes},
         {"model_file_virtual_bytes", value.system_memory_model_file_virtual_bytes},
         {"model_file_cache_resident_bytes", value.system_memory_model_file_cache_resident_bytes},
         {"other_process_resident_bytes", value.system_memory_other_process_resident_bytes},
+        {"memory_current_bytes", value.system_memory_current_bytes},
+        {"memory_available_bytes", value.system_memory_available_bytes},
+        {"calculated_available_bytes", value.system_memory_calculated_available_bytes},
+        {"incoming_bytes", value.system_memory_incoming_bytes},
+        {"required_free_bytes", value.system_memory_required_free_bytes},
+        {"selected_pool_slots", value.system_memory_selected_pool_slots},
+        {"resolve_memory_current_bytes", value.system_memory_resolve_current_bytes},
+        {"resolve_memory_available_bytes", value.system_memory_resolve_available_bytes},
+        {"resolve_calculated_available_bytes", value.system_memory_resolve_calculated_available_bytes},
+        {"resolve_required_free_bytes", value.system_memory_resolve_required_free_bytes},
+        {"obligation_memory_current_bytes", value.system_memory_obligation_current_bytes},
+        {"obligation_memory_available_bytes", value.system_memory_obligation_available_bytes},
+        {"obligation_calculated_available_bytes", value.system_memory_obligation_calculated_available_bytes},
+        {"obligation_required_free_bytes", value.system_memory_obligation_required_free_bytes},
         {"pressure_samples", value.system_memory_pressure_samples},
         {"pressure_rejections", value.system_memory_pressure_rejections},
         {"autofit", value.system_memory_autofit},
         {"budget_frozen", value.system_memory_budget_frozen},
         {"pressure_circuit_open", value.system_memory_pressure_circuit_open},
+        {"stage", value.system_memory_stage},
         {"pressure_rejection_reason", value.system_memory_pressure_rejection_reason},
         {"residency_unavailable_reason", value.system_memory_residency_unavailable_reason},
     };
@@ -354,6 +373,40 @@ void write_json(const std::string & path, const json & value) {
     if (!destination) throw std::runtime_error("result close failed");
 }
 
+void write_provider_failure(
+        const arguments & args,
+        const input_case & input,
+        llm_expert_weight_provider * provider,
+        const char * probe_stage,
+        bool prompt_inference_started) {
+    if (provider == nullptr) return;
+    const auto cold = provider->cold_cache_scalar_snapshot();
+    const auto memory = provider->hot_cache_diagnostics();
+    write_json(args.output, {
+        {"schema_version", "issue100-gpqa-probe-result-v2"},
+        {"status", "provider-failure"},
+        {"item", {
+            {"id", input.item_id}, {"scored", input.scored},
+            {"prompt_sha256", input.prompt_sha256},
+            {"prompt_tokens", input.tokens.size()},
+        }},
+        {"arm", args.arm}, {"seed", args.seed},
+        {"execution", {
+            {"capacity_request_mode", "AUTO"},
+            {"capacity_request_bytes", auto_cache_request_bytes},
+            {"auto_resolved_slots", cold.capacity},
+            {"auto_resolved_bytes", memory.system_memory_selected_pool_bytes},
+        }},
+        {"failure", {
+            {"probe_stage", probe_stage},
+            {"provider_stage", memory.system_memory_stage},
+            {"pressure_rejection_reason", memory.system_memory_pressure_rejection_reason},
+            {"prompt_inference_started", prompt_inference_started},
+            {"system_memory", system_memory_json(memory)},
+        }},
+    });
+}
+
 } // namespace
 
 int main(int argc, char ** argv) {
@@ -424,7 +477,10 @@ int main(int argc, char ** argv) {
         context_params.no_perf = true;
         const auto context_load_started = steady_clock::now();
         llama_context_ptr context(llama_init_from_model(model.get(), context_params));
-        if (!context) throw std::runtime_error("context initialization failed");
+        if (!context) {
+            write_provider_failure(args, input, provider, "context_initialization", false);
+            throw std::runtime_error("context initialization failed");
+        }
         const auto context_loaded = steady_clock::now();
 
         const auto initial_cold = provider->cold_cache_scalar_snapshot();
@@ -434,8 +490,6 @@ int main(int argc, char ** argv) {
         const auto initial_full = provider->hot_cache_diagnostics();
         const uint64_t resolved_cache_bytes = initial_full.system_memory_selected_pool_bytes;
         const uint64_t resolved_cache_slots = initial_cold.capacity;
-        const uint64_t allowed_async_fallback_mask =
-            uint64_t(llm_expert_async_fallback_reason::buffer_registration);
         if (!initial_cold.available || initial_cold.occupancy != 0 ||
             resolved_cache_bytes == 0 || resolved_cache_bytes % expert_bundle_bytes != 0 ||
             resolved_cache_slots != resolved_cache_bytes/expert_bundle_bytes ||
@@ -450,9 +504,9 @@ int main(int argc, char ** argv) {
             !initial_full.slots.empty() ||
             initial_storage.direct_source_count != initial_storage.source_file_count ||
             initial_storage.direct_unsupported_source_count != 0 || !initial_async.io_uring_enabled ||
+            initial_async.buffer_registration_error != 0 || initial_async.fallback_reason_mask != 0 ||
             initial_async.buffered_fallback_operations != 0 ||
-            initial_async.synchronous_fallback_operations != 0 ||
-            (initial_async.fallback_reason_mask & ~allowed_async_fallback_mask) != 0) {
+            initial_async.synchronous_fallback_operations != 0) {
             throw std::runtime_error("CPU production-path initial validation failed");
         }
         if (resolved_cache_slots < capacity_floor_slots) {
@@ -502,6 +556,7 @@ int main(int argc, char ** argv) {
             llama_token token = input.tokens[index];
             llama_batch batch = llama_batch_get_one(&token, 1);
             if (llama_decode(context.get(), batch) != 0) {
+                write_provider_failure(args, input, provider, "prefill_decode", true);
                 throw std::runtime_error("EXACT prefill decode failed");
             }
             llama_synchronize(context.get());
@@ -612,6 +667,7 @@ int main(int argc, char ** argv) {
             llama_token input_token = sampled;
             llama_batch batch = llama_batch_get_one(&input_token, 1);
             if (llama_decode(context.get(), batch) != 0) {
+                write_provider_failure(args, input, provider, "generated_decode", true);
                 throw std::runtime_error("generated-token decode failed");
             }
             llama_synchronize(context.get());
@@ -640,7 +696,7 @@ int main(int argc, char ** argv) {
             after_async.buffered_fallback_operations != 0 ||
             after_async.synchronous_fallback_operations != 0 ||
             after_async.read_requests_cancelled != 0 ||
-            (after_async.fallback_reason_mask & ~allowed_async_fallback_mask) != 0 ||
+            after_async.buffer_registration_error != 0 || after_async.fallback_reason_mask != 0 ||
             after_scheduler.active_requests != 0 || after_scheduler.queued_requests != 0 ||
             after_scheduler.terminal_failed != 0 || after_scheduler.terminal_cancelled != 0 ||
             after_scheduler.stale_completions != 0 ||

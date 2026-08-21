@@ -222,6 +222,53 @@ def test_interrupted_unaccepted_attempt_is_sealed_not_reused(tmp_path: Path) -> 
     assert campaign.cumulative_attempt_seconds(tmp_path) >= 0.0
 
 
+def test_recovery_prefix_accepts_only_the_frozen_previous_identity(tmp_path: Path) -> None:
+    manifest = tmp_path / "accepted-attempt.json"
+    protocol.atomic_json(manifest, {"accepted": True})
+    previous_identity = {"project_commit": "old", "nested_commit": "old-nested"}
+    current_identity = {
+        "project_commit": "new", "nested_commit": "new-nested", "recovery_epoch": 2,
+    }
+    row = protocol.bind_checksum({
+        "schema_version": "issue100-accepted-run-v1",
+        "run_ordinal": 1, "item_id": "item", "arm": "EXACT",
+        "attempt_manifest_path": str(manifest),
+        "attempt_manifest_sha256": protocol.sha256_file(manifest),
+        **previous_identity,
+    })
+    path = tmp_path / "runs.jsonl"
+    protocol.append_canonical_jsonl(path, row)
+    authorization = {
+        "accepted_prefix_runs": 1,
+        "accepted_prefix_sha256": protocol.sha256_file(path),
+        "previous_identity": previous_identity,
+    }
+    assert campaign.validate_existing_runs(path, current_identity, authorization) == [row]
+    authorization["accepted_prefix_sha256"] = "0"*64
+    with pytest.raises(campaign.CampaignError, match="recovery prefix drift"):
+        campaign.validate_existing_runs(path, current_identity, authorization)
+
+
+def test_recovery_attempt_lineage_requires_attempts_one_through_four(tmp_path: Path) -> None:
+    run_root = tmp_path / "attempts/run-002-item-s2_p50"
+    hashes = []
+    for ordinal in range(1, 5):
+        directory = run_root / f"attempt-{ordinal:02d}"
+        directory.mkdir(parents=True)
+        manifest = directory / "attempt-manifest.json"
+        protocol.atomic_json(manifest, {
+            "run_ordinal": 2, "attempt_ordinal": ordinal, "accepted": False,
+        })
+        hashes.append(protocol.sha256_file(manifest))
+    authorization = {
+        "prior_attempt_manifest_sha256s": hashes,
+        "attempt_lineage_sha256": protocol.sha256_bytes(
+            ("\n".join(hashes) + "\n").encode("ascii")
+        ),
+    }
+    assert campaign.validate_recovery_attempt_lineage(tmp_path, authorization) == hashes
+
+
 def test_probe_command_uses_direct_auto_without_capacity_argument(tmp_path: Path) -> None:
     command = campaign.build_probe_command(
         tmp_path / "probe", tmp_path / "model", tmp_path / "input.json",
@@ -230,6 +277,49 @@ def test_probe_command_uses_direct_auto_without_capacity_argument(tmp_path: Path
     assert "--cold-cache-bytes" not in command
     assert command[command.index("--arm") + 1] == "EXACT"
     assert command[command.index("--seed") + 1] == "7"
+
+
+def test_recovery_attempt_window_preserves_prior_lineage() -> None:
+    assert campaign.attempt_window(protocol.RECOVERY_RUN_ORDINAL) == (5, 7)
+    assert campaign.attempt_window(protocol.RECOVERY_RUN_ORDINAL + 1) == (1, 3)
+
+
+def test_structured_provider_failure_is_not_retryable(tmp_path: Path) -> None:
+    result = tmp_path / "result.json"
+    protocol.atomic_json(result, {"status": "provider-failure"})
+    assert campaign.structured_hard_probe_failure(result)
+    protocol.atomic_json(result, {"status": "pass"})
+    assert not campaign.structured_hard_probe_failure(result)
+
+
+def test_recovery_memory_diagnostic_arithmetic() -> None:
+    gib = 1024**3
+    value = {
+        "selected_pool_slots": 10, "selected_pool_bytes": 100,
+        "reported_runtime_obligation_bytes": 4*gib,
+        "observed_runtime_obligation_bytes": 8*gib,
+        "runtime_obligation_bytes": 8*gib,
+        "credited_runtime_obligation_bytes": 10*gib,
+        "runtime_reserve_bytes": 16*gib,
+        "remaining_runtime_reserve_bytes": 6*gib,
+        "system_reserve_bytes": 12*gib, "hysteresis_bytes": 2*gib,
+        "incoming_bytes": gib, "required_free_bytes": 21*gib,
+        "memory_current_bytes": 98*gib, "memory_available_bytes": 26*gib,
+        "calculated_available_bytes": 22*gib,
+        "resolve_memory_current_bytes": 24*gib,
+        "resolve_memory_available_bytes": 100*gib,
+        "resolve_calculated_available_bytes": 96*gib,
+        "resolve_required_free_bytes": 30*gib,
+        "obligation_memory_current_bytes": 98*gib,
+        "obligation_memory_available_bytes": 26*gib,
+        "obligation_calculated_available_bytes": 22*gib,
+        "obligation_required_free_bytes": 20*gib,
+    }
+    assert protocol.system_memory_diagnostic_failures(value, 10, 100) == []
+    value["required_free_bytes"] += 1
+    assert protocol.system_memory_diagnostic_failures(value, 10, 100) == [
+        "current required-free arithmetic"
+    ]
 
 
 def test_analysis_nearest_rank_is_strictly_preregistered() -> None:
