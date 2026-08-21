@@ -75,7 +75,17 @@ jobs:
 
           scientific_appendices = appendix[appendix.index(b_marker):appendix.index(e_marker)].rstrip()
           public = main_body.rstrip() + '\n\n---\n\n# Appendix\n\n' + scientific_appendices + '\n'
+
+          # Use committed vector PDF figure outputs. The manuscript already has
+          # explicit editorial captions immediately after each image, so clear
+          # Markdown alt text in the build copy to prevent Pandoc implicit_figures
+          # from adding a second "Figure N: Figure N: ..." caption.
           public = re.sub(r'(figures/generated/[^)\s]+)\.svg\)', r'\1.pdf)', public)
+          public = re.sub(
+              r'!\[[^\]]*\]\((figures/generated/[^)\s]+\.pdf)\)',
+              r'![](\1)',
+              public,
+          )
 
           out_dir = Path('paper/build')
           out_dir.mkdir(parents=True, exist_ok=True)
@@ -118,6 +128,7 @@ jobs:
           ! grep -q 'Artifact identities' paper/build/paper-v0.txt
           ! grep -q 'Appendix E' paper/build/paper-v0.txt
           ! grep -q 'Prior-art comparability' paper/build/paper-v0.txt
+          ! grep -Eq 'Figure [0-9]+: Figure' paper/build/paper-v0.txt
 
           pages=$(awk '/^Pages:/ {print $2}' paper/build/pdfinfo.txt)
           test -n "$pages"
