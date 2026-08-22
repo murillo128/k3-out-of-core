@@ -99,11 +99,15 @@ The frozen cross-workload corpus contains 128 deliberately diverse prompts arran
 
 Separate observer captures provide route-level evidence without treating observer timing as performance data. Across 44 frozen captures, the frozen cross-workload campaign finds broad route coverage, and the curated route features show materially different working-set and overlap structure across prompts and families. These observations do not assign semantic functions to individual experts, nor do they imply that one family deterministically selects one expert set. They establish the narrower systems fact we need: the resident working set useful for one workload cannot be assumed to be the useful working set for another.
 
+![Figure A1: route structure](figures/generated/figa1-route-structure.svg)
+
+**Figure A1 — Route structure and working-set limits.** Panels A/B retain all `MEASURED_OBSERVER` representative and endpoint comparisons. Panel C joins observer features to `MEASURED_PHYSICAL` hit ratios for 44 prompts and is `POST_HOC_EXPLORATORY`. Its 0.465884 LOFO R² predicts hit ratio, not TPS; family association does not assign expert semantics.
+
 This distinction matters for static caching. A recurring core may exist, but broad, workload-conditioned peripheral demand remains. The later committee-pin analysis makes the limitation concrete—many static-pinning cells regress or are infeasible—but that result is post-hoc and counterfactual rather than physical production evidence. For the present characterization, the measured and observer evidence is sufficient to reject a workload-independent hot-set assumption.
 
 ![Figure 3: workload-conditioned variation](figures/generated/fig02-workload-dependence.svg)
 
-**Figure 3 — Workload-conditioned physical variation (`MEASURED_PHYSICAL`).** Panels A/B retain the complete 16-family × 8-level S2_P50 corpus and actual templated token counts; Panel C compares primary and repeated-sentinel TPS p90–p10 spreads. The 22.58× ratio is a drift/noise reference, not a CI. The corpus is controlled rather than IID; the plot neither assigns expert semantics nor establishes cross-model behavior. Figure A1 gives route detail and Figure A5 the static-pinning limitation.
+**Figure 3 — Workload-conditioned physical variation (`MEASURED_PHYSICAL`).** Panels A/B retain the complete 16-family × 8-level S2_P50 corpus and actual templated token counts; Panel C compares primary and repeated-sentinel TPS p90–p10 spreads. The 22.58× ratio is a drift/noise reference, not a CI. The corpus is controlled rather than IID; the plot neither assigns expert semantics nor establishes cross-model behavior. Figure A1 above gives route detail; Figure A5 in §9.3 gives the static-pinning limitation.
 
 ## 3.2 Physical backing service is tightly associated with measured throughput
 
@@ -408,9 +412,17 @@ Under the final protocol, each run starts from an empty managed cache, consumes 
 
 Tokenizer/template preflight produced a second pre-outcome correction. The guessed absolute post-template length bands failed for all 128 prompts, but templated length increased strictly from level 1 through level 8 within every semantic family. We therefore froze the exact prompts rather than rewrite them, reinterpreted the design as eight ordered within-family length levels, retained actual templated token count as the quantitative variable, and increased the context budget to `n_ctx = 768`. The accepted prompt lengths span 154–599 tokens; every case plus the 64-token decode window fits. These changes define what the later family and length effects mean; they are protocol qualification, not outcome-driven retuning.
 
+![Figure A2: prefill depth](figures/generated/figa2-prefill-depth.svg)
+
+**Figure A2 — Cross-prompt protocol evolution and prefill-depth diagnostic.** Panels A/B retain the bounded `MEASURED_PHYSICAL_DIAGNOSTIC`: physical EXACT/S2_P50 hit ratios and paired TPS ratios at five depths explain why early-first-full and full-prompt absolute results are not pooled; interior points have one process per arm and the path is non-monotonic. Panel C records the pre-outcome `BLOCKED` gate and the superseding full-prompt EXACT-prefill/decode-boundary protocol. Panel D retains all 128 frozen actual token counts: the guessed absolute bands failed 128/128 tokenizer checks, while all 16 families retained strict b1→b8 order over 154..599 tokens. Panels C/D are protocol/corpus qualification, not performance evidence.
+
 The workload contains 128 primary prompts arranged as 16 semantic families × 8 ordered within-family length levels; actual templated-prompt tokens are retained separately as the quantitative length variable. Eight full-prompt sentinels provide drift control. The observer subset (Stage B in the provenance) selects 16 family representatives for untimed route analysis. The matched comparison subset (Stage C in the provenance) uses a non-random set of 24 unique prompts—the 16 representatives plus four low- and four high-locality cases—and adds one fresh EXACT and one fresh KNEE process for each prompt while reusing its already-frozen S2_P50 row. Thus the matched subset contributes 48 new physical comparison runs without rerunning S2_P50, with one physical observation per prompt/policy cell. The earlier policy-selection study is used only to document policy-selection history; none of its absolute TPS or locality values are pooled with the full-prompt cross-workload measurements reported here.
 
 The main physical window contains 64 complete decode forwards. Figure A3 retains a separate three-prompt 16–512-token systems diagnostic; every path is non-monotonic, so 64 tokens is not called steady state. Immutable identities and checksums remain in artifact provenance.
+
+![Figure A3: systems horizon](figures/generated/figa3-systems-horizon.svg)
+
+**Figure A3 — Systems/locality horizon diagnostic.** All three prompts retain EXACT/S2_P50 hit ratios at 16–512 tokens, with 64 marked. Every path is non-monotonic. This `MEASURED_PHYSICAL_DIAGNOSTIC` explains why the main window is not steady-state evidence and says nothing about semantic quality.
 
 ## 7.2 RQ1: Can full K3 execute with NVMe-backed expert service in this regime?
 
@@ -552,6 +564,10 @@ The performance result and the quality result are two sides of the same interven
 
 The current evidence therefore supports a performance–quality trade-off, not semantic equivalence. Figure 11B joins physical load reduction to fixed-context damage for 16 prompts; its inverse association is exploratory, not causal. Capacity changes realized substitutions and damage in the three-prompt bridge (Figure A4), so it remains part of quality analysis without implying a universal law.
 
+![Figure A4: capacity and quality](figures/generated/figa4-capacity-quality.svg)
+
+**Figure A4 — Capacity-conditioned perturbation and damage.** All three bridge prompts and both policies retain paired `CAPACITY_FIXED_CONTEXT`/`DIRECT_FIXED_CONTEXT` outcomes at token 512. Capacity changes substitutions and ΔNLL here, but does not establish a universal/monotonic law; ΔNLL is not task accuracy.
+
 ![Figure 11: decision and trade-off](figures/generated/fig10-decision-quality.svg)
 
 **Figure 11 — Controller decision and systems–quality association.** Panel A shows five held-out predictors: cumulative regret terms add only weak signal and perturbation fraction/depth add none. The result closes the adaptive regret-controller branch (`ADAPTIVE_REGRET_CONTROLLER_NOT_JUSTIFIED`; frozen outcome `FOLLOWUP_ROUTING_DESIGN_JUSTIFIED = no`); no semantic-risk controller was introduced. Panel B joins `MEASURED_PHYSICAL` load reduction to `DIRECT_FIXED_CONTEXT` ΔNLL for all 16 prompts and is `POST_HOC_EXPLORATORY`. The inverse association is neither causal nor universal.
@@ -588,7 +604,11 @@ The limitation remains even at the strictest core. With `γ = 1.0`, all 288 cell
 
 These numbers are **`FIXED_ROUTE_COUNTERFACTUAL` + `POST_HOC_EXPLORATORY`** evidence. They do not establish that a physical pinned runtime would lose TPS, and no projected or replayed throughput is promoted to a measured result here. The supported negative conclusion is narrower: the existence of a recurring selected-expert core does not imply that statically pinning that core improves the full same-capacity locality frontier. We therefore closed static global core pinning as a candidate same-capacity strategy rather than promoting it to a runtime policy.
 
-The core-size and static-pinning summary is Figure A5 in Appendix C: it sharpens a limitation rather than adding a central physical result. Controlled quality analysis also found no supported core/periphery interaction, so no semantic-risk controller is inferred from recurrence.
+![Figure A5: core and pinning](figures/generated/figa5-core-periphery.svg)
+
+**Figure A5 — Core/periphery and static-pinning limitation.** Panel A is `POST_HOC_EXPLORATORY`; Panel B retains all 1,440 `FIXED_ROUTE_COUNTERFACTUAL` cells, including 308 regressions and 196 infeasible cases. This counterfactual closes static global pinning as the selected same-capacity strategy (`STATIC_PINNING_NOT_SELECTED`). It is not physical pinning, measured RAM saving, or semantic taxonomy; no supported quality interaction was found.
+
+The core-size and static-pinning summary in Figure A5 sharpens a limitation rather than adding a central physical result. Controlled quality analysis also found no supported core/periphery interaction, so no semantic-risk controller is inferred from recurrence.
 
 ## 9.4 From route structure to backing service to TPS
 
@@ -693,32 +713,6 @@ These K3 results point to a coupled frontier for out-of-core MoE inference. Rout
 ## Appendix A — Artifact identities
 
 Exact model/runtime identities, host/storage configuration, evidence classes, immutable members, hashes, and commands are recorded with the artifact rather than used as public citations.
-
-## Appendix B — Systems diagnostics
-
-![Figure A2: prefill depth](figures/generated/figa2-prefill-depth.svg)
-
-**Figure A2 — Cross-prompt protocol evolution and prefill-depth diagnostic.** Panels A/B retain the bounded `MEASURED_PHYSICAL_DIAGNOSTIC`: physical EXACT/S2_P50 hit ratios and paired TPS ratios at five depths explain why early-first-full and full-prompt absolute results are not pooled; interior points have one process per arm and the path is non-monotonic. Panel C records the pre-outcome `BLOCKED` gate and the superseding full-prompt EXACT-prefill/decode-boundary protocol. Panel D retains all 128 frozen actual token counts: the guessed absolute bands failed 128/128 tokenizer checks, while all 16 families retained strict b1→b8 order over 154..599 tokens. Panels C/D are protocol/corpus qualification, not performance evidence.
-
-![Figure A3: systems horizon](figures/generated/figa3-systems-horizon.svg)
-
-**Figure A3 — Systems/locality horizon diagnostic.** All three prompts retain EXACT/S2_P50 hit ratios at 16–512 tokens, with 64 marked. Every path is non-monotonic. This `MEASURED_PHYSICAL_DIAGNOSTIC` explains why the main window is not steady-state evidence and says nothing about semantic quality.
-
-## Appendix C — Route structure and pinning
-
-![Figure A1: route structure](figures/generated/figa1-route-structure.svg)
-
-**Figure A1 — Route structure and working-set limits.** Panels A/B retain all `MEASURED_OBSERVER` representative and endpoint comparisons. Panel C joins observer features to `MEASURED_PHYSICAL` hit ratios for 44 prompts and is `POST_HOC_EXPLORATORY`. Its 0.465884 LOFO R² predicts hit ratio, not TPS; family association does not assign expert semantics.
-
-![Figure A5: core and pinning](figures/generated/figa5-core-periphery.svg)
-
-**Figure A5 — Core/periphery and static-pinning limitation.** Panel A is `POST_HOC_EXPLORATORY`; Panel B retains all 1,440 `FIXED_ROUTE_COUNTERFACTUAL` cells, including 308 regressions and 196 infeasible cases. This counterfactual closes static global pinning as the selected same-capacity strategy (`STATIC_PINNING_NOT_SELECTED`). It is not physical pinning, measured RAM saving, or semantic taxonomy; no supported quality interaction was found.
-
-## Appendix D — Capacity and quality
-
-![Figure A4: capacity and quality](figures/generated/figa4-capacity-quality.svg)
-
-**Figure A4 — Capacity-conditioned perturbation and damage.** All three bridge prompts and both policies retain paired `CAPACITY_FIXED_CONTEXT`/`DIRECT_FIXED_CONTEXT` outcomes at token 512. Capacity changes substitutions and ΔNLL here, but does not establish a universal/monotonic law; ΔNLL is not task accuracy.
 
 ## Appendix E — Scope
 
