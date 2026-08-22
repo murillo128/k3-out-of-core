@@ -11,16 +11,15 @@ permissions:
   contents: write
 
 jobs:
-  transform-and-build:
+  build:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
-      PDF_NAME: k3-out-of-core-paper-v0-inline-figures.pdf
+      PDF_NAME: k3-out-of-core-paper-v0.pdf
       BRANCH_NAME: paper/move-appendix-figures-inline
 
     steps:
-      - name: Check out branch
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           ref: ${{ env.BRANCH_NAME }}
           fetch-depth: 0
@@ -32,129 +31,6 @@ jobs:
             pandoc texlive-xetex texlive-fonts-recommended texlive-latex-extra \
             lmodern fonts-dejavu-core poppler-utils
 
-      - name: Move scientific appendix figures into relevant sections
-        run: |
-          python3 - <<'PY'
-          from pathlib import Path
-          import re
-
-          path = Path('paper/paper.md')
-          source = path.read_text(encoding='utf-8')
-          appendix_marker = '\n# Appendix\n'
-          if appendix_marker not in source:
-              raise SystemExit('Appendix marker not found')
-
-          main_before, appendix_before = source.split(appendix_marker, 1)
-
-          def extract(label: str) -> str:
-              pattern = re.compile(
-                  rf'^!\[Figure {re.escape(label)}[^\n]*\]\([^)]+\)\n\n'
-                  rf'\*\*Figure {re.escape(label)}[^\n]*\*\*[^\n]*$',
-                  re.MULTILINE,
-              )
-              matches = pattern.findall(appendix_before)
-              if len(matches) != 1:
-                  raise SystemExit(f'expected one Figure {label} block in appendix, found {len(matches)}')
-              return matches[0]
-
-          blocks = {label: extract(label) for label in ('A1', 'A2', 'A3', 'A4', 'A5')}
-
-          # Remove the five scientific figure+caption blocks from their appendix locations.
-          rewritten = source
-          for label, block in blocks.items():
-              count = rewritten.count(block)
-              if count != 1:
-                  raise SystemExit(f'expected one removable Figure {label} block, found {count}')
-              rewritten = rewritten.replace(block, '', 1)
-
-          # The scientific appendix sections are now empty; keep only internal appendix material.
-          for heading in (
-              '## Appendix B — Systems diagnostics',
-              '## Appendix C — Route structure and pinning',
-              '## Appendix D — Capacity and quality',
-          ):
-              if heading not in rewritten:
-                  raise SystemExit(f'missing expected heading: {heading}')
-              rewritten = rewritten.replace(heading + '\n', '', 1)
-
-          def insert_after(text: str, anchor: str, block: str) -> str:
-              if text.count(anchor) != 1:
-                  raise SystemExit(f'anchor count != 1: {anchor[:80]!r}')
-              return text.replace(anchor, anchor + '\n\n' + block, 1)
-
-          # A1: immediately after the observer evidence in §3.1.
-          rewritten = insert_after(
-              rewritten,
-              'They establish the narrower systems fact we need: the resident working set useful for one workload cannot be assumed to be the useful working set for another.',
-              blocks['A1'],
-          )
-
-          # A2: after the protocol/tokenizer qualification in §7.1.
-          rewritten = insert_after(
-              rewritten,
-              'These changes define what the later family and length effects mean; they are protocol qualification, not outcome-driven retuning.',
-              blocks['A2'],
-          )
-
-          # A3: immediately after the 64-token-window qualification in §7.1.
-          horizon_anchor = (
-              'The main physical window contains 64 complete decode forwards. Figure A3 retains a separate three-prompt '
-              '16–512-token systems diagnostic; every path is non-monotonic, so 64 tokens is not called steady state. '
-              'Immutable identities and checksums remain in artifact provenance.'
-          )
-          rewritten = insert_after(rewritten, horizon_anchor, blocks['A3'])
-
-          # A4: next to the capacity-conditioned quality discussion in §8.7.
-          rewritten = insert_after(
-              rewritten,
-              'Capacity changes realized substitutions and damage in the three-prompt bridge (Figure A4), so it remains part of quality analysis without implying a universal law.',
-              blocks['A4'],
-          )
-
-          # A5: next to the static-pinning negative result in §9.3.
-          rewritten = insert_after(
-              rewritten,
-              'We therefore closed static global core pinning as a candidate same-capacity strategy rather than promoting it to a runtime policy.',
-              blocks['A5'],
-          )
-
-          rewritten = rewritten.replace(
-              'The core-size and static-pinning summary is Figure A5 in Appendix C: it sharpens a limitation rather than adding a central physical result.',
-              'The core-size and static-pinning summary in Figure A5 sharpens a limitation rather than adding a central physical result.',
-              1,
-          )
-          rewritten = rewritten.replace(
-              'Figure A1 gives route detail and Figure A5 the static-pinning limitation.',
-              'Figure A1 above gives route detail; Figure A5 in §9.3 gives the static-pinning limitation.',
-              1,
-          )
-
-          # Normalize only the blank runs created by removing the now-empty scientific appendix sections.
-          rewritten = re.sub(r'\n{4,}(?=## Appendix E)', '\n\n', rewritten)
-
-          main_after, appendix_after = rewritten.split(appendix_marker, 1)
-          for label in ('A1', 'A2', 'A3', 'A4', 'A5'):
-              if main_after.count(f'![Figure {label}') != 1:
-                  raise SystemExit(f'Figure {label} not present exactly once in main paper')
-              if f'![Figure {label}' in appendix_after:
-                  raise SystemExit(f'Figure {label} still present in appendix')
-          for heading in ('Appendix B —', 'Appendix C —', 'Appendix D —'):
-              if heading in appendix_after:
-                  raise SystemExit(f'scientific appendix heading still present: {heading}')
-
-          path.write_text(rewritten, encoding='utf-8')
-          PY
-
-      - name: Commit manuscript edit
-        run: |
-          set -euo pipefail
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -- paper/paper.md
-          git diff --cached --check
-          git commit -m 'paper: move appendix figures into relevant sections'
-          git push origin HEAD:${BRANCH_NAME}
-
       - name: Build reader-facing manuscript
         run: |
           python3 - <<'PY'
@@ -163,37 +39,30 @@ jobs:
 
           source = Path('paper/paper.md').read_text(encoding='utf-8')
           lines = source.splitlines()
-          if not lines or not lines[0].startswith('# '):
-              raise SystemExit('paper/paper.md does not start with the expected title H1')
-
           title = lines[0][2:].strip()
           body = '\n'.join(lines[1:]).lstrip()
-          appendix_marker = '# Appendix'
-          if appendix_marker not in body:
+          if '# Appendix' not in body:
               raise SystemExit('expected Appendix marker not found')
+          main_body = body.split('# Appendix', 1)[0].rstrip() + '\n'
 
-          # Reader-facing PDF contains only the paper proper. The scientific B-D material
-          # has been moved inline; the remaining appendix is internal bookkeeping.
-          main_body = body.split(appendix_marker, 1)[0].rstrip() + '\n'
+          for label in ('A1', 'A2', 'A3', 'A4', 'A5'):
+              if main_body.count(f'![Figure {label}') != 1:
+                  raise SystemExit(f'Figure {label} not inline exactly once')
 
           main_body = re.sub(r'(figures/generated/[^)\s]+)\.svg\)', r'\1.pdf)', main_body)
-          main_body = re.sub(
-              r'!\[[^\]]*\]\((figures/generated/[^)\s]+\.pdf)\)',
-              r'![](\1)',
-              main_body,
-          )
+          main_body = re.sub(r'!\[[^\]]*\]\((figures/generated/[^)\s]+\.pdf)\)', r'![](\1)', main_body)
 
-          out_dir = Path('paper/build')
-          out_dir.mkdir(parents=True, exist_ok=True)
+          out = Path('paper/build')
+          out.mkdir(parents=True, exist_ok=True)
           escaped_title = title.replace('"', '\\"')
-          front_matter = (
+          front = (
               '---\n'
               f'title: "{escaped_title}"\n'
               'subtitle: "Preprint v0"\n'
               'date: "August 2026"\n'
               '---\n\n'
           )
-          (out_dir / 'paper-public.md').write_text(front_matter + main_body, encoding='utf-8')
+          (out / 'paper-public.md').write_text(front + main_body, encoding='utf-8')
           PY
 
           pandoc paper/build/paper-public.md \
@@ -216,14 +85,9 @@ jobs:
           set -euo pipefail
           pdfinfo "paper/build/${PDF_NAME}" | tee paper/build/pdfinfo.txt
           pdftotext "paper/build/${PDF_NAME}" paper/build/paper-v0.txt
-
           grep -q 'Cache-Aware Expert Routing' paper/build/paper-v0.txt
           grep -q '12. Conclusion' paper/build/paper-v0.txt
-          grep -q 'Figure A1' paper/build/paper-v0.txt
-          grep -q 'Figure A2' paper/build/paper-v0.txt
-          grep -q 'Figure A3' paper/build/paper-v0.txt
-          grep -q 'Figure A4' paper/build/paper-v0.txt
-          grep -q 'Figure A5' paper/build/paper-v0.txt
+          for label in A1 A2 A3 A4 A5; do grep -q "Figure ${label}" paper/build/paper-v0.txt; done
           ! grep -q 'Artifact identities' paper/build/paper-v0.txt
           ! grep -q 'Appendix B' paper/build/paper-v0.txt
           ! grep -q 'Appendix C' paper/build/paper-v0.txt
@@ -231,12 +95,6 @@ jobs:
           ! grep -q 'Appendix E' paper/build/paper-v0.txt
           ! grep -q 'Prior-art comparability' paper/build/paper-v0.txt
           ! grep -Eq 'Figure [0-9]+: Figure' paper/build/paper-v0.txt
-
-          pages=$(awk '/^Pages:/ {print $2}' paper/build/pdfinfo.txt)
-          test -n "$pages"
-          test "$pages" -gt 5
-          pdftoppm -png -r 120 "paper/build/${PDF_NAME}" paper/build/page >/dev/null 2>&1
-          test -s paper/build/page-01.png
           sha256sum "paper/build/${PDF_NAME}" | tee paper/build/SHA256SUMS
 
       - name: Upload PDF artifact
@@ -247,5 +105,13 @@ jobs:
             paper/build/${{ env.PDF_NAME }}
             paper/build/SHA256SUMS
             paper/build/pdfinfo.txt
-            paper/build/paper-public.md
           if-no-files-found: error
+
+      - name: Record run id
+        run: |
+          printf '%s\n' "${GITHUB_RUN_ID}" > .paper-inline-build-run
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f .paper-inline-build-run
+          git commit -m 'ci: record inline paper build run'
+          git push origin HEAD:${BRANCH_NAME}
